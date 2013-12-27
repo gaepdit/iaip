@@ -15467,21 +15467,23 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
     End Sub
     Private Sub OpenEnforcement()
         Try
+            Dim parameters As New Generic.Dictionary(Of String, String)
+            parameters("airsnumber") = txtAirsNumber.Text
+            If txtTrackingNumber.Text <> "" Then parameters("trackingnumber") = txtTrackingNumber.Text
+            OpenSingleForm(SSCPEnforcementSelector, parameters:=parameters, closeFirst:=True)
 
-            If SSCPSelectEnforcement Is Nothing Then
-                If SSCPSelectEnforcement Is Nothing Then SSCPSelectEnforcement = New SSCPEnforcementSelector
-                SSCPSelectEnforcement.txtAIRSNumber.Text = txtAIRSNumber.Text
-                SSCPSelectEnforcement.txtTrackingNumber.Text = txtTrackingNumber.Text
-                SSCPSelectEnforcement.Show()
-            Else
-                SSCPSelectEnforcement.BringToFront()
-            End If
+            'If SSCPSelectEnforcement Is Nothing Then
+            '    If SSCPSelectEnforcement Is Nothing Then SSCPSelectEnforcement = New SSCPEnforcementSelector
+            '    SSCPSelectEnforcement.txtAIRSNumber.Text = txtAirsNumber.Text
+            '    SSCPSelectEnforcement.txtTrackingNumber.Text = txtTrackingNumber.Text
+            '    SSCPSelectEnforcement.Show()
+            'Else
+            '    SSCPSelectEnforcement.BringToFront()
+            'End If
             'SSCPSelectEnforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
-
     End Sub
     Sub LoadConfidentialData(ByVal ConfidentialData As String)
         Try

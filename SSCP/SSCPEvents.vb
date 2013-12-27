@@ -3802,25 +3802,14 @@ Public Class SSCPEvents
         End If
     End Sub
     Sub CheckEnforcement()
-        SQL = "Select " & _
-        "strEnforcementNumber " & _
-        "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
-        "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-        cmd = New OracleCommand(SQL, Conn)
-        If Conn.State = ConnectionState.Closed Then
-            Conn.Open()
-        End If
-        dr = cmd.ExecuteReader
-        recExist = dr.Read
-        If recExist = True Then
-            txtEnforcementNumber.Text = dr.Item("strEnforcementNumber")
+        Dim enfNum As String = ""
+        If DAL.SSCP.EnforcementExistsForTrackingNumber(txtTrackingNumber.Text, enfNum) Then
+            txtEnforcementNumber.Text = enfNum
             txtEnforcementNumber.Visible = True
         Else
             txtEnforcementNumber.Text = "N/A"
             txtEnforcementNumber.Visible = False
         End If
-
-
     End Sub
 #End Region
 
@@ -3881,7 +3870,7 @@ Public Class SSCPEvents
     Private Sub OpenEnforcement()
         Try
 
-            If txtEnforcementNumber.Text <> "" And txtFacilityInformation.Text <> "" Then
+            If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" And txtFacilityInformation.Text <> "" Then
                 Dim enfNum As String = txtEnforcementNumber.Text
                 If DAL.SSCP.EnforcementExists(enfNum) Then
                     OpenMultiForm(SscpEnforcement, enfNum)
@@ -3918,14 +3907,19 @@ Public Class SSCPEvents
 
                 'Me.Dispose()
             Else
-                If SSCPSelectEnforcement Is Nothing Then
-                    If SSCPSelectEnforcement Is Nothing Then SSCPSelectEnforcement = New SSCPEnforcementSelector
-                    SSCPSelectEnforcement.txtAIRSNumber.Text = txtAIRSNumber.Text
-                    SSCPSelectEnforcement.txtTrackingNumber.Text = txtTrackingNumber.Text
-                    SSCPSelectEnforcement.Show()
-                Else
-                    SSCPSelectEnforcement.BringToFront()
-                End If
+                Dim parameters As New Dictionary(Of String, String)
+                parameters("airsnumber") = txtAIRSNumber.Text
+                If txtTrackingNumber.Text <> "" Then parameters("trackingnumber") = txtTrackingNumber.Text
+                OpenSingleForm(SSCPEnforcementSelector, parameters:=parameters, closeFirst:=True)
+
+                'If SSCPSelectEnforcement Is Nothing Then
+                '    If SSCPSelectEnforcement Is Nothing Then SSCPSelectEnforcement = New SSCPEnforcementSelector
+                '    SSCPSelectEnforcement.txtAIRSNumber.Text = txtAIRSNumber.Text
+                '    SSCPSelectEnforcement.txtTrackingNumber.Text = txtTrackingNumber.Text
+                '    SSCPSelectEnforcement.Show()
+                'Else
+                '    SSCPSelectEnforcement.BringToFront()
+                'End If
                 'SSCPSelectEnforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
 
@@ -7296,15 +7290,7 @@ Public Class SSCPEvents
 
     End Sub
     Private Sub btnEnforcementProcess_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEnforcementProcess.Click
-        Try
-
-            OpenEnforcement()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        OpenEnforcement()
     End Sub
     Private Sub btnReportMoreOptions_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReportMoreOptions.Click
         Dim tempWidth As String

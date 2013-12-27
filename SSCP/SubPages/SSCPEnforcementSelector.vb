@@ -16,6 +16,7 @@ Public Class SSCPEnforcementSelector
         monitor.TrackFeature("Forms." & Me.Name)
         Try
 
+            ParseParameters()
             LoadComplianceUnits()
 
         Catch ex As Exception
@@ -28,19 +29,15 @@ Public Class SSCPEnforcementSelector
 
     End Sub
     Private Sub SSCPEnforcementSelector_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
-        Try
-
-            txtAIRSNumber.Focus()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
+        txtAIRSNumber.Focus()
     End Sub
-    Sub LoadComplianceUnits()
+    Private Sub ParseParameters()
+        If Parameters IsNot Nothing Then
+            If Parameters.ContainsKey("airsnumber") Then txtAIRSNumber.Text = Parameters("airsnumber")
+            If Parameters.ContainsKey("trackingnumber") Then txtTrackingNumber.Text = Parameters("trackingnumber")
+        End If
+    End Sub
+    Private Sub LoadComplianceUnits()
         Dim dtSSCPUnits As New DataTable
         Dim drDSRow As DataRow
         Dim drNewRow As DataRow
@@ -162,58 +159,33 @@ Public Class SSCPEnforcementSelector
     End Sub
     Private Sub txtAIRSNumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtAIRSNumber.TextChanged
         Try
-
             If txtAIRSNumber.Text.Length = 8 Then
-                SQL = "Select strFacilityName " & _
-                "from " & DBNameSpace & ".APBFacilityInformation " & _
-                "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
-                End If
-
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
-                    txtFacilityName.Text = dr.Item("strFacilityName")
-
+                Dim airsNum As String = txtAIRSNumber.Text
+                Dim facName As String = DAL.FacilityInfo.GetFacilityNameByAirs(airsNum)
+                If facName IsNot Nothing Then
+                    txtFacilityName.Text = facName
                     LoadSSCPEnforcementDataGrid("Single")
                 Else
                     txtFacilityName.Text = "Invalid AIRS Number"
-                End If
-
-                If Conn.State = ConnectionState.Open Then
-                    'conn.close()
                 End If
             Else
                 txtFacilityName.Text = ""
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
 
     End Sub
     Private Sub btnOpenEnforcement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenEnforcement.Click
         Try
-
-            If txtFacilityName.Text <> "Invalid AIRS Number" Then
+            If txtFacilityName.Text <> "Invalid AIRS Number" And txtFacilityName.Text <> "" Then
                 OpenEnforcement()
             Else
                 MsgBox("Please Enter a valid AIRS Number First.", MsgBoxStyle.Information, "SSCP Enforcement Tool")
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
-
     End Sub
     Private Sub btnOpenEnforcements_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenEnforcements.Click
         Try
