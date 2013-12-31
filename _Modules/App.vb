@@ -95,20 +95,6 @@ Module App
 
 #End Region
 
-#Region "Validation"
-
-    Public Function IsValidEmail(ByVal email As String) As Boolean
-        If String.IsNullOrEmpty(email) Then Return False
-        Try
-            Dim testEmail As Net.Mail.MailAddress = New Net.Mail.MailAddress(email)
-        Catch ex As Exception
-            Return False
-        End Try
-        Return True
-    End Function
-
-#End Region
-
 #Region "Versioning Info"
     Friend PublishedVersion As Version = Nothing
     Friend CurrentVersion As Version = Nothing
