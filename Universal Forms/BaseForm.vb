@@ -69,7 +69,8 @@ Public Class BaseForm
     Overridable Sub SaveThisFormSettings()
         Dim formSettings As Dictionary(Of String, String) = GetFormSettings(Me.Name)
 
-        If Me.MaximizeBox OrElse Me.MinimizeBox Then
+        If Me.MaximizeBox AndAlso Me.WindowState <> FormWindowState.Minimized Then
+            ' Don't save WindowState if form is minimized (forms get lost that way)
             formSettings(FormSetting.WindowState.ToString) = Me.WindowState.ToString
         End If
 
@@ -90,7 +91,9 @@ Public Class BaseForm
         Dim thisFormSettings As Dictionary(Of String, String) = GetFormSettings(Me.Name)
 
         If thisFormSettings.ContainsKey(FormSetting.WindowState.ToString) Then
-            Me.WindowState = [Enum].Parse(GetType(FormWindowState), thisFormSettings(FormSetting.WindowState.ToString))
+            Dim ws As FormWindowState = [Enum].Parse(GetType(FormWindowState), thisFormSettings(FormSetting.WindowState.ToString))
+            ' Don't restore WindowState to be minimized (forms get lost that way)
+            If ws <> FormWindowState.Minimized Then Me.WindowState = ws
         End If
 
         If thisFormSettings.ContainsKey(FormSetting.Location.ToString) Then
