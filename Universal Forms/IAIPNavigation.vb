@@ -2204,13 +2204,14 @@ Public Class IAIPNavigation
                     'ISMPDMU.Show()
                     'ISMPDMU.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Application Log" '3
-                    If ApplicationLog Is Nothing Then
-                        If ApplicationLog Is Nothing Then ApplicationLog = New SSPPApplicationLog
-                    Else
-                        ApplicationLog.Dispose()
-                        ApplicationLog = New SSPPApplicationLog
-                    End If
-                    ApplicationLog.Show()
+                    OpenSingleForm(SSPPApplicationLog)
+                    'If ApplicationLog Is Nothing Then
+                    '    If ApplicationLog Is Nothing Then ApplicationLog = New SSPPApplicationLog
+                    'Else
+                    '    ApplicationLog.Dispose()
+                    '    ApplicationLog = New SSPPApplicationLog
+                    'End If
+                    'ApplicationLog.Show()
                     'ApplicationLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Compliance Log" '4
                     If SSCP_Work Is Nothing Then
