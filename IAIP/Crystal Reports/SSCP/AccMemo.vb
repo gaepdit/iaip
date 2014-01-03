@@ -46,7 +46,7 @@ Namespace CR.Reports
         
         Public Overrides Property FullResourceName() As String
             Get
-                Return "JohnGaltProject.AccMemo.rpt"
+                Return "Iaip.AccMemo.rpt"
             End Get
             Set
                 'Do nothing

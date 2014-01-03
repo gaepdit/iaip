@@ -46,7 +46,7 @@ Namespace CR.Reports
         
         Public Overrides Property FullResourceName() As String
             Get
-                Return "JohnGaltProject.SmokeSchoolRoster.rpt"
+                Return "Iaip.SmokeSchoolRoster.rpt"
             End Get
             Set
                 'Do nothing
