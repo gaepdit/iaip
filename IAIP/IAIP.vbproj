@@ -1612,8 +1612,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="IAIP_TemporaryKey.pfx" />
-    <None Include="README.md">
-    </None>
     <Content Include="..\..\_Tools\Oracle\x86\instantclient\oci.dll">
       <Link>oci.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
