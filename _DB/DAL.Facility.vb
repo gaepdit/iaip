@@ -4,6 +4,19 @@ Imports JohnGaltProject.Apb
 Namespace DAL
     Module FacilityInfo
 
+        Public Function AirsNumberExists(ByVal id As String) As Boolean
+            If Not Facility.NormalizeAirsNumber(id, True) Then Return False
+
+            Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
+                " FROM " & DBNameSpace & ".APBMasterAIRS " & _
+                " WHERE RowNum = 1 " & _
+                " AND strAIRSnumber = :pId "
+            Dim parameter As New OracleParameter("pId", id)
+
+            Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
+            Return Convert.ToBoolean(result)
+        End Function
+
         Public Function GetFacilityNameByAirs(ByVal id As String) As String
             If Not Apb.Facility.NormalizeAirsNumber(id, True) Then Return Nothing
 
