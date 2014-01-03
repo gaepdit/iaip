@@ -17,7 +17,7 @@ Public Class ISMPMonitoringLog
     Dim dsPollutants As DataSet
     Dim daPollutants As OracleDataAdapter
 
-    Private Sub DevMonitoringLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub ISMPMonitoringLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Try
 
@@ -35,17 +35,14 @@ Public Class ISMPMonitoringLog
             LoadComboBoxes()
             LoadDataSet()
 
-            'Me.WindowState = FormWindowState.Maximized
-            SCMonitoringLog.SplitterDistance = 500
-
+            Me.Height = Math.Max(Me.Height, 200)
+            Dim defaultSplitterDistance As Integer = 500
+            SCMonitoringLog.SplitterDistance = Math.Min(SCMonitoringLog.Height - SCMonitoringLog.Panel2MinSize, _
+                Math.Max(defaultSplitterDistance, SCMonitoringLog.Panel1MinSize))
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
-
     End Sub
 
 #Region "Page Load Functions"

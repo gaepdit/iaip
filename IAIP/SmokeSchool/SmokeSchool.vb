@@ -1,4 +1,6 @@
-﻿Imports Oracle.DataAccess.Client
+﻿Imports System.Collections.Generic
+Imports Oracle.DataAccess.Client
+Imports CrystalDecisions.Shared
 'Imports System.Data.OleDb
 'Imports Excel
 
@@ -19,7 +21,7 @@ Public Class SmokeSchool
     Public daScores As OracleDataAdapter
     Public dsScores3 As DataSet
     Public daScores3 As OracleDataAdapter
-    Dim my1 As Roster
+    'Dim my1 As Roster
     Dim my2 As PassFailNoShow
     Public getIDoverRideFlag As String = "off"
     Public ErrorFlag As String = "no"
@@ -2821,21 +2823,47 @@ Public Class SmokeSchool
 #End Region
 #End Region
 #Region " Print Routines"
-    Private Sub btnPrintRoster_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrintRoster.Click
+    Private Sub PrintRoster()
+        If cboSchedule1.SelectedItem = "- Select a Location/Term -" Or cboSchedule1.SelectedItem = "- All Terms -" Then
+            MsgBox("You must select a Location/Term.", MsgBoxStyle.Exclamation, "Print Error")
+            Exit Sub
+        End If
+
         Try
-            If cboSchedule1.SelectedItem = "- Select a Location/Term -" Or cboSchedule1.SelectedItem = "- All Terms -" Then
-                MsgBox("You must select a Location/Term")
-            Else
-                my1 = Nothing
-                If my1 Is Nothing Then my1 = New Roster
-                my1.txtLocationTerm.Text = Me.cboSchedule1.SelectedItem
-                loadPrintInfo4Res()
-                my1.Show()
-            End If
+            Dim title As String = cboSchedule1.SelectedItem.ToString
+
+            Dim roster As DataTable = DAL.GetSmokeSchoolRosterAsDataTable(title)
+
+            Dim parameters As New Dictionary(Of String, String)
+            parameters.Add("LocationDateTitle", title)
+
+            Dim rpt As New CR.Reports.SmokeSchoolRoster
+
+            Dim crv As New CRViewerForm(rpt, roster, parameters)
+            crv.Title = title
+            crv.Show()
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
+    End Sub
+    Private Sub btnPrintRoster_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrintRoster.Click
+        PrintRoster()
+
+        'Try
+        '    If cboSchedule1.SelectedItem = "- Select a Location/Term -" Or cboSchedule1.SelectedItem = "- All Terms -" Then
+        '        MsgBox("You must select a Location/Term")
+        '    Else
+        '        my1 = Nothing
+        '        If my1 Is Nothing Then my1 = New Roster
+        '        my1.txtLocationTerm.Text = Me.cboSchedule1.SelectedItem
+        '        loadPrintInfo4Res()
+        '        my1.Show()
+        '    End If
+        'Catch ex As Exception
+        '    ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        'Finally
+        'End Try
     End Sub
     Private Sub btnPrintPass_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrintPass.Click
         Try
@@ -3031,153 +3059,153 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub loadPrintInfo4Res()
-        Try
-            Dim StudentID As String = ""
-            Dim name As String = ""
-            Dim title As String = ""
-            Dim CompanyName As String = ""
-            Dim Address1 As String = ""
-            Dim Address2 As String = ""
-            Dim city As String = ""
-            Dim state As String = ""
-            Dim zip As String = ""
-            Dim phone As String = ""
-            Dim phoneOut As String = ""
-            Dim phone1 As String = ""
-            Dim phone2 As String = ""
-            Dim phone3 As String = ""
-            Dim phone4 As String = ""
-            Dim fax As String = ""
-            Dim faxOut As String = ""
-            Dim fax1 As String = ""
-            Dim fax2 As String = ""
-            Dim fax3 As String = ""
-            Dim email As String = ""
-            Dim firstName As String = ""
-            Dim lastName As String = ""
-            Dim confirmationNbr As String = ""
-            Dim lecture As String = ""
-            Dim LocationDate As String = ""
+    'Private Sub loadPrintInfo4Res()
+    '    Try
+    '        Dim StudentID As String = ""
+    '        Dim name As String = ""
+    '        Dim title As String = ""
+    '        Dim CompanyName As String = ""
+    '        Dim Address1 As String = ""
+    '        Dim Address2 As String = ""
+    '        Dim city As String = ""
+    '        Dim state As String = ""
+    '        Dim zip As String = ""
+    '        Dim phone As String = ""
+    '        Dim phoneOut As String = ""
+    '        Dim phone1 As String = ""
+    '        Dim phone2 As String = ""
+    '        Dim phone3 As String = ""
+    '        Dim phone4 As String = ""
+    '        Dim fax As String = ""
+    '        Dim faxOut As String = ""
+    '        Dim fax1 As String = ""
+    '        Dim fax2 As String = ""
+    '        Dim fax3 As String = ""
+    '        Dim email As String = ""
+    '        Dim firstName As String = ""
+    '        Dim lastName As String = ""
+    '        Dim confirmationNbr As String = ""
+    '        Dim lecture As String = ""
+    '        Dim LocationDate As String = ""
 
-            LocationDate = cboSchedule1.SelectedItem
+    '        LocationDate = cboSchedule1.SelectedItem
 
-            SQL = "delete from airbranch.SmokeSchoolPrintInfo"
+    '        SQL = "delete from airbranch.SmokeSchoolPrintInfo"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+    '        cmd = New OracleCommand(SQL, Conn)
+    '        If Conn.State = ConnectionState.Closed Then
+    '            Conn.Open()
+    '        End If
+    '        dr = cmd.ExecuteReader
+    '        dr.Close()
 
-            SQL = "select * from airbranch.SmokeSchoolReservation " & _
-                   "where strLocationDate = '" & LocationDate & "'" & _
-                   "order by strLastName, strFirstName"
+    '        SQL = "select * from airbranch.SmokeSchoolReservation " & _
+    '               "where strLocationDate = '" & LocationDate & "'" & _
+    '               "order by strLastName, strFirstName"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                LocationDate = dr.Item("strLocationDate")
+    '        cmd = New OracleCommand(SQL, Conn)
+    '        If Conn.State = ConnectionState.Closed Then
+    '            Conn.Open()
+    '        End If
+    '        dr = cmd.ExecuteReader
+    '        While dr.Read
+    '            LocationDate = dr.Item("strLocationDate")
 
-                If IsDBNull(dr.Item("numUserID")) Then
-                    StudentID = 0
-                Else
-                    StudentID = dr.Item("numUserID")
-                End If
-                If IsDBNull(dr.Item("strTitle")) Then
-                    title = ""
-                Else
-                    title = dr.Item("strTitle")
-                End If
-                firstName = dr.Item("strFirstName")
-                lastName = dr.Item("strLastName")
-                CompanyName = dr.Item("strCompanyName")
-                Address1 = dr.Item("strAddress1")
-                If IsDBNull(dr.Item("strAddress2")) Then
-                    Address2 = "NA"
-                Else
-                    Address2 = dr.Item("strAddress2")
-                End If
-                city = dr.Item("strCity")
-                state = dr.Item("strState")
-                zip = dr.Item("strZip")
-                phone = dr.Item("strPhoneNumber")
-                phone1 = Mid(phone, 1, 3)
-                phone2 = Mid(phone, 4, 3)
-                phone3 = Mid(phone, 7, 4)
-                phone4 = Mid(phone, 11)
-                phoneOut = "(" & phone1 & ")" & " " & phone2 & "-" & phone3 & " Ext: " & phone4
-                If IsDBNull(dr.Item("strFax")) Then
-                    fax = "NA"
-                Else
-                    fax = dr.Item("strFax")
-                    fax1 = Mid(fax, 1, 3)
-                    fax2 = Mid(fax, 4, 3)
-                    fax3 = Mid(fax, 7, 4)
-                    faxOut = "(" & fax1 & ")" & " " & fax2 & "-" & fax3
-                End If
-                email = dr.Item("strEmail")
-                confirmationNbr = dr.Item("strConfirmationNbr")
-                lecture = dr.Item("strLectureYesNo")
-                name = lastName & ", " & firstName
+    '            If IsDBNull(dr.Item("numUserID")) Then
+    '                StudentID = 0
+    '            Else
+    '                StudentID = dr.Item("numUserID")
+    '            End If
+    '            If IsDBNull(dr.Item("strTitle")) Then
+    '                title = ""
+    '            Else
+    '                title = dr.Item("strTitle")
+    '            End If
+    '            firstName = dr.Item("strFirstName")
+    '            lastName = dr.Item("strLastName")
+    '            CompanyName = dr.Item("strCompanyName")
+    '            Address1 = dr.Item("strAddress1")
+    '            If IsDBNull(dr.Item("strAddress2")) Then
+    '                Address2 = "NA"
+    '            Else
+    '                Address2 = dr.Item("strAddress2")
+    '            End If
+    '            city = dr.Item("strCity")
+    '            state = dr.Item("strState")
+    '            zip = dr.Item("strZip")
+    '            phone = dr.Item("strPhoneNumber")
+    '            phone1 = Mid(phone, 1, 3)
+    '            phone2 = Mid(phone, 4, 3)
+    '            phone3 = Mid(phone, 7, 4)
+    '            phone4 = Mid(phone, 11)
+    '            phoneOut = "(" & phone1 & ")" & " " & phone2 & "-" & phone3 & " Ext: " & phone4
+    '            If IsDBNull(dr.Item("strFax")) Then
+    '                fax = "NA"
+    '            Else
+    '                fax = dr.Item("strFax")
+    '                fax1 = Mid(fax, 1, 3)
+    '                fax2 = Mid(fax, 4, 3)
+    '                fax3 = Mid(fax, 7, 4)
+    '                faxOut = "(" & fax1 & ")" & " " & fax2 & "-" & fax3
+    '            End If
+    '            email = dr.Item("strEmail")
+    '            confirmationNbr = dr.Item("strConfirmationNbr")
+    '            lecture = dr.Item("strLectureYesNo")
+    '            name = lastName & ", " & firstName
 
-                SQL = "insert into airbranch.SmokeSchoolPrintInfo (" & _
-                       "intStudentID, " & _
-                       "strName, " & _
-                       "strLocationTerm, " & _
-                       "strCompanyName, " & _
-                       "strAddress1, " & _
-                       "strAddress2, " & _
-                       "strCity, " & _
-                       "strState, " & _
-                       "strZip, " & _
-                       "strFirstName, " & _
-                       "strLastName, " & _
-                       "strPhoneNumber, " & _
-                       "strFax, " & _
-                       "strEmail, " & _
-                       "strConfirmationNbr, " & _
-                       "strLectureYesNo, " & _
-                       "strTitle) " & _
-                       "values (" & _
-                       "'" & StudentID & "', " & _
-                       "'" & Replace(name, "'", "''") & "', " & _
-                       "'" & Replace(LocationDate, "'", "''") & "', " & _
-                       "'" & Replace(CompanyName, "'", "''") & "', " & _
-                       "'" & Replace(Address1, "'", "''") & "', " & _
-                       "'" & Replace(Address2, "'", "''") & "', " & _
-                       "'" & Replace(city, "'", "''") & "', " & _
-                       "'" & Replace(state, "'", "''") & "', " & _
-                       "'" & Replace(zip, "'", "''") & "', " & _
-                       "'" & Replace(firstName, "'", "''") & "', " & _
-                       "'" & Replace(lastName, "'", "''") & "', " & _
-                       "'" & Replace(phoneOut, "'", "''") & "', " & _
-                       "'" & Replace(faxOut, "'", "''") & "', " & _
-                       "'" & Replace(email, "'", "''") & "', " & _
-                       "'" & Replace(confirmationNbr, "'", "''") & "', " & _
-                       "'" & Replace(lecture, "'", "''") & "', " & _
-                       "'" & Replace(title, "'", "''") & "') "
+    '            SQL = "insert into airbranch.SmokeSchoolPrintInfo (" & _
+    '                   "intStudentID, " & _
+    '                   "strName, " & _
+    '                   "strLocationTerm, " & _
+    '                   "strCompanyName, " & _
+    '                   "strAddress1, " & _
+    '                   "strAddress2, " & _
+    '                   "strCity, " & _
+    '                   "strState, " & _
+    '                   "strZip, " & _
+    '                   "strFirstName, " & _
+    '                   "strLastName, " & _
+    '                   "strPhoneNumber, " & _
+    '                   "strFax, " & _
+    '                   "strEmail, " & _
+    '                   "strConfirmationNbr, " & _
+    '                   "strLectureYesNo, " & _
+    '                   "strTitle) " & _
+    '                   "values (" & _
+    '                   "'" & StudentID & "', " & _
+    '                   "'" & Replace(name, "'", "''") & "', " & _
+    '                   "'" & Replace(LocationDate, "'", "''") & "', " & _
+    '                   "'" & Replace(CompanyName, "'", "''") & "', " & _
+    '                   "'" & Replace(Address1, "'", "''") & "', " & _
+    '                   "'" & Replace(Address2, "'", "''") & "', " & _
+    '                   "'" & Replace(city, "'", "''") & "', " & _
+    '                   "'" & Replace(state, "'", "''") & "', " & _
+    '                   "'" & Replace(zip, "'", "''") & "', " & _
+    '                   "'" & Replace(firstName, "'", "''") & "', " & _
+    '                   "'" & Replace(lastName, "'", "''") & "', " & _
+    '                   "'" & Replace(phoneOut, "'", "''") & "', " & _
+    '                   "'" & Replace(faxOut, "'", "''") & "', " & _
+    '                   "'" & Replace(email, "'", "''") & "', " & _
+    '                   "'" & Replace(confirmationNbr, "'", "''") & "', " & _
+    '                   "'" & Replace(lecture, "'", "''") & "', " & _
+    '                   "'" & Replace(title, "'", "''") & "') "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
-                End If
-                dr2 = cmd.ExecuteReader
-                dr2.Close()
-            End While
-            dr.Close()
+    '            cmd = New OracleCommand(SQL, Conn)
+    '            If Conn.State = ConnectionState.Closed Then
+    '                Conn.Open()
+    '            End If
+    '            dr2 = cmd.ExecuteReader
+    '            dr2.Close()
+    '        End While
+    '        dr.Close()
 
-            MsgBox("The print information is ready")
+    '        MsgBox("The print information is ready")
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
+    '    Catch ex As Exception
+    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
+    '    End Try
+    'End Sub
     Private Sub btnPrintThisOne_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrintThisOne.Click
         Try
             txtPassFailNoShow.Text = "Pass"

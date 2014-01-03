@@ -1,13 +1,9 @@
 Imports Oracle.DataAccess.Client
+Imports System.Collections.Generic
 
 
 Public Class SSCPEvents
     Inherits BaseForm
-    Dim statusBar1 As New StatusBar
-    Dim panel1 As New StatusBarPanel
-    Dim panel2 As New StatusBarPanel
-    Dim panel3 As New StatusBarPanel
-    Dim Paneltemp1 As String
     Dim SQL As String
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader
@@ -33,7 +29,30 @@ Public Class SSCPEvents
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents txtRMPID As System.Windows.Forms.TextBox
     Friend WithEvents lblRMPID As System.Windows.Forms.Label
+    Friend WithEvents mmiOnlineHelp As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiDelete As System.Windows.Forms.MenuItem
+    Friend WithEvents tbbPrint As System.Windows.Forms.ToolBarButton
+    Friend WithEvents Label25 As System.Windows.Forms.Label
     Dim daStaff As OracleDataAdapter
+
+    Dim ItemIsDeleted As Boolean = False
+    Dim AIRSNumber As String = ""
+    Friend WithEvents mmiPrint As System.Windows.Forms.MenuItem
+    Friend WithEvents dtpAccReportingYear As System.Windows.Forms.DateTimePicker
+    Friend WithEvents lblAccReportingYear As System.Windows.Forms.Label
+    Friend WithEvents wrnACCResubmittalRequested As System.Windows.Forms.Label
+    Friend WithEvents pnlACCResubmittalRequested As System.Windows.Forms.Panel
+    Friend WithEvents rdbACCResubmittalRequestedYes As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbACCResubmittalRequestedNo As System.Windows.Forms.RadioButton
+    Friend WithEvents lblACCResubmittalRequested As System.Windows.Forms.Label
+    Friend WithEvents wrnACCAllDeviationsReported As System.Windows.Forms.Label
+    Friend WithEvents pnlACCAllDeviationsReported As System.Windows.Forms.Panel
+    Friend WithEvents rdbACCAllDeviationsReportedYes As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbACCAllDeviationsReportedNo As System.Windows.Forms.RadioButton
+    Friend WithEvents lblACCAllDeviationsReported As System.Windows.Forms.Label
+    Friend WithEvents rdbACCResubmittalRequestedUnknown As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbACCAllDeviationsReportedUnknown As System.Windows.Forms.RadioButton
+    Dim facility As Apb.Facility
 
 #Region " Windows Form Designer generated code "
 
@@ -65,19 +84,12 @@ Public Class SSCPEvents
     'Do not modify it using the code editor.
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiSave As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiFile As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiSave As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem10 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiBack As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem9 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiExit As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem3 As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem4 As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiClose As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiTools As System.Windows.Forms.MenuItem
     Friend WithEvents TbbSave As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbClear As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbDelete As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbBack As System.Windows.Forms.ToolBarButton
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents TPInspection As System.Windows.Forms.TabPage
@@ -97,7 +109,6 @@ Public Class SSCPEvents
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents TextBox6 As System.Windows.Forms.TextBox
     Friend WithEvents ListView1 As System.Windows.Forms.ListView
-    Friend WithEvents Label26 As System.Windows.Forms.Label
     Friend WithEvents TPTestReports As System.Windows.Forms.TabPage
     Friend WithEvents TPNotifications As System.Windows.Forms.TabPage
     Friend WithEvents TPACC As System.Windows.Forms.TabPage
@@ -106,7 +117,7 @@ Public Class SSCPEvents
     Friend WithEvents Label64 As System.Windows.Forms.Label
     Friend WithEvents TCItems As System.Windows.Forms.TabControl
     Friend WithEvents txtPlannedInspectionDate As System.Windows.Forms.TextBox
-    Friend WithEvents TBSSCPItems As System.Windows.Forms.ToolBar
+    Friend WithEvents tbToolbar As System.Windows.Forms.ToolBar
     Friend WithEvents rdbInspectionFacilityOperatingYes As System.Windows.Forms.RadioButton
     Friend WithEvents rdbInspectionFacilityOperatingNo As System.Windows.Forms.RadioButton
     Friend WithEvents cboInspectionReason As System.Windows.Forms.ComboBox
@@ -233,10 +244,6 @@ Public Class SSCPEvents
     Friend WithEvents Panel16 As System.Windows.Forms.Panel
     Friend WithEvents Panel20 As System.Windows.Forms.Panel
     Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiCut As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiCopy As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiPaste As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiLetterTemplates As System.Windows.Forms.MenuItem
     Friend WithEvents Label34 As System.Windows.Forms.Label
     Friend WithEvents Panel21 As System.Windows.Forms.Panel
     Friend WithEvents rdbInspectionFollowUpYes As System.Windows.Forms.RadioButton
@@ -264,7 +271,7 @@ Public Class SSCPEvents
     Friend WithEvents btnRequestInformation As System.Windows.Forms.Button
     Friend WithEvents btnReportMoreOptions As System.Windows.Forms.Button
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents DTPAcknoledgmentLetterSent As System.Windows.Forms.DateTimePicker
+    Friend WithEvents DTPAcknowledgmentLetterSent As System.Windows.Forms.DateTimePicker
     Friend WithEvents chbAcknoledgmentLetterSent As System.Windows.Forms.CheckBox
     Friend WithEvents txtRequestInformationDate As System.Windows.Forms.TextBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
@@ -284,32 +291,25 @@ Public Class SSCPEvents
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPEvents))
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem
-        Me.MmiSave = New System.Windows.Forms.MenuItem
+        Me.mmiFile = New System.Windows.Forms.MenuItem
+        Me.mmiSave = New System.Windows.Forms.MenuItem
+        Me.mmiPrint = New System.Windows.Forms.MenuItem
         Me.MenuItem10 = New System.Windows.Forms.MenuItem
-        Me.MmiBack = New System.Windows.Forms.MenuItem
-        Me.MenuItem9 = New System.Windows.Forms.MenuItem
-        Me.MmiExit = New System.Windows.Forms.MenuItem
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem
-        Me.mmiCut = New System.Windows.Forms.MenuItem
-        Me.mmiCopy = New System.Windows.Forms.MenuItem
-        Me.mmiPaste = New System.Windows.Forms.MenuItem
-        Me.MenuItem3 = New System.Windows.Forms.MenuItem
-        Me.MenuItem4 = New System.Windows.Forms.MenuItem
-        Me.mmiLetterTemplates = New System.Windows.Forms.MenuItem
+        Me.mmiClose = New System.Windows.Forms.MenuItem
+        Me.mmiTools = New System.Windows.Forms.MenuItem
+        Me.mmiDelete = New System.Windows.Forms.MenuItem
         Me.mmiHelp = New System.Windows.Forms.MenuItem
-        Me.TBSSCPItems = New System.Windows.Forms.ToolBar
+        Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
+        Me.tbToolbar = New System.Windows.Forms.ToolBar
         Me.TbbSave = New System.Windows.Forms.ToolBarButton
-        Me.TbbClear = New System.Windows.Forms.ToolBarButton
-        Me.TbbDelete = New System.Windows.Forms.ToolBarButton
-        Me.TbbBack = New System.Windows.Forms.ToolBarButton
+        Me.tbbPrint = New System.Windows.Forms.ToolBarButton
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.lblRMPID = New System.Windows.Forms.Label
         Me.txtRMPID = New System.Windows.Forms.TextBox
         Me.Label35 = New System.Windows.Forms.Label
         Me.cboStaffResponsible = New System.Windows.Forms.ComboBox
         Me.chbAcknoledgmentLetterSent = New System.Windows.Forms.CheckBox
-        Me.DTPAcknoledgmentLetterSent = New System.Windows.Forms.DateTimePicker
+        Me.DTPAcknowledgmentLetterSent = New System.Windows.Forms.DateTimePicker
         Me.Label2 = New System.Windows.Forms.Label
         Me.btnRequestInformation = New System.Windows.Forms.Button
         Me.Label1 = New System.Windows.Forms.Label
@@ -320,7 +320,6 @@ Public Class SSCPEvents
         Me.chbEventComplete = New System.Windows.Forms.CheckBox
         Me.DTPEventCompleteDate = New System.Windows.Forms.DateTimePicker
         Me.txtTrackingNumber = New System.Windows.Forms.TextBox
-        Me.Label26 = New System.Windows.Forms.Label
         Me.Label3 = New System.Windows.Forms.Label
         Me.txtFacilityInformation = New System.Windows.Forms.TextBox
         Me.txtEventInformation = New System.Windows.Forms.TextBox
@@ -453,6 +452,8 @@ Public Class SSCPEvents
         Me.TPACC = New System.Windows.Forms.TabPage
         Me.PanelACC = New System.Windows.Forms.Panel
         Me.Panel20 = New System.Windows.Forms.Panel
+        Me.dtpAccReportingYear = New System.Windows.Forms.DateTimePicker
+        Me.Label25 = New System.Windows.Forms.Label
         Me.DTPACCReceivedDate = New System.Windows.Forms.DateTimePicker
         Me.chbACCReceivedByAPB = New System.Windows.Forms.CheckBox
         Me.btnACCSubmittals = New System.Windows.Forms.Button
@@ -472,6 +473,7 @@ Public Class SSCPEvents
         Me.Panel6 = New System.Windows.Forms.Panel
         Me.rdbACCPostmarkYes = New System.Windows.Forms.RadioButton
         Me.rdbACCPostmarkNo = New System.Windows.Forms.RadioButton
+        Me.lblAccReportingYear = New System.Windows.Forms.Label
         Me.Label27 = New System.Windows.Forms.Label
         Me.wrnACCSubmittal = New System.Windows.Forms.Label
         Me.NUPACCSubmittal = New System.Windows.Forms.NumericUpDown
@@ -489,15 +491,27 @@ Public Class SSCPEvents
         Me.rdbACCDeviationsReportedYes = New System.Windows.Forms.RadioButton
         Me.rdbACCDeviationsReportedNo = New System.Windows.Forms.RadioButton
         Me.Label56 = New System.Windows.Forms.Label
+        Me.wrnACCResubmittalRequested = New System.Windows.Forms.Label
         Me.wrnACCEnforcementNeeded = New System.Windows.Forms.Label
+        Me.pnlACCResubmittalRequested = New System.Windows.Forms.Panel
+        Me.rdbACCResubmittalRequestedYes = New System.Windows.Forms.RadioButton
+        Me.rdbACCResubmittalRequestedUnknown = New System.Windows.Forms.RadioButton
+        Me.rdbACCResubmittalRequestedNo = New System.Windows.Forms.RadioButton
         Me.Panel12 = New System.Windows.Forms.Panel
         Me.rdbACCEnforcementNeededYes = New System.Windows.Forms.RadioButton
         Me.rdbACCEnforcementNeededNo = New System.Windows.Forms.RadioButton
+        Me.lblACCResubmittalRequested = New System.Windows.Forms.Label
         Me.Label48 = New System.Windows.Forms.Label
+        Me.wrnACCAllDeviationsReported = New System.Windows.Forms.Label
         Me.wrnACCCorrect = New System.Windows.Forms.Label
+        Me.pnlACCAllDeviationsReported = New System.Windows.Forms.Panel
+        Me.rdbACCAllDeviationsReportedYes = New System.Windows.Forms.RadioButton
+        Me.rdbACCAllDeviationsReportedUnknown = New System.Windows.Forms.RadioButton
+        Me.rdbACCAllDeviationsReportedNo = New System.Windows.Forms.RadioButton
         Me.Panel10 = New System.Windows.Forms.Panel
         Me.rdbACCCorrectYes = New System.Windows.Forms.RadioButton
         Me.rdbACCCorrectNo = New System.Windows.Forms.RadioButton
+        Me.lblACCAllDeviationsReported = New System.Windows.Forms.Label
         Me.Label42 = New System.Windows.Forms.Label
         Me.wrnACCConditions = New System.Windows.Forms.Label
         Me.Panel9 = New System.Windows.Forms.Panel
@@ -541,7 +555,9 @@ Public Class SSCPEvents
         CType(Me.NUPACCSubmittal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel15.SuspendLayout()
         Me.Panel14.SuspendLayout()
+        Me.pnlACCResubmittalRequested.SuspendLayout()
         Me.Panel12.SuspendLayout()
+        Me.pnlACCAllDeviationsReported.SuspendLayout()
         Me.Panel10.SuspendLayout()
         Me.Panel9.SuspendLayout()
         CType(Me.DGRACCResubmittal, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -640,112 +656,86 @@ Public Class SSCPEvents
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.MenuItem2, Me.MenuItem3, Me.MenuItem4, Me.mmiHelp})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiTools, Me.mmiHelp})
         '
-        'MenuItem1
+        'mmiFile
         '
-        Me.MenuItem1.Index = 0
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiSave, Me.MenuItem10, Me.MmiBack, Me.MenuItem9, Me.MmiExit})
-        Me.MenuItem1.Text = "File"
+        Me.mmiFile.Index = 0
+        Me.mmiFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiSave, Me.mmiPrint, Me.MenuItem10, Me.mmiClose})
+        Me.mmiFile.Text = "&File"
         '
-        'MmiSave
+        'mmiSave
         '
-        Me.MmiSave.Index = 0
-        Me.MmiSave.Text = "Save"
+        Me.mmiSave.Index = 0
+        Me.mmiSave.Shortcut = System.Windows.Forms.Shortcut.CtrlS
+        Me.mmiSave.Text = "&Save"
+        '
+        'mmiPrint
+        '
+        Me.mmiPrint.Index = 1
+        Me.mmiPrint.Shortcut = System.Windows.Forms.Shortcut.CtrlP
+        Me.mmiPrint.Text = "&Print"
         '
         'MenuItem10
         '
-        Me.MenuItem10.Index = 1
+        Me.MenuItem10.Index = 2
         Me.MenuItem10.Text = "-"
         '
-        'MmiBack
+        'mmiClose
         '
-        Me.MmiBack.Index = 2
-        Me.MmiBack.Text = "Back"
+        Me.mmiClose.Index = 3
+        Me.mmiClose.Shortcut = System.Windows.Forms.Shortcut.CtrlW
+        Me.mmiClose.Text = "&Close"
         '
-        'MenuItem9
+        'mmiTools
         '
-        Me.MenuItem9.Index = 3
-        Me.MenuItem9.Text = "-"
+        Me.mmiTools.Index = 1
+        Me.mmiTools.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiDelete})
+        Me.mmiTools.Text = "&Tools"
         '
-        'MmiExit
+        'mmiDelete
         '
-        Me.MmiExit.Index = 4
-        Me.MmiExit.Text = "Exit"
-        '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 1
-        Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiCut, Me.mmiCopy, Me.mmiPaste})
-        Me.MenuItem2.Text = "Edit"
-        '
-        'mmiCut
-        '
-        Me.mmiCut.Index = 0
-        Me.mmiCut.Text = "Cut"
-        '
-        'mmiCopy
-        '
-        Me.mmiCopy.Index = 1
-        Me.mmiCopy.Text = "Copy"
-        '
-        'mmiPaste
-        '
-        Me.mmiPaste.Index = 2
-        Me.mmiPaste.Text = "Paste"
-        '
-        'MenuItem3
-        '
-        Me.MenuItem3.Index = 2
-        Me.MenuItem3.Text = "View"
-        '
-        'MenuItem4
-        '
-        Me.MenuItem4.Index = 3
-        Me.MenuItem4.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiLetterTemplates})
-        Me.MenuItem4.Text = "Tools"
-        '
-        'mmiLetterTemplates
-        '
-        Me.mmiLetterTemplates.Index = 0
-        Me.mmiLetterTemplates.Text = "Letter Templates"
+        Me.mmiDelete.Index = 0
+        Me.mmiDelete.Text = "Delete This Item"
         '
         'mmiHelp
         '
-        Me.mmiHelp.Index = 4
-        Me.mmiHelp.Text = "Help"
+        Me.mmiHelp.Index = 2
+        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp})
+        Me.mmiHelp.Text = "&Help"
         '
-        'TBSSCPItems
+        'mmiOnlineHelp
         '
-        Me.TBSSCPItems.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TbbSave, Me.TbbClear, Me.TbbDelete, Me.TbbBack})
-        Me.TBSSCPItems.ButtonSize = New System.Drawing.Size(23, 22)
-        Me.TBSSCPItems.DropDownArrows = True
-        Me.TBSSCPItems.ImageList = Me.Image_List_All
-        Me.TBSSCPItems.Location = New System.Drawing.Point(0, 0)
-        Me.TBSSCPItems.Name = "TBSSCPItems"
-        Me.TBSSCPItems.ShowToolTips = True
-        Me.TBSSCPItems.Size = New System.Drawing.Size(792, 28)
-        Me.TBSSCPItems.TabIndex = 47
+        Me.mmiOnlineHelp.Index = 0
+        Me.mmiOnlineHelp.Shortcut = System.Windows.Forms.Shortcut.F1
+        Me.mmiOnlineHelp.Text = "Online &Help"
+        '
+        'tbToolbar
+        '
+        Me.tbToolbar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TbbSave, Me.tbbPrint})
+        Me.tbToolbar.ButtonSize = New System.Drawing.Size(23, 22)
+        Me.tbToolbar.DropDownArrows = True
+        Me.tbToolbar.ImageList = Me.Image_List_All
+        Me.tbToolbar.Location = New System.Drawing.Point(0, 0)
+        Me.tbToolbar.Name = "tbToolbar"
+        Me.tbToolbar.ShowToolTips = True
+        Me.tbToolbar.Size = New System.Drawing.Size(792, 28)
+        Me.tbToolbar.TabIndex = 47
+        Me.tbToolbar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
         'TbbSave
         '
         Me.TbbSave.ImageIndex = 65
         Me.TbbSave.Name = "TbbSave"
+        Me.TbbSave.Text = "Save"
+        Me.TbbSave.ToolTipText = "Save (Ctrl-S)"
         '
-        'TbbClear
+        'tbbPrint
         '
-        Me.TbbClear.ImageIndex = 84
-        Me.TbbClear.Name = "TbbClear"
-        '
-        'TbbDelete
-        '
-        Me.TbbDelete.ImageIndex = 13
-        Me.TbbDelete.Name = "TbbDelete"
-        '
-        'TbbBack
-        '
-        Me.TbbBack.ImageIndex = 2
-        Me.TbbBack.Name = "TbbBack"
+        Me.tbbPrint.ImageIndex = 19
+        Me.tbbPrint.Name = "tbbPrint"
+        Me.tbbPrint.Text = "Print"
+        Me.tbbPrint.ToolTipText = "Print Preview (Ctrl-P)"
         '
         'GroupBox1
         '
@@ -754,7 +744,7 @@ Public Class SSCPEvents
         Me.GroupBox1.Controls.Add(Me.Label35)
         Me.GroupBox1.Controls.Add(Me.cboStaffResponsible)
         Me.GroupBox1.Controls.Add(Me.chbAcknoledgmentLetterSent)
-        Me.GroupBox1.Controls.Add(Me.DTPAcknoledgmentLetterSent)
+        Me.GroupBox1.Controls.Add(Me.DTPAcknowledgmentLetterSent)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.btnRequestInformation)
         Me.GroupBox1.Controls.Add(Me.Label1)
@@ -765,7 +755,6 @@ Public Class SSCPEvents
         Me.GroupBox1.Controls.Add(Me.chbEventComplete)
         Me.GroupBox1.Controls.Add(Me.DTPEventCompleteDate)
         Me.GroupBox1.Controls.Add(Me.txtTrackingNumber)
-        Me.GroupBox1.Controls.Add(Me.Label26)
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.txtFacilityInformation)
         Me.GroupBox1.Controls.Add(Me.txtEventInformation)
@@ -825,16 +814,16 @@ Public Class SSCPEvents
         Me.chbAcknoledgmentLetterSent.Text = "N/A"
         Me.chbAcknoledgmentLetterSent.Visible = False
         '
-        'DTPAcknoledgmentLetterSent
+        'DTPAcknowledgmentLetterSent
         '
-        Me.DTPAcknoledgmentLetterSent.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPAcknoledgmentLetterSent.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPAcknoledgmentLetterSent.Location = New System.Drawing.Point(622, 96)
-        Me.DTPAcknoledgmentLetterSent.Name = "DTPAcknoledgmentLetterSent"
-        Me.DTPAcknoledgmentLetterSent.ShowCheckBox = True
-        Me.DTPAcknoledgmentLetterSent.Size = New System.Drawing.Size(100, 20)
-        Me.DTPAcknoledgmentLetterSent.TabIndex = 118
-        Me.DTPAcknoledgmentLetterSent.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
+        Me.DTPAcknowledgmentLetterSent.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPAcknowledgmentLetterSent.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPAcknowledgmentLetterSent.Location = New System.Drawing.Point(622, 96)
+        Me.DTPAcknowledgmentLetterSent.Name = "DTPAcknowledgmentLetterSent"
+        Me.DTPAcknowledgmentLetterSent.ShowCheckBox = True
+        Me.DTPAcknowledgmentLetterSent.Size = New System.Drawing.Size(100, 20)
+        Me.DTPAcknowledgmentLetterSent.TabIndex = 118
+        Me.DTPAcknowledgmentLetterSent.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'Label2
         '
@@ -905,17 +894,17 @@ Public Class SSCPEvents
         'chbEventComplete
         '
         Me.chbEventComplete.AutoSize = True
-        Me.chbEventComplete.Location = New System.Drawing.Point(210, 98)
+        Me.chbEventComplete.Location = New System.Drawing.Point(11, 98)
         Me.chbEventComplete.Name = "chbEventComplete"
-        Me.chbEventComplete.Size = New System.Drawing.Size(70, 17)
+        Me.chbEventComplete.Size = New System.Drawing.Size(73, 17)
         Me.chbEventComplete.TabIndex = 108
-        Me.chbEventComplete.Text = "Complete"
+        Me.chbEventComplete.Text = "Complete:"
         '
         'DTPEventCompleteDate
         '
         Me.DTPEventCompleteDate.CustomFormat = "dd-MMM-yyyy"
         Me.DTPEventCompleteDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPEventCompleteDate.Location = New System.Drawing.Point(104, 96)
+        Me.DTPEventCompleteDate.Location = New System.Drawing.Point(84, 96)
         Me.DTPEventCompleteDate.Name = "DTPEventCompleteDate"
         Me.DTPEventCompleteDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPEventCompleteDate.TabIndex = 107
@@ -928,15 +917,6 @@ Public Class SSCPEvents
         Me.txtTrackingNumber.Size = New System.Drawing.Size(12, 20)
         Me.txtTrackingNumber.TabIndex = 105
         Me.txtTrackingNumber.Visible = False
-        '
-        'Label26
-        '
-        Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(12, 99)
-        Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(80, 13)
-        Me.Label26.TabIndex = 104
-        Me.Label26.Text = "Complete Date:"
         '
         'Label3
         '
@@ -2280,6 +2260,8 @@ Public Class SSCPEvents
         'Panel20
         '
         Me.Panel20.AutoScroll = True
+        Me.Panel20.Controls.Add(Me.dtpAccReportingYear)
+        Me.Panel20.Controls.Add(Me.Label25)
         Me.Panel20.Controls.Add(Me.DTPACCReceivedDate)
         Me.Panel20.Controls.Add(Me.chbACCReceivedByAPB)
         Me.Panel20.Controls.Add(Me.btnACCSubmittals)
@@ -2293,6 +2275,7 @@ Public Class SSCPEvents
         Me.Panel20.Controls.Add(Me.DTPACCPostmarked)
         Me.Panel20.Controls.Add(Me.wrnACCPostmark)
         Me.Panel20.Controls.Add(Me.Panel6)
+        Me.Panel20.Controls.Add(Me.lblAccReportingYear)
         Me.Panel20.Controls.Add(Me.Label27)
         Me.Panel20.Controls.Add(Me.wrnACCSubmittal)
         Me.Panel20.Controls.Add(Me.NUPACCSubmittal)
@@ -2306,11 +2289,17 @@ Public Class SSCPEvents
         Me.Panel20.Controls.Add(Me.wrnACCDeviationsReported)
         Me.Panel20.Controls.Add(Me.Panel14)
         Me.Panel20.Controls.Add(Me.Label56)
+        Me.Panel20.Controls.Add(Me.wrnACCResubmittalRequested)
         Me.Panel20.Controls.Add(Me.wrnACCEnforcementNeeded)
+        Me.Panel20.Controls.Add(Me.pnlACCResubmittalRequested)
         Me.Panel20.Controls.Add(Me.Panel12)
+        Me.Panel20.Controls.Add(Me.lblACCResubmittalRequested)
         Me.Panel20.Controls.Add(Me.Label48)
+        Me.Panel20.Controls.Add(Me.wrnACCAllDeviationsReported)
         Me.Panel20.Controls.Add(Me.wrnACCCorrect)
+        Me.Panel20.Controls.Add(Me.pnlACCAllDeviationsReported)
         Me.Panel20.Controls.Add(Me.Panel10)
+        Me.Panel20.Controls.Add(Me.lblACCAllDeviationsReported)
         Me.Panel20.Controls.Add(Me.Label42)
         Me.Panel20.Controls.Add(Me.wrnACCConditions)
         Me.Panel20.Controls.Add(Me.Panel9)
@@ -2319,7 +2308,27 @@ Public Class SSCPEvents
         Me.Panel20.Location = New System.Drawing.Point(0, 0)
         Me.Panel20.Name = "Panel20"
         Me.Panel20.Size = New System.Drawing.Size(769, 367)
-        Me.Panel20.TabIndex = 154
+        Me.Panel20.TabIndex = 0
+        '
+        'dtpAccReportingYear
+        '
+        Me.dtpAccReportingYear.CustomFormat = "yyyy"
+        Me.dtpAccReportingYear.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpAccReportingYear.Location = New System.Drawing.Point(619, 33)
+        Me.dtpAccReportingYear.Name = "dtpAccReportingYear"
+        Me.dtpAccReportingYear.ShowCheckBox = True
+        Me.dtpAccReportingYear.ShowUpDown = True
+        Me.dtpAccReportingYear.Size = New System.Drawing.Size(70, 20)
+        Me.dtpAccReportingYear.TabIndex = 13
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.Location = New System.Drawing.Point(516, 82)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(151, 13)
+        Me.Label25.TabIndex = 297
+        Me.Label25.Text = "(Applies to initial submittal only)"
         '
         'DTPACCReceivedDate
         '
@@ -2329,7 +2338,7 @@ Public Class SSCPEvents
         Me.DTPACCReceivedDate.Location = New System.Drawing.Point(639, 59)
         Me.DTPACCReceivedDate.Name = "DTPACCReceivedDate"
         Me.DTPACCReceivedDate.Size = New System.Drawing.Size(100, 20)
-        Me.DTPACCReceivedDate.TabIndex = 296
+        Me.DTPACCReceivedDate.TabIndex = 15
         Me.DTPACCReceivedDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'chbACCReceivedByAPB
@@ -2339,7 +2348,7 @@ Public Class SSCPEvents
         Me.chbACCReceivedByAPB.Location = New System.Drawing.Point(514, 62)
         Me.chbACCReceivedByAPB.Name = "chbACCReceivedByAPB"
         Me.chbACCReceivedByAPB.Size = New System.Drawing.Size(122, 17)
-        Me.chbACCReceivedByAPB.TabIndex = 295
+        Me.chbACCReceivedByAPB.TabIndex = 14
         Me.chbACCReceivedByAPB.Text = "Received by GEPD:"
         Me.chbACCReceivedByAPB.UseVisualStyleBackColor = True
         '
@@ -2352,7 +2361,7 @@ Public Class SSCPEvents
         Me.btnACCSubmittals.Location = New System.Drawing.Point(0, 0)
         Me.btnACCSubmittals.Name = "btnACCSubmittals"
         Me.btnACCSubmittals.Size = New System.Drawing.Size(74, 19)
-        Me.btnACCSubmittals.TabIndex = 294
+        Me.btnACCSubmittals.TabIndex = 17
         Me.btnACCSubmittals.Text = "Submittal History"
         '
         'wrnACCCorrectACC
@@ -2360,7 +2369,7 @@ Public Class SSCPEvents
         Me.wrnACCCorrectACC.AutoSize = True
         Me.wrnACCCorrectACC.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCCorrectACC.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCCorrectACC.Location = New System.Drawing.Point(330, 113)
+        Me.wrnACCCorrectACC.Location = New System.Drawing.Point(329, 93)
         Me.wrnACCCorrectACC.Name = "wrnACCCorrectACC"
         Me.wrnACCCorrectACC.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCCorrectACC.TabIndex = 93
@@ -2371,17 +2380,17 @@ Public Class SSCPEvents
         '
         Me.Panel8.Controls.Add(Me.rdbACCCorrectACCYes)
         Me.Panel8.Controls.Add(Me.rdbACCCorrectACCNo)
-        Me.Panel8.Location = New System.Drawing.Point(237, 109)
+        Me.Panel8.Location = New System.Drawing.Point(236, 89)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Size = New System.Drawing.Size(96, 16)
-        Me.Panel8.TabIndex = 92
+        Me.Panel8.TabIndex = 4
         '
         'rdbACCCorrectACCYes
         '
         Me.rdbACCCorrectACCYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbACCCorrectACCYes.Name = "rdbACCCorrectACCYes"
         Me.rdbACCCorrectACCYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbACCCorrectACCYes.TabIndex = 19
+        Me.rdbACCCorrectACCYes.TabIndex = 0
         Me.rdbACCCorrectACCYes.Text = "Yes"
         '
         'rdbACCCorrectACCNo
@@ -2395,7 +2404,7 @@ Public Class SSCPEvents
         'Label36
         '
         Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(109, 111)
+        Me.Label36.Location = New System.Drawing.Point(108, 91)
         Me.Label36.Name = "Label36"
         Me.Label36.Size = New System.Drawing.Size(122, 13)
         Me.Label36.TabIndex = 91
@@ -2406,7 +2415,7 @@ Public Class SSCPEvents
         Me.wrnACCRO.AutoSize = True
         Me.wrnACCRO.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCRO.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCRO.Location = New System.Drawing.Point(330, 89)
+        Me.wrnACCRO.Location = New System.Drawing.Point(329, 69)
         Me.wrnACCRO.Name = "wrnACCRO"
         Me.wrnACCRO.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCRO.TabIndex = 89
@@ -2417,17 +2426,17 @@ Public Class SSCPEvents
         '
         Me.Panel7.Controls.Add(Me.rdbACCROYes)
         Me.Panel7.Controls.Add(Me.rdbACCRONo)
-        Me.Panel7.Location = New System.Drawing.Point(237, 85)
+        Me.Panel7.Location = New System.Drawing.Point(236, 65)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(96, 16)
-        Me.Panel7.TabIndex = 88
+        Me.Panel7.TabIndex = 3
         '
         'rdbACCROYes
         '
         Me.rdbACCROYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbACCROYes.Name = "rdbACCROYes"
         Me.rdbACCROYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbACCROYes.TabIndex = 19
+        Me.rdbACCROYes.TabIndex = 0
         Me.rdbACCROYes.Text = "Yes"
         '
         'rdbACCRONo
@@ -2441,7 +2450,7 @@ Public Class SSCPEvents
         'Label32
         '
         Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(85, 87)
+        Me.Label32.Location = New System.Drawing.Point(84, 67)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(146, 13)
         Me.Label32.TabIndex = 87
@@ -2450,7 +2459,7 @@ Public Class SSCPEvents
         'Label31
         '
         Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(543, 87)
+        Me.Label31.Location = New System.Drawing.Point(543, 113)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(91, 13)
         Me.Label31.TabIndex = 85
@@ -2460,10 +2469,10 @@ Public Class SSCPEvents
         '
         Me.DTPACCPostmarked.CustomFormat = "dd-MMM-yyyy"
         Me.DTPACCPostmarked.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPACCPostmarked.Location = New System.Drawing.Point(639, 87)
+        Me.DTPACCPostmarked.Location = New System.Drawing.Point(639, 113)
         Me.DTPACCPostmarked.Name = "DTPACCPostmarked"
         Me.DTPACCPostmarked.Size = New System.Drawing.Size(100, 20)
-        Me.DTPACCPostmarked.TabIndex = 84
+        Me.DTPACCPostmarked.TabIndex = 16
         Me.DTPACCPostmarked.Value = New Date(2007, 1, 25, 0, 0, 0, 0)
         '
         'wrnACCPostmark
@@ -2471,7 +2480,7 @@ Public Class SSCPEvents
         Me.wrnACCPostmark.AutoSize = True
         Me.wrnACCPostmark.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCPostmark.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCPostmark.Location = New System.Drawing.Point(330, 65)
+        Me.wrnACCPostmark.Location = New System.Drawing.Point(329, 45)
         Me.wrnACCPostmark.Name = "wrnACCPostmark"
         Me.wrnACCPostmark.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCPostmark.TabIndex = 83
@@ -2482,17 +2491,17 @@ Public Class SSCPEvents
         '
         Me.Panel6.Controls.Add(Me.rdbACCPostmarkYes)
         Me.Panel6.Controls.Add(Me.rdbACCPostmarkNo)
-        Me.Panel6.Location = New System.Drawing.Point(237, 61)
+        Me.Panel6.Location = New System.Drawing.Point(236, 41)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(96, 16)
-        Me.Panel6.TabIndex = 82
+        Me.Panel6.TabIndex = 2
         '
         'rdbACCPostmarkYes
         '
         Me.rdbACCPostmarkYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbACCPostmarkYes.Name = "rdbACCPostmarkYes"
         Me.rdbACCPostmarkYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbACCPostmarkYes.TabIndex = 19
+        Me.rdbACCPostmarkYes.TabIndex = 0
         Me.rdbACCPostmarkYes.Text = "Yes"
         '
         'rdbACCPostmarkNo
@@ -2503,10 +2512,19 @@ Public Class SSCPEvents
         Me.rdbACCPostmarkNo.TabIndex = 20
         Me.rdbACCPostmarkNo.Text = "No"
         '
+        'lblAccReportingYear
+        '
+        Me.lblAccReportingYear.AutoSize = True
+        Me.lblAccReportingYear.Location = New System.Drawing.Point(512, 34)
+        Me.lblAccReportingYear.Name = "lblAccReportingYear"
+        Me.lblAccReportingYear.Size = New System.Drawing.Size(101, 13)
+        Me.lblAccReportingYear.TabIndex = 81
+        Me.lblAccReportingYear.Text = " ACC reporting year:"
+        '
         'Label27
         '
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(82, 63)
+        Me.Label27.Location = New System.Drawing.Point(81, 43)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(149, 13)
         Me.Label27.TabIndex = 81
@@ -2531,7 +2549,7 @@ Public Class SSCPEvents
         Me.NUPACCSubmittal.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NUPACCSubmittal.Name = "NUPACCSubmittal"
         Me.NUPACCSubmittal.Size = New System.Drawing.Size(40, 20)
-        Me.NUPACCSubmittal.TabIndex = 78
+        Me.NUPACCSubmittal.TabIndex = 0
         Me.NUPACCSubmittal.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'Label67
@@ -2548,7 +2566,7 @@ Public Class SSCPEvents
         Me.wrnACCDatePostmarked.AutoSize = True
         Me.wrnACCDatePostmarked.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCDatePostmarked.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCDatePostmarked.Location = New System.Drawing.Point(639, 111)
+        Me.wrnACCDatePostmarked.Location = New System.Drawing.Point(639, 137)
         Me.wrnACCDatePostmarked.Name = "wrnACCDatePostmarked"
         Me.wrnACCDatePostmarked.Size = New System.Drawing.Size(96, 13)
         Me.wrnACCDatePostmarked.TabIndex = 137
@@ -2558,7 +2576,7 @@ Public Class SSCPEvents
         'Label44
         '
         Me.Label44.AutoSize = True
-        Me.Label44.Location = New System.Drawing.Point(16, 252)
+        Me.Label44.Location = New System.Drawing.Point(15, 275)
         Me.Label44.Name = "Label44"
         Me.Label44.Size = New System.Drawing.Size(59, 13)
         Me.Label44.TabIndex = 133
@@ -2567,20 +2585,20 @@ Public Class SSCPEvents
         'txtACCComments
         '
         Me.txtACCComments.AcceptsReturn = True
-        Me.txtACCComments.Location = New System.Drawing.Point(81, 249)
+        Me.txtACCComments.Location = New System.Drawing.Point(80, 272)
         Me.txtACCComments.MaxLength = 4000
         Me.txtACCComments.Multiline = True
         Me.txtACCComments.Name = "txtACCComments"
         Me.txtACCComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtACCComments.Size = New System.Drawing.Size(384, 80)
-        Me.txtACCComments.TabIndex = 132
+        Me.txtACCComments.TabIndex = 12
         '
         'wrnACCPreviousDeviations
         '
         Me.wrnACCPreviousDeviations.AutoSize = True
         Me.wrnACCPreviousDeviations.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCPreviousDeviations.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCPreviousDeviations.Location = New System.Drawing.Point(330, 209)
+        Me.wrnACCPreviousDeviations.Location = New System.Drawing.Point(329, 188)
         Me.wrnACCPreviousDeviations.Name = "wrnACCPreviousDeviations"
         Me.wrnACCPreviousDeviations.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCPreviousDeviations.TabIndex = 131
@@ -2591,17 +2609,17 @@ Public Class SSCPEvents
         '
         Me.Panel15.Controls.Add(Me.rdbACCPreviousDeviationsYes)
         Me.Panel15.Controls.Add(Me.rdbACCPreviousDeviationsNo)
-        Me.Panel15.Location = New System.Drawing.Point(237, 205)
+        Me.Panel15.Location = New System.Drawing.Point(236, 184)
         Me.Panel15.Name = "Panel15"
         Me.Panel15.Size = New System.Drawing.Size(96, 16)
-        Me.Panel15.TabIndex = 130
+        Me.Panel15.TabIndex = 8
         '
         'rdbACCPreviousDeviationsYes
         '
         Me.rdbACCPreviousDeviationsYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbACCPreviousDeviationsYes.Name = "rdbACCPreviousDeviationsYes"
         Me.rdbACCPreviousDeviationsYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbACCPreviousDeviationsYes.TabIndex = 19
+        Me.rdbACCPreviousDeviationsYes.TabIndex = 0
         Me.rdbACCPreviousDeviationsYes.Text = "Yes"
         '
         'rdbACCPreviousDeviationsNo
@@ -2615,7 +2633,7 @@ Public Class SSCPEvents
         'Label69
         '
         Me.Label69.AutoSize = True
-        Me.Label69.Location = New System.Drawing.Point(16, 207)
+        Me.Label69.Location = New System.Drawing.Point(15, 186)
         Me.Label69.Name = "Label69"
         Me.Label69.Size = New System.Drawing.Size(215, 13)
         Me.Label69.TabIndex = 129
@@ -2626,7 +2644,7 @@ Public Class SSCPEvents
         Me.wrnACCDeviationsReported.AutoSize = True
         Me.wrnACCDeviationsReported.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCDeviationsReported.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCDeviationsReported.Location = New System.Drawing.Point(330, 185)
+        Me.wrnACCDeviationsReported.Location = New System.Drawing.Point(329, 164)
         Me.wrnACCDeviationsReported.Name = "wrnACCDeviationsReported"
         Me.wrnACCDeviationsReported.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCDeviationsReported.TabIndex = 127
@@ -2637,17 +2655,17 @@ Public Class SSCPEvents
         '
         Me.Panel14.Controls.Add(Me.rdbACCDeviationsReportedYes)
         Me.Panel14.Controls.Add(Me.rdbACCDeviationsReportedNo)
-        Me.Panel14.Location = New System.Drawing.Point(237, 181)
+        Me.Panel14.Location = New System.Drawing.Point(236, 160)
         Me.Panel14.Name = "Panel14"
         Me.Panel14.Size = New System.Drawing.Size(96, 16)
-        Me.Panel14.TabIndex = 126
+        Me.Panel14.TabIndex = 7
         '
         'rdbACCDeviationsReportedYes
         '
         Me.rdbACCDeviationsReportedYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbACCDeviationsReportedYes.Name = "rdbACCDeviationsReportedYes"
         Me.rdbACCDeviationsReportedYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbACCDeviationsReportedYes.TabIndex = 19
+        Me.rdbACCDeviationsReportedYes.TabIndex = 0
         Me.rdbACCDeviationsReportedYes.Text = "Yes"
         '
         'rdbACCDeviationsReportedNo
@@ -2661,39 +2679,88 @@ Public Class SSCPEvents
         'Label56
         '
         Me.Label56.AutoSize = True
-        Me.Label56.Location = New System.Drawing.Point(126, 183)
+        Me.Label56.Location = New System.Drawing.Point(125, 162)
         Me.Label56.Name = "Label56"
         Me.Label56.Size = New System.Drawing.Size(105, 13)
         Me.Label56.TabIndex = 125
         Me.Label56.Text = "Reported deviations:"
+        '
+        'wrnACCResubmittalRequested
+        '
+        Me.wrnACCResubmittalRequested.AutoSize = True
+        Me.wrnACCResubmittalRequested.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.wrnACCResubmittalRequested.ForeColor = System.Drawing.Color.Tomato
+        Me.wrnACCResubmittalRequested.Location = New System.Drawing.Point(406, 234)
+        Me.wrnACCResubmittalRequested.Name = "wrnACCResubmittalRequested"
+        Me.wrnACCResubmittalRequested.Size = New System.Drawing.Size(135, 13)
+        Me.wrnACCResubmittalRequested.TabIndex = 111
+        Me.wrnACCResubmittalRequested.Text = "Warning-value not selected"
+        Me.wrnACCResubmittalRequested.Visible = False
         '
         'wrnACCEnforcementNeeded
         '
         Me.wrnACCEnforcementNeeded.AutoSize = True
         Me.wrnACCEnforcementNeeded.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCEnforcementNeeded.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCEnforcementNeeded.Location = New System.Drawing.Point(330, 229)
+        Me.wrnACCEnforcementNeeded.Location = New System.Drawing.Point(329, 258)
         Me.wrnACCEnforcementNeeded.Name = "wrnACCEnforcementNeeded"
         Me.wrnACCEnforcementNeeded.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCEnforcementNeeded.TabIndex = 111
         Me.wrnACCEnforcementNeeded.Text = "Warning-value not selected"
         Me.wrnACCEnforcementNeeded.Visible = False
         '
+        'pnlACCResubmittalRequested
+        '
+        Me.pnlACCResubmittalRequested.AutoSize = True
+        Me.pnlACCResubmittalRequested.Controls.Add(Me.rdbACCResubmittalRequestedYes)
+        Me.pnlACCResubmittalRequested.Controls.Add(Me.rdbACCResubmittalRequestedUnknown)
+        Me.pnlACCResubmittalRequested.Controls.Add(Me.rdbACCResubmittalRequestedNo)
+        Me.pnlACCResubmittalRequested.Location = New System.Drawing.Point(236, 232)
+        Me.pnlACCResubmittalRequested.Name = "pnlACCResubmittalRequested"
+        Me.pnlACCResubmittalRequested.Size = New System.Drawing.Size(164, 20)
+        Me.pnlACCResubmittalRequested.TabIndex = 10
+        '
+        'rdbACCResubmittalRequestedYes
+        '
+        Me.rdbACCResubmittalRequestedYes.Location = New System.Drawing.Point(0, 0)
+        Me.rdbACCResubmittalRequestedYes.Name = "rdbACCResubmittalRequestedYes"
+        Me.rdbACCResubmittalRequestedYes.Size = New System.Drawing.Size(48, 16)
+        Me.rdbACCResubmittalRequestedYes.TabIndex = 0
+        Me.rdbACCResubmittalRequestedYes.Text = "Yes"
+        '
+        'rdbACCResubmittalRequestedUnknown
+        '
+        Me.rdbACCResubmittalRequestedUnknown.AutoSize = True
+        Me.rdbACCResubmittalRequestedUnknown.Location = New System.Drawing.Point(90, 0)
+        Me.rdbACCResubmittalRequestedUnknown.Name = "rdbACCResubmittalRequestedUnknown"
+        Me.rdbACCResubmittalRequestedUnknown.Size = New System.Drawing.Size(71, 17)
+        Me.rdbACCResubmittalRequestedUnknown.TabIndex = 30
+        Me.rdbACCResubmittalRequestedUnknown.Text = "Unknown"
+        Me.rdbACCResubmittalRequestedUnknown.Visible = False
+        '
+        'rdbACCResubmittalRequestedNo
+        '
+        Me.rdbACCResubmittalRequestedNo.Location = New System.Drawing.Point(48, 0)
+        Me.rdbACCResubmittalRequestedNo.Name = "rdbACCResubmittalRequestedNo"
+        Me.rdbACCResubmittalRequestedNo.Size = New System.Drawing.Size(48, 16)
+        Me.rdbACCResubmittalRequestedNo.TabIndex = 20
+        Me.rdbACCResubmittalRequestedNo.Text = "No"
+        '
         'Panel12
         '
         Me.Panel12.Controls.Add(Me.rdbACCEnforcementNeededYes)
         Me.Panel12.Controls.Add(Me.rdbACCEnforcementNeededNo)
-        Me.Panel12.Location = New System.Drawing.Point(237, 227)
+        Me.Panel12.Location = New System.Drawing.Point(236, 256)
         Me.Panel12.Name = "Panel12"
         Me.Panel12.Size = New System.Drawing.Size(96, 16)
-        Me.Panel12.TabIndex = 110
+        Me.Panel12.TabIndex = 11
         '
         'rdbACCEnforcementNeededYes
         '
         Me.rdbACCEnforcementNeededYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbACCEnforcementNeededYes.Name = "rdbACCEnforcementNeededYes"
         Me.rdbACCEnforcementNeededYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbACCEnforcementNeededYes.TabIndex = 19
+        Me.rdbACCEnforcementNeededYes.TabIndex = 0
         Me.rdbACCEnforcementNeededYes.Text = "Yes"
         '
         'rdbACCEnforcementNeededNo
@@ -2704,42 +2771,101 @@ Public Class SSCPEvents
         Me.rdbACCEnforcementNeededNo.TabIndex = 20
         Me.rdbACCEnforcementNeededNo.Text = "No"
         '
+        'lblACCResubmittalRequested
+        '
+        Me.lblACCResubmittalRequested.AutoSize = True
+        Me.lblACCResubmittalRequested.Location = New System.Drawing.Point(124, 234)
+        Me.lblACCResubmittalRequested.Name = "lblACCResubmittalRequested"
+        Me.lblACCResubmittalRequested.Size = New System.Drawing.Size(106, 13)
+        Me.lblACCResubmittalRequested.TabIndex = 109
+        Me.lblACCResubmittalRequested.Text = "Resubmittal required:"
+        '
         'Label48
         '
         Me.Label48.AutoSize = True
-        Me.Label48.Location = New System.Drawing.Point(122, 227)
+        Me.Label48.Location = New System.Drawing.Point(121, 258)
         Me.Label48.Name = "Label48"
         Me.Label48.Size = New System.Drawing.Size(109, 13)
         Me.Label48.TabIndex = 109
         Me.Label48.Text = "Enforcement needed:"
+        '
+        'wrnACCAllDeviationsReported
+        '
+        Me.wrnACCAllDeviationsReported.AutoSize = True
+        Me.wrnACCAllDeviationsReported.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.wrnACCAllDeviationsReported.ForeColor = System.Drawing.Color.Tomato
+        Me.wrnACCAllDeviationsReported.Location = New System.Drawing.Point(406, 211)
+        Me.wrnACCAllDeviationsReported.Name = "wrnACCAllDeviationsReported"
+        Me.wrnACCAllDeviationsReported.Size = New System.Drawing.Size(135, 13)
+        Me.wrnACCAllDeviationsReported.TabIndex = 101
+        Me.wrnACCAllDeviationsReported.Text = "Warning-value not selected"
+        Me.wrnACCAllDeviationsReported.Visible = False
         '
         'wrnACCCorrect
         '
         Me.wrnACCCorrect.AutoSize = True
         Me.wrnACCCorrect.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCCorrect.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCCorrect.Location = New System.Drawing.Point(330, 161)
+        Me.wrnACCCorrect.Location = New System.Drawing.Point(329, 141)
         Me.wrnACCCorrect.Name = "wrnACCCorrect"
         Me.wrnACCCorrect.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCCorrect.TabIndex = 101
         Me.wrnACCCorrect.Text = "Warning-value not selected"
         Me.wrnACCCorrect.Visible = False
         '
+        'pnlACCAllDeviationsReported
+        '
+        Me.pnlACCAllDeviationsReported.AutoSize = True
+        Me.pnlACCAllDeviationsReported.Controls.Add(Me.rdbACCAllDeviationsReportedYes)
+        Me.pnlACCAllDeviationsReported.Controls.Add(Me.rdbACCAllDeviationsReportedUnknown)
+        Me.pnlACCAllDeviationsReported.Controls.Add(Me.rdbACCAllDeviationsReportedNo)
+        Me.pnlACCAllDeviationsReported.Location = New System.Drawing.Point(236, 207)
+        Me.pnlACCAllDeviationsReported.Name = "pnlACCAllDeviationsReported"
+        Me.pnlACCAllDeviationsReported.Size = New System.Drawing.Size(161, 24)
+        Me.pnlACCAllDeviationsReported.TabIndex = 9
+        '
+        'rdbACCAllDeviationsReportedYes
+        '
+        Me.rdbACCAllDeviationsReportedYes.Location = New System.Drawing.Point(0, 0)
+        Me.rdbACCAllDeviationsReportedYes.Name = "rdbACCAllDeviationsReportedYes"
+        Me.rdbACCAllDeviationsReportedYes.Size = New System.Drawing.Size(48, 16)
+        Me.rdbACCAllDeviationsReportedYes.TabIndex = 0
+        Me.rdbACCAllDeviationsReportedYes.Text = "Yes"
+        '
+        'rdbACCAllDeviationsReportedUnknown
+        '
+        Me.rdbACCAllDeviationsReportedUnknown.AutoSize = True
+        Me.rdbACCAllDeviationsReportedUnknown.Location = New System.Drawing.Point(87, 0)
+        Me.rdbACCAllDeviationsReportedUnknown.Name = "rdbACCAllDeviationsReportedUnknown"
+        Me.rdbACCAllDeviationsReportedUnknown.Size = New System.Drawing.Size(71, 17)
+        Me.rdbACCAllDeviationsReportedUnknown.TabIndex = 30
+        Me.rdbACCAllDeviationsReportedUnknown.Text = "Unknown"
+        Me.rdbACCAllDeviationsReportedUnknown.Visible = False
+        '
+        'rdbACCAllDeviationsReportedNo
+        '
+        Me.rdbACCAllDeviationsReportedNo.AutoSize = True
+        Me.rdbACCAllDeviationsReportedNo.Location = New System.Drawing.Point(48, 0)
+        Me.rdbACCAllDeviationsReportedNo.Name = "rdbACCAllDeviationsReportedNo"
+        Me.rdbACCAllDeviationsReportedNo.Size = New System.Drawing.Size(39, 17)
+        Me.rdbACCAllDeviationsReportedNo.TabIndex = 20
+        Me.rdbACCAllDeviationsReportedNo.Text = "No"
+        '
         'Panel10
         '
         Me.Panel10.Controls.Add(Me.rdbACCCorrectYes)
         Me.Panel10.Controls.Add(Me.rdbACCCorrectNo)
-        Me.Panel10.Location = New System.Drawing.Point(237, 157)
+        Me.Panel10.Location = New System.Drawing.Point(236, 137)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Size = New System.Drawing.Size(96, 16)
-        Me.Panel10.TabIndex = 100
+        Me.Panel10.TabIndex = 6
         '
         'rdbACCCorrectYes
         '
         Me.rdbACCCorrectYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbACCCorrectYes.Name = "rdbACCCorrectYes"
         Me.rdbACCCorrectYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbACCCorrectYes.TabIndex = 19
+        Me.rdbACCCorrectYes.TabIndex = 0
         Me.rdbACCCorrectYes.Text = "Yes"
         '
         'rdbACCCorrectNo
@@ -2750,10 +2876,19 @@ Public Class SSCPEvents
         Me.rdbACCCorrectNo.TabIndex = 20
         Me.rdbACCCorrectNo.Text = "No"
         '
+        'lblACCAllDeviationsReported
+        '
+        Me.lblACCAllDeviationsReported.AutoSize = True
+        Me.lblACCAllDeviationsReported.Location = New System.Drawing.Point(81, 209)
+        Me.lblACCAllDeviationsReported.Name = "lblACCAllDeviationsReported"
+        Me.lblACCAllDeviationsReported.Size = New System.Drawing.Size(149, 13)
+        Me.lblACCAllDeviationsReported.TabIndex = 99
+        Me.lblACCAllDeviationsReported.Text = "All known deviations reported:"
+        '
         'Label42
         '
         Me.Label42.AutoSize = True
-        Me.Label42.Location = New System.Drawing.Point(115, 159)
+        Me.Label42.Location = New System.Drawing.Point(114, 139)
         Me.Label42.Name = "Label42"
         Me.Label42.Size = New System.Drawing.Size(116, 13)
         Me.Label42.TabIndex = 99
@@ -2764,7 +2899,7 @@ Public Class SSCPEvents
         Me.wrnACCConditions.AutoSize = True
         Me.wrnACCConditions.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCConditions.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCConditions.Location = New System.Drawing.Point(330, 137)
+        Me.wrnACCConditions.Location = New System.Drawing.Point(329, 117)
         Me.wrnACCConditions.Name = "wrnACCConditions"
         Me.wrnACCConditions.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCConditions.TabIndex = 97
@@ -2775,17 +2910,17 @@ Public Class SSCPEvents
         '
         Me.Panel9.Controls.Add(Me.rdbACCConditionsYes)
         Me.Panel9.Controls.Add(Me.rdbACCConditionsNo)
-        Me.Panel9.Location = New System.Drawing.Point(237, 133)
+        Me.Panel9.Location = New System.Drawing.Point(236, 113)
         Me.Panel9.Name = "Panel9"
         Me.Panel9.Size = New System.Drawing.Size(96, 16)
-        Me.Panel9.TabIndex = 96
+        Me.Panel9.TabIndex = 5
         '
         'rdbACCConditionsYes
         '
         Me.rdbACCConditionsYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbACCConditionsYes.Name = "rdbACCConditionsYes"
         Me.rdbACCConditionsYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbACCConditionsYes.TabIndex = 19
+        Me.rdbACCConditionsYes.TabIndex = 0
         Me.rdbACCConditionsYes.Text = "Yes"
         '
         'rdbACCConditionsNo
@@ -2799,7 +2934,7 @@ Public Class SSCPEvents
         'Label39
         '
         Me.Label39.AutoSize = True
-        Me.Label39.Location = New System.Drawing.Point(99, 135)
+        Me.Label39.Location = New System.Drawing.Point(98, 115)
         Me.Label39.Name = "Label39"
         Me.Label39.Size = New System.Drawing.Size(132, 13)
         Me.Label39.TabIndex = 95
@@ -2825,7 +2960,8 @@ Public Class SSCPEvents
         Me.DGRACCResubmittal.ReadOnly = True
         Me.DGRACCResubmittal.RowHeadersVisible = False
         Me.DGRACCResubmittal.Size = New System.Drawing.Size(10, 367)
-        Me.DGRACCResubmittal.TabIndex = 20
+        Me.DGRACCResubmittal.TabIndex = 18
+        Me.DGRACCResubmittal.TabStop = False
         '
         'txtOrigin
         '
@@ -2889,7 +3025,7 @@ Public Class SSCPEvents
         Me.Controls.Add(Me.Splitter3)
         Me.Controls.Add(Me.txtOrigin)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.TBSSCPItems)
+        Me.Controls.Add(Me.tbToolbar)
         Me.Menu = Me.MainMenu1
         Me.Name = "SSCPEvents"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
@@ -2929,7 +3065,11 @@ Public Class SSCPEvents
         CType(Me.NUPACCSubmittal, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel15.ResumeLayout(False)
         Me.Panel14.ResumeLayout(False)
+        Me.pnlACCResubmittalRequested.ResumeLayout(False)
+        Me.pnlACCResubmittalRequested.PerformLayout()
         Me.Panel12.ResumeLayout(False)
+        Me.pnlACCAllDeviationsReported.ResumeLayout(False)
+        Me.pnlACCAllDeviationsReported.PerformLayout()
         Me.Panel10.ResumeLayout(False)
         Me.Panel9.ResumeLayout(False)
         CType(Me.DGRACCResubmittal, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2948,18 +3088,20 @@ Public Class SSCPEvents
         Try
             temp = txtTrackingNumber.Text
 
+            tbbPrint.Enabled = False
+            tbbPrint.Visible = False
+
             DefaultDateTimePickers()
             Loadcombos()
 
-            CreateStatusBar()
             ShowCorrectTab()
 
             If AccountArray(49, 2) = "1" Or AccountArray(49, 3) = "1" Or AccountArray(49, 4) = "1" Then
-                TBSSCPItems.Visible = True
-                MmiSave.Visible = True
+                tbToolbar.Visible = True
+                mmiSave.Visible = True
             Else
-                TBSSCPItems.Visible = False
-                MmiSave.Visible = False
+                tbToolbar.Visible = False
+                mmiSave.Visible = False
                 btnRequestInformation.Visible = False
                 If txtEnforcementNumber.Text = "" Or txtEnforcementNumber.Text = "N/A" Then
                     btnEnforcementProcess.Visible = False
@@ -2975,36 +3117,6 @@ Public Class SSCPEvents
     End Sub
 
 #Region "Page Load Functions"
-    Sub CreateStatusBar()
-
-        panel1.Text = "Select a Function..."
-        panel2.Text = UserName
-        panel3.Text = OracleDate
-
-        panel1.AutoSize = StatusBarPanelAutoSize.Spring
-        panel2.AutoSize = StatusBarPanelAutoSize.Contents
-        panel3.AutoSize = StatusBarPanelAutoSize.Contents
-
-        panel1.BorderStyle = StatusBarPanelBorderStyle.Sunken
-        panel2.BorderStyle = StatusBarPanelBorderStyle.Sunken
-        panel3.BorderStyle = StatusBarPanelBorderStyle.Sunken
-
-        panel1.Alignment = HorizontalAlignment.Left
-        panel2.Alignment = HorizontalAlignment.Left
-        panel3.Alignment = HorizontalAlignment.Right
-
-        ' Display panels in the StatusBar control.
-        statusBar1.ShowPanels = True
-
-        ' Add both panels to the StatusBarPanelCollection of the StatusBar.            
-        statusBar1.Panels.Add(panel1)
-        statusBar1.Panels.Add(panel2)
-        statusBar1.Panels.Add(panel3)
-
-        ' Add the StatusBar to the form.
-        Me.Controls.Add(statusBar1)
-
-    End Sub
     Sub Loadcombos()
         Dim dtStaff As New DataTable
 
@@ -3012,17 +3124,6 @@ Public Class SSCPEvents
         Dim drDSRow As DataRow
 
         Try
-
-            'SQL = "Select distinct(numUserID), " & _
-            '"(strLastName||', '||strFirstName) as StaffName, " & _
-            '"strLastName " & _
-            '"from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".SSCPItemMaster " & _
-            '"where numprogram = '4' " & _
-            '"or numUserID = strResponsibleStaff " & _
-            '"or (numBranch = '5' " & _
-            '"and strLastName = 'District') " & _
-            '"order by strLastName "
-
 
             SQL = "select numuserID, Staff as StaffName, strLastName " & _
             "from AIRBranch.VW_ComplianceStaff "
@@ -3071,7 +3172,6 @@ Public Class SSCPEvents
     Sub ShowCorrectTab()
         Dim EventType As String = ""
         Dim ReceivedDate As String = ""
-        Dim AIRSNumber As String = ""
 
         SQL = "Select * from " & DBNameSpace & ".SSCPItemMaster " & _
         "where strTrackingNumber = '" & txtTrackingNumber.Text & "'"
@@ -3099,17 +3199,18 @@ Public Class SSCPEvents
             Else
                 txtFacilityInformation.Text = "AIRS # - " & Mid(dr.Item("strAIRSNumber"), 5)
                 txtAIRSNumber.Text = Mid(dr.Item("strAIRSNumber"), 5)
+                AIRSNumber = txtAIRSNumber.Text
             End If
             If IsDBNull(dr.Item("datAcknoledgmentLetterSent")) Then
                 'chbAcknoledgmentLetterSent.Checked = True
                 'DTPAcknoledgmentLetterSent.Enabled = False
-                DTPAcknoledgmentLetterSent.Text = OracleDate
-                DTPAcknoledgmentLetterSent.Checked = False
+                DTPAcknowledgmentLetterSent.Text = OracleDate
+                DTPAcknowledgmentLetterSent.Checked = False
             Else
                 'DTPAcknoledgmentLetterSent.Enabled = True
                 'chbAcknoledgmentLetterSent.Checked = False
-                DTPAcknoledgmentLetterSent.Text = Format(dr.Item("datAcknoledgmentlettersent"), "dd-MMM-yyyy")
-                DTPAcknoledgmentLetterSent.Checked = True
+                DTPAcknowledgmentLetterSent.Text = Format(dr.Item("datAcknoledgmentlettersent"), "dd-MMM-yyyy")
+                DTPAcknowledgmentLetterSent.Checked = True
             End If
             If IsDBNull(dr.Item("datInformationRequestDate")) Then
                 txtRequestInformationDate.Text = "N/A"
@@ -3124,7 +3225,8 @@ Public Class SSCPEvents
         End While
 
         Select Case EventType
-            Case "01"
+
+            Case "01" ' Report
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPReport)
                 DTPReportReceivedDate.Text = ReceivedDate
@@ -3133,7 +3235,8 @@ Public Class SSCPEvents
                 LoadReport()
                 LoadReportSubmittalDGR()
                 FormatReportsDGR()
-            Case "02"
+
+            Case "02" ' Inspection
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPInspection)
                 DTPInspectionDateStart.Text = ReceivedDate
@@ -3141,34 +3244,39 @@ Public Class SSCPEvents
                 LoadHeader()
                 FillInspectionCombos()
                 LoadInspection()
-            Case "03"
+
+            Case "03" ' Test report
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPTestReports)
                 txtTestReportReceivedbySSCPDate.Text = ReceivedDate
                 LoadHeader()
                 LoadTestReport()
-            Case "05"
+
+            Case "05" ' Notification
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPNotifications)
                 DTPNotificationReceived.Text = ReceivedDate
                 LoadHeader()
                 FillNotificationCombos()
                 LoadNotification()
-
                 btnEnforcementProcess.Visible = False
 
-            Case "04"
+            Case "04" ' ACC
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPACC)
                 DTPACCReceivedDate.Text = ReceivedDate
                 DTPACCPostmarked.Text = OracleDate
+                dtpAccReportingYear.Value = DateTime.Today.AddYears(-1)
+                dtpAccReportingYear.Checked = True
                 LoadHeader()
                 LoadACC()
                 LoadACCSubmittalDGR()
                 FormatACCDGR()
-            Case "07"
+                tbbPrint.Enabled = True
+                tbbPrint.Visible = True
+
+            Case "07" ' Risk Management Plan Inspection
                 TCItems.TabPages.Clear()
-                'TPInspection
                 TCItems.TabPages.Add(TPInspection)
                 TPInspection.Text = "Risk Mgmt. Plan Inspection"
                 DTPInspectionDateStart.Text = ReceivedDate
@@ -3176,8 +3284,10 @@ Public Class SSCPEvents
                 LoadHeader()
                 FillInspectionCombos()
                 LoadInspection()
+
             Case Else
                 LoadHeader()
+
         End Select
 
         CheckCompleteDate()
@@ -3256,7 +3366,6 @@ Public Class SSCPEvents
             .SelectedIndex = 0
         End With
 
-
     End Sub
     Sub LoadHeader()
         Dim temp As String
@@ -3294,6 +3403,7 @@ Public Class SSCPEvents
                     DelStatus = dr.Item("strDelete")
                 End If
                 If DelStatus <> "" Then
+                    ItemIsDeleted = True
                     txtFacilityInformation.Text = "FLAGGED AS DELETED"
                 End If
 
@@ -3415,7 +3525,7 @@ Public Class SSCPEvents
     End Sub
     Sub DefaultDateTimePickers()
 
-        DTPAcknoledgmentLetterSent.Value = OracleDate
+        DTPAcknowledgmentLetterSent.Value = OracleDate
         DTPReportPeriodStart.Value = OracleDate
         DTPReportPeriodEnd.Value = OracleDate
         dtpDueDate.Value = OracleDate
@@ -3488,7 +3598,7 @@ Public Class SSCPEvents
     Sub CompleteReport()
         If chbEventComplete.Checked = True Then
             chbAcknoledgmentLetterSent.Enabled = False
-            DTPAcknoledgmentLetterSent.Enabled = False
+            DTPAcknowledgmentLetterSent.Enabled = False
             chbNotificationReceivedByAPB.Enabled = False
             cboStaffResponsible.Enabled = False
 
@@ -3562,12 +3672,19 @@ Public Class SSCPEvents
             rdbACCPreviousDeviationsYes.Enabled = False
             rdbACCPreviousDeviationsNo.Enabled = False
             DTPACCPostmarked.Enabled = False
+            dtpAccReportingYear.Enabled = False
             txtACCComments.ReadOnly = True
             rdbACCEnforcementNeededYes.Enabled = False
             rdbACCEnforcementNeededNo.Enabled = False
+            rdbACCResubmittalRequestedYes.Enabled = False
+            rdbACCResubmittalRequestedNo.Enabled = False
+            rdbACCResubmittalRequestedUnknown.Enabled = False
+            rdbACCAllDeviationsReportedYes.Enabled = False
+            rdbACCAllDeviationsReportedNo.Enabled = False
+            rdbACCAllDeviationsReportedUnknown.Enabled = False
         Else
             chbAcknoledgmentLetterSent.Enabled = True
-            DTPAcknoledgmentLetterSent.Enabled = True
+            DTPAcknowledgmentLetterSent.Enabled = True
             chbNotificationReceivedByAPB.Enabled = True
             cboStaffResponsible.Enabled = True
 
@@ -3627,6 +3744,7 @@ Public Class SSCPEvents
             'ACC
             NUPACCSubmittal.Enabled = True
             DTPACCPostmarked.Enabled = True
+            dtpAccReportingYear.Enabled = True
             txtACCComments.ReadOnly = False
 
             If NUPACCSubmittal.Value > 1 Then
@@ -3646,6 +3764,12 @@ Public Class SSCPEvents
                 rdbACCPreviousDeviationsNo.Enabled = False
                 rdbACCEnforcementNeededYes.Enabled = False
                 rdbACCEnforcementNeededNo.Enabled = False
+                rdbACCResubmittalRequestedYes.Enabled = False
+                rdbACCAllDeviationsReportedUnknown.Enabled = False
+                rdbACCResubmittalRequestedNo.Enabled = False
+                rdbACCAllDeviationsReportedYes.Enabled = False
+                rdbACCAllDeviationsReportedUnknown.Enabled = False
+                rdbACCAllDeviationsReportedNo.Enabled = False
 
                 'chbACCReceivedByAPB.Enabled = False
             Else
@@ -3665,31 +3789,27 @@ Public Class SSCPEvents
                 rdbACCPreviousDeviationsNo.Enabled = True
                 rdbACCEnforcementNeededYes.Enabled = True
                 rdbACCEnforcementNeededNo.Enabled = True
+                rdbACCResubmittalRequestedYes.Enabled = True
+                rdbACCResubmittalRequestedUnknown.Enabled = True
+                rdbACCResubmittalRequestedNo.Enabled = True
+                rdbACCAllDeviationsReportedYes.Enabled = True
+                rdbACCAllDeviationsReportedNo.Enabled = True
+                rdbACCAllDeviationsReportedUnknown.Enabled = True
                 DTPACCPostmarked.Enabled = True
+                dtpAccReportingYear.Enabled = True
                 chbACCReceivedByAPB.Enabled = True
             End If
         End If
     End Sub
     Sub CheckEnforcement()
-        SQL = "Select " & _
-        "strEnforcementNumber " & _
-        "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
-        "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-        cmd = New OracleCommand(SQL, Conn)
-        If Conn.State = ConnectionState.Closed Then
-            Conn.Open()
-        End If
-        dr = cmd.ExecuteReader
-        recExist = dr.Read
-        If recExist = True Then
-            txtEnforcementNumber.Text = dr.Item("strEnforcementNumber")
+        Dim enfNum As String = ""
+        If DAL.SSCP.EnforcementExistsForTrackingNumber(txtTrackingNumber.Text, enfNum) Then
+            txtEnforcementNumber.Text = enfNum
             txtEnforcementNumber.Visible = True
         Else
             txtEnforcementNumber.Text = "N/A"
             txtEnforcementNumber.Visible = False
         End If
-
-
     End Sub
 #End Region
 
@@ -3750,7 +3870,7 @@ Public Class SSCPEvents
     Private Sub OpenEnforcement()
         Try
 
-            If txtEnforcementNumber.Text <> "" And txtFacilityInformation.Text <> "" Then
+            If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" And txtFacilityInformation.Text <> "" Then
                 Dim enfNum As String = txtEnforcementNumber.Text
                 If DAL.SSCP.EnforcementExists(enfNum) Then
                     OpenMultiForm(SscpEnforcement, enfNum)
@@ -3787,70 +3907,23 @@ Public Class SSCPEvents
 
                 'Me.Dispose()
             Else
-                If SSCPSelectEnforcement Is Nothing Then
-                    If SSCPSelectEnforcement Is Nothing Then SSCPSelectEnforcement = New SSCPEnforcementSelector
-                    SSCPSelectEnforcement.txtAIRSNumber.Text = txtAIRSNumber.Text
-                    SSCPSelectEnforcement.txtTrackingNumber.Text = txtTrackingNumber.Text
-                    SSCPSelectEnforcement.Show()
-                Else
-                    SSCPSelectEnforcement.BringToFront()
-                End If
+                Dim parameters As New Dictionary(Of String, String)
+                parameters("airsnumber") = txtAIRSNumber.Text
+                If txtTrackingNumber.Text <> "" Then parameters("trackingnumber") = txtTrackingNumber.Text
+                OpenSingleForm(SSCPEnforcementSelector, parameters:=parameters, closeFirst:=True)
+
+                'If SSCPSelectEnforcement Is Nothing Then
+                '    If SSCPSelectEnforcement Is Nothing Then SSCPSelectEnforcement = New SSCPEnforcementSelector
+                '    SSCPSelectEnforcement.txtAIRSNumber.Text = txtAIRSNumber.Text
+                '    SSCPSelectEnforcement.txtTrackingNumber.Text = txtTrackingNumber.Text
+                '    SSCPSelectEnforcement.Show()
+                'Else
+                '    SSCPSelectEnforcement.BringToFront()
+                'End If
                 'SSCPSelectEnforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
 
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-
-#End Region
-
-#Region "Back Functions"
-    Sub Back()
-        Try
-
-            Select Case txtOrigin.Text
-                Case "Facility Summary"
-                    SSCPREports = Nothing
-                    Me.Hide()
-                Case "FCE Checklist"
-                    SSCPREports = Nothing
-                    Me.Hide()
-                Case "Work Entry"
-                    BackToSSCPWorkEntry()
-                Case "Enforcement Checklist"
-                    SSCPREports = Nothing
-                    Me.Hide()
-                Case Else
-                    If NavigationScreen Is Nothing Then
-                        NavigationScreen = New IAIPNavigation
-                    End If
-                    NavigationScreen.Show()
-                    SSCPREports = Nothing
-                    Me.Dispose()
-            End Select
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Sub BackToSSCPWorkEntry()
-        Try
-
-            If SSCP_Work Is Nothing Then
-                SSCP_Work = New SSCPComplianceLog
-                SSCP_Work.Show()
-                Me.Hide()
-            Else
-                SSCP_Work.Show()
-                Me.Hide()
-            End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -4243,6 +4316,9 @@ Public Class SSCPEvents
         Dim ReportedUnReportedDeviations As String
         Dim ACCComments As String
         Dim EnforcementNeeded As String
+        Dim AccReportingYear As String
+        Dim ResubmittalRequested As String
+        Dim AllDeviationsReported As String
 
         Try
 
@@ -4252,7 +4328,8 @@ Public Class SSCPEvents
             Or wrnACCCorrectACC.Visible = True _
             Or wrnACCDatePostmarked.Visible = True Or wrnACCDeviationsReported.Visible = True _
             Or wrnACCEnforcementNeeded.Visible = True Or wrnACCPostmark.Visible = True _
-            Or wrnACCPreviousDeviations.Visible = True _
+            Or wrnACCPreviousDeviations.Visible = True Or wrnACCAllDeviationsReported.Visible _
+            Or wrnACCResubmittalRequested.Visible _
             Or wrnACCRO.Visible = True Or wrnACCSubmittal.Visible = True Then
                 MsgBox("Data not saved", MsgBoxStyle.Information, "SSCP Events.")
             Else
@@ -4314,6 +4391,21 @@ Public Class SSCPEvents
                 Else
                     EnforcementNeeded = "False"
                 End If
+                If rdbACCAllDeviationsReportedYes.Checked Then
+                    AllDeviationsReported = "True"
+                Else
+                    AllDeviationsReported = "False"
+                End If
+                If rdbACCResubmittalRequestedYes.Checked Then
+                    ResubmittalRequested = "True"
+                Else
+                    ResubmittalRequested = "False"
+                End If
+                If dtpAccReportingYear.Checked Then
+                    AccReportingYear = Format(dtpAccReportingYear.Value, "dd-MMM-yyyy")
+                Else
+                    AccReportingYear = ""
+                End If
 
                 If recExist = False Then
                     NUPACCSubmittal.Text = 1
@@ -4325,7 +4417,8 @@ Public Class SSCPEvents
                     "strTitleVConditionsListed, strACCCorrectlyFilledOut, " & _
                     "strReportedDeviations, strDeviationsUnreported, " & _
                     "strcomments, strEnforcementneeded, " & _
-                    "strModifingPerson, DatModifingDate) " & _
+                    "strModifingPerson, DatModifingDate, datAccReportingYear, " & _
+                    "STRKNOWNDEVIATIONSREPORTED, STRRESUBMITTALREQUIRED) " & _
                     "values " & _
                     "('" & txtTrackingNumber.Text & "', '" & NUPACCSubmittal.Text & "', " & _
                     "'" & PostedOnTime & "', '" & DTPACCPostmarked.Text & "', " & _
@@ -4334,7 +4427,8 @@ Public Class SSCPEvents
                     "'" & ReportedDeviations & "', '" & ReportedUnReportedDeviations & "', " & _
                     "'" & Replace(ACCComments, "'", "''") & "', " & _
                     "'" & EnforcementNeeded & "', " & _
-                    "'" & UserGCode & "', '" & OracleDate & "')"
+                    "'" & UserGCode & "', '" & OracleDate & "', '" & AccReportingYear & "', " & _
+                    "'" & AllDeviationsReported & "', '" & ResubmittalRequested & "')"
 
                     cmd = New OracleCommand(SQL, Conn)
                     If Conn.State = ConnectionState.Closed Then
@@ -4349,7 +4443,8 @@ Public Class SSCPEvents
                     "strTitleVConditionsListed, strACCCorrectlyFilledOut, " & _
                     "strReportedDeviations, strDeviationsUnreported, " & _
                     "strcomments, strEnforcementneeded, " & _
-                    "strModifingPerson, DatModifingDate) " & _
+                    "strModifingPerson, DatModifingDate, datAccReportingYear, " & _
+                    "STRKNOWNDEVIATIONSREPORTED, STRRESUBMITTALREQUIRED) " & _
                     "values " & _
                     "('" & txtTrackingNumber.Text & "', '" & NUPACCSubmittal.Text & "', " & _
                     "'" & PostedOnTime & "', '" & DTPACCPostmarked.Text & "', " & _
@@ -4358,7 +4453,8 @@ Public Class SSCPEvents
                     "'" & ReportedDeviations & "', '" & ReportedUnReportedDeviations & "', " & _
                     "'" & Replace(ACCComments, "'", "''") & "', " & _
                     "'" & EnforcementNeeded & "', '" & UserGCode & "', " & _
-                    "'" & OracleDate & "')"
+                    "'" & OracleDate & "', '" & AccReportingYear & "', " & _
+                    "'" & AllDeviationsReported & "', '" & ResubmittalRequested & "')"
 
                     cmd = New OracleCommand(SQL, Conn)
                     If Conn.State = ConnectionState.Closed Then
@@ -4380,7 +4476,10 @@ Public Class SSCPEvents
                     "strcomments = '" & Replace(ACCComments, "'", "''") & "', " & _
                     "strEnforcementneeded = '" & EnforcementNeeded & "', " & _
                     "strModifingPerson = '" & UserGCode & "', " & _
-                    "DatModifingDate = '" & OracleDate & "' " & _
+                    "DatModifingDate = '" & OracleDate & "', " & _
+                    "datAccReportingYear = '" & AccReportingYear & "', " & _
+                    "STRKNOWNDEVIATIONSREPORTED = '" & AllDeviationsReported & "', " & _
+                    "STRRESUBMITTALREQUIRED = '" & ResubmittalRequested & "' " & _
                     "where strTrackingnumber = '" & txtTrackingNumber.Text & "'"
 
                     cmd = New OracleCommand(SQL, Conn)
@@ -4415,7 +4514,10 @@ Public Class SSCPEvents
                         "strcomments = '" & Replace(ACCComments, "'", "''") & "', " & _
                         "strEnforcementneeded = '" & EnforcementNeeded & "', " & _
                         "strModifingPerson = '" & UserGCode & "', " & _
-                        "DatModifingDate = '" & OracleDate & "' " & _
+                        "DatModifingDate = '" & OracleDate & "', " & _
+                        "datAccReportingYear = '" & AccReportingYear & "', " & _
+                        "STRKNOWNDEVIATIONSREPORTED = '" & AllDeviationsReported & "', " & _
+                        "STRRESUBMITTALREQUIRED = '" & ResubmittalRequested & "' " & _
                         "where strTrackingnumber = '" & txtTrackingNumber.Text & "' " & _
                         "and strSubmittalNumber = '" & NUPACCSubmittal.Text & "'"
                     Else
@@ -4426,7 +4528,8 @@ Public Class SSCPEvents
                         "strTitleVConditionsListed, strACCCorrectlyFilledOut, " & _
                         "strReportedDeviations, strDeviationsUnreported, " & _
                         "strcomments, strEnforcementneeded, " & _
-                        "strModifingPerson, DatModifingDate) " & _
+                        "strModifingPerson, DatModifingDate, datAccReportingYear, " & _
+                        "STRKNOWNDEVIATIONSREPORTED, STRRESUBMITTALREQUIRED) " & _
                         "values " & _
                         "('" & txtTrackingNumber.Text & "', '" & NUPACCSubmittal.Text & "', " & _
                         "'" & PostedOnTime & "', '" & DTPACCPostmarked.Text & "', " & _
@@ -4435,7 +4538,8 @@ Public Class SSCPEvents
                         "'" & ReportedDeviations & "', '" & ReportedUnReportedDeviations & "', " & _
                         "'" & Replace(ACCComments, "'", "''") & "', " & _
                         "'" & EnforcementNeeded & "', '" & UserGCode & "', " & _
-                        "'" & OracleDate & "')"
+                        "'" & OracleDate & "', '" & AccReportingYear & "', " & _
+                        "'" & AllDeviationsReported & "', '" & ResubmittalRequested & "')"
                     End If
                     cmd = New OracleCommand(SQL, Conn)
                     If Conn.State = ConnectionState.Closed Then
@@ -4712,8 +4816,8 @@ Public Class SSCPEvents
                     CompleteDate = ""
                 End If
 
-                If DTPAcknoledgmentLetterSent.Checked = True Then
-                    AcknoledgmentLetter = DTPAcknoledgmentLetterSent.Text
+                If DTPAcknowledgmentLetterSent.Checked = True Then
+                    AcknoledgmentLetter = DTPAcknowledgmentLetterSent.Text
                 Else
                     AcknoledgmentLetter = ""
                 End If
@@ -5386,6 +5490,8 @@ Public Class SSCPEvents
         Dim ReportedUnReportedDeviations As String
         Dim ACCComments As String
         Dim EnforcementNeeded As String
+        Dim AllDeviationsReported As String
+        Dim ResubmittalRequested As String
 
         Try
 
@@ -5401,7 +5507,8 @@ Public Class SSCPEvents
                 "strTitleVConditionsListed, strACCCorrectlyFilledOut, " & _
                 "strReportedDeviations, strDeviationsUnReported, " & _
                 "strComments, strEnforcementNeeded, " & _
-                "strModifingPerson, datModifingDate " & _
+                "strModifingPerson, datModifingDate, datAccReportingYear, " & _
+                "STRKNOWNDEVIATIONSREPORTED, STRRESUBMITTALREQUIRED " & _
                 "from " & DBNameSpace & ".SSCPACCS " & _
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
@@ -5418,6 +5525,13 @@ Public Class SSCPEvents
                     Else
                         rdbACCPostmarkYes.Checked = False
                         rdbACCPostmarkNo.Checked = True
+                    End If
+                    If IsDBNull(dr.Item("datAccReportingYear")) OrElse dr.Item("datAccReportingYear") = "04-Jul-1776" Then
+                        dtpAccReportingYear.Value = DateTime.Today.AddYears(-1)
+                        dtpAccReportingYear.Checked = False
+                    Else
+                        dtpAccReportingYear.Value = dr.Item("datAccReportingYear")
+                        dtpAccReportingYear.Checked = True
                     End If
                     If dr.Item("DATPostmarkDate") = "04-Jul-1776" Then
                         DTPACCPostmarked.Text = OracleDate
@@ -5486,10 +5600,47 @@ Public Class SSCPEvents
                         rdbACCEnforcementNeededYes.Checked = False
                         rdbACCEnforcementNeededNo.Checked = True
                     End If
+                    AllDeviationsReported = DB.GetNullable(Of String)(dr.Item("STRKNOWNDEVIATIONSREPORTED"))
+                    If AllDeviationsReported = "" Then
+                        rdbACCAllDeviationsReportedYes.Checked = False
+                        rdbACCAllDeviationsReportedNo.Checked = False
+                        rdbACCAllDeviationsReportedUnknown.Checked = True
+                        rdbACCAllDeviationsReportedUnknown.Visible = True
+                    ElseIf AllDeviationsReported = "True" Then
+                        rdbACCAllDeviationsReportedYes.Checked = True
+                        rdbACCAllDeviationsReportedNo.Checked = False
+                        rdbACCAllDeviationsReportedUnknown.Checked = False
+                        rdbACCAllDeviationsReportedUnknown.Visible = False
+                    Else
+                        rdbACCAllDeviationsReportedYes.Checked = False
+                        rdbACCAllDeviationsReportedNo.Checked = True
+                        rdbACCAllDeviationsReportedUnknown.Checked = False
+                        rdbACCAllDeviationsReportedUnknown.Visible = False
+                    End If
+                    ResubmittalRequested = DB.GetNullable(Of String)(dr.Item("STRRESUBMITTALREQUIRED"))
+                    If ResubmittalRequested = "" Then
+                        rdbACCResubmittalRequestedYes.Checked = False
+                        rdbACCResubmittalRequestedNo.Checked = False
+                        rdbACCResubmittalRequestedUnknown.Checked = True
+                        rdbACCResubmittalRequestedUnknown.Visible = True
+                    ElseIf ResubmittalRequested = "True" Then
+                        rdbACCResubmittalRequestedYes.Checked = True
+                        rdbACCResubmittalRequestedNo.Checked = False
+                        rdbACCResubmittalRequestedUnknown.Checked = False
+                        rdbACCResubmittalRequestedUnknown.Visible = False
+                    Else
+                        rdbACCResubmittalRequestedYes.Checked = False
+                        rdbACCResubmittalRequestedNo.Checked = True
+                        rdbACCResubmittalRequestedUnknown.Checked = False
+                        rdbACCResubmittalRequestedUnknown.Visible = False
+                    End If
                 Else
-
+                    dtpAccReportingYear.Value = DateTime.Today.AddYears(-1)
+                    dtpAccReportingYear.Checked = True
                 End If
+
                 DTPACCPostmarked.Enabled = True
+                dtpAccReportingYear.Enabled = True
                 txtACCComments.ReadOnly = False
                 If NUPACCSubmittal.Value > 1 Then
                     rdbACCPostmarkYes.Enabled = False
@@ -5508,6 +5659,13 @@ Public Class SSCPEvents
                     rdbACCPreviousDeviationsNo.Enabled = False
                     rdbACCEnforcementNeededYes.Enabled = False
                     rdbACCEnforcementNeededNo.Enabled = False
+                    dtpAccReportingYear.Enabled = False
+                    rdbACCAllDeviationsReportedYes.Enabled = False
+                    rdbACCAllDeviationsReportedNo.Enabled = False
+                    rdbACCAllDeviationsReportedUnknown.Enabled = False
+                    rdbACCResubmittalRequestedYes.Enabled = False
+                    rdbACCResubmittalRequestedNo.Enabled = False
+                    rdbACCResubmittalRequestedUnknown.Enabled = False
 
                     'chbACCReceivedByAPB.Enabled = False
                 Else
@@ -5528,7 +5686,14 @@ Public Class SSCPEvents
                     rdbACCEnforcementNeededYes.Enabled = True
                     rdbACCEnforcementNeededNo.Enabled = True
                     DTPACCPostmarked.Enabled = True
+                    dtpAccReportingYear.Enabled = True
                     chbACCReceivedByAPB.Enabled = True
+                    rdbACCAllDeviationsReportedYes.Enabled = True
+                    rdbACCAllDeviationsReportedNo.Enabled = True
+                    rdbACCAllDeviationsReportedUnknown.Enabled = True
+                    rdbACCResubmittalRequestedYes.Enabled = True
+                    rdbACCResubmittalRequestedNo.Enabled = True
+                    rdbACCResubmittalRequestedUnknown.Enabled = True
                 End If
             Else
                 MsgBox("Can't Load")
@@ -5551,6 +5716,8 @@ Public Class SSCPEvents
         Dim ReportedUnReportedDeviations As String
         Dim ACCComments As String
         Dim EnforcementNeeded As String
+        Dim AllDeviationsReported As String
+        Dim ResubmittalRequested As String
 
         Try
 
@@ -5576,6 +5743,13 @@ Public Class SSCPEvents
                     Else
                         rdbACCPostmarkYes.Checked = False
                         rdbACCPostmarkNo.Checked = True
+                    End If
+                    If IsDBNull(dr.Item("datAccReportingYear")) OrElse dr.Item("datAccReportingYear") = "04-Jul-1776" Then
+                        dtpAccReportingYear.Value = DateTime.Today.AddYears(-1)
+                        dtpAccReportingYear.Checked = False
+                    Else
+                        dtpAccReportingYear.Value = dr.Item("datAccReportingYear")
+                        dtpAccReportingYear.Checked = True
                     End If
                     If dr.Item("DATPostmarkDate") = "04-Jul-1776" Then
                         DTPACCPostmarked.Text = OracleDate
@@ -5644,11 +5818,41 @@ Public Class SSCPEvents
                         rdbACCEnforcementNeededYes.Checked = False
                         rdbACCEnforcementNeededNo.Checked = True
                     End If
+                    AllDeviationsReported = DB.GetNullable(Of String)(dr.Item("STRKNOWNDEVIATIONSREPORTED"))
+                    If AllDeviationsReported = "" Then
+                        rdbACCAllDeviationsReportedYes.Checked = False
+                        rdbACCAllDeviationsReportedNo.Checked = False
+                        rdbACCAllDeviationsReportedUnknown.Checked = True
+                    ElseIf AllDeviationsReported = "True" Then
+                        rdbACCAllDeviationsReportedYes.Checked = True
+                        rdbACCAllDeviationsReportedNo.Checked = False
+                        rdbACCAllDeviationsReportedUnknown.Checked = False
+                    Else
+                        rdbACCAllDeviationsReportedYes.Checked = False
+                        rdbACCAllDeviationsReportedNo.Checked = True
+                        rdbACCAllDeviationsReportedUnknown.Checked = False
+                    End If
+                    ResubmittalRequested = DB.GetNullable(Of String)(dr.Item("STRRESUBMITTALREQUIRED"))
+                    If ResubmittalRequested = "" Then
+                        rdbACCResubmittalRequestedYes.Checked = False
+                        rdbACCResubmittalRequestedNo.Checked = False
+                        rdbACCResubmittalRequestedUnknown.Checked = True
+                    ElseIf ResubmittalRequested = "True" Then
+                        rdbACCResubmittalRequestedYes.Checked = True
+                        rdbACCResubmittalRequestedNo.Checked = False
+                        rdbACCResubmittalRequestedUnknown.Checked = False
+                    Else
+                        rdbACCResubmittalRequestedYes.Checked = False
+                        rdbACCResubmittalRequestedNo.Checked = True
+                        rdbACCResubmittalRequestedUnknown.Checked = False
+                    End If
                 Else
-
+                    dtpAccReportingYear.Value = DateTime.Today.AddYears(-1)
+                    dtpAccReportingYear.Checked = True
                 End If
 
                 DTPACCPostmarked.Enabled = True
+                dtpAccReportingYear.Enabled = True
                 txtACCComments.ReadOnly = False
                 If NUPACCSubmittal.Value > 1 Then
                     rdbACCPostmarkYes.Enabled = False
@@ -5667,8 +5871,15 @@ Public Class SSCPEvents
                     rdbACCPreviousDeviationsNo.Enabled = False
                     rdbACCEnforcementNeededYes.Enabled = False
                     rdbACCEnforcementNeededNo.Enabled = False
+                    rdbACCAllDeviationsReportedYes.Enabled = False
+                    rdbACCAllDeviationsReportedNo.Enabled = False
+                    rdbACCAllDeviationsReportedUnknown.Enabled = False
+                    rdbACCResubmittalRequestedNo.Enabled = False
+                    rdbACCResubmittalRequestedUnknown.Enabled = False
+                    rdbACCResubmittalRequestedYes.Enabled = False
                     'DTPACCPostmarked.Enabled = False
                     'chbACCReceivedByAPB.Enabled = False
+                    dtpAccReportingYear.Enabled = False
                 Else
                     rdbACCPostmarkYes.Enabled = True
                     rdbACCPostmarkNo.Enabled = True
@@ -5686,8 +5897,15 @@ Public Class SSCPEvents
                     rdbACCPreviousDeviationsNo.Enabled = True
                     rdbACCEnforcementNeededYes.Enabled = True
                     rdbACCEnforcementNeededNo.Enabled = True
+                    rdbACCAllDeviationsReportedYes.Enabled = True
+                    rdbACCAllDeviationsReportedNo.Enabled = True
+                    rdbACCAllDeviationsReportedUnknown.Enabled = True
+                    rdbACCResubmittalRequestedNo.Enabled = True
+                    rdbACCResubmittalRequestedUnknown.Enabled = True
+                    rdbACCResubmittalRequestedYes.Enabled = True
                     DTPACCPostmarked.Enabled = True
                     chbACCReceivedByAPB.Enabled = True
+                    dtpAccReportingYear.Enabled = True
                 End If
             Else
                 MsgBox("Can't Load")
@@ -6024,166 +6242,65 @@ Public Class SSCPEvents
 
     End Sub
 #End Region
+
     Sub DeleteSSCPData()
         Try
             If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
                 MsgBox("This Compliance Action is currently linked to an Enforcement Action." & vbCrLf & _
-                      "Disaccociate this action from any enforcement before deleting.", MsgBoxStyle.Exclamation, "SSCP Events")
+                      "Disassociate this action from any enforcement before deleting.", MsgBoxStyle.Exclamation, "SSCP Events")
                 Exit Sub
             End If
 
-            SQL = "Select " & _
-            "strTrackingNumber " & _
-            "from " & DBNameSpace & ".AFSSSCPRecords " & _
-            "where strTrackingNumber = '" & txtTrackingNumber.Text & "' " & _
-            "and strUpDateStatus <> 'A' "
-
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If MessageBox.Show("Should this work item be deleted?", _
+                               "Confirm Deletion", _
+                               MessageBoxButtons.YesNo, _
+                               MessageBoxIcon.Warning, _
+                               MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.No Then
+                Exit Sub
             End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            dr.Close()
+
+            ' Determine if action has been submitted to EPA
+            Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
+                " FROM " & DBNameSpace & ".AFSSSCPRECORDS " & _
+                " WHERE RowNum = 1 AND STRUPDATESTATUS  <> 'A' " & _
+                " AND STRTRACKINGNUMBER = :pId "
+            Dim parameter As OracleParameter = New OracleParameter("pId", txtTrackingNumber.Text)
+            recExist = Convert.ToBoolean(DB.GetSingleValue(Of String)(query, parameter))
+
             If recExist = True Then
                 MsgBox("This Compliance Action has already been submitted to EPA and must be manually removed." & vbCrLf & _
                        "Please contact the Data Management Unit (Michael Floyd) with the tracking number to delete this action.", _
-                       MsgBoxStyle.Exclamation, "SSCP Evens")
+                       MsgBoxStyle.Exclamation, "SSCP Events")
                 Exit Sub
             End If
 
-            SQL = "Delete " & DBNameSpace & ".AFSSSCPRecords " & _
-            "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            ' Delete record from AFS and mark as deleted in SSCP item master
+            Dim queryList As New List(Of String)
+            Dim parametersList As New List(Of OracleParameter())
+            Dim parameters As OracleParameter()
+
+            query = " DELETE FROM " & DBNameSpace & ".AFSSSCPRECORDS WHERE STRTRACKINGNUMBER = :pId "
+            queryList.Add(query)
+            parameters = New OracleParameter() {New OracleParameter("pId", txtTrackingNumber.Text)}
+            parametersList.Add(parameters)
+
+            query = " UPDATE " & DBNameSpace & ".SSCPITEMMASTER SET STRDELETE = '" & Boolean.TrueString & "' " & _
+                " WHERE STRTRACKINGNUMBER = :pId "
+            queryList.Add(query)
+            parametersList.Add(parameters) ' parameters are same for both queries
+
+            Dim result As Boolean = DB.RunCommand(queryList, parametersList)
+
+            If result Then
+                MsgBox("Compliance Event Deleted.", MsgBoxStyle.Information, "SSCP Events")
+                Me.Close()
+            Else
+                MsgBox("There was an error deleting the event.", MsgBoxStyle.Exclamation, "SSCP Events")
             End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            'If TPReport.Focus = True Then
-            '    SQL = "Delete " & DBNameSpace & ".SSCPReportsHistory " & _
-            '    "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-            '    cmd = New OracleCommand(SQL, conn)
-            '    If conn.State = ConnectionState.Closed Then
-            '        conn.Open()
-            '    End If
-            '    dr = cmd.ExecuteReader
-            '    dr.Close()
-
-            '    SQL = "Delete " & DBNameSpace & ".SSCPReports " & _
-            '    "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-            '    cmd = New OracleCommand(SQL, conn)
-            '    If conn.State = ConnectionState.Closed Then
-            '        conn.Open()
-            '    End If
-            '    dr = cmd.ExecuteReader
-            '    dr.Close()
-            'End If
-            'If TPInspection.Focus = True Then
-            '    SQL = "Delete " & DBNameSpace & ".SSCPInspections " & _
-            '    "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-            '    cmd = New OracleCommand(SQL, conn)
-            '    If conn.State = ConnectionState.Closed Then
-            '        conn.Open()
-            '    End If
-            '    dr = cmd.ExecuteReader
-            '    dr.Close()
-            'End If
-            'If TPACC.Focus = True Then
-            '    SQL = "Delete " & DBNameSpace & ".SSCPACCSHistory " & _
-            '    "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-            '    cmd = New OracleCommand(SQL, conn)
-            '    If conn.State = ConnectionState.Closed Then
-            '        conn.Open()
-            '    End If
-            '    dr = cmd.ExecuteReader
-            '    dr.Close()
-
-            '    SQL = "Delete " & DBNameSpace & ".SSCPACCS " & _
-            '    "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-            '    cmd = New OracleCommand(SQL, conn)
-            '    If conn.State = ConnectionState.Closed Then
-            '        conn.Open()
-            '    End If
-            '    dr = cmd.ExecuteReader
-            '    dr.Close()
-            'End If
-            'If TPTestReports.Focus = True Then
-            '    SQL = "Delete " & DBNameSpace & ".SSCPTestReports " & _
-            '    "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-            '    cmd = New OracleCommand(SQL, conn)
-            '    If conn.State = ConnectionState.Closed Then
-            '        conn.Open()
-            '    End If
-            '    dr = cmd.ExecuteReader
-            '    dr.Close()
-            'End If
-            'If TPNotifications.Focus = True Then
-            '    SQL = "Delete " & DBNameSpace & ".SSCPNotifications " & _
-            '    "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-            '    cmd = New OracleCommand(SQL, conn)
-            '    If conn.State = ConnectionState.Closed Then
-            '        conn.Open()
-            '    End If
-            '    dr = cmd.ExecuteReader
-            '    dr.Close()
-            'End If
-
-            'SQL = "Delete " & DBNameSpace & ".SSCPItemMaster " & _
-            '"where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-
-            SQL = "Update " & DBNameSpace & ".SSCPItemMaster set " & _
-            "strDelete = 'True' " & _
-            "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            MsgBox("Compliance Event Deleted.", MsgBoxStyle.Information, "SSCP Events")
-
-            Back()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-    End Sub
-    Private Sub SSCP_Reports_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-
-            Back()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub TBSSCPItems_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBSSCPItems.ButtonClick
-        Try
-
-            Select Case TBSSCPItems.Buttons.IndexOf(e.Button)
-                Case 0
-                    SaveMaster()
-                Case 1
-
-                Case 2
-                    DeleteSSCPData()
-                Case 3
-                    Back()
-                Case Else
-                    MsgBox("try clicking again")
-            End Select
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
     End Sub
 
 #Region "Validate"
@@ -6391,7 +6508,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbACCCorrectNo_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbACCCorrectNo.Validating
+    Private Sub rdbACCCorrectNo_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbACCCorrectNo.Validating, rdbACCAllDeviationsReportedUnknown.Validating
         Try
 
             ValidateCorrectlyFilledOut()
@@ -6434,6 +6551,22 @@ Public Class SSCPEvents
 
         End Try
 
+    End Sub
+    Private Sub rdbACCAllDeviationsReported_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) _
+    Handles rdbACCAllDeviationsReportedYes.Validating, rdbACCAllDeviationsReportedNo.Validating, rdbACCAllDeviationsReportedUnknown.Validating
+        Try
+            ValidateACCAllDeviationsReported()
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub rdbACCResubmittalRequested_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) _
+    Handles rdbACCResubmittalRequestedYes.Validating, rdbACCResubmittalRequestedNo.Validating, rdbACCResubmittalRequestedUnknown.Validating
+        Try
+            ValidateACCResubmittalRequested()
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
     End Sub
     Private Sub rdbACCEnforcementNeededNo_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbACCEnforcementNeededNo.Validating
         Try
@@ -6705,6 +6838,8 @@ Public Class SSCPEvents
             ValidateReportedDeviations()
             ValidatePreviouslyReportedDeviations()
             ValidateACCEnforcementNeeded()
+            ValidateACCAllDeviationsReported()
+            ValidateACCResubmittalRequested()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -6846,6 +6981,38 @@ Public Class SSCPEvents
 
         End Try
 
+    End Sub
+    Sub ValidateACCAllDeviationsReported()
+        Try
+            If (rdbACCAllDeviationsReportedYes.Checked Or rdbACCAllDeviationsReportedNo.Checked) Then
+                wrnACCAllDeviationsReported.Visible = False
+            Else
+                wrnACCAllDeviationsReported.Visible = True
+                If rdbACCAllDeviationsReportedUnknown.Visible Then
+                    wrnACCAllDeviationsReported.Location = New Point(406, wrnACCAllDeviationsReported.Location.Y)
+                Else
+                    wrnACCAllDeviationsReported.Location = New Point(329, wrnACCAllDeviationsReported.Location.Y)
+                End If
+            End If
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Sub ValidateACCResubmittalRequested()
+        Try
+            If (rdbACCResubmittalRequestedYes.Checked Or rdbACCResubmittalRequestedNo.Checked) Then
+                wrnACCResubmittalRequested.Visible = False
+            Else
+                wrnACCResubmittalRequested.Visible = True
+                If rdbACCResubmittalRequestedUnknown.Visible Then
+                    wrnACCResubmittalRequested.Location = New Point(406, wrnACCResubmittalRequested.Location.Y)
+                Else
+                    wrnACCResubmittalRequested.Location = New Point(329, wrnACCResubmittalRequested.Location.Y)
+                End If
+            End If
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
     End Sub
     Sub ValidateDatePostmarked()
         Try
@@ -7058,88 +7225,6 @@ Public Class SSCPEvents
 
     End Sub
 
-#Region "Main Menu Items"
-    Private Sub MmiSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiSave.Click
-        Try
-
-            SaveMaster()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub MmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiBack.Click
-        Try
-
-            Back()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiCut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCut.Click
-        Try
-
-            SendKeys.Send("^(x)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCopy.Click
-        Try
-
-            SendKeys.Send("^(c)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiPaste_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPaste.Click
-        Try
-
-            SendKeys.Send("^(v)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiLetterTemplates_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiLetterTemplates.Click
-        Try
-
-            SSCPTemplates = Nothing
-            If SSCPTemplates Is Nothing Then SSCPTemplates = New SSCPLetterTemplates
-            SSCPTemplates.Show()
-            'SSCPTemplates.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
-        Try
-
-            Help.ShowHelp(Label1, HelpUrl)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-#End Region
 
     Private Sub lblInspectionScheduleLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblInspectionScheduleLink.LinkClicked
         Try
@@ -7205,15 +7290,7 @@ Public Class SSCPEvents
 
     End Sub
     Private Sub btnEnforcementProcess_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEnforcementProcess.Click
-        Try
-
-            OpenEnforcement()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        OpenEnforcement()
     End Sub
     Private Sub btnReportMoreOptions_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReportMoreOptions.Click
         Dim tempWidth As String
@@ -7348,4 +7425,85 @@ Public Class SSCPEvents
 
         End Try
     End Sub
+
+    Private Sub PrintACC()
+        LoadACC()
+        If Not dtpAccReportingYear.Checked Then
+            MsgBox("Please save a reporting year before printing this ACC.", MsgBoxStyle.Critical, "Print Error")
+            Exit Sub
+        End If
+        Try
+            Dim acc As CR.Data.CrAcc = New CR.Data.CrAcc(LoadAccFromForm)
+
+            Dim accList As New ArrayList
+            accList.Add(acc)
+
+            Dim dataTable As DataTable = CollectionHelper.ConvertToDataTable(Of CR.Data.CrAcc)(accList)
+            Dim crv As New CRViewerForm(New CR.Reports.AccMemo, dataTable)
+            crv.Title = acc.AccReportingYear & " ACC for " & acc.Facility.AirsNumberFormatted
+            crv.Show()
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
+    Private Function LoadAccFromForm() As Apb.SSCP.Acc
+        Dim thisAcc As New Apb.SSCP.Acc
+
+        With thisAcc
+            If dtpAccReportingYear.Checked Then .AccReportingYear = dtpAccReportingYear.Value.Year
+            .AllDeviationsReported = rdbACCAllDeviationsReportedYes.Checked
+            .AllTitleVConditionsListed = rdbACCConditionsYes.Checked
+            .Comments = txtACCComments.Text
+            .CorrectFormsUsed = rdbACCCorrectACCYes.Checked
+            .CorrectlyFilledOut = rdbACCCorrectYes.Checked
+            If DTPAcknowledgmentLetterSent.Checked Then .DateAcknowledgmentLetterSent = DTPAcknowledgmentLetterSent.Value
+            If chbEventComplete.Checked Then .DateComplete = DTPEventCompleteDate.Value
+            .DatePostmarked = DTPACCPostmarked.Value
+            .DateReceived = DTPACCReceivedDate.Value
+            .Deleted = ItemIsDeleted
+            .DeviationsReported = rdbACCDeviationsReportedYes.Checked
+            .EnforcementNeeded = rdbACCEnforcementNeededYes.Checked
+            .Facility = DAL.GetFacilityInfoByAirs(AIRSNumber)
+            .ResubmittalRequested = rdbACCResubmittalRequestedYes.Checked
+            .SignedByResponsibleOfficial = rdbACCROYes.Checked
+            .StaffResponsible = DAL.GetStaffInfoById(cboStaffResponsible.SelectedValue)
+        End With
+
+        Return thisAcc
+    End Function
+
+#Region "Main menu/toolbar"
+
+    Private Sub mmiClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClose.Click
+        Me.Close()
+    End Sub
+
+    Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
+        OpenHelpUrl(Me)
+    End Sub
+
+    Private Sub mmiDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiDelete.Click
+        DeleteSSCPData()
+    End Sub
+
+    Private Sub mmiSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSave.Click
+        SaveMaster()
+    End Sub
+
+    Private Sub mmiPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPrint.Click
+        PrintACC()
+    End Sub
+
+    Private Sub tbToolbar_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles tbToolbar.ButtonClick
+        Select Case tbToolbar.Buttons.IndexOf(e.Button)
+            Case 0
+                SaveMaster()
+            Case 1
+                PrintACC()
+        End Select
+    End Sub
+
+#End Region
+
 End Class

@@ -36,10 +36,14 @@ Public Class ISMPTestReports
     Dim ReportStatus As String
     Dim ControlEquipment As String
 
-    Private Sub DevTestReports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub ISMPTestReports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Try
-            SCTestReports.SplitterDistance = 190
+            Me.Height = Math.Max(Me.Height, 200)
+            Dim defaultSplitterDistance As Integer = 190
+            SCTestReports.SplitterDistance = Math.Min(SCTestReports.Height - SCTestReports.Panel2MinSize, _
+                Math.Max(defaultSplitterDistance, SCTestReports.Panel1MinSize))
+
             Panel1.Text = "Select a Function..."
             Panel2.Text = UserName
             Panel3.Text = OracleDate
@@ -9662,7 +9666,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 chbTestReportChangeDueDate.Checked = False
                 'DTPAcknoledgmentLetterSent.Visible = False
                 'chbAcknoledgmentLetterSent.Checked = False
-                DTPEventCompleteDate.Visible = False
+                DTPEventCompleteDate.Enabled = False
 
                 If AccountArray(69, 4) = "1" Then
                     If chbEventComplete.Checked = False Then
@@ -9734,8 +9738,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 chbTestReportChangeDueDate.Enabled = False
                 DTPTestReportDueDate.Enabled = False
                 DTPTestReportNewDueDate.Enabled = False
-                DTPEventCompleteDate.Visible = False
-                DTPEventCompleteDate.Visible = True
+                DTPEventCompleteDate.Enabled = True
             Else
                 cboStaffResponsible.Enabled = True
                 txtTestReportComments.ReadOnly = False
@@ -9746,7 +9749,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 chbTestReportChangeDueDate.Enabled = True
                 DTPTestReportDueDate.Enabled = True
                 DTPTestReportNewDueDate.Enabled = True
-                DTPEventCompleteDate.Visible = False
+                DTPEventCompleteDate.Enabled = False
             End If
 
         Catch ex As Exception
@@ -15468,21 +15471,23 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
     End Sub
     Private Sub OpenEnforcement()
         Try
+            Dim parameters As New Generic.Dictionary(Of String, String)
+            parameters("airsnumber") = txtAirsNumber.Text
+            If txtTrackingNumber.Text <> "" Then parameters("trackingnumber") = txtTrackingNumber.Text
+            OpenSingleForm(SSCPEnforcementSelector, parameters:=parameters, closeFirst:=True)
 
-            If SSCPSelectEnforcement Is Nothing Then
-                If SSCPSelectEnforcement Is Nothing Then SSCPSelectEnforcement = New SSCPEnforcementSelector
-                SSCPSelectEnforcement.txtAIRSNumber.Text = txtAIRSNumber.Text
-                SSCPSelectEnforcement.txtTrackingNumber.Text = txtTrackingNumber.Text
-                SSCPSelectEnforcement.Show()
-            Else
-                SSCPSelectEnforcement.BringToFront()
-            End If
+            'If SSCPSelectEnforcement Is Nothing Then
+            '    If SSCPSelectEnforcement Is Nothing Then SSCPSelectEnforcement = New SSCPEnforcementSelector
+            '    SSCPSelectEnforcement.txtAIRSNumber.Text = txtAirsNumber.Text
+            '    SSCPSelectEnforcement.txtTrackingNumber.Text = txtTrackingNumber.Text
+            '    SSCPSelectEnforcement.Show()
+            'Else
+            '    SSCPSelectEnforcement.BringToFront()
+            'End If
             'SSCPSelectEnforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
-
     End Sub
     Sub LoadConfidentialData(ByVal ConfidentialData As String)
         Try
@@ -17758,10 +17763,10 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
     Private Sub chbEventComplete_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbEventComplete.CheckedChanged
         Try
             If chbEventComplete.Checked = True Then
-                DTPEventCompleteDate.Visible = True
+                DTPEventCompleteDate.Enabled = True
                 CloseSSCPWork(True)
             Else
-                DTPEventCompleteDate.Visible = False
+                DTPEventCompleteDate.Enabled = False
                 CloseSSCPWork(False)
             End If
 
@@ -23192,4 +23197,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
     End Sub
 
 
+    Private Sub DTPEventCompleteDate_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DTPEventCompleteDate.ValueChanged
+
+    End Sub
 End Class

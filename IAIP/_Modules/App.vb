@@ -95,20 +95,6 @@ Module App
 
 #End Region
 
-#Region "Validation"
-
-    Public Function IsValidEmail(ByVal email As String) As Boolean
-        If String.IsNullOrEmpty(email) Then Return False
-        Try
-            Dim testEmail As Net.Mail.MailAddress = New Net.Mail.MailAddress(email)
-        Catch ex As Exception
-            Return False
-        End Try
-        Return True
-    End Function
-
-#End Region
-
 #Region "Versioning Info"
     Friend PublishedVersion As Version = Nothing
     Friend CurrentVersion As Version = Nothing
@@ -262,6 +248,33 @@ Module App
 
     Public Function ConcatNonEmptyStrings(ByVal separator As String, ByVal value() As String) As String
         Return String.Join(separator, Array.FindAll(value, Function(s) Not String.IsNullOrEmpty(s)))
+    End Function
+
+    Public Function FormatStringAsPhoneNumber(ByVal p As String) As String
+        If p Is Nothing Then Return p
+        If Not System.Text.RegularExpressions.Regex.IsMatch(p, "^[0-9 ]+$") Then Return p
+        If Not (p.Length = 7 Or p.Length >= 10) Then Return p
+
+        If p.Length = 7 Then
+            Return p.Substring(0, 3) & "-" & p.Substring(4, 4)
+        ElseIf p.Length = 10 Then
+            Return "(" & p.Substring(0, 3) & ") " & p.Substring(3, 3) & "-" & p.Substring(6, 4)
+        Else
+            Return "(" & p.Substring(0, 3) & ") " & p.Substring(3, 3) & "-" & p.Substring(6, 4) & " Ext. " & p.Substring(10, p.Length - 10)
+        End If
+    End Function
+
+#End Region
+
+#Region "Date functions"
+
+    Public Function NormalizeDate(ByVal d As Date?) As Date?
+        ' Converts a date to Nothing if date is equal to #7/4/1776#
+
+        If d.Equals(CType(Nothing, Date)) Then Return d
+        If Not IsDate(d) Then Return Nothing
+        If d.Equals(New Date(1776, 7, 4)) Then Return Nothing
+        Return d
     End Function
 
 #End Region

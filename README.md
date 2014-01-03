@@ -55,7 +55,7 @@ Before you can build the IAIP, you must have several additional tools available 
 
 *(It doesn't matter what you name the root directory or the IAIP solution directory.)*
 
-The `_Tools` repository is also on [BitBucket](https://bitbucket.org/dougwaldron/tools-for-vs-projects).
+The `_Tools` repository is also on [BitBucket](https://bitbucket.org/dougwaldron/tools-for-vs-and-other-projects).
 
 There are some items in the `_Tools` directory that are not used by the IAIP. Currently required tools are:
 

@@ -64,7 +64,7 @@ Public Class SscpDocuments
                 enforcementInfo = GetEnforcementInfo(enforcementNumber)
                 ShowEnforcement()
             Else
-                DisplayMessage(lblMessage, GetDocumentMessage(DocumentMessageType.InvalidApplicationNumber), True, EP, lblMessage)
+                DisplayMessage(lblMessage, GetDocumentMessage(DocumentMessageType.InvalidEnforcementNumber), True, EP, lblMessage)
             End If
         End If
     End Sub
@@ -455,7 +455,7 @@ Public Class SscpDocuments
         Me.AcceptButton = Nothing
     End Sub
 
-    Private Sub txtApplicationNumber_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Private Sub txtFindEnforcement_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
     Handles txtFindEnforcement.Enter
         Me.AcceptButton = btnFindEnforcement
     End Sub

@@ -1,5 +1,15 @@
 ﻿Module Email
 
+    Public Function EmailAddressIsValid(ByVal email As String) As Boolean
+        If String.IsNullOrEmpty(email) Then Return False
+        Try
+            Dim testEmail As Net.Mail.MailAddress = New Net.Mail.MailAddress(email)
+        Catch ex As Exception
+            Return False
+        End Try
+        Return True
+    End Function
+
     Public Sub CreateEmail(Optional ByVal subject As String = Nothing, _
                          Optional ByVal body As String = Nothing, _
                          Optional ByVal recipientsTo As String() = Nothing, _

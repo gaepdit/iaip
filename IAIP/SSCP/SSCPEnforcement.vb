@@ -2111,7 +2111,7 @@ Public Class SscpEnforcement
     End Sub
     Sub SaveEnforcement()
         Try
-            If SingleForm IsNot Nothing AndAlso SingleForm(SSCPEnforcementChecklist.Name) IsNot Nothing Then
+            If SingleFormIsOpen(SSCPEnforcementChecklist) Then
                 MsgBox("Please close the linking tool before saving.", MsgBoxStyle.Exclamation, "SSCP Enforcement")
                 Exit Sub
             End If
@@ -3979,7 +3979,7 @@ Public Class SscpEnforcement
     End Sub
     Private Sub SaveClick()
         Try
-            If SingleForm IsNot Nothing AndAlso SingleForm(SSCPEnforcementChecklist.Name) IsNot Nothing Then
+            If SingleFormIsOpen(SSCPEnforcementChecklist) Then
                 MsgBox("Please close the linking tool before saving.", MsgBoxStyle.Exclamation, "SSCP Enforcement")
                 Exit Sub
             End If

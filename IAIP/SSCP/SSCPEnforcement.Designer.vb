@@ -2571,7 +2571,7 @@ Partial Class SscpEnforcement
         Me.DataGridView1.StandardTab = True
         Me.DataGridView1.TabIndex = 4
         '
-        'NewSscpEnforcementAudit
+        'SscpEnforcement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -2581,8 +2581,8 @@ Partial Class SscpEnforcement
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MinimumSize = New System.Drawing.Size(639, 579)
-        Me.Name = "NewSscpEnforcementAudit"
-        Me.Text = "New SSCP Enforcement Audit"
+        Me.Name = "SscpEnforcement"
+        Me.Text = "SSCP Enforcement Audit"
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
