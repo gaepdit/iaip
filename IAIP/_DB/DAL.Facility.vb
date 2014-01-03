@@ -1,5 +1,5 @@
 ﻿Imports Oracle.DataAccess.Client
-Imports JohnGaltProject.Apb
+Imports Iaip.Apb
 
 Namespace DAL
     Module FacilityInfo
@@ -18,7 +18,7 @@ Namespace DAL
         End Function
 
         Public Function GetFacilityNameByAirs(ByVal id As String) As String
-            If Not Apb.Facility.NormalizeAirsNumber(id, True) Then Return Nothing
+            If Not Facility.NormalizeAirsNumber(id, True) Then Return Nothing
 
             Dim query As String = "SELECT STRFACILITYNAME " & _
                 " FROM AIRBRANCH.APBFACILITYINFORMATION " & _
@@ -28,7 +28,7 @@ Namespace DAL
         End Function
 
         Public Function GetFacilityInfoByAirsAsDataRow(ByVal id As String) As DataRow
-            If Not Apb.Facility.NormalizeAirsNumber(id, True) Then Return Nothing
+            If Not Facility.NormalizeAirsNumber(id, True) Then Return Nothing
 
             Dim query As String = "SELECT APBFACILITYINFORMATION.STRAIRSNUMBER, " & _
                 "   APBFACILITYINFORMATION.STRFACILITYNAME, " & _
