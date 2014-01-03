@@ -6,6 +6,8 @@
         ' form to form or report. In the future... maybe also creating/editing
         ' data?
 
+#Region "Properties"
+
         Public Property AirsNumber() As String
             Get
                 Return _airsNumber
@@ -159,6 +161,10 @@
         End Property
         Private _rmpId As String
 
+#End Region
+
+#Region "Shared Functions"
+
         Public Shared Function IsAirsNumberValid(ByVal airsNumber As String) As Boolean
             ' Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000
             ' (with or without the dashes)
@@ -220,6 +226,8 @@
                 Return Mid(airsNumber, 1, 3) & "-" & Mid(airsNumber, 4, 5)
             End If
         End Function
+
+#End Region
 
     End Class
 
