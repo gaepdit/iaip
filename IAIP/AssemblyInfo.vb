@@ -9,7 +9,7 @@ Imports System.Runtime.InteropServices
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("Integrated Air Information Platform")> 
-<Assembly: AssemblyDescription("GA Air Protection Branch integrated database system.")> 
+<Assembly: AssemblyDescription("GA Air Protection Branch integrated database system")> 
 <Assembly: AssemblyCompany("State of Georgia")> 
 <Assembly: AssemblyProduct("Integrated Air Information Platform")> 
 <Assembly: AssemblyCopyright("")> 
