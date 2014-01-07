@@ -102,7 +102,7 @@ Public Class IAIPLogIn
 
     Private Sub VerifyVersion()
         ' Do version checking
-        Dim currentVersion As Version = GetCurrentVersion()
+        Dim currentVersion As Version = GetRunningVersion()
         'Dim publishedVersion As Version = GetPublishedVersion()
 
         'lnkUpdateLink.Visible = False
@@ -435,23 +435,6 @@ Public Class IAIPLogIn
 
 #End Region
 
-    '#Region "Update application"
-
-    '    Private Sub StartIaipUpdate()
-    '        OpenDownloadUrl()
-    '        CloseIaip()
-    '    End Sub
-
-    '    Private Sub mmiUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiForceUpdate.Click
-    '        StartIaipUpdate()
-    '    End Sub
-
-    '    Private Sub UpdateLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkUpdateLink.LinkClicked
-    '        StartIaipUpdate()
-    '    End Sub
-
-    '#End Region
-
 #Region "Form usability"
 
     Private Sub lblUserID_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblUserID.Click
@@ -720,6 +703,26 @@ Public Class IAIPLogIn
     '    End If
     'End Sub
 
+    '#Region "Update application"
+
+    '    Private Sub StartIaipUpdate()
+    '        OpenDownloadUrl()
+    '        CloseIaip()
+    '    End Sub
+
+    '    Private Sub mmiUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiForceUpdate.Click
+    '        StartIaipUpdate()
+    '    End Sub
+
+    '    Private Sub UpdateLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkUpdateLink.LinkClicked
+    '        StartIaipUpdate()
+    '    End Sub
+
+    '#End Region
+
 #End Region
 
+    Private Sub mmiCheckForUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCheckForUpdate.Click
+        App.CheckForUpdate()
+    End Sub
 End Class

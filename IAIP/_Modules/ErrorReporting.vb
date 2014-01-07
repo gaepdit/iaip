@@ -99,7 +99,7 @@ Module ErrorReporting
             Exit Sub
         End If
         Try
-            ErrorMessage = GetCurrentVersion.ToString & vbCrLf & ErrorMessage
+            ErrorMessage = GetRunningVersion.ToString & vbCrLf & ErrorMessage
             ErrorMess = Mid(ErrorMessage, 1, 4000)
 
             SQL = "Insert into " & DBNameSpace & ".IAIPErrorLog " & _

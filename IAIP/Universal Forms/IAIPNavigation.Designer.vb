@@ -126,6 +126,8 @@ Partial Class IAIPNavigation
         Me.bgrOpenNewForm = New System.ComponentModel.BackgroundWorker
         Me.bgrFormLoad = New System.ComponentModel.BackgroundWorker
         Me.Panel1 = New System.Windows.Forms.Panel
+        Me.mmiCheckForUpdate = New System.Windows.Forms.MenuItem
+        Me.MenuItem4 = New System.Windows.Forms.MenuItem
         Me.Panel4.SuspendLayout()
         Me.GPWorkTool.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -195,7 +197,7 @@ Partial Class IAIPNavigation
         'mmiHelp
         '
         Me.mmiHelp.Index = 3
-        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.mmiResetForm, Me.MenuItem1, Me.mmiAbout})
+        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.mmiResetForm, Me.MenuItem1, Me.mmiCheckForUpdate, Me.MenuItem4, Me.mmiAbout})
         Me.mmiHelp.Text = "&Help"
         '
         'mmiOnlineHelp
@@ -216,7 +218,7 @@ Partial Class IAIPNavigation
         '
         'mmiAbout
         '
-        Me.mmiAbout.Index = 3
+        Me.mmiAbout.Index = 5
         Me.mmiAbout.Text = "&About IAIP"
         '
         'mmiTesting
@@ -1242,6 +1244,16 @@ Partial Class IAIPNavigation
         Me.Panel1.TabIndex = 125
         Me.Panel1.Visible = False
         '
+        'mmiCheckForUpdate
+        '
+        Me.mmiCheckForUpdate.Index = 3
+        Me.mmiCheckForUpdate.Text = "Check for &Update"
+        '
+        'MenuItem4
+        '
+        Me.MenuItem4.Index = 4
+        Me.MenuItem4.Text = "-"
+        '
         'IAIPNavigation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1375,4 +1387,6 @@ Partial Class IAIPNavigation
     Friend WithEvents mmiTesting As System.Windows.Forms.MenuItem
     Friend WithEvents mmiResetForm As System.Windows.Forms.MenuItem
     Friend WithEvents btnNav40 As System.Windows.Forms.Button
+    Friend WithEvents mmiCheckForUpdate As System.Windows.Forms.MenuItem
+    Friend WithEvents MenuItem4 As System.Windows.Forms.MenuItem
 End Class

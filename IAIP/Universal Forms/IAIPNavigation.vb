@@ -8975,4 +8975,7 @@ Public Class IAIPNavigation
         Me.Location = New Point(0, 0)
     End Sub
 
+    Private Sub mmiCheckForUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCheckForUpdate.Click
+        App.CheckForUpdate()
+    End Sub
 End Class
