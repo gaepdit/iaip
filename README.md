@@ -10,13 +10,17 @@ This is a special fork to prepare for moving to a [ClickOnce](http://msdn.micros
 ### Pre-deployment:
 
 + ✓ Remove hard-coded file dependencies
-+ ✗ Remove installer project ==(Use for installing dummy JohnGaltProject)==
-+ Add dummy replacement for JohnGaltProject to inform user of new IAIP installation (with link)
-+ Review ClickOnce settings (prerequisites, etc.)
-+ Change project name
-+ Add code in new project to remove old program
++ ✓ Remove installer project
++ ✓ Change project name
++ ✓ Add code in new project to remove old program
+
+
 + Remove version checking code
 + Create installation website
++ Draft emails
++ Create dummy replacement for JohnGaltProject to inform user of new IAIP installation (with link to installation website)
++ Review ClickOnce settings (prerequisites, etc.)
++ Review CPU settings
 
 ### Post-deployment:
 
