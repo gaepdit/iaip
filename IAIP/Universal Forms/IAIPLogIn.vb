@@ -99,64 +99,67 @@ Public Class IAIPLogIn
             .Visible = True
         End With
     End Sub
+
     Private Sub VerifyVersion()
         ' Do version checking
         Dim currentVersion As Version = GetCurrentVersion()
-        Dim publishedVersion As Version = GetPublishedVersion()
+        'Dim publishedVersion As Version = GetPublishedVersion()
 
-        lnkUpdateLink.Visible = False
+        'lnkUpdateLink.Visible = False
 
         With lblCurrentVersionMessage
             .Text = String.Format("Version: {0}", GetCurrentVersionAsBuild.ToString)
             .Visible = True
         End With
 
-        If publishedVersion.Equals(New Version("0.0.0.0")) Then
-            DisableLogin("The Platform is currently unavailable. Please check " & vbNewLine & _
-                         "back later. If you continue to see this message after " & vbNewLine & _
-                         "two hours, please inform the Data Management Unit. " & vbNewLine & _
-                         "Thank you.")
-            lblCurrentVersionMessage.Location = New Point(337, lblCurrentVersionMessage.Location.Y)
-            Exit Sub
-        End If
+        'If publishedVersion.Equals(New Version("0.0.0.0")) Then
+        '    DisableLogin("The Platform is currently unavailable. Please check " & vbNewLine & _
+        '                 "back later. If you continue to see this message after " & vbNewLine & _
+        '                 "two hours, please inform the Data Management Unit. " & vbNewLine & _
+        '                 "Thank you.")
+        '    lblCurrentVersionMessage.Location = New Point(337, lblCurrentVersionMessage.Location.Y)
+        '    Exit Sub
+        'End If
 
-        If IsUpdateMandatory() Then
-            DisableLogin("Your installation of the Platform is out of date " & vbNewLine & _
-                         "and must be updated before you can proceed.")
-            ShowUpdateLink(currentVersion, publishedVersion)
-            With lblCurrentVersionMessage
-                .Location = New Point(337, 278)
-                .ForeColor = SystemColors.ControlText
-            End With
-            With lblAvailableVersionMessage
-                .Location = New Point(337, 296)
-                .ForeColor = Color.Maroon
-            End With
-            With lnkUpdateLink
-                .Location = New Point(337, 330)
-                .LinkColor = Color.Red
-            End With
+        'If IsUpdateMandatory() Then
+        '    DisableLogin("Your installation of the Platform is out of date " & vbNewLine & _
+        '                 "and must be updated before you can proceed.")
+        '    ShowUpdateLink(currentVersion, publishedVersion)
+        '    With lblCurrentVersionMessage
+        '        .Location = New Point(337, 278)
+        '        .ForeColor = SystemColors.ControlText
+        '    End With
+        '    With lblAvailableVersionMessage
+        '        .Location = New Point(337, 296)
+        '        .ForeColor = Color.Maroon
+        '    End With
+        '    With lnkUpdateLink
+        '        .Location = New Point(337, 330)
+        '        .LinkColor = Color.Red
+        '    End With
 
-            Exit Sub
-        End If
+        '    Exit Sub
+        'End If
 
-        If IsUpdateAvailable() Then
-            ShowUpdateLink(currentVersion, publishedVersion)
-            lblCurrentVersionMessage.ForeColor = SystemColors.ControlText
-        End If
+        'If IsUpdateAvailable() Then
+        '    ShowUpdateLink(currentVersion, publishedVersion)
+        '    lblCurrentVersionMessage.ForeColor = SystemColors.ControlText
+        'End If
 
     End Sub
-    Private Sub ShowUpdateLink(ByVal currentVersion As Version, ByVal publishedVersion As Version)
-        lnkUpdateLink.Visible = True
-        With lblCurrentVersionMessage
-            .Text = String.Format("You are using version: {0}", currentVersion.ToString)
-            .Visible = True
-        End With
-        With lblAvailableVersionMessage
-            .Text = String.Format("Version {0} is available to install", publishedVersion.ToString)
-            .Visible = True
-        End With
-    End Sub
+
+    'Private Sub ShowUpdateLink(ByVal currentVersion As Version, ByVal publishedVersion As Version)
+    '    lnkUpdateLink.Visible = True
+    '    With lblCurrentVersionMessage
+    '        .Text = String.Format("You are using version: {0}", currentVersion.ToString)
+    '        .Visible = True
+    '    End With
+    '    With lblAvailableVersionMessage
+    '        .Text = String.Format("Version {0} is available to install", publishedVersion.ToString)
+    '        .Visible = True
+    '    End With
+    'End Sub
+
     Private Sub CheckLanguageRegistrySetting()
         Dim currentSetting As String
         currentSetting = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", Nothing)
@@ -334,22 +337,27 @@ Public Class IAIPLogIn
 
                         SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
 
-                        If Me.mmiTestingEnvironment.Checked Or mmiTestingDatabase.Checked Or mmiLukeEnvironment.Checked Then
-                            If Me.mmiTestingEnvironment.Checked Then
-                                NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT"
-                                NavigationScreen.pnl4.BackColor = Color.Tomato
-                            End If
-                            If mmiTestingDatabase.Checked Then
-                                NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT"
-                                NavigationScreen.pnl4.BackColor = Color.Blue
-                            End If
-                            If mmiLukeEnvironment.Checked Then
-                                NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT"
-                                NavigationScreen.pnl4.BackColor = Color.Black
-                            End If
+                        'If Me.mmiTestingEnvironment.Checked Or mmiTestingDatabase.Checked Or mmiLukeEnvironment.Checked Then
+                        '    If Me.mmiTestingEnvironment.Checked Then
+                        '        NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT"
+                        '        NavigationScreen.pnl4.BackColor = Color.Tomato
+                        '    End If
+                        '    If mmiTestingDatabase.Checked Then
+                        '        NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT"
+                        '        NavigationScreen.pnl4.BackColor = Color.Blue
+                        '    End If
+                        '    If mmiLukeEnvironment.Checked Then
+                        '        NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT"
+                        '        NavigationScreen.pnl4.BackColor = Color.Black
+                        '    End If
+                        'Else
+                        If Me.mmiTestingEnvironment.Checked Then
+                            NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT"
+                            NavigationScreen.pnl4.BackColor = Color.Tomato
                         Else
                             NavigationScreen.pnl4.Text = ""
                         End If
+
                         NavigationScreen.Show()
 
                         LoginProgressBar.Value = 0
@@ -427,22 +435,22 @@ Public Class IAIPLogIn
 
 #End Region
 
-#Region "Update application"
+    '#Region "Update application"
 
-    Private Sub StartIaipUpdate()
-        OpenDownloadUrl()
-        CloseIaip()
-    End Sub
+    '    Private Sub StartIaipUpdate()
+    '        OpenDownloadUrl()
+    '        CloseIaip()
+    '    End Sub
 
-    Private Sub mmiUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiForceUpdate.Click
-        StartIaipUpdate()
-    End Sub
+    '    Private Sub mmiUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiForceUpdate.Click
+    '        StartIaipUpdate()
+    '    End Sub
 
-    Private Sub UpdateLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkUpdateLink.LinkClicked
-        StartIaipUpdate()
-    End Sub
+    '    Private Sub UpdateLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkUpdateLink.LinkClicked
+    '        StartIaipUpdate()
+    '    End Sub
 
-#End Region
+    '#End Region
 
 #Region "Form usability"
 
@@ -459,8 +467,8 @@ Public Class IAIPLogIn
 #Region "Menu items"
 
     Private Sub mmiTestingEnvironment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiTestingEnvironment.Click
-        mmiTestingDatabase.Checked = False
-        mmiLukeEnvironment.Checked = False
+        'mmiTestingDatabase.Checked = False
+        'mmiLukeEnvironment.Checked = False
         If mmiTestingEnvironment.Checked = False Then
             mmiTestingEnvironment.Checked = True
             TestingEnvironment = True

@@ -28,10 +28,6 @@ Partial Class IAIPLogIn
         Me.MenuItem2 = New System.Windows.Forms.MenuItem
         Me.mmiRefreshUserID = New System.Windows.Forms.MenuItem
         Me.mmiResetAllForms = New System.Windows.Forms.MenuItem
-        Me.MenuItem3 = New System.Windows.Forms.MenuItem
-        Me.mmiForceUpdate = New System.Windows.Forms.MenuItem
-        Me.mmiLukeEnvironment = New System.Windows.Forms.MenuItem
-        Me.mmiTestingDatabase = New System.Windows.Forms.MenuItem
         Me.mmiHelp = New System.Windows.Forms.MenuItem
         Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
         Me.MenuItem4 = New System.Windows.Forms.MenuItem
@@ -41,12 +37,10 @@ Partial Class IAIPLogIn
         Me.txtUserPassword = New System.Windows.Forms.TextBox
         Me.txtUserID = New System.Windows.Forms.TextBox
         Me.lblSubTitle = New System.Windows.Forms.Label
-        Me.lnkUpdateLink = New System.Windows.Forms.LinkLabel
         Me.lblTitle = New System.Windows.Forms.Label
         Me.btnLoginButton = New System.Windows.Forms.Button
         Me.lblLicenseLabel = New System.Windows.Forms.Label
         Me.lblCurrentVersionMessage = New System.Windows.Forms.Label
-        Me.lblAvailableVersionMessage = New System.Windows.Forms.Label
         Me.lblGeneralMessage = New System.Windows.Forms.Label
         Me.Label1 = New System.Windows.Forms.Label
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
@@ -73,53 +67,29 @@ Partial Class IAIPLogIn
         'MenuItem1
         '
         Me.MenuItem1.Index = 1
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiTestingEnvironment, Me.MenuItem2, Me.mmiRefreshUserID, Me.mmiResetAllForms, Me.MenuItem3, Me.mmiForceUpdate, Me.mmiLukeEnvironment, Me.mmiTestingDatabase})
+        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiRefreshUserID, Me.mmiResetAllForms, Me.MenuItem2, Me.mmiTestingEnvironment})
         Me.MenuItem1.Text = "&Tools"
         '
         'mmiTestingEnvironment
         '
-        Me.mmiTestingEnvironment.Index = 0
+        Me.mmiTestingEnvironment.Index = 3
         Me.mmiTestingEnvironment.Shortcut = System.Windows.Forms.Shortcut.CtrlT
         Me.mmiTestingEnvironment.Text = "&Testing Environment"
         '
         'MenuItem2
         '
-        Me.MenuItem2.Index = 1
+        Me.MenuItem2.Index = 2
         Me.MenuItem2.Text = "-"
         '
         'mmiRefreshUserID
         '
-        Me.mmiRefreshUserID.Index = 2
+        Me.mmiRefreshUserID.Index = 0
         Me.mmiRefreshUserID.Text = "Refresh Default User"
         '
         'mmiResetAllForms
         '
-        Me.mmiResetAllForms.Index = 3
+        Me.mmiResetAllForms.Index = 1
         Me.mmiResetAllForms.Text = "&Reset All Forms"
-        '
-        'MenuItem3
-        '
-        Me.MenuItem3.Index = 4
-        Me.MenuItem3.Text = "-"
-        '
-        'mmiForceUpdate
-        '
-        Me.mmiForceUpdate.Index = 5
-        Me.mmiForceUpdate.Text = "Force Update"
-        '
-        'mmiLukeEnvironment
-        '
-        Me.mmiLukeEnvironment.Index = 6
-        Me.mmiLukeEnvironment.Shortcut = System.Windows.Forms.Shortcut.F5
-        Me.mmiLukeEnvironment.Text = "*"
-        Me.mmiLukeEnvironment.Visible = False
-        '
-        'mmiTestingDatabase
-        '
-        Me.mmiTestingDatabase.Index = 7
-        Me.mmiTestingDatabase.Shortcut = System.Windows.Forms.Shortcut.CtrlShiftT
-        Me.mmiTestingDatabase.Text = "Testing Database"
-        Me.mmiTestingDatabase.Visible = False
         '
         'mmiHelp
         '
@@ -197,20 +167,6 @@ Partial Class IAIPLogIn
         Me.lblSubTitle.TabIndex = 32
         Me.lblSubTitle.Text = "Environmental Protection Division" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Air Protection Branch" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
-        'lnkUpdateLink
-        '
-        Me.lnkUpdateLink.AutoSize = True
-        Me.lnkUpdateLink.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lnkUpdateLink.LinkColor = System.Drawing.Color.MediumBlue
-        Me.lnkUpdateLink.Location = New System.Drawing.Point(419, 382)
-        Me.lnkUpdateLink.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lnkUpdateLink.Name = "lnkUpdateLink"
-        Me.lnkUpdateLink.Size = New System.Drawing.Size(155, 18)
-        Me.lnkUpdateLink.TabIndex = 3
-        Me.lnkUpdateLink.TabStop = True
-        Me.lnkUpdateLink.Text = "Download IAIP Update"
-        Me.lnkUpdateLink.Visible = False
-        '
         'lblTitle
         '
         Me.lblTitle.AutoSize = True
@@ -256,19 +212,6 @@ Partial Class IAIPLogIn
         Me.lblCurrentVersionMessage.TabIndex = 38
         Me.lblCurrentVersionMessage.Text = "Current Version Placeholder"
         Me.lblCurrentVersionMessage.Visible = False
-        '
-        'lblAvailableVersionMessage
-        '
-        Me.lblAvailableVersionMessage.AutoSize = True
-        Me.lblAvailableVersionMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAvailableVersionMessage.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.lblAvailableVersionMessage.Location = New System.Drawing.Point(419, 348)
-        Me.lblAvailableVersionMessage.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lblAvailableVersionMessage.Name = "lblAvailableVersionMessage"
-        Me.lblAvailableVersionMessage.Size = New System.Drawing.Size(201, 18)
-        Me.lblAvailableVersionMessage.TabIndex = 45
-        Me.lblAvailableVersionMessage.Text = "Available Version Placeholder"
-        Me.lblAvailableVersionMessage.Visible = False
         '
         'lblGeneralMessage
         '
@@ -320,7 +263,6 @@ Partial Class IAIPLogIn
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(742, 414)
         Me.Controls.Add(Me.PictureBox1)
-        Me.Controls.Add(Me.lblAvailableVersionMessage)
         Me.Controls.Add(Me.lblCurrentVersionMessage)
         Me.Controls.Add(Me.lblLicenseLabel)
         Me.Controls.Add(Me.lblPassword)
@@ -329,7 +271,6 @@ Partial Class IAIPLogIn
         Me.Controls.Add(Me.txtUserID)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.lblSubTitle)
-        Me.Controls.Add(Me.lnkUpdateLink)
         Me.Controls.Add(Me.lblTitle)
         Me.Controls.Add(Me.lblGeneralMessage)
         Me.Controls.Add(Me.LoginProgressBar)
@@ -358,21 +299,15 @@ Partial Class IAIPLogIn
     Friend WithEvents txtUserPassword As System.Windows.Forms.TextBox
     Friend WithEvents txtUserID As System.Windows.Forms.TextBox
     Friend WithEvents lblSubTitle As System.Windows.Forms.Label
-    Friend WithEvents lnkUpdateLink As System.Windows.Forms.LinkLabel
     Friend WithEvents lblTitle As System.Windows.Forms.Label
     Friend WithEvents btnLoginButton As System.Windows.Forms.Button
     Friend WithEvents lblLicenseLabel As System.Windows.Forms.Label
     Friend WithEvents mmiTestingEnvironment As System.Windows.Forms.MenuItem
     Friend WithEvents mmiRefreshUserID As System.Windows.Forms.MenuItem
     Friend WithEvents mmiOnlineHelp As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiForceUpdate As System.Windows.Forms.MenuItem
     Friend WithEvents lblCurrentVersionMessage As System.Windows.Forms.Label
-    Friend WithEvents lblAvailableVersionMessage As System.Windows.Forms.Label
     Friend WithEvents lblGeneralMessage As System.Windows.Forms.Label
     Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem3 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiLukeEnvironment As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiTestingDatabase As System.Windows.Forms.MenuItem
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents LoginProgressBar As System.Windows.Forms.ProgressBar

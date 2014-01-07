@@ -12,10 +12,10 @@ Module App
         OpenUrl(HelpUrl, objectSender)
     End Sub
 
-    Public Sub OpenDownloadUrl(Optional ByVal objectSender As Object = Nothing)
-        monitor.TrackFeature("Url.OpenDownload")
-        OpenUrl(DownloadUrl, objectSender)
-    End Sub
+    'Public Sub OpenDownloadUrl(Optional ByVal objectSender As Object = Nothing)
+    '    monitor.TrackFeature("Url.OpenDownload")
+    '    OpenUrl(DownloadUrl, objectSender)
+    'End Sub
 
     Public Sub OpenAboutUrl(Optional ByVal objectSender As Object = Nothing)
         monitor.TrackFeature("Url.OpenAbout")
@@ -49,7 +49,7 @@ Module App
 #End Region
 
 #Region "Versioning Info"
-    Friend PublishedVersion As Version = Nothing
+    'Friend PublishedVersion As Version = Nothing
     Friend CurrentVersion As Version = Nothing
     Friend ReleaseDate As New DateTime(1970, 1, 1, 0, 0, 0)
     Friend VersionFileUpdated As Boolean = False
@@ -118,70 +118,70 @@ Module App
         Return GetVersionAsBuild(GetCurrentVersion)
     End Function
 
-    Public Function GetPublishedVersion(Optional ByVal appName As String = AppName) As Version
-        ' This is the latest available version as listed in the database
-        ' (The database has to be updated by hand by an administrator)
+    'Public Function GetPublishedVersion(Optional ByVal appName As String = AppName) As Version
+    '    ' This is the latest available version as listed in the database
+    '    ' (The database has to be updated by hand by an administrator)
 
-        If PublishedVersion Is Nothing OrElse PublishedVersion.Equals(New Version("0.0.0.0")) Then
-            Dim publishedVersionString As String = ""
+    '    If PublishedVersion Is Nothing OrElse PublishedVersion.Equals(New Version("0.0.0.0")) Then
+    '        Dim publishedVersionString As String = ""
 
-            ' Hit up the database for a version string
-            Dim query As String = "Select strVersionNumber " & _
-                "from " & DBNameSpace & ".APBMasterApp " & _
-                "where strApplicationName = :pAppName"
-            Using connection As New OracleConnection(CurrentConnString)
-                Using command As New OracleCommand(query, connection)
-                    command.CommandType = CommandType.Text
-                    command.Parameters.Add(":pAppName", OracleDbType.Varchar2).Value = appName
+    '        ' Hit up the database for a version string
+    '        Dim query As String = "Select strVersionNumber " & _
+    '            "from " & DBNameSpace & ".APBMasterApp " & _
+    '            "where strApplicationName = :pAppName"
+    '        Using connection As New OracleConnection(CurrentConnString)
+    '            Using command As New OracleCommand(query, connection)
+    '                command.CommandType = CommandType.Text
+    '                command.Parameters.Add(":pAppName", OracleDbType.Varchar2).Value = appName
 
-                    Try
-                        connection.Open()
-                        Dim reader As OracleDataReader = command.ExecuteReader
-                        While reader.Read
-                            If Not IsDBNull(reader.Item("strVersionNumber")) Then
-                                publishedVersionString = reader.Item("strVersionNumber")
-                            End If
-                        End While
-                    Catch ee As OracleException
-                        'MessageBox.Show("Could not connect to the database.")
-                        publishedVersionString = "0.0.0.0"
-                    End Try
-                End Using
-            End Using
+    '                Try
+    '                    connection.Open()
+    '                    Dim reader As OracleDataReader = command.ExecuteReader
+    '                    While reader.Read
+    '                        If Not IsDBNull(reader.Item("strVersionNumber")) Then
+    '                            publishedVersionString = reader.Item("strVersionNumber")
+    '                        End If
+    '                    End While
+    '                Catch ee As OracleException
+    '                    'MessageBox.Show("Could not connect to the database.")
+    '                    publishedVersionString = "0.0.0.0"
+    '                End Try
+    '            End Using
+    '        End Using
 
-            Try
-                PublishedVersion = New Version(publishedVersionString)
-            Catch ee As Exception When _
-            TypeOf ee Is ArgumentException OrElse _
-            TypeOf ee Is ArgumentNullException OrElse _
-            TypeOf ee Is ArgumentOutOfRangeException OrElse _
-            TypeOf ee Is FormatException OrElse _
-            TypeOf ee Is OverflowException
-                MessageBox.Show("The database version string contains an error. Please inform the Data Management Unit. Thank you.")
-                PublishedVersion = New Version("0.0.0.0")
-            End Try
-        End If
+    '        Try
+    '            PublishedVersion = New Version(publishedVersionString)
+    '        Catch ee As Exception When _
+    '        TypeOf ee Is ArgumentException OrElse _
+    '        TypeOf ee Is ArgumentNullException OrElse _
+    '        TypeOf ee Is ArgumentOutOfRangeException OrElse _
+    '        TypeOf ee Is FormatException OrElse _
+    '        TypeOf ee Is OverflowException
+    '            MessageBox.Show("The database version string contains an error. Please inform the Data Management Unit. Thank you.")
+    '            PublishedVersion = New Version("0.0.0.0")
+    '        End Try
+    '    End If
 
-        Return PublishedVersion
-    End Function
+    '    Return PublishedVersion
+    'End Function
 
-    Public Function IsUpdateAvailable() As Boolean
-        ' If Version has increased, update is available
-        Dim currentVersion As Version = GetCurrentVersion()
-        Dim publishedVersion As Version = GetPublishedVersion()
+    'Public Function IsUpdateAvailable() As Boolean
+    '    ' If Version has increased, update is available
+    '    Dim currentVersion As Version = GetCurrentVersion()
+    '    Dim publishedVersion As Version = GetPublishedVersion()
 
-        ' If database has an error, published version will be 0.0.0.0. This will return false.
-        Return currentVersion.CompareTo(publishedVersion) < 0
-    End Function
+    '    ' If database has an error, published version will be 0.0.0.0. This will return false.
+    '    Return currentVersion.CompareTo(publishedVersion) < 0
+    'End Function
 
-    Public Function IsUpdateMandatory() As Boolean
-        ' If Version has increased beyond just the Revision number, then update is mandatory
-        Dim currentVersion As Version = GetCurrentVersion()
-        Dim publishedVersion As Version = GetPublishedVersion()
+    'Public Function IsUpdateMandatory() As Boolean
+    '    ' If Version has increased beyond just the Revision number, then update is mandatory
+    '    Dim currentVersion As Version = GetCurrentVersion()
+    '    Dim publishedVersion As Version = GetPublishedVersion()
 
-        ' If database has an error, published version will be 0.0.0.0. This will return false.
-        Return GetVersionAsMajorMinor(currentVersion).CompareTo(GetVersionAsMajorMinor(publishedVersion)) < 0
-    End Function
+    '    ' If database has an error, published version will be 0.0.0.0. This will return false.
+    '    Return GetVersionAsMajorMinor(currentVersion).CompareTo(GetVersionAsMajorMinor(publishedVersion)) < 0
+    'End Function
 
     Private Function GetVersionAsBuild(ByVal v As Version) As Version
         ' This converts a Version from four components to three
