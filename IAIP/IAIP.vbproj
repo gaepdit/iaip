@@ -63,8 +63,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\</OutputPath>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>IAIP.xml</DocumentationFile>
     <BaseAddress>285212672</BaseAddress>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
@@ -83,8 +82,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>..\..\_Build\IAIP\</OutputPath>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>IAIP.xml</DocumentationFile>
     <BaseAddress>285212672</BaseAddress>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
@@ -107,8 +105,7 @@
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\x86\Debug\</OutputPath>
     <BaseAddress>285212672</BaseAddress>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>IAIP.xml</DocumentationFile>
     <WarningLevel>1</WarningLevel>
     <NoWarn>42016,42017,42018,42019,42032</NoWarn>
     <DebugType>full</DebugType>
@@ -119,8 +116,7 @@
     <DefineTrace>true</DefineTrace>
     <OutputPath>..\..\_Build\IAIP\</OutputPath>
     <BaseAddress>285212672</BaseAddress>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>IAIP.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <WarningLevel>1</WarningLevel>
     <NoWarn>42016,42017,42018,42019,42032</NoWarn>
