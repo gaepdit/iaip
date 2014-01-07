@@ -10,12 +10,12 @@
     Partial Friend Class MyApplication
         Private Sub MyApplication_Startup(ByVal sender As Object, ByVal e As Microsoft.VisualBasic.ApplicationServices.StartupEventArgs) _
             Handles Me.Startup
-            App.Init()
+            StartupShutdown.Init()
         End Sub
 
         Private Sub MyApplication_Shutdown(ByVal sender As Object, ByVal e As System.EventArgs) _
             Handles Me.Shutdown
-            App.Finish()
+            StartupShutdown.Finish()
         End Sub
 
     End Class
