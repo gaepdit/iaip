@@ -12,7 +12,6 @@ This is a special fork to prepare for moving to a [ClickOnce](http://msdn.micros
 + Create installation website
 + Draft emails
 + Create dummy replacement for JohnGaltProject to inform user of new IAIP installation (with link to installation website)
-+ Rebuild newer Crystal Reports
 + Beta program before final push
 
 ### Post-deployment:
@@ -30,6 +29,7 @@ This is a special fork to prepare for moving to a [ClickOnce](http://msdn.micros
 + ✓ Review ClickOnce settings (prerequisites, etc.)
 + ✓ Review update frequency
 + ✓ Implement on-demand updater
++ ✓ Rebuild newer Crystal Reports
 
 Original IAIP Notes for Developers
 =========================
