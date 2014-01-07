@@ -49,10 +49,27 @@
     ''' <remarks>
     ''' Flips FirstRun setting to false when run
     ''' Can be used for setup requirements
+    ''' + Deletes old JohnGaltProject shortcut icons
     ''' </remarks>
     Friend Sub FirstRun()
         If Not My.Settings.FirstRun Then Exit Sub
+
+        DeleteOldShortcuts()
+
         My.Settings.FirstRun = False
+    End Sub
+
+    ''' <summary>
+    ''' Deletes old IAIP shortcuts from user's Desktop and Start Menu
+    ''' </summary>
+    ''' <remarks>Actually moves them to Recycle Bin</remarks>
+    Friend Sub DeleteOldShortcuts()
+        Dim shortcutName As String = "\IAIP.lnk"
+
+        DeleteFileIfPossible(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) & shortcutName)
+        DeleteFileIfPossible(GetAllUsersDesktopPath() & shortcutName)
+        DeleteFileIfPossible(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) & shortcutName)
+        DeleteFileIfPossible(GetAllUsersStartMenuPath() & shortcutName)
     End Sub
 
 End Module
