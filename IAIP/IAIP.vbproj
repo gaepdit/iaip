@@ -1723,6 +1723,10 @@
     <Compile Include="_Modules\Messages.vb" />
     <Compile Include="_Modules\Email.Outlook.vb" />
     <Compile Include="_Modules\Encryption.vb" />
+    <Compile Include="_Modules\StartupShutdown.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Modules\Win32ApiCalls.vb" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
