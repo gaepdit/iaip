@@ -33,12 +33,14 @@ Public Class BaseForm
             If MultiForm IsNot Nothing AndAlso _
             MultiForm.ContainsKey(Me.Name) AndAlso _
             MultiForm(Me.Name).ContainsKey(Me.ID) Then
-                MultiForm(Me.Name).Remove(Me.ID)
-            End If
 
-            If SingleForm IsNot Nothing AndAlso _
+                MultiForm(Me.Name).Remove(Me.ID)
+
+            ElseIf SingleForm IsNot Nothing AndAlso _
             SingleForm.ContainsKey(Me.Name) Then
+
                 SingleForm.Remove(Me.Name)
+
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -48,6 +50,7 @@ Public Class BaseForm
     Private Sub BaseForm_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
 #If Not Debug Then
+        ' TestingEnvironment variable is not available in design mode
         If Not Me.DesignMode Then
             If TestingEnvironment Then Me.Icon = My.Resources.TestingIcon
         End If
@@ -64,8 +67,10 @@ Public Class BaseForm
 
 #Region "Form settings - location and dimensions"
 
-    ' On closing the form, save the window state, location, and size
-    ' Override this Sub on individual forms if you need to save different settings
+    ''' <summary>
+    ''' On closing a form, save the window state, location, and size
+    ''' </summary>
+    ''' <remarks>Override this Sub on individual forms as needed to save different settings</remarks>
     Overridable Sub SaveThisFormSettings()
         Dim formSettings As Dictionary(Of String, String) = GetFormSettings(Me.Name)
 
@@ -87,6 +92,10 @@ Public Class BaseForm
         If formSettings.Count > 0 Then SaveFormSettings(Me.Name, formSettings)
     End Sub
 
+    ''' <summary>
+    ''' On loading a form, retrieve and use the forms previously saved settings
+    ''' </summary>
+    ''' <remarks>Should be overridden if Sub SaveThisFormSettings is overridden</remarks>
     Overridable Sub LoadThisFormSettings()
         Dim thisFormSettings As Dictionary(Of String, String) = GetFormSettings(Me.Name)
 
@@ -99,15 +108,53 @@ Public Class BaseForm
         If thisFormSettings.ContainsKey(FormSetting.Location.ToString) Then
             Dim pointConverter As System.ComponentModel.TypeConverter = _
                 System.ComponentModel.TypeDescriptor.GetConverter(GetType(Point))
-            Me.Location = pointConverter.ConvertFromString(thisFormSettings(FormSetting.Location.ToString))
+            Dim p As Point = pointConverter.ConvertFromString(thisFormSettings(FormSetting.Location.ToString))
+            ' Don't move form off screen
+            If Not PointIsOnAConnectedScreen(p) Then p = New Point(0, 0)
+            Me.Location = p
         End If
 
         If thisFormSettings.ContainsKey(FormSetting.Size.ToString) Then
             Dim sizeConverter As System.ComponentModel.TypeConverter = _
                 System.ComponentModel.TypeDescriptor.GetConverter(GetType(Size))
-            Me.Size = sizeConverter.ConvertFromString(thisFormSettings(FormSetting.Size.ToString))
+            Dim s As Size = sizeConverter.ConvertFromString(thisFormSettings(FormSetting.Size.ToString))
+            s.Width = Math.Max(s.Width, Me.MinimumSize.Width)
+            s.Height = Math.Max(s.Height, Me.MinimumSize.Height)
+            Me.Size = s
         End If
     End Sub
+
+    ''' <summary>
+    ''' Determines whether a point is located within a connected screen
+    ''' </summary>
+    ''' <param name="pt">The System.Drawing.Point to test</param>
+    ''' <returns>True if the Point is located within the bounds of a connected screen; otherwise, false.</returns>
+    Private Function PointIsOnAConnectedScreen(ByVal pt As Point) As Boolean
+        For Each s As Screen In Screen.AllScreens
+            If s.Bounds.Contains(pt) Then
+                Return True
+            End If
+        Next
+        Return False
+    End Function
+
+    ''' <summary>
+    ''' Determines whether a form is reasonably located within a screen
+    ''' </summary>
+    ''' <param name="pt">The upper-left coordinates of the form to test (i.e., Form.Location)</param>
+    ''' <returns>True if the form is reasonably located within the bounds of a connected screen; otherwise, false.</returns>
+    ''' <remarks>Analyzes upper-left coordinates of form and also a point some reasonable distance 
+    ''' from the upper-left, based on the minimum form width and height (set in subMain)</remarks>
+    Private Function FormIsOnAConnectedScreen(ByVal pt As Point) As Boolean
+        ' First, check if upper-left corner of form is on a screen
+        ' Then, check if a point some reasonable distance from upper-left corner of form is on a screen
+        If PointIsOnAConnectedScreen(pt) AndAlso _
+        PointIsOnAConnectedScreen(New Point(pt.X + Me.MinimumSize.Width / 2, pt.Y + Me.MinimumSize.Height / 2)) Then
+            Return True
+        End If
+
+        Return False
+    End Function
 
 #End Region
 

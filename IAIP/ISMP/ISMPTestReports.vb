@@ -39,10 +39,7 @@ Public Class ISMPTestReports
     Private Sub ISMPTestReports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Try
-            Me.Height = Math.Max(Me.Height, 200)
-            Dim defaultSplitterDistance As Integer = 190
-            SCTestReports.SplitterDistance = Math.Min(SCTestReports.Height - SCTestReports.Panel2MinSize, _
-                Math.Max(defaultSplitterDistance, SCTestReports.Panel1MinSize))
+            SCTestReports.SanelySetSplitterDistance(190)
 
             Panel1.Text = "Select a Function..."
             Panel2.Text = UserName
@@ -17900,24 +17897,10 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
     End Sub
     Private Sub tsbResize_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbResize.Click
         Try
-            If SCTestReports.SplitterDistance < 190 Then
-                SCTestReports.SplitterDistance = 190
-            Else
-                If SCTestReports.SplitterDistance = 385 Then
-                    SCTestReports.SplitterDistance = 190
-                Else
-                    If SCTestReports.SplitterDistance > 190 And SCTestReports.SplitterDistance < 385 Then
-                        SCTestReports.SplitterDistance = 190
-                    Else
-                        SCTestReports.SplitterDistance = 385
-                    End If
-                End If
-            End If
+            SCTestReports.ToggleSplitterDistance(190, 385)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
-
     End Sub
     Private Sub tsbMemo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbMemo.Click
         Try

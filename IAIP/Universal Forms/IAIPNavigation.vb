@@ -8973,6 +8973,7 @@ Public Class IAIPNavigation
     Private Sub mmiResetForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiResetForm.Click
         ResetAllFormSettings()
         Me.Location = New Point(0, 0)
+        Me.Size = New Size(808, 460)
     End Sub
 
     Private Sub mmiCheckForUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCheckForUpdate.Click

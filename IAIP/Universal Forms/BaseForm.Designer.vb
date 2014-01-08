@@ -22,10 +22,18 @@ Partial Class BaseForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        components = New System.ComponentModel.Container
+        Me.SuspendLayout()
+        '
+        'BaseForm
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.Text = "BaseForm"
+        Me.ClientSize = New System.Drawing.Size(284, 262)
         Me.Icon = Global.Iaip.My.Resources.Resources.Icon
+        Me.MinimumSize = New System.Drawing.Size(200, 200)
+        Me.Name = "BaseForm"
+        Me.Text = "BaseForm"
+        Me.ResumeLayout(False)
 
     End Sub
 End Class

@@ -1810,11 +1810,11 @@ Public Class SSPPPublicNoticiesAndAdvisories
             If Me.Size.Width > 200 Then
                 If Me.Size.Width > 0 Then
                     If Me.Size.Width > 800 Then
-                        SCGenerate.SplitterDistance = (SCGenerate.Width * 0.25)
-                        SCPublicNoticeTab.SplitterDistance = (SCPublicNoticeTab.Width * 0.1)
+                        SCGenerate.SanelySetSplitterDistance(SCGenerate.Width * 0.25)
+                        SCPublicNoticeTab.SanelySetSplitterDistance(SCPublicNoticeTab.Width * 0.1)
                     Else
-                        SCGenerate.SplitterDistance = 322
-                        SCPublicNoticeTab.SplitterDistance = 140
+                        SCGenerate.SanelySetSplitterDistance(322)
+                        SCPublicNoticeTab.SanelySetSplitterDistance(140)
                     End If
                     rtbPAPNDocument2.Width = (Me.Size.Width - 159)
                 End If
@@ -1822,9 +1822,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
             If Me.Size.Height > 200 Then
                 If Me.Size.Height > 31 Then
                     If Me.Size.Height > 600 Then
-                        SCPreviewAndGenerate.SplitterDistance = (SCPreviewAndGenerate.Height * 0.4)
+                        SCPreviewAndGenerate.SanelySetSplitterDistance(SCPreviewAndGenerate.Height * 0.4)
                     Else
-                        SCPreviewAndGenerate.SplitterDistance = 230
+                        SCPreviewAndGenerate.SanelySetSplitterDistance(230)
                     End If
                 End If
             End If
