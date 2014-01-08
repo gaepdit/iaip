@@ -1634,7 +1634,7 @@ Public Class SSCPEmissionSummaryTool
     Private Sub SSCPEmissionSummaryTool_SizeChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.SizeChanged
         Try
             If Me.Size.Width > 560 Then
-                SplitContainer1.SplitterDistance = 556
+                SplitContainer1.SanelySetSplitterDistance(556)
             End If
 
         Catch ex As Exception

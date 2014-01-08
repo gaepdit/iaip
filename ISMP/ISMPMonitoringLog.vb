@@ -35,10 +35,7 @@ Public Class ISMPMonitoringLog
             LoadComboBoxes()
             LoadDataSet()
 
-            Me.Height = Math.Max(Me.Height, 200)
-            Dim defaultSplitterDistance As Integer = 500
-            SCMonitoringLog.SplitterDistance = Math.Min(SCMonitoringLog.Height - SCMonitoringLog.Panel2MinSize, _
-                Math.Max(defaultSplitterDistance, SCMonitoringLog.Panel1MinSize))
+            SCMonitoringLog.SanelySetSplitterDistance(500)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1230,26 +1227,10 @@ Public Class ISMPMonitoringLog
     End Sub
     Private Sub tsbResize_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbResize.Click
         Try
-            If SCMonitoringLog.SplitterDistance = 235 Then
-                SCMonitoringLog.SplitterDistance = 500
-            Else
-                If SCMonitoringLog.SplitterDistance < 235 Then
-                    SCMonitoringLog.SplitterDistance = 235
-                Else
-                    If SCMonitoringLog.SplitterDistance > 235 And SCMonitoringLog.SplitterDistance = 500 Then
-                        SCMonitoringLog.SplitterDistance = 235
-                    Else
-                        SCMonitoringLog.SplitterDistance = 500
-                    End If
-                End If
-            End If
-
+            SCMonitoringLog.ToggleSplitterDistance(235, 500)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub dgvNotificationLog_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvNotificationLog.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvNotificationLog.HitTest(e.X, e.Y)
