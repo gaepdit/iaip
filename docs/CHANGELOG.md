@@ -1,9 +1,16 @@
-Integrated Air Information Platform change log
-==============
+# Integrated Air Information Platform change log
 
 ## About the IAIP
 
 See the [release notes](README.html).
+
+## Version 2.8.3 <span>(2014-01-08)</span>
+
+<em>Happy new year!</em> Have a few bug-fixes to help celebrate.
+
++ FIX: Forms sometimes open minimized, making them hard to find on Windows 7 (#159)
++ FIX: *SSPP* – Application Log crashes if Navigation Screen button is double-clicked (#140)
++ FIX: Some forms crash after being resized (finish fixing #157)
 
 ## Version 2.8.2 <span>(2013-12-27)</span>
 
@@ -17,7 +24,7 @@ See the [release notes](README.html).
 + FIX: *SSCP* – Unable to link enforcement event or save enforcement (#158)
 + FIX: *SSCP* – "Add/Edit Enforcement Process" button on Compliance Event form is broken (#156)
 + FIX: *SSCP* – Compliance Log fields obscured at small screen sizes (#155)
-+ FIX: *ISMP* – Some forms crashing after being resized (#157) (May still affect other forms)
++ FIX: *ISMP* – Some forms crashing after being resized (#157, but may still affect some forms)
 
 ## Version 2.8.1 <span>(2013-12-13)</span>
 
