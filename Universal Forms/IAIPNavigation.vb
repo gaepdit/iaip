@@ -2140,58 +2140,31 @@ Public Class IAIPNavigation
 
     End Sub
     Sub OpenFacilitySummary()
-        Try
+        If txtAIRSNumber.TextLength = 0 Then
+            OpenSingleForm(IAIPFacilitySummary)
+            Exit Sub
+        End If
 
-            If txtAIRSNumber.Text <> "" And txtAIRSNumber.Text.Length = 8 Then
-                SQL = "Select strAIRSNumber " & _
-                "from AIRBranch.APBMasterAIRS " & _
-                "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "' "
+        If Not DAL.FacilityInfo.AirsNumberExists(txtAIRSNumber.Text) Then
+            MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
+            Exit Sub
+        End If
 
-
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
-                End If
-
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
-                    If FacilitySummary Is Nothing Then
-                        FacilitySummary = Nothing
-                        If FacilitySummary Is Nothing Then FacilitySummary = New IAIPFacilitySummary
-                        FacilitySummary.mtbAIRSNumber.Text = txtAIRSNumber.Text
-                        FacilitySummary.Show()
-                    Else
-                        FacilitySummary.mtbAIRSNumber.Text = txtAIRSNumber.Text
-                        FacilitySummary.Show()
-                    End If
-                    'FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                    FacilitySummary.LoadInitialData()
-
-                Else
-                    MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
-                End If
-            Else
-                MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-
-        End Try
-
+        Dim parameters As New Generic.Dictionary(Of String, String)
+        parameters("airsnumber") = txtAIRSNumber.Text
+        OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
     End Sub
     Sub OpenNewForm(ByVal Source As String, ByVal Options As String)
         Try
             Select Case Source
                 Case "Facility Summary" '1
-                    If FacilitySummary Is Nothing Then
-                        If FacilitySummary Is Nothing Then FacilitySummary = New IAIPFacilitySummary
-                    Else
-                        FacilitySummary.Show()
-                    End If
-                    FacilitySummary.Show()
+                    OpenSingleForm(IAIPFacilitySummary)
+                    'If FacilitySummary Is Nothing Then
+                    '    If FacilitySummary Is Nothing Then FacilitySummary = New IAIPFacilitySummary
+                    'Else
+                    '    FacilitySummary.Show()
+                    'End If
+                    'FacilitySummary.Show()
                     'FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "DMU Tools" '2
                     'If ISMPDMU Is Nothing Then
@@ -2204,13 +2177,14 @@ Public Class IAIPNavigation
                     'ISMPDMU.Show()
                     'ISMPDMU.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Application Log" '3
-                    If ApplicationLog Is Nothing Then
-                        If ApplicationLog Is Nothing Then ApplicationLog = New SSPPApplicationLog
-                    Else
-                        ApplicationLog.Dispose()
-                        ApplicationLog = New SSPPApplicationLog
-                    End If
-                    ApplicationLog.Show()
+                    OpenSingleForm(SSPPApplicationLog)
+                    'If ApplicationLog Is Nothing Then
+                    '    If ApplicationLog Is Nothing Then ApplicationLog = New SSPPApplicationLog
+                    'Else
+                    '    ApplicationLog.Dispose()
+                    '    ApplicationLog = New SSPPApplicationLog
+                    'End If
+                    'ApplicationLog.Show()
                     'ApplicationLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Compliance Log" '4
                     If SSCP_Work Is Nothing Then
@@ -8983,13 +8957,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub txtAIRSNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtAIRSNumber.KeyPress
-        Try
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) And txtAIRSNumber.Text.Length = 8 Then
-                OpenFacilitySummary()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then OpenFacilitySummary()
     End Sub
 
     Private Sub mmiExport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExport.Click
@@ -9005,6 +8973,7 @@ Public Class IAIPNavigation
     Private Sub mmiResetForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiResetForm.Click
         ResetAllFormSettings()
         Me.Location = New Point(0, 0)
+        Me.Size = New Size(808, 460)
     End Sub
 
 End Class

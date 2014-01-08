@@ -26,7 +26,6 @@ Public Class IAIPFacilitySummary
     Private Sub DEVFacilitySummary_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Try
-
             pnltemp = Panel1.Text
             Panel1.Text = ""
             Panel2.Text = UserName
@@ -56,15 +55,26 @@ Public Class IAIPFacilitySummary
                 mmiUpdateAFSData.Visible = False
             End If
 
+            Panel1.Text = pnltemp
+
+            ParseParameters()
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
-        Panel1.Text = pnltemp
         mtbAIRSNumber.Focus()
     End Sub
+
+    Private Sub ParseParameters()
+        If Parameters IsNot Nothing AndAlso Parameters.ContainsKey("airsnumber") Then
+            mtbAIRSNumber.Text = Parameters("airsnumber")
+            LoadInitialData()
+        End If
+    End Sub
+
     Private Sub llbViewAll_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewAll.LinkClicked
         Try
             If mtbAIRSNumber.Text = "" And mtbAIRSNumber.Text.Length <> 8 Then
@@ -312,23 +322,6 @@ Public Class IAIPFacilitySummary
         End Try
     End Sub
 
-    Private Sub IAIPFacilitySummary_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-
-            If NavigationScreen Is Nothing Then
-                NavigationScreen = New IAIPNavigation
-            End If
-            NavigationScreen.Show()
-            FacilitySummary = Nothing
-            Me.Dispose()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
     Public WriteOnly Property ValueFromFacilityLookUp() As String
         Set(ByVal Value As String)
             mtbAIRSNumber.Text = Value

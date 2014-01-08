@@ -1,9 +1,5 @@
 Imports Oracle.DataAccess.Client
-Imports System.Security.Cryptography
-Imports System.Text
-'Imports System
 Imports System.IO
-'Imports System.Data
 Imports System.Collections.Generic
 
 Module subMain
@@ -218,94 +214,5 @@ Module subMain
     End Sub
 
 #End Region
-
-#Region "Encryption Script"
-
-    Public Function SimpleCrypt(ByVal Text As String) As String
-        ' Encrypts/decrypts the passed string using
-        ' a simple ASCII value-swapping algorithm
-        ' DWW comment: You've got to be kidding me. ROT128? We're using an encryption scheme used by Julius Caesar?
-        Dim strTempChar As String = ""
-        Dim i As Integer
-
-        For i = 1 To Len(Text)
-            If Asc(Mid$(Text, i, 1)) < 128 Then
-                strTempChar = _
-          CType(Asc(Mid$(Text, i, 1)) + 128, String)
-            ElseIf Asc(Mid$(Text, i, 1)) > 128 Then
-                strTempChar = _
-          CType(Asc(Mid$(Text, i, 1)) - 128, String)
-            End If
-            Mid$(Text, i, 1) = _
-                Chr(CType(strTempChar, Integer))
-        Next i
-        Return Text
-    End Function
-    Public Class EncryptDecrypt
-        ' Encrypt the text
-        Public Shared Function EncryptText(ByVal strText As String) As String
-            Return Encrypt(strText, "&%#@?,:*")
-        End Function
-        'Decrypt the text 
-        Public Shared Function DecryptText(ByVal strText As String) As String
-            Return Decrypt(strText, "&%#@?,:*")
-        End Function
-        'The function used to encrypt the text
-        Private Shared Function Encrypt(ByVal strText As String, ByVal strEncrKey _
-                 As String) As String
-            Dim byKey() As Byte = {}
-            Dim IV() As Byte = {&H12, &H34, &H56, &H78, &H90, &HAB, &HCD, &HEF}
-
-            Try
-                byKey = System.Text.Encoding.UTF8.GetBytes(Left(strEncrKey, 8))
-
-                Dim des As New DESCryptoServiceProvider()
-                Dim inputByteArray() As Byte = Encoding.UTF8.GetBytes(strText)
-                Dim ms As New MemoryStream()
-                Dim cs As New CryptoStream(ms, des.CreateEncryptor(byKey, IV), CryptoStreamMode.Write)
-                cs.Write(inputByteArray, 0, inputByteArray.Length)
-                cs.FlushFinalBlock()
-                Return Convert.ToBase64String(ms.ToArray())
-
-            Catch ex As Exception
-                Return ex.Message
-            End Try
-
-        End Function
-        'The function used to decrypt the text
-        Private Shared Function Decrypt(ByVal strText As String, ByVal sDecrKey _
-                   As String) As String
-            Dim byKey() As Byte = {}
-            Dim IV() As Byte = {&H12, &H34, &H56, &H78, &H90, &HAB, &HCD, &HEF}
-            Dim inputByteArray(strText.Length) As Byte
-
-            Try
-                byKey = System.Text.Encoding.UTF8.GetBytes(Left(sDecrKey, 8))
-                Dim des As New DESCryptoServiceProvider()
-                inputByteArray = Convert.FromBase64String(strText)
-                Dim ms As New MemoryStream()
-                Dim cs As New CryptoStream(ms, des.CreateDecryptor(byKey, IV), CryptoStreamMode.Write)
-
-                cs.Write(inputByteArray, 0, inputByteArray.Length)
-                cs.FlushFinalBlock()
-                Dim encoding As System.Text.Encoding = System.Text.Encoding.UTF8
-
-                Return encoding.GetString(ms.ToArray())
-
-            Catch ex As Exception
-                Return ex.Message
-            End Try
-
-        End Function
-    End Class
-
-#End Region
-
-    Public Declare Function SendMessage Lib "user32" Alias _
-       "SendMessageA" (ByVal hwnd As IntPtr, ByVal wMsg As _
-       Integer, ByVal wParam As Integer, ByRef lParam As _
-       Integer) As Integer
-    Public Const EM_SETTABSTOPS As Integer = &HCB
-
 
 End Module

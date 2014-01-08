@@ -22,9 +22,9 @@ Public Class ISMPTestFirmComments
             LoadTestingFirms()
 
             If txtAllComments.Text = "" Then
-                SplitContainer1.SplitterDistance = 465
+                SplitContainer1.SanelySetSplitterDistance(465)
             Else
-                SplitContainer1.SplitterDistance = 242
+                SplitContainer1.SanelySetSplitterDistance(242)
             End If
             If txtTestNotificationNumber.Text <> "" Or txtTestReportNumber.Text <> "" Then
                 LoadTestFirmComments()
@@ -160,9 +160,9 @@ Public Class ISMPTestFirmComments
             dr.Close()
 
             If txtAllComments.Text = "" Then
-                SplitContainer1.SplitterDistance = 465
+                SplitContainer1.SanelySetSplitterDistance(465)
             Else
-                SplitContainer1.SplitterDistance = 242
+                SplitContainer1.SanelySetSplitterDistance(242)
             End If
             If txtTestReportNumber.Text <> "" Then
                 txtTestDateEnd.Clear()

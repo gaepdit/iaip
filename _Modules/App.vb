@@ -5,53 +5,6 @@ Imports System.IO
 
 Module App
 
-#Region "Startup and shutdown"
-
-    ' MyApplication_Startup -> App.Init()
-    Friend Sub Init()
-
-#If DEBUG Then
-        Console.WriteLine("Me.Startup")
-        Console.WriteLine("Environment.MachineName: " & Environment.MachineName)
-        Console.WriteLine("Environment.UserName: " & Environment.UserName)
-#End If
-
-        'Settings
-        If My.Settings.CallUpgrade Then
-            My.Settings.Upgrade()
-            My.Settings.CallUpgrade = False
-        End If
-
-        ' EQATEC analytics monitor
-        MonitorInit()
-
-        ' Form settings
-        AllFormSettings = GetAllFormSettings()
-
-        '' Just for fun: sample code for a new way of handling login form
-        '' http://visualstudiomagazine.com/articles/2008/08/01/customize-your-application-startup.aspx
-        'Dim frm = New LoginForm
-        'Dim result = frm.ShowDialog
-        'If result <> DialogResult.OK Then
-        '    e.Cancel = True
-        '    Me.HideSplashScreen()
-        'End If
-
-    End Sub
-
-    ' MyApplication_Shutdown -> App.Finish()
-    Friend Sub Finish()
-
-        ' Form settings
-        SaveAllFormSettings()
-
-        ' EQATEC analytics monitor
-        MonitorStop()
-
-    End Sub
-
-#End Region
-
 #Region "URL handling"
 
     Public Sub OpenHelpUrl(Optional ByVal objectSender As Object = Nothing)
@@ -91,20 +44,6 @@ Module App
                 objectSender.Cursor = Nothing
             End If
         End Try
-    End Function
-
-#End Region
-
-#Region "Validation"
-
-    Public Function IsValidEmail(ByVal email As String) As Boolean
-        If String.IsNullOrEmpty(email) Then Return False
-        Try
-            Dim testEmail As Net.Mail.MailAddress = New Net.Mail.MailAddress(email)
-        Catch ex As Exception
-            Return False
-        End Try
-        Return True
     End Function
 
 #End Region
