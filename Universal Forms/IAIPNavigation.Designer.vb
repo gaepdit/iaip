@@ -24,12 +24,6 @@ Partial Class IAIPNavigation
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.mmiFile = New System.Windows.Forms.MenuItem
         Me.mmiExit = New System.Windows.Forms.MenuItem
-        Me.mmiView = New System.Windows.Forms.MenuItem
-        Me.mmiISMPLists = New System.Windows.Forms.MenuItem
-        Me.mmiSSCPLists = New System.Windows.Forms.MenuItem
-        Me.mmiSSPPLists = New System.Windows.Forms.MenuItem
-        Me.MenuItem3 = New System.Windows.Forms.MenuItem
-        Me.mmiResetDefault = New System.Windows.Forms.MenuItem
         Me.mmiTools = New System.Windows.Forms.MenuItem
         Me.mmiExport = New System.Windows.Forms.MenuItem
         Me.mmiHelp = New System.Windows.Forms.MenuItem
@@ -38,13 +32,8 @@ Partial Class IAIPNavigation
         Me.MenuItem1 = New System.Windows.Forms.MenuItem
         Me.mmiAbout = New System.Windows.Forms.MenuItem
         Me.mmiTesting = New System.Windows.Forms.MenuItem
-        Me.mmiPermitUploader = New System.Windows.Forms.MenuItem
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.Label1 = New System.Windows.Forms.Label
-        Me.llbQuaternaryList = New System.Windows.Forms.LinkLabel
-        Me.llbTertiaryList = New System.Windows.Forms.LinkLabel
-        Me.llbSecondaryList = New System.Windows.Forms.LinkLabel
-        Me.llbPrimaryList = New System.Windows.Forms.LinkLabel
         Me.Panel4 = New System.Windows.Forms.Panel
         Me.btnNav40 = New System.Windows.Forms.Button
         Me.btnNav39 = New System.Windows.Forms.Button
@@ -125,17 +114,15 @@ Partial Class IAIPNavigation
         Me.lblMessageLabel = New System.Windows.Forms.Label
         Me.bgrOpenNewForm = New System.ComponentModel.BackgroundWorker
         Me.bgrFormLoad = New System.ComponentModel.BackgroundWorker
-        Me.Panel1 = New System.Windows.Forms.Panel
         Me.Panel4.SuspendLayout()
         Me.GPWorkTool.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.dgvWorkViewer, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiView, Me.mmiTools, Me.mmiHelp, Me.mmiTesting})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiTools, Me.mmiHelp, Me.mmiTesting})
         '
         'mmiFile
         '
@@ -149,41 +136,9 @@ Partial Class IAIPNavigation
         Me.mmiExit.Shortcut = System.Windows.Forms.Shortcut.CtrlQ
         Me.mmiExit.Text = "E&xit IAIP"
         '
-        'mmiView
-        '
-        Me.mmiView.Index = 1
-        Me.mmiView.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiISMPLists, Me.mmiSSCPLists, Me.mmiSSPPLists, Me.MenuItem3, Me.mmiResetDefault})
-        Me.mmiView.Text = "&View"
-        Me.mmiView.Visible = False
-        '
-        'mmiISMPLists
-        '
-        Me.mmiISMPLists.Index = 0
-        Me.mmiISMPLists.Text = "&ISMP Lists"
-        '
-        'mmiSSCPLists
-        '
-        Me.mmiSSCPLists.Index = 1
-        Me.mmiSSCPLists.Text = "SS&CP Lists"
-        '
-        'mmiSSPPLists
-        '
-        Me.mmiSSPPLists.Index = 2
-        Me.mmiSSPPLists.Text = "SS&PP Lists"
-        '
-        'MenuItem3
-        '
-        Me.MenuItem3.Index = 3
-        Me.MenuItem3.Text = "-"
-        '
-        'mmiResetDefault
-        '
-        Me.mmiResetDefault.Index = 4
-        Me.mmiResetDefault.Text = "&Reset Default"
-        '
         'mmiTools
         '
-        Me.mmiTools.Index = 2
+        Me.mmiTools.Index = 1
         Me.mmiTools.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiExport})
         Me.mmiTools.Text = "&Tools"
         '
@@ -194,7 +149,7 @@ Partial Class IAIPNavigation
         '
         'mmiHelp
         '
-        Me.mmiHelp.Index = 3
+        Me.mmiHelp.Index = 2
         Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.mmiResetForm, Me.MenuItem1, Me.mmiAbout})
         Me.mmiHelp.Text = "&Help"
         '
@@ -221,16 +176,9 @@ Partial Class IAIPNavigation
         '
         'mmiTesting
         '
-        Me.mmiTesting.Index = 4
-        Me.mmiTesting.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiPermitUploader})
+        Me.mmiTesting.Index = 3
         Me.mmiTesting.Text = "Testing"
         Me.mmiTesting.Visible = False
-        '
-        'mmiPermitUploader
-        '
-        Me.mmiPermitUploader.Index = 0
-        Me.mmiPermitUploader.Text = "New permit uploader"
-        Me.mmiPermitUploader.Visible = False
         '
         'Image_List_All
         '
@@ -335,49 +283,6 @@ Partial Class IAIPNavigation
         Me.Label1.TabIndex = 5
         Me.Label1.Text = "AIR Protection Branch Navigation Screen"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'llbQuaternaryList
-        '
-        Me.llbQuaternaryList.AutoSize = True
-        Me.llbQuaternaryList.Location = New System.Drawing.Point(408, 9)
-        Me.llbQuaternaryList.Name = "llbQuaternaryList"
-        Me.llbQuaternaryList.Size = New System.Drawing.Size(78, 13)
-        Me.llbQuaternaryList.TabIndex = 91
-        Me.llbQuaternaryList.TabStop = True
-        Me.llbQuaternaryList.Text = "Quaternary List"
-        '
-        'llbTertiaryList
-        '
-        Me.llbTertiaryList.AutoSize = True
-        Me.llbTertiaryList.Location = New System.Drawing.Point(280, 9)
-        Me.llbTertiaryList.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.llbTertiaryList.Name = "llbTertiaryList"
-        Me.llbTertiaryList.Size = New System.Drawing.Size(61, 13)
-        Me.llbTertiaryList.TabIndex = 2
-        Me.llbTertiaryList.TabStop = True
-        Me.llbTertiaryList.Text = "Tertiary List"
-        '
-        'llbSecondaryList
-        '
-        Me.llbSecondaryList.AutoSize = True
-        Me.llbSecondaryList.Location = New System.Drawing.Point(136, 9)
-        Me.llbSecondaryList.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.llbSecondaryList.Name = "llbSecondaryList"
-        Me.llbSecondaryList.Size = New System.Drawing.Size(77, 13)
-        Me.llbSecondaryList.TabIndex = 1
-        Me.llbSecondaryList.TabStop = True
-        Me.llbSecondaryList.Text = "Secondary List"
-        '
-        'llbPrimaryList
-        '
-        Me.llbPrimaryList.AutoSize = True
-        Me.llbPrimaryList.Location = New System.Drawing.Point(9, 9)
-        Me.llbPrimaryList.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.llbPrimaryList.Name = "llbPrimaryList"
-        Me.llbPrimaryList.Size = New System.Drawing.Size(60, 13)
-        Me.llbPrimaryList.TabIndex = 0
-        Me.llbPrimaryList.TabStop = True
-        Me.llbPrimaryList.Text = "Primary List"
         '
         'Panel4
         '
@@ -1208,10 +1113,10 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.AllowUserToOrderColumns = True
         Me.dgvWorkViewer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dgvWorkViewer.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvWorkViewer.Location = New System.Drawing.Point(118, 61)
+        Me.dgvWorkViewer.Location = New System.Drawing.Point(118, 33)
         Me.dgvWorkViewer.Name = "dgvWorkViewer"
         Me.dgvWorkViewer.ReadOnly = True
-        Me.dgvWorkViewer.Size = New System.Drawing.Size(674, 174)
+        Me.dgvWorkViewer.Size = New System.Drawing.Size(674, 202)
         Me.dgvWorkViewer.TabIndex = 123
         '
         'bgrLongProcess
@@ -1229,26 +1134,12 @@ Partial Class IAIPNavigation
         'bgrFormLoad
         '
         '
-        'Panel1
-        '
-        Me.Panel1.Controls.Add(Me.llbQuaternaryList)
-        Me.Panel1.Controls.Add(Me.llbPrimaryList)
-        Me.Panel1.Controls.Add(Me.llbSecondaryList)
-        Me.Panel1.Controls.Add(Me.llbTertiaryList)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel1.Location = New System.Drawing.Point(118, 33)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(674, 28)
-        Me.Panel1.TabIndex = 125
-        Me.Panel1.Visible = False
-        '
         'IAIPNavigation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(792, 401)
         Me.Controls.Add(Me.dgvWorkViewer)
-        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.GPWorkTool)
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.Label1)
@@ -1264,8 +1155,6 @@ Partial Class IAIPNavigation
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         CType(Me.dgvWorkViewer, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1273,15 +1162,11 @@ Partial Class IAIPNavigation
     Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
     Friend WithEvents mmiFile As System.Windows.Forms.MenuItem
     Friend WithEvents mmiExit As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiView As System.Windows.Forms.MenuItem
     Friend WithEvents mmiTools As System.Windows.Forms.MenuItem
     Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents mmiAbout As System.Windows.Forms.MenuItem
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents llbTertiaryList As System.Windows.Forms.LinkLabel
-    Friend WithEvents llbSecondaryList As System.Windows.Forms.LinkLabel
-    Friend WithEvents llbPrimaryList As System.Windows.Forms.LinkLabel
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
     Friend WithEvents GPWorkTool As System.Windows.Forms.GroupBox
     Friend WithEvents llbTrackingNumber As System.Windows.Forms.LinkLabel
@@ -1309,7 +1194,6 @@ Partial Class IAIPNavigation
     Friend WithEvents dgvWorkViewer As System.Windows.Forms.DataGridView
     Friend WithEvents pnl4 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents pnl5 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents llbQuaternaryList As System.Windows.Forms.LinkLabel
     Friend WithEvents bgrLongProcess As System.ComponentModel.BackgroundWorker
     Friend WithEvents lblMessageLabel As System.Windows.Forms.Label
     Friend WithEvents bgrOpenNewForm As System.ComponentModel.BackgroundWorker
@@ -1346,12 +1230,6 @@ Partial Class IAIPNavigation
     Friend WithEvents btnNav24 As System.Windows.Forms.Button
     Friend WithEvents btnNav23 As System.Windows.Forms.Button
     Friend WithEvents btnNav22 As System.Windows.Forms.Button
-    Friend WithEvents Panel1 As System.Windows.Forms.Panel
-    Friend WithEvents mmiISMPLists As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiSSCPLists As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiSSPPLists As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem3 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiResetDefault As System.Windows.Forms.MenuItem
     Friend WithEvents btnNav29 As System.Windows.Forms.Button
     Friend WithEvents btnNav31 As System.Windows.Forms.Button
     Friend WithEvents btnNav30 As System.Windows.Forms.Button
@@ -1371,7 +1249,6 @@ Partial Class IAIPNavigation
     Friend WithEvents rdbStaffView As System.Windows.Forms.RadioButton
     Friend WithEvents mmiExport As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiPermitUploader As System.Windows.Forms.MenuItem
     Friend WithEvents mmiTesting As System.Windows.Forms.MenuItem
     Friend WithEvents mmiResetForm As System.Windows.Forms.MenuItem
     Friend WithEvents btnNav40 As System.Windows.Forms.Button

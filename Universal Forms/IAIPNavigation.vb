@@ -3,7 +3,6 @@ Imports System.IO
 Imports System.Collections.Generic
 
 Public Class IAIPNavigation
-    Dim Paneltemp1 As String
     Public UserSource As String
     Public UserRequest As String
     Public UserGridStyle As String
@@ -22,7 +21,6 @@ Public Class IAIPNavigation
         Try
             pnl3.Text = OracleDate
             pnl2.Text = UserName
-            Paneltemp1 = pnl1.Text
             ProgressBar.PerformStep()
 
             WorkBranch = UserBranch
@@ -32,8 +30,6 @@ Public Class IAIPNavigation
             bgrFormLoad.WorkerReportsProgress = True
             bgrFormLoad.WorkerSupportsCancellation = True
             bgrFormLoad.RunWorkerAsync()
-
-            LoadShortCutData()
 
             ProgressBar.Value = 0
             IAIPLogIn.Hide()
@@ -50,13 +46,7 @@ Public Class IAIPNavigation
             cboIAIPList.Items.Add("Monitoring Test Notifications")
             cboIAIPList.Items.Add("Permit Applications")
 
-            If TestingEnvironment Then
-                mmiTesting.Visible = True
-                mmiTesting.Enabled = True
-            Else
-                mmiTesting.Visible = False
-                mmiTesting.Enabled = False
-            End If
+            EnableTestingMenu()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -65,107 +55,14 @@ Public Class IAIPNavigation
     End Sub
 
 #Region "Page Load Subs and Funcations"
-    Sub LoadShortCutData()
-        Try
-
-            ProgressBar.PerformStep()
-
-            llbPrimaryList.Visible = False
-            llbSecondaryList.Visible = False
-            llbTertiaryList.Visible = False
-            llbQuaternaryList.Visible = False
-
-            ProgressBar.PerformStep()
-            If WorkProgram <> "---" Then
-                SQL2 = "Select strProgramDesc " & _
-                "from AIRBranch.LookUpEPDPrograms " & _
-                "where numProgramCode = '" & WorkProgram & "' "
-                cmd2 = New OracleCommand(SQL2, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
-                End If
-                dr2 = cmd2.ExecuteReader
-                While dr2.Read
-                    If IsDBNull(dr2.Item("strProgramDesc")) Then
-                        pnl1.Text = "---"
-                    Else
-                        pnl1.Text = dr2.Item("strProgramDesc")
-                    End If
-                End While
-                dr2.Close()
-            Else
-                pnl1.Text = "---"
-            End If
-
-            llbPrimaryList.Visible = False
-            llbSecondaryList.Visible = False
-            llbTertiaryList.Visible = False
-            llbQuaternaryList.Visible = False
-
-            Select Case WorkBranch
-                Case "1"
-                    Select Case WorkProgram
-                        Case "1"
-
-                        Case "2"
-
-                        Case "3"    'ISMP 
-                            llbPrimaryList.Visible = True
-                            llbSecondaryList.Visible = True
-                            llbTertiaryList.Visible = True
-                            llbPrimaryList.Text = "Test Reports"
-                            llbSecondaryList.Text = "Permit Applications"
-                            llbTertiaryList.Text = "Test Notifications"
-
-                        Case "4"    'SSCP 
-                            llbPrimaryList.Visible = True
-                            llbSecondaryList.Visible = True
-                            llbTertiaryList.Visible = True
-                            llbQuaternaryList.Visible = True
-                            llbPrimaryList.Text = "Open Enforcement"
-                            llbSecondaryList.Text = "Permit Applications"
-                            llbTertiaryList.Text = "Open Compliance Work"
-                            llbQuaternaryList.Text = "MACT Sub Parts"
-                        Case "5"     'SSPP
-                            llbPrimaryList.Visible = True
-                            llbPrimaryList.Text = "Open Applications"
-                        Case "6"
-                        Case Else
-                            If Permissions.Contains("(27)") Then
-                                llbPrimaryList.Visible = True
-                                llbSecondaryList.Visible = True
-                                llbTertiaryList.Visible = True
-                                llbQuaternaryList.Visible = True
-                                llbPrimaryList.Text = "Open Enforcement"
-                                llbSecondaryList.Text = "Permit Applications"
-                                llbTertiaryList.Text = "Open Compliance Work"
-                                llbQuaternaryList.Text = "MACT Sub Parts"
-                            End If
-
-                    End Select
-                Case "5"
-                    llbPrimaryList.Visible = True
-                    llbSecondaryList.Visible = True
-                    llbPrimaryList.Text = "Open Enforcement"
-                    llbSecondaryList.Text = "Open Compliance Work"
-            End Select
-
-            ProgressBar.Value = 0
-            lblMessageLabel.Text = "Loading...."
-            dgvWorkViewer.Visible = False
-            UserRequest = "Primary"
-
-            If bgrLongProcess.IsBusy = True Then
-                bgrLongProcess.CancelAsync()
-            Else
-                bgrLongProcess.WorkerReportsProgress = True
-                bgrLongProcess.WorkerSupportsCancellation = True
-                bgrLongProcess.RunWorkerAsync()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub EnableTestingMenu()
+        If TestingEnvironment Then
+            mmiTesting.Visible = True
+            mmiTesting.Enabled = True
+        Else
+            mmiTesting.Visible = False
+            mmiTesting.Enabled = False
+        End If
     End Sub
     Sub LoadISMPTestReports()
         If SQL <> "" Then
@@ -221,10 +118,10 @@ Public Class IAIPNavigation
             dgvWorkViewer.Columns("strWitnessingEngineer2").Visible = False
             dgvWorkViewer.Columns("strUserUnit").Visible = False
 
-            LoadCompliaceColor()
+            LoadComplianceColor()
         End If
     End Sub
-    Sub LoadCompliaceColor()
+    Sub LoadComplianceColor()
         Try
             For Each row As DataGridViewRow In dgvWorkViewer.Rows
                 If Not row.IsNewRow Then
@@ -2592,102 +2489,6 @@ Public Class IAIPNavigation
 
         End Try
 
-    End Sub
-    Private Sub llbPrimaryList_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbPrimaryList.LinkClicked
-        Try
-
-            Paneltemp1 = pnl1.Text
-            pnl1.Text = ""
-            ProgressBar.Value = 0
-            lblMessageLabel.Text = "Loading...."
-            dgvWorkViewer.Visible = False
-            UserRequest = "Primary"
-
-            If bgrLongProcess.IsBusy Then
-                bgrLongProcess.CancelAsync()
-            Else
-                bgrLongProcess.WorkerReportsProgress = True
-                bgrLongProcess.WorkerSupportsCancellation = True
-                bgrLongProcess.RunWorkerAsync()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-
-        pnl1.Text = Paneltemp1
-    End Sub
-    Private Sub llbSecondaryList_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbSecondaryList.LinkClicked
-        Try
-
-            Paneltemp1 = pnl1.Text
-            pnl1.Text = ""
-            lblMessageLabel.Text = "Loading...."
-            dgvWorkViewer.Visible = False
-            UserRequest = "Secondary"
-
-            If bgrLongProcess.IsBusy Then
-                bgrLongProcess.CancelAsync()
-            Else
-                bgrLongProcess.WorkerReportsProgress = True
-                bgrLongProcess.WorkerSupportsCancellation = True
-                bgrLongProcess.RunWorkerAsync()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-
-        pnl1.Text = Paneltemp1
-    End Sub
-    Private Sub llbTerteraryList_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbTertiaryList.LinkClicked
-        Try
-
-            Paneltemp1 = pnl1.Text
-            pnl1.Text = ""
-            lblMessageLabel.Text = "Loading...."
-            dgvWorkViewer.Visible = False
-            UserRequest = "Tertiary"
-
-            If bgrLongProcess.IsBusy Then
-                bgrLongProcess.CancelAsync()
-            Else
-                bgrLongProcess.WorkerReportsProgress = True
-                bgrLongProcess.WorkerSupportsCancellation = True
-                bgrLongProcess.RunWorkerAsync()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-        pnl1.Text = Paneltemp1
-    End Sub
-    Private Sub llbQuaternaryList_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbQuaternaryList.LinkClicked
-        Try
-
-            Paneltemp1 = pnl1.Text
-            pnl1.Text = ""
-            lblMessageLabel.Text = "Loading...."
-            dgvWorkViewer.Visible = False
-            UserRequest = "Quaternary"
-
-            If bgrLongProcess.IsBusy Then
-                bgrLongProcess.CancelAsync()
-            Else
-                bgrLongProcess.WorkerReportsProgress = True
-                bgrLongProcess.WorkerSupportsCancellation = True
-                bgrLongProcess.RunWorkerAsync()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-
-        pnl1.Text = Paneltemp1
     End Sub
     Private Sub llbTrackingNumber_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbTrackingNumber.LinkClicked
         Try
@@ -7705,90 +7506,8 @@ Public Class IAIPNavigation
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub mmiISMPLists_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiISMPLists.Click
-        Try
-            llbPrimaryList.Visible = False
-            llbSecondaryList.Visible = False
-            llbTertiaryList.Visible = False
-            llbQuaternaryList.Visible = False
-
-            llbPrimaryList.Visible = True
-            llbSecondaryList.Visible = True
-            llbTertiaryList.Visible = True
-            llbPrimaryList.Text = "Test Reports"
-            llbSecondaryList.Text = "Permit Applications"
-            llbTertiaryList.Text = "Test Notifications"
-
-            WorkBranch = "1"
-            WorkProgram = "3"
-            WorkUnit = "---"
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
-    Private Sub mmiSSCPLists_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSSCPLists.Click
-        Try
-            llbPrimaryList.Visible = False
-            llbSecondaryList.Visible = False
-            llbTertiaryList.Visible = False
-            llbQuaternaryList.Visible = False
-
-            llbPrimaryList.Visible = True
-            llbSecondaryList.Visible = True
-            llbTertiaryList.Visible = True
-            llbQuaternaryList.Visible = True
-            llbPrimaryList.Text = "Open Enforcement"
-            llbSecondaryList.Text = "Permit Applications"
-            llbTertiaryList.Text = "Open Compliance Work"
-            llbQuaternaryList.Text = "MACT Sub Parts"
-
-            WorkBranch = "1"
-            WorkProgram = "4"
-            WorkUnit = "---"
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
-    Private Sub mmiSSPPLists_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSSPPLists.Click
-        Try
-            llbPrimaryList.Visible = False
-            llbSecondaryList.Visible = False
-            llbTertiaryList.Visible = False
-            llbQuaternaryList.Visible = False
-
-            llbPrimaryList.Visible = True
-            llbPrimaryList.Text = "Open Applications"
-
-            WorkBranch = "1"
-            WorkProgram = "5"
-            WorkUnit = "---"
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
-    Private Sub mmiResetDefault_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiResetDefault.Click
-        Try
-
-            WorkBranch = UserBranch
-            WorkProgram = UserProgram
-            WorkUnit = UserUnit
-
-            LoadShortCutData()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-
-    End Sub
     Private Sub dgvWorkViewer_Sorted(ByVal sender As Object, ByVal e As System.EventArgs) Handles dgvWorkViewer.Sorted
-        LoadCompliaceColor()
+        LoadComplianceColor()
     End Sub
 
     Private Sub btnChangeListView_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnChangeListView.Click
@@ -8476,7 +8195,7 @@ Public Class IAIPNavigation
                     dgvWorkViewer.Columns("strWitnessingEngineer2").Visible = False
                     dgvWorkViewer.Columns("strUserUnit").Visible = False
 
-                    LoadCompliaceColor()
+                    LoadComplianceColor()
 
                 Case "Monitoring Test Notifications"
                     SQL = "select  " & _
@@ -8966,7 +8685,7 @@ Public Class IAIPNavigation
         End If
     End Sub
 
-    Private Sub mmiPermitUploader_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPermitUploader.Click
+    Private Sub mmiPermitUploader_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         'SsppFileUploader.Show()
     End Sub
 
