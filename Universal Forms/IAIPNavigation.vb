@@ -26,9 +26,9 @@ Public Class IAIPNavigation
             WorkProgram = UserProgram
             WorkUnit = UserUnit
 
-            bgrFormLoad.WorkerReportsProgress = True
-            bgrFormLoad.WorkerSupportsCancellation = True
-            bgrFormLoad.RunWorkerAsync()
+            bgrLoadButtons.WorkerReportsProgress = True
+            bgrLoadButtons.WorkerSupportsCancellation = True
+            bgrLoadButtons.RunWorkerAsync()
 
             ProgressBar.Value = 0
             IAIPLogIn.Hide()
@@ -4164,7 +4164,7 @@ Public Class IAIPNavigation
 
 #Region "bgrLoadButtons"
 
-    Private Sub bgrLoadButtons_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bgrFormLoad.DoWork
+    Private Sub bgrLoadButtons_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bgrLoadButtons.DoWork
         LoadButtons()
     End Sub
 
@@ -4242,7 +4242,7 @@ Public Class IAIPNavigation
         End Try
     End Sub
 
-    Private Sub bgrLoadButtons_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgrFormLoad.RunWorkerCompleted
+    Private Sub bgrLoadButtons_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgrLoadButtons.RunWorkerCompleted
         Try
             i = 0
 

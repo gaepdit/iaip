@@ -110,8 +110,7 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer = New System.Windows.Forms.DataGridView
         Me.bgrLongProcess = New System.ComponentModel.BackgroundWorker
         Me.lblMessageLabel = New System.Windows.Forms.Label
-        Me.bgrOpenNewForm = New System.ComponentModel.BackgroundWorker
-        Me.bgrFormLoad = New System.ComponentModel.BackgroundWorker
+        Me.bgrLoadButtons = New System.ComponentModel.BackgroundWorker
         Me.Panel4.SuspendLayout()
         Me.GPWorkTool.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -1040,7 +1039,7 @@ Partial Class IAIPNavigation
         Me.lblMessageLabel.TabIndex = 124
         Me.lblMessageLabel.Text = "Label8"
         '
-        'bgrFormLoad
+        'bgrLoadButtons
         '
         '
         'IAIPNavigation
@@ -1104,7 +1103,6 @@ Partial Class IAIPNavigation
     Friend WithEvents pnl5 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents bgrLongProcess As System.ComponentModel.BackgroundWorker
     Friend WithEvents lblMessageLabel As System.Windows.Forms.Label
-    Friend WithEvents bgrOpenNewForm As System.ComponentModel.BackgroundWorker
     Friend WithEvents btnNav7 As System.Windows.Forms.Button
     Friend WithEvents btnNav6 As System.Windows.Forms.Button
     Friend WithEvents btnNav5 As System.Windows.Forms.Button
@@ -1123,7 +1121,7 @@ Partial Class IAIPNavigation
     Friend WithEvents llbOpenTestLog As System.Windows.Forms.LinkLabel
     Friend WithEvents txtTestLogNumber As System.Windows.Forms.TextBox
     Friend WithEvents Label8 As System.Windows.Forms.Label
-    Friend WithEvents bgrFormLoad As System.ComponentModel.BackgroundWorker
+    Friend WithEvents bgrLoadButtons As System.ComponentModel.BackgroundWorker
     Friend WithEvents btnNav21 As System.Windows.Forms.Button
     Friend WithEvents btnNav20 As System.Windows.Forms.Button
     Friend WithEvents btnNav19 As System.Windows.Forms.Button
