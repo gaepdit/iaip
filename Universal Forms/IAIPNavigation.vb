@@ -13,9 +13,8 @@ Public Class IAIPNavigation
     Dim WorkProgram As String
     Dim WorkUnit As String
 
-    Private Sub IAIPNavigation_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
-        monitor.TrackFeatureStop("Startup.LoggingIn")
-    End Sub
+#Region "Form events"
+
     Private Sub APBNavigation_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Main." & Me.Name)
         Try
@@ -54,7 +53,19 @@ Public Class IAIPNavigation
         End Try
     End Sub
 
-#Region "Page Load Subs and Funcations"
+    Private Sub IAIPNavigation_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
+        monitor.TrackFeatureStop("Startup.LoggingIn")
+    End Sub
+
+    Private Sub NavigationScreen_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
+        Conn.Dispose()
+        Application.Exit()
+    End Sub
+
+#End Region
+
+#Region "Page Load procedures"
+
     Private Sub EnableTestingMenu()
         If TestingEnvironment Then
             mmiTesting.Visible = True
@@ -64,6 +75,11 @@ Public Class IAIPNavigation
             mmiTesting.Enabled = False
         End If
     End Sub
+
+#End Region
+
+#Region "Currently un-organized"
+
     Sub LoadISMPTestReports()
         If SQL <> "" Then
             dgvWorkViewer.DataSource = dsOpenWork
@@ -1836,7 +1852,56 @@ Public Class IAIPNavigation
 
         End Try
     End Sub
-    Sub OpenApplication()
+
+#End Region
+
+#Region "Work Tool"
+
+#Region "Work Tool link clicked and keypress events"
+
+    Private Sub LLSelectReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLSelectReport.LinkClicked
+        OpenTestReport()
+    End Sub
+    Private Sub llbEnforcementRecord_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEnforcementRecord.LinkClicked
+        OpenEnforcement()
+    End Sub
+    Private Sub llbOpenApplication_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenApplication.LinkClicked
+        OpenApplication()
+    End Sub
+    Private Sub llbTrackingNumber_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbTrackingNumber.LinkClicked
+        OpenSSCPWork()
+    End Sub
+    Private Sub llbFacilitySummary_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFacilitySummary.LinkClicked
+        OpenFacilitySummary()
+    End Sub
+    Private Sub llbOpenTestLog_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenTestLog.LinkClicked
+        OpenTestLog()
+    End Sub
+
+    Private Sub txtApplicationNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtApplicationNumber.KeyPress
+        If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then OpenApplication()
+    End Sub
+    Private Sub txtEnforcementNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtEnforcementNumber.KeyPress
+        If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then OpenEnforcement()
+    End Sub
+    Private Sub txtReferenceNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtReferenceNumber.KeyPress
+        If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then OpenTestReport()
+    End Sub
+    Private Sub txtTrackingNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtTrackingNumber.KeyPress
+        If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then OpenSSCPWork()
+    End Sub
+    Private Sub txtAIRSNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtAIRSNumber.KeyPress
+        If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then OpenFacilitySummary()
+    End Sub
+    Private Sub txtTestLogNumber_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtTestLogNumber.KeyPress
+        If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then OpenTestLog()
+    End Sub
+
+#End Region
+
+#Region "Work Tool procedures"
+
+    Private Sub OpenApplication()
         Try
 
             If txtApplicationNumber.Text <> "" Then
@@ -1876,7 +1941,8 @@ Public Class IAIPNavigation
         End Try
 
     End Sub
-    Sub OpenTestReport()
+
+    Private Sub OpenTestReport()
         Try
 
             'If txtReferenceNumber.Text <> "" Then
@@ -1949,7 +2015,8 @@ Public Class IAIPNavigation
         End Try
 
     End Sub
-    Sub OpenEnforcement()
+
+    Private Sub OpenEnforcement()
         Try
             Dim enfNum As String = txtEnforcementNumber.Text
             If enfNum = "" Then Exit Sub
@@ -1962,7 +2029,8 @@ Public Class IAIPNavigation
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub OpenSSCPWork()
+
+    Private Sub OpenSSCPWork()
         Try
 
             If txtTrackingNumber.Text <> "" And IsNumeric(txtTrackingNumber.Text) Then
@@ -2036,7 +2104,8 @@ Public Class IAIPNavigation
         End Try
 
     End Sub
-    Sub OpenFacilitySummary()
+
+    Private Sub OpenFacilitySummary()
         If txtAIRSNumber.TextLength = 0 Then
             OpenSingleForm(IAIPFacilitySummary)
             Exit Sub
@@ -2051,7 +2120,1489 @@ Public Class IAIPNavigation
         parameters("airsnumber") = txtAIRSNumber.Text
         OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
     End Sub
-    Sub OpenNewForm(ByVal Source As String, ByVal Options As String)
+
+    Private Sub OpenTestLog()
+        Try
+            If Not IsNothing(DevTestLog) Then
+                DevTestLog.txtTestNotificationNumber.Text = txtTestLogNumber.Text
+                DevTestLog.Show()
+            Else
+                DevTestLog = Nothing
+                If DevTestLog Is Nothing Then DevTestLog = New ISMPNotificationLog
+                DevTestLog.txtTestNotificationNumber.Text = txtTestLogNumber.Text
+                DevTestLog.Show()
+            End If
+            'DevTestLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            DevTestLog.LoadTestNotification()
+
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
+#End Region
+
+#Region "Change List tool"
+
+    Private Sub btnChangeListView_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnChangeListView.Click
+        Try
+            txtAIRSNumber.Clear()
+            txtEnforcementNumber.Clear()
+            txtApplicationNumber.Clear()
+            txtReferenceNumber.Clear()
+            txtTrackingNumber.Clear()
+            txtTestLogNumber.Clear()
+
+            Select Case cboIAIPList.Text
+                Case "Compliance Facilities Assigned"
+                    If rdbUCView.Checked = True Then
+                        SQL = "Select distinct " & _
+                       "substr(AIRBranch.SSCPInspectionsRequired.strAIRSnumber, 5) as AIRSNumber, " & _
+                       "AIRBranch.APBFacilityInformation.strFacilityName, " & _
+                       "(strLastName||', '||strFirstName) as Staff " & _
+                       "from AIRBranch.SSCPInspectionsRequired, AIRBranch.APBFacilityInformation, " & _
+                       "AIRBranch.EPDUserProfiles " & _
+                       "where AIRBranch.SSCPInspectionsRequired.strAIRSNumber = AIRBranch.APBFacilityInformation.strAIRSNumber " & _
+                       "and AIRBranch.SSCPInspectionsRequired.numSSCPEngineer = AIRBranch.EPDUserProfiles.numUserID " & _
+                       "and numProgram = '" & UserProgram & "' " & _
+                       "order by AIRSNumber  "
+                    Else
+                        SQL = "Select distinct " & _
+                       "substr(AIRBranch.SSCPInspectionsRequired.strAIRSnumber, 5) as AIRSNumber, " & _
+                       "AIRBranch.APBFacilityInformation.strFacilityName, " & _
+                       "(strLastName||', '||strFirstName) as Staff " & _
+                       "from AIRBranch.SSCPInspectionsRequired, AIRBranch.APBFacilityInformation, " & _
+                       "AIRBranch.EPDUserProfiles " & _
+                       "where AIRBranch.SSCPInspectionsRequired.strAIRSNumber = AIRBranch.APBFacilityInformation.strAIRSNumber " & _
+                       "and AIRBranch.SSCPInspectionsRequired.numSSCPEngineer = AIRBranch.EPDUserProfiles.numUserID " & _
+                       "and numSSCPEngineer = '" & UserGCode & "' " & _
+                       "order by AIRSNumber  "
+
+                    End If
+
+                    dsOpenWork = New DataSet
+                    daOpenWork = New OracleDataAdapter(SQL, Conn)
+                    If SQL <> "" Then
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
+                        End If
+                        daOpenWork.Fill(dsOpenWork, "OpenWork")
+                    End If
+
+                    dsOpenWork = New DataSet
+                    daOpenWork = New OracleDataAdapter(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
+                    End If
+                    daOpenWork.Fill(dsOpenWork, "OpenWork")
+                    dgvWorkViewer.DataSource = dsOpenWork
+                    dgvWorkViewer.DataMember = "OpenWork"
+
+                    dgvWorkViewer.RowHeadersVisible = False
+                    dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+                    dgvWorkViewer.AllowUserToResizeColumns = True
+                    dgvWorkViewer.AllowUserToAddRows = False
+                    dgvWorkViewer.AllowUserToDeleteRows = False
+                    dgvWorkViewer.AllowUserToOrderColumns = True
+                    dgvWorkViewer.AllowUserToResizeRows = True
+                    dgvWorkViewer.ColumnHeadersHeight = "35"
+                    dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
+                    dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 0
+                    dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
+                    dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 1
+                    dgvWorkViewer.Columns("strFacilityName").Width = dgvWorkViewer.Width * (0.5)
+                    dgvWorkViewer.Columns("Staff").HeaderText = "Staff Responsible"
+                    dgvWorkViewer.Columns("Staff").DisplayIndex = 2
+                    dgvWorkViewer.Columns("Staff").Width = dgvWorkViewer.Width * (0.25)
+
+                Case "Compliance Work"
+                    SQL = "Select " & _
+                          "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
+                          "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
+                          "(strLastName||', '||strFirstName) as Staff,  " & _
+                          "strResponsibleStaff, " & _
+                          "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived, " & _
+                          "AIRBranch.APBFacilityInformation.strFacilityName, StrActivityName    " & _
+                          "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
+                          "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities,   " & _
+                          "AIRBranch.VW_SSCPInspection_List " & _
+                          "where AIRBranch.EPDUserProfiles.numUserID = " & _
+                          DBNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
+                          "and AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
+                          DBNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
+                          "and AIRBranch.LookUPComplianceActivities.strActivityType = " & _
+                          DBNameSpace & ".SSCPItemMaster.strEventType  " & _
+                          " and AIRBranch.SSCPItemMaster.strAIRSnumber = '0413'||" & _
+                          DBNameSpace & ".VW_SSCPInspection_List.AIRSNumber  " & _
+                          "and (strResponsibleStaff = '" & UserGCode & "' or numSSCPEngineer = '" & UserGCode & "') " & _
+                          "and DatCompleteDate is Null  " & _
+                          "and strDelete is Null "
+
+                    If rdbStaffView.Checked = True Then
+                        SQL = "Select " & _
+                        "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
+                        "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
+                        "(strLastName||', '||strFirstName) as Staff,  " & _
+                        "strResponsibleStaff, " & _
+                        "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived, " & _
+                        "AIRBranch.APBFacilityInformation.strFacilityName, StrActivityName    " & _
+                        "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
+                        "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities,   " & _
+                        "AIRBranch.VW_SSCPInspection_List " & _
+                        "where AIRBranch.EPDUserProfiles.numUserID = " & _
+                        DBNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
+                        "and AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
+                        DBNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
+                        "and AIRBranch.LookUPComplianceActivities.strActivityType = " & _
+                        DBNameSpace & ".SSCPItemMaster.strEventType  " & _
+                        " and AIRBranch.SSCPItemMaster.strAIRSnumber = '0413'||" & _
+                        DBNameSpace & ".VW_SSCPInspection_List.AIRSNumber  " & _
+                        "and (strResponsibleStaff = '" & UserGCode & "' or numSSCPEngineer = '" & UserGCode & "') " & _
+                        "and DatCompleteDate is Null  " & _
+                        "and strDelete is Null "
+                    End If
+                    If rdbUCView.Checked = True Then
+                        If UserProgram <> "5" Then
+                            SQL = "select " & _
+                            "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
+                            "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
+                            "(strLastName||', '||strFirstName) as Staff,  " & _
+                            "strResponsibleStaff, " & _
+                            "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived,  " & _
+                            "strFacilityName, StrActivityName    " & _
+                            "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
+                            "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities,  " & _
+                            "(select numUserID from AIRBranch.EPDUserProfiles where numProgram = '" & UserProgram & "')  " & _
+                            "UnitStaff    " & _
+                            "where AIRBranch.EPDUserProfiles.numUserID = " & _
+                            DBNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
+                            "and AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
+                            DBNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
+                            "and AIRBranch.LookUPComplianceActivities.strActivityType = " & _
+                            DBNameSpace & ".SSCPItemMaster.strEventType " & _
+                            "and DatCompleteDate is Null   " & _
+                            "and strResponsibleStaff = UnitStaff.numUserID " & _
+                            "and strDelete is Null "
+                        Else
+                            SQL = "select " & _
+                             "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
+                             "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
+                             "(strLastName||', '||strFirstName) as Staff,  " & _
+                             "strResponsibleStaff, " & _
+                             "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived,  " & _
+                             "strFacilityName, StrActivityName    " & _
+                             "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
+                             "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities,  " & _
+                             "(select numUserID from AIRBranch.EPDUserProfiles where numUnit = '" & UserUnit & "')  " & _
+                             "UnitStaff    " & _
+                             "where AIRBranch.EPDUserProfiles.numUserID = " & _
+                             DBNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
+                             "and AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
+                             DBNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
+                             "and AIRBranch.LookUPComplianceActivities.strActivityType = " & _
+                             DBNameSpace & ".SSCPItemMaster.strEventType " & _
+                             "and DatCompleteDate is Null   " & _
+                             "and strResponsibleStaff = UnitStaff.numUserID " & _
+                             "and strDelete is Null "
+                        End If
+
+                    End If
+                    If rdbPMView.Checked = True Then
+                        SQL = "select " & _
+                       "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
+                       "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
+                        " case when AIRBranch.SSCPItemMaster.STRRESPONSIBLESTAFF = 0 then ': No one assigned' " & _
+                        " when AIRBranch.SSCPItemMaster.STRRESPONSIBLESTAFF is null then ': Not assigned' " & _
+                        "Else STRLASTNAME || ', ' || STRFIRSTNAME end AS Staff, " & _
+                       "strResponsibleStaff, " & _
+                       "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived,  " & _
+                       "strFacilityName, StrActivityName    " & _
+                       "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
+                       "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities " & _
+                       "where AIRBranch.EPDUserProfiles.numUserID(+) = " & _
+                                DBNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
+                       "and AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
+                       DBNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
+                       "and AIRBranch.LookUPComplianceActivities.strActivityType = " & _
+                       DBNameSpace & ".SSCPItemMaster.strEventType " & _
+                       "and DatCompleteDate is Null   " & _
+                       "and strDelete is Null "
+                    End If
+
+                    If rdbPMView.Checked = True Then
+                        SQL = SQL
+                    End If
+
+                    dsOpenWork = New DataSet
+                    daOpenWork = New OracleDataAdapter(SQL, Conn)
+                    If SQL <> "" Then
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
+                        End If
+                        daOpenWork.Fill(dsOpenWork, "OpenWork")
+                    End If
+
+                    dsOpenWork = New DataSet
+                    daOpenWork = New OracleDataAdapter(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
+                    End If
+                    daOpenWork.Fill(dsOpenWork, "OpenWork")
+                    dgvWorkViewer.DataSource = dsOpenWork
+                    dgvWorkViewer.DataMember = "OpenWork"
+
+                    dgvWorkViewer.RowHeadersVisible = False
+                    dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+                    dgvWorkViewer.AllowUserToResizeColumns = True
+                    dgvWorkViewer.AllowUserToAddRows = False
+                    dgvWorkViewer.AllowUserToDeleteRows = False
+                    dgvWorkViewer.AllowUserToOrderColumns = True
+                    dgvWorkViewer.AllowUserToResizeRows = True
+                    dgvWorkViewer.ColumnHeadersHeight = "35"
+                    dgvWorkViewer.Columns("strTrackingNumber").HeaderText = "Tracking #"
+                    dgvWorkViewer.Columns("strTrackingNumber").DisplayIndex = 0
+                    dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
+                    dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 1
+                    dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
+                    dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 2
+                    dgvWorkViewer.Columns("DateReceived").HeaderText = "Date Received"
+                    dgvWorkViewer.Columns("DateReceived").DisplayIndex = 3
+                    dgvWorkViewer.Columns("DateReceived").DefaultCellStyle.Format = "dd-MMM-yyyy"
+                    dgvWorkViewer.Columns("Staff").HeaderText = "Staff Responsible"
+                    dgvWorkViewer.Columns("Staff").DisplayIndex = 4
+                    dgvWorkViewer.Columns("StrActivityName").HeaderText = "Activity Type"
+                    dgvWorkViewer.Columns("StrActivityName").DisplayIndex = 5
+                    dgvWorkViewer.Columns("strResponsibleStaff").HeaderText = "Responsible Staff"
+                    dgvWorkViewer.Columns("strResponsibleStaff").DisplayIndex = 6
+                    dgvWorkViewer.Columns("strResponsibleStaff").Visible = False
+                Case "Full Compliance Evaluations - Delinquent"
+                    Dim StartCMSA As String
+                    Dim StartCMSS As String
+
+                    StartCMSA = Format(CDate(OracleDate).AddDays(-730), "yyyy-MM-dd")
+                    StartCMSS = Format(CDate(OracleDate).AddDays(-1825), "yyyy-MM-dd")
+
+                    SQL = "Select * " & _
+                    "from AIRBranch.VW_SSCP_CMSWarning " & _
+                    "where AIRSNumber is not Null " & _
+                    " and strCMSMember is not null " & _
+                    " and ((strCMSMember = 'A' and lastFCE < '" & StartCMSA & "') " & _
+                    "or (strCMSMember = 'S' and LastFCE < '" & StartCMSS & "')) "
+
+                    If SQL <> "" Then
+                        dsOpenWork = New DataSet
+                        daOpenWork = New OracleDataAdapter(SQL, Conn)
+
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
+                        End If
+
+                        daOpenWork.Fill(dsOpenWork, "OpenWork")
+                        dgvWorkViewer.DataSource = dsOpenWork
+                        dgvWorkViewer.DataMember = "OpenWork"
+
+                        dgvWorkViewer.RowHeadersVisible = False
+                        dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+                        dgvWorkViewer.AllowUserToResizeColumns = True
+                        dgvWorkViewer.AllowUserToAddRows = False
+                        dgvWorkViewer.AllowUserToDeleteRows = False
+                        dgvWorkViewer.AllowUserToOrderColumns = True
+                        dgvWorkViewer.AllowUserToResizeRows = True
+
+
+                        dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
+                        dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 0
+                        dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
+                        dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 1
+                        dgvWorkViewer.Columns("strCMSMember").HeaderText = "CMS Class"
+                        dgvWorkViewer.Columns("strCMSMember").DisplayIndex = 2
+                        dgvWorkViewer.Columns("LastFCE").HeaderText = "Last FCE"
+                        dgvWorkViewer.Columns("LastFCE").DisplayIndex = 3
+                        dgvWorkViewer.Columns("LastFCE").DefaultCellStyle.Format = "dd-MMM-yyyy"
+                        dgvWorkViewer.Columns("strFacilityCity").HeaderText = "City"
+                        dgvWorkViewer.Columns("strFacilityCity").DisplayIndex = 4
+                        dgvWorkViewer.Columns("strCountyName").HeaderText = "County"
+                        dgvWorkViewer.Columns("strCountyName").DisplayIndex = 5
+                        dgvWorkViewer.Columns("strDistrictName").HeaderText = "District"
+                        dgvWorkViewer.Columns("strDistrictName").DisplayIndex = 6
+                        dgvWorkViewer.Columns("strOperationalStatus").HeaderText = "Operational Status"
+                        dgvWorkViewer.Columns("strOperationalStatus").DisplayIndex = 7
+                        dgvWorkViewer.Columns("strClass").HeaderText = "Classification"
+                        dgvWorkViewer.Columns("strClass").DisplayIndex = 8
+
+                        ' txtDataGridCount.Text = dgvWorkViewer.RowCount
+                    End If
+
+
+                Case "Enforcement"
+                    SQL = "Select " & _
+                    "to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
+                    "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
+                    "case  " & _
+                    "when datEnforcementFinalized is Not Null then '4 - Closed Out'  " & _
+                    "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " & _
+                    "when strStatus = 'UC' then '2 - Submitted to UC'  " & _
+                    "When strStatus Is Null then '1 - At Staff'  " & _
+                    "else 'Unknown'  " & _
+                    "end as EnforcementStatus,  " & _
+                    "Case   " & _
+                    " 	when datDiscoveryDate is Null then ''  " & _
+                    "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy')  " & _
+                    "END as Violationdate,   " & _
+                    "case   " & _
+                    "	when strHPV IS NULL then strActionType  " & _
+                    "	When strHPV IS Not Null then 'HPV'   " & _
+                    "Else 'HPV'  " & _
+                    "END as HPVStatus,  " & _
+                    "Case  " & _
+                    " 	when datEnforcementFinalized Is Not NULL then 'Closed'  " & _
+                    " 	when datEnforcementFinalized is NUll then 'Open'  " & _
+                    "Else 'Open'  " & _
+                    "End as Status,  " & _
+                    "AIRBranch.APBFacilityInformation.strFacilityName,  " & _
+                    "(strLastName||', '||strFirstName) as Staff  " & _
+                    "from AIRBranch.SSCP_AuditedEnforcement,   " & _
+                    "AIRBranch.APBFacilityInformation, AIRBranch.EPDuserProfiles,  " & _
+                    "AIRBranch.VW_SSCPINSPECTION_LIST " & _
+                    "Where AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
+                    DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber  " & _
+                    "and AIRBranch.SSCP_AuditedEnforcement.strAIRSnumber = " & _
+                    "'0413'||AIRBranch.VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
+                    "and (strStatus IS Null or strStatus = 'UC')  " & _
+                    "and datEnforcementFinalized is Null  " & _
+                    "and AIRBranch.EPDuserProfiles.numUserID = numStaffResponsible  " & _
+                    "and (numStaffResponsible = '" & UserGCode & "' or numSSCPEngineer = '" & UserGCode & "') "
+
+                    If rdbStaffView.Checked = True Then
+                        SQL = "Select " & _
+                      "to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
+                      "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
+                      "case  " & _
+                      "when datEnforcementFinalized is Not Null then '4 - Closed Out'  " & _
+                      "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " & _
+                      "when strStatus = 'UC' then '2 - Submitted to UC'  " & _
+                      "When strStatus Is Null then '1 - At Staff'  " & _
+                      "else 'Unknown'  " & _
+                      "end as EnforcementStatus,  " & _
+                      "Case   " & _
+                      " 	when datDiscoveryDate is Null then ''  " & _
+                      "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy')  " & _
+                      "END as Violationdate,   " & _
+                      "case   " & _
+                      "	when strHPV IS NULL then strActionType  " & _
+                      "	When strHPV IS Not Null then 'HPV'   " & _
+                      "Else 'HPV'  " & _
+                      "END as HPVStatus,  " & _
+                      "Case  " & _
+                      " 	when datEnforcementFinalized Is Not NULL then 'Closed'  " & _
+                      " 	when datEnforcementFinalized is NUll then 'Open'  " & _
+                      "Else 'Open'  " & _
+                      "End as Status,  " & _
+                      "AIRBranch.APBFacilityInformation.strFacilityName,  " & _
+                      "(strLastName||', '||strFirstName) as Staff  " & _
+                      "from AIRBranch.SSCP_AuditedEnforcement,   " & _
+                      "AIRBranch.APBFacilityInformation, AIRBranch.EPDuserProfiles,  " & _
+                      "AIRBranch.VW_SSCPINSPECTION_LIST " & _
+                      "Where AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
+                      DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber  " & _
+                      "and AIRBranch.SSCP_AuditedEnforcement.strAIRSnumber = " & _
+                      "'0413'||AIRBranch.VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
+                      "and (strStatus IS Null or strStatus = 'UC')  " & _
+                      "and datEnforcementFinalized is Null  " & _
+                      "and AIRBranch.EPDuserProfiles.numUserID = numStaffResponsible  " & _
+                      "and (numStaffResponsible = '" & UserGCode & "' or numSSCPEngineer = '" & UserGCode & "') "
+                    End If
+                    If rdbUCView.Checked = True Then
+                        SQL = "Select " & _
+                    "to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
+                    "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
+                    "case  " & _
+                    "when datEnforcementFinalized is Not Null then '4 - Closed Out'  " & _
+                    "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " & _
+                    "when strStatus = 'UC' then '2 - Submitted to UC'  " & _
+                    "When strStatus Is Null then '1 - At Staff'  " & _
+                    "else 'Unknown'  " & _
+                    "end as EnforcementStatus,  " & _
+                    "Case   " & _
+                    " 	when datDiscoveryDate is Null then ''  " & _
+                    "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy')  " & _
+                    "END as Violationdate,   " & _
+                    "case   " & _
+                    "	when strHPV IS NULL then strActionType  " & _
+                    "	When strHPV IS Not Null then 'HPV'   " & _
+                    "Else 'HPV'  " & _
+                    "END as HPVStatus,  " & _
+                    "Case  " & _
+                    " 	when datEnforcementFinalized Is Not NULL then 'Closed'  " & _
+                    " 	when datEnforcementFinalized is NUll then 'Open'  " & _
+                    "Else 'Open'  " & _
+                    "End as Status,  " & _
+                    "AIRBranch.APBFacilityInformation.strFacilityName,  " & _
+                    "(strLastName||', '||strFirstName) as Staff  " & _
+                    "from AIRBranch.SSCP_AuditedEnforcement,   " & _
+                    "AIRBranch.APBFacilityInformation, AIRBranch.EPDuserProfiles,  " & _
+                    "AIRBranch.VW_SSCPINSPECTION_LIST " & _
+                    "Where AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
+                    DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber  " & _
+                    "and AIRBranch.SSCP_AuditedEnforcement.strAIRSnumber = " & _
+                    "'0413'||AIRBranch.VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
+                    "and (strStatus IS Null or strStatus = 'UC')  " & _
+                    "and datEnforcementFinalized is Null  " & _
+                    "and AIRBranch.EPDuserProfiles.numUserID = numStaffResponsible  "
+
+                        If UserProgram = "4" Then
+                            SQL = SQL & " and numUnit = '" & UserUnit & "' "
+                        Else
+                            SQL = SQL & " and numProgram = '" & UserProgram & "' "
+                        End If
+
+                    End If
+                    If rdbPMView.Checked = True Then
+                        SQL = "Select " & _
+                   "to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
+                   "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
+                   "case  " & _
+                   "when datEnforcementFinalized is Not Null then '4 - Closed Out'  " & _
+                   "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " & _
+                   "when strStatus = 'UC' then '2 - Submitted to UC'  " & _
+                   "When strStatus Is Null then '1 - At Staff'  " & _
+                   "else 'Unknown'  " & _
+                   "end as EnforcementStatus,  " & _
+                   "Case   " & _
+                   " 	when datDiscoveryDate is Null then ''  " & _
+                   "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy')  " & _
+                   "END as Violationdate,   " & _
+                   "case   " & _
+                   "	when strHPV IS NULL then strActionType  " & _
+                   "	When strHPV IS Not Null then 'HPV'   " & _
+                   "Else 'HPV'  " & _
+                   "END as HPVStatus,  " & _
+                   "Case  " & _
+                   " 	when datEnforcementFinalized Is Not NULL then 'Closed'  " & _
+                   " 	when datEnforcementFinalized is NUll then 'Open'  " & _
+                   "Else 'Open'  " & _
+                   "End as Status,  " & _
+                   "AIRBranch.APBFacilityInformation.strFacilityName,  " & _
+                   "(strLastName||', '||strFirstName) as Staff  " & _
+                   "from AIRBranch.SSCP_AuditedEnforcement,   " & _
+                   "AIRBranch.APBFacilityInformation, AIRBranch.EPDuserProfiles,  " & _
+                   "AIRBranch.VW_SSCPINSPECTION_LIST " & _
+                   "Where AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
+                   DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber  " & _
+                   "and AIRBranch.SSCP_AuditedEnforcement.strAIRSnumber = " & _
+                   "'0413'||AIRBranch.VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
+                   "and (strStatus IS Null or strStatus = 'UC')  " & _
+                   "and datEnforcementFinalized is Null  " & _
+                   "and AIRBranch.EPDuserProfiles.numUserID = numStaffResponsible  "
+                    End If
+                    SQL = SQL & "order by strENforcementNumber DESC  "
+
+                    dsOpenWork = New DataSet
+                    daOpenWork = New OracleDataAdapter(SQL, Conn)
+                    If SQL <> "" Then
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
+                        End If
+                        daOpenWork.Fill(dsOpenWork, "OpenWork")
+                    End If
+
+                    dgvWorkViewer.DataSource = dsOpenWork
+                    dgvWorkViewer.DataMember = "OpenWork"
+
+                    dgvWorkViewer.RowHeadersVisible = False
+                    dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+                    dgvWorkViewer.AllowUserToResizeColumns = True
+                    dgvWorkViewer.AllowUserToAddRows = False
+                    dgvWorkViewer.AllowUserToDeleteRows = False
+                    dgvWorkViewer.AllowUserToOrderColumns = True
+                    dgvWorkViewer.AllowUserToResizeRows = True
+                    dgvWorkViewer.ColumnHeadersHeight = "35"
+                    dgvWorkViewer.Columns("strEnforcementNumber").HeaderText = "Enforcement #"
+                    dgvWorkViewer.Columns("strEnforcementNumber").DisplayIndex = 0
+                    dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
+                    dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 1
+                    dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
+                    dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 2
+                    dgvWorkViewer.Columns("EnforcementStatus").HeaderText = "Enforcement Status"
+                    dgvWorkViewer.Columns("EnforcementStatus").DisplayIndex = 3
+                    dgvWorkViewer.Columns("Violationdate").HeaderText = "Discovery Date"
+                    dgvWorkViewer.Columns("Violationdate").DisplayIndex = 4
+                    dgvWorkViewer.Columns("Violationdate").DefaultCellStyle.Format = "dd-MMM-yyyy"
+                    dgvWorkViewer.Columns("HPVstatus").HeaderText = "Status"
+                    dgvWorkViewer.Columns("HPVstatus").DisplayIndex = 5
+                    dgvWorkViewer.Columns("Status").HeaderText = "Open/Closed"
+                    dgvWorkViewer.Columns("Status").DisplayIndex = 6
+                    dgvWorkViewer.Columns("Staff").HeaderText = "Staff Responsible"
+                    dgvWorkViewer.Columns("Staff").DisplayIndex = 7
+
+
+                Case "Facilities with Subparts"
+                    SQL = "select distinct(substr(AIRBranch.APBHeaderData.strAIRSNumber, 5)) as AIRSnumber, " & _
+                   "strFacilityName " & _
+                   "from AIRBranch.APBHeaderData, AIRBranch.APBFacilityInformation  " & _
+                   "where ( exists (select * " & _
+                   "from AIRBranch.APBSubpartData " & _
+                   "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
+                   "and substr(strSubPartKey, 13, 1) = 'M') " & _
+                   "and subStr(strAirProgramCodes, 12, 1) = '1' " & _
+                   "or  exists (select * " & _
+                   "from AIRBranch.APBSubpartData " & _
+                   "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
+                   "and substr(strSubPartKey, 13, 1) = '9') " & _
+                   "and subStr(strAirProgramCodes, 8, 1) = '1' " & _
+                   "or  exists (select * " & _
+                   "from AIRBranch.APBSubpartData " & _
+                   "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
+                   "and substr(strSubPartKey, 13, 1) = '8') " & _
+                   "and subStr(strAirProgramCodes, 7, 1) = '1' ) " & _
+                   "and AIRBranch.APBHeaderData.strAIRSnumber = " & _
+                   DBNameSpace & ".APBFacilityInformation.strAIRsnumber " & _
+                   "and AIRBranch.APBHeaderData.strOperationalStatus <> 'X' " & _
+                   "order by AIRSNumber "
+
+                    dsOpenWork = New DataSet
+                    daOpenWork = New OracleDataAdapter(SQL, Conn)
+                    If SQL <> "" Then
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
+                        End If
+                        daOpenWork.Fill(dsOpenWork, "OpenWork")
+                    End If
+
+                    dgvWorkViewer.DataSource = dsOpenWork
+                    dgvWorkViewer.DataMember = "OpenWork"
+
+                    dgvWorkViewer.RowHeadersVisible = False
+                    dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+                    dgvWorkViewer.AllowUserToResizeColumns = True
+                    dgvWorkViewer.AllowUserToAddRows = False
+                    dgvWorkViewer.AllowUserToDeleteRows = False
+                    dgvWorkViewer.AllowUserToOrderColumns = True
+                    dgvWorkViewer.AllowUserToResizeRows = True
+                    dgvWorkViewer.ColumnHeadersHeight = "35"
+                    dgvWorkViewer.Columns("AIRSnumber").HeaderText = "AIRS #"
+                    dgvWorkViewer.Columns("AIRSnumber").DisplayIndex = 0
+                    dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
+                    dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 1
+
+                Case "Facilities missing Subparts"
+                    SQL = "select distinct(substr(AIRBranch.APBHeaderData.strAIRSNumber, 5)) as AIRSnumber, " & _
+                    "strFacilityName " & _
+                    "from AIRBranch.APBHeaderData, AIRBranch.APBFacilityInformation  " & _
+                    "where (Not exists (select * " & _
+                    "from AIRBranch.APBSubpartData " & _
+                    "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
+                    "and substr(strSubPartKey, 13, 1) = 'M') " & _
+                    "and subStr(strAirProgramCodes, 12, 1) = '1' " & _
+                    "or Not exists (select * " & _
+                    "from AIRBranch.APBSubpartData " & _
+                    "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
+                    "and substr(strSubPartKey, 13, 1) = '9') " & _
+                    "and subStr(strAirProgramCodes, 8, 1) = '1' " & _
+                    "or Not exists (select * " & _
+                    "from AIRBranch.APBSubpartData " & _
+                    "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
+                    "and substr(strSubPartKey, 13, 1) = '8') " & _
+                    "and subStr(strAirProgramCodes, 7, 1) = '1' ) " & _
+                    "and AIRBranch.APBHeaderData.strAIRSnumber = " & _
+                    DBNameSpace & ".APBFacilityInformation.strAIRsnumber " & _
+                    "and AIRBranch.APBHeaderData.strOperationalStatus <> 'X' " & _
+                    "order by AIRSNumber "
+
+                    dsOpenWork = New DataSet
+                    daOpenWork = New OracleDataAdapter(SQL, Conn)
+                    If SQL <> "" Then
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
+                        End If
+                        daOpenWork.Fill(dsOpenWork, "OpenWork")
+                    End If
+
+                    dgvWorkViewer.DataSource = dsOpenWork
+                    dgvWorkViewer.DataMember = "OpenWork"
+
+                    dgvWorkViewer.RowHeadersVisible = False
+                    dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+                    dgvWorkViewer.AllowUserToResizeColumns = True
+                    dgvWorkViewer.AllowUserToAddRows = False
+                    dgvWorkViewer.AllowUserToDeleteRows = False
+                    dgvWorkViewer.AllowUserToOrderColumns = True
+                    dgvWorkViewer.AllowUserToResizeRows = True
+                    dgvWorkViewer.ColumnHeadersHeight = "35"
+                    dgvWorkViewer.Columns("AIRSnumber").HeaderText = "AIRS #"
+                    dgvWorkViewer.Columns("AIRSnumber").DisplayIndex = 0
+                    dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
+                    dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 1
+
+                Case "Monitoring Test Reports"
+                    SQL = "Select AIRBranch.VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
+                          "from  AIRBranch.VW_ISMPTestReportViewer, AIRBranch.ISMPReportInformation " & _
+                          "where AIRBranch.VW_ISMPTestReportViewer.strReferenceNumber = " & _
+                          "AIRBranch.ISMPReportInformation.strReferenceNumber  " & _
+                          "and  Status = 'Open' " & _
+                          " and ReviewingEngineer = '" & pnl2.Text & "' "
+
+
+                    If rdbStaffView.Checked = True Then
+                        SQL = "Select AIRBranch.VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
+                        "from  AIRBranch.VW_ISMPTestReportViewer, AIRBranch.ISMPReportInformation " & _
+                        "where AIRBranch.VW_ISMPTestReportViewer.strReferenceNumber = " & _
+                        "AIRBranch.ISMPReportInformation.strReferenceNumber  " & _
+                        "and  Status = 'Open' " & _
+                        " and ReviewingEngineer = '" & pnl2.Text & "' "
+                    End If
+                    If rdbUCView.Checked = True Then
+                        SQL = "Select AIRBranch.VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
+                        "from  AIRBranch.VW_ISMPTestReportViewer, AIRBranch.ISMPReportInformation " & _
+                        "where AIRBranch.VW_ISMPTestReportViewer.strReferenceNumber = " & _
+                        "AIRBranch.ISMPReportInformation.strReferenceNumber  " & _
+                        "and  Status = 'Open' " & _
+                        "and strUserUnit = " & _
+                          "(select strUnitDesc from AIRBranch.LookUpEPDUnits where numUnitCode = '" & UserUnit & "') "
+                    End If
+                    If rdbPMView.Checked = True Or UserUnit = "---" Then
+                        SQL = "Select AIRBranch.VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
+                        "from  AIRBranch.VW_ISMPTestReportViewer, AIRBranch.ISMPReportInformation " & _
+                        "where AIRBranch.VW_ISMPTestReportViewer.strReferenceNumber = " & _
+                        "AIRBranch.ISMPReportInformation.strReferenceNumber  " & _
+                        "and  Status = 'Open' "
+                    End If
+
+                    dsOpenWork = New DataSet
+                    daOpenWork = New OracleDataAdapter(SQL, Conn)
+                    If SQL <> "" Then
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
+                        End If
+                        daOpenWork.Fill(dsOpenWork, "OpenWork")
+                    End If
+
+                    dgvWorkViewer.DataSource = dsOpenWork
+                    dgvWorkViewer.DataMember = "OpenWork"
+
+                    dgvWorkViewer.RowHeadersVisible = False
+                    dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+                    dgvWorkViewer.AllowUserToResizeColumns = True
+                    dgvWorkViewer.AllowUserToAddRows = False
+                    dgvWorkViewer.AllowUserToDeleteRows = False
+                    dgvWorkViewer.AllowUserToOrderColumns = True
+                    dgvWorkViewer.AllowUserToResizeRows = True
+                    dgvWorkViewer.ColumnHeadersHeight = "35"
+                    dgvWorkViewer.Columns("strReferenceNumber").HeaderText = "Reference #"
+                    dgvWorkViewer.Columns("strReferenceNumber").DisplayIndex = 0
+                    dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
+                    dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 1
+                    dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
+                    dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 2
+                    dgvWorkViewer.Columns("strFacilityCity").HeaderText = "City"
+                    dgvWorkViewer.Columns("strFacilityCity").DisplayIndex = 3
+                    dgvWorkViewer.Columns("strCountyName").HeaderText = "County"
+                    dgvWorkViewer.Columns("strCountyName").DisplayIndex = 4
+                    dgvWorkViewer.Columns("strEmissionSource").HeaderText = "Emission Source"
+                    dgvWorkViewer.Columns("strEmissionSource").DisplayIndex = 5
+                    dgvWorkViewer.Columns("strPollutantDescription").HeaderText = "Pollutant"
+                    dgvWorkViewer.Columns("strPollutantDescription").DisplayIndex = 6
+                    dgvWorkViewer.Columns("strReportType").HeaderText = "Report Type"
+                    dgvWorkViewer.Columns("strReportType").DisplayIndex = 7
+                    dgvWorkViewer.Columns("strDocumentType").HeaderText = "Document Type"
+                    dgvWorkViewer.Columns("strDocumentType").DisplayIndex = 8
+                    dgvWorkViewer.Columns("ReviewingEngineer").HeaderText = "Reviewing Engineer"
+                    dgvWorkViewer.Columns("ReviewingEngineer").DisplayIndex = 9
+                    dgvWorkViewer.Columns("TestDateStart").HeaderText = "Test Date"
+                    dgvWorkViewer.Columns("TestDateStart").DefaultCellStyle.Format = "dd-MMM-yyyy"
+                    dgvWorkViewer.Columns("TestDateStart").DisplayIndex = 10
+                    dgvWorkViewer.Columns("ReceivedDate").HeaderText = "Received Date"
+                    dgvWorkViewer.Columns("ReceivedDate").DisplayIndex = 11
+                    dgvWorkViewer.Columns("ReceivedDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
+                    dgvWorkViewer.Columns("CompleteDate").HeaderText = "Complete Date"
+                    dgvWorkViewer.Columns("CompleteDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
+                    dgvWorkViewer.Columns("CompleteDate").DisplayIndex = 12
+                    dgvWorkViewer.Columns("Status").HeaderText = "Report Open/Closed"
+                    dgvWorkViewer.Columns("Status").DisplayIndex = 13
+                    dgvWorkViewer.Columns("strComplianceStatus").HeaderText = "Compliance Status"
+                    dgvWorkViewer.Columns("strComplianceStatus").DisplayIndex = 14
+                    dgvWorkViewer.Columns("mmoCommentAREA").HeaderText = "Comment Field"
+                    dgvWorkViewer.Columns("mmoCommentAREA").DisplayIndex = 15
+                    dgvWorkViewer.Columns("strPreComplianceStatus").HeaderText = "Precompliance Status"
+                    dgvWorkViewer.Columns("strPreComplianceStatus").DisplayIndex = 16
+                    dgvWorkViewer.Columns("strWitnessingEngineer").Visible = False
+                    dgvWorkViewer.Columns("strWitnessingEngineer2").Visible = False
+                    dgvWorkViewer.Columns("strUserUnit").Visible = False
+
+                    LoadComplianceColor()
+
+                Case "Monitoring Test Notifications"
+                    SQL = "select  " & _
+                    "AIRBranch.ISMPTestNotification.strTestLogNumber as TestNumber,    " & _
+                    "case    " & _
+                    "when strReferenceNumber is null then ''    " & _
+                    "else strReferenceNumber    " & _
+                    "end RefNum,    " & _
+                    "case  " & _
+                    "when AIRBranch.ISMPTestNOtification.strAIRSNumber is Null then ''  " & _
+                    "else AIRBranch.APBFacilityInformation.strFacilityName    " & _
+                    "End FacilityName,  " & _
+                    "substr(AIRBranch.ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,  " & _
+                    "strEmissionUnit,   " & _
+                    "to_char(datProposedStartDate, 'dd-Mon-yyyy') as ProposedStartDate,  " & _
+                    "case  " & _
+                    "when strFirstName is Null then ''  " & _
+                    "else(strLastName||', '||strFirstName)   " & _
+                    "END StaffResponsible  " & _
+                    "from AIRBranch.ismptestnotification, AIRBranch.APBFacilityinformation,  " & _
+                    "AIRBranch.EPDUserProfiles, AIRBranch.ISMPTestLogLink  " & _
+                    "where AIRBranch.ismptestnotification.strairsnumber = " & _
+                    DBNameSpace & ".apbfacilityinformation.strairsnumber (+)    " & _
+                    "and AIRBranch.ismptestnotification.strstaffresponsible = " & _
+                    DBNameSpace & ".EPDUserProfiles.numUserID (+)  " & _
+                    "and AIRBranch.ISMPTestnotification.strTestLogNumber = " & _
+                    DBNameSpace & ".ISMPTestLogLink.strTestLogNumber (+)   " & _
+                    "and datProposedStartDate > (sysdate - 180)    " & _
+                    "and strReferenceNumber is null    " & _
+                    "union    " & _
+                    "select    " & _
+                    "AIRBranch.ISMPTestNotification.strTestLogNumber as TestNumber,  " & _
+                    "AIRBranch.ISMpReportInformation.strReferenceNumber as RefNum,    " & _
+                    "case  " & _
+                    "when AIRBranch.ISMPTestNOtification.strAIRSNumber is Null then ''  " & _
+                    "else AIRBranch.APBFacilityInformation.strFacilityName    " & _
+                    "End FacilityName,  " & _
+                    "substr(AIRBranch.ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,  " & _
+                    "strEmissionUnit,   " & _
+                    "to_char(datProposedStartDate, 'dd-Mon-yyyy') as ProposedStartDate,  " & _
+                    "case  " & _
+                    "when strFirstName is Null then ''  " & _
+                    "else(strLastName||', '||strFirstName)   " & _
+                    "END StaffResponsible  " & _
+                    "from AIRBranch.ismptestnotification, AIRBranch.APBFacilityinformation,  " & _
+                    "AIRBranch.EPDUserProfiles, AIRBranch.ISMPTestLogLink,    " & _
+                    "AIRBranch.ISMPReportInformation    " & _
+                    "where AIRBranch.ismptestnotification.strairsnumber = " & _
+                    DBNameSpace & ".apbfacilityinformation.strairsnumber (+)    " & _
+                    "and AIRBranch.ismptestnotification.strstaffresponsible = " & _
+                    DBNameSpace & ".EPDUserProfiles.numUserID (+)  " & _
+                    "and AIRBranch.ISMPTestNotification.strTestLogNumber = " & _
+                    DBNameSpace & ".ISMPTestLogLink.strTestLogNumber (+)    " & _
+                    "and AIRBranch.ISMPTestLogLink.strReferencenumber = " & _
+                    DBNameSpace & ".ISMPReportInformation.strReferenceNumber (+)    " & _
+                    "and datProposedStartDate > (sysdate - 180)    " & _
+                    "and AIRBranch.ISMPTestLogLink.strReferenceNumber is not null    " & _
+                    "and strClosed = 'False'  "
+
+                    If rdbStaffView.Checked = True Then
+
+                    End If
+                    If rdbUCView.Checked = True Then
+
+                    End If
+                    If rdbPMView.Checked = True Then
+
+                    End If
+
+                    dsOpenWork = New DataSet
+                    daOpenWork = New OracleDataAdapter(SQL, Conn)
+                    If SQL <> "" Then
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
+                        End If
+                        daOpenWork.Fill(dsOpenWork, "OpenWork")
+                    End If
+
+                    dgvWorkViewer.DataSource = dsOpenWork
+                    dgvWorkViewer.DataMember = "OpenWork"
+
+                    dgvWorkViewer.RowHeadersVisible = False
+                    dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+                    dgvWorkViewer.AllowUserToResizeColumns = True
+                    dgvWorkViewer.AllowUserToAddRows = False
+                    dgvWorkViewer.AllowUserToDeleteRows = False
+                    dgvWorkViewer.AllowUserToOrderColumns = True
+                    dgvWorkViewer.AllowUserToResizeRows = True
+                    dgvWorkViewer.ColumnHeadersHeight = "35"
+                    dgvWorkViewer.Columns("TestNumber").HeaderText = "Test Log #"
+                    dgvWorkViewer.Columns("TestNumber").DisplayIndex = 0
+                    dgvWorkViewer.Columns("RefNum").HeaderText = "Reference #"
+                    dgvWorkViewer.Columns("RefNum").DisplayIndex = 1
+                    dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
+                    dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 2
+                    dgvWorkViewer.Columns("FacilityName").HeaderText = "Facility Name"
+                    dgvWorkViewer.Columns("FacilityName").DisplayIndex = 3
+                    dgvWorkViewer.Columns("strEmissionUnit").HeaderText = "Emission Unit"
+                    dgvWorkViewer.Columns("strEmissionUnit").DisplayIndex = 4
+                    dgvWorkViewer.Columns("ProposedStartDate").HeaderText = "Start Date"
+                    dgvWorkViewer.Columns("ProposedStartDate").DisplayIndex = 5
+                    dgvWorkViewer.Columns("StaffResponsible").HeaderText = "Staff Responsible"
+                    dgvWorkViewer.Columns("StaffResponsible").DisplayIndex = 6
+
+                Case "Permit Applications"
+                    SQL = "Select " & _
+                   "distinct(to_Number(AIRBranch.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber, " & _
+                   "case " & _
+                   " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber is Null then ' ' " & _
+                   "	when AIRBranch.SSPPApplicationMaster.strAIRSNumber = '0413' then ' ' " & _
+                   "else substr(AIRBranch.SSPPApplicationMaster.strAIRSNumber, 5) " & _
+                   "end as strAIRSNumber, " & _
+                   "case " & _
+                   "	when strApplicationTypeDesc IS Null then ' ' " & _
+                   "Else strApplicationTypeDesc " & _
+                   "End as strApplicationType, " & _
+                   "case " & _
+                   " 	when datReceivedDate is Null then ' ' " & _
+                   "Else to_char(datReceivedDate, 'RRRR-MM-dd') " & _
+                   " End as datReceivedDate, " & _
+                   "case  " & _
+                   "when strPermitNumber is NULL then ' '  " & _
+                   "else substr(strPermitNumber, 1, 4)|| '-' ||substr(strPermitNumber, 5, 3)|| '-'  " & _
+                   " ||substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)|| '-' " & _
+                   " ||substr(strPermitNumber, 13, 2)|| '-' ||substr(strPermitNumber, 15, 1) " & _
+                   "end As strPermitNumber, " & _
+                   "case " & _
+                   " 	when numUserID= '0' then ' ' " & _
+                   "	when numUserID is Null then ' ' " & _
+                   "else (strLastName||', '||strFirstName) " & _
+                   "end as StaffResponsible, " & _
+                   "case  " & _
+                   "when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd') " & _
+                   "when datFinalizedDate is not Null then to_char(datFinalizedDate, 'RRRR-MM-dd') " & _
+                   "when datToDirector is Not Null and datFinalizedDate is Null " & _
+                   "and (datDraftIssued is Null or datDraftIssued < datToDirector) then to_char(datToDirector, 'RRRR-MM-dd') " & _
+                   "when datToBranchCheif is Not Null and datFinalizedDate is Null " & _
+                   "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then to_char(DatTOBranchCheif, 'RRRR-MM-dd')  " & _
+                   "when datEPAEnds is not Null then to_char(datEPAEnds, 'RRRR-MM-dd')   " & _
+                   "when datPNExpires is Not Null and datPNExpires < sysdate then to_char(datPNExpires, 'RRRR-MM-dd')   " & _
+                   "when datPNExpires is Not Null and datPNExpires >= sysdate then to_char(datPNExpires, 'RRRR-MM-dd') " & _
+                   "when datDraftIssued is Not Null and datPNExpires is Null then to_char(datDraftIssued, 'RRRR-MM-dd') " & _
+                   "when dattoPMII is Not Null then to_char(datToPMII, 'RRRR-MM-dd') " & _
+                   "when dattoPMI is Not Null then to_char(datToPMI, 'RRRR-MM-dd') " & _
+                   "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then to_char(datReviewSubmitted, 'RRRR-MM-dd')   " & _
+                   "when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown' " & _
+                   "else to_char(datAssignedToEngineer, 'RRRR-MM-dd') " & _
+                   "end as StatusDate,  " & _
+                   "case  " & _
+                   " 	when AIRBranch.SSPPApplicationData.strFacilityName is Null then ' '  " & _
+                   "else AIRBranch.SSPPApplicationData.strFacilityName  " & _
+                   "end as strFacilityName,  " & _
+                   "case " & _
+                   "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out' " & _
+                   "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO' " & _
+                   "when datToBranchCheif is Not Null and datFinalizedDate is Null " & _
+                   "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC' " & _
+                   "when datEPAEnds is not Null then '08 - EPA 45-day Review' " & _
+                   "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired' " & _
+                   "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'  " & _
+                   "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'  " & _
+                   "when dattoPMII is Not Null then '04 - AT PM'  " & _
+                   "when dattoPMI is Not Null then '03 - At UC'  " & _
+                   "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0')    " & _
+                   "then '02 - Internal Review' " & _
+                   "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'   " & _
+                   "else '01 - At Engineer'  " & _
+                   "end as AppStatus, " & _
+                   "case " & _
+                   " 	when strPermitTypeDescription is Null then '' " & _
+                   "else strPermitTypeDescription " & _
+                   "End as strPermitType " & _
+                   "from AIRBranch.SSPPApplicationMaster, AIRBranch.SSPPApplicationTracking, " & _
+                   "AIRBranch.SSPPApplicationData, " & _
+                   "AIRBranch.LookUpApplicationTypes, AIRBranch.LookUPPermitTypes, " & _
+                   "AIRBranch.EPDuserProfiles  " & _
+                   "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber (+)  " & _
+                   "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber (+) " & _
+                   "and strApplicationType = strApplicationTypeCode (+) " & _
+                   "and strPermitType = strPermitTypeCode (+) " & _
+                   "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible " & _
+                   "and datFinalizedDate is NULL " & _
+                  "and numUserID = ('" & UserGCode & "') "
+
+                    If rdbStaffView.Checked = True Then
+                        SQL = "Select " & _
+                  "distinct(to_Number(AIRBranch.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber, " & _
+                  "case " & _
+                  " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber is Null then ' ' " & _
+                  "	when AIRBranch.SSPPApplicationMaster.strAIRSNumber = '0413' then ' ' " & _
+                  "else substr(AIRBranch.SSPPApplicationMaster.strAIRSNumber, 5) " & _
+                  "end as strAIRSNumber, " & _
+                  "case " & _
+                  "	when strApplicationTypeDesc IS Null then ' ' " & _
+                  "Else strApplicationTypeDesc " & _
+                  "End as strApplicationType, " & _
+                  "case " & _
+                  " 	when datReceivedDate is Null then ' ' " & _
+                  "Else to_char(datReceivedDate, 'RRRR-MM-dd') " & _
+                  " End as datReceivedDate, " & _
+                  "case  " & _
+                  "when strPermitNumber is NULL then ' '  " & _
+                  "else substr(strPermitNumber, 1, 4)|| '-' ||substr(strPermitNumber, 5, 3)|| '-'  " & _
+                  " ||substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)|| '-' " & _
+                  " ||substr(strPermitNumber, 13, 2)|| '-' ||substr(strPermitNumber, 15, 1) " & _
+                  "end As strPermitNumber, " & _
+                  "case " & _
+                  " 	when numUserID= '0' then ' ' " & _
+                  "	when numUserID is Null then ' ' " & _
+                  "else (strLastName||', '||strFirstName) " & _
+                  "end as StaffResponsible, " & _
+                  "case  " & _
+                  "when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd') " & _
+                  "when datFinalizedDate is not Null then to_char(datFinalizedDate, 'RRRR-MM-dd') " & _
+                  "when datToDirector is Not Null and datFinalizedDate is Null " & _
+                  "and (datDraftIssued is Null or datDraftIssued < datToDirector) then to_char(datToDirector, 'RRRR-MM-dd') " & _
+                  "when datToBranchCheif is Not Null and datFinalizedDate is Null " & _
+                  "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then to_char(DatTOBranchCheif, 'RRRR-MM-dd')  " & _
+                  "when datEPAEnds is not Null then to_char(datEPAEnds, 'RRRR-MM-dd')   " & _
+                  "when datPNExpires is Not Null and datPNExpires < sysdate then to_char(datPNExpires, 'RRRR-MM-dd')   " & _
+                  "when datPNExpires is Not Null and datPNExpires >= sysdate then to_char(datPNExpires, 'RRRR-MM-dd') " & _
+                  "when datDraftIssued is Not Null and datPNExpires is Null then to_char(datDraftIssued, 'RRRR-MM-dd') " & _
+                  "when dattoPMII is Not Null then to_char(datToPMII, 'RRRR-MM-dd') " & _
+                  "when dattoPMI is Not Null then to_char(datToPMI, 'RRRR-MM-dd') " & _
+                  "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then to_char(datReviewSubmitted, 'RRRR-MM-dd')   " & _
+                  "when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown' " & _
+                  "else to_char(datAssignedToEngineer, 'RRRR-MM-dd') " & _
+                  "end as StatusDate,  " & _
+                  "case  " & _
+                  " 	when AIRBranch.SSPPApplicationData.strFacilityName is Null then ' '  " & _
+                  "else AIRBranch.SSPPApplicationData.strFacilityName  " & _
+                  "end as strFacilityName,  " & _
+                  "case " & _
+                  "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out' " & _
+                  "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO' " & _
+                  "when datToBranchCheif is Not Null and datFinalizedDate is Null " & _
+                  "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC' " & _
+                  "when datEPAEnds is not Null then '08 - EPA 45-day Review' " & _
+                  "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired' " & _
+                  "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'  " & _
+                  "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'  " & _
+                  "when dattoPMII is Not Null then '04 - AT PM'  " & _
+                  "when dattoPMI is Not Null then '03 - At UC'  " & _
+                  "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0')    " & _
+                  "then '02 - Internal Review' " & _
+                  "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'   " & _
+                  "else '01 - At Engineer'  " & _
+                  "end as AppStatus, " & _
+                  "case " & _
+                  " 	when strPermitTypeDescription is Null then '' " & _
+                  "else strPermitTypeDescription " & _
+                  "End as strPermitType " & _
+                  "from AIRBranch.SSPPApplicationMaster, AIRBranch.SSPPApplicationTracking, " & _
+                  "AIRBranch.SSPPApplicationData, " & _
+                  "AIRBranch.LookUpApplicationTypes, AIRBranch.LookUPPermitTypes, " & _
+                  "AIRBranch.EPDuserProfiles  " & _
+                  "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber (+)  " & _
+                  "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber (+) " & _
+                  "and strApplicationType = strApplicationTypeCode (+) " & _
+                  "and strPermitType = strPermitTypeCode (+) " & _
+                  "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible " & _
+                  "and datFinalizedDate is NULL " & _
+                  "and numUserID = ('" & UserGCode & "') "
+                    End If
+                    If rdbUCView.Checked = True Then
+                        SQL = "Select " & _
+                    "distinct(to_Number(AIRBranch.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber, " & _
+                    "case " & _
+                    " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber is Null then ' ' " & _
+                    "	when AIRBranch.SSPPApplicationMaster.strAIRSNumber = '0413' then ' ' " & _
+                    "else substr(AIRBranch.SSPPApplicationMaster.strAIRSNumber, 5) " & _
+                    "end as strAIRSNumber, " & _
+                    "case " & _
+                    "	when strApplicationTypeDesc IS Null then ' ' " & _
+                    "Else strApplicationTypeDesc " & _
+                    "End as strApplicationType, " & _
+                    "case " & _
+                    " 	when datReceivedDate is Null then ' ' " & _
+                    "Else to_char(datReceivedDate, 'RRRR-MM-dd') " & _
+                    " End as datReceivedDate, " & _
+                    "case  " & _
+                    "when strPermitNumber is NULL then ' '  " & _
+                    "else substr(strPermitNumber, 1, 4)|| '-' ||substr(strPermitNumber, 5, 3)|| '-'  " & _
+                    " ||substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)|| '-' " & _
+                    " ||substr(strPermitNumber, 13, 2)|| '-' ||substr(strPermitNumber, 15, 1) " & _
+                    "end As strPermitNumber, " & _
+                    "case " & _
+                    " 	when numUserID= '0' then ' ' " & _
+                    "	when numUserID is Null then ' ' " & _
+                    "else (strLastName||', '||strFirstName) " & _
+                    "end as StaffResponsible, " & _
+                    "case  " & _
+                    "when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd') " & _
+                    "when datFinalizedDate is not Null then to_char(datFinalizedDate, 'RRRR-MM-dd') " & _
+                    "when datToDirector is Not Null and datFinalizedDate is Null " & _
+                    "and (datDraftIssued is Null or datDraftIssued < datToDirector) then to_char(datToDirector, 'RRRR-MM-dd') " & _
+                    "when datToBranchCheif is Not Null and datFinalizedDate is Null " & _
+                    "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then to_char(DatTOBranchCheif, 'RRRR-MM-dd')  " & _
+                    "when datEPAEnds is not Null then to_char(datEPAEnds, 'RRRR-MM-dd')   " & _
+                    "when datPNExpires is Not Null and datPNExpires < sysdate then to_char(datPNExpires, 'RRRR-MM-dd')   " & _
+                    "when datPNExpires is Not Null and datPNExpires >= sysdate then to_char(datPNExpires, 'RRRR-MM-dd') " & _
+                    "when datDraftIssued is Not Null and datPNExpires is Null then to_char(datDraftIssued, 'RRRR-MM-dd') " & _
+                    "when dattoPMII is Not Null then to_char(datToPMII, 'RRRR-MM-dd') " & _
+                    "when dattoPMI is Not Null then to_char(datToPMI, 'RRRR-MM-dd') " & _
+                    "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then to_char(datReviewSubmitted, 'RRRR-MM-dd')   " & _
+                    "when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown' " & _
+                    "else to_char(datAssignedToEngineer, 'RRRR-MM-dd') " & _
+                    "end as StatusDate,  " & _
+                    "case  " & _
+                    " 	when AIRBranch.SSPPApplicationData.strFacilityName is Null then ' '  " & _
+                    "else AIRBranch.SSPPApplicationData.strFacilityName  " & _
+                    "end as strFacilityName,  " & _
+                    "case " & _
+                    "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out' " & _
+                    "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO' " & _
+                    "when datToBranchCheif is Not Null and datFinalizedDate is Null " & _
+                    "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC' " & _
+                    "when datEPAEnds is not Null then '08 - EPA 45-day Review' " & _
+                    "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired' " & _
+                    "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'  " & _
+                    "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'  " & _
+                    "when dattoPMII is Not Null then '04 - AT PM'  " & _
+                    "when dattoPMI is Not Null then '03 - At UC'  " & _
+                    "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0')    " & _
+                    "then '02 - Internal Review' " & _
+                    "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'   " & _
+                    "else '01 - At Engineer'  " & _
+                    "end as AppStatus, " & _
+                    "case " & _
+                    " 	when strPermitTypeDescription is Null then '' " & _
+                    "else strPermitTypeDescription " & _
+                    "End as strPermitType " & _
+                    "from AIRBranch.SSPPApplicationMaster, AIRBranch.SSPPApplicationTracking, " & _
+                    "AIRBranch.SSPPApplicationData, " & _
+                    "AIRBranch.LookUpApplicationTypes, AIRBranch.LookUPPermitTypes, " & _
+                    "AIRBranch.EPDuserProfiles  " & _
+                    "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber (+)  " & _
+                    "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber (+) " & _
+                    "and strApplicationType = strApplicationTypeCode (+) " & _
+                    "and strPermitType = strPermitTypeCode (+) " & _
+                    "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible " & _
+                    "and datFinalizedDate is NULL " & _
+                    " and (AIRBranch.EPDUserProfiles.numUnit = '" & UserUnit & "'   or (APBUnit = '" & UserUnit & "'))  "
+                    End If
+                    If rdbPMView.Checked = True Or UserUnit = "---" Then
+                        SQL = "Select " & _
+                      "distinct(to_Number(AIRBranch.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber, " & _
+                      "case " & _
+                      " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber is Null then ' ' " & _
+                      "	when AIRBranch.SSPPApplicationMaster.strAIRSNumber = '0413' then ' ' " & _
+                      "else substr(AIRBranch.SSPPApplicationMaster.strAIRSNumber, 5) " & _
+                      "end as strAIRSNumber, " & _
+                      "case " & _
+                      "	when strApplicationTypeDesc IS Null then ' ' " & _
+                      "Else strApplicationTypeDesc " & _
+                      "End as strApplicationType, " & _
+                      "case " & _
+                      " 	when datReceivedDate is Null then ' ' " & _
+                      "Else to_char(datReceivedDate, 'RRRR-MM-dd') " & _
+                      " End as datReceivedDate, " & _
+                      "case  " & _
+                      "when strPermitNumber is NULL then ' '  " & _
+                      "else substr(strPermitNumber, 1, 4)|| '-' ||substr(strPermitNumber, 5, 3)|| '-'  " & _
+                      " ||substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)|| '-' " & _
+                      " ||substr(strPermitNumber, 13, 2)|| '-' ||substr(strPermitNumber, 15, 1) " & _
+                      "end As strPermitNumber, " & _
+                      "case " & _
+                      " 	when numUserID= '0' then ' ' " & _
+                      "	when numUserID is Null then ' ' " & _
+                      "else (strLastName||', '||strFirstName) " & _
+                      "end as StaffResponsible, " & _
+                      "case  " & _
+                      "when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd') " & _
+                      "when datFinalizedDate is not Null then to_char(datFinalizedDate, 'RRRR-MM-dd') " & _
+                      "when datToDirector is Not Null and datFinalizedDate is Null " & _
+                      "and (datDraftIssued is Null or datDraftIssued < datToDirector) then to_char(datToDirector, 'RRRR-MM-dd') " & _
+                      "when datToBranchCheif is Not Null and datFinalizedDate is Null " & _
+                      "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then to_char(DatTOBranchCheif, 'RRRR-MM-dd')  " & _
+                      "when datEPAEnds is not Null then to_char(datEPAEnds, 'RRRR-MM-dd')   " & _
+                      "when datPNExpires is Not Null and datPNExpires < sysdate then to_char(datPNExpires, 'RRRR-MM-dd')   " & _
+                      "when datPNExpires is Not Null and datPNExpires >= sysdate then to_char(datPNExpires, 'RRRR-MM-dd') " & _
+                      "when datDraftIssued is Not Null and datPNExpires is Null then to_char(datDraftIssued, 'RRRR-MM-dd') " & _
+                      "when dattoPMII is Not Null then to_char(datToPMII, 'RRRR-MM-dd') " & _
+                      "when dattoPMI is Not Null then to_char(datToPMI, 'RRRR-MM-dd') " & _
+                      "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then to_char(datReviewSubmitted, 'RRRR-MM-dd')   " & _
+                      "when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown' " & _
+                      "else to_char(datAssignedToEngineer, 'RRRR-MM-dd') " & _
+                      "end as StatusDate,  " & _
+                      "case  " & _
+                      " 	when AIRBranch.SSPPApplicationData.strFacilityName is Null then ' '  " & _
+                      "else AIRBranch.SSPPApplicationData.strFacilityName  " & _
+                      "end as strFacilityName,  " & _
+                      "case " & _
+                      "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out' " & _
+                      "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO' " & _
+                      "when datToBranchCheif is Not Null and datFinalizedDate is Null " & _
+                      "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC' " & _
+                      "when datEPAEnds is not Null then '08 - EPA 45-day Review' " & _
+                      "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired' " & _
+                      "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'  " & _
+                      "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'  " & _
+                      "when dattoPMII is Not Null then '04 - AT PM'  " & _
+                      "when dattoPMI is Not Null then '03 - At UC'  " & _
+                      "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0')    " & _
+                      "then '02 - Internal Review' " & _
+                      "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'   " & _
+                      "else '01 - At Engineer'  " & _
+                      "end as AppStatus, " & _
+                      "case " & _
+                      " 	when strPermitTypeDescription is Null then '' " & _
+                      "else strPermitTypeDescription " & _
+                      "End as strPermitType " & _
+                      "from AIRBranch.SSPPApplicationMaster, AIRBranch.SSPPApplicationTracking, " & _
+                      "AIRBranch.SSPPApplicationData, " & _
+                      "AIRBranch.LookUpApplicationTypes, AIRBranch.LookUPPermitTypes, " & _
+                      "AIRBranch.EPDuserProfiles  " & _
+                      "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber (+)  " & _
+                      "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber (+) " & _
+                      "and strApplicationType = strApplicationTypeCode (+) " & _
+                      "and strPermitType = strPermitTypeCode (+) " & _
+                      "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible " & _
+                      "and datFinalizedDate is NULL "
+                    End If
+                    SQL = SQL & "order by AIRBranch.SSPPApplicationMaster.strApplicationNumber DESC  "
+
+                    dsOpenWork = New DataSet
+                    daOpenWork = New OracleDataAdapter(SQL, Conn)
+                    If SQL <> "" Then
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
+                        End If
+                        daOpenWork.Fill(dsOpenWork, "OpenWork")
+                    End If
+
+                    dgvWorkViewer.DataSource = dsOpenWork
+                    dgvWorkViewer.DataMember = "OpenWork"
+
+                    dgvWorkViewer.RowHeadersVisible = False
+                    dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+                    dgvWorkViewer.AllowUserToResizeColumns = True
+                    dgvWorkViewer.AllowUserToAddRows = False
+                    dgvWorkViewer.AllowUserToDeleteRows = False
+                    dgvWorkViewer.AllowUserToOrderColumns = True
+                    dgvWorkViewer.AllowUserToResizeRows = True
+                    dgvWorkViewer.ColumnHeadersHeight = "35"
+                    dgvWorkViewer.Columns("strApplicationNumber").HeaderText = "APL #"
+                    dgvWorkViewer.Columns("strApplicationNumber").DisplayIndex = 0
+                    dgvWorkViewer.Columns("strAIRSNumber").HeaderText = "AIRS #"
+                    dgvWorkViewer.Columns("strAIRSNumber").DisplayIndex = 1
+                    dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
+                    dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 2
+                    dgvWorkViewer.Columns("StaffResponsible").HeaderText = "Staff Responsible"
+                    dgvWorkViewer.Columns("StaffResponsible").DisplayIndex = 3
+                    dgvWorkViewer.Columns("strApplicationType").HeaderText = "APL Type"
+                    dgvWorkViewer.Columns("strApplicationType").DisplayIndex = 4
+                    dgvWorkViewer.Columns("datReceivedDate").HeaderText = "APL Rcvd"
+                    dgvWorkViewer.Columns("datReceivedDate").DisplayIndex = 5
+                    dgvWorkViewer.Columns("datReceivedDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
+                    dgvWorkViewer.Columns("strPermitNumber").HeaderText = "Permit Number"
+                    dgvWorkViewer.Columns("strPermitNumber").DisplayIndex = 6
+                    dgvWorkViewer.Columns("AppStatus").HeaderText = "App Status"
+                    dgvWorkViewer.Columns("AppStatus").DisplayIndex = 8
+                    dgvWorkViewer.Columns("StatusDate").HeaderText = "Status Date"
+                    dgvWorkViewer.Columns("StatusDate").DisplayIndex = 9
+                    dgvWorkViewer.Columns("strPermitType").HeaderText = "Action Type"
+                    dgvWorkViewer.Columns("strPermitType").DisplayIndex = 7
+
+                Case Else
+
+            End Select
+            txtDataGridCount.Text = dgvWorkViewer.RowCount.ToString
+
+            dgvWorkViewer.SanelyResizeColumns()
+
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
+#End Region
+
+#End Region
+
+#Region "Navigation buttons"
+
+#Region "Nav Button Click Events"
+
+    Private Sub btnNav1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav1.Click
+        Try
+            OpenNewForm(btnNav1.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav2.Click
+        Try
+            OpenNewForm(btnNav2.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav3.Click
+        Try
+            OpenNewForm(btnNav3.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav4.Click
+        Try
+            OpenNewForm(btnNav4.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav5.Click
+        Try
+            OpenNewForm(btnNav5.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav6.Click
+        Try
+            OpenNewForm(btnNav6.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav7_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav7.Click
+        Try
+            OpenNewForm(btnNav7.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav8_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav8.Click
+        Try
+            OpenNewForm(btnNav8.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav9_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav9.Click
+        Try
+            OpenNewForm(btnNav9.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav10_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav10.Click
+        Try
+            OpenNewForm(btnNav10.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav11_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav11.Click
+        Try
+            OpenNewForm(btnNav11.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav12_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav12.Click
+        Try
+            OpenNewForm(btnNav12.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav13_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnNav13.Click
+        Try
+            OpenNewForm(btnNav13.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav14_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav14.Click
+        Try
+            OpenNewForm(btnNav14.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav15_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav15.Click
+        Try
+            OpenNewForm(btnNav15.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav16_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav16.Click
+        Try
+            OpenNewForm(btnNav16.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav17_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav17.Click
+        Try
+            OpenNewForm(btnNav17.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav18_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav18.Click
+        Try
+            OpenNewForm(btnNav18.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav19_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav19.Click
+        Try
+            OpenNewForm(btnNav19.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav20_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav20.Click
+        Try
+            OpenNewForm(btnNav20.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav21_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav21.Click
+        Try
+            OpenNewForm(btnNav21.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav22_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav22.Click
+        Try
+            OpenNewForm(btnNav22.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav23_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav23.Click
+        Try
+            OpenNewForm(btnNav23.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav24_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav24.Click
+        Try
+            OpenNewForm(btnNav24.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav25_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav25.Click
+        Try
+            OpenNewForm(btnNav25.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav26_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav26.Click
+        Try
+            OpenNewForm(btnNav26.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav27_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav27.Click
+        Try
+            OpenNewForm(btnNav27.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav28_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav28.Click
+        Try
+            OpenNewForm(btnNav28.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav29_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav29.Click
+        Try
+            OpenNewForm(btnNav29.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav30_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav30.Click
+        Try
+            OpenNewForm(btnNav30.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav31_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav31.Click
+        Try
+            OpenNewForm(btnNav31.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav32_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav32.Click
+        Try
+            OpenNewForm(btnNav32.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav33_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav33.Click
+        Try
+            OpenNewForm(btnNav33.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav34_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav34.Click
+        Try
+            OpenNewForm(btnNav34.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav35_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav35.Click
+        Try
+            OpenNewForm(btnNav35.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav36_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav36.Click
+        Try
+            OpenNewForm(btnNav36.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav37_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav37.Click
+        Try
+            OpenNewForm(btnNav37.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav38_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav38.Click
+        Try
+            OpenNewForm(btnNav38.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav39_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav39.Click
+        Try
+            OpenNewForm(btnNav39.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnNav40_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav40.Click
+        Try
+            OpenNewForm(btnNav40.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
+#End Region
+
+#Region "Navigation button procedure"
+
+    Private Sub OpenNewForm(ByVal Source As String, ByVal Options As String)
         Try
             Select Case Source
                 Case "Facility Summary" '1
@@ -2454,131 +4005,18 @@ Public Class IAIPNavigation
 
 #End Region
 
-#Region "Main Menu Items"
-
-    Private Sub NavigationScreen_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
-        Conn.Dispose()
-        Application.Exit()
-    End Sub
-
-    Private Sub MmiExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExit.Click
-        Me.Close()
-    End Sub
-
 #End Region
-    Private Sub LLSelectReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLSelectReport.LinkClicked
-        Try
 
-            OpenTestReport()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+#Region "dgvWorkViewer DataGridView events"
 
-        End Try
-
-    End Sub
-    Private Sub llbEnforcementRecord_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEnforcementRecord.LinkClicked
-        OpenEnforcement()
-    End Sub
-    Private Sub llbOpenApplication_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenApplication.LinkClicked
-        Try
-
-            OpenApplication()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-
-        End Try
-
-    End Sub
-    Private Sub llbTrackingNumber_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbTrackingNumber.LinkClicked
-        Try
-
-            OpenSSCPWork()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub llbFacilitySummary_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFacilitySummary.LinkClicked
-        Try
-
-            OpenFacilitySummary()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-
-        End Try
-
-    End Sub
-    Private Sub txtApplicationNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtApplicationNumber.KeyPress
-        Try
-
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
-                OpenApplication()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-
-        End Try
-
-    End Sub
-    Private Sub txtEnforcementNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtEnforcementNumber.KeyPress
-        Try
-
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
-                OpenEnforcement()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-
-        End Try
-
-    End Sub
-    Private Sub txtReferenceNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtReferenceNumber.KeyPress
-        Try
-
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
-                OpenTestReport()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-
-        End Try
-
-    End Sub
-    Private Sub txtTrackingNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtTrackingNumber.KeyPress
-        Try
-
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
-                OpenSSCPWork()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+    Private Sub dgvWorkViewer_Sorted(ByVal sender As Object, ByVal e As System.EventArgs) Handles dgvWorkViewer.Sorted
+        LoadComplianceColor()
     End Sub
 
-    'Private Sub mmiResetPointer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiResetPointer.Click
-
-
-    'End Sub
-
-    Private Sub mmiAbout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiAbout.Click
-        OpenAboutUrl(Me)
-        'Try
-        '    DevelopmentTeam = Nothing
-        '    If DevelopmentTeam Is Nothing Then DevelopmentTeam = New IAIPDevelopmentTeam
-        '    DevelopmentTeam.Show()
-        '    DevelopmentTeam.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-        'Catch ex As Exception
-        '    ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        'End Try
-    End Sub
     Private Sub dgvWorkViewer_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvWorkViewer.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvWorkViewer.HitTest(e.X, e.Y)
 
         Try
-
-
             If dgvWorkViewer.RowCount > 0 And hti.RowIndex <> -1 Then
                 If dgvWorkViewer.Columns(0).HeaderText = "Reference #" Then
                     txtReferenceNumber.Text = dgvWorkViewer(0, hti.RowIndex).Value
@@ -2612,6 +4050,13 @@ Public Class IAIPNavigation
         End Try
 
     End Sub
+
+#End Region
+
+#Region "Background workers"
+
+#Region "bgrLongProcess"
+
     Private Sub bgrLongProcess_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bgrLongProcess.DoWork
         Select Case UserRequest
             Case "Primary"
@@ -2624,6 +4069,7 @@ Public Class IAIPNavigation
                 LoadQuaternaryWork(WorkBranch, WorkProgram, WorkUnit)
         End Select
     End Sub
+
     Private Sub bgrLongProcess_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgrLongProcess.RunWorkerCompleted
         GPWorkTool.Text = pnl1.Text
 
@@ -2714,319 +4160,15 @@ Public Class IAIPNavigation
 
     End Sub
 
-#Region "Buttons"
-    Private Sub btnNav1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav1.Click
-        Try
-            OpenNewForm(btnNav1.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav2.Click
-        Try
-            OpenNewForm(btnNav2.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav3.Click
-        Try
-            OpenNewForm(btnNav3.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav4.Click
-        Try
-            OpenNewForm(btnNav4.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav5.Click
-        Try
-            OpenNewForm(btnNav5.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav6.Click
-        Try
-            OpenNewForm(btnNav6.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav7_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav7.Click
-        Try
-            OpenNewForm(btnNav7.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav8_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav8.Click
-        Try
-            OpenNewForm(btnNav8.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav9_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav9.Click
-        Try
-            OpenNewForm(btnNav9.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav10_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav10.Click
-        Try
-            OpenNewForm(btnNav10.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav11_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav11.Click
-        Try
-            OpenNewForm(btnNav11.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav12_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav12.Click
-        Try
-            OpenNewForm(btnNav12.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav13_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnNav13.Click
-        Try
-            OpenNewForm(btnNav13.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav14_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav14.Click
-        Try
-            OpenNewForm(btnNav14.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav15_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav15.Click
-        Try
-            OpenNewForm(btnNav15.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav16_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav16.Click
-        Try
-            OpenNewForm(btnNav16.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav17_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav17.Click
-        Try
-            OpenNewForm(btnNav17.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav18_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav18.Click
-        Try
-            OpenNewForm(btnNav18.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav19_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav19.Click
-        Try
-            OpenNewForm(btnNav19.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav20_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav20.Click
-        Try
-            OpenNewForm(btnNav20.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav21_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav21.Click
-        Try
-            OpenNewForm(btnNav21.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav22_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav22.Click
-        Try
-            OpenNewForm(btnNav22.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav23_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav23.Click
-        Try
-            OpenNewForm(btnNav23.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav24_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav24.Click
-        Try
-            OpenNewForm(btnNav24.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav25_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav25.Click
-        Try
-            OpenNewForm(btnNav25.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav26_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav26.Click
-        Try
-            OpenNewForm(btnNav26.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav27_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav27.Click
-        Try
-            OpenNewForm(btnNav27.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav28_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav28.Click
-        Try
-            OpenNewForm(btnNav28.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav29_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav29.Click
-        Try
-            OpenNewForm(btnNav29.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav30_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav30.Click
-        Try
-            OpenNewForm(btnNav30.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav31_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav31.Click
-        Try
-            OpenNewForm(btnNav31.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav32_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav32.Click
-        Try
-            OpenNewForm(btnNav32.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav33_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav33.Click
-        Try
-            OpenNewForm(btnNav33.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav34_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav34.Click
-        Try
-            OpenNewForm(btnNav34.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav35_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav35.Click
-        Try
-            OpenNewForm(btnNav35.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav36_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav36.Click
-        Try
-            OpenNewForm(btnNav36.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub btnNav37_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav37.Click
-        Try
-            OpenNewForm(btnNav37.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav38_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav38.Click
-        Try
-            OpenNewForm(btnNav38.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav39_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav39.Click
-        Try
-            OpenNewForm(btnNav39.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnNav40_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav40.Click
-        Try
-            OpenNewForm(btnNav40.Text, "")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
 #End Region
-    Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
-        OpenHelpUrl(Me)
+
+#Region "bgrLoadButtons"
+
+    Private Sub bgrLoadButtons_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bgrFormLoad.DoWork
+        LoadButtons()
     End Sub
 
-    Private Sub llbOpenTestLog_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenTestLog.LinkClicked
-        Try
-            If Not IsNothing(DevTestLog) Then
-                DevTestLog.txtTestNotificationNumber.Text = txtTestLogNumber.Text
-                DevTestLog.Show()
-            Else
-                DevTestLog = Nothing
-                If DevTestLog Is Nothing Then DevTestLog = New ISMPNotificationLog
-                DevTestLog.txtTestNotificationNumber.Text = txtTestLogNumber.Text
-                DevTestLog.Show()
-            End If
-            'DevTestLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-            DevTestLog.LoadTestNotification()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub bgrFormLoad_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bgrFormLoad.DoWork
-        Try
-            LoadButtons()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Sub LoadButtons()
+    Private Sub LoadButtons()
         Try
             Dim navTemp As String
             Dim AccountTemp As String = ""
@@ -3099,7 +4241,8 @@ Public Class IAIPNavigation
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub bgrFormLoad_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgrFormLoad.RunWorkerCompleted
+
+    Private Sub bgrLoadButtons_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgrFormLoad.RunWorkerCompleted
         Try
             i = 0
 
@@ -3124,29 +4267,6 @@ Public Class IAIPNavigation
                 rdbUCView.Visible = True
                 rdbStaffView.Visible = True
             End If
-
-            'If AccountArray(4, 4) = "1" Then
-            '    rdbUCView.Visible = True
-            '    rdbStaffView.Visible = True
-            'End If
-            'If AccountArray(3, 3) = "1" Then
-            '    rdbUCView.Visible = True
-            '    rdbStaffView.Visible = True
-            'End If
-            'If AccountArray(4, 3) = "1" Then
-            '    rdbUCView.Visible = True
-            '    rdbStaffView.Visible = True
-            'End If
-            'If AccountArray(5, 4) = "1" Then
-            '    rdbUCView.Visible = True
-            '    rdbStaffView.Visible = True
-            'End If
-            'If AccountArray(5, 3) = "1" Then
-            '    rdbUCView.Visible = True
-            '    rdbStaffView.Visible = True
-            'End If
-
-
 
             If AccountArray(1, 0) Is Nothing Then
             Else
@@ -7506,1187 +8626,19 @@ Public Class IAIPNavigation
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvWorkViewer_Sorted(ByVal sender As Object, ByVal e As System.EventArgs) Handles dgvWorkViewer.Sorted
-        LoadComplianceColor()
-    End Sub
 
-    Private Sub btnChangeListView_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnChangeListView.Click
-        Try
-            txtAIRSNumber.Clear()
-            txtEnforcementNumber.Clear()
-            txtApplicationNumber.Clear()
-            txtReferenceNumber.Clear()
-            txtTrackingNumber.Clear()
-            txtTestLogNumber.Clear()
+#End Region
 
-            Select Case cboIAIPList.Text
-                Case "Compliance Facilities Assigned"
-                    If rdbUCView.Checked = True Then
-                        SQL = "Select distinct " & _
-                       "substr(AIRBranch.SSCPInspectionsRequired.strAIRSnumber, 5) as AIRSNumber, " & _
-                       "AIRBranch.APBFacilityInformation.strFacilityName, " & _
-                       "(strLastName||', '||strFirstName) as Staff " & _
-                       "from AIRBranch.SSCPInspectionsRequired, AIRBranch.APBFacilityInformation, " & _
-                       "AIRBranch.EPDUserProfiles " & _
-                       "where AIRBranch.SSCPInspectionsRequired.strAIRSNumber = AIRBranch.APBFacilityInformation.strAIRSNumber " & _
-                       "and AIRBranch.SSCPInspectionsRequired.numSSCPEngineer = AIRBranch.EPDUserProfiles.numUserID " & _
-                       "and numProgram = '" & UserProgram & "' " & _
-                       "order by AIRSNumber  "
-                    Else
-                        SQL = "Select distinct " & _
-                       "substr(AIRBranch.SSCPInspectionsRequired.strAIRSnumber, 5) as AIRSNumber, " & _
-                       "AIRBranch.APBFacilityInformation.strFacilityName, " & _
-                       "(strLastName||', '||strFirstName) as Staff " & _
-                       "from AIRBranch.SSCPInspectionsRequired, AIRBranch.APBFacilityInformation, " & _
-                       "AIRBranch.EPDUserProfiles " & _
-                       "where AIRBranch.SSCPInspectionsRequired.strAIRSNumber = AIRBranch.APBFacilityInformation.strAIRSNumber " & _
-                       "and AIRBranch.SSCPInspectionsRequired.numSSCPEngineer = AIRBranch.EPDUserProfiles.numUserID " & _
-                       "and numSSCPEngineer = '" & UserGCode & "' " & _
-                       "order by AIRSNumber  "
+#End Region
 
-                    End If
+#Region "Main Menu click events"
 
-                    dsOpenWork = New DataSet
-                    daOpenWork = New OracleDataAdapter(SQL, Conn)
-                    If SQL <> "" Then
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
-                        End If
-                        daOpenWork.Fill(dsOpenWork, "OpenWork")
-                    End If
-
-                    dsOpenWork = New DataSet
-                    daOpenWork = New OracleDataAdapter(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
-                    End If
-                    daOpenWork.Fill(dsOpenWork, "OpenWork")
-                    dgvWorkViewer.DataSource = dsOpenWork
-                    dgvWorkViewer.DataMember = "OpenWork"
-
-                    dgvWorkViewer.RowHeadersVisible = False
-                    dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                    dgvWorkViewer.AllowUserToResizeColumns = True
-                    dgvWorkViewer.AllowUserToAddRows = False
-                    dgvWorkViewer.AllowUserToDeleteRows = False
-                    dgvWorkViewer.AllowUserToOrderColumns = True
-                    dgvWorkViewer.AllowUserToResizeRows = True
-                    dgvWorkViewer.ColumnHeadersHeight = "35"
-                    dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
-                    dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 0
-                    dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
-                    dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 1
-                    dgvWorkViewer.Columns("strFacilityName").Width = dgvWorkViewer.Width * (0.5)
-                    dgvWorkViewer.Columns("Staff").HeaderText = "Staff Responsible"
-                    dgvWorkViewer.Columns("Staff").DisplayIndex = 2
-                    dgvWorkViewer.Columns("Staff").Width = dgvWorkViewer.Width * (0.25)
-
-                Case "Compliance Work"
-                    SQL = "Select " & _
-                          "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
-                          "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
-                          "(strLastName||', '||strFirstName) as Staff,  " & _
-                          "strResponsibleStaff, " & _
-                          "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived, " & _
-                          "AIRBranch.APBFacilityInformation.strFacilityName, StrActivityName    " & _
-                          "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
-                          "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities,   " & _
-                          "AIRBranch.VW_SSCPInspection_List " & _
-                          "where AIRBranch.EPDUserProfiles.numUserID = " & _
-                          DBNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
-                          "and AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
-                          DBNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
-                          "and AIRBranch.LookUPComplianceActivities.strActivityType = " & _
-                          DBNameSpace & ".SSCPItemMaster.strEventType  " & _
-                          " and AIRBranch.SSCPItemMaster.strAIRSnumber = '0413'||" & _
-                          DBNameSpace & ".VW_SSCPInspection_List.AIRSNumber  " & _
-                          "and (strResponsibleStaff = '" & UserGCode & "' or numSSCPEngineer = '" & UserGCode & "') " & _
-                          "and DatCompleteDate is Null  " & _
-                          "and strDelete is Null "
-
-                    If rdbStaffView.Checked = True Then
-                        SQL = "Select " & _
-                        "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
-                        "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
-                        "(strLastName||', '||strFirstName) as Staff,  " & _
-                        "strResponsibleStaff, " & _
-                        "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived, " & _
-                        "AIRBranch.APBFacilityInformation.strFacilityName, StrActivityName    " & _
-                        "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
-                        "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities,   " & _
-                        "AIRBranch.VW_SSCPInspection_List " & _
-                        "where AIRBranch.EPDUserProfiles.numUserID = " & _
-                        DBNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
-                        "and AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
-                        DBNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
-                        "and AIRBranch.LookUPComplianceActivities.strActivityType = " & _
-                        DBNameSpace & ".SSCPItemMaster.strEventType  " & _
-                        " and AIRBranch.SSCPItemMaster.strAIRSnumber = '0413'||" & _
-                        DBNameSpace & ".VW_SSCPInspection_List.AIRSNumber  " & _
-                        "and (strResponsibleStaff = '" & UserGCode & "' or numSSCPEngineer = '" & UserGCode & "') " & _
-                        "and DatCompleteDate is Null  " & _
-                        "and strDelete is Null "
-                    End If
-                    If rdbUCView.Checked = True Then
-                        If UserProgram <> "5" Then
-                            SQL = "select " & _
-                            "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
-                            "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
-                            "(strLastName||', '||strFirstName) as Staff,  " & _
-                            "strResponsibleStaff, " & _
-                            "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived,  " & _
-                            "strFacilityName, StrActivityName    " & _
-                            "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
-                            "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities,  " & _
-                            "(select numUserID from AIRBranch.EPDUserProfiles where numProgram = '" & UserProgram & "')  " & _
-                            "UnitStaff    " & _
-                            "where AIRBranch.EPDUserProfiles.numUserID = " & _
-                            DBNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
-                            "and AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
-                            DBNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
-                            "and AIRBranch.LookUPComplianceActivities.strActivityType = " & _
-                            DBNameSpace & ".SSCPItemMaster.strEventType " & _
-                            "and DatCompleteDate is Null   " & _
-                            "and strResponsibleStaff = UnitStaff.numUserID " & _
-                            "and strDelete is Null "
-                        Else
-                            SQL = "select " & _
-                             "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
-                             "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
-                             "(strLastName||', '||strFirstName) as Staff,  " & _
-                             "strResponsibleStaff, " & _
-                             "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived,  " & _
-                             "strFacilityName, StrActivityName    " & _
-                             "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
-                             "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities,  " & _
-                             "(select numUserID from AIRBranch.EPDUserProfiles where numUnit = '" & UserUnit & "')  " & _
-                             "UnitStaff    " & _
-                             "where AIRBranch.EPDUserProfiles.numUserID = " & _
-                             DBNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
-                             "and AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
-                             DBNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
-                             "and AIRBranch.LookUPComplianceActivities.strActivityType = " & _
-                             DBNameSpace & ".SSCPItemMaster.strEventType " & _
-                             "and DatCompleteDate is Null   " & _
-                             "and strResponsibleStaff = UnitStaff.numUserID " & _
-                             "and strDelete is Null "
-                        End If
-
-                    End If
-                    If rdbPMView.Checked = True Then
-                        SQL = "select " & _
-                       "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
-                       "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
-                        " case when AIRBranch.SSCPItemMaster.STRRESPONSIBLESTAFF = 0 then ': No one assigned' " & _
-                        " when AIRBranch.SSCPItemMaster.STRRESPONSIBLESTAFF is null then ': Not assigned' " & _
-                        "Else STRLASTNAME || ', ' || STRFIRSTNAME end AS Staff, " & _
-                       "strResponsibleStaff, " & _
-                       "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived,  " & _
-                       "strFacilityName, StrActivityName    " & _
-                       "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
-                       "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities " & _
-                       "where AIRBranch.EPDUserProfiles.numUserID(+) = " & _
-                                DBNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
-                       "and AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
-                       DBNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
-                       "and AIRBranch.LookUPComplianceActivities.strActivityType = " & _
-                       DBNameSpace & ".SSCPItemMaster.strEventType " & _
-                       "and DatCompleteDate is Null   " & _
-                       "and strDelete is Null "
-                    End If
-
-                    If rdbPMView.Checked = True Then
-                        SQL = SQL
-                    End If
-
-                    dsOpenWork = New DataSet
-                    daOpenWork = New OracleDataAdapter(SQL, Conn)
-                    If SQL <> "" Then
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
-                        End If
-                        daOpenWork.Fill(dsOpenWork, "OpenWork")
-                    End If
-
-                    dsOpenWork = New DataSet
-                    daOpenWork = New OracleDataAdapter(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
-                    End If
-                    daOpenWork.Fill(dsOpenWork, "OpenWork")
-                    dgvWorkViewer.DataSource = dsOpenWork
-                    dgvWorkViewer.DataMember = "OpenWork"
-
-                    dgvWorkViewer.RowHeadersVisible = False
-                    dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                    dgvWorkViewer.AllowUserToResizeColumns = True
-                    dgvWorkViewer.AllowUserToAddRows = False
-                    dgvWorkViewer.AllowUserToDeleteRows = False
-                    dgvWorkViewer.AllowUserToOrderColumns = True
-                    dgvWorkViewer.AllowUserToResizeRows = True
-                    dgvWorkViewer.ColumnHeadersHeight = "35"
-                    dgvWorkViewer.Columns("strTrackingNumber").HeaderText = "Tracking #"
-                    dgvWorkViewer.Columns("strTrackingNumber").DisplayIndex = 0
-                    dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
-                    dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 1
-                    dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
-                    dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 2
-                    dgvWorkViewer.Columns("DateReceived").HeaderText = "Date Received"
-                    dgvWorkViewer.Columns("DateReceived").DisplayIndex = 3
-                    dgvWorkViewer.Columns("DateReceived").DefaultCellStyle.Format = "dd-MMM-yyyy"
-                    dgvWorkViewer.Columns("Staff").HeaderText = "Staff Responsible"
-                    dgvWorkViewer.Columns("Staff").DisplayIndex = 4
-                    dgvWorkViewer.Columns("StrActivityName").HeaderText = "Activity Type"
-                    dgvWorkViewer.Columns("StrActivityName").DisplayIndex = 5
-                    dgvWorkViewer.Columns("strResponsibleStaff").HeaderText = "Responsible Staff"
-                    dgvWorkViewer.Columns("strResponsibleStaff").DisplayIndex = 6
-                    dgvWorkViewer.Columns("strResponsibleStaff").Visible = False
-                Case "Full Compliance Evaluations - Delinquent"
-                    Dim StartCMSA As String
-                    Dim StartCMSS As String
-
-                    StartCMSA = Format(CDate(OracleDate).AddDays(-730), "yyyy-MM-dd")
-                    StartCMSS = Format(CDate(OracleDate).AddDays(-1825), "yyyy-MM-dd")
-
-                    SQL = "Select * " & _
-                    "from AIRBranch.VW_SSCP_CMSWarning " & _
-                    "where AIRSNumber is not Null " & _
-                    " and strCMSMember is not null " & _
-                    " and ((strCMSMember = 'A' and lastFCE < '" & StartCMSA & "') " & _
-                    "or (strCMSMember = 'S' and LastFCE < '" & StartCMSS & "')) "
-
-                    If SQL <> "" Then
-                        dsOpenWork = New DataSet
-                        daOpenWork = New OracleDataAdapter(SQL, Conn)
-
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
-                        End If
-
-                        daOpenWork.Fill(dsOpenWork, "OpenWork")
-                        dgvWorkViewer.DataSource = dsOpenWork
-                        dgvWorkViewer.DataMember = "OpenWork"
-
-                        dgvWorkViewer.RowHeadersVisible = False
-                        dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                        dgvWorkViewer.AllowUserToResizeColumns = True
-                        dgvWorkViewer.AllowUserToAddRows = False
-                        dgvWorkViewer.AllowUserToDeleteRows = False
-                        dgvWorkViewer.AllowUserToOrderColumns = True
-                        dgvWorkViewer.AllowUserToResizeRows = True
-
-
-                        dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
-                        dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 0
-                        dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
-                        dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 1
-                        dgvWorkViewer.Columns("strCMSMember").HeaderText = "CMS Class"
-                        dgvWorkViewer.Columns("strCMSMember").DisplayIndex = 2
-                        dgvWorkViewer.Columns("LastFCE").HeaderText = "Last FCE"
-                        dgvWorkViewer.Columns("LastFCE").DisplayIndex = 3
-                        dgvWorkViewer.Columns("LastFCE").DefaultCellStyle.Format = "dd-MMM-yyyy"
-                        dgvWorkViewer.Columns("strFacilityCity").HeaderText = "City"
-                        dgvWorkViewer.Columns("strFacilityCity").DisplayIndex = 4
-                        dgvWorkViewer.Columns("strCountyName").HeaderText = "County"
-                        dgvWorkViewer.Columns("strCountyName").DisplayIndex = 5
-                        dgvWorkViewer.Columns("strDistrictName").HeaderText = "District"
-                        dgvWorkViewer.Columns("strDistrictName").DisplayIndex = 6
-                        dgvWorkViewer.Columns("strOperationalStatus").HeaderText = "Operational Status"
-                        dgvWorkViewer.Columns("strOperationalStatus").DisplayIndex = 7
-                        dgvWorkViewer.Columns("strClass").HeaderText = "Classification"
-                        dgvWorkViewer.Columns("strClass").DisplayIndex = 8
-
-                        ' txtDataGridCount.Text = dgvWorkViewer.RowCount
-                    End If
-
-
-                Case "Enforcement"
-                    SQL = "Select " & _
-                    "to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
-                    "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
-                    "case  " & _
-                    "when datEnforcementFinalized is Not Null then '4 - Closed Out'  " & _
-                    "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " & _
-                    "when strStatus = 'UC' then '2 - Submitted to UC'  " & _
-                    "When strStatus Is Null then '1 - At Staff'  " & _
-                    "else 'Unknown'  " & _
-                    "end as EnforcementStatus,  " & _
-                    "Case   " & _
-                    " 	when datDiscoveryDate is Null then ''  " & _
-                    "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy')  " & _
-                    "END as Violationdate,   " & _
-                    "case   " & _
-                    "	when strHPV IS NULL then strActionType  " & _
-                    "	When strHPV IS Not Null then 'HPV'   " & _
-                    "Else 'HPV'  " & _
-                    "END as HPVStatus,  " & _
-                    "Case  " & _
-                    " 	when datEnforcementFinalized Is Not NULL then 'Closed'  " & _
-                    " 	when datEnforcementFinalized is NUll then 'Open'  " & _
-                    "Else 'Open'  " & _
-                    "End as Status,  " & _
-                    "AIRBranch.APBFacilityInformation.strFacilityName,  " & _
-                    "(strLastName||', '||strFirstName) as Staff  " & _
-                    "from AIRBranch.SSCP_AuditedEnforcement,   " & _
-                    "AIRBranch.APBFacilityInformation, AIRBranch.EPDuserProfiles,  " & _
-                    "AIRBranch.VW_SSCPINSPECTION_LIST " & _
-                    "Where AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
-                    DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber  " & _
-                    "and AIRBranch.SSCP_AuditedEnforcement.strAIRSnumber = " & _
-                    "'0413'||AIRBranch.VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
-                    "and (strStatus IS Null or strStatus = 'UC')  " & _
-                    "and datEnforcementFinalized is Null  " & _
-                    "and AIRBranch.EPDuserProfiles.numUserID = numStaffResponsible  " & _
-                    "and (numStaffResponsible = '" & UserGCode & "' or numSSCPEngineer = '" & UserGCode & "') "
-
-                    If rdbStaffView.Checked = True Then
-                        SQL = "Select " & _
-                      "to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
-                      "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
-                      "case  " & _
-                      "when datEnforcementFinalized is Not Null then '4 - Closed Out'  " & _
-                      "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " & _
-                      "when strStatus = 'UC' then '2 - Submitted to UC'  " & _
-                      "When strStatus Is Null then '1 - At Staff'  " & _
-                      "else 'Unknown'  " & _
-                      "end as EnforcementStatus,  " & _
-                      "Case   " & _
-                      " 	when datDiscoveryDate is Null then ''  " & _
-                      "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy')  " & _
-                      "END as Violationdate,   " & _
-                      "case   " & _
-                      "	when strHPV IS NULL then strActionType  " & _
-                      "	When strHPV IS Not Null then 'HPV'   " & _
-                      "Else 'HPV'  " & _
-                      "END as HPVStatus,  " & _
-                      "Case  " & _
-                      " 	when datEnforcementFinalized Is Not NULL then 'Closed'  " & _
-                      " 	when datEnforcementFinalized is NUll then 'Open'  " & _
-                      "Else 'Open'  " & _
-                      "End as Status,  " & _
-                      "AIRBranch.APBFacilityInformation.strFacilityName,  " & _
-                      "(strLastName||', '||strFirstName) as Staff  " & _
-                      "from AIRBranch.SSCP_AuditedEnforcement,   " & _
-                      "AIRBranch.APBFacilityInformation, AIRBranch.EPDuserProfiles,  " & _
-                      "AIRBranch.VW_SSCPINSPECTION_LIST " & _
-                      "Where AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
-                      DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber  " & _
-                      "and AIRBranch.SSCP_AuditedEnforcement.strAIRSnumber = " & _
-                      "'0413'||AIRBranch.VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
-                      "and (strStatus IS Null or strStatus = 'UC')  " & _
-                      "and datEnforcementFinalized is Null  " & _
-                      "and AIRBranch.EPDuserProfiles.numUserID = numStaffResponsible  " & _
-                      "and (numStaffResponsible = '" & UserGCode & "' or numSSCPEngineer = '" & UserGCode & "') "
-                    End If
-                    If rdbUCView.Checked = True Then
-                        SQL = "Select " & _
-                    "to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
-                    "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
-                    "case  " & _
-                    "when datEnforcementFinalized is Not Null then '4 - Closed Out'  " & _
-                    "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " & _
-                    "when strStatus = 'UC' then '2 - Submitted to UC'  " & _
-                    "When strStatus Is Null then '1 - At Staff'  " & _
-                    "else 'Unknown'  " & _
-                    "end as EnforcementStatus,  " & _
-                    "Case   " & _
-                    " 	when datDiscoveryDate is Null then ''  " & _
-                    "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy')  " & _
-                    "END as Violationdate,   " & _
-                    "case   " & _
-                    "	when strHPV IS NULL then strActionType  " & _
-                    "	When strHPV IS Not Null then 'HPV'   " & _
-                    "Else 'HPV'  " & _
-                    "END as HPVStatus,  " & _
-                    "Case  " & _
-                    " 	when datEnforcementFinalized Is Not NULL then 'Closed'  " & _
-                    " 	when datEnforcementFinalized is NUll then 'Open'  " & _
-                    "Else 'Open'  " & _
-                    "End as Status,  " & _
-                    "AIRBranch.APBFacilityInformation.strFacilityName,  " & _
-                    "(strLastName||', '||strFirstName) as Staff  " & _
-                    "from AIRBranch.SSCP_AuditedEnforcement,   " & _
-                    "AIRBranch.APBFacilityInformation, AIRBranch.EPDuserProfiles,  " & _
-                    "AIRBranch.VW_SSCPINSPECTION_LIST " & _
-                    "Where AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
-                    DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber  " & _
-                    "and AIRBranch.SSCP_AuditedEnforcement.strAIRSnumber = " & _
-                    "'0413'||AIRBranch.VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
-                    "and (strStatus IS Null or strStatus = 'UC')  " & _
-                    "and datEnforcementFinalized is Null  " & _
-                    "and AIRBranch.EPDuserProfiles.numUserID = numStaffResponsible  "
-
-                        If UserProgram = "4" Then
-                            SQL = SQL & " and numUnit = '" & UserUnit & "' "
-                        Else
-                            SQL = SQL & " and numProgram = '" & UserProgram & "' "
-                        End If
-
-                    End If
-                    If rdbPMView.Checked = True Then
-                        SQL = "Select " & _
-                   "to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
-                   "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
-                   "case  " & _
-                   "when datEnforcementFinalized is Not Null then '4 - Closed Out'  " & _
-                   "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " & _
-                   "when strStatus = 'UC' then '2 - Submitted to UC'  " & _
-                   "When strStatus Is Null then '1 - At Staff'  " & _
-                   "else 'Unknown'  " & _
-                   "end as EnforcementStatus,  " & _
-                   "Case   " & _
-                   " 	when datDiscoveryDate is Null then ''  " & _
-                   "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy')  " & _
-                   "END as Violationdate,   " & _
-                   "case   " & _
-                   "	when strHPV IS NULL then strActionType  " & _
-                   "	When strHPV IS Not Null then 'HPV'   " & _
-                   "Else 'HPV'  " & _
-                   "END as HPVStatus,  " & _
-                   "Case  " & _
-                   " 	when datEnforcementFinalized Is Not NULL then 'Closed'  " & _
-                   " 	when datEnforcementFinalized is NUll then 'Open'  " & _
-                   "Else 'Open'  " & _
-                   "End as Status,  " & _
-                   "AIRBranch.APBFacilityInformation.strFacilityName,  " & _
-                   "(strLastName||', '||strFirstName) as Staff  " & _
-                   "from AIRBranch.SSCP_AuditedEnforcement,   " & _
-                   "AIRBranch.APBFacilityInformation, AIRBranch.EPDuserProfiles,  " & _
-                   "AIRBranch.VW_SSCPINSPECTION_LIST " & _
-                   "Where AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
-                   DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber  " & _
-                   "and AIRBranch.SSCP_AuditedEnforcement.strAIRSnumber = " & _
-                   "'0413'||AIRBranch.VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
-                   "and (strStatus IS Null or strStatus = 'UC')  " & _
-                   "and datEnforcementFinalized is Null  " & _
-                   "and AIRBranch.EPDuserProfiles.numUserID = numStaffResponsible  "
-                    End If
-                    SQL = SQL & "order by strENforcementNumber DESC  "
-
-                    dsOpenWork = New DataSet
-                    daOpenWork = New OracleDataAdapter(SQL, Conn)
-                    If SQL <> "" Then
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
-                        End If
-                        daOpenWork.Fill(dsOpenWork, "OpenWork")
-                    End If
-
-                    dgvWorkViewer.DataSource = dsOpenWork
-                    dgvWorkViewer.DataMember = "OpenWork"
-
-                    dgvWorkViewer.RowHeadersVisible = False
-                    dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                    dgvWorkViewer.AllowUserToResizeColumns = True
-                    dgvWorkViewer.AllowUserToAddRows = False
-                    dgvWorkViewer.AllowUserToDeleteRows = False
-                    dgvWorkViewer.AllowUserToOrderColumns = True
-                    dgvWorkViewer.AllowUserToResizeRows = True
-                    dgvWorkViewer.ColumnHeadersHeight = "35"
-                    dgvWorkViewer.Columns("strEnforcementNumber").HeaderText = "Enforcement #"
-                    dgvWorkViewer.Columns("strEnforcementNumber").DisplayIndex = 0
-                    dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
-                    dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 1
-                    dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
-                    dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 2
-                    dgvWorkViewer.Columns("EnforcementStatus").HeaderText = "Enforcement Status"
-                    dgvWorkViewer.Columns("EnforcementStatus").DisplayIndex = 3
-                    dgvWorkViewer.Columns("Violationdate").HeaderText = "Discovery Date"
-                    dgvWorkViewer.Columns("Violationdate").DisplayIndex = 4
-                    dgvWorkViewer.Columns("Violationdate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-                    dgvWorkViewer.Columns("HPVstatus").HeaderText = "Status"
-                    dgvWorkViewer.Columns("HPVstatus").DisplayIndex = 5
-                    dgvWorkViewer.Columns("Status").HeaderText = "Open/Closed"
-                    dgvWorkViewer.Columns("Status").DisplayIndex = 6
-                    dgvWorkViewer.Columns("Staff").HeaderText = "Staff Responsible"
-                    dgvWorkViewer.Columns("Staff").DisplayIndex = 7
-
-
-                Case "Facilities with Subparts"
-                    SQL = "select distinct(substr(AIRBranch.APBHeaderData.strAIRSNumber, 5)) as AIRSnumber, " & _
-                   "strFacilityName " & _
-                   "from AIRBranch.APBHeaderData, AIRBranch.APBFacilityInformation  " & _
-                   "where ( exists (select * " & _
-                   "from AIRBranch.APBSubpartData " & _
-                   "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
-                   "and substr(strSubPartKey, 13, 1) = 'M') " & _
-                   "and subStr(strAirProgramCodes, 12, 1) = '1' " & _
-                   "or  exists (select * " & _
-                   "from AIRBranch.APBSubpartData " & _
-                   "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
-                   "and substr(strSubPartKey, 13, 1) = '9') " & _
-                   "and subStr(strAirProgramCodes, 8, 1) = '1' " & _
-                   "or  exists (select * " & _
-                   "from AIRBranch.APBSubpartData " & _
-                   "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
-                   "and substr(strSubPartKey, 13, 1) = '8') " & _
-                   "and subStr(strAirProgramCodes, 7, 1) = '1' ) " & _
-                   "and AIRBranch.APBHeaderData.strAIRSnumber = " & _
-                   DBNameSpace & ".APBFacilityInformation.strAIRsnumber " & _
-                   "and AIRBranch.APBHeaderData.strOperationalStatus <> 'X' " & _
-                   "order by AIRSNumber "
-
-                    dsOpenWork = New DataSet
-                    daOpenWork = New OracleDataAdapter(SQL, Conn)
-                    If SQL <> "" Then
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
-                        End If
-                        daOpenWork.Fill(dsOpenWork, "OpenWork")
-                    End If
-
-                    dgvWorkViewer.DataSource = dsOpenWork
-                    dgvWorkViewer.DataMember = "OpenWork"
-
-                    dgvWorkViewer.RowHeadersVisible = False
-                    dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                    dgvWorkViewer.AllowUserToResizeColumns = True
-                    dgvWorkViewer.AllowUserToAddRows = False
-                    dgvWorkViewer.AllowUserToDeleteRows = False
-                    dgvWorkViewer.AllowUserToOrderColumns = True
-                    dgvWorkViewer.AllowUserToResizeRows = True
-                    dgvWorkViewer.ColumnHeadersHeight = "35"
-                    dgvWorkViewer.Columns("AIRSnumber").HeaderText = "AIRS #"
-                    dgvWorkViewer.Columns("AIRSnumber").DisplayIndex = 0
-                    dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
-                    dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 1
-
-                Case "Facilities missing Subparts"
-                    SQL = "select distinct(substr(AIRBranch.APBHeaderData.strAIRSNumber, 5)) as AIRSnumber, " & _
-                    "strFacilityName " & _
-                    "from AIRBranch.APBHeaderData, AIRBranch.APBFacilityInformation  " & _
-                    "where (Not exists (select * " & _
-                    "from AIRBranch.APBSubpartData " & _
-                    "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
-                    "and substr(strSubPartKey, 13, 1) = 'M') " & _
-                    "and subStr(strAirProgramCodes, 12, 1) = '1' " & _
-                    "or Not exists (select * " & _
-                    "from AIRBranch.APBSubpartData " & _
-                    "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
-                    "and substr(strSubPartKey, 13, 1) = '9') " & _
-                    "and subStr(strAirProgramCodes, 8, 1) = '1' " & _
-                    "or Not exists (select * " & _
-                    "from AIRBranch.APBSubpartData " & _
-                    "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
-                    "and substr(strSubPartKey, 13, 1) = '8') " & _
-                    "and subStr(strAirProgramCodes, 7, 1) = '1' ) " & _
-                    "and AIRBranch.APBHeaderData.strAIRSnumber = " & _
-                    DBNameSpace & ".APBFacilityInformation.strAIRsnumber " & _
-                    "and AIRBranch.APBHeaderData.strOperationalStatus <> 'X' " & _
-                    "order by AIRSNumber "
-
-                    dsOpenWork = New DataSet
-                    daOpenWork = New OracleDataAdapter(SQL, Conn)
-                    If SQL <> "" Then
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
-                        End If
-                        daOpenWork.Fill(dsOpenWork, "OpenWork")
-                    End If
-
-                    dgvWorkViewer.DataSource = dsOpenWork
-                    dgvWorkViewer.DataMember = "OpenWork"
-
-                    dgvWorkViewer.RowHeadersVisible = False
-                    dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                    dgvWorkViewer.AllowUserToResizeColumns = True
-                    dgvWorkViewer.AllowUserToAddRows = False
-                    dgvWorkViewer.AllowUserToDeleteRows = False
-                    dgvWorkViewer.AllowUserToOrderColumns = True
-                    dgvWorkViewer.AllowUserToResizeRows = True
-                    dgvWorkViewer.ColumnHeadersHeight = "35"
-                    dgvWorkViewer.Columns("AIRSnumber").HeaderText = "AIRS #"
-                    dgvWorkViewer.Columns("AIRSnumber").DisplayIndex = 0
-                    dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
-                    dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 1
-
-                Case "Monitoring Test Reports"
-                    SQL = "Select AIRBranch.VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
-                          "from  AIRBranch.VW_ISMPTestReportViewer, AIRBranch.ISMPReportInformation " & _
-                          "where AIRBranch.VW_ISMPTestReportViewer.strReferenceNumber = " & _
-                          "AIRBranch.ISMPReportInformation.strReferenceNumber  " & _
-                          "and  Status = 'Open' " & _
-                          " and ReviewingEngineer = '" & pnl2.Text & "' "
-
-
-                    If rdbStaffView.Checked = True Then
-                        SQL = "Select AIRBranch.VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
-                        "from  AIRBranch.VW_ISMPTestReportViewer, AIRBranch.ISMPReportInformation " & _
-                        "where AIRBranch.VW_ISMPTestReportViewer.strReferenceNumber = " & _
-                        "AIRBranch.ISMPReportInformation.strReferenceNumber  " & _
-                        "and  Status = 'Open' " & _
-                        " and ReviewingEngineer = '" & pnl2.Text & "' "
-                    End If
-                    If rdbUCView.Checked = True Then
-                        SQL = "Select AIRBranch.VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
-                        "from  AIRBranch.VW_ISMPTestReportViewer, AIRBranch.ISMPReportInformation " & _
-                        "where AIRBranch.VW_ISMPTestReportViewer.strReferenceNumber = " & _
-                        "AIRBranch.ISMPReportInformation.strReferenceNumber  " & _
-                        "and  Status = 'Open' " & _
-                        "and strUserUnit = " & _
-                          "(select strUnitDesc from AIRBranch.LookUpEPDUnits where numUnitCode = '" & UserUnit & "') "
-                    End If
-                    If rdbPMView.Checked = True Or UserUnit = "---" Then
-                        SQL = "Select AIRBranch.VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
-                        "from  AIRBranch.VW_ISMPTestReportViewer, AIRBranch.ISMPReportInformation " & _
-                        "where AIRBranch.VW_ISMPTestReportViewer.strReferenceNumber = " & _
-                        "AIRBranch.ISMPReportInformation.strReferenceNumber  " & _
-                        "and  Status = 'Open' "
-                    End If
-
-                    dsOpenWork = New DataSet
-                    daOpenWork = New OracleDataAdapter(SQL, Conn)
-                    If SQL <> "" Then
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
-                        End If
-                        daOpenWork.Fill(dsOpenWork, "OpenWork")
-                    End If
-
-                    dgvWorkViewer.DataSource = dsOpenWork
-                    dgvWorkViewer.DataMember = "OpenWork"
-
-                    dgvWorkViewer.RowHeadersVisible = False
-                    dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                    dgvWorkViewer.AllowUserToResizeColumns = True
-                    dgvWorkViewer.AllowUserToAddRows = False
-                    dgvWorkViewer.AllowUserToDeleteRows = False
-                    dgvWorkViewer.AllowUserToOrderColumns = True
-                    dgvWorkViewer.AllowUserToResizeRows = True
-                    dgvWorkViewer.ColumnHeadersHeight = "35"
-                    dgvWorkViewer.Columns("strReferenceNumber").HeaderText = "Reference #"
-                    dgvWorkViewer.Columns("strReferenceNumber").DisplayIndex = 0
-                    dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
-                    dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 1
-                    dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
-                    dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 2
-                    dgvWorkViewer.Columns("strFacilityCity").HeaderText = "City"
-                    dgvWorkViewer.Columns("strFacilityCity").DisplayIndex = 3
-                    dgvWorkViewer.Columns("strCountyName").HeaderText = "County"
-                    dgvWorkViewer.Columns("strCountyName").DisplayIndex = 4
-                    dgvWorkViewer.Columns("strEmissionSource").HeaderText = "Emission Source"
-                    dgvWorkViewer.Columns("strEmissionSource").DisplayIndex = 5
-                    dgvWorkViewer.Columns("strPollutantDescription").HeaderText = "Pollutant"
-                    dgvWorkViewer.Columns("strPollutantDescription").DisplayIndex = 6
-                    dgvWorkViewer.Columns("strReportType").HeaderText = "Report Type"
-                    dgvWorkViewer.Columns("strReportType").DisplayIndex = 7
-                    dgvWorkViewer.Columns("strDocumentType").HeaderText = "Document Type"
-                    dgvWorkViewer.Columns("strDocumentType").DisplayIndex = 8
-                    dgvWorkViewer.Columns("ReviewingEngineer").HeaderText = "Reviewing Engineer"
-                    dgvWorkViewer.Columns("ReviewingEngineer").DisplayIndex = 9
-                    dgvWorkViewer.Columns("TestDateStart").HeaderText = "Test Date"
-                    dgvWorkViewer.Columns("TestDateStart").DefaultCellStyle.Format = "dd-MMM-yyyy"
-                    dgvWorkViewer.Columns("TestDateStart").DisplayIndex = 10
-                    dgvWorkViewer.Columns("ReceivedDate").HeaderText = "Received Date"
-                    dgvWorkViewer.Columns("ReceivedDate").DisplayIndex = 11
-                    dgvWorkViewer.Columns("ReceivedDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-                    dgvWorkViewer.Columns("CompleteDate").HeaderText = "Complete Date"
-                    dgvWorkViewer.Columns("CompleteDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-                    dgvWorkViewer.Columns("CompleteDate").DisplayIndex = 12
-                    dgvWorkViewer.Columns("Status").HeaderText = "Report Open/Closed"
-                    dgvWorkViewer.Columns("Status").DisplayIndex = 13
-                    dgvWorkViewer.Columns("strComplianceStatus").HeaderText = "Compliance Status"
-                    dgvWorkViewer.Columns("strComplianceStatus").DisplayIndex = 14
-                    dgvWorkViewer.Columns("mmoCommentAREA").HeaderText = "Comment Field"
-                    dgvWorkViewer.Columns("mmoCommentAREA").DisplayIndex = 15
-                    dgvWorkViewer.Columns("strPreComplianceStatus").HeaderText = "Precompliance Status"
-                    dgvWorkViewer.Columns("strPreComplianceStatus").DisplayIndex = 16
-                    dgvWorkViewer.Columns("strWitnessingEngineer").Visible = False
-                    dgvWorkViewer.Columns("strWitnessingEngineer2").Visible = False
-                    dgvWorkViewer.Columns("strUserUnit").Visible = False
-
-                    LoadComplianceColor()
-
-                Case "Monitoring Test Notifications"
-                    SQL = "select  " & _
-                    "AIRBranch.ISMPTestNotification.strTestLogNumber as TestNumber,    " & _
-                    "case    " & _
-                    "when strReferenceNumber is null then ''    " & _
-                    "else strReferenceNumber    " & _
-                    "end RefNum,    " & _
-                    "case  " & _
-                    "when AIRBranch.ISMPTestNOtification.strAIRSNumber is Null then ''  " & _
-                    "else AIRBranch.APBFacilityInformation.strFacilityName    " & _
-                    "End FacilityName,  " & _
-                    "substr(AIRBranch.ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,  " & _
-                    "strEmissionUnit,   " & _
-                    "to_char(datProposedStartDate, 'dd-Mon-yyyy') as ProposedStartDate,  " & _
-                    "case  " & _
-                    "when strFirstName is Null then ''  " & _
-                    "else(strLastName||', '||strFirstName)   " & _
-                    "END StaffResponsible  " & _
-                    "from AIRBranch.ismptestnotification, AIRBranch.APBFacilityinformation,  " & _
-                    "AIRBranch.EPDUserProfiles, AIRBranch.ISMPTestLogLink  " & _
-                    "where AIRBranch.ismptestnotification.strairsnumber = " & _
-                    DBNameSpace & ".apbfacilityinformation.strairsnumber (+)    " & _
-                    "and AIRBranch.ismptestnotification.strstaffresponsible = " & _
-                    DBNameSpace & ".EPDUserProfiles.numUserID (+)  " & _
-                    "and AIRBranch.ISMPTestnotification.strTestLogNumber = " & _
-                    DBNameSpace & ".ISMPTestLogLink.strTestLogNumber (+)   " & _
-                    "and datProposedStartDate > (sysdate - 180)    " & _
-                    "and strReferenceNumber is null    " & _
-                    "union    " & _
-                    "select    " & _
-                    "AIRBranch.ISMPTestNotification.strTestLogNumber as TestNumber,  " & _
-                    "AIRBranch.ISMpReportInformation.strReferenceNumber as RefNum,    " & _
-                    "case  " & _
-                    "when AIRBranch.ISMPTestNOtification.strAIRSNumber is Null then ''  " & _
-                    "else AIRBranch.APBFacilityInformation.strFacilityName    " & _
-                    "End FacilityName,  " & _
-                    "substr(AIRBranch.ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,  " & _
-                    "strEmissionUnit,   " & _
-                    "to_char(datProposedStartDate, 'dd-Mon-yyyy') as ProposedStartDate,  " & _
-                    "case  " & _
-                    "when strFirstName is Null then ''  " & _
-                    "else(strLastName||', '||strFirstName)   " & _
-                    "END StaffResponsible  " & _
-                    "from AIRBranch.ismptestnotification, AIRBranch.APBFacilityinformation,  " & _
-                    "AIRBranch.EPDUserProfiles, AIRBranch.ISMPTestLogLink,    " & _
-                    "AIRBranch.ISMPReportInformation    " & _
-                    "where AIRBranch.ismptestnotification.strairsnumber = " & _
-                    DBNameSpace & ".apbfacilityinformation.strairsnumber (+)    " & _
-                    "and AIRBranch.ismptestnotification.strstaffresponsible = " & _
-                    DBNameSpace & ".EPDUserProfiles.numUserID (+)  " & _
-                    "and AIRBranch.ISMPTestNotification.strTestLogNumber = " & _
-                    DBNameSpace & ".ISMPTestLogLink.strTestLogNumber (+)    " & _
-                    "and AIRBranch.ISMPTestLogLink.strReferencenumber = " & _
-                    DBNameSpace & ".ISMPReportInformation.strReferenceNumber (+)    " & _
-                    "and datProposedStartDate > (sysdate - 180)    " & _
-                    "and AIRBranch.ISMPTestLogLink.strReferenceNumber is not null    " & _
-                    "and strClosed = 'False'  "
-
-                    If rdbStaffView.Checked = True Then
-
-                    End If
-                    If rdbUCView.Checked = True Then
-
-                    End If
-                    If rdbPMView.Checked = True Then
-
-                    End If
-
-                    dsOpenWork = New DataSet
-                    daOpenWork = New OracleDataAdapter(SQL, Conn)
-                    If SQL <> "" Then
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
-                        End If
-                        daOpenWork.Fill(dsOpenWork, "OpenWork")
-                    End If
-
-                    dgvWorkViewer.DataSource = dsOpenWork
-                    dgvWorkViewer.DataMember = "OpenWork"
-
-                    dgvWorkViewer.RowHeadersVisible = False
-                    dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                    dgvWorkViewer.AllowUserToResizeColumns = True
-                    dgvWorkViewer.AllowUserToAddRows = False
-                    dgvWorkViewer.AllowUserToDeleteRows = False
-                    dgvWorkViewer.AllowUserToOrderColumns = True
-                    dgvWorkViewer.AllowUserToResizeRows = True
-                    dgvWorkViewer.ColumnHeadersHeight = "35"
-                    dgvWorkViewer.Columns("TestNumber").HeaderText = "Test Log #"
-                    dgvWorkViewer.Columns("TestNumber").DisplayIndex = 0
-                    dgvWorkViewer.Columns("RefNum").HeaderText = "Reference #"
-                    dgvWorkViewer.Columns("RefNum").DisplayIndex = 1
-                    dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
-                    dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 2
-                    dgvWorkViewer.Columns("FacilityName").HeaderText = "Facility Name"
-                    dgvWorkViewer.Columns("FacilityName").DisplayIndex = 3
-                    dgvWorkViewer.Columns("strEmissionUnit").HeaderText = "Emission Unit"
-                    dgvWorkViewer.Columns("strEmissionUnit").DisplayIndex = 4
-                    dgvWorkViewer.Columns("ProposedStartDate").HeaderText = "Start Date"
-                    dgvWorkViewer.Columns("ProposedStartDate").DisplayIndex = 5
-                    dgvWorkViewer.Columns("StaffResponsible").HeaderText = "Staff Responsible"
-                    dgvWorkViewer.Columns("StaffResponsible").DisplayIndex = 6
-
-                Case "Permit Applications"
-                    SQL = "Select " & _
-                   "distinct(to_Number(AIRBranch.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber, " & _
-                   "case " & _
-                   " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber is Null then ' ' " & _
-                   "	when AIRBranch.SSPPApplicationMaster.strAIRSNumber = '0413' then ' ' " & _
-                   "else substr(AIRBranch.SSPPApplicationMaster.strAIRSNumber, 5) " & _
-                   "end as strAIRSNumber, " & _
-                   "case " & _
-                   "	when strApplicationTypeDesc IS Null then ' ' " & _
-                   "Else strApplicationTypeDesc " & _
-                   "End as strApplicationType, " & _
-                   "case " & _
-                   " 	when datReceivedDate is Null then ' ' " & _
-                   "Else to_char(datReceivedDate, 'RRRR-MM-dd') " & _
-                   " End as datReceivedDate, " & _
-                   "case  " & _
-                   "when strPermitNumber is NULL then ' '  " & _
-                   "else substr(strPermitNumber, 1, 4)|| '-' ||substr(strPermitNumber, 5, 3)|| '-'  " & _
-                   " ||substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)|| '-' " & _
-                   " ||substr(strPermitNumber, 13, 2)|| '-' ||substr(strPermitNumber, 15, 1) " & _
-                   "end As strPermitNumber, " & _
-                   "case " & _
-                   " 	when numUserID= '0' then ' ' " & _
-                   "	when numUserID is Null then ' ' " & _
-                   "else (strLastName||', '||strFirstName) " & _
-                   "end as StaffResponsible, " & _
-                   "case  " & _
-                   "when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd') " & _
-                   "when datFinalizedDate is not Null then to_char(datFinalizedDate, 'RRRR-MM-dd') " & _
-                   "when datToDirector is Not Null and datFinalizedDate is Null " & _
-                   "and (datDraftIssued is Null or datDraftIssued < datToDirector) then to_char(datToDirector, 'RRRR-MM-dd') " & _
-                   "when datToBranchCheif is Not Null and datFinalizedDate is Null " & _
-                   "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then to_char(DatTOBranchCheif, 'RRRR-MM-dd')  " & _
-                   "when datEPAEnds is not Null then to_char(datEPAEnds, 'RRRR-MM-dd')   " & _
-                   "when datPNExpires is Not Null and datPNExpires < sysdate then to_char(datPNExpires, 'RRRR-MM-dd')   " & _
-                   "when datPNExpires is Not Null and datPNExpires >= sysdate then to_char(datPNExpires, 'RRRR-MM-dd') " & _
-                   "when datDraftIssued is Not Null and datPNExpires is Null then to_char(datDraftIssued, 'RRRR-MM-dd') " & _
-                   "when dattoPMII is Not Null then to_char(datToPMII, 'RRRR-MM-dd') " & _
-                   "when dattoPMI is Not Null then to_char(datToPMI, 'RRRR-MM-dd') " & _
-                   "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then to_char(datReviewSubmitted, 'RRRR-MM-dd')   " & _
-                   "when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown' " & _
-                   "else to_char(datAssignedToEngineer, 'RRRR-MM-dd') " & _
-                   "end as StatusDate,  " & _
-                   "case  " & _
-                   " 	when AIRBranch.SSPPApplicationData.strFacilityName is Null then ' '  " & _
-                   "else AIRBranch.SSPPApplicationData.strFacilityName  " & _
-                   "end as strFacilityName,  " & _
-                   "case " & _
-                   "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out' " & _
-                   "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO' " & _
-                   "when datToBranchCheif is Not Null and datFinalizedDate is Null " & _
-                   "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC' " & _
-                   "when datEPAEnds is not Null then '08 - EPA 45-day Review' " & _
-                   "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired' " & _
-                   "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'  " & _
-                   "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'  " & _
-                   "when dattoPMII is Not Null then '04 - AT PM'  " & _
-                   "when dattoPMI is Not Null then '03 - At UC'  " & _
-                   "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0')    " & _
-                   "then '02 - Internal Review' " & _
-                   "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'   " & _
-                   "else '01 - At Engineer'  " & _
-                   "end as AppStatus, " & _
-                   "case " & _
-                   " 	when strPermitTypeDescription is Null then '' " & _
-                   "else strPermitTypeDescription " & _
-                   "End as strPermitType " & _
-                   "from AIRBranch.SSPPApplicationMaster, AIRBranch.SSPPApplicationTracking, " & _
-                   "AIRBranch.SSPPApplicationData, " & _
-                   "AIRBranch.LookUpApplicationTypes, AIRBranch.LookUPPermitTypes, " & _
-                   "AIRBranch.EPDuserProfiles  " & _
-                   "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber (+)  " & _
-                   "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber (+) " & _
-                   "and strApplicationType = strApplicationTypeCode (+) " & _
-                   "and strPermitType = strPermitTypeCode (+) " & _
-                   "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible " & _
-                   "and datFinalizedDate is NULL " & _
-                  "and numUserID = ('" & UserGCode & "') "
-
-                    If rdbStaffView.Checked = True Then
-                        SQL = "Select " & _
-                  "distinct(to_Number(AIRBranch.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber, " & _
-                  "case " & _
-                  " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber is Null then ' ' " & _
-                  "	when AIRBranch.SSPPApplicationMaster.strAIRSNumber = '0413' then ' ' " & _
-                  "else substr(AIRBranch.SSPPApplicationMaster.strAIRSNumber, 5) " & _
-                  "end as strAIRSNumber, " & _
-                  "case " & _
-                  "	when strApplicationTypeDesc IS Null then ' ' " & _
-                  "Else strApplicationTypeDesc " & _
-                  "End as strApplicationType, " & _
-                  "case " & _
-                  " 	when datReceivedDate is Null then ' ' " & _
-                  "Else to_char(datReceivedDate, 'RRRR-MM-dd') " & _
-                  " End as datReceivedDate, " & _
-                  "case  " & _
-                  "when strPermitNumber is NULL then ' '  " & _
-                  "else substr(strPermitNumber, 1, 4)|| '-' ||substr(strPermitNumber, 5, 3)|| '-'  " & _
-                  " ||substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)|| '-' " & _
-                  " ||substr(strPermitNumber, 13, 2)|| '-' ||substr(strPermitNumber, 15, 1) " & _
-                  "end As strPermitNumber, " & _
-                  "case " & _
-                  " 	when numUserID= '0' then ' ' " & _
-                  "	when numUserID is Null then ' ' " & _
-                  "else (strLastName||', '||strFirstName) " & _
-                  "end as StaffResponsible, " & _
-                  "case  " & _
-                  "when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd') " & _
-                  "when datFinalizedDate is not Null then to_char(datFinalizedDate, 'RRRR-MM-dd') " & _
-                  "when datToDirector is Not Null and datFinalizedDate is Null " & _
-                  "and (datDraftIssued is Null or datDraftIssued < datToDirector) then to_char(datToDirector, 'RRRR-MM-dd') " & _
-                  "when datToBranchCheif is Not Null and datFinalizedDate is Null " & _
-                  "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then to_char(DatTOBranchCheif, 'RRRR-MM-dd')  " & _
-                  "when datEPAEnds is not Null then to_char(datEPAEnds, 'RRRR-MM-dd')   " & _
-                  "when datPNExpires is Not Null and datPNExpires < sysdate then to_char(datPNExpires, 'RRRR-MM-dd')   " & _
-                  "when datPNExpires is Not Null and datPNExpires >= sysdate then to_char(datPNExpires, 'RRRR-MM-dd') " & _
-                  "when datDraftIssued is Not Null and datPNExpires is Null then to_char(datDraftIssued, 'RRRR-MM-dd') " & _
-                  "when dattoPMII is Not Null then to_char(datToPMII, 'RRRR-MM-dd') " & _
-                  "when dattoPMI is Not Null then to_char(datToPMI, 'RRRR-MM-dd') " & _
-                  "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then to_char(datReviewSubmitted, 'RRRR-MM-dd')   " & _
-                  "when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown' " & _
-                  "else to_char(datAssignedToEngineer, 'RRRR-MM-dd') " & _
-                  "end as StatusDate,  " & _
-                  "case  " & _
-                  " 	when AIRBranch.SSPPApplicationData.strFacilityName is Null then ' '  " & _
-                  "else AIRBranch.SSPPApplicationData.strFacilityName  " & _
-                  "end as strFacilityName,  " & _
-                  "case " & _
-                  "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out' " & _
-                  "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO' " & _
-                  "when datToBranchCheif is Not Null and datFinalizedDate is Null " & _
-                  "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC' " & _
-                  "when datEPAEnds is not Null then '08 - EPA 45-day Review' " & _
-                  "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired' " & _
-                  "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'  " & _
-                  "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'  " & _
-                  "when dattoPMII is Not Null then '04 - AT PM'  " & _
-                  "when dattoPMI is Not Null then '03 - At UC'  " & _
-                  "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0')    " & _
-                  "then '02 - Internal Review' " & _
-                  "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'   " & _
-                  "else '01 - At Engineer'  " & _
-                  "end as AppStatus, " & _
-                  "case " & _
-                  " 	when strPermitTypeDescription is Null then '' " & _
-                  "else strPermitTypeDescription " & _
-                  "End as strPermitType " & _
-                  "from AIRBranch.SSPPApplicationMaster, AIRBranch.SSPPApplicationTracking, " & _
-                  "AIRBranch.SSPPApplicationData, " & _
-                  "AIRBranch.LookUpApplicationTypes, AIRBranch.LookUPPermitTypes, " & _
-                  "AIRBranch.EPDuserProfiles  " & _
-                  "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber (+)  " & _
-                  "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber (+) " & _
-                  "and strApplicationType = strApplicationTypeCode (+) " & _
-                  "and strPermitType = strPermitTypeCode (+) " & _
-                  "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible " & _
-                  "and datFinalizedDate is NULL " & _
-                  "and numUserID = ('" & UserGCode & "') "
-                    End If
-                    If rdbUCView.Checked = True Then
-                        SQL = "Select " & _
-                    "distinct(to_Number(AIRBranch.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber, " & _
-                    "case " & _
-                    " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber is Null then ' ' " & _
-                    "	when AIRBranch.SSPPApplicationMaster.strAIRSNumber = '0413' then ' ' " & _
-                    "else substr(AIRBranch.SSPPApplicationMaster.strAIRSNumber, 5) " & _
-                    "end as strAIRSNumber, " & _
-                    "case " & _
-                    "	when strApplicationTypeDesc IS Null then ' ' " & _
-                    "Else strApplicationTypeDesc " & _
-                    "End as strApplicationType, " & _
-                    "case " & _
-                    " 	when datReceivedDate is Null then ' ' " & _
-                    "Else to_char(datReceivedDate, 'RRRR-MM-dd') " & _
-                    " End as datReceivedDate, " & _
-                    "case  " & _
-                    "when strPermitNumber is NULL then ' '  " & _
-                    "else substr(strPermitNumber, 1, 4)|| '-' ||substr(strPermitNumber, 5, 3)|| '-'  " & _
-                    " ||substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)|| '-' " & _
-                    " ||substr(strPermitNumber, 13, 2)|| '-' ||substr(strPermitNumber, 15, 1) " & _
-                    "end As strPermitNumber, " & _
-                    "case " & _
-                    " 	when numUserID= '0' then ' ' " & _
-                    "	when numUserID is Null then ' ' " & _
-                    "else (strLastName||', '||strFirstName) " & _
-                    "end as StaffResponsible, " & _
-                    "case  " & _
-                    "when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd') " & _
-                    "when datFinalizedDate is not Null then to_char(datFinalizedDate, 'RRRR-MM-dd') " & _
-                    "when datToDirector is Not Null and datFinalizedDate is Null " & _
-                    "and (datDraftIssued is Null or datDraftIssued < datToDirector) then to_char(datToDirector, 'RRRR-MM-dd') " & _
-                    "when datToBranchCheif is Not Null and datFinalizedDate is Null " & _
-                    "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then to_char(DatTOBranchCheif, 'RRRR-MM-dd')  " & _
-                    "when datEPAEnds is not Null then to_char(datEPAEnds, 'RRRR-MM-dd')   " & _
-                    "when datPNExpires is Not Null and datPNExpires < sysdate then to_char(datPNExpires, 'RRRR-MM-dd')   " & _
-                    "when datPNExpires is Not Null and datPNExpires >= sysdate then to_char(datPNExpires, 'RRRR-MM-dd') " & _
-                    "when datDraftIssued is Not Null and datPNExpires is Null then to_char(datDraftIssued, 'RRRR-MM-dd') " & _
-                    "when dattoPMII is Not Null then to_char(datToPMII, 'RRRR-MM-dd') " & _
-                    "when dattoPMI is Not Null then to_char(datToPMI, 'RRRR-MM-dd') " & _
-                    "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then to_char(datReviewSubmitted, 'RRRR-MM-dd')   " & _
-                    "when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown' " & _
-                    "else to_char(datAssignedToEngineer, 'RRRR-MM-dd') " & _
-                    "end as StatusDate,  " & _
-                    "case  " & _
-                    " 	when AIRBranch.SSPPApplicationData.strFacilityName is Null then ' '  " & _
-                    "else AIRBranch.SSPPApplicationData.strFacilityName  " & _
-                    "end as strFacilityName,  " & _
-                    "case " & _
-                    "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out' " & _
-                    "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO' " & _
-                    "when datToBranchCheif is Not Null and datFinalizedDate is Null " & _
-                    "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC' " & _
-                    "when datEPAEnds is not Null then '08 - EPA 45-day Review' " & _
-                    "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired' " & _
-                    "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'  " & _
-                    "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'  " & _
-                    "when dattoPMII is Not Null then '04 - AT PM'  " & _
-                    "when dattoPMI is Not Null then '03 - At UC'  " & _
-                    "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0')    " & _
-                    "then '02 - Internal Review' " & _
-                    "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'   " & _
-                    "else '01 - At Engineer'  " & _
-                    "end as AppStatus, " & _
-                    "case " & _
-                    " 	when strPermitTypeDescription is Null then '' " & _
-                    "else strPermitTypeDescription " & _
-                    "End as strPermitType " & _
-                    "from AIRBranch.SSPPApplicationMaster, AIRBranch.SSPPApplicationTracking, " & _
-                    "AIRBranch.SSPPApplicationData, " & _
-                    "AIRBranch.LookUpApplicationTypes, AIRBranch.LookUPPermitTypes, " & _
-                    "AIRBranch.EPDuserProfiles  " & _
-                    "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber (+)  " & _
-                    "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber (+) " & _
-                    "and strApplicationType = strApplicationTypeCode (+) " & _
-                    "and strPermitType = strPermitTypeCode (+) " & _
-                    "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible " & _
-                    "and datFinalizedDate is NULL " & _
-                    " and (AIRBranch.EPDUserProfiles.numUnit = '" & UserUnit & "'   or (APBUnit = '" & UserUnit & "'))  "
-                    End If
-                    If rdbPMView.Checked = True Or UserUnit = "---" Then
-                        SQL = "Select " & _
-                      "distinct(to_Number(AIRBranch.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber, " & _
-                      "case " & _
-                      " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber is Null then ' ' " & _
-                      "	when AIRBranch.SSPPApplicationMaster.strAIRSNumber = '0413' then ' ' " & _
-                      "else substr(AIRBranch.SSPPApplicationMaster.strAIRSNumber, 5) " & _
-                      "end as strAIRSNumber, " & _
-                      "case " & _
-                      "	when strApplicationTypeDesc IS Null then ' ' " & _
-                      "Else strApplicationTypeDesc " & _
-                      "End as strApplicationType, " & _
-                      "case " & _
-                      " 	when datReceivedDate is Null then ' ' " & _
-                      "Else to_char(datReceivedDate, 'RRRR-MM-dd') " & _
-                      " End as datReceivedDate, " & _
-                      "case  " & _
-                      "when strPermitNumber is NULL then ' '  " & _
-                      "else substr(strPermitNumber, 1, 4)|| '-' ||substr(strPermitNumber, 5, 3)|| '-'  " & _
-                      " ||substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)|| '-' " & _
-                      " ||substr(strPermitNumber, 13, 2)|| '-' ||substr(strPermitNumber, 15, 1) " & _
-                      "end As strPermitNumber, " & _
-                      "case " & _
-                      " 	when numUserID= '0' then ' ' " & _
-                      "	when numUserID is Null then ' ' " & _
-                      "else (strLastName||', '||strFirstName) " & _
-                      "end as StaffResponsible, " & _
-                      "case  " & _
-                      "when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd') " & _
-                      "when datFinalizedDate is not Null then to_char(datFinalizedDate, 'RRRR-MM-dd') " & _
-                      "when datToDirector is Not Null and datFinalizedDate is Null " & _
-                      "and (datDraftIssued is Null or datDraftIssued < datToDirector) then to_char(datToDirector, 'RRRR-MM-dd') " & _
-                      "when datToBranchCheif is Not Null and datFinalizedDate is Null " & _
-                      "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then to_char(DatTOBranchCheif, 'RRRR-MM-dd')  " & _
-                      "when datEPAEnds is not Null then to_char(datEPAEnds, 'RRRR-MM-dd')   " & _
-                      "when datPNExpires is Not Null and datPNExpires < sysdate then to_char(datPNExpires, 'RRRR-MM-dd')   " & _
-                      "when datPNExpires is Not Null and datPNExpires >= sysdate then to_char(datPNExpires, 'RRRR-MM-dd') " & _
-                      "when datDraftIssued is Not Null and datPNExpires is Null then to_char(datDraftIssued, 'RRRR-MM-dd') " & _
-                      "when dattoPMII is Not Null then to_char(datToPMII, 'RRRR-MM-dd') " & _
-                      "when dattoPMI is Not Null then to_char(datToPMI, 'RRRR-MM-dd') " & _
-                      "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then to_char(datReviewSubmitted, 'RRRR-MM-dd')   " & _
-                      "when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown' " & _
-                      "else to_char(datAssignedToEngineer, 'RRRR-MM-dd') " & _
-                      "end as StatusDate,  " & _
-                      "case  " & _
-                      " 	when AIRBranch.SSPPApplicationData.strFacilityName is Null then ' '  " & _
-                      "else AIRBranch.SSPPApplicationData.strFacilityName  " & _
-                      "end as strFacilityName,  " & _
-                      "case " & _
-                      "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out' " & _
-                      "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO' " & _
-                      "when datToBranchCheif is Not Null and datFinalizedDate is Null " & _
-                      "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC' " & _
-                      "when datEPAEnds is not Null then '08 - EPA 45-day Review' " & _
-                      "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired' " & _
-                      "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'  " & _
-                      "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'  " & _
-                      "when dattoPMII is Not Null then '04 - AT PM'  " & _
-                      "when dattoPMI is Not Null then '03 - At UC'  " & _
-                      "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0')    " & _
-                      "then '02 - Internal Review' " & _
-                      "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'   " & _
-                      "else '01 - At Engineer'  " & _
-                      "end as AppStatus, " & _
-                      "case " & _
-                      " 	when strPermitTypeDescription is Null then '' " & _
-                      "else strPermitTypeDescription " & _
-                      "End as strPermitType " & _
-                      "from AIRBranch.SSPPApplicationMaster, AIRBranch.SSPPApplicationTracking, " & _
-                      "AIRBranch.SSPPApplicationData, " & _
-                      "AIRBranch.LookUpApplicationTypes, AIRBranch.LookUPPermitTypes, " & _
-                      "AIRBranch.EPDuserProfiles  " & _
-                      "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber (+)  " & _
-                      "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber (+) " & _
-                      "and strApplicationType = strApplicationTypeCode (+) " & _
-                      "and strPermitType = strPermitTypeCode (+) " & _
-                      "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible " & _
-                      "and datFinalizedDate is NULL "
-                    End If
-                    SQL = SQL & "order by AIRBranch.SSPPApplicationMaster.strApplicationNumber DESC  "
-
-                    dsOpenWork = New DataSet
-                    daOpenWork = New OracleDataAdapter(SQL, Conn)
-                    If SQL <> "" Then
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
-                        End If
-                        daOpenWork.Fill(dsOpenWork, "OpenWork")
-                    End If
-
-                    dgvWorkViewer.DataSource = dsOpenWork
-                    dgvWorkViewer.DataMember = "OpenWork"
-
-                    dgvWorkViewer.RowHeadersVisible = False
-                    dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                    dgvWorkViewer.AllowUserToResizeColumns = True
-                    dgvWorkViewer.AllowUserToAddRows = False
-                    dgvWorkViewer.AllowUserToDeleteRows = False
-                    dgvWorkViewer.AllowUserToOrderColumns = True
-                    dgvWorkViewer.AllowUserToResizeRows = True
-                    dgvWorkViewer.ColumnHeadersHeight = "35"
-                    dgvWorkViewer.Columns("strApplicationNumber").HeaderText = "APL #"
-                    dgvWorkViewer.Columns("strApplicationNumber").DisplayIndex = 0
-                    dgvWorkViewer.Columns("strAIRSNumber").HeaderText = "AIRS #"
-                    dgvWorkViewer.Columns("strAIRSNumber").DisplayIndex = 1
-                    dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
-                    dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 2
-                    dgvWorkViewer.Columns("StaffResponsible").HeaderText = "Staff Responsible"
-                    dgvWorkViewer.Columns("StaffResponsible").DisplayIndex = 3
-                    dgvWorkViewer.Columns("strApplicationType").HeaderText = "APL Type"
-                    dgvWorkViewer.Columns("strApplicationType").DisplayIndex = 4
-                    dgvWorkViewer.Columns("datReceivedDate").HeaderText = "APL Rcvd"
-                    dgvWorkViewer.Columns("datReceivedDate").DisplayIndex = 5
-                    dgvWorkViewer.Columns("datReceivedDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-                    dgvWorkViewer.Columns("strPermitNumber").HeaderText = "Permit Number"
-                    dgvWorkViewer.Columns("strPermitNumber").DisplayIndex = 6
-                    dgvWorkViewer.Columns("AppStatus").HeaderText = "App Status"
-                    dgvWorkViewer.Columns("AppStatus").DisplayIndex = 8
-                    dgvWorkViewer.Columns("StatusDate").HeaderText = "Status Date"
-                    dgvWorkViewer.Columns("StatusDate").DisplayIndex = 9
-                    dgvWorkViewer.Columns("strPermitType").HeaderText = "Action Type"
-                    dgvWorkViewer.Columns("strPermitType").DisplayIndex = 7
-
-                Case Else
-
-            End Select
-            txtDataGridCount.Text = dgvWorkViewer.RowCount.ToString
-
-            dgvWorkViewer.SanelyResizeColumns()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub txtAIRSNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtAIRSNumber.KeyPress
-        If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then OpenFacilitySummary()
+    Private Sub mmiExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExit.Click
+        Me.Close()
     End Sub
 
     Private Sub mmiExport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExport.Click
-        If dgvWorkViewer.RowCount > 0 Then
-            dgvWorkViewer.ExportToExcel(Me)
-        End If
-    End Sub
-
-    Private Sub mmiPermitUploader_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        'SsppFileUploader.Show()
+        If dgvWorkViewer.RowCount > 0 Then dgvWorkViewer.ExportToExcel(Me)
     End Sub
 
     Private Sub mmiResetForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiResetForm.Click
@@ -8694,5 +8646,15 @@ Public Class IAIPNavigation
         Me.Location = New Point(0, 0)
         Me.Size = New Size(808, 460)
     End Sub
+
+    Private Sub mmiAbout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiAbout.Click
+        OpenAboutUrl(Me)
+    End Sub
+
+    Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
+        OpenHelpUrl(Me)
+    End Sub
+
+#End Region
 
 End Class
