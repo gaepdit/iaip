@@ -4,7 +4,6 @@ Imports System.Collections.Generic
 
 Public Class IAIPNavigation
     Public UserSource As String
-    Public UserRequest As String
     Public UserGridStyle As String
     Dim dsOpenWork As DataSet
     Dim daOpenWork As OracleDataAdapter
@@ -68,1783 +67,6 @@ Public Class IAIPNavigation
             mmiTesting.Visible = False
             mmiTesting.Enabled = False
         End If
-    End Sub
-
-#End Region
-
-#Region "Currently un-organized"
-
-    Sub LoadISMPTestReports()
-        If SQL <> "" Then
-            dgvWorkViewer.DataSource = dsOpenWork
-            dgvWorkViewer.DataMember = "OpenWork"
-
-            dgvWorkViewer.RowHeadersVisible = False
-            dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvWorkViewer.AllowUserToResizeColumns = True
-            dgvWorkViewer.AllowUserToAddRows = False
-            dgvWorkViewer.AllowUserToDeleteRows = False
-            dgvWorkViewer.AllowUserToOrderColumns = True
-            dgvWorkViewer.AllowUserToResizeRows = True
-            dgvWorkViewer.ColumnHeadersHeight = "35"
-            dgvWorkViewer.Columns("strReferenceNumber").HeaderText = "Reference #"
-            dgvWorkViewer.Columns("strReferenceNumber").DisplayIndex = 0
-            dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 1
-            dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 2
-            dgvWorkViewer.Columns("strFacilityCity").HeaderText = "City"
-            dgvWorkViewer.Columns("strFacilityCity").DisplayIndex = 3
-            dgvWorkViewer.Columns("strCountyName").HeaderText = "County"
-            dgvWorkViewer.Columns("strCountyName").DisplayIndex = 4
-            dgvWorkViewer.Columns("strEmissionSource").HeaderText = "Emission Source"
-            dgvWorkViewer.Columns("strEmissionSource").DisplayIndex = 5
-            dgvWorkViewer.Columns("strPollutantDescription").HeaderText = "Pollutant"
-            dgvWorkViewer.Columns("strPollutantDescription").DisplayIndex = 6
-            dgvWorkViewer.Columns("strReportType").HeaderText = "Report Type"
-            dgvWorkViewer.Columns("strReportType").DisplayIndex = 7
-            dgvWorkViewer.Columns("strDocumentType").HeaderText = "Document Type"
-            dgvWorkViewer.Columns("strDocumentType").DisplayIndex = 8
-            dgvWorkViewer.Columns("ReviewingEngineer").HeaderText = "Reviewing Engineer"
-            dgvWorkViewer.Columns("ReviewingEngineer").DisplayIndex = 9
-            dgvWorkViewer.Columns("TestDateStart").HeaderText = "Test Date"
-            dgvWorkViewer.Columns("TestDateStart").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvWorkViewer.Columns("TestDateStart").DisplayIndex = 10
-            dgvWorkViewer.Columns("ReceivedDate").HeaderText = "Received Date"
-            dgvWorkViewer.Columns("ReceivedDate").DisplayIndex = 11
-            dgvWorkViewer.Columns("ReceivedDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvWorkViewer.Columns("CompleteDate").HeaderText = "Complete Date"
-            dgvWorkViewer.Columns("CompleteDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvWorkViewer.Columns("CompleteDate").DisplayIndex = 12
-            dgvWorkViewer.Columns("Status").HeaderText = "Report Open/Closed"
-            dgvWorkViewer.Columns("Status").DisplayIndex = 13
-            dgvWorkViewer.Columns("strComplianceStatus").HeaderText = "Compliance Status"
-            dgvWorkViewer.Columns("strComplianceStatus").DisplayIndex = 14
-            dgvWorkViewer.Columns("mmoCommentAREA").HeaderText = "Comment Field"
-            dgvWorkViewer.Columns("mmoCommentAREA").DisplayIndex = 15
-            dgvWorkViewer.Columns("strPreComplianceStatus").HeaderText = "Precompliance Status"
-            dgvWorkViewer.Columns("strPreComplianceStatus").DisplayIndex = 16
-            dgvWorkViewer.Columns("strWitnessingEngineer").Visible = False
-            dgvWorkViewer.Columns("strWitnessingEngineer2").Visible = False
-            dgvWorkViewer.Columns("strUserUnit").Visible = False
-
-            LoadComplianceColor()
-        End If
-    End Sub
-    Sub LoadComplianceColor()
-        Try
-            For Each row As DataGridViewRow In dgvWorkViewer.Rows
-                If Not row.IsNewRow Then
-                    If Not row.Cells(19).Value Is DBNull.Value Then
-                        temp = row.Cells(19).Value
-                        If row.Cells(19).Value = "True" Then
-                            row.DefaultCellStyle.BackColor = Color.Pink
-                        End If
-                    End If
-                    If Not row.Cells(13).Value Is DBNull.Value Then
-                        temp = row.Cells(13).Value
-                        If row.Cells(13).Value = "Not In Compliance" Then
-                            row.DefaultCellStyle.BackColor = Color.Tomato
-                        End If
-                    End If
-                End If
-            Next
-        Catch ex As Exception
-
-        End Try
-    End Sub
-    Sub LoadSecondaryWork2()
-
-        If SQL <> "" Then
-            dsOpenWork = New DataSet
-            daOpenWork = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            daOpenWork.Fill(dsOpenWork, "OpenWork")
-            dgvWorkViewer.DataSource = dsOpenWork
-            dgvWorkViewer.DataMember = "OpenWork"
-
-            dgvWorkViewer.RowHeadersVisible = False
-            dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvWorkViewer.AllowUserToResizeColumns = True
-            dgvWorkViewer.AllowUserToAddRows = False
-            dgvWorkViewer.AllowUserToDeleteRows = False
-            dgvWorkViewer.AllowUserToOrderColumns = True
-            dgvWorkViewer.AllowUserToResizeRows = True
-            dgvWorkViewer.ColumnHeadersHeight = "35"
-            dgvWorkViewer.Columns("strApplicationNumber").HeaderText = "APL #"
-            dgvWorkViewer.Columns("strApplicationNumber").DisplayIndex = 0
-            dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 1
-            dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 2
-            dgvWorkViewer.Columns("ReviewSubmitted").HeaderText = "Date Submitted"
-            dgvWorkViewer.Columns("ReviewSubmitted").DisplayIndex = 3
-            dgvWorkViewer.Columns("StaffResponsible").HeaderText = "Permitting Staff"
-            dgvWorkViewer.Columns("StaffResponsible").DisplayIndex = 4
-        End If
-
-
-    End Sub
-    Sub LoadSSCPOpenWork()
-        If SQL <> "" Then
-
-            dgvWorkViewer.DataSource = dsOpenWork
-            dgvWorkViewer.DataMember = "OpenWork"
-
-            dgvWorkViewer.RowHeadersVisible = False
-            dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvWorkViewer.AllowUserToResizeColumns = True
-            dgvWorkViewer.AllowUserToAddRows = False
-            dgvWorkViewer.AllowUserToDeleteRows = False
-            dgvWorkViewer.AllowUserToOrderColumns = True
-            dgvWorkViewer.AllowUserToResizeRows = True
-            dgvWorkViewer.ColumnHeadersHeight = "35"
-            dgvWorkViewer.Columns("strEnforcementNumber").HeaderText = "Enforcement #"
-            dgvWorkViewer.Columns("strEnforcementNumber").DisplayIndex = 0
-            dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 1
-            dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 2
-            dgvWorkViewer.Columns("EnforcementStatus").HeaderText = "Enforcement Status"
-            dgvWorkViewer.Columns("EnforcementStatus").DisplayIndex = 3
-            dgvWorkViewer.Columns("Violationdate").HeaderText = "Discovery Date"
-            dgvWorkViewer.Columns("Violationdate").DisplayIndex = 4
-            dgvWorkViewer.Columns("Violationdate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvWorkViewer.Columns("HPVstatus").HeaderText = "Status"
-            dgvWorkViewer.Columns("HPVstatus").DisplayIndex = 5
-            dgvWorkViewer.Columns("Status").HeaderText = "Open/Closed"
-            dgvWorkViewer.Columns("Status").DisplayIndex = 6
-            dgvWorkViewer.Columns("Staff").HeaderText = "Staff Responsible"
-            dgvWorkViewer.Columns("Staff").DisplayIndex = 7
-        End If
-    End Sub
-    Sub LoadSSPPOpenWork()
-        If SQL <> "" Then
-            dgvWorkViewer.DataSource = dsOpenWork
-            dgvWorkViewer.DataMember = "OpenWork"
-
-            dgvWorkViewer.RowHeadersVisible = False
-            dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvWorkViewer.AllowUserToResizeColumns = True
-            dgvWorkViewer.AllowUserToAddRows = False
-            dgvWorkViewer.AllowUserToDeleteRows = False
-            dgvWorkViewer.AllowUserToOrderColumns = True
-            dgvWorkViewer.AllowUserToResizeRows = True
-            dgvWorkViewer.ColumnHeadersHeight = "35"
-            dgvWorkViewer.Columns("strApplicationNumber").HeaderText = "APL #"
-            dgvWorkViewer.Columns("strApplicationNumber").DisplayIndex = 0
-            dgvWorkViewer.Columns("strAIRSNumber").HeaderText = "AIRS #"
-            dgvWorkViewer.Columns("strAIRSNumber").DisplayIndex = 1
-            dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 2
-            dgvWorkViewer.Columns("StaffResponsible").HeaderText = "Staff Responsible"
-            dgvWorkViewer.Columns("StaffResponsible").DisplayIndex = 3
-            dgvWorkViewer.Columns("strApplicationType").HeaderText = "APL Type"
-            dgvWorkViewer.Columns("strApplicationType").DisplayIndex = 4
-            dgvWorkViewer.Columns("datReceivedDate").HeaderText = "APL Rcvd"
-            dgvWorkViewer.Columns("datReceivedDate").DisplayIndex = 5
-            dgvWorkViewer.Columns("datReceivedDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvWorkViewer.Columns("strPermitNumber").HeaderText = "Permit Number"
-            dgvWorkViewer.Columns("strPermitNumber").DisplayIndex = 6
-            dgvWorkViewer.Columns("AppStatus").HeaderText = "App Status"
-            dgvWorkViewer.Columns("AppStatus").DisplayIndex = 8
-            dgvWorkViewer.Columns("StatusDate").HeaderText = "Status Date"
-            dgvWorkViewer.Columns("StatusDate").DisplayIndex = 9
-            dgvWorkViewer.Columns("strPermitType").HeaderText = "Action Type"
-            dgvWorkViewer.Columns("strPermitType").DisplayIndex = 7
-
-        End If
-    End Sub
-    Sub LoadSSCPTertiaryWork()
-
-        If SQL <> "" Then
-            dsOpenWork = New DataSet
-            daOpenWork = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            daOpenWork.Fill(dsOpenWork, "OpenWork")
-            dgvWorkViewer.DataSource = dsOpenWork
-            dgvWorkViewer.DataMember = "OpenWork"
-
-            dgvWorkViewer.RowHeadersVisible = False
-            dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvWorkViewer.AllowUserToResizeColumns = True
-            dgvWorkViewer.AllowUserToAddRows = False
-            dgvWorkViewer.AllowUserToDeleteRows = False
-            dgvWorkViewer.AllowUserToOrderColumns = True
-            dgvWorkViewer.AllowUserToResizeRows = True
-            dgvWorkViewer.ColumnHeadersHeight = "35"
-            dgvWorkViewer.Columns("strTrackingNumber").HeaderText = "Tracking #"
-            dgvWorkViewer.Columns("strTrackingNumber").DisplayIndex = 0
-            dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 1
-            dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 2
-            dgvWorkViewer.Columns("DateReceived").HeaderText = "Date Received"
-            dgvWorkViewer.Columns("DateReceived").DisplayIndex = 3
-            dgvWorkViewer.Columns("DateReceived").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvWorkViewer.Columns("Staff").HeaderText = "Staff Responsible"
-            dgvWorkViewer.Columns("Staff").DisplayIndex = 4
-            dgvWorkViewer.Columns("StrActivityName").HeaderText = "Activity Type"
-            dgvWorkViewer.Columns("StrActivityName").DisplayIndex = 5
-            dgvWorkViewer.Columns("strResponsibleStaff").HeaderText = "Responsible Staff"
-            dgvWorkViewer.Columns("strResponsibleStaff").DisplayIndex = 6
-            dgvWorkViewer.Columns("strResponsibleStaff").Visible = False
-
-        End If
-
-    End Sub
-    Sub LoadISMPTertiaryWork()
-        If SQL <> "" Then
-            dgvWorkViewer.DataSource = dsOpenWork
-            dgvWorkViewer.DataMember = "OpenWork"
-
-            dgvWorkViewer.RowHeadersVisible = False
-            dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvWorkViewer.AllowUserToResizeColumns = True
-            dgvWorkViewer.AllowUserToAddRows = False
-            dgvWorkViewer.AllowUserToDeleteRows = False
-            dgvWorkViewer.AllowUserToOrderColumns = True
-            dgvWorkViewer.AllowUserToResizeRows = True
-            dgvWorkViewer.ColumnHeadersHeight = "35"
-            dgvWorkViewer.Columns("TestNumber").HeaderText = "Test Log #"
-            dgvWorkViewer.Columns("TestNumber").DisplayIndex = 0
-            dgvWorkViewer.Columns("RefNum").HeaderText = "Reference #"
-            dgvWorkViewer.Columns("RefNum").DisplayIndex = 1
-            dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 2
-            dgvWorkViewer.Columns("FacilityName").HeaderText = "Facility Name"
-            dgvWorkViewer.Columns("FacilityName").DisplayIndex = 3
-            dgvWorkViewer.Columns("strEmissionUnit").HeaderText = "Emission Unit"
-            dgvWorkViewer.Columns("strEmissionUnit").DisplayIndex = 4
-            dgvWorkViewer.Columns("ProposedStartDate").HeaderText = "Start Date"
-            dgvWorkViewer.Columns("ProposedStartDate").DisplayIndex = 5
-            dgvWorkViewer.Columns("StaffResponsible").HeaderText = "Staff Responsible"
-            dgvWorkViewer.Columns("StaffResponsible").DisplayIndex = 6
-
-        End If
-    End Sub
-    Sub LoadSSCPQuaternaryWork()
-        If SQL <> "" Then
-            dgvWorkViewer.DataSource = dsOpenWork
-            dgvWorkViewer.DataMember = "OpenWork"
-
-            dgvWorkViewer.RowHeadersVisible = False
-            dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvWorkViewer.AllowUserToResizeColumns = True
-            dgvWorkViewer.AllowUserToAddRows = False
-            dgvWorkViewer.AllowUserToDeleteRows = False
-            dgvWorkViewer.AllowUserToOrderColumns = True
-            dgvWorkViewer.AllowUserToResizeRows = True
-            dgvWorkViewer.ColumnHeadersHeight = "35"
-            dgvWorkViewer.Columns("AIRSnumber").HeaderText = "AIRS #"
-            dgvWorkViewer.Columns("AIRSnumber").DisplayIndex = 0
-            dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 1
-        End If
-    End Sub
-    Sub LoadOpenWork(ByVal WorkBranch As String, ByVal WorkProgram As String, ByVal WorkUnit As String)
-        Try
-            SQL = ""
-            dsOpenWork = New DataSet
-            UserRequest = "Primary"
-            Select Case WorkBranch
-                Case "1" 'Air Protection Branch
-                    Select Case WorkProgram
-                        Case "1" 'Mobile & Area
-
-                        Case "2" 'Planning & Support
-
-                        Case "3" 'ISMP
-                            If WorkUnit = "---" Then 'Program Manager
-                                UserGridStyle = "LoadISMPTestReports"
-                                SQL = "Select AIRBranch.VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
-                                "from  AIRBranch.VW_ISMPTestReportViewer, AIRBranch.ISMPReportInformation " & _
-                                "where AIRBranch.VW_ISMPTestReportViewer.strReferenceNumber = " & _
-                                  "AIRBranch.ISMPReportInformation.strReferenceNumber  " & _
-                                "and  Status = 'Open' "
-                            Else
-                                If AccountArray(17, 2) = "1" Then  'Unit Manager
-                                    UserGridStyle = "LoadISMPTestReports"
-                                    SQL = "select AIRBranch.VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
-                                    "from AIRBranch.VW_ISMPTestReportViewer, AIRBranch.ISMPReportInformation " & _
-                                    "where AIRBranch.VW_ISMPTestReportViewer.strReferenceNumber = " & _
-                                     "AIRBranch.ISMPReportInformation.strReferenceNumber  " & _
-                                    "and status = 'Open' " & _
-                                    "and strUserUnit = " & _
-                                    "(select strUnitDesc from AIRBranch.LookUpEPDUnits where numUnitCode = '" & UserUnit & "') "
-                                Else
-                                    UserGridStyle = "LoadISMPTestReports"
-                                    SQL = "Select AIRBranch.VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
-                                    "from  AIRBranch.VW_ISMPTestReportViewer, AIRBranch.ISMPReportInformation " & _
-                                    "where AIRBranch.VW_ISMPTestReportViewer.strReferenceNumber = " & _
-                                     "AIRBranch.ISMPReportInformation.strReferenceNumber  " & _
-                                    "and Status = 'Open' " & _
-                                    "and ReviewingEngineer = '" & pnl2.Text & "' "
-                                End If
-                            End If
-                        Case "4" 'SSCP
-                            If WorkUnit = "---" Then 'Program Manager
-                                UserGridStyle = "LoadSSCPOpenWork"
-                                SQL = "Select " & _
-                                "distinct(to_number(AIRBranch.sscp_AuditedEnforcement.strEnforcementNumber)) as strEnforcementNumber,  " & _
-                                "substr(AIRBranch.sscp_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,   " & _
-                                "case   " & _
-                                "when datEnforcementFinalized is Not Null then '4 - Closed Out'   " & _
-                                "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'   " & _
-                                "when strStatus = 'UC' then '2 - Submitted to UC'   " & _
-                                "When strStatus Is Null then '1 - At Staff'   " & _
-                                "else 'Unknown'   " & _
-                                "end as EnforcementStatus,   " & _
-                                "Case     " & _
-                                "when datDiscoveryDate is Null then ''    " & _
-                                "else to_char(datDiscoveryDate, 'dd-Mon-yyyy')  " & _
-                                "END as Violationdate,     " & _
-                                "strActionType as HPVStatus,    " & _
-                                "Case    " & _
-                                "when datEnforcementFinalized Is Not NULL then 'Closed'    " & _
-                                "when datEnforcementFinalized is NUll then 'Open'    " & _
-                                "Else 'Open'    " & _
-                                "End as Status,    " & _
-                                "strFacilityName,    " & _
-                                "(strLastName||', '||strFirstName) as Staff     " & _
-                                "from AIRBranch.sscp_AuditedEnforcement,     " & _
-                                "AIRBranch.APBFacilityInformation, AIRBranch.EPDUserProfiles,    " & _
-                                "(select numUserID  " & _
-                                "from AIRBranch.EPDUserProfiles where numUnit is null) UnitStaff " & _
-                                "Where  AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.sscp_AuditedEnforcement.strAIRSNumber    " & _
-                                "and (strStatus IS Null or strStatus = 'UC')    " & _
-                                "and datEnforcementFinalized is NULL   " & _
-                                "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.sscp_AuditedEnforcement.numStaffResponsible    " & _
-                                "order by strENforcementNumber DESC   "
-                            Else
-                                If AccountArray(22, 3) = "1" Then 'Unit Manager
-                                    UserGridStyle = "LoadSSCPOpenWork"
-                                    SQL = "Select to_number(AIRBranch.SSCP_aUDITEDEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
-                                     "substr(AIRBranch.SSCP_aUDITEDEnforcement.strAIRSNumber, 5) as AIRSNumber,   " & _
-                                     "case   " & _
-                                     "    when datEnforcementFinalized is Not Null then '4 - Closed Out'   " & _
-                                     "    when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'   " & _
-                                     "    when strStatus = 'UC' then '2 - Submitted to UC'   " & _
-                                     "    When strStatus Is Null then '1 - At Staff'   " & _
-                                     "   else 'Unknown'   " & _
-                                     "end as EnforcementStatus, " & _
-                                    " Case    " & _
-                                    " 	when datDiscoveryDate is Null then ''   " & _
-                                    " 	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " & _
-                                     "END as Violationdate,    " & _
-                                     "case    " & _
-                                     " 	when strHPV IS NULL then strActionType   " & _
-                                     "	When strHPV IS Not Null then 'HPV'    " & _
-                                     "   Else 'HPV'   " & _
-                                     "END as HPVStatus,   " & _
-                                     "Case   " & _
-                                     " 	when datEnforcementFinalized Is Not NULL then 'Closed'   " & _
-                                     "	when datEnforcementFinalized is NUll then 'Open'   " & _
-                                     "Else 'Open'   " & _
-                                     "End as Status,   " & _
-                                     "strFacilityName,   " & _
-                                     "(strLastName||', '||strFirstName) as Staff   " & _
-                                     "from AIRBranch.SSCP_aUDITEDEnforcement,    " & _
-                                     "AIRBranch.APBFacilityInformation, AIRBranch.EPDUserProfiles,   " & _
-                                     "( select numUserID from AIRBranch.EPDUserProfiles where numUnit = '" & UserUnit & "'  " & _
-                                     "group by numUserID ) UnitStaff   " & _
-                                     "Where  AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCP_aUDITEDEnforcement.strAIRSNumber   " & _
-                                     "and (strStatus IS Null or strStatus = 'UC')   " & _
-                                     "and numStaffResponsible = UnitStaff.numUserID   " & _
-                                     "and datEnforcementFinalized is NULL   " & _
-                                     "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCP_aUDITEDEnforcement.numStaffResponsible   " & _
-                                     "order by strENforcementNumber DESC  "
-                                Else
-                                    If AccountArray(10, 3) = "1" Then 'District Liason
-                                        UserGridStyle = "LoadSSCPOpenWork"
-                                        SQL = "Select to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
-                                        "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,   " & _
-                                        "case   " & _
-                                        "when datEnforcementFinalized is Not Null then '4 - Closed Out'   " & _
-                                        "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'   " & _
-                                        "when strStatus = 'UC' then '2 - Submitted to UC'   " & _
-                                        "When strStatus Is Null then '1 - At Staff'   " & _
-                                        "   else 'Unknown'   " & _
-                                        "end as EnforcementStatus, " & _
-                                        "Case    " & _
-                                        " 	when datDiscoveryDate is Null then ''   " & _
-                                        " 	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " & _
-                                        "END as Violationdate,    " & _
-                                        "case    " & _
-                                        " 	when strHPV IS NULL then strActionType   " & _
-                                        " 	When strHPV IS Not Null then 'HPV'    " & _
-                                        "   Else 'HPV'   " & _
-                                        "END as HPVStatus,   " & _
-                                        "Case   " & _
-                                        " 	when datEnforcementFinalized Is Not NULL then 'Closed'   " & _
-                                        "	when datEnforcementFinalized is NUll then 'Open'   " & _
-                                        "Else 'Open'   " & _
-                                        "End as Status,   " & _
-                                        "strFacilityName,   " & _
-                                        "(strLastName||', '||strFirstName) as Staff   " & _
-                                        "from AIRBranch.SSCP_AuditedEnforcement,  " & _
-                                        "AIRBranch.APBFacilityInformation, AIRBranch.EPDUSerProfiles,   " & _
-                                        "(select numuserId  " & _
-                                        "from AIRBranch.EPDUserProfiles  " & _
-                                        "where strLastName = 'District' or (numBranch = '1' and numProgram = '4' and numUnit is null )  " & _
-                                        "group by numUserID) UnitStaff   " & _
-                                        "Where  AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber   " & _
-                                        "and (strStatus IS Null or strStatus = 'UC')   " & _
-                                        "and numStaffResponsible = UnitStaff.numUserID   " & _
-                                        "and datEnforcementFinalized is NULL   " & _
-                                        "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCP_AuditedEnforcement.numStaffResponsible   " & _
-                                        "order by strENforcementNumber DESC   "
-                                    Else
-                                        UserGridStyle = "LoadSSCPOpenWork"
-                                        SQL = "Select to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
-                                     "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
-                                     "case  " & _
-                                     "when datEnforcementFinalized is Not Null then '4 - Closed Out'  " & _
-                                     "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " & _
-                                     "when strStatus = 'UC' then '2 - Submitted to UC'  " & _
-                                     "When strStatus Is Null then '1 - At Staff'  " & _
-                                     "else 'Unknown'  " & _
-                                     "end as EnforcementStatus,  " & _
-                                     "Case   " & _
-                                     " 	when datDiscoveryDate is Null then ''  " & _
-                                     "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy')  " & _
-                                     "END as Violationdate,   " & _
-                                     "case   " & _
-                                     "	when strHPV IS NULL then strActionType  " & _
-                                     "	When strHPV IS Not Null then 'HPV'   " & _
-                                     "Else 'HPV'  " & _
-                                     "END as HPVStatus,  " & _
-                                     "Case  " & _
-                                     " 	when datEnforcementFinalized Is Not NULL then 'Closed'  " & _
-                                     " 	when datEnforcementFinalized is NUll then 'Open'  " & _
-                                     "Else 'Open'  " & _
-                                     "End as Status,  " & _
-                                     "AIRBranch.APBFacilityInformation.strFacilityName,  " & _
-                                     "(strLastName||', '||strFirstName) as Staff  " & _
-                                     "from AIRBranch.SSCP_AuditedEnforcement,   " & _
-                                     "AIRBranch.APBFacilityInformation, AIRBranch.EPDuserProfiles,  " & _
-                                     "AIRBranch.VW_SSCPINSPECTION_LIST " & _
-                                     "Where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber  " & _
-                                     "and AIRBranch.SSCP_AuditedEnforcement.strAIRSnumber = '0413'||AIRBranch.VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
-                                     "and (numStaffResponsible = '" & UserGCode & "' or numSSCPEngineer = '" & UserGCode & "')  " & _
-                                     "and (strStatus IS Null or strStatus = 'UC')  " & _
-                                     "and datEnforcementFinalized is Null  " & _
-                                     "and AIRBranch.EPDuserProfiles.numUserID = numStaffResponsible  " & _
-                                     "order by strENforcementNumber DESC  "
-
-                                    End If
-                                End If
-                            End If
-                        Case "5" 'SSPP
-                            If AccountArray(3, 3) = "1" And WorkUnit = "---" Then  'Program Manager
-                                ' If UserUnit = "---" Then 
-                                UserGridStyle = "LoadSSPPOpenWork"
-                                SQL = "Select " & _
-                              "distinct(to_Number(AIRBranch.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber, " & _
-                              "case " & _
-                              " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber is Null then ' ' " & _
-                              "	when AIRBranch.SSPPApplicationMaster.strAIRSNumber = '0413' then ' ' " & _
-                              "else substr(AIRBranch.SSPPApplicationMaster.strAIRSNumber, 5) " & _
-                              "end as strAIRSNumber, " & _
-                              "case " & _
-                              "	when strApplicationTypeDesc IS Null then ' ' " & _
-                              "Else strApplicationTypeDesc " & _
-                              "End as strApplicationType, " & _
-                              "case " & _
-                              " 	when datReceivedDate is Null then ' ' " & _
-                              "Else to_char(datReceivedDate, 'RRRR-MM-dd') " & _
-                              " End as datReceivedDate, " & _
-                              "case  " & _
-                              "when strPermitNumber is NULL then ' '  " & _
-                              "else substr(strPermitNumber, 1, 4)|| '-' ||substr(strPermitNumber, 5, 3)|| '-'  " & _
-                              " ||substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)|| '-' " & _
-                              " ||substr(strPermitNumber, 13, 2)|| '-' ||substr(strPermitNumber, 15, 1) " & _
-                              "end As strPermitNumber, " & _
-                              "case " & _
-                              " 	when numUserID= '0' then ' ' " & _
-                              "	when numUserID is Null then ' ' " & _
-                              "else (strLastName||', '||strFirstName) " & _
-                              "end as StaffResponsible, " & _
-                              "case  " & _
-                              "when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd') " & _
-                              "when datFinalizedDate is not Null then to_char(datFinalizedDate, 'RRRR-MM-dd') " & _
-                              "when datToDirector is Not Null and datFinalizedDate is Null " & _
-                              "and (datDraftIssued is Null or datDraftIssued < datToDirector) then to_char(datToDirector, 'RRRR-MM-dd') " & _
-                              "when datToBranchCheif is Not Null and datFinalizedDate is Null " & _
-                              "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then to_char(DatTOBranchCheif, 'RRRR-MM-dd')  " & _
-                              "when datEPAEnds is not Null then to_char(datEPAEnds, 'RRRR-MM-dd')   " & _
-                              "when datPNExpires is Not Null and datPNExpires < sysdate then to_char(datPNExpires, 'RRRR-MM-dd')   " & _
-                              "when datPNExpires is Not Null and datPNExpires >= sysdate then to_char(datPNExpires, 'RRRR-MM-dd') " & _
-                              "when datDraftIssued is Not Null and datPNExpires is Null then to_char(datDraftIssued, 'RRRR-MM-dd') " & _
-                              "when dattoPMII is Not Null then to_char(datToPMII, 'RRRR-MM-dd') " & _
-                              "when dattoPMI is Not Null then to_char(datToPMI, 'RRRR-MM-dd') " & _
-                              "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then to_char(datReviewSubmitted, 'RRRR-MM-dd')   " & _
-                              "when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown' " & _
-                              "else to_char(datAssignedToEngineer, 'RRRR-MM-dd') " & _
-                              "end as StatusDate,  " & _
-                              "case  " & _
-                              " 	when AIRBranch.SSPPApplicationData.strFacilityName is Null then ' '  " & _
-                              "else AIRBranch.SSPPApplicationData.strFacilityName  " & _
-                              "end as strFacilityName,  " & _
-                              "case " & _
-                              "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out' " & _
-                              "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO' " & _
-                              "when datToBranchCheif is Not Null and datFinalizedDate is Null " & _
-                              "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC' " & _
-                              "when datEPAEnds is not Null then '08 - EPA 45-day Review' " & _
-                              "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired' " & _
-                              "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'  " & _
-                              "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'  " & _
-                              "when dattoPMII is Not Null then '04 - AT PM'  " & _
-                              "when dattoPMI is Not Null then '03 - At UC'  " & _
-                              "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0')    " & _
-                              "then '02 - Internal Review' " & _
-                              "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'   " & _
-                              "else '01 - At Engineer'  " & _
-                              "end as AppStatus, " & _
-                              "case " & _
-                              " 	when strPermitTypeDescription is Null then '' " & _
-                              "else strPermitTypeDescription " & _
-                              "End as strPermitType " & _
-                              "from AIRBranch.SSPPApplicationMaster, AIRBranch.SSPPApplicationTracking, " & _
-                              "AIRBranch.SSPPApplicationData, " & _
-                              "AIRBranch.LookUpApplicationTypes, AIRBranch.LookUPPermitTypes, " & _
-                              "AIRBranch.EPDuserProfiles  " & _
-                              "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber (+)  " & _
-                              "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber (+) " & _
-                              "and strApplicationType = strApplicationTypeCode (+) " & _
-                              "and strPermitType = strPermitTypeCode (+) " & _
-                              "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible " & _
-                              "and datFinalizedDate is NULL " & _
-                              "order by AIRBranch.SSPPApplicationMaster.strApplicationNumber DESC  "
-
-                            Else
-                                If AccountArray(24, 3) = "1" Then 'Unit Manager
-                                    UserGridStyle = "LoadSSPPOpenWork"
-                                    SQL = "Select " & _
-                                     "distinct(to_Number(AIRBranch.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,  " & _
-                                     "case  " & _
-                                    " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber is Null then ' '  " & _
-                                    " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber = '0413' then ' '  " & _
-                                     "else substr(AIRBranch.SSPPApplicationMaster.strAIRSNumber, 5)  " & _
-                                     "end as strAIRSNumber,  " & _
-                                     "case  " & _
-                                     "	when strApplicationTypeDesc IS Null then ' '  " & _
-                                     "Else strApplicationTypeDesc  " & _
-                                     "End as strApplicationType,  " & _
-                                     "case  " & _
-                                     "	when datReceivedDate is Null then ' '  " & _
-                                     "Else to_char(datReceivedDate, 'RRRR-MM-dd')  " & _
-                                     "End as datReceivedDate,  " & _
-                                     "case   " & _
-                                     "  when strPermitNumber is NULL then ' '   " & _
-                                     "   else substr(strPermitNumber, 1, 4)|| '-' ||substr(strPermitNumber, 5, 3)|| '-'   " & _
-                                     " ||substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)|| '-'  " & _
-                                     " ||substr(strPermitNumber, 13, 2)|| '-' ||substr(strPermitNumber, 15, 1)  " & _
-                                     "end As strPermitNumber,  " & _
-                                     "case  " & _
-                                     "	when numUserID = '0' then ' '  " & _
-                                     "	when numUserID is Null then ' '  " & _
-                                     "else (strLastName||', '||strFirstName)  " & _
-                                     "end as StaffResponsible,  " & _
-                                     "case   " & _
-                                     "when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd')     " & _
-                                     "when datFinalizedDate is Not Null then to_char(datFinalizedDate, 'RRRR-MM-dd')  " & _
-                                     "when datToDirector is Not Null and datFinalizedDate is Null  " & _
-                                     "and (datDraftIssued is Null or datDraftIssued < datToDirector) then to_char(datToDirector, 'RRRR-MM-dd')  " & _
-                                     "when datToBranchCheif is Not Null and datFinalizedDate is Null  " & _
-                                     "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then to_char(DatTOBranchCheif, 'RRRR-MM-dd')   " & _
-                                     "when datEPAEnds is not Null then to_char(datEPAEnds, 'RRRR-MM-dd')    " & _
-                                     "when datPNExpires is Not Null and datPNExpires < sysdate then to_char(datPNExpires, 'RRRR-MM-dd')    " & _
-                                     "when datPNExpires is Not Null and datPNExpires >= sysdate then to_char(datPNExpires, 'RRRR-MM-dd')     " & _
-                                     "when datDraftIssued is Not Null and datPNExpires is Null then to_char(datDraftIssued, 'RRRR-MM-dd')     " & _
-                                     "when dattoPMII is Not Null then to_char(datToPMII, 'RRRR-MM-dd')     " & _
-                                     "when dattoPMI is Not Null then to_char(datToPMI, 'RRRR-MM-dd')     " & _
-                                     "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then to_char(datReviewSubmitted, 'RRRR-MM-dd')    " & _
-                                     "when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown'     " & _
-                                     "else to_char(datAssignedToEngineer, 'RRRR-MM-dd')     " & _
-                                     "end as StatusDate,   " & _
-                                     "case   " & _
-                                     "	when AIRBranch.SSPPApplicationData.strFacilityName is Null then ' '   " & _
-                                     "else AIRBranch.SSPPApplicationData.strFacilityName   " & _
-                                     "end as strFacilityName,   " & _
-                                     "case  " & _
-                                     "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out'  " & _
-                                     "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'  " & _
-                                     "when datToBranchCheif is Not Null and datFinalizedDate is Null  " & _
-                                     "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'  " & _
-                                     "when datEPAEnds is not Null then '08 - EPA 45-day Review'  " & _
-                                     "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'  " & _
-                                     "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'   " & _
-                                     "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'   " & _
-                                     "when dattoPMII is Not Null then '04 - AT PM'   " & _
-                                     "when dattoPMI is Not Null then '03 - At UC'   " & _
-                                     "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then '02 - Internal Review'  " & _
-                                     "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'    " & _
-                                     "else '01 - At Engineer'   " & _
-                                     "end as AppStatus,  " & _
-                                     "case  " & _
-                                     "	when strPermitTypeDescription is Null then ''  " & _
-                                     "else strPermitTypeDescription  " & _
-                                     "End as strPermitType  " & _
-                                     "from AIRBranch.SSPPApplicationMaster, AIRBranch.SSPPApplicationTracking,  " & _
-                                     "AIRBranch.SSPPApplicationData,  " & _
-                                     "AIRBranch.LookUpApplicationTypes, AIRBranch.LookUPPermitTypes,  " & _
-                                     "AIRBranch.EPDUserProfiles " & _
-                                     "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber (+)   " & _
-                                     "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber (+)  " & _
-                                     "and strApplicationType = strApplicationTypeCode (+)  " & _
-                                     "and strPermitType = strPermitTypeCode (+)  " & _
-                                     "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible  " & _
-                                     "and datFinalizedDate is NULL  " & _
-                                     "and (AIRBranch.EPDUserProfiles.numUnit = '" & UserUnit & "'   " & _
-                                     "or (APBUnit = '" & UserUnit & "'))  "
-
-                                Else
-                                    If AccountArray(9, 3) = "1" Then 'Administrative 2
-                                        UserGridStyle = "LoadSSPPOpenWork"
-                                        SQL = "Select " & _
-                                        "distinct(to_Number(AIRBranch.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,   " & _
-                                        "case   " & _
-                                        " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber is Null then ' '   " & _
-                                        " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber = '0413' then ' '   " & _
-                                        " else substr(AIRBranch.SSPPApplicationMaster.strAIRSNumber, 5)   " & _
-                                        " end as strAIRSNumber,   " & _
-                                        " case   " & _
-                                        " 	when strApplicationTypeDesc IS Null then ' '   " & _
-                                        "Else strApplicationTypeDesc   " & _
-                                        "End as strApplicationType,   " & _
-                                        "case   " & _
-                                        "	when datReceivedDate is Null then ' '   " & _
-                                        "Else to_char(datReceivedDate, 'RRRR-MM-dd')   " & _
-                                        "End as datReceivedDate,   " & _
-                                        "case    " & _
-                                        " when strPermitNumber is NULL then ' '    " & _
-                                        " else substr(strPermitNumber, 1, 4)|| '-' ||substr(strPermitNumber, 5, 3)|| '-'    " & _
-                                        "   ||substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)|| '-'   " & _
-                                        "   ||substr(strPermitNumber, 13, 2)|| '-' ||substr(strPermitNumber, 15, 1)   " & _
-                                        "end As strPermitNumber,   " & _
-                                        "case   " & _
-                                        "	when numUserID = '0' then ' '   " & _
-                                        "	when numUserID is Null then ' '   " & _
-                                        "else (strLastName||', '||strFirstName)   " & _
-                                        "end as StaffResponsible,   " & _
-                                        "case    " & _
-                                        "when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd')      " & _
-                                        "when datFinalizedDate is Not Null then to_char(datFinalizedDate, 'RRRR-MM-dd')   " & _
-                                        "when datToDirector is Not Null and datFinalizedDate is Null   " & _
-                                        "and (datDraftIssued is Null or datDraftIssued < datToDirector) then to_char(datToDirector, 'RRRR-MM-dd')   " & _
-                                        "when datToBranchCheif is Not Null and datFinalizedDate is Null   " & _
-                                     "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then to_char(DatTOBranchCheif, 'RRRR-MM-dd')    " & _
-                                        "when datEPAEnds is not Null then to_char(datEPAEnds, 'RRRR-MM-dd')     " & _
-                                         "when datPNExpires is Not Null and datPNExpires < sysdate then to_char(datPNExpires, 'RRRR-MM-dd')     " & _
-                                         "when datPNExpires is Not Null and datPNExpires >= sysdate then to_char(datPNExpires, 'RRRR-MM-dd')      " & _
-                                         "when datDraftIssued is Not Null and datPNExpires is Null then to_char(datDraftIssued, 'RRRR-MM-dd')      " & _
-                                         "when dattoPMII is Not Null then to_char(datToPMII, 'RRRR-MM-dd')      " & _
-                                         "when dattoPMI is Not Null then to_char(datToPMI, 'RRRR-MM-dd')      " & _
-                                         "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then to_char(datReviewSubmitted, 'RRRR-MM-dd')     " & _
-                                         "when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown'      " & _
-                                         "else to_char(datAssignedToEngineer, 'RRRR-MM-dd')      " & _
-                                         "end as StatusDate,    " & _
-                                         "case    " & _
-                                         " 	when AIRBranch.SSPPApplicationData.strFacilityName is Null then ' '    " & _
-                                         "else AIRBranch.SSPPApplicationData.strFacilityName    " & _
-                                         "end as strFacilityName,    " & _
-                                         "case   " & _
-                                         "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out'   " & _
-                                  "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'   " & _
-                                         "when datToBranchCheif is Not Null and datFinalizedDate is Null   " & _
-                                         "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'   " & _
-                                         "when datEPAEnds is not Null then '08 - EPA 45-day Review'   " & _
-                                         "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'   " & _
-                                         "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'    " & _
-                                         "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'    " & _
-                                         "when dattoPMII is Not Null then '04 - AT PM'    " & _
-                                         "when dattoPMI is Not Null then '03 - At UC'    " & _
-                                         "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then '02 - Internal Review'   " & _
-                                         "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'     " & _
-                                         "else '01 - At Engineer'    " & _
-                                         "end as AppStatus,   " & _
-                                         "case   " & _
-                                          "when strPermitTypeDescription is Null then ''   " & _
-                                         "else strPermitTypeDescription   " & _
-                                         "End as strPermitType   " & _
-                                         "from AIRBranch.SSPPApplicationMaster, AIRBranch.SSPPApplicationTracking,   " & _
-                                         "AIRBranch.SSPPApplicationData,   " & _
-                                         "AIRBranch.LookUpApplicationTypes, AIRBranch.LookUPPermitTypes,   " & _
-                                         "AIRBranch.EPDUserProfiles    " & _
-                                         "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber (+)    " & _
-                                         "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber (+)   " & _
-                                         "and strApplicationType = strApplicationTypeCode (+)   " & _
-                                         "and strPermitType = strPermitTypeCode (+)   " & _
-                                         "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible   " & _
-                                        "and datFinalizedDate is NULL   " & _
-                                         "and numUserID = '" & UserGCode & "'  "
-                                    Else
-                                        UserGridStyle = "LoadSSPPOpenWork"
-                                        SQL = "Select " & _
-                                        "distinct(to_Number(AIRBranch.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,   " & _
-                                        "case   " & _
-                                        " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber is Null then ' '   " & _
-                                        " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber = '0413' then ' '   " & _
-                                        " else substr(AIRBranch.SSPPApplicationMaster.strAIRSNumber, 5)   " & _
-                                        "end as strAIRSNumber,   " & _
-                                        "   case   " & _
-                                        " 	when strApplicationTypeDesc IS Null then ' '   " & _
-                                        "Else strApplicationTypeDesc   " & _
-                                        "End as strApplicationType,   " & _
-                                        "case   " & _
-                                        " 	when datReceivedDate is Null then ' '   " & _
-                                        "Else to_char(datReceivedDate, 'RRRR-MM-dd')   " & _
-                                        " End as datReceivedDate,   " & _
-                                        " case    " & _
-                                        " when strPermitNumber is NULL then ' '    " & _
-                                        "  else substr(strPermitNumber, 1, 4)|| '-' ||substr(strPermitNumber, 5, 3)|| '-'    " & _
-                                        " ||substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)|| '-'   " & _
-                                        " ||substr(strPermitNumber, 13, 2)|| '-' ||substr(strPermitNumber, 15, 1)   " & _
-                                        "end As strPermitNumber,   " & _
-                                        "case   " & _
-                                        " 	when numUserID = '0' then ' '   " & _
-                                        " 	when numUserID is Null then ' '   " & _
-                                        "else (strLastName||', '||strFirstName)   " & _
-                                        "end as StaffResponsible,   " & _
-                                        "case    " & _
-                                        "when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd')      " & _
-                                        "when datFinalizeddate is Not Null then to_char(datFinalizeddate, 'RRRR-MM-dd')   " & _
-                                        "when datToDirector is Not Null and datFinalizedDate is Null and   " & _
-                                        "(datDraftIssued is Null or datDraftIssued < datToDirector) then to_char(datToDirector, 'RRRR-MM-dd')   " & _
-                                        "when datToBranchCheif is Not Null and datFinalizedDate is Null and   " & _
-                                        "datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then to_char(DatTOBranchCheif, 'RRRR-MM-dd')    " & _
-                                        "when datEPAEnds is not Null then to_char(datEPAEnds, 'RRRR-MM-dd')     " & _
-                                        "when datPNExpires is Not Null and datPNExpires < sysdate then to_char(datPNExpires, 'RRRR-MM-dd')     " & _
-                                        "when datPNExpires is Not Null and datPNExpires >= sysdate then to_char(datPNExpires, 'RRRR-MM-dd')      " & _
-                                        "when datDraftIssued is Not Null and datPNExpires is Null then to_char(datDraftIssued, 'RRRR-MM-dd')      " & _
-                                        "when dattoPMII is Not Null then to_char(datToPMII, 'RRRR-MM-dd')      " & _
-                                        "when dattoPMI is Not Null then to_char(datToPMI, 'RRRR-MM-dd')      " & _
-                                        "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then to_char(datReviewSubmitted, 'RRRR-MM-dd')     " & _
-                                        "when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown'      " & _
-                                        "else to_char(datAssignedToEngineer, 'RRRR-MM-dd')      " & _
-                                        "end as StatusDate,    " & _
-                                        "case    " & _
-                                        "	when AIRBranch.SSPPApplicationData.strFacilityName is Null then ' '    " & _
-                                        "else AIRBranch.SSPPApplicationData.strFacilityName    " & _
-                                        "end as strFacilityName,    " & _
-                                        "case   " & _
-                                        "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out'   " & _
-                                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'   " & _
-                                        "when datToBranchCheif is Not Null and datFinalizedDate is Null   " & _
-                                        "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'   " & _
-                                        "when datEPAEnds is not Null then '08 - EPA 45-day Review'   " & _
-                                        "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'   " & _
-                                        "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'    " & _
-                                        "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'    " & _
-                                        "when dattoPMII is Not Null then '04 - AT PM'    " & _
-                                        "when dattoPMI is Not Null then '03 - At UC'    " & _
-                                        "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then '02 - Internal Review'   " & _
-                                        "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'     " & _
-                                        "else '01 - At Engineer'    " & _
-                                        "end as AppStatus,   " & _
-                                        "case   " & _
-                                        " 	when strPermitTypeDescription is Null then ''   " & _
-                                        "else strPermitTypeDescription   " & _
-                                        "End as strPermitType   " & _
-                                        "from AIRBranch.SSPPApplicationMaster, AIRBranch.SSPPApplicationTracking,   " & _
-                                        "AIRBranch.SSPPApplicationData,   " & _
-                                        "AIRBranch.LookUpApplicationTypes, AIRBranch.LookUPPermitTypes,   " & _
-                                        "AIRBranch.EPDUserProfiles  " & _
-                                 "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber (+)    " & _
-                                 "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber (+)   " & _
-                                        "and strApplicationType = strApplicationTypeCode (+)   " & _
-                                        "and strPermitType = strPermitTypeCode (+)   " & _
-                                        "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible   " & _
-                                        "and datFinalizedDate is NULL   " & _
-                                        "and numUserID = ('" & UserGCode & "') "
-                                    End If
-                                End If
-                            End If
-                        Case "6" 'Ambient
-
-                    End Select
-                Case "2" 'Watershed Protection
-
-                Case "3" 'Hazard Waste
-
-                Case "4" 'Land Protection
-
-                Case "5" 'Program Coordination 
-
-                    If WorkUnit = "---" Then 'Program Manager
-                        UserGridStyle = "LoadSSCPOpenWork"
-                        SQL = "Select " & _
-                        "distinct(to_number(AIRBranch.sscp_AuditedEnforcement.strEnforcementNumber)) as strEnforcementNumber,  " & _
-                        "substr(AIRBranch.sscp_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,   " & _
-                        "case   " & _
-                        "when datEnforcementFinalized is Not Null then '4 - Closed Out'   " & _
-                        "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'   " & _
-                        "when strStatus = 'UC' then '2 - Submitted to UC'   " & _
-                        "When strStatus Is Null then '1 - At Staff'   " & _
-                        "else 'Unknown'   " & _
-                        "end as EnforcementStatus,   " & _
-                        "Case     " & _
-                        "when datDiscoveryDate is Null then ''    " & _
-                        "else to_char(datDiscoveryDate, 'dd-Mon-yyyy')  " & _
-                        "END as Violationdate,     " & _
-                        "strActionType as HPVStatus,    " & _
-                        "Case    " & _
-                        "when datEnforcementFinalized Is Not NULL then 'Closed'    " & _
-                        "when datEnforcementFinalized is NUll then 'Open'    " & _
-                        "Else 'Open'    " & _
-                        "End as Status,    " & _
-                        "strFacilityName,    " & _
-                        "(strLastName||', '||strFirstName) as Staff     " & _
-                        "from AIRBranch.sscp_AuditedEnforcement,     " & _
-                        "AIRBranch.APBFacilityInformation, AIRBranch.EPDUserProfiles,    " & _
-                        "(select numUserID  " & _
-                        "from AIRBranch.EPDUserProfiles where numUnit is null) UnitStaff " & _
-                        "Where  AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.sscp_AuditedEnforcement.strAIRSNumber    " & _
-                        "and (strStatus IS Null or strStatus = 'UC')    " & _
-                        "and datEnforcementFinalized is NULL   " & _
-                        "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.sscp_AuditedEnforcement.numStaffResponsible    " & _
-                        "order by strENforcementNumber DESC   "
-                    Else
-                        If AccountArray(22, 3) = "1" Then 'Unit Manager
-                            UserGridStyle = "LoadSSCPOpenWork"
-                            SQL = "Select to_number(AIRBranch.SSCP_aUDITEDEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
-                             "substr(AIRBranch.SSCP_aUDITEDEnforcement.strAIRSNumber, 5) as AIRSNumber,   " & _
-                             "case   " & _
-                             "    when datEnforcementFinalized is Not Null then '4 - Closed Out'   " & _
-                             "    when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'   " & _
-                             "    when strStatus = 'UC' then '2 - Submitted to UC'   " & _
-                             "    When strStatus Is Null then '1 - At Staff'   " & _
-                             "   else 'Unknown'   " & _
-                             "end as EnforcementStatus, " & _
-                            " Case    " & _
-                            " 	when datDiscoveryDate is Null then ''   " & _
-                            " 	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " & _
-                             "END as Violationdate,    " & _
-                             "case    " & _
-                             " 	when strHPV IS NULL then strActionType   " & _
-                             "	When strHPV IS Not Null then 'HPV'    " & _
-                             "   Else 'HPV'   " & _
-                             "END as HPVStatus,   " & _
-                             "Case   " & _
-                             " 	when datEnforcementFinalized Is Not NULL then 'Closed'   " & _
-                             "	when datEnforcementFinalized is NUll then 'Open'   " & _
-                             "Else 'Open'   " & _
-                             "End as Status,   " & _
-                             "strFacilityName,   " & _
-                             "(strLastName||', '||strFirstName) as Staff   " & _
-                             "from AIRBranch.SSCP_aUDITEDEnforcement,    " & _
-                             "AIRBranch.APBFacilityInformation, AIRBranch.EPDUserProfiles,   " & _
-                             "( select numUserID from AIRBranch.EPDUserProfiles where numUnit = '" & UserUnit & "'  " & _
-                             "group by numUserID ) UnitStaff   " & _
-                             "Where  AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCP_aUDITEDEnforcement.strAIRSNumber   " & _
-                             "and (strStatus IS Null or strStatus = 'UC')   " & _
-                             "and numStaffResponsible = UnitStaff.numUserID   " & _
-                             "and datEnforcementFinalized is NULL   " & _
-                             "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCP_aUDITEDEnforcement.numStaffResponsible   " & _
-                             "order by strENforcementNumber DESC  "
-                        Else
-                            If AccountArray(10, 3) = "1" Then 'District Liason
-                                UserGridStyle = "LoadSSCPOpenWork"
-                                SQL = "Select to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
-                                "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,   " & _
-                                "case   " & _
-                                "when datEnforcementFinalized is Not Null then '4 - Closed Out'   " & _
-                                "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'   " & _
-                                "when strStatus = 'UC' then '2 - Submitted to UC'   " & _
-                                "When strStatus Is Null then '1 - At Staff'   " & _
-                                "   else 'Unknown'   " & _
-                                "end as EnforcementStatus, " & _
-                                "Case    " & _
-                                " 	when datDiscoveryDate is Null then ''   " & _
-                                " 	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " & _
-                                "END as Violationdate,    " & _
-                                "case    " & _
-                                " 	when strHPV IS NULL then strActionType   " & _
-                                " 	When strHPV IS Not Null then 'HPV'    " & _
-                                "   Else 'HPV'   " & _
-                                "END as HPVStatus,   " & _
-                                "Case   " & _
-                                " 	when datEnforcementFinalized Is Not NULL then 'Closed'   " & _
-                                "	when datEnforcementFinalized is NUll then 'Open'   " & _
-                                "Else 'Open'   " & _
-                                "End as Status,   " & _
-                                "strFacilityName,   " & _
-                                "(strLastName||', '||strFirstName) as Staff   " & _
-                                "from AIRBranch.SSCP_AuditedEnforcement,  " & _
-                                "AIRBranch.APBFacilityInformation, AIRBranch.EPDUSerProfiles,   " & _
-                                "(select numuserId  " & _
-                                "from AIRBranch.EPDUserProfiles  " & _
-                                "where strLastName = 'District' or (numBranch = '1' and numProgram = '4' and numUnit is null )  " & _
-                                "group by numUserID) UnitStaff   " & _
-                                "Where  AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber   " & _
-                                "and (strStatus IS Null or strStatus = 'UC')   " & _
-                                "and numStaffResponsible = UnitStaff.numUserID   " & _
-                                "and datEnforcementFinalized is NULL   " & _
-                                "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCP_AuditedEnforcement.numStaffResponsible   " & _
-                                "order by strENforcementNumber DESC   "
-                            Else
-                                UserGridStyle = "LoadSSCPOpenWork"
-                                SQL = "Select to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
-                             "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
-                             "case  " & _
-                             "when datEnforcementFinalized is Not Null then '4 - Closed Out'  " & _
-                             "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " & _
-                             "when strStatus = 'UC' then '2 - Submitted to UC'  " & _
-                             "When strStatus Is Null then '1 - At Staff'  " & _
-                             "else 'Unknown'  " & _
-                             "end as EnforcementStatus,  " & _
-                             "Case   " & _
-                             " 	when datDiscoveryDate is Null then ''  " & _
-                             "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy')  " & _
-                             "END as Violationdate,   " & _
-                             "case   " & _
-                             "	when strHPV IS NULL then strActionType  " & _
-                             "	When strHPV IS Not Null then 'HPV'   " & _
-                             "Else 'HPV'  " & _
-                             "END as HPVStatus,  " & _
-                             "Case  " & _
-                             " 	when datEnforcementFinalized Is Not NULL then 'Closed'  " & _
-                             " 	when datEnforcementFinalized is NUll then 'Open'  " & _
-                             "Else 'Open'  " & _
-                             "End as Status,  " & _
-                             "AIRBranch.APBFacilityInformation.strFacilityName,  " & _
-                             "(strLastName||', '||strFirstName) as Staff  " & _
-                             "from AIRBranch.SSCP_AuditedEnforcement,   " & _
-                             "AIRBranch.APBFacilityInformation, AIRBranch.EPDuserProfiles,  " & _
-                             "AIRBranch.VW_SSCPINSPECTION_LIST " & _
-                             "Where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber  " & _
-                             "and AIRBranch.SSCP_AuditedEnforcement.strAIRSnumber = '0413'||AIRBranch.VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
-                             "and (numStaffResponsible = '" & UserGCode & "' or numSSCPEngineer = '" & UserGCode & "')  " & _
-                             "and (strStatus IS Null or strStatus = 'UC')  " & _
-                             "and datEnforcementFinalized is Null  " & _
-                             "and AIRBranch.EPDuserProfiles.numUserID = numStaffResponsible  " & _
-                             "order by strENforcementNumber DESC  "
-
-                            End If
-                        End If
-                    End If
-
-
-
-                    'Select Case WorkProgram
-                    '    Case "7", "8", "9", "10", "11", "12", "13", "14", "15" 'Distirct 
-                    '        If WorkUnit = "---" Then 'Program Manager 
-                    '            UserGridStyle = "LoadSSCPOpenWork"
-                    '            SQL = "Select to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber, " & _
-                    '              "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " & _
-                    '              "case " & _
-                    '              "    when datEnforcementFinalized is Not Null then '4 - Closed Out' " & _
-                    '              "    when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA' " & _
-                    '              "    when strStatus = 'UC' then '2 - Submitted to UC' " & _
-                    '              "    When strStatus Is Null then '1 - At Staff' " & _
-                    '              "   else 'Unknown' " & _
-                    '              "end as EnforcementStatus, " & _
-                    '              "Case  " & _
-                    '              "	when datDiscoveryDate is Null then '' " & _
-                    '              "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " & _
-                    '              "END as Violationdate,  " & _
-                    '              "case  " & _
-                    '              " 	when strHPV IS NULL then strActionType " & _
-                    '              " 	When strHPV IS Not Null then 'HPV'  " & _
-                    '              "   Else 'HPV' " & _
-                    '              "END as HPVStatus, " & _
-                    '              "Case " & _
-                    '             " 	when datEnforcementFinalized Is Not NULL then 'Closed' " & _
-                    '              "	when datEnforcementFinalized is NUll then 'Open' " & _
-                    '              "Else 'Open' " & _
-                    '              "End as Status, " & _
-                    '              "strFacilityName, " & _
-                    '              "(strLastName||', '||strFirstName) as Staff " & _
-                    '              "from AIRBranch.SSCP_AuditedEnforcement, " & _
-                    '              "AIRBranch.APBFacilityInformation, AIRBranch.EPDUserProfiles, " & _
-                    '              "(select numUserID from AIRBranch.EPDUserProfiles " & _
-                    '              "where strLastName = 'District' or (numBranch = '1' and numProgram = '4' and numUnit is null) " & _
-                    '              "group by numUserID) UnitStaff " & _
-                    '              "Where  AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber " & _
-                    '              "and (strStatus IS Null or strStatus = 'UC') " & _
-                    '              "and numStaffResponsible = UnitStaff.numUserID " & _
-                    '              "and datEnforcementFinalized is NULL " & _
-                    '              "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCP_AuditedEnforcement.numStaffResponsible " & _
-                    '              "order by strENforcementNumber DESC "
-                    '        Else
-                    '            UserGridStyle = "LoadSSCPOpenWork"
-                    '            SQL = "Select to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
-                    '            "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,   " & _
-                    '            "case   " & _
-                    '            "    when datEnforcementFinalized is Not Null then '4 - Closed Out'   " & _
-                    '            "    when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'   " & _
-                    '            "    when strStatus = 'UC' then '2 - Submitted to UC'   " & _
-                    '            "    When strStatus Is Null then '1 - At Staff'   " & _
-                    '            "   else 'Unknown'   " & _
-                    '            "end as EnforcementStatus, " & _
-                    '            "Case    " & _
-                    '            "	when datDiscoveryDate is Null then ''   " & _
-                    '            "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " & _
-                    '            "END as Violationdate,    " & _
-                    '            "case    " & _
-                    '            " 	when strHPV IS NULL then strActionType   " & _
-                    '            " 	When strHPV IS Not Null then 'HPV'    " & _
-                    '            "   Else 'HPV'   " & _
-                    '            "END as HPVStatus,   " & _
-                    '            "Case   " & _
-                    '            "	when datEnforcementFinalized Is Not NULL then 'Closed'   " & _
-                    '            "	when datEnforcementFinalized is NUll then 'Open'   " & _
-                    '            "Else 'Open'   " & _
-                    '            "End as Status,   " & _
-                    '            "strFacilityName,   " & _
-                    '            "(strLastName||', '||strFirstName) as Staff   " & _
-                    '            "from AIRBranch.SSCP_AuditedEnforcement,  " & _
-                    '            "AIRBranch.APBFacilityInformation, AIRBranch.EPDUserProfiles,   " & _
-                    '            "(select numUserID from AIRBranch.EPDUserProfiles   " & _
-                    '            "where strLastName = 'District' or (numBranch = '1' and numProgram = '4' and numUnit is null)  " & _
-                    '            "group by numUserID) UnitStaff   " & _
-                    '            "Where  AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber   " & _
-                    '            "and (strStatus IS Null or strStatus = 'UC')   " & _
-                    '            "and numStaffResponsible = UnitStaff.numUSerID  " & _
-                    '            "and datEnforcementFinalized is NULL   " & _
-                    '            "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCP_AuditedEnforcement.numStaffResponsible   " & _
-                    '            "order by strEnforcementNumber DESC  "
-                    '        End If
-
-                    'End Select
-                Case "6" 'Directors Office 
-
-            End Select
-
-            dsOpenWork = New DataSet
-            daOpenWork = New OracleDataAdapter(SQL, Conn)
-            If SQL <> "" Then
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
-                End If
-                daOpenWork.Fill(dsOpenWork, "OpenWork")
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-
-        End Try
-
-    End Sub
-    Sub LoadSecondaryWork(ByVal WorkBranch As String, ByVal WorkProgram As String, ByVal WorkUnit As String)
-        Try
-
-            Select Case WorkBranch
-                Case "1" 'Air Protection Branch
-                    Select Case WorkProgram
-                        Case "1" 'Mobile & Area
-
-                        Case "2" 'Planning & Support
-
-                        Case "3" 'ISMP
-                            If WorkUnit = "---" Then 'Program Manager
-                                UserGridStyle = "LoadSecondaryWork2"
-                                SQL = "Select " & _
-                                "to_number(AIRBranch.SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber,    " & _
-                                "substr(strAIRSNumber, 5) as AIRSNumber,    " & _
-                                "to_char(datreviewsubmitted, 'dd-Mon-yyyy') as ReviewSubmitted,    " & _
-                                "(strLastName||', ' ||strFirstName) as StaffResponsible,    " & _
-                                "strFacilityName     " & _
-                                "from AIRBranch.SSPPApplicationMaster,    " & _
-                                "AIRBranch.SSPPApplicationData, AIRBranch.EPDUserProfiles,     " & _
-                                "AIRBranch.SSPPApplicationTracking   " & _
-                                "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber   " & _
-                                "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber   " & _
-                                "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible   " & _
-                                "and strISMPReviewer is NULL   " & _
-                                "and datFinalizedDate is Null  "
-                            Else
-                                If AccountArray(17, 3) = "1" Then  'Unit Manager
-                                    UserGridStyle = "LoadSecondaryWork2"
-                                    SQL = "Select " & _
-                                    "to_number(AIRBranch.SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber,    " & _
-                                    "substr(strAIRSNumber, 5) as AIRSNumber,    " & _
-                                    "to_char(datreviewsubmitted, 'dd-Mon-yyyy') as ReviewSubmitted,    " & _
-                                    "(strLastName||', '||strFirstName) as StaffResponsible,    " & _
-                                    "strFacilityName     " & _
-                                    "from AIRBranch.SSPPApplicationMaster,    " & _
-                                    "AIRBranch.SSPPApplicationData, AIRBranch.EPDUserProfiles,     " & _
-                                    "AIRBranch.SSPPApplicationTracking   " & _
-                                    "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber   " & _
-                                    "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber   " & _
-                                    "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible   " & _
-                                    "and strISMPReviewer is NULL   " & _
-                                    "and datFinalizedDate is Null  "
-                                Else
-                                    UserGridStyle = "LoadSecondaryWork2"
-                                    SQL = "Select  " & _
-                                   "to_number(AIRBranch.SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber,    " & _
-                                   "substr(strAIRSNumber, 5) as AIRSNumber,    " & _
-                                   "to_char(datreviewsubmitted, 'dd-Mon-yyyy') as ReviewSubmitted,    " & _
-                                   "(strLastName||', '||strFirstName) as StaffResponsible,    " & _
-                                   "strFacilityName     " & _
-                                   "from AIRBranch.SSPPApplicationMaster,    " & _
-                                   "AIRBranch.SSPPApplicationData, AIRBranch.EPDUserProfiles,     " & _
-                                   "AIRBranch.SSPPApplicationTracking   " & _
-                                   "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber   " & _
-                                   "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber   " & _
-                                   "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible   " & _
-                                   "and strISMPReviewer is NULL   " & _
-                                   "and datFinalizedDate is Null  "
-                                End If
-                            End If
-                        Case "4" 'SSCP
-                            If WorkUnit = "---" Then 'Program Manager
-                                UserGridStyle = "LoadSecondaryWork2"
-                                SQL = "Select  " & _
-                                 "to_number(AIRBranch.SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber,    " & _
-                                 "substr(strAIRSNumber, 5) as AIRSNumber,    " & _
-                                 "to_char(datreviewsubmitted, 'dd-Mon-yyyy') as ReviewSubmitted,    " & _
-                                 "(strLastName||', '||strFirstName) as StaffResponsible,    " & _
-                                 "strFacilityName     " & _
-                                 "from AIRBranch.SSPPApplicationMaster,    " & _
-                                 "AIRBranch.SSPPApplicationData, AIRBranch.EPDUserProfiles,   " & _
-                                 "AIRBranch.SSPPApplicationTracking   " & _
-                                 "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber   " & _
-                                 "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber   " & _
-                                 "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible   " & _
-                                 "and strSSCPReviewer is NULL   " & _
-                                 "and datFinalizedDate is Null"
-                            Else
-                                If AccountArray(22, 3) = "1" Then 'Unit Manager
-                                    UserGridStyle = "LoadSecondaryWork2"
-                                    SQL = "Select " & _
-                                    "to_number(AIRBranch.SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber,  " & _
-                                    "substr(strAIRSNumber, 5) as AIRSNumber,  " & _
-                                    "to_char(datreviewsubmitted, 'dd-Mon-yyyy') as ReviewSubmitted,  " & _
-                                    "(strLastName||', '||strFirstName) as StaffResponsible,  " & _
-                                    "strFacilityName   " & _
-                                    "from AIRBranch.SSPPApplicationMaster,  " & _
-                                    "AIRBranch.SSPPApplicationData, AIRBranch.EPDUserProfiles,   " & _
-                                    "AIRBranch.SSPPApplicationTracking " & _
-                                    "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber " & _
-                                    "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber " & _
-                                    "and AIRBranch.EPDUserProfiles.numUserId = AIRBranch.SSPPApplicationMaster.strStaffResponsible " & _
-                                    "and strSSCPReviewer is NULL " & _
-                                    "and datFinalizedDate is Null "
-                                Else
-                                    If AccountArray(10, 3) = "1" Then 'District Liason
-                                        UserGridStyle = "LoadSecondaryWork2"
-                                        SQL = "Select " & _
-                                        "to_number(AIRBranch.SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber,  " & _
-                                        "substr(strAIRSNumber, 5) as AIRSNumber,  " & _
-                                        "to_char(datreviewsubmitted, 'dd-Mon-yyyy') as ReviewSubmitted,  " & _
-                                        "(strLastName||', '||strFirstName) as StaffResponsible,  " & _
-                                        "strFacilityName   " & _
-                                        "from AIRBranch.SSPPApplicationMaster,  " & _
-                                        "AIRBranch.SSPPApplicationData, AIRBranch.EPDUserProfiles,   " & _
-                                        "AIRBranch.SSPPApplicationTracking " & _
-                                        "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber " & _
-                                        "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber " & _
-                                        "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible " & _
-                                        "and strSSCPReviewer is NULL " & _
-                                        "and datFinalizedDate is Null "
-                                    Else
-                                        UserGridStyle = "LoadSecondaryWork2"
-                                        SQL = "Select " & _
-                                        "to_number(AIRBranch.SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber,  " & _
-                                        "substr(strAIRSNumber, 5) as AIRSNumber,  " & _
-                                        "to_char(datreviewsubmitted, 'dd-Mon-yyyy') as ReviewSubmitted,  " & _
-                                        "(strLastName||', '||strFirstName) as StaffResponsible,  " & _
-                                        "strFacilityName   " & _
-                                        "from AIRBranch.SSPPApplicationMaster,  " & _
-                                        "AIRBranch.SSPPApplicationData, AIRBranch.EPDUserProfiles, " & _
-                                        "AIRBranch.SSPPApplicationTracking " & _
-                                        "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber " & _
-                                        "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber " & _
-                                        "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible " & _
-                                        "and strSSCPReviewer is NULL " & _
-                                        "and datFinalizedDate is Null "
-                                    End If
-                                End If
-                            End If
-                        Case "5" 'SSPP
-                            If WorkUnit = "---" Then 'Program Manager
-
-                            Else
-                                If AccountArray(24, 3) = "1" Then 'Unit Manager
-
-                                Else
-                                    If AccountArray(9, 3) = "1" Then 'Administrative 2
-                                        UserGridStyle = "LoadSecondaryWork2"
-                                        SQL = "Select " & _
-                                        "to_number(AIRBranch.SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber,  " & _
-                                        "substr(strAIRSNumber, 5) as AIRSNumber,  " & _
-                                        "to_char(datreviewsubmitted, 'dd-Mon-yyyy') as ReviewSubmitted,  " & _
-                                        "(strLastName||', '||strFirstName) as StaffResponsible,  " & _
-                                        "strFacilityName   " & _
-                                        "from AIRBranch.SSPPApplicationMaster, " & _
-                                        "AIRBranch.SSPPApplicationData, AIRBranch.EPDUserProfiles, " & _
-                                        "AIRBranch.SSPPApplicationTracking " & _
-                                        "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber " & _
-                                        "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber " & _
-                                        "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible " & _
-                                        "and strSSCPReviewer is NULL " & _
-                                        "and datFinalizedDate is Null "
-                                    Else
-
-                                    End If
-                                End If
-                            End If
-                        Case "6" 'Ambient
-
-                    End Select
-                Case "2" 'Watershed Protection
-
-                Case "3" 'Hazard Waste
-
-                Case "4" 'Land Protection
-
-                Case "5" 'Program Coordination 
-                    Select Case WorkProgram
-                        Case "7", "8", "9", "10", "11", "12", "13", "14", "15" 'Distirct 
-                            If WorkUnit = "---" Then 'Program Manager 
-                                UserGridStyle = "LoadSSCPTertiaryWork"
-                                SQL = "select " & _
-                                "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
-                                "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
-                                "(strLastName||', '||strFirstName) as Staff,  " & _
-                                "strResponsibleStaff, " & _
-                                "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived,  " & _
-                                "strFacilityName, StrActivityName    " & _
-                                "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
-                                "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities,  " & _
-                                "(select numUserID from AIRBranch.EPDUserProfiles " & _
-                                "where strLastName = 'District' " & _
-                                "group by numUserID) UnitStaff    " & _
-                                "where AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCPItemMaster.strResponsibleStaff  " & _
-                                "and AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCPItemMaster.strAIRSNumber  " & _
-                                "and AIRBranch.LookUPComplianceActivities.strActivityType = AIRBranch.SSCPItemMaster.strEventType " & _
-                                "and DatCompleteDate is Null   " & _
-                                "and strResponsibleStaff = UnitStaff.numUserID " & _
-                                "and strDelete is Null "
-                            Else
-                                UserGridStyle = "LoadSSCPTertiaryWork"
-                                SQL = "Select " & _
-                                  "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
-                                  "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
-                                  "(strLastName||', '||strFirstName) as Staff,  " & _
-                                  "strResponsibleStaff, " & _
-                                  "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived, " & _
-                                  "strFacilityName, StrActivityName    " & _
-                                  "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
-                                  "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities   " & _
-                                  "where AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCPItemMaster.strResponsibleStaff  " & _
-                                  "and AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCPItemMaster.strAIRSNumber  " & _
-                                  "and AIRBranch.LookUPComplianceActivities.strActivityType = AIRBranch.SSCPItemMaster.strEventType  " & _
-                                  "and strResponsibleStaff = '" & UserGCode & "'  " & _
-                                  "and DatCompleteDate is Null  " & _
-                                   "and strDelete is Null "
-                            End If
-                    End Select
-                Case "6" 'Directors Office 
-
-            End Select
-
-            dsOpenWork = New DataSet
-            daOpenWork = New OracleDataAdapter(SQL, Conn)
-            If SQL <> "" Then
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
-                End If
-                daOpenWork.Fill(dsOpenWork, "OpenWork")
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-
-        End Try
-
-    End Sub
-    Sub LoadTertiaryWork(ByVal WorkBranch As String, ByVal WorkProgram As String, ByVal WorkUnit As String)
-        Try
-
-            Select Case WorkBranch
-                Case "1" 'Air Protection Branch
-                    Select Case WorkProgram
-                        Case "1" 'Mobile & Area
-
-                        Case "2" 'Planning & Support
-
-                        Case "3" 'ISMP
-                            If WorkUnit = "---" Then 'Program Manager
-                                UserGridStyle = "LoadISMPTertiaryWork"
-                                SQL = "select  " & _
-                                 "AIRBranch.ISMPTestNotification.strTestLogNumber as TestNumber,    " & _
-                                 "case    " & _
-                                 "when strReferenceNumber is null then ''    " & _
-                                 "else strReferenceNumber    " & _
-                                 "end RefNum,    " & _
-                                 "case  " & _
-                                 "when AIRBranch.ISMPTestNOtification.strAIRSNumber is Null then ''  " & _
-                                 "else AIRBranch.APBFacilityInformation.strFacilityName    " & _
-                                 "End FacilityName,  " & _
-                                 "substr(AIRBranch.ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,  " & _
-                                 "strEmissionUnit,   " & _
-                                 "to_char(datProposedStartDate, 'dd-Mon-yyyy') as ProposedStartDate,  " & _
-                                 "case  " & _
-                                 "when strFirstName is Null then ''  " & _
-                                 "else(strLastName||', '||strFirstName)   " & _
-                                 "END StaffResponsible  " & _
-                                 "from AIRBranch.ismptestnotification, AIRBranch.APBFacilityinformation,  " & _
-                                 "AIRBranch.EPDUserProfiles, AIRBranch.ISMPTestLogLink  " & _
-                                 "where AIRBranch.ismptestnotification.strairsnumber = AIRBranch.apbfacilityinformation.strairsnumber (+)    " & _
-                                 "and AIRBranch.ismptestnotification.strstaffresponsible = AIRBranch.EPDUserProfiles.numUserID (+)  " & _
-                                 "and AIRBranch.ISMPTestnotification.strTestLogNumber = AIRBranch.ISMPTestLogLink.strTestLogNumber (+)   " & _
-                                 "and datProposedStartDate > (sysdate - 180)    " & _
-                                 "and strReferenceNumber is null    " & _
-                                 "union    " & _
-                                 "select    " & _
-                                 "AIRBranch.ISMPTestNotification.strTestLogNumber as TestNumber,  " & _
-                                 "AIRBranch.ISMpReportInformation.strReferenceNumber as RefNum,    " & _
-                                 "case  " & _
-                                 "when AIRBranch.ISMPTestNOtification.strAIRSNumber is Null then ''  " & _
-                                 "else AIRBranch.APBFacilityInformation.strFacilityName    " & _
-                                 "End FacilityName,  " & _
-                                 "substr(AIRBranch.ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,  " & _
-                                 "strEmissionUnit,   " & _
-                                 "to_char(datProposedStartDate, 'dd-Mon-yyyy') as ProposedStartDate,  " & _
-                                 "case  " & _
-                                 "when strFirstName is Null then ''  " & _
-                                 "else(strLastName||', '||strFirstName)   " & _
-                                 "END StaffResponsible  " & _
-                                 "from AIRBranch.ismptestnotification, AIRBranch.APBFacilityinformation,  " & _
-                                 "AIRBranch.EPDUserProfiles, AIRBranch.ISMPTestLogLink,    " & _
-                                 "AIRBranch.ISMPReportInformation    " & _
-                                 "where AIRBranch.ismptestnotification.strairsnumber = AIRBranch.apbfacilityinformation.strairsnumber (+)    " & _
-                                 "and AIRBranch.ismptestnotification.strstaffresponsible = AIRBranch.EPDUserProfiles.numUserID (+)  " & _
-                                 "and AIRBranch.ISMPTestNotification.strTestLogNumber = AIRBranch.ISMPTestLogLink.strTestLogNumber (+)    " & _
-                                 "and AIRBranch.ISMPTestLogLink.strReferencenumber = AIRBranch.ISMPReportInformation.strReferenceNumber (+)    " & _
-                                 "and datProposedStartDate > (sysdate - 180)    " & _
-                                 "and AIRBranch.ISMPTestLogLink.strReferenceNumber is not null    " & _
-                                 "and strClosed = 'False'  "
-                            Else
-                                If AccountArray(17, 3) = "1" Then  'Unit Manager
-                                    UserGridStyle = "LoadISMPTertiaryWork"
-                                    SQL = "select " & _
-                                    "AIRBranch.ISMPTestNotification.strTestLogNumber as TestNumber,  " & _
-                                    "case  " & _
-                                    "when strReferenceNumber is null then ''  " & _
-                                    "else strReferenceNumber  " & _
-                                    "end RefNum,  " & _
-                                    "case   " & _
-                                    "when AIRBranch.ISMPTestNOtification.strAIRSNumber is Null then ''   " & _
-                                    "else AIRBranch.APBFacilityInformation.strFacilityName  " & _
-                                    "End FacilityName,   " & _
-                                    "substr(AIRBranch.ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,   " & _
-                                    "strEmissionUnit,    " & _
-                                    "to_char(datProposedStartDate, 'dd-Mon-yyyy') as ProposedStartDate,   " & _
-                                    "case   " & _
-                                    "when strFirstName is Null then ''   " & _
-                                    "else(strLastName||', '||strFirstName) " & _
-                                    "END StaffResponsible   " & _
-                                    "from AIRBranch.ismptestnotification, AIRBranch.APBFacilityinformation,   " & _
-                                    "AIRBranch.EPDUserProfiles, AIRBranch.ISMPTestLogLink   " & _
-                                    "where AIRBranch.ismptestnotification.strairsnumber = AIRBranch.apbfacilityinformation.strairsnumber (+)  " & _
-                                    "and AIRBranch.ismptestnotification.strstaffresponsible = AIRBranch.EPDUserProfiles.numUserID (+)   " & _
-                                    "and AIRBranch.ISMPTestnotification.strTestLogNumber = AIRBranch.ISMPTestLogLink.strTestLogNumber (+) " & _
-                                    "and datProposedStartDate > (sysdate - 180)  " & _
-                                    "and strReferenceNumber is null  " & _
-                                    "union  " & _
-                                    "select  " & _
-                                    "AIRBranch.ISMPTestNotification.strTestLogNumber as TestNumber,   " & _
-                                    "AIRBranch.ISMpReportInformation.strReferenceNumber as RefNum,  " & _
-                                    "case   " & _
-                                    "when AIRBranch.ISMPTestNOtification.strAIRSNumber is Null then ''   " & _
-                                    "else AIRBranch.APBFacilityInformation.strFacilityName  " & _
-                                    "End FacilityName,   " & _
-                                    "substr(AIRBranch.ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,   " & _
-                                    "strEmissionUnit,    " & _
-                                    "to_char(datProposedStartDate, 'dd-Mon-yyyy') as ProposedStartDate,   " & _
-                                    "case   " & _
-                                    "when strFirstName is Null then ''   " & _
-                                    "else(strLastName||', '||strFirstName) " & _
-                                    "END StaffResponsible   " & _
-                                    "from AIRBranch.ismptestnotification, AIRBranch.APBFacilityinformation,   " & _
-                                    "AIRBranch.EPDUserProfiles, AIRBranch.ISMPTestLogLink,  " & _
-                                    "AIRBranch.ISMPReportInformation  " & _
-                                    "where AIRBranch.ismptestnotification.strairsnumber = AIRBranch.apbfacilityinformation.strairsnumber (+)  " & _
-                                    "and AIRBranch.ismptestnotification.strstaffresponsible = AIRBranch.EPDUserProfiles.numUserID (+)   " & _
-                                    "and AIRBranch.ISMPTestNotification.strTestLogNumber = AIRBranch.ISMPTestLogLink.strTestLogNumber (+)  " & _
-                                    "and AIRBranch.ISMPTestLogLink.strReferencenumber = AIRBranch.ISMPReportInformation.strReferenceNumber (+)  " & _
-                                    "and datProposedStartDate > (sysdate - 180)  " & _
-                                    "and AIRBranch.ISMPTestLogLink.strReferenceNumber is not null  " & _
-                                    "and strClosed = 'False' "
-                                Else
-                                    UserGridStyle = "LoadISMPTertiaryWork"
-                                    SQL = "select " & _
-                                    "AIRBranch.ISMPTestNotification.strTestLogNumber as TestNumber,  " & _
-                                    "case  " & _
-                                    "when strReferenceNumber is null then ''  " & _
-                                    "else strReferenceNumber  " & _
-                                    "end RefNum,  " & _
-                                    "case   " & _
-                                    "when AIRBranch.ISMPTestNOtification.strAIRSNumber is Null then ''   " & _
-                                    "else AIRBranch.APBFacilityInformation.strFacilityName  " & _
-                                    "End FacilityName,   " & _
-                                    "substr(AIRBranch.ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,   " & _
-                                    "strEmissionUnit,    " & _
-                                    "to_char(datProposedStartDate, 'dd-Mon-yyyy') as ProposedStartDate,   " & _
-                                    "case   " & _
-                                    "when strFirstName is Null then ''   " & _
-                                    "else(strLastName||', '||strFirstName) " & _
-                                    "END StaffResponsible   " & _
-                                    "from AIRBranch.ismptestnotification, AIRBranch.APBFacilityinformation,   " & _
-                                    "AIRBranch.EPDUserProfiles, AIRBranch.ISMPTestLogLink   " & _
-                                    "where AIRBranch.ismptestnotification.strairsnumber = AIRBranch.apbfacilityinformation.strairsnumber (+)  " & _
-                                    "and AIRBranch.ismptestnotification.strstaffresponsible = AIRBranch.EPDUserProfiles.numUserID (+)   " & _
-                                    "and AIRBranch.ISMPTestnotification.strTestLogNumber = AIRBranch.ISMPTestLogLink.strTestLogNumber (+) " & _
-                                    "and datProposedStartDate > (sysdate - 180)  " & _
-                                    "and strStaffResponsible = '" & UserGCode & "' " & _
-                                    "and strReferenceNumber is null  " & _
-                                    "union  " & _
-                                    "select  " & _
-                                    "AIRBranch.ISMPTestNotification.strTestLogNumber as TestNumber,   " & _
-                                    "AIRBranch.ISMpReportInformation.strReferenceNumber as RefNum,  " & _
-                                    "case   " & _
-                                    "when AIRBranch.ISMPTestNOtification.strAIRSNumber is Null then ''   " & _
-                                    "else AIRBranch.APBFacilityInformation.strFacilityName  " & _
-                                    "End FacilityName,   " & _
-                                    "substr(AIRBranch.ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,   " & _
-                                    "strEmissionUnit,    " & _
-                                    "to_char(datProposedStartDate, 'dd-Mon-yyyy') as ProposedStartDate,   " & _
-                                    "case   " & _
-                                    "when strFirstName is Null then ''   " & _
-                                    "else(strLastName||', '||strFirstName) " & _
-                                    "END StaffResponsible   " & _
-                                    "from AIRBranch.ismptestnotification, AIRBranch.APBFacilityinformation,   " & _
-                                    "AIRBranch.EPDUserProfiles, AIRBranch.ISMPTestLogLink,  " & _
-                                    "AIRBranch.ISMPReportInformation  " & _
-                                    "where AIRBranch.ismptestnotification.strairsnumber = AIRBranch.apbfacilityinformation.strairsnumber (+)  " & _
-                                    "and AIRBranch.ismptestnotification.strstaffresponsible = AIRBranch.EPDUserProfiles.numUserID (+)   " & _
-                                    "and AIRBranch.ISMPTestNotification.strTestLogNumber = AIRBranch.ISMPTestLogLink.strTestLogNumber (+)  " & _
-                                    "and AIRBranch.ISMPTestLogLink.strReferencenumber = AIRBranch.ISMPReportInformation.strReferenceNumber (+)  " & _
-                                    "and datProposedStartDate > (sysdate - 180)  " & _
-                                    "and strStaffResponsible = '" & UserGCode & "' " & _
-                                    "and AIRBranch.ISMPTestLogLink.strReferenceNumber is not null  " & _
-                                    "and strClosed = 'False' "
-                                End If
-                            End If
-                        Case "4" 'SSCP
-                            If WorkUnit = "---" Then 'Program Manager
-                                UserGridStyle = "LoadSSCPTertiaryWork"
-                                SQL = "select " & _
-                                "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
-                                "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
-                                "(strLastName||', '||strFirstName) as Staff,  " & _
-                                "strResponsibleStaff, " & _
-                                "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived,  " & _
-                                "strFacilityName, StrActivityName    " & _
-                                "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
-                                "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities " & _
-                                "where AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCPItemMaster.strResponsibleStaff  " & _
-                                "and AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCPItemMaster.strAIRSNumber  " & _
-                                "and AIRBranch.LookUPComplianceActivities.strActivityType = AIRBranch.SSCPItemMaster.strEventType " & _
-                                "and DatCompleteDate is Null   " & _
-                                "and strDelete is Null "
-                            Else
-                                If AccountArray(22, 3) = "1" Then 'Unit Manager
-                                    UserGridStyle = "LoadSSCPTertiaryWork"
-                                    SQL = "select " & _
-                                    "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
-                                    "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
-                                    "(strLastName||', '||strFirstName) as Staff,  " & _
-                                    "strResponsibleStaff, " & _
-                                    "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived,  " & _
-                                    "strFacilityName, StrActivityName    " & _
-                                    "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
-                                    "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities,  " & _
-                                    "(select numUserID from AIRBranch.EPDUserProfiles where numUnit = '" & UserUnit & "')  " & _
-                                    "UnitStaff    " & _
-                                    "where AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCPItemMaster.strResponsibleStaff  " & _
-                                    "and AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCPItemMaster.strAIRSNumber  " & _
-                                    "and AIRBranch.LookUPComplianceActivities.strActivityType = AIRBranch.SSCPItemMaster.strEventType " & _
-                                    "and DatCompleteDate is Null   " & _
-                                    "and strResponsibleStaff = UnitStaff.numUserID " & _
-                                    "and strDelete is Null "
-                                Else
-                                    If AccountArray(10, 3) = "1" Then 'District Liason
-                                        UserGridStyle = "LoadSSCPTertiaryWork"
-                                        SQL = "select " & _
-                                        "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
-                                        "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
-                                        "(strLastName||', '||strFirstName) as Staff,  " & _
-                                        "strResponsibleStaff, " & _
-                                        "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived,  " & _
-                                        "strFacilityName, StrActivityName    " & _
-                                        "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
-                                        "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities,  " & _
-                                        "(select numUserID from AIRBranch.EPDUSerProfiles " & _
-                                        "where strLastName = 'District' or (numBranch = '1' and numProgram = '4' and numUnit is null) " & _
-                                        "group by numUserID) UnitStaff    " & _
-                                        "where AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCPItemMaster.strResponsibleStaff  " & _
-                                        "and AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCPItemMaster.strAIRSNumber  " & _
-                                        "and AIRBranch.LookUPComplianceActivities.strActivityType = AIRBranch.SSCPItemMaster.strEventType " & _
-                                        "and DatCompleteDate is Null   " & _
-                                        "and strResponsibleStaff = UnitStaff.numUserID " & _
-                                        "and strDelete is Null "
-                                    Else
-                                        UserGridStyle = "LoadSSCPTertiaryWork"
-                                        'SQL = "Select " & _
-                                        '"to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
-                                        '"substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
-                                        '"(strLastName||', '||strFirstName) as Staff,  " & _
-                                        '"strResponsibleStaff, " & _
-                                        '"to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived, " & _
-                                        '"strFacilityName, StrActivityName    " & _
-                                        '"from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
-                                        '"AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities,   " & _
-                                        '"AIRBranch.SSCPFacilityAssignment " & _
-                                        '"where AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCPItemMaster.strResponsibleStaff  " & _
-                                        '"and AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCPItemMaster.strAIRSNumber  " & _
-                                        '"and AIRBranch.LookUPComplianceActivities.strActivityType = AIRBranch.SSCPItemMaster.strEventType  " & _
-                                        '" and AIRBranch.SSCPItemMaster.strAIRSnumber = AIRBranch.SSCPFacilityAssignment.strAIRSNumber  " & _
-                                        '"and (strResponsibleStaff = '" & UserGCode & "' or strSSCPEngineer = '" & UserGCode & "') " & _
-                                        '"and DatCompleteDate is Null  " & _
-                                        ' "and strDelete is Null "
-
-                                        SQL = "Select " & _
-                                       "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
-                                       "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
-                                       "(strLastName||', '||strFirstName) as Staff,  " & _
-                                       "strResponsibleStaff, " & _
-                                       "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived, " & _
-                                       "AIRBranch.APBFacilityInformation.strFacilityName, StrActivityName    " & _
-                                       "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
-                                       "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities,   " & _
-                                       "AIRBranch.VW_SSCPInspection_List " & _
-                                       "where AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCPItemMaster.strResponsibleStaff  " & _
-                                       "and AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCPItemMaster.strAIRSNumber  " & _
-                                       "and AIRBranch.LookUPComplianceActivities.strActivityType = AIRBranch.SSCPItemMaster.strEventType  " & _
-                                       " and AIRBranch.SSCPItemMaster.strAIRSnumber = '0413'||AIRBranch.VW_SSCPInspection_List.AIRSNumber  " & _
-                                       "and (strResponsibleStaff = '" & UserGCode & "' or numSSCPEngineer = '" & UserGCode & "') " & _
-                                       "and DatCompleteDate is Null  " & _
-                                        "and strDelete is Null "
-                                    End If
-                                End If
-                            End If
-                        Case "5" 'SSPP
-                            If WorkUnit = "---" Then 'Program Manager
-
-                            Else
-                                If AccountArray(24, 3) = "1" Then 'Unit Manager
-
-                                Else
-                                    If AccountArray(9, 3) = "1" Then 'Administrative 2
-
-                                    Else
-
-                                    End If
-                                End If
-                            End If
-                        Case "6" 'Ambient
-
-                    End Select
-                Case "2" 'Watershed Protection
-
-                Case "3" 'Hazard Waste
-
-                Case "4" 'Land Protection
-
-                Case "5" 'Program Coordination 
-                    Select Case WorkProgram
-                        Case "7", "8", "9", "10", "11", "12", "13", "14", "15" 'Distirct 
-                            If WorkUnit = "---" Then 'Program Manager 
-
-                            Else
-
-                            End If
-                    End Select
-                Case "6" 'Directors Office 
-
-            End Select
-
-            dsOpenWork = New DataSet
-            daOpenWork = New OracleDataAdapter(SQL, Conn)
-            If SQL <> "" Then
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
-                End If
-                daOpenWork.Fill(dsOpenWork, "OpenWork")
-            End If
-        Catch ex As Exception
-            ErrorReport(SQL & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Sub LoadQuaternaryWork(ByVal WorkBranch As String, ByVal WorkProgram As String, ByVal WorkUnit As String)
-        Try
-
-            Select Case WorkBranch
-                Case "1" 'Air Protection Branch
-                    Select Case WorkProgram
-                        Case "1" 'Mobile & Area
-
-                        Case "2" 'Planning & Support
-
-                        Case "3" 'ISMP
-                            If WorkUnit = "---" Then 'Program Manager
-
-                            Else
-                                If AccountArray(17, 3) = "1" Then  'Unit Manager
-
-                                Else
-
-                                End If
-                            End If
-                        Case "4" 'SSCP
-                            If WorkUnit = "---" Then 'Program Manager
-                                UserGridStyle = "LoadSSCPQuaternaryWork"
-                                SQL = "select distinct(substr(AIRBranch.APBHeaderData.strAIRSNumber, 5)) as AIRSnumber, " & _
-                               "strFacilityName " & _
-                               "from AIRBranch.APBHeaderData, AIRBranch.APBFacilityInformation  " & _
-                               "where (Not exists (select * " & _
-                               "from AIRBranch.APBSubpartData " & _
-                               "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
-                               "and substr(strSubPartKey, 13, 1) = 'M') " & _
-                               "and subStr(strAirProgramCodes, 12, 1) = '1' " & _
-                               "or Not exists (select * " & _
-                               "from AIRBranch.APBSubpartData " & _
-                               "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
-                               "and substr(strSubPartKey, 13, 1) = '9') " & _
-                               "and subStr(strAirProgramCodes, 8, 1) = '1' " & _
-                               "or Not exists (select * " & _
-                               "from AIRBranch.APBSubpartData " & _
-                               "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
-                               "and substr(strSubPartKey, 13, 1) = '8') " & _
-                               "and subStr(strAirProgramCodes, 7, 1) = '1' ) " & _
-                               "and AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBFacilityInformation.strAIRsnumber " & _
-                               "and AIRBranch.APBHeaderData.strOperationalStatus <> 'X' " & _
-                               "order by AIRSNumber "
-                            Else
-                                If AccountArray(22, 3) = "1" Then 'Unit Manager
-                                    UserGridStyle = "LoadSSCPQuaternaryWork"
-                                    SQL = "select distinct(substr(AIRBranch.APBHeaderData.strAIRSNumber, 5)) as AIRSnumber, " & _
-                                    "strFacilityName " & _
-                                    "from AIRBranch.APBHeaderData, AIRBranch.APBFacilityInformation  " & _
-                                    "where (Not exists (select * " & _
-                                    "from AIRBranch.APBSubpartData " & _
-                                    "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
-                                    "and substr(strSubPartKey, 13, 1) = 'M') " & _
-                                    "and subStr(strAirProgramCodes, 12, 1) = '1' " & _
-                                    "or Not exists (select * " & _
-                                    "from AIRBranch.APBSubpartData " & _
-                                    "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
-                                    "and substr(strSubPartKey, 13, 1) = '9') " & _
-                                    "and subStr(strAirProgramCodes, 8, 1) = '1' " & _
-                                    "or Not exists (select * " & _
-                                    "from AIRBranch.APBSubpartData " & _
-                                    "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
-                                    "and substr(strSubPartKey, 13, 1) = '8') " & _
-                                    "and subStr(strAirProgramCodes, 7, 1) = '1' ) " & _
-                                    "and AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBFacilityInformation.strAIRsnumber " & _
-                                    "and AIRBranch.APBHeaderData.strOperationalStatus <> 'X' " & _
-                                    "order by AIRSNumber "
-                                Else
-                                    If AccountArray(10, 3) = "1" Then 'District Liason
-                                        UserGridStyle = "LoadSSCPQuaternaryWork"
-                                        SQL = "select distinct(substr(AIRBranch.APBHeaderData.strAIRSNumber, 5)) as AIRSnumber, " & _
-                                         "strFacilityName " & _
-                                         "from AIRBranch.APBHeaderData, AIRBranch.APBFacilityInformation  " & _
-                                         "where (Not exists (select * " & _
-                                         "from AIRBranch.APBSubpartData " & _
-                                         "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
-                                         "and substr(strSubPartKey, 13, 1) = 'M') " & _
-                                         "and subStr(strAirProgramCodes, 12, 1) = '1' " & _
-                                         "or Not exists (select * " & _
-                                         "from AIRBranch.APBSubpartData " & _
-                                         "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
-                                         "and substr(strSubPartKey, 13, 1) = '9') " & _
-                                         "and subStr(strAirProgramCodes, 8, 1) = '1' " & _
-                                         "or Not exists (select * " & _
-                                         "from AIRBranch.APBSubpartData " & _
-                                         "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
-                                         "and substr(strSubPartKey, 13, 1) = '8') " & _
-                                         "and subStr(strAirProgramCodes, 7, 1) = '1' ) " & _
-                                         "and AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBFacilityInformation.strAIRsnumber " & _
-                                         "and AIRBranch.APBHeaderData.strOperationalStatus <> 'X' " & _
-                                         "order by AIRSNumber "
-                                    Else
-                                        UserGridStyle = "LoadSSCPQuaternaryWork"
-                                        SQL = "select distinct(substr(AIRBranch.APBHeaderData.strAIRSNumber, 5)) as AIRSnumber, " & _
-                                        "strFacilityName " & _
-                                        "from AIRBranch.APBHeaderData, AIRBranch.APBFacilityInformation  " & _
-                                        "where (Not exists (select * " & _
-                                        "from AIRBranch.APBSubpartData " & _
-                                        "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
-                                        "and substr(strSubPartKey, 13, 1) = 'M') " & _
-                                        "and subStr(strAirProgramCodes, 12, 1) = '1' " & _
-                                        "or Not exists (select * " & _
-                                        "from AIRBranch.APBSubpartData " & _
-                                        "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
-                                        "and substr(strSubPartKey, 13, 1) = '9') " & _
-                                        "and subStr(strAirProgramCodes, 8, 1) = '1' " & _
-                                        "or Not exists (select * " & _
-                                        "from AIRBranch.APBSubpartData " & _
-                                        "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
-                                        "and substr(strSubPartKey, 13, 1) = '8') " & _
-                                        "and subStr(strAirProgramCodes, 7, 1) = '1' ) " & _
-                                        "and AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBFacilityInformation.strAIRsnumber " & _
-                                        "and AIRBranch.APBHeaderData.strOperationalStatus <> 'X' " & _
-                                        "order by AIRSNumber "
-                                    End If
-                                End If
-                            End If
-                        Case "5" 'SPP
-                            If WorkUnit = "---" Then 'Program Manager
-
-                            Else
-                                If AccountArray(24, 3) = "1" Then 'Unit Manager
-
-                                Else
-                                    If AccountArray(9, 3) = "1" Then 'Administrative 2
-
-                                    Else
-
-                                    End If
-                                End If
-                            End If
-                        Case "6" 'Ambient
-
-                    End Select
-                Case "2" 'Watershed Protection
-
-                Case "3" 'Hazard Waste
-
-                Case "4" 'Land Protection
-
-                Case "5" 'Program Coordination 
-                    Select Case WorkProgram
-                        Case "7", "8", "9", "10", "11", "12", "13", "14", "15" 'Distirct 
-                            If WorkUnit = "---" Then 'Program Manager 
-
-                            Else
-
-                            End If
-                    End Select
-                Case "6" 'Directors Office 
-
-            End Select
-
-            dsOpenWork = New DataSet
-            daOpenWork = New OracleDataAdapter(SQL, Conn)
-            If SQL <> "" Then
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
-                End If
-                daOpenWork.Fill(dsOpenWork, "OpenWork")
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-
-        End Try
     End Sub
 
 #End Region
@@ -2823,7 +1045,7 @@ Public Class IAIPNavigation
                     dgvWorkViewer.Columns("strWitnessingEngineer2").Visible = False
                     dgvWorkViewer.Columns("strUserUnit").Visible = False
 
-                    LoadComplianceColor()
+                    LoadISMPComplianceColor()
 
                 Case "Monitoring Test Notifications"
                     SQL = "select  " & _
@@ -4003,8 +2225,31 @@ Public Class IAIPNavigation
 
 #Region "dgvWorkViewer DataGridView events"
 
+    Private Sub LoadISMPComplianceColor()
+        Try
+            For Each row As DataGridViewRow In dgvWorkViewer.Rows
+                If Not row.IsNewRow Then
+                    If Not row.Cells(19).Value Is DBNull.Value Then
+                        temp = row.Cells(19).Value
+                        If row.Cells(19).Value = "True" Then
+                            row.DefaultCellStyle.BackColor = Color.Pink
+                        End If
+                    End If
+                    If Not row.Cells(13).Value Is DBNull.Value Then
+                        temp = row.Cells(13).Value
+                        If row.Cells(13).Value = "Not In Compliance" Then
+                            row.DefaultCellStyle.BackColor = Color.Tomato
+                        End If
+                    End If
+                End If
+            Next
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
     Private Sub dgvWorkViewer_Sorted(ByVal sender As Object, ByVal e As System.EventArgs) Handles dgvWorkViewer.Sorted
-        LoadComplianceColor()
+        LoadISMPComplianceColor()
     End Sub
 
     Private Sub dgvWorkViewer_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvWorkViewer.MouseUp
@@ -4052,21 +2297,930 @@ Public Class IAIPNavigation
 #Region "bgrLongProcess"
 
     Private Sub bgrLongProcess_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bgrLongProcess.DoWork
-        Select Case UserRequest
-            Case "Primary"
-                LoadOpenWork(WorkBranch, WorkProgram, WorkUnit)
-            Case "Secondary"
-                LoadSecondaryWork(WorkBranch, WorkProgram, WorkUnit)
-            Case "Tertiary"
-                LoadTertiaryWork(WorkBranch, WorkProgram, WorkUnit)
-            Case "Quaternary"
-                LoadQuaternaryWork(WorkBranch, WorkProgram, WorkUnit)
-        End Select
+        LoadOpenWork(WorkBranch, WorkProgram, WorkUnit)
     End Sub
 
-    Private Sub bgrLongProcess_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgrLongProcess.RunWorkerCompleted
-        GPWorkTool.Text = pnl1.Text
+#Region "Load work procedures"
 
+    Private Sub LoadOpenWork(ByVal WorkBranch As String, ByVal WorkProgram As String, ByVal WorkUnit As String)
+        Try
+            SQL = ""
+            dsOpenWork = New DataSet
+            Select Case WorkBranch
+                Case "1" 'Air Protection Branch
+                    Select Case WorkProgram
+                        Case "1" 'Mobile & Area
+
+                        Case "2" 'Planning & Support
+
+                        Case "3" 'ISMP
+                            If WorkUnit = "---" Then 'Program Manager
+                                UserGridStyle = "LoadISMPTestReports"
+                                SQL = "Select AIRBranch.VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
+                                "from  AIRBranch.VW_ISMPTestReportViewer, AIRBranch.ISMPReportInformation " & _
+                                "where AIRBranch.VW_ISMPTestReportViewer.strReferenceNumber = " & _
+                                  "AIRBranch.ISMPReportInformation.strReferenceNumber  " & _
+                                "and  Status = 'Open' "
+                            Else
+                                If AccountArray(17, 2) = "1" Then  'Unit Manager
+                                    UserGridStyle = "LoadISMPTestReports"
+                                    SQL = "select AIRBranch.VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
+                                    "from AIRBranch.VW_ISMPTestReportViewer, AIRBranch.ISMPReportInformation " & _
+                                    "where AIRBranch.VW_ISMPTestReportViewer.strReferenceNumber = " & _
+                                     "AIRBranch.ISMPReportInformation.strReferenceNumber  " & _
+                                    "and status = 'Open' " & _
+                                    "and strUserUnit = " & _
+                                    "(select strUnitDesc from AIRBranch.LookUpEPDUnits where numUnitCode = '" & UserUnit & "') "
+                                Else
+                                    UserGridStyle = "LoadISMPTestReports"
+                                    SQL = "Select AIRBranch.VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
+                                    "from  AIRBranch.VW_ISMPTestReportViewer, AIRBranch.ISMPReportInformation " & _
+                                    "where AIRBranch.VW_ISMPTestReportViewer.strReferenceNumber = " & _
+                                     "AIRBranch.ISMPReportInformation.strReferenceNumber  " & _
+                                    "and Status = 'Open' " & _
+                                    "and ReviewingEngineer = '" & pnl2.Text & "' "
+                                End If
+                            End If
+                        Case "4" 'SSCP
+                            If WorkUnit = "---" Then 'Program Manager
+                                UserGridStyle = "LoadSSCPOpenWork"
+                                SQL = "Select " & _
+                                "distinct(to_number(AIRBranch.sscp_AuditedEnforcement.strEnforcementNumber)) as strEnforcementNumber,  " & _
+                                "substr(AIRBranch.sscp_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,   " & _
+                                "case   " & _
+                                "when datEnforcementFinalized is Not Null then '4 - Closed Out'   " & _
+                                "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'   " & _
+                                "when strStatus = 'UC' then '2 - Submitted to UC'   " & _
+                                "When strStatus Is Null then '1 - At Staff'   " & _
+                                "else 'Unknown'   " & _
+                                "end as EnforcementStatus,   " & _
+                                "Case     " & _
+                                "when datDiscoveryDate is Null then ''    " & _
+                                "else to_char(datDiscoveryDate, 'dd-Mon-yyyy')  " & _
+                                "END as Violationdate,     " & _
+                                "strActionType as HPVStatus,    " & _
+                                "Case    " & _
+                                "when datEnforcementFinalized Is Not NULL then 'Closed'    " & _
+                                "when datEnforcementFinalized is NUll then 'Open'    " & _
+                                "Else 'Open'    " & _
+                                "End as Status,    " & _
+                                "strFacilityName,    " & _
+                                "(strLastName||', '||strFirstName) as Staff     " & _
+                                "from AIRBranch.sscp_AuditedEnforcement,     " & _
+                                "AIRBranch.APBFacilityInformation, AIRBranch.EPDUserProfiles,    " & _
+                                "(select numUserID  " & _
+                                "from AIRBranch.EPDUserProfiles where numUnit is null) UnitStaff " & _
+                                "Where  AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.sscp_AuditedEnforcement.strAIRSNumber    " & _
+                                "and (strStatus IS Null or strStatus = 'UC')    " & _
+                                "and datEnforcementFinalized is NULL   " & _
+                                "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.sscp_AuditedEnforcement.numStaffResponsible    " & _
+                                "order by strENforcementNumber DESC   "
+                            Else
+                                If AccountArray(22, 3) = "1" Then 'Unit Manager
+                                    UserGridStyle = "LoadSSCPOpenWork"
+                                    SQL = "Select to_number(AIRBranch.SSCP_aUDITEDEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
+                                     "substr(AIRBranch.SSCP_aUDITEDEnforcement.strAIRSNumber, 5) as AIRSNumber,   " & _
+                                     "case   " & _
+                                     "    when datEnforcementFinalized is Not Null then '4 - Closed Out'   " & _
+                                     "    when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'   " & _
+                                     "    when strStatus = 'UC' then '2 - Submitted to UC'   " & _
+                                     "    When strStatus Is Null then '1 - At Staff'   " & _
+                                     "   else 'Unknown'   " & _
+                                     "end as EnforcementStatus, " & _
+                                    " Case    " & _
+                                    " 	when datDiscoveryDate is Null then ''   " & _
+                                    " 	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " & _
+                                     "END as Violationdate,    " & _
+                                     "case    " & _
+                                     " 	when strHPV IS NULL then strActionType   " & _
+                                     "	When strHPV IS Not Null then 'HPV'    " & _
+                                     "   Else 'HPV'   " & _
+                                     "END as HPVStatus,   " & _
+                                     "Case   " & _
+                                     " 	when datEnforcementFinalized Is Not NULL then 'Closed'   " & _
+                                     "	when datEnforcementFinalized is NUll then 'Open'   " & _
+                                     "Else 'Open'   " & _
+                                     "End as Status,   " & _
+                                     "strFacilityName,   " & _
+                                     "(strLastName||', '||strFirstName) as Staff   " & _
+                                     "from AIRBranch.SSCP_aUDITEDEnforcement,    " & _
+                                     "AIRBranch.APBFacilityInformation, AIRBranch.EPDUserProfiles,   " & _
+                                     "( select numUserID from AIRBranch.EPDUserProfiles where numUnit = '" & UserUnit & "'  " & _
+                                     "group by numUserID ) UnitStaff   " & _
+                                     "Where  AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCP_aUDITEDEnforcement.strAIRSNumber   " & _
+                                     "and (strStatus IS Null or strStatus = 'UC')   " & _
+                                     "and numStaffResponsible = UnitStaff.numUserID   " & _
+                                     "and datEnforcementFinalized is NULL   " & _
+                                     "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCP_aUDITEDEnforcement.numStaffResponsible   " & _
+                                     "order by strENforcementNumber DESC  "
+                                Else
+                                    If AccountArray(10, 3) = "1" Then 'District Liason
+                                        UserGridStyle = "LoadSSCPOpenWork"
+                                        SQL = "Select to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
+                                        "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,   " & _
+                                        "case   " & _
+                                        "when datEnforcementFinalized is Not Null then '4 - Closed Out'   " & _
+                                        "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'   " & _
+                                        "when strStatus = 'UC' then '2 - Submitted to UC'   " & _
+                                        "When strStatus Is Null then '1 - At Staff'   " & _
+                                        "   else 'Unknown'   " & _
+                                        "end as EnforcementStatus, " & _
+                                        "Case    " & _
+                                        " 	when datDiscoveryDate is Null then ''   " & _
+                                        " 	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " & _
+                                        "END as Violationdate,    " & _
+                                        "case    " & _
+                                        " 	when strHPV IS NULL then strActionType   " & _
+                                        " 	When strHPV IS Not Null then 'HPV'    " & _
+                                        "   Else 'HPV'   " & _
+                                        "END as HPVStatus,   " & _
+                                        "Case   " & _
+                                        " 	when datEnforcementFinalized Is Not NULL then 'Closed'   " & _
+                                        "	when datEnforcementFinalized is NUll then 'Open'   " & _
+                                        "Else 'Open'   " & _
+                                        "End as Status,   " & _
+                                        "strFacilityName,   " & _
+                                        "(strLastName||', '||strFirstName) as Staff   " & _
+                                        "from AIRBranch.SSCP_AuditedEnforcement,  " & _
+                                        "AIRBranch.APBFacilityInformation, AIRBranch.EPDUSerProfiles,   " & _
+                                        "(select numuserId  " & _
+                                        "from AIRBranch.EPDUserProfiles  " & _
+                                        "where strLastName = 'District' or (numBranch = '1' and numProgram = '4' and numUnit is null )  " & _
+                                        "group by numUserID) UnitStaff   " & _
+                                        "Where  AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber   " & _
+                                        "and (strStatus IS Null or strStatus = 'UC')   " & _
+                                        "and numStaffResponsible = UnitStaff.numUserID   " & _
+                                        "and datEnforcementFinalized is NULL   " & _
+                                        "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCP_AuditedEnforcement.numStaffResponsible   " & _
+                                        "order by strENforcementNumber DESC   "
+                                    Else
+                                        UserGridStyle = "LoadSSCPOpenWork"
+                                        SQL = "Select to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
+                                     "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
+                                     "case  " & _
+                                     "when datEnforcementFinalized is Not Null then '4 - Closed Out'  " & _
+                                     "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " & _
+                                     "when strStatus = 'UC' then '2 - Submitted to UC'  " & _
+                                     "When strStatus Is Null then '1 - At Staff'  " & _
+                                     "else 'Unknown'  " & _
+                                     "end as EnforcementStatus,  " & _
+                                     "Case   " & _
+                                     " 	when datDiscoveryDate is Null then ''  " & _
+                                     "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy')  " & _
+                                     "END as Violationdate,   " & _
+                                     "case   " & _
+                                     "	when strHPV IS NULL then strActionType  " & _
+                                     "	When strHPV IS Not Null then 'HPV'   " & _
+                                     "Else 'HPV'  " & _
+                                     "END as HPVStatus,  " & _
+                                     "Case  " & _
+                                     " 	when datEnforcementFinalized Is Not NULL then 'Closed'  " & _
+                                     " 	when datEnforcementFinalized is NUll then 'Open'  " & _
+                                     "Else 'Open'  " & _
+                                     "End as Status,  " & _
+                                     "AIRBranch.APBFacilityInformation.strFacilityName,  " & _
+                                     "(strLastName||', '||strFirstName) as Staff  " & _
+                                     "from AIRBranch.SSCP_AuditedEnforcement,   " & _
+                                     "AIRBranch.APBFacilityInformation, AIRBranch.EPDuserProfiles,  " & _
+                                     "AIRBranch.VW_SSCPINSPECTION_LIST " & _
+                                     "Where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber  " & _
+                                     "and AIRBranch.SSCP_AuditedEnforcement.strAIRSnumber = '0413'||AIRBranch.VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
+                                     "and (numStaffResponsible = '" & UserGCode & "' or numSSCPEngineer = '" & UserGCode & "')  " & _
+                                     "and (strStatus IS Null or strStatus = 'UC')  " & _
+                                     "and datEnforcementFinalized is Null  " & _
+                                     "and AIRBranch.EPDuserProfiles.numUserID = numStaffResponsible  " & _
+                                     "order by strENforcementNumber DESC  "
+
+                                    End If
+                                End If
+                            End If
+                        Case "5" 'SSPP
+                            If AccountArray(3, 3) = "1" And WorkUnit = "---" Then  'Program Manager
+                                ' If UserUnit = "---" Then 
+                                UserGridStyle = "LoadSSPPOpenWork"
+                                SQL = "Select " & _
+                              "distinct(to_Number(AIRBranch.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber, " & _
+                              "case " & _
+                              " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber is Null then ' ' " & _
+                              "	when AIRBranch.SSPPApplicationMaster.strAIRSNumber = '0413' then ' ' " & _
+                              "else substr(AIRBranch.SSPPApplicationMaster.strAIRSNumber, 5) " & _
+                              "end as strAIRSNumber, " & _
+                              "case " & _
+                              "	when strApplicationTypeDesc IS Null then ' ' " & _
+                              "Else strApplicationTypeDesc " & _
+                              "End as strApplicationType, " & _
+                              "case " & _
+                              " 	when datReceivedDate is Null then ' ' " & _
+                              "Else to_char(datReceivedDate, 'RRRR-MM-dd') " & _
+                              " End as datReceivedDate, " & _
+                              "case  " & _
+                              "when strPermitNumber is NULL then ' '  " & _
+                              "else substr(strPermitNumber, 1, 4)|| '-' ||substr(strPermitNumber, 5, 3)|| '-'  " & _
+                              " ||substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)|| '-' " & _
+                              " ||substr(strPermitNumber, 13, 2)|| '-' ||substr(strPermitNumber, 15, 1) " & _
+                              "end As strPermitNumber, " & _
+                              "case " & _
+                              " 	when numUserID= '0' then ' ' " & _
+                              "	when numUserID is Null then ' ' " & _
+                              "else (strLastName||', '||strFirstName) " & _
+                              "end as StaffResponsible, " & _
+                              "case  " & _
+                              "when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd') " & _
+                              "when datFinalizedDate is not Null then to_char(datFinalizedDate, 'RRRR-MM-dd') " & _
+                              "when datToDirector is Not Null and datFinalizedDate is Null " & _
+                              "and (datDraftIssued is Null or datDraftIssued < datToDirector) then to_char(datToDirector, 'RRRR-MM-dd') " & _
+                              "when datToBranchCheif is Not Null and datFinalizedDate is Null " & _
+                              "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then to_char(DatTOBranchCheif, 'RRRR-MM-dd')  " & _
+                              "when datEPAEnds is not Null then to_char(datEPAEnds, 'RRRR-MM-dd')   " & _
+                              "when datPNExpires is Not Null and datPNExpires < sysdate then to_char(datPNExpires, 'RRRR-MM-dd')   " & _
+                              "when datPNExpires is Not Null and datPNExpires >= sysdate then to_char(datPNExpires, 'RRRR-MM-dd') " & _
+                              "when datDraftIssued is Not Null and datPNExpires is Null then to_char(datDraftIssued, 'RRRR-MM-dd') " & _
+                              "when dattoPMII is Not Null then to_char(datToPMII, 'RRRR-MM-dd') " & _
+                              "when dattoPMI is Not Null then to_char(datToPMI, 'RRRR-MM-dd') " & _
+                              "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then to_char(datReviewSubmitted, 'RRRR-MM-dd')   " & _
+                              "when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown' " & _
+                              "else to_char(datAssignedToEngineer, 'RRRR-MM-dd') " & _
+                              "end as StatusDate,  " & _
+                              "case  " & _
+                              " 	when AIRBranch.SSPPApplicationData.strFacilityName is Null then ' '  " & _
+                              "else AIRBranch.SSPPApplicationData.strFacilityName  " & _
+                              "end as strFacilityName,  " & _
+                              "case " & _
+                              "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out' " & _
+                              "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO' " & _
+                              "when datToBranchCheif is Not Null and datFinalizedDate is Null " & _
+                              "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC' " & _
+                              "when datEPAEnds is not Null then '08 - EPA 45-day Review' " & _
+                              "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired' " & _
+                              "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'  " & _
+                              "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'  " & _
+                              "when dattoPMII is Not Null then '04 - AT PM'  " & _
+                              "when dattoPMI is Not Null then '03 - At UC'  " & _
+                              "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0')    " & _
+                              "then '02 - Internal Review' " & _
+                              "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'   " & _
+                              "else '01 - At Engineer'  " & _
+                              "end as AppStatus, " & _
+                              "case " & _
+                              " 	when strPermitTypeDescription is Null then '' " & _
+                              "else strPermitTypeDescription " & _
+                              "End as strPermitType " & _
+                              "from AIRBranch.SSPPApplicationMaster, AIRBranch.SSPPApplicationTracking, " & _
+                              "AIRBranch.SSPPApplicationData, " & _
+                              "AIRBranch.LookUpApplicationTypes, AIRBranch.LookUPPermitTypes, " & _
+                              "AIRBranch.EPDuserProfiles  " & _
+                              "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber (+)  " & _
+                              "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber (+) " & _
+                              "and strApplicationType = strApplicationTypeCode (+) " & _
+                              "and strPermitType = strPermitTypeCode (+) " & _
+                              "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible " & _
+                              "and datFinalizedDate is NULL " & _
+                              "order by AIRBranch.SSPPApplicationMaster.strApplicationNumber DESC  "
+
+                            Else
+                                If AccountArray(24, 3) = "1" Then 'Unit Manager
+                                    UserGridStyle = "LoadSSPPOpenWork"
+                                    SQL = "Select " & _
+                                     "distinct(to_Number(AIRBranch.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,  " & _
+                                     "case  " & _
+                                    " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber is Null then ' '  " & _
+                                    " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber = '0413' then ' '  " & _
+                                     "else substr(AIRBranch.SSPPApplicationMaster.strAIRSNumber, 5)  " & _
+                                     "end as strAIRSNumber,  " & _
+                                     "case  " & _
+                                     "	when strApplicationTypeDesc IS Null then ' '  " & _
+                                     "Else strApplicationTypeDesc  " & _
+                                     "End as strApplicationType,  " & _
+                                     "case  " & _
+                                     "	when datReceivedDate is Null then ' '  " & _
+                                     "Else to_char(datReceivedDate, 'RRRR-MM-dd')  " & _
+                                     "End as datReceivedDate,  " & _
+                                     "case   " & _
+                                     "  when strPermitNumber is NULL then ' '   " & _
+                                     "   else substr(strPermitNumber, 1, 4)|| '-' ||substr(strPermitNumber, 5, 3)|| '-'   " & _
+                                     " ||substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)|| '-'  " & _
+                                     " ||substr(strPermitNumber, 13, 2)|| '-' ||substr(strPermitNumber, 15, 1)  " & _
+                                     "end As strPermitNumber,  " & _
+                                     "case  " & _
+                                     "	when numUserID = '0' then ' '  " & _
+                                     "	when numUserID is Null then ' '  " & _
+                                     "else (strLastName||', '||strFirstName)  " & _
+                                     "end as StaffResponsible,  " & _
+                                     "case   " & _
+                                     "when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd')     " & _
+                                     "when datFinalizedDate is Not Null then to_char(datFinalizedDate, 'RRRR-MM-dd')  " & _
+                                     "when datToDirector is Not Null and datFinalizedDate is Null  " & _
+                                     "and (datDraftIssued is Null or datDraftIssued < datToDirector) then to_char(datToDirector, 'RRRR-MM-dd')  " & _
+                                     "when datToBranchCheif is Not Null and datFinalizedDate is Null  " & _
+                                     "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then to_char(DatTOBranchCheif, 'RRRR-MM-dd')   " & _
+                                     "when datEPAEnds is not Null then to_char(datEPAEnds, 'RRRR-MM-dd')    " & _
+                                     "when datPNExpires is Not Null and datPNExpires < sysdate then to_char(datPNExpires, 'RRRR-MM-dd')    " & _
+                                     "when datPNExpires is Not Null and datPNExpires >= sysdate then to_char(datPNExpires, 'RRRR-MM-dd')     " & _
+                                     "when datDraftIssued is Not Null and datPNExpires is Null then to_char(datDraftIssued, 'RRRR-MM-dd')     " & _
+                                     "when dattoPMII is Not Null then to_char(datToPMII, 'RRRR-MM-dd')     " & _
+                                     "when dattoPMI is Not Null then to_char(datToPMI, 'RRRR-MM-dd')     " & _
+                                     "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then to_char(datReviewSubmitted, 'RRRR-MM-dd')    " & _
+                                     "when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown'     " & _
+                                     "else to_char(datAssignedToEngineer, 'RRRR-MM-dd')     " & _
+                                     "end as StatusDate,   " & _
+                                     "case   " & _
+                                     "	when AIRBranch.SSPPApplicationData.strFacilityName is Null then ' '   " & _
+                                     "else AIRBranch.SSPPApplicationData.strFacilityName   " & _
+                                     "end as strFacilityName,   " & _
+                                     "case  " & _
+                                     "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out'  " & _
+                                     "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'  " & _
+                                     "when datToBranchCheif is Not Null and datFinalizedDate is Null  " & _
+                                     "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'  " & _
+                                     "when datEPAEnds is not Null then '08 - EPA 45-day Review'  " & _
+                                     "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'  " & _
+                                     "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'   " & _
+                                     "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'   " & _
+                                     "when dattoPMII is Not Null then '04 - AT PM'   " & _
+                                     "when dattoPMI is Not Null then '03 - At UC'   " & _
+                                     "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then '02 - Internal Review'  " & _
+                                     "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'    " & _
+                                     "else '01 - At Engineer'   " & _
+                                     "end as AppStatus,  " & _
+                                     "case  " & _
+                                     "	when strPermitTypeDescription is Null then ''  " & _
+                                     "else strPermitTypeDescription  " & _
+                                     "End as strPermitType  " & _
+                                     "from AIRBranch.SSPPApplicationMaster, AIRBranch.SSPPApplicationTracking,  " & _
+                                     "AIRBranch.SSPPApplicationData,  " & _
+                                     "AIRBranch.LookUpApplicationTypes, AIRBranch.LookUPPermitTypes,  " & _
+                                     "AIRBranch.EPDUserProfiles " & _
+                                     "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber (+)   " & _
+                                     "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber (+)  " & _
+                                     "and strApplicationType = strApplicationTypeCode (+)  " & _
+                                     "and strPermitType = strPermitTypeCode (+)  " & _
+                                     "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible  " & _
+                                     "and datFinalizedDate is NULL  " & _
+                                     "and (AIRBranch.EPDUserProfiles.numUnit = '" & UserUnit & "'   " & _
+                                     "or (APBUnit = '" & UserUnit & "'))  "
+
+                                Else
+                                    If AccountArray(9, 3) = "1" Then 'Administrative 2
+                                        UserGridStyle = "LoadSSPPOpenWork"
+                                        SQL = "Select " & _
+                                        "distinct(to_Number(AIRBranch.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,   " & _
+                                        "case   " & _
+                                        " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber is Null then ' '   " & _
+                                        " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber = '0413' then ' '   " & _
+                                        " else substr(AIRBranch.SSPPApplicationMaster.strAIRSNumber, 5)   " & _
+                                        " end as strAIRSNumber,   " & _
+                                        " case   " & _
+                                        " 	when strApplicationTypeDesc IS Null then ' '   " & _
+                                        "Else strApplicationTypeDesc   " & _
+                                        "End as strApplicationType,   " & _
+                                        "case   " & _
+                                        "	when datReceivedDate is Null then ' '   " & _
+                                        "Else to_char(datReceivedDate, 'RRRR-MM-dd')   " & _
+                                        "End as datReceivedDate,   " & _
+                                        "case    " & _
+                                        " when strPermitNumber is NULL then ' '    " & _
+                                        " else substr(strPermitNumber, 1, 4)|| '-' ||substr(strPermitNumber, 5, 3)|| '-'    " & _
+                                        "   ||substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)|| '-'   " & _
+                                        "   ||substr(strPermitNumber, 13, 2)|| '-' ||substr(strPermitNumber, 15, 1)   " & _
+                                        "end As strPermitNumber,   " & _
+                                        "case   " & _
+                                        "	when numUserID = '0' then ' '   " & _
+                                        "	when numUserID is Null then ' '   " & _
+                                        "else (strLastName||', '||strFirstName)   " & _
+                                        "end as StaffResponsible,   " & _
+                                        "case    " & _
+                                        "when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd')      " & _
+                                        "when datFinalizedDate is Not Null then to_char(datFinalizedDate, 'RRRR-MM-dd')   " & _
+                                        "when datToDirector is Not Null and datFinalizedDate is Null   " & _
+                                        "and (datDraftIssued is Null or datDraftIssued < datToDirector) then to_char(datToDirector, 'RRRR-MM-dd')   " & _
+                                        "when datToBranchCheif is Not Null and datFinalizedDate is Null   " & _
+                                     "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then to_char(DatTOBranchCheif, 'RRRR-MM-dd')    " & _
+                                        "when datEPAEnds is not Null then to_char(datEPAEnds, 'RRRR-MM-dd')     " & _
+                                         "when datPNExpires is Not Null and datPNExpires < sysdate then to_char(datPNExpires, 'RRRR-MM-dd')     " & _
+                                         "when datPNExpires is Not Null and datPNExpires >= sysdate then to_char(datPNExpires, 'RRRR-MM-dd')      " & _
+                                         "when datDraftIssued is Not Null and datPNExpires is Null then to_char(datDraftIssued, 'RRRR-MM-dd')      " & _
+                                         "when dattoPMII is Not Null then to_char(datToPMII, 'RRRR-MM-dd')      " & _
+                                         "when dattoPMI is Not Null then to_char(datToPMI, 'RRRR-MM-dd')      " & _
+                                         "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then to_char(datReviewSubmitted, 'RRRR-MM-dd')     " & _
+                                         "when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown'      " & _
+                                         "else to_char(datAssignedToEngineer, 'RRRR-MM-dd')      " & _
+                                         "end as StatusDate,    " & _
+                                         "case    " & _
+                                         " 	when AIRBranch.SSPPApplicationData.strFacilityName is Null then ' '    " & _
+                                         "else AIRBranch.SSPPApplicationData.strFacilityName    " & _
+                                         "end as strFacilityName,    " & _
+                                         "case   " & _
+                                         "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out'   " & _
+                                  "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'   " & _
+                                         "when datToBranchCheif is Not Null and datFinalizedDate is Null   " & _
+                                         "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'   " & _
+                                         "when datEPAEnds is not Null then '08 - EPA 45-day Review'   " & _
+                                         "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'   " & _
+                                         "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'    " & _
+                                         "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'    " & _
+                                         "when dattoPMII is Not Null then '04 - AT PM'    " & _
+                                         "when dattoPMI is Not Null then '03 - At UC'    " & _
+                                         "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then '02 - Internal Review'   " & _
+                                         "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'     " & _
+                                         "else '01 - At Engineer'    " & _
+                                         "end as AppStatus,   " & _
+                                         "case   " & _
+                                          "when strPermitTypeDescription is Null then ''   " & _
+                                         "else strPermitTypeDescription   " & _
+                                         "End as strPermitType   " & _
+                                         "from AIRBranch.SSPPApplicationMaster, AIRBranch.SSPPApplicationTracking,   " & _
+                                         "AIRBranch.SSPPApplicationData,   " & _
+                                         "AIRBranch.LookUpApplicationTypes, AIRBranch.LookUPPermitTypes,   " & _
+                                         "AIRBranch.EPDUserProfiles    " & _
+                                         "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber (+)    " & _
+                                         "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber (+)   " & _
+                                         "and strApplicationType = strApplicationTypeCode (+)   " & _
+                                         "and strPermitType = strPermitTypeCode (+)   " & _
+                                         "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible   " & _
+                                        "and datFinalizedDate is NULL   " & _
+                                         "and numUserID = '" & UserGCode & "'  "
+                                    Else
+                                        UserGridStyle = "LoadSSPPOpenWork"
+                                        SQL = "Select " & _
+                                        "distinct(to_Number(AIRBranch.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,   " & _
+                                        "case   " & _
+                                        " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber is Null then ' '   " & _
+                                        " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber = '0413' then ' '   " & _
+                                        " else substr(AIRBranch.SSPPApplicationMaster.strAIRSNumber, 5)   " & _
+                                        "end as strAIRSNumber,   " & _
+                                        "   case   " & _
+                                        " 	when strApplicationTypeDesc IS Null then ' '   " & _
+                                        "Else strApplicationTypeDesc   " & _
+                                        "End as strApplicationType,   " & _
+                                        "case   " & _
+                                        " 	when datReceivedDate is Null then ' '   " & _
+                                        "Else to_char(datReceivedDate, 'RRRR-MM-dd')   " & _
+                                        " End as datReceivedDate,   " & _
+                                        " case    " & _
+                                        " when strPermitNumber is NULL then ' '    " & _
+                                        "  else substr(strPermitNumber, 1, 4)|| '-' ||substr(strPermitNumber, 5, 3)|| '-'    " & _
+                                        " ||substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)|| '-'   " & _
+                                        " ||substr(strPermitNumber, 13, 2)|| '-' ||substr(strPermitNumber, 15, 1)   " & _
+                                        "end As strPermitNumber,   " & _
+                                        "case   " & _
+                                        " 	when numUserID = '0' then ' '   " & _
+                                        " 	when numUserID is Null then ' '   " & _
+                                        "else (strLastName||', '||strFirstName)   " & _
+                                        "end as StaffResponsible,   " & _
+                                        "case    " & _
+                                        "when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd')      " & _
+                                        "when datFinalizeddate is Not Null then to_char(datFinalizeddate, 'RRRR-MM-dd')   " & _
+                                        "when datToDirector is Not Null and datFinalizedDate is Null and   " & _
+                                        "(datDraftIssued is Null or datDraftIssued < datToDirector) then to_char(datToDirector, 'RRRR-MM-dd')   " & _
+                                        "when datToBranchCheif is Not Null and datFinalizedDate is Null and   " & _
+                                        "datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then to_char(DatTOBranchCheif, 'RRRR-MM-dd')    " & _
+                                        "when datEPAEnds is not Null then to_char(datEPAEnds, 'RRRR-MM-dd')     " & _
+                                        "when datPNExpires is Not Null and datPNExpires < sysdate then to_char(datPNExpires, 'RRRR-MM-dd')     " & _
+                                        "when datPNExpires is Not Null and datPNExpires >= sysdate then to_char(datPNExpires, 'RRRR-MM-dd')      " & _
+                                        "when datDraftIssued is Not Null and datPNExpires is Null then to_char(datDraftIssued, 'RRRR-MM-dd')      " & _
+                                        "when dattoPMII is Not Null then to_char(datToPMII, 'RRRR-MM-dd')      " & _
+                                        "when dattoPMI is Not Null then to_char(datToPMI, 'RRRR-MM-dd')      " & _
+                                        "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then to_char(datReviewSubmitted, 'RRRR-MM-dd')     " & _
+                                        "when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown'      " & _
+                                        "else to_char(datAssignedToEngineer, 'RRRR-MM-dd')      " & _
+                                        "end as StatusDate,    " & _
+                                        "case    " & _
+                                        "	when AIRBranch.SSPPApplicationData.strFacilityName is Null then ' '    " & _
+                                        "else AIRBranch.SSPPApplicationData.strFacilityName    " & _
+                                        "end as strFacilityName,    " & _
+                                        "case   " & _
+                                        "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out'   " & _
+                                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'   " & _
+                                        "when datToBranchCheif is Not Null and datFinalizedDate is Null   " & _
+                                        "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'   " & _
+                                        "when datEPAEnds is not Null then '08 - EPA 45-day Review'   " & _
+                                        "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'   " & _
+                                        "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'    " & _
+                                        "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'    " & _
+                                        "when dattoPMII is Not Null then '04 - AT PM'    " & _
+                                        "when dattoPMI is Not Null then '03 - At UC'    " & _
+                                        "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then '02 - Internal Review'   " & _
+                                        "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'     " & _
+                                        "else '01 - At Engineer'    " & _
+                                        "end as AppStatus,   " & _
+                                        "case   " & _
+                                        " 	when strPermitTypeDescription is Null then ''   " & _
+                                        "else strPermitTypeDescription   " & _
+                                        "End as strPermitType   " & _
+                                        "from AIRBranch.SSPPApplicationMaster, AIRBranch.SSPPApplicationTracking,   " & _
+                                        "AIRBranch.SSPPApplicationData,   " & _
+                                        "AIRBranch.LookUpApplicationTypes, AIRBranch.LookUPPermitTypes,   " & _
+                                        "AIRBranch.EPDUserProfiles  " & _
+                                 "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber (+)    " & _
+                                 "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber (+)   " & _
+                                        "and strApplicationType = strApplicationTypeCode (+)   " & _
+                                        "and strPermitType = strPermitTypeCode (+)   " & _
+                                        "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible   " & _
+                                        "and datFinalizedDate is NULL   " & _
+                                        "and numUserID = ('" & UserGCode & "') "
+                                    End If
+                                End If
+                            End If
+                        Case "6" 'Ambient
+
+                    End Select
+                Case "2" 'Watershed Protection
+
+                Case "3" 'Hazard Waste
+
+                Case "4" 'Land Protection
+
+                Case "5" 'Program Coordination 
+
+                    If WorkUnit = "---" Then 'Program Manager
+                        UserGridStyle = "LoadSSCPOpenWork"
+                        SQL = "Select " & _
+                        "distinct(to_number(AIRBranch.sscp_AuditedEnforcement.strEnforcementNumber)) as strEnforcementNumber,  " & _
+                        "substr(AIRBranch.sscp_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,   " & _
+                        "case   " & _
+                        "when datEnforcementFinalized is Not Null then '4 - Closed Out'   " & _
+                        "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'   " & _
+                        "when strStatus = 'UC' then '2 - Submitted to UC'   " & _
+                        "When strStatus Is Null then '1 - At Staff'   " & _
+                        "else 'Unknown'   " & _
+                        "end as EnforcementStatus,   " & _
+                        "Case     " & _
+                        "when datDiscoveryDate is Null then ''    " & _
+                        "else to_char(datDiscoveryDate, 'dd-Mon-yyyy')  " & _
+                        "END as Violationdate,     " & _
+                        "strActionType as HPVStatus,    " & _
+                        "Case    " & _
+                        "when datEnforcementFinalized Is Not NULL then 'Closed'    " & _
+                        "when datEnforcementFinalized is NUll then 'Open'    " & _
+                        "Else 'Open'    " & _
+                        "End as Status,    " & _
+                        "strFacilityName,    " & _
+                        "(strLastName||', '||strFirstName) as Staff     " & _
+                        "from AIRBranch.sscp_AuditedEnforcement,     " & _
+                        "AIRBranch.APBFacilityInformation, AIRBranch.EPDUserProfiles,    " & _
+                        "(select numUserID  " & _
+                        "from AIRBranch.EPDUserProfiles where numUnit is null) UnitStaff " & _
+                        "Where  AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.sscp_AuditedEnforcement.strAIRSNumber    " & _
+                        "and (strStatus IS Null or strStatus = 'UC')    " & _
+                        "and datEnforcementFinalized is NULL   " & _
+                        "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.sscp_AuditedEnforcement.numStaffResponsible    " & _
+                        "order by strENforcementNumber DESC   "
+                    Else
+                        If AccountArray(22, 3) = "1" Then 'Unit Manager
+                            UserGridStyle = "LoadSSCPOpenWork"
+                            SQL = "Select to_number(AIRBranch.SSCP_aUDITEDEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
+                             "substr(AIRBranch.SSCP_aUDITEDEnforcement.strAIRSNumber, 5) as AIRSNumber,   " & _
+                             "case   " & _
+                             "    when datEnforcementFinalized is Not Null then '4 - Closed Out'   " & _
+                             "    when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'   " & _
+                             "    when strStatus = 'UC' then '2 - Submitted to UC'   " & _
+                             "    When strStatus Is Null then '1 - At Staff'   " & _
+                             "   else 'Unknown'   " & _
+                             "end as EnforcementStatus, " & _
+                            " Case    " & _
+                            " 	when datDiscoveryDate is Null then ''   " & _
+                            " 	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " & _
+                             "END as Violationdate,    " & _
+                             "case    " & _
+                             " 	when strHPV IS NULL then strActionType   " & _
+                             "	When strHPV IS Not Null then 'HPV'    " & _
+                             "   Else 'HPV'   " & _
+                             "END as HPVStatus,   " & _
+                             "Case   " & _
+                             " 	when datEnforcementFinalized Is Not NULL then 'Closed'   " & _
+                             "	when datEnforcementFinalized is NUll then 'Open'   " & _
+                             "Else 'Open'   " & _
+                             "End as Status,   " & _
+                             "strFacilityName,   " & _
+                             "(strLastName||', '||strFirstName) as Staff   " & _
+                             "from AIRBranch.SSCP_aUDITEDEnforcement,    " & _
+                             "AIRBranch.APBFacilityInformation, AIRBranch.EPDUserProfiles,   " & _
+                             "( select numUserID from AIRBranch.EPDUserProfiles where numUnit = '" & UserUnit & "'  " & _
+                             "group by numUserID ) UnitStaff   " & _
+                             "Where  AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCP_aUDITEDEnforcement.strAIRSNumber   " & _
+                             "and (strStatus IS Null or strStatus = 'UC')   " & _
+                             "and numStaffResponsible = UnitStaff.numUserID   " & _
+                             "and datEnforcementFinalized is NULL   " & _
+                             "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCP_aUDITEDEnforcement.numStaffResponsible   " & _
+                             "order by strENforcementNumber DESC  "
+                        Else
+                            If AccountArray(10, 3) = "1" Then 'District Liason
+                                UserGridStyle = "LoadSSCPOpenWork"
+                                SQL = "Select to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
+                                "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,   " & _
+                                "case   " & _
+                                "when datEnforcementFinalized is Not Null then '4 - Closed Out'   " & _
+                                "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'   " & _
+                                "when strStatus = 'UC' then '2 - Submitted to UC'   " & _
+                                "When strStatus Is Null then '1 - At Staff'   " & _
+                                "   else 'Unknown'   " & _
+                                "end as EnforcementStatus, " & _
+                                "Case    " & _
+                                " 	when datDiscoveryDate is Null then ''   " & _
+                                " 	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " & _
+                                "END as Violationdate,    " & _
+                                "case    " & _
+                                " 	when strHPV IS NULL then strActionType   " & _
+                                " 	When strHPV IS Not Null then 'HPV'    " & _
+                                "   Else 'HPV'   " & _
+                                "END as HPVStatus,   " & _
+                                "Case   " & _
+                                " 	when datEnforcementFinalized Is Not NULL then 'Closed'   " & _
+                                "	when datEnforcementFinalized is NUll then 'Open'   " & _
+                                "Else 'Open'   " & _
+                                "End as Status,   " & _
+                                "strFacilityName,   " & _
+                                "(strLastName||', '||strFirstName) as Staff   " & _
+                                "from AIRBranch.SSCP_AuditedEnforcement,  " & _
+                                "AIRBranch.APBFacilityInformation, AIRBranch.EPDUSerProfiles,   " & _
+                                "(select numuserId  " & _
+                                "from AIRBranch.EPDUserProfiles  " & _
+                                "where strLastName = 'District' or (numBranch = '1' and numProgram = '4' and numUnit is null )  " & _
+                                "group by numUserID) UnitStaff   " & _
+                                "Where  AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber   " & _
+                                "and (strStatus IS Null or strStatus = 'UC')   " & _
+                                "and numStaffResponsible = UnitStaff.numUserID   " & _
+                                "and datEnforcementFinalized is NULL   " & _
+                                "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCP_AuditedEnforcement.numStaffResponsible   " & _
+                                "order by strENforcementNumber DESC   "
+                            Else
+                                UserGridStyle = "LoadSSCPOpenWork"
+                                SQL = "Select to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
+                             "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
+                             "case  " & _
+                             "when datEnforcementFinalized is Not Null then '4 - Closed Out'  " & _
+                             "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " & _
+                             "when strStatus = 'UC' then '2 - Submitted to UC'  " & _
+                             "When strStatus Is Null then '1 - At Staff'  " & _
+                             "else 'Unknown'  " & _
+                             "end as EnforcementStatus,  " & _
+                             "Case   " & _
+                             " 	when datDiscoveryDate is Null then ''  " & _
+                             "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy')  " & _
+                             "END as Violationdate,   " & _
+                             "case   " & _
+                             "	when strHPV IS NULL then strActionType  " & _
+                             "	When strHPV IS Not Null then 'HPV'   " & _
+                             "Else 'HPV'  " & _
+                             "END as HPVStatus,  " & _
+                             "Case  " & _
+                             " 	when datEnforcementFinalized Is Not NULL then 'Closed'  " & _
+                             " 	when datEnforcementFinalized is NUll then 'Open'  " & _
+                             "Else 'Open'  " & _
+                             "End as Status,  " & _
+                             "AIRBranch.APBFacilityInformation.strFacilityName,  " & _
+                             "(strLastName||', '||strFirstName) as Staff  " & _
+                             "from AIRBranch.SSCP_AuditedEnforcement,   " & _
+                             "AIRBranch.APBFacilityInformation, AIRBranch.EPDuserProfiles,  " & _
+                             "AIRBranch.VW_SSCPINSPECTION_LIST " & _
+                             "Where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber  " & _
+                             "and AIRBranch.SSCP_AuditedEnforcement.strAIRSnumber = '0413'||AIRBranch.VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
+                             "and (numStaffResponsible = '" & UserGCode & "' or numSSCPEngineer = '" & UserGCode & "')  " & _
+                             "and (strStatus IS Null or strStatus = 'UC')  " & _
+                             "and datEnforcementFinalized is Null  " & _
+                             "and AIRBranch.EPDuserProfiles.numUserID = numStaffResponsible  " & _
+                             "order by strENforcementNumber DESC  "
+
+                            End If
+                        End If
+                    End If
+
+
+
+                    'Select Case WorkProgram
+                    '    Case "7", "8", "9", "10", "11", "12", "13", "14", "15" 'Distirct 
+                    '        If WorkUnit = "---" Then 'Program Manager 
+                    '            UserGridStyle = "LoadSSCPOpenWork"
+                    '            SQL = "Select to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber, " & _
+                    '              "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " & _
+                    '              "case " & _
+                    '              "    when datEnforcementFinalized is Not Null then '4 - Closed Out' " & _
+                    '              "    when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA' " & _
+                    '              "    when strStatus = 'UC' then '2 - Submitted to UC' " & _
+                    '              "    When strStatus Is Null then '1 - At Staff' " & _
+                    '              "   else 'Unknown' " & _
+                    '              "end as EnforcementStatus, " & _
+                    '              "Case  " & _
+                    '              "	when datDiscoveryDate is Null then '' " & _
+                    '              "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " & _
+                    '              "END as Violationdate,  " & _
+                    '              "case  " & _
+                    '              " 	when strHPV IS NULL then strActionType " & _
+                    '              " 	When strHPV IS Not Null then 'HPV'  " & _
+                    '              "   Else 'HPV' " & _
+                    '              "END as HPVStatus, " & _
+                    '              "Case " & _
+                    '             " 	when datEnforcementFinalized Is Not NULL then 'Closed' " & _
+                    '              "	when datEnforcementFinalized is NUll then 'Open' " & _
+                    '              "Else 'Open' " & _
+                    '              "End as Status, " & _
+                    '              "strFacilityName, " & _
+                    '              "(strLastName||', '||strFirstName) as Staff " & _
+                    '              "from AIRBranch.SSCP_AuditedEnforcement, " & _
+                    '              "AIRBranch.APBFacilityInformation, AIRBranch.EPDUserProfiles, " & _
+                    '              "(select numUserID from AIRBranch.EPDUserProfiles " & _
+                    '              "where strLastName = 'District' or (numBranch = '1' and numProgram = '4' and numUnit is null) " & _
+                    '              "group by numUserID) UnitStaff " & _
+                    '              "Where  AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber " & _
+                    '              "and (strStatus IS Null or strStatus = 'UC') " & _
+                    '              "and numStaffResponsible = UnitStaff.numUserID " & _
+                    '              "and datEnforcementFinalized is NULL " & _
+                    '              "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCP_AuditedEnforcement.numStaffResponsible " & _
+                    '              "order by strENforcementNumber DESC "
+                    '        Else
+                    '            UserGridStyle = "LoadSSCPOpenWork"
+                    '            SQL = "Select to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
+                    '            "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,   " & _
+                    '            "case   " & _
+                    '            "    when datEnforcementFinalized is Not Null then '4 - Closed Out'   " & _
+                    '            "    when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'   " & _
+                    '            "    when strStatus = 'UC' then '2 - Submitted to UC'   " & _
+                    '            "    When strStatus Is Null then '1 - At Staff'   " & _
+                    '            "   else 'Unknown'   " & _
+                    '            "end as EnforcementStatus, " & _
+                    '            "Case    " & _
+                    '            "	when datDiscoveryDate is Null then ''   " & _
+                    '            "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " & _
+                    '            "END as Violationdate,    " & _
+                    '            "case    " & _
+                    '            " 	when strHPV IS NULL then strActionType   " & _
+                    '            " 	When strHPV IS Not Null then 'HPV'    " & _
+                    '            "   Else 'HPV'   " & _
+                    '            "END as HPVStatus,   " & _
+                    '            "Case   " & _
+                    '            "	when datEnforcementFinalized Is Not NULL then 'Closed'   " & _
+                    '            "	when datEnforcementFinalized is NUll then 'Open'   " & _
+                    '            "Else 'Open'   " & _
+                    '            "End as Status,   " & _
+                    '            "strFacilityName,   " & _
+                    '            "(strLastName||', '||strFirstName) as Staff   " & _
+                    '            "from AIRBranch.SSCP_AuditedEnforcement,  " & _
+                    '            "AIRBranch.APBFacilityInformation, AIRBranch.EPDUserProfiles,   " & _
+                    '            "(select numUserID from AIRBranch.EPDUserProfiles   " & _
+                    '            "where strLastName = 'District' or (numBranch = '1' and numProgram = '4' and numUnit is null)  " & _
+                    '            "group by numUserID) UnitStaff   " & _
+                    '            "Where  AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber   " & _
+                    '            "and (strStatus IS Null or strStatus = 'UC')   " & _
+                    '            "and numStaffResponsible = UnitStaff.numUSerID  " & _
+                    '            "and datEnforcementFinalized is NULL   " & _
+                    '            "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCP_AuditedEnforcement.numStaffResponsible   " & _
+                    '            "order by strEnforcementNumber DESC  "
+                    '        End If
+
+                    'End Select
+                Case "6" 'Directors Office 
+
+            End Select
+
+            dsOpenWork = New DataSet
+            daOpenWork = New OracleDataAdapter(SQL, Conn)
+            If SQL <> "" Then
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
+                End If
+                daOpenWork.Fill(dsOpenWork, "OpenWork")
+            End If
+
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+
+        End Try
+
+    End Sub
+
+    Private Sub LoadISMPTestReports()
+        If SQL <> "" Then
+            dgvWorkViewer.DataSource = dsOpenWork
+            dgvWorkViewer.DataMember = "OpenWork"
+
+            dgvWorkViewer.RowHeadersVisible = False
+            dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+            dgvWorkViewer.AllowUserToResizeColumns = True
+            dgvWorkViewer.AllowUserToAddRows = False
+            dgvWorkViewer.AllowUserToDeleteRows = False
+            dgvWorkViewer.AllowUserToOrderColumns = True
+            dgvWorkViewer.AllowUserToResizeRows = True
+            dgvWorkViewer.ColumnHeadersHeight = "35"
+            dgvWorkViewer.Columns("strReferenceNumber").HeaderText = "Reference #"
+            dgvWorkViewer.Columns("strReferenceNumber").DisplayIndex = 0
+            dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
+            dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 1
+            dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
+            dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 2
+            dgvWorkViewer.Columns("strFacilityCity").HeaderText = "City"
+            dgvWorkViewer.Columns("strFacilityCity").DisplayIndex = 3
+            dgvWorkViewer.Columns("strCountyName").HeaderText = "County"
+            dgvWorkViewer.Columns("strCountyName").DisplayIndex = 4
+            dgvWorkViewer.Columns("strEmissionSource").HeaderText = "Emission Source"
+            dgvWorkViewer.Columns("strEmissionSource").DisplayIndex = 5
+            dgvWorkViewer.Columns("strPollutantDescription").HeaderText = "Pollutant"
+            dgvWorkViewer.Columns("strPollutantDescription").DisplayIndex = 6
+            dgvWorkViewer.Columns("strReportType").HeaderText = "Report Type"
+            dgvWorkViewer.Columns("strReportType").DisplayIndex = 7
+            dgvWorkViewer.Columns("strDocumentType").HeaderText = "Document Type"
+            dgvWorkViewer.Columns("strDocumentType").DisplayIndex = 8
+            dgvWorkViewer.Columns("ReviewingEngineer").HeaderText = "Reviewing Engineer"
+            dgvWorkViewer.Columns("ReviewingEngineer").DisplayIndex = 9
+            dgvWorkViewer.Columns("TestDateStart").HeaderText = "Test Date"
+            dgvWorkViewer.Columns("TestDateStart").DefaultCellStyle.Format = "dd-MMM-yyyy"
+            dgvWorkViewer.Columns("TestDateStart").DisplayIndex = 10
+            dgvWorkViewer.Columns("ReceivedDate").HeaderText = "Received Date"
+            dgvWorkViewer.Columns("ReceivedDate").DisplayIndex = 11
+            dgvWorkViewer.Columns("ReceivedDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
+            dgvWorkViewer.Columns("CompleteDate").HeaderText = "Complete Date"
+            dgvWorkViewer.Columns("CompleteDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
+            dgvWorkViewer.Columns("CompleteDate").DisplayIndex = 12
+            dgvWorkViewer.Columns("Status").HeaderText = "Report Open/Closed"
+            dgvWorkViewer.Columns("Status").DisplayIndex = 13
+            dgvWorkViewer.Columns("strComplianceStatus").HeaderText = "Compliance Status"
+            dgvWorkViewer.Columns("strComplianceStatus").DisplayIndex = 14
+            dgvWorkViewer.Columns("mmoCommentAREA").HeaderText = "Comment Field"
+            dgvWorkViewer.Columns("mmoCommentAREA").DisplayIndex = 15
+            dgvWorkViewer.Columns("strPreComplianceStatus").HeaderText = "Precompliance Status"
+            dgvWorkViewer.Columns("strPreComplianceStatus").DisplayIndex = 16
+            dgvWorkViewer.Columns("strWitnessingEngineer").Visible = False
+            dgvWorkViewer.Columns("strWitnessingEngineer2").Visible = False
+            dgvWorkViewer.Columns("strUserUnit").Visible = False
+
+            LoadISMPComplianceColor()
+        End If
+    End Sub
+
+    Private Sub LoadSSCPOpenWork()
+        If SQL <> "" Then
+
+            dgvWorkViewer.DataSource = dsOpenWork
+            dgvWorkViewer.DataMember = "OpenWork"
+
+            dgvWorkViewer.RowHeadersVisible = False
+            dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+            dgvWorkViewer.AllowUserToResizeColumns = True
+            dgvWorkViewer.AllowUserToAddRows = False
+            dgvWorkViewer.AllowUserToDeleteRows = False
+            dgvWorkViewer.AllowUserToOrderColumns = True
+            dgvWorkViewer.AllowUserToResizeRows = True
+            dgvWorkViewer.ColumnHeadersHeight = "35"
+            dgvWorkViewer.Columns("strEnforcementNumber").HeaderText = "Enforcement #"
+            dgvWorkViewer.Columns("strEnforcementNumber").DisplayIndex = 0
+            dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
+            dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 1
+            dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
+            dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 2
+            dgvWorkViewer.Columns("EnforcementStatus").HeaderText = "Enforcement Status"
+            dgvWorkViewer.Columns("EnforcementStatus").DisplayIndex = 3
+            dgvWorkViewer.Columns("Violationdate").HeaderText = "Discovery Date"
+            dgvWorkViewer.Columns("Violationdate").DisplayIndex = 4
+            dgvWorkViewer.Columns("Violationdate").DefaultCellStyle.Format = "dd-MMM-yyyy"
+            dgvWorkViewer.Columns("HPVstatus").HeaderText = "Status"
+            dgvWorkViewer.Columns("HPVstatus").DisplayIndex = 5
+            dgvWorkViewer.Columns("Status").HeaderText = "Open/Closed"
+            dgvWorkViewer.Columns("Status").DisplayIndex = 6
+            dgvWorkViewer.Columns("Staff").HeaderText = "Staff Responsible"
+            dgvWorkViewer.Columns("Staff").DisplayIndex = 7
+        End If
+    End Sub
+
+    Private Sub LoadSSPPOpenWork()
+        If SQL <> "" Then
+            dgvWorkViewer.DataSource = dsOpenWork
+            dgvWorkViewer.DataMember = "OpenWork"
+
+            dgvWorkViewer.RowHeadersVisible = False
+            dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+            dgvWorkViewer.AllowUserToResizeColumns = True
+            dgvWorkViewer.AllowUserToAddRows = False
+            dgvWorkViewer.AllowUserToDeleteRows = False
+            dgvWorkViewer.AllowUserToOrderColumns = True
+            dgvWorkViewer.AllowUserToResizeRows = True
+            dgvWorkViewer.ColumnHeadersHeight = "35"
+            dgvWorkViewer.Columns("strApplicationNumber").HeaderText = "APL #"
+            dgvWorkViewer.Columns("strApplicationNumber").DisplayIndex = 0
+            dgvWorkViewer.Columns("strAIRSNumber").HeaderText = "AIRS #"
+            dgvWorkViewer.Columns("strAIRSNumber").DisplayIndex = 1
+            dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
+            dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 2
+            dgvWorkViewer.Columns("StaffResponsible").HeaderText = "Staff Responsible"
+            dgvWorkViewer.Columns("StaffResponsible").DisplayIndex = 3
+            dgvWorkViewer.Columns("strApplicationType").HeaderText = "APL Type"
+            dgvWorkViewer.Columns("strApplicationType").DisplayIndex = 4
+            dgvWorkViewer.Columns("datReceivedDate").HeaderText = "APL Rcvd"
+            dgvWorkViewer.Columns("datReceivedDate").DisplayIndex = 5
+            dgvWorkViewer.Columns("datReceivedDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
+            dgvWorkViewer.Columns("strPermitNumber").HeaderText = "Permit Number"
+            dgvWorkViewer.Columns("strPermitNumber").DisplayIndex = 6
+            dgvWorkViewer.Columns("AppStatus").HeaderText = "App Status"
+            dgvWorkViewer.Columns("AppStatus").DisplayIndex = 8
+            dgvWorkViewer.Columns("StatusDate").HeaderText = "Status Date"
+            dgvWorkViewer.Columns("StatusDate").DisplayIndex = 9
+            dgvWorkViewer.Columns("strPermitType").HeaderText = "Action Type"
+            dgvWorkViewer.Columns("strPermitType").DisplayIndex = 7
+
+        End If
+    End Sub
+
+#End Region
+
+    Private Sub bgrLongProcess_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgrLongProcess.RunWorkerCompleted
         If dsOpenWork.Tables.Count > 0 Then
             dgvWorkViewer.DataSource = dsOpenWork
             dgvWorkViewer.DataMember = "OpenWork"
@@ -4078,25 +3232,18 @@ Public Class IAIPNavigation
         txtDataGridCount.Text = dgvWorkViewer.RowCount
 
         Select Case UserGridStyle
+
             Case "LoadISMPTestReports"
                 LoadISMPTestReports()
+
             Case "LoadSSCPOpenWork"
                 LoadSSCPOpenWork()
+
             Case "LoadSSPPOpenWork"
                 LoadSSPPOpenWork()
-            Case "LoadSSCPTertiaryWork"
-                LoadSSCPTertiaryWork()
-            Case "LoadSSCPQuaternaryWork"
-                LoadSSCPQuaternaryWork()
-            Case "LoadSecondaryWork2"
-                LoadSecondaryWork2()
-            Case "LoadISMPTertiaryWork"
-                LoadISMPTertiaryWork()
+
             Case Else
-
                 dgvWorkViewer.DataSource = dsOpenWork
-                ' dgvWorkViewer.DataMember = "OpenWork"
-
                 dgvWorkViewer.RowHeadersVisible = False
                 dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvWorkViewer.AllowUserToResizeColumns = True
@@ -4105,46 +3252,6 @@ Public Class IAIPNavigation
                 dgvWorkViewer.AllowUserToOrderColumns = True
                 dgvWorkViewer.AllowUserToResizeRows = True
                 dgvWorkViewer.ColumnHeadersHeight = "35"
-                'dgvWorkViewer.Columns("strReferenceNumber").HeaderText = "Reference #"
-                'dgvWorkViewer.Columns("strReferenceNumber").DisplayIndex = 0
-                'dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
-                'dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 1
-                'dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
-                'dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 2
-                'dgvWorkViewer.Columns("strFacilityCity").HeaderText = "City"
-                'dgvWorkViewer.Columns("strFacilityCity").DisplayIndex = 3
-                'dgvWorkViewer.Columns("strCountyName").HeaderText = "County"
-                'dgvWorkViewer.Columns("strCountyName").DisplayIndex = 4
-                'dgvWorkViewer.Columns("strEmissionSource").HeaderText = "Emission Source"
-                'dgvWorkViewer.Columns("strEmissionSource").DisplayIndex = 5
-                'dgvWorkViewer.Columns("strPollutantDescription").HeaderText = "Pollutant"
-                'dgvWorkViewer.Columns("strPollutantDescription").DisplayIndex = 6
-                'dgvWorkViewer.Columns("strReportType").HeaderText = "Report Type"
-                'dgvWorkViewer.Columns("strReportType").DisplayIndex = 7
-                'dgvWorkViewer.Columns("strDocumentType").HeaderText = "Document Type"
-                'dgvWorkViewer.Columns("strDocumentType").DisplayIndex = 8
-                'dgvWorkViewer.Columns("ReviewingEngineer").HeaderText = "Reviewing Engineer"
-                'dgvWorkViewer.Columns("ReviewingEngineer").DisplayIndex = 9
-                'dgvWorkViewer.Columns("TestDateStart").HeaderText = "Test Date"
-                'dgvWorkViewer.Columns("TestDateStart").DefaultCellStyle.Format = "dd-MMM-yyyy"
-                'dgvWorkViewer.Columns("TestDateStart").DisplayIndex = 10
-                'dgvWorkViewer.Columns("ReceivedDate").HeaderText = "Received Date"
-                'dgvWorkViewer.Columns("ReceivedDate").DisplayIndex = 11
-                'dgvWorkViewer.Columns("ReceivedDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-                'dgvWorkViewer.Columns("CompleteDate").HeaderText = "Complete Date"
-                'dgvWorkViewer.Columns("CompleteDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-                'dgvWorkViewer.Columns("CompleteDate").DisplayIndex = 12
-                'dgvWorkViewer.Columns("Status").HeaderText = "Report Open/Closed"
-                'dgvWorkViewer.Columns("Status").DisplayIndex = 13
-                'dgvWorkViewer.Columns("strComplianceStatus").HeaderText = "Compliance Status"
-                'dgvWorkViewer.Columns("strComplianceStatus").DisplayIndex = 14
-                'dgvWorkViewer.Columns("mmoCommentAREA").HeaderText = "Comment Field"
-                'dgvWorkViewer.Columns("mmoCommentAREA").DisplayIndex = 15
-                'dgvWorkViewer.Columns("strPreComplianceStatus").HeaderText = "Precompliance Status"
-                'dgvWorkViewer.Columns("strPreComplianceStatus").DisplayIndex = 16
-                'dgvWorkViewer.Columns("strWitnessingEngineer").Visible = False
-                'dgvWorkViewer.Columns("strWitnessingEngineer2").Visible = False
-                'dgvWorkViewer.Columns("strUserUnit").Visible = False
 
         End Select
 

@@ -677,7 +677,6 @@ Partial Class IAIPNavigation
         Me.GPWorkTool.Size = New System.Drawing.Size(674, 166)
         Me.GPWorkTool.TabIndex = 120
         Me.GPWorkTool.TabStop = False
-        Me.GPWorkTool.Text = "Work Tool"
         '
         'rdbPMView
         '
@@ -819,7 +818,7 @@ Partial Class IAIPNavigation
         Me.pnl1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.pnl1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.pnl1.Name = "pnl1"
-        Me.pnl1.Size = New System.Drawing.Size(385, 19)
+        Me.pnl1.Size = New System.Drawing.Size(462, 19)
         Me.pnl1.Spring = True
         Me.pnl1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
