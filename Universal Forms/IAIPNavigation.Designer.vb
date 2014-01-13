@@ -20,7 +20,6 @@ Partial Class IAIPNavigation
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPNavigation))
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.mmiFile = New System.Windows.Forms.MenuItem
         Me.mmiExit = New System.Windows.Forms.MenuItem
@@ -32,7 +31,6 @@ Partial Class IAIPNavigation
         Me.MenuItem1 = New System.Windows.Forms.MenuItem
         Me.mmiAbout = New System.Windows.Forms.MenuItem
         Me.mmiTesting = New System.Windows.Forms.MenuItem
-        Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.Label1 = New System.Windows.Forms.Label
         Me.Panel4 = New System.Windows.Forms.Panel
         Me.btnNav40 = New System.Windows.Forms.Button
@@ -179,96 +177,6 @@ Partial Class IAIPNavigation
         Me.mmiTesting.Index = 3
         Me.mmiTesting.Text = "Testing"
         Me.mmiTesting.Visible = False
-        '
-        'Image_List_All
-        '
-        Me.Image_List_All.ImageStream = CType(resources.GetObject("Image_List_All.ImageStream"), System.Windows.Forms.ImageListStreamer)
-        Me.Image_List_All.TransparentColor = System.Drawing.Color.Transparent
-        Me.Image_List_All.Images.SetKeyName(0, "")
-        Me.Image_List_All.Images.SetKeyName(1, "")
-        Me.Image_List_All.Images.SetKeyName(2, "")
-        Me.Image_List_All.Images.SetKeyName(3, "")
-        Me.Image_List_All.Images.SetKeyName(4, "")
-        Me.Image_List_All.Images.SetKeyName(5, "")
-        Me.Image_List_All.Images.SetKeyName(6, "")
-        Me.Image_List_All.Images.SetKeyName(7, "")
-        Me.Image_List_All.Images.SetKeyName(8, "")
-        Me.Image_List_All.Images.SetKeyName(9, "")
-        Me.Image_List_All.Images.SetKeyName(10, "")
-        Me.Image_List_All.Images.SetKeyName(11, "")
-        Me.Image_List_All.Images.SetKeyName(12, "")
-        Me.Image_List_All.Images.SetKeyName(13, "")
-        Me.Image_List_All.Images.SetKeyName(14, "")
-        Me.Image_List_All.Images.SetKeyName(15, "")
-        Me.Image_List_All.Images.SetKeyName(16, "")
-        Me.Image_List_All.Images.SetKeyName(17, "")
-        Me.Image_List_All.Images.SetKeyName(18, "")
-        Me.Image_List_All.Images.SetKeyName(19, "")
-        Me.Image_List_All.Images.SetKeyName(20, "")
-        Me.Image_List_All.Images.SetKeyName(21, "")
-        Me.Image_List_All.Images.SetKeyName(22, "")
-        Me.Image_List_All.Images.SetKeyName(23, "")
-        Me.Image_List_All.Images.SetKeyName(24, "")
-        Me.Image_List_All.Images.SetKeyName(25, "")
-        Me.Image_List_All.Images.SetKeyName(26, "")
-        Me.Image_List_All.Images.SetKeyName(27, "")
-        Me.Image_List_All.Images.SetKeyName(28, "")
-        Me.Image_List_All.Images.SetKeyName(29, "")
-        Me.Image_List_All.Images.SetKeyName(30, "")
-        Me.Image_List_All.Images.SetKeyName(31, "")
-        Me.Image_List_All.Images.SetKeyName(32, "")
-        Me.Image_List_All.Images.SetKeyName(33, "")
-        Me.Image_List_All.Images.SetKeyName(34, "")
-        Me.Image_List_All.Images.SetKeyName(35, "")
-        Me.Image_List_All.Images.SetKeyName(36, "")
-        Me.Image_List_All.Images.SetKeyName(37, "")
-        Me.Image_List_All.Images.SetKeyName(38, "")
-        Me.Image_List_All.Images.SetKeyName(39, "")
-        Me.Image_List_All.Images.SetKeyName(40, "")
-        Me.Image_List_All.Images.SetKeyName(41, "")
-        Me.Image_List_All.Images.SetKeyName(42, "")
-        Me.Image_List_All.Images.SetKeyName(43, "")
-        Me.Image_List_All.Images.SetKeyName(44, "")
-        Me.Image_List_All.Images.SetKeyName(45, "")
-        Me.Image_List_All.Images.SetKeyName(46, "")
-        Me.Image_List_All.Images.SetKeyName(47, "")
-        Me.Image_List_All.Images.SetKeyName(48, "")
-        Me.Image_List_All.Images.SetKeyName(49, "")
-        Me.Image_List_All.Images.SetKeyName(50, "")
-        Me.Image_List_All.Images.SetKeyName(51, "")
-        Me.Image_List_All.Images.SetKeyName(52, "")
-        Me.Image_List_All.Images.SetKeyName(53, "")
-        Me.Image_List_All.Images.SetKeyName(54, "")
-        Me.Image_List_All.Images.SetKeyName(55, "")
-        Me.Image_List_All.Images.SetKeyName(56, "")
-        Me.Image_List_All.Images.SetKeyName(57, "")
-        Me.Image_List_All.Images.SetKeyName(58, "")
-        Me.Image_List_All.Images.SetKeyName(59, "")
-        Me.Image_List_All.Images.SetKeyName(60, "")
-        Me.Image_List_All.Images.SetKeyName(61, "")
-        Me.Image_List_All.Images.SetKeyName(62, "")
-        Me.Image_List_All.Images.SetKeyName(63, "")
-        Me.Image_List_All.Images.SetKeyName(64, "")
-        Me.Image_List_All.Images.SetKeyName(65, "")
-        Me.Image_List_All.Images.SetKeyName(66, "")
-        Me.Image_List_All.Images.SetKeyName(67, "")
-        Me.Image_List_All.Images.SetKeyName(68, "")
-        Me.Image_List_All.Images.SetKeyName(69, "")
-        Me.Image_List_All.Images.SetKeyName(70, "")
-        Me.Image_List_All.Images.SetKeyName(71, "")
-        Me.Image_List_All.Images.SetKeyName(72, "")
-        Me.Image_List_All.Images.SetKeyName(73, "")
-        Me.Image_List_All.Images.SetKeyName(74, "")
-        Me.Image_List_All.Images.SetKeyName(75, "")
-        Me.Image_List_All.Images.SetKeyName(76, "")
-        Me.Image_List_All.Images.SetKeyName(77, "")
-        Me.Image_List_All.Images.SetKeyName(78, "")
-        Me.Image_List_All.Images.SetKeyName(79, "")
-        Me.Image_List_All.Images.SetKeyName(80, "")
-        Me.Image_List_All.Images.SetKeyName(81, "")
-        Me.Image_List_All.Images.SetKeyName(82, "")
-        Me.Image_List_All.Images.SetKeyName(83, "")
-        Me.Image_List_All.Images.SetKeyName(84, "")
         '
         'Label1
         '
@@ -829,6 +737,7 @@ Partial Class IAIPNavigation
         '
         'cboIAIPList
         '
+        Me.cboIAIPList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboIAIPList.FormattingEnabled = True
         Me.cboIAIPList.Location = New System.Drawing.Point(22, 114)
         Me.cboIAIPList.Name = "cboIAIPList"
@@ -1165,7 +1074,6 @@ Partial Class IAIPNavigation
     Friend WithEvents mmiTools As System.Windows.Forms.MenuItem
     Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents mmiAbout As System.Windows.Forms.MenuItem
-    Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
     Friend WithEvents GPWorkTool As System.Windows.Forms.GroupBox
