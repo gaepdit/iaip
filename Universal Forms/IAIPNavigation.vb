@@ -18,9 +18,10 @@ Public Class IAIPNavigation
     Private Sub APBNavigation_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Main." & Me.Name)
         Try
+            IAIPLogIn.Hide()
+
             pnl3.Text = OracleDate
             pnl2.Text = UserName
-            ProgressBar.PerformStep()
 
             WorkBranch = UserBranch
             WorkProgram = UserProgram
@@ -29,11 +30,6 @@ Public Class IAIPNavigation
             bgrLoadButtons.WorkerReportsProgress = True
             bgrLoadButtons.WorkerSupportsCancellation = True
             bgrLoadButtons.RunWorkerAsync()
-
-            ProgressBar.Value = 0
-            IAIPLogIn.Hide()
-
-            'GetDefaultLocation()
 
             cboIAIPList.Items.Add("Compliance Facilities Assigned")
             cboIAIPList.Items.Add("Compliance Work")
@@ -48,8 +44,6 @@ Public Class IAIPNavigation
             EnableTestingMenu()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 
