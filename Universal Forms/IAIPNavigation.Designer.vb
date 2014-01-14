@@ -73,13 +73,14 @@ Partial Class IAIPNavigation
         Me.btnNav3 = New System.Windows.Forms.Button
         Me.btnNav2 = New System.Windows.Forms.Button
         Me.btnNav1 = New System.Windows.Forms.Button
-        Me.GPWorkTool = New System.Windows.Forms.GroupBox
+        Me.GPWorkSelectorTool = New System.Windows.Forms.GroupBox
+        Me.pnlWorkViewerContext = New System.Windows.Forms.Panel
         Me.rdbPMView = New System.Windows.Forms.RadioButton
         Me.rdbUCView = New System.Windows.Forms.RadioButton
         Me.rdbStaffView = New System.Windows.Forms.RadioButton
-        Me.btnChangeListView = New System.Windows.Forms.Button
+        Me.btnChangeWorkViewerContext = New System.Windows.Forms.Button
         Me.Label9 = New System.Windows.Forms.Label
-        Me.cboIAIPList = New System.Windows.Forms.ComboBox
+        Me.cboWorkViewerContext = New System.Windows.Forms.ComboBox
         Me.llbOpenTestLog = New System.Windows.Forms.LinkLabel
         Me.txtTestLogNumber = New System.Windows.Forms.TextBox
         Me.Label8 = New System.Windows.Forms.Label
@@ -87,6 +88,7 @@ Partial Class IAIPNavigation
         Me.Label7 = New System.Windows.Forms.Label
         Me.txtAIRSNumber = New System.Windows.Forms.TextBox
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
+        Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar
         Me.pnl1 = New System.Windows.Forms.ToolStripStatusLabel
         Me.pnl2 = New System.Windows.Forms.ToolStripStatusLabel
         Me.pnl3 = New System.Windows.Forms.ToolStripStatusLabel
@@ -107,11 +109,12 @@ Partial Class IAIPNavigation
         Me.Label3 = New System.Windows.Forms.Label
         Me.txtReferenceNumber = New System.Windows.Forms.TextBox
         Me.dgvWorkViewer = New System.Windows.Forms.DataGridView
-        Me.bgrLongProcess = New System.ComponentModel.BackgroundWorker
+        Me.bgrLoadWorkViewer = New System.ComponentModel.BackgroundWorker
         Me.lblMessageLabel = New System.Windows.Forms.Label
         Me.bgrLoadButtons = New System.ComponentModel.BackgroundWorker
         Me.Panel4.SuspendLayout()
-        Me.GPWorkTool.SuspendLayout()
+        Me.GPWorkSelectorTool.SuspendLayout()
+        Me.pnlWorkViewerContext.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.dgvWorkViewer, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -640,70 +643,77 @@ Partial Class IAIPNavigation
         Me.btnNav1.Text = "Button 1"
         Me.btnNav1.Visible = False
         '
-        'GPWorkTool
+        'GPWorkSelectorTool
         '
-        Me.GPWorkTool.Controls.Add(Me.rdbPMView)
-        Me.GPWorkTool.Controls.Add(Me.rdbUCView)
-        Me.GPWorkTool.Controls.Add(Me.rdbStaffView)
-        Me.GPWorkTool.Controls.Add(Me.btnChangeListView)
-        Me.GPWorkTool.Controls.Add(Me.Label9)
-        Me.GPWorkTool.Controls.Add(Me.cboIAIPList)
-        Me.GPWorkTool.Controls.Add(Me.llbOpenTestLog)
-        Me.GPWorkTool.Controls.Add(Me.txtTestLogNumber)
-        Me.GPWorkTool.Controls.Add(Me.Label8)
-        Me.GPWorkTool.Controls.Add(Me.llbFacilitySummary)
-        Me.GPWorkTool.Controls.Add(Me.Label7)
-        Me.GPWorkTool.Controls.Add(Me.txtAIRSNumber)
-        Me.GPWorkTool.Controls.Add(Me.StatusStrip1)
-        Me.GPWorkTool.Controls.Add(Me.llbTrackingNumber)
-        Me.GPWorkTool.Controls.Add(Me.txtTrackingNumber)
-        Me.GPWorkTool.Controls.Add(Me.Label2)
-        Me.GPWorkTool.Controls.Add(Me.llbOpenApplication)
-        Me.GPWorkTool.Controls.Add(Me.Label6)
-        Me.GPWorkTool.Controls.Add(Me.txtApplicationNumber)
-        Me.GPWorkTool.Controls.Add(Me.llbEnforcementRecord)
-        Me.GPWorkTool.Controls.Add(Me.Label5)
-        Me.GPWorkTool.Controls.Add(Me.txtEnforcementNumber)
-        Me.GPWorkTool.Controls.Add(Me.Label4)
-        Me.GPWorkTool.Controls.Add(Me.txtDataGridCount)
-        Me.GPWorkTool.Controls.Add(Me.LLSelectReport)
-        Me.GPWorkTool.Controls.Add(Me.Label3)
-        Me.GPWorkTool.Controls.Add(Me.txtReferenceNumber)
-        Me.GPWorkTool.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GPWorkTool.Location = New System.Drawing.Point(118, 235)
-        Me.GPWorkTool.Margin = New System.Windows.Forms.Padding(2)
-        Me.GPWorkTool.Name = "GPWorkTool"
-        Me.GPWorkTool.Padding = New System.Windows.Forms.Padding(2)
-        Me.GPWorkTool.Size = New System.Drawing.Size(674, 166)
-        Me.GPWorkTool.TabIndex = 120
-        Me.GPWorkTool.TabStop = False
+        Me.GPWorkSelectorTool.Controls.Add(Me.pnlWorkViewerContext)
+        Me.GPWorkSelectorTool.Controls.Add(Me.btnChangeWorkViewerContext)
+        Me.GPWorkSelectorTool.Controls.Add(Me.Label9)
+        Me.GPWorkSelectorTool.Controls.Add(Me.cboWorkViewerContext)
+        Me.GPWorkSelectorTool.Controls.Add(Me.llbOpenTestLog)
+        Me.GPWorkSelectorTool.Controls.Add(Me.txtTestLogNumber)
+        Me.GPWorkSelectorTool.Controls.Add(Me.Label8)
+        Me.GPWorkSelectorTool.Controls.Add(Me.llbFacilitySummary)
+        Me.GPWorkSelectorTool.Controls.Add(Me.Label7)
+        Me.GPWorkSelectorTool.Controls.Add(Me.txtAIRSNumber)
+        Me.GPWorkSelectorTool.Controls.Add(Me.StatusStrip1)
+        Me.GPWorkSelectorTool.Controls.Add(Me.llbTrackingNumber)
+        Me.GPWorkSelectorTool.Controls.Add(Me.txtTrackingNumber)
+        Me.GPWorkSelectorTool.Controls.Add(Me.Label2)
+        Me.GPWorkSelectorTool.Controls.Add(Me.llbOpenApplication)
+        Me.GPWorkSelectorTool.Controls.Add(Me.Label6)
+        Me.GPWorkSelectorTool.Controls.Add(Me.txtApplicationNumber)
+        Me.GPWorkSelectorTool.Controls.Add(Me.llbEnforcementRecord)
+        Me.GPWorkSelectorTool.Controls.Add(Me.Label5)
+        Me.GPWorkSelectorTool.Controls.Add(Me.txtEnforcementNumber)
+        Me.GPWorkSelectorTool.Controls.Add(Me.Label4)
+        Me.GPWorkSelectorTool.Controls.Add(Me.txtDataGridCount)
+        Me.GPWorkSelectorTool.Controls.Add(Me.LLSelectReport)
+        Me.GPWorkSelectorTool.Controls.Add(Me.Label3)
+        Me.GPWorkSelectorTool.Controls.Add(Me.txtReferenceNumber)
+        Me.GPWorkSelectorTool.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.GPWorkSelectorTool.Location = New System.Drawing.Point(118, 235)
+        Me.GPWorkSelectorTool.Margin = New System.Windows.Forms.Padding(2)
+        Me.GPWorkSelectorTool.Name = "GPWorkSelectorTool"
+        Me.GPWorkSelectorTool.Padding = New System.Windows.Forms.Padding(2)
+        Me.GPWorkSelectorTool.Size = New System.Drawing.Size(674, 166)
+        Me.GPWorkSelectorTool.TabIndex = 120
+        Me.GPWorkSelectorTool.TabStop = False
+        '
+        'pnlWorkViewerContext
+        '
+        Me.pnlWorkViewerContext.Controls.Add(Me.rdbPMView)
+        Me.pnlWorkViewerContext.Controls.Add(Me.rdbUCView)
+        Me.pnlWorkViewerContext.Controls.Add(Me.rdbStaffView)
+        Me.pnlWorkViewerContext.Location = New System.Drawing.Point(337, 112)
+        Me.pnlWorkViewerContext.Name = "pnlWorkViewerContext"
+        Me.pnlWorkViewerContext.Size = New System.Drawing.Size(261, 28)
+        Me.pnlWorkViewerContext.TabIndex = 298
         '
         'rdbPMView
         '
         Me.rdbPMView.AutoSize = True
-        Me.rdbPMView.Location = New System.Drawing.Point(544, 115)
+        Me.rdbPMView.Location = New System.Drawing.Point(158, 2)
         Me.rdbPMView.Name = "rdbPMView"
         Me.rdbPMView.Size = New System.Drawing.Size(90, 17)
         Me.rdbPMView.TabIndex = 297
-        Me.rdbPMView.TabStop = True
         Me.rdbPMView.Text = "Program View"
         Me.rdbPMView.UseVisualStyleBackColor = True
         '
         'rdbUCView
         '
         Me.rdbUCView.AutoSize = True
-        Me.rdbUCView.Location = New System.Drawing.Point(439, 115)
+        Me.rdbUCView.Location = New System.Drawing.Point(82, 2)
         Me.rdbUCView.Name = "rdbUCView"
-        Me.rdbUCView.Size = New System.Drawing.Size(93, 17)
+        Me.rdbUCView.Size = New System.Drawing.Size(70, 17)
         Me.rdbUCView.TabIndex = 296
-        Me.rdbUCView.TabStop = True
-        Me.rdbUCView.Text = "Manager View"
+        Me.rdbUCView.Text = "Unit View"
         Me.rdbUCView.UseVisualStyleBackColor = True
         '
         'rdbStaffView
         '
         Me.rdbStaffView.AutoSize = True
-        Me.rdbStaffView.Location = New System.Drawing.Point(347, 115)
+        Me.rdbStaffView.Checked = True
+        Me.rdbStaffView.Location = New System.Drawing.Point(3, 2)
         Me.rdbStaffView.Name = "rdbStaffView"
         Me.rdbStaffView.Size = New System.Drawing.Size(73, 17)
         Me.rdbStaffView.TabIndex = 295
@@ -711,16 +721,16 @@ Partial Class IAIPNavigation
         Me.rdbStaffView.Text = "Staff View"
         Me.rdbStaffView.UseVisualStyleBackColor = True
         '
-        'btnChangeListView
+        'btnChangeWorkViewerContext
         '
-        Me.btnChangeListView.AutoSize = True
-        Me.btnChangeListView.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnChangeListView.Location = New System.Drawing.Point(297, 112)
-        Me.btnChangeListView.Name = "btnChangeListView"
-        Me.btnChangeListView.Size = New System.Drawing.Size(47, 23)
-        Me.btnChangeListView.TabIndex = 292
-        Me.btnChangeListView.Text = "Select"
-        Me.btnChangeListView.UseVisualStyleBackColor = True
+        Me.btnChangeWorkViewerContext.AutoSize = True
+        Me.btnChangeWorkViewerContext.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnChangeWorkViewerContext.Location = New System.Drawing.Point(270, 112)
+        Me.btnChangeWorkViewerContext.Name = "btnChangeWorkViewerContext"
+        Me.btnChangeWorkViewerContext.Size = New System.Drawing.Size(61, 23)
+        Me.btnChangeWorkViewerContext.TabIndex = 292
+        Me.btnChangeWorkViewerContext.Text = "Loading…"
+        Me.btnChangeWorkViewerContext.UseVisualStyleBackColor = True
         '
         'Label9
         '
@@ -732,19 +742,19 @@ Partial Class IAIPNavigation
         Me.Label9.TabIndex = 294
         Me.Label9.Text = "Change Current List"
         '
-        'cboIAIPList
+        'cboWorkViewerContext
         '
-        Me.cboIAIPList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboIAIPList.FormattingEnabled = True
-        Me.cboIAIPList.Location = New System.Drawing.Point(22, 114)
-        Me.cboIAIPList.Name = "cboIAIPList"
-        Me.cboIAIPList.Size = New System.Drawing.Size(269, 21)
-        Me.cboIAIPList.TabIndex = 293
+        Me.cboWorkViewerContext.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboWorkViewerContext.FormattingEnabled = True
+        Me.cboWorkViewerContext.Location = New System.Drawing.Point(10, 113)
+        Me.cboWorkViewerContext.Name = "cboWorkViewerContext"
+        Me.cboWorkViewerContext.Size = New System.Drawing.Size(254, 21)
+        Me.cboWorkViewerContext.TabIndex = 293
         '
         'llbOpenTestLog
         '
         Me.llbOpenTestLog.AutoSize = True
-        Me.llbOpenTestLog.Location = New System.Drawing.Point(546, 74)
+        Me.llbOpenTestLog.Location = New System.Drawing.Point(544, 73)
         Me.llbOpenTestLog.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.llbOpenTestLog.Name = "llbOpenTestLog"
         Me.llbOpenTestLog.Size = New System.Drawing.Size(54, 13)
@@ -754,7 +764,7 @@ Partial Class IAIPNavigation
         '
         'txtTestLogNumber
         '
-        Me.txtTestLogNumber.Location = New System.Drawing.Point(452, 71)
+        Me.txtTestLogNumber.Location = New System.Drawing.Point(450, 70)
         Me.txtTestLogNumber.Margin = New System.Windows.Forms.Padding(2)
         Me.txtTestLogNumber.MaxLength = 10
         Me.txtTestLogNumber.Name = "txtTestLogNumber"
@@ -764,7 +774,7 @@ Partial Class IAIPNavigation
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(436, 54)
+        Me.Label8.Location = New System.Drawing.Point(447, 55)
         Me.Label8.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(88, 13)
@@ -774,7 +784,7 @@ Partial Class IAIPNavigation
         'llbFacilitySummary
         '
         Me.llbFacilitySummary.AutoSize = True
-        Me.llbFacilitySummary.Location = New System.Drawing.Point(105, 36)
+        Me.llbFacilitySummary.Location = New System.Drawing.Point(104, 33)
         Me.llbFacilitySummary.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.llbFacilitySummary.Name = "llbFacilitySummary"
         Me.llbFacilitySummary.Size = New System.Drawing.Size(79, 13)
@@ -785,7 +795,7 @@ Partial Class IAIPNavigation
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(0, 13)
+        Me.Label7.Location = New System.Drawing.Point(7, 15)
         Me.Label7.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(85, 13)
@@ -794,7 +804,7 @@ Partial Class IAIPNavigation
         '
         'txtAIRSNumber
         '
-        Me.txtAIRSNumber.Location = New System.Drawing.Point(12, 32)
+        Me.txtAIRSNumber.Location = New System.Drawing.Point(10, 30)
         Me.txtAIRSNumber.Margin = New System.Windows.Forms.Padding(2)
         Me.txtAIRSNumber.MaxLength = 8
         Me.txtAIRSNumber.Name = "txtAIRSNumber"
@@ -803,12 +813,19 @@ Partial Class IAIPNavigation
         '
         'StatusStrip1
         '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.pnl1, Me.pnl2, Me.pnl3, Me.pnl4, Me.pnl5})
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.pnl1, Me.pnl2, Me.pnl3, Me.pnl4, Me.pnl5})
         Me.StatusStrip1.Location = New System.Drawing.Point(2, 140)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 10, 0)
         Me.StatusStrip1.Size = New System.Drawing.Size(670, 24)
         Me.StatusStrip1.TabIndex = 264
+        '
+        'ToolStripProgressBar1
+        '
+        Me.ToolStripProgressBar1.Name = "ToolStripProgressBar1"
+        Me.ToolStripProgressBar1.Size = New System.Drawing.Size(100, 18)
+        Me.ToolStripProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee
+        Me.ToolStripProgressBar1.Visible = False
         '
         'pnl1
         '
@@ -869,7 +886,7 @@ Partial Class IAIPNavigation
         'llbTrackingNumber
         '
         Me.llbTrackingNumber.AutoSize = True
-        Me.llbTrackingNumber.Location = New System.Drawing.Point(319, 74)
+        Me.llbTrackingNumber.Location = New System.Drawing.Point(317, 73)
         Me.llbTrackingNumber.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.llbTrackingNumber.Name = "llbTrackingNumber"
         Me.llbTrackingNumber.Size = New System.Drawing.Size(114, 13)
@@ -879,7 +896,7 @@ Partial Class IAIPNavigation
         '
         'txtTrackingNumber
         '
-        Me.txtTrackingNumber.Location = New System.Drawing.Point(225, 71)
+        Me.txtTrackingNumber.Location = New System.Drawing.Point(223, 70)
         Me.txtTrackingNumber.Margin = New System.Windows.Forms.Padding(2)
         Me.txtTrackingNumber.MaxLength = 10
         Me.txtTrackingNumber.Name = "txtTrackingNumber"
@@ -889,17 +906,17 @@ Partial Class IAIPNavigation
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(209, 54)
+        Me.Label2.Location = New System.Drawing.Point(220, 55)
         Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(117, 13)
+        Me.Label2.Size = New System.Drawing.Size(68, 13)
         Me.Label2.TabIndex = 261
-        Me.Label2.Text = "Compliance Tracking #"
+        Me.Label2.Text = "SSCP Item #"
         '
         'llbOpenApplication
         '
         Me.llbOpenApplication.AutoSize = True
-        Me.llbOpenApplication.Location = New System.Drawing.Point(546, 35)
+        Me.llbOpenApplication.Location = New System.Drawing.Point(544, 34)
         Me.llbOpenApplication.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.llbOpenApplication.Name = "llbOpenApplication"
         Me.llbOpenApplication.Size = New System.Drawing.Size(88, 13)
@@ -910,7 +927,7 @@ Partial Class IAIPNavigation
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(439, 12)
+        Me.Label6.Location = New System.Drawing.Point(447, 15)
         Me.Label6.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(100, 13)
@@ -919,7 +936,7 @@ Partial Class IAIPNavigation
         '
         'txtApplicationNumber
         '
-        Me.txtApplicationNumber.Location = New System.Drawing.Point(452, 31)
+        Me.txtApplicationNumber.Location = New System.Drawing.Point(450, 30)
         Me.txtApplicationNumber.Margin = New System.Windows.Forms.Padding(2)
         Me.txtApplicationNumber.MaxLength = 10
         Me.txtApplicationNumber.Name = "txtApplicationNumber"
@@ -929,7 +946,7 @@ Partial Class IAIPNavigation
         'llbEnforcementRecord
         '
         Me.llbEnforcementRecord.AutoSize = True
-        Me.llbEnforcementRecord.Location = New System.Drawing.Point(319, 35)
+        Me.llbEnforcementRecord.Location = New System.Drawing.Point(317, 33)
         Me.llbEnforcementRecord.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.llbEnforcementRecord.Name = "llbEnforcementRecord"
         Me.llbEnforcementRecord.Size = New System.Drawing.Size(96, 13)
@@ -940,7 +957,7 @@ Partial Class IAIPNavigation
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(209, 12)
+        Me.Label5.Location = New System.Drawing.Point(220, 15)
         Me.Label5.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(77, 13)
@@ -949,7 +966,7 @@ Partial Class IAIPNavigation
         '
         'txtEnforcementNumber
         '
-        Me.txtEnforcementNumber.Location = New System.Drawing.Point(225, 31)
+        Me.txtEnforcementNumber.Location = New System.Drawing.Point(223, 30)
         Me.txtEnforcementNumber.Margin = New System.Windows.Forms.Padding(2)
         Me.txtEnforcementNumber.MaxLength = 8
         Me.txtEnforcementNumber.Name = "txtEnforcementNumber"
@@ -960,17 +977,17 @@ Partial Class IAIPNavigation
         '
         Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(605, 12)
+        Me.Label4.Location = New System.Drawing.Point(621, 116)
         Me.Label4.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(34, 13)
+        Me.Label4.Size = New System.Drawing.Size(14, 13)
         Me.Label4.TabIndex = 253
-        Me.Label4.Text = "count"
+        Me.Label4.Text = "#"
         '
         'txtDataGridCount
         '
         Me.txtDataGridCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtDataGridCount.Location = New System.Drawing.Point(639, 8)
+        Me.txtDataGridCount.Location = New System.Drawing.Point(639, 113)
         Me.txtDataGridCount.Margin = New System.Windows.Forms.Padding(2)
         Me.txtDataGridCount.Name = "txtDataGridCount"
         Me.txtDataGridCount.Size = New System.Drawing.Size(31, 20)
@@ -979,7 +996,7 @@ Partial Class IAIPNavigation
         'LLSelectReport
         '
         Me.LLSelectReport.AutoSize = True
-        Me.LLSelectReport.Location = New System.Drawing.Point(105, 75)
+        Me.LLSelectReport.Location = New System.Drawing.Point(103, 73)
         Me.LLSelectReport.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LLSelectReport.Name = "LLSelectReport"
         Me.LLSelectReport.Size = New System.Drawing.Size(68, 13)
@@ -990,7 +1007,7 @@ Partial Class IAIPNavigation
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(0, 55)
+        Me.Label3.Location = New System.Drawing.Point(7, 55)
         Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(102, 13)
@@ -999,7 +1016,7 @@ Partial Class IAIPNavigation
         '
         'txtReferenceNumber
         '
-        Me.txtReferenceNumber.Location = New System.Drawing.Point(12, 72)
+        Me.txtReferenceNumber.Location = New System.Drawing.Point(10, 70)
         Me.txtReferenceNumber.Margin = New System.Windows.Forms.Padding(2)
         Me.txtReferenceNumber.MaxLength = 9
         Me.txtReferenceNumber.Name = "txtReferenceNumber"
@@ -1019,17 +1036,17 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.Size = New System.Drawing.Size(674, 202)
         Me.dgvWorkViewer.TabIndex = 123
         '
-        'bgrLongProcess
+        'bgrLoadWorkViewer
         '
         '
         'lblMessageLabel
         '
         Me.lblMessageLabel.AutoSize = True
-        Me.lblMessageLabel.Location = New System.Drawing.Point(121, 77)
+        Me.lblMessageLabel.Location = New System.Drawing.Point(125, 52)
         Me.lblMessageLabel.Name = "lblMessageLabel"
-        Me.lblMessageLabel.Size = New System.Drawing.Size(39, 13)
+        Me.lblMessageLabel.Size = New System.Drawing.Size(0, 13)
         Me.lblMessageLabel.TabIndex = 124
-        Me.lblMessageLabel.Text = "Label8"
+        Me.lblMessageLabel.Visible = False
         '
         'bgrLoadButtons
         '
@@ -1040,7 +1057,7 @@ Partial Class IAIPNavigation
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(792, 401)
         Me.Controls.Add(Me.dgvWorkViewer)
-        Me.Controls.Add(Me.GPWorkTool)
+        Me.Controls.Add(Me.GPWorkSelectorTool)
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.lblMessageLabel)
@@ -1050,8 +1067,10 @@ Partial Class IAIPNavigation
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Air Protection Branch Navigation Screen"
         Me.Panel4.ResumeLayout(False)
-        Me.GPWorkTool.ResumeLayout(False)
-        Me.GPWorkTool.PerformLayout()
+        Me.GPWorkSelectorTool.ResumeLayout(False)
+        Me.GPWorkSelectorTool.PerformLayout()
+        Me.pnlWorkViewerContext.ResumeLayout(False)
+        Me.pnlWorkViewerContext.PerformLayout()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         CType(Me.dgvWorkViewer, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1067,7 +1086,7 @@ Partial Class IAIPNavigation
     Friend WithEvents mmiAbout As System.Windows.Forms.MenuItem
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
-    Friend WithEvents GPWorkTool As System.Windows.Forms.GroupBox
+    Friend WithEvents GPWorkSelectorTool As System.Windows.Forms.GroupBox
     Friend WithEvents llbTrackingNumber As System.Windows.Forms.LinkLabel
     Friend WithEvents txtTrackingNumber As System.Windows.Forms.TextBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
@@ -1092,7 +1111,7 @@ Partial Class IAIPNavigation
     Friend WithEvents dgvWorkViewer As System.Windows.Forms.DataGridView
     Friend WithEvents pnl4 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents pnl5 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents bgrLongProcess As System.ComponentModel.BackgroundWorker
+    Friend WithEvents bgrLoadWorkViewer As System.ComponentModel.BackgroundWorker
     Friend WithEvents lblMessageLabel As System.Windows.Forms.Label
     Friend WithEvents btnNav7 As System.Windows.Forms.Button
     Friend WithEvents btnNav6 As System.Windows.Forms.Button
@@ -1138,9 +1157,9 @@ Partial Class IAIPNavigation
     Friend WithEvents btnNav37 As System.Windows.Forms.Button
     Friend WithEvents btnNav38 As System.Windows.Forms.Button
     Friend WithEvents btnNav39 As System.Windows.Forms.Button
-    Friend WithEvents btnChangeListView As System.Windows.Forms.Button
+    Friend WithEvents btnChangeWorkViewerContext As System.Windows.Forms.Button
     Friend WithEvents Label9 As System.Windows.Forms.Label
-    Friend WithEvents cboIAIPList As System.Windows.Forms.ComboBox
+    Friend WithEvents cboWorkViewerContext As System.Windows.Forms.ComboBox
     Friend WithEvents rdbPMView As System.Windows.Forms.RadioButton
     Friend WithEvents rdbUCView As System.Windows.Forms.RadioButton
     Friend WithEvents rdbStaffView As System.Windows.Forms.RadioButton
@@ -1149,4 +1168,6 @@ Partial Class IAIPNavigation
     Friend WithEvents mmiTesting As System.Windows.Forms.MenuItem
     Friend WithEvents mmiResetForm As System.Windows.Forms.MenuItem
     Friend WithEvents btnNav40 As System.Windows.Forms.Button
+    Friend WithEvents ToolStripProgressBar1 As System.Windows.Forms.ToolStripProgressBar
+    Friend WithEvents pnlWorkViewerContext As System.Windows.Forms.Panel
 End Class

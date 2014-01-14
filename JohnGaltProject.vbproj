@@ -1746,6 +1746,9 @@
     </Compile>
     <Compile Include="_Data Classes\LoginCred.vb" />
     <Compile Include="_DB\DAL.LoginCreds.vb" />
+    <Compile Include="_DB\DAL.NavigationScreen.vb">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="_DB\DAL.SmokeSchoolRoster.vb" />
     <Compile Include="_Classes\CollectionHelper.vb" />
     <Compile Include="_Data Classes\WorkItem.vb" />
