@@ -8,9 +8,7 @@ Public Class IAIPNavigation
 #Region "Local variables and properties"
 
     Private dtWorkViewerTable As DataTable
-    Private AccountAccess As String = ""
-    Private UserGridStyle As String
-
+    
     Private _currentWorkViewerContext As WorkViewerType
     Private Property CurrentWorkViewerContext() As WorkViewerType
         Get
@@ -166,6 +164,7 @@ Public Class IAIPNavigation
     ' TODO (Doug): fix these up
 
     Private Sub OpenApplication()
+
         Try
 
             If txtApplicationNumber.Text <> "" Then
@@ -854,6 +853,11 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub bgrLoadWorkViewer_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgrLoadWorkViewer.RunWorkerCompleted
+        cboWorkViewerContext.Enabled = True
+        btnChangeWorkViewerContext.Enabled = True
+        btnChangeWorkViewerContext.Text = "Load"
+        ToolStripProgressBar1.Visible = False
+
         If dtWorkViewerTable.Rows.Count > 0 Then
             dgvWorkViewer.DataSource = dtWorkViewerTable
 
@@ -861,7 +865,6 @@ Public Class IAIPNavigation
             lblMessageLabel.Visible = False
             lblMessageLabel.Text = ""
             txtDataGridCount.Text = dtWorkViewerTable.Rows.Count
-            ToolStripProgressBar1.Visible = False
 
             FormatWorkViewer()
         Else
@@ -872,10 +875,6 @@ Public Class IAIPNavigation
             lblMessageLabel.Text = "No data to display"
             txtDataGridCount.Text = ""
         End If
-
-        cboWorkViewerContext.Enabled = True
-        btnChangeWorkViewerContext.Enabled = True
-        btnChangeWorkViewerContext.Text = "Load"
     End Sub
 
 #End Region
@@ -1629,70 +1628,54 @@ Public Class IAIPNavigation
 
     Private Sub bgrLoadButtons_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bgrLoadButtons.DoWork
         Try
-            Dim navTemp As String
-            Dim AccountTemp As String = ""
-            Dim accessTemp As String
+            Dim navTemp As Boolean
+            Dim accountTemp As String = Permissions
+            Dim accessTemp As String = ""
+            Dim accountAccess As String = ""
 
-            If Permissions <> "" Then
-                AccountTemp = Permissions
+            If accountTemp <> "" Then
 
-                Do While AccountTemp <> ""
-                    SQL = "Select " & _
-                    "strFormAccess " & _
-                    "From AIRBranch.LookUpIAIPAccounts " & _
-                    "where numAccountCode = '" & Mid(AccountTemp, 2, (AccountTemp.IndexOf(")") - 1)) & "' "
+                Do While accountTemp <> ""
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        If IsDBNull(dr.Item("strFormAccess")) Then
-                            AccountAccess = ""
-                        Else
-                            AccountAccess = dr.Item("strFormAccess")
-                        End If
-                    End While
-                    dr.Close()
+                    accountAccess = GetFormAccessForAccountCode(Mid(accountTemp, 2, (accountTemp.IndexOf(")") - 1)))
 
-                    If AccountAccess <> "" Then
-                        Do While AccountAccess <> ""
+                    If accountAccess <> "" Then
+                        Do While accountAccess <> ""
                             navTemp = False
                             For j = 0 To 4
-                                If AccountArray(j, 0) = Mid(AccountAccess, 2, (AccountAccess.IndexOf("-") - 1)) Then
+                                If AccountArray(j, 0) = Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1)) Then
                                     navTemp = True
                                 End If
                             Next
                             If navTemp = False Then
-                                accessTemp = Mid(AccountAccess, 2, (AccountAccess.IndexOf("-") - 1))
-                                AccountArray(Mid(AccountAccess, 2, (AccountAccess.IndexOf("-") - 1)), 0) = Mid(AccountAccess, 2, (AccountAccess.IndexOf("-") - 1))
+                                accessTemp = Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1))
+                                AccountArray(Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1)), 0) = Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1))
 
                                 If AccountArray(accessTemp, 1) = "1" Then
-                                    AccountArray(Mid(AccountAccess, 2, (AccountAccess.IndexOf("-") - 1)), 1) = "1"
+                                    AccountArray(Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1)), 1) = "1"
                                 Else
-                                    AccountArray(Mid(AccountAccess, 2, (AccountAccess.IndexOf("-") - 1)), 1) = Mid(AccountAccess, (AccountAccess.IndexOf("-") + 2), 1)
+                                    AccountArray(Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1)), 1) = Mid(accountAccess, (accountAccess.IndexOf("-") + 2), 1)
                                 End If
                                 If AccountArray(accessTemp, 2) = "1" Then
-                                    AccountArray(Mid(AccountAccess, 2, (AccountAccess.IndexOf("-") - 1)), 2) = "1"
+                                    AccountArray(Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1)), 2) = "1"
                                 Else
-                                    AccountArray(Mid(AccountAccess, 2, (AccountAccess.IndexOf("-") - 1)), 2) = Mid(AccountAccess, (AccountAccess.IndexOf("-") + 4), 1)
+                                    AccountArray(Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1)), 2) = Mid(accountAccess, (accountAccess.IndexOf("-") + 4), 1)
                                 End If
                                 If AccountArray(accessTemp, 3) = "1" Then
-                                    AccountArray(Mid(AccountAccess, 2, (AccountAccess.IndexOf("-") - 1)), 3) = "1"
+                                    AccountArray(Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1)), 3) = "1"
                                 Else
-                                    AccountArray(Mid(AccountAccess, 2, (AccountAccess.IndexOf("-") - 1)), 3) = Mid(AccountAccess, (AccountAccess.IndexOf("-") + 6), 1)
+                                    AccountArray(Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1)), 3) = Mid(accountAccess, (accountAccess.IndexOf("-") + 6), 1)
                                 End If
                                 If AccountArray(accessTemp, 4) = "1" Then
-                                    AccountArray(Mid(AccountAccess, 2, (AccountAccess.IndexOf("-") - 1)), 4) = "1"
+                                    AccountArray(Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1)), 4) = "1"
                                 Else
-                                    AccountArray(Mid(AccountAccess, 2, (AccountAccess.IndexOf("-") - 1)), 4) = Mid(AccountAccess, (AccountAccess.IndexOf("-") + 8), 1)
+                                    AccountArray(Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1)), 4) = Mid(accountAccess, (accountAccess.IndexOf("-") + 8), 1)
                                 End If
                             End If
-                            AccountAccess = Replace(AccountAccess, (Mid(AccountAccess, AccountAccess.IndexOf("(") + 1, AccountAccess.IndexOf(")") + 1)), "")
+                            accountAccess = Replace(accountAccess, (Mid(accountAccess, accountAccess.IndexOf("(") + 1, accountAccess.IndexOf(")") + 1)), "")
                         Loop
                     End If
-                    AccountTemp = Replace(AccountTemp, ("(" & Mid(AccountTemp, 2, (AccountTemp.IndexOf(")") - 1)) & ")"), "")
+                    accountTemp = Replace(accountTemp, ("(" & Mid(accountTemp, 2, (accountTemp.IndexOf(")") - 1)) & ")"), "")
                 Loop
             End If
 

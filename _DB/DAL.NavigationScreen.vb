@@ -1392,5 +1392,12 @@ Namespace DAL
             Return SQL
         End Function
 
+        Public Function GetFormAccessForAccountCode(ByVal id As Integer) As String
+            Dim query As String = " SELECT STRFORMACCESS FROM AIRBRANCH.LOOKUPIAIPACCOUNTS " & _
+                " WHERE NUMACCOUNTCODE = :pId "
+            Dim parameter As New OracleParameter("pId", id)
+            Return DB.GetSingleValue(Of String)(query, parameter)
+        End Function
+
     End Module
 End Namespace
