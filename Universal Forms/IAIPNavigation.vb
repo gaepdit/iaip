@@ -41,8 +41,6 @@ Public Class IAIPNavigation
 
             BuildListChangerCombo()
 
-            LoadWorkViewerData()
-
             pnl2.Text = UserName
             pnl3.Text = OracleDate
 
@@ -56,6 +54,7 @@ Public Class IAIPNavigation
 
     Private Sub IAIPNavigation_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
         monitor.TrackFeatureStop("Startup.LoggingIn")
+        LoadWorkViewerData()
     End Sub
 
     Private Sub NavigationScreen_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
@@ -92,7 +91,7 @@ Public Class IAIPNavigation
 
         cboWorkViewerContext.Items.Add("Compliance Facilities Assigned")
         cboWorkViewerContext.Items.Add("Compliance Work")
-        cboWorkViewerContext.Items.Add("Full Compliance Evaluations - Delinquent")
+        cboWorkViewerContext.Items.Add("Delinquent Full Compliance Evaluations")
         cboWorkViewerContext.Items.Add("Enforcement")
         cboWorkViewerContext.Items.Add("Facilities with Subparts")
         cboWorkViewerContext.Items.Add("Facilities missing Subparts")
@@ -410,7 +409,7 @@ Public Class IAIPNavigation
                         CurrentWorkViewerContextParameter = UserGCode
                     End If
 
-                Case "Full Compliance Evaluations - Delinquent"
+                Case "Delinquent Full Compliance Evaluations"
                     CurrentWorkViewerContext = WorkViewerType.DelinquentFCEs
 
                 Case "Enforcement"
@@ -721,7 +720,7 @@ Public Class IAIPNavigation
         cboWorkViewerContext.Enabled = False
         btnChangeWorkViewerContext.Enabled = False
         btnChangeWorkViewerContext.Text = "Loading…"
-        txtDataGridCount.Text = ""
+        lblResultsCount.Text = ""
         ToolStripProgressBar1.Visible = True
 
         ClearQuickAccessTool()
@@ -759,7 +758,7 @@ Public Class IAIPNavigation
             dgvWorkViewer.Visible = True
             lblMessageLabel.Visible = False
             lblMessageLabel.Text = ""
-            txtDataGridCount.Text = dtWorkViewerTable.Rows.Count
+            lblResultsCount.Text = dtWorkViewerTable.Rows.Count & " results"
 
             FormatWorkViewer()
         Else
@@ -768,7 +767,7 @@ Public Class IAIPNavigation
             dgvWorkViewer.Visible = False
             lblMessageLabel.Visible = True
             lblMessageLabel.Text = "No data to display"
-            txtDataGridCount.Text = ""
+            lblResultsCount.Text = ""
         End If
     End Sub
 
