@@ -3,9 +3,9 @@ Imports System.IO
 Imports Microsoft.Win32
 
 Public Class IAIPLogIn
-    Dim SQL As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
+    'Dim SQL As String
+    'Dim cmd As OracleCommand
+    'Dim dr As OracleDataReader
     Dim recExist As Boolean
     Dim IaipFolder As String = Application.StartupPath
     Dim IaipAvailable As Boolean = True
@@ -173,98 +173,43 @@ Public Class IAIPLogIn
     Private Sub LogInCheck()
         monitor.TrackFeatureStart("Startup.LoggingIn")
         LoginProgressBar.Visible = True
-        btnLoginButton.Visible = True
+
+        'btnLoginButton.Visible = True
         Try
             Dim EmployeeStatus As String = ""
             Dim PhoneNumber As String = ""
             Dim EmailAddress As String = ""
             Dim ValidateLogInInfo As String = ""
-            'Dim FirstName As String = ""
             Dim LastName As String = ""
 
+            UserGCode = ""
+
             LoginProgressBar.PerformStep()
-            'Paneltemp1 = Panel1.Text
-            'Panel1.Text = "Logging In"
+
             If txtUserID.Text <> "" Then
                 If txtUserPassword.Text <> "" Then
                     LoginProgressBar.PerformStep()
-                    SQL = "Select " & DBNameSpace & ".EPDUsers.numUserID, " & _
-                    "strIAIPPermissions, " & _
-                    "(strLastName|| ', ' ||strFirstName) as UserName, " & _
-                    "numBranch, numProgram, numUnit, " & _
-                    "numEmployeeStatus, strPhone,  " & _
-                    "strEmailAddress, strFirstName, " & _
-                    "strLastName " & _
-                    "from " & DBNameSpace & ".EPDUsers, " & DBNameSpace & ".IAIPPermissions, " & _
-                    "" & DBNameSpace & ".EPDUserProfiles " & _
-                    "where " & DBNameSpace & ".EPDUsers.numUserID = " & DBNameSpace & ".IAIPPermissions.numUserID " & _
-                    "and " & DBNameSpace & ".EPDUsers.numUserID = " & DBNameSpace & ".EPDUserProfiles.numUserId " & _
-                    "and upper(strUserName) = '" & Replace(txtUserID.Text.ToUpper, "'", "''") & "' " & _
-                    "and strPassword = '" & Replace(EncryptDecrypt.EncryptText(txtUserPassword.Text), "'", "''") & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
-                    End If
-                    LoginProgressBar.PerformStep()
-                    dr = cmd.ExecuteReader
-                    LoginProgressBar.PerformStep()
-                    UserGCode = ""
+                    Dim loginCred As LoginCred = DAL.GetLoginCred(txtUserID.Text.ToUpper, EncryptDecrypt.EncryptText(txtUserPassword.Text))
 
-                    While dr.Read
-                        UserGCode = dr.Item("numUserId")
-                        If IsDBNull(dr.Item("strIAIPPermissions")) Then
-                            Permissions = "(0)"
-                        Else
-                            Permissions = dr.Item("strIAIPPermissions")
-                        End If
-                        If IsDBNull(dr.Item("UserName")) Then
-                            UserName = " "
-                        Else
-                            UserName = dr.Item("UserName")
-                        End If
-                        If IsDBNull(dr.Item("numBranch")) Then
-                            UserBranch = "---"
-                        Else
-                            UserBranch = dr.Item("numBranch")
-                        End If
-                        If IsDBNull(dr.Item("numProgram")) Then
-                            UserProgram = "---"
-                        Else
-                            UserProgram = dr.Item("numProgram")
-                        End If
-                        If IsDBNull(dr.Item("numUnit")) Then
-                            UserUnit = "---"
-                        Else
-                            UserUnit = dr.Item("numUnit")
-                        End If
-                        If IsDBNull(dr.Item("numEmployeeStatus")) Then
-                            EmployeeStatus = "0"
-                        Else
-                            EmployeeStatus = dr.Item("numEmployeeStatus")
-                        End If
-                        If IsDBNull(dr.Item("strPhone")) Then
-                            PhoneNumber = ""
-                        Else
-                            PhoneNumber = dr.Item("strPhone")
-                        End If
-                        If IsDBNull(dr.Item("strEmailAddress")) Then
-                            EmailAddress = ""
-                        Else
-                            EmailAddress = dr.Item("strEmailAddress")
-                        End If
-                        'If IsDBNull(dr.Item("strFirstName")) Then
-                        '    FirstName = ""
-                        'Else
-                        '    FirstName = dr.Item("strFirstName")
-                        'End If
-                        If IsDBNull(dr.Item("strLastName")) Then
-                            LastName = ""
-                        Else
-                            LastName = dr.Item("strLastName")
-                        End If
-                    End While
-                    dr.Close()
+                    LoginProgressBar.PerformStep()
+
+                    UserGCode = loginCred.Staff.StaffId
+                    Permissions = loginCred.PermissionsString
+                    If Permissions = "" Then Permissions = "(0)"
+                    UserName = loginCred.Staff.AlphaName
+                    If UserName = "" Then UserName = " "
+                    UserBranch = loginCred.Staff.BranchID.ToString
+                    If UserBranch = "0" OrElse UserBranch = "" Then UserBranch = "---"
+                    UserProgram = loginCred.Staff.ProgramID.ToString
+                    If UserProgram = "0" OrElse UserProgram = "" Then UserProgram = "---"
+                    UserUnit = loginCred.Staff.UnitId.ToString
+                    If UserUnit = "0" OrElse UserUnit = "" Then UserUnit = "---"
+                    EmployeeStatus = If(loginCred.Staff.ActiveStatus, "1", "0")
+                    PhoneNumber = loginCred.Staff.Phone
+                    EmailAddress = loginCred.Staff.Email
+                    LastName = loginCred.Staff.LastName
+
                     LoginProgressBar.PerformStep()
 
                     If UserGCode <> "" And EmployeeStatus = "1" Then
@@ -311,22 +256,19 @@ Public Class IAIPLogIn
 
                             LoginProgressBar.Value = 0
                             LoginProgressBar.Visible = False
-                            btnLoginButton.Visible = True
+                            'btnLoginButton.Visible = True
 
                             Exit Sub
                         End If
 
-                        If ProfileUpdate Is Nothing Then
-                        Else
+                        If ProfileUpdate IsNot Nothing Then
                             ProfileUpdate.Close()
                             ProfileUpdate = Nothing
                         End If
 
                         ' Add additional installation meta data for analytics
-                        Dim useridname As String = txtUserID.Text
-                        ' TODO: Once a workable "User" object is set up, use userID from that instead
-                        monitorInstallationInfo.Add("IaipUserName", useridname)
-                        monitor.SetInstallationInfo(useridname, monitorInstallationInfo)
+                        monitorInstallationInfo.Add("IaipUserName", loginCred.UserName)
+                        monitor.SetInstallationInfo(loginCred.UserName, monitorInstallationInfo)
                         If TestingEnvironment Then monitor.TrackFeature("Main.TestingEnvironment")
 
                         NavigationScreen = Nothing
@@ -354,7 +296,7 @@ Public Class IAIPLogIn
 
                         LoginProgressBar.Value = 0
                         LoginProgressBar.Visible = False
-                        btnLoginButton.Visible = True
+                        'btnLoginButton.Visible = True
                         Me.Close()
                     Else
                         'Panel1.Text = Paneltemp1
@@ -371,20 +313,20 @@ Public Class IAIPLogIn
 
                         LoginProgressBar.Value = 0
                         LoginProgressBar.Visible = False
-                        btnLoginButton.Visible = True
+                        'btnLoginButton.Visible = True
                         monitor.TrackFeatureCancel("Startup.LoggingIn")
                     End If
                 Else
                     LoginProgressBar.Value = 0
                     LoginProgressBar.Visible = False
-                    btnLoginButton.Visible = True
+                    'btnLoginButton.Visible = True
                     monitor.TrackFeatureCancel("Startup.LoggingIn")
                 End If
             Else
 
                 LoginProgressBar.Value = 0
                 LoginProgressBar.Visible = False
-                btnLoginButton.Visible = True
+                'btnLoginButton.Visible = True
                 monitor.TrackFeatureCancel("Startup.LoggingIn")
                 MsgBox("The User ID and Password provided is not a valid user combination.", MsgBoxStyle.Exclamation, _
                                  "Log In Error")
@@ -393,7 +335,7 @@ Public Class IAIPLogIn
         Catch ex As Exception
             LoginProgressBar.Value = 0
             LoginProgressBar.Visible = False
-            btnLoginButton.Visible = True
+            'btnLoginButton.Visible = True
             monitor.TrackFeatureCancel("Startup.LoggingIn")
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

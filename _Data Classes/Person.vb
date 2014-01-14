@@ -41,7 +41,7 @@
     Private _phone As String
 
     Public Overrides Function ToString() As String
-        Return Convert.ToString(LastName & ", " & FirstName)
+        Return AlphaName
     End Function
 
     Public ReadOnly Property FullName() As String
