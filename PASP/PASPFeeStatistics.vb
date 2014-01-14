@@ -3167,17 +3167,17 @@ Public Class PASPFeeStatistics
                             ISMPTestReportsEntry.txtReferenceNumber.Text = RefNum
                             ISMPTestReportsEntry.Show()
                         Else
-                            If SSCPREports Is Nothing Then
-                                SSCPREports = Nothing
-                                If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-                                SSCPREports.txtTrackingNumber.Text = txtFeeComplianceEvent.Text
-                                SSCPREports.Show()
+                            If SSCPReports Is Nothing Then
+                                SSCPReports = Nothing
+                                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
+                                SSCPReports.txtTrackingNumber.Text = txtFeeComplianceEvent.Text
+                                SSCPReports.Show()
                             Else
-                                SSCPREports.Close()
-                                SSCPREports = Nothing
-                                If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-                                SSCPREports.txtTrackingNumber.Text = txtFeeComplianceEvent.Text
-                                SSCPREports.Show()
+                                SSCPReports.Close()
+                                SSCPReports = Nothing
+                                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
+                                SSCPReports.txtTrackingNumber.Text = txtFeeComplianceEvent.Text
+                                SSCPReports.Show()
                             End If
                             'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                         End If

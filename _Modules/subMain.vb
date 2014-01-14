@@ -116,7 +116,7 @@ Module subMain
     Public ISMPMemoViewer As ISMPTestMemoViewer
     Public ISMPRefNum As ISMPReferenceNumber
     Public ISMPMemoEdit As ISMPMemo
-    Public DevTestLog As ISMPNotificationLog
+    Public ISMPNotificationLogForm As ISMPNotificationLog
     Public ISMPCloseAndPrint As ISMPClosePrint
     'Public ISMPExcelFilePage As ISMPExcelFiles
     Public ISMPAddPollutant As ISMPAddPollutants
@@ -159,7 +159,7 @@ Module subMain
 #Region "SSCP Screens"
     Public SSCP_Work As SSCPComplianceLog
     Public ManagersTools As SSCPManagersTools
-    Public SSCPREports As SSCPEvents
+    Public SSCPReports As SSCPEvents
     'Public SSCP_Enforcement As SSCPEnforcementAudit
     Public SSCPFCE As SSCPFCEWork
     Public SSCPFacAssign As SSCPFacAssignment

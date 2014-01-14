@@ -1037,11 +1037,11 @@ Public Class SSCPComplianceLog
                                 'conn.close()
                             End If
 
-                            SSCPREports = Nothing
-                            If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-                            SSCPREports.txtTrackingNumber.Text = txtTrackingNumber.Text
-                            SSCPREports.txtOrigin.Text = "Work Entry 2"
-                            SSCPREports.Show()
+                            SSCPReports = Nothing
+                            If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
+                            SSCPReports.txtTrackingNumber.Text = txtTrackingNumber.Text
+                            SSCPReports.txtOrigin.Text = "Work Entry 2"
+                            SSCPReports.Show()
                             'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                         Else
                             MsgBox("Select a Work type and event type if needed.", MsgBoxStyle.Information, "Work Entry")
@@ -1893,17 +1893,17 @@ Public Class SSCPComplianceLog
 
             If txtTestType.Text <> "" Then
                 If InStr(txtTestType.Text, "Annual Compliance Certification") > 0 Then
-                    If SSCPREports Is Nothing Then
-                        SSCPREports = Nothing
-                        If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-                        SSCPREports.txtTrackingNumber.Text = txtWorkNumber.Text
-                        SSCPREports.Show()
+                    If SSCPReports Is Nothing Then
+                        SSCPReports = Nothing
+                        If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
+                        SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
+                        SSCPReports.Show()
                     Else
-                        SSCPREports.Close()
-                        SSCPREports = Nothing
-                        If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-                        SSCPREports.txtTrackingNumber.Text = txtWorkNumber.Text
-                        SSCPREports.Show()
+                        SSCPReports.Close()
+                        SSCPReports = Nothing
+                        If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
+                        SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
+                        SSCPReports.Show()
                     End If
                     'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 ElseIf InStr(txtTestType.Text, "Enforcement") > 0 Then
@@ -1948,31 +1948,31 @@ Public Class SSCPComplianceLog
                     End If
                     'SSCPFCE.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 ElseIf InStr(txtTestType.Text, "Inspection") > 0 Then
-                    If SSCPREports Is Nothing Then
-                        SSCPREports = Nothing
-                        If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-                        SSCPREports.txtTrackingNumber.Text = txtWorkNumber.Text
-                        SSCPREports.Show()
+                    If SSCPReports Is Nothing Then
+                        SSCPReports = Nothing
+                        If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
+                        SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
+                        SSCPReports.Show()
                     Else
-                        SSCPREports.Close()
-                        SSCPREports = Nothing
-                        If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-                        SSCPREports.txtTrackingNumber.Text = txtWorkNumber.Text
-                        SSCPREports.Show()
+                        SSCPReports.Close()
+                        SSCPReports = Nothing
+                        If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
+                        SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
+                        SSCPReports.Show()
                     End If
                     'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 ElseIf InStr(txtTestType.Text, "Notification") > 0 Then
-                    If SSCPREports Is Nothing Then
-                        SSCPREports = Nothing
-                        If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-                        SSCPREports.txtTrackingNumber.Text = txtWorkNumber.Text
-                        SSCPREports.Show()
+                    If SSCPReports Is Nothing Then
+                        SSCPReports = Nothing
+                        If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
+                        SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
+                        SSCPReports.Show()
                     Else
-                        SSCPREports.Close()
-                        SSCPREports = Nothing
-                        If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-                        SSCPREports.txtTrackingNumber.Text = txtWorkNumber.Text
-                        SSCPREports.Show()
+                        SSCPReports.Close()
+                        SSCPReports = Nothing
+                        If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
+                        SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
+                        SSCPReports.Show()
                     End If
                     'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
@@ -2009,32 +2009,32 @@ Public Class SSCPComplianceLog
                         ISMPTestReportsEntry.Show()
                         'ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     Else
-                        If SSCPREports Is Nothing Then
-                            SSCPREports = Nothing
-                            If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-                            SSCPREports.txtTrackingNumber.Text = txtWorkNumber.Text
-                            SSCPREports.Show()
+                        If SSCPReports Is Nothing Then
+                            SSCPReports = Nothing
+                            If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
+                            SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
+                            SSCPReports.Show()
                         Else
-                            SSCPREports.Close()
-                            SSCPREports = Nothing
-                            If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-                            SSCPREports.txtTrackingNumber.Text = txtWorkNumber.Text
-                            SSCPREports.Show()
+                            SSCPReports.Close()
+                            SSCPReports = Nothing
+                            If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
+                            SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
+                            SSCPReports.Show()
                         End If
                         'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     End If
                 ElseIf InStr(txtTestType.Text, "Report") > 0 Then
-                    If SSCPREports Is Nothing Then
-                        SSCPREports = Nothing
-                        If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-                        SSCPREports.txtTrackingNumber.Text = txtWorkNumber.Text
-                        SSCPREports.Show()
+                    If SSCPReports Is Nothing Then
+                        SSCPReports = Nothing
+                        If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
+                        SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
+                        SSCPReports.Show()
                     Else
-                        SSCPREports.Close()
-                        SSCPREports = Nothing
-                        If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-                        SSCPREports.txtTrackingNumber.Text = txtWorkNumber.Text
-                        SSCPREports.Show()
+                        SSCPReports.Close()
+                        SSCPReports = Nothing
+                        If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
+                        SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
+                        SSCPReports.Show()
                     End If
                     'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 End If

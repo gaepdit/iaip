@@ -2103,11 +2103,11 @@ Public Class SSCPFCEWork
         Try
 
             If txtInspectionTrackingNumber.Text <> "" Then
-                SSCPREports = Nothing
-                If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-                SSCPREports.txtTrackingNumber.Text = txtInspectionTrackingNumber.Text
-                SSCPREports.txtOrigin.Text = "FCE Checklist"
-                SSCPREports.Show()
+                SSCPReports = Nothing
+                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
+                SSCPReports.txtTrackingNumber.Text = txtInspectionTrackingNumber.Text
+                SSCPReports.txtOrigin.Text = "FCE Checklist"
+                SSCPReports.Show()
                 'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
@@ -2119,11 +2119,11 @@ Public Class SSCPFCEWork
         Try
 
             If txtACCTrackingNumber.Text <> "" Then
-                SSCPREports = Nothing
-                If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-                SSCPREports.txtTrackingNumber.Text = txtACCTrackingNumber.Text
-                SSCPREports.txtOrigin.Text = "FCE Checklist"
-                SSCPREports.Show()
+                SSCPReports = Nothing
+                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
+                SSCPReports.txtTrackingNumber.Text = txtACCTrackingNumber.Text
+                SSCPReports.txtOrigin.Text = "FCE Checklist"
+                SSCPReports.Show()
                 'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
@@ -2135,11 +2135,11 @@ Public Class SSCPFCEWork
         Try
 
             If txtReportTrackingNumber.Text <> "" Then
-                SSCPREports = Nothing
-                If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-                SSCPREports.txtTrackingNumber.Text = txtReportTrackingNumber.Text
-                SSCPREports.txtOrigin.Text = "FCE Checklist"
-                SSCPREports.Show()
+                SSCPReports = Nothing
+                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
+                SSCPReports.txtTrackingNumber.Text = txtReportTrackingNumber.Text
+                SSCPReports.txtOrigin.Text = "FCE Checklist"
+                SSCPReports.Show()
                 'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
@@ -2151,11 +2151,11 @@ Public Class SSCPFCEWork
         Try
 
             If txtPerformanceTests.Text <> "" Then
-                SSCPREports = Nothing
-                If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-                SSCPREports.txtTrackingNumber.Text = txtPerformanceTests.Text
-                SSCPREports.txtOrigin.Text = "FCE Checklist"
-                SSCPREports.Show()
+                SSCPReports = Nothing
+                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
+                SSCPReports.txtTrackingNumber.Text = txtPerformanceTests.Text
+                SSCPReports.txtOrigin.Text = "FCE Checklist"
+                SSCPReports.Show()
                 'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
@@ -2167,11 +2167,11 @@ Public Class SSCPFCEWork
         Try
 
             If txtNotificationTrackingNumber.Text <> "" Then
-                SSCPREports = Nothing
-                If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-                SSCPREports.txtTrackingNumber.Text = txtNotificationTrackingNumber.Text
-                SSCPREports.txtOrigin.Text = "FCE Checklist"
-                SSCPREports.Show()
+                SSCPReports = Nothing
+                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
+                SSCPReports.txtTrackingNumber.Text = txtNotificationTrackingNumber.Text
+                SSCPReports.txtOrigin.Text = "FCE Checklist"
+                SSCPReports.Show()
                 'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception

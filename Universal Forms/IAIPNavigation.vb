@@ -1,4 +1,3 @@
-Imports Oracle.DataAccess.Client
 Imports System.IO
 Imports System.Collections.Generic
 Imports JohnGaltProject.DAL.NavigationScreen
@@ -116,9 +115,7 @@ Public Class IAIPNavigation
 
 #End Region
 
-#Region "Work Selector Tool"
-
-#Region "Work Selector Tool link clicked and keypress events"
+#Region "Quick Access Tool link clicked and keypress events"
 
     Private Sub LLSelectReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLSelectReport.LinkClicked
         OpenTestReport()
@@ -136,7 +133,7 @@ Public Class IAIPNavigation
         OpenFacilitySummary()
     End Sub
     Private Sub llbOpenTestLog_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenTestLog.LinkClicked
-        OpenTestLog()
+        OpenTestNotification()
     End Sub
 
     Private Sub txtApplicationNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtApplicationNumber.KeyPress
@@ -155,128 +152,68 @@ Public Class IAIPNavigation
         If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then OpenFacilitySummary()
     End Sub
     Private Sub txtTestLogNumber_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtTestLogNumber.KeyPress
-        If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then OpenTestLog()
+        If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then OpenTestNotification()
     End Sub
 
 #End Region
 
-#Region "Work Selector Tool procedures"
-    ' TODO (Doug): fix these up
+#Region "Quick Access Tool procedures"
 
     Private Sub OpenApplication()
-
         Try
+            Dim id As String = txtApplicationNumber.Text
+            If id = "" Then Exit Sub
 
-            If txtApplicationNumber.Text <> "" Then
-                SQL = "select strApplicationNumber " & _
-                "from AIRBranch.SSPPApplicationMaster " & _
-                "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+            If DAL.SSPP.ApplicationExists(id) Then
+                If PermitTrackingLog IsNot Nothing AndAlso Not PermitTrackingLog.IsDisposed Then
+                    PermitTrackingLog.Dispose()
                 End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
-                    If PermitTrackingLog Is Nothing Then
-                        PermitTrackingLog = Nothing
-                        If PermitTrackingLog Is Nothing Then PermitTrackingLog = New SSPPApplicationTrackingLog
-                        PermitTrackingLog.Show()
-                        ' APB310 = Nothing
-                    Else
-                        PermitTrackingLog.Show()
-                    End If
-                    PermitTrackingLog.txtApplicationNumber.Clear()
-                    PermitTrackingLog.txtApplicationNumber.Text = txtApplicationNumber.Text
-                    PermitTrackingLog.LoadApplication()
-                    PermitTrackingLog.BringToFront()
-                    'PermitTrackingLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                    PermitTrackingLog.TPTrackingLog.Focus()
 
-                Else
-                    MsgBox("Application Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
-                End If
+                PermitTrackingLog = New SSPPApplicationTrackingLog
+                PermitTrackingLog.txtApplicationNumber.Text = txtApplicationNumber.Text
+                PermitTrackingLog.LoadApplication()
+                PermitTrackingLog.Show()
+                PermitTrackingLog.TPTrackingLog.Focus()
+            Else
+                MsgBox("Application number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
 
     Private Sub OpenTestReport()
         Try
+            Dim id As String = txtReferenceNumber.Text
+            If id = "" Then Exit Sub
 
-            'If txtReferenceNumber.Text <> "" Then
-            '    SQL = "select AIRBranch.ISMPDocumentType.strDocumentType " & _
-            '     "from AIRBranch.ISMPDocumentType, AIRBranch.ISMPReportInformation " & _
-            '     "where AIRBranch.ISMPReportInformation.strDocumentType = AIRBranch.ISMPDocumentType.strKey and " & _
-            '     "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-            '    Dim cmd As New OracleCommand(SQL, conn)
-            '    If conn.State = ConnectionState.Closed Then
-            '        conn.Open()
-            '    End If
-            '    Dim dr As OracleDataReader = cmd.ExecuteReader
-            '    Dim recExist As Boolean = dr.Read
-            '    If recExist = True Then
-            '        ISMPTestReportsEntry = Nothing
-            '        If ISMPTestReportsEntry Is Nothing Then ISMPTestReportsEntry = New ISMPTestReports
-            '        ISMPTestReportsEntry.txtReferenceNumber.Text = txtReferenceNumber.Text
-            '        ISMPTestReportsEntry.Show()
-            '        ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-            '    Else
-            '        MsgBox("Reference Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
-            '    End If
-            'End If
-            If txtReferenceNumber.Text <> "" And txtReferenceNumber.Text.Length <= 9 Then
+            If DAL.ISMP.StackTestExists(id) Then
                 If UserProgram = "3" Then
-                    SQL = "select AIRBranch.ISMPDocumentType.strDocumentType " & _
-                    "from AIRBranch.ISMPDocumentType, AIRBranch.ISMPReportInformation " & _
-                    "where AIRBranch.ISMPReportInformation.strDocumentType = AIRBranch.ISMPDocumentType.strKey and " & _
-                    "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    If ISMPTestReportsEntry IsNot Nothing AndAlso Not ISMPTestReportsEntry.IsDisposed Then
+                        ISMPTestReportsEntry.Dispose()
                     End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    If recExist = True Then
-                        ISMPTestReportsEntry = Nothing
-                        If ISMPTestReportsEntry Is Nothing Then ISMPTestReportsEntry = New ISMPTestReports
-                        ISMPTestReportsEntry.txtReferenceNumber.Text = txtReferenceNumber.Text
-                        ISMPTestReportsEntry.Show()
-                        'ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                    End If
+                    ISMPTestReportsEntry = New ISMPTestReports
+                    ISMPTestReportsEntry.txtReferenceNumber.Text = txtReferenceNumber.Text
+                    ISMPTestReportsEntry.Show()
                 Else
-                    SQL = "Select strClosed " & _
-                    "from AIRBranch.ISMPReportInformation " & _
-                    "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        temp = dr.Item("strClosed")
-                    End While
-                    If temp = "True" Then
-                        PrintOut = Nothing
-                        If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
+                    If DAL.ISMP.StackTestIsClosed(id) Then
+                        If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
+                            PrintOut.Dispose()
+                        End If
+                        PrintOut = New IAIPPrintOut
                         PrintOut.txtReferenceNumber.Text = txtReferenceNumber.Text
                         PrintOut.txtPrintType.Text = "SSCP"
                         PrintOut.Show()
-                        'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     Else
-                        MsgBox("This Test Summary has not been completely reviewed by ISMP Engineer", MsgBoxStyle.Information, "Facility Summary")
+                        MsgBox("This test has not been completely reviewed by ISMP.", MsgBoxStyle.Information, "Facility Summary")
                     End If
                 End If
+            Else
+                MsgBox("Reference number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
 
     Private Sub OpenEnforcement()
@@ -295,77 +232,33 @@ Public Class IAIPNavigation
 
     Private Sub OpenSSCPWork()
         Try
+            Dim id As String = txtTrackingNumber.Text
+            If id = "" Then Exit Sub
 
-            If txtTrackingNumber.Text <> "" And IsNumeric(txtTrackingNumber.Text) Then
-                SQL = "Select " & _
-                "strTrackingNumber " & _
-                "from AIRBranch.SSCPItemMaster " & _
-                "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
-
-                    Dim RefNum As String = ""
-                    Dim DocType As String = ""
-
-                    SQL = "Select " & _
-                    "AIRBranch.ISMPReportInformation.strReferenceNumber, AIRBranch.ISMPDocumentType.strDocumentType " & _
-                    "from AIRBranch.SSCPTestReports, AIRBranch.ISMPDocumentType, " & _
-                    "AIRBranch.ISMPReportInformation " & _
-                    "where AIRBranch.SSCPTestReports.strReferenceNumber = AIRBranch.ISMPReportInformation.strReferenceNumber " & _
-                    "and AIRBranch.ISMPReportInformation.strDocumentType = AIRBranch.ISMPDocumentType.strKey " & _
-                    "and strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+            If DAL.SSCP.WorkItemExists(id) Then
+                Dim refNum As String = ""
+                If DAL.SSCP.WorkItemIsAStackTest(id, refNum) Then
+                    If ISMPTestReportsEntry IsNot Nothing AndAlso Not ISMPTestReportsEntry.IsDisposed Then
+                        ISMPTestReportsEntry.Dispose()
                     End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    If recExist = True Then
-                        RefNum = dr.Item("strReferenceNumber")
-                        DocType = dr.Item("strDocumentType")
-                    Else
-                        RefNum = ""
-                        DocType = ""
-                    End If
-                    dr.Close()
-                    If RefNum <> "" Then
-                        ISMPTestReportsEntry = Nothing
-                        If ISMPTestReportsEntry Is Nothing Then ISMPTestReportsEntry = New ISMPTestReports
-                        ISMPTestReportsEntry.txtReferenceNumber.Text = RefNum
-                        ISMPTestReportsEntry.Show()
-                    Else
-                        If SSCPREports Is Nothing Then
-                            SSCPREports = Nothing
-                            If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-                            SSCPREports.txtTrackingNumber.Text = txtTrackingNumber.Text
-                            SSCPREports.Show()
-                        Else
-                            SSCPREports.Close()
-                            SSCPREports = Nothing
-                            If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-                            SSCPREports.txtTrackingNumber.Text = txtTrackingNumber.Text
-                            SSCPREports.Show()
-                        End If
-                        'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                    End If
+                    ISMPTestReportsEntry = New ISMPTestReports
+                    ISMPTestReportsEntry.txtReferenceNumber.Text = refNum
+                    ISMPTestReportsEntry.Show()
+                    ISMPTestReportsEntry.TPSSCPWork.Focus()
                 Else
-                    MsgBox("Tracking Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
+                    If SSCPReports IsNot Nothing AndAlso Not SSCPReports.IsDisposed Then
+                        SSCPReports.Dispose()
+                    End If
+                    SSCPReports = New SSCPEvents
+                    SSCPReports.txtTrackingNumber.Text = id
+                    SSCPReports.Show()
                 End If
             Else
-                MsgBox("Tracking Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
+                MsgBox("Tracking number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-
         End Try
-
     End Sub
 
     Private Sub OpenFacilitySummary()
@@ -384,26 +277,28 @@ Public Class IAIPNavigation
         OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
     End Sub
 
-    Private Sub OpenTestLog()
+    Private Sub OpenTestNotification()
         Try
-            If Not IsNothing(DevTestLog) Then
-                DevTestLog.txtTestNotificationNumber.Text = txtTestLogNumber.Text
-                DevTestLog.Show()
-            Else
-                DevTestLog = Nothing
-                If DevTestLog Is Nothing Then DevTestLog = New ISMPNotificationLog
-                DevTestLog.txtTestNotificationNumber.Text = txtTestLogNumber.Text
-                DevTestLog.Show()
-            End If
-            'DevTestLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-            DevTestLog.LoadTestNotification()
+            Dim id As String = txtTestLogNumber.Text
+            If id = "" Then Exit Sub
 
+            If DAL.ISMP.TestNotificationExists(id) Then
+                If ISMPNotificationLogForm IsNot Nothing AndAlso Not ISMPNotificationLogForm.IsDisposed Then
+                    ISMPNotificationLogForm.Dispose()
+                End If
+
+                ISMPNotificationLogForm = New ISMPNotificationLog
+                ISMPNotificationLogForm.txtTestNotificationNumber.Text = id
+                ISMPNotificationLogForm.Show()
+            Else
+                MsgBox("Notification number is not in the system.", MsgBoxStyle.Information, Me.Text)
+            End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub ClearWorkTool()
+    Private Sub ClearQuickAccessTool()
         txtAIRSNumber.Clear()
         txtEnforcementNumber.Clear()
         txtApplicationNumber.Clear()
@@ -411,8 +306,6 @@ Public Class IAIPNavigation
         txtTrackingNumber.Clear()
         txtTestLogNumber.Clear()
     End Sub
-
-#End Region
 
 #End Region
 
@@ -831,6 +724,8 @@ Public Class IAIPNavigation
         txtDataGridCount.Text = ""
         ToolStripProgressBar1.Visible = True
 
+        ClearQuickAccessTool()
+
         SetWorkViewerContext()
         Try
             If bgrLoadWorkViewer.IsBusy Then
@@ -931,8 +826,6 @@ Public Class IAIPNavigation
     End Sub
 
 #End Region
-
-#Region "Navigation buttons"
 
 #Region "Nav button click events"
 
@@ -6068,8 +5961,6 @@ Public Class IAIPNavigation
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-
-#End Region
 
 #End Region
 

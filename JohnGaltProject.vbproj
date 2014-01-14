@@ -1745,6 +1745,8 @@
     <Compile Include="Crystal Reports\SmokeSchool\CrSmokeSchoolRoster.vb">
     </Compile>
     <Compile Include="_Data Classes\LoginCred.vb" />
+    <Compile Include="_DB\DAL.SSCP.WorkItem.vb" />
+    <Compile Include="_DB\DAL.ISMP.StackTest.vb" />
     <Compile Include="_DB\DAL.LoginCreds.vb" />
     <Compile Include="_DB\DAL.NavigationScreen.vb">
       <SubType>Code</SubType>

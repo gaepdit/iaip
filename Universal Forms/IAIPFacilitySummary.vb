@@ -3314,10 +3314,10 @@ Public Class IAIPFacilitySummary
         Try
 
             If txtTestingNumber.Text <> "" Then
-                DevTestLog = Nothing
-                If DevTestLog Is Nothing Then DevTestLog = New ISMPNotificationLog
-                DevTestLog.txtTestNotificationNumber.Text = Me.txtTestingNumber.Text
-                DevTestLog.Show()
+                ISMPNotificationLogForm = Nothing
+                If ISMPNotificationLogForm Is Nothing Then ISMPNotificationLogForm = New ISMPNotificationLog
+                ISMPNotificationLogForm.txtTestNotificationNumber.Text = Me.txtTestingNumber.Text
+                ISMPNotificationLogForm.Show()
                 'DevTestLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
 
@@ -3551,11 +3551,11 @@ Public Class IAIPFacilitySummary
         Try
 
             If txtTrackingNumber.Text <> "" Then
-                SSCPREports = Nothing
-                If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-                SSCPREports.txtTrackingNumber.Text = txtTrackingNumber.Text
-                SSCPREports.txtOrigin.Text = "Facility Summary"
-                SSCPREports.Show()
+                SSCPReports = Nothing
+                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
+                SSCPReports.txtTrackingNumber.Text = txtTrackingNumber.Text
+                SSCPReports.txtOrigin.Text = "Facility Summary"
+                SSCPReports.Show()
                 'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
@@ -4512,10 +4512,10 @@ Public Class IAIPFacilitySummary
                 If txtFacilityName.Text = "" Then
                     MsgBox("Please verify that the AIRS Number is correct", MsgBoxStyle.Information, "Facility Summary")
                 Else
-                    DevTestLog = Nothing
-                    If DevTestLog Is Nothing Then DevTestLog = New ISMPNotificationLog
-                    DevTestLog.txtTestNotificationNumber.Text = Me.txtTestingNumber.Text
-                    DevTestLog.Show()
+                    ISMPNotificationLogForm = Nothing
+                    If ISMPNotificationLogForm Is Nothing Then ISMPNotificationLogForm = New ISMPNotificationLog
+                    ISMPNotificationLogForm.txtTestNotificationNumber.Text = Me.txtTestingNumber.Text
+                    ISMPNotificationLogForm.Show()
                     'DevTestLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 End If
             End If

@@ -73,7 +73,7 @@ Partial Class IAIPNavigation
         Me.btnNav3 = New System.Windows.Forms.Button
         Me.btnNav2 = New System.Windows.Forms.Button
         Me.btnNav1 = New System.Windows.Forms.Button
-        Me.GPWorkSelectorTool = New System.Windows.Forms.GroupBox
+        Me.grpQuickAccess = New System.Windows.Forms.GroupBox
         Me.pnlWorkViewerContext = New System.Windows.Forms.Panel
         Me.rdbPMView = New System.Windows.Forms.RadioButton
         Me.rdbUCView = New System.Windows.Forms.RadioButton
@@ -113,7 +113,7 @@ Partial Class IAIPNavigation
         Me.lblMessageLabel = New System.Windows.Forms.Label
         Me.bgrLoadButtons = New System.ComponentModel.BackgroundWorker
         Me.Panel4.SuspendLayout()
-        Me.GPWorkSelectorTool.SuspendLayout()
+        Me.grpQuickAccess.SuspendLayout()
         Me.pnlWorkViewerContext.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.dgvWorkViewer, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -643,41 +643,42 @@ Partial Class IAIPNavigation
         Me.btnNav1.Text = "Button 1"
         Me.btnNav1.Visible = False
         '
-        'GPWorkSelectorTool
+        'grpQuickAccess
         '
-        Me.GPWorkSelectorTool.Controls.Add(Me.pnlWorkViewerContext)
-        Me.GPWorkSelectorTool.Controls.Add(Me.btnChangeWorkViewerContext)
-        Me.GPWorkSelectorTool.Controls.Add(Me.Label9)
-        Me.GPWorkSelectorTool.Controls.Add(Me.cboWorkViewerContext)
-        Me.GPWorkSelectorTool.Controls.Add(Me.llbOpenTestLog)
-        Me.GPWorkSelectorTool.Controls.Add(Me.txtTestLogNumber)
-        Me.GPWorkSelectorTool.Controls.Add(Me.Label8)
-        Me.GPWorkSelectorTool.Controls.Add(Me.llbFacilitySummary)
-        Me.GPWorkSelectorTool.Controls.Add(Me.Label7)
-        Me.GPWorkSelectorTool.Controls.Add(Me.txtAIRSNumber)
-        Me.GPWorkSelectorTool.Controls.Add(Me.StatusStrip1)
-        Me.GPWorkSelectorTool.Controls.Add(Me.llbTrackingNumber)
-        Me.GPWorkSelectorTool.Controls.Add(Me.txtTrackingNumber)
-        Me.GPWorkSelectorTool.Controls.Add(Me.Label2)
-        Me.GPWorkSelectorTool.Controls.Add(Me.llbOpenApplication)
-        Me.GPWorkSelectorTool.Controls.Add(Me.Label6)
-        Me.GPWorkSelectorTool.Controls.Add(Me.txtApplicationNumber)
-        Me.GPWorkSelectorTool.Controls.Add(Me.llbEnforcementRecord)
-        Me.GPWorkSelectorTool.Controls.Add(Me.Label5)
-        Me.GPWorkSelectorTool.Controls.Add(Me.txtEnforcementNumber)
-        Me.GPWorkSelectorTool.Controls.Add(Me.Label4)
-        Me.GPWorkSelectorTool.Controls.Add(Me.txtDataGridCount)
-        Me.GPWorkSelectorTool.Controls.Add(Me.LLSelectReport)
-        Me.GPWorkSelectorTool.Controls.Add(Me.Label3)
-        Me.GPWorkSelectorTool.Controls.Add(Me.txtReferenceNumber)
-        Me.GPWorkSelectorTool.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GPWorkSelectorTool.Location = New System.Drawing.Point(118, 235)
-        Me.GPWorkSelectorTool.Margin = New System.Windows.Forms.Padding(2)
-        Me.GPWorkSelectorTool.Name = "GPWorkSelectorTool"
-        Me.GPWorkSelectorTool.Padding = New System.Windows.Forms.Padding(2)
-        Me.GPWorkSelectorTool.Size = New System.Drawing.Size(674, 166)
-        Me.GPWorkSelectorTool.TabIndex = 120
-        Me.GPWorkSelectorTool.TabStop = False
+        Me.grpQuickAccess.Controls.Add(Me.pnlWorkViewerContext)
+        Me.grpQuickAccess.Controls.Add(Me.btnChangeWorkViewerContext)
+        Me.grpQuickAccess.Controls.Add(Me.Label9)
+        Me.grpQuickAccess.Controls.Add(Me.cboWorkViewerContext)
+        Me.grpQuickAccess.Controls.Add(Me.llbOpenTestLog)
+        Me.grpQuickAccess.Controls.Add(Me.txtTestLogNumber)
+        Me.grpQuickAccess.Controls.Add(Me.Label8)
+        Me.grpQuickAccess.Controls.Add(Me.llbFacilitySummary)
+        Me.grpQuickAccess.Controls.Add(Me.Label7)
+        Me.grpQuickAccess.Controls.Add(Me.txtAIRSNumber)
+        Me.grpQuickAccess.Controls.Add(Me.StatusStrip1)
+        Me.grpQuickAccess.Controls.Add(Me.llbTrackingNumber)
+        Me.grpQuickAccess.Controls.Add(Me.txtTrackingNumber)
+        Me.grpQuickAccess.Controls.Add(Me.Label2)
+        Me.grpQuickAccess.Controls.Add(Me.llbOpenApplication)
+        Me.grpQuickAccess.Controls.Add(Me.Label6)
+        Me.grpQuickAccess.Controls.Add(Me.txtApplicationNumber)
+        Me.grpQuickAccess.Controls.Add(Me.llbEnforcementRecord)
+        Me.grpQuickAccess.Controls.Add(Me.Label5)
+        Me.grpQuickAccess.Controls.Add(Me.txtEnforcementNumber)
+        Me.grpQuickAccess.Controls.Add(Me.Label4)
+        Me.grpQuickAccess.Controls.Add(Me.txtDataGridCount)
+        Me.grpQuickAccess.Controls.Add(Me.LLSelectReport)
+        Me.grpQuickAccess.Controls.Add(Me.Label3)
+        Me.grpQuickAccess.Controls.Add(Me.txtReferenceNumber)
+        Me.grpQuickAccess.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.grpQuickAccess.Location = New System.Drawing.Point(118, 235)
+        Me.grpQuickAccess.Margin = New System.Windows.Forms.Padding(2)
+        Me.grpQuickAccess.Name = "grpQuickAccess"
+        Me.grpQuickAccess.Padding = New System.Windows.Forms.Padding(2)
+        Me.grpQuickAccess.Size = New System.Drawing.Size(674, 166)
+        Me.grpQuickAccess.TabIndex = 120
+        Me.grpQuickAccess.TabStop = False
+        Me.grpQuickAccess.Text = "Quick Access"
         '
         'pnlWorkViewerContext
         '
@@ -1057,7 +1058,7 @@ Partial Class IAIPNavigation
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(792, 401)
         Me.Controls.Add(Me.dgvWorkViewer)
-        Me.Controls.Add(Me.GPWorkSelectorTool)
+        Me.Controls.Add(Me.grpQuickAccess)
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.lblMessageLabel)
@@ -1067,8 +1068,8 @@ Partial Class IAIPNavigation
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Air Protection Branch Navigation Screen"
         Me.Panel4.ResumeLayout(False)
-        Me.GPWorkSelectorTool.ResumeLayout(False)
-        Me.GPWorkSelectorTool.PerformLayout()
+        Me.grpQuickAccess.ResumeLayout(False)
+        Me.grpQuickAccess.PerformLayout()
         Me.pnlWorkViewerContext.ResumeLayout(False)
         Me.pnlWorkViewerContext.PerformLayout()
         Me.StatusStrip1.ResumeLayout(False)
@@ -1086,7 +1087,7 @@ Partial Class IAIPNavigation
     Friend WithEvents mmiAbout As System.Windows.Forms.MenuItem
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
-    Friend WithEvents GPWorkSelectorTool As System.Windows.Forms.GroupBox
+    Friend WithEvents grpQuickAccess As System.Windows.Forms.GroupBox
     Friend WithEvents llbTrackingNumber As System.Windows.Forms.LinkLabel
     Friend WithEvents txtTrackingNumber As System.Windows.Forms.TextBox
     Friend WithEvents Label2 As System.Windows.Forms.Label

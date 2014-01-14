@@ -4170,14 +4170,14 @@ Public Class SSCPManagersTools
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    If SSCPREports Is Nothing Then
-                        SSCPREports = Nothing
-                        If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-                        SSCPREports.txtTrackingNumber.Text = txtRecordNumber.Text
-                        SSCPREports.Show()
+                    If SSCPReports Is Nothing Then
+                        SSCPReports = Nothing
+                        If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
+                        SSCPReports.txtTrackingNumber.Text = txtRecordNumber.Text
+                        SSCPReports.Show()
                     Else
-                        SSCPREports.txtTrackingNumber.Text = txtRecordNumber.Text
-                        SSCPREports.Show()
+                        SSCPReports.txtTrackingNumber.Text = txtRecordNumber.Text
+                        SSCPReports.Show()
                     End If
                     'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Else
