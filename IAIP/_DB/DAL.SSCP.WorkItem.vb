@@ -1,5 +1,5 @@
 ﻿Imports Oracle.DataAccess.Client
-Imports JohnGaltProject.Apb.SSCP
+Imports Iaip.Apb.SSCP
 
 Namespace DAL.SSCP
 

@@ -49,7 +49,7 @@
     ''' <remarks>
     ''' Flips FirstRun setting to false when run
     ''' Can be used for setup requirements
-    ''' + Deletes old JohnGaltProject shortcut icons
+    ''' + Deletes old JohnGa1tProject shortcut icons
     ''' </remarks>
     Friend Sub FirstRun()
         If Not My.Settings.FirstRun Then Exit Sub

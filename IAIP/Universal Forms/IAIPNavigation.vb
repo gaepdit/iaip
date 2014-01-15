@@ -1,6 +1,6 @@
 Imports System.IO
 Imports System.Collections.Generic
-Imports JohnGaltProject.DAL.NavigationScreen
+Imports Iaip.DAL.NavigationScreen
 
 Public Class IAIPNavigation
 
@@ -6021,9 +6021,10 @@ Public Class IAIPNavigation
         OpenHelpUrl(Me)
     End Sub
 
-#End Region
-
     Private Sub mmiCheckForUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCheckForUpdate.Click
         App.CheckForUpdate()
     End Sub
+
+#End Region
+
 End Class

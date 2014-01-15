@@ -28,7 +28,9 @@ Partial Class IAIPNavigation
         Me.mmiHelp = New System.Windows.Forms.MenuItem
         Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
         Me.mmiResetForm = New System.Windows.Forms.MenuItem
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem
+        Me.mmiSeparator1 = New System.Windows.Forms.MenuItem
+        Me.mmiCheckForUpdate = New System.Windows.Forms.MenuItem
+        Me.mmiSeparator2 = New System.Windows.Forms.MenuItem
         Me.mmiAbout = New System.Windows.Forms.MenuItem
         Me.mmiTesting = New System.Windows.Forms.MenuItem
         Me.lblTitle = New System.Windows.Forms.Label
@@ -112,8 +114,6 @@ Partial Class IAIPNavigation
         Me.bgrLoadButtons = New System.ComponentModel.BackgroundWorker
         Me.pnlCurrentList = New System.Windows.Forms.Panel
         Me.pnlContextSubView = New System.Windows.Forms.Panel
-        Me.mmiCheckForUpdate = New System.Windows.Forms.MenuItem
-        Me.MenuItem4 = New System.Windows.Forms.MenuItem
         Me.pnlNavButtons.SuspendLayout()
         Me.grpQuickAccess.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -152,7 +152,7 @@ Partial Class IAIPNavigation
         'mmiHelp
         '
         Me.mmiHelp.Index = 2
-        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.mmiResetForm, Me.MenuItem1, Me.mmiCheckForUpdate, Me.MenuItem4, Me.mmiAbout})
+        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.mmiResetForm, Me.mmiSeparator1, Me.mmiCheckForUpdate, Me.mmiSeparator2, Me.mmiAbout})
         Me.mmiHelp.Text = "&Help"
         '
         'mmiOnlineHelp
@@ -166,10 +166,20 @@ Partial Class IAIPNavigation
         Me.mmiResetForm.Index = 1
         Me.mmiResetForm.Text = "&Reset All Forms"
         '
-        'MenuItem1
+        'mmiSeparator1
         '
-        Me.MenuItem1.Index = 2
-        Me.MenuItem1.Text = "-"
+        Me.mmiSeparator1.Index = 2
+        Me.mmiSeparator1.Text = "-"
+        '
+        'mmiCheckForUpdate
+        '
+        Me.mmiCheckForUpdate.Index = 3
+        Me.mmiCheckForUpdate.Text = "Check for &Update"
+        '
+        'mmiSeparator2
+        '
+        Me.mmiSeparator2.Index = 4
+        Me.mmiSeparator2.Text = "-"
         '
         'mmiAbout
         '
@@ -1080,16 +1090,6 @@ Partial Class IAIPNavigation
         Me.pnlContextSubView.Size = New System.Drawing.Size(252, 30)
         Me.pnlContextSubView.TabIndex = 295
         '
-        'mmiCheckForUpdate
-        '
-        Me.mmiCheckForUpdate.Index = 3
-        Me.mmiCheckForUpdate.Text = "Check for &Update"
-        '
-        'MenuItem4
-        '
-        Me.MenuItem4.Index = 4
-        Me.MenuItem4.Text = "-"
-        '
         'IAIPNavigation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1206,12 +1206,12 @@ Partial Class IAIPNavigation
     Friend WithEvents rdbUCView As System.Windows.Forms.RadioButton
     Friend WithEvents rdbStaffView As System.Windows.Forms.RadioButton
     Friend WithEvents mmiExport As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiSeparator1 As System.Windows.Forms.MenuItem
     Friend WithEvents mmiTesting As System.Windows.Forms.MenuItem
     Friend WithEvents mmiResetForm As System.Windows.Forms.MenuItem
     Friend WithEvents btnNav40 As System.Windows.Forms.Button
     Friend WithEvents mmiCheckForUpdate As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem4 As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiSeparator2 As System.Windows.Forms.MenuItem
     Friend WithEvents ToolStripProgressBar1 As System.Windows.Forms.ToolStripProgressBar
     Friend WithEvents pnlCurrentList As System.Windows.Forms.Panel
     Friend WithEvents pnlContextSubView As System.Windows.Forms.Panel
