@@ -1,5 +1,4 @@
-% IAIP Installation Instructions
-% Georgia EPD — Data Management Unit
+% Project Hub: <i>Project Name</i>
 
 ## Another Update
 <small>January 6, 2014</small>
