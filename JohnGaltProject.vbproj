@@ -276,8 +276,6 @@
     <Compile Include="_MFCode\ListViewItemComparer.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_MFCode\MRFunctions.vb">
-    </Compile>
     <Compile Include="DataSet\dsInventoryReport.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
