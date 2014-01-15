@@ -29,8 +29,8 @@ Public Class IAIPLogIn
         Try
             CheckLanguageRegistrySetting()
 
-            AddHandler t.Elapsed, AddressOf TimerFired
-            t.Enabled = True
+            'AddHandler t.Elapsed, AddressOf TimerFired
+            't.Enabled = True
 
             If File.Exists(IaipFolder & "\Oracle.DataAccess.dll") Then
                 Dim version As FileVersionInfo = FileVersionInfo.GetVersionInfo(IaipFolder & "\Oracle.DataAccess.dll")

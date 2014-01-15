@@ -47,17 +47,6 @@ Public Class PASPFeeReports
         End Try
 
     End Sub
-    Private Sub mmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiBack.Click
-        Try
-            Me.Hide()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-    End Sub
 
 #Region "Load Functions"
     Sub AddProgressBar()
@@ -1398,13 +1387,42 @@ Public Class PASPFeeReports
 
 #End Region
 
-  
-    Private Sub HelpToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HelpToolStripMenuItem.Click
+#Region "Crystal Reports displayer"
+
+    Sub DisplayReport(ByVal crReport As Object, ByVal TabText As String)
         Try
-            Help.ShowHelp(Label1, HelpUrl)
+            crReport.DisplayGroupTree = True
+            crReport.DisplayToolbar = True
+            crReport.showrefreshbutton = False
+            crReport.visible = True
+            crReport.DisplayGroupTree = True
+
+            Dim I As Integer
+            Do While I < crReport.Controls.Count
+                If TypeOf (crReport.Controls(I)) Is CrystalDecisions.Windows.Forms.PageView Then
+                    Dim J As Integer
+                    Do While J < crReport.Controls(I).Controls.Count
+                        If CType(crReport.Controls(I).Controls(J), System.Windows.Forms.TabControl).TabPages.Count > 0 Then
+                            'Change the tab text..
+                            CType(crReport.Controls(I).Controls(J), System.Windows.Forms.TabControl).TabPages.Item(0).Text = TabText
+                            Exit Do
+                        End If
+                    Loop
+                    Exit Do
+                Else
+                    crReport.Controls(I).Visible = False
+                End If
+            Loop
         Catch ex As Exception
+            ErrorReport(ex, "MRFunctions.DisplayReport")
+        Finally
+            If Conn.State = ConnectionState.Open Then
+                'conn.close()
+            End If
         End Try
+
     End Sub
 
-    
+#End Region
+
 End Class
