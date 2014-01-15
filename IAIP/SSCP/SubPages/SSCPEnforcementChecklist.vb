@@ -1232,11 +1232,11 @@ Public Class SSCPEnforcementChecklist
     Private Sub MoveOn()
         If txtTrackingNumber.Text <> "" Then
 
-            SSCPREports = Nothing
-            If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-            SSCPREports.txtTrackingNumber.Text = txtTrackingNumber.Text
-            SSCPREports.txtOrigin.Text = "Enforcement Checklist"
-            SSCPREports.Show()
+            SSCPReports = Nothing
+            If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
+            SSCPReports.txtTrackingNumber.Text = txtTrackingNumber.Text
+            SSCPReports.txtOrigin.Text = "Enforcement Checklist"
+            SSCPReports.Show()
             'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         End If
 

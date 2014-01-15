@@ -4,6 +4,13 @@
 
 See the [release notes](README.html).
 
+## Version 2.x.x <span>(2014-01-xx)</span>
+
++ NEW: Many changes behind the scenes to make the Navigation Screen much more responsive
+
+
++  FIX: Eliminated database timeout errors on the Navigation Screen (#162)
+
 ## Version 2.8.3 <span>(2014-01-08)</span>
 
 <em>Happy new year!</em> Have a few bug-fixes to help celebrate.
