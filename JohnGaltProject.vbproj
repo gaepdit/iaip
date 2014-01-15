@@ -277,7 +277,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_MFCode\MRFunctions.vb">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="DataSet\dsInventoryReport.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -1800,6 +1799,12 @@
     <Compile Include="_Modules\Messages.vb" />
     <Compile Include="_Modules\Email.Outlook.vb" />
     <Compile Include="_Modules\Encryption.vb" />
+    <Compile Include="_Modules\ProgressStatus.Designer.vb">
+      <DependentUpon>ProgressStatus.vb</DependentUpon>
+    </Compile>
+    <Compile Include="_Modules\ProgressStatus.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="_Modules\StartupShutdown.vb">
       <SubType>Code</SubType>
     </Compile>
