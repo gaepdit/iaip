@@ -472,7 +472,7 @@ Public Class IAIPNavigation
 
 #End Region
 
-#Region "WorkViewer context events"
+#Region "WorkViewer context selector events"
 
     Private Sub btnChangeWorkViewerContext_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnChangeWorkViewerContext.Click
         LoadWorkViewerData()
@@ -503,9 +503,9 @@ Public Class IAIPNavigation
             Case "Facilities missing Subparts"
                 pnlContextSubView.Visible = False
             Case "Monitoring Test Reports"
-                pnlContextSubView.Visible = False
-            Case "Monitoring Test Notifications"
                 pnlContextSubView.Visible = True
+            Case "Monitoring Test Notifications"
+                pnlContextSubView.Visible = False
             Case "Permit Applications"
                 pnlContextSubView.Visible = True
         End Select
