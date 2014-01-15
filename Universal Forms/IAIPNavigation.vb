@@ -1620,4387 +1620,4379 @@ Public Class IAIPNavigation
 
     Private Sub bgrLoadButtons_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgrLoadButtons.RunWorkerCompleted
         Try
-            i = 0
-
-            rdbStaffView.Visible = False
-            rdbUCView.Visible = False
-            rdbPMView.Visible = False
-
-            If AccountArray(129, 3) = "1" Or _
-                (AccountArray(24, 3) = "1" And AccountArray(3, 4) = "1" And AccountArray(12, 1) = "1" And AccountArray(12, 2) = "0") Or _
-                (AccountArray(17, 3) = "1" And AccountArray(17, 4) = "0") Or _
-                (AccountArray(22, 4) = "1" And AccountArray(22, 3) = "0") Then
-                rdbPMView.Visible = True
-                rdbUCView.Visible = True
-                rdbStaffView.Visible = True
-            Else
-                rdbPMView.Visible = False
-            End If
-
-            If (AccountArray(24, 3) = "1" And AccountArray(12, 1) = "1" And AccountArray(12, 2) = "0" And AccountArray(3, 4) = "0") Or _
-                (AccountArray(17, 1) = "0" And AccountArray(17, 2) = "1" And AccountArray(17, 3) = "1") Or _
-                (AccountArray(22, 4) = "0" And AccountArray(22, 3) = "1") Then
-                rdbUCView.Visible = True
-                rdbStaffView.Visible = True
-            End If
-
-            If AccountArray(1, 0) Is Nothing Then
-            Else
-                If AccountArray(1, 0) = "1" Then
-                    If AccountArray(1, 1) = "1" Or AccountArray(1, 2) = "1" Or AccountArray(1, 3) = "1" Or AccountArray(1, 4) = "1" Then
-                        btnNav1.Text = "Facility Summary"
-                        btnNav1.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(3, 0) Is Nothing Then
-            Else
-                If AccountArray(3, 0) = "3" Then
-                    If AccountArray(3, 1) = "1" Or AccountArray(3, 2) = "1" Or AccountArray(3, 3) = "1" Or AccountArray(3, 4) = "1" Then
-                        btnNav3.Text = "Application Log"
-                        btnNav3.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(4, 0) Is Nothing Then
-            Else
-                If AccountArray(4, 0) = "4" Then
-                    If AccountArray(4, 1) = "1" Or AccountArray(4, 2) = "1" Or AccountArray(4, 3) = "1" Or AccountArray(4, 4) = "1" Then
-                        btnNav4.Text = "Compliance Log"
-                        btnNav4.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(5, 0) Is Nothing Then
-            Else
-                If AccountArray(5, 0) = "5" Then
-                    If AccountArray(5, 1) = "1" Or AccountArray(5, 2) = "1" Or AccountArray(5, 3) = "1" Or AccountArray(5, 4) = "1" Then
-                        btnNav5.Text = "Monitoring Log"
-                        btnNav5.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(6, 0) Is Nothing Then
-            Else
-                If AccountArray(6, 0) = "6" Then
-                    If AccountArray(6, 1) = "1" Or AccountArray(6, 2) = "1" Or AccountArray(6, 3) = "1" Or AccountArray(6, 4) = "1" Then
-                        btnNav12.Text = "Fees Reports"
-                        btnNav12.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(7, 0) Is Nothing Then
-            Else
-                If AccountArray(7, 0) = "7" Then
-                    If AccountArray(7, 1) = "1" Or AccountArray(7, 2) = "1" Or AccountArray(7, 3) = "1" Or AccountArray(7, 4) = "1" Then
-                        btnNav7.Text = "IAIP Query Generator"
-                        btnNav7.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(8, 0) Is Nothing Then
-            Else
-                If AccountArray(8, 0) = "8" Then
-                    If AccountArray(8, 1) = "1" Or AccountArray(8, 2) = "1" Or AccountArray(8, 3) = "1" Or AccountArray(8, 4) = "1" Then
-                        btnNav8.Text = "Profile Management"
-                        btnNav8.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(9, 0) Is Nothing Then
-            Else
-                If AccountArray(9, 0) = "9" Then
-                    If AccountArray(9, 1) = "1" Or AccountArray(9, 2) = "1" Or AccountArray(9, 3) = "1" Or AccountArray(9, 4) = "1" Then
-                        btnNav9.Text = "Permit File Uploader"
-                        btnNav9.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(10, 0) Is Nothing Then
-            Else
-                If AccountArray(10, 0) = "10" Then
-                    If AccountArray(10, 1) = "1" Or AccountArray(10, 2) = "1" Or AccountArray(10, 3) = "1" Or AccountArray(10, 4) = "1" Then
-                        btnNav10.Text = "District Tools"
-                        btnNav10.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(11, 0) Is Nothing Then
-            Else
-                If AccountArray(11, 0) = "11" Then
-                    If AccountArray(11, 1) = "1" Or AccountArray(11, 2) = "1" Or AccountArray(11, 3) = "1" Or AccountArray(11, 4) = "1" Then
-                        btnNav11.Text = "AFS Validator"
-                        btnNav11.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(12, 0) Is Nothing Then
-            Else
-                If AccountArray(12, 0) = "12" Then
-                    If AccountArray(12, 1) = "1" Or AccountArray(12, 2) = "1" Or AccountArray(12, 3) = "1" Or AccountArray(12, 4) = "1" Then
-                        'btnNav6.Text = "Mailout && Statistics"
-                        'btnNav6.Text = "Fee Statistics && Mailout"
-                        btnNav6.Text = "Fee Statistics && Reports"
-                        btnNav6.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(13, 0) Is Nothing Then
-            Else
-                If AccountArray(13, 0) = "13" Then
-                    If AccountArray(13, 1) = "1" Or AccountArray(13, 2) = "1" Or AccountArray(13, 3) = "1" Or AccountArray(13, 4) = "1" Then
-                        btnNav13.Text = "APB Branch Tools"
-                        btnNav13.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(14, 0) Is Nothing Then
-            Else
-                If AccountArray(14, 0) = "14" Then
-                    If AccountArray(14, 1) = "1" Or AccountArray(14, 2) = "1" Or AccountArray(14, 3) = "1" Or AccountArray(14, 4) = "1" Then
-                        btnNav14.Text = "Test Report Information"
-                        btnNav14.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(15, 0) Is Nothing Then
-            Else
-                If AccountArray(15, 0) = "15" Then
-                    If AccountArray(15, 1) = "1" Or AccountArray(15, 2) = "1" Or AccountArray(15, 3) = "1" Or AccountArray(15, 4) = "1" Then
-                        btnNav15.Text = "Memo Viewer"
-                        btnNav15.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(16, 0) Is Nothing Then
-            Else
-                If AccountArray(16, 0) = "16" Then
-                    If AccountArray(16, 1) = "1" Or AccountArray(16, 2) = "1" Or AccountArray(16, 3) = "1" Or AccountArray(16, 4) = "1" Then
-                        btnNav16.Text = "Ref. Number Management"
-                        btnNav16.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(17, 0) Is Nothing Then
-            Else
-                If AccountArray(17, 0) = "17" Then
-                    If AccountArray(17, 1) = "1" Or AccountArray(17, 2) = "1" Or AccountArray(17, 3) = "1" Or AccountArray(17, 4) = "1" Then
-                        btnNav17.Text = "ISMP Managers"
-                        btnNav17.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(18, 0) Is Nothing Then
-            Else
-                If AccountArray(18, 0) = "18" Then
-                    If AccountArray(18, 1) = "1" Or AccountArray(18, 2) = "1" Or AccountArray(18, 3) = "1" Or AccountArray(18, 4) = "1" Then
-                        btnNav18.Text = "Deposits"
-                        btnNav18.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(19, 0) Is Nothing Then
-            Else
-                If AccountArray(19, 0) = "19" Then
-                    If AccountArray(19, 1) = "1" Or AccountArray(19, 2) = "1" Or AccountArray(19, 3) = "1" Or AccountArray(19, 4) = "1" Then
-                        btnNav19.Text = "Attainment Status Tool"
-                        btnNav19.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(20, 0) Is Nothing Then
-            Else
-                If AccountArray(20, 0) = "20" Then
-                    If AccountArray(20, 1) = "1" Or AccountArray(20, 2) = "1" Or AccountArray(20, 3) = "1" Or AccountArray(20, 4) = "1" Then
-                        btnNav20.Text = "Emissions Summary Tool"
-                        btnNav20.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(21, 0) Is Nothing Then
-            Else
-                If AccountArray(21, 0) = "21" Then
-                    If AccountArray(21, 1) = "1" Or AccountArray(21, 2) = "1" Or AccountArray(21, 3) = "1" Or AccountArray(21, 4) = "1" Then
-                        btnNav21.Text = "Inspection Tool"
-                        btnNav21.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(22, 0) Is Nothing Then
-            Else
-                If AccountArray(22, 0) = "22" Then
-                    If AccountArray(22, 1) = "1" Or AccountArray(22, 2) = "1" Or AccountArray(22, 3) = "1" Or AccountArray(22, 4) = "1" Then
-                        btnNav22.Text = "Compliance Managers"
-                        btnNav22.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(23, 0) Is Nothing Then
-            Else
-                If AccountArray(23, 0) = "23" Then
-                    If AccountArray(23, 1) = "1" Or AccountArray(23, 2) = "1" Or AccountArray(23, 3) = "1" Or AccountArray(24, 4) = "1" Then
-                        btnNav23.Text = "PA/PN Report"
-                        btnNav23.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(24, 0) Is Nothing Then
-            Else
-                If AccountArray(24, 0) = "24" Then
-                    If AccountArray(24, 1) = "1" Or AccountArray(24, 2) = "1" Or AccountArray(24, 3) = "1" Or AccountArray(24, 4) = "1" Then
-                        btnNav24.Text = "SSPP Tools"
-                        btnNav24.Visible = True
-                    End If
-                End If
-            End If
-            'If AccountArray(126, 0) Is Nothing Then
-            'Else
-            '    If AccountArray(126, 0) = "126" Then
-            '        If AccountArray(126, 1) = "1" Or AccountArray(126, 2) = "1" Or AccountArray(126, 3) = "1" Or AccountArray(126, 4) = "1" Then
-            '            btnNav26.Text = "Fee Tools"
-            '            btnNav26.Visible = True
-            '        End If
-            '    End If
-            'End If
-            'If AccountArray(127, 0) Is Nothing Then
-            'Else
-            '    If AccountArray(127, 0) = "127" Then
-            '        If AccountArray(127, 1) = "1" Or AccountArray(127, 2) = "1" Or AccountArray(127, 3) = "1" Or AccountArray(127, 4) = "1" Then
-            '            btnNav27.Text = "GAIT Inventory"
-            '            btnNav27.Visible = True
-            '        End If
-            '    End If
-            'End If
-            If AccountArray(128, 0) Is Nothing Then
-            Else
-                If AccountArray(128, 0) = "128" Then
-                    If AccountArray(128, 1) = "1" Or AccountArray(128, 2) = "1" Or AccountArray(128, 3) = "1" Or AccountArray(128, 4) = "1" Then
-                        btnNav28.Text = "Smoke School"
-                        btnNav28.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(129, 0) Is Nothing Then
-            Else
-                If AccountArray(129, 0) = "129" Then
-                    If AccountArray(129, 1) = "1" Or AccountArray(129, 2) = "1" Or AccountArray(129, 3) = "1" Or AccountArray(129, 4) = "1" Then
-                        btnNav29.Text = "AFS Tools"
-                        btnNav29.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(130, 0) Is Nothing Then
-            Else
-                If AccountArray(130, 0) = "130" Then
-                    If AccountArray(130, 1) = "1" Or AccountArray(130, 2) = "1" Or AccountArray(130, 3) = "1" Or AccountArray(130, 4) = "1" Then
-                        btnNav30.Text = "DMU Staff Tools"
-                        btnNav30.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(131, 0) Is Nothing Then
-            Else
-                If AccountArray(131, 0) = "131" Then
-                    If AccountArray(131, 1) = "1" Or AccountArray(131, 2) = "1" Or AccountArray(131, 3) = "1" Or AccountArray(131, 4) = "1" Then
-                        btnNav31.Text = "Title V Tools"
-                        btnNav31.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(132, 0) Is Nothing Then
-            Else
-                If AccountArray(132, 0) = "132" Then
-                    If AccountArray(132, 1) = "1" Or AccountArray(132, 2) = "1" Or AccountArray(132, 3) = "1" Or AccountArray(132, 4) = "1" Then
-                        btnNav32.Text = "AFS Compare Tool"
-                        btnNav32.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(63, 0) Is Nothing Then
-            Else
-                If AccountArray(63, 0) = "63" And (UserGCode = "1" Or UserGCode = "345") Then
-                    If AccountArray(63, 1) = "1" Or AccountArray(63, 2) = "1" Or AccountArray(63, 3) = "1" Or AccountArray(63, 4) = "1" Then
-                        btnNav25.Text = "DMU Only Tool"
-                        btnNav25.Visible = True
-                    End If
-                End If
-            End If
-
-            If AccountArray(133, 0) Is Nothing Then
-            Else
-                If AccountArray(133, 0) = "133" Then
-                    If AccountArray(133, 1) = "1" Or AccountArray(133, 2) = "1" Or AccountArray(133, 3) = "1" Or AccountArray(133, 4) = "1" Then
-                        btnNav33.Text = "Look Up Tables"
-                        btnNav33.Visible = True
-                    End If
-                End If
-            End If
-            'If AccountArray(134, 0) Is Nothing Then
-            'Else
-            '    If AccountArray(134, 0) = "134" Then
-            '        If AccountArray(134, 1) = "1" Or AccountArray(134, 2) = "1" Or AccountArray(134, 3) = "1" Or AccountArray(134, 4) = "1" Then
-            '            btnNav34.Text = "Fees Audit Tool"
-            '            btnNav34.Visible = True
-            '        End If
-            '    End If
-            'End If
-            If AccountArray(135, 0) Is Nothing Then
-            Else
-                If AccountArray(135, 0) = "135" Then
-                    If AccountArray(135, 1) = "1" Or AccountArray(135, 2) = "1" Or AccountArray(135, 3) = "1" Or AccountArray(135, 4) = "1" Then
-                        btnNav35.Text = "Fees Log"
-                        btnNav35.Visible = True
-                    End If
-                End If
-            End If
-
-            If AccountArray(136, 0) Is Nothing Then
-            Else
-                If AccountArray(136, 0) = "136" Then
-                    If AccountArray(136, 1) = "1" Or AccountArray(136, 2) = "1" Or AccountArray(136, 3) = "1" Or AccountArray(136, 4) = "1" Then
-                        btnNav36.Text = "Compliance Admin"
-                        btnNav36.Visible = True
-                    End If
-                End If
-            End If
-
-            If AccountArray(137, 0) Is Nothing Then
-            Else
-                If AccountArray(137, 0) = "137" Then
-                    If AccountArray(137, 1) = "1" Or AccountArray(137, 2) = "1" Or AccountArray(137, 3) = "1" Or AccountArray(137, 4) = "1" Then
-                        btnNav37.Text = "Registration Tool"
-                        btnNav37.Visible = True
-                    End If
-                End If
-            End If
-
-            If AccountArray(139, 0) Is Nothing Then
-            Else
-                If AccountArray(139, 0) = "139" Then
-                    If AccountArray(139, 1) = "1" Or AccountArray(139, 2) = "1" Or AccountArray(139, 3) = "1" Or AccountArray(139, 4) = "1" Then
-                        btnNav38.Text = "Fee Management"
-                        btnNav38.Visible = True
-                    End If
-                End If
-            End If
-            If AccountArray(140, 0) Is Nothing Then
-            Else
-                If AccountArray(140, 0) = "140" Then
-                    If AccountArray(140, 1) = "1" Or AccountArray(140, 2) = "1" Or AccountArray(140, 3) = "1" Or AccountArray(140, 4) = "1" Then
-                        btnNav39.Text = "EIS Log"
-                        btnNav39.Visible = True
-                    End If
-                End If
-            End If
-            If (Permissions.Contains("(19)") OrElse Permissions.Contains("(20)") _
-            OrElse Permissions.Contains("(21)") OrElse Permissions.Contains("(23)") _
-            OrElse Permissions.Contains("(25)") OrElse Permissions.Contains("(118)")) Then
-                btnNav40.Text = "Enforcement Documents"
-                btnNav40.Visible = True
-            End If
-
-            Select Case Permissions
-                Case Is = "(1)"
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Is = "(2)" 'ISMP Program Manager   
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'End of List
-
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Is = "(3)", Is = "(4)"  'ISMP Unit Managers
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'End of List
-
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Is = "(5)", Is = "(6)"  'ISMP Engineer
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'End of List
-
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Is = "(7)"  'ISMP Administrative
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'End of List
-
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Is = "(8)", Is = "(9)"  'ISMP Specialist
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'End of List
-
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Is = "(10)"  'Web Publisher
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'End of List
-
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Is = "(11)"  'PASP Program Manager 
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'End of List
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Is = "(12)", Is = "(13)", Is = "(14)"  'Planning & regulator Manager and Planning & regulator Engineer/Admin
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'End of List
-
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Is = "(15)", Is = "(16)"  'Data & Modeling Manager and Engineers
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'End of List
-
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Is = "(17)"  'Financial Manager
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'End of List
-
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Is = "(18)", Is = "(44)", Is = "(70)", Is = "(71)"  'Planning and Support Admin or Finanacial User
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'End of List
-
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Is = "(19)"  'SSCP Program Manager 
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'End of List
-
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Is = "(20)"  'SSCP Admin
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'End of List
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Is = "(21)", Is = "(23)", Is = "(25)"  'SSCP Managers
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'End of List
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Is = "(22)", Is = "(24)", Is = "(26)"  'SSCP Engineers
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'End of List
-
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Is = "(27)"  'District Liason
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'End of List
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Is = "(28)"  'SSPP Program Manager 
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'End of List
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Is = "(29)"  'SSPP Admin 
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'End of List
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Is = "(30)"  'SSPP Admin 2 
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'End of List
-
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Is = "(31)", Is = "(33)", Is = "(35)", Is = "(37)", Is = "(39)"  'SSPP Manager 
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'End of List
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'If btnNav24.Visible = True Then
-                    '    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                    '    i += 1
-                    'End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Is = "(32)", Is = "(34)", Is = "(36)", Is = "(38)", Is = "(40)"  'SSPP Engineer 
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'End of List
-
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Is = "(41)"  'Air Branch Director
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'End of List
-
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Is = "(42)"  'Air Branch Admin
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'End of List
-
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Is = "(43)"  'DMU User
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'End of List
-
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Is = "(44)"
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    'End of List
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                Case Else
-                    If btnNav1.Visible = True Then
-                        btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav2.Visible = True Then
-                        btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav3.Visible = True Then
-                        btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav4.Visible = True Then
-                        btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav5.Visible = True Then
-                        btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav35.Visible = True Then
-                        btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav6.Visible = True Then
-                        btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav7.Visible = True Then
-                        btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav8.Visible = True Then
-                        btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav9.Visible = True Then
-                        btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav10.Visible = True Then
-                        btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav11.Visible = True Then
-                        btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav12.Visible = True Then
-                        btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav13.Visible = True Then
-                        btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav14.Visible = True Then
-                        btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav15.Visible = True Then
-                        btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav16.Visible = True Then
-                        btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav17.Visible = True Then
-                        btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav18.Visible = True Then
-                        btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav19.Visible = True Then
-                        btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav20.Visible = True Then
-                        btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav21.Visible = True Then
-                        btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav22.Visible = True Then
-                        btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav23.Visible = True Then
-                        btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav24.Visible = True Then
-                        btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav25.Visible = True Then
-                        btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav26.Visible = True Then
-                        btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav27.Visible = True Then
-                        btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav28.Visible = True Then
-                        btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav29.Visible = True Then
-                        btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav30.Visible = True Then
-                        btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav31.Visible = True Then
-                        btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav32.Visible = True Then
-                        btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav33.Visible = True Then
-                        btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav34.Visible = True Then
-                        btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-                    If btnNav36.Visible = True Then
-                        btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                        i += 1
-                    End If
-            End Select
-
-            If btnNav37.Visible = True Then
-                btnNav37.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                i += 1
-            End If
-            If btnNav38.Visible = True Then
-                btnNav38.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                i += 1
-            End If
-            If btnNav39.Visible = True Then
-                btnNav39.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                i += 1
-            End If
-            If btnNav40.Visible = True Then
-                btnNav40.Location = New System.Drawing.Point(12, (12 + 56 * i))
-                i += 1
-            End If
-
-            If rdbPMView.Visible = True Then
-                rdbPMView.Checked = True
-            Else
-                If rdbUCView.Visible = True Then
-                    rdbUCView.Checked = True
-                Else
-                    If rdbStaffView.Visible = True Then
-                        rdbStaffView.Checked = True
-                    End If
-                End If
-            End If
-
+            SetContextSelectorSubView()
+            CreateButtons()
+            ArrangeButtons()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
+    End Sub
+
+    Private Sub SetContextSelectorSubView()
+        rdbStaffView.Checked = True
+
+        If (AccountArray(24, 3) = "1" And AccountArray(12, 1) = "1" And AccountArray(12, 2) = "0" And AccountArray(3, 4) = "0") Or _
+        (AccountArray(17, 1) = "0" And AccountArray(17, 2) = "1" And AccountArray(17, 3) = "1") Or _
+        (AccountArray(22, 4) = "0" And AccountArray(22, 3) = "1") Then
+            rdbUCView.Checked = True
+        End If
+
+        If AccountArray(129, 3) = "1" Or _
+        (AccountArray(24, 3) = "1" And AccountArray(3, 4) = "1" And AccountArray(12, 1) = "1" And AccountArray(12, 2) = "0") Or _
+        (AccountArray(17, 3) = "1" And AccountArray(17, 4) = "0") Or _
+        (AccountArray(22, 4) = "1" And AccountArray(22, 3) = "0") Then
+            rdbPMView.Checked = True
+        End If
+    End Sub
+
+    Private Sub CreateButtons()
+        If AccountArray(1, 0) Is Nothing Then
+        Else
+            If AccountArray(1, 0) = "1" Then
+                If AccountArray(1, 1) = "1" Or AccountArray(1, 2) = "1" Or AccountArray(1, 3) = "1" Or AccountArray(1, 4) = "1" Then
+                    btnNav1.Text = "Facility Summary"
+                    btnNav1.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(3, 0) Is Nothing Then
+        Else
+            If AccountArray(3, 0) = "3" Then
+                If AccountArray(3, 1) = "1" Or AccountArray(3, 2) = "1" Or AccountArray(3, 3) = "1" Or AccountArray(3, 4) = "1" Then
+                    btnNav3.Text = "Application Log"
+                    btnNav3.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(4, 0) Is Nothing Then
+        Else
+            If AccountArray(4, 0) = "4" Then
+                If AccountArray(4, 1) = "1" Or AccountArray(4, 2) = "1" Or AccountArray(4, 3) = "1" Or AccountArray(4, 4) = "1" Then
+                    btnNav4.Text = "Compliance Log"
+                    btnNav4.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(5, 0) Is Nothing Then
+        Else
+            If AccountArray(5, 0) = "5" Then
+                If AccountArray(5, 1) = "1" Or AccountArray(5, 2) = "1" Or AccountArray(5, 3) = "1" Or AccountArray(5, 4) = "1" Then
+                    btnNav5.Text = "Monitoring Log"
+                    btnNav5.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(6, 0) Is Nothing Then
+        Else
+            If AccountArray(6, 0) = "6" Then
+                If AccountArray(6, 1) = "1" Or AccountArray(6, 2) = "1" Or AccountArray(6, 3) = "1" Or AccountArray(6, 4) = "1" Then
+                    btnNav12.Text = "Fees Reports"
+                    btnNav12.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(7, 0) Is Nothing Then
+        Else
+            If AccountArray(7, 0) = "7" Then
+                If AccountArray(7, 1) = "1" Or AccountArray(7, 2) = "1" Or AccountArray(7, 3) = "1" Or AccountArray(7, 4) = "1" Then
+                    btnNav7.Text = "IAIP Query Generator"
+                    btnNav7.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(8, 0) Is Nothing Then
+        Else
+            If AccountArray(8, 0) = "8" Then
+                If AccountArray(8, 1) = "1" Or AccountArray(8, 2) = "1" Or AccountArray(8, 3) = "1" Or AccountArray(8, 4) = "1" Then
+                    btnNav8.Text = "Profile Management"
+                    btnNav8.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(9, 0) Is Nothing Then
+        Else
+            If AccountArray(9, 0) = "9" Then
+                If AccountArray(9, 1) = "1" Or AccountArray(9, 2) = "1" Or AccountArray(9, 3) = "1" Or AccountArray(9, 4) = "1" Then
+                    btnNav9.Text = "Permit File Uploader"
+                    btnNav9.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(10, 0) Is Nothing Then
+        Else
+            If AccountArray(10, 0) = "10" Then
+                If AccountArray(10, 1) = "1" Or AccountArray(10, 2) = "1" Or AccountArray(10, 3) = "1" Or AccountArray(10, 4) = "1" Then
+                    btnNav10.Text = "District Tools"
+                    btnNav10.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(11, 0) Is Nothing Then
+        Else
+            If AccountArray(11, 0) = "11" Then
+                If AccountArray(11, 1) = "1" Or AccountArray(11, 2) = "1" Or AccountArray(11, 3) = "1" Or AccountArray(11, 4) = "1" Then
+                    btnNav11.Text = "AFS Validator"
+                    btnNav11.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(12, 0) Is Nothing Then
+        Else
+            If AccountArray(12, 0) = "12" Then
+                If AccountArray(12, 1) = "1" Or AccountArray(12, 2) = "1" Or AccountArray(12, 3) = "1" Or AccountArray(12, 4) = "1" Then
+                    'btnNav6.Text = "Mailout && Statistics"
+                    'btnNav6.Text = "Fee Statistics && Mailout"
+                    btnNav6.Text = "Fee Statistics && Reports"
+                    btnNav6.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(13, 0) Is Nothing Then
+        Else
+            If AccountArray(13, 0) = "13" Then
+                If AccountArray(13, 1) = "1" Or AccountArray(13, 2) = "1" Or AccountArray(13, 3) = "1" Or AccountArray(13, 4) = "1" Then
+                    btnNav13.Text = "APB Branch Tools"
+                    btnNav13.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(14, 0) Is Nothing Then
+        Else
+            If AccountArray(14, 0) = "14" Then
+                If AccountArray(14, 1) = "1" Or AccountArray(14, 2) = "1" Or AccountArray(14, 3) = "1" Or AccountArray(14, 4) = "1" Then
+                    btnNav14.Text = "Test Report Information"
+                    btnNav14.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(15, 0) Is Nothing Then
+        Else
+            If AccountArray(15, 0) = "15" Then
+                If AccountArray(15, 1) = "1" Or AccountArray(15, 2) = "1" Or AccountArray(15, 3) = "1" Or AccountArray(15, 4) = "1" Then
+                    btnNav15.Text = "Memo Viewer"
+                    btnNav15.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(16, 0) Is Nothing Then
+        Else
+            If AccountArray(16, 0) = "16" Then
+                If AccountArray(16, 1) = "1" Or AccountArray(16, 2) = "1" Or AccountArray(16, 3) = "1" Or AccountArray(16, 4) = "1" Then
+                    btnNav16.Text = "Ref. Number Management"
+                    btnNav16.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(17, 0) Is Nothing Then
+        Else
+            If AccountArray(17, 0) = "17" Then
+                If AccountArray(17, 1) = "1" Or AccountArray(17, 2) = "1" Or AccountArray(17, 3) = "1" Or AccountArray(17, 4) = "1" Then
+                    btnNav17.Text = "ISMP Managers"
+                    btnNav17.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(18, 0) Is Nothing Then
+        Else
+            If AccountArray(18, 0) = "18" Then
+                If AccountArray(18, 1) = "1" Or AccountArray(18, 2) = "1" Or AccountArray(18, 3) = "1" Or AccountArray(18, 4) = "1" Then
+                    btnNav18.Text = "Deposits"
+                    btnNav18.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(19, 0) Is Nothing Then
+        Else
+            If AccountArray(19, 0) = "19" Then
+                If AccountArray(19, 1) = "1" Or AccountArray(19, 2) = "1" Or AccountArray(19, 3) = "1" Or AccountArray(19, 4) = "1" Then
+                    btnNav19.Text = "Attainment Status Tool"
+                    btnNav19.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(20, 0) Is Nothing Then
+        Else
+            If AccountArray(20, 0) = "20" Then
+                If AccountArray(20, 1) = "1" Or AccountArray(20, 2) = "1" Or AccountArray(20, 3) = "1" Or AccountArray(20, 4) = "1" Then
+                    btnNav20.Text = "Emissions Summary Tool"
+                    btnNav20.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(21, 0) Is Nothing Then
+        Else
+            If AccountArray(21, 0) = "21" Then
+                If AccountArray(21, 1) = "1" Or AccountArray(21, 2) = "1" Or AccountArray(21, 3) = "1" Or AccountArray(21, 4) = "1" Then
+                    btnNav21.Text = "Inspection Tool"
+                    btnNav21.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(22, 0) Is Nothing Then
+        Else
+            If AccountArray(22, 0) = "22" Then
+                If AccountArray(22, 1) = "1" Or AccountArray(22, 2) = "1" Or AccountArray(22, 3) = "1" Or AccountArray(22, 4) = "1" Then
+                    btnNav22.Text = "Compliance Managers"
+                    btnNav22.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(23, 0) Is Nothing Then
+        Else
+            If AccountArray(23, 0) = "23" Then
+                If AccountArray(23, 1) = "1" Or AccountArray(23, 2) = "1" Or AccountArray(23, 3) = "1" Or AccountArray(24, 4) = "1" Then
+                    btnNav23.Text = "PA/PN Report"
+                    btnNav23.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(24, 0) Is Nothing Then
+        Else
+            If AccountArray(24, 0) = "24" Then
+                If AccountArray(24, 1) = "1" Or AccountArray(24, 2) = "1" Or AccountArray(24, 3) = "1" Or AccountArray(24, 4) = "1" Then
+                    btnNav24.Text = "SSPP Tools"
+                    btnNav24.Visible = True
+                End If
+            End If
+        End If
+        'If AccountArray(126, 0) Is Nothing Then
+        'Else
+        '    If AccountArray(126, 0) = "126" Then
+        '        If AccountArray(126, 1) = "1" Or AccountArray(126, 2) = "1" Or AccountArray(126, 3) = "1" Or AccountArray(126, 4) = "1" Then
+        '            btnNav26.Text = "Fee Tools"
+        '            btnNav26.Visible = True
+        '        End If
+        '    End If
+        'End If
+        'If AccountArray(127, 0) Is Nothing Then
+        'Else
+        '    If AccountArray(127, 0) = "127" Then
+        '        If AccountArray(127, 1) = "1" Or AccountArray(127, 2) = "1" Or AccountArray(127, 3) = "1" Or AccountArray(127, 4) = "1" Then
+        '            btnNav27.Text = "GAIT Inventory"
+        '            btnNav27.Visible = True
+        '        End If
+        '    End If
+        'End If
+        If AccountArray(128, 0) Is Nothing Then
+        Else
+            If AccountArray(128, 0) = "128" Then
+                If AccountArray(128, 1) = "1" Or AccountArray(128, 2) = "1" Or AccountArray(128, 3) = "1" Or AccountArray(128, 4) = "1" Then
+                    btnNav28.Text = "Smoke School"
+                    btnNav28.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(129, 0) Is Nothing Then
+        Else
+            If AccountArray(129, 0) = "129" Then
+                If AccountArray(129, 1) = "1" Or AccountArray(129, 2) = "1" Or AccountArray(129, 3) = "1" Or AccountArray(129, 4) = "1" Then
+                    btnNav29.Text = "AFS Tools"
+                    btnNav29.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(130, 0) Is Nothing Then
+        Else
+            If AccountArray(130, 0) = "130" Then
+                If AccountArray(130, 1) = "1" Or AccountArray(130, 2) = "1" Or AccountArray(130, 3) = "1" Or AccountArray(130, 4) = "1" Then
+                    btnNav30.Text = "DMU Staff Tools"
+                    btnNav30.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(131, 0) Is Nothing Then
+        Else
+            If AccountArray(131, 0) = "131" Then
+                If AccountArray(131, 1) = "1" Or AccountArray(131, 2) = "1" Or AccountArray(131, 3) = "1" Or AccountArray(131, 4) = "1" Then
+                    btnNav31.Text = "Title V Tools"
+                    btnNav31.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(132, 0) Is Nothing Then
+        Else
+            If AccountArray(132, 0) = "132" Then
+                If AccountArray(132, 1) = "1" Or AccountArray(132, 2) = "1" Or AccountArray(132, 3) = "1" Or AccountArray(132, 4) = "1" Then
+                    btnNav32.Text = "AFS Compare Tool"
+                    btnNav32.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(63, 0) Is Nothing Then
+        Else
+            If AccountArray(63, 0) = "63" And (UserGCode = "1" Or UserGCode = "345") Then
+                If AccountArray(63, 1) = "1" Or AccountArray(63, 2) = "1" Or AccountArray(63, 3) = "1" Or AccountArray(63, 4) = "1" Then
+                    btnNav25.Text = "DMU Only Tool"
+                    btnNav25.Visible = True
+                End If
+            End If
+        End If
+
+        If AccountArray(133, 0) Is Nothing Then
+        Else
+            If AccountArray(133, 0) = "133" Then
+                If AccountArray(133, 1) = "1" Or AccountArray(133, 2) = "1" Or AccountArray(133, 3) = "1" Or AccountArray(133, 4) = "1" Then
+                    btnNav33.Text = "Look Up Tables"
+                    btnNav33.Visible = True
+                End If
+            End If
+        End If
+        'If AccountArray(134, 0) Is Nothing Then
+        'Else
+        '    If AccountArray(134, 0) = "134" Then
+        '        If AccountArray(134, 1) = "1" Or AccountArray(134, 2) = "1" Or AccountArray(134, 3) = "1" Or AccountArray(134, 4) = "1" Then
+        '            btnNav34.Text = "Fees Audit Tool"
+        '            btnNav34.Visible = True
+        '        End If
+        '    End If
+        'End If
+        If AccountArray(135, 0) Is Nothing Then
+        Else
+            If AccountArray(135, 0) = "135" Then
+                If AccountArray(135, 1) = "1" Or AccountArray(135, 2) = "1" Or AccountArray(135, 3) = "1" Or AccountArray(135, 4) = "1" Then
+                    btnNav35.Text = "Fees Log"
+                    btnNav35.Visible = True
+                End If
+            End If
+        End If
+
+        If AccountArray(136, 0) Is Nothing Then
+        Else
+            If AccountArray(136, 0) = "136" Then
+                If AccountArray(136, 1) = "1" Or AccountArray(136, 2) = "1" Or AccountArray(136, 3) = "1" Or AccountArray(136, 4) = "1" Then
+                    btnNav36.Text = "Compliance Admin"
+                    btnNav36.Visible = True
+                End If
+            End If
+        End If
+
+        If AccountArray(137, 0) Is Nothing Then
+        Else
+            If AccountArray(137, 0) = "137" Then
+                If AccountArray(137, 1) = "1" Or AccountArray(137, 2) = "1" Or AccountArray(137, 3) = "1" Or AccountArray(137, 4) = "1" Then
+                    btnNav37.Text = "Registration Tool"
+                    btnNav37.Visible = True
+                End If
+            End If
+        End If
+
+        If AccountArray(139, 0) Is Nothing Then
+        Else
+            If AccountArray(139, 0) = "139" Then
+                If AccountArray(139, 1) = "1" Or AccountArray(139, 2) = "1" Or AccountArray(139, 3) = "1" Or AccountArray(139, 4) = "1" Then
+                    btnNav38.Text = "Fee Management"
+                    btnNav38.Visible = True
+                End If
+            End If
+        End If
+        If AccountArray(140, 0) Is Nothing Then
+        Else
+            If AccountArray(140, 0) = "140" Then
+                If AccountArray(140, 1) = "1" Or AccountArray(140, 2) = "1" Or AccountArray(140, 3) = "1" Or AccountArray(140, 4) = "1" Then
+                    btnNav39.Text = "EIS Log"
+                    btnNav39.Visible = True
+                End If
+            End If
+        End If
+        If (Permissions.Contains("(19)") OrElse Permissions.Contains("(20)") _
+        OrElse Permissions.Contains("(21)") OrElse Permissions.Contains("(23)") _
+        OrElse Permissions.Contains("(25)") OrElse Permissions.Contains("(118)")) Then
+            btnNav40.Text = "Enforcement Documents"
+            btnNav40.Visible = True
+        End If
+    End Sub
+
+    Private Sub ArrangeButtons()
+
+        Dim i As Integer = 0
+
+        Select Case Permissions
+            Case Is = "(1)"
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Is = "(2)" 'ISMP Program Manager   
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'End of List
+
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Is = "(3)", Is = "(4)"  'ISMP Unit Managers
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'End of List
+
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Is = "(5)", Is = "(6)"  'ISMP Engineer
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'End of List
+
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Is = "(7)"  'ISMP Administrative
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'End of List
+
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Is = "(8)", Is = "(9)"  'ISMP Specialist
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'End of List
+
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Is = "(10)"  'Web Publisher
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'End of List
+
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Is = "(11)"  'PASP Program Manager 
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'End of List
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Is = "(12)", Is = "(13)", Is = "(14)"  'Planning & regulator Manager and Planning & regulator Engineer/Admin
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'End of List
+
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Is = "(15)", Is = "(16)"  'Data & Modeling Manager and Engineers
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'End of List
+
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Is = "(17)"  'Financial Manager
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'End of List
+
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Is = "(18)", Is = "(44)", Is = "(70)", Is = "(71)"  'Planning and Support Admin or Finanacial User
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'End of List
+
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Is = "(19)"  'SSCP Program Manager 
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'End of List
+
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Is = "(20)"  'SSCP Admin
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'End of List
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Is = "(21)", Is = "(23)", Is = "(25)"  'SSCP Managers
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'End of List
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Is = "(22)", Is = "(24)", Is = "(26)"  'SSCP Engineers
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'End of List
+
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Is = "(27)"  'District Liason
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'End of List
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Is = "(28)"  'SSPP Program Manager 
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'End of List
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Is = "(29)"  'SSPP Admin 
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'End of List
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Is = "(30)"  'SSPP Admin 2 
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'End of List
+
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Is = "(31)", Is = "(33)", Is = "(35)", Is = "(37)", Is = "(39)"  'SSPP Manager 
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'End of List
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'If btnNav24.Visible = True Then
+                '    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                '    i += 1
+                'End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Is = "(32)", Is = "(34)", Is = "(36)", Is = "(38)", Is = "(40)"  'SSPP Engineer 
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'End of List
+
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Is = "(41)"  'Air Branch Director
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'End of List
+
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Is = "(42)"  'Air Branch Admin
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'End of List
+
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Is = "(43)"  'DMU User
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'End of List
+
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Is = "(44)"
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                'End of List
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+            Case Else
+                If btnNav1.Visible = True Then
+                    btnNav1.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav2.Visible = True Then
+                    btnNav2.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav3.Visible = True Then
+                    btnNav3.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav4.Visible = True Then
+                    btnNav4.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav5.Visible = True Then
+                    btnNav5.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav35.Visible = True Then
+                    btnNav35.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav6.Visible = True Then
+                    btnNav6.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav7.Visible = True Then
+                    btnNav7.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav8.Visible = True Then
+                    btnNav8.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav9.Visible = True Then
+                    btnNav9.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav10.Visible = True Then
+                    btnNav10.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav11.Visible = True Then
+                    btnNav11.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav12.Visible = True Then
+                    btnNav12.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav13.Visible = True Then
+                    btnNav13.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav14.Visible = True Then
+                    btnNav14.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav15.Visible = True Then
+                    btnNav15.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav16.Visible = True Then
+                    btnNav16.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav17.Visible = True Then
+                    btnNav17.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav18.Visible = True Then
+                    btnNav18.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav19.Visible = True Then
+                    btnNav19.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav20.Visible = True Then
+                    btnNav20.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav21.Visible = True Then
+                    btnNav21.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav22.Visible = True Then
+                    btnNav22.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav23.Visible = True Then
+                    btnNav23.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav24.Visible = True Then
+                    btnNav24.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav25.Visible = True Then
+                    btnNav25.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav26.Visible = True Then
+                    btnNav26.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav27.Visible = True Then
+                    btnNav27.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav28.Visible = True Then
+                    btnNav28.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav29.Visible = True Then
+                    btnNav29.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav30.Visible = True Then
+                    btnNav30.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav31.Visible = True Then
+                    btnNav31.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav32.Visible = True Then
+                    btnNav32.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav33.Visible = True Then
+                    btnNav33.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav34.Visible = True Then
+                    btnNav34.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+                If btnNav36.Visible = True Then
+                    btnNav36.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                    i += 1
+                End If
+        End Select
+
+        If btnNav37.Visible = True Then
+            btnNav37.Location = New System.Drawing.Point(12, (12 + 56 * i))
+            i += 1
+        End If
+        If btnNav38.Visible = True Then
+            btnNav38.Location = New System.Drawing.Point(12, (12 + 56 * i))
+            i += 1
+        End If
+        If btnNav39.Visible = True Then
+            btnNav39.Location = New System.Drawing.Point(12, (12 + 56 * i))
+            i += 1
+        End If
+        If btnNav40.Visible = True Then
+            btnNav40.Location = New System.Drawing.Point(12, (12 + 56 * i))
+            i += 1
+        End If
+
     End Sub
 
 #End Region
