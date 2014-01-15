@@ -470,8 +470,45 @@ Public Class IAIPNavigation
         End Try
     End Sub
 
+#End Region
+
+#Region "WorkViewer context events"
+
     Private Sub btnChangeWorkViewerContext_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnChangeWorkViewerContext.Click
         LoadWorkViewerData()
+    End Sub
+
+    Private Sub pnlCurrentList_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles pnlCurrentList.Enter
+        Me.AcceptButton = btnChangeWorkViewerContext
+    End Sub
+
+    Private Sub pnlCurrentList_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles pnlCurrentList.Leave
+        Me.AcceptButton = Nothing
+    End Sub
+
+    Private Sub cboWorkViewerContext_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboWorkViewerContext.SelectedIndexChanged
+        Select Case cboWorkViewerContext.Text
+            Case "Default List"
+                pnlContextSubView.Visible = False
+            Case "Compliance Facilities Assigned"
+                pnlContextSubView.Visible = True
+            Case "Compliance Work"
+                pnlContextSubView.Visible = True
+            Case "Delinquent Full Compliance Evaluations"
+                pnlContextSubView.Visible = False
+            Case "Enforcement"
+                pnlContextSubView.Visible = True
+            Case "Facilities with Subparts"
+                pnlContextSubView.Visible = False
+            Case "Facilities missing Subparts"
+                pnlContextSubView.Visible = False
+            Case "Monitoring Test Reports"
+                pnlContextSubView.Visible = False
+            Case "Monitoring Test Notifications"
+                pnlContextSubView.Visible = True
+            Case "Permit Applications"
+                pnlContextSubView.Visible = True
+        End Select
     End Sub
 
 #End Region
@@ -717,9 +754,11 @@ Public Class IAIPNavigation
         dgvWorkViewer.Visible = False
         lblMessageLabel.Visible = True
         lblMessageLabel.Text = "Loading data…"
-        cboWorkViewerContext.Enabled = False
-        btnChangeWorkViewerContext.Enabled = False
+        'cboWorkViewerContext.Enabled = False
+        'btnChangeWorkViewerContext.Enabled = False
+        pnlCurrentList.Enabled = False
         btnChangeWorkViewerContext.Text = "Loading…"
+        lblResultsCount.Visible = False
         lblResultsCount.Text = ""
         ToolStripProgressBar1.Visible = True
 
@@ -747,8 +786,9 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub bgrLoadWorkViewer_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgrLoadWorkViewer.RunWorkerCompleted
-        cboWorkViewerContext.Enabled = True
-        btnChangeWorkViewerContext.Enabled = True
+        'cboWorkViewerContext.Enabled = True
+        'btnChangeWorkViewerContext.Enabled = True
+        pnlCurrentList.Enabled = True
         btnChangeWorkViewerContext.Text = "Load"
         ToolStripProgressBar1.Visible = False
 
@@ -758,6 +798,7 @@ Public Class IAIPNavigation
             dgvWorkViewer.Visible = True
             lblMessageLabel.Visible = False
             lblMessageLabel.Text = ""
+            lblResultsCount.Visible = True
             lblResultsCount.Text = dtWorkViewerTable.Rows.Count & " results"
 
             FormatWorkViewer()
@@ -767,6 +808,7 @@ Public Class IAIPNavigation
             dgvWorkViewer.Visible = False
             lblMessageLabel.Visible = True
             lblMessageLabel.Text = "No data to display"
+            lblResultsCount.Visible = False
             lblResultsCount.Text = ""
         End If
     End Sub
