@@ -67,8 +67,8 @@ Module subMain
     'Public DefaultY As Integer
     Public Oracledll As String
 
-    Public t As New System.Timers.Timer(14400000)
-    Public t2 As New System.Timers.Timer(300000)
+    'Public t As New System.Timers.Timer(14400000)
+    'Public t2 As New System.Timers.Timer(300000)
 #End Region
 
 #End Region
@@ -188,30 +188,30 @@ Module subMain
 
 #Region "App timeouts"
 
-    Public Sub TimerFired(ByVal sender As Object, ByVal e As System.Timers.ElapsedEventArgs)
-        Dim Result As DialogResult
+    'Public Sub TimerFired(ByVal sender As Object, ByVal e As System.Timers.ElapsedEventArgs)
+    '    Dim Result As DialogResult
 
-        AddHandler t2.Elapsed, AddressOf TimerFired2
-        t2.Enabled = True
+    '    AddHandler t2.Elapsed, AddressOf TimerFired2
+    '    t2.Enabled = True
 
-        Result = MessageBox.Show("The Integrated Air Information Platform has been open for 4 hours." & vbCrLf & _
-        "Do you want to continue to have it open?" & vbCrLf & vbCrLf & "IAIP will be terminated in 5 minutes.", "IAIP Connection Time Out.", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1)
+    '    Result = MessageBox.Show("The Integrated Air Information Platform has been open for 4 hours." & vbCrLf & _
+    '    "Do you want to continue to have it open?" & vbCrLf & vbCrLf & "IAIP will be terminated in 5 minutes.", "IAIP Connection Time Out.", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1)
 
-        Select Case Result
-            Case DialogResult.Yes
-                t2.Enabled = False
-            Case DialogResult.No
-                Conn.Dispose()
-                Application.Exit()
-            Case Else
-                t2.Enabled = False
-        End Select
-    End Sub
+    '    Select Case Result
+    '        Case DialogResult.Yes
+    '            t2.Enabled = False
+    '        Case DialogResult.No
+    '            Conn.Dispose()
+    '            Application.Exit()
+    '        Case Else
+    '            t2.Enabled = False
+    '    End Select
+    'End Sub
 
-    Public Sub TimerFired2(ByVal sender As Object, ByVal e As System.Timers.ElapsedEventArgs)
-        Conn.Dispose()
-        Application.Exit()
-    End Sub
+    'Public Sub TimerFired2(ByVal sender As Object, ByVal e As System.Timers.ElapsedEventArgs)
+    '    Conn.Dispose()
+    '    Application.Exit()
+    'End Sub
 
 #End Region
 
