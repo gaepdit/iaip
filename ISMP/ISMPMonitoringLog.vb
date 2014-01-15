@@ -1288,16 +1288,16 @@ Public Class ISMPMonitoringLog
     End Sub
     Private Sub llbSelectTestLog_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbSelectTestLog.LinkClicked
         Try
-            If Not IsNothing(DevTestLog) Then
-                DevTestLog.txtTestNotificationNumber.Text = txtTestLogNumber.Text
-                DevTestLog.Show()
+            If Not IsNothing(ISMPNotificationLogForm) Then
+                ISMPNotificationLogForm.txtTestNotificationNumber.Text = txtTestLogNumber.Text
+                ISMPNotificationLogForm.Show()
             Else
-                DevTestLog = Nothing
-                If DevTestLog Is Nothing Then DevTestLog = New ISMPNotificationLog
-                DevTestLog.txtTestNotificationNumber.Text = txtTestLogNumber.Text
-                DevTestLog.Show()
+                ISMPNotificationLogForm = Nothing
+                If ISMPNotificationLogForm Is Nothing Then ISMPNotificationLogForm = New ISMPNotificationLog
+                ISMPNotificationLogForm.txtTestNotificationNumber.Text = txtTestLogNumber.Text
+                ISMPNotificationLogForm.Show()
             End If
-            DevTestLog.LoadTestNotification()
+            ISMPNotificationLogForm.LoadTestNotification()
             'DevTestLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

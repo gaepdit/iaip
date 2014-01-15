@@ -3,6 +3,17 @@
 Namespace DAL
     Module StaffInfo
 
+        ''' <summary>
+        ''' Returns a text description of a Branch Program
+        ''' </summary>
+        ''' <param name="id">The ID of the Program to describe</param>
+        ''' <returns>A text description of the Branch Program</returns>
+        Public Function GetProgramDescription(ByVal id As Integer) As String
+            Dim query As String = "SELECT STRPROGRAMDESC FROM " & DBNameSpace & ".LOOKUPEPDPROGRAMS WHERE NUMPROGRAMCODE = :pId"
+            Dim parameter As New OracleParameter("pId", id)
+            Return DB.GetSingleValue(Of String)(query, parameter)
+        End Function
+
         Public Function GetStaffInfoById(ByVal id As String) As Staff
             Dim query As String = "SELECT NUMUSERID, STRLASTNAME, STRFIRSTNAME, STREMAILADDRESS, STRPHONE, NUMEMPLOYEESTATUS " & _
                 " FROM " & DBNameSpace & ".EPDUSERPROFILES WHERE NUMUSERID = :pId "

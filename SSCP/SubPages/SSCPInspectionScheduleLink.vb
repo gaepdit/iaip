@@ -716,7 +716,7 @@ Public Class SSCPInspectionscheduleLink
         Try
 
             SaveScheduleLink()
-            SSCPREports.CheckforInspectionLink()
+            SSCPReports.CheckforInspectionLink()
             LoadInspectionDataset(0)
 
         Catch ex As Exception

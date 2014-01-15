@@ -17913,16 +17913,16 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
     End Sub
     Private Sub tsbTestLogLink_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbTestLogLink.Click
         Try
-            If Not IsNothing(DevTestLog) Then
-                DevTestLog.txtTestNotificationNumber.Text = cboTestNotificationNumber.Text
-                DevTestLog.Show()
+            If Not IsNothing(ISMPNotificationLogForm) Then
+                ISMPNotificationLogForm.txtTestNotificationNumber.Text = cboTestNotificationNumber.Text
+                ISMPNotificationLogForm.Show()
             Else
-                DevTestLog = Nothing
-                If DevTestLog Is Nothing Then DevTestLog = New ISMPNotificationLog
-                DevTestLog.txtTestNotificationNumber.Text = cboTestNotificationNumber.Text
-                DevTestLog.Show()
+                ISMPNotificationLogForm = Nothing
+                If ISMPNotificationLogForm Is Nothing Then ISMPNotificationLogForm = New ISMPNotificationLog
+                ISMPNotificationLogForm.txtTestNotificationNumber.Text = cboTestNotificationNumber.Text
+                ISMPNotificationLogForm.Show()
             End If
-            DevTestLog.LoadTestNotification()
+            ISMPNotificationLogForm.LoadTestNotification()
             'DevTestLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -18009,16 +18009,16 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
     End Sub
     Private Sub mmiOpenTestLogNotification_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOpenTestLogNotification.Click
         Try
-            If Not IsNothing(DevTestLog) Then
-                DevTestLog.txtTestNotificationNumber.Text = cboTestNotificationNumber.Text
-                DevTestLog.Show()
+            If Not IsNothing(ISMPNotificationLogForm) Then
+                ISMPNotificationLogForm.txtTestNotificationNumber.Text = cboTestNotificationNumber.Text
+                ISMPNotificationLogForm.Show()
             Else
-                DevTestLog = Nothing
-                If DevTestLog Is Nothing Then DevTestLog = New ISMPNotificationLog
-                DevTestLog.txtTestNotificationNumber.Text = cboTestNotificationNumber.Text
-                DevTestLog.Show()
+                ISMPNotificationLogForm = Nothing
+                If ISMPNotificationLogForm Is Nothing Then ISMPNotificationLogForm = New ISMPNotificationLog
+                ISMPNotificationLogForm.txtTestNotificationNumber.Text = cboTestNotificationNumber.Text
+                ISMPNotificationLogForm.Show()
             End If
-            DevTestLog.LoadTestNotification()
+            ISMPNotificationLogForm.LoadTestNotification()
             'DevTestLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -23087,17 +23087,17 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
     Private Sub llbTestNotifiactionNumber_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbTestNotifiactionNumber.LinkClicked
         Try
             If cboTestNotificationNumber.Text <> "" Then
-                If Not IsNothing(DevTestLog) Then
-                    DevTestLog.txtTestNotificationNumber.Text = Replace(Mid(cboTestNotificationNumber.Text, 1, cboTestNotificationNumber.Text.IndexOf("-->")), " ", "")
-                    DevTestLog.Show()
+                If Not IsNothing(ISMPNotificationLogForm) Then
+                    ISMPNotificationLogForm.txtTestNotificationNumber.Text = Replace(Mid(cboTestNotificationNumber.Text, 1, cboTestNotificationNumber.Text.IndexOf("-->")), " ", "")
+                    ISMPNotificationLogForm.Show()
                 Else
-                    DevTestLog = Nothing
-                    If DevTestLog Is Nothing Then DevTestLog = New ISMPNotificationLog
-                    DevTestLog.txtTestNotificationNumber.Text = Replace(Mid(cboTestNotificationNumber.Text, 1, cboTestNotificationNumber.Text.IndexOf("-->")), " ", "")
-                    DevTestLog.Show()
+                    ISMPNotificationLogForm = Nothing
+                    If ISMPNotificationLogForm Is Nothing Then ISMPNotificationLogForm = New ISMPNotificationLog
+                    ISMPNotificationLogForm.txtTestNotificationNumber.Text = Replace(Mid(cboTestNotificationNumber.Text, 1, cboTestNotificationNumber.Text.IndexOf("-->")), " ", "")
+                    ISMPNotificationLogForm.Show()
                 End If
                 'DevTestLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                DevTestLog.LoadTestNotification()
+                ISMPNotificationLogForm.LoadTestNotification()
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

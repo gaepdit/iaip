@@ -3690,10 +3690,10 @@ Public Class SscpEnforcement
         Try
 
             If txtTrackingNumber.Text <> "" Then
-                SSCPREports = Nothing
-                If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-                SSCPREports.txtTrackingNumber.Text = txtTrackingNumber.Text
-                SSCPREports.Show()
+                SSCPReports = Nothing
+                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
+                SSCPReports.txtTrackingNumber.Text = txtTrackingNumber.Text
+                SSCPReports.Show()
                 'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
 

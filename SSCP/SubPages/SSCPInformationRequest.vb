@@ -1875,9 +1875,9 @@ Public Class SSCPInformationRequest
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
-            If SSCPREports Is Nothing Then
+            If SSCPReports Is Nothing Then
             Else
-                SSCPREports.txtRequestInformationDate.Text = DTPDueDate.Text
+                SSCPReports.txtRequestInformationDate.Text = DTPDueDate.Text
             End If
 
         Catch ex As Exception
