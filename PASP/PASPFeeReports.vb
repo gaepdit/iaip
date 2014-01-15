@@ -47,17 +47,6 @@ Public Class PASPFeeReports
         End Try
 
     End Sub
-    Private Sub mmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiBack.Click
-        Try
-            Me.Hide()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-    End Sub
 
 #Region "Load Functions"
     Sub AddProgressBar()
@@ -1398,13 +1387,4 @@ Public Class PASPFeeReports
 
 #End Region
 
-  
-    Private Sub HelpToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HelpToolStripMenuItem.Click
-        Try
-            Help.ShowHelp(Label1, HelpUrl)
-        Catch ex As Exception
-        End Try
-    End Sub
-
-    
 End Class

@@ -79,10 +79,6 @@ Partial Class PASPFeeReports
         Me.btnFacInfoChange = New System.Windows.Forms.Button
         Me.btnComments = New System.Windows.Forms.Button
         Me.CRFeesReports = New CrystalDecisions.Windows.Forms.CrystalReportViewer
-        Me.mmiFile = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiBack = New System.Windows.Forms.ToolStripMenuItem
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.tabReport.SuspendLayout()
         Me.TPFacilitySpecific.SuspendLayout()
         Me.TPFinancial.SuspendLayout()
@@ -96,7 +92,6 @@ Partial Class PASPFeeReports
         Me.Panel6.SuspendLayout()
         Me.TPGeneral.SuspendLayout()
         Me.Panel7.SuspendLayout()
-        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'tabReport
@@ -108,7 +103,7 @@ Partial Class PASPFeeReports
         Me.tabReport.Controls.Add(Me.TPCompliance)
         Me.tabReport.Controls.Add(Me.TPGeneral)
         Me.tabReport.Dock = System.Windows.Forms.DockStyle.Top
-        Me.tabReport.Location = New System.Drawing.Point(0, 24)
+        Me.tabReport.Location = New System.Drawing.Point(0, 0)
         Me.tabReport.Margin = New System.Windows.Forms.Padding(2)
         Me.tabReport.Name = "tabReport"
         Me.tabReport.SelectedIndex = 0
@@ -858,42 +853,13 @@ Partial Class PASPFeeReports
         Me.CRFeesReports.DisplayGroupTree = False
         Me.CRFeesReports.DisplayToolbar = False
         Me.CRFeesReports.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.CRFeesReports.Location = New System.Drawing.Point(0, 138)
+        Me.CRFeesReports.Location = New System.Drawing.Point(0, 114)
         Me.CRFeesReports.Margin = New System.Windows.Forms.Padding(2)
         Me.CRFeesReports.Name = "CRFeesReports"
         Me.CRFeesReports.SelectionFormula = ""
-        Me.CRFeesReports.Size = New System.Drawing.Size(669, 398)
+        Me.CRFeesReports.Size = New System.Drawing.Size(669, 422)
         Me.CRFeesReports.TabIndex = 269
         Me.CRFeesReports.ViewTimeSelectionFormula = ""
-        '
-        'mmiFile
-        '
-        Me.mmiFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiBack})
-        Me.mmiFile.Name = "mmiFile"
-        Me.mmiFile.Size = New System.Drawing.Size(37, 20)
-        Me.mmiFile.Text = "File"
-        '
-        'mmiBack
-        '
-        Me.mmiBack.Name = "mmiBack"
-        Me.mmiBack.Size = New System.Drawing.Size(99, 22)
-        Me.mmiBack.Text = "Back"
-        '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiFile, Me.HelpToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 2, 0, 2)
-        Me.MenuStrip1.Size = New System.Drawing.Size(669, 24)
-        Me.MenuStrip1.TabIndex = 266
-        Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'HelpToolStripMenuItem
-        '
-        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
-        Me.HelpToolStripMenuItem.Text = "Help"
         '
         'PASPFeeReports
         '
@@ -902,8 +868,6 @@ Partial Class PASPFeeReports
         Me.ClientSize = New System.Drawing.Size(669, 536)
         Me.Controls.Add(Me.CRFeesReports)
         Me.Controls.Add(Me.tabReport)
-        Me.Controls.Add(Me.MenuStrip1)
-        Me.MainMenuStrip = Me.MenuStrip1
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "PASPFeeReports"
         Me.Text = "PASPFeeReports"
@@ -928,10 +892,7 @@ Partial Class PASPFeeReports
         Me.TPGeneral.ResumeLayout(False)
         Me.Panel7.ResumeLayout(False)
         Me.Panel7.PerformLayout()
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
     Friend WithEvents tabReport As System.Windows.Forms.TabControl
@@ -981,13 +942,9 @@ Partial Class PASPFeeReports
     Friend WithEvents Panel7 As System.Windows.Forms.Panel
     Friend WithEvents btnFacInfoChange As System.Windows.Forms.Button
     Friend WithEvents btnComments As System.Windows.Forms.Button
-    Friend WithEvents mmiFile As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiBack As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
     Friend WithEvents btndeposit As System.Windows.Forms.Button
     Friend WithEvents btnFeeBalanceZero As System.Windows.Forms.Button
     Friend WithEvents btnTrainingReg As System.Windows.Forms.Button
-    Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents btnRunBalanceReport As System.Windows.Forms.Button
     Friend WithEvents chbFacilityBalance As System.Windows.Forms.CheckBox

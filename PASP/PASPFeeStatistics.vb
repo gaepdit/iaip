@@ -138,20 +138,12 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
  
-    Private Sub HelpToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HelpToolStripMenuItem.Click
-        Try
-            Help.ShowHelp(Label102, HelpUrl)
-        Catch ex As Exception
-        End Try
-
-    End Sub
-  
     Private Sub btnViewDepositsStats_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewDepositsStats.Click
         Try
             Dim SQLReported As String = ""
             Dim SQLInvoiced As String = ""
             Dim SQLPaid As String = ""
-             
+
             Select Case cboStatPayType.Text
                 Case "ALL"
                     SQLReported = "Select sum(numtotalFee) as TotalDue " & _
@@ -210,7 +202,7 @@ Public Class PASPFeeStatistics
                     "and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
                     "and " & DBNameSpace & ".FS_Transactions.active = '1' "
 
-                 
+
                 Case "ALL QUARTERS"
                     SQLReported = "Select sum(numtotalFee) as TotalDue " & _
                     "from " & DBNameSpace & ".FS_FeeAuditedData, " & DBNameSpace & ".FS_Admin " & _
@@ -301,7 +293,7 @@ Public Class PASPFeeStatistics
                     "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
                     "and " & DBNameSpace & ".FS_Admin.Active = '1' " & _
                     "and numCurrentStatus <> '12' " & _
-                    "and AIRbranch.FS_FeeInvoice.strPayType = '3'   
+                    "and AIRbranch.FS_FeeInvoice.strPayType = '3'   "
 
                     SQLPaid = "select sum(numPayment) as TotalPaid " & _
                     "from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
@@ -4819,9 +4811,6 @@ Public Class PASPFeeStatistics
     End Sub
 
 #End Region
-
-
-
 
 
 #End Region

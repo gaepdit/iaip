@@ -22,10 +22,6 @@ Partial Class PASPFeeStatistics
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
-        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.bgwEmails = New System.ComponentModel.BackgroundWorker
         Me.TCMailoutAndStats = New System.Windows.Forms.TabControl
         Me.TPDepositAndPaymentStats = New System.Windows.Forms.TabPage
@@ -333,7 +329,6 @@ Partial Class PASPFeeStatistics
         Me.btnTrainingReg = New System.Windows.Forms.Button
         Me.btnFacInfoChange = New System.Windows.Forms.Button
         Me.btnComments = New System.Windows.Forms.Button
-        Me.MenuStrip1.SuspendLayout()
         Me.TCMailoutAndStats.SuspendLayout()
         Me.TPDepositAndPaymentStats.SuspendLayout()
         CType(Me.dgvDepositsAndPayments, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -371,33 +366,6 @@ Partial Class PASPFeeStatistics
         Me.Panel9.SuspendLayout()
         Me.SuspendLayout()
         '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem, Me.HelpToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(944, 24)
-        Me.MenuStrip1.TabIndex = 7
-        Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'FileToolStripMenuItem
-        '
-        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.FileToolStripMenuItem.Text = "File"
-        '
-        'EditToolStripMenuItem
-        '
-        Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
-        Me.EditToolStripMenuItem.Text = "Edit"
-        '
-        'HelpToolStripMenuItem
-        '
-        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
-        Me.HelpToolStripMenuItem.Text = "Help"
-        '
         'bgwEmails
         '
         Me.bgwEmails.WorkerSupportsCancellation = True
@@ -409,10 +377,10 @@ Partial Class PASPFeeStatistics
         Me.TCMailoutAndStats.Controls.Add(Me.TPNonRespondersReport)
         Me.TCMailoutAndStats.Controls.Add(Me.TPReports)
         Me.TCMailoutAndStats.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCMailoutAndStats.Location = New System.Drawing.Point(0, 24)
+        Me.TCMailoutAndStats.Location = New System.Drawing.Point(0, 0)
         Me.TCMailoutAndStats.Name = "TCMailoutAndStats"
         Me.TCMailoutAndStats.SelectedIndex = 0
-        Me.TCMailoutAndStats.Size = New System.Drawing.Size(944, 694)
+        Me.TCMailoutAndStats.Size = New System.Drawing.Size(944, 718)
         Me.TCMailoutAndStats.TabIndex = 9
         '
         'TPDepositAndPaymentStats
@@ -422,7 +390,7 @@ Partial Class PASPFeeStatistics
         Me.TPDepositAndPaymentStats.Controls.Add(Me.Panel1)
         Me.TPDepositAndPaymentStats.Location = New System.Drawing.Point(4, 22)
         Me.TPDepositAndPaymentStats.Name = "TPDepositAndPaymentStats"
-        Me.TPDepositAndPaymentStats.Size = New System.Drawing.Size(936, 668)
+        Me.TPDepositAndPaymentStats.Size = New System.Drawing.Size(936, 692)
         Me.TPDepositAndPaymentStats.TabIndex = 4
         Me.TPDepositAndPaymentStats.Text = "Deposits and Payments"
         Me.TPDepositAndPaymentStats.UseVisualStyleBackColor = True
@@ -434,7 +402,7 @@ Partial Class PASPFeeStatistics
         Me.dgvDepositsAndPayments.Location = New System.Drawing.Point(0, 565)
         Me.dgvDepositsAndPayments.Name = "dgvDepositsAndPayments"
         Me.dgvDepositsAndPayments.ReadOnly = True
-        Me.dgvDepositsAndPayments.Size = New System.Drawing.Size(936, 103)
+        Me.dgvDepositsAndPayments.Size = New System.Drawing.Size(936, 127)
         Me.dgvDepositsAndPayments.TabIndex = 7
         '
         'pnlDetails
@@ -3701,11 +3669,8 @@ Partial Class PASPFeeStatistics
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(944, 718)
         Me.Controls.Add(Me.TCMailoutAndStats)
-        Me.Controls.Add(Me.MenuStrip1)
         Me.Name = "PASPFeeStatistics"
         Me.Text = "Fee Statistics and Reports"
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
         Me.TCMailoutAndStats.ResumeLayout(False)
         Me.TPDepositAndPaymentStats.ResumeLayout(False)
         CType(Me.dgvDepositsAndPayments, System.ComponentModel.ISupportInitialize).EndInit()
@@ -3758,13 +3723,8 @@ Partial Class PASPFeeStatistics
         Me.Panel9.ResumeLayout(False)
         Me.Panel9.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
-    Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
-    Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents EditToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents bgwEmails As System.ComponentModel.BackgroundWorker
     Friend WithEvents TCMailoutAndStats As System.Windows.Forms.TabControl
     Friend WithEvents TPDepositAndPaymentStats As System.Windows.Forms.TabPage
