@@ -273,7 +273,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="_MFCode\CodeFile.vb" />
-    <Compile Include="_MFCode\ListViewItemComparer.vb">
+    <Compile Include="_Classes\ListViewItemComparer.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DataSet\dsInventoryReport.Designer.vb">
