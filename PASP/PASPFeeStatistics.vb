@@ -138,20 +138,12 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
  
-    Private Sub HelpToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HelpToolStripMenuItem.Click
-        Try
-            Help.ShowHelp(Label102, HelpUrl)
-        Catch ex As Exception
-        End Try
-
-    End Sub
-  
     Private Sub btnViewDepositsStats_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewDepositsStats.Click
         Try
             Dim SQLReported As String = ""
             Dim SQLInvoiced As String = ""
             Dim SQLPaid As String = ""
-             
+
             Select Case cboStatPayType.Text
                 Case "ALL"
                     SQLReported = "Select sum(numtotalFee) as TotalDue " & _
@@ -210,7 +202,7 @@ Public Class PASPFeeStatistics
                     "and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
                     "and " & DBNameSpace & ".FS_Transactions.active = '1' "
 
-                 
+
                 Case "ALL QUARTERS"
                     SQLReported = "Select sum(numtotalFee) as TotalDue " & _
                     "from " & DBNameSpace & ".FS_FeeAuditedData, " & DBNameSpace & ".FS_Admin " & _
@@ -301,7 +293,7 @@ Public Class PASPFeeStatistics
                     "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
                     "and " & DBNameSpace & ".FS_Admin.Active = '1' " & _
                     "and numCurrentStatus <> '12' " & _
-                    "and AIRbranch.FS_FeeInvoice.strPayType = '3'   
+                    "and AIRbranch.FS_FeeInvoice.strPayType = '3'   "
 
                     SQLPaid = "select sum(numPayment) as TotalPaid " & _
                     "from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
@@ -3167,17 +3159,17 @@ Public Class PASPFeeStatistics
                             ISMPTestReportsEntry.txtReferenceNumber.Text = RefNum
                             ISMPTestReportsEntry.Show()
                         Else
-                            If SSCPREports Is Nothing Then
-                                SSCPREports = Nothing
-                                If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-                                SSCPREports.txtTrackingNumber.Text = txtFeeComplianceEvent.Text
-                                SSCPREports.Show()
+                            If SSCPReports Is Nothing Then
+                                SSCPReports = Nothing
+                                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
+                                SSCPReports.txtTrackingNumber.Text = txtFeeComplianceEvent.Text
+                                SSCPReports.Show()
                             Else
-                                SSCPREports.Close()
-                                SSCPREports = Nothing
-                                If SSCPREports Is Nothing Then SSCPREports = New SSCPEvents
-                                SSCPREports.txtTrackingNumber.Text = txtFeeComplianceEvent.Text
-                                SSCPREports.Show()
+                                SSCPReports.Close()
+                                SSCPReports = Nothing
+                                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
+                                SSCPReports.txtTrackingNumber.Text = txtFeeComplianceEvent.Text
+                                SSCPReports.Show()
                             End If
                             'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                         End If
@@ -4819,9 +4811,6 @@ Public Class PASPFeeStatistics
     End Sub
 
 #End Region
-
-
-
 
 
 #End Region
@@ -10717,5 +10706,42 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
+#Region "Crystal Reports displayer"
+
+    Sub DisplayReport(ByVal crReport As Object, ByVal TabText As String)
+        Try
+            crReport.DisplayGroupTree = True
+            crReport.DisplayToolbar = True
+            crReport.showrefreshbutton = False
+            crReport.visible = True
+            crReport.DisplayGroupTree = True
+
+            Dim I As Integer
+            Do While I < crReport.Controls.Count
+                If TypeOf (crReport.Controls(I)) Is CrystalDecisions.Windows.Forms.PageView Then
+                    Dim J As Integer
+                    Do While J < crReport.Controls(I).Controls.Count
+                        If CType(crReport.Controls(I).Controls(J), System.Windows.Forms.TabControl).TabPages.Count > 0 Then
+                            'Change the tab text..
+                            CType(crReport.Controls(I).Controls(J), System.Windows.Forms.TabControl).TabPages.Item(0).Text = TabText
+                            Exit Do
+                        End If
+                    Loop
+                    Exit Do
+                Else
+                    crReport.Controls(I).Visible = False
+                End If
+            Loop
+        Catch ex As Exception
+            ErrorReport(ex, "MRFunctions.DisplayReport")
+        Finally
+            If Conn.State = ConnectionState.Open Then
+                'conn.close()
+            End If
+        End Try
+
+    End Sub
+
+#End Region
 
 End Class

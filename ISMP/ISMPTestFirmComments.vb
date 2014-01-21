@@ -557,22 +557,21 @@ Public Class ISMPTestFirmComments
         Finally
         End Try
     End Sub
-    Private Sub tsbLookUpAirNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbLookUpAirNumber.Click
+    Private Sub OpenFacilityLookupTool()
         Try
-            If FacilityLookUpTool Is Nothing Then
-                If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
-                FacilityLookUpTool.Show()
-            Else
-                FacilityLookUpTool.Dispose()
-                FacilityLookUpTool = New IAIPFacilityLookUpTool
-                If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
-                FacilityLookUpTool.Show()
+            Dim facilityLookupDialog As New IAIPFacilityLookUpTool
+            facilityLookupDialog.ShowDialog()
+            If facilityLookupDialog.DialogResult = Windows.Forms.DialogResult.OK _
+            AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
+                Me.ValueFromFacilityLookUp = facilityLookupDialog.SelectedAirsNumber
+                Me.ValueFromFacilityLookUp2 = facilityLookupDialog.SelectedFacilityName
             End If
-            'FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
+    End Sub
+    Private Sub tsbLookUpAirNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbLookUpAirNumber.Click
+        OpenFacilityLookupTool()
     End Sub
     Public WriteOnly Property ValueFromFacilityLookUp() As String
         Set(ByVal Value As String)

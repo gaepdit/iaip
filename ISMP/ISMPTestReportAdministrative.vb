@@ -2594,27 +2594,22 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
 #End Region
-    Private Sub MmiViewByFacility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiViewByFacility.Click
-        Try
 
-            If FacilityLookUpTool Is Nothing Then
-                If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
-                FacilityLookUpTool.Show()
-            Else
-                FacilityLookUpTool.Dispose()
-                FacilityLookUpTool = New IAIPFacilityLookUpTool
-                If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
-                FacilityLookUpTool.Show()
-                'FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+    Private Sub OpenFacilityLookupTool()
+        Try
+            Dim facilityLookupDialog As New IAIPFacilityLookUpTool
+            facilityLookupDialog.ShowDialog()
+            If facilityLookupDialog.DialogResult = Windows.Forms.DialogResult.OK _
+            AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
+                Me.ValueFromFacilityLookUp = facilityLookupDialog.SelectedAirsNumber
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
+    End Sub
 
+    Private Sub MmiViewByFacility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiViewByFacility.Click
+        OpenFacilityLookupTool()
     End Sub
     Public WriteOnly Property ValueFromFacilityLookUp() As String
         Set(ByVal Value As String)
@@ -2799,26 +2794,7 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
     Private Sub LLFacilityName_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLFacilityName.LinkClicked
-        Try
-
-            If FacilityLookUpTool Is Nothing Then
-                If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
-                FacilityLookUpTool.Show()
-            Else
-                FacilityLookUpTool.Dispose()
-                FacilityLookUpTool = New IAIPFacilityLookUpTool
-                If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
-                FacilityLookUpTool.Show()
-            End If
-            'FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
+        OpenFacilityLookupTool()
     End Sub
     Private Sub rdbCloseReport_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles rdbCloseReport.CheckedChanged
         Try

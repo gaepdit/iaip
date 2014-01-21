@@ -548,7 +548,7 @@ Public Class ISMPNotificationLog
     Private Sub DevNotificationLog_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
 
-            DevTestLog = Nothing
+            ISMPNotificationLogForm = Nothing
             Me.Dispose()
 
         Catch ex As Exception
@@ -571,7 +571,7 @@ Public Class ISMPNotificationLog
     Private Sub tsbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbBack.Click
         Try
 
-            DevTestLog = Nothing
+            ISMPNotificationLogForm = Nothing
             Me.Dispose()
 
         Catch ex As Exception
@@ -601,7 +601,7 @@ Public Class ISMPNotificationLog
     Private Sub BackToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BackToolStripMenuItem.Click
         Try
 
-            DevTestLog = Nothing
+            ISMPNotificationLogForm = Nothing
             Me.Dispose()
 
         Catch ex As Exception
