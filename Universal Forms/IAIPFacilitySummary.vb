@@ -355,16 +355,17 @@ Public Class IAIPFacilitySummary
 
     Private Sub OpenFacilityLookupTool()
         Try
-            If FacilityLookUpTool Is Nothing Then
-                If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
-                FacilityLookUpTool.Show()
-            Else
-                FacilityLookUpTool.Dispose()
-                FacilityLookUpTool = New IAIPFacilityLookUpTool
-                If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
-                FacilityLookUpTool.Show()
+            If FacilityLookUpTool IsNot Nothing Then FacilityLookUpTool.Dispose()
+
+            Dim facilityLookupDialog As New IAIPFacilityLookUpTool
+            facilityLookupDialog.ShowDialog()
+            If facilityLookupDialog.DialogResult = Windows.Forms.DialogResult.OK _
+            AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
+                Me.ValueFromFacilityLookUp = facilityLookupDialog.SelectedAirsNumber
+                ClearForm()
+                LoadInitialData()
             End If
-            'FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

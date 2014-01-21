@@ -327,11 +327,11 @@ Public Class IAIPFacilityLookUpTool
                 ISMPManagers.ValueFromFacilityLookUp = txtAIRSNumber.Text
                 ISMPManagers.ValueFromFacilityLookUp2 = txtFacilityName.Text
             End If
-            If Not FacilitySummary Is Nothing Then
-                temp = 4
-                FacilitySummary.ValueFromFacilityLookUp = txtAIRSNumber.Text
-                FacilitySummary.LoadInitialData()
-            End If
+            'If Not FacilitySummary Is Nothing Then
+            '    temp = 4
+            '    FacilitySummary.ValueFromFacilityLookUp = txtAIRSNumber.Text
+            '    FacilitySummary.LoadInitialData()
+            'End If
             If Not SSCPFCESelector Is Nothing Then
                 temp = 7
                 SSCPFCESelector.ValueFromFacilityLookUp = txtAIRSNumber.Text
