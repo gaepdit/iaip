@@ -355,8 +355,6 @@ Public Class IAIPFacilitySummary
 
     Private Sub OpenFacilityLookupTool()
         Try
-            If FacilityLookUpTool IsNot Nothing Then FacilityLookUpTool.Dispose()
-
             Dim facilityLookupDialog As New IAIPFacilityLookUpTool
             facilityLookupDialog.ShowDialog()
             If facilityLookupDialog.DialogResult = Windows.Forms.DialogResult.OK _
@@ -365,7 +363,6 @@ Public Class IAIPFacilitySummary
                 ClearForm()
                 LoadInitialData()
             End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4816,7 +4813,6 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub mmiClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClose.Click
-        If Not FacilityLookUpTool Is Nothing Then FacilityLookUpTool.Dispose()
         Me.Close()
     End Sub
 

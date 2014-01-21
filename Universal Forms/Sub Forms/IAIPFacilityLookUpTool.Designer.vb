@@ -65,7 +65,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.dgvPossibleMatches = New System.Windows.Forms.DataGridView
         Me.Label68 = New System.Windows.Forms.Label
         Me.txtFacilityName = New System.Windows.Forms.TextBox
-        Me.Label72 = New System.Windows.Forms.Label
+        Me.lblSearchResults = New System.Windows.Forms.Label
         Me.Label67 = New System.Windows.Forms.Label
         Me.txtAIRSNumber = New System.Windows.Forms.TextBox
         Me.btnUseAIRSNumber = New System.Windows.Forms.Button
@@ -188,7 +188,7 @@ Partial Class IAIPFacilityLookUpTool
         '
         Me.tbbClear.ImageIndex = 84
         Me.tbbClear.Name = "tbbClear"
-        Me.tbbClear.Text = "Clear Form"
+        Me.tbbClear.Text = "Clear"
         '
         'tcSearchOptions
         '
@@ -205,7 +205,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.tcSearchOptions.Name = "tcSearchOptions"
         Me.tcSearchOptions.SelectedIndex = 0
         Me.tcSearchOptions.Size = New System.Drawing.Size(484, 104)
-        Me.tcSearchOptions.TabIndex = 205
+        Me.tcSearchOptions.TabIndex = 0
         '
         'tpFacilityName
         '
@@ -226,7 +226,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.chbHistoricalNames.Location = New System.Drawing.Point(136, 34)
         Me.chbHistoricalNames.Name = "chbHistoricalNames"
         Me.chbHistoricalNames.Size = New System.Drawing.Size(105, 17)
-        Me.chbHistoricalNames.TabIndex = 24
+        Me.chbHistoricalNames.TabIndex = 2
         Me.chbHistoricalNames.Text = "Historical Names"
         Me.chbHistoricalNames.UseVisualStyleBackColor = True
         '
@@ -235,7 +235,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.btnFacilityNameSearch.Location = New System.Drawing.Point(302, 6)
         Me.btnFacilityNameSearch.Name = "btnFacilityNameSearch"
         Me.btnFacilityNameSearch.Size = New System.Drawing.Size(78, 23)
-        Me.btnFacilityNameSearch.TabIndex = 23
+        Me.btnFacilityNameSearch.TabIndex = 1
         Me.btnFacilityNameSearch.Text = "Search"
         '
         'txtFacilityNameSearch
@@ -243,7 +243,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.txtFacilityNameSearch.Location = New System.Drawing.Point(136, 8)
         Me.txtFacilityNameSearch.Name = "txtFacilityNameSearch"
         Me.txtFacilityNameSearch.Size = New System.Drawing.Size(160, 20)
-        Me.txtFacilityNameSearch.TabIndex = 20
+        Me.txtFacilityNameSearch.TabIndex = 0
         '
         'Label69
         '
@@ -271,7 +271,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.btnAIRSNumberSearch.Location = New System.Drawing.Point(302, 6)
         Me.btnAIRSNumberSearch.Name = "btnAIRSNumberSearch"
         Me.btnAIRSNumberSearch.Size = New System.Drawing.Size(78, 23)
-        Me.btnAIRSNumberSearch.TabIndex = 14
+        Me.btnAIRSNumberSearch.TabIndex = 1
         Me.btnAIRSNumberSearch.Text = "Search"
         '
         'txtAIRSNumberSearch
@@ -279,7 +279,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.txtAIRSNumberSearch.Location = New System.Drawing.Point(136, 8)
         Me.txtAIRSNumberSearch.Name = "txtAIRSNumberSearch"
         Me.txtAIRSNumberSearch.Size = New System.Drawing.Size(160, 20)
-        Me.txtAIRSNumberSearch.TabIndex = 11
+        Me.txtAIRSNumberSearch.TabIndex = 0
         '
         'Label1
         '
@@ -307,7 +307,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.btnComplianceSearch.Location = New System.Drawing.Point(302, 6)
         Me.btnComplianceSearch.Name = "btnComplianceSearch"
         Me.btnComplianceSearch.Size = New System.Drawing.Size(78, 23)
-        Me.btnComplianceSearch.TabIndex = 17
+        Me.btnComplianceSearch.TabIndex = 1
         Me.btnComplianceSearch.Text = "Search"
         '
         'txtComplianceEngineer
@@ -315,7 +315,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.txtComplianceEngineer.Location = New System.Drawing.Point(136, 8)
         Me.txtComplianceEngineer.Name = "txtComplianceEngineer"
         Me.txtComplianceEngineer.Size = New System.Drawing.Size(160, 20)
-        Me.txtComplianceEngineer.TabIndex = 16
+        Me.txtComplianceEngineer.TabIndex = 0
         '
         'Label2
         '
@@ -343,7 +343,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.btnCitySearch.Location = New System.Drawing.Point(302, 6)
         Me.btnCitySearch.Name = "btnCitySearch"
         Me.btnCitySearch.Size = New System.Drawing.Size(78, 23)
-        Me.btnCitySearch.TabIndex = 26
+        Me.btnCitySearch.TabIndex = 1
         Me.btnCitySearch.Text = "Search"
         '
         'txtCityNameSearch
@@ -351,7 +351,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.txtCityNameSearch.Location = New System.Drawing.Point(136, 8)
         Me.txtCityNameSearch.Name = "txtCityNameSearch"
         Me.txtCityNameSearch.Size = New System.Drawing.Size(160, 20)
-        Me.txtCityNameSearch.TabIndex = 25
+        Me.txtCityNameSearch.TabIndex = 0
         '
         'Label64
         '
@@ -379,7 +379,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.btnZipCodeSearch.Location = New System.Drawing.Point(302, 6)
         Me.btnZipCodeSearch.Name = "btnZipCodeSearch"
         Me.btnZipCodeSearch.Size = New System.Drawing.Size(78, 23)
-        Me.btnZipCodeSearch.TabIndex = 29
+        Me.btnZipCodeSearch.TabIndex = 1
         Me.btnZipCodeSearch.Text = "Search"
         '
         'txtZipCodeSearch
@@ -387,7 +387,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.txtZipCodeSearch.Location = New System.Drawing.Point(136, 8)
         Me.txtZipCodeSearch.Name = "txtZipCodeSearch"
         Me.txtZipCodeSearch.Size = New System.Drawing.Size(160, 20)
-        Me.txtZipCodeSearch.TabIndex = 28
+        Me.txtZipCodeSearch.TabIndex = 0
         '
         'Label65
         '
@@ -415,7 +415,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.btnSICCodeSearch.Location = New System.Drawing.Point(302, 6)
         Me.btnSICCodeSearch.Name = "btnSICCodeSearch"
         Me.btnSICCodeSearch.Size = New System.Drawing.Size(78, 23)
-        Me.btnSICCodeSearch.TabIndex = 29
+        Me.btnSICCodeSearch.TabIndex = 1
         Me.btnSICCodeSearch.Text = "Search"
         '
         'txtSICCodeSearch
@@ -423,7 +423,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.txtSICCodeSearch.Location = New System.Drawing.Point(136, 8)
         Me.txtSICCodeSearch.Name = "txtSICCodeSearch"
         Me.txtSICCodeSearch.Size = New System.Drawing.Size(160, 20)
-        Me.txtSICCodeSearch.TabIndex = 28
+        Me.txtSICCodeSearch.TabIndex = 0
         '
         'Label70
         '
@@ -451,14 +451,14 @@ Partial Class IAIPFacilityLookUpTool
         Me.txtCountyNameSearch.Location = New System.Drawing.Point(136, 8)
         Me.txtCountyNameSearch.Name = "txtCountyNameSearch"
         Me.txtCountyNameSearch.Size = New System.Drawing.Size(160, 20)
-        Me.txtCountyNameSearch.TabIndex = 27
+        Me.txtCountyNameSearch.TabIndex = 0
         '
         'btnCountySearch
         '
         Me.btnCountySearch.Location = New System.Drawing.Point(302, 6)
         Me.btnCountySearch.Name = "btnCountySearch"
         Me.btnCountySearch.Size = New System.Drawing.Size(78, 23)
-        Me.btnCountySearch.TabIndex = 26
+        Me.btnCountySearch.TabIndex = 0
         Me.btnCountySearch.Text = "Search"
         '
         'Label63
@@ -492,7 +492,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.rdbGASIP.Location = New System.Drawing.Point(266, 57)
         Me.rdbGASIP.Name = "rdbGASIP"
         Me.rdbGASIP.Size = New System.Drawing.Size(86, 17)
-        Me.rdbGASIP.TabIndex = 37
+        Me.rdbGASIP.TabIndex = 5
         Me.rdbGASIP.TabStop = True
         Me.rdbGASIP.Text = "SIP - GA SIP"
         Me.rdbGASIP.UseVisualStyleBackColor = True
@@ -503,7 +503,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.rdbPart63.Location = New System.Drawing.Point(136, 57)
         Me.rdbPart63.Name = "rdbPart63"
         Me.rdbPart63.Size = New System.Drawing.Size(116, 17)
-        Me.rdbPart63.TabIndex = 36
+        Me.rdbPart63.TabIndex = 4
         Me.rdbPart63.TabStop = True
         Me.rdbPart63.Text = "M - MACT (Part 63)"
         Me.rdbPart63.UseVisualStyleBackColor = True
@@ -514,7 +514,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.rdbPart60.Location = New System.Drawing.Point(266, 34)
         Me.rdbPart60.Name = "rdbPart60"
         Me.rdbPart60.Size = New System.Drawing.Size(112, 17)
-        Me.rdbPart60.TabIndex = 35
+        Me.rdbPart60.TabIndex = 3
         Me.rdbPart60.TabStop = True
         Me.rdbPart60.Text = "9 - NSPS (Part 60)"
         Me.rdbPart60.UseVisualStyleBackColor = True
@@ -526,7 +526,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.rdbPart61.Location = New System.Drawing.Point(136, 34)
         Me.rdbPart61.Name = "rdbPart61"
         Me.rdbPart61.Size = New System.Drawing.Size(127, 17)
-        Me.rdbPart61.TabIndex = 34
+        Me.rdbPart61.TabIndex = 2
         Me.rdbPart61.TabStop = True
         Me.rdbPart61.Text = "8 - NESHAP (Part 61)"
         Me.rdbPart61.UseVisualStyleBackColor = True
@@ -536,14 +536,14 @@ Partial Class IAIPFacilityLookUpTool
         Me.txtSubpartSearch.Location = New System.Drawing.Point(136, 8)
         Me.txtSubpartSearch.Name = "txtSubpartSearch"
         Me.txtSubpartSearch.Size = New System.Drawing.Size(160, 20)
-        Me.txtSubpartSearch.TabIndex = 30
+        Me.txtSubpartSearch.TabIndex = 0
         '
         'btnSubpartSearch
         '
         Me.btnSubpartSearch.Location = New System.Drawing.Point(302, 6)
         Me.btnSubpartSearch.Name = "btnSubpartSearch"
         Me.btnSubpartSearch.Size = New System.Drawing.Size(78, 23)
-        Me.btnSubpartSearch.TabIndex = 29
+        Me.btnSubpartSearch.TabIndex = 1
         Me.btnSubpartSearch.Text = "Search"
         '
         'Label3
@@ -558,13 +558,15 @@ Partial Class IAIPFacilityLookUpTool
         'dgvPossibleMatches
         '
         Me.dgvPossibleMatches.AllowUserToOrderColumns = True
+        Me.dgvPossibleMatches.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvPossibleMatches.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvPossibleMatches.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.dgvPossibleMatches.Location = New System.Drawing.Point(0, 215)
         Me.dgvPossibleMatches.Name = "dgvPossibleMatches"
         Me.dgvPossibleMatches.ReadOnly = True
-        Me.dgvPossibleMatches.Size = New System.Drawing.Size(484, 247)
-        Me.dgvPossibleMatches.TabIndex = 218
+        Me.dgvPossibleMatches.Size = New System.Drawing.Size(484, 251)
+        Me.dgvPossibleMatches.TabIndex = 3
         '
         'Label68
         '
@@ -583,15 +585,15 @@ Partial Class IAIPFacilityLookUpTool
         Me.txtFacilityName.Size = New System.Drawing.Size(210, 20)
         Me.txtFacilityName.TabIndex = 215
         '
-        'Label72
+        'lblSearchResults
         '
-        Me.Label72.AutoSize = True
-        Me.Label72.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label72.Location = New System.Drawing.Point(12, 199)
-        Me.Label72.Name = "Label72"
-        Me.Label72.Size = New System.Drawing.Size(195, 13)
-        Me.Label72.TabIndex = 216
-        Me.Label72.Text = "Possible Matches to Your Search"
+        Me.lblSearchResults.AutoSize = True
+        Me.lblSearchResults.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSearchResults.Location = New System.Drawing.Point(12, 199)
+        Me.lblSearchResults.Name = "lblSearchResults"
+        Me.lblSearchResults.Size = New System.Drawing.Size(195, 13)
+        Me.lblSearchResults.TabIndex = 216
+        Me.lblSearchResults.Text = "Possible Matches to Your Search"
         '
         'Label67
         '
@@ -612,40 +614,44 @@ Partial Class IAIPFacilityLookUpTool
         '
         'btnUseAIRSNumber
         '
+        Me.btnUseAIRSNumber.DialogResult = System.Windows.Forms.DialogResult.OK
+        Me.btnUseAIRSNumber.Enabled = False
         Me.btnUseAIRSNumber.Location = New System.Drawing.Point(306, 138)
         Me.btnUseAIRSNumber.Name = "btnUseAIRSNumber"
         Me.btnUseAIRSNumber.Size = New System.Drawing.Size(70, 46)
-        Me.btnUseAIRSNumber.TabIndex = 217
+        Me.btnUseAIRSNumber.TabIndex = 1
         Me.btnUseAIRSNumber.Text = "Use"
         '
         'btnCancel
         '
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Enabled = False
         Me.btnCancel.Location = New System.Drawing.Point(382, 138)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(70, 46)
-        Me.btnCancel.TabIndex = 217
+        Me.btnCancel.TabIndex = 2
         Me.btnCancel.Text = "Cancel"
-        Me.btnCancel.Visible = False
         '
         'IAIPFacilityLookUpTool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(484, 462)
+        Me.ClientSize = New System.Drawing.Size(484, 466)
         Me.Controls.Add(Me.dgvPossibleMatches)
         Me.Controls.Add(Me.Label68)
         Me.Controls.Add(Me.txtFacilityName)
-        Me.Controls.Add(Me.Label72)
+        Me.Controls.Add(Me.lblSearchResults)
         Me.Controls.Add(Me.Label67)
         Me.Controls.Add(Me.txtAIRSNumber)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnUseAIRSNumber)
         Me.Controls.Add(Me.tcSearchOptions)
         Me.Controls.Add(Me.FacilityLookupToolBar)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
+        Me.MinimumSize = New System.Drawing.Size(470, 300)
         Me.Name = "IAIPFacilityLookUpTool"
-        Me.Text = "IAIP Facility Lookup Tool"
+        Me.Text = "Facility Lookup Tool"
         Me.tcSearchOptions.ResumeLayout(False)
         Me.tpFacilityName.ResumeLayout(False)
         Me.tpFacilityName.PerformLayout()
@@ -703,7 +709,7 @@ Partial Class IAIPFacilityLookUpTool
     Friend WithEvents dgvPossibleMatches As System.Windows.Forms.DataGridView
     Friend WithEvents Label68 As System.Windows.Forms.Label
     Friend WithEvents txtFacilityName As System.Windows.Forms.TextBox
-    Friend WithEvents Label72 As System.Windows.Forms.Label
+    Friend WithEvents lblSearchResults As System.Windows.Forms.Label
     Friend WithEvents Label67 As System.Windows.Forms.Label
     Friend WithEvents txtAIRSNumber As System.Windows.Forms.TextBox
     Friend WithEvents btnUseAIRSNumber As System.Windows.Forms.Button

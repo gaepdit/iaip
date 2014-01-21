@@ -9,23 +9,38 @@ Public Class IAIPFacilityLookUpTool
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader
 
+#Region " Accessible properties "
+
     Public ReadOnly Property SelectedAirsNumber() As String
         Get
             Return txtAIRSNumber.Text
         End Get
     End Property
 
+    Public ReadOnly Property SelectedFacilityName() As String
+        Get
+            Return txtFacilityName.Text
+        End Get
+    End Property
+
+#End Region
+
+#Region " Form events "
+
     Private Sub IAIPFacilityLookUpTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
 
-        If Me.Modal Then
-            btnCancel.Enabled = True
-            btnCancel.Visible = True
-            btnUseAIRSNumber.DialogResult = Windows.Forms.DialogResult.OK
-        End If
+        If Not Me.Modal Then Me.Close()
+
     End Sub
 
-#Region "Procedures"
+    Private Sub IAIPFacilityLookUpTool_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
+        txtFacilityNameSearch.Focus()
+    End Sub
+
+#End Region
+
+#Region " Procedures "
 
     Private Sub SearchBy(ByVal SearchItem As String)
 
@@ -272,11 +287,13 @@ Public Class IAIPFacilityLookUpTool
         txtFacilityNameSearch.Clear()
         txtSICCodeSearch.Clear()
         txtZipCodeSearch.Clear()
+        btnUseAIRSNumber.Enabled = False
+        dgvPossibleMatches.DataSource = Nothing
     End Sub
 
 #End Region
 
-#Region "Search-by buttons"
+#Region " Search-by buttons "
 
     Private Sub btnAIRSNumberSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAIRSNumberSearch.Click
         SearchBy("Airs Number")
@@ -309,59 +326,7 @@ Public Class IAIPFacilityLookUpTool
 
 #End Region
 
-#Region "Results"
-
-    Private Sub btnUseAIRSNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUseAIRSNumber.Click
-        Dim temp As String = ""
-
-        Try
-
-            temp = 8
-
-            If Not ISMPFacility Is Nothing Then
-                temp = 2
-                ISMPFacility.ValueFromFacilityLookUp = txtAIRSNumber.Text
-            End If
-            If Not ISMPManagers Is Nothing Then
-                temp = 3
-                ISMPManagers.ValueFromFacilityLookUp = txtAIRSNumber.Text
-                ISMPManagers.ValueFromFacilityLookUp2 = txtFacilityName.Text
-            End If
-            'If Not FacilitySummary Is Nothing Then
-            '    temp = 4
-            '    FacilitySummary.ValueFromFacilityLookUp = txtAIRSNumber.Text
-            '    FacilitySummary.LoadInitialData()
-            'End If
-            If Not SSCPFCESelector Is Nothing Then
-                temp = 7
-                SSCPFCESelector.ValueFromFacilityLookUp = txtAIRSNumber.Text
-                SSCPFCESelector.OpenFCETool()
-            End If
-            If Not ISMPFacility Is Nothing Then
-                temp = 8
-                ISMPFacility.ValueFromFacilityLookUp = txtAIRSNumber.Text
-            End If
-            If Not SSCP_Work Is Nothing Then
-                temp = 9
-                SSCP_Work.ValueFromFacilityLookUp = txtAIRSNumber.Text
-                SSCP_Work.ValueFromFacilityLookUp2 = txtFacilityName.Text
-            End If
-            If Not TestFirmComments Is Nothing Then
-                temp = 10
-                TestFirmComments.ValueFromFacilityLookUp = txtAIRSNumber.Text
-                TestFirmComments.ValueFromFacilityLookUp2 = txtFacilityName.Text
-            End If
-            If Not ISMPReportViewer Is Nothing Then
-                temp = 11
-                ISMPReportViewer.ValueFromFacilityLookUp = txtAIRSNumber.Text
-            End If
-        Catch ex As Exception
-            ErrorReport(temp & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
+#Region " Results DataGridView "
 
     Private Sub dgvPossibleMatches_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvPossibleMatches.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvPossibleMatches.HitTest(e.X, e.Y)
@@ -370,6 +335,7 @@ Public Class IAIPFacilityLookUpTool
             If dgvPossibleMatches.RowCount > 0 And hti.RowIndex <> -1 Then
                 txtAIRSNumber.Text = dgvPossibleMatches(1, hti.RowIndex).Value
                 txtFacilityName.Text = dgvPossibleMatches(0, hti.RowIndex).Value
+                btnUseAIRSNumber.Enabled = True
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -378,7 +344,7 @@ Public Class IAIPFacilityLookUpTool
 
 #End Region
 
-#Region "Toolbar"
+#Region " Toolbar "
 
     Private Sub FacilityLookupToolBar_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles FacilityLookupToolBar.ButtonClick
         Select Case FacilityLookupToolBar.Buttons.IndexOf(e.Button)
@@ -389,7 +355,7 @@ Public Class IAIPFacilityLookUpTool
 
 #End Region
 
-#Region "Accept button"
+#Region " Accept button "
 
     Private Sub tpFacilityName_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tpFacilityName.Enter
         Me.AcceptButton = btnFacilityNameSearch
@@ -428,6 +394,62 @@ Public Class IAIPFacilityLookUpTool
     tpZipCode.Leave, tpSIC.Leave, tpCounty.Leave, tpSubpart.Leave
         Me.AcceptButton = btnUseAIRSNumber
     End Sub
+
+#End Region
+
+#Region " Obsolete Code "
+
+    'Private Sub btnUseAIRSNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUseAIRSNumber.Click
+    '    Dim temp As String = ""
+
+    '    Try
+
+    '        temp = 8
+
+    '        'If Not ISMPFacility Is Nothing Then
+    '        '    temp = 2
+    '        '    ISMPFacility.ValueFromFacilityLookUp = txtAIRSNumber.Text
+    '        'End If
+    '        'If Not ISMPManagers Is Nothing Then
+    '        '    temp = 3
+    '        '    ISMPManagers.ValueFromFacilityLookUp = txtAIRSNumber.Text
+    '        '    ISMPManagers.ValueFromFacilityLookUp2 = txtFacilityName.Text
+    '        'End If
+    '        'If Not FacilitySummary Is Nothing Then
+    '        '    temp = 4
+    '        '    FacilitySummary.ValueFromFacilityLookUp = txtAIRSNumber.Text
+    '        '    FacilitySummary.LoadInitialData()
+    '        'End If
+    '        'If Not SSCPFCESelector Is Nothing Then
+    '        '    temp = 7
+    '        '    SSCPFCESelector.ValueFromFacilityLookUp = txtAIRSNumber.Text
+    '        '    SSCPFCESelector.OpenFCETool()
+    '        'End If
+    '        'If Not ISMPFacility Is Nothing Then
+    '        '    temp = 8
+    '        '    ISMPFacility.ValueFromFacilityLookUp = txtAIRSNumber.Text
+    '        'End If
+    '        'If Not SSCP_Work Is Nothing Then
+    '        '    temp = 9
+    '        '    SSCP_Work.ValueFromFacilityLookUp = txtAIRSNumber.Text
+    '        '    SSCP_Work.ValueFromFacilityLookUp2 = txtFacilityName.Text
+    '        'End If
+    '        'If Not TestFirmComments Is Nothing Then
+    '        '    temp = 10
+    '        '    TestFirmComments.ValueFromFacilityLookUp = txtAIRSNumber.Text
+    '        '    TestFirmComments.ValueFromFacilityLookUp2 = txtFacilityName.Text
+    '        'End If
+    '        'If Not ISMPReportViewer Is Nothing Then
+    '        '    temp = 11
+    '        '    ISMPReportViewer.ValueFromFacilityLookUp = txtAIRSNumber.Text
+    '        'End If
+    '    Catch ex As Exception
+    '        ErrorReport(temp & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
+
+    '    End Try
+
+    'End Sub
 
 #End Region
 

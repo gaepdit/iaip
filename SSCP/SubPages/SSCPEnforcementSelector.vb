@@ -97,7 +97,7 @@ Public Class SSCPEnforcementSelector
     Private Sub mmiSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSearch.Click
         Try
 
-            OpenFacilitySearchTool()
+            OpenFacilityLookupTool()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -144,7 +144,7 @@ Public Class SSCPEnforcementSelector
 
             Select Case TBSSCPFCESelector.Buttons.IndexOf(e.Button)
                 Case 0
-                    OpenFacilitySearchTool()
+                    OpenFacilityLookupTool()
                 Case 1
                     OpenEnforcement()
             End Select
@@ -200,27 +200,17 @@ Public Class SSCPEnforcementSelector
         End Try
 
     End Sub
-    Sub OpenFacilitySearchTool()
+    Private Sub OpenFacilityLookupTool()
         Try
-
-            If FacilityLookUpTool Is Nothing Then
-                If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
-                FacilityLookUpTool.Show()
-            Else
-                FacilityLookUpTool.Dispose()
-                FacilityLookUpTool = New IAIPFacilityLookUpTool
-                If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
-                FacilityLookUpTool.Show()
+            Dim facilityLookupDialog As New IAIPFacilityLookUpTool
+            facilityLookupDialog.ShowDialog()
+            If facilityLookupDialog.DialogResult = Windows.Forms.DialogResult.OK _
+            AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
+                Me.ValueFromFacilityLookUp = facilityLookupDialog.SelectedAirsNumber
             End If
-            'FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
-
     End Sub
     Sub OpenEnforcement()
         Try
