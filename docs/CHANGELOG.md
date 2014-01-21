@@ -4,11 +4,14 @@
 
 See the [release notes](README.html).
 
-## Version 2.x.x <span>(2014-01-xx)</span>
+## Version 2.8.4 <span>(2014-01-21)</span>
 
-+ NEW: Many changes behind the scenes to make the Navigation Screen much more responsive
++ NEW: Many changes to the main Navigation Screen to make it more responsive and useable
++ NEW: Changes to the Facility Lookup Tool to make it more useable
 
-- FIX: Eliminated database timeout errors on the Navigation Screen (#162)
+- FIX: Eliminated many of the database timeout errors people experience when the IAIP has been open for a while. Eliminating timeout errors is a work in progress. This release focused on the Navigation Screen, which accounts for over a third of all such errors logged. (#162)
+- FIX: *SSCP* – FCE defaults to wrong calendar year (#82)
+- FIX: Facility Lookup tool does not populate the Facility Summary (#170)
 
 ## Version 2.8.3 <span>(2014-01-08)</span>
 
