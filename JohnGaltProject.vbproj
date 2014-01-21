@@ -931,9 +931,6 @@
     <Compile Include="SSCP\SubPages\SSCPFacAssignment.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SSCP\SubPages\SSCPFCESelectorTool.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="SSCP\SubPages\SSCPInformationRequest.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -1545,10 +1542,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SubPages\SSCPFacAssignment.resx">
       <DependentUpon>SSCPFacAssignment.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SSCP\SubPages\SSCPFCESelectorTool.resx">
-      <DependentUpon>SSCPFCESelectorTool.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SubPages\SSCPInformationRequest.resx">

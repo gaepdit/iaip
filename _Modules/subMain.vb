@@ -166,7 +166,7 @@ Module subMain
     Public SSCPEngWork As SSCPWorkEnTry
     'Public SSCPTemplates As SSCPLetterTemplates
     Public SSCPRequest As SSCPInformationRequest
-    Public SSCPFCESelector As SSCPFCESelectorTool
+    'Public SSCPFCESelector As SSCPFCESelectorTool
     'Public SSCPSelectEnforcement As SSCPEnforcementSelector
     Public EnforcementChecklist As SSCPEnforcementChecklist
     Public SSCPInspectionsTool As SSCPEngineerInspectionTool
