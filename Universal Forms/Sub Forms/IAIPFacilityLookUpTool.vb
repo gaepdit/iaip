@@ -9,29 +9,25 @@ Public Class IAIPFacilityLookUpTool
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader
 
+    Public ReadOnly Property SelectedAirsNumber() As String
+        Get
+            Return txtAIRSNumber.Text
+        End Get
+    End Property
+
     Private Sub IAIPFacilityLookUpTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
-        Try
 
-            Panel1.Text = "Select a Function..."
-            Panel2.Text = UserName
-            Panel3.Text = OracleDate
-
-            Me.Size = New Drawing.Size(500, 500)
-
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        If Me.Modal Then
+            btnCancel.Enabled = True
+            btnCancel.Visible = True
+            btnUseAIRSNumber.DialogResult = Windows.Forms.DialogResult.OK
+        End If
     End Sub
-#Region "Page Load Functions"
 
-#End Region
-#Region "Subs and Functions"
-    Sub SearchBy(ByVal SearchItem As String)
+#Region "Procedures"
+
+    Private Sub SearchBy(ByVal SearchItem As String)
 
         Try
             Select Case SearchItem
@@ -265,111 +261,57 @@ Public Class IAIPFacilityLookUpTool
 
         End Try
     End Sub
+
     Private Sub ClearPage()
-        Try
-
-            txtAIRSNumber.Clear()
-            txtAIRSNumberSearch.Clear()
-            txtCityNameSearch.Clear()
-            txtComplianceEngineer.Clear()
-            txtCountyNameSearch.Clear()
-            txtFacilityName.Clear()
-            txtFacilityNameSearch.Clear()
-            txtSICCodeSearch.Clear()
-            txtZipCodeSearch.Clear()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
+        txtAIRSNumber.Clear()
+        txtAIRSNumberSearch.Clear()
+        txtCityNameSearch.Clear()
+        txtComplianceEngineer.Clear()
+        txtCountyNameSearch.Clear()
+        txtFacilityName.Clear()
+        txtFacilityNameSearch.Clear()
+        txtSICCodeSearch.Clear()
+        txtZipCodeSearch.Clear()
     End Sub
 
 #End Region
-#Region "Declarations"
+
+#Region "Search-by buttons"
+
     Private Sub btnAIRSNumberSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAIRSNumberSearch.Click
-        Try
-
-            SearchBy("Airs Number")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        SearchBy("Airs Number")
     End Sub
     Private Sub btnFacilityNameSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFacilityNameSearch.Click
-        Try
-
-            If chbHistoricalNames.Checked = True Then
-                SearchBy("Historical Name")
-            Else
-                SearchBy("Facility Name")
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        If chbHistoricalNames.Checked = True Then
+            SearchBy("Historical Name")
+        Else
+            SearchBy("Facility Name")
+        End If
     End Sub
     Private Sub btnCitySearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCitySearch.Click
-        Try
-
-            SearchBy("City")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        SearchBy("City")
     End Sub
     Private Sub btnComplianceSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnComplianceSearch.Click
-        Try
-
-            SearchBy("Compliance")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        SearchBy("Compliance")
     End Sub
     Private Sub btnCountySearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountySearch.Click
-        Try
-
-            SearchBy("County")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        SearchBy("County")
     End Sub
     Private Sub btnZipCodeSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnZipCodeSearch.Click
-        Try
-
-            SearchBy("Zip Code")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        SearchBy("Zip Code")
     End Sub
     Private Sub btnSICCodeSearch_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSICCodeSearch.Click
-        Try
-
-            SearchBy("SIC Code")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        SearchBy("SIC Code")
     End Sub
-    Private Sub btnSelectAIRSNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSelectAIRSNumber.Click
+    Private Sub btnSubpartSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSubpartSearch.Click
+        SearchBy("Subpart")
+    End Sub
+
+#End Region
+
+#Region "Results"
+
+    Private Sub btnUseAIRSNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUseAIRSNumber.Click
         Dim temp As String = ""
 
         Try
@@ -420,229 +362,73 @@ Public Class IAIPFacilityLookUpTool
         End Try
 
     End Sub
-    Private Sub btnSubpartSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSubpartSearch.Click
-        Try
 
-
-            SearchBy("Subpart")
-
-        Catch ex As Exception
-            ErrorReport(SQL.ToString & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-#Region "Main Menu Items"
-    Private Sub mmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiBack.Click
-        Try
-
-            FacilityLookUpTool = Nothing
-            Me.Close()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-    End Sub
-    Private Sub mmiExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExit.Click
-        Me.Close()
-    End Sub
-    Private Sub mmiCut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCut.Click
-        Try
-
-            SendKeys.Send("^X")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCopy.Click
-        Try
-
-            SendKeys.Send("^C")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiPaste_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPaste.Click
-        Try
-
-            SendKeys.Send("^V")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
-        Try
-
-            Help.ShowHelp(Label1, HelpUrl)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-
-#End Region
-    Private Sub TBWork_EnTry_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBWork_Entry.ButtonClick
-        Try
-
-            Select Case TBWork_Entry.Buttons.IndexOf(e.Button)
-                Case 0
-                    ClearPage()
-                Case 1
-                    FacilityLookUpTool = Nothing
-                    Me.Close()
-                Case 2
-                    SendKeys.Send("^X")
-                Case 3
-                    SendKeys.Send("^C")
-                Case 4
-                    SendKeys.Send("^V")
-            End Select
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub txtAIRSNumberSearch_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtAIRSNumberSearch.KeyPress
-        Try
-
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
-                SearchBy("Airs Number")
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub txtCityNameSearch_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtCityNameSearch.KeyPress
-        Try
-
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
-                SearchBy("City")
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub txtComplianceEngineer_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtComplianceEngineer.KeyPress
-        Try
-
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
-                SearchBy("Compliance")
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub txtCountyNameSearch_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtCountyNameSearch.KeyPress
-        Try
-
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
-                SearchBy("County")
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub txtFacilityNameSearch_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtFacilityNameSearch.KeyPress
-        Try
-
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
-                If chbHistoricalNames.Checked = True Then
-                    SearchBy("Historical Name")
-                Else
-                    SearchBy("Facility Name")
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub txtSICCodeSearch_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtSICCodeSearch.KeyPress
-        Try
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
-                SearchBy("SIC Code")
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub txtZipCodeSearch_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtZipCodeSearch.KeyPress
-        Try
-
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
-                SearchBy("Zip Code")
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
     Private Sub dgvPossibleMatches_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvPossibleMatches.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvPossibleMatches.HitTest(e.X, e.Y)
 
         Try
-
-
             If dgvPossibleMatches.RowCount > 0 And hti.RowIndex <> -1 Then
                 txtAIRSNumber.Text = dgvPossibleMatches(1, hti.RowIndex).Value
                 txtFacilityName.Text = dgvPossibleMatches(0, hti.RowIndex).Value
             End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
 
 #End Region
 
+#Region "Toolbar"
 
-   
-    Private Sub mmiClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClear.Click
-        Try
-            ClearPage()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+    Private Sub FacilityLookupToolBar_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles FacilityLookupToolBar.ButtonClick
+        Select Case FacilityLookupToolBar.Buttons.IndexOf(e.Button)
+            Case 0
+                ClearPage()
+        End Select
     End Sub
+
+#End Region
+
+#Region "Accept button"
+
+    Private Sub tpFacilityName_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tpFacilityName.Enter
+        Me.AcceptButton = btnFacilityNameSearch
+    End Sub
+
+    Private Sub tpAIRSNumber_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tpAIRSNumber.Enter
+        Me.AcceptButton = btnAIRSNumberSearch
+    End Sub
+
+    Private Sub tpComplianceSearch_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tpComplianceSearch.Enter
+        Me.AcceptButton = btnComplianceSearch
+    End Sub
+
+    Private Sub tpCity_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tpCity.Enter
+        Me.AcceptButton = btnCitySearch
+    End Sub
+
+    Private Sub tpZipCode_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tpZipCode.Enter
+        Me.AcceptButton = btnZipCodeSearch
+    End Sub
+
+    Private Sub tpSIC_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tpSIC.Enter
+        Me.AcceptButton = btnSICCodeSearch
+    End Sub
+
+    Private Sub tpCounty_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tpCounty.Enter
+        Me.AcceptButton = btnCountySearch
+    End Sub
+
+    Private Sub tpSubpart_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tpSubpart.Enter
+        Me.AcceptButton = btnSubpartSearch
+    End Sub
+
+    Private Sub tabPages_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles tpFacilityName.Leave, tpAIRSNumber.Leave, tpComplianceSearch.Leave, tpCity.Leave, _
+    tpZipCode.Leave, tpSIC.Leave, tpCounty.Leave, tpSubpart.Leave
+        Me.AcceptButton = btnUseAIRSNumber
+    End Sub
+
+#End Region
+
 End Class
