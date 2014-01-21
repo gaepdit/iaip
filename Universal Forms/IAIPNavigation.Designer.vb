@@ -1032,10 +1032,10 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.AllowUserToOrderColumns = True
         Me.dgvWorkViewer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dgvWorkViewer.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvWorkViewer.Location = New System.Drawing.Point(118, 65)
+        Me.dgvWorkViewer.Location = New System.Drawing.Point(118, 33)
         Me.dgvWorkViewer.Name = "dgvWorkViewer"
         Me.dgvWorkViewer.ReadOnly = True
-        Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 196)
+        Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 191)
         Me.dgvWorkViewer.TabIndex = 4
         '
         'bgrLoadWorkViewer
@@ -1061,10 +1061,10 @@ Partial Class IAIPNavigation
         Me.pnlCurrentList.Controls.Add(Me.btnChangeWorkViewerContext)
         Me.pnlCurrentList.Controls.Add(Me.cboWorkViewerContext)
         Me.pnlCurrentList.Controls.Add(Me.lblResultsCount)
-        Me.pnlCurrentList.Dock = System.Windows.Forms.DockStyle.Top
-        Me.pnlCurrentList.Location = New System.Drawing.Point(118, 33)
+        Me.pnlCurrentList.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.pnlCurrentList.Location = New System.Drawing.Point(118, 224)
         Me.pnlCurrentList.Name = "pnlCurrentList"
-        Me.pnlCurrentList.Size = New System.Drawing.Size(686, 32)
+        Me.pnlCurrentList.Size = New System.Drawing.Size(686, 37)
         Me.pnlCurrentList.TabIndex = 1
         '
         'pnlContextSubView
