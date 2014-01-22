@@ -4,6 +4,10 @@
 
 See the [release notes](README.html).
 
+## Version 2.8.x <span>(2014-01-xx)</span>
+
++ FIX: *SSPP* – Application Tracking Log does not load data when opened from Navigation Screen (#173)
+
 ## Version 2.8.5 <span>(2014-01-22)</span>
 
 + NEW: New location added to Smoke School (#172)
