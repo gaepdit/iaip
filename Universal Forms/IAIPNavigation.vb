@@ -169,9 +169,9 @@ Public Class IAIPNavigation
                 End If
 
                 PermitTrackingLog = New SSPPApplicationTrackingLog
+                PermitTrackingLog.Show()
                 PermitTrackingLog.txtApplicationNumber.Text = txtApplicationNumber.Text
                 PermitTrackingLog.LoadApplication()
-                PermitTrackingLog.Show()
                 PermitTrackingLog.TPTrackingLog.Focus()
             Else
                 MsgBox("Application number is not in the system.", MsgBoxStyle.Information, Me.Text)
