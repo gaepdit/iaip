@@ -4,6 +4,10 @@
 
 See the [release notes](README.html).
 
+## Version 2.8.x <span>(2014-01-xx)</span>
+
++ NEW: New location added to Smoke School (#172)
+
 ## Version 2.8.4 <span>(2014-01-21)</span>
 
 + NEW: Many changes to the main Navigation Screen to make it more responsive and useable
