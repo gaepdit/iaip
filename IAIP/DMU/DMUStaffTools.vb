@@ -19650,22 +19650,6 @@ Public Class DMUStaffTools
                 Exit Sub
             End If
 
-            'If conn.State = ConnectionState.Closed Then
-            '    conn.Open()
-            'End If
-            'cmd = New OracleCommand("airbranch.PD_EIS_MAILOUT", conn)
-            'cmd.CommandType = CommandType.StoredProcedure
-            'temp = dgvEISStats(1, i).Value
-
-            'cmd.Parameters.Add(New OracleParameter("AIRSNUM", OracleDbType.Varchar2)).Value = ""
-            'cmd.Parameters.Add(New OracleParameter("INTYEAR", OracleDbType.Decimal)).Value = txtSelectedEISMailout.Text
-
-            'cmd.ExecuteNonQuery()
-
-            'If conn.State = ConnectionState.Open Then
-            '    conn.Close()
-            'End If
-
             SQL = "Update airbranch.EIS_Admin set " & _
             "strMailout = '1' " & _
             "where inventoryYear = '" & txtSelectedEISMailout.Text & "' " & _

@@ -172,6 +172,7 @@ Public Class SmokeSchool
             cboCity.Items.Add("Adel")
             cboCity.Items.Add("Atlanta")
             cboCity.Items.Add("Cartersville")
+            cboCity.Items.Add("Crawfordville")
             cboCity.Items.Add("Dalton")
             cboCity.Items.Add("Perry")
             cboCity.Items.Add("Savannah")
