@@ -78,7 +78,7 @@ Module subMain
     'Public APB110 As IAIPLogIn
 
     Public NavigationScreen As IAIPNavigation
-    Public FacilityLookUpTool As IAIPFacilityLookUpTool
+    'Public FacilityLookUpTool As IAIPFacilityLookUpTool
     Public PrintOut As IAIPPrintOut
     Public FacilitySummary As IAIPFacilitySummary
 
@@ -166,7 +166,7 @@ Module subMain
     Public SSCPEngWork As SSCPWorkEnTry
     'Public SSCPTemplates As SSCPLetterTemplates
     Public SSCPRequest As SSCPInformationRequest
-    Public SSCPFCESelector As SSCPFCESelectorTool
+    'Public SSCPFCESelector As SSCPFCESelectorTool
     'Public SSCPSelectEnforcement As SSCPEnforcementSelector
     Public EnforcementChecklist As SSCPEnforcementChecklist
     Public SSCPInspectionsTool As SSCPEngineerInspectionTool

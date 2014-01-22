@@ -8809,38 +8809,38 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Sub AddFacilityName()
-        Try
+    'Sub AddFacilityName()
+    '    Try
 
-            If txtAIRSNumber.Text <> "" Then
-                SQL = "Select strFacilityName from " & DBNameSpace & ".APBFacilityInformation " & _
-                "where strAirsNumber = '0413" & txtAIRSNumber.Text & "'"
+    '        If txtAIRSNumber.Text <> "" Then
+    '            SQL = "Select strFacilityName from " & DBNameSpace & ".APBFacilityInformation " & _
+    '            "where strAirsNumber = '0413" & txtAIRSNumber.Text & "'"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    txtFacility.Text = dr.Item("strFacilityName")
-                End While
-                If Conn.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
-                If FacilityLookUpTool Is Nothing Then
-                Else
-                    FacilityLookUpTool.Focus()
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
+    '            cmd = New OracleCommand(SQL, Conn)
+    '            If Conn.State = ConnectionState.Closed Then
+    '                Conn.Open()
+    '            End If
+    '            dr = cmd.ExecuteReader
+    '            While dr.Read
+    '                txtFacility.Text = dr.Item("strFacilityName")
+    '            End While
+    '            If Conn.State = ConnectionState.Open Then
+    '                'conn.close()
+    '            End If
+    '            If FacilityLookUpTool Is Nothing Then
+    '            Else
+    '                FacilityLookUpTool.Focus()
+    '            End If
+    '        End If
+    '    Catch ex As Exception
+    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
+    '        If Conn.State = ConnectionState.Open Then
+    '            'conn.close()
+    '        End If
+    '    End Try
 
-    End Sub
+    'End Sub
     Sub EngineerTestReport()
         Dim strObject As Object
         Dim DateBias As String = ""
@@ -9918,33 +9918,33 @@ Public Class ISMPManagersTools
         End Try
     End Sub
 #End Region
-    Private Sub txtAIRSNumber_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Try
+    'Private Sub txtAIRSNumber_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    '    Try
 
-            If txtAIRSNumber.Text <> "" Then
-                If TPReportAssignment.Focus = True Then
-                    LVTestReportAssignment.Clear()
-                    lblTestReportAssignment.Items.Clear()
-                    txtTestReportCount.Text = "0"
-                    LoadByAIRSNumberTestReportAssignmentDataSet()
-                    LoadLVTestReportAssignment()
-                End If
-                If TPTestReportStatistics.Focus = True Then
-                    AddFacilityName()
+    '        If txtAIRSNumber.Text <> "" Then
+    '            If TPReportAssignment.Focus = True Then
+    '                LVTestReportAssignment.Clear()
+    '                lblTestReportAssignment.Items.Clear()
+    '                txtTestReportCount.Text = "0"
+    '                LoadByAIRSNumberTestReportAssignmentDataSet()
+    '                LoadLVTestReportAssignment()
+    '            End If
+    '            If TPTestReportStatistics.Focus = True Then
+    '                AddFacilityName()
 
-                End If
+    '            End If
 
-            End If
+    '        End If
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
+    '    Catch ex As Exception
+    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
+    '        If Conn.State = ConnectionState.Open Then
+    '            'conn.close()
+    '        End If
+    '    End Try
 
-    End Sub
+    'End Sub
     Private Sub TBManagersTools_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBManagersTools.ButtonClick
         Try
 
@@ -10142,29 +10142,25 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiViewByFacility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiViewByFacility.Click
-        Try
 
-            If TPReportAssignment.Focus = True Then
-                If FacilityLookUpTool Is Nothing Then
-                    If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
-                    FacilityLookUpTool.Show()
-                Else
-                    FacilityLookUpTool.Dispose()
-                    FacilityLookUpTool = New IAIPFacilityLookUpTool
-                    If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
-                    FacilityLookUpTool.Show()
-                End If
-                'FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+    Private Sub OpenFacilityLookupTool()
+        Try
+            Dim facilityLookupDialog As New IAIPFacilityLookUpTool
+            facilityLookupDialog.ShowDialog()
+            If facilityLookupDialog.DialogResult = Windows.Forms.DialogResult.OK _
+            AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
+                Me.ValueFromFacilityLookUp = facilityLookupDialog.SelectedAirsNumber
+                Me.ValueFromFacilityLookUp2 = facilityLookupDialog.SelectedFacilityName
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
+    End Sub
 
+    Private Sub MmiViewByFacility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiViewByFacility.Click
+        If TPReportAssignment.Focus = True Then
+            OpenFacilityLookupTool()
+        End If
     End Sub
     Public WriteOnly Property ValueFromFacilityLookUp() As String
         Set(ByVal Value As String)
@@ -11320,28 +11316,9 @@ Public Class ISMPManagersTools
 
     End Sub
     Private Sub LLFaciltiySearch_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLFaciltiySearch.LinkClicked
-        Try
-
-            If TPTestReportStatistics.Focus = True Then
-                If FacilityLookUpTool Is Nothing Then
-                    If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
-                    FacilityLookUpTool.Show()
-                Else
-                    FacilityLookUpTool.Dispose()
-                    FacilityLookUpTool = New IAIPFacilityLookUpTool
-                    If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
-                    FacilityLookUpTool.Show()
-                End If
-                'FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
+        If TPTestReportStatistics.Focus = True Then
+            OpenFacilityLookupTool()
+        End If
     End Sub
     Private Sub MmiCut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiCut.Click
         Try

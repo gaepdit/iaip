@@ -2237,22 +2237,25 @@ Public Class SSCPComplianceLog
         End Set
     End Property
     Public WriteOnly Property ValueFromFacilityLookUp2() As String
-        Set(ByVal Value2 As String)
-            txtFacilityNameFilter.Text = Value2
+        Set(ByVal Value As String)
+            txtFacilityNameFilter.Text = Value
         End Set
     End Property
-    Private Sub FacilitySearch()
+    Private Sub OpenFacilityLookupTool()
         Try
-            If Not FacilityLookUpTool Is Nothing Then
-                FacilityLookUpTool.Dispose()
+            Dim facilityLookupDialog As New IAIPFacilityLookUpTool
+            facilityLookupDialog.ShowDialog()
+            If facilityLookupDialog.DialogResult = Windows.Forms.DialogResult.OK _
+            AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
+                Me.ValueFromFacilityLookUp = facilityLookupDialog.SelectedAirsNumber
+                Me.ValueFromFacilityLookUp2 = facilityLookupDialog.SelectedFacilityName
             End If
-
-            FacilityLookUpTool = New IAIPFacilityLookUpTool
-            FacilityLookUpTool.Show()
-            'FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
+    End Sub
+    Private Sub FacilitySearch()
+        OpenFacilityLookupTool()
     End Sub
     Private Sub TBWork_EnTry_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBWork_EnTry.ButtonClick
         Try

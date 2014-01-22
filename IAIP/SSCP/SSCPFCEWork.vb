@@ -222,18 +222,22 @@ Public Class SSCPFCEWork
                 dtFCE.Columns.Add("strFCENumber", GetType(System.String))
                 dtFCE.Columns.Add("FCEYear", GetType(System.String))
 
-                flag = False
-                For i = 0 To dsFCE.Tables(0).Rows.Count - 1
-                    If dsFCE.Tables(0).Rows(i).Item("FCEYear") = Date.Today.AddYears(1).Year Then
-                        flag = True
+                ' Only add next (calendar) year after October 1 of this year
+                If Today >= New Date(Today.Year, 10, 1) Then
+                    flag = False
+                    For i = 0 To dsFCE.Tables(0).Rows.Count - 1
+                        If dsFCE.Tables(0).Rows(i).Item("FCEYear") = Date.Today.AddYears(1).Year Then
+                            flag = True
+                        End If
+                    Next
+                    If flag = False Then
+                        drNewRow = dtFCE.NewRow()
+                        drNewRow("strFCENumber") = ""
+                        drNewRow("FCEyear") = Date.Today.AddYears(1).Year
+                        dtFCE.Rows.Add(drNewRow)
                     End If
-                Next
-                If flag = False Then
-                    drNewRow = dtFCE.NewRow()
-                    drNewRow("strFCENumber") = ""
-                    drNewRow("FCEyear") = Date.Today.AddYears(1).Year
-                    dtFCE.Rows.Add(drNewRow)
                 End If
+
                 flag = False
                 For i = 0 To dsFCE.Tables(0).Rows.Count - 1
                     If dsFCE.Tables(0).Rows(i).Item("FCEYear") = Date.Today.Year Then
@@ -278,7 +282,7 @@ Public Class SSCPFCEWork
                     .ValueMember = "strFCENumber"
                     .SelectedIndex = 0
                 End With
-            End If
+                End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
