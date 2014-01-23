@@ -30,6 +30,7 @@ Partial Class IAIPLogIn
         Me.mmiResetAllForms = New System.Windows.Forms.MenuItem
         Me.MenuItem3 = New System.Windows.Forms.MenuItem
         Me.mmiForceUpdate = New System.Windows.Forms.MenuItem
+        Me.mmiNadcServer = New System.Windows.Forms.MenuItem
         Me.mmiHelp = New System.Windows.Forms.MenuItem
         Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
         Me.MenuItem4 = New System.Windows.Forms.MenuItem
@@ -71,39 +72,44 @@ Partial Class IAIPLogIn
         'MenuItem1
         '
         Me.MenuItem1.Index = 1
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiTestingEnvironment, Me.MenuItem2, Me.mmiRefreshUserID, Me.mmiResetAllForms, Me.MenuItem3, Me.mmiForceUpdate})
+        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiRefreshUserID, Me.mmiResetAllForms, Me.MenuItem3, Me.mmiForceUpdate, Me.MenuItem2, Me.mmiTestingEnvironment, Me.mmiNadcServer})
         Me.MenuItem1.Text = "&Tools"
         '
         'mmiTestingEnvironment
         '
-        Me.mmiTestingEnvironment.Index = 0
+        Me.mmiTestingEnvironment.Index = 5
         Me.mmiTestingEnvironment.Shortcut = System.Windows.Forms.Shortcut.CtrlT
         Me.mmiTestingEnvironment.Text = "&Testing Environment"
         '
         'MenuItem2
         '
-        Me.MenuItem2.Index = 1
+        Me.MenuItem2.Index = 4
         Me.MenuItem2.Text = "-"
         '
         'mmiRefreshUserID
         '
-        Me.mmiRefreshUserID.Index = 2
+        Me.mmiRefreshUserID.Index = 0
         Me.mmiRefreshUserID.Text = "Refresh Default User"
         '
         'mmiResetAllForms
         '
-        Me.mmiResetAllForms.Index = 3
+        Me.mmiResetAllForms.Index = 1
         Me.mmiResetAllForms.Text = "&Reset All Forms"
         '
         'MenuItem3
         '
-        Me.MenuItem3.Index = 4
+        Me.MenuItem3.Index = 2
         Me.MenuItem3.Text = "-"
         '
         'mmiForceUpdate
         '
-        Me.mmiForceUpdate.Index = 5
+        Me.mmiForceUpdate.Index = 3
         Me.mmiForceUpdate.Text = "Force Update"
+        '
+        'mmiNadcServer
+        '
+        Me.mmiNadcServer.Index = 6
+        Me.mmiNadcServer.Text = "NADC Server"
         '
         'mmiHelp
         '
@@ -208,7 +214,7 @@ Partial Class IAIPLogIn
         '
         'btnLoginButton
         '
-        Me.btnLoginButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnLoginButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnLoginButton.Location = New System.Drawing.Point(422, 259)
         Me.btnLoginButton.Margin = New System.Windows.Forms.Padding(2)
         Me.btnLoginButton.Name = "btnLoginButton"
@@ -362,4 +368,5 @@ Partial Class IAIPLogIn
     Friend WithEvents mmiAbout As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
     Friend WithEvents mmiResetAllForms As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiNadcServer As System.Windows.Forms.MenuItem
 End Class

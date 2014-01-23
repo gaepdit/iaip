@@ -9,6 +9,8 @@ Module subMain
     Friend Const DBNameSpace As String = "AIRBRANCH"
     Friend CurrentConnectionString As String = DB.GetConnectionString(False)
     Friend CurrentConnection As New OracleConnection(CurrentConnectionString)
+    Friend DevelopmentEnvironment As Boolean = False
+    Friend NadcServer As Boolean = False
 
 #End Region
 
@@ -24,7 +26,7 @@ Module subMain
     Friend DateFormat As String = "dd-MMM-yyyy"
     'Friend Today As Date = Date.Today
     Friend TodayString As String = Format(Date.Today, DateFormat)
-    Friend TestingEnvironment As Boolean = False
+    Friend CurrentConnectionEnvironment As DB.ConnectionEnvironment = DB.ConnectionEnvironment.Production
 
 #End Region
 

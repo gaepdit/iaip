@@ -50,9 +50,11 @@ Public Class BaseForm
     Private Sub BaseForm_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
 #If Not Debug Then
-        ' TestingEnvironment variable is not available in design mode
-        If Not Me.DesignMode Then
-            If TestingEnvironment Then Me.Icon = My.Resources.TestingIcon
+        ' CurrentConnectionEnvironment variable is not available in design mode
+        If Not Me.DesignMode _
+        AndAlso (CurrentConnectionEnvironment = DB.ConnectionEnvironment.Development OrElse _
+                 CurrentConnectionEnvironment = DB.ConnectionEnvironment.NADC_Development) Then
+            Me.Icon = My.Resources.TestingIcon
         End If
 #End If
 

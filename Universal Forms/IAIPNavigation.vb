@@ -47,6 +47,7 @@ Public Class IAIPNavigation
             LoadProgramDescription()
 
             EnableTestingOptions()
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -103,7 +104,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub EnableTestingOptions()
-        If TestingEnvironment Then
+        If DevelopmentEnvironment Then
             mmiTesting.Visible = True
             mmiTesting.Enabled = True
             pnl4.Text = "TESTING ENVIRONMENT"
@@ -112,6 +113,10 @@ Public Class IAIPNavigation
             pnl4.Text = ""
             mmiTesting.Visible = False
             mmiTesting.Enabled = False
+        End If
+        If NadcServer Then
+            pnl5.Text = "NADC Server"
+            pnl5.BackColor = Color.Fuchsia
         End If
     End Sub
 
