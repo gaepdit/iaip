@@ -2910,12 +2910,7 @@ Public Class PASPDepositsAmendments
         End Try
     End Sub
     Private Sub HelpToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HelpToolStripMenuItem.Click
-        Try
-            Help.ShowHelp(Label1, "http://airpermit.dnr.state.ga.us/iaip/iaip_help/IAIP_Help.htm")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+        OpenHelpUrl(Me)
     End Sub
     Private Sub mmiClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClear.Click
         Try

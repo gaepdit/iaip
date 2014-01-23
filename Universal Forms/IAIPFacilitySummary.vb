@@ -1168,7 +1168,6 @@ Public Class IAIPFacilitySummary
             Dim City As String = "Atlanta"
             Dim State As String = "GA"
             Dim ZipCode As String = "30354"
-            Dim URL As String = ""
 
             If txtStreetAddress.Text <> "" Then
                 StreetAddress = txtStreetAddress.Text
@@ -1183,10 +1182,9 @@ Public Class IAIPFacilitySummary
                 ZipCode = txtFacilityZipCode.Text
             End If
 
-            URL = "http://maps.google.com/maps?q=" & StreetAddress & "+" & _
+            Dim url As String = "http://maps.google.com/maps?q=" & StreetAddress & "+" & _
                       City & "+" & State & "+" & ZipCode & "&z=14"
-
-            System.Diagnostics.Process.Start(URL)
+            OpenUrl(url, Me)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1197,11 +1195,11 @@ Public Class IAIPFacilitySummary
     End Sub
     Private Sub llbViewAirPermits_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewAirPermits.LinkClicked
         Try
-            Dim URL As String = ""
+
 
             If mtbAIRSNumber.Text <> "" Then
-                URL = "http://airpermit.dnr.state.ga.us/gaairpermits/default.aspx?AirsNumber='" & mtbAIRSNumber.Text & "'"
-                System.Diagnostics.Process.Start(URL)
+                Dim url As String = "http://airpermit.dnr.state.ga.us/gaairpermits/default.aspx?AirsNumber='" & mtbAIRSNumber.Text & "'"
+                OpenUrl(url, Me)
             End If
 
         Catch ex As Exception

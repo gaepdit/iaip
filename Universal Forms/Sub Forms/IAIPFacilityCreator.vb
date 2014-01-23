@@ -1272,13 +1272,11 @@ Public Class IAIPFacilityCreator
     End Sub
     Private Sub llbOpenWebpage_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenWebpage.LinkClicked
         Try
-            Dim URL As String = ""
-            Dim MappingAddress As String = ""
-
-            MappingAddress = txtCDSStreetAddress.Text & ", " & txtCDSCity.Text & ", GA," & mtbCDSZipCode.Text
+            Dim MappingAddress As String = txtCDSStreetAddress.Text & ", " & txtCDSCity.Text & ", GA," & mtbCDSZipCode.Text
             Clipboard.SetDataObject(MappingAddress, True)
-            URL = "http://mapper.acme.com/"
-            System.Diagnostics.Process.Start(URL)
+
+            Dim url As String = "http://mapper.acme.com/"
+            OpenUrl(url, Me)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

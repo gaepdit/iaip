@@ -14406,10 +14406,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
             End Select
 
-            'URL = "http://airpermit.dnr.state.ga.us/gaairpermits/PermitPDF.aspx?id=PDF-OP" & txtapplicationNumber.text 
-            'URL = "http://airpermit.dnr.state.ga.us/nontvpermits/PermitPdf.aspx?id=OP-" & txtApplicationNumber.Text
-
-            System.Diagnostics.Process.Start(URL)
+            If URL <> "" Then OpenUrl(URL, Me)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

@@ -862,7 +862,6 @@ Public Class MASPRegistrationTool
             Dim City As String = "Atlanta"
             Dim State As String = "GA"
             Dim ZipCode As String = "30354"
-            Dim URL As String = ""
 
             If txtEventAddress.Text <> "" Then
                 StreetAddress = txtEventAddress.Text
@@ -877,10 +876,9 @@ Public Class MASPRegistrationTool
                 ZipCode = mtbEventZipCode.Text
             End If
 
-            URL = "http://maps.google.com/maps?q=" & StreetAddress & "+" & _
+            Dim url As String = "http://maps.google.com/maps?q=" & StreetAddress & "+" & _
                       City & "+" & State & "+" & ZipCode & "&z=14"
-
-            System.Diagnostics.Process.Start(URL)
+            OpenUrl(url, Me)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
