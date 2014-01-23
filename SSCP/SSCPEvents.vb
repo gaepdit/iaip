@@ -272,7 +272,6 @@ Public Class SSCPEvents
     Friend WithEvents btnReportMoreOptions As System.Windows.Forms.Button
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents DTPAcknowledgmentLetterSent As System.Windows.Forms.DateTimePicker
-    Friend WithEvents chbAcknoledgmentLetterSent As System.Windows.Forms.CheckBox
     Friend WithEvents txtRequestInformationDate As System.Windows.Forms.TextBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents txtTestReportISMPCompleteDate As System.Windows.Forms.TextBox
@@ -308,7 +307,6 @@ Public Class SSCPEvents
         Me.txtRMPID = New System.Windows.Forms.TextBox
         Me.Label35 = New System.Windows.Forms.Label
         Me.cboStaffResponsible = New System.Windows.Forms.ComboBox
-        Me.chbAcknoledgmentLetterSent = New System.Windows.Forms.CheckBox
         Me.DTPAcknowledgmentLetterSent = New System.Windows.Forms.DateTimePicker
         Me.Label2 = New System.Windows.Forms.Label
         Me.btnRequestInformation = New System.Windows.Forms.Button
@@ -743,7 +741,6 @@ Public Class SSCPEvents
         Me.GroupBox1.Controls.Add(Me.txtRMPID)
         Me.GroupBox1.Controls.Add(Me.Label35)
         Me.GroupBox1.Controls.Add(Me.cboStaffResponsible)
-        Me.GroupBox1.Controls.Add(Me.chbAcknoledgmentLetterSent)
         Me.GroupBox1.Controls.Add(Me.DTPAcknowledgmentLetterSent)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.btnRequestInformation)
@@ -803,17 +800,6 @@ Public Class SSCPEvents
         Me.cboStaffResponsible.Size = New System.Drawing.Size(154, 21)
         Me.cboStaffResponsible.TabIndex = 345
         '
-        'chbAcknoledgmentLetterSent
-        '
-        Me.chbAcknoledgmentLetterSent.Checked = True
-        Me.chbAcknoledgmentLetterSent.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chbAcknoledgmentLetterSent.Location = New System.Drawing.Point(728, 98)
-        Me.chbAcknoledgmentLetterSent.Name = "chbAcknoledgmentLetterSent"
-        Me.chbAcknoledgmentLetterSent.Size = New System.Drawing.Size(48, 16)
-        Me.chbAcknoledgmentLetterSent.TabIndex = 119
-        Me.chbAcknoledgmentLetterSent.Text = "N/A"
-        Me.chbAcknoledgmentLetterSent.Visible = False
-        '
         'DTPAcknowledgmentLetterSent
         '
         Me.DTPAcknowledgmentLetterSent.CustomFormat = "dd-MMM-yyyy"
@@ -821,7 +807,7 @@ Public Class SSCPEvents
         Me.DTPAcknowledgmentLetterSent.Location = New System.Drawing.Point(622, 96)
         Me.DTPAcknowledgmentLetterSent.Name = "DTPAcknowledgmentLetterSent"
         Me.DTPAcknowledgmentLetterSent.ShowCheckBox = True
-        Me.DTPAcknowledgmentLetterSent.Size = New System.Drawing.Size(100, 20)
+        Me.DTPAcknowledgmentLetterSent.Size = New System.Drawing.Size(116, 20)
         Me.DTPAcknowledgmentLetterSent.TabIndex = 118
         Me.DTPAcknowledgmentLetterSent.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
@@ -3202,13 +3188,9 @@ Public Class SSCPEvents
                 AIRSNumber = txtAIRSNumber.Text
             End If
             If IsDBNull(dr.Item("datAcknoledgmentLetterSent")) Then
-                'chbAcknoledgmentLetterSent.Checked = True
-                'DTPAcknoledgmentLetterSent.Enabled = False
                 DTPAcknowledgmentLetterSent.Text = OracleDate
                 DTPAcknowledgmentLetterSent.Checked = False
             Else
-                'DTPAcknoledgmentLetterSent.Enabled = True
-                'chbAcknoledgmentLetterSent.Checked = False
                 DTPAcknowledgmentLetterSent.Text = Format(dr.Item("datAcknoledgmentlettersent"), "dd-MMM-yyyy")
                 DTPAcknowledgmentLetterSent.Checked = True
             End If
@@ -3597,7 +3579,6 @@ Public Class SSCPEvents
     End Sub
     Sub CompleteReport()
         If chbEventComplete.Checked = True Then
-            chbAcknoledgmentLetterSent.Enabled = False
             DTPAcknowledgmentLetterSent.Enabled = False
             chbNotificationReceivedByAPB.Enabled = False
             cboStaffResponsible.Enabled = False
@@ -3683,7 +3664,6 @@ Public Class SSCPEvents
             rdbACCAllDeviationsReportedNo.Enabled = False
             rdbACCAllDeviationsReportedUnknown.Enabled = False
         Else
-            chbAcknoledgmentLetterSent.Enabled = True
             DTPAcknowledgmentLetterSent.Enabled = True
             chbNotificationReceivedByAPB.Enabled = True
             cboStaffResponsible.Enabled = True
@@ -4821,12 +4801,7 @@ Public Class SSCPEvents
                 Else
                     AcknoledgmentLetter = ""
                 End If
-                'If Me.chbAcknoledgmentLetterSent.Checked = True Then
-                '    AcknoledgmentLetter = ""
-                'Else
-                '    AcknoledgmentLetter = DTPAcknoledgmentLetterSent.Text
-                'End If
-
+                
                 Staff = Me.cboStaffResponsible.SelectedValue
                 If Staff = "" Then
                     Staff = "0"
@@ -7306,23 +7281,6 @@ Public Class SSCPEvents
             Else
                 dgrReportResubmittal.Size = New System.Drawing.Size(10, tempHeight)
             End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub chbAcknoledgmentLetterSent_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbAcknoledgmentLetterSent.CheckedChanged
-        Try
-
-            'If chbAcknoledgmentLetterSent.Checked = True Then
-            '    DTPAcknoledgmentLetterSent.Enabled = False
-            '    DTPAcknoledgmentLetterSent.Visible = False
-            'Else
-            '    DTPAcknoledgmentLetterSent.Enabled = True
-            '    DTPAcknoledgmentLetterSent.Visible = True
-            'End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
