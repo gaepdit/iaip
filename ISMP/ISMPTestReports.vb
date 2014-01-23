@@ -102,7 +102,7 @@ Public Class ISMPTestReports
             "from " & DBNameSpace & ".LookUpISMPMethods " & _
             "order by strMethodCode "
 
-            daMethods = New OracleDataAdapter(SQL, conn)
+            daMethods = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "select " & _
             "case when numUserId = '0' then 'Not Witnessed'  " & _
@@ -124,11 +124,11 @@ Public Class ISMPTestReports
             "from " & DBNameSpace & ".EPDUSerProfiles, " & DBNameSpace & ".ismpreportinformation " & _
             "where " & DBNameSpace & ".epdUserProfiles.numUserId = " & DBNameSpace & ".ismpreportinformation.strWitnessingEngineer) "
 
-            daEngineer = New OracleDataAdapter(SQL, conn)
+            daEngineer = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "select strCompliancekey, strComplianceStatus from " & DBNameSpace & ".LookUPISMPComplianceStatus"
 
-            daComplianceStatus = New OracleDataAdapter(SQL, conn)
+            daComplianceStatus = New OracleDataAdapter(SQL, CurrentConnection)
 
             'SQL = "select " & _
             '"case when numUserID = '0' then 'No CC' " & _
@@ -177,11 +177,11 @@ UNION
 SELECT 'None', 0 FROM DUAL ORDER BY USERNAME
             ]]></s>.Value
 
-            daCCList = New OracleDataAdapter(SQL, conn)
+            daCCList = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "select strUnitKey, strUnitDescription from " & DBNameSpace & ".LookUPUnits order by strUnitDescription"
 
-            daUnits = New OracleDataAdapter(SQL, conn)
+            daUnits = New OracleDataAdapter(SQL, CurrentConnection)
 
             ' SQL = "Select strUnitTitle, strMonitoringUnit from " & DBNameSpace & ".LookUPMonitoringUnits"
 
@@ -190,7 +190,7 @@ SELECT 'None', 0 FROM DUAL ORDER BY USERNAME
                 "from " & DBNameSpace & ".LookUpEPDUnits  " & _
                 "where numProgramCode = '3' or numProgramCode = '0' "
             
-            daISMPUnits = New OracleDataAdapter(SQL, conn)
+            daISMPUnits = New OracleDataAdapter(SQL, CurrentConnection)
 
             'SQL = "select " & _
             '"case when numUserID = '0' then 'No Manager'  " & _
@@ -252,16 +252,16 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
   SELECT 'None', 0 FROM DUAL 
   ORDER BY ComplianceManager
             ]]></s>.Value
-            daComplianceManager = New OracleDataAdapter(SQL, Conn)
+            daComplianceManager = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "Select strTestingFirm, strTestingFirmKey from " & DBNameSpace & ".LookUPTestingFirms order by strTestingFirm"
-            daTestingFirm = New OracleDataAdapter(SQL, conn)
+            daTestingFirm = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "Select strReportType, strKey from " & DBNameSpace & ".ISMPReportType order by strReportType"
-            daReportType = New OracleDataAdapter(SQL, conn)
+            daReportType = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "Select strPollutantCode, strPollutantDescription from " & DBNameSpace & ".LookUPPollutants order by strPollutantDescription"
-            daPollutants = New OracleDataAdapter(SQL, conn)
+            daPollutants = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "Select " & _
             "case  " & _
@@ -293,10 +293,10 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
 
 
-            daComplianceStaff = New OracleDataAdapter(SQL, conn)
+            daComplianceStaff = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daMethods.Fill(dsMethods, "Methods")
@@ -2261,9 +2261,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             ]]></s>.Value & _
             " '" & RefNumber & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             RecExist = dr.Read
@@ -2603,9 +2603,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                     "* from AIRBranch.ISMPTestReportMemo " & _
                     "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -2673,9 +2673,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                     "from " & DBNameSpace & ".ISMPReportOneStack " & _
                     "where strReferenceNumber = '" & RefNum & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     RecExist = dr.Read
@@ -2895,9 +2895,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                     "from " & DBNameSpace & ".ISMPReportOneStack " & _
                     "where strReferenceNumber = '" & RefNum & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     RecExist = dr.Read
@@ -3157,9 +3157,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                     "from " & DBNameSpace & ".ISMPReportOneStack " & _
                     "where strReferenceNumber = '" & RefNum & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     RecExist = dr.Read
@@ -3462,9 +3462,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                     "from " & DBNameSpace & ".ISMPReportTwoStack " & _
                     "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     RecExist = dr.Read
@@ -4063,9 +4063,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                      "from " & DBNameSpace & ".ISMPReportTwoStack " & _
                      "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     RecExist = dr.Read
@@ -4638,9 +4638,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                     "from " & DBNameSpace & ".ISMPReportFlare " & _
                     "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     RecExist = dr.Read
@@ -4826,9 +4826,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                     "from " & DBNameSpace & ".ISMPReportPondAndGas " & _
                     "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     RecExist = dr.Read
@@ -5068,9 +5068,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                     "from " & DBNameSpace & ".ISMPReportPondAndGas " & _
                     "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     RecExist = dr.Read
@@ -5306,9 +5306,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                     "from " & DBNameSpace & ".ISMPReportFlare " & _
                     "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     RecExist = dr.Read
@@ -5496,9 +5496,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                     "from " & DBNameSpace & ".ISMPReportRATA " & _
                     "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     RecExist = dr.Read
@@ -5877,9 +5877,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                     "from " & DBNameSpace & ".ISMPREportMemo " & _
                     "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     RecExist = dr.Read
@@ -5905,9 +5905,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                     "from " & DBNameSpace & ".ISMPREportMemo " & _
                     "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     RecExist = dr.Read
@@ -5956,9 +5956,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                     "from " & DBNameSpace & ".ISMPREportMemo " & _
                     "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     RecExist = dr.Read
@@ -6086,9 +6086,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                     "from " & DBNameSpace & ".ISMPREportOpacity " & _
                     "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     RecExist = dr.Read
@@ -6190,9 +6190,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                     "from " & DBNameSpace & ".ISMPREportOpacity " & _
                     "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     RecExist = dr.Read
@@ -6486,9 +6486,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                     "from " & DBNameSpace & ".ISMPREportOpacity " & _
                     "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     RecExist = dr.Read
@@ -9549,9 +9549,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             SQL = "select strWitnessingEngineer " & _
             "From " & DBNameSpace & ".ISMPWitnessingEng " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             Dim temp As String = " "
@@ -9587,9 +9587,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 "where " & DBNameSpace & ".SSCPTestReports.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
                 "and strReferenceNumber = '" & txtReferenceNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -9676,9 +9676,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 SQL = "Select strEnforcementNumber " & _
                 "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 RecExist = dr.Read
@@ -9699,9 +9699,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 SQL = "Select datSSCPTestReportDue " & _
                 "from " & DBNameSpace & ".APBSupplamentalData " & _
                 "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 RecExist = dr.Read
@@ -9820,9 +9820,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             "and strClosed <> 'True') UnclosedLinks "
 
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             cboTestNotificationNumber.Items.Add(" ")
@@ -9836,9 +9836,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             "from " & DBNameSpace & ".ISMPTestLogLink, " & DBNameSpace & ".ISMPTestNotification " & _
             "where " & DBNameSpace & ".ISMPTestLogLink.strTestLogNumber = " & DBNameSpace & ".ISMPTestNotification.strTestLogNumber " & _
             "and strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             RecExist = dr.Read
@@ -9877,9 +9877,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                   " and " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.intyear = maxresults.maxyear " & _
                   "group by strAssigningManager "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             RecExist = dr.Read
@@ -9904,9 +9904,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             "and " & DBNameSpace & ".LookUpDistrictInformation.strDistrictCounty = substr(" & DBNameSpace & ".SSCPDistrictResponsible.strAIRSNumber, 5, 3) " & _
             "and " & DBNameSpace & ".SSCPDistrictResponsible.strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             RecExist = dr.Read
@@ -10478,9 +10478,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 "from " & DBNameSpace & ".ISMPReportInformation " & _
                 "where strReferenceNumber = '" & OldRefNum & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 RecExist = dr.Read
@@ -10535,9 +10535,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                   "and " & DBNameSpace & ".ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID (+) " & _
                   "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = '" & RefNum & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     RecExist = dr.Read
@@ -10732,9 +10732,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                     "from " & DBNameSpace & ".ISMPReportInformation " & _
                     "where strReferenceNUmber = '" & OldRefNum & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -10858,28 +10858,28 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 Case Windows.Forms.DialogResult.Yes
                     temp = InputBox("Retype the following word exactly as you see it" + vbCrLf + "EXPUNGE", "Delete Verification", "IGNORE")
                     If temp = "EXPUNGE" Then
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         'Delete
                         SQL = "Select strTableName " & _
                         "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
                         "where " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
                         "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                        cmd = New OracleCommand(SQL, conn)
+                        cmd = New OracleCommand(SQL, CurrentConnection)
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
                         If recExist = True Then
                             If dr.Item("StrTableName") <> "UNASSIGNED" Then
                                 SQL = "Delete from " & DBNameSpace & "." & dr.Item("strTableName") & " " & _
                                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-                                cmd = New OracleCommand(SQL, conn)
+                                cmd = New OracleCommand(SQL, CurrentConnection)
                                 dr = cmd.ExecuteReader
                             End If
                             SQL = "Update " & DBNameSpace & ".ISMPReportInformation set " & _
                             "strDocumentType = '001' " & _
                             "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                            cmd = New OracleCommand(SQL, conn)
+                            cmd = New OracleCommand(SQL, CurrentConnection)
                             dr = cmd.ExecuteReader
 
                             MsgBox("The Test Report Data has been delete from the Report type." & vbCrLf & _
@@ -10894,7 +10894,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                             "Contact an Administator to delete this Test Report.", "Test Report")
                         End If
 
-                        If conn.State = ConnectionState.Open Then
+                        If CurrentConnection.State = ConnectionState.Open Then
                             'conn.close()
                         End If
 
@@ -11048,9 +11048,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 "and (strIAIPPermissions like '%(4)%' or strIAIPPermissions like '%(115)%') " & _
                 "and numUnit = '" & UserUnitTemp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -11607,9 +11607,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
             'End If
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -11660,9 +11660,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 If Me.clbWitnessingEngineers.CheckedItems.Count > 0 Then
                     SQL = "Delete " & DBNameSpace & ".ISMPWitnessingEng " & _
                     "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -11674,9 +11674,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                             SQL = "Insert into " & DBNameSpace & ".ISMPWitnessingEng " & _
                             "values " & _
                             "('" & txtReferenceNumber.Text & "', '" & temp & "') "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Close()
@@ -11688,9 +11688,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             SQL = "delete " & DBNameSpace & ".ISMPTestLogLink " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -11706,9 +11706,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 SQL = "Insert into " & DBNameSpace & ".ISMPTestLogLink " & _
                 "values " & _
                 "('" & txtReferenceNumber.Text & "', '" & NotificationNumber & "') "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -12058,18 +12058,18 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 "'" & OracleDate & "', '03', " & _
                 "'" & StaffResponsible & "', '', " & _
                 "'" & UserGCode & "', '" & OracleDate & "')"
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
                 SQL = "Select " & DBNameSpace & ".SSCPTrackingNumber.currval from dual "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -12088,9 +12088,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 "' ', 'False', " & _
                 "'" & UserGCode & "', '" & OracleDate & "') "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -12100,9 +12100,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 SQL = "Select strTrackingNumber " & _
                 "from " & DBNameSpace & ".SSCPItemMaster " & _
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "'"
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 RecExist = dr.Read
@@ -12116,18 +12116,18 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                     "strModifingPerson = '" & UserGCode & "', " & _
                     "datModifingDate = '" & OracleDate & "' " & _
                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
                     SQL = "Select strTrackingNumber " & _
                     "from " & DBNameSpace & ".SSCPTestReports " & _
                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     RecExist = dr.Read
@@ -12140,9 +12140,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                         "strModifingPerson = '" & UserGCode & "', " & _
                         "datModifingDate = '" & OracleDate & "' " & _
                         "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -12151,9 +12151,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                         SQL = "Select strAIRSNumber " & _
                         "from " & DBNameSpace & ".APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         RecExist = dr.Read
@@ -12164,9 +12164,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                             "strModifingPerson = '" & UserGCode & "', " & _
                             "datModifingdate = '" & OracleDate & "' " & _
                             "where strAIRSnumber = '0413" & txtAirsNumber.Text & "' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Close()
@@ -12726,9 +12726,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             SQL = "Select strReferenceNumber " & _
             "From " & DBNameSpace & ".ISMPReportOneStack " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             RecExist = dr.Read
@@ -12807,9 +12807,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 "'" & EmissRateUnit & "', '" & EmissRateAvg & "', " & _
                 "'" & PercentAllowable & "') "
             End If
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -13506,9 +13506,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             SQL = "Select strReferenceNumber " & _
             "From " & DBNameSpace & ".ISMPReportTwoStack " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             RecExist = dr.Read
@@ -13629,9 +13629,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 "'" & PercentAllowable & "') "
             End If
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -13789,9 +13789,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             SQL = "Select strReferenceNumber " & _
             "from " & DBNameSpace & ".ISMPReportFlare " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             RecExist = dr.Read
@@ -13843,9 +13843,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 "'" & Destruct & "', ' ')  "
             End If
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -14028,9 +14028,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             SQL = "Select strReferenceNumber " & _
             "from " & DBNameSpace & ".ISMPReportPondAndGas " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             RecExist = dr.Read
@@ -14086,9 +14086,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 "'" & TreatmentUnit & "', '" & TreatmentAvg & "', " & _
                 "'" & Destruct & "') "
             End If
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -14271,9 +14271,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             SQL = "Select strReferenceNumber " & _
             "from " & DBNameSpace & ".ISMPReportPondAndGas " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             RecExist = dr.Read
@@ -14329,9 +14329,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 "' ', ' ', " & _
                 "'" & PercentAllowable & "') "
             End If
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -14461,9 +14461,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             SQL = "Select strReferenceNumber " & _
             "from " & DBNameSpace & ".ISMPReportFlare " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             RecExist = dr.Read
@@ -14513,9 +14513,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 "' ', '" & PercentAllowable & "')  "
             End If
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -14813,9 +14813,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             SQL = "Select strReferenceNumber " & _
             "from " & DBNameSpace & ".ISMPReportRata " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             RecExist = dr.Read
@@ -14881,9 +14881,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 "'" & Replace(AccRequiredStatement, "'", "''") & "', " & _
                 "'" & IncludeKey & "') "
             End If
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -15010,9 +15010,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             SQL = "Select strReferenceNumber " & _
             "from " & DBNameSpace & ".ISMPReportMemo " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             RecExist = dr.Read
@@ -15049,9 +15049,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 "'" & Replace(SerialNumber, "'", "''") & "') "
             End If
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -15357,9 +15357,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             SQL = "Select strReferencenumber " & _
             "from " & DBNameSpace & ".ISMPReportOpacity " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             RecExist = dr.Read
@@ -15446,9 +15446,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 "'" & Equip5 & "', '" & OpacityStandard & "') "
             End If
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -20994,7 +20994,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
         Catch ex As Exception
 
         Finally
-            If conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -21052,7 +21052,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
         Catch ex As Exception
 
         Finally
-            If conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -21110,7 +21110,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
         Catch ex As Exception
 
         Finally
-            If conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -21229,7 +21229,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
         Catch ex As Exception
 
         Finally
-            If conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -21347,7 +21347,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
         Catch ex As Exception
 
         Finally
-            If conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -21465,7 +21465,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
         Catch ex As Exception
 
         Finally
-            If conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -21583,7 +21583,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
         Catch ex As Exception
 
         Finally
-            If conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -21701,7 +21701,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
         Catch ex As Exception
 
         Finally
-            If conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -21819,7 +21819,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
         Catch ex As Exception
 
         Finally
-            If conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

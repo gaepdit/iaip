@@ -359,10 +359,10 @@ Public Class SSPPApplicationLog
             "order by strUnitDesc "
 
             dsUnitList = New DataSet
-            daUnitList = New OracleDataAdapter(SQL, Conn)
+            daUnitList = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daUnitList.Fill(dsUnitList, "UnitList")
@@ -397,10 +397,10 @@ Public Class SSPPApplicationLog
             "order by strLastName "
 
             dsEngineerList = New DataSet
-            daEngineerList = New OracleDataAdapter(SQL, Conn)
+            daEngineerList = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daEngineerList.Fill(dsEngineerList, "EngineerList")
@@ -435,9 +435,9 @@ Public Class SSPPApplicationLog
             "from " & DBNameSpace & ".LookUpSubpartSIP " & _
             "order by strSubpart "
 
-            daSubpart = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daSubpart = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daSubpart.Fill(dsSubpart, "SubpartSIP")
@@ -490,9 +490,9 @@ Public Class SSPPApplicationLog
             "from " & DBNameSpace & ".LookUpSubpart61 " & _
             "order by strSubpart "
 
-            daSubpart = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daSubpart = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daSubpart.Fill(dsSubpart, "SubpartNESHAP")
@@ -545,9 +545,9 @@ Public Class SSPPApplicationLog
             "from " & DBNameSpace & ".LookUpSubpart60 " & _
             "order by strSubpart "
 
-            daSubpart = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daSubpart = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daSubpart.Fill(dsSubpart, "SubpartNSPS")
@@ -601,9 +601,9 @@ Public Class SSPPApplicationLog
             "from " & DBNameSpace & ".LookUpSubpart63 " & _
             "order by strSubpart "
 
-            daSubpart = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daSubpart = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daSubpart.Fill(dsSubpart, "SubpartMACT")
@@ -694,9 +694,9 @@ Public Class SSPPApplicationLog
                     "where numUserID = '" & UserGCode & "' " & _
                     "and numProgram = '5' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     Try
 
@@ -1953,8 +1953,8 @@ Public Class SSPPApplicationLog
                 Exit Sub
             End If
 
-            Using connection As New OracleConnection(CurrentConnString)
-                Using dataAdapter As New OracleDataAdapter(SQL, Conn)
+            Using connection As New OracleConnection(CurrentConnectionString)
+                Using dataAdapter As New OracleDataAdapter(SQL, CurrentConnection)
                     Try
                         connection.Open()
 

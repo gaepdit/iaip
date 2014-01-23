@@ -355,7 +355,7 @@ Public Class PASPModifications
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -375,7 +375,7 @@ Public Class PASPModifications
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -391,7 +391,7 @@ Public Class PASPModifications
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -414,16 +414,16 @@ Public Class PASPModifications
             + "order by " & DBNameSpace & ".APBFacilityInformation.strFacilityName "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, Conn)
+            da = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             da.Fill(ds, "facilityInfo")
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -479,7 +479,7 @@ Public Class PASPModifications
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -495,12 +495,12 @@ Public Class PASPModifications
             SQL = "Select isbankrupt from " & DBNameSpace & ".APBSupplamentalData " _
                 + "where strairsnumber = '0413" & cboAirsNo3.Text & "'"
 
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             Dim dr As OracleDataReader = cmd.ExecuteReader()
@@ -523,12 +523,12 @@ Public Class PASPModifications
             "where strairsnumber = '0413" & cboAirsNo3.Text & "' " & _
             "and intyear = '" & CInt(txtYear3.Text) & "'"
 
-            Dim cmd1 As New OracleCommand(SQL1, Conn)
+            Dim cmd1 As New OracleCommand(SQL1, CurrentConnection)
             cmd1.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             Dim dr1 As OracleDataReader = cmd1.ExecuteReader()
@@ -542,14 +542,14 @@ Public Class PASPModifications
                 End If
             End If
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -574,19 +574,19 @@ Public Class PASPModifications
                 + "isbankrupt = '" & bankrupt & "' " _
                 + "where strairsnumber = '0413" & cboAirsNo3.Text & "'"
 
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             cmd.ExecuteNonQuery()
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             If chkFinal.Checked = True Then
@@ -601,7 +601,7 @@ Public Class PASPModifications
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -618,7 +618,7 @@ Public Class PASPModifications
             "where strairsnumber = '0413" & cboAirsNo3.Text & "' " & _
             "and intyear = '" & CInt(txtYear3.Text) & "'"
 
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
             cmd.ExecuteNonQuery()
 
@@ -628,18 +628,18 @@ Public Class PASPModifications
             "'" & confirmation & "', '" & UserGCode & "', " & _
             "to_date('" & Format$(Now, "dd-MMM-yyyy hh:mm:ss") & "', 'dd-mon-yyyy hh:mi:ss'))"
 
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
             cmd.ExecuteNonQuery()
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -654,7 +654,7 @@ Public Class PASPModifications
              "where strairsnumber = '0413" & cboAirsNo3.Text & "' " & _
              "and intyear = '" & CInt(txtYear3.Text) & "'"
 
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
             cmd.ExecuteNonQuery()
 
@@ -662,18 +662,18 @@ Public Class PASPModifications
             "where strairsnumber = '0413" & cboAirsNo3.Text & "' " & _
              "and intyear = '" & CInt(txtYear3.Text) & "'"
 
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
             cmd.ExecuteNonQuery()
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -692,7 +692,7 @@ Public Class PASPModifications
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

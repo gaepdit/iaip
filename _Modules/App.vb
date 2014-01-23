@@ -130,43 +130,26 @@ Module App
         ' (The database has to be updated by hand by an administrator)
 
         If PublishedVersion Is Nothing OrElse PublishedVersion.Equals(New Version("0.0.0.0")) Then
-            Dim publishedVersionString As String = ""
 
             ' Hit up the database for a version string
             Dim query As String = "Select strVersionNumber " & _
                 "from " & DBNameSpace & ".APBMasterApp " & _
-                "where strApplicationName = :pAppName"
-            Using connection As New OracleConnection(CurrentConnString)
-                Using command As New OracleCommand(query, connection)
-                    command.CommandType = CommandType.Text
-                    command.Parameters.Add(":pAppName", OracleDbType.Varchar2).Value = appName
+                "where strApplicationName = :pId"
+            Dim parameter As New OracleParameter("pId", appName)
+            Dim publishedVersionString As String = DB.GetSingleValue(Of String)(query, parameter)
+            If publishedVersionString Is Nothing OrElse publishedVersionString = "" Then publishedVersionString = "0.0.0.0"
 
-                    Try
-                        connection.Open()
-                        Dim reader As OracleDataReader = command.ExecuteReader
-                        While reader.Read
-                            If Not IsDBNull(reader.Item("strVersionNumber")) Then
-                                publishedVersionString = reader.Item("strVersionNumber")
-                            End If
-                        End While
-                    Catch ee As OracleException
-                        'MessageBox.Show("Could not connect to the database.")
-                        publishedVersionString = "0.0.0.0"
-                    End Try
-                End Using
-            End Using
-
-            Try
-                PublishedVersion = New Version(publishedVersionString)
-            Catch ee As Exception When _
-            TypeOf ee Is ArgumentException OrElse _
-            TypeOf ee Is ArgumentNullException OrElse _
-            TypeOf ee Is ArgumentOutOfRangeException OrElse _
-            TypeOf ee Is FormatException OrElse _
-            TypeOf ee Is OverflowException
-                MessageBox.Show("The database version string contains an error. Please inform the Data Management Unit. Thank you.")
-                PublishedVersion = New Version("0.0.0.0")
-            End Try
+        Try
+            PublishedVersion = New Version(publishedVersionString)
+        Catch ee As Exception When _
+        TypeOf ee Is ArgumentException OrElse _
+        TypeOf ee Is ArgumentNullException OrElse _
+        TypeOf ee Is ArgumentOutOfRangeException OrElse _
+        TypeOf ee Is FormatException OrElse _
+        TypeOf ee Is OverflowException
+            MessageBox.Show("The database version string contains an error. Please inform the Data Management Unit. Thank you.")
+            PublishedVersion = New Version("0.0.0.0")
+        End Try
         End If
 
         Return PublishedVersion

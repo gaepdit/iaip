@@ -68,10 +68,10 @@ Public Class IAIP_EIS_Log
 
             dsStaff = New DataSet
 
-            daStaff = New OracleDataAdapter(SQL, Conn)
+            daStaff = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daStaff.Fill(dsStaff, "Staff")
@@ -92,9 +92,9 @@ Public Class IAIP_EIS_Log
             "from " & DBNameSpace & ".esschema " & _
             "order by intESYear desc"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Read()
@@ -115,15 +115,15 @@ Public Class IAIP_EIS_Log
         Dim SQL As String
 
         Try
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             SQL = "Select distinct STRESYEAR " & _
                   "from " & DBNameSpace & ".esmailout " & _
                   "order by STRESYEAR desc"
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
 
             Dim dr As OracleDataReader = cmd.ExecuteReader()
             dr.Read()
@@ -150,9 +150,9 @@ Public Class IAIP_EIS_Log
             "from " & DBNameSpace & ".EIS_Admin " & _
             "order by invYear desc "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -174,9 +174,9 @@ Public Class IAIP_EIS_Log
             "and numunit = '14' " & _
             "and numEmployeeStatus = '1'  "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -192,10 +192,10 @@ Public Class IAIP_EIS_Log
 
             ds = New DataSet
 
-            da = New OracleDataAdapter(SQL, Conn)
+            da = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             da.Fill(ds, "QAStatus")
@@ -325,7 +325,7 @@ Public Class IAIP_EIS_Log
         End Try
     End Sub
 #End Region
-       Private Sub DEVDataManagementTools_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+    Private Sub DEVDataManagementTools_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
 
             If NavigationScreen Is Nothing Then
@@ -370,11 +370,11 @@ Public Class IAIP_EIS_Log
             + "Order by strAIRSNumber "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, Conn)
+            da = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             da.Fill(ds, "facilityInfo")
@@ -400,9 +400,9 @@ Public Class IAIP_EIS_Log
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             Return Nothing
         Finally
-           
+
         End Try
-         
+
     End Function
     Sub LoadComboBoxesEmail()
         Dim dtAIRS As New DataTable
@@ -412,18 +412,18 @@ Public Class IAIP_EIS_Log
         Dim SQL As String
 
         Try
-            
+
 
             SQL = "Select numuserid, struseremail " _
             + "from " & DBNameSpace & ".OlapUserLogin " _
             + "Order by struseremail "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, Conn)
+            da = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             da.Fill(ds, "UserEmail")
@@ -445,18 +445,18 @@ Public Class IAIP_EIS_Log
             Dim temp As String
 
             temp = dtAIRS.Rows.Count
- 
+
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-           
+
         End Try
-         
+
 
     End Sub
-    
-    
+
+
     Private Sub lblViewFacility_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs)
         Try
 
@@ -469,25 +469,25 @@ Public Class IAIP_EIS_Log
         End Try
     End Sub
 
-  
+
     Private Sub Back()
         Try
-            
+
             Me.Hide()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-           
+
         End Try
-         
+
     End Sub
- 
-    
+
+
 #End Region
 #Region "Fee Password Reset"
     Private Sub SetPassword_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
-            
+
             If NavigationScreen Is Nothing Then
                 NavigationScreen = New IAIPNavigation
             End If
@@ -496,9 +496,9 @@ Public Class IAIP_EIS_Log
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-          
+
         End Try
-         
+
     End Sub
 
 #End Region
@@ -544,9 +544,9 @@ Public Class IAIP_EIS_Log
             "from " & DBNameSpace & ".EISLK_EISSTATUSCODE "
 
             dscode = New DataSet
-            dacode = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            dacode = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dacode.Fill(dscode, "EISLK_EISSTATUSCODE")
@@ -579,9 +579,9 @@ Public Class IAIP_EIS_Log
             "order by strDesc"
 
             dscode = New DataSet
-            daEIcode = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daEIcode = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daEIcode.Fill(dscode, "EISAccessCode")
@@ -627,9 +627,9 @@ Public Class IAIP_EIS_Log
             SQL = "Select distinct EISLK_EISACCESSCODE.EISACCESSCODE,EISLK_EISACCESSCODE.STRDESC " & _
             "from " & DBNameSpace & ".EISLK_EISACCESSCODE "
             dscode = New DataSet
-            dacode = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            dacode = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dacode.Fill(dscode, "EISAccessCodes")
@@ -683,9 +683,9 @@ Public Class IAIP_EIS_Log
             "strFacilitySiteName " & _
             "from " & DBNameSpace & ".EIS_FacilitySite " & _
             "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -710,9 +710,9 @@ Public Class IAIP_EIS_Log
            "where inventoryYear = '" & txtEILogSelectedYear.Text & "' " & _
            "and FacilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -846,9 +846,9 @@ Public Class IAIP_EIS_Log
             "where inventoryYear = '" & cboEILogYear.Text & "' " & _
             "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1115,9 +1115,9 @@ Public Class IAIP_EIS_Log
               "and datQAComplete is not null )" & _
               " ) ) "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -1280,9 +1280,9 @@ Public Class IAIP_EIS_Log
                     dgvEISStats.Rows.Clear()
                     ds = New DataSet
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -1436,9 +1436,9 @@ Public Class IAIP_EIS_Log
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1612,9 +1612,9 @@ Public Class IAIP_EIS_Log
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1782,9 +1782,9 @@ Public Class IAIP_EIS_Log
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1932,9 +1932,9 @@ Public Class IAIP_EIS_Log
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2083,9 +2083,9 @@ Public Class IAIP_EIS_Log
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2237,9 +2237,9 @@ Public Class IAIP_EIS_Log
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2387,9 +2387,9 @@ Public Class IAIP_EIS_Log
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2540,9 +2540,9 @@ Public Class IAIP_EIS_Log
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2693,9 +2693,9 @@ Public Class IAIP_EIS_Log
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2840,9 +2840,9 @@ Public Class IAIP_EIS_Log
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2991,9 +2991,9 @@ Public Class IAIP_EIS_Log
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -3146,9 +3146,9 @@ Public Class IAIP_EIS_Log
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -3364,9 +3364,9 @@ Public Class IAIP_EIS_Log
                      "where intInventoryyear = '" & txtSelectedEISMailout.Text & "' " & _
                      "and FacilitySiteID = '" & txtEISStatsMailoutAIRSNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
 
                     dr = cmd.ExecuteReader
@@ -3477,9 +3477,9 @@ Public Class IAIP_EIS_Log
                 "where intInventoryYear = '" & txtSelectedEISStatYear.Text & "' " & _
                 "and FacilitySiteID = '" & txtEISStatsMailoutAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
 
@@ -3549,9 +3549,9 @@ Public Class IAIP_EIS_Log
                 "where inventoryYear = '" & EISConfirm & "' " & _
                 temp
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
                 ViewEISStats()
@@ -3591,9 +3591,9 @@ Public Class IAIP_EIS_Log
                     "and inventoryYear = '" & EISConfirm & "' " & _
                     temp
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteReader()
                 End If
@@ -3619,9 +3619,9 @@ Public Class IAIP_EIS_Log
                     "and inventoryYear = '" & EISConfirm & "' " & _
                     temp
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteReader()
                 End If
@@ -3647,9 +3647,9 @@ Public Class IAIP_EIS_Log
                         "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' " & _
                         "and strOptOut = '0' )) "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3663,9 +3663,9 @@ Public Class IAIP_EIS_Log
                         "and EIS_ProcessReportingPeriod.ProcessID = eis_process.processid " & _
                         "and EIS_ProcessReportingPeriod.FacilitySiteID = '" & dgvEISStats(1, i).Value & "'  ) "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3679,9 +3679,9 @@ Public Class IAIP_EIS_Log
                       "and EIS_ProcessReportingPeriod.ProcessID = EIS_ProcessControlApproach.processid " & _
                       "and EIS_ProcessReportingPeriod.FacilitySiteID = '" & dgvEISStats(1, i).Value & "'  ) "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3696,9 +3696,9 @@ Public Class IAIP_EIS_Log
                        "and intFirstInventoryYEar is null " & _
                        "and EIS_ProcessReportingPeriod.FacilitySiteID = '" & dgvEISStats(1, i).Value & "'  ) "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3712,9 +3712,9 @@ Public Class IAIP_EIS_Log
                         "and EIS_ProcessReportingPeriod.EmissionsUnitID = EIS_UnitControlApproach.EmissionsUnitID " & _
                         "and EIS_ProcessReportingPeriod.FacilitySiteID = '" & dgvEISStats(1, i).Value & "'  ) "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3729,9 +3729,9 @@ Public Class IAIP_EIS_Log
                         "and intFirstInventoryYEar is null " & _
                         "and EIS_ProcessReportingPeriod.FacilitySiteID = '" & dgvEISStats(1, i).Value & "'  ) "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3739,9 +3739,9 @@ Public Class IAIP_EIS_Log
                         "where active = '0' " & _
                         "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3749,9 +3749,9 @@ Public Class IAIP_EIS_Log
                         "where active = '0' " & _
                         "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3759,9 +3759,9 @@ Public Class IAIP_EIS_Log
                         "where active = '0' " & _
                         "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3769,9 +3769,9 @@ Public Class IAIP_EIS_Log
                         "where active = '0' " & _
                         "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3779,9 +3779,9 @@ Public Class IAIP_EIS_Log
                         "where active = '0' " & _
                         "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3789,9 +3789,9 @@ Public Class IAIP_EIS_Log
                         "where active = '0' " & _
                         "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3799,9 +3799,9 @@ Public Class IAIP_EIS_Log
                         "where active = '0'" & _
                         "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3809,9 +3809,9 @@ Public Class IAIP_EIS_Log
                         "where active = '0' " & _
                         "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3820,9 +3820,9 @@ Public Class IAIP_EIS_Log
                         "and intinventoryyear = '" & EISConfirm & "' " & _
                         "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3831,9 +3831,9 @@ Public Class IAIP_EIS_Log
                         "and intInventoryYear = '" & EISConfirm & "' " & _
                         "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3842,9 +3842,9 @@ Public Class IAIP_EIS_Log
                         "and intInventoryYear = '" & EISConfirm & "' " & _
                         "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3857,9 +3857,9 @@ Public Class IAIP_EIS_Log
                         "and Airbranch.EIS_RPApportionment.EmissionsUnitID  = Airbranch.eis_Process.EmissionsUnitID) " & _
                         "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3875,9 +3875,9 @@ Public Class IAIP_EIS_Log
                         " and EIS_Process.active = '0' ) " & _
                         "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3890,9 +3890,9 @@ Public Class IAIP_EIS_Log
                      "and EIS_Process.active = '0' ) " & _
                                   "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3905,9 +3905,9 @@ Public Class IAIP_EIS_Log
                     "and Airbranch.EIS_ProcessControlApproach.EmissionsUnitID  = Airbranch.eis_Process.EmissionsUnitID) " & _
                                   "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3920,9 +3920,9 @@ Public Class IAIP_EIS_Log
         "and Airbranch.EIS_ProcessControlPollutant.EmissionsUnitID  = Airbranch.EIS_ProcessControlApproach.EmissionsUnitID) " & _
                                   "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3935,9 +3935,9 @@ Public Class IAIP_EIS_Log
         "and Airbranch.EIS_ProcessOperatingDetails.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID)  " & _
                                   "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3950,9 +3950,9 @@ Public Class IAIP_EIS_Log
         "and Airbranch.EIS_ReportingPeriodEmissions.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID)  " & _
                                   "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3965,9 +3965,9 @@ Public Class IAIP_EIS_Log
                      "and Airbranch.EIS_ProcessRPTPeriodSCP.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID)  " & _
                                   "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3980,9 +3980,9 @@ Public Class IAIP_EIS_Log
          "and EIS_Process.active = '0' ) " & _
                                   "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -3990,9 +3990,9 @@ Public Class IAIP_EIS_Log
                                       "where Active = '0' " & _
                                   "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -4000,9 +4000,9 @@ Public Class IAIP_EIS_Log
                         "where active = '0' " & _
                                   "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -4011,9 +4011,9 @@ Public Class IAIP_EIS_Log
                                                       "and numRPStatusCodeYear = '" & EISConfirm & "' " & _
                                   "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
 
@@ -4080,9 +4080,9 @@ Public Class IAIP_EIS_Log
             "where inventoryyear = '" & cboEILogYear.Text & "' " & _
             "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -4102,9 +4102,9 @@ Public Class IAIP_EIS_Log
             "where inventoryyear = '" & cboEILogYear.Text & "' " & _
             "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteReader()
 
@@ -4208,9 +4208,9 @@ Public Class IAIP_EIS_Log
                "where inventoryYear = '" & txtEILogSelectedYear.Text & "' " & _
                "and FacilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "')) "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -4232,9 +4232,9 @@ Public Class IAIP_EIS_Log
                "where INventoryyear = '" & cboEILogYear.Text & "' " & _
                "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -4257,10 +4257,10 @@ Public Class IAIP_EIS_Log
             Dim Mailout As String = ""
             Dim ActiveStatus As String = ""
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
-            cmd = New OracleCommand("AIRBranch.PD_EIS_Data", Conn)
+            cmd = New OracleCommand("AIRBranch.PD_EIS_Data", CurrentConnection)
             cmd.CommandType = CommandType.StoredProcedure
 
             cmd.Parameters.Add(New OracleParameter("AIRSNUM", OracleDbType.Varchar2)).Value = txtEILogSelectedAIRSNumber.Text
@@ -4350,9 +4350,9 @@ Public Class IAIP_EIS_Log
                     "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' & " ' "
 
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteReader()
                 Next
@@ -4466,9 +4466,9 @@ Public Class IAIP_EIS_Log
            "where inventoryYear = '" & txtEILogSelectedYear.Text & "' " & _
            "and FacilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "')) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteReader()
 
@@ -4490,9 +4490,9 @@ Public Class IAIP_EIS_Log
             "where INventoryyear = '" & cboEILogYear.Text & "' " & _
             "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteReader()
 
@@ -4530,9 +4530,9 @@ Public Class IAIP_EIS_Log
                     "strEISDeadlineComment = '" & Replace(DeadLineComments, "'", "''") & "' " & _
                     "where INventoryyear = '" & cboEILogYear.Text & "' " & _
                     "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteReader()
                 End If
@@ -4544,10 +4544,10 @@ Public Class IAIP_EIS_Log
             LoadQASpecificData()
 
             If dtpQACompleted.Checked = True Then
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
-                cmd = New OracleCommand("AIRBranch.PD_EIS_QA_Done", Conn)
+                cmd = New OracleCommand("AIRBranch.PD_EIS_QA_Done", CurrentConnection)
                 cmd.CommandType = CommandType.StoredProcedure
 
                 cmd.Parameters.Add(New OracleParameter("AIRSNUM", OracleDbType.Varchar2)).Value = txtEILogSelectedAIRSNumber.Text
@@ -4639,9 +4639,9 @@ Public Class IAIP_EIS_Log
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4794,9 +4794,9 @@ Public Class IAIP_EIS_Log
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4948,9 +4948,9 @@ Public Class IAIP_EIS_Log
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -5109,9 +5109,9 @@ Public Class IAIP_EIS_Log
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -5284,9 +5284,9 @@ Public Class IAIP_EIS_Log
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -5393,9 +5393,9 @@ Public Class IAIP_EIS_Log
                    "where intInventoryyear = '" & cboEISStatisticsYear.Text & "' " & _
                    "and FacilitySiteID = '" & txtEISStatsMailoutAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -5553,9 +5553,9 @@ Public Class IAIP_EIS_Log
                 "where strAIRSnumber = '0413" & txtEISStatsMailoutAIRSNumber.Text & "' "
 
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -5677,9 +5677,9 @@ Public Class IAIP_EIS_Log
                     "where inventoryYear = '" & EISConfirm & "' " & _
                     temp
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteReader()
                     MsgBox(EISConfirm & " Emission Inventory Facilities in Mailout.", MsgBoxStyle.Information, Me.Text)
@@ -5720,9 +5720,9 @@ Public Class IAIP_EIS_Log
                 "where inventoryYear = '" & EISConfirm & "' " & _
                 temp
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -5755,92 +5755,92 @@ Public Class IAIP_EIS_Log
             If EISConfirm = txtSelectedEISStatYear.Text Then
                 SQL = "delete airbranch.EIS_UnitControlPollutant " & _
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_UnitControlMeasure  " & _
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_UnitControlApproach  " & _
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_RPGEOCoordinates  " & _
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_RPApportionment  " & _
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_ProcessControlPollutant " & _
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_ProcessControlMeasure " & _
                 "where active = '0'"
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_ProcessControlApproach  " & _
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_ReportingPeriodEmissions  " & _
               "where active = '0'  " & _
               "and intinventoryyear = '2010' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_ProcessOperatingDetails  " & _
                 "where active = '0'  " & _
                 "and intInventoryYear = '2010' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_ProcessRPTPeriodSCP  " & _
                 "where Active = '0'  " & _
                 "and intInventoryYear = '2010'"
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -5852,9 +5852,9 @@ Public Class IAIP_EIS_Log
              "and Airbranch.EIS_RPApportionment.ProcessId = Airbranch.eis_Process.ProcessId " & _
              "and Airbranch.EIS_RPApportionment.EmissionsUnitID  = Airbranch.eis_Process.EmissionsUnitID) "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -5869,9 +5869,9 @@ Public Class IAIP_EIS_Log
                 " and Airbranch.EIS_ProcessControlPollutant.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID  " & _
                 " and EIS_Process.active = '0' ) "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -5883,9 +5883,9 @@ Public Class IAIP_EIS_Log
              "and Airbranch.EIS_ProcessControlMeasure.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID " & _
              "and EIS_Process.active = '0' ) "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -5897,9 +5897,9 @@ Public Class IAIP_EIS_Log
                 "and Airbranch.EIS_ProcessControlApproach.ProcessId = Airbranch.eis_Process.ProcessId " & _
                 "and Airbranch.EIS_ProcessControlApproach.EmissionsUnitID  = Airbranch.eis_Process.EmissionsUnitID) "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -5911,9 +5911,9 @@ Public Class IAIP_EIS_Log
                 "and Airbranch.EIS_ProcessControlPollutant.ProcessId = Airbranch.EIS_ProcessControlApproach.ProcessId " & _
                 "and Airbranch.EIS_ProcessControlPollutant.EmissionsUnitID  = Airbranch.EIS_ProcessControlApproach.EmissionsUnitID) "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -5925,9 +5925,9 @@ Public Class IAIP_EIS_Log
                 "and Airbranch.EIS_ProcessOperatingDetails.ProcessId = Airbranch.EIS_Process.ProcessId  " & _
                 "and Airbranch.EIS_ProcessOperatingDetails.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID)  "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -5939,9 +5939,9 @@ Public Class IAIP_EIS_Log
                 "and Airbranch.EIS_ReportingPeriodEmissions.ProcessId = Airbranch.EIS_Process.ProcessId  " & _
                 "and Airbranch.EIS_ReportingPeriodEmissions.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID)  "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -5953,9 +5953,9 @@ Public Class IAIP_EIS_Log
                  "and Airbranch.EIS_ProcessRPTPeriodSCP.ProcessId = Airbranch.EIS_Process.ProcessId  " & _
                  "and Airbranch.EIS_ProcessRPTPeriodSCP.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID)  "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -5967,25 +5967,25 @@ Public Class IAIP_EIS_Log
                  "and Airbranch.eis_processReportingPeriod.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID " & _
                  "and EIS_Process.active = '0' ) "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_Process  " & _
                               "where Active = '0' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "Delete airbranch.EIS_EmissionsUnit   " & _
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -5993,9 +5993,9 @@ Public Class IAIP_EIS_Log
                 "where active = '0'  " & _
                 "and numRPStatusCodeYear = '2010' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -6024,9 +6024,9 @@ Public Class IAIP_EIS_Log
                 "strFacilitySiteName " & _
                 "from " & DBNameSpace & ".EIS_FacilitySite " & _
                 "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -6069,9 +6069,9 @@ Public Class IAIP_EIS_Log
                 "strFacilitySiteName " & _
                 "from " & DBNameSpace & ".EIS_FacilitySite " & _
                 "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read

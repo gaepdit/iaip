@@ -66,10 +66,10 @@ Public Class ISMPMonitoringLog
 
             dsEngineer = New DataSet
 
-            daEngineer = New OracleDataAdapter(SQL, Conn)
+            daEngineer = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daEngineer.Fill(dsEngineer, "Engineers")
@@ -142,9 +142,9 @@ Public Class ISMPMonitoringLog
 
             dsPollutants = New DataSet
 
-            daPollutants = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daPollutants = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daPollutants.Fill(dsPollutants, "Pollutants")
@@ -471,10 +471,10 @@ Public Class ISMPMonitoringLog
                 SQL = SQL & SQLWhere
 
                 dsTestReportViewer = New DataSet
-                daTestReportViewer = New OracleDataAdapter(SQL, Conn)
+                daTestReportViewer = New OracleDataAdapter(SQL, CurrentConnection)
 
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 daTestReportViewer.Fill(dsTestReportViewer, "TestReportViewer")
@@ -638,10 +638,10 @@ Public Class ISMPMonitoringLog
                 SQL = SQL & SQLWhere
 
                 dsNotificationViewer = New DataSet
-                daNotificationViewer = New OracleDataAdapter(SQL, Conn)
+                daNotificationViewer = New OracleDataAdapter(SQL, CurrentConnection)
 
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 daNotificationViewer.Fill(dsNotificationViewer, "NotificationViewer")
@@ -775,10 +775,10 @@ Public Class ISMPMonitoringLog
                 SQL = SQL & SQLWhere
 
                 dsTestFirmComments = New DataSet
-                daTestFirmComments = New OracleDataAdapter(SQL, Conn)
+                daTestFirmComments = New OracleDataAdapter(SQL, CurrentConnection)
 
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 daTestFirmComments.Fill(dsTestFirmComments, "TestFirmComments")
@@ -849,9 +849,9 @@ Public Class ISMPMonitoringLog
                 "and substr(" & DBNameSpace & ".ISMPTestNotification.strAIRSNumber, 1, 3) = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode (+)  " & _
                 "and strTestLogNumber = '" & txtTestLogNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -927,9 +927,9 @@ Public Class ISMPMonitoringLog
                     "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
                     "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
                     "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -944,9 +944,9 @@ Public Class ISMPMonitoringLog
                     SQL = "Select strClosed " & _
                     "from " & DBNameSpace & ".ISMPReportInformation " & _
                     "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read

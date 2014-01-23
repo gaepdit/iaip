@@ -418,19 +418,19 @@ Public Class SscpEnforcement
             dsHPV = New DataSet
             dsStaff = New DataSet
 
-            daComplianceStatus = New OracleDataAdapter(SQL, Conn)
-            daHPV = New OracleDataAdapter(SQL2, Conn)
-            daStaff = New OracleDataAdapter(SQL3, Conn)
+            daComplianceStatus = New OracleDataAdapter(SQL, CurrentConnection)
+            daHPV = New OracleDataAdapter(SQL2, CurrentConnection)
+            daStaff = New OracleDataAdapter(SQL3, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daComplianceStatus.Fill(dsComplianceStatus, "ComplianceStatus")
             daHPV.Fill(dsHPV, "HPV")
             daStaff.Fill(dsStaff, "Staff")
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -873,9 +873,9 @@ Public Class SscpEnforcement
                 SQL = "Select * " & _
                 "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                 "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -1666,10 +1666,10 @@ Public Class SscpEnforcement
             "and strCountyCode = '" & Mid(txtAIRSNumber.Text, 1, 3) & "' " & _
             "and " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".APBHeaderData.strairsnumber"
 
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1822,9 +1822,9 @@ Public Class SscpEnforcement
             "order by AirProgram, strPollutantDescription, ComplianceStatus "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             da.Fill(ds, "AirPollutants")
 
@@ -1900,9 +1900,9 @@ Public Class SscpEnforcement
                     "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                     "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -1975,9 +1975,9 @@ Public Class SscpEnforcement
                     "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                     "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -2029,10 +2029,10 @@ Public Class SscpEnforcement
                 "order by strEnforcementKey "
 
                 dsStipulatedPenalty = New DataSet
-                daStipulatedPenalty = New OracleDataAdapter(SQL, Conn)
+                daStipulatedPenalty = New OracleDataAdapter(SQL, CurrentConnection)
 
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 daStipulatedPenalty.Fill(dsStipulatedPenalty, "StipulatedPenalty")
@@ -2575,17 +2575,17 @@ Public Class SscpEnforcement
                     "'" & AFSAOResolvedNumber & "', " & _
                     "'" & UserGCode & "', sysdate ) "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
 
                     SQL = "Select " & DBNameSpace & ".SSCPEnforcementnumber.currval from dual "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -2643,18 +2643,18 @@ Public Class SscpEnforcement
                     "'" & AFSAOResolvedNumber & "', " & _
                     "'" & UserGCode & "', sysdate ) "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
                 End If
 
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
-                cmd = New OracleCommand("AIRBranch.PD_SSCPEnforcement", Conn)
+                cmd = New OracleCommand("AIRBranch.PD_SSCPEnforcement", CurrentConnection)
                 cmd.CommandType = CommandType.StoredProcedure
 
                 cmd.Parameters.Add(New OracleParameter("ENFORCEMENT", OracleDbType.Varchar2)).Value = txtEnforcementNumber.Text
@@ -2675,9 +2675,9 @@ Public Class SscpEnforcement
                         "where strAirPollutantKey = '" & lvPollutants.Items.Item(i).SubItems(5).Text & "' " & _
                         "and strPollutantkey = '" & lvPollutants.Items.Item(i).SubItems(2).Text & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -2701,7 +2701,7 @@ Public Class SscpEnforcement
                 query = "SELECT MAX(SSCPENFORCEMENTSTIPULATED.STRENFORCEMENTKEY) AS MaxKey " & _
                 "FROM " & DBNameSpace & ".SSCPENFORCEMENTSTIPULATED " & _
                 "WHERE SSCPENFORCEMENTSTIPULATED.STRENFORCEMENTNUMBER = :enfNumber"
-                Using connection As New OracleConnection(CurrentConnString)
+                Using connection As New OracleConnection(CurrentConnectionString)
                     Using command As New OracleCommand(query, connection) With {.CommandType = CommandType.Text}
                         With command
                             .BindByName = True
@@ -2732,9 +2732,9 @@ Public Class SscpEnforcement
                 SQL = "Select strAFSActionNumber " & _
                 "from " & DBNameSpace & ".APBSupplamentalData " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -2747,9 +2747,9 @@ Public Class SscpEnforcement
                 SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                 "strAFSActionNumber = '" & temp & "' " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -2757,9 +2757,9 @@ Public Class SscpEnforcement
                 SQL = "Select strAFSActionNumber " & _
                 "from " & DBNameSpace & ".APBSupplamentalData " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -2774,9 +2774,9 @@ Public Class SscpEnforcement
                 SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                 "strAFSActionNumber = '" & temp & "' " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -2787,9 +2787,9 @@ Public Class SscpEnforcement
                 SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                 "strAFSActionNumber = '" & temp & "' " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -2799,7 +2799,7 @@ Public Class SscpEnforcement
 
             query = "Insert into " & DBNameSpace & ".SSCPEnforcementStipulated " & _
             "values (:enfNumber,:stipKey,:stipPenalty,:stipComments,:afsNumber,:userGCode,:oracleDate)"
-            Using connection As New OracleConnection(CurrentConnString)
+            Using connection As New OracleConnection(CurrentConnectionString)
                 Using command As New OracleCommand(query, connection) With {.CommandType = CommandType.Text}
                     With command
                         .BindByName = True
@@ -2846,9 +2846,9 @@ Public Class SscpEnforcement
                     "from " & DBNameSpace & ".APBSupplamentalData " & _
                     "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -2863,9 +2863,9 @@ Public Class SscpEnforcement
                     SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                     "strAFSActionNUmber = '" & KeyActionNumber & "' " & _
                     "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -2880,9 +2880,9 @@ Public Class SscpEnforcement
                         "from " & DBNameSpace & ".APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -2897,9 +2897,9 @@ Public Class SscpEnforcement
                         SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                         "strAFSActionNUmber = '" & NOVActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -2916,9 +2916,9 @@ Public Class SscpEnforcement
                         "from " & DBNameSpace & ".APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -2933,9 +2933,9 @@ Public Class SscpEnforcement
                         SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                         "strAFSActionNumber = '" & NFAActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -2952,9 +2952,9 @@ Public Class SscpEnforcement
                         "from " & DBNameSpace & ".APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -2969,9 +2969,9 @@ Public Class SscpEnforcement
                         SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                         "strAFSActionNumber = '" & COProposedActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -2988,9 +2988,9 @@ Public Class SscpEnforcement
                         "from " & DBNameSpace & ".APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -3005,9 +3005,9 @@ Public Class SscpEnforcement
                         SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                         "strAFSActionNumber = '" & COExecutedActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -3024,9 +3024,9 @@ Public Class SscpEnforcement
                         "from " & DBNameSpace & ".APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -3041,9 +3041,9 @@ Public Class SscpEnforcement
                         SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                         "strAFSActionNumber = '" & COResolvedActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -3060,9 +3060,9 @@ Public Class SscpEnforcement
                         "from " & DBNameSpace & ".APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -3077,9 +3077,9 @@ Public Class SscpEnforcement
                         SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                         "strAFSActionNumber = '" & AOtoAGActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -3096,9 +3096,9 @@ Public Class SscpEnforcement
                         "from " & DBNameSpace & ".APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -3113,9 +3113,9 @@ Public Class SscpEnforcement
                         SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                         "strAFSActionNumber = '" & AOtoCivilCourtActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -3132,9 +3132,9 @@ Public Class SscpEnforcement
                         "from " & DBNameSpace & ".APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -3149,9 +3149,9 @@ Public Class SscpEnforcement
                         SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                         "strAFSActionNumber = '" & AOResolvedActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -3296,9 +3296,9 @@ Public Class SscpEnforcement
             "from " & DBNameSpace & ".AFSSSCPEnforcementRecords " & _
             "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -3326,9 +3326,9 @@ Public Class SscpEnforcement
                         "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                         "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -3342,9 +3342,9 @@ Public Class SscpEnforcement
 
                         SQL = "Delete " & DBNameSpace & ".AFSSSCPEnforcementRecords " & _
                         "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -3362,18 +3362,18 @@ Public Class SscpEnforcement
                                "'" & OracleDate & "', '', " & _
                                "'') "
 
-                        cmd = New OracleCommand(SQL2, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL2, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
 
                         SQL = "Delete " & DBNameSpace & ".SSCPENforcementStipulated " & _
                         "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -3391,18 +3391,18 @@ Public Class SscpEnforcement
                                "'" & OracleDate & "', '', " & _
                                "'') "
 
-                        cmd = New OracleCommand(SQL2, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL2, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
 
                         SQL = "Delete " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                         "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -3420,9 +3420,9 @@ Public Class SscpEnforcement
                                "'" & OracleDate & "', '', " & _
                                "'') "
 
-                        cmd = New OracleCommand(SQL2, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL2, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -3716,7 +3716,7 @@ Public Class SscpEnforcement
         Dim query As String = "Delete from " & DBNameSpace & ".SSCPENforcementStipulated " & _
         "where strEnforcementNumber = :enfNumber and strEnforcementKey = :enfKey"
 
-        Using connection As New OracleConnection(CurrentConnString)
+        Using connection As New OracleConnection(CurrentConnectionString)
             Using command As New OracleCommand(query, connection) With {.CommandType = CommandType.Text}
                 With command
                     .BindByName = True
@@ -3759,7 +3759,7 @@ Public Class SscpEnforcement
             "from " & DBNameSpace & ".SSCPENforcementStipulated " & _
             "where strEnforcementNumber = :enfNumber and strEnforcementKey = :enfKey"
 
-            Using connection As New OracleConnection(CurrentConnString)
+            Using connection As New OracleConnection(CurrentConnectionString)
                 Using command As New OracleCommand(query, connection) With {.CommandType = CommandType.Text}
                     With command
                         .BindByName = True
@@ -4107,10 +4107,10 @@ Public Class SscpEnforcement
        "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' order by ID desc)  sb1 "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, Conn)
+            da = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             da.Fill(ds, "AuditHistory")
@@ -4399,9 +4399,9 @@ Public Class SscpEnforcement
             "where strEnforcementNumber = '" & Replace(txtEnforcementNumber.Text, "'", "''") & "' " & _
             "and strEnforcementKey = '" & txtStipulatedKey.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()

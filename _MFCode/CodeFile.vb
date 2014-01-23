@@ -33,9 +33,9 @@ Module CodeFile
              "'" & UserGCode & "', '" & OracleDate & "', " & _
              "'" & Replace(ContactDescription, "'", "''") & "') "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -71,9 +71,9 @@ Module CodeFile
             "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
             "and strKey like '" & Mid(Key, 1, 1) & "%' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -90,9 +90,9 @@ Module CodeFile
                 SQL = "Delete " & DBNameSpace & ".APBContactInformation " & _
                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                 "and strKey = '" & Mid(Key, 1, 1) & "9'"
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -107,9 +107,9 @@ Module CodeFile
                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                 "and strKey = '" & Mid(Key, 1, 1) & (NewKey - 1) & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -140,9 +140,9 @@ Module CodeFile
             "'" & OracleDate & "', " & _
             "'" & Replace(ContactDescription, "'", "''") & "') "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -243,9 +243,9 @@ Module CodeFile
             "'" & ThirdQrtDue & "', '" & FourthQrtDue & "', " & _
             "'', '" & AAThres & "', '" & NAThres & "') "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -355,9 +355,9 @@ Module CodeFile
             "numNAThres = '" & NAThres & "' " & _
             "where numFeeRateID = '" & FeeRateID & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -376,9 +376,9 @@ Module CodeFile
             "'1', '" & UserGCode & "', " & _
             "'" & OracleDate & "', '" & OracleDate & "') "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -406,9 +406,9 @@ Module CodeFile
                 "where NSPSReasonCode = '" & NSPSReasonCode & "' "
             End If
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -428,9 +428,9 @@ Module CodeFile
             "'" & UserGCode & "', '" & OracleDate & "', " & _
             "'" & OracleDate & "') "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -450,9 +450,9 @@ Module CodeFile
             "where numFeeYear = '" & numFeeYear & "' " & _
             "and NSPSReasonCode = '" & NSPSReasonCode & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -484,9 +484,9 @@ Module CodeFile
             "where numFeeYear = '" & FeeYear & "' " & _
             "and strAIRSNumber = '0413" & AIRSNumber & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -551,9 +551,9 @@ Module CodeFile
             "'IAIP||" & UserName & "', '" & OracleDate & "', " & _
             "'" & OracleDate & "') "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -563,17 +563,17 @@ Module CodeFile
            "where numFeeYear = '" & FeeYear & "' " & _
            "and strAIRSnumber = '0413" & AIRSNumber & "' " & _
            "and datInitialEnrollment is null "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
-            cmd = New OracleCommand("AIRBranch.PD_FEE_MAILOUT", Conn)
+            cmd = New OracleCommand("AIRBranch.PD_FEE_MAILOUT", CurrentConnection)
             cmd.CommandType = CommandType.StoredProcedure
 
             cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = FeeYear
@@ -581,10 +581,10 @@ Module CodeFile
 
             cmd.ExecuteNonQuery()
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
-            cmd = New OracleCommand("AIRBranch.PD_FEE_DATA", Conn)
+            cmd = New OracleCommand("AIRBranch.PD_FEE_DATA", CurrentConnection)
             cmd.CommandType = CommandType.StoredProcedure
 
             cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = FeeYear
@@ -686,9 +686,9 @@ Module CodeFile
             SQL = "Update " & DBNameSpace & ".FS_Admin set " & SQL & _
             "where numFeeYear = '" & FeeYear & "' " & _
             "and strAIRSNumber = '0413" & AIRSNumber & "' "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -714,18 +714,18 @@ Module CodeFile
             "where numFeeYear = '" & FeeYear & "' " & _
             "and strAIRSnumber = '0413" & AIRSNumber & "' " & _
             "and datInitialEnrollment is null "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
-            cmd = New OracleCommand("AIRBranch.PD_FEE_MAILOUT", Conn)
+            cmd = New OracleCommand("AIRBranch.PD_FEE_MAILOUT", CurrentConnection)
             cmd.CommandType = CommandType.StoredProcedure
 
             cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = FeeYear
@@ -733,10 +733,10 @@ Module CodeFile
 
             cmd.ExecuteNonQuery()
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
-            cmd = New OracleCommand("AIRBranch.PD_FEE_DATA", Conn)
+            cmd = New OracleCommand("AIRBranch.PD_FEE_DATA", CurrentConnection)
             cmd.CommandType = CommandType.StoredProcedure
 
             cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = FeeYear
@@ -754,10 +754,10 @@ Module CodeFile
     Function Update_FS_Admin_Status(ByVal FeeYear As String, ByVal AIRSNumber As String) As Boolean
         Try
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
-            cmd = New OracleCommand("AIRBranch.PD_FEE_Status", Conn)
+            cmd = New OracleCommand("AIRBranch.PD_FEE_Status", CurrentConnection)
             cmd.CommandType = CommandType.StoredProcedure
 
             cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = FeeYear
@@ -829,9 +829,9 @@ Module CodeFile
             "'IAIP||" & UserName & "', '" & OracleDate & "', " & _
             "'" & OracleDate & "') "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -978,9 +978,9 @@ Module CodeFile
             "where numFeeYear = '" & FeeYear & "' " & _
             "and strAIRSNumber = '0413" & AIRSNumber & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1005,17 +1005,17 @@ Module CodeFile
             "and strInvoiceStatus = '0' " & _
             "and active = '1' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
-            cmd = New OracleCommand("AIRBranch.PD_FEE_STATUS", Conn)
+            cmd = New OracleCommand("AIRBranch.PD_FEE_STATUS", CurrentConnection)
             cmd.CommandType = CommandType.StoredProcedure
 
             cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = FeeYear
@@ -1036,9 +1036,9 @@ Module CodeFile
             "from AIRBranch.EILookUpNAICS " & _
             "where strNAICSCode = '" & NAICSCode & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1061,9 +1061,9 @@ Module CodeFile
             "where strSICCode = '" & SICCode & "' " & _
             "and length(strSICCode) = 4 "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader

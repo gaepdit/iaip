@@ -5,6 +5,52 @@ Imports System.Collections.Generic
 Namespace DB
     Module DB
 
+#Region "DB Connection Strings"
+
+        Private PrdHost As String = "luke.dnr.state.ga.us" ' {0}
+        Private PrdPort As String = "1521" ' {1}
+        Private PrdSid As String = "PRD" ' {2}
+        Private PrdUser As String = "AIRBRANCH_APP_USER" ' {3}
+        Private PrdPassword As String = SimpleCrypt("çòáðò±ì") ' {4}
+
+        Private DevHost As String = "leia.dnr.state.ga.us" ' {0}
+        Private DevPort As String = "1521" ' {1}
+        Private DevSid As String = "DEV" ' {2}
+        Private DevUser As String = "AIRBRANCH" ' {3}
+        Private DevPassword As String = SimpleCrypt("óíïçáìåòô") ' {4}
+
+        Public Function GetCurrentConnectionString() As String
+            Return GetConnectionString(TestingEnvironment)
+        End Function
+
+        ''' <summary>
+        ''' Returns a database connection string for either the production (PRD) or testing (DEV) environment
+        ''' </summary>
+        ''' <param name="testingEnvironment">A boolean designating whether the testing environment (DEV) connection string is desired</param>
+        ''' <returns>A database connection string</returns>
+        ''' <remarks>Currently built to return an Oracle connection string</remarks>
+        Public Function GetConnectionString(Optional ByVal testingEnvironment As Boolean = False) As String
+
+            ' Oracle connection method without tnsnames.ora
+            Dim oracleConnectionStringTemplate As String = "Data Source=(DESCRIPTION=(ADDRESS_LIST=" & _
+                "(ADDRESS=(PROTOCOL=TCP)(HOST={0})(PORT={1})))(CONNECT_DATA=(SERVER=DEDICATED)(SID={2})));" & _
+                "User Id={3}; Password = {4};"
+
+            ' Standard Oracle connection method (requires tnsnames.ora on client)
+            'Private oracleConnectionStringTemplate As String = "Data Source = {2}; User ID = {3}; Password = {4};"
+
+            ' Oracle EZ Connect method (maybe requires EZCONNECT enabled in sqlnet.ora file?)
+            'Private oracleConnectionStringTemplate As String = "{3}/{4}@//{0}:{1}/{2}"
+
+            If testingEnvironment Then
+                Return String.Format(oracleConnectionStringTemplate, DevHost, DevPort, DevSid, DevUser, DevPassword)
+            Else
+                Return String.Format(oracleConnectionStringTemplate, PrdHost, PrdPort, PrdSid, PrdUser, PrdPassword)
+            End If
+        End Function
+
+#End Region
+
 #Region "Read (Scalar)"
 
         Public Function GetSingleValue(Of T)(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing) As T
@@ -14,7 +60,7 @@ Namespace DB
 
         Public Function GetSingleValue(Of T)(ByVal query As String, ByVal parameterArray As OracleParameter()) As T
             Dim result As Object = Nothing
-            Using connection As New OracleConnection(CurrentConnString)
+            Using connection As New OracleConnection(GetCurrentConnectionString)
                 Using command As New OracleCommand(query, connection)
                     command.CommandType = CommandType.Text
                     command.BindByName = True
@@ -60,7 +106,7 @@ Namespace DB
 
         Public Function GetDataTable(ByVal query As String, ByVal parameterArray As OracleParameter()) As DataTable
             Dim table As New DataTable
-            Using connection As New OracleConnection(CurrentConnString)
+            Using connection As New OracleConnection(GetCurrentConnectionString)
                 Using command As New OracleCommand(query, connection)
                     command.CommandType = CommandType.Text
                     command.BindByName = True
@@ -90,7 +136,7 @@ Namespace DB
         End Function
 
         Public Function GetByteArrayFromBlob(ByVal query As String, ByVal parameterArray As OracleParameter()) As Byte()
-            Using connection As New OracleConnection(CurrentConnString)
+            Using connection As New OracleConnection(GetCurrentConnectionString)
                 Using command As New OracleCommand(query, connection)
                     command.CommandType = CommandType.Text
                     command.BindByName = True
@@ -154,7 +200,7 @@ Namespace DB
             countList.Clear()
             If queryList.Count <> parametersList.Count Then Return False
 
-            Using connection As New OracleConnection(CurrentConnString)
+            Using connection As New OracleConnection(GetCurrentConnectionString)
                 Using command As OracleCommand = connection.CreateCommand
                     command.CommandType = CommandType.Text
                     command.BindByName = True

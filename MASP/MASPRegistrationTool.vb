@@ -323,9 +323,9 @@ Public Class MASPRegistrationTool
             "strWebURL " & _
             "From " & DBNameSpace & ".RES_Event " & _
             "where nuMRes_EventID = '" & selectedEventId & "' "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -470,9 +470,9 @@ Public Class MASPRegistrationTool
             "and " & DBNameSpace & ".Res_registration.numRes_EventID = '" & selectedEventId & "' "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             da.Fill(ds, "Registered")
@@ -1012,9 +1012,9 @@ Public Class MASPRegistrationTool
                      "'" & WebPhoneNumber & "', '" & Replace(EventTime, "'", "''") & "', " & _
                      "'" & Replace(EventEndTime, "'", "''") & "', '" & Replace(WebURL, "'", "''") & "') "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1023,9 +1023,9 @@ Public Class MASPRegistrationTool
             "max(numRes_eventID) as EventID " & _
             "from " & DBNameSpace & ".RES_Event "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1196,9 +1196,9 @@ Public Class MASPRegistrationTool
                 SQL & "updateUser = '" & UserGCode & "', " & _
                 "updateDateTime = '" & OracleDate & "' " & _
                 "where numRes_EventID = '" & Res_EventID & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1220,9 +1220,9 @@ Public Class MASPRegistrationTool
             "where numRes_RegistrationID = '" & RegistrationID & "' " & _
             "and strConfirmationNumber = '" & Confirmation & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()

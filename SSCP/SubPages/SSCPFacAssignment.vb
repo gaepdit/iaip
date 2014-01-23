@@ -470,7 +470,7 @@ Public Class SSCPFacAssignment
             "from AIRBranch.LookUpEPDUnits " & _
             "where numProgramCode = '4' "
 
-            daUnits = New OracleDataAdapter(SQL, Conn)
+            daUnits = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "Select " & _
             "numUserID, (strLastName||', ' ||strFirstName) as UserName,  " & _
@@ -482,10 +482,10 @@ Public Class SSCPFacAssignment
             "and numProgram = '4'  " & _
             "Order by strUnitDesc, strLastName "
 
-            daEngineerList = New OracleDataAdapter(SQL, Conn)
+            daEngineerList = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daUnits.Fill(dsUnits, "Units")
@@ -574,11 +574,11 @@ Public Class SSCPFacAssignment
             "and " & DBNameSpace & ".EPDUSERPROFILES.NUMUNIT = " & DBNameSpace & ".LOOKUpEPDUnits.numUnitCode  (+) " & _
             "and AIRSNumber = '" & txtAIRSNumber.Text & "' "
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
             While dr.Read
                 If IsDBNull(dr.Item("SSCPEngineer")) Then
@@ -597,7 +597,7 @@ Public Class SSCPFacAssignment
             "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = True Then
@@ -663,10 +663,10 @@ Public Class SSCPFacAssignment
             Exit Sub
 
             'Dim cmd As New OracleCommand(SQL, conn)
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -677,7 +677,7 @@ Public Class SSCPFacAssignment
             SQL = "Select strInspectionRequired " & _
             "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = True Then
@@ -697,7 +697,7 @@ Public Class SSCPFacAssignment
             End If
 
             panel1.Text = "Saving Facility Data...."
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
             panel1.Text = "Refreshing Facility Summary Screen..."

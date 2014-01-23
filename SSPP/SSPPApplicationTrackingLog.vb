@@ -367,36 +367,36 @@ Public Class SSPPApplicationTrackingLog
             "order by strUnitDesc "
 
             dsEngineerList = New DataSet
-            daEngineerList = New OracleDataAdapter(SQL, conn)
+            daEngineerList = New OracleDataAdapter(SQL, CurrentConnection)
 
             dsSSCPStaff = New DataSet
-            daSSCPStaff = New OracleDataAdapter(SQL6, conn)
+            daSSCPStaff = New OracleDataAdapter(SQL6, CurrentConnection)
 
             dsISMPStaff = New DataSet
-            daISMPStaff = New OracleDataAdapter(SQL7, conn)
+            daISMPStaff = New OracleDataAdapter(SQL7, CurrentConnection)
 
             dsCountyList = New DataSet
-            daCountyList = New OracleDataAdapter(SQL2, conn)
+            daCountyList = New OracleDataAdapter(SQL2, CurrentConnection)
 
             dsApplicationType = New DataSet
-            daApplicationType = New OracleDataAdapter(SQL3, conn)
+            daApplicationType = New OracleDataAdapter(SQL3, CurrentConnection)
 
             dsPermitType = New DataSet
-            daPermitType = New OracleDataAdapter(SQL4, conn)
+            daPermitType = New OracleDataAdapter(SQL4, CurrentConnection)
 
             dsCity = New DataSet
-            daCity = New OracleDataAdapter(SQL5, conn)
+            daCity = New OracleDataAdapter(SQL5, CurrentConnection)
 
             dsAPBUnit = New DataSet
-            daAPBUnit = New OracleDataAdapter(SQL8, conn)
+            daAPBUnit = New OracleDataAdapter(SQL8, CurrentConnection)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daEngineerList.Fill(dsEngineerList, "EngineerList")
 
-            daEngineerList = New OracleDataAdapter(SQL11, conn)
+            daEngineerList = New OracleDataAdapter(SQL11, CurrentConnection)
             daEngineerList.Fill(dsEngineerList, "EngineerList2")
 
             daSSCPStaff.Fill(dsSSCPStaff, "SSCPStaff")
@@ -406,9 +406,9 @@ Public Class SSPPApplicationTrackingLog
             daPermitType.Fill(dsPermitType, "PermitType")
             daCity.Fill(dsCity, "CityList")
             daAPBUnit.Fill(dsAPBUnit, "SSPPUnit")
-            daAPBUnit = New OracleDataAdapter(SQL9, conn)
+            daAPBUnit = New OracleDataAdapter(SQL9, CurrentConnection)
             daAPBUnit.Fill(dsAPBUnit, "SSCPUnit")
-            daAPBUnit = New OracleDataAdapter(SQL10, conn)
+            daAPBUnit = New OracleDataAdapter(SQL10, CurrentConnection)
             daAPBUnit.Fill(dsAPBUnit, "ISMPUnit")
 
             dtEngineerList.Columns.Add("EngineerName", GetType(System.String))
@@ -3975,9 +3975,9 @@ Public Class SSPPApplicationTrackingLog
             SQL = "Select strAIRSNumber " & _
             "from " & DBNameSpace & ".SSPPApplicationMaster " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -4030,10 +4030,10 @@ Public Class SSPPApplicationTrackingLog
             "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = '" & AIRSNumber & "' "
 
             dsFacAppHistory = New DataSet
-            daFacAppHistory = New OracleDataAdapter(SQL, conn)
+            daFacAppHistory = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daFacAppHistory.Fill(dsFacAppHistory, "FacAppHistory")
@@ -4106,10 +4106,10 @@ Public Class SSPPApplicationTrackingLog
                "order by strRequestKey "
 
             dsFacInfoHistory = New DataSet
-            daFacInfoHistory = New OracleDataAdapter(SQL, conn)
+            daFacInfoHistory = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daFacInfoHistory.Fill(dsFacInfoHistory, "FacInfoHistory")
@@ -4174,13 +4174,13 @@ Public Class SSPPApplicationTrackingLog
             dsPart63 = New DataSet
             dsSIP = New DataSet
 
-            daPart60 = New OracleDataAdapter(SQL, conn)
-            daPart61 = New OracleDataAdapter(SQL2, conn)
-            daPart63 = New OracleDataAdapter(SQL3, conn)
-            daSIP = New OracleDataAdapter(SQL4, conn)
+            daPart60 = New OracleDataAdapter(SQL, CurrentConnection)
+            daPart61 = New OracleDataAdapter(SQL2, CurrentConnection)
+            daPart63 = New OracleDataAdapter(SQL3, CurrentConnection)
+            daSIP = New OracleDataAdapter(SQL4, CurrentConnection)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daPart60.Fill(dsPart60, "Part60")
@@ -4421,9 +4421,9 @@ Public Class SSPPApplicationTrackingLog
             "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".SSCPDistrictResponsible.strAIRSnumber (+) " & _
             "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -5033,9 +5033,9 @@ Public Class SSPPApplicationTrackingLog
                 "from " & DBNameSpace & ".APBHeaderData " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -5122,9 +5122,9 @@ Public Class SSPPApplicationTrackingLog
             SQL = "Select strApplicationNumber " & _
             "From " & DBNameSpace & ".SSPPApplicationContact " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -5149,9 +5149,9 @@ Public Class SSPPApplicationTrackingLog
                 "from " & DBNameSpace & ".SSPPApplicationContact " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -5273,10 +5273,10 @@ Public Class SSPPApplicationTrackingLog
 
             temp = txtApplicationNumber.Text
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -5287,9 +5287,9 @@ Public Class SSPPApplicationTrackingLog
                 "from " & DBNameSpace & ".SSPPApplicationMaster " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -5339,9 +5339,9 @@ Public Class SSPPApplicationTrackingLog
                     "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber (+)  " & _
                     "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -5852,9 +5852,9 @@ Public Class SSPPApplicationTrackingLog
                     "where " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
                     "and " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -5955,9 +5955,9 @@ Public Class SSPPApplicationTrackingLog
                     "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber (+)  " & _
                     "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -6098,9 +6098,9 @@ Public Class SSPPApplicationTrackingLog
             "and " & DBNameSpace & ".LookUpDistrictInformation.strDistrictCode = " & DBNameSpace & ".LookUpDistricts.strDistrictCode  " & _
             "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -6521,10 +6521,10 @@ Public Class SSPPApplicationTrackingLog
                "where datFinalizedDate Is Null " & _
                "and strAirsNumber = '0413" & txtAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             txtOutstandingApplication.Clear()
             dr = cmd.ExecuteReader
@@ -6563,9 +6563,9 @@ Public Class SSPPApplicationTrackingLog
                 "from " & DBNameSpace & ".SSPPApplicationLinking " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -6589,9 +6589,9 @@ Public Class SSPPApplicationTrackingLog
                     "where strMasterApplication = '" & MasterApplication & "' " & _
                     "order by strApplicationNumber "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -6675,9 +6675,9 @@ Public Class SSPPApplicationTrackingLog
                     "where strSICCode = '" & txtSICCode.Text & "' " & _
                     "and length(strSICCode) = 4 "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -6701,9 +6701,9 @@ Public Class SSPPApplicationTrackingLog
                 "from " & DBNameSpace & ".SSPPApplicationMaster " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -6715,9 +6715,9 @@ Public Class SSPPApplicationTrackingLog
                     "values " & _
                     "('" & txtApplicationNumber.Text & "', '0413" & txtAIRSNumber.Text & "', " & _
                     "'" & UserGCode & "', '" & OracleDate & "') "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Read()
@@ -6729,9 +6729,9 @@ Public Class SSPPApplicationTrackingLog
                     "values " & _
                     "('" & txtApplicationNumber.Text & "', '" & UserGCode & "', " & _
                     "'" & OracleDate & "') "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Read()
@@ -6746,9 +6746,9 @@ Public Class SSPPApplicationTrackingLog
                     "'', '" & UserGCode & "', " & _
                     "'" & OracleDate & "') "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Read()
@@ -6841,9 +6841,9 @@ Public Class SSPPApplicationTrackingLog
                "datModifingdate = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
                "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -6853,9 +6853,9 @@ Public Class SSPPApplicationTrackingLog
                 "from " & DBNameSpace & ".SSPPApplicationMaster " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -7092,9 +7092,9 @@ Public Class SSPPApplicationTrackingLog
                 "datModifingdate = '" & OracleDate & "' " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 Try
 
@@ -7210,9 +7210,9 @@ Public Class SSPPApplicationTrackingLog
                 "datpnexpires = '" & PNExpires & "' " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -7237,9 +7237,9 @@ Public Class SSPPApplicationTrackingLog
                             "datModifingdate = '" & OracleDate & "' " & _
                             "where strApplicationNumber = '" & LinkedApplication & "' "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -7278,9 +7278,9 @@ Public Class SSPPApplicationTrackingLog
                            "datModifingdate = '" & OracleDate & "' " & _
                            "where strApplicationNumber = '" & LinkedApplication & "' "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
 
                             dr = cmd.ExecuteReader
@@ -7300,9 +7300,9 @@ Public Class SSPPApplicationTrackingLog
                             "datModifingDate = '" & OracleDate & "' " & _
                             "where strApplicationNumber = '" & LinkedApplication & "' "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
 
                             dr = cmd.ExecuteReader
@@ -7313,9 +7313,9 @@ Public Class SSPPApplicationTrackingLog
                             "datToPMI, datToPMII " & _
                             "from " & DBNameSpace & ".SSPPApplicationTracking " & _
                             "where strApplicationNumber = '" & LinkedApplication & "' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -7336,9 +7336,9 @@ Public Class SSPPApplicationTrackingLog
                             End While
                             dr.Close()
                             If SQL <> "" Then
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -7357,9 +7357,9 @@ Public Class SSPPApplicationTrackingLog
                     "where strSICCode = '" & txtSICCode.Text & "' " & _
                     "and length(strSICCode) = 4 "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -7424,10 +7424,10 @@ Public Class SSPPApplicationTrackingLog
                 SQL = "Select strApplicationNumber " & _
                 "from " & DBNameSpace & ".SSPPApplicationMaster " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -7438,9 +7438,9 @@ Public Class SSPPApplicationTrackingLog
                         "from " & DBNameSpace & ".SSPPApplicationInformation " & _
                         "where strApplicationNumber = '" & txtApplicationNumber.Text & "'"
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
@@ -7469,9 +7469,9 @@ Public Class SSPPApplicationTrackingLog
                     "where strApplicationNumber = '" & txtApplicationNumber.Text & "' " & _
                     "and strRequestKey = '" & InformationRequestKey & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -7516,9 +7516,9 @@ Public Class SSPPApplicationTrackingLog
                         "'" & DateInfoReceived & "', '" & InformationReceived & "', " & _
                         "'" & UserGCode & "', '" & OracleDate & "') "
                     End If
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -7551,9 +7551,9 @@ Public Class SSPPApplicationTrackingLog
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' " & _
                 "and strRequestKey = '" & InformationRequestKey & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Read()
@@ -7591,10 +7591,10 @@ Public Class SSPPApplicationTrackingLog
                 SQL = "Select strApplicationNumber " & _
                 "from " & DBNameSpace & ".SSPPApplicationMaster " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -7604,9 +7604,9 @@ Public Class SSPPApplicationTrackingLog
                     "from " & DBNameSpace & ".SSPPApplicationTracking " & _
                     "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -7617,9 +7617,9 @@ Public Class SSPPApplicationTrackingLog
                         "strSSCPUnit = '" & cboSSCPUnits.SelectedValue & "', " & _
                         "strISMPUnit = '" & cboISMPUnits.SelectedValue & "' " & _
                         "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -7627,9 +7627,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
                         "datReviewSubmitted = '" & DateReviewSubmitted & "' " & _
                         "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -7661,10 +7661,10 @@ Public Class SSPPApplicationTrackingLog
                 SQL = "Select strApplicationNumber " & _
                 "from " & DBNameSpace & ".SSPPApplicationMaster " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -7680,9 +7680,9 @@ Public Class SSPPApplicationTrackingLog
                     "from " & DBNameSpace & ".SSPPApplicationMaster " & _
                     "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -7692,9 +7692,9 @@ Public Class SSPPApplicationTrackingLog
                         "strSSCPReviewer = '" & cboSSCPStaff.SelectedValue & "', " & _
                         "strSSCPComments = '" & Replace(SSCPComments, "'", "''") & "' " & _
                         "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -7703,9 +7703,9 @@ Public Class SSPPApplicationTrackingLog
                         "datSSCPReviewDate = '" & DTPSSCPReview.Text & "' " & _
                         "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -7738,10 +7738,10 @@ Public Class SSPPApplicationTrackingLog
                 SQL = "Select strApplicationNumber " & _
                 "from " & DBNameSpace & ".SSPPApplicationMaster " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -7758,9 +7758,9 @@ Public Class SSPPApplicationTrackingLog
                     "from " & DBNameSpace & ".SSPPApplicationMaster " & _
                     "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -7770,9 +7770,9 @@ Public Class SSPPApplicationTrackingLog
                         "strISMPReviewer = '" & cboISMPStaff.SelectedValue & "', " & _
                         "strISMPComments = '" & Replace(ISMPComments, "'", "''") & "' " & _
                         "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -7780,9 +7780,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
                         "datISMPReviewDate = '" & DTPISMPReview.Text & "' " & _
                         "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -7901,9 +7901,9 @@ Public Class SSPPApplicationTrackingLog
             SQL = "Select strApplicationNumber " & _
             "from " & DBNameSpace & ".SSPPApplicationContact " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -7947,9 +7947,9 @@ Public Class SSPPApplicationTrackingLog
                 "'" & Replace(ContactDescription, "'", "''") & "') "
             End If
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -7977,9 +7977,9 @@ Public Class SSPPApplicationTrackingLog
                 "and Upper(" & DBNameSpace & ".APBContactInformation.strContactZipCode) = Upper(" & DBNameSpace & ".SSPPApplicationcontact.strContactZipCode)  " & _
                 "and Upper(" & DBNameSpace & ".APBContactInformation.strContactDescription) = Upper(" & DBNameSpace & ".SSPPApplicationContact.strContactDescription)  "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -7989,9 +7989,9 @@ Public Class SSPPApplicationTrackingLog
                     "from " & DBNameSpace & ".APBContactInformation " & _
                     "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
                     "and substr(strkey, 1, 1) = '3' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -8031,9 +8031,9 @@ Public Class SSPPApplicationTrackingLog
 
                     If MaxKey = "39" Then
                     Else
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -8045,9 +8045,9 @@ Public Class SSPPApplicationTrackingLog
                         "from " & DBNameSpace & ".APBContactInformation " & _
                         "where strAirsnumber = '0413" & txtAIRSNumber.Text & "' " & _
                         "and strKey = '3" & i & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
@@ -8122,9 +8122,9 @@ Public Class SSPPApplicationTrackingLog
                             "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "'  " & _
                             "and strKey = '3" & i + 1 & "'  "
                         End If
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -8170,9 +8170,9 @@ Public Class SSPPApplicationTrackingLog
                             "where strApplicationNumber = '" & txtApplicationNumber.Text & "')  " & _
                            "where strContactKey = '0413" & txtAIRSNumber.Text & "3" & i & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -8373,9 +8373,9 @@ Public Class SSPPApplicationTrackingLog
                         "strApplicationType " & _
                         "from " & DBNameSpace & ".SSPPApplicationMaster " & _
                         "where strApplicationnumber = '" & lbLinkApplications.Items.Item(i) & "' "
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -8418,9 +8418,9 @@ Public Class SSPPApplicationTrackingLog
                 SQL = "Select distinct(strMasterApplication) as MasterApp " & _
                 "from " & DBNameSpace & ".SSPPApplicationLinking " & _
                 "where " & temp
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -8431,9 +8431,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Select strApplicationNumber " & _
                         "from " & DBNameSpace & ".SSPPApplicationLinking " & _
                         "where strApplicationNumber = '" & lbLinkApplications.Items.Item(i) & "' "
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
@@ -8448,9 +8448,9 @@ Public Class SSPPApplicationTrackingLog
                             "values " & _
                             "('" & MasterApplication & "', '" & lbLinkApplications.Items.Item(i) & "') "
                         End If
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -8461,9 +8461,9 @@ Public Class SSPPApplicationTrackingLog
                         "values " & _
                         "('" & MasterApplication & "', '" & lbLinkApplications.Items.Item(i) & "') "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -8493,10 +8493,10 @@ Public Class SSPPApplicationTrackingLog
                 "from " & DBNameSpace & ".SSPPApplicationLinking " & _
                 "where strApplicationNumber = '" & txtMasterApp.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -8507,9 +8507,9 @@ Public Class SSPPApplicationTrackingLog
                 If MasterLink <> "" Then
                     SQL = "Delete " & DBNameSpace & ".SSPPApplicationLinking " & _
                     "where strMasterApplication = '" & MasterLink & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Read()
@@ -8604,9 +8604,9 @@ Public Class SSPPApplicationTrackingLog
                 "datExperationDate = '" & ExperationDate & "', " & _
                 "datPNExpires = '" & PNExpires & "' " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -8614,9 +8614,9 @@ Public Class SSPPApplicationTrackingLog
                 SQL = "Update " & DBNameSpace & ".SSPPApplicationData set " & _
                 "strTargeted = '" & TargetedComments & "' " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -8643,9 +8643,9 @@ Public Class SSPPApplicationTrackingLog
                             "datPNExpires = '" & PNExpires & "' " & _
                             "where strApplicationNumber = '" & LinkedApplication & "' "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -8655,9 +8655,9 @@ Public Class SSPPApplicationTrackingLog
                             "strTargeted = '" & TargetedComments & "' " & _
                             "where strApplicationNumber = '" & LinkedApplication & "' "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -8688,9 +8688,9 @@ Public Class SSPPApplicationTrackingLog
             "from " & DBNameSpace & ".AFSSSPPRecords " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -8713,9 +8713,9 @@ Public Class SSPPApplicationTrackingLog
                 "strUpdateStatus = '" & UpdateStatus & "' " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -8724,10 +8724,10 @@ Public Class SSPPApplicationTrackingLog
                 SQL = "Select strAFSActionNumber " & _
                 "from " & DBNameSpace & ".APBSupplamentalData " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -8757,9 +8757,9 @@ Public Class SSPPApplicationTrackingLog
                 "('" & txtApplicationNumber.Text & "', '" & ActionNumber & "', " & _
                 "'" & UpdateStatus & "', '" & UserGCode & "', " & _
                 "'" & OracleDate & "') "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -8784,9 +8784,9 @@ Public Class SSPPApplicationTrackingLog
                 "strAFSActionNumber = '" & ActionNumber & "' " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -8832,9 +8832,9 @@ Public Class SSPPApplicationTrackingLog
             "from " & DBNameSpace & ".SSPPApplicationData " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8920,9 +8920,9 @@ Public Class SSPPApplicationTrackingLog
             "datModifingdate = '" & OracleDate & "' " & _
             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -8931,9 +8931,9 @@ Public Class SSPPApplicationTrackingLog
             "strFacilityName = '" & Replace(FacilityName, "'", "''") & "' " & _
             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -8954,9 +8954,9 @@ Public Class SSPPApplicationTrackingLog
             "datModifingDate = '" & OracleDate & "' " & _
             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -8967,9 +8967,9 @@ Public Class SSPPApplicationTrackingLog
                     SQL = "Select strPollutantKey " & _
                     "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                     "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "0' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -8986,9 +8986,9 @@ Public Class SSPPApplicationTrackingLog
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -8997,9 +8997,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                         "strOperationalStatus = '" & OpStatus & "' " & _
                         "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "0' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -9008,9 +9008,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Select strUpdateStatus " & _
                         "from " & DBNameSpace & ".AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "0' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -9021,9 +9021,9 @@ Public Class SSPPApplicationTrackingLog
                             SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "0'"
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -9040,9 +9040,9 @@ Public Class SSPPApplicationTrackingLog
                         "where strSubpartKey = '0413" & txtAIRSNumber.Text & "0' " & _
                         "and strSubpart = '" & Subpart & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -9056,9 +9056,9 @@ Public Class SSPPApplicationTrackingLog
                         "from " & DBNameSpace & ".APBSubpartData " & _
                         "where strSubpartKey = '0413" & txtAIRSNumber.Text & "0' " & _
                         "and strSubpart = '" & Subpart & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
@@ -9078,9 +9078,9 @@ Public Class SSPPApplicationTrackingLog
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')))"
                         End If
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -9091,9 +9091,9 @@ Public Class SSPPApplicationTrackingLog
                     "UpdateDateTime = '" & OracleDate & "', " & _
                     "Active = '0' " & _
                     "where strSubpartKey = '0413" & txtAIRSNumber.Text & "0' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -9103,9 +9103,9 @@ Public Class SSPPApplicationTrackingLog
                     SQL = "Select strPollutantKey " & _
                     "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                     "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "1' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -9122,9 +9122,9 @@ Public Class SSPPApplicationTrackingLog
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -9133,9 +9133,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                        "strOperationalStatus = '" & OpStatus & "' " & _
                        "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "1' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -9144,9 +9144,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Select strUpdateStatus " & _
                         "from " & DBNameSpace & ".AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "1' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -9157,9 +9157,9 @@ Public Class SSPPApplicationTrackingLog
                             SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "1'"
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -9172,9 +9172,9 @@ Public Class SSPPApplicationTrackingLog
                     SQL = "Select strPollutantKey " & _
                      "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                      "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "3' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -9191,9 +9191,9 @@ Public Class SSPPApplicationTrackingLog
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -9202,9 +9202,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                        "strOperationalStatus = '" & OpStatus & "' " & _
                        "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "3' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -9213,9 +9213,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Select strUpdateStatus " & _
                         "from " & DBNameSpace & ".AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "3' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -9226,9 +9226,9 @@ Public Class SSPPApplicationTrackingLog
                             SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "3'"
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -9241,9 +9241,9 @@ Public Class SSPPApplicationTrackingLog
                     SQL = "Select strPollutantKey " & _
                      "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                      "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "4' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -9260,9 +9260,9 @@ Public Class SSPPApplicationTrackingLog
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -9271,9 +9271,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                        "strOperationalStatus = '" & OpStatus & "' " & _
                        "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "4' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -9282,9 +9282,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Select strUpdateStatus " & _
                         "from " & DBNameSpace & ".AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "4' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -9295,9 +9295,9 @@ Public Class SSPPApplicationTrackingLog
                             SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "4'"
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -9310,9 +9310,9 @@ Public Class SSPPApplicationTrackingLog
                     SQL = "Select strPollutantKey " & _
                     "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                     "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "6' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -9329,9 +9329,9 @@ Public Class SSPPApplicationTrackingLog
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -9340,9 +9340,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                        "strOperationalStatus = '" & OpStatus & "' " & _
                        "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "6' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -9351,9 +9351,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Select strUpdateStatus " & _
                         "from " & DBNameSpace & ".AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "6' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -9364,9 +9364,9 @@ Public Class SSPPApplicationTrackingLog
                             SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "6'"
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -9379,9 +9379,9 @@ Public Class SSPPApplicationTrackingLog
                     SQL = "Select strPollutantKey " & _
                   "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                   "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "7' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -9398,9 +9398,9 @@ Public Class SSPPApplicationTrackingLog
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -9409,9 +9409,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                        "strOperationalStatus = '" & OpStatus & "' " & _
                        "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "7' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -9420,9 +9420,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Select strUpdateStatus " & _
                         "from " & DBNameSpace & ".AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "7' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -9433,9 +9433,9 @@ Public Class SSPPApplicationTrackingLog
                             SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "7'"
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -9448,9 +9448,9 @@ Public Class SSPPApplicationTrackingLog
                     SQL = "Select strPollutantKey " & _
                      "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                      "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "8' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -9467,9 +9467,9 @@ Public Class SSPPApplicationTrackingLog
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -9478,9 +9478,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                        "strOperationalStatus = '" & OpStatus & "' " & _
                        "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "8' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -9489,9 +9489,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Select strUpdateStatus " & _
                         "from " & DBNameSpace & ".AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "8' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -9502,9 +9502,9 @@ Public Class SSPPApplicationTrackingLog
                             SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "8'"
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -9521,9 +9521,9 @@ Public Class SSPPApplicationTrackingLog
                         "where strSubpartKey = '0413" & txtAIRSNumber.Text & "8' " & _
                         "and strSubpart = '" & Subpart & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -9537,9 +9537,9 @@ Public Class SSPPApplicationTrackingLog
                         "from " & DBNameSpace & ".APBSubpartData " & _
                         "where strSubpartKey = '0413" & txtAIRSNumber.Text & "8' " & _
                         "and strSubpart = '" & Subpart & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
@@ -9559,9 +9559,9 @@ Public Class SSPPApplicationTrackingLog
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')))"
                         End If
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -9572,9 +9572,9 @@ Public Class SSPPApplicationTrackingLog
                     "UpdateDateTime = '" & OracleDate & "', " & _
                     "Active = '0' " & _
                     "where strSubpartKey = '0413" & txtAIRSNumber.Text & "8' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -9584,9 +9584,9 @@ Public Class SSPPApplicationTrackingLog
                     SQL = "Select strPollutantKey " & _
                     "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                     "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "9' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -9603,9 +9603,9 @@ Public Class SSPPApplicationTrackingLog
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -9614,9 +9614,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                        "strOperationalStatus = '" & OpStatus & "' " & _
                        "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "9' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -9625,9 +9625,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Select strUpdateStatus " & _
                         "from " & DBNameSpace & ".AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "9' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -9638,9 +9638,9 @@ Public Class SSPPApplicationTrackingLog
                             SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "9'"
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -9657,9 +9657,9 @@ Public Class SSPPApplicationTrackingLog
                         "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " & _
                         "and strSubpart = '" & Subpart & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -9673,9 +9673,9 @@ Public Class SSPPApplicationTrackingLog
                         "from " & DBNameSpace & ".APBSubpartData " & _
                         "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " & _
                         "and strSubpart = '" & Subpart & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
@@ -9695,9 +9695,9 @@ Public Class SSPPApplicationTrackingLog
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')))"
                         End If
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -9708,9 +9708,9 @@ Public Class SSPPApplicationTrackingLog
                     "UpdateDateTime = '" & OracleDate & "', " & _
                     "Active = '0' " & _
                     "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -9720,9 +9720,9 @@ Public Class SSPPApplicationTrackingLog
                     SQL = "Select strPollutantKey " & _
                      "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                      "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "F' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -9739,9 +9739,9 @@ Public Class SSPPApplicationTrackingLog
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -9750,9 +9750,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                        "strOperationalStatus = '" & OpStatus & "' " & _
                        "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "F' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -9761,9 +9761,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Select strUpdateStatus " & _
                         "from " & DBNameSpace & ".AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "F' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -9774,9 +9774,9 @@ Public Class SSPPApplicationTrackingLog
                             SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "F'"
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -9789,9 +9789,9 @@ Public Class SSPPApplicationTrackingLog
                     SQL = "Select strPollutantKey " & _
                    "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "A' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -9808,9 +9808,9 @@ Public Class SSPPApplicationTrackingLog
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -9819,9 +9819,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                        "strOperationalStatus = '" & OpStatus & "' " & _
                        "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "A' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -9830,9 +9830,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Select strUpdateStatus " & _
                         "from " & DBNameSpace & ".AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "A' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -9843,9 +9843,9 @@ Public Class SSPPApplicationTrackingLog
                             SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "A'"
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -9858,9 +9858,9 @@ Public Class SSPPApplicationTrackingLog
                     SQL = "Select strPollutantKey " & _
                    "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "I' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -9877,9 +9877,9 @@ Public Class SSPPApplicationTrackingLog
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -9888,9 +9888,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                        "strOperationalStatus = '" & OpStatus & "' " & _
                        "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "I' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -9899,9 +9899,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Select strUpdateStatus " & _
                         "from " & DBNameSpace & ".AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "I' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -9912,9 +9912,9 @@ Public Class SSPPApplicationTrackingLog
                             SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "I'"
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -9927,9 +9927,9 @@ Public Class SSPPApplicationTrackingLog
                     SQL = "Select strPollutantKey " & _
                     "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                     "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "M' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -9946,9 +9946,9 @@ Public Class SSPPApplicationTrackingLog
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -9957,9 +9957,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                        "strOperationalStatus = '" & OpStatus & "' " & _
                        "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "M' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -9968,9 +9968,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Select strUpdateStatus " & _
                         "from " & DBNameSpace & ".AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "M' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -9981,9 +9981,9 @@ Public Class SSPPApplicationTrackingLog
                             SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "M' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -10000,9 +10000,9 @@ Public Class SSPPApplicationTrackingLog
                         "where strSubpartKey = '0413" & txtAIRSNumber.Text & "M' " & _
                         "and strSubpart = '" & Subpart & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -10016,9 +10016,9 @@ Public Class SSPPApplicationTrackingLog
                         "from " & DBNameSpace & ".APBSubpartData " & _
                         "where strSubpartKey = '0413" & txtAIRSNumber.Text & "M' " & _
                         "and strSubpart = '" & Subpart & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
@@ -10038,9 +10038,9 @@ Public Class SSPPApplicationTrackingLog
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')))"
                         End If
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -10051,9 +10051,9 @@ Public Class SSPPApplicationTrackingLog
                     "UpdateDateTime = '" & OracleDate & "', " & _
                     "Active = '0' " & _
                     "where strSubpartKey = '0413" & txtAIRSNumber.Text & "M' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -10063,9 +10063,9 @@ Public Class SSPPApplicationTrackingLog
                     SQL = "Select strPollutantKey " & _
                     "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                     "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "V' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -10082,9 +10082,9 @@ Public Class SSPPApplicationTrackingLog
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -10093,9 +10093,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                        "strOperationalStatus = '" & OpStatus & "' " & _
                        "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "V' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -10104,9 +10104,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Select strUpdateStatus " & _
                         "from " & DBNameSpace & ".AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "V' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -10117,9 +10117,9 @@ Public Class SSPPApplicationTrackingLog
                             SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "V'"
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -10190,9 +10190,9 @@ Public Class SSPPApplicationTrackingLog
             SQL = "select strMasterApplication " & _
               "from " & DBNameSpace & ".SSPPApplicationLinking " & _
               "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -10215,9 +10215,9 @@ Public Class SSPPApplicationTrackingLog
             "and (" & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber = '" & MasterApp & "' " & _
             "or " & DBNameSpace & ".APBPermits.strFileName like '%-" & MasterApp & "') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -10274,9 +10274,9 @@ Public Class SSPPApplicationTrackingLog
             "strDOCFileSize, strPDFFileSize " & _
             "From " & DBNameSpace & ".ApbPermits " & _
             "where strFileName = '" & FileName & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -10383,9 +10383,9 @@ Public Class SSPPApplicationTrackingLog
                 "strPDFModifingPerson = '', " & _
                 "datPDFModifingDate = '' " & _
                 "where strFileName = '" & FileName & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Read()
@@ -10480,9 +10480,9 @@ Public Class SSPPApplicationTrackingLog
 
                 SQL = "Delete " & DBNameSpace & ".APBPermits " & _
                    "where strFileName = '" & FileName & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -10491,9 +10491,9 @@ Public Class SSPPApplicationTrackingLog
                 "rowCount " & _
                 "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName = '" & FileName & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -10509,9 +10509,9 @@ Public Class SSPPApplicationTrackingLog
                     SQL = "select " & _
                     "(max(rowCount) + 1) as RowCount " & _
                     "from " & DBNameSpace & ".APBPermits "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -10537,10 +10537,10 @@ Public Class SSPPApplicationTrackingLog
 
                 SQL = "Select * from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName = '" & FileName & "' "
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
-                da = New OracleDataAdapter(SQL, conn)
+                da = New OracleDataAdapter(SQL, CurrentConnection)
                 cmdCB = New OracleCommandBuilder(da)
                 ds = New DataSet("PDF")
                 da.MissingSchemaAction = MissingSchemaAction.AddWithKey
@@ -10588,9 +10588,9 @@ Public Class SSPPApplicationTrackingLog
                 "from " & DBNameSpace & ".SSPPApplicationData  " & _
                 "where strApplicationNumber like '" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -10616,8 +10616,8 @@ Public Class SSPPApplicationTrackingLog
                             DestFilePath = "N/A"
                         End If
                         If DestFilePath <> "N/A" Then
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
 
                             SQL = "select " & _
@@ -10625,7 +10625,7 @@ Public Class SSPPApplicationTrackingLog
                             "from " & DBNameSpace & ".APBPermits " & _
                             "where strFileName = '" & FileName & "' "
 
-                            cmd = New OracleCommand(SQL, conn)
+                            cmd = New OracleCommand(SQL, CurrentConnection)
                             dr = cmd.ExecuteReader
 
                             dr.Read()
@@ -10652,8 +10652,8 @@ Public Class SSPPApplicationTrackingLog
                         End If
 
                         If DestFilePath <> "N/A" Then
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
 
                             SQL = "select " & _
@@ -10661,7 +10661,7 @@ Public Class SSPPApplicationTrackingLog
                             "from " & DBNameSpace & ".APBPermits " & _
                             "where strFileName = '" & FileName & "' "
 
-                            cmd = New OracleCommand(SQL, conn)
+                            cmd = New OracleCommand(SQL, CurrentConnection)
                             dr = cmd.ExecuteReader
 
                             dr.Read()
@@ -10687,8 +10687,8 @@ Public Class SSPPApplicationTrackingLog
                             DestFilePath = "N/A"
                         End If
                         If DestFilePath <> "N/A" Then
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
 
                             SQL = "select " & _
@@ -10696,7 +10696,7 @@ Public Class SSPPApplicationTrackingLog
                             "from " & DBNameSpace & ".APBPermits " & _
                             "where strFileName = '" & FileName & "' "
 
-                            cmd = New OracleCommand(SQL, conn)
+                            cmd = New OracleCommand(SQL, CurrentConnection)
                             dr = cmd.ExecuteReader
 
                             dr.Read()
@@ -10722,8 +10722,8 @@ Public Class SSPPApplicationTrackingLog
                         End If
 
                         If DestFilePath <> "N/A" Then
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
 
                             SQL = "select " & _
@@ -10731,7 +10731,7 @@ Public Class SSPPApplicationTrackingLog
                             "from " & DBNameSpace & ".APBPermits " & _
                             "where strFileName = '" & FileName & "' "
 
-                            cmd = New OracleCommand(SQL, conn)
+                            cmd = New OracleCommand(SQL, CurrentConnection)
                             dr = cmd.ExecuteReader
 
                             dr.Read()
@@ -10765,9 +10765,9 @@ Public Class SSPPApplicationTrackingLog
             SQL = "Select datFinalizedDate " & _
             "from " & DBNameSpace & ".SSPPApplicationMaster " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -11058,9 +11058,9 @@ Public Class SSPPApplicationTrackingLog
                         "from " & DBNameSpace & ".SSPPApplicationMaster " & _
                         "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -11349,9 +11349,9 @@ Public Class SSPPApplicationTrackingLog
                 "from " & DBNameSpace & ".SSPPApplicationMaster " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -11545,9 +11545,9 @@ Public Class SSPPApplicationTrackingLog
         Try
              
             SQL = "Select " & DBNameSpace & ".SSPPApplicationKey.nextval from dual "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -12110,9 +12110,9 @@ Public Class SSPPApplicationTrackingLog
                 "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName like 'V_-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 Do While dr.Read
@@ -12180,9 +12180,9 @@ Public Class SSPPApplicationTrackingLog
                 "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName like 'P_-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 Do While dr.Read
@@ -12258,9 +12258,9 @@ Public Class SSPPApplicationTrackingLog
                 "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName like 'O_-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 Do While dr.Read
@@ -12336,9 +12336,9 @@ Public Class SSPPApplicationTrackingLog
                 "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName = 'VN-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -12450,9 +12450,9 @@ Public Class SSPPApplicationTrackingLog
                 "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName = 'VD-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -12563,9 +12563,9 @@ Public Class SSPPApplicationTrackingLog
                 "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName = 'VP-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -12677,9 +12677,9 @@ Public Class SSPPApplicationTrackingLog
                  "from " & DBNameSpace & ".APBPermits " & _
                  "where strFileName = 'VF-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -12790,9 +12790,9 @@ Public Class SSPPApplicationTrackingLog
                  "from " & DBNameSpace & ".APBPermits " & _
                  "where strFileName = 'PA-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -12902,9 +12902,9 @@ Public Class SSPPApplicationTrackingLog
                  "from " & DBNameSpace & ".APBPermits " & _
                  "where strFileName = 'PP-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -13014,9 +13014,9 @@ Public Class SSPPApplicationTrackingLog
                  "from " & DBNameSpace & ".APBPermits " & _
                  "where strFileName = 'PT-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -13126,9 +13126,9 @@ Public Class SSPPApplicationTrackingLog
                  "from " & DBNameSpace & ".APBPermits " & _
                  "where strFileName = 'PD-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -13238,9 +13238,9 @@ Public Class SSPPApplicationTrackingLog
                 "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName = 'PN-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -13350,9 +13350,9 @@ Public Class SSPPApplicationTrackingLog
                  "from " & DBNameSpace & ".APBPermits " & _
                  "where strFileName = 'PH-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -13462,9 +13462,9 @@ Public Class SSPPApplicationTrackingLog
                  "from " & DBNameSpace & ".APBPermits " & _
                  "where strFileName = 'PF-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -13574,9 +13574,9 @@ Public Class SSPPApplicationTrackingLog
                 "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName = 'PI-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -13685,9 +13685,9 @@ Public Class SSPPApplicationTrackingLog
                  "from " & DBNameSpace & ".APBPermits " & _
                  "where strFileName = 'ON-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -13798,9 +13798,9 @@ Public Class SSPPApplicationTrackingLog
                   "from " & DBNameSpace & ".APBPermits " & _
                   "where strFileName = 'OP-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -14359,9 +14359,9 @@ Public Class SSPPApplicationTrackingLog
             "and (" & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber = '" & MasterApp & "' " & _
             "or " & DBNameSpace & ".APBPermits.strFileName like '%-" & MasterApp & "') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -14436,9 +14436,9 @@ Public Class SSPPApplicationTrackingLog
              "from " & DBNameSpace & ".APBContactInformation " & _
              "where strContactKey = '0413" & txtAIRSNumber.Text & "30' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -14532,9 +14532,9 @@ Public Class SSPPApplicationTrackingLog
                 SQL = "Select strSubPart " & _
                 "From " & DBNameSpace & ".LookUpSubpartSIP " & _
                 "where strSubPart = '" & txtSIPCode.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -14549,9 +14549,9 @@ Public Class SSPPApplicationTrackingLog
                     "('" & Replace(txtSIPCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtSIPDescription.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -14585,9 +14585,9 @@ Public Class SSPPApplicationTrackingLog
                 SQL = "Select strSubPart " & _
                 "From " & DBNameSpace & ".LookUpSubpart60 " & _
                 "where strSubPart = '" & txtNSPSCode.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -14602,9 +14602,9 @@ Public Class SSPPApplicationTrackingLog
                     "('" & Replace(txtNSPSCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtNSPSDescription.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -14637,9 +14637,9 @@ Public Class SSPPApplicationTrackingLog
                 SQL = "Select strSubPart " & _
                 "From " & DBNameSpace & ".LookUpSubpart61 " & _
                 "where strSubPart = '" & txtNESHAPCode.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -14654,9 +14654,9 @@ Public Class SSPPApplicationTrackingLog
                     "('" & Replace(txtNESHAPCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtNESHAPDescription.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -14690,9 +14690,9 @@ Public Class SSPPApplicationTrackingLog
                 SQL = "Select strSubPart " & _
                 "From " & DBNameSpace & ".LookUpSubpart63 " & _
                 "where strSubPart = '" & txtMACTCode.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -14707,9 +14707,9 @@ Public Class SSPPApplicationTrackingLog
                     "('" & Replace(txtMACTCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtMACTDescription.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -14739,9 +14739,9 @@ Public Class SSPPApplicationTrackingLog
             SQL = "Delete " & DBNameSpace & ".LookUpSubpartSIP " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -14757,9 +14757,9 @@ Public Class SSPPApplicationTrackingLog
             SQL = "Delete " & DBNameSpace & ".LookUpSubpart60 " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -14775,9 +14775,9 @@ Public Class SSPPApplicationTrackingLog
             SQL = "Delete " & DBNameSpace & ".LookUpSubpart61 " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -14793,9 +14793,9 @@ Public Class SSPPApplicationTrackingLog
             SQL = "Delete " & DBNameSpace & ".LookUpSubpart63 " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -14982,9 +14982,9 @@ Public Class SSPPApplicationTrackingLog
             "from AIRBranch.EPDUserProfiles " & _
             "where numUserID = '" & UserGCode & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -15097,9 +15097,9 @@ Public Class SSPPApplicationTrackingLog
             dgvSIPSubParts.Columns("Origins").Width = 50
             dgvSIPSubParts.Columns("Origins").ReadOnly = True
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -15145,9 +15145,9 @@ Public Class SSPPApplicationTrackingLog
                     "and " & DBNameSpace & ".SSPPSubpartData.strApplicationNumber  = '" & txtApplicationNumber.Text & "'  " & _
                     "order by createdatetime "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -15244,9 +15244,9 @@ Public Class SSPPApplicationTrackingLog
             "and " & DBNameSpace & ".SSPPSubPartData.strSubPart = " & DBNameSpace & ".LookUpSubPartSIP.strSubPart  " & _
             "and " & DBNameSpace & ".SSPPSubpartData.strSubpartKey  = '" & txtApplicationNumber.Text & "0'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -15924,9 +15924,9 @@ Public Class SSPPApplicationTrackingLog
             SQL = "Delete " & DBNameSpace & ".SSPPSubpartData " & _
             "where strSubpartKey = '" & txtApplicationNumber.Text & "0' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -15940,9 +15940,9 @@ Public Class SSPPApplicationTrackingLog
                 "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
                 "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -15958,9 +15958,9 @@ Public Class SSPPApplicationTrackingLog
                 "where strSubpartKey = '" & txtApplicationNumber.Text & "0'  " & _
                 "and strSubpart = '" & Replace(Subpart, "'", "''") & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -15985,9 +15985,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = ""
                 End Select
                 If SQL <> "" Then
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -16086,9 +16086,9 @@ Public Class SSPPApplicationTrackingLog
             dgvNSPSSubParts.Columns("Origins").Width = 50
             dgvNSPSSubParts.Columns("Origins").ReadOnly = True
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -16134,9 +16134,9 @@ Public Class SSPPApplicationTrackingLog
                     "and " & DBNameSpace & ".SSPPSubpartData.strApplicationNumber  = '" & txtApplicationNumber.Text & "'  " & _
                     "order by createdatetime "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -16233,9 +16233,9 @@ Public Class SSPPApplicationTrackingLog
             "and " & DBNameSpace & ".SSPPSubPartData.strSubPart = " & DBNameSpace & ".LookUpSubPart60.strSubPart  " & _
             "and " & DBNameSpace & ".SSPPSubpartData.strSubPartKey  = '" & txtApplicationNumber.Text & "9'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -16920,9 +16920,9 @@ Public Class SSPPApplicationTrackingLog
             SQL = "Delete " & DBNameSpace & ".SSPPSubpartData " & _
             "where strSubpartKey = '" & txtApplicationNumber.Text & "9' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -16936,9 +16936,9 @@ Public Class SSPPApplicationTrackingLog
                 "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
                 "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -16954,9 +16954,9 @@ Public Class SSPPApplicationTrackingLog
                 "where strSubpartKey = '" & txtApplicationNumber.Text & "9'  " & _
                 "and strSubpart = '" & Replace(Subpart, "'", "''") & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -16981,9 +16981,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = ""
                 End Select
                 If SQL <> "" Then
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -17010,9 +17010,9 @@ Public Class SSPPApplicationTrackingLog
             "where strSubpartKey = '" & txtApplicationNumber.Text & "9' " & _
             "and strApplicationActivity = '1' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17036,9 +17036,9 @@ Public Class SSPPApplicationTrackingLog
                         "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
                         "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " & _
                         "and strSubpart = '" & Subpart & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd.ExecuteReader
                         dr2.Close()
@@ -17048,9 +17048,9 @@ Public Class SSPPApplicationTrackingLog
                         "and strApplicationActivity = '1' " & _
                         "and strSubpart = '" & Subpart & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd.ExecuteReader
                         dr2.Close()
@@ -17067,9 +17067,9 @@ Public Class SSPPApplicationTrackingLog
                 "from " & DBNameSpace & ".APBSubpartData " & _
                 "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " & _
                 "and strSubpart = '" & Replace(Subpart, "'", "''") & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -17091,7 +17091,7 @@ Public Class SSPPApplicationTrackingLog
                     AFSStatus = "Add"
                     AppStatus = "Add"
                 End If
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
                 dr.Close()
 
@@ -17101,9 +17101,9 @@ Public Class SSPPApplicationTrackingLog
                 "and strSubpart = '" & Subpart & "' " & _
                 "and strApplicationActivity = '1' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -17120,9 +17120,9 @@ Public Class SSPPApplicationTrackingLog
             'SQL = "Delete " & DBNameSpace & ".SSPPSubpartData " & _
             '"where strSubpartKey = '" & txtApplicationNumber.Text & "9' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -17138,9 +17138,9 @@ Public Class SSPPApplicationTrackingLog
                 "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " & _
                 "and strSubpart = '" & Subpart & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -17151,9 +17151,9 @@ Public Class SSPPApplicationTrackingLog
                 "where strSubpartKey = '" & txtApplicationNumber.Text & "9' " & _
                 "and strSubpart = '" & Replace(Subpart, "'", "''") & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -17176,9 +17176,9 @@ Public Class SSPPApplicationTrackingLog
                     "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
                 End If
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -17195,9 +17195,9 @@ Public Class SSPPApplicationTrackingLog
                 "where strSubpartKey = '" & txtApplicationNumber.Text & "9'  " & _
                 "and strSubpart = '" & Replace(Subpart, "'", "''") & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -17242,9 +17242,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = ""
                 End Select
                 If SQL <> "" Then
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -17257,9 +17257,9 @@ Public Class SSPPApplicationTrackingLog
             "from " & DBNameSpace & ".AFSAirPollutantData " & _
             "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "9' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -17270,9 +17270,9 @@ Public Class SSPPApplicationTrackingLog
                 "strUpdateStatus = 'C' " & _
                 "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "9' " & _
                 "and strUpdateStatus <> 'A' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -17283,9 +17283,9 @@ Public Class SSPPApplicationTrackingLog
                 "'OT', '3', " & _
                 "'" & UserGCode & "', '" & OracleDate & "', " & _
                 "'O') "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -17295,9 +17295,9 @@ Public Class SSPPApplicationTrackingLog
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " & _
                 "'OT', 'A', " & _
                 "'" & UserGCode & "', '" & OracleDate & "') "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -17391,9 +17391,9 @@ Public Class SSPPApplicationTrackingLog
             dgvNESHAPSubParts.Columns("Origins").Width = 50
             dgvNESHAPSubParts.Columns("Origins").ReadOnly = True
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17439,9 +17439,9 @@ Public Class SSPPApplicationTrackingLog
                         "and " & DBNameSpace & ".SSPPSubpartData.strApplicationNumber  = '" & txtApplicationNumber.Text & "'  " & _
                     "order by createdatetime "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -17538,9 +17538,9 @@ Public Class SSPPApplicationTrackingLog
             "and " & DBNameSpace & ".SSPPSubPartData.strSubPart = " & DBNameSpace & ".LookUpSubPart61.strSubPart  " & _
             "and " & DBNameSpace & ".SSPPSubpartData.strSubpartKey  = '" & txtApplicationNumber.Text & "8'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -18222,9 +18222,9 @@ Public Class SSPPApplicationTrackingLog
             SQL = "Delete " & DBNameSpace & ".SSPPSubpartData " & _
             "where strSubpartKey = '" & txtApplicationNumber.Text & "8' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -18238,9 +18238,9 @@ Public Class SSPPApplicationTrackingLog
                 "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
                 "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -18256,9 +18256,9 @@ Public Class SSPPApplicationTrackingLog
                 "where strSubpartKey = '" & txtApplicationNumber.Text & "8'  " & _
                 "and strSubpart = '" & Replace(Subpart, "'", "''") & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -18283,9 +18283,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = ""
                 End Select
                 If SQL <> "" Then
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -18380,9 +18380,9 @@ Public Class SSPPApplicationTrackingLog
             dgvMACTSubParts.Columns("Origins").Width = 50
             dgvMACTSubParts.Columns("Origins").ReadOnly = True
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18428,9 +18428,9 @@ Public Class SSPPApplicationTrackingLog
                     "and " & DBNameSpace & ".SSPPSubpartData.strApplicationNumber  = '" & txtApplicationNumber.Text & "'  " & _
                     "order by createdatetime "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -18527,9 +18527,9 @@ Public Class SSPPApplicationTrackingLog
             "and " & DBNameSpace & ".SSPPSubPartData.strSubPart = " & DBNameSpace & ".LookUpSubPart63.strSubPart  " & _
             "and " & DBNameSpace & ".SSPPSubpartData.strSubpartKey  = '" & txtApplicationNumber.Text & "M'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -19210,9 +19210,9 @@ Public Class SSPPApplicationTrackingLog
             SQL = "Delete " & DBNameSpace & ".SSPPSubpartData " & _
             "where strSubpartKey = '" & txtApplicationNumber.Text & "M' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -19226,9 +19226,9 @@ Public Class SSPPApplicationTrackingLog
                 "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
                 "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -19244,9 +19244,9 @@ Public Class SSPPApplicationTrackingLog
                 "where strSubpartKey = '" & txtApplicationNumber.Text & "M'  " & _
                 "and strSubpart = '" & Replace(Subpart, "'", "''") & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -19271,9 +19271,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = ""
                 End Select
                 If SQL <> "" Then
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()

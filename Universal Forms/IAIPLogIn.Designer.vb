@@ -30,8 +30,6 @@ Partial Class IAIPLogIn
         Me.mmiResetAllForms = New System.Windows.Forms.MenuItem
         Me.MenuItem3 = New System.Windows.Forms.MenuItem
         Me.mmiForceUpdate = New System.Windows.Forms.MenuItem
-        Me.mmiLukeEnvironment = New System.Windows.Forms.MenuItem
-        Me.mmiTestingDatabase = New System.Windows.Forms.MenuItem
         Me.mmiHelp = New System.Windows.Forms.MenuItem
         Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
         Me.MenuItem4 = New System.Windows.Forms.MenuItem
@@ -73,7 +71,7 @@ Partial Class IAIPLogIn
         'MenuItem1
         '
         Me.MenuItem1.Index = 1
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiTestingEnvironment, Me.MenuItem2, Me.mmiRefreshUserID, Me.mmiResetAllForms, Me.MenuItem3, Me.mmiForceUpdate, Me.mmiLukeEnvironment, Me.mmiTestingDatabase})
+        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiTestingEnvironment, Me.MenuItem2, Me.mmiRefreshUserID, Me.mmiResetAllForms, Me.MenuItem3, Me.mmiForceUpdate})
         Me.MenuItem1.Text = "&Tools"
         '
         'mmiTestingEnvironment
@@ -106,20 +104,6 @@ Partial Class IAIPLogIn
         '
         Me.mmiForceUpdate.Index = 5
         Me.mmiForceUpdate.Text = "Force Update"
-        '
-        'mmiLukeEnvironment
-        '
-        Me.mmiLukeEnvironment.Index = 6
-        Me.mmiLukeEnvironment.Shortcut = System.Windows.Forms.Shortcut.F5
-        Me.mmiLukeEnvironment.Text = "*"
-        Me.mmiLukeEnvironment.Visible = False
-        '
-        'mmiTestingDatabase
-        '
-        Me.mmiTestingDatabase.Index = 7
-        Me.mmiTestingDatabase.Shortcut = System.Windows.Forms.Shortcut.CtrlShiftT
-        Me.mmiTestingDatabase.Text = "Testing Database"
-        Me.mmiTestingDatabase.Visible = False
         '
         'mmiHelp
         '
@@ -371,8 +355,6 @@ Partial Class IAIPLogIn
     Friend WithEvents lblGeneralMessage As System.Windows.Forms.Label
     Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem3 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiLukeEnvironment As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiTestingDatabase As System.Windows.Forms.MenuItem
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents LoginProgressBar As System.Windows.Forms.ProgressBar
