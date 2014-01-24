@@ -232,9 +232,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <Content Include="tnsnames.ora">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <BaseApplicationManifest Include="My Project\app.manifest" />
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="AssemblyInfo.vb">
