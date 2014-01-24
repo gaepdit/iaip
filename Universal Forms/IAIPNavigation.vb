@@ -4,10 +4,10 @@ Imports JohnGaltProject.DAL.NavigationScreen
 
 Public Class IAIPNavigation
 
-#Region "Local variables and properties"
+#Region " Local variables and properties "
 
     Private dtWorkViewerTable As DataTable
-    
+
     Private _currentWorkViewerContext As WorkViewerType
     Private Property CurrentWorkViewerContext() As WorkViewerType
         Get
@@ -30,7 +30,7 @@ Public Class IAIPNavigation
 
 #End Region
 
-#Region "Form events"
+#Region " Form events "
 
     Private Sub APBNavigation_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Main." & Me.Name)
@@ -46,7 +46,7 @@ Public Class IAIPNavigation
 
             LoadProgramDescription()
 
-            EnableTestingOptions()
+            EnableTestingEnvironmentOptions()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -65,7 +65,7 @@ Public Class IAIPNavigation
 
 #End Region
 
-#Region "Page Load procedures"
+#Region " Page Load procedures "
 
     Private Sub LoadNavButtons()
         If bgrLoadButtons.IsBusy Then
@@ -103,21 +103,35 @@ Public Class IAIPNavigation
         cboWorkViewerContext.SelectedIndex = 0
     End Sub
 
-    Private Sub EnableTestingOptions()
+    Private Sub EnableTestingEnvironmentOptions()
         If DevelopmentEnvironment Then
-            mmiTesting.Visible = True
-            mmiTesting.Enabled = True
             pnl4.Text = "TESTING ENVIRONMENT"
             pnl4.BackColor = Color.Tomato
+            pnl4.Visible = True
+
+            mmiTesting.Visible = True
+            mmiTesting.Enabled = True
         Else
             pnl4.Text = ""
+            pnl4.Visible = False
+
             mmiTesting.Visible = False
             mmiTesting.Enabled = False
         End If
+
+#If NadcEnabled Then
+
         If NadcServer Then
             pnl5.Text = "NADC Server"
-            pnl5.BackColor = Color.Fuchsia
+            pnl5.BackColor = Color.DarkOrange
+            pnl5.Visible = True
+        Else
+            pnl5.Text = ""
+            pnl5.Visible = False
         End If
+
+#End If
+
     End Sub
 
 #End Region

@@ -24,12 +24,12 @@ Partial Class IAIPLogIn
         Me.mmiFile = New System.Windows.Forms.MenuItem
         Me.mmiExit = New System.Windows.Forms.MenuItem
         Me.MenuItem1 = New System.Windows.Forms.MenuItem
-        Me.mmiTestingEnvironment = New System.Windows.Forms.MenuItem
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem
         Me.mmiRefreshUserID = New System.Windows.Forms.MenuItem
         Me.mmiResetAllForms = New System.Windows.Forms.MenuItem
         Me.MenuItem3 = New System.Windows.Forms.MenuItem
         Me.mmiForceUpdate = New System.Windows.Forms.MenuItem
+        Me.MenuItem2 = New System.Windows.Forms.MenuItem
+        Me.mmiTestingEnvironment = New System.Windows.Forms.MenuItem
         Me.mmiNadcServer = New System.Windows.Forms.MenuItem
         Me.mmiHelp = New System.Windows.Forms.MenuItem
         Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
@@ -47,10 +47,10 @@ Partial Class IAIPLogIn
         Me.lblCurrentVersionMessage = New System.Windows.Forms.Label
         Me.lblAvailableVersionMessage = New System.Windows.Forms.Label
         Me.lblGeneralMessage = New System.Windows.Forms.Label
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox
+        Me.lblIAIP = New System.Windows.Forms.Label
+        Me.LogoBox = New System.Windows.Forms.PictureBox
         Me.LoginProgressBar = New System.Windows.Forms.ProgressBar
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.LogoBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MainMenu1
@@ -75,17 +75,6 @@ Partial Class IAIPLogIn
         Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiRefreshUserID, Me.mmiResetAllForms, Me.MenuItem3, Me.mmiForceUpdate, Me.MenuItem2, Me.mmiTestingEnvironment, Me.mmiNadcServer})
         Me.MenuItem1.Text = "&Tools"
         '
-        'mmiTestingEnvironment
-        '
-        Me.mmiTestingEnvironment.Index = 5
-        Me.mmiTestingEnvironment.Shortcut = System.Windows.Forms.Shortcut.CtrlT
-        Me.mmiTestingEnvironment.Text = "&Testing Environment"
-        '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 4
-        Me.MenuItem2.Text = "-"
-        '
         'mmiRefreshUserID
         '
         Me.mmiRefreshUserID.Index = 0
@@ -106,10 +95,24 @@ Partial Class IAIPLogIn
         Me.mmiForceUpdate.Index = 3
         Me.mmiForceUpdate.Text = "Force Update"
         '
+        'MenuItem2
+        '
+        Me.MenuItem2.Index = 4
+        Me.MenuItem2.Text = "-"
+        '
+        'mmiTestingEnvironment
+        '
+        Me.mmiTestingEnvironment.Index = 5
+        Me.mmiTestingEnvironment.Shortcut = System.Windows.Forms.Shortcut.CtrlT
+        Me.mmiTestingEnvironment.Text = "&Testing Environment"
+        '
         'mmiNadcServer
         '
+        Me.mmiNadcServer.Enabled = False
         Me.mmiNadcServer.Index = 6
+        Me.mmiNadcServer.Shortcut = System.Windows.Forms.Shortcut.CtrlN
         Me.mmiNadcServer.Text = "NADC Server"
+        Me.mmiNadcServer.Visible = False
         '
         'mmiHelp
         '
@@ -221,6 +224,7 @@ Partial Class IAIPLogIn
         Me.btnLoginButton.Size = New System.Drawing.Size(175, 38)
         Me.btnLoginButton.TabIndex = 2
         Me.btnLoginButton.Text = "Log In"
+        Me.btnLoginButton.UseVisualStyleBackColor = False
         '
         'lblLicenseLabel
         '
@@ -273,26 +277,26 @@ Partial Class IAIPLogIn
         Me.lblGeneralMessage.Text = "Message Placeholder 1" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "4"
         Me.lblGeneralMessage.Visible = False
         '
-        'Label1
+        'lblIAIP
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(335, 128)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(345, 26)
-        Me.Label1.TabIndex = 32
-        Me.Label1.Text = "Integrated Air Information Platform" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.lblIAIP.AutoSize = True
+        Me.lblIAIP.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblIAIP.Location = New System.Drawing.Point(335, 128)
+        Me.lblIAIP.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblIAIP.Name = "lblIAIP"
+        Me.lblIAIP.Size = New System.Drawing.Size(345, 26)
+        Me.lblIAIP.TabIndex = 32
+        Me.lblIAIP.Text = "Integrated Air Information Platform" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
-        'PictureBox1
+        'LogoBox
         '
-        Me.PictureBox1.Image = Global.JohnGaltProject.My.Resources.Resources.Logo
-        Me.PictureBox1.InitialImage = Nothing
-        Me.PictureBox1.Location = New System.Drawing.Point(29, 55)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(256, 256)
-        Me.PictureBox1.TabIndex = 0
-        Me.PictureBox1.TabStop = False
+        Me.LogoBox.Image = Global.JohnGaltProject.My.Resources.Resources.Logo
+        Me.LogoBox.InitialImage = Nothing
+        Me.LogoBox.Location = New System.Drawing.Point(29, 55)
+        Me.LogoBox.Name = "LogoBox"
+        Me.LogoBox.Size = New System.Drawing.Size(256, 256)
+        Me.LogoBox.TabIndex = 0
+        Me.LogoBox.TabStop = False
         '
         'LoginProgressBar
         '
@@ -309,7 +313,7 @@ Partial Class IAIPLogIn
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(742, 414)
-        Me.Controls.Add(Me.PictureBox1)
+        Me.Controls.Add(Me.LogoBox)
         Me.Controls.Add(Me.lblAvailableVersionMessage)
         Me.Controls.Add(Me.lblCurrentVersionMessage)
         Me.Controls.Add(Me.lblLicenseLabel)
@@ -317,7 +321,7 @@ Partial Class IAIPLogIn
         Me.Controls.Add(Me.lblUserID)
         Me.Controls.Add(Me.txtUserPassword)
         Me.Controls.Add(Me.txtUserID)
-        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.lblIAIP)
         Me.Controls.Add(Me.lblSubTitle)
         Me.Controls.Add(Me.lnkUpdateLink)
         Me.Controls.Add(Me.lblTitle)
@@ -334,7 +338,7 @@ Partial Class IAIPLogIn
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Integrated Air Information Platform"
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.LogoBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -361,8 +365,8 @@ Partial Class IAIPLogIn
     Friend WithEvents lblGeneralMessage As System.Windows.Forms.Label
     Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem3 As System.Windows.Forms.MenuItem
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
+    Friend WithEvents lblIAIP As System.Windows.Forms.Label
+    Friend WithEvents LogoBox As System.Windows.Forms.PictureBox
     Friend WithEvents LoginProgressBar As System.Windows.Forms.ProgressBar
     Friend WithEvents MenuItem4 As System.Windows.Forms.MenuItem
     Friend WithEvents mmiAbout As System.Windows.Forms.MenuItem

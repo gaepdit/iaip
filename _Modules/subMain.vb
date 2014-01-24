@@ -10,7 +10,9 @@ Module subMain
     Friend CurrentConnectionString As String = DB.GetConnectionString(False)
     Friend CurrentConnection As New OracleConnection(CurrentConnectionString)
     Friend DevelopmentEnvironment As Boolean = False
+#If NadcEnabled Then
     Friend NadcServer As Boolean = False
+#End If
 
 #End Region
 

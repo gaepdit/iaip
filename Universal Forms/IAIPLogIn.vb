@@ -30,6 +30,11 @@ Public Class IAIPLogIn
 
             VerifyVersion()
 
+#If NadcEnabled Then
+            mmiNadcServer.Enabled = True
+            mmiNadcServer.Visible = True
+#End If
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -311,6 +316,8 @@ Public Class IAIPLogIn
 
 #Region " Database Environment "
 
+#If NadcEnabled Then
+
     Private Sub ToggleTestingEnvironment()
         mmiTestingEnvironment.Checked = Not mmiTestingEnvironment.Checked
 
@@ -318,30 +325,30 @@ Public Class IAIPLogIn
             ' Switch to testing environment
             DevelopmentEnvironment = True
             Me.BackColor = Color.PapayaWhip
+            btnLoginButton.Text = "Testing Environment"
+            CurrentConnectionEnvironment = DB.ConnectionEnvironment.Development
+
             If NadcServer Then
                 btnLoginButton.Text = "Testing (NADC)"
                 CurrentConnectionEnvironment = DB.ConnectionEnvironment.NADC_Development
-            Else
-                btnLoginButton.Text = "Testing Environment"
-                CurrentConnectionEnvironment = DB.ConnectionEnvironment.Development
             End If
+
         Else
             ' Switch to production environment
             DevelopmentEnvironment = False
             Me.BackColor = SystemColors.Control
+            btnLoginButton.Text = "Log In"
+            CurrentConnectionEnvironment = DB.ConnectionEnvironment.Production
+
             If NadcServer Then
                 btnLoginButton.Text = "Log In (NADC)"
                 CurrentConnectionEnvironment = DB.ConnectionEnvironment.NADC_Production
-            Else
-                btnLoginButton.Text = "Log In"
-                CurrentConnectionEnvironment = DB.ConnectionEnvironment.Production
             End If
         End If
 
         ' Reset current connection based on current connection environment
-        CurrentConnectionString = DB.GetConnectionString(DB.ConnectionEnvironment.NADC_Production)
+        CurrentConnectionString = DB.GetConnectionString(CurrentConnectionEnvironment)
         CurrentConnection = New OracleConnection(CurrentConnectionString)
-
     End Sub
 
     Private Sub ToggleDataCenter()
@@ -350,6 +357,7 @@ Public Class IAIPLogIn
         If mmiNadcServer.Checked Then
             'Switch to NADC servers
             NadcServer = True
+            btnLoginButton.BackColor = Color.DarkOrange
             If DevelopmentEnvironment Then
                 btnLoginButton.Text = "Testing (NADC)"
                 CurrentConnectionEnvironment = DB.ConnectionEnvironment.NADC_Development
@@ -360,6 +368,7 @@ Public Class IAIPLogIn
         Else
             'Switch to Luke/Leia servers
             NadcServer = False
+            btnLoginButton.BackColor = System.Drawing.SystemColors.Control
             If DevelopmentEnvironment Then
                 btnLoginButton.Text = "Testing Environment"
                 CurrentConnectionEnvironment = DB.ConnectionEnvironment.Development
@@ -370,10 +379,36 @@ Public Class IAIPLogIn
         End If
 
         ' Reset current connection based on current connection environment
-        CurrentConnectionString = DB.GetConnectionString(DB.ConnectionEnvironment.NADC_Production)
+        CurrentConnectionString = DB.GetConnectionString(CurrentConnectionEnvironment)
         CurrentConnection = New OracleConnection(CurrentConnectionString)
 
     End Sub
+
+#Else
+
+        Private Sub ToggleTestingEnvironment()
+        mmiTestingEnvironment.Checked = Not mmiTestingEnvironment.Checked
+
+        If mmiTestingEnvironment.Checked Then
+            ' Switch to testing environment
+            DevelopmentEnvironment = True
+            Me.BackColor = Color.PapayaWhip
+            btnLoginButton.Text = "Testing Environment"
+            CurrentConnectionEnvironment = DB.ConnectionEnvironment.Development
+        Else
+            ' Switch to production environment
+            DevelopmentEnvironment = False
+            Me.BackColor = SystemColors.Control
+            btnLoginButton.Text = "Log In"
+            CurrentConnectionEnvironment = DB.ConnectionEnvironment.Production
+        End If
+
+        ' Reset current connection based on current connection environment
+        CurrentConnectionString = DB.GetConnectionString(CurrentConnectionEnvironment)
+        CurrentConnection = New OracleConnection(CurrentConnectionString)
+    End Sub
+
+#End If
 
 #End Region
 
@@ -450,9 +485,11 @@ Public Class IAIPLogIn
         ToggleTestingEnvironment()
     End Sub
 
+#If NadcEnabled Then
     Private Sub mmiNadcServer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiNadcServer.Click
         ToggleDataCenter()
     End Sub
+#End If
 
 #End Region
 
