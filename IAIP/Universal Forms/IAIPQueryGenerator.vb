@@ -99,41 +99,41 @@ Public Class IAIPQueryGenerator
             "from " & DBNameSpace & ".LookUpCountyInformation " & _
             "order by strCountyName "
 
-            daCounty = New OracleDataAdapter(SQL, Conn)
+            daCounty = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "select strDistrictCode, strDistrictName " & _
             "from " & DBNameSpace & ".LookUPDistricts " & _
             "order by strDistrictName "
 
-            daDistrict = New OracleDataAdapter(SQL, Conn)
+            daDistrict = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "select " & _
             "strSubPart, strSubPart as SubPartCode " & _
             "from " & DBNameSpace & ".LookUpSubPartSIP " & _
             "order by strSubPart "
 
-            daSIPSubPart = New OracleDataAdapter(SQL, Conn)
+            daSIPSubPart = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "select " & _
             "strSubPart, strSubPart as SubPartCode " & _
             "from " & DBNameSpace & ".LookUpSubPart61 " & _
             "order by strSubPart "
 
-            daPart61SubPart = New OracleDataAdapter(SQL, Conn)
+            daPart61SubPart = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "select " & _
             "strSubPart, strSubPart as SubPartCode " & _
             "from " & DBNameSpace & ".LookUpSubPart60 " & _
             "order by strSubPart "
 
-            daPart60SubPart = New OracleDataAdapter(SQL, Conn)
+            daPart60SubPart = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "select " & _
             "strSubPart, strSubPart as SubPartCode " & _
             "from " & DBNameSpace & ".LookUpSubPart63 " & _
             "order by strSubPart "
 
-            daPart63SubPart = New OracleDataAdapter(SQL, Conn)
+            daPart63SubPart = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "select * " & _
                 "from " & _
@@ -150,17 +150,17 @@ Public Class IAIPQueryGenerator
                 "where " & DBNameSpace & ".EPDUserProfiles.numuserID = " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff) " & _
                 "order by Staff "
 
-            daSSCPStaff = New OracleDataAdapter(SQL, Conn)
+            daSSCPStaff = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "select " & _
             "numUnitCode, strUnitDesc " & _
             "from AIRBranch.LookUpEPDUnits " & _
             "where numProgramcode = '4' "
 
-            daSSCPUnit = New OracleDataAdapter(SQL, Conn)
+            daSSCPUnit = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daCounty.Fill(dsCounty, "County")
@@ -2332,7 +2332,7 @@ Public Class IAIPQueryGenerator
                 "" & DBNameSpace & ".APBFacilityInformation.strFacilityStreet1, "
 
                 If SQLFrom.IndexOf("" & DBNameSpace & ".APBFacilityInformation") <> -1 Then
-                  '  SQLFrom = SQLFrom
+                    '  SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & DBNameSpace & ".APBFacilityInformation, "
                     SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber "
@@ -4265,10 +4265,10 @@ Public Class IAIPQueryGenerator
 
             dsSQLQuery = New DataSet
 
-            daSQLQuery = New OracleDataAdapter(MasterSQL, Conn)
+            daSQLQuery = New OracleDataAdapter(MasterSQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daSQLQuery.Fill(dsSQLQuery, "SQLQuery")
@@ -5941,7 +5941,7 @@ Public Class IAIPQueryGenerator
             lblQueryCount.Text = String.Format("{0} {1}", dgvQueryGenerator.RowCount.ToString, resultsPluralized)
 
             dgvQueryGenerator.SanelyResizeColumns()
-            
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & ".btnRunSearch_Click")
         Finally
@@ -6039,10 +6039,10 @@ Public Class IAIPQueryGenerator
             "order by strAIRSNumber "
 
             dsSQLQuery = New DataSet
-            daSQLQuery = New OracleDataAdapter(SQL, Conn)
+            daSQLQuery = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daSQLQuery.Fill(dsSQLQuery, "SQLQuery")

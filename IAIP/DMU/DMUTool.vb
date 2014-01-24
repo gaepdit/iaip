@@ -51,9 +51,9 @@ Public Class DMUTool
             If txtSQL.Text <> "" Then
                 SQL = txtSQL.Text
                 'SQL = Replace(txtSQL.Text, "'", "''")
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 Try
                     dr = cmd.ExecuteReader
@@ -82,9 +82,9 @@ Public Class DMUTool
                         "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                         "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -98,9 +98,9 @@ Public Class DMUTool
 
                         SQL = "delete " & DBNameSpace & ".sscpenforcementStipulated " & _
                         "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -118,9 +118,9 @@ Public Class DMUTool
                             "'" & OracleDate & "', '', " & _
                             "'') "
 
-                        cmd = New OracleCommand(SQL2, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL2, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -128,9 +128,9 @@ Public Class DMUTool
                         SQL = "delete " & DBNameSpace & ".sscp_Auditedenforcement  " & _
                         "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -150,9 +150,9 @@ Public Class DMUTool
 
                         SQL = "delete " & DBNameSpace & ".AFSSSCPEnforcementRecords " & _
                         "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -170,9 +170,9 @@ Public Class DMUTool
                            "'" & OracleDate & "', '', " & _
                            "'') "
 
-                        cmd = New OracleCommand(SQL2, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL2, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -203,9 +203,9 @@ Public Class DMUTool
                         SQL = "Select strAIRSNumber " & _
                         "from " & DBNameSpace & ".SSCPItemMaster " & _
                         "where strTrackingNumber = '" & txtACCNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -220,9 +220,9 @@ Public Class DMUTool
                         SQL = "Delete " & DBNameSpace & ".AFSSSCPRecords " & _
                         "where strTrackingNumber = '" & txtACCNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -240,18 +240,18 @@ Public Class DMUTool
                            "'" & OracleDate & "', '', " & _
                            "'') "
 
-                        cmd = New OracleCommand(SQL2, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL2, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
 
                         SQL = "Delete " & DBNameSpace & ".SSCPACCSHistory " & _
                         "where strTrackingNumber = '" & txtACCNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -269,9 +269,9 @@ Public Class DMUTool
                            "'" & OracleDate & "', '', " & _
                            "'') "
 
-                        cmd = New OracleCommand(SQL2, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL2, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -279,9 +279,9 @@ Public Class DMUTool
                         SQL = "Delete " & DBNameSpace & ".SSCPACCS " & _
                         "Where strTrackingNumber = '" & txtACCNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -299,9 +299,9 @@ Public Class DMUTool
                            "'" & OracleDate & "', '', " & _
                            "'') "
 
-                        cmd = New OracleCommand(SQL2, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL2, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -309,9 +309,9 @@ Public Class DMUTool
                         SQL = "Delete " & DBNameSpace & ".SSCPItemMaster " & _
                         "where strTrackingNumber = '" & txtACCNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -329,9 +329,9 @@ Public Class DMUTool
                            "'" & OracleDate & "', '', " & _
                            "'') "
 
-                        cmd = New OracleCommand(SQL2, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL2, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -356,9 +356,9 @@ Public Class DMUTool
             "strVersionNumber = '" & Replace(mtbVersionNumber.Text, "'", "''") & "' " & _
             "where strApplicationName = 'IAIP' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -432,9 +432,9 @@ Public Class DMUTool
                 "strAIRSNumber = '0413" & NewAIRS & "' " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -444,9 +444,9 @@ Public Class DMUTool
                 "strAIRSNumber = '0413" & NewAIRS & "' " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -455,9 +455,9 @@ Public Class DMUTool
                 "strAIRSNumber = '0413" & NewAIRS & "' " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -471,9 +471,9 @@ Public Class DMUTool
                 "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
                 "where strAIRSNumber = '0413" & NewAIRS & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 RecExist = dr.Read
@@ -487,9 +487,9 @@ Public Class DMUTool
                     "strAIRSnumber = '0413" & NewAIRS & "' " & _
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -500,9 +500,9 @@ Public Class DMUTool
                     SQL = "Delete " & DBNameSpace & ".SSCPInspectionsRequired " & _
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -512,9 +512,9 @@ Public Class DMUTool
                 "strAIRSNumber = '0413" & NewAIRS & "' " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -523,9 +523,9 @@ Public Class DMUTool
                 "from " & DBNameSpace & ".SSCPDistrictResponsible " & _
                 "where strAIRSNumber = '0413" & NewAIRS & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 RecExist = dr.Read
@@ -535,9 +535,9 @@ Public Class DMUTool
                     "strAIRSNumber = '0413" & NewAIRS & "' " & _
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -545,9 +545,9 @@ Public Class DMUTool
                     SQL = "Delete " & DBNameSpace & ".SSCPDistrictResponsible " & _
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -557,9 +557,9 @@ Public Class DMUTool
                 "from " & DBNameSpace & ".SSCPDistrictAssignment " & _
                 "where strAIRSNumber = '0413" & NewAIRS & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 RecExist = dr.Read
@@ -569,9 +569,9 @@ Public Class DMUTool
                     "strAIRSNumber = '0413" & NewAIRS & "' " & _
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -579,9 +579,9 @@ Public Class DMUTool
                     SQL = "Delete " & DBNameSpace & ".SSCPDistrictAssignment " & _
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -592,9 +592,9 @@ Public Class DMUTool
                               "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
                               "where strAIRSNumber = '0413" & NewAIRS & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 RecExist = dr.Read
@@ -604,9 +604,9 @@ Public Class DMUTool
                     "strAIRSNumber = '0413" & NewAIRS & "' " & _
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -614,9 +614,9 @@ Public Class DMUTool
                     SQL = "Delete " & DBNameSpace & ".SSCPInspectionsRequired " & _
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -628,9 +628,9 @@ Public Class DMUTool
 
                 SQL = "Delete " & DBNameSpace & ".OLAPUserAccess " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -640,18 +640,18 @@ Public Class DMUTool
                 "strAIRSNumber = '0413" & NewAIRS & "' " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
                 SQL = "Delete " & DBNameSpace & ".ISMPFacilityAssignment " & _
                "where strAIRSNumber = '0413" & OldAIRS & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -662,9 +662,9 @@ Public Class DMUTool
                 "strComments = 'Data Merged from old AIRS # " & OldAIRS & "' " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -674,9 +674,9 @@ Public Class DMUTool
                 "strComments = 'Data Merged from old AIRS # " & OldAIRS & "' " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -684,9 +684,9 @@ Public Class DMUTool
                 SQL = "Delete " & DBNameSpace & ".HB_APBAirProgramPollutants " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -695,9 +695,9 @@ Public Class DMUTool
                 SQL = "Delete " & DBNameSpace & ".APBSupplamentalData " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -705,9 +705,9 @@ Public Class DMUTool
                 SQL = "Delete " & DBNameSpace & ".APBSubpartData " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -715,9 +715,9 @@ Public Class DMUTool
                 SQL = "Delete " & DBNameSpace & ".AFSAIRPollutantData " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -725,9 +725,9 @@ Public Class DMUTool
                 SQL = "Delete " & DBNameSpace & ".AFSFacilityData " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -735,9 +735,9 @@ Public Class DMUTool
                 SQL = "Delete " & DBNameSpace & ".APBAirProgramPollutants " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -745,9 +745,9 @@ Public Class DMUTool
                 SQL = "Delete " & DBNameSpace & ".APBContactInformation " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -755,9 +755,9 @@ Public Class DMUTool
                 SQL = "Delete " & DBNameSpace & ".APBHeaderData " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -765,9 +765,9 @@ Public Class DMUTool
                 SQL = "Delete " & DBNameSpace & ".APBFacilityInformation " & _
                "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -775,9 +775,9 @@ Public Class DMUTool
                 SQL = "Delete " & DBNameSpace & ".APBMasterAIRS " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -804,9 +804,9 @@ Public Class DMUTool
             "and AirBranch.FSAddPaid.intYear = '2007' " & _
             "and (strInvoiceNo like '%Q3%' or strInvoiceNo like '%Q4%') " & _
             "and datPayDate is null "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -818,9 +818,9 @@ Public Class DMUTool
                 If payID <> "" Then
                     SQL = "Delete AIRBranch.FSAddPaid " & _
                     "where intPayID = '" & payID & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     dr2.Close()
@@ -880,9 +880,9 @@ Public Class DMUTool
                     "sngStackDiameter = '" & sngStackDiameter & "' " & _
                     "where strStateFacilityIdentifier = '" & StateFacilityIdentifier & "' " & _
                     "and strEmissionReleasePointID = '" & EmissionReleasePointID & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     dr2.Close()
@@ -926,9 +926,9 @@ Public Class DMUTool
             "from " & DBNameSpace & ".APBHeaderData " & _
             "where substr(strAIRProgramCodes, 13, 1) = '1' " & _
             "and strOperationalStatus <> 'X' "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr2 = cmd.ExecuteReader
             While dr2.Read
@@ -1070,9 +1070,9 @@ Public Class DMUTool
                 "From " & DBNameSpace & ".APBContactInformation " & _
                 "where strContactKey = '0413" & AIRSNumber & "20' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -1127,9 +1127,9 @@ Public Class DMUTool
             Dim datAssigningDate As String = ""
 
             SQL = "Delete AIRBranch.SSCPINSPECTIONSREQUIRED2 "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1164,9 +1164,9 @@ Public Class DMUTool
             "and AIRBRANCH.SSCPFACILITYASSIGNMENT.STRAIRSNUMBER  = FCECheck.strAIRSNumber (+) " & _
             " and STRINSPECTIONREQUIRED is not null "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1215,9 +1215,9 @@ Public Class DMUTool
                     "'" & strFCERequired & "', '" & strAssigningManager & "', " & _
                     "'" & datAssigningDate & "') "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -1244,9 +1244,9 @@ Public Class DMUTool
             "and AIRBRANCH.SSCPITEMMASTER.STRMODIFINGPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID " & _
             "and datInspectiondateend between '01-Oct-09' and '30-Sep-10' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1279,9 +1279,9 @@ Public Class DMUTool
                     "'" & numSSCPUnit & "', '" & strInspectionRequired & "', " & _
                     "'', '', '') "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -1306,9 +1306,9 @@ Public Class DMUTool
             "and AIRBRANCH.SSCPFCEMASTER.STRFCENUMBER = AIRBRANCH.SSCPFCE.STRFCENUMBER " & _
             "and DATFCECOMPLETED between '01-Oct-2009' and  '30-Sep-2010' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1339,9 +1339,9 @@ Public Class DMUTool
                     "where strAIRSNumber = '" & AIRSnumber & "' " & _
                     "and intyear = '2010' "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     RecExist = dr2.Read
@@ -1362,9 +1362,9 @@ Public Class DMUTool
                     End If
                     dr2.Close()
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -1390,9 +1390,9 @@ Public Class DMUTool
           "and AIRBRANCH.SSCPITEMMASTER.STRMODIFINGPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID " & _
           "and datInspectiondateend between '01-Oct-08' and '30-Sep-09' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1425,9 +1425,9 @@ Public Class DMUTool
                     "'" & numSSCPUnit & "', '" & strInspectionRequired & "', " & _
                     "'', '', '') "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -1452,9 +1452,9 @@ Public Class DMUTool
             "and AIRBRANCH.SSCPFCEMASTER.STRFCENUMBER = AIRBRANCH.SSCPFCE.STRFCENUMBER " & _
             "and DATFCECOMPLETED between '01-Oct-2008' and  '30-Sep-2009' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1485,9 +1485,9 @@ Public Class DMUTool
                     "where strAIRSNumber = '" & AIRSnumber & "' " & _
                     "and intyear = '2009' "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     RecExist = dr2.Read
@@ -1508,9 +1508,9 @@ Public Class DMUTool
                     End If
                     dr2.Close()
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -1536,9 +1536,9 @@ Public Class DMUTool
           "and AIRBRANCH.SSCPITEMMASTER.STRMODIFINGPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID " & _
           "and datInspectiondateend between '01-Oct-07' and '30-Sep-08' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1571,9 +1571,9 @@ Public Class DMUTool
                     "'" & numSSCPUnit & "', '" & strInspectionRequired & "', " & _
                     "'', '', '') "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -1598,9 +1598,9 @@ Public Class DMUTool
             "and AIRBRANCH.SSCPFCEMASTER.STRFCENUMBER = AIRBRANCH.SSCPFCE.STRFCENUMBER " & _
             "and DATFCECOMPLETED between '01-Oct-2007' and  '30-Sep-2008' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1631,9 +1631,9 @@ Public Class DMUTool
                     "where strAIRSNumber = '" & AIRSnumber & "' " & _
                     "and intyear = '2008' "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     RecExist = dr2.Read
@@ -1654,9 +1654,9 @@ Public Class DMUTool
                     End If
                     dr2.Close()
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -1682,9 +1682,9 @@ Public Class DMUTool
           "and AIRBRANCH.SSCPITEMMASTER.STRMODIFINGPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID " & _
           "and datInspectiondateend between '01-Oct-06' and '30-Sep-07' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1717,9 +1717,9 @@ Public Class DMUTool
                     "'" & numSSCPUnit & "', '" & strInspectionRequired & "', " & _
                     "'', '', '') "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -1744,9 +1744,9 @@ Public Class DMUTool
             "and AIRBRANCH.SSCPFCEMASTER.STRFCENUMBER = AIRBRANCH.SSCPFCE.STRFCENUMBER " & _
             "and DATFCECOMPLETED between '01-Oct-2006' and  '30-Sep-2007' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1777,9 +1777,9 @@ Public Class DMUTool
                     "where strAIRSNumber = '" & AIRSnumber & "' " & _
                     "and intyear = '2007' "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     RecExist = dr2.Read
@@ -1800,9 +1800,9 @@ Public Class DMUTool
                     End If
                     dr2.Close()
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -1828,9 +1828,9 @@ Public Class DMUTool
           "and AIRBRANCH.SSCPITEMMASTER.STRMODIFINGPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID " & _
           "and datInspectiondateend between '01-Oct-05' and '30-Sep-06' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1863,9 +1863,9 @@ Public Class DMUTool
                     "'" & numSSCPUnit & "', '" & strInspectionRequired & "', " & _
                     "'', '', '') "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -1890,9 +1890,9 @@ Public Class DMUTool
             "and AIRBRANCH.SSCPFCEMASTER.STRFCENUMBER = AIRBRANCH.SSCPFCE.STRFCENUMBER " & _
             "and DATFCECOMPLETED between '01-Oct-2005' and  '30-Sep-2006' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1923,9 +1923,9 @@ Public Class DMUTool
                     "where strAIRSNumber = '" & AIRSnumber & "' " & _
                     "and intyear = '2006' "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     RecExist = dr2.Read
@@ -1946,9 +1946,9 @@ Public Class DMUTool
                     End If
                     dr2.Close()
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -1974,9 +1974,9 @@ Public Class DMUTool
           "and AIRBRANCH.SSCPITEMMASTER.STRMODIFINGPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID " & _
           "and datInspectiondateend between '01-Oct-04' and '30-Sep-05' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2009,9 +2009,9 @@ Public Class DMUTool
                     "'" & numSSCPUnit & "', '" & strInspectionRequired & "', " & _
                     "'', '', '') "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -2036,9 +2036,9 @@ Public Class DMUTool
             "and AIRBRANCH.SSCPFCEMASTER.STRFCENUMBER = AIRBRANCH.SSCPFCE.STRFCENUMBER " & _
             "and DATFCECOMPLETED between '01-Oct-2004' and  '30-Sep-2005' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2069,9 +2069,9 @@ Public Class DMUTool
                     "where strAIRSNumber = '" & AIRSnumber & "' " & _
                     "and intyear = '2005' "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     RecExist = dr2.Read
@@ -2092,9 +2092,9 @@ Public Class DMUTool
                     End If
                     dr2.Close()
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -2120,9 +2120,9 @@ Public Class DMUTool
           "and AIRBRANCH.SSCPITEMMASTER.STRMODIFINGPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID " & _
           "and datInspectiondateend between '01-Oct-03' and '30-Sep-04' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2155,9 +2155,9 @@ Public Class DMUTool
                     "'" & numSSCPUnit & "', '" & strInspectionRequired & "', " & _
                     "'', '', '') "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -2182,9 +2182,9 @@ Public Class DMUTool
             "and AIRBRANCH.SSCPFCEMASTER.STRFCENUMBER = AIRBRANCH.SSCPFCE.STRFCENUMBER " & _
             "and DATFCECOMPLETED between '01-Oct-2003' and  '30-Sep-2004' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2215,9 +2215,9 @@ Public Class DMUTool
                     "where strAIRSNumber = '" & AIRSnumber & "' " & _
                     "and intyear = '2004' "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     RecExist = dr2.Read
@@ -2238,9 +2238,9 @@ Public Class DMUTool
                     End If
                     dr2.Close()
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -2266,9 +2266,9 @@ Public Class DMUTool
           "and AIRBRANCH.SSCPITEMMASTER.STRMODIFINGPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID " & _
           "and datInspectiondateend between '01-Oct-02' and '30-Sep-03' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2301,9 +2301,9 @@ Public Class DMUTool
                     "'" & numSSCPUnit & "', '" & strInspectionRequired & "', " & _
                     "'', '', '') "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -2328,9 +2328,9 @@ Public Class DMUTool
             "and AIRBRANCH.SSCPFCEMASTER.STRFCENUMBER = AIRBRANCH.SSCPFCE.STRFCENUMBER " & _
             "and DATFCECOMPLETED between '01-Oct-2002' and  '30-Sep-2003' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2361,9 +2361,9 @@ Public Class DMUTool
                     "where strAIRSNumber = '" & AIRSnumber & "' " & _
                     "and intyear = '2003' "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     RecExist = dr2.Read
@@ -2384,9 +2384,9 @@ Public Class DMUTool
                     End If
                     dr2.Close()
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -2411,9 +2411,9 @@ Public Class DMUTool
           "and AIRBRANCH.SSCPITEMMASTER.STRMODIFINGPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID " & _
           "and datInspectiondateend between '01-Oct-01' and '30-Sep-02' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2446,9 +2446,9 @@ Public Class DMUTool
                     "'" & numSSCPUnit & "', '" & strInspectionRequired & "', " & _
                     "'', '', '') "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -2473,9 +2473,9 @@ Public Class DMUTool
             "and AIRBRANCH.SSCPFCEMASTER.STRFCENUMBER = AIRBRANCH.SSCPFCE.STRFCENUMBER " & _
             "and DATFCECOMPLETED between '01-Oct-2001' and  '30-Sep-2002' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2506,9 +2506,9 @@ Public Class DMUTool
                     "where strAIRSNumber = '" & AIRSnumber & "' " & _
                     "and intyear = '2002' "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     RecExist = dr2.Read
@@ -2529,9 +2529,9 @@ Public Class DMUTool
                     End If
                     dr2.Close()
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -2576,10 +2576,10 @@ Public Class DMUTool
             "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
             "order by numKey "
 
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2625,9 +2625,9 @@ Public Class DMUTool
             "and AIRBRANCH.SSCPITEMMASTER.STRMODIFINGPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID " & _
             "and datInspectiondateend between '01-Oct-09' and '30-Sep-10' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2648,9 +2648,9 @@ Public Class DMUTool
                     "where intyear = '2010' " & _
                     "and strAIRSNumber = '" & AIRSNumber & "' "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -2669,9 +2669,9 @@ Public Class DMUTool
                     "and AIRBRANCH.SSCPFCEMASTER.STRFCENUMBER = AIRBRANCH.SSCPFCE.STRFCENUMBER " & _
                     "and DATFCECOMPLETED between '01-Oct-09' and '30-Sep-10' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2692,9 +2692,9 @@ Public Class DMUTool
                     "where intyear = '2010' " & _
                     "and strAIRSNumber = '" & AIRSNumber & "' "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -2715,9 +2715,9 @@ Public Class DMUTool
             "and AIRBRANCH.SSCPITEMMASTER.STRMODIFINGPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID " & _
             "and datInspectiondateend between '01-Oct-08' and '30-Sep-09' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2738,9 +2738,9 @@ Public Class DMUTool
                     "where intyear = '2009' " & _
                     "and strAIRSNumber = '" & AIRSNumber & "' "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -2759,9 +2759,9 @@ Public Class DMUTool
                     "and AIRBRANCH.SSCPFCEMASTER.STRFCENUMBER = AIRBRANCH.SSCPFCE.STRFCENUMBER " & _
                     "and DATFCECOMPLETED between '01-Oct-08' and '30-Sep-09' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2782,9 +2782,9 @@ Public Class DMUTool
                     "where intyear = '2009' " & _
                     "and strAIRSNumber = '" & AIRSNumber & "' "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -2804,9 +2804,9 @@ Public Class DMUTool
             "and AIRBRANCH.SSCPITEMMASTER.STRMODIFINGPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID " & _
             "and datInspectiondateend between '01-Oct-07' and '30-Sep-08' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2827,9 +2827,9 @@ Public Class DMUTool
                     "where intyear = '2008' " & _
                     "and strAIRSNumber = '" & AIRSNumber & "' "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -2848,9 +2848,9 @@ Public Class DMUTool
                     "and AIRBRANCH.SSCPFCEMASTER.STRFCENUMBER = AIRBRANCH.SSCPFCE.STRFCENUMBER " & _
                     "and DATFCECOMPLETED between '01-Oct-07' and '30-Sep-08' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2871,9 +2871,9 @@ Public Class DMUTool
                     "where intyear = '2008' " & _
                     "and strAIRSNumber = '" & AIRSNumber & "' "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -2893,9 +2893,9 @@ Public Class DMUTool
             "and AIRBRANCH.SSCPITEMMASTER.STRMODIFINGPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID " & _
             "and datInspectiondateend between '01-Oct-06' and '30-Sep-07' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2916,9 +2916,9 @@ Public Class DMUTool
                     "where intyear = '2007' " & _
                     "and strAIRSNumber = '" & AIRSNumber & "' "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -2937,9 +2937,9 @@ Public Class DMUTool
                     "and AIRBRANCH.SSCPFCEMASTER.STRFCENUMBER = AIRBRANCH.SSCPFCE.STRFCENUMBER " & _
                     "and DATFCECOMPLETED between '01-Oct-06' and '30-Sep-07' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2960,9 +2960,9 @@ Public Class DMUTool
                     "where intyear = '2007' " & _
                     "and strAIRSNumber = '" & AIRSNumber & "' "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -2983,9 +2983,9 @@ Public Class DMUTool
             "and AIRBRANCH.SSCPITEMMASTER.STRMODIFINGPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID " & _
             "and datInspectiondateend between '01-Oct-05' and '30-Sep-06' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -3006,9 +3006,9 @@ Public Class DMUTool
                     "where intyear = '2006' " & _
                     "and strAIRSNumber = '" & AIRSNumber & "' "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -3027,9 +3027,9 @@ Public Class DMUTool
                     "and AIRBRANCH.SSCPFCEMASTER.STRFCENUMBER = AIRBRANCH.SSCPFCE.STRFCENUMBER " & _
                     "and DATFCECOMPLETED between '01-Oct-05' and '30-Sep-06' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -3050,9 +3050,9 @@ Public Class DMUTool
                     "where intyear = '2006' " & _
                     "and strAIRSNumber = '" & AIRSNumber & "' "
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -3074,9 +3074,9 @@ Public Class DMUTool
             Dim numKey As Integer
 
             SQL = "Select (max(numKey) + 1) as numKey from airbranch.SSCPInspectionsRequired "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -3098,9 +3098,9 @@ Public Class DMUTool
             "and INTYEAR = '2011' ) " & _
             "and STRSSCPENGINEER is not null "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -3122,9 +3122,9 @@ Public Class DMUTool
                     "'', '', " & _
                     "'', '', " & _
                     "'' ) "
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -3153,9 +3153,9 @@ Public Class DMUTool
             "From " & DBNameSpace & ".SSCPEnforcementNOVComments " & _
             "where strNOVComment is not null "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -3178,9 +3178,9 @@ Public Class DMUTool
                     "from " & DBNameSpace & ".SSCP_Enforcement " & _
                     "where strEnforcementNumber = '" & EnforcementNumber & "' ) "
 
-                    cmd2 = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     While dr2.Read
@@ -3198,9 +3198,9 @@ Public Class DMUTool
                     "from " & DBNameSpace & ".SSCP_Enforcement " & _
                     "where strEnforcementNumber = '" & EnforcementNumber & "' ) "
 
-                    cmd2 = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -3214,9 +3214,9 @@ Public Class DMUTool
             "From " & DBNameSpace & ".SSCPEnforcementCOComments " & _
             "where strcoComment is not null "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -3239,9 +3239,9 @@ Public Class DMUTool
                     "from " & DBNameSpace & ".SSCP_Enforcement " & _
                     "where strEnforcementNumber = '" & EnforcementNumber & "' ) "
 
-                    cmd2 = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     While dr2.Read
@@ -3259,9 +3259,9 @@ Public Class DMUTool
                     "from " & DBNameSpace & ".SSCP_Enforcement " & _
                     "where strEnforcementNumber = '" & EnforcementNumber & "' ) "
 
-                    cmd2 = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -3276,9 +3276,9 @@ Public Class DMUTool
         "From " & DBNameSpace & ".SSCPEnforcementAOComments " & _
         "where strAOComment is not null "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -3301,9 +3301,9 @@ Public Class DMUTool
                     "from " & DBNameSpace & ".SSCP_Enforcement " & _
                     "where strEnforcementNumber = '" & EnforcementNumber & "' ) "
 
-                    cmd2 = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     While dr2.Read
@@ -3321,9 +3321,9 @@ Public Class DMUTool
                     "from " & DBNameSpace & ".SSCP_Enforcement " & _
                     "where strEnforcementNumber = '" & EnforcementNumber & "' ) "
 
-                    cmd2 = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -3370,9 +3370,9 @@ Public Class DMUTool
             "where intyear <> '2010' and intYear <> '3' " & _
              "order by intyear "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -3520,9 +3520,9 @@ Public Class DMUTool
                     "from " & DBNameSpace & ".FS_Admin " & _
                     "where numfeeyear = '" & FeeYear & "' " & _
                     "and strAIRSnumber = '" & AIRSNumber & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     RecExist = dr2.Read
@@ -3541,9 +3541,9 @@ Public Class DMUTool
                         "'1', 'Fee Populate', " & _
                         "sysdate, sysdate) "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd.ExecuteReader
                         dr2.Close()
@@ -3565,9 +3565,9 @@ Public Class DMUTool
                         "'1', 'Fee Populate', " & _
                         "sysdate, sysdate) "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd.ExecuteReader
                         dr2.Close()
@@ -3591,9 +3591,9 @@ Public Class DMUTool
                         "'1', 'Fee Populate', " & _
                         "sysdate, sysdate ) "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd.ExecuteReader
                         dr2.Close()
@@ -3611,9 +3611,9 @@ Public Class DMUTool
                         "'1', 'Fee Populate', " & _
                         "sysdate, sysdate ) "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd.ExecuteReader
                         dr2.Close()
@@ -3645,9 +3645,9 @@ Public Class DMUTool
             "where intyear <> '2010' and intYear <> '3' " & _
             "order by intyear "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -3748,9 +3748,9 @@ Public Class DMUTool
                     "where numFeeyear = '" & FeeYear & "' " & _
                     "and strAIRSNumber = '" & AIRSNumber & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     dr2.Close()
@@ -3769,9 +3769,9 @@ Public Class DMUTool
             "where intyear <> '2010' and intYear <> '3' " & _
             "order by intyear "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -3825,9 +3825,9 @@ Public Class DMUTool
                     "UpdateDateTime = '" & DateSubmit & "' " & _
                     "where numFeeYear = '" & FeeYear & "' " & _
                     "and strAIRSNumber = '" & AIRSNumber & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     dr2.Close()
@@ -3839,9 +3839,9 @@ Public Class DMUTool
                     "where numFeeYear = '" & FeeYear & "' " & _
                     "and strAIRSNumber = '" & AIRSNumber & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     dr2.Close()
@@ -3868,9 +3868,9 @@ Public Class DMUTool
             "where intyear <> '2010' and intYear <> '3' " & _
             "order by intyear "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -3967,9 +3967,9 @@ Public Class DMUTool
                 "'1', 'Fee Populate', " & _
                 "sysdate, sysdate, " & _
                 "'" & PayType & "', '1') "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr2 = cmd.ExecuteReader
                 dr2.Close()
@@ -3985,9 +3985,9 @@ Public Class DMUTool
                 "sysdate, sysdate, " & _
                 "'" & AIRSNumber & "', '" & FeeYear & "', " & _
                 "'') "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr2 = cmd.ExecuteReader
                 dr2.Close()
@@ -4003,9 +4003,9 @@ Public Class DMUTool
             "from " & DBNameSpace & ".FSConfirmation " & _
             "where intyear <> '2010' and intyear <> '3' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4041,9 +4041,9 @@ Public Class DMUTool
                     "strCOnfirmationUser = '" & ConfirmUser & "' " & _
                     "where strAIRSNumber = '" & AIRSNumber & "' " & _
                     "and numFeeYear = '" & FeeYear & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     dr2.Close()
@@ -4069,9 +4069,9 @@ Public Class DMUTool
             "From " & DBNameSpace & ".FEEMailOut " & _
             "where intYear <> '2010' and intyear <> '3' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4258,9 +4258,9 @@ Public Class DMUTool
                     "where numfeeyear = '" & FeeYear & "' " & _
                     "and strAIRSNumber = '" & AIRSNumber & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     dr2.Close()
@@ -4284,9 +4284,9 @@ Public Class DMUTool
                     "where numfeeyear = '" & FeeYear & "' " & _
                     "and strAIRSNumber = '" & AIRSNumber & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     dr2.Close()
@@ -4298,9 +4298,9 @@ Public Class DMUTool
             "strEnrolled = '1' " & _
             "where intSubmittal is not null "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -4309,9 +4309,9 @@ Public Class DMUTool
             "From " & DBNameSpace & ".FS_Mailout " & _
             "order by numFeeYear, strAIRSNumber "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4331,9 +4331,9 @@ Public Class DMUTool
                     "strInitialMailout = '1' " & _
                     "where strAIRSNumber = '" & AIRSNumber & "' " & _
                     "and numFeeYear = '" & FeeYear & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     dr2.Close()
@@ -4346,9 +4346,9 @@ Public Class DMUTool
                        "where numFeeyear = '2010' " & _
                        "order by numfeeyear, strAIRSNumber "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4366,10 +4366,10 @@ Public Class DMUTool
                     AIRSNumber = dr.Item("strAIRSNumber")
                 End If
 
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
-                cmd = New OracleCommand("AIRBranch.PD_FeeAmendment", Conn)
+                cmd = New OracleCommand("AIRBranch.PD_FeeAmendment", CurrentConnection)
                 cmd.CommandType = CommandType.StoredProcedure
 
                 cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = FeeYear
@@ -4395,9 +4395,9 @@ Public Class DMUTool
             "strAIRSNumber, numFeeYear " & _
             "from airbranch.FS_FeeInvoice " & _
             "  "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4433,9 +4433,9 @@ Public Class DMUTool
                     "and airbranch.fscalculations.intyear = '" & FeeYear & "' " & _
                     "and airbranch.fscalculations.strairsnumber = '" & AIRSNumber & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     While dr2.Read
@@ -4451,9 +4451,9 @@ Public Class DMUTool
                         SQL = "Update airbranch.FS_feeinvoice set " & _
                         "numAmount = '" & numAmountDue & "' " & _
                         "where invoiceID = '" & invoiceID & "' "
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd.ExecuteReader
                         dr2.Close()
@@ -4478,9 +4478,9 @@ Public Class DMUTool
             "where strReferenceNumber not like '20%' " & _
             "and strClosed = 'False' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4507,9 +4507,9 @@ Public Class DMUTool
                     "strClosed = 'True', " & _
                     "mmoCommentArea = '" & Replace(Comment, "'", "''") & "' " & _
                     "where strReferenceNumber = '" & ReferenceNumber & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     dr2.Close()
@@ -4534,9 +4534,9 @@ Public Class DMUTool
             "order by nuMFeeyear, strAIRSNumber "
 
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4555,10 +4555,10 @@ Public Class DMUTool
                 End If
                 If Feeyear <> "" And AIRSNumber <> "" Then
 
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
-                    cmd = New OracleCommand("AIRBranch.PD_FEE_Status", Conn)
+                    cmd = New OracleCommand("AIRBranch.PD_FEE_Status", CurrentConnection)
                     cmd.CommandType = CommandType.StoredProcedure
 
                     cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = Feeyear
@@ -4657,9 +4657,9 @@ Public Class DMUTool
 
             SQL = "select min(invoiceID) as InvoiceID " & _
             "from AIRBranch.FS_FeeInvoice "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4682,9 +4682,9 @@ Public Class DMUTool
             "and intyear <> '3' " & _
             "order by intyear, strairsnumber "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr3 = cmd.ExecuteReader
             While dr3.Read
@@ -4704,9 +4704,9 @@ Public Class DMUTool
                     "from airbranch.fscalculations " & _
                     "where intyear = '" & FeeYear & "' and strairsnumber = '" & AIRSNumber & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -4856,9 +4856,9 @@ Public Class DMUTool
                         "from " & DBNameSpace & ".FS_Admin " & _
                         "where numfeeyear = '" & FeeYear & "' " & _
                         "and strAIRSnumber = '" & AIRSNumber & "' "
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd.ExecuteReader
                         RecExist = dr2.Read
@@ -4877,9 +4877,9 @@ Public Class DMUTool
                             "'1', 'Fee Populate', " & _
                             "sysdate, sysdate) "
 
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr2 = cmd.ExecuteReader
                             dr2.Close()
@@ -4901,9 +4901,9 @@ Public Class DMUTool
                             "'1', 'Fee Populate', " & _
                             "sysdate, sysdate) "
 
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr2 = cmd.ExecuteReader
                             dr2.Close()
@@ -4927,9 +4927,9 @@ Public Class DMUTool
                             "'1', 'Fee Populate', " & _
                             "sysdate, sysdate ) "
 
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr2 = cmd.ExecuteReader
                             dr2.Close()
@@ -4947,9 +4947,9 @@ Public Class DMUTool
                             "'1', 'Fee Populate', " & _
                             "sysdate, sysdate ) "
 
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr2 = cmd.ExecuteReader
                             dr2.Close()
@@ -4961,9 +4961,9 @@ Public Class DMUTool
                      "where intyear = '" & FeeYear & "' and strairsnumber = '" & AIRSNumber & "' " & _
                      "order by intyear "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -5064,9 +5064,9 @@ Public Class DMUTool
                             "where numFeeyear = '" & FeeYear & "' " & _
                             "and strAIRSNumber = '" & AIRSNumber & "' "
 
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr2 = cmd.ExecuteReader
                             dr2.Close()
@@ -5080,9 +5080,9 @@ Public Class DMUTool
              "where intyear = '" & FeeYear & "' and strairsnumber = '" & AIRSNumber & "' " & _
                 "order by intyear "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -5136,9 +5136,9 @@ Public Class DMUTool
                             "UpdateDateTime = '" & DateSubmit & "' " & _
                             "where numFeeYear = '" & FeeYear & "' " & _
                             "and strAIRSNumber = '" & AIRSNumber & "' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr2 = cmd.ExecuteReader
                             dr2.Close()
@@ -5150,9 +5150,9 @@ Public Class DMUTool
                             "where numFeeYear = '" & FeeYear & "' " & _
                             "and strAIRSNumber = '" & AIRSNumber & "' "
 
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr2 = cmd.ExecuteReader
                             dr2.Close()
@@ -5167,9 +5167,9 @@ Public Class DMUTool
                     "where intyear = '" & FeeYear & "' and strairsnumber = '" & AIRSNumber & "' " & _
                     "order by intyear "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -5266,9 +5266,9 @@ Public Class DMUTool
                         "'1', 'Fee Populate', " & _
                         "sysdate, sysdate, " & _
                         "'" & PayType & "', '1') "
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd.ExecuteReader
                         dr2.Close()
@@ -5284,9 +5284,9 @@ Public Class DMUTool
                         "sysdate, sysdate, " & _
                         "'" & AIRSNumber & "', '" & FeeYear & "', " & _
                         "'') "
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd.ExecuteReader
                         dr2.Close()
@@ -5298,9 +5298,9 @@ Public Class DMUTool
                     "from " & DBNameSpace & ".FSConfirmation " & _
                     "where intyear = '" & FeeYear & "' and strairsnumber = '" & AIRSNumber & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -5336,9 +5336,9 @@ Public Class DMUTool
                             "strCOnfirmationUser = '" & ConfirmUser & "' " & _
                             "where strAIRSNumber = '" & AIRSNumber & "' " & _
                             "and numFeeYear = '" & FeeYear & "' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr2 = cmd.ExecuteReader
                             dr2.Close()
@@ -5351,9 +5351,9 @@ Public Class DMUTool
                     "From " & DBNameSpace & ".FEEMailOut " & _
                     "where intyear = '" & FeeYear & "' and strairsnumber = '" & AIRSNumber & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -5540,9 +5540,9 @@ Public Class DMUTool
                             "where numfeeyear = '" & FeeYear & "' " & _
                             "and strAIRSNumber = '" & AIRSNumber & "' "
 
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr2 = cmd.ExecuteReader
                             dr2.Close()
@@ -5566,9 +5566,9 @@ Public Class DMUTool
                             "where numfeeyear = '" & FeeYear & "' " & _
                             "and strAIRSNumber = '" & AIRSNumber & "' "
 
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr2 = cmd.ExecuteReader
                             dr2.Close()
@@ -5607,9 +5607,9 @@ Public Class DMUTool
             "where nuMFeeyear = '2010' " & _
             "and airbranch.fs_admin.strAIRSNumber = AIRBranch.APBHeaderData.strairsnumber "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -5647,9 +5647,9 @@ Public Class DMUTool
                     "where numFeeYear = '" & FeeYear & "' " & _
                     "and strAIRSNumber = '" & AIRSNumber & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     RecExist = dr2.Read
@@ -5667,9 +5667,9 @@ Public Class DMUTool
                         "'" & classification & "', '" & OpStauts & "',  " & _
                         "'1', 'Fee Populate', sysdate, sysdate) "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd.ExecuteReader
                         dr2.Close()
@@ -5729,9 +5729,9 @@ Public Class DMUTool
             "and active = '1' " & _
             "order by numfeeyear desc , strairsnumber "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -5770,9 +5770,9 @@ Public Class DMUTool
                             "and strAIRSNumber = '" & AIRSNumber & "' " & _
                             "and numFeeYear = '" & FeeYear & "' "
 
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             cmd.ExecuteNonQuery()
 
@@ -6247,9 +6247,9 @@ Public Class DMUTool
             "and airbranch.feemailout.intyear = airbranch.fs_admin.numfeeyear) " & _
             "order by intyear "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -6405,9 +6405,9 @@ Public Class DMUTool
                     "'1', 'Fee Populate', " & _
                     "sysdate, sysdate) "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -6420,9 +6420,9 @@ Public Class DMUTool
                     "'1', 'Fee Populate', " & _
                     "sysdate, sysdate) "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -6444,9 +6444,9 @@ Public Class DMUTool
                     "'1', 'Fee Populate', " & _
                     "sysdate, sysdate ) "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -6494,9 +6494,9 @@ Public Class DMUTool
             "and numPayment <> '0' " & _
             "order by intyear desc "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -6558,9 +6558,9 @@ Public Class DMUTool
                     "from airbranch.FS_Admin " & _
                     "where strairsnumber = '" & AIRSNumber & "' " & _
                     "and numFeeYear = '" & FeeYear & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     RecExist = dr2.Read
@@ -6571,9 +6571,9 @@ Public Class DMUTool
                         "from airbranch.FS_FeeData " & _
                         "where strairsnumber = '" & AIRSNumber & "' " & _
                         "and numFeeYear = '" & FeeYear & "' "
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd.ExecuteReader
                         RecExist = dr2.Read
@@ -6584,9 +6584,9 @@ Public Class DMUTool
                             "from airbranch.FS_FeeAuditedData " & _
                             "where strairsnumber = '" & AIRSNumber & "' " & _
                             "and numFeeYear = '" & FeeYear & "' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr2 = cmd.ExecuteReader
                             RecExist = dr2.Read
@@ -6598,9 +6598,9 @@ Public Class DMUTool
                                     "from airbranch.FS_ContactInfo " & _
                                     "where strairsnumber = '" & AIRSNumber & "' " & _
                                     "and numFeeYear = '" & FeeYear & "' "
-                                    cmd = New OracleCommand(SQL, Conn)
-                                    If Conn.State = ConnectionState.Closed Then
-                                        Conn.Open()
+                                    cmd = New OracleCommand(SQL, CurrentConnection)
+                                    If CurrentConnection.State = ConnectionState.Closed Then
+                                        CurrentConnection.Open()
                                     End If
                                     dr2 = cmd.ExecuteReader
                                     RecExist = dr2.Read
@@ -6613,9 +6613,9 @@ Public Class DMUTool
                                         "and numFeeYear = '" & FeeYear & "' " & _
                                         "and strComment like '%" & InvoiceNo & "%'"
 
-                                        cmd = New OracleCommand(SQL, Conn)
-                                        If Conn.State = ConnectionState.Closed Then
-                                            Conn.Open()
+                                        cmd = New OracleCommand(SQL, CurrentConnection)
+                                        If CurrentConnection.State = ConnectionState.Closed Then
+                                            CurrentConnection.Open()
                                         End If
                                         dr2 = cmd.ExecuteReader
                                         While dr2.Read
@@ -6640,9 +6640,9 @@ Public Class DMUTool
                                             "'" & PayDate & "', '" & AIRSNumber & "', " & _
                                             "'" & FeeYear & "', '') "
 
-                                            cmd = New OracleCommand(SQL, Conn)
-                                            If Conn.State = ConnectionState.Closed Then
-                                                Conn.Open()
+                                            cmd = New OracleCommand(SQL, CurrentConnection)
+                                            If CurrentConnection.State = ConnectionState.Closed Then
+                                                CurrentConnection.Open()
                                             End If
                                             cmd.ExecuteNonQuery()
 
@@ -6686,9 +6686,9 @@ Public Class DMUTool
             "and strCheckNo is null and numPayment = '0' " & _
             "and strentryperson is null "  
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -6706,9 +6706,9 @@ Public Class DMUTool
                     SQL = "delete airbranch.fs_transactions " & _
                     "where strairsnumber = '" & AIRSNumber & "' " & _
                     "and numfeeyear = '" & FeeYear & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
                 End If
@@ -6727,9 +6727,9 @@ Public Class DMUTool
             "and AIRBranch.FS_Admin.strAIRSNumber = AIRBranch.FeeMailOut.strairsnumber " & _
             "and AIRBranch.FS_Admin.numfeeyear = AIRBranch.Feemailout.intyear "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -6749,9 +6749,9 @@ Public Class DMUTool
                     "where strairsnumber = '" & AIRSNumber & "' " & _
                     "and numfeeyear = '" & FeeYear & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -6774,9 +6774,9 @@ Public Class DMUTool
             "and numFeeYear = '2009' " & _ 
             "order by numfeeyear "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -6791,9 +6791,9 @@ Public Class DMUTool
                     "where strAIRSnumber = '" & AIRSNumber & "' " & _
                     "and numFeeYear = '2009' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
                 End If
@@ -6810,9 +6810,9 @@ Public Class DMUTool
                      "and numFeeYear = '2008' " & _
                      "order by numfeeyear "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -6827,9 +6827,9 @@ Public Class DMUTool
                     "where strAIRSnumber = '" & AIRSNumber & "' " & _
                     "and numFeeYear = '2008' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
                 End If
@@ -6845,9 +6845,9 @@ Public Class DMUTool
          "and numFeeYear = '2007' " & _
          "order by numfeeyear "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -6862,9 +6862,9 @@ Public Class DMUTool
                     "where strAIRSnumber = '" & AIRSNumber & "' " & _
                     "and numFeeYear = '2007' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
                 End If
@@ -6880,9 +6880,9 @@ Public Class DMUTool
          "and numFeeYear = '2006' " & _
          "order by numfeeyear "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -6897,9 +6897,9 @@ Public Class DMUTool
                     "where strAIRSnumber = '" & AIRSNumber & "' " & _
                     "and numFeeYear = '2006' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
                 End If
@@ -6919,9 +6919,9 @@ Public Class DMUTool
             "where not exists (select * from AIRBranch.APBMasterAIRS " & _
             "where airbranch.FS_Admin.strAIRSNumber = AIRBranch.APBMasterAIRS.strAIRSNumber ) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -6933,17 +6933,17 @@ Public Class DMUTool
                 If AIRSNumber <> "" Then
                     SQL = "Delete AIRBranch.FS_ContactInfo " & _
                     "where strairsnumber = '" & AIRSNumber & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
                     SQL = "Delete AIRBranch.FS_FeeAmendment " & _
                     "where strairsnumber = '" & AIRSNumber & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -6957,41 +6957,41 @@ Public Class DMUTool
 
                     SQL = "Delete AIRBranch.FS_FeeAuditedData " & _
                     "where strairsnumber = '" & AIRSNumber & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
                     SQL = "Delete AIRBranch.FS_FeeData " & _
                     "where strairsnumber = '" & AIRSNumber & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
                     SQL = "Delete AIRBranch.FS_Transactions " & _
                                   "where strairsnumber = '" & AIRSNumber & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
                     SQL = "Delete AIRBranch.FS_FeeInvoice " & _
                     "where strairsnumber = '" & AIRSNumber & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
                     SQL = "Delete AIRBranch.FS_MailOut " & _
                     "where strairsnumber = '" & AIRSNumber & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -6999,9 +6999,9 @@ Public Class DMUTool
 
                     SQL = "Delete AIRBranch.FS_Admin " & _
                     "where strairsnumber = '" & AIRSNumber & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -7026,9 +7026,9 @@ Public Class DMUTool
             "strComments " & _
             "from AIRBranch.FSPayAndSubmit " & _
             "where strComments is not null "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7053,9 +7053,9 @@ Public Class DMUTool
                     "where strAIRSNumber = '" & AIRSNumber & "' " & _
                     "and numFeeYear = '" & FeeYear & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
                 End If
@@ -7076,9 +7076,9 @@ Public Class DMUTool
             "strAIRSNumber,  numFeeYear " & _
             "from AIRBranch.FS_Admin " & _
             "order by numFeeyear desc "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7093,10 +7093,10 @@ Public Class DMUTool
                     FeeYear = dr.Item("numFeeYear")
                 End If
                 If AIRSNumber <> "" And FeeYear <> "" Then
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
-                    cmd = New OracleCommand("AIRBranch.PD_FEE_Status", Conn)
+                    cmd = New OracleCommand("AIRBranch.PD_FEE_Status", CurrentConnection)
                     cmd.CommandType = CommandType.StoredProcedure
 
                     cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = FeeYear
@@ -7132,9 +7132,9 @@ Public Class DMUTool
             "where Invoices.invoiceid = Transactions.invoiceid  " & _
             "and InvoiceTotal - PaymentTotal = 0 "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7148,9 +7148,9 @@ Public Class DMUTool
                     "strInvoicesTATUS = '1' " & _
                     "WHERE InvoiceID = '" & invoiceID & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     dr2.Close()
@@ -7173,9 +7173,9 @@ Public Class DMUTool
          "where Invoices.invoiceid = Transactions.invoiceid  " & _
          "and InvoiceTotal - PaymentTotal <> 0 "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7189,9 +7189,9 @@ Public Class DMUTool
                     "strInvoicesTATUS = '0' " & _
                     "WHERE InvoiceID = '" & invoiceID & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     dr2.Close()
@@ -7221,9 +7221,9 @@ Public Class DMUTool
             "and strDateLastLogIn not like '%2011'  " & _
             "and updateuser <> (numUserID||'-'||strUserName) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7264,9 +7264,9 @@ Public Class DMUTool
                     "where FacilitySiteID = '" & FacilityID & "' " & _
                     "and InventoryYear = '" & InventoryYear & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -7284,9 +7284,9 @@ Public Class DMUTool
        "and strDateLastLogIn not like '%2011'  " & _
        "and updateuser <> (numUserID||'-'||strUserName) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7327,9 +7327,9 @@ Public Class DMUTool
                     "where FacilitySiteID = '" & FacilityID & "' " & _
                     "and intUnitStatusCodeYear = '" & InventoryYear & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -7346,9 +7346,9 @@ Public Class DMUTool
       "and strDateLastLogIn not like '%2011'  " & _
      "and updateuser <> (numUserID||'-'||strUserName) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7385,9 +7385,9 @@ Public Class DMUTool
                     "UpdateDateTime = '" & Replace(Finalized, "'", "''") & "' " & _
                     "where FacilitySiteID = '" & FacilityID & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -7406,9 +7406,9 @@ Public Class DMUTool
           "and strDateLastLogIn not like '%2011'  " & _
           "and updateuser <> (numUserID||'-'||strUserName) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7446,9 +7446,9 @@ Public Class DMUTool
                     "UpdateDateTime = '" & Replace(Finalized, "'", "''") & "' " & _
                     "where FacilitySiteID = '" & FacilityID & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -7467,9 +7467,9 @@ Public Class DMUTool
          "and strDateLastLogIn not like '%2011'  " & _
          "and updateuser <> (numUserID||'-'||strUserName) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7507,9 +7507,9 @@ Public Class DMUTool
                     "UpdateDateTime = '" & Replace(Finalized, "'", "''") & "' " & _
                     "where FacilitySiteID = '" & FacilityID & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -7528,9 +7528,9 @@ Public Class DMUTool
   "and strDateLastLogIn not like '%2011'  " & _
   "and updateuser <> (numUserID||'-'||strUserName) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7568,9 +7568,9 @@ Public Class DMUTool
                     "UpdateDateTime = '" & Replace(Finalized, "'", "''") & "' " & _
                     "where FacilitySiteID = '" & FacilityID & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -7590,9 +7590,9 @@ Public Class DMUTool
           "and strDateLastLogIn not like '%2011'  " & _
           "and updateuser <> (numUserID||'-'||strUserName) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7636,9 +7636,9 @@ Public Class DMUTool
                     "where FacilitySiteID = '" & FacilityID & "' " & _
                     "and intLastEmissionsYear = '" & InventoryYear & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -7658,9 +7658,9 @@ Public Class DMUTool
        "and strDateLastLogIn not like '%2011'  " & _
        "and updateuser <> (numUserID||'-'||strUserName) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7704,9 +7704,9 @@ Public Class DMUTool
                     "where FacilitySiteID = '" & FacilityID & "' " & _
                     "and intFirstInventoryYear = '" & InventoryYear & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -7723,9 +7723,9 @@ Public Class DMUTool
   "and strDateLastLogIn not like '%2011'  " & _
   "and updateuser <> (numUserID||'-'||strUserName) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7763,9 +7763,9 @@ Public Class DMUTool
                     "UpdateDateTime = '" & Replace(Finalized, "'", "''") & "' " & _
                     "where FacilitySiteID = '" & FacilityID & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -7783,9 +7783,9 @@ Public Class DMUTool
   "and strDateLastLogIn not like '%2011'  " & _
   "and updateuser <> (numUserID||'-'||strUserName) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7823,9 +7823,9 @@ Public Class DMUTool
                     "UpdateDateTime = '" & Replace(Finalized, "'", "''") & "' " & _
                     "where FacilitySiteID = '" & FacilityID & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -7845,9 +7845,9 @@ Public Class DMUTool
   "and strDateLastLogIn not like '%2011'  " & _
   "and updateuser <> (numUserID||'-'||strUserName) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7885,9 +7885,9 @@ Public Class DMUTool
                     "UpdateDateTime = '" & Replace(Finalized, "'", "''") & "' " & _
                     "where FacilitySiteID = '" & FacilityID & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -7906,9 +7906,9 @@ Public Class DMUTool
   "and strDateLastLogIn not like '%2011'  " & _
   "and updateuser <> (numUserID||'-'||strUserName) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7946,9 +7946,9 @@ Public Class DMUTool
                     "UpdateDateTime = '" & Replace(Finalized, "'", "''") & "' " & _
                     "where FacilitySiteID = '" & FacilityID & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -7967,9 +7967,9 @@ Public Class DMUTool
             "and strDateLastLogIn not like '%2011'  " & _
             "and updateuser <> (numUserID||'-'||strUserName) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8007,9 +8007,9 @@ Public Class DMUTool
                     "UpdateDateTime = '" & Replace(Finalized, "'", "''") & "' " & _
                     "where FacilitySiteID = '" & FacilityID & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -8026,9 +8026,9 @@ Public Class DMUTool
             "and strDateLastLogIn not like '%2011'  " & _
             "and updateuser <> (numUserID||'-'||strUserName) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8066,9 +8066,9 @@ Public Class DMUTool
                     "UpdateDateTime = '" & Replace(Finalized, "'", "''") & "' " & _
                     "where FacilitySiteID = '" & FacilityID & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -8085,9 +8085,9 @@ Public Class DMUTool
         "and strDateLastLogIn not like '%2011'  " & _
         "and updateuser <> (numUserID||'-'||strUserName) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8125,9 +8125,9 @@ Public Class DMUTool
                     "UpdateDateTime = '" & Replace(Finalized, "'", "''") & "' " & _
                     "where FacilitySiteID = '" & FacilityID & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -8144,9 +8144,9 @@ Public Class DMUTool
     "and strDateLastLogIn not like '%2011'  " & _
     "and updateuser <> (numUserID||'-'||strUserName) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8184,9 +8184,9 @@ Public Class DMUTool
                     "UpdateDateTime = '" & Replace(Finalized, "'", "''") & "' " & _
                     "where FacilitySiteID = '" & FacilityID & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -8203,9 +8203,9 @@ Public Class DMUTool
 "and strDateLastLogIn not like '%2011'  " & _
 "and updateuser <> (numUserID||'-'||strUserName) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8243,9 +8243,9 @@ Public Class DMUTool
                     "UpdateDateTime = '" & Replace(Finalized, "'", "''") & "' " & _
                     "where FacilitySiteID = '" & FacilityID & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -8269,9 +8269,9 @@ Public Class DMUTool
             "where not exists (Select * from airbranch.SSCPInspectionsrequired " & _
             "where airbranch.APBMasterAIRS.strAIRSNumber = airbranch.SSCPInspectionsrequired.strAIRSNumber) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8286,9 +8286,9 @@ Public Class DMUTool
                 "values " & _
                 "((Select max(numkey) + 1 from " & DBNameSpace & ".SSCPInspectionsRequired), " & _
                 "'" & AIRSNumber & "', '" & Now.Year.ToString & "') "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
 
                     cmd.ExecuteReader()
@@ -8322,9 +8322,9 @@ Public Class DMUTool
             "From Airbranch.EIS_Mailout " & _
             "where intinventoryYear = '2011' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -8347,9 +8347,9 @@ Public Class DMUTool
                     "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                     "and strKey = '41' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     While dr2.Read
@@ -8430,9 +8430,9 @@ Public Class DMUTool
                         "where intinventoryyear = '2011' " & _
                         "and facilitysiteid = '" & AIRSNumber & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
 
                         dr3 = cmd.ExecuteReader
@@ -8479,9 +8479,9 @@ Public Class DMUTool
             " where '0413'||airbranch.EIS_Mailout.FacilitySiteID = AIRBranch.APBContactInformation.strAIRSNumber " & _
             " and intinventoryyear = '2011' and strContactCompanyName = 'temp'  ) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -8571,9 +8571,9 @@ Public Class DMUTool
                      "where intinventoryyear = '2011' " & _
                      "and facilitysiteid = '" & AIRSNumber & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
 
                     dr3 = cmd.ExecuteReader
@@ -8607,9 +8607,9 @@ Public Class DMUTool
             "and strContactCompanyName = 'GA Department of Natural Resources' " & _
             "order by facilitysiteid "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8623,9 +8623,9 @@ Public Class DMUTool
                 "from airbranch.APBContactInformation " & _
                 "where strAIRSNumber = '0413" & airsnumber & "' " & _
                 "and strkey = '30' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr2 = cmd.ExecuteReader
                 While dr2.Read
@@ -8641,9 +8641,9 @@ Public Class DMUTool
                     "and intInventoryYear = '2011' " & _
                     "and strContactCompanyName = 'GA Department of Natural Resources' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
 
                     dr3 = cmd.ExecuteReader
@@ -8721,10 +8721,10 @@ Public Class DMUTool
         Try
 
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
-            cmd = New OracleCommand("AIRBranch.PD_EIS_QASTART", Conn)
+            cmd = New OracleCommand("AIRBranch.PD_EIS_QASTART", CurrentConnection)
             cmd.CommandType = CommandType.StoredProcedure
 
             cmd.Parameters.Add(New OracleParameter("AIRSNUMBER_IN", OracleDbType.Varchar2)).Value = txtEISAIRSNumber.Text

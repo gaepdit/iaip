@@ -1,16 +1,12 @@
 Imports Oracle.DataAccess.Client
-Imports System.IO
-Imports Microsoft.Win32
+'Imports System.IO
+'Imports Microsoft.Win32
 
 Public Class IAIPLogIn
-    'Dim SQL As String
-    'Dim cmd As OracleCommand
-    'Dim dr As OracleDataReader
     Dim recExist As Boolean
-    Dim IaipFolder As String = Application.StartupPath
     Dim IaipAvailable As Boolean = True
 
-#Region "Page Load"
+#Region " Page Load "
 
     Private Sub IAIPLogIn_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
         If txtUserID.Enabled Then
@@ -31,31 +27,6 @@ Public Class IAIPLogIn
 
             'AddHandler t.Elapsed, AddressOf TimerFired
             't.Enabled = True
-
-            If File.Exists(IaipFolder & "\Oracle.DataAccess.dll") Then
-                Dim version As FileVersionInfo = FileVersionInfo.GetVersionInfo(IaipFolder & "\Oracle.DataAccess.dll")
-                'If File.Exists("C:\APB\Oracle.DataAccess.dll") Then
-                'Dim version As FileVersionInfo = FileVersionInfo.GetVersionInfo("C:\APB\Oracle.DataAccess.dll")
-                Oracledll = version.FileVersion.ToString
-                'If Oracledll = "2.111.6.20" Or Oracledll = "4.112.30" Then
-                If Oracledll <> "9.2.0.401" Then
-                    PrdConnString = "Data Source = luke.dnr.state.ga.us:1521/PRD; User ID = AIRBranch_App_User; " & _
-                        "Password = " & SimpleCrypt("ÁÚ·Ú±Ï") & ";"
-                    DevConnString = "Data Source = leia.dnr.state.ga.us:1521/DEV; User ID = AirBranch; " & _
-                        "Password = " & SimpleCrypt("ÛÌÔÁ·ÏÂÚÙ") & ";"
-                    Conn = New OracleConnection(PrdConnString)
-
-                    PRDCRLogIn = "AIRBranch_App_User/" & SimpleCrypt("ÁÚ·Ú±Ï") & "@//luke.dnr.state.ga.us:1521/PRD"
-                    PRDCRPassWord = ""
-                    'TESTCRLogIn = "AIRBranch_App_User/" & SimpleCrypt("¡…“¡––’”≈“∞≥") & "@//leia.dnr.state.ga.us:1521/TEST"
-                    'TESTCRPassWord = ""
-                    DEVCRLogIn = "airbranch/" & SimpleCrypt("ÛÌÔÁ·ÏÂÚÙ") & "@//leia.dnr.state.ga.us:1521/DEV"
-                    DEVCRPassWord = ""
-
-                    CRLogIn = PRDCRLogIn
-                    CRPassWord = PRDCRPassWord
-                End If
-            End If
 
             VerifyVersion()
 
@@ -171,7 +142,7 @@ Public Class IAIPLogIn
 
 #End Region
 
-#Region "Login"
+#Region " Login "
 
     Private Sub LogInCheck()
         monitor.TrackFeatureStart("Startup.LoggingIn")
@@ -279,26 +250,6 @@ Public Class IAIPLogIn
 
                         SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
 
-                        'If Me.mmiTestingEnvironment.Checked Or mmiTestingDatabase.Checked Or mmiLukeEnvironment.Checked Then
-                        '    If Me.mmiTestingEnvironment.Checked Then
-                        '        NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT"
-                        '        NavigationScreen.pnl4.BackColor = Color.Tomato
-                        '    End If
-                        '    If mmiTestingDatabase.Checked Then
-                        '        NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT"
-                        '        NavigationScreen.pnl4.BackColor = Color.Blue
-                        '    End If
-                        '    If mmiLukeEnvironment.Checked Then
-                        '        NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT"
-                        '        NavigationScreen.pnl4.BackColor = Color.Black
-                        '    End If
-                        'Else
-                        If Me.mmiTestingEnvironment.Checked Then
-                            NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT"
-                            NavigationScreen.pnl4.BackColor = Color.Tomato
-                        Else
-                            NavigationScreen.pnl4.Text = ""
-                        End If
 
                         NavigationScreen.Show()
 
@@ -351,19 +302,40 @@ Public Class IAIPLogIn
     End Sub
 
     Private Sub btnLoginButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoginButton.Click
-        Try
-            LogInCheck()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        LogInCheck()
+    End Sub
+
+    Private Sub ToggleTestingEnvironment(ByVal currentlyTestingEnvironment As Boolean)
+        If currentlyTestingEnvironment Then
+            ' Switch to production environment
+            TestingEnvironment = False
+
+            mmiTestingEnvironment.Checked = False
+            Me.BackColor = SystemColors.Control
+            btnLoginButton.Text = "Log In"
+
+            CurrentConnectionString = DB.GetConnectionString(False)
+        Else
+            ' Switch to testing environment
+            TestingEnvironment = True
+
+            mmiTestingEnvironment.Checked = True
+            Me.BackColor = Color.PapayaWhip
+            btnLoginButton.Text = "Testing Environment"
+
+            CurrentConnectionString = DB.GetConnectionString(True)
+        End If
+
+        ' Reset current connection based on current connection string
+        CurrentConnection = New OracleConnection(CurrentConnectionString)
     End Sub
 
 #End Region
 
-#Region "Close application"
+#Region " Close application "
 
     Private Sub CloseIaip()
-        Conn.Dispose()
+        CurrentConnection.Dispose()
         Application.Exit()
     End Sub
     Private Sub Form_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
@@ -377,7 +349,7 @@ Public Class IAIPLogIn
 
 #End Region
 
-#Region "Form usability"
+#Region " Form usability "
 
     Private Sub lblUserID_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblUserID.Click
         txtUserID.Focus()
@@ -389,40 +361,10 @@ Public Class IAIPLogIn
 
 #End Region
 
-#Region "Menu items"
+#Region " Menu items "
 
     Private Sub mmiTestingEnvironment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiTestingEnvironment.Click
-        'mmiTestingDatabase.Checked = False
-        'mmiLukeEnvironment.Checked = False
-        If mmiTestingEnvironment.Checked = False Then
-            mmiTestingEnvironment.Checked = True
-            TestingEnvironment = True
-
-            'txtUserID.BackColor = Color.Tomato
-            'txtUserPassword.BackColor = Color.Tomato
-            'btnLoginButton.BackColor = Color.Tomato
-            Me.BackColor = Color.PapayaWhip
-            btnLoginButton.Text = "Testing Environment"
-
-            Conn = New OracleConnection(DevConnString)
-            CRLogIn = DEVCRLogIn
-            CRPassWord = DEVCRPassWord
-            CurrentConnString = DevConnString
-        Else
-            mmiTestingEnvironment.Checked = False
-            TestingEnvironment = False
-
-            'txtUserID.BackColor = Color.White
-            'txtUserPassword.BackColor = Color.White
-            'btnLoginButton.BackColor = Color.White
-            Me.BackColor = SystemColors.Control
-            btnLoginButton.Text = "Log In"
-
-            Conn = New OracleConnection(PrdConnString)
-            CRLogIn = PRDCRLogIn
-            CRPassWord = PRDCRPassWord
-            CurrentConnString = PrdConnString
-        End If
+        ToggleTestingEnvironment(mmiTestingEnvironment.Checked)
     End Sub
 
     Private Sub mmiRefreshUserID_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiRefreshUserID.Click
@@ -448,203 +390,6 @@ Public Class IAIPLogIn
 
 #End Region
 
-#Region "Obsolete code"
-
-    'Private Sub mmiTestingDatabase_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles mmiTestingDatabase.Click
-    '    'mmiTestingEnvior.Checked = False
-    '    'mmiLukeEnviornment.Checked = False
-    '    'If mmiTestingDatabase.Checked = False Then
-    '    '    mmiTestingDatabase.Checked = True
-    '    '    txtUserID.BackColor = Color.Blue
-    '    '    txtUserPassword.BackColor = Color.Blue
-    '    '    btnEnter.BackColor = Color.Blue
-    '    '    DBNameSpace = "AIRBRANCH"
-    '    '    conn = New OracleConnection(TESTconnLine)
-    '    '    CRLogIn = TESTCRLogIn
-    '    '    CRPassWord = TESTCRPassWord
-    '    'Else
-    '    '    mmiTestingDatabase.Checked = False
-    '    '    txtUserID.BackColor = Color.White
-    '    '    txtUserPassword.BackColor = Color.White
-    '    '    btnEnter.BackColor = Color.White
-    '    '    DBNameSpace = "AIRBranch"
-    '    '    conn = New OracleConnection(PRDconnLine)
-    '    '    CRLogIn = PRDCRLogIn
-    '    '    CRPassWord = PRDCRPassWord
-    '    'End If
-    'End Sub
-
-    'Private Sub mmiLukeEnviornment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiLukeEnviornment.Click
-    '    mmiTestingEnvior.Checked = False
-    '    mmiTestingDatabase.Checked = False
-    '    If mmiLukeEnviornment.Checked = False Then
-    '        mmiLukeEnviornment.Checked = True
-    '        txtUserID.BackColor = Color.Black
-    '        txtUserPassword.BackColor = Color.Black
-    '        btnLoginButton.BackColor = Color.Bisque
-    '        Conn = New OracleConnection(PrdConnString)
-    '        CRLogIn = PRDCRLogIn
-    '        CRPassWord = PRDCRPassWord
-    '        CurrentConnString = DevConnString
-    '    Else
-    '        mmiLukeEnviornment.Checked = False
-    '        txtUserID.BackColor = Color.White
-    '        txtUserPassword.BackColor = Color.White
-    '        btnLoginButton.BackColor = Color.White
-    '        Conn = New OracleConnection(PrdConnString)
-    '        CRLogIn = PRDCRLogIn
-    '        CRPassWord = PRDCRPassWord
-    '        CurrentConnString = PrdConnString
-    '    End If
-    'End Sub
-
-    'Private Sub IaipPatchLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles IaipPatchLink.LinkClicked
-    '    Try
-    '        Dim Result As DialogResult
-    '        Dim URL As String = ""
-
-    '        Result = MessageBox.Show("If you are not an Administrator User on this machine click 'Cancel'." & vbCrLf & _
-    '                   "If you are not sure contact the Data Management Unit.", "IAIP Patch", _
-    '                   MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-    '        Select Case Result
-    '            Case Windows.Forms.DialogResult.OK
-    '                URL = "http://airpermit.dnr.state.ga.us/iaip/iaipPatch.exe"
-    '                System.Diagnostics.Process.Start(URL)
-    '                Conn.Dispose()
-    '                End
-    '            Case Windows.Forms.DialogResult.Cancel
-
-    '            Case Else
-
-    '        End Select
-
-    '    Catch ex As Exception
-    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    Finally
-
-    '    End Try
-    'End Sub
-
-    'Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAdjustIntranet.Click
-    '    Try
-
-    '        Dim readValue As String
-    '        '  conn = New OracleConnection(PRDconnLine)
-    '        AddHandler t.Elapsed, AddressOf TimerFired
-    '        t.Enabled = True
-
-    '        readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\dnr-tpfs4", "file", Nothing)
-
-    '        '\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\DOMAINNAME
-    '        If readValue Is Nothing Or readValue <> "1" Then
-    '            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\dnr-tpfs4", "file", "1", RegistryValueKind.DWord)
-    '            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\dnr-tpfs4", "*", "1", RegistryValueKind.DWord)
-    '        End If
-
-    '        readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\dnr-tpfs5", "file", Nothing)
-
-    '        '\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\DOMAINNAME
-    '        If readValue Is Nothing Or readValue <> "1" Then
-    '            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\dnr-tpfs5", "file", "1", RegistryValueKind.DWord)
-    '        End If
-
-    '        Exit Sub
-
-    '    Catch ex As Exception
-
-    '    End Try
-    'End Sub
-
-    'Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddEIS.Click
-    '    Try
-    '        ' Exit Sub
-
-    '        If Conn.State = ConnectionState.Closed Then
-    '            Conn.Open()
-    '        End If
-
-    '        cmd = New OracleCommand("AIRBranch.PD_EIS_Process", Conn)
-    '        cmd.CommandType = CommandType.StoredProcedure
-
-    '        cmd.Parameters.Add(New OracleParameter("FACILITYID", OracleDbType.Varchar2)).Value = "03900001"
-    '        cmd.Parameters.Add(New OracleParameter("PROCID", OracleDbType.Varchar2)).Value = "1"
-    '        cmd.Parameters.Add(New OracleParameter("EMISSUNITID", OracleDbType.Varchar2)).Value = "500A"
-    '        cmd.Parameters.Add(New OracleParameter("INVENTORYYEAR", OracleDbType.Varchar2)).Value = "2011"
-    '        cmd.Parameters.Add(New OracleParameter("USERUPDATER", OracleDbType.Varchar2)).Value = "217-John Doe"
-
-    '        cmd.ExecuteNonQuery()
-
-
-    '    Catch ex As Exception
-
-    '    End Try
-    'End Sub
-
-    'Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteEIS.Click
-    '    Try
-
-    '        SQL = "Delete airbranch.EIS_ProcessRPTPeriodSCP " & _
-    '        "where FacilitySiteID = '03900001' " & _
-    '        "and intInventoryYEar = '2011' " & _
-    '        "and ProcessID = '1' " & _
-    '        "and EmissionsUnitID = '500A' "
-
-    '        cmd = New OracleCommand(SQL, Conn)
-    '        If Conn.State = ConnectionState.Closed Then
-    '            Conn.Open()
-    '        End If
-    '        dr = cmd.ExecuteReader
-
-
-    '        SQL = "Delete airbranch.EIS_ReportingPeriodEmissions " & _
-    '        "where FacilitySiteID = '03900001' " & _
-    '        "and intInventoryYEar = '2011' " & _
-    '        "and ProcessID = '1' " & _
-    '        "and EmissionsUnitID = '500A' "
-
-    '        cmd = New OracleCommand(SQL, Conn)
-    '        If Conn.State = ConnectionState.Closed Then
-    '            Conn.Open()
-    '        End If
-    '        dr = cmd.ExecuteReader
-
-    '        SQL = "Delete airbranch.EIS_ProcessOperatingdetails " & _
-    '       "where FacilitySiteID = '03900001' " & _
-    '       " and intInventoryYEar = '2011' " & _
-    '       "and ProcessID = '1' " & _
-    '       "and EmissionsUnitID = '500A' "
-
-    '        cmd = New OracleCommand(SQL, Conn)
-    '        If Conn.State = ConnectionState.Closed Then
-    '            Conn.Open()
-    '        End If
-    '        dr = cmd.ExecuteReader
-
-    '        SQL = "Delete airbranch.EIS_ProcessReportingPeriod " & _
-    '        "where FacilitySiteID = '03900001' " & _
-    '        "and intInventoryYEar = '2011' " & _
-    '        "and ProcessID = '1' " & _
-    '        "and EmissionsUnitID = '500A' "
-
-    '        cmd = New OracleCommand(SQL, Conn)
-    '        If Conn.State = ConnectionState.Closed Then
-    '            Conn.Open()
-    '        End If
-    '        dr = cmd.ExecuteReader
-
-    '    Catch ex As Exception
-
-    '    End Try
-    'End Sub
-
-    'Private Sub LoginForm_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) _
-    '    Handles txtUserPassword.KeyPress, txtUserID.KeyPress
-
-    '    If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
-    '        LogInCheck()
-    '    End If
-    'End Sub
-
     '#Region "Update application"
 
     '    Private Sub StartIaipUpdate()
@@ -661,8 +406,6 @@ Public Class IAIPLogIn
     '    End Sub
 
     '#End Region
-
-#End Region
 
     Private Sub mmiCheckForUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCheckForUpdate.Click
         App.CheckForUpdate()

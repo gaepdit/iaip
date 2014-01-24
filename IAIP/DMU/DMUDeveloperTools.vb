@@ -24,8 +24,8 @@ Public Class DMUDeveloperTools
             Panel3.Text = OracleDate
 
             LoadPermissions()
-            rdbDEVTransfer.Text = Conn.DataSource.ToString & " --> DEV "
-            rdbTESTTransfer.Text = Conn.DataSource.ToString & " --> TEST "
+            rdbDEVTransfer.Text = CurrentConnection.DataSource.ToString & " --> DEV "
+            rdbTESTTransfer.Text = CurrentConnection.DataSource.ToString & " --> TEST "
             lblCurrentVersion.Text = "GetCurrentVersion: " & GetRunningVersion.ToString
             'lblCurrentVersion.Text = "GetCurrentVersion: " & GetCurrentVersion.ToString & "; GetPublishedVersion: " & GetPublishedVersion.ToString
 
@@ -120,10 +120,10 @@ Public Class DMUDeveloperTools
 
             dsStaff = New DataSet
 
-            daStaff = New OracleDataAdapter(SQL, conn)
+            daStaff = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daStaff.Fill(dsStaff, "Staff")
@@ -274,9 +274,9 @@ Public Class DMUDeveloperTools
                 txtAFSBatchFile.Text = "NO AFS DATA TO UPDATE."
             Else
                 SQL = "select AIRBranch.afsFileNumber.nextval from Dual"
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -309,10 +309,10 @@ Public Class DMUDeveloperTools
                         "from AIRBranch.AFSBatchFiles " & _
                         "where AFSFileName = '" & FileName & "' "
 
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
-                        da = New OracleDataAdapter(SQL, conn)
+                        da = New OracleDataAdapter(SQL, CurrentConnection)
                         cmdCB = New OracleCommandBuilder(da)
                         ds = New DataSet("AFSData")
                         da.MissingSchemaAction = MissingSchemaAction.AddWithKey
@@ -389,9 +389,9 @@ Public Class DMUDeveloperTools
             "and strAIRProgramCodes not like '0000000000000%' " & _
             "and strUpDateStatus = 'A'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -569,9 +569,9 @@ Public Class DMUDeveloperTools
                         "and AFSAirPollutantData.strPollutantKey = APBAirProgramPollutants.strPollutantKey " & _
                         "and AFSAirPollutantData.strAIRSNumber  = '04" & AIRSNumber & "' "
 
-                        cmd2 = New OracleCommand(SQL2, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
 
@@ -654,9 +654,9 @@ Public Class DMUDeveloperTools
                         "strUpDateStatus = 'N' " & _
                         "where strAIRSNumber = '" & dr.Item("strAIRSNumber") & "' "
 
-                        cmd2 = New OracleCommand(SQL2, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
 
                         dr2 = cmd2.ExecuteReader
@@ -709,9 +709,9 @@ Public Class DMUDeveloperTools
                     "where strUpDateStatus = 'A' " & _
                     "and strAIRSnumber = '04" & AIRSNumber & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -766,9 +766,9 @@ Public Class DMUDeveloperTools
         " and (AIRBranch.AFSFacilityData.strUpdateStatus = 'C' or AIRBranch.AFSFacilityData.strUpdateStatus = 'N') "
 
         Try
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -879,9 +879,9 @@ Public Class DMUDeveloperTools
             "and AIRBranch.AFSAirPollutantData.strUpdateStatus <> 'N' " & _
             " and  (AIRBranch.AFSFacilityData.strUpdateStatus = 'C' or AIRBranch.AFSFacilityData.strUpdateStatus = 'N') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -910,9 +910,9 @@ Public Class DMUDeveloperTools
                         "from AIRBranch.APBSubpartData " & _
                         "where strSubpartKey = '04" & AIRSNumber & "8' "
 
-                        cmd2 = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd2 = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -954,9 +954,9 @@ Public Class DMUDeveloperTools
                         "from AIRBranch.APBSubpartData " & _
                         "where strSubpartKey = '04" & AIRSNumber & "9' "
 
-                        cmd2 = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd2 = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -998,9 +998,9 @@ Public Class DMUDeveloperTools
                          "from AIRBranch.APBSubpartData " & _
                          "where strSubpartKey = '04" & AIRSNumber & "M' "
 
-                        cmd2 = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd2 = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -1058,9 +1058,9 @@ Public Class DMUDeveloperTools
             "where AIRBranch.AFSAirPollutantData.STRAIRSNUMBER = AIRBranch.AFSFacilityData.STRAIRSNUMBER " & _
             "and   (AIRBranch.AFSFacilityData.strUpdateStatus = 'C' or AIRBranch.AFSFacilityData.strUpdateStatus = 'N')  ) "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             cmd.ExecuteNonQuery()
@@ -1119,9 +1119,9 @@ Public Class DMUDeveloperTools
         "and strUpDateStatus = 'C' "
 
         Try
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1300,9 +1300,9 @@ Public Class DMUDeveloperTools
                         "and AIRBranch.AFSAirPollutantData.strPollutantKey = AIRBranch.APBAirProgramPollutants.strPollutantKey " & _
                         "and strUpdateStatus <> 'N'  "
 
-                        cmd2 = New OracleCommand(SQL2, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
 
@@ -1348,9 +1348,9 @@ Public Class DMUDeveloperTools
                         "strUpDateStatus = 'N' " & _
                         "where strAIRSNumber = '" & dr.Item("strAIRSNumber") & "' "
 
-                        cmd2 = New OracleCommand(SQL2, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
 
                         dr2 = cmd2.ExecuteReader
@@ -1373,9 +1373,9 @@ Public Class DMUDeveloperTools
             "strUpDateStatus = 'N' " & _
             "where strUpDateStatus = 'C' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -1446,9 +1446,9 @@ Public Class DMUDeveloperTools
         " and (AFSFacilityData.strUpdateStatus = 'C' or AFSFacilityData.strUpdateStatus = 'N') "
 
         Try
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1688,9 +1688,9 @@ Public Class DMUDeveloperTools
                  "where strUPDateStatus <> 'N' " & _
                  "and strApplicationNumber = '" & AppNum & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
             End While
@@ -1736,9 +1736,9 @@ Public Class DMUDeveloperTools
         "and (AFSFacilityData.strUpdateStatus = 'C' or AFSFacilityData.strUpdateStatus = 'N') "
 
         Try
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1905,9 +1905,9 @@ Public Class DMUDeveloperTools
                   "where strUPDateStatus <> 'N' " & _
                   "and strFCENumber = '" & FCENumber & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
             End While
@@ -1963,9 +1963,9 @@ Public Class DMUDeveloperTools
         "and (AFSFacilityData.strUpdateStatus = 'C' or AFSFacilityData.strUpdateStatus = 'N') "
 
         Try
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2147,9 +2147,9 @@ Public Class DMUDeveloperTools
                 "where strUPDateStatus <> 'N' " & _
                 "and strTrackingNumber = '" & TrackingNumber & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
 
@@ -2214,9 +2214,9 @@ Public Class DMUDeveloperTools
             "where AIRBranch.sscp_auditedEnforcement.strenforcementnumber = " & _
             "AIRBranch.afssscpenforcementrecords.strenforcementnumber )  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2247,9 +2247,9 @@ Public Class DMUDeveloperTools
                 "'A', '" & ModifingPerson & "', " & _
                 "'" & ModifingDate & "') "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
             End While
@@ -2269,9 +2269,9 @@ Public Class DMUDeveloperTools
             "and strafskeyactionnumber = afssscpenforcementrecords.strAFSActionNumber " & _
             "and strUpdateStatus = 'N' ) "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2303,9 +2303,9 @@ Public Class DMUDeveloperTools
                 "where strEnforcementNumber = '" & EnforcementNumber & "' " & _
                 "and strAfsActionNumber = '" & AFSNumber & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
 
@@ -2325,9 +2325,9 @@ Public Class DMUDeveloperTools
             "and AIRBranch.sscp_auditedEnforcement.strAFSNOVSentNumber = " & _
             "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2357,9 +2357,9 @@ Public Class DMUDeveloperTools
                 "('" & EnforcementNumber & "', '" & AFSNumber & "', " & _
                 "'A', '" & ModifingPerson & "', " & _
                 "'" & ModifingDate & "') "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
             End While
@@ -2380,9 +2380,9 @@ Public Class DMUDeveloperTools
             "and AIRBranch.sscp_auditedEnforcement.strAFSNOVSentNumber = " & _
             "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2412,9 +2412,9 @@ Public Class DMUDeveloperTools
                 "datModifingDate = '" & ModifingDate & "' " & _
                 "where strEnforcementNumber = '" & EnforcementNumber & "' " & _
                 "and strAfsActionNumber = '" & AFSNumber & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
 
@@ -2434,9 +2434,9 @@ Public Class DMUDeveloperTools
             "and AIRBranch.sscp_auditedEnforcement.strAFSNOVResolvedNumber = " & _
             "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2466,9 +2466,9 @@ Public Class DMUDeveloperTools
                 "('" & EnforcementNumber & "', '" & AFSNumber & "', " & _
                 "'A', '" & ModifingPerson & "', " & _
                 "'" & ModifingDate & "') "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
             End While
@@ -2489,9 +2489,9 @@ Public Class DMUDeveloperTools
             "and AIRBranch.sscp_auditedEnforcement.strAFSNOVResolvedNumber = " & _
             "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2521,9 +2521,9 @@ Public Class DMUDeveloperTools
                 "datModifingDate = '" & ModifingDate & "' " & _
                 "where strEnforcementNumber = '" & EnforcementNumber & "' " & _
                 "and strAfsActionNumber = '" & AFSNumber & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
 
@@ -2543,9 +2543,9 @@ Public Class DMUDeveloperTools
             "and AIRBranch.sscp_auditedEnforcement.strAFSCOProposedNumber = " & _
             "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2575,9 +2575,9 @@ Public Class DMUDeveloperTools
                 "('" & EnforcementNumber & "', '" & AFSNumber & "', " & _
                 "'A', '" & ModifingPerson & "', " & _
                 "'" & ModifingDate & "') "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
             End While
@@ -2598,9 +2598,9 @@ Public Class DMUDeveloperTools
             "and AIRBranch.sscp_auditedEnforcement.strAFSCOProposedNumber = " & _
             "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2630,9 +2630,9 @@ Public Class DMUDeveloperTools
                 "datModifingDate = '" & ModifingDate & "' " & _
                 "where strEnforcementNumber = '" & EnforcementNumber & "' " & _
                 "and strAfsActionNumber = '" & AFSNumber & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
 
@@ -2652,9 +2652,9 @@ Public Class DMUDeveloperTools
             "and AIRBranch.sscp_auditedEnforcement.strAFSCOExecutedNumber = " & _
             "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2684,9 +2684,9 @@ Public Class DMUDeveloperTools
                 "('" & EnforcementNumber & "', '" & AFSNumber & "', " & _
                 "'A', '" & ModifingPerson & "', " & _
                 "'" & ModifingDate & "') "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
             End While
@@ -2707,9 +2707,9 @@ Public Class DMUDeveloperTools
             "and AIRBranch.sscp_auditedEnforcement.strAFSCOExecutedNumber = " & _
             "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2739,9 +2739,9 @@ Public Class DMUDeveloperTools
                 "datModifingDate = '" & ModifingDate & "' " & _
                 "where strEnforcementNumber = '" & EnforcementNumber & "' " & _
                 "and strAfsActionNumber = '" & AFSNumber & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
 
@@ -2761,9 +2761,9 @@ Public Class DMUDeveloperTools
             "and AIRBranch.sscp_auditedEnforcement.strAFSCOResolvedNumber = " & _
             "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2793,9 +2793,9 @@ Public Class DMUDeveloperTools
                 "('" & EnforcementNumber & "', '" & AFSNumber & "', " & _
                 "'A', '" & ModifingPerson & "', " & _
                 "'" & ModifingDate & "') "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
             End While
@@ -2816,9 +2816,9 @@ Public Class DMUDeveloperTools
             "and AIRBranch.sscp_auditedEnforcement.strAFSCOResolvedNumber = " & _
             "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2848,9 +2848,9 @@ Public Class DMUDeveloperTools
                 "datModifingDate = '" & ModifingDate & "' " & _
                 "where strEnforcementNumber = '" & EnforcementNumber & "' " & _
                 "and strAfsActionNumber = '" & AFSNumber & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
 
@@ -2870,9 +2870,9 @@ Public Class DMUDeveloperTools
             "and AIRBranch.sscp_auditedEnforcement.strAFSAOtoAGNumber = " & _
             "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2902,9 +2902,9 @@ Public Class DMUDeveloperTools
                 "('" & EnforcementNumber & "', '" & AFSNumber & "', " & _
                 "'A', '" & ModifingPerson & "', " & _
                 "'" & ModifingDate & "') "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
             End While
@@ -2925,9 +2925,9 @@ Public Class DMUDeveloperTools
             "and AIRBranch.sscp_auditedEnforcement.strAFSAOtoAGNumber = " & _
             "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2957,9 +2957,9 @@ Public Class DMUDeveloperTools
                 "datModifingDate = '" & ModifingDate & "' " & _
                 "where strEnforcementNumber = '" & EnforcementNumber & "' " & _
                 "and strAfsActionNumber = '" & AFSNumber & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
 
@@ -2979,9 +2979,9 @@ Public Class DMUDeveloperTools
             "and AIRBranch.sscp_auditedEnforcement.strAFSCivilCOurtNumber = " & _
             "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -3011,9 +3011,9 @@ Public Class DMUDeveloperTools
                 "('" & EnforcementNumber & "', '" & AFSNumber & "', " & _
                 "'A', '" & ModifingPerson & "', " & _
                 "'" & ModifingDate & "') "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
             End While
@@ -3034,9 +3034,9 @@ Public Class DMUDeveloperTools
             "and AIRBranch.sscp_auditedEnforcement.strAFSCivilCOurtNumber = " & _
             "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -3066,9 +3066,9 @@ Public Class DMUDeveloperTools
                 "datModifingDate = '" & ModifingDate & "' " & _
                 "where strEnforcementNumber = '" & EnforcementNumber & "' " & _
                 "and strAfsActionNumber = '" & AFSNumber & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
 
@@ -3088,9 +3088,9 @@ Public Class DMUDeveloperTools
             "and AIRBranch.sscp_auditedEnforcement.strAFSAOResolvedNumber = " & _
             "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -3120,9 +3120,9 @@ Public Class DMUDeveloperTools
                 "('" & EnforcementNumber & "', '" & AFSNumber & "', " & _
                 "'A', '" & ModifingPerson & "', " & _
                 "'" & ModifingDate & "') "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
             End While
@@ -3143,9 +3143,9 @@ Public Class DMUDeveloperTools
             "and AIRBranch.sscp_auditedEnforcement.strAFSAOResolvedNumber = " & _
             "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -3175,9 +3175,9 @@ Public Class DMUDeveloperTools
                 "datModifingDate = '" & ModifingDate & "' " & _
                 "where strEnforcementNumber = '" & EnforcementNumber & "' " & _
                 "and strAfsActionNumber = '" & AFSNumber & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
 
@@ -3236,9 +3236,9 @@ Public Class DMUDeveloperTools
             "and  (AFSFacilityData.strUpdateStatus = 'C' or AFSFacilityData.strUpdateStatus = 'N') " & _
             "Order by strAIRSNumber, strAFSActionNumber ASC  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -3610,9 +3610,9 @@ Public Class DMUDeveloperTools
                 "where strUPDateStatus <> 'N' " & _
                 "and strEnforcementNumber = '" & EnforcementNumber & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
             End While
@@ -3677,9 +3677,9 @@ Public Class DMUDeveloperTools
             "and  (AFSFacilityData.strUpdateStatus = 'C' or AFSFacilityData.strUpdateStatus = 'N') " & _
             "order by strairsnumber, discoverydate "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -4065,9 +4065,9 @@ Public Class DMUDeveloperTools
                "where strUPDateStatus <> 'N' " & _
                "and strEnforcementNumber = '" & EnforcementNumber & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
             End While
@@ -4129,9 +4129,9 @@ Public Class DMUDeveloperTools
         "and (AFSFacilityData.strUpdateStatus = 'C' or AFSFacilityData.strUpdateStatus = 'N')  "
 
         Try
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4283,9 +4283,9 @@ Public Class DMUDeveloperTools
                 "where strUPDateStatus <> 'N' " & _
                 "and strReferenceNumber = '" & referenceNumber & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
             End While
@@ -4307,9 +4307,9 @@ Public Class DMUDeveloperTools
                 "where AIRBranch.LookUPDistricts.strDistrictCode = AIRBranch.LookUPDistrictInformation.strDistrictCode " & _
                 "and strDistrictCounty = '" & Mid(AIRSNumber, 5, 3) & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -4370,9 +4370,9 @@ Public Class DMUDeveloperTools
                 "from AIRBranch.APBMasterAIRS " & _
                 "where strAIRSNumber = '" & AIRSNumber & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -4541,9 +4541,9 @@ Public Class DMUDeveloperTools
                         "('" & AIRSNumber & "', '" & UserGCode & "', " & _
                         "'" & OracleDate & "') "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -4565,9 +4565,9 @@ Public Class DMUDeveloperTools
                         "" & FacilityLatitude & ", '007', " & _
                         "'25', '002') "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -4579,9 +4579,9 @@ Public Class DMUDeveloperTools
                         "from AIRBranch.LookUpCountyInformation " & _
                         "where strCountyCode = '" & Mid(AIRSNumber, 5, 3) & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -4610,9 +4610,9 @@ Public Class DMUDeveloperTools
                         "'From ISMP Data Management Tool, by " & UserName & "', " & _
                         "'" & Replace(PlantDesc, "'", "''") & "', '" & AttainmentStatus & "') "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
 
                         dr = cmd.ExecuteReader
@@ -4629,9 +4629,9 @@ Public Class DMUDeveloperTools
                          "'" & DistrictOffice & "', '', " & _
                          "'00001' ) "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
 
                         dr = cmd.ExecuteReader
@@ -4660,9 +4660,9 @@ Public Class DMUDeveloperTools
                         "'" & MailingZipCode & "', '" & UserGCode & "', " & _
                         "'" & OracleDate & "') "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
 
                         dr = cmd.ExecuteReader
@@ -4678,9 +4678,9 @@ Public Class DMUDeveloperTools
                             "'OT', 'C', " & _
                             "'" & UserGCode & "', '" & OracleDate & "') "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
 
                             dr = cmd.ExecuteReader
@@ -4696,9 +4696,9 @@ Public Class DMUDeveloperTools
                             "'OT', 'C', " & _
                             "'" & UserGCode & "', '" & OracleDate & "') "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
 
                             dr = cmd.ExecuteReader
@@ -4714,9 +4714,9 @@ Public Class DMUDeveloperTools
                             "'OT', 'C', " & _
                             "'" & UserGCode & "', '" & OracleDate & "') "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
 
                             dr = cmd.ExecuteReader
@@ -4732,9 +4732,9 @@ Public Class DMUDeveloperTools
                             "'OT', 'C', " & _
                             "'" & UserGCode & "', '" & OracleDate & "') "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
 
                             dr = cmd.ExecuteReader
@@ -4750,9 +4750,9 @@ Public Class DMUDeveloperTools
                             "'OT', 'C', " & _
                             "'" & UserGCode & "', '" & OracleDate & "') "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
 
                             dr = cmd.ExecuteReader
@@ -4768,9 +4768,9 @@ Public Class DMUDeveloperTools
                             "'OT', 'C', " & _
                             "'" & UserGCode & "', '" & OracleDate & "') "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
 
                             dr = cmd.ExecuteReader
@@ -4786,9 +4786,9 @@ Public Class DMUDeveloperTools
                             "'OT', 'C', " & _
                             "'" & UserGCode & "', '" & OracleDate & "') "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
 
                             dr = cmd.ExecuteReader
@@ -4804,9 +4804,9 @@ Public Class DMUDeveloperTools
                             "'OT', 'C', " & _
                             "'" & UserGCode & "', '" & OracleDate & "') "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
 
                             dr = cmd.ExecuteReader
@@ -4822,9 +4822,9 @@ Public Class DMUDeveloperTools
                             "'OT', 'C', " & _
                             "'" & UserGCode & "', '" & OracleDate & "') "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
 
                             dr = cmd.ExecuteReader
@@ -4840,9 +4840,9 @@ Public Class DMUDeveloperTools
                             "'OT', 'C', " & _
                             "'" & UserGCode & "', '" & OracleDate & "') "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
 
                             dr = cmd.ExecuteReader
@@ -4858,9 +4858,9 @@ Public Class DMUDeveloperTools
                             "'OT', 'C', " & _
                             "'" & UserGCode & "', '" & OracleDate & "') "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
 
                             dr = cmd.ExecuteReader
@@ -4876,9 +4876,9 @@ Public Class DMUDeveloperTools
                             "'OT', 'C', " & _
                             "'" & UserGCode & "', '" & OracleDate & "') "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
 
                             dr = cmd.ExecuteReader
@@ -4894,9 +4894,9 @@ Public Class DMUDeveloperTools
                             "'OT', 'C', " & _
                             "'" & UserGCode & "', '" & OracleDate & "') "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
 
                             dr = cmd.ExecuteReader
@@ -4907,9 +4907,9 @@ Public Class DMUDeveloperTools
                         "values " & _
                         "('" & AIRSNumber & "', 'False', " & _
                         "'1', sysdate) "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -4924,9 +4924,9 @@ Public Class DMUDeveloperTools
                         "((Select max(numkey) + 1 from AIRBranch.SSCPInspectionsRequired), " & _
                         "'" & AIRSNumber & "', '" & Now.Year.ToString & "') "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -5037,10 +5037,10 @@ Public Class DMUDeveloperTools
 
             If SQL <> "" Then
                 dsErrorLog = New DataSet
-                daErrorLog = New OracleDataAdapter(SQL, conn)
+                daErrorLog = New OracleDataAdapter(SQL, CurrentConnection)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 daErrorLog.Fill(dsErrorLog, "ErrorLog")
@@ -5111,10 +5111,10 @@ Public Class DMUDeveloperTools
 
             If SQL <> "" Then
                 dsWebErrorLog = New DataSet
-                daWebErrorLog = New OracleDataAdapter(SQL, conn)
+                daWebErrorLog = New OracleDataAdapter(SQL, CurrentConnection)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 daWebErrorLog.Fill(dsWebErrorLog, "WebErrorLog")
@@ -5377,11 +5377,11 @@ Public Class DMUDeveloperTools
             + "Order by strAIRSNumber "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
+            da = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                CurrentConnection.Open()
             End If
 
             da.Fill(ds, "facilityInfo")
@@ -5457,9 +5457,9 @@ Public Class DMUDeveloperTools
                       "WHERE numUserID = '" & userid & "' " & _
                       "and strAirsNumber = '0413" & airsno & "' "
 
-            Dim cmd As New OracleCommand(updateString, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            Dim cmd As New OracleCommand(updateString, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteNonQuery()
           
@@ -5512,9 +5512,9 @@ Public Class DMUDeveloperTools
                 SQL = "Update " & DBNameSpace & ".IAIPErrorLog set " & _
                 "strSolution = '" & Replace(ErrorSolution, "'", "''") & "' " & _
                 "where strErrornumber = '" & txtErrorNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -5570,9 +5570,9 @@ Public Class DMUDeveloperTools
                     "From " & DBNameSpace & ".OLAPERRORLog " & _
                     "where numError = " & txtWebErrorNumber.Text & " "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -5627,9 +5627,9 @@ Public Class DMUDeveloperTools
                 SQL = "Update " & DBNameSpace & ".OLAPErrorLog set " & _
                 "strSolution = '" & Replace(ErrorSolution, "'", "''") & "' " & _
                 "where numError = '" & txtWebErrorNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -5664,9 +5664,9 @@ Public Class DMUDeveloperTools
 
             If Me.txtDeleteAIRSNumber.Text <> "" And txtDeleteAIRSNumber.Text.Length = 8 Then
                 SQL = "delete " & DBNameSpace & ".afsairpollutantdata where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5684,17 +5684,17 @@ Public Class DMUDeveloperTools
                 "'" & OracleDate & "', '', " & _
                 "'') "
 
-                cmd = New OracleCommand(SQL2, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL2, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
                 SQL = "delete " & DBNameSpace & ".afsfacilitydata where strAirsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5712,17 +5712,17 @@ Public Class DMUDeveloperTools
                          "'" & OracleDate & "', '', " & _
                          "'') "
 
-                cmd = New OracleCommand(SQL2, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL2, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
                 SQL = "delete " & DBNameSpace & ".apbairprogrampollutants where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5740,17 +5740,17 @@ Public Class DMUDeveloperTools
                          "'" & OracleDate & "', '', " & _
                          "'') "
 
-                cmd = New OracleCommand(SQL2, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL2, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
                 SQL = "delete " & DBNameSpace & ".hb_apbairprogrampollutants where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5768,17 +5768,17 @@ Public Class DMUDeveloperTools
                          "'" & OracleDate & "', '', " & _
                          "'') "
 
-                cmd = New OracleCommand(SQL2, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL2, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
                 SQL = "delete " & DBNameSpace & ".apbcontactinformation where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5796,17 +5796,17 @@ Public Class DMUDeveloperTools
                          "'" & OracleDate & "', '', " & _
                          "'') "
 
-                cmd = New OracleCommand(SQL2, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL2, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
                 SQL = "delete " & DBNameSpace & ".apbheaderdata where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5824,17 +5824,17 @@ Public Class DMUDeveloperTools
                          "'" & OracleDate & "', '', " & _
                          "'') "
 
-                cmd = New OracleCommand(SQL2, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL2, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
                 SQL = "delete " & DBNameSpace & ".HB_APBHeaderData where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5852,17 +5852,17 @@ Public Class DMUDeveloperTools
                          "'" & OracleDate & "', '', " & _
                          "'') "
 
-                cmd = New OracleCommand(SQL2, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL2, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
                 SQL = "delete " & DBNameSpace & ".HB_APBFacilityInformation where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5880,17 +5880,17 @@ Public Class DMUDeveloperTools
                          "'" & OracleDate & "', '', " & _
                          "'') "
 
-                cmd = New OracleCommand(SQL2, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL2, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
                 SQL = "delete " & DBNameSpace & ".APBFacilityInformation where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5908,17 +5908,17 @@ Public Class DMUDeveloperTools
                          "'" & OracleDate & "', '', " & _
                          "'') "
 
-                cmd = New OracleCommand(SQL2, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL2, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
                 SQL = "delete " & DBNameSpace & ".apbsupplamentaldata where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5936,9 +5936,9 @@ Public Class DMUDeveloperTools
                          "'" & OracleDate & "', '', " & _
                          "'') "
 
-                cmd = New OracleCommand(SQL2, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL2, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5947,9 +5947,9 @@ Public Class DMUDeveloperTools
 
                 SQL = "Delete " & DBNameSpace & ".SSCPInspectionsRequired where strAIRSnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5967,17 +5967,17 @@ Public Class DMUDeveloperTools
                          "'" & OracleDate & "', '', " & _
                          "'') "
 
-                cmd = New OracleCommand(SQL2, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL2, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
                 SQL = "Delete " & DBNameSpace & ".SSCPDistrictResponsible where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5995,17 +5995,17 @@ Public Class DMUDeveloperTools
                          "'" & OracleDate & "', '', " & _
                          "'') "
 
-                cmd = New OracleCommand(SQL2, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL2, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
                 SQL = "delete " & DBNameSpace & ".sscpfacilityassignment where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -6023,18 +6023,18 @@ Public Class DMUDeveloperTools
                          "'" & OracleDate & "', '', " & _
                          "'') "
 
-                cmd = New OracleCommand(SQL2, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL2, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
 
                 SQL = "delete " & DBNameSpace & ".sscpInspectionsRequired where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -6052,18 +6052,18 @@ Public Class DMUDeveloperTools
                          "'" & OracleDate & "', '', " & _
                          "'') "
 
-                cmd = New OracleCommand(SQL2, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL2, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
 
                 SQL = "delete " & DBNameSpace & ".apbmasterairs where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -6081,9 +6081,9 @@ Public Class DMUDeveloperTools
                          "'" & OracleDate & "', '', " & _
                          "'') "
 
-                cmd = New OracleCommand(SQL2, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL2, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -7207,9 +7207,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPAPBMANAGEMENT "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -7272,9 +7272,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPAPPLICATIONTYPES "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -7331,9 +7331,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPCOMPLIANCEACTIVITIES "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -7390,9 +7390,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPCOMPLIANCESTATUS "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -7444,9 +7444,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPCOMPLIANCEUNITS "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -7503,9 +7503,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPCOUNTYINFORMATION "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -7570,9 +7570,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPDISTRICTINFORMATION "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -7622,9 +7622,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPDISTRICTOFFICE "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -7675,9 +7675,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPDISTRICTS "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -7734,9 +7734,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPEPDBranches "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -7786,9 +7786,9 @@ Public Class DMUDeveloperTools
               "from " & DBNameSpace & ".LOOKUPEPDPrograms "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -7845,9 +7845,9 @@ Public Class DMUDeveloperTools
                     "from " & DBNameSpace & ".LookUpEPDUnits "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -7904,9 +7904,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPHPVVIOLATIONS "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -7957,9 +7957,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LookupIAIPAccounts "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -8035,9 +8035,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LookUpIAIPForms "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -8094,9 +8094,9 @@ Public Class DMUDeveloperTools
               "from " & DBNameSpace & ".LookUpISMPComplianceStatus "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -8153,9 +8153,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPISMPMETHODS "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -8205,9 +8205,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPMONITORINGUNITS "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -8265,9 +8265,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPNONATTAINMENT "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -8318,9 +8318,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPPERMITTINGUNITS "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -8377,9 +8377,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPPERMITTYPES "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -8436,9 +8436,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPPOLLUTANTS "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -8498,9 +8498,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPSICCODES "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -8551,9 +8551,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPSSCPNOTIFICATIONS "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -8603,9 +8603,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPSTATES "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -8655,9 +8655,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPSUBPART60 "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -8707,9 +8707,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPSUBPART61 "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -8759,9 +8759,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPSUBPART63 "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -8811,9 +8811,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPSUBPARTSIP "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -8863,9 +8863,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPTESTINGFIRMS "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -8974,9 +8974,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".LOOKUPUNITS "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -9027,9 +9027,9 @@ Public Class DMUDeveloperTools
         "order by ReasonID "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -9080,9 +9080,9 @@ Public Class DMUDeveloperTools
         "order by numUserID "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -9139,9 +9139,9 @@ Public Class DMUDeveloperTools
         "order by numUserID "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -9260,9 +9260,9 @@ Public Class DMUDeveloperTools
         "order by strAIRSYear "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -9634,9 +9634,9 @@ Public Class DMUDeveloperTools
        "order by strAIRSYear "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -9780,9 +9780,9 @@ Public Class DMUDeveloperTools
   "order by strAIRSYearERPointID "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -9951,9 +9951,9 @@ Public Class DMUDeveloperTools
 "order by strAIRSYearEUProcID "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -10202,9 +10202,9 @@ Public Class DMUDeveloperTools
 "order by strAIRSYearEUEPEM "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -10417,9 +10417,9 @@ Public Class DMUDeveloperTools
         SQL = "Select Status " & _
           "from user_triggers " & _
           "where trigger_name = 'tg_afs_airpollutants' "
-        cmd = New OracleCommand(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        cmd = New OracleCommand(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         dr = cmd.ExecuteReader
         While dr.Read
@@ -10448,9 +10448,9 @@ Public Class DMUDeveloperTools
         SQL = "Select Status " & _
           "from user_triggers " & _
           "where trigger_name = 'tg_afs_airprogrampollutants' "
-        cmd = New OracleCommand(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        cmd = New OracleCommand(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         dr = cmd.ExecuteReader
         While dr.Read
@@ -10479,9 +10479,9 @@ Public Class DMUDeveloperTools
         SQL = "Select Status " & _
           "from user_triggers " & _
           "where trigger_name = 'tg_HB_APBAirProgramPollutants' "
-        cmd = New OracleCommand(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        cmd = New OracleCommand(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         dr = cmd.ExecuteReader
         While dr.Read
@@ -10513,9 +10513,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".APBAIRPROGRAMPOLLUTANTS "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -10613,9 +10613,9 @@ Public Class DMUDeveloperTools
         SQL = "Select Status " & _
           "from user_triggers " & _
           "where trigger_name = 'tg_afs_airpollutants' "
-        cmd = New OracleCommand(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        cmd = New OracleCommand(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         dr = cmd.ExecuteReader
         While dr.Read
@@ -10644,9 +10644,9 @@ Public Class DMUDeveloperTools
         SQL = "Select Status " & _
           "from user_triggers " & _
           "where trigger_name = 'tg_afs_airprogrampollutants' "
-        cmd = New OracleCommand(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        cmd = New OracleCommand(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         dr = cmd.ExecuteReader
         While dr.Read
@@ -10675,9 +10675,9 @@ Public Class DMUDeveloperTools
         SQL = "Select Status " & _
          "from user_triggers " & _
          "where trigger_name = 'tg_HB_APBAirProgramPollutants' "
-        cmd = New OracleCommand(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        cmd = New OracleCommand(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         dr = cmd.ExecuteReader
         While dr.Read
@@ -10709,9 +10709,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".APBCONTACTINFORMATION "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -10903,9 +10903,9 @@ Public Class DMUDeveloperTools
         SQL = "Select Status " & _
           "from user_triggers " & _
           "where trigger_name = 'TG_HB_APBFACILITYINFORMATION' "
-        cmd = New OracleCommand(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        cmd = New OracleCommand(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         dr = cmd.ExecuteReader
         While dr.Read
@@ -10934,9 +10934,9 @@ Public Class DMUDeveloperTools
         SQL = "Select Status " & _
           "from user_triggers " & _
           "where trigger_name = 'TG_AFS_FACILITYINFORMATION' "
-        cmd = New OracleCommand(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        cmd = New OracleCommand(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         dr = cmd.ExecuteReader
         While dr.Read
@@ -10966,9 +10966,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".APBFACILITYINFORMATION "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -11121,9 +11121,9 @@ Public Class DMUDeveloperTools
         SQL = "Select Status " & _
         "from user_triggers " & _
         "where trigger_name = 'TG_HB_APBFACILITYINFORMATION' "
-        cmd = New OracleCommand(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        cmd = New OracleCommand(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         dr = cmd.ExecuteReader
         While dr.Read
@@ -11152,9 +11152,9 @@ Public Class DMUDeveloperTools
         SQL = "Select Status " & _
        "from user_triggers " & _
        "where trigger_name = 'TG_AFS_FACILITYINFORMATION' "
-        cmd = New OracleCommand(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        cmd = New OracleCommand(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         dr = cmd.ExecuteReader
         While dr.Read
@@ -11185,9 +11185,9 @@ Public Class DMUDeveloperTools
         SQL = "Select Status " & _
           "from user_triggers " & _
           "where trigger_name = 'tg_afs_headerdata' "
-        cmd = New OracleCommand(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        cmd = New OracleCommand(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         dr = cmd.ExecuteReader
         While dr.Read
@@ -11216,9 +11216,9 @@ Public Class DMUDeveloperTools
         SQL = "Select Status " & _
           "from user_triggers " & _
           "where trigger_name = 'tg_hb_apbheaderData' "
-        cmd = New OracleCommand(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        cmd = New OracleCommand(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         dr = cmd.ExecuteReader
         While dr.Read
@@ -11247,9 +11247,9 @@ Public Class DMUDeveloperTools
         SQL = "Select Status " & _
           "from user_triggers " & _
           "where trigger_name = 'tg_air_Programcodes' "
-        cmd = New OracleCommand(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        cmd = New OracleCommand(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         dr = cmd.ExecuteReader
         While dr.Read
@@ -11279,9 +11279,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".APBHEADERDATA "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -11428,9 +11428,9 @@ Public Class DMUDeveloperTools
         SQL = "Select Status " & _
           "from user_triggers " & _
           "where trigger_name = 'tg_air_Programcodes' "
-        cmd = New OracleCommand(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        cmd = New OracleCommand(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         dr = cmd.ExecuteReader
         While dr.Read
@@ -11459,9 +11459,9 @@ Public Class DMUDeveloperTools
         SQL = "Select Status " & _
          "from user_triggers " & _
          "where trigger_name = 'tg_afs_headerdata' "
-        cmd = New OracleCommand(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        cmd = New OracleCommand(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         dr = cmd.ExecuteReader
         While dr.Read
@@ -11490,9 +11490,9 @@ Public Class DMUDeveloperTools
         SQL = "Select Status " & _
          "from user_triggers " & _
          "where trigger_name = 'tg_hb_apbheaderData' "
-        cmd = New OracleCommand(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        cmd = New OracleCommand(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         dr = cmd.ExecuteReader
         While dr.Read
@@ -11523,9 +11523,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".APBMASTERAIRS "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -11582,9 +11582,9 @@ Public Class DMUDeveloperTools
               "from " & DBNameSpace & ".APBMasterAPP "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -11635,9 +11635,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".APBSUBPARTDATA "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -11724,9 +11724,9 @@ Public Class DMUDeveloperTools
         SQL = "Select Status " & _
           "from user_triggers " & _
           "where trigger_name = 'tg_afs_SupplamentalData' "
-        cmd = New OracleCommand(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        cmd = New OracleCommand(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         dr = cmd.ExecuteReader
         While dr.Read
@@ -11756,9 +11756,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".APBSUPPLAMENTALDATA "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -11886,9 +11886,9 @@ Public Class DMUDeveloperTools
         SQL = "Select Status " & _
                   "from user_triggers " & _
                   "where trigger_name = 'tg_afs_SupplamentalData' "
-        cmd = New OracleCommand(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        cmd = New OracleCommand(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         dr = cmd.ExecuteReader
         While dr.Read
@@ -11928,9 +11928,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".HB_APBAIRPROGRAMPOLLUTANTS "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -12037,9 +12037,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".HB_APBFACILITYINFORMATION "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -12192,9 +12192,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".HB_APBHEADERDATA "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -12358,9 +12358,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".ISMPDocumentType "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -12423,9 +12423,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".ISMPFacilityAssignment "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -12475,9 +12475,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".ISMPMaster "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -12556,9 +12556,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".ISMPReferenceNumber "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -12606,9 +12606,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".ISMPReportFlare "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -12872,9 +12872,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".ISMPReportInformation "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -13125,9 +13125,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".ISMPReportMemo "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -13267,9 +13267,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".ISMPReportOneStack "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -13604,9 +13604,9 @@ Public Class DMUDeveloperTools
               "from " & DBNameSpace & ".ISMPReportOpacity "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -13863,9 +13863,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".ISMPReportPondAndGas "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -14109,9 +14109,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".ISMPReportRata "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -14375,9 +14375,9 @@ Public Class DMUDeveloperTools
       "from " & DBNameSpace & ".ISMPReportTwoStack "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -14864,9 +14864,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".ISMPReportType "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -14916,9 +14916,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".ISMPTestFirmComments "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -15027,9 +15027,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".ISMPTestLogLink "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -15079,9 +15079,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".ISMPTestLogNumber "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -15125,9 +15125,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".ISMPTestNotification "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -15309,9 +15309,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".ISMPTestNotificationLog "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -15417,9 +15417,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".ISMPTestReportMemo "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -15469,9 +15469,9 @@ Public Class DMUDeveloperTools
               "from " & DBNameSpace & ".ISMPWitnessingEng "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -15521,9 +15521,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".SSCPACCS "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -15664,9 +15664,9 @@ Public Class DMUDeveloperTools
       "from " & DBNameSpace & ".SSCPACCSHistory "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -15807,9 +15807,9 @@ Public Class DMUDeveloperTools
    "from " & DBNameSpace & ".SSCPDistrictAssignment "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -15885,9 +15885,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".SSCPDistrictResponsible "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -15963,9 +15963,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".SSCPEnforcement "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -16341,9 +16341,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".SSCPEnforcementAOComments "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -16413,9 +16413,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".SSCPEnforcementCOComments "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -16485,9 +16485,9 @@ Public Class DMUDeveloperTools
      "from " & DBNameSpace & ".SSCPEnforcementItems "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -16592,9 +16592,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".SSCPEnforcementNOVComments "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -16664,9 +16664,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".SSCPEnforcementStipulated "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -16764,9 +16764,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".SSCPFacilityAssignment "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -16849,9 +16849,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".SSCPFCE "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -16960,9 +16960,9 @@ Public Class DMUDeveloperTools
       "from " & DBNameSpace & ".SSCPFCEMaster "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -17038,9 +17038,9 @@ Public Class DMUDeveloperTools
       "from " & DBNameSpace & ".SSCPInspectionActivity "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -17123,9 +17123,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".SSCPInspections "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -17253,9 +17253,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".SSCPInspectionsRequired "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -17331,9 +17331,9 @@ Public Class DMUDeveloperTools
       "from " & DBNameSpace & ".SSCPInspectionTracking "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -17456,9 +17456,9 @@ Public Class DMUDeveloperTools
     "from " & DBNameSpace & ".SSCPItemMaster "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -17581,9 +17581,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".SSCPNotifications "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -17706,9 +17706,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".SSCPReports "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -17853,9 +17853,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".SSCPReportsHistory "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -17999,9 +17999,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".SSCPTestReports "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -18098,9 +18098,9 @@ Public Class DMUDeveloperTools
               "from " & DBNameSpace & ".SSPPApplicationContact "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -18248,9 +18248,9 @@ Public Class DMUDeveloperTools
             "from " & DBNameSpace & ".SSPPApplicationData "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -18534,9 +18534,9 @@ Public Class DMUDeveloperTools
             "from " & DBNameSpace & ".SSPPApplicationInformation "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -18641,9 +18641,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".SSPPApplicationLinking "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -18705,9 +18705,9 @@ Public Class DMUDeveloperTools
             "from " & DBNameSpace & ".SSPPApplicationMaster "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -18816,9 +18816,9 @@ Public Class DMUDeveloperTools
             "from " & DBNameSpace & ".SSPPApplicationQuality "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -18914,9 +18914,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".SSPPApplicationTracking "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -19189,9 +19189,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".SSPPCDS "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -19407,9 +19407,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".AFSAirPollutantData "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -19506,9 +19506,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".AFSFacilityData "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -19586,9 +19586,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".AFSISMPRecords "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -19673,9 +19673,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".AFSSSCPEnforcementRecords "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -19760,9 +19760,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".AFSSSCPFCERecords "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -19847,9 +19847,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".AFSSSCPRecords "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -19934,9 +19934,9 @@ Public Class DMUDeveloperTools
         "from " & DBNameSpace & ".AFSSSPPRecords "
 
         dsTemp = New DataSet
-        daTemp = New OracleDataAdapter(SQL, conn)
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        daTemp = New OracleDataAdapter(SQL, CurrentConnection)
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
         daTemp.Fill(dsTemp, "Temp")
 
@@ -20039,9 +20039,9 @@ Public Class DMUDeveloperTools
                 "" & DBNameSpace & ".SSPPApplicationContact " & _
                 "where " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationContact.strApplicationNumber " & _
                 "and " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -20259,9 +20259,9 @@ Public Class DMUDeveloperTools
                 txtAFSBatchFile.Text = "NO AFS DATA TO UPDATE."
             Else
                 SQL = "select " & DBNameSpace & ".afsFileNumber.nextval from Dual"
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -20294,10 +20294,10 @@ Public Class DMUDeveloperTools
                         "from " & DBNameSpace & ".AFSBatchFiles " & _
                         "where AFSFileName = '" & FileName & "' "
 
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
-                        da = New OracleDataAdapter(SQL, conn)
+                        da = New OracleDataAdapter(SQL, CurrentConnection)
                         cmdCB = New OracleCommandBuilder(da)
                         ds = New DataSet("AFSData")
                         da.MissingSchemaAction = MissingSchemaAction.AddWithKey
@@ -20366,9 +20366,9 @@ Public Class DMUDeveloperTools
             "and " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber   " & _
             "and " & DBNameSpace & ".APBContactInformation.strKEy = '30'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -20538,9 +20538,9 @@ Public Class DMUDeveloperTools
                     "and " & DBNameSpace & ".AFSAirPollutantData.strPollutantKey = " & DBNameSpace & ".APBAirProgramPollutants.strPollutantKey " & _
                     "and " & DBNameSpace & ".AFSAirPollutantData.strAIRSNumber  = '04" & AIRSNumber & "' "
 
-                    cmd2 = New OracleCommand(SQL2, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
 
@@ -20706,9 +20706,9 @@ Public Class DMUDeveloperTools
                     "from " & DBNameSpace & ".IAIPErrorLog, " & DBNameSpace & ".EPDUserProfiles  " & _
                     "where " & DBNameSpace & ".IAIPErrorLog.strUser = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                     "and strErrorNumber = '" & txtErrorNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -20777,9 +20777,9 @@ Public Class DMUDeveloperTools
             " and " & DBNameSpace & ".AFSFacilityData.strUpdateStatus <>  'A' " & _
             "   and AIRBranch.AFSFacilityData.strUpdateStatus <>  'H' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -20804,9 +20804,9 @@ Public Class DMUDeveloperTools
                         "from " & DBNameSpace & ".APBSubpartData " & _
                         "where strSubpartKey = '04" & AIRSNumber & "8' "
 
-                        cmd2 = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd2 = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -20848,9 +20848,9 @@ Public Class DMUDeveloperTools
                         "from " & DBNameSpace & ".APBSubpartData " & _
                         "where strSubpartKey = '04" & AIRSNumber & "9' "
 
-                        cmd2 = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd2 = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -20892,9 +20892,9 @@ Public Class DMUDeveloperTools
                          "from " & DBNameSpace & ".APBSubpartData " & _
                          "where strSubpartKey = '04" & AIRSNumber & "M' "
 
-                        cmd2 = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd2 = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -20959,9 +20959,9 @@ Public Class DMUDeveloperTools
           " and " & DBNameSpace & ".AFSFacilityData.strUpdateStatus <>  'A' " & _
           "   and AIRBranch.AFSFacilityData.strUpdateStatus <>  'H' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -20986,9 +20986,9 @@ Public Class DMUDeveloperTools
                         "from " & DBNameSpace & ".APBSubpartData " & _
                         "where strSubpartKey = '04" & AIRSNumber & "8' "
 
-                        cmd2 = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd2 = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -21030,9 +21030,9 @@ Public Class DMUDeveloperTools
                         "from " & DBNameSpace & ".APBSubpartData " & _
                         "where strSubpartKey = '04" & AIRSNumber & "9' "
 
-                        cmd2 = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd2 = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -21074,9 +21074,9 @@ Public Class DMUDeveloperTools
                          "from " & DBNameSpace & ".APBSubpartData " & _
                          "where strSubpartKey = '04" & AIRSNumber & "M' "
 
-                        cmd2 = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd2 = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -21137,9 +21137,9 @@ Public Class DMUDeveloperTools
                 txtAFSBatchFile.Text = "NO AFS DATA TO UPDATE."
             Else
                 SQL = "select " & DBNameSpace & ".afsFileNumber.nextval from Dual"
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -21172,10 +21172,10 @@ Public Class DMUDeveloperTools
                         "from " & DBNameSpace & ".AFSBatchFiles " & _
                         "where AFSFileName = '" & FileName & "' "
 
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
-                        da = New OracleDataAdapter(SQL, conn)
+                        da = New OracleDataAdapter(SQL, CurrentConnection)
                         cmdCB = New OracleCommandBuilder(da)
                         ds = New DataSet("AFSData")
                         da.MissingSchemaAction = MissingSchemaAction.AddWithKey
@@ -21857,9 +21857,9 @@ Public Class DMUDeveloperTools
             "where strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
             "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -21868,9 +21868,9 @@ Public Class DMUDeveloperTools
            "where strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
            "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -21881,9 +21881,9 @@ Public Class DMUDeveloperTools
              "and strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
              "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H'))"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -21894,9 +21894,9 @@ Public Class DMUDeveloperTools
            "and strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
            "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H'))"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -21907,9 +21907,9 @@ Public Class DMUDeveloperTools
             "and strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
             "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H'))"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -21921,9 +21921,9 @@ Public Class DMUDeveloperTools
             "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H'))"
 
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -21934,9 +21934,9 @@ Public Class DMUDeveloperTools
             "and strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
             "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H'))"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -21954,9 +21954,9 @@ Public Class DMUDeveloperTools
             "where strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
             "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -21965,9 +21965,9 @@ Public Class DMUDeveloperTools
           "where strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
           "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -21978,9 +21978,9 @@ Public Class DMUDeveloperTools
                 "and strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
                 "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H'))"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -21991,9 +21991,9 @@ Public Class DMUDeveloperTools
            "and strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
            "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H'))"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -22004,9 +22004,9 @@ Public Class DMUDeveloperTools
             "and strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
             "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H'))"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -22018,9 +22018,9 @@ Public Class DMUDeveloperTools
             "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H'))"
 
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -22031,9 +22031,9 @@ Public Class DMUDeveloperTools
             "and strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
             "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H'))"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -22058,9 +22058,9 @@ Public Class DMUDeveloperTools
                 txtAFSBatchFile.Text = "NO AFS DATA TO UPDATE."
             Else
                 SQL = "select " & DBNameSpace & ".afsFileNumber.nextval from Dual"
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -22093,10 +22093,10 @@ Public Class DMUDeveloperTools
                         "from " & DBNameSpace & ".AFSBatchFiles " & _
                         "where AFSFileName = '" & FileName & "' "
 
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
-                        da = New OracleDataAdapter(SQL, conn)
+                        da = New OracleDataAdapter(SQL, CurrentConnection)
                         cmdCB = New OracleCommandBuilder(da)
                         ds = New DataSet("AFSData")
                         da.MissingSchemaAction = MissingSchemaAction.AddWithKey
@@ -22172,9 +22172,9 @@ Public Class DMUDeveloperTools
             "strVersionNumber = '" & Replace(VersionNumberInput.Text, "'", "''") & "' " & _
             "where strApplicationName = 'IAIP' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()

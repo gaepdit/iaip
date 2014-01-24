@@ -603,7 +603,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -643,7 +643,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -659,11 +659,11 @@ Public Class ISMPFacilityInfo
             dsPollutant = New DataSet
             dsTestingFirms = New DataSet
 
-            daPollutant = New OracleDataAdapter(SQL, Conn)
-            daTestingFirms = New OracleDataAdapter(SQL2, Conn)
+            daPollutant = New OracleDataAdapter(SQL, CurrentConnection)
+            daTestingFirms = New OracleDataAdapter(SQL2, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daPollutant.Fill(dsPollutant, "Pollutant")
@@ -672,7 +672,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -705,7 +705,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -721,16 +721,16 @@ Public Class ISMPFacilityInfo
 
             SQL = "Select strReferenceNumber from " & DBNameSpace & ".ISMPReferenceNumber"
 
-            Dim cmd As New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             Dim dr As OracleDataReader = cmd.ExecuteReader
             While dr.Read
                 RefNum = dr.Item("strReferenceNumber")
             End While
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
             RefNum = CStr(CInt(RefNum) + 1)
@@ -738,9 +738,9 @@ Public Class ISMPFacilityInfo
             txtReferenceNumber.Text = RefNum
 
             SQL = "Update " & DBNameSpace & ".ISMPReferenceNumber set strReferenceNumber = '" & RefNum & "'"
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             cmd.ExecuteReader()
@@ -748,7 +748,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -782,16 +782,16 @@ Public Class ISMPFacilityInfo
                             "from " & DBNameSpace & ".ISMPMaster " & _
                             "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-                            Dim cmd As New OracleCommand(SQL, Conn)
+                            Dim cmd As New OracleCommand(SQL, CurrentConnection)
 
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
 
                             Dim dr As OracleDataReader = cmd.ExecuteReader
 
                             Dim recExist As Boolean = dr.Read
-                            If Conn.State = ConnectionState.Open Then
+                            If CurrentConnection.State = ConnectionState.Open Then
                                 'conn.close()
                             End If
                             panel1.Text = "Saving New Test Report....."
@@ -983,19 +983,19 @@ Public Class ISMPFacilityInfo
 
                             Try
 
-                                cmd = New OracleCommand(SQL, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
-                                If Conn.State = ConnectionState.Open Then
+                                If CurrentConnection.State = ConnectionState.Open Then
                                     'conn.close()
                                 End If
 
                             Catch ex As Exception
                                 ErrorReport(ex, "ISMPFacilityInfo.Save(Sub)")
                             Finally
-                                If Conn.State = ConnectionState.Open Then
+                                If CurrentConnection.State = ConnectionState.Open Then
                                     'conn.close()
                                 End If
                             End Try
@@ -1005,12 +1005,12 @@ Public Class ISMPFacilityInfo
 
                             Try
 
-                                cmd = New OracleCommand(SQL2, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL2, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
-                                If Conn.State = ConnectionState.Open Then
+                                If CurrentConnection.State = ConnectionState.Open Then
                                     'conn.close()
                                 End If
 
@@ -1018,7 +1018,7 @@ Public Class ISMPFacilityInfo
                             Catch ex As Exception
                                 ErrorReport(ex, "ISMPFacilityInfo.Save(Sub2)")
                             Finally
-                                If Conn.State = ConnectionState.Open Then
+                                If CurrentConnection.State = ConnectionState.Open Then
                                     'conn.close()
                                 End If
                             End Try
@@ -1051,7 +1051,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1074,7 +1074,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1090,7 +1090,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1109,7 +1109,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1124,7 +1124,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1146,7 +1146,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1161,7 +1161,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1179,7 +1179,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1194,7 +1194,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1209,7 +1209,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1222,7 +1222,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1235,7 +1235,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1248,7 +1248,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1261,7 +1261,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1274,7 +1274,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1287,7 +1287,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1303,7 +1303,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1319,7 +1319,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1335,7 +1335,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1349,7 +1349,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1367,7 +1367,7 @@ Public Class ISMPFacilityInfo
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

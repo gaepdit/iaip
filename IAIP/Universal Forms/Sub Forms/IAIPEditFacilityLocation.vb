@@ -47,11 +47,11 @@ Public Class IAIPEditFacilityLocation
             "Order by strKey DESC "
 
             dsFacilityInformation = New DataSet
-            daFacilityInformation = New OracleDataAdapter(SQL, Conn)
-            daFacilityInformation2 = New OracleDataAdapter(SQL2, Conn)
+            daFacilityInformation = New OracleDataAdapter(SQL, CurrentConnection)
+            daFacilityInformation2 = New OracleDataAdapter(SQL2, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daFacilityInformation.Fill(dsFacilityInformation, "Current")
@@ -333,9 +333,9 @@ Public Class IAIPEditFacilityLocation
                             "strModifingLocation = '2' " & _
                             "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             Try
 
@@ -352,9 +352,9 @@ Public Class IAIPEditFacilityLocation
                                 "strFacilityName = '" & Replace(FacilityName, "'", "''") & "' " & _
                                 "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
-                                cmd = New OracleCommand(SQL, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Close()
@@ -372,9 +372,9 @@ Public Class IAIPEditFacilityLocation
                             "updateDateTime = sysdate " & _
                             "where facilitySiteID = '" & txtAirsNumber.Text & "' "
 
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             cmd.ExecuteReader()
 
@@ -443,9 +443,9 @@ Public Class IAIPEditFacilityLocation
                 "where strKey = '" & txtKey.Text & "' " & _
                 "Order by strKey DESC "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 dr = cmd.ExecuteReader

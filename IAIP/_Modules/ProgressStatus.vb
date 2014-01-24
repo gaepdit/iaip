@@ -24,10 +24,6 @@ Public Class ProgressStatus
             progress = -1
         Catch ex As Exception
             ErrorReport(ex, "MRFunctions.New(ByVal sb as StatusBar)")
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
     End Sub
     Public Sub Refresh()
@@ -46,10 +42,6 @@ Public Class ProgressStatus
             mybackcolor = sbdevent.BackColor
         Catch ex As Exception
             ErrorReport(ex, "MRFunctions.Reposition")
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
     End Sub
 
@@ -144,13 +136,7 @@ Public Class ProgressStatus
 
         Catch ex As Exception
             ErrorReport(ex, "MRFunctions.drawit")
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
     End Sub
-
-
 
 End Class

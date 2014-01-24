@@ -203,9 +203,9 @@ Public Class IAIPFacilityLookUpTool
             End Select
             If SQL <> "" Then
                 dsSearch = New DataSet
-                daSearch = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daSearch = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 daSearch.Fill(dsSearch, "FacSearch")

@@ -46,7 +46,7 @@ Public Class IAIPNavigation
 
             LoadProgramDescription()
 
-            EnableTestingMenu()
+            EnableTestingOptions()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -58,7 +58,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub NavigationScreen_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
-        Conn.Dispose()
+        CurrentConnection.Dispose()
         Application.Exit()
     End Sub
 
@@ -102,11 +102,14 @@ Public Class IAIPNavigation
         cboWorkViewerContext.SelectedIndex = 0
     End Sub
 
-    Private Sub EnableTestingMenu()
+    Private Sub EnableTestingOptions()
         If TestingEnvironment Then
             mmiTesting.Visible = True
             mmiTesting.Enabled = True
+            pnl4.Text = "TESTING ENVIRONMENT"
+            pnl4.BackColor = Color.Tomato
         Else
+            pnl4.Text = ""
             mmiTesting.Visible = False
             mmiTesting.Enabled = False
         End If

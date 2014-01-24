@@ -430,15 +430,15 @@ Public Class ISMPStaffReports
                 "and strReviewingEngineer = '" & EngineerGCode & "' " & _
                 "order by DaysClosed ASC "
 
-                cmd = New OracleCommand(SQL, Conn)
-                cmd2 = New OracleCommand(SQL2, Conn)
-                cmd3 = New OracleCommand(SQL3, Conn)
-                cmd4 = New OracleCommand(SQL4, Conn)
-                cmd5 = New OracleCommand(SQL5, Conn)
-                cmd6 = New OracleCommand(SQL6, Conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                cmd3 = New OracleCommand(SQL3, CurrentConnection)
+                cmd4 = New OracleCommand(SQL4, CurrentConnection)
+                cmd5 = New OracleCommand(SQL5, CurrentConnection)
+                cmd6 = New OracleCommand(SQL6, CurrentConnection)
 
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 Try
@@ -508,13 +508,13 @@ Public Class ISMPStaffReports
                 Catch ex As Exception
                     ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
                 Finally
-                    If Conn.State = ConnectionState.Open Then
+                    If CurrentConnection.State = ConnectionState.Open Then
                         'conn.close()
                     End If
                 End Try
                 ' 
 
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
 
@@ -622,7 +622,7 @@ Public Class ISMPStaffReports
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -646,7 +646,7 @@ Public Class ISMPStaffReports
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

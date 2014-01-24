@@ -570,9 +570,9 @@ Public Class AFSValidator
                         "from " & DBNameSpace & ".APBFacilityInformation " & _
                         "where strAIRSNumber = '0413" & temp & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
@@ -594,9 +594,9 @@ Public Class AFSValidator
                         "from " & DBNameSpace & ".APBFacilityInformation " & _
                         "where strAIRSNumber = '0413" & temp & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
@@ -625,9 +625,9 @@ Public Class AFSValidator
                         "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSnumber " & _
                         "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & temp & "'"
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
@@ -658,9 +658,9 @@ Public Class AFSValidator
                         "and strKey = '30' " & _
                         "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & temp & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
@@ -687,9 +687,9 @@ Public Class AFSValidator
                         "where strairsnumber = '0413" & temp & "' " & _
                         "and substr(strAIRPollutantkey, 13,1) = '" & Mid(worktemp, 14, 1) & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
@@ -722,9 +722,9 @@ Public Class AFSValidator
                                 "where strAIRSNumber = '0413" & temp & "' " & _
                                 "and upper(strSubPart) = Upper('" & tempSubPart & "') "
 
-                                cmd = New OracleCommand(SQL, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 recExist = dr.Read
@@ -769,9 +769,9 @@ Public Class AFSValidator
                         "and substr(strAIRPollutantkey, 13,1) = '" & Mid(worktemp, 14, 1) & "' " & _
                         "and Upper(strPollutantKey) = Upper('" & Replace(Mid(worktemp, 15, 5), " ", "") & "') "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
@@ -843,9 +843,9 @@ Public Class AFSValidator
                                 "and " & DBNameSpace & ".SSCPFCEMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber  " & _
                                 "and " & DBNameSpace & ".SSCPFCEMaster.strAIRSnumber = '0413" & temp & "' " & _
                                 "and " & DBNameSpace & ".SSCPFCE.datFCECompleted = '" & tempDate & "' "
-                                cmd = New OracleCommand(SQL, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 recExist = dr.Read
@@ -987,9 +987,9 @@ Public Class AFSValidator
                                 "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".AFSISMPRecords.strReferenceNumber " & _
                                 "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = '0413" & temp & "' " & _
                                 "and datTestDateEnd = '" & tempDate & "' "
-                                cmd = New OracleCommand(SQL, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 recExist = dr.Read
@@ -1123,9 +1123,9 @@ Public Class AFSValidator
                                 "and " & DBNameSpace & ".SSCPItemMaster.strEventType = '01' " & _
                                 "and datCompleteDate = '" & tempDate & "' "
 
-                                cmd = New OracleCommand(SQL, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 recExist = dr.Read
@@ -1259,9 +1259,9 @@ Public Class AFSValidator
                                 "and " & DBNameSpace & ".SSCPItemMaster.strEventType = '02' " & _
                                 "and datCompleteDate = '" & tempDate & "' "
 
-                                cmd = New OracleCommand(SQL, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 recExist = dr.Read
@@ -1397,9 +1397,9 @@ Public Class AFSValidator
                                 "and " & DBNameSpace & ".SSCPItemMaster.strEventType = '04' " & _
                                 "and datCompleteDate = '" & tempDate & "' "
 
-                                cmd = New OracleCommand(SQL, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 recExist = dr.Read
@@ -1536,9 +1536,9 @@ Public Class AFSValidator
                                 "and " & DBNameSpace & ".SSCPItemMaster.strEventType = '06' " & _
                                 "and datCompleteDate = '" & tempDate & "' "
 
-                                cmd = New OracleCommand(SQL, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 recExist = dr.Read
@@ -1658,9 +1658,9 @@ Public Class AFSValidator
                         "from " & DBNameSpace & ".apbsupplamentaldata " & _
                         "where strairsnumber = '0413" & temp & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read

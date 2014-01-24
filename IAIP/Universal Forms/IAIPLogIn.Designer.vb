@@ -92,7 +92,6 @@ Partial Class IAIPLogIn
         Me.mmiTestingEnvironment.Index = 3
         Me.mmiTestingEnvironment.Shortcut = System.Windows.Forms.Shortcut.CtrlT
         Me.mmiTestingEnvironment.Text = "&Testing Environment"
-        '
         'mmiHelp
         '
         Me.mmiHelp.Index = 2

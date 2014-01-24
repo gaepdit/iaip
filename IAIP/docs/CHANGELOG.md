@@ -4,7 +4,7 @@
 
 See the [release notes](README.html).
 
-## Version 2.8.6 <span>(2014-01-23)</span>
+## Version 2.8.7 <span>(2014-01-23)</span>
 
 + FIX: *SSPP* – Application Tracking Log does not load data when opened from Navigation Screen (#173)
 

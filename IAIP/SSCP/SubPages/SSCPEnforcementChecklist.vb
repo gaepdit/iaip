@@ -861,10 +861,10 @@ Public Class SSCPEnforcementChecklist
                  "and strCountyCode = '" & Mid(txtAIRSNumber.Text, 1, 3) & "' " & _
                  "and " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".APBHeaderData.strairsnumber"
 
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -892,9 +892,9 @@ Public Class SSCPEnforcementChecklist
                     "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                     "where strTrackingNumber= '" & txtTrackingNumber.Text & "'"
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -920,9 +920,9 @@ Public Class SSCPEnforcementChecklist
                     SQL = "Select strTrackingNumber " & _
                                  "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                                  "where strEnforcementNumber= '" & txtEnforcementNumber.Text & "'"
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -959,9 +959,9 @@ Public Class SSCPEnforcementChecklist
                 "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCP_AuditedEnforcement.numStaffResponsible " & _
                 "and " & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber = '" & EnforcementNumber & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -978,9 +978,9 @@ Public Class SSCPEnforcementChecklist
                     "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".SSCPItemMaster " & _
                     "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff " & _
                     "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = '" & TrackingNumber & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -1213,13 +1213,13 @@ Public Class SSCPEnforcementChecklist
             SQL = SQL & SQLLine & "Order by datReceivedDate DESC, strTrackingNumber DESC "
         End If
 
-        cmd = New OracleCommand(SQL, Conn)
+        cmd = New OracleCommand(SQL, CurrentConnection)
 
         dsWorkEnTry = New DataSet
 
         daWorkEnTry = New OracleDataAdapter(cmd)
-        If Conn.State = ConnectionState.Closed Then
-            Conn.Open()
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
 
         daWorkEnTry.Fill(dsWorkEnTry, "tblWorkEnTry")

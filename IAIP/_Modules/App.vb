@@ -26,12 +26,9 @@ Module App
 
     Public Function OpenUrl(ByVal url As String, Optional ByVal objectSender As Object = Nothing) As Boolean
         ' Reference: http://code.logos.com/blog/2008/01/using_processstart_to_link_to.html
-        If url Is Nothing Then Exit Function
-
-        If objectSender IsNot Nothing Then
-            objectSender.Cursor = Cursors.AppStarting
-        End If
         Try
+            If objectSender IsNot Nothing Then objectSender.Cursor = Cursors.AppStarting
+            If url Is Nothing OrElse Not UrlIsValid(url) Then Return False
             Process.Start(url)
             Return True
         Catch ee As Exception When _
@@ -40,10 +37,21 @@ Module App
         TypeOf ee Is System.IO.FileNotFoundException
             Return False
         Finally
-            If objectSender IsNot Nothing Then
-                objectSender.Cursor = Nothing
-            End If
+            If objectSender IsNot Nothing Then objectSender.Cursor = Nothing
         End Try
+    End Function
+
+    Public Function UrlIsValid(ByVal url As String) As Boolean
+        Dim response As Net.HttpWebResponse = Nothing
+        Try
+            Dim request As Net.HttpWebRequest = Net.WebRequest.Create(url)
+            response = request.GetResponse()
+        Catch ex As Exception
+            Return False
+        Finally
+            If response IsNot Nothing Then response.Close()
+        End Try
+        Return True
     End Function
 
 #End Region
