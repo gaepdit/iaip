@@ -3218,60 +3218,32 @@ Public Class IAIPFacilitySummary
         End Try
     End Sub
     Private Sub llbISMPTestReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbISMPTestReport.LinkClicked
-        Dim temp As String = ""
-
         Try
+            Dim id As String = txtReferenceNumber.Text
+            If id = "" Then Exit Sub
 
-            If txtReferenceNumber.Text <> "" Then
+            If DAL.ISMP.StackTestExists(id) Then
                 If UserProgram = "3" Then
-                    SQL = "select " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                    "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
-                    "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
-                    "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    If recExist = True Then
-                        ISMPTestReportsEntry = Nothing
-                        If ISMPTestReportsEntry Is Nothing Then ISMPTestReportsEntry = New ISMPTestReports
-                        ISMPTestReportsEntry.txtReferenceNumber.Text = txtReferenceNumber.Text
-                        ISMPTestReportsEntry.Show()
-                        'ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                    End If
+                    OpenMultiForm(ISMPTestReports, id)
                 Else
-                    SQL = "Select strClosed " & _
-                    "from " & DBNameSpace & ".ISMPReportInformation " & _
-                    "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        temp = dr.Item("strClosed")
-                    End While
-                    If temp = "True" Then
-                        PrintOut = Nothing
-                        If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
+                    If DAL.ISMP.StackTestIsClosedOut(id) Then
+                        If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
+                            PrintOut.Dispose()
+                        End If
+                        PrintOut = New IAIPPrintOut
                         PrintOut.txtReferenceNumber.Text = txtReferenceNumber.Text
                         PrintOut.txtPrintType.Text = "SSCP"
                         PrintOut.Show()
-                        'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     Else
-                        MsgBox("This Test Summary has not been completely reviewed by ISMP Engineer", MsgBoxStyle.Information, "Facility Summary")
+                        MsgBox("This test has not been completely reviewed by ISMP.", MsgBoxStyle.Information, "Facility Summary")
                     End If
-
                 End If
+            Else
+                MsgBox("Reference number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub llbClosePrintTestReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbClosePrintTestReport.LinkClicked
         Try

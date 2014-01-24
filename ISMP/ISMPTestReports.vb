@@ -36,9 +36,29 @@ Public Class ISMPTestReports
     Dim ReportStatus As String
     Dim ControlEquipment As String
 
+    Public Property ReferenceNumber() As String
+        Get
+            If Me.ID = -1 Then
+                Return ""
+            Else
+                Return Me.ID.ToString
+            End If
+        End Get
+        Set(ByVal value As String)
+            Dim i As Integer = -1
+            If Integer.TryParse(value, i) Then
+                Me.ID = i
+            Else
+                Me.ID = -1
+            End If
+        End Set
+    End Property
+
     Private Sub ISMPTestReports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Try
+            txtReferenceNumber.Text = Me.ReferenceNumber
+
             SCTestReports.SanelySetSplitterDistance(190)
 
             Panel1.Text = "Select a Function..."
@@ -67,9 +87,9 @@ Public Class ISMPTestReports
                 LoadSSCPData()
             End If
             If txtReferenceNumber.Text <> "" Then
-                ISMPTestReportsEntry.Text = txtReferenceNumber.Text & " - Performance Monitoring Test Reports"
+                Me.Text = txtReferenceNumber.Text & " - Performance Monitoring Test Reports"
             Else
-                ISMPTestReportsEntry.Text = "Performance Monitoring Test Reports"
+                Me.Text = "Performance Monitoring Test Reports"
             End If
 
             If DocumentType = "001" Then
@@ -17851,9 +17871,9 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                     LoadSSCPData()
                 End If
                 If txtReferenceNumber.Text <> "" Then
-                    ISMPTestReportsEntry.Text = txtReferenceNumber.Text & " - Performance Monitoring Test Reports"
+                    Me.Text = txtReferenceNumber.Text & " - Performance Monitoring Test Reports"
                 Else
-                    ISMPTestReportsEntry.Text = "Performance Monitoring Test Reports"
+                    Me.Text = "Performance Monitoring Test Reports"
                 End If
             End If
         Catch ex As Exception
@@ -17939,7 +17959,6 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
     End Sub
     Private Sub tsbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbBack.Click
         Try
-            ISMPTestReportsEntry = Nothing
             Me.Dispose()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -17970,7 +17989,6 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
     End Sub
     Private Sub mmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiBack.Click
         Try
-            ISMPTestReportsEntry = Nothing
             Me.Dispose()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

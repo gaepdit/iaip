@@ -106,7 +106,7 @@ Module subMain
     'Public ISMPDMU As ISMPDataManagementTools
     Public DMUOnly As DMUTool
     Public ISMPConfidential As ISMPConfidentialData
-    Public ISMPTestReportsEntry As ISMPTestReports
+    'Public ISMPTestReportsEntry As ISMPTestReports
     Public TestFirmComments As ISMPTestFirmComments
     Public DevelopersTools As DMUDeveloperTools
     Public StaffTools As DMUStaffTools

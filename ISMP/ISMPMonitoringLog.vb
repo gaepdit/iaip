@@ -899,79 +899,32 @@ Public Class ISMPMonitoringLog
 
     End Sub
     Sub SelectTestReport()
-
         Try
+            Dim id As String = txtReferenceNumber.Text
+            If id = "" Then Exit Sub
 
-            'If txtReferenceNumber.Text <> "" Then
-            '    SQL = "select " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
-            '     "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
-            '     "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
-            '     "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-            '    Dim cmd As New OracleCommand(SQL, conn)
-            '    If conn.State = ConnectionState.Closed Then
-            '        conn.Open()
-            '    End If
-            '    Dim dr As OracleDataReader = cmd.ExecuteReader
-            '    Dim recExist As Boolean = dr.Read
-            '    If recExist = True Then
-            '        ISMPTestReportsEntry = Nothing
-            '        If ISMPTestReportsEntry Is Nothing Then ISMPTestReportsEntry = New ISMPTestReports
-            '        ISMPTestReportsEntry.txtReferenceNumber.Text = txtReferenceNumber.Text
-            '        ISMPTestReportsEntry.Show()
-            '        ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-            '    End If
-            'End If
-            If txtReferenceNumber.Text <> "" Then
+            If DAL.ISMP.StackTestExists(id) Then
                 If UserProgram = "3" Then
-                    SQL = "select " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                    "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
-                    "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
-                    "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    If recExist = True Then
-                        ISMPTestReportsEntry = Nothing
-                        If ISMPTestReportsEntry Is Nothing Then ISMPTestReportsEntry = New ISMPTestReports
-                        ISMPTestReportsEntry.txtReferenceNumber.Text = txtReferenceNumber.Text
-                        ISMPTestReportsEntry.Show()
-                        'ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                    End If
+                    OpenMultiForm(ISMPTestReports, id)
                 Else
-                    SQL = "Select strClosed " & _
-                    "from " & DBNameSpace & ".ISMPReportInformation " & _
-                    "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        temp = dr.Item("strClosed")
-                    End While
-                    If temp = "True" Then
-                        PrintOut = Nothing
-                        If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
+                    If DAL.ISMP.StackTestIsClosedOut(id) Then
+                        If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
+                            PrintOut.Dispose()
+                        End If
+                        PrintOut = New IAIPPrintOut
                         PrintOut.txtReferenceNumber.Text = txtReferenceNumber.Text
                         PrintOut.txtPrintType.Text = "SSCP"
                         PrintOut.Show()
-                        'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     Else
-                        MsgBox("This Test Summary has not been completely reviewed by ISMP Engineer", MsgBoxStyle.Information, "Facility Summary")
+                        MsgBox("This test has not been completely reviewed by ISMP.", MsgBoxStyle.Information, "Facility Summary")
                     End If
-
                 End If
+            Else
+                MsgBox("Reference number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Sub ResetOptions()
         Try

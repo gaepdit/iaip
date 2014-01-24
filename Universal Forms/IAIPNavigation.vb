@@ -191,14 +191,9 @@ Public Class IAIPNavigation
 
             If DAL.ISMP.StackTestExists(id) Then
                 If UserProgram = "3" Then
-                    If ISMPTestReportsEntry IsNot Nothing AndAlso Not ISMPTestReportsEntry.IsDisposed Then
-                        ISMPTestReportsEntry.Dispose()
-                    End If
-                    ISMPTestReportsEntry = New ISMPTestReports
-                    ISMPTestReportsEntry.txtReferenceNumber.Text = txtReferenceNumber.Text
-                    ISMPTestReportsEntry.Show()
+                    OpenMultiForm(ISMPTestReports, id)
                 Else
-                    If DAL.ISMP.StackTestIsClosed(id) Then
+                    If DAL.ISMP.StackTestIsClosedOut(id) Then
                         If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
                             PrintOut.Dispose()
                         End If
@@ -220,10 +215,10 @@ Public Class IAIPNavigation
 
     Private Sub OpenEnforcement()
         Try
-            Dim enfNum As String = txtEnforcementNumber.Text
-            If enfNum = "" Then Exit Sub
-            If DAL.SSCP.EnforcementExists(enfNum) Then
-                OpenMultiForm(SscpEnforcement, enfNum)
+            Dim id As String = txtEnforcementNumber.Text
+            If id = "" Then Exit Sub
+            If DAL.SSCP.EnforcementExists(id) Then
+                OpenMultiForm(SscpEnforcement, id)
             Else
                 MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If
@@ -240,13 +235,7 @@ Public Class IAIPNavigation
             If DAL.SSCP.WorkItemExists(id) Then
                 Dim refNum As String = ""
                 If DAL.SSCP.WorkItemIsAStackTest(id, refNum) Then
-                    If ISMPTestReportsEntry IsNot Nothing AndAlso Not ISMPTestReportsEntry.IsDisposed Then
-                        ISMPTestReportsEntry.Dispose()
-                    End If
-                    ISMPTestReportsEntry = New ISMPTestReports
-                    ISMPTestReportsEntry.txtReferenceNumber.Text = refNum
-                    ISMPTestReportsEntry.Show()
-                    ISMPTestReportsEntry.TPSSCPWork.Focus()
+                    OpenMultiForm(ISMPTestReports, refNum)
                 Else
                     If SSCPReports IsNot Nothing AndAlso Not SSCPReports.IsDisposed Then
                         SSCPReports.Dispose()
