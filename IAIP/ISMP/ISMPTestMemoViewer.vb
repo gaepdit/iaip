@@ -828,38 +828,13 @@ Public Class ISMPTestMemoViewer
 
     End Sub
     Sub SelectTestReport()
-        Dim SQL As String
-
         Try
-
-            If txtReferenceNumber.Text <> "" Then
-                SQL = "select " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                 "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
-                 "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
-                 "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                Dim cmd As New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                Dim dr As OracleDataReader = cmd.ExecuteReader
-                Dim recExist As Boolean = dr.Read
-                If recExist = True Then
-                    ISMPTestReportsEntry = Nothing
-                    If ISMPTestReportsEntry Is Nothing Then ISMPTestReportsEntry = New ISMPTestReports
-                    ISMPTestReportsEntry.txtReferenceNumber.Text = txtReferenceNumber.Text
-                    ISMPTestReportsEntry.Show()
-                    Me.Hide()
-                    'ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                End If
-            End If
+            Dim id As String = txtReferenceNumber.Text
+            If DAL.ISMP.StackTestExists(id) Then OpenMultiForm(ISMPTestReports, id)
+            Me.Hide()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
-
     End Sub
 #End Region
 

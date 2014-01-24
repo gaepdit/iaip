@@ -31,7 +31,7 @@ Namespace DAL.ISMP
             Return Convert.ToBoolean(result)
         End Function
 
-        Public Function StackTestIsClosed(ByVal id As String) As Boolean
+        Public Function StackTestIsClosedOut(ByVal id As String) As Boolean
             If id = "" OrElse Not Integer.TryParse(id, Nothing) Then Return False
 
             Dim query As String = "SELECT STRCLOSED " & _

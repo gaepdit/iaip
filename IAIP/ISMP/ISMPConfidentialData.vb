@@ -4607,8 +4607,9 @@ Public Class ISMPConfidentialData
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                If ISMPTestReportsEntry.txtReferenceNumber.Text = txtReferenceNumber.Text Then
-                    ISMPTestReportsEntry.LoadConfidentialData(ConfidentialData)
+                If MultiFormIsOpen(ISMPTestReports, txtReferenceNumber.Text) Then
+                    Dim testReportForm As ISMPTestReports = MultiForm(ISMPTestReports.Name)(txtReferenceNumber.Text)
+                    testReportForm.LoadConfidentialData(ConfidentialData)
                 End If
 
             End If

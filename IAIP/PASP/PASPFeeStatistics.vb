@@ -3154,10 +3154,7 @@ Public Class PASPFeeStatistics
                         End If
                         dr.Close()
                         If RefNum <> "" Then
-                            ISMPTestReportsEntry = Nothing
-                            If ISMPTestReportsEntry Is Nothing Then ISMPTestReportsEntry = New ISMPTestReports
-                            ISMPTestReportsEntry.txtReferenceNumber.Text = RefNum
-                            ISMPTestReportsEntry.Show()
+                            If DAL.ISMP.StackTestExists(RefNum) Then OpenMultiForm(ISMPTestReports, RefNum)
                         Else
                             If SSCPReports Is Nothing Then
                                 SSCPReports = Nothing
