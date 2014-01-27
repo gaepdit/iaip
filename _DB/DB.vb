@@ -7,29 +7,105 @@ Namespace DB
 
 #Region "DB Connection Strings"
 
-        Private PrdHost As String = "luke.dnr.state.ga.us" ' {0}
-        Private PrdPort As String = "1521" ' {1}
-        Private PrdSid As String = "PRD" ' {2}
-        Private PrdUser As String = "AIRBRANCH_APP_USER" ' {3}
-        Private PrdPassword As String = SimpleCrypt("çòáðò±ì") ' {4}
+        Public Enum ConnectionEnvironment
+            Production
+            Development
+            NADC_Production
+            NADC_Development
+        End Enum
 
-        Private DevHost As String = "leia.dnr.state.ga.us" ' {0}
-        Private DevPort As String = "1521" ' {1}
-        Private DevSid As String = "DEV" ' {2}
-        Private DevUser As String = "AIRBRANCH" ' {3}
-        Private DevPassword As String = SimpleCrypt("óíïçáìåòô") ' {4}
+        Private Class DatabaseConnectionParameters
+            Public Sub New(ByVal host As String, ByVal port As String, ByVal sid As String, ByVal user As String, ByVal pwd As String)
+                Me.Host = host
+                Me.Port = port
+                Me.SID = sid
+                Me.User = user
+                Me.Password = pwd
+            End Sub
+            Private _host As String
+            Public Property Host() As String
+                Get
+                    Return _host
+                End Get
+                Set(ByVal value As String)
+                    _host = value
+                End Set
+            End Property
+            Private _port As String
+            Public Property Port() As String
+                Get
+                    Return _port
+                End Get
+                Set(ByVal value As String)
+                    _port = value
+                End Set
+            End Property
+            Private _sid As String
+            Public Property SID() As String
+                Get
+                    Return _sid
+                End Get
+                Set(ByVal value As String)
+                    _sid = value
+                End Set
+            End Property
+            Private _user As String
+            Public Property User() As String
+                Get
+                    Return _user
+                End Get
+                Set(ByVal value As String)
+                    _user = value
+                End Set
+            End Property
+            Private _pwd As String
+            Public Property Password() As String
+                Get
+                    Return _pwd
+                End Get
+                Set(ByVal value As String)
+                    _pwd = value
+                End Set
+            End Property
+        End Class
 
+        Private Function GetDatabaseConnectionParameters(ByVal env As ConnectionEnvironment) As DatabaseConnectionParameters
+            Select Case env
+
+                Case ConnectionEnvironment.Production
+                    Return New DatabaseConnectionParameters("luke.dnr.state.ga.us", "1521", "PRD", "AIRBRANCH_APP_USER", SimpleCrypt("çòáðò±ì"))
+
+                Case ConnectionEnvironment.Development
+                    Return New DatabaseConnectionParameters("leia.dnr.state.ga.us", "1521", "DEV", "AIRBRANCH", SimpleCrypt("óíïçáìåòô"))
+
+                Case ConnectionEnvironment.NADC_Production
+                    Return New DatabaseConnectionParameters("167.195.93.68", "1521", "PRD", "AIRBRANCH_APP_USER", SimpleCrypt("çòáðò±ì"))
+
+                Case ConnectionEnvironment.NADC_Development
+                    Return New DatabaseConnectionParameters("167.195.93.100", "1521", "DEV", "AIRBRANCH", "123")
+
+                Case Else
+                    Return Nothing
+
+            End Select
+        End Function
+
+        ''' <summary>
+        ''' Returns the database connection string for the current database connection environment
+        ''' </summary>
+        ''' <returns>A database connection string</returns>
+        ''' <remarks></remarks>
         Public Function GetCurrentConnectionString() As String
-            Return GetConnectionString(TestingEnvironment)
+            Return GetConnectionString(CurrentConnectionEnvironment)
         End Function
 
         ''' <summary>
         ''' Returns a database connection string for either the production (PRD) or testing (DEV) environment
         ''' </summary>
-        ''' <param name="testingEnvironment">A boolean designating whether the testing environment (DEV) connection string is desired</param>
+        ''' <param name="env">A ConnectionEnvironment Enum designating which connection string is desired</param>
         ''' <returns>A database connection string</returns>
         ''' <remarks>Currently built to return an Oracle connection string</remarks>
-        Public Function GetConnectionString(Optional ByVal testingEnvironment As Boolean = False) As String
+        Public Function GetConnectionString(ByVal env As ConnectionEnvironment) As String
 
             ' Oracle connection method without tnsnames.ora
             Dim oracleConnectionStringTemplate As String = "Data Source=(DESCRIPTION=(ADDRESS_LIST=" & _
@@ -42,11 +118,8 @@ Namespace DB
             ' Oracle EZ Connect method (maybe requires EZCONNECT enabled in sqlnet.ora file?)
             'Private oracleConnectionStringTemplate As String = "{3}/{4}@//{0}:{1}/{2}"
 
-            If testingEnvironment Then
-                Return String.Format(oracleConnectionStringTemplate, DevHost, DevPort, DevSid, DevUser, DevPassword)
-            Else
-                Return String.Format(oracleConnectionStringTemplate, PrdHost, PrdPort, PrdSid, PrdUser, PrdPassword)
-            End If
+            Dim dbParams As DatabaseConnectionParameters = GetDatabaseConnectionParameters(env)
+            Return String.Format(oracleConnectionStringTemplate, dbParams.Host, dbParams.Port, dbParams.SID, dbParams.User, dbParams.Password)
         End Function
 
 #End Region

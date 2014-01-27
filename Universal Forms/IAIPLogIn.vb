@@ -30,6 +30,11 @@ Public Class IAIPLogIn
 
             VerifyVersion()
 
+#If NadcEnabled Then
+            mmiNadcServer.Enabled = True
+            mmiNadcServer.Visible = True
+#End If
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -243,7 +248,10 @@ Public Class IAIPLogIn
                         ' Add additional installation meta data for analytics
                         monitorInstallationInfo.Add("IaipUserName", loginCred.UserName)
                         monitor.SetInstallationInfo(loginCred.UserName, monitorInstallationInfo)
-                        If TestingEnvironment Then monitor.TrackFeature("Main.TestingEnvironment")
+
+                        If CurrentConnectionEnvironment = DB.ConnectionEnvironment.Development _
+                        OrElse CurrentConnectionEnvironment = DB.ConnectionEnvironment.NADC_Development _
+                        Then monitor.TrackFeature("Main.TestingEnvironment")
 
                         NavigationScreen = Nothing
                         If NavigationScreen Is Nothing Then NavigationScreen = New IAIPNavigation
@@ -304,30 +312,103 @@ Public Class IAIPLogIn
         LogInCheck()
     End Sub
 
-    Private Sub ToggleTestingEnvironment(ByVal currentlyTestingEnvironment As Boolean)
-        If currentlyTestingEnvironment Then
-            ' Switch to production environment
-            TestingEnvironment = False
+#End Region
 
-            mmiTestingEnvironment.Checked = False
-            Me.BackColor = SystemColors.Control
-            btnLoginButton.Text = "Log In"
+#Region " Database Environment "
 
-            CurrentConnectionString = DB.GetConnectionString(False)
-        Else
+#If NadcEnabled Then
+
+    Private Sub ToggleTestingEnvironment()
+        mmiTestingEnvironment.Checked = Not mmiTestingEnvironment.Checked
+
+        If mmiTestingEnvironment.Checked Then
             ' Switch to testing environment
-            TestingEnvironment = True
-
-            mmiTestingEnvironment.Checked = True
+            DevelopmentEnvironment = True
             Me.BackColor = Color.PapayaWhip
             btnLoginButton.Text = "Testing Environment"
+            CurrentConnectionEnvironment = DB.ConnectionEnvironment.Development
 
-            CurrentConnectionString = DB.GetConnectionString(True)
+            If NadcServer Then
+                btnLoginButton.Text = "Testing (NADC)"
+                CurrentConnectionEnvironment = DB.ConnectionEnvironment.NADC_Development
+            End If
+
+        Else
+            ' Switch to production environment
+            DevelopmentEnvironment = False
+            Me.BackColor = SystemColors.Control
+            btnLoginButton.Text = "Log In"
+            CurrentConnectionEnvironment = DB.ConnectionEnvironment.Production
+
+            If NadcServer Then
+                btnLoginButton.Text = "Log In (NADC)"
+                CurrentConnectionEnvironment = DB.ConnectionEnvironment.NADC_Production
+            End If
         End If
 
-        ' Reset current connection based on current connection string
+        ' Reset current connection based on current connection environment
+        CurrentConnectionString = DB.GetConnectionString(CurrentConnectionEnvironment)
         CurrentConnection = New OracleConnection(CurrentConnectionString)
     End Sub
+
+    Private Sub ToggleDataCenter()
+        mmiNadcServer.Checked = Not mmiNadcServer.Checked
+
+        If mmiNadcServer.Checked Then
+            'Switch to NADC servers
+            NadcServer = True
+            btnLoginButton.BackColor = Color.DarkOrange
+            If DevelopmentEnvironment Then
+                btnLoginButton.Text = "Testing (NADC)"
+                CurrentConnectionEnvironment = DB.ConnectionEnvironment.NADC_Development
+            Else
+                btnLoginButton.Text = "Log In (NADC)"
+                CurrentConnectionEnvironment = DB.ConnectionEnvironment.NADC_Production
+            End If
+        Else
+            'Switch to Luke/Leia servers
+            NadcServer = False
+            btnLoginButton.BackColor = System.Drawing.SystemColors.Control
+            If DevelopmentEnvironment Then
+                btnLoginButton.Text = "Testing Environment"
+                CurrentConnectionEnvironment = DB.ConnectionEnvironment.Development
+            Else
+                btnLoginButton.Text = "Log In"
+                CurrentConnectionEnvironment = DB.ConnectionEnvironment.Production
+            End If
+        End If
+
+        ' Reset current connection based on current connection environment
+        CurrentConnectionString = DB.GetConnectionString(CurrentConnectionEnvironment)
+        CurrentConnection = New OracleConnection(CurrentConnectionString)
+
+    End Sub
+
+#Else
+
+        Private Sub ToggleTestingEnvironment()
+        mmiTestingEnvironment.Checked = Not mmiTestingEnvironment.Checked
+
+        If mmiTestingEnvironment.Checked Then
+            ' Switch to testing environment
+            DevelopmentEnvironment = True
+            Me.BackColor = Color.PapayaWhip
+            btnLoginButton.Text = "Testing Environment"
+            CurrentConnectionEnvironment = DB.ConnectionEnvironment.Development
+        Else
+            ' Switch to production environment
+            DevelopmentEnvironment = False
+            Me.BackColor = SystemColors.Control
+            btnLoginButton.Text = "Log In"
+            CurrentConnectionEnvironment = DB.ConnectionEnvironment.Production
+        End If
+
+        ' Reset current connection based on current connection environment
+        CurrentConnectionString = DB.GetConnectionString(CurrentConnectionEnvironment)
+        CurrentConnection = New OracleConnection(CurrentConnectionString)
+    End Sub
+
+#End If
 
 #End Region
 
@@ -379,10 +460,6 @@ Public Class IAIPLogIn
 
 #Region " Menu items "
 
-    Private Sub mmiTestingEnvironment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiTestingEnvironment.Click
-        ToggleTestingEnvironment(mmiTestingEnvironment.Checked)
-    End Sub
-
     Private Sub mmiRefreshUserID_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiRefreshUserID.Click
         ResetUserSetting(UserSetting.PrefillLoginId)
         txtUserID.Text = ""
@@ -403,6 +480,16 @@ Public Class IAIPLogIn
     Private Sub IAIPLogIn_HelpButtonClicked(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.HelpButtonClicked
         OpenAboutUrl(Me)
     End Sub
+
+    Private Sub mmiTestingEnvironment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiTestingEnvironment.Click
+        ToggleTestingEnvironment()
+    End Sub
+
+#If NadcEnabled Then
+    Private Sub mmiNadcServer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiNadcServer.Click
+        ToggleDataCenter()
+    End Sub
+#End If
 
 #End Region
 
