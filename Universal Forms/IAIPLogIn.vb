@@ -153,7 +153,6 @@ Public Class IAIPLogIn
         monitor.TrackFeatureStart("Startup.LoggingIn")
         LoginProgressBar.Visible = True
 
-        'btnLoginButton.Visible = True
         Try
             Dim EmployeeStatus As String = ""
             Dim PhoneNumber As String = ""
@@ -163,15 +162,10 @@ Public Class IAIPLogIn
 
             UserGCode = ""
 
-            LoginProgressBar.PerformStep()
-
             If txtUserID.Text <> "" Then
                 If txtUserPassword.Text <> "" Then
-                    LoginProgressBar.PerformStep()
 
                     Dim loginCred As LoginCred = DAL.GetLoginCred(txtUserID.Text.ToUpper, EncryptDecrypt.EncryptText(txtUserPassword.Text))
-
-                    LoginProgressBar.PerformStep()
 
                     UserGCode = loginCred.Staff.StaffId
                     Permissions = loginCred.PermissionsString
@@ -188,8 +182,6 @@ Public Class IAIPLogIn
                     PhoneNumber = loginCred.Staff.Phone
                     EmailAddress = loginCred.Staff.Email
                     LastName = loginCred.Staff.LastName
-
-                    LoginProgressBar.PerformStep()
 
                     If UserGCode <> "" And EmployeeStatus = "1" Then
                         If EmailAddress = "" Then
@@ -232,11 +224,8 @@ Public Class IAIPLogIn
                                 ' ProfileUpdate.pnlUserIDPassword.Visible = False
                             End If
 
-
-                            LoginProgressBar.Value = 0
                             LoginProgressBar.Visible = False
-                            'btnLoginButton.Visible = True
-
+                            
                             Exit Sub
                         End If
 
@@ -260,9 +249,8 @@ Public Class IAIPLogIn
 
                         NavigationScreen.Show()
 
-                        LoginProgressBar.Value = 0
                         LoginProgressBar.Visible = False
-                        'btnLoginButton.Visible = True
+
                         Me.Close()
                     Else
                         'Panel1.Text = Paneltemp1
@@ -277,31 +265,23 @@ Public Class IAIPLogIn
                         txtUserPassword.Clear()
                         txtUserPassword.Focus()
 
-                        LoginProgressBar.Value = 0
                         LoginProgressBar.Visible = False
-                        'btnLoginButton.Visible = True
                         monitor.TrackFeatureCancel("Startup.LoggingIn")
                     End If
                 Else
-                    LoginProgressBar.Value = 0
                     LoginProgressBar.Visible = False
-                    'btnLoginButton.Visible = True
                     monitor.TrackFeatureCancel("Startup.LoggingIn")
                 End If
             Else
 
-                LoginProgressBar.Value = 0
                 LoginProgressBar.Visible = False
-                'btnLoginButton.Visible = True
                 monitor.TrackFeatureCancel("Startup.LoggingIn")
                 MsgBox("The User ID and Password provided is not a valid user combination.", MsgBoxStyle.Exclamation, _
                                  "Log In Error")
             End If
 
         Catch ex As Exception
-            LoginProgressBar.Value = 0
             LoginProgressBar.Visible = False
-            'btnLoginButton.Visible = True
             monitor.TrackFeatureCancel("Startup.LoggingIn")
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

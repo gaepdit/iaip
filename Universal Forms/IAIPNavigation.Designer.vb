@@ -93,7 +93,7 @@ Partial Class IAIPNavigation
         Me.Label3 = New System.Windows.Forms.Label
         Me.txtReferenceNumber = New System.Windows.Forms.TextBox
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar
+        Me.NavScreenProgressBar = New System.Windows.Forms.ToolStripProgressBar
         Me.pnl1 = New System.Windows.Forms.ToolStripStatusLabel
         Me.pnl2 = New System.Windows.Forms.ToolStripStatusLabel
         Me.pnl3 = New System.Windows.Forms.ToolStripStatusLabel
@@ -872,7 +872,7 @@ Partial Class IAIPNavigation
         '
         'StatusStrip1
         '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.pnl1, Me.pnl2, Me.pnl3, Me.pnl4, Me.pnl5})
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NavScreenProgressBar, Me.pnl1, Me.pnl2, Me.pnl3, Me.pnl4, Me.pnl5})
         Me.StatusStrip1.Location = New System.Drawing.Point(118, 367)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 10, 0)
@@ -881,18 +881,20 @@ Partial Class IAIPNavigation
         Me.StatusStrip1.Stretch = False
         Me.StatusStrip1.TabIndex = 264
         '
-        'ToolStripProgressBar1
+        'NavScreenProgressBar
         '
-        Me.ToolStripProgressBar1.Name = "ToolStripProgressBar1"
-        Me.ToolStripProgressBar1.Size = New System.Drawing.Size(100, 18)
-        Me.ToolStripProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee
-        Me.ToolStripProgressBar1.Visible = False
+        Me.NavScreenProgressBar.MarqueeAnimationSpeed = 10
+        Me.NavScreenProgressBar.Name = "NavScreenProgressBar"
+        Me.NavScreenProgressBar.Size = New System.Drawing.Size(100, 18)
+        Me.NavScreenProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee
+        Me.NavScreenProgressBar.Visible = False
         '
         'pnl1
         '
         Me.pnl1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.pnl1.Name = "pnl1"
-        Me.pnl1.Size = New System.Drawing.Size(342, 19)
+        Me.pnl1.Padding = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.pnl1.Size = New System.Drawing.Size(506, 19)
         Me.pnl1.Spring = True
         Me.pnl1.Text = "Program"
         Me.pnl1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -902,7 +904,8 @@ Partial Class IAIPNavigation
         Me.pnl2.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left
         Me.pnl2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.pnl2.Name = "pnl2"
-        Me.pnl2.Size = New System.Drawing.Size(43, 19)
+        Me.pnl2.Padding = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.pnl2.Size = New System.Drawing.Size(47, 19)
         Me.pnl2.Text = "Name"
         '
         'pnl3
@@ -910,7 +913,8 @@ Partial Class IAIPNavigation
         Me.pnl3.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left
         Me.pnl3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.pnl3.Name = "pnl3"
-        Me.pnl3.Size = New System.Drawing.Size(35, 19)
+        Me.pnl3.Padding = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.pnl3.Size = New System.Drawing.Size(39, 19)
         Me.pnl3.Text = "Date"
         '
         'pnl4
@@ -918,7 +922,8 @@ Partial Class IAIPNavigation
         Me.pnl4.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left
         Me.pnl4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.pnl4.Name = "pnl4"
-        Me.pnl4.Size = New System.Drawing.Size(79, 19)
+        Me.pnl4.Padding = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.pnl4.Size = New System.Drawing.Size(83, 19)
         Me.pnl4.Text = "Environment"
         '
         'pnl5
@@ -926,7 +931,8 @@ Partial Class IAIPNavigation
         Me.pnl5.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left
         Me.pnl5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.pnl5.Name = "pnl5"
-        Me.pnl5.Size = New System.Drawing.Size(43, 19)
+        Me.pnl5.Padding = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.pnl5.Size = New System.Drawing.Size(47, 19)
         Me.pnl5.Text = "Server"
         Me.pnl5.Visible = False
         '
@@ -1184,7 +1190,7 @@ Partial Class IAIPNavigation
     Friend WithEvents mmiTesting As System.Windows.Forms.MenuItem
     Friend WithEvents mmiResetForm As System.Windows.Forms.MenuItem
     Friend WithEvents btnNav40 As System.Windows.Forms.Button
-    Friend WithEvents ToolStripProgressBar1 As System.Windows.Forms.ToolStripProgressBar
+    Friend WithEvents NavScreenProgressBar As System.Windows.Forms.ToolStripProgressBar
     Friend WithEvents pnlCurrentList As System.Windows.Forms.Panel
     Friend WithEvents pnlContextSubView As System.Windows.Forms.Panel
 End Class
