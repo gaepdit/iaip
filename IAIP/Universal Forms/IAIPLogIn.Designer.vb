@@ -28,7 +28,6 @@ Partial Class IAIPLogIn
         Me.mmiResetAllForms = New System.Windows.Forms.MenuItem
         Me.MenuItem2 = New System.Windows.Forms.MenuItem
         Me.mmiTestingEnvironment = New System.Windows.Forms.MenuItem
-        Me.mmiTestingEnvironment = New System.Windows.Forms.MenuItem
         Me.mmiNadcServer = New System.Windows.Forms.MenuItem
         Me.mmiHelp = New System.Windows.Forms.MenuItem
         Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
@@ -98,7 +97,7 @@ Partial Class IAIPLogIn
         'mmiNadcServer
         '
         Me.mmiNadcServer.Enabled = False
-        Me.mmiNadcServer.Index = 6
+        Me.mmiNadcServer.Index = 4
         Me.mmiNadcServer.Shortcut = System.Windows.Forms.Shortcut.CtrlN
         Me.mmiNadcServer.Text = "NADC Server"
         Me.mmiNadcServer.Visible = False
