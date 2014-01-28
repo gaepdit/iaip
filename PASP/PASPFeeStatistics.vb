@@ -3078,18 +3078,13 @@ Public Class PASPFeeStatistics
     Private Sub btnFeeFacilitySummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFeeFacilitySummary.Click
         Try
             If txtFeeAIRSNumber.Text <> "" Then
-                If FacilitySummary Is Nothing Then
-                    FacilitySummary = Nothing
-                    If FacilitySummary Is Nothing Then FacilitySummary = New IAIPFacilitySummary
-                    FacilitySummary.mtbAIRSNumber.Text = txtFeeAIRSNumber.Text
-                    FacilitySummary.Show()
-                Else
-                    FacilitySummary.mtbAIRSNumber.Text = txtFeeAIRSNumber.Text
-                    FacilitySummary.Show()
+                If Not DAL.FacilityInfo.AirsNumberExists(txtFeeAIRSNumber.Text) Then
+                    MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
+                    Exit Sub
                 End If
-                'FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-
-                FacilitySummary.LoadInitialData()
+                Dim parameters As New Generic.Dictionary(Of String, String)
+                parameters("airsnumber") = txtFeeAIRSNumber.Text
+                OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
             End If
 
         Catch ex As Exception

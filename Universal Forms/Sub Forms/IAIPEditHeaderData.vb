@@ -1743,12 +1743,6 @@ Public Class IAIPEditHeaderData
                             dr = cmd.ExecuteReader
                             dr.Close()
 
-                            If FacilitySummary Is Nothing Then
-                            Else
-
-                            End If
-
-
                             If mtbRiskManagementNumber.Text <> "" Then
                                 RMPNumber = mtbRiskManagementNumber.Text
                             Else

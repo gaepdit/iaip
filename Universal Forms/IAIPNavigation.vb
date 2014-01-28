@@ -1175,33 +1175,9 @@ Public Class IAIPNavigation
             Select Case Source
                 Case "Facility Summary" '1
                     OpenSingleForm(IAIPFacilitySummary)
-                    'If FacilitySummary Is Nothing Then
-                    '    If FacilitySummary Is Nothing Then FacilitySummary = New IAIPFacilitySummary
-                    'Else
-                    '    FacilitySummary.Show()
-                    'End If
-                    'FacilitySummary.Show()
-                    'FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "DMU Tools" '2
-                    'If ISMPDMU Is Nothing Then
-                    '    If ISMPDMU Is Nothing Then ISMPDMU = New ISMPDataManagementTools
-                    'Else
-                    '    ISMPDMU.Dispose()
-                    '    ISMPDMU = New ISMPDataManagementTools
-                    '    If ISMPDMU Is Nothing Then ISMPDMU = New ISMPDataManagementTools
-                    'End If
-                    'ISMPDMU.Show()
-                    'ISMPDMU.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Application Log" '3
                     OpenSingleForm(SSPPApplicationLog)
-                    'If ApplicationLog Is Nothing Then
-                    '    If ApplicationLog Is Nothing Then ApplicationLog = New SSPPApplicationLog
-                    'Else
-                    '    ApplicationLog.Dispose()
-                    '    ApplicationLog = New SSPPApplicationLog
-                    'End If
-                    'ApplicationLog.Show()
-                    'ApplicationLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Compliance Log" '4
                     If SSCP_Work Is Nothing Then
                         If SSCP_Work Is Nothing Then SSCP_Work = New SSCPComplianceLog
@@ -1459,13 +1435,8 @@ Public Class IAIPNavigation
                         MsgBox("ACCESS DENIED")
                     End If
                 Case "Smoke School" '26 
-                    'If SmokeSchool IsNot Nothing Then
-                    '    SmokeSchool.Dispose()
-                    'End If
-                    'SmokeSchool = New SmokeSchool
                     With SmokeSchool
                         .Show()
-                        '.WindowState = FormWindowState.Normal
                         .Activate()
                         '.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     End With
@@ -1515,14 +1486,6 @@ Public Class IAIPNavigation
                     LookUpTables.Show()
                     'LookUpTables.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     'Case "Fees Audit Tool"
-                    '    If FeeAuditTool Is Nothing Then
-                    '        If FeeAuditTool Is Nothing Then FeeAuditTool = New IAIPFeeAuditTool
-                    '    Else
-                    '        FeeAuditTool.Dispose()
-                    '        FeeAuditTool = New IAIPFeeAuditTool
-                    '    End If
-                    '    FeeAuditTool.Show()
-                    'FeeAuditTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Compliance Admin"
                     If SSCPAdmin Is Nothing Then
                         If SSCPAdmin Is Nothing Then SSCPAdmin = New SSCPAdministrator
@@ -1537,14 +1500,6 @@ Public Class IAIPNavigation
                         .Show()
                         .Activate()
                     End With
-                    'If RegistrationTool Is Nothing Then
-                    '    If RegistrationTool Is Nothing Then RegistrationTool = New MASPRegistrationTool
-                    'Else
-                    '    RegistrationTool.Dispose()
-                    '    RegistrationTool = New MASPRegistrationTool
-                    'End If
-                    'RegistrationTool.Show()
-                    'RegistrationTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "EIS Log"
                     If EISLog Is Nothing Then
                         If EISLog Is Nothing Then EISLog = New IAIP_EIS_Log
@@ -1557,10 +1512,6 @@ Public Class IAIPNavigation
 
                 Case "Enforcement Documents"
                     OpenSingleForm(SscpDocuments)
-                    'With SscpDocuments
-                    '    .Show()
-                    '    .Activate()
-                    'End With
 
                 Case Else
                     MsgBox(Source.ToString, MsgBoxStyle.Information, "IAIP Navigation")

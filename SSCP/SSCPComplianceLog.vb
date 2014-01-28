@@ -2290,43 +2290,16 @@ Public Class SSCPComplianceLog
     End Sub
     Private Sub btnOpenSummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenSummary.Click
         Try
-
-            If txtAIRSNumber.Text <> "" And txtAIRSNumber.Text.Length = 8 Then
-                SQL = "Select strAIRSNumber " & _
-                "from " & DBNameSpace & ".APBMasterAIRS " & _
-                "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
-                    If FacilitySummary Is Nothing Then
-                        FacilitySummary = Nothing
-                        If FacilitySummary Is Nothing Then FacilitySummary = New IAIPFacilitySummary
-                        FacilitySummary.mtbAIRSNumber.Text = txtAIRSNumber.Text
-                        FacilitySummary.Show()
-                    Else
-                        FacilitySummary.mtbAIRSNumber.Text = txtAIRSNumber.Text
-                        FacilitySummary.Show()
-                    End If
-                    'FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-
-                    FacilitySummary.LoadInitialData()
-                Else
-                    MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Compliance Log")
-                End If
-            Else
-                MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Compliance Log")
+            If Not DAL.FacilityInfo.AirsNumberExists(txtAIRSNumber.Text) Then
+                MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
+                Exit Sub
             End If
-
+            Dim parameters As New Generic.Dictionary(Of String, String)
+            parameters("airsnumber") = txtAIRSNumber.Text
+            OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
 
 #End Region

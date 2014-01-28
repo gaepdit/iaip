@@ -734,10 +734,6 @@ Public Class SSPPApplicationLog
 
     End Sub
     Private Sub SSPPApplicationLog_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        If NavigationScreen Is Nothing Then
-            NavigationScreen = New IAIPNavigation
-        End If
-        NavigationScreen.Show()
         ApplicationLog = Nothing
         Me.Dispose()
     End Sub

@@ -66,7 +66,7 @@ Module subMain
     Public NavigationScreen As IAIPNavigation
     'Public FacilityLookUpTool As IAIPFacilityLookUpTool
     Public PrintOut As IAIPPrintOut
-    Public FacilitySummary As IAIPFacilitySummary
+    'Public FacilitySummary As IAIPFacilitySummary
 
     Public QueryGenerator As IAIPQueryGenerator
     Public EditContacts As IAIPEditContacts

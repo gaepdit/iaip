@@ -2273,16 +2273,9 @@ Public Class SSCPManagersTools
     End Sub
     Private Sub llbCMSOpenFacilitySummary_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbCMSOpenFacilitySummary.LinkClicked
         Try
-
-            If FacilitySummary Is Nothing Then
-                If FacilitySummary Is Nothing Then FacilitySummary = New IAIPFacilitySummary
-            Else
-                FacilitySummary.Show()
-            End If
-            FacilitySummary.Show()
-            'FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-            FacilitySummary.mtbAIRSNumber.Text = txtCMSAIRSNumber.Text
-            FacilitySummary.LoadInitialData()
+            Dim parameters As New Generic.Dictionary(Of String, String)
+            parameters("airsnumber") = txtCMSAIRSNumber.Text
+            OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2291,22 +2284,17 @@ Public Class SSCPManagersTools
     End Sub
     Private Sub llbCMSOpenFacilitySummary2_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbCMSOpenFacilitySummary2.LinkClicked
         Try
-
-            If FacilitySummary Is Nothing Then
-                If FacilitySummary Is Nothing Then FacilitySummary = New IAIPFacilitySummary
-            Else
-                FacilitySummary.Show()
+            If Not DAL.FacilityInfo.AirsNumberExists(txtCMSAIRSNumber2.Text) Then
+                MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
+                Exit Sub
             End If
-            FacilitySummary.Show()
-            'FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-            FacilitySummary.mtbAIRSNumber.Text = txtCMSAIRSNumber2.Text
-            FacilitySummary.LoadInitialData()
-            'FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            Dim parameters As New Generic.Dictionary(Of String, String)
+            parameters("airsnumber") = txtCMSAIRSNumber.Text
+            OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
     Private Sub btnAddToCmsUniverse_LinkClicked(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddToCmsUniverse.Click
         Try
@@ -4065,43 +4053,16 @@ Public Class SSCPManagersTools
     End Sub
     Sub OpenFacilitySummary()
         Try
-
-            If txtRecordNumber.Text <> "" And txtRecordNumber.Text.Length = 8 Then
-                SQL = "Select strAIRSNumber " & _
-                "from " & DBNameSpace & ".APBMasterAIRS " & _
-                "where strAIRSnumber = '0413" & txtRecordNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
-                    If FacilitySummary Is Nothing Then
-                        FacilitySummary = Nothing
-                        If FacilitySummary Is Nothing Then FacilitySummary = New IAIPFacilitySummary
-                        FacilitySummary.mtbAIRSNumber.Text = txtRecordNumber.Text
-                        FacilitySummary.Show()
-                    Else
-                        FacilitySummary.mtbAIRSNumber.Text = txtRecordNumber.Text
-                        FacilitySummary.Show()
-                    End If
-                    'FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-
-                    FacilitySummary.LoadInitialData()
-                Else
-                    MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "SSCP Managers Tools")
-                End If
-            Else
-                MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "SSCP Managers Tools")
+            If Not DAL.FacilityInfo.AirsNumberExists(txtRecordNumber.Text) Then
+                MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
+                Exit Sub
             End If
-
+            Dim parameters As New Generic.Dictionary(Of String, String)
+            parameters("airsnumber") = txtRecordNumber.Text
+            OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
     Sub OpenEnforcement()
         Try

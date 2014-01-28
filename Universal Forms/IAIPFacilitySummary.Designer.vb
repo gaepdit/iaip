@@ -1221,7 +1221,7 @@ Partial Class IAIPFacilitySummary
         Me.TPHeaderData.Location = New System.Drawing.Point(4, 22)
         Me.TPHeaderData.Name = "TPHeaderData"
         Me.TPHeaderData.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPHeaderData.Size = New System.Drawing.Size(666, 413)
+        Me.TPHeaderData.Size = New System.Drawing.Size(666, 435)
         Me.TPHeaderData.TabIndex = 1
         Me.TPHeaderData.Text = "Header Data"
         Me.TPHeaderData.UseVisualStyleBackColor = True
@@ -1257,7 +1257,7 @@ Partial Class IAIPFacilitySummary
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel13.Location = New System.Drawing.Point(3, 34)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(660, 376)
+        Me.Panel13.Size = New System.Drawing.Size(660, 398)
         Me.Panel13.TabIndex = 342
         '
         'btnOpenSubpartEditior
@@ -1848,7 +1848,7 @@ Partial Class IAIPFacilitySummary
         Me.TPFeesData.Controls.Add(Me.Label423)
         Me.TPFeesData.Location = New System.Drawing.Point(4, 22)
         Me.TPFeesData.Name = "TPFeesData"
-        Me.TPFeesData.Size = New System.Drawing.Size(666, 413)
+        Me.TPFeesData.Size = New System.Drawing.Size(666, 435)
         Me.TPFeesData.TabIndex = 3
         Me.TPFeesData.Text = "Fees Data"
         Me.TPFeesData.UseVisualStyleBackColor = True
@@ -2321,7 +2321,7 @@ Partial Class IAIPFacilitySummary
         Me.TPContactInformation.Controls.Add(Me.pnlEditContactData)
         Me.TPContactInformation.Location = New System.Drawing.Point(4, 22)
         Me.TPContactInformation.Name = "TPContactInformation"
-        Me.TPContactInformation.Size = New System.Drawing.Size(666, 413)
+        Me.TPContactInformation.Size = New System.Drawing.Size(666, 435)
         Me.TPContactInformation.TabIndex = 2
         Me.TPContactInformation.Text = "Contact Information "
         Me.TPContactInformation.UseVisualStyleBackColor = True
@@ -2341,7 +2341,7 @@ Partial Class IAIPFacilitySummary
         Me.TCContacts.Margin = New System.Windows.Forms.Padding(2)
         Me.TCContacts.Name = "TCContacts"
         Me.TCContacts.SelectedIndex = 0
-        Me.TCContacts.Size = New System.Drawing.Size(666, 382)
+        Me.TCContacts.Size = New System.Drawing.Size(666, 404)
         Me.TCContacts.TabIndex = 1
         '
         'TPStateContacts
@@ -2361,7 +2361,7 @@ Partial Class IAIPFacilitySummary
         Me.TPStateContacts.Location = New System.Drawing.Point(4, 22)
         Me.TPStateContacts.Margin = New System.Windows.Forms.Padding(2)
         Me.TPStateContacts.Name = "TPStateContacts"
-        Me.TPStateContacts.Size = New System.Drawing.Size(658, 356)
+        Me.TPStateContacts.Size = New System.Drawing.Size(658, 378)
         Me.TPStateContacts.TabIndex = 4
         Me.TPStateContacts.Text = "State Contacts"
         Me.TPStateContacts.UseVisualStyleBackColor = True
@@ -2793,7 +2793,7 @@ Partial Class IAIPFacilitySummary
         Me.TPEmissionInventory.Controls.Add(Me.GroupBox7)
         Me.TPEmissionInventory.Location = New System.Drawing.Point(4, 22)
         Me.TPEmissionInventory.Name = "TPEmissionInventory"
-        Me.TPEmissionInventory.Size = New System.Drawing.Size(666, 413)
+        Me.TPEmissionInventory.Size = New System.Drawing.Size(666, 435)
         Me.TPEmissionInventory.TabIndex = 4
         Me.TPEmissionInventory.Text = "Emission Inventory"
         Me.TPEmissionInventory.UseVisualStyleBackColor = True
@@ -2808,7 +2808,7 @@ Partial Class IAIPFacilitySummary
         Me.GroupBox6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox6.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(666, 193)
+        Me.GroupBox6.Size = New System.Drawing.Size(666, 215)
         Me.GroupBox6.TabIndex = 58
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Emission Data after 2009"
@@ -2874,7 +2874,7 @@ Partial Class IAIPFacilitySummary
         Me.GroupBox7.Controls.Add(Me.Label100)
         Me.GroupBox7.Controls.Add(Me.cboEIYear)
         Me.GroupBox7.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GroupBox7.Location = New System.Drawing.Point(0, 193)
+        Me.GroupBox7.Location = New System.Drawing.Point(0, 215)
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.Size = New System.Drawing.Size(666, 220)
         Me.GroupBox7.TabIndex = 59
@@ -3086,7 +3086,7 @@ Partial Class IAIPFacilitySummary
         Me.TPISMPTestingWork.Controls.Add(Me.TCISMPWork)
         Me.TPISMPTestingWork.Location = New System.Drawing.Point(4, 22)
         Me.TPISMPTestingWork.Name = "TPISMPTestingWork"
-        Me.TPISMPTestingWork.Size = New System.Drawing.Size(666, 413)
+        Me.TPISMPTestingWork.Size = New System.Drawing.Size(666, 435)
         Me.TPISMPTestingWork.TabIndex = 5
         Me.TPISMPTestingWork.Text = "ISMP Testing Work"
         Me.TPISMPTestingWork.UseVisualStyleBackColor = True
@@ -3101,7 +3101,7 @@ Partial Class IAIPFacilitySummary
         Me.TCISMPWork.Margin = New System.Windows.Forms.Padding(2)
         Me.TCISMPWork.Name = "TCISMPWork"
         Me.TCISMPWork.SelectedIndex = 0
-        Me.TCISMPWork.Size = New System.Drawing.Size(666, 413)
+        Me.TCISMPWork.Size = New System.Drawing.Size(666, 435)
         Me.TCISMPWork.TabIndex = 6
         '
         'TPTestReports
@@ -3111,7 +3111,7 @@ Partial Class IAIPFacilitySummary
         Me.TPTestReports.Location = New System.Drawing.Point(4, 22)
         Me.TPTestReports.Margin = New System.Windows.Forms.Padding(2)
         Me.TPTestReports.Name = "TPTestReports"
-        Me.TPTestReports.Size = New System.Drawing.Size(658, 387)
+        Me.TPTestReports.Size = New System.Drawing.Size(658, 409)
         Me.TPTestReports.TabIndex = 0
         Me.TPTestReports.Text = "Test Report(s)"
         '
@@ -3122,7 +3122,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvISMPWork.Location = New System.Drawing.Point(0, 30)
         Me.dgvISMPWork.Name = "dgvISMPWork"
         Me.dgvISMPWork.ReadOnly = True
-        Me.dgvISMPWork.Size = New System.Drawing.Size(658, 357)
+        Me.dgvISMPWork.Size = New System.Drawing.Size(658, 379)
         Me.dgvISMPWork.TabIndex = 5
         '
         'PanelISMPWork
@@ -3255,7 +3255,7 @@ Partial Class IAIPFacilitySummary
         Me.TPComplianceWork.Controls.Add(Me.TCComplianceWork)
         Me.TPComplianceWork.Location = New System.Drawing.Point(4, 22)
         Me.TPComplianceWork.Name = "TPComplianceWork"
-        Me.TPComplianceWork.Size = New System.Drawing.Size(666, 413)
+        Me.TPComplianceWork.Size = New System.Drawing.Size(666, 435)
         Me.TPComplianceWork.TabIndex = 6
         Me.TPComplianceWork.Text = "Compliance Work"
         Me.TPComplianceWork.UseVisualStyleBackColor = True
@@ -3270,7 +3270,7 @@ Partial Class IAIPFacilitySummary
         Me.TCComplianceWork.Margin = New System.Windows.Forms.Padding(2)
         Me.TCComplianceWork.Name = "TCComplianceWork"
         Me.TCComplianceWork.SelectedIndex = 0
-        Me.TCComplianceWork.Size = New System.Drawing.Size(666, 413)
+        Me.TCComplianceWork.Size = New System.Drawing.Size(666, 435)
         Me.TCComplianceWork.TabIndex = 1
         '
         'TPComplianceEvents
@@ -3280,7 +3280,7 @@ Partial Class IAIPFacilitySummary
         Me.TPComplianceEvents.Location = New System.Drawing.Point(4, 22)
         Me.TPComplianceEvents.Margin = New System.Windows.Forms.Padding(2)
         Me.TPComplianceEvents.Name = "TPComplianceEvents"
-        Me.TPComplianceEvents.Size = New System.Drawing.Size(658, 387)
+        Me.TPComplianceEvents.Size = New System.Drawing.Size(658, 409)
         Me.TPComplianceEvents.TabIndex = 0
         Me.TPComplianceEvents.Text = "Compliance Event(s)"
         Me.TPComplianceEvents.UseVisualStyleBackColor = True
@@ -3292,7 +3292,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvSSCPEvents.Location = New System.Drawing.Point(0, 30)
         Me.dgvSSCPEvents.Name = "dgvSSCPEvents"
         Me.dgvSSCPEvents.ReadOnly = True
-        Me.dgvSSCPEvents.Size = New System.Drawing.Size(658, 357)
+        Me.dgvSSCPEvents.Size = New System.Drawing.Size(658, 379)
         Me.dgvSSCPEvents.TabIndex = 3
         '
         'PanelSSCPEvents
@@ -3470,7 +3470,7 @@ Partial Class IAIPFacilitySummary
         Me.TPPermittingData.Controls.Add(Me.TCPermittingData)
         Me.TPPermittingData.Location = New System.Drawing.Point(4, 22)
         Me.TPPermittingData.Name = "TPPermittingData"
-        Me.TPPermittingData.Size = New System.Drawing.Size(666, 413)
+        Me.TPPermittingData.Size = New System.Drawing.Size(666, 435)
         Me.TPPermittingData.TabIndex = 7
         Me.TPPermittingData.Text = "Permitting Data"
         Me.TPPermittingData.UseVisualStyleBackColor = True
@@ -3485,7 +3485,7 @@ Partial Class IAIPFacilitySummary
         Me.TCPermittingData.Margin = New System.Windows.Forms.Padding(2)
         Me.TCPermittingData.Name = "TCPermittingData"
         Me.TCPermittingData.SelectedIndex = 0
-        Me.TCPermittingData.Size = New System.Drawing.Size(666, 413)
+        Me.TCPermittingData.Size = New System.Drawing.Size(666, 435)
         Me.TCPermittingData.TabIndex = 1
         '
         'TPPermitLog
@@ -3495,7 +3495,7 @@ Partial Class IAIPFacilitySummary
         Me.TPPermitLog.Location = New System.Drawing.Point(4, 22)
         Me.TPPermitLog.Margin = New System.Windows.Forms.Padding(2)
         Me.TPPermitLog.Name = "TPPermitLog"
-        Me.TPPermitLog.Size = New System.Drawing.Size(658, 387)
+        Me.TPPermitLog.Size = New System.Drawing.Size(658, 409)
         Me.TPPermitLog.TabIndex = 0
         Me.TPPermitLog.Text = "Permit Tracking Log"
         Me.TPPermitLog.UseVisualStyleBackColor = True
@@ -3507,7 +3507,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvApplicationLog.Location = New System.Drawing.Point(0, 30)
         Me.dgvApplicationLog.Name = "dgvApplicationLog"
         Me.dgvApplicationLog.ReadOnly = True
-        Me.dgvApplicationLog.Size = New System.Drawing.Size(658, 357)
+        Me.dgvApplicationLog.Size = New System.Drawing.Size(658, 379)
         Me.dgvApplicationLog.TabIndex = 4
         '
         'Panel12
@@ -3596,7 +3596,7 @@ Partial Class IAIPFacilitySummary
         Me.TPPlanningSupportData.Controls.Add(Me.TabControl2)
         Me.TPPlanningSupportData.Location = New System.Drawing.Point(4, 22)
         Me.TPPlanningSupportData.Name = "TPPlanningSupportData"
-        Me.TPPlanningSupportData.Size = New System.Drawing.Size(666, 413)
+        Me.TPPlanningSupportData.Size = New System.Drawing.Size(666, 435)
         Me.TPPlanningSupportData.TabIndex = 8
         Me.TPPlanningSupportData.Text = "Financial Data"
         Me.TPPlanningSupportData.UseVisualStyleBackColor = True
@@ -3610,7 +3610,7 @@ Partial Class IAIPFacilitySummary
         Me.TabControl2.Location = New System.Drawing.Point(0, 0)
         Me.TabControl2.Name = "TabControl2"
         Me.TabControl2.SelectedIndex = 0
-        Me.TabControl2.Size = New System.Drawing.Size(666, 413)
+        Me.TabControl2.Size = New System.Drawing.Size(666, 435)
         Me.TabControl2.TabIndex = 1
         '
         'TPFeeData
@@ -3618,7 +3618,7 @@ Partial Class IAIPFacilitySummary
         Me.TPFeeData.Controls.Add(Me.dgvFeeData)
         Me.TPFeeData.Location = New System.Drawing.Point(4, 22)
         Me.TPFeeData.Name = "TPFeeData"
-        Me.TPFeeData.Size = New System.Drawing.Size(658, 387)
+        Me.TPFeeData.Size = New System.Drawing.Size(658, 409)
         Me.TPFeeData.TabIndex = 0
         Me.TPFeeData.Text = "Fee Data"
         Me.TPFeeData.UseVisualStyleBackColor = True
@@ -3630,7 +3630,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvFeeData.Location = New System.Drawing.Point(0, 0)
         Me.dgvFeeData.Name = "dgvFeeData"
         Me.dgvFeeData.ReadOnly = True
-        Me.dgvFeeData.Size = New System.Drawing.Size(658, 387)
+        Me.dgvFeeData.Size = New System.Drawing.Size(658, 409)
         Me.dgvFeeData.TabIndex = 0
         '
         'TPInvoices

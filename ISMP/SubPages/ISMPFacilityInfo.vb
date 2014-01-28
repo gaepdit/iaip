@@ -1014,7 +1014,6 @@ Public Class ISMPFacilityInfo
                                     'conn.close()
                                 End If
 
-
                             Catch ex As Exception
                                 ErrorReport(ex, "ISMPFacilityInfo.Save(Sub2)")
                             Finally
@@ -1022,13 +1021,7 @@ Public Class ISMPFacilityInfo
                                     'conn.close()
                                 End If
                             End Try
-                            ' 
 
-                            If FacilitySummary Is Nothing Then
-                            Else
-                                panel1.Text = "Refreshing Faciltiy Summary Screen..."
-                                '   FacilitySummary.LoadISMPDataGrid()
-                            End If
                             panel1.Text = Paneltemp1
                             MsgBox("Done", MsgBoxStyle.Information, "ISMP Facility Information")
                         Else

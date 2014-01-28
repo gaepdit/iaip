@@ -2209,30 +2209,10 @@ Public Class SSPPStatisticalTools
 
             If txtRecordNumber.Text <> "" Then
                 If txtRecordNumber.Text.Length = 8 Then
-                    SQL = "Select strAIRSNumber " & _
-                    "from " & DBNameSpace & ".APBMasterAIRS " & _
-                    "where strAIRSNumber = '0413" & txtRecordNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    dr.Close()
-                    If recExist = True Then
-                        If FacilitySummary Is Nothing Then
-                            FacilitySummary = Nothing
-                            If FacilitySummary Is Nothing Then FacilitySummary = New IAIPFacilitySummary
-                            FacilitySummary.mtbAIRSNumber.Text = txtRecordNumber.Text
-                            FacilitySummary.Show()
-                        Else
-                            FacilitySummary.mtbAIRSNumber.Text = txtRecordNumber.Text
-                            FacilitySummary.Show()
-                        End If
-                        'FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-
-                        FacilitySummary.LoadInitialData()
-
+                    If DAL.FacilityInfo.AirsNumberExists(txtRecordNumber.Text) Then
+                        Dim parameters As New Generic.Dictionary(Of String, String)
+                        parameters("airsnumber") = txtRecordNumber.Text
+                        OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
                     End If
                 Else
                     SQL = "select strApplicationNumber " & _
