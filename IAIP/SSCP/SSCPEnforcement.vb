@@ -2104,7 +2104,6 @@ Public Class SscpEnforcement
             'End If
 
             'EnforcementChecklist.Show()
-            'EnforcementChecklist.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -3666,7 +3665,6 @@ Public Class SscpEnforcement
                 EditAirProgramPollutants.txtEnforcementNumber.Text = txtEnforcementNumber.Text
                 EditAirProgramPollutants.Show()
                 EditAirProgramPollutants.TPEnforcementPollutants.Focus()
-                'EditAirProgramPollutants.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             Else
                 MsgBox("Save this Enforcement Action atleast once before you try to add pollutants.", MsgBoxStyle.Information, "Enforcement")
             End If
@@ -3694,7 +3692,6 @@ Public Class SscpEnforcement
                 If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
                 SSCPReports.txtTrackingNumber.Text = txtTrackingNumber.Text
                 SSCPReports.Show()
-                'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
 
         Catch ex As Exception

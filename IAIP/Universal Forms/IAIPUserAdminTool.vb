@@ -1634,9 +1634,7 @@ Public Class IAIPUserAdminTool
                 ListTool.Dispose()
                 ListTool = New IAIPListTool
             End If
-            'ListTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             ListTool.Show()
-            'ListTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1846,7 +1844,6 @@ Public Class IAIPUserAdminTool
             PrintOut.txtPrintType.Text = "OrgChart"
 
             PrintOut.Show()
-            'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1872,9 +1869,7 @@ Public Class IAIPUserAdminTool
                 PhoneList.Dispose()
                 PhoneList = New IAIPPhoneList
             End If
-            'PhoneList.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             PhoneList.Show()
-            'PhoneList.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

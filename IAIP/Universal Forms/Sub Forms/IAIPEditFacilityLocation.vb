@@ -360,11 +360,6 @@ Public Class IAIPEditFacilityLocation
                                 dr.Close()
                             End If
 
-                            If FacilitySummary Is Nothing Then
-                            Else
-
-                            End If
-
                             SQL = "Update airbranch.EIS_FacilitySite set " & _
                             "strFacilitySiteName = '" & Replace(txtFacilityName.Text, "'", "''") & "', " & _
                             "strFacilitySiteComment = 'Facility Name updated.', " & _

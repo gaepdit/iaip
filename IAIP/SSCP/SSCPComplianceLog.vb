@@ -931,7 +931,6 @@ Public Class SSCPComplianceLog
                 '    SSCP_Enforcement.txtAIRSNumber.Text = txtNewAIRSNumber.Text
                 '    SSCP_Enforcement.Show()
                 'End If
-                ''SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             Else
                 If rdbFCE.Checked = True Then
 
@@ -941,7 +940,6 @@ Public Class SSCPComplianceLog
                     SSCPFCE.txtFacilityInformation.Text = txtNewAIRSNumber.Text
                     SSCPFCE.txtOrigin.Text = "Work Entry"
                     SSCPFCE.Show()
-                    'SSCPFCE.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Else
                     If rdbPerformanceTest.Checked = True Then
                         If txtTrackingNumber.Text <> "" Then
@@ -1038,7 +1036,6 @@ Public Class SSCPComplianceLog
                             SSCPReports.txtTrackingNumber.Text = txtTrackingNumber.Text
                             SSCPReports.txtOrigin.Text = "Work Entry 2"
                             SSCPReports.Show()
-                            'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                         Else
                             MsgBox("Select a Work type and event type if needed.", MsgBoxStyle.Information, "Work Entry")
                         End If
@@ -1901,7 +1898,6 @@ Public Class SSCPComplianceLog
                         SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
                         SSCPReports.Show()
                     End If
-                    'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 ElseIf InStr(txtTestType.Text, "Enforcement") > 0 Then
                     Dim enfNum As String = txtWorkNumber.Text
                     If enfNum = "" Then Exit Sub
@@ -1925,7 +1921,6 @@ Public Class SSCPComplianceLog
                     '    SSCP_Enforcement.txtEnforcementNumber.Text = txtWorkNumber.Text
                     '    SSCP_Enforcement.Show()
                     'End If
-                    'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 ElseIf InStr(txtTestType.Text, "Full Compliance Evaluation") > 0 Then
                     If SSCPFCE Is Nothing Then
                         If SSCPFCE Is Nothing Then SSCPFCE = New SSCPFCEWork
@@ -1942,7 +1937,6 @@ Public Class SSCPComplianceLog
                         SSCPFCE.Show()
                         SSCPFCE.txtFCENumber.Text = txtWorkNumber.Text
                     End If
-                    'SSCPFCE.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 ElseIf InStr(txtTestType.Text, "Inspection") > 0 Then
                     If SSCPReports Is Nothing Then
                         SSCPReports = Nothing
@@ -1956,7 +1950,6 @@ Public Class SSCPComplianceLog
                         SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
                         SSCPReports.Show()
                     End If
-                    'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 ElseIf InStr(txtTestType.Text, "Notification") > 0 Then
                     If SSCPReports Is Nothing Then
                         SSCPReports = Nothing
@@ -1970,7 +1963,6 @@ Public Class SSCPComplianceLog
                         SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
                         SSCPReports.Show()
                     End If
-                    'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
                 ElseIf InStr(txtTestType.Text, "Performance Tests") > 0 Then
                     Dim RefNum As String = ""
@@ -2013,7 +2005,6 @@ Public Class SSCPComplianceLog
                             SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
                             SSCPReports.Show()
                         End If
-                        'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     End If
                 ElseIf InStr(txtTestType.Text, "Report") > 0 Then
                     If SSCPReports Is Nothing Then
@@ -2028,7 +2019,6 @@ Public Class SSCPComplianceLog
                         SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
                         SSCPReports.Show()
                     End If
-                    'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 End If
             End If
 
@@ -2290,43 +2280,16 @@ Public Class SSCPComplianceLog
     End Sub
     Private Sub btnOpenSummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenSummary.Click
         Try
-
-            If txtAIRSNumber.Text <> "" And txtAIRSNumber.Text.Length = 8 Then
-                SQL = "Select strAIRSNumber " & _
-                "from " & DBNameSpace & ".APBMasterAIRS " & _
-                "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
-                    If FacilitySummary Is Nothing Then
-                        FacilitySummary = Nothing
-                        If FacilitySummary Is Nothing Then FacilitySummary = New IAIPFacilitySummary
-                        FacilitySummary.mtbAIRSNumber.Text = txtAIRSNumber.Text
-                        FacilitySummary.Show()
-                    Else
-                        FacilitySummary.mtbAIRSNumber.Text = txtAIRSNumber.Text
-                        FacilitySummary.Show()
-                    End If
-                    'FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-
-                    FacilitySummary.LoadInitialData()
-                Else
-                    MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Compliance Log")
-                End If
-            Else
-                MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Compliance Log")
+            If Not DAL.FacilityInfo.AirsNumberExists(txtAIRSNumber.Text) Then
+                MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
+                Exit Sub
             End If
-
+            Dim parameters As New Generic.Dictionary(Of String, String)
+            parameters("airsnumber") = txtAIRSNumber.Text
+            OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
 
 #End Region

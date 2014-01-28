@@ -594,21 +594,11 @@ Public Class DMUStaffTools
 #End Region
     Private Sub DEVDataManagementTools_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
-
-            If NavigationScreen Is Nothing Then
-                NavigationScreen = New IAIPNavigation
-            End If
-            NavigationScreen.Show()
-
             StaffTools = Nothing
-
             Me.Dispose()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
 #Region "Web Application Users"
     Private Sub btnActivateEmail_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnActivateEmail.Click
@@ -974,10 +964,6 @@ Public Class DMUStaffTools
     Private Sub SetPassword_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
             
-            If NavigationScreen Is Nothing Then
-                NavigationScreen = New IAIPNavigation
-            End If
-            NavigationScreen.Show()
             Me.Dispose()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -4046,7 +4032,6 @@ Public Class DMUStaffTools
                 PrintOut.txtPrintType.Text = "ES Print Out"
                 PrintOut.txtSQLLine.Text = Me.txtConfirmationNumber.Text
                 PrintOut.Show()
-                'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
 
         Catch ex As Exception

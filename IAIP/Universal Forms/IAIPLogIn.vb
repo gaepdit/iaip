@@ -150,159 +150,127 @@ Public Class IAIPLogIn
 #Region " Login "
 
     Private Sub LogInCheck()
+        If txtUserID.Text = "" OrElse txtUserPassword.Text = "" Then Exit Sub
+
         monitor.TrackFeatureStart("Startup.LoggingIn")
         LoginProgressBar.Visible = True
+        LoginProgressBar.Refresh()
 
-        'btnLoginButton.Visible = True
         Try
+
             Dim EmployeeStatus As String = ""
             Dim PhoneNumber As String = ""
             Dim EmailAddress As String = ""
-            Dim ValidateLogInInfo As String = ""
+            Dim InvalidUserData As Boolean = False
             Dim LastName As String = ""
 
             UserGCode = ""
 
-            LoginProgressBar.PerformStep()
+            Dim loginCred As LoginCred = DAL.GetLoginCred(txtUserID.Text.ToUpper, EncryptDecrypt.EncryptText(txtUserPassword.Text))
 
-            If txtUserID.Text <> "" Then
-                If txtUserPassword.Text <> "" Then
-                    LoginProgressBar.PerformStep()
-
-                    Dim loginCred As LoginCred = DAL.GetLoginCred(txtUserID.Text.ToUpper, EncryptDecrypt.EncryptText(txtUserPassword.Text))
-
-                    LoginProgressBar.PerformStep()
-
-                    UserGCode = loginCred.Staff.StaffId
-                    Permissions = loginCred.PermissionsString
-                    If Permissions = "" Then Permissions = "(0)"
-                    UserName = loginCred.Staff.AlphaName
-                    If UserName = "" Then UserName = " "
-                    UserBranch = loginCred.Staff.BranchID.ToString
-                    If UserBranch = "0" OrElse UserBranch = "" Then UserBranch = "---"
-                    UserProgram = loginCred.Staff.ProgramID.ToString
-                    If UserProgram = "0" OrElse UserProgram = "" Then UserProgram = "---"
-                    UserUnit = loginCred.Staff.UnitId.ToString
-                    If UserUnit = "0" OrElse UserUnit = "" Then UserUnit = "---"
-                    EmployeeStatus = If(loginCred.Staff.ActiveStatus, "1", "0")
-                    PhoneNumber = loginCred.Staff.Phone
-                    EmailAddress = loginCred.Staff.Email
-                    LastName = loginCred.Staff.LastName
-
-                    LoginProgressBar.PerformStep()
-
-                    If UserGCode <> "" And EmployeeStatus = "1" Then
-                        If EmailAddress = "" Then
-                            ValidateLogInInfo = "Check"
-                            EmailAddress = "Require"
-                        End If
-                        If PhoneNumber = "" Or PhoneNumber = "4043637000" Then
-                            ValidateLogInInfo = "Check"
-                            PhoneNumber = "Require"
-                        End If
-                        If LastName.ToUpper = txtUserPassword.Text.ToUpper Then
-                            ValidateLogInInfo = "Check"
-                            LastName = "Require"
-                        End If
-                        If ValidateLogInInfo = "Check" Then
-                            ProfileUpdate = Nothing
-                            If ProfileUpdate Is Nothing Then ProfileUpdate = New IAIPProfileUpdate
-                            ProfileUpdate.Show()
-                            txtUserPassword.Clear()
-                            If EmailAddress = "Require" Then
-                                ProfileUpdate.pnlEmailAddress.Visible = True
-                                ProfileUpdate.txtEmailAddress.BackColor = Color.Tomato
-                            Else
-                                'ProfileUpdate.pnlEmailAddress.Visible = False
-                                ProfileUpdate.txtEmailAddress.Text = EmailAddress
-                            End If
-                            If PhoneNumber = "Require" Then
-                                ProfileUpdate.pnlPhoneNumber.Visible = True
-                                ProfileUpdate.mtbPhoneNumber.BackColor = Color.Tomato
-                            Else
-                                'ProfileUpdate.pnlPhoneNumber.Visible = False
-                                ProfileUpdate.mtbPhoneNumber.Text = PhoneNumber
-                            End If
-                            If LastName = "Require" Then
-                                ProfileUpdate.pnlUserIDPassword.Visible = True
-                                ProfileUpdate.txtUserPassword.BackColor = Color.Tomato
-                                ProfileUpdate.txtConfirmPassword.BackColor = Color.Tomato
-
-                            Else
-                                ' ProfileUpdate.pnlUserIDPassword.Visible = False
-                            End If
-
-
-                            LoginProgressBar.Value = 0
-                            LoginProgressBar.Visible = False
-                            'btnLoginButton.Visible = True
-
-                            Exit Sub
-                        End If
-
-                        If ProfileUpdate IsNot Nothing Then
-                            ProfileUpdate.Close()
-                            ProfileUpdate = Nothing
-                        End If
-
-                        ' Add additional installation meta data for analytics
-                        monitorInstallationInfo.Add("IaipUserName", loginCred.UserName)
-                        monitor.SetInstallationInfo(loginCred.UserName, monitorInstallationInfo)
-
-                        If CurrentConnectionEnvironment = DB.ConnectionEnvironment.Development _
-                        OrElse CurrentConnectionEnvironment = DB.ConnectionEnvironment.NADC_Development _
-                        Then monitor.TrackFeature("Main.TestingEnvironment")
-
-                        NavigationScreen = Nothing
-                        If NavigationScreen Is Nothing Then NavigationScreen = New IAIPNavigation
-
-                        SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
-
-
-                        NavigationScreen.Show()
-
-                        LoginProgressBar.Value = 0
-                        LoginProgressBar.Visible = False
-                        'btnLoginButton.Visible = True
-                        Me.Close()
-                    Else
-                        'Panel1.Text = Paneltemp1
-
-                        If EmployeeStatus = "0" Then
-                            MsgBox("You status as been flagged as inactive." & vbCrLf & "If this is in error please contact your manager.", MsgBoxStyle.Exclamation, _
-    "Log In Error")
-                        Else
-                            MsgBox("Log In information is incorrect." & vbCrLf & "Please try again.", MsgBoxStyle.Exclamation, _
-    "Log In Error")
-                        End If
-                        txtUserPassword.Clear()
-                        txtUserPassword.Focus()
-
-                        LoginProgressBar.Value = 0
-                        LoginProgressBar.Visible = False
-                        'btnLoginButton.Visible = True
-                        monitor.TrackFeatureCancel("Startup.LoggingIn")
-                    End If
-                Else
-                    LoginProgressBar.Value = 0
-                    LoginProgressBar.Visible = False
-                    'btnLoginButton.Visible = True
-                    monitor.TrackFeatureCancel("Startup.LoggingIn")
-                End If
-            Else
-
-                LoginProgressBar.Value = 0
+            If loginCred Is Nothing Then
+                MsgBox("Login information is incorrect." & vbCrLf & "Please try again.", MsgBoxStyle.Exclamation, "Login Error")
+                txtUserPassword.Clear()
+                txtUserPassword.Focus()
                 LoginProgressBar.Visible = False
-                'btnLoginButton.Visible = True
                 monitor.TrackFeatureCancel("Startup.LoggingIn")
-                MsgBox("The User ID and Password provided is not a valid user combination.", MsgBoxStyle.Exclamation, _
-                                 "Log In Error")
+                Exit Sub
             End If
 
+            UserGCode = loginCred.Staff.StaffId
+            Permissions = loginCred.PermissionsString
+            If Permissions = "" Then Permissions = "(0)"
+            UserName = loginCred.Staff.AlphaName
+            If UserName = "" Then UserName = " "
+            UserBranch = loginCred.Staff.BranchID.ToString
+            If UserBranch = "0" OrElse UserBranch = "" Then UserBranch = "---"
+            UserProgram = loginCred.Staff.ProgramID.ToString
+            If UserProgram = "0" OrElse UserProgram = "" Then UserProgram = "---"
+            UserUnit = loginCred.Staff.UnitId.ToString
+            If UserUnit = "0" OrElse UserUnit = "" Then UserUnit = "---"
+            EmployeeStatus = If(loginCred.Staff.ActiveStatus, "1", "0")
+            PhoneNumber = loginCred.Staff.Phone
+            EmailAddress = loginCred.Staff.Email
+            LastName = loginCred.Staff.LastName
+
+            If EmployeeStatus = "0" Then
+                MsgBox("You status has been flagged as inactive." & vbCrLf & "Please contact your manager for more information.", MsgBoxStyle.Exclamation, "Login Error")
+                txtUserPassword.Clear()
+                LoginProgressBar.Visible = False
+                monitor.TrackFeatureCancel("Startup.LoggingIn")
+                Exit Sub
+            End If
+
+            If UserGCode = "" Then
+                MsgBox("Login information is incorrect." & vbCrLf & "Please try again.", MsgBoxStyle.Exclamation, "Login Error")
+                txtUserPassword.Clear()
+                txtUserPassword.Focus()
+                LoginProgressBar.Visible = False
+                monitor.TrackFeatureCancel("Startup.LoggingIn")
+                Exit Sub
+            End If
+
+            'Check for valid user data
+            If EmailAddress = "" Then
+                InvalidUserData = True
+                EmailAddress = "Require"
+            End If
+            If PhoneNumber = "" Or PhoneNumber = "4043637000" Then
+                InvalidUserData = True
+                PhoneNumber = "Require"
+            End If
+            If LastName.ToUpper = txtUserPassword.Text.ToUpper Then
+                InvalidUserData = True
+                LastName = "Require"
+            End If
+            If InvalidUserData Then
+                ProfileUpdate = Nothing
+                If ProfileUpdate Is Nothing Then ProfileUpdate = New IAIPProfileUpdate
+                ProfileUpdate.Show()
+                txtUserPassword.Clear()
+                If EmailAddress = "Require" Then
+                    ProfileUpdate.pnlEmailAddress.Visible = True
+                    ProfileUpdate.txtEmailAddress.BackColor = Color.Tomato
+                Else
+                    ProfileUpdate.txtEmailAddress.Text = EmailAddress
+                End If
+                If PhoneNumber = "Require" Then
+                    ProfileUpdate.pnlPhoneNumber.Visible = True
+                    ProfileUpdate.mtbPhoneNumber.BackColor = Color.Tomato
+                Else
+                    ProfileUpdate.mtbPhoneNumber.Text = PhoneNumber
+                End If
+                If LastName = "Require" Then
+                    ProfileUpdate.pnlUserIDPassword.Visible = True
+                    ProfileUpdate.txtUserPassword.BackColor = Color.Tomato
+                    ProfileUpdate.txtConfirmPassword.BackColor = Color.Tomato
+                End If
+
+                LoginProgressBar.Visible = False
+                monitor.TrackFeatureCancel("Startup.LoggingIn")
+                Exit Sub
+            End If
+
+            If ProfileUpdate IsNot Nothing Then
+                ProfileUpdate.Close()
+                ProfileUpdate = Nothing
+            End If
+
+            ' Add additional installation meta data for analytics
+            monitorInstallationInfo.Add("IaipUserName", loginCred.UserName)
+            monitor.SetInstallationInfo(loginCred.UserName, monitorInstallationInfo)
+
+            If CurrentConnectionEnvironment = DB.ConnectionEnvironment.Development _
+            OrElse CurrentConnectionEnvironment = DB.ConnectionEnvironment.NADC_Development _
+            Then monitor.TrackFeature("Main.TestingEnvironment")
+
+            SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
+            OpenSingleForm(IAIPNavigation)
+
+            Me.Close()
+
         Catch ex As Exception
-            LoginProgressBar.Value = 0
             LoginProgressBar.Visible = False
-            'btnLoginButton.Visible = True
             monitor.TrackFeatureCancel("Startup.LoggingIn")
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -420,7 +388,7 @@ Public Class IAIPLogIn
         Application.Exit()
     End Sub
     Private Sub Form_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
-        If NavigationScreen Is Nothing Then
+        If Not SingleFormIsOpen(IAIPNavigation) Then
             CloseIaip()
         End If
     End Sub

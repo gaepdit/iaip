@@ -3180,13 +3180,7 @@ Public Class DMUTitleVTools
 #End Region
     Private Sub DEVDataManagementTools_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
-            If NavigationScreen Is Nothing Then
-                NavigationScreen = New IAIPNavigation
-            End If
-            NavigationScreen.Show()
-
             TitleVTools = Nothing
-
             Me.Dispose()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3210,7 +3204,6 @@ Public Class DMUTitleVTools
                 PermitTrackingLog.txtApplicationNumber.Text = txtWebPublisherApplicationNumber.Text
                 PermitTrackingLog.LoadApplication()
                 PermitTrackingLog.BringToFront()
-                'PermitTrackingLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3553,10 +3546,6 @@ Public Class DMUTitleVTools
     Private Sub SetPassword_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
 
-            If NavigationScreen Is Nothing Then
-                NavigationScreen = New IAIPNavigation
-            End If
-            NavigationScreen.Show()
             Me.Dispose()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3621,7 +3610,6 @@ Public Class DMUTitleVTools
                 PrintOut.txtStartDate.Text = Startdate
                 PrintOut.txtEndDate.Text = EndDate
                 PrintOut.Show()
-                'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3971,7 +3959,6 @@ Public Class DMUTitleVTools
                 PrintOut.txtStartDate.Text = "01-Jan-1990"
                 PrintOut.txtEndDate.Text = "01-Jan-2099"
                 PrintOut.Show()
-                'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
 
         Catch ex As Exception

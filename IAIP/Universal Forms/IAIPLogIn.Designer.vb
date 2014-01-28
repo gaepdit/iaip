@@ -272,9 +272,11 @@ Partial Class IAIPLogIn
         'LoginProgressBar
         '
         Me.LoginProgressBar.Location = New System.Drawing.Point(422, 302)
+        Me.LoginProgressBar.MarqueeAnimationSpeed = 10
         Me.LoginProgressBar.Name = "LoginProgressBar"
         Me.LoginProgressBar.Size = New System.Drawing.Size(175, 23)
         Me.LoginProgressBar.Step = 20
+        Me.LoginProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee
         Me.LoginProgressBar.TabIndex = 46
         Me.LoginProgressBar.Visible = False
         '

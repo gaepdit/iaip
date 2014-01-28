@@ -2013,18 +2013,10 @@ Public Class SSPPStatisticalTools
     Private Sub SSPPApplicationLog_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
 
-            If NavigationScreen Is Nothing Then
-                NavigationScreen = New IAIPNavigation
-            End If
-            NavigationScreen.Show()
             StatisticalTools = Nothing
             Me.Dispose()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
 
     End Sub
@@ -2209,30 +2201,10 @@ Public Class SSPPStatisticalTools
 
             If txtRecordNumber.Text <> "" Then
                 If txtRecordNumber.Text.Length = 8 Then
-                    SQL = "Select strAIRSNumber " & _
-                    "from " & DBNameSpace & ".APBMasterAIRS " & _
-                    "where strAIRSNumber = '0413" & txtRecordNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    dr.Close()
-                    If recExist = True Then
-                        If FacilitySummary Is Nothing Then
-                            FacilitySummary = Nothing
-                            If FacilitySummary Is Nothing Then FacilitySummary = New IAIPFacilitySummary
-                            FacilitySummary.mtbAIRSNumber.Text = txtRecordNumber.Text
-                            FacilitySummary.Show()
-                        Else
-                            FacilitySummary.mtbAIRSNumber.Text = txtRecordNumber.Text
-                            FacilitySummary.Show()
-                        End If
-                        'FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-
-                        FacilitySummary.LoadInitialData()
-
+                    If DAL.FacilityInfo.AirsNumberExists(txtRecordNumber.Text) Then
+                        Dim parameters As New Generic.Dictionary(Of String, String)
+                        parameters("airsnumber") = txtRecordNumber.Text
+                        OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
                     End If
                 Else
                     SQL = "select strApplicationNumber " & _
@@ -2257,7 +2229,6 @@ Public Class SSPPStatisticalTools
                         PermitTrackingLog.txtApplicationNumber.Text = txtRecordNumber.Text
                         PermitTrackingLog.LoadApplication()
                         PermitTrackingLog.BringToFront()
-                        'PermitTrackingLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                         PermitTrackingLog.TPTrackingLog.Focus()
                     Else
                         MsgBox("Application Number is not in the system.", MsgBoxStyle.Information, "Statistical Tools Screen")

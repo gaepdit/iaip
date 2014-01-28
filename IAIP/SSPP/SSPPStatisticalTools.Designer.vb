@@ -3182,7 +3182,7 @@ Partial Class SSPPStatisticalTools
         Me.Controls.Add(Me.StatusStrip1)
         Me.Menu = Me.MainMenu1
         Me.Name = "SSPPStatisticalTools"
-        Me.Text = "SSPP Reports and Statisitcal Tools"
+        Me.Text = "SSPP Reports and Statistical Tools"
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         Me.TCSSPPStatistics.ResumeLayout(False)

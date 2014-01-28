@@ -963,10 +963,6 @@ Public Class ISMPMonitoringLog
     Private Sub ISMPTestReportViewer_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
 
-            If NavigationScreen Is Nothing Then
-                NavigationScreen = New IAIPNavigation
-            End If
-            NavigationScreen.Show()
             ISMPReportViewer = Nothing
             Me.Dispose()
         Catch ex As Exception
@@ -1251,7 +1247,6 @@ Public Class ISMPMonitoringLog
                 ISMPNotificationLogForm.Show()
             End If
             ISMPNotificationLogForm.LoadTestNotification()
-            'DevTestLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -1285,7 +1280,6 @@ Public Class ISMPMonitoringLog
             End If
             TestFirmComments.txtCommentID.Text = txtCommentNumber.Text
             TestFirmComments.LoadTestFirmComments()
-            'TestFirmComments.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1297,10 +1291,6 @@ Public Class ISMPMonitoringLog
     Private Sub tsbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbBack.Click
         Try
 
-            If NavigationScreen Is Nothing Then
-                NavigationScreen = New IAIPNavigation
-            End If
-            NavigationScreen.Show()
             ISMPReportViewer = Nothing
             Me.Dispose()
         Catch ex As Exception
@@ -1414,7 +1404,6 @@ Public Class ISMPMonitoringLog
                 If StaffReports Is Nothing Then StaffReports = New ISMPStaffReports
             End If
             StaffReports.Show()
-            'StaffReports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

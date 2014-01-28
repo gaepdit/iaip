@@ -607,42 +607,4 @@ Public Class IAIPEditContacts
 
 #End Region
 
-#Region "Unused delete code"
-    'Sub DeleteContact()
-    '    Try
-    '        If txtContactKey.Text.Length = 14 Then
-    '            SQL = "Delete " & DBNameSpace & ".APBContactInformation " & _
-    '            "where strContactKey = '" & txtContactKey.Text & "'"
-    '            cmd = New OracleCommand(SQL, Conn)
-    '            If Conn.State = ConnectionState.Closed Then
-    '                Conn.Open()
-    '            End If
-    '            dr = cmd.ExecuteReader
-    '            dr.Close()
-
-    '            LoadContactsDataset("PageLoad")
-
-    '            If FacilitySummary Is Nothing Then
-    '            Else
-    '                ' IAIPFacilitySummary.LoadContactInformation()
-    '            End If
-    '            If SSCPRequest Is Nothing Then
-    '            Else
-    '                SSCPRequest.LoadFacilityContactInformation()
-    '            End If
-
-    '        Else
-    '            MsgBox("Please select a valid contact.", MsgBoxStyle.Information, "IAIP Edit Contact Information")
-    '        End If
-
-    '    Catch ex As Exception
-    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    Finally
-    '        If Conn.State = ConnectionState.Open Then
-    '            'conn.close()
-    '        End If
-    '    End Try
-    'End Sub
-#End Region
-
 End Class

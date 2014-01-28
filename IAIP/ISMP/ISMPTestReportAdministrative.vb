@@ -1213,7 +1213,6 @@ Public Class ISMPTestReportAdministrative
             PrintOut.txtPrintType.Text = "ISMPAIRSForm"
             PrintOut.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
             PrintOut.Show()
-            'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -1365,7 +1364,6 @@ Public Class ISMPTestReportAdministrative
                 If ISMPMemoEdit Is Nothing Then ISMPMemoEdit = New ISMPMemo
                 ISMPMemoEdit.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
                 ISMPMemoEdit.Show()
-                'ISMPMemoEdit.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2632,20 +2630,11 @@ Public Class ISMPTestReportAdministrative
     Private Sub DevTestReportAdministrative_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
 
-            If NavigationScreen Is Nothing Then
-                NavigationScreen = New IAIPNavigation
-            End If
-            NavigationScreen.Show()
-
             ISMPFacility = Nothing
 
             Me.Dispose()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
 
     End Sub
@@ -2739,7 +2728,6 @@ Public Class ISMPTestReportAdministrative
             PrintOut.txtPrintType.Text = "ISMPAIRSForm"
             PrintOut.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
             PrintOut.Show()
-            'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -2757,7 +2745,6 @@ Public Class ISMPTestReportAdministrative
             PrintOut.txtPrintType.Text = "ISMPTestReport"
             PrintOut.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
             PrintOut.Show()
-            'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -2833,7 +2820,6 @@ Public Class ISMPTestReportAdministrative
             ISMPAddTestingFirm = Nothing
             If ISMPAddTestingFirm Is Nothing Then ISMPAddTestingFirm = New ISMPAddTestingFirms
             ISMPAddTestingFirm.Show()
-            'ISMPAddTestingFirm.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -2849,7 +2835,6 @@ Public Class ISMPTestReportAdministrative
             ISMPAddPollutant = Nothing
             If ISMPAddPollutant Is Nothing Then ISMPAddPollutant = New ISMPAddPollutants
             ISMPAddPollutant.Show()
-            'ISMPAddPollutant.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally

@@ -1014,7 +1014,6 @@ Public Class ISMPFacilityInfo
                                     'conn.close()
                                 End If
 
-
                             Catch ex As Exception
                                 ErrorReport(ex, "ISMPFacilityInfo.Save(Sub2)")
                             Finally
@@ -1022,13 +1021,7 @@ Public Class ISMPFacilityInfo
                                     'conn.close()
                                 End If
                             End Try
-                            ' 
 
-                            If FacilitySummary Is Nothing Then
-                            Else
-                                panel1.Text = "Refreshing Faciltiy Summary Screen..."
-                                '   FacilitySummary.LoadISMPDataGrid()
-                            End If
                             panel1.Text = Paneltemp1
                             MsgBox("Done", MsgBoxStyle.Information, "ISMP Facility Information")
                         Else
@@ -1104,7 +1097,6 @@ Public Class ISMPFacilityInfo
                 If ISMPMemoEdit Is Nothing Then ISMPMemoEdit = New ISMPMemo
                 ISMPMemoEdit.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
                 ISMPMemoEdit.Show()
-                'ISMPMemoEdit.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1299,7 +1291,6 @@ Public Class ISMPFacilityInfo
             ISMPAddTestingFirm = Nothing
             If ISMPAddTestingFirm Is Nothing Then ISMPAddTestingFirm = New ISMPAddTestingFirms
             ISMPAddTestingFirm.Show()
-            'ISMPAddTestingFirm.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -1315,7 +1306,6 @@ Public Class ISMPFacilityInfo
             ISMPAddPollutant = Nothing
             If ISMPAddPollutant Is Nothing Then ISMPAddPollutant = New ISMPAddPollutants
             ISMPAddPollutant.Show()
-            'ISMPAddPollutant.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally

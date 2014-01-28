@@ -63,10 +63,10 @@ Module subMain
 #Region "Universal Screens"
     'Public APB110 As IAIPLogIn
 
-    Public NavigationScreen As IAIPNavigation
+    'Public NavigationScreen As IAIPNavigation
     'Public FacilityLookUpTool As IAIPFacilityLookUpTool
     Public PrintOut As IAIPPrintOut
-    Public FacilitySummary As IAIPFacilitySummary
+    'Public FacilitySummary As IAIPFacilitySummary
 
     Public QueryGenerator As IAIPQueryGenerator
     Public EditContacts As IAIPEditContacts
@@ -112,7 +112,7 @@ Module subMain
     Public ISMPConfidential As ISMPConfidentialData
     'Public ISMPTestReportsEntry As ISMPTestReports
     Public TestFirmComments As ISMPTestFirmComments
-    Public DevelopersTools As DMUDeveloperTools
+    'Public DevelopersTools As DMUDeveloperTools
     Public StaffTools As DMUStaffTools
     Public TitleVTools As DMUTitleVTools
     Public StaffReports As ISMPStaffReports
