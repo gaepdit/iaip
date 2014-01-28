@@ -72,20 +72,13 @@ Public Class DMUDeveloperTools
 
             'AFS Users
             If AccountArray(129, 1) = "1" Then
-                'TCDMUTools.TabPages.Add(TPAFSFileGenerator)
-                ''TCDMUTools.TabPages.Add(TPAddNewFacility)
                 TCDMUTools.TabPages.Add(TPATSTool)
-                'LoadOtherComboBoxes()
-
-                'DevelopersTools.Width = 800
-                'DevelopersTools.Height = 730
             End If
+
             'Web Publishers
-            If AccountArray(129, 2) = "1" Then
-                DevelopersTools.Width = 800
-                DevelopersTools.Height = 600
+            'If AccountArray(129, 2) = "1" Then
+            'End If
 
-            End If
             If AccountArray(129, 3) = "1" Or AccountArray(129, 4) = "1" Then
                 TCDMUTools.TabPages.Add(TPErrorLog)
                 rdbViewUnresolvedErrors.Checked = True
@@ -93,14 +86,6 @@ Public Class DMUDeveloperTools
                 TCDMUTools.TabPages.Add(TPWebErrorLog)
                 Me.rdbUnresolvedWebErrors.Checked = True
                 FormatWebErrorListGrid()
-
-                If SystemInformation.PrimaryMonitorSize.Width > 1200 Then
-                    DevelopersTools.Width = (SystemInformation.PrimaryMonitorSize.Width - 400)
-                Else
-                    DevelopersTools.Width = 800
-                End If
-                DevelopersTools.Height = 1000
-                '  TCDMUTools.TabPages.Add(TPUpdateDEVTest)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -5132,14 +5117,6 @@ Public Class DMUDeveloperTools
     End Sub
 
 #End Region
-    Private Sub DEVDataManagementTools_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-            DevelopersTools = Nothing
-            Me.Dispose()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
     Private Sub txtCDSAIRSNumber_Leave(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtCDSAIRSNumber.Leave
         Try
 
