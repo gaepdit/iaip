@@ -63,7 +63,7 @@ Module subMain
 #Region "Universal Screens"
     'Public APB110 As IAIPLogIn
 
-    Public NavigationScreen As IAIPNavigation
+    'Public NavigationScreen As IAIPNavigation
     'Public FacilityLookUpTool As IAIPFacilityLookUpTool
     Public PrintOut As IAIPPrintOut
     'Public FacilitySummary As IAIPFacilitySummary

@@ -1799,10 +1799,6 @@ Public Class SSCPFCEWork
     Private Sub SSCPFCECheckList_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
 
-            If NavigationScreen Is Nothing Then
-                NavigationScreen = New IAIPNavigation
-            End If
-            NavigationScreen.Show()
             SSCPFCE = Nothing
             Me.Dispose()
         Catch ex As Exception
@@ -2067,41 +2063,7 @@ Public Class SSCPFCEWork
 
 
     End Sub
-    Sub Back()
-        Try
 
-            Select Case txtOrigin.Text
-                Case "Facility Summary"
-                    SSCPFCE = Nothing
-                    Me.Hide()
-                Case "FCE Selector Tool"
-                    If NavigationScreen Is Nothing Then
-                        NavigationScreen = New IAIPNavigation
-                    End If
-                    NavigationScreen.Show()
-                    SSCPFCE = Nothing
-                    Me.Hide()
-            End Select
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    'Sub Print()
-    '    Try
-
-    '        PrintOut = Nothing
-    '        If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
-    '        PrintOut.txtPrintType.Text = "SSCPFCE"
-    '        PrintOut.txtAIRSNumber.Text = Me.txtAirsNumber.Text
-    '        PrintOut.txtOther.Text = Me.txtFCENumber.Text
-    '        PrintOut.Show()
-    '        PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-    '    Catch ex As Exception
-    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    End Try
-
-    'End Sub
 #Region "Open Subborting Documents"
     Private Sub llbFCEInspections_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFCEInspections.LinkClicked
         Try

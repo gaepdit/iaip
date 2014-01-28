@@ -1,7 +1,7 @@
 ﻿Imports Oracle.DataAccess.Client
 
 Namespace DAL
-    Module NavigationScreen
+    Module NavigationScreenData
 
         ''' <summary>
         ''' Enumeration of the various work list types (contexts) available on the main Navigation Screen

@@ -5134,21 +5134,11 @@ Public Class DMUDeveloperTools
 #End Region
     Private Sub DEVDataManagementTools_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
-            
-            If NavigationScreen Is Nothing Then
-                NavigationScreen = New IAIPNavigation
-            End If
-            NavigationScreen.Show()
-
             DevelopersTools = Nothing
-
             Me.Dispose()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-           
         End Try
-         
     End Sub
     Private Sub txtCDSAIRSNumber_Leave(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtCDSAIRSNumber.Leave
         Try
@@ -5469,24 +5459,6 @@ Public Class DMUDeveloperTools
     End Sub
  
  
-#End Region
-#Region "Fee Password Reset"
-    Private Sub SetPassword_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-            
-            If NavigationScreen Is Nothing Then
-                NavigationScreen = New IAIPNavigation
-            End If
-            NavigationScreen.Show()
-            Me.Dispose()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-          
-        End Try
-         
-    End Sub
-
 #End Region
 
     Private Sub btnFilterErrors_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFilterErrors.Click

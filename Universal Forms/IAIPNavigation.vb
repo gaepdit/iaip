@@ -1,6 +1,6 @@
 Imports System.IO
 Imports System.Collections.Generic
-Imports JohnGaltProject.DAL.NavigationScreen
+Imports JohnGaltProject.DAL.NavigationScreenData
 
 Public Class IAIPNavigation
 

@@ -1460,10 +1460,6 @@ Public Class PASPFeeDeposits
     Private Sub PASPFeeDeposits_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
 
-            If NavigationScreen Is Nothing Then
-                NavigationScreen = New IAIPNavigation
-            End If
-            NavigationScreen.Show()
             FeeDeposits = Nothing
             Me.Dispose()
         Catch ex As Exception
