@@ -76,11 +76,6 @@ Partial Class IAIPFacilitySummary
         Me.txtReferenceNumber = New System.Windows.Forms.TextBox
         Me.llbViewTestNotification = New System.Windows.Forms.LinkLabel
         Me.llbViewTestReportMemo = New System.Windows.Forms.LinkLabel
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.ProgressBar = New System.Windows.Forms.ToolStripProgressBar
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.TBFacilitySummary = New System.Windows.Forms.ToolBar
         Me.tbbFind = New System.Windows.Forms.ToolBarButton
@@ -330,7 +325,6 @@ Partial Class IAIPFacilitySummary
         Me.dgvInvoices = New System.Windows.Forms.DataGridView
         Me.TPFeeDeposits = New System.Windows.Forms.TabPage
         Me.dgvFeeDeposits = New System.Windows.Forms.DataGridView
-        Me.StatusStrip1.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.TCFacilitySummary.SuspendLayout()
@@ -728,50 +722,6 @@ Partial Class IAIPFacilitySummary
         Me.llbViewTestReportMemo.Text = "View Test Report Memo"
         Me.TTFacilitySummary.SetToolTip(Me.llbViewTestReportMemo, "Open Memo Viewer")
         '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ProgressBar, Me.Panel1, Me.Panel2, Me.Panel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 502)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(792, 22)
-        Me.StatusStrip1.TabIndex = 273
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'ProgressBar
-        '
-        Me.ProgressBar.Name = "ProgressBar"
-        Me.ProgressBar.Size = New System.Drawing.Size(100, 16)
-        '
-        'Panel1
-        '
-        Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(667, 17)
-        Me.Panel1.Spring = True
-        Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Panel2
-        '
-        Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(4, 17)
-        '
-        'Panel3
-        '
-        Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(4, 17)
-        '
         'Image_List_All
         '
         Me.Image_List_All.ImageStream = CType(resources.GetObject("Image_List_All.ImageStream"), System.Windows.Forms.ImageListStreamer)
@@ -948,7 +898,7 @@ Partial Class IAIPFacilitySummary
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel5.Location = New System.Drawing.Point(0, 63)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(118, 439)
+        Me.Panel5.Size = New System.Drawing.Size(118, 461)
         Me.Panel5.TabIndex = 276
         '
         'Label2
@@ -977,7 +927,7 @@ Partial Class IAIPFacilitySummary
         Me.TCFacilitySummary.Location = New System.Drawing.Point(118, 63)
         Me.TCFacilitySummary.Name = "TCFacilitySummary"
         Me.TCFacilitySummary.SelectedIndex = 0
-        Me.TCFacilitySummary.Size = New System.Drawing.Size(674, 439)
+        Me.TCFacilitySummary.Size = New System.Drawing.Size(674, 461)
         Me.TCFacilitySummary.TabIndex = 277
         '
         'TPFacilityLocation
@@ -987,7 +937,7 @@ Partial Class IAIPFacilitySummary
         Me.TPFacilityLocation.Location = New System.Drawing.Point(4, 22)
         Me.TPFacilityLocation.Name = "TPFacilityLocation"
         Me.TPFacilityLocation.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPFacilityLocation.Size = New System.Drawing.Size(666, 413)
+        Me.TPFacilityLocation.Size = New System.Drawing.Size(666, 435)
         Me.TPFacilityLocation.TabIndex = 0
         Me.TPFacilityLocation.Text = "Facility Location"
         Me.TPFacilityLocation.UseVisualStyleBackColor = True
@@ -1017,7 +967,7 @@ Partial Class IAIPFacilitySummary
         Me.Panel14.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel14.Location = New System.Drawing.Point(3, 35)
         Me.Panel14.Name = "Panel14"
-        Me.Panel14.Size = New System.Drawing.Size(660, 375)
+        Me.Panel14.Size = New System.Drawing.Size(660, 397)
         Me.Panel14.TabIndex = 164
         '
         'txtStreetAddress
@@ -3732,12 +3682,9 @@ Partial Class IAIPFacilitySummary
         Me.Controls.Add(Me.Panel5)
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.TBFacilitySummary)
-        Me.Controls.Add(Me.StatusStrip1)
         Me.Menu = Me.MainMenu1
         Me.Name = "IAIPFacilitySummary"
         Me.Text = "Facility Summary"
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
         Me.Panel5.ResumeLayout(False)
@@ -3877,9 +3824,6 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents mmiSSCPFCE As System.Windows.Forms.MenuItem
     Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents TTFacilitySummary As System.Windows.Forms.ToolTip
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents ProgressBar As System.Windows.Forms.ToolStripProgressBar
-    Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents TBFacilitySummary As System.Windows.Forms.ToolBar
     Friend WithEvents tbbFacilityLookup As System.Windows.Forms.ToolBarButton
@@ -4124,8 +4068,6 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents btnEditContacts As System.Windows.Forms.Button
     Friend WithEvents Panel13 As System.Windows.Forms.Panel
     Friend WithEvents tbbPrint As System.Windows.Forms.ToolBarButton
-    Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents mmiNewFacility As System.Windows.Forms.MenuItem
     Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents txtAdminFee As System.Windows.Forms.TextBox

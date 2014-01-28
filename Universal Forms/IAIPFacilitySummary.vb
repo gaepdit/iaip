@@ -15,7 +15,6 @@ Public Class IAIPFacilitySummary
     Dim daSSPP As OracleDataAdapter
     Dim ds As DataSet
     Dim da As OracleDataAdapter
-    Dim pnltemp As String
     Dim year As String
     Dim inventoryYear As Integer
     Dim recExist2 As Boolean
@@ -26,11 +25,6 @@ Public Class IAIPFacilitySummary
     Private Sub DEVFacilitySummary_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Try
-            pnltemp = Panel1.Text
-            Panel1.Text = ""
-            Panel2.Text = UserName
-            Panel3.Text = OracleDate
-
             TCFacilitySummary.TabPages.Remove(TPContactInformation)
             TCFacilitySummary.TabPages.Remove(TPEmissionInventory)
             TCFacilitySummary.TabPages.Remove(TPISMPTestingWork)
@@ -46,7 +40,6 @@ Public Class IAIPFacilitySummary
             LoadToolBars()
             mmiPrintFacilitySummary.Visible = True
 
-            Panel1.Text = pnltemp
             If (UserGCode = "1" Or UserGCode = "345") Then
                 mmiAddAFS.Visible = True
                 mmiUpdateAFSData.Visible = True
@@ -54,8 +47,6 @@ Public Class IAIPFacilitySummary
                 mmiAddAFS.Visible = False
                 mmiUpdateAFSData.Visible = False
             End If
-
-            Panel1.Text = pnltemp
 
             ParseParameters()
 
@@ -377,8 +368,7 @@ Public Class IAIPFacilitySummary
 
         End Try
 
-        Panel1.Text = pnltemp
-        ProgressBar.Value = 0
+
     End Sub
     Private Sub chbAPC0_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAPC0.CheckedChanged
         Try
