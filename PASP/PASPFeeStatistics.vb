@@ -3111,7 +3111,6 @@ Public Class PASPFeeStatistics
                             SSCPFCE.Show()
                             SSCPFCE.txtFCENumber.Text = txtFeeComplianceEvent.Text
                         End If
-                        'SSCPFCE.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
                     Case "Enforcement"
                         Dim enfNum As String = txtFeeComplianceEvent.Text
@@ -3163,7 +3162,6 @@ Public Class PASPFeeStatistics
                                 SSCPReports.txtTrackingNumber.Text = txtFeeComplianceEvent.Text
                                 SSCPReports.Show()
                             End If
-                            'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                         End If
                 End Select
             End If
@@ -3185,7 +3183,6 @@ Public Class PASPFeeStatistics
                 PermitTrackingLog.txtApplicationNumber.Text = txtFeePermittingEvent.Text
                 PermitTrackingLog.LoadApplication()
                 PermitTrackingLog.BringToFront()
-                'PermitTrackingLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 PermitTrackingLog.TPTrackingLog.Focus()
             End If
         Catch ex As Exception
@@ -3206,7 +3203,6 @@ Public Class PASPFeeStatistics
                 PermitTrackingLog.txtApplicationNumber.Text = txtFeePendingPermit.Text
                 PermitTrackingLog.LoadApplication()
                 PermitTrackingLog.BringToFront()
-                'PermitTrackingLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 PermitTrackingLog.TPTrackingLog.Focus()
             End If
 
@@ -9825,7 +9821,6 @@ Public Class PASPFeeStatistics
                     FeeStats = New PASPFeeAuditLog
                 End If
                 FeeStats.Show()
-                'FeeStats.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
                 FeeStats.mtbFeeAdminAIRSNumber.Text = txtFeeStatAirsNumber.Text
                 FeeStats.txtFeeAdminFacilityName.Text = txtSelectedFacilityName.Text

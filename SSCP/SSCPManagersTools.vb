@@ -2556,7 +2556,6 @@ Public Class SSCPManagersTools
                 If EditAirProgramPollutants Is Nothing Then EditAirProgramPollutants = New IAIPEditAirProgramPollutants
                 EditAirProgramPollutants.txtAirsNumber.Text = Me.txtAIRSNumber.Text
                 EditAirProgramPollutants.Show()
-                'EditAirProgramPollutants.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
 
         Catch ex As Exception
@@ -4074,42 +4073,6 @@ Public Class SSCPManagersTools
             Else
                 MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If
-
-            'If txtRecordNumber.Text <> "" Then
-            '    SQL = "select strEnforcementNumber " & _
-            '    "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
-            '    "where strEnforcementNumber = '" & txtRecordNumber.Text & "' "
-
-            '    cmd = New OracleCommand(SQL, Conn)
-            '    If Conn.State = ConnectionState.Closed Then
-            '        Conn.Open()
-            '    End If
-            '    dr = cmd.ExecuteReader
-            '    recExist = dr.Read
-            '    dr.Close()
-
-            '    If recExist = True Then
-            '        If SSCP_Enforcement Is Nothing Then
-            '            If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-            '            If txtRecordNumber.Text <> "" Then
-            '                SSCP_Enforcement.txtEnforcementNumber.Text = txtRecordNumber.Text
-            '            End If
-            '            SSCP_Enforcement.Show()
-            '        Else
-            '            SSCP_Enforcement.Close()
-            '            SSCP_Enforcement = Nothing
-            '            If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-            '            If txtRecordNumber.Text <> "" Then
-            '                SSCP_Enforcement.txtEnforcementNumber.Text = txtRecordNumber.Text
-            '            End If
-            '            SSCP_Enforcement.Show()
-            '        End If
-            '        'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-
-            '    Else
-            '        MsgBox("Enforcement Number is not in the system.", MsgBoxStyle.Information, "SSCP Managers Tools")
-            '    End If
-            'End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4140,7 +4103,6 @@ Public Class SSCPManagersTools
                         SSCPReports.txtTrackingNumber.Text = txtRecordNumber.Text
                         SSCPReports.Show()
                     End If
-                    'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Else
                     MsgBox("Tracking Number is not in the system.", MsgBoxStyle.Information, "SSCP Managers Tools")
                 End If

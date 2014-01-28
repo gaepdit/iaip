@@ -982,7 +982,6 @@ Public Class ISMPTestMemoViewer
             If ISMPMemoEdit Is Nothing Then ISMPMemoEdit = New ISMPMemo
             ISMPMemoEdit.txtReferenceNumber.Text = Me.txtReferenceNumber2.Text
             ISMPMemoEdit.Show()
-            'ISMPMemoEdit.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally

@@ -3857,50 +3857,11 @@ Public Class SSCPEvents
                 Else
                     MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
                 End If
-
-
-                'If SSCP_Enforcement Is Nothing Then
-                '    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                '    SSCP_Enforcement.txtAIRSNumber.Text = txtAIRSNumber.Text
-                '    If txtEnforcementNumber.Text <> "" Then
-                '        SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcementNumber.Text
-                '    End If
-                '    If txtTrackingNumber.Text <> "" Then
-                '        SSCP_Enforcement.txtTrackingNumber.Text = txtTrackingNumber.Text
-                '    End If
-                '    SSCP_Enforcement.Show()
-                'Else
-                '    SSCP_Enforcement.Close()
-                '    SSCP_Enforcement = Nothing
-                '    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                '    SSCP_Enforcement.BringToFront()
-                '    SSCP_Enforcement.txtAIRSNumber.Text = txtAIRSNumber.Text
-                '    If txtEnforcementNumber.Text <> "" Then
-                '        SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcementNumber.Text
-                '    End If
-                '    If txtTrackingNumber.Text <> "" Then
-                '        SSCP_Enforcement.txtTrackingNumber.Text = txtTrackingNumber.Text
-                '    End If
-                '    SSCP_Enforcement.Show()
-                'End If
-                'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-
-                'Me.Dispose()
             Else
                 Dim parameters As New Dictionary(Of String, String)
                 parameters("airsnumber") = txtAIRSNumber.Text
                 If txtTrackingNumber.Text <> "" Then parameters("trackingnumber") = txtTrackingNumber.Text
                 OpenSingleForm(SSCPEnforcementSelector, parameters:=parameters, closeFirst:=True)
-
-                'If SSCPSelectEnforcement Is Nothing Then
-                '    If SSCPSelectEnforcement Is Nothing Then SSCPSelectEnforcement = New SSCPEnforcementSelector
-                '    SSCPSelectEnforcement.txtAIRSNumber.Text = txtAIRSNumber.Text
-                '    SSCPSelectEnforcement.txtTrackingNumber.Text = txtTrackingNumber.Text
-                '    SSCPSelectEnforcement.Show()
-                'Else
-                '    SSCPSelectEnforcement.BringToFront()
-                'End If
-                'SSCPSelectEnforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
 
 
@@ -7216,10 +7177,6 @@ Public Class SSCPEvents
                 SSCPInspectionscheduleTool.txtAIRSNumber.Text = txtAIRSNumber.Text
                 SSCPInspectionscheduleTool.txtInspectionTrackingNumber.Text = txtTrackingNumber.Text
                 SSCPInspectionscheduleTool.Show()
-                'SSCPInspectionscheduleTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                '  If Me.lblInspectionLinked.Visible = True Then
-                ' SSCPInspectionscheduleTool.CheckForLink()
-                'End If
             Else
                 MsgBox("There must be a Tracking Number before you can link the Scheduled Inspection.", MsgBoxStyle.Information, "SSCP Event")
             End If
@@ -7256,7 +7213,6 @@ Public Class SSCPEvents
             SSCPRequest.txtAIRSNumber.Text = Me.txtAIRSNumber.Text
             SSCPRequest.txtTrackingNumber.Text = Me.txtTrackingNumber.Text
             SSCPRequest.Show()
-            'SSCPRequest.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -7297,7 +7253,6 @@ Public Class SSCPEvents
                 PrintOut.txtReferenceNumber.Text = Me.txtISMPReferenceNumber.Text
                 PrintOut.txtPrintType.Text = "SSCP"
                 PrintOut.Show()
-                'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

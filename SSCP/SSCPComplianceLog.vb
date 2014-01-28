@@ -931,7 +931,6 @@ Public Class SSCPComplianceLog
                 '    SSCP_Enforcement.txtAIRSNumber.Text = txtNewAIRSNumber.Text
                 '    SSCP_Enforcement.Show()
                 'End If
-                ''SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             Else
                 If rdbFCE.Checked = True Then
 
@@ -941,7 +940,6 @@ Public Class SSCPComplianceLog
                     SSCPFCE.txtFacilityInformation.Text = txtNewAIRSNumber.Text
                     SSCPFCE.txtOrigin.Text = "Work Entry"
                     SSCPFCE.Show()
-                    'SSCPFCE.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Else
                     If rdbPerformanceTest.Checked = True Then
                         If txtTrackingNumber.Text <> "" Then
@@ -1038,7 +1036,6 @@ Public Class SSCPComplianceLog
                             SSCPReports.txtTrackingNumber.Text = txtTrackingNumber.Text
                             SSCPReports.txtOrigin.Text = "Work Entry 2"
                             SSCPReports.Show()
-                            'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                         Else
                             MsgBox("Select a Work type and event type if needed.", MsgBoxStyle.Information, "Work Entry")
                         End If
@@ -1901,7 +1898,6 @@ Public Class SSCPComplianceLog
                         SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
                         SSCPReports.Show()
                     End If
-                    'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 ElseIf InStr(txtTestType.Text, "Enforcement") > 0 Then
                     Dim enfNum As String = txtWorkNumber.Text
                     If enfNum = "" Then Exit Sub
@@ -1925,7 +1921,6 @@ Public Class SSCPComplianceLog
                     '    SSCP_Enforcement.txtEnforcementNumber.Text = txtWorkNumber.Text
                     '    SSCP_Enforcement.Show()
                     'End If
-                    'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 ElseIf InStr(txtTestType.Text, "Full Compliance Evaluation") > 0 Then
                     If SSCPFCE Is Nothing Then
                         If SSCPFCE Is Nothing Then SSCPFCE = New SSCPFCEWork
@@ -1942,7 +1937,6 @@ Public Class SSCPComplianceLog
                         SSCPFCE.Show()
                         SSCPFCE.txtFCENumber.Text = txtWorkNumber.Text
                     End If
-                    'SSCPFCE.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 ElseIf InStr(txtTestType.Text, "Inspection") > 0 Then
                     If SSCPReports Is Nothing Then
                         SSCPReports = Nothing
@@ -1956,7 +1950,6 @@ Public Class SSCPComplianceLog
                         SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
                         SSCPReports.Show()
                     End If
-                    'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 ElseIf InStr(txtTestType.Text, "Notification") > 0 Then
                     If SSCPReports Is Nothing Then
                         SSCPReports = Nothing
@@ -1970,7 +1963,6 @@ Public Class SSCPComplianceLog
                         SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
                         SSCPReports.Show()
                     End If
-                    'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
                 ElseIf InStr(txtTestType.Text, "Performance Tests") > 0 Then
                     Dim RefNum As String = ""
@@ -2013,7 +2005,6 @@ Public Class SSCPComplianceLog
                             SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
                             SSCPReports.Show()
                         End If
-                        'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     End If
                 ElseIf InStr(txtTestType.Text, "Report") > 0 Then
                     If SSCPReports Is Nothing Then
@@ -2028,7 +2019,6 @@ Public Class SSCPComplianceLog
                         SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
                         SSCPReports.Show()
                     End If
-                    'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 End If
             End If
 

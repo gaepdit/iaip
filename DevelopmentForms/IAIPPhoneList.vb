@@ -371,7 +371,6 @@
             PrintOut.txtPrintType.Text = "PhoneList"
 
             PrintOut.Show()
-            'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

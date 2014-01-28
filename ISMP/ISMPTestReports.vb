@@ -10855,7 +10855,6 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             If ISMPMemoEdit Is Nothing Then ISMPMemoEdit = New ISMPMemo
             ISMPMemoEdit.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
             ISMPMemoEdit.Show()
-            'ISMPMemoEdit.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -15492,16 +15491,6 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             parameters("airsnumber") = txtAirsNumber.Text
             If txtTrackingNumber.Text <> "" Then parameters("trackingnumber") = txtTrackingNumber.Text
             OpenSingleForm(SSCPEnforcementSelector, parameters:=parameters, closeFirst:=True)
-
-            'If SSCPSelectEnforcement Is Nothing Then
-            '    If SSCPSelectEnforcement Is Nothing Then SSCPSelectEnforcement = New SSCPEnforcementSelector
-            '    SSCPSelectEnforcement.txtAIRSNumber.Text = txtAirsNumber.Text
-            '    SSCPSelectEnforcement.txtTrackingNumber.Text = txtTrackingNumber.Text
-            '    SSCPSelectEnforcement.Show()
-            'Else
-            '    SSCPSelectEnforcement.BringToFront()
-            'End If
-            'SSCPSelectEnforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -17898,7 +17887,6 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             PrintOut.txtPrintType.Text = "ISMPTestReport"
             PrintOut.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
             PrintOut.Show()
-            'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -17943,7 +17931,6 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 ISMPNotificationLogForm.Show()
             End If
             ISMPNotificationLogForm.LoadTestNotification()
-            'DevTestLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -18037,7 +18024,6 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 ISMPNotificationLogForm.Show()
             End If
             ISMPNotificationLogForm.LoadTestNotification()
-            'DevTestLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -23085,7 +23071,6 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             SSCPRequest.txtAIRSNumber.Text = Me.txtAirsNumber.Text
             SSCPRequest.txtTrackingNumber.Text = Me.txtTrackingNumber.Text
             SSCPRequest.Show()
-            'SSCPRequest.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -23114,7 +23099,6 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                     ISMPNotificationLogForm.txtTestNotificationNumber.Text = Replace(Mid(cboTestNotificationNumber.Text, 1, cboTestNotificationNumber.Text.IndexOf("-->")), " ", "")
                     ISMPNotificationLogForm.Show()
                 End If
-                'DevTestLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 ISMPNotificationLogForm.LoadTestNotification()
             End If
         Catch ex As Exception
@@ -23135,7 +23119,6 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                         ISMPConfidential.txtReferenceNumber.Text = txtReferenceNumber.Text
                         ISMPConfidential.Show()
                     End If
-                    'ISMPConfidential.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Else
                     MsgBox("Please save test report before assigning confidential data.", MsgBoxStyle.Information, "Performance Test Reports")
                 End If
@@ -23163,7 +23146,6 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             PrintOut.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
             PrintOut.txtOther.Text = "ToFile"
             PrintOut.Show()
-            'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally

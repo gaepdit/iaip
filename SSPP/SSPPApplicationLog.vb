@@ -2172,7 +2172,6 @@ Public Class SSPPApplicationLog
                     PermitTrackingLog.Show()
                 End If
                 PermitTrackingLog.BringToFront()
-                'PermitTrackingLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             Else
                 MessageBox.Show("You do not have sufficient permissions to start a new application.")
             End If
@@ -2191,7 +2190,6 @@ Public Class SSPPApplicationLog
                 PermitTrackingLog.txtApplicationNumber.Text = app
                 PermitTrackingLog.LoadApplication()
                 PermitTrackingLog.BringToFront()
-                'PermitTrackingLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

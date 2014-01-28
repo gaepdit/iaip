@@ -2074,7 +2074,6 @@ Public Class SSCPFCEWork
                 SSCPReports.txtTrackingNumber.Text = txtInspectionTrackingNumber.Text
                 SSCPReports.txtOrigin.Text = "FCE Checklist"
                 SSCPReports.Show()
-                'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2090,7 +2089,6 @@ Public Class SSCPFCEWork
                 SSCPReports.txtTrackingNumber.Text = txtACCTrackingNumber.Text
                 SSCPReports.txtOrigin.Text = "FCE Checklist"
                 SSCPReports.Show()
-                'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2106,7 +2104,6 @@ Public Class SSCPFCEWork
                 SSCPReports.txtTrackingNumber.Text = txtReportTrackingNumber.Text
                 SSCPReports.txtOrigin.Text = "FCE Checklist"
                 SSCPReports.Show()
-                'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2122,7 +2119,6 @@ Public Class SSCPFCEWork
                 SSCPReports.txtTrackingNumber.Text = txtPerformanceTests.Text
                 SSCPReports.txtOrigin.Text = "FCE Checklist"
                 SSCPReports.Show()
-                'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2138,7 +2134,6 @@ Public Class SSCPFCEWork
                 SSCPReports.txtTrackingNumber.Text = txtNotificationTrackingNumber.Text
                 SSCPReports.txtOrigin.Text = "FCE Checklist"
                 SSCPReports.Show()
-                'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2167,7 +2162,6 @@ Public Class SSCPFCEWork
                     PrintOut.txtReferenceNumber.Text = txtISMPReferenceNumber.Text
                     PrintOut.txtPrintType.Text = "SSCP"
                     PrintOut.Show()
-                    'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Else
                     MsgBox("This Test Summary has not been completely reviewed by ISMP Engineer", MsgBoxStyle.Information, "FCE Form")
                 End If
@@ -2188,21 +2182,6 @@ Public Class SSCPFCEWork
                     MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
                 End If
 
-                'If SSCP_Enforcement Is Nothing Then
-                '    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                '    SSCP_Enforcement.txtAIRSNumber.Text = txtAirsNumber.Text
-                '    If txtEnforcement.Text <> "" Then
-                '        SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcement.Text
-                '    End If
-                '    SSCP_Enforcement.Show()
-                'Else
-                '    SSCP_Enforcement.BringToFront()
-                '    SSCP_Enforcement.txtAIRSNumber.Text = txtAirsNumber.Text
-                '    If txtEnforcement.Text <> "" Then
-                '        SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcement.Text
-                '    End If
-                'End If
-                'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
