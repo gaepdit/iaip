@@ -24,7 +24,7 @@ Namespace DAL
             }
 
             Dim dataTable As DataTable = DB.GetDataTable(query, parameters)
-            If dataTable Is Nothing Then Return Nothing
+            If dataTable Is Nothing OrElse dataTable.Rows.Count = 0 Then Return Nothing
 
             Dim dataRow As DataRow = dataTable.Rows(0)
             Dim loginCred As New LoginCred
