@@ -1441,14 +1441,7 @@ Public Class IAIPNavigation
                         '.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     End With
                 Case "AFS Tools"
-                    If DevelopersTools Is Nothing Then
-                        If DevelopersTools Is Nothing Then DevelopersTools = New DMUDeveloperTools
-                    Else
-                        DevelopersTools.Dispose()
-                        DevelopersTools = New DMUDeveloperTools
-                    End If
-                    DevelopersTools.Show()
-                    'DevelopersTools.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    OpenSingleForm(DMUDeveloperTools, closeFirst:=True)
                 Case "DMU Staff Tools"
                     If StaffTools Is Nothing Then
                         If StaffTools Is Nothing Then StaffTools = New DMUStaffTools
