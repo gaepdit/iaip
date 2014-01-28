@@ -330,15 +330,6 @@ Public Class IAIPFacilitySummary
 
     Private Sub OpenEditContactInformationTool()
         Try
-            'If TestingEnvironment Then
-            '    If Not EditContacts2 Is Nothing Then
-            '        EditContacts2.Dispose()
-            '    End If
-            '    EditContacts2 = New DEVEditContacts
-            '    EditContacts2.mtbAIRSNumber.Text = mtbAIRSNumber.Text
-            '    EditContacts2.Show()
-            '    'EditContacts2.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-            'Else
             If Not EditContacts Is Nothing Then
                 EditContacts.Dispose()
             End If
@@ -346,8 +337,6 @@ Public Class IAIPFacilitySummary
             EditContacts.AirsNumber = mtbAIRSNumber.Text
             EditContacts.FacilityName = txtFacilityName.Text
             EditContacts.Show()
-            'EditContacts.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-            'End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
