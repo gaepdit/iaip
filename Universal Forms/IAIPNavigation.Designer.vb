@@ -93,7 +93,6 @@ Partial Class IAIPNavigation
         Me.Label3 = New System.Windows.Forms.Label
         Me.txtReferenceNumber = New System.Windows.Forms.TextBox
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.NavScreenProgressBar = New System.Windows.Forms.ToolStripProgressBar
         Me.pnl1 = New System.Windows.Forms.ToolStripStatusLabel
         Me.pnl2 = New System.Windows.Forms.ToolStripStatusLabel
         Me.pnl3 = New System.Windows.Forms.ToolStripStatusLabel
@@ -872,7 +871,7 @@ Partial Class IAIPNavigation
         '
         'StatusStrip1
         '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NavScreenProgressBar, Me.pnl1, Me.pnl2, Me.pnl3, Me.pnl4, Me.pnl5})
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.pnl1, Me.pnl2, Me.pnl3, Me.pnl4, Me.pnl5})
         Me.StatusStrip1.Location = New System.Drawing.Point(118, 367)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 10, 0)
@@ -880,14 +879,6 @@ Partial Class IAIPNavigation
         Me.StatusStrip1.SizingGrip = False
         Me.StatusStrip1.Stretch = False
         Me.StatusStrip1.TabIndex = 264
-        '
-        'NavScreenProgressBar
-        '
-        Me.NavScreenProgressBar.MarqueeAnimationSpeed = 10
-        Me.NavScreenProgressBar.Name = "NavScreenProgressBar"
-        Me.NavScreenProgressBar.Size = New System.Drawing.Size(100, 18)
-        Me.NavScreenProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee
-        Me.NavScreenProgressBar.Visible = False
         '
         'pnl1
         '
@@ -1006,11 +997,11 @@ Partial Class IAIPNavigation
         'lblResultsCount
         '
         Me.lblResultsCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblResultsCount.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblResultsCount.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblResultsCount.Location = New System.Drawing.Point(597, 9)
         Me.lblResultsCount.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblResultsCount.Name = "lblResultsCount"
-        Me.lblResultsCount.Size = New System.Drawing.Size(83, 13)
+        Me.lblResultsCount.Size = New System.Drawing.Size(83, 15)
         Me.lblResultsCount.TabIndex = 253
         Me.lblResultsCount.Text = "99999 results"
         Me.lblResultsCount.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -1047,9 +1038,9 @@ Partial Class IAIPNavigation
         '
         'pnlCurrentList
         '
+        Me.pnlCurrentList.Controls.Add(Me.btnChangeWorkViewerContext)
         Me.pnlCurrentList.Controls.Add(Me.pnlContextSubView)
         Me.pnlCurrentList.Controls.Add(Me.lblWorkViewerContext)
-        Me.pnlCurrentList.Controls.Add(Me.btnChangeWorkViewerContext)
         Me.pnlCurrentList.Controls.Add(Me.cboWorkViewerContext)
         Me.pnlCurrentList.Controls.Add(Me.lblResultsCount)
         Me.pnlCurrentList.Dock = System.Windows.Forms.DockStyle.Bottom
@@ -1190,7 +1181,6 @@ Partial Class IAIPNavigation
     Friend WithEvents mmiTesting As System.Windows.Forms.MenuItem
     Friend WithEvents mmiResetForm As System.Windows.Forms.MenuItem
     Friend WithEvents btnNav40 As System.Windows.Forms.Button
-    Friend WithEvents NavScreenProgressBar As System.Windows.Forms.ToolStripProgressBar
     Friend WithEvents pnlCurrentList As System.Windows.Forms.Panel
     Friend WithEvents pnlContextSubView As System.Windows.Forms.Panel
 End Class

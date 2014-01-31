@@ -775,7 +775,6 @@ Public Class IAIPNavigation
         btnChangeWorkViewerContext.Text = "Loading…"
         lblResultsCount.Visible = False
         lblResultsCount.Text = ""
-        NavScreenProgressBar.Visible = True
 
         ClearQuickAccessTool()
 
@@ -805,7 +804,6 @@ Public Class IAIPNavigation
         'btnChangeWorkViewerContext.Enabled = True
         pnlCurrentList.Enabled = True
         btnChangeWorkViewerContext.Text = "Load"
-        NavScreenProgressBar.Visible = False
 
         If dtWorkViewerTable.Rows.Count > 0 Then
             dgvWorkViewer.DataSource = dtWorkViewerTable
