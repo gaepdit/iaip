@@ -104,10 +104,10 @@ Public Class DMUStaffTools
 
             dsStaff = New DataSet
 
-            daStaff = New OracleDataAdapter(SQL, Conn)
+            daStaff = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daStaff.Fill(dsStaff, "Staff")
@@ -128,9 +128,9 @@ Public Class DMUStaffTools
             "from " & DBNameSpace & ".esschema " & _
             "order by intESYear desc"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Read()
@@ -153,15 +153,15 @@ Public Class DMUStaffTools
         Dim SQL As String
 
         Try
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             SQL = "Select distinct STRESYEAR " & _
                   "from " & DBNameSpace & ".esmailout " & _
                   "order by STRESYEAR desc"
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
 
             Dim dr As OracleDataReader = cmd.ExecuteReader()
             dr.Read()
@@ -268,9 +268,9 @@ Public Class DMUStaffTools
             "from " & DBNameSpace & ".EIS_Admin " & _
             "order by invYear desc "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -292,9 +292,9 @@ Public Class DMUStaffTools
             "and numunit = '14' " & _
             "and numEmployeeStatus = '1'  "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -310,10 +310,10 @@ Public Class DMUStaffTools
 
             ds = New DataSet
 
-            da = New OracleDataAdapter(SQL, Conn)
+            da = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             da.Fill(ds, "QAStatus")
@@ -594,21 +594,11 @@ Public Class DMUStaffTools
 #End Region
     Private Sub DEVDataManagementTools_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
-
-            If NavigationScreen Is Nothing Then
-                NavigationScreen = New IAIPNavigation
-            End If
-            NavigationScreen.Show()
-
             StaffTools = Nothing
-
             Me.Dispose()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
 #Region "Web Application Users"
     Private Sub btnActivateEmail_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnActivateEmail.Click
@@ -637,11 +627,11 @@ Public Class DMUStaffTools
             + "Order by strAIRSNumber "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, Conn)
+            da = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             da.Fill(ds, "facilityInfo")
@@ -686,11 +676,11 @@ Public Class DMUStaffTools
             + "Order by struseremail "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, Conn)
+            da = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             da.Fill(ds, "UserEmail")
@@ -757,9 +747,9 @@ Public Class DMUStaffTools
             "where " & DBNameSpace & ".OLAPUserProfile.numUserID = " & DBNameSpace & ".OLAPUserLogIn.numuserid " & _
             "and strUserEmail = upper('" & UserData & "') "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -896,9 +886,9 @@ Public Class DMUStaffTools
             dgvUserFacilities.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -940,9 +930,9 @@ Public Class DMUStaffTools
             End While
             dr.Close()
 
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             da.Fill(ds, "FacilityUsers")
 
@@ -974,10 +964,6 @@ Public Class DMUStaffTools
     Private Sub SetPassword_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
             
-            If NavigationScreen Is Nothing Then
-                NavigationScreen = New IAIPNavigation
-            End If
-            NavigationScreen.Show()
             Me.Dispose()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -995,9 +981,9 @@ Public Class DMUStaffTools
                 SQL = "Select strFacilityName " & _
                 "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -1029,9 +1015,9 @@ Public Class DMUStaffTools
             If txtAirsNumber.Text <> "" Then
                 SQL = "Select * from " & DBNameSpace & ".eiSI where strStateFacilityIdentifier = '" & txtAirsNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1195,9 +1181,9 @@ Public Class DMUStaffTools
                     "order by EIEM.strInventoryYear DESC "
 
                     ds = New DataSet
-                    da = New OracleDataAdapter(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    da = New OracleDataAdapter(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     da.Fill(ds, "EM")
                     dgvEIData.DataSource = ds
@@ -1381,12 +1367,12 @@ Public Class DMUStaffTools
                             "strNAICSPrimary " & _
                      "from " & DBNameSpace & ".eiSI where strAirsYear = '" & airsYear & "'"
 
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1473,12 +1459,12 @@ Public Class DMUStaffTools
                          "strEmissionUnitDesc " & _
                     "from " & DBNameSpace & ".eiEU where strAirsYear = '" & airsYear & "'"
 
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1555,12 +1541,12 @@ Public Class DMUStaffTools
                                "" & DBNameSpace & ".EILOOKUPHORIZREFDATUM.STRHORIZONTALREFERENCEDATUM) as HDRCdesc " & _
                             "from " & DBNameSpace & ".eiER where strAirsYear = '" & airsYear & "'"
 
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1650,12 +1636,12 @@ Public Class DMUStaffTools
                        "from " & DBNameSpace & ".eiEP " & _
                       "where strAirsYear = '" & airsYear & "'"
 
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1771,12 +1757,12 @@ Public Class DMUStaffTools
 
             'SQL = "Select * from " & DBNameSpace & ".eiEM where strAirsYear = '" & airsYear & "'"
 
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2094,9 +2080,9 @@ Public Class DMUStaffTools
             "where strStateFacilityIdentifier = '" & txtAirsNumber.Text & "' " & _
             "order by EIYear desc "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2160,9 +2146,9 @@ Public Class DMUStaffTools
                 "where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
                 "and " & DBNameSpace & ".esmailout.STRESYEAR = '" & ESYear & "'"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
 
@@ -2177,9 +2163,9 @@ Public Class DMUStaffTools
                 "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT is not NULL " & _
                 "and " & DBNameSpace & ".esmailout.STRESYEAR = '" & ESYear & "'"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
 
@@ -2193,9 +2179,9 @@ Public Class DMUStaffTools
                 "where " & DBNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
                 " and " & DBNameSpace & ".ESSchema.strOptOut = 'NO'"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -2209,10 +2195,10 @@ Public Class DMUStaffTools
                 "where " & DBNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "' " & _
                 "and " & DBNameSpace & ".ESSchema.strOptOut = 'YES'"
 
-                cmd = New OracleCommand(SQL, Conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
 
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -2226,9 +2212,9 @@ Public Class DMUStaffTools
                 "where " & DBNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
                 " and to_date(" & DBNameSpace & ".ESSchema.STRDATEFIRSTCONFIRM) < = '" & deadline & "'"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read()
@@ -2241,9 +2227,9 @@ Public Class DMUStaffTools
                 "where " & DBNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
                 " and to_date(" & DBNameSpace & ".ESSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "'"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read()
@@ -2257,9 +2243,9 @@ Public Class DMUStaffTools
                 " and " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
                 " and " & DBNameSpace & ".ESSchema.strOptOut = 'NO'"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
 
@@ -2274,9 +2260,9 @@ Public Class DMUStaffTools
                 " and " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
                 " and " & DBNameSpace & ".ESSchema.strOptOut = 'YES'"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
 
@@ -2295,9 +2281,9 @@ Public Class DMUStaffTools
              "where " & DBNameSpace & ".ESSCHEMA.intESYEAR = '" & ESYear & "'" & _
              " and " & DBNameSpace & ".ESSchema.strOptOut is NULL"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2312,9 +2298,9 @@ Public Class DMUStaffTools
             "and " & DBNameSpace & ".esmailout.STRAIRSYEAR = " & DBNameSpace & ".ESSchema.STRAIRSYEAR(+) " & _
           " and " & DBNameSpace & ".ESSchema.STRAIRSYEAR is NULL"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2331,9 +2317,9 @@ Public Class DMUStaffTools
                 " and " & DBNameSpace & ".ESSchema.INTESYEAR = '" & ESYear & "' " & _
                 " and " & DBNameSpace & ".ESSchema.STROPTOUT is null"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2348,9 +2334,9 @@ Public Class DMUStaffTools
             "and " & DBNameSpace & ".esmailout.STRAIRSYEAR = " & DBNameSpace & ".ESSchema.STRAIRSYEAR(+) " & _
             "and " & DBNameSpace & ".ESSchema.strOptOut is NULL"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2371,9 +2357,9 @@ Public Class DMUStaffTools
             "Where " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
             "AND MailoutAIRS is NULL"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -2419,10 +2405,10 @@ Public Class DMUStaffTools
             "AND MailoutAIRS is NULL " & _
             "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT='NO'"
 
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -2444,11 +2430,11 @@ Public Class DMUStaffTools
             "AND MailoutAIRS is NULL " & _
             "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT='YES'"
 
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read()
@@ -2461,10 +2447,10 @@ Public Class DMUStaffTools
             "where " & DBNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
             " and " & DBNameSpace & ".ESSchema.strOptOut is not NULL"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Open Then
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -2490,9 +2476,9 @@ Public Class DMUStaffTools
                   "where STRAIRSNUMBER = '" & AirsNo & "' " & _
                   "and STRESYEAR = '" & ESyear & "'"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2573,9 +2559,9 @@ Public Class DMUStaffTools
             "where STRAIRSNUMBER = '" & AirsNo & "' " & _
             "and INTESYEAR = '" & intESyear & "'"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2873,9 +2859,9 @@ Public Class DMUStaffTools
             "order by STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -2940,9 +2926,9 @@ Public Class DMUStaffTools
             "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -2997,9 +2983,9 @@ Public Class DMUStaffTools
             "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -3060,9 +3046,9 @@ Public Class DMUStaffTools
             "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -3130,9 +3116,9 @@ Public Class DMUStaffTools
             "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -3185,9 +3171,9 @@ Public Class DMUStaffTools
             "order by STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -3252,9 +3238,9 @@ Public Class DMUStaffTools
             "order by esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -3304,9 +3290,9 @@ Public Class DMUStaffTools
             "order by " & DBNameSpace & ".esMailOut.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -3360,9 +3346,9 @@ Public Class DMUStaffTools
             "AND MailoutAIRS is NULL"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -3421,9 +3407,9 @@ Public Class DMUStaffTools
             "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -3473,9 +3459,9 @@ Public Class DMUStaffTools
             "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -3529,9 +3515,9 @@ Public Class DMUStaffTools
             "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT='YES'"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -3586,9 +3572,9 @@ Public Class DMUStaffTools
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -3640,9 +3626,9 @@ Public Class DMUStaffTools
             "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -3731,9 +3717,9 @@ Public Class DMUStaffTools
             "'" & Replace(ESContactEmail, "'", "''") & "' " & _
             " )"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -3764,9 +3750,9 @@ Public Class DMUStaffTools
             "from " & DBNameSpace & ".EsMailOut " & _
             "where STRAIRSYEAR = '" & airsYear & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -3824,9 +3810,9 @@ Public Class DMUStaffTools
 
             End If
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -3846,9 +3832,9 @@ Public Class DMUStaffTools
             "where " & DBNameSpace & ".ESMailOut.STRAIRSNUMBER = '" & AirsNo & "' " & _
             "and " & DBNameSpace & ".ESMailOut.STRESYEAR = '" & ESyear & "'"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -4046,7 +4032,6 @@ Public Class DMUStaffTools
                 PrintOut.txtPrintType.Text = "ES Print Out"
                 PrintOut.txtSQLLine.Text = Me.txtConfirmationNumber.Text
                 PrintOut.Show()
-                'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
 
         Catch ex As Exception
@@ -4079,11 +4064,11 @@ Public Class DMUStaffTools
             "where strESyear = '" & ESYear & "'"
 
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
             recExist = dr.Read
@@ -4205,9 +4190,9 @@ Public Class DMUStaffTools
                         "" & DBNameSpace & ".APBHEADERDATA.STRAIRSNUMBER= dt_ESContact.STRAIRSNumber and  " & _
                         "dt_ESContact.STRAIRSNumber  = dt_PermitContact.STRAIRSNUMBER (+) "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
 
@@ -4303,7 +4288,7 @@ Public Class DMUStaffTools
                             "'" & Replace(Replace(CONTACTEMAIL, "'", "''"), "N/A", " ") & "', " & _
                             "'" & ESYear & "')"
 
-                            Dim cmd2 As New OracleCommand(SQL2, Conn)
+                            Dim cmd2 As New OracleCommand(SQL2, CurrentConnection)
                             'If conn.State = ConnectionState.Closed Then
                             '    conn.Open()
                             'End If
@@ -4336,9 +4321,9 @@ Public Class DMUStaffTools
                     "order by STRFACILITYNAME"
 
                     dsViewCount = New DataSet
-                    daViewCount = New OracleDataAdapter(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     daViewCount.Fill(dsViewCount, "ViewCount")
                     dgvESDataCount.DataSource = dsViewCount
@@ -4401,9 +4386,9 @@ Public Class DMUStaffTools
                 SQL = "delete from " & DBNameSpace & ".ESmailout " & _
                 "where strESyear = '" & ESyear & "'"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -4464,9 +4449,9 @@ Public Class DMUStaffTools
             "order by STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -4525,9 +4510,9 @@ Public Class DMUStaffTools
             "from " & DBNameSpace & ".EISI " & _
             "order by STRINVENTORYYEAR desc "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4552,9 +4537,9 @@ Public Class DMUStaffTools
             "from " & DBNameSpace & ".EITHRESHOLDS " & _
             "order by STRTYPE desc "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4614,9 +4599,9 @@ Public Class DMUStaffTools
                 "where " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR(+) " & _
                 "and " & DBNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "'"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read()
@@ -4630,10 +4615,10 @@ Public Class DMUStaffTools
                 "and " & DBNameSpace & ".EISI.STROPTOUT is not NULL " & _
                 "and " & DBNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "'"
 
-                cmd = New OracleCommand(SQL, Conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
 
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read()
@@ -4647,10 +4632,10 @@ Public Class DMUStaffTools
             "and " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR(+) " & _
             "and " & DBNameSpace & ".EISI.STRAIRSYEAR is NULL"
 
-                cmd = New OracleCommand(SQL, Conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
 
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read()
@@ -4666,10 +4651,10 @@ Public Class DMUStaffTools
                 " and " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
                 " and " & DBNameSpace & ".EISI.STROPTOUT is null"
 
-                cmd = New OracleCommand(SQL, Conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
 
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read()
@@ -4682,9 +4667,9 @@ Public Class DMUStaffTools
                 "where " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "'" & _
                 " and " & DBNameSpace & ".EISI.strOptOut = 'NO'"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read()
@@ -4696,9 +4681,9 @@ Public Class DMUStaffTools
                 "from " & DBNameSpace & ".EISI " & _
                 "where " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
                 "and " & DBNameSpace & ".EISI.strOptOut = 'YES'"
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read()
@@ -4713,9 +4698,9 @@ Public Class DMUStaffTools
                 "and " & DBNameSpace & ".EISI.strOptOut = 'NO' " & _
                 "and " & DBNameSpace & ".EISI.STRFINALIZE is not null"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
 
@@ -4731,9 +4716,9 @@ Public Class DMUStaffTools
                 "and " & DBNameSpace & ".EISI.strOptOut = 'NO' " & _
                 "and " & DBNameSpace & ".EISI.STRFINALIZE is null"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read()
@@ -4747,9 +4732,9 @@ Public Class DMUStaffTools
                 "and " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR(+) " & _
                 "and " & DBNameSpace & ".EISI.strOptOut = 'NO'"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
 
@@ -4764,9 +4749,9 @@ Public Class DMUStaffTools
                 "and " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
                 "and " & DBNameSpace & ".EISI.strOptOut = 'YES'"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
 
@@ -4785,9 +4770,9 @@ Public Class DMUStaffTools
             "and " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR(+) " & _
             "and " & DBNameSpace & ".EISI.strOptOut is NULL"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read()
@@ -4800,9 +4785,9 @@ Public Class DMUStaffTools
          "where " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
          "and " & DBNameSpace & ".EISI.strOptOut is NULL"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read()
@@ -4822,9 +4807,9 @@ Public Class DMUStaffTools
             "Where " & DBNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
             "AND MailoutAIRS is NULL"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read()
@@ -4846,9 +4831,9 @@ Public Class DMUStaffTools
             "AND MailoutAIRS is NULL " & _
             "and " & DBNameSpace & ".EISI.STROPTOUT='NO'"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read()
@@ -4869,9 +4854,9 @@ Public Class DMUStaffTools
             "AND MailoutAIRS is NULL " & _
             "and " & DBNameSpace & ".EISI.STROPTOUT='YES'"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -4885,9 +4870,9 @@ Public Class DMUStaffTools
             "where " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
             "and EISI.strOptOut is not NULL"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -4914,9 +4899,9 @@ Public Class DMUStaffTools
             "where STRAIRSNUMBER = '" & AirsNo & "' " & _
             "and STRINVENTORYYEAR = '" & EIyear & "'"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -5027,9 +5012,9 @@ Public Class DMUStaffTools
             "order by STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -5097,9 +5082,9 @@ Public Class DMUStaffTools
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -5144,9 +5129,9 @@ Public Class DMUStaffTools
             "order by " & DBNameSpace & ".EISI.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -5194,9 +5179,9 @@ Public Class DMUStaffTools
             "order by " & DBNameSpace & ".EISI.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -5252,9 +5237,9 @@ Public Class DMUStaffTools
             "AND MailoutAIRS is NULL"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -5317,9 +5302,9 @@ Public Class DMUStaffTools
             "and " & DBNameSpace & ".EISI.STROPTOUT='NO'"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -5372,9 +5357,9 @@ Public Class DMUStaffTools
             "and " & DBNameSpace & ".EISI.STROPTOUT='YES'"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -5425,9 +5410,9 @@ Public Class DMUStaffTools
             "order by " & DBNameSpace & ".EISI.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -5484,9 +5469,9 @@ Public Class DMUStaffTools
             "order by " & DBNameSpace & ".eisi.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -5536,9 +5521,9 @@ Public Class DMUStaffTools
             "order by " & DBNameSpace & ".eisi.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -5589,9 +5574,9 @@ Public Class DMUStaffTools
             "order by STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -5711,15 +5696,15 @@ Public Class DMUStaffTools
         Dim year As Integer
         Dim SQL As String
         Try
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             SQL = "Select distinct STRINVENTORYYEAR " & _
                       "from " & DBNameSpace & ".EIMAILOUT  " & _
                       "order by STRINVENTORYYEAR desc"
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
 
             Dim dr As OracleDataReader = cmd.ExecuteReader()
             dr.Read()
@@ -5742,15 +5727,15 @@ Public Class DMUStaffTools
         Dim year As Integer
         Dim SQL As String
         Try
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             SQL = "Select distinct STRINVENTORYYEAR " & _
                       "from " & DBNameSpace & ".EIMAILOUT  " & _
                       "order by STRINVENTORYYEAR desc"
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
 
             Dim dr As OracleDataReader = cmd.ExecuteReader()
             dr.Read()
@@ -5771,15 +5756,15 @@ Public Class DMUStaffTools
         Dim year As Integer
         Dim SQL As String
         Try
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             SQL = "Select distinct ESMAILOUT.STRESYEAR " & _
                       "from " & DBNameSpace & ".ESMAILOUT  " & _
                       "order by STRESYEAR desc"
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
 
             Dim dr As OracleDataReader = cmd.ExecuteReader()
             dr.Read()
@@ -5841,9 +5826,9 @@ Public Class DMUStaffTools
                 "FROM " & DBNameSpace & ".EImailOut " & _
                 "where STRINVENTORYYEAR = '" & EIYear & "'"
             End If
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -5923,9 +5908,9 @@ Public Class DMUStaffTools
                         "" & DBNameSpace & ".APBHEADERDATA.STRAIRSNUMBER= dt_EIContact.STRAIRSNumber and  " & _
                         "dt_EIContact.STRAIRSNumber  = dt_PermitContact.STRAIRSNUMBER (+) "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -6020,9 +6005,9 @@ Public Class DMUStaffTools
                            "'" & Replace(Replace(CONTACTEMAIL, "'", "''"), "N/A", " ") & "', " & _
                            "'" & EIYear & "')"
 
-                            cmd2 = New OracleCommand(SQL2, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr2 = cmd2.ExecuteReader
                             dr2.Close()
@@ -6049,9 +6034,9 @@ Public Class DMUStaffTools
                     "order by STRFACILITYNAME"
 
                     dsViewCount = New DataSet
-                    daViewCount = New OracleDataAdapter(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     daViewCount.Fill(dsViewCount, "ViewCount")
                     dgvEIDataCount.DataSource = dsViewCount
@@ -6128,9 +6113,9 @@ Public Class DMUStaffTools
 
                 MsgBox("EI mail out is deleted!")
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -6234,9 +6219,9 @@ Public Class DMUStaffTools
             SQL = "Select strAIRSYear " & _
                   "from " & DBNameSpace & ".EIMailout " & _
                   "where STRAIRSYEAR = '" & airsYear & "' "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -6293,9 +6278,9 @@ Public Class DMUStaffTools
                 MsgBox("your info is added!")
             End If
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -6328,9 +6313,9 @@ Public Class DMUStaffTools
           "where " & DBNameSpace & ".EIMailOut.STRAIRSNUMBER = '" & AirsNo & "' " & _
           " and " & DBNameSpace & ".EIMailOut.STRINVENTORYYEAR = '" & EIyear & "'"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -6366,9 +6351,9 @@ Public Class DMUStaffTools
             "order by " & DBNameSpace & ".eisi.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -6421,9 +6406,9 @@ Public Class DMUStaffTools
             "order by " & DBNameSpace & ".eisi.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -6477,9 +6462,9 @@ Public Class DMUStaffTools
             "order by STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -6606,9 +6591,9 @@ Public Class DMUStaffTools
             "where strDisplay = 'YES' " & _
             "order by to_date(strStartDate, 'MON-dd-YYYY') desc "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -6895,9 +6880,9 @@ Public Class DMUStaffTools
             "FROM " & DBNameSpace & ".EISI " & _
             "where STRINVENTORYYEAR = '" & EIYear & "'"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -6909,9 +6894,9 @@ Public Class DMUStaffTools
                 "FROM " & DBNameSpace & ".EImailout " & _
                 "where EImailout.STRINVENTORYYEAR = '" & EIYear & "'"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Read()
@@ -6934,9 +6919,9 @@ Public Class DMUStaffTools
                     "'3', " & _
                     "'" & airsYear & "' )"
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -6963,9 +6948,9 @@ Public Class DMUStaffTools
                     Case Windows.Forms.DialogResult.OK
                         sql = "delete from " & DBNameSpace & ".EISI " & _
                         "where EISI.STRINVENTORYYEAR = '" & EIYear & "'"
-                        cmd = New OracleCommand(sql, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(sql, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -7007,9 +6992,9 @@ Public Class DMUStaffTools
           "FROM " & DBNameSpace & ".EISI " & _
           "where  EISI.STRINVENTORYYEAR = '" & EIYear & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -7022,9 +7007,9 @@ Public Class DMUStaffTools
                "FROM " & DBNameSpace & ".APBFACILITYINFORMATION " & _
                "where  APBFACILITYINFORMATION.STRAIRSNUMBER = '" & AirsNo & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -7038,9 +7023,9 @@ Public Class DMUStaffTools
                              "where STRINVENTORYYEAR = '" & EIYear & "' " & _
                              " And STRAIRSNUMBER = '" & AirsNo & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -7063,9 +7048,9 @@ Public Class DMUStaffTools
                         "'3', " & _
                         "'" & airsYear & "' )"
 
-                        cmd2 = New OracleCommand(SQL2, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -7107,9 +7092,9 @@ Public Class DMUStaffTools
                     "from " & DBNameSpace & ".EISI " & _
                     "where strAIRSNumber = '" & AirsNo & "' " & _
                     "and strInventoryYear = '" & EIYear & "' "
-                    cmd = New OracleCommand(sql, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(sql, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -7136,9 +7121,9 @@ Public Class DMUStaffTools
                     "where EISI.STRINVENTORYYEAR = '" & EIYear & "'" & _
                     " And STROPTOUT is null" & _
                     " And STRAIRSNUMBER = '" & AirsNo & "'"
-                    cmd = New OracleCommand(sql, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(sql, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -7178,9 +7163,9 @@ Public Class DMUStaffTools
             "AND MailoutAIRS is NULL"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -7235,9 +7220,9 @@ Public Class DMUStaffTools
             "and " & DBNameSpace & ".EISI.STRAIRSYEAR is NULL"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -7289,9 +7274,9 @@ Public Class DMUStaffTools
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -7353,9 +7338,9 @@ Public Class DMUStaffTools
                 " and " & DBNameSpace & ".EISI.STROPTOUT is null"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -7403,9 +7388,9 @@ Public Class DMUStaffTools
         "where " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "'"
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvEIDataCount.DataSource = dsViewCount
@@ -7447,9 +7432,9 @@ Public Class DMUStaffTools
             "where STRINVENTORYYEAR = '" & EIYear & "' " & _
             " And STRAIRSNUMBER = '" & AirsNo & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -7494,9 +7479,9 @@ Public Class DMUStaffTools
             "FROM " & DBNameSpace & ".ESSCHEMA " & _
             "where ESSCHEMA.INTESYEAR = '" & ESYear & "'"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -7508,9 +7493,9 @@ Public Class DMUStaffTools
                 "FROM " & DBNameSpace & ".ESMAILOUT " & _
                 "where ESMAILOUT.STRESYEAR = '" & ESYear & "'"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Read()
@@ -7533,9 +7518,9 @@ Public Class DMUStaffTools
                     "'3', " & _
                     "'" & airsYear & "' )"
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -7561,9 +7546,9 @@ Public Class DMUStaffTools
                     Case Windows.Forms.DialogResult.OK
                         sql = "delete from " & DBNameSpace & ".ESSCHEMA " & _
                         "where ESSCHEMA.INTESYEAR = '" & ESYear & "'"
-                        cmd = New OracleCommand(sql, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(sql, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -7605,9 +7590,9 @@ Public Class DMUStaffTools
           "FROM " & DBNameSpace & ".ESSCHEMA " & _
           "where  ESSCHEMA.INTESYEAR = '" & ESYear & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -7620,9 +7605,9 @@ Public Class DMUStaffTools
                "FROM " & DBNameSpace & ".APBFACILITYINFORMATION " & _
                "where  APBFACILITYINFORMATION.STRAIRSNUMBER = '" & AirsNo & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -7636,9 +7621,9 @@ Public Class DMUStaffTools
                              "where ESSCHEMA.INTESYEAR = '" & ESYear & "' " & _
                              " And ESSCHEMA.STRAIRSNUMBER = '" & AirsNo & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -7661,9 +7646,9 @@ Public Class DMUStaffTools
                         "'3', " & _
                         "'" & airsYear & "' )"
 
-                        cmd2 = New OracleCommand(SQL2, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -7699,9 +7684,9 @@ Public Class DMUStaffTools
                     sql = "delete from " & DBNameSpace & ".ESSCHEMA " & _
                     "where ESSCHEMA.INTESYEAR = '" & ESYear & "'" & _
                     " And ESSCHEMA.STRAIRSNUMBER = '" & AirsNo & "'"
-                    cmd = New OracleCommand(sql, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(sql, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -7727,9 +7712,9 @@ Public Class DMUStaffTools
             "where " & DBNameSpace & ".ESSCHEMA.INTESYEAR = '" & ESYear & "' " & _
             " And " & DBNameSpace & ".ESSCHEMA.STRAIRSNUMBER = '" & AirsNo & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -7764,9 +7749,9 @@ Public Class DMUStaffTools
         "where " & DBNameSpace & ".ESSCHEMA.INTESYEAR = '" & year & "'"
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvESDataCount.DataSource = dsViewCount
@@ -7824,9 +7809,9 @@ Public Class DMUStaffTools
             "AND MailoutAIRS is NULL"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -7883,9 +7868,9 @@ Public Class DMUStaffTools
             "order by " & DBNameSpace & ".ESMAILOUT.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -7936,9 +7921,9 @@ Public Class DMUStaffTools
             "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -8000,9 +7985,9 @@ Public Class DMUStaffTools
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -8038,9 +8023,9 @@ Public Class DMUStaffTools
             SQL = "SELECT " & DBNameSpace & ".EITHRESHOLDYEARS.STREITYPE " & _
                    "from  " & DBNameSpace & ".EITHRESHOLDYEARS  " & _
           "where " & DBNameSpace & ".EITHRESHOLDYEARS.STRYEAR = '" & EItypeYear & "' "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8059,9 +8044,9 @@ Public Class DMUStaffTools
              " order by " & DBNameSpace & ".EITHRESHOLDS.STRPOLLUTANT"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIThreshold.DataSource = dsViewCount
@@ -8107,9 +8092,9 @@ Public Class DMUStaffTools
           "FROM " & DBNameSpace & ".EITHRESHOLDYEARS " & _
           "where  EITHRESHOLDYEARS.STRYEAR = '" & EItypeYear & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -8119,9 +8104,9 @@ Public Class DMUStaffTools
                 "STREITYPE = '" & EItype & "' " & _
                 "where " & DBNameSpace & ".EITHRESHOLDYEARS.STRYEAR = '" & EItypeYear & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -8157,9 +8142,9 @@ Public Class DMUStaffTools
                                 " FROM " & DBNameSpace & ".EITHRESHOLDS " & _
                                 "where   " & DBNameSpace & ".EITHRESHOLDS.STRTYPE = '" & Replace(EItype2, "'", "''") & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -8171,9 +8156,9 @@ Public Class DMUStaffTools
                     SQL = "Select distinct(" & DBNameSpace & ".EITHRESHOLDS.STRPOLLUTANT) as Pollutant " & _
                    " FROM " & DBNameSpace & ".EITHRESHOLDS "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
 
                     dr = cmd.ExecuteReader
@@ -8190,9 +8175,9 @@ Public Class DMUStaffTools
                                 "('" & Replace(temp, "'", "''") & "', " & _
                                 "'', '', '" & Replace(EItype2, "'", "''") & "', " & _
                                 "(Select max(PollutantID) + 1 from AIRBranch.EIThresholds) ) "
-                            cmd2 = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd2 = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr2 = cmd2.ExecuteReader
                             dr2.Close()
@@ -8216,9 +8201,9 @@ Public Class DMUStaffTools
                     "where   " & DBNameSpace & ".EITHRESHOLDS.STRTYPE = '" & Replace(EItype2, "'", "''") & "' "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmdBuild = New OracleCommandBuilder(daViewCount)
 
@@ -8258,11 +8243,11 @@ Public Class DMUStaffTools
     Private Sub btnSaveEIThresholds_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveEIThresholds.Click
         Try
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daViewCount.Update(dsViewCount, "ViewCount")
-            Conn.Close()
+            CurrentConnection.Close()
 
             MessageBox.Show("The Update has Completed!", "EI Tool")
 
@@ -8282,9 +8267,9 @@ Public Class DMUStaffTools
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmdBuild = New OracleCommandBuilder(daViewCount)
 
@@ -8371,9 +8356,9 @@ Public Class DMUStaffTools
                            "FROM " & DBNameSpace & ".APBFACILITYINFORMATION " & _
                            "where  APBFACILITYINFORMATION.STRAIRSNUMBER = '" & airsno & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -8384,9 +8369,9 @@ Public Class DMUStaffTools
                            "FROM " & DBNameSpace & ".APBFACILITYINFORMATION " & _
                            "where  APBFACILITYINFORMATION.STRAIRSNUMBER = '" & airsno & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Read()
@@ -8412,9 +8397,9 @@ Public Class DMUStaffTools
                       "FROM " & DBNameSpace & ".EIS_Admin " & _
                       "where  EIS_Admin.FACILITYSITEID = '" & facilitySiteID & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -8425,9 +8410,9 @@ Public Class DMUStaffTools
                             "where INVENTORYYEAR = '" & EISYear & "' " & _
                             " And FACILITYSITEID = '" & facilitySiteID & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -8451,9 +8436,9 @@ Public Class DMUStaffTools
                                       "where FACILITYSITEID = '" & facilitySiteID & "' " & _
                                       " And INVENTORYYEAR = '" & EISYear & "' "
 
-                                cmd = New OracleCommand(SQL, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Close()
@@ -8485,9 +8470,9 @@ Public Class DMUStaffTools
                         "'1', " & _
                         "'" & OracleDate & "' )"
 
-                        cmd2 = New OracleCommand(SQL2, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -8513,9 +8498,9 @@ Public Class DMUStaffTools
                    "'" & Replace(UpdateUser, "'", "''") & "', " & _
                    "'1', " & _
                    "'" & OracleDate & "' )"
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -8543,9 +8528,9 @@ Public Class DMUStaffTools
                     "'1', " & _
                     "'" & OracleDate & "' )"
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -8579,9 +8564,9 @@ Public Class DMUStaffTools
                   "'" & OracleDate & "' )"
 
                  
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -8602,9 +8587,9 @@ Public Class DMUStaffTools
                   "'1', " & _
                   "'" & OracleDate & "' )"
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -8633,9 +8618,9 @@ Public Class DMUStaffTools
                   "'1', " & _
                   "'" & OracleDate & "' )"
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -8654,9 +8639,9 @@ Public Class DMUStaffTools
                   "'1', " & _
                   "'" & OracleDate & "' )"
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -8699,9 +8684,9 @@ Public Class DMUStaffTools
              "where FACILITYSITEID = '" & FacilitySiteID & "' " & _
              " And INVENTORYYEAR = '" & EISYear & "' "
 
-            cmd = New OracleCommand(sql, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(sql, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -8730,9 +8715,9 @@ Public Class DMUStaffTools
                   " And FACILITYSITEID = '" & FacilitySiteID & "' " & _
                   " And STRENROLLMENT = '" & enrollment & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -8762,9 +8747,9 @@ Public Class DMUStaffTools
                                    "FROM " & DBNameSpace & ".EIS_Admin " & _
                                    "where FACILITYSITEID = '" & FacilitySiteID & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -8791,9 +8776,9 @@ Public Class DMUStaffTools
             "from " & DBNameSpace & ".EITHRESHOLDS " & _
             "order by STRTYPE desc "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8816,15 +8801,15 @@ Public Class DMUStaffTools
         Dim year As Integer
         Dim SQL As String
         Try
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             SQL = "Select distinct INVENTORYYEAR " & _
                       "from " & DBNameSpace & ".EIS_Admin  " & _
                       "order by INVENTORYYEAR desc"
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
 
             Dim dr As OracleDataReader = cmd.ExecuteReader()
             dr.Read()
@@ -8848,9 +8833,9 @@ Public Class DMUStaffTools
             "from " & DBNameSpace & ".EITHRESHOLDYEARS " & _
             "order by strYear desc "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8896,9 +8881,9 @@ Public Class DMUStaffTools
             "from " & DBNameSpace & ".EISLK_EISSTATUSCODE "
 
             dscode = New DataSet
-            dacode = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            dacode = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dacode.Fill(dscode, "EISLK_EISSTATUSCODE")
@@ -8931,9 +8916,9 @@ Public Class DMUStaffTools
             "order by strDesc"
 
             dscode = New DataSet
-            daEIcode = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daEIcode = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daEIcode.Fill(dscode, "EISAccessCode")
@@ -9063,9 +9048,9 @@ Public Class DMUStaffTools
             SQL = "Select distinct EISLK_EISACCESSCODE.EISACCESSCODE,EISLK_EISACCESSCODE.STRDESC " & _
             "from " & DBNameSpace & ".EISLK_EISACCESSCODE "
             dscode = New DataSet
-            dacode = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            dacode = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dacode.Fill(dscode, "EISAccessCodes")
@@ -9142,9 +9127,9 @@ Public Class DMUStaffTools
             "where INVENTORYYEAR = '" & EISYear & "'" & _
             " and active ='1' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -9157,9 +9142,9 @@ Public Class DMUStaffTools
             " and active ='1'"
 
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist2 = dr.Read
@@ -9172,9 +9157,9 @@ Public Class DMUStaffTools
                "where EIS_MAILOUT.INTINVENTORYYEAR = '" & EISYear & "'" & _
                " and active '1'"
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Read()
@@ -9184,9 +9169,9 @@ Public Class DMUStaffTools
                                           "where EIS_ADMIN.INVENTORYYEAR = '" & EISYear & "'" & _
                                           " order by FACILITYSITEID " & _
                                           " and active = '1' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     enrollment = "1"
@@ -9210,9 +9195,9 @@ Public Class DMUStaffTools
             "UpdateDateTime = '" & OracleDate & "' " & _
             "where FACILITYSITEID = '" & facilitySiteID & "' " & _
             " And INVENTORYYEAR = '" & EISYear & "' "
-                        cmd2 = New OracleCommand(SQL2, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -9252,9 +9237,9 @@ Public Class DMUStaffTools
                        "from " & DBNameSpace & ".EIS_ADMIN " & _
                        "where EIS_ADMIN.INVENTORYYEAR = '" & EISYear & "'" & _
                        " order by FACILITYSITEID"
-                        cmd = New OracleCommand(sql, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(sql, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -9274,9 +9259,9 @@ Public Class DMUStaffTools
                 "where FACILITYSITEID = '" & FacilitySiteID & "' " & _
                 " And INVENTORYYEAR = '" & EISYear & "' " & _
                 " And Active = '" & active & "' "
-                            cmd2 = New OracleCommand(SQL2, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr2 = cmd2.ExecuteReader
                             dr2.Close()
@@ -9343,9 +9328,9 @@ Public Class DMUStaffTools
                 "FROM " & DBNameSpace & ".EIS_MAILOUT " & _
                 "where INTINVENTORYYEAR = '" & EISYear & "'"
             End If
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -9373,9 +9358,9 @@ Public Class DMUStaffTools
                    "order by STRFACILITYNAME"
 
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -9475,9 +9460,9 @@ Public Class DMUStaffTools
                            "'" & Replace(UpdateUser, "'", "''") & "', " & _
                            "'" & OracleDate & "' )"
 
-                            cmd2 = New OracleCommand(SQL2, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr2 = cmd2.ExecuteReader
                             dr2.Close()
@@ -9504,9 +9489,9 @@ Public Class DMUStaffTools
                     "order by STRFACILITYNAME"
 
                     dsViewCount = New DataSet
-                    daViewCount = New OracleDataAdapter(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     daViewCount.Fill(dsViewCount, "ViewCount")
                     dgvEISDataCount.DataSource = dsViewCount
@@ -9575,9 +9560,9 @@ Public Class DMUStaffTools
         "and strenrollment = '1' "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvEISDataCount.DataSource = dsViewCount
@@ -9640,9 +9625,9 @@ Public Class DMUStaffTools
                 "order by STRFACILITYNAME"
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvEISDataCount.DataSource = dsViewCount
@@ -9759,9 +9744,9 @@ Public Class DMUStaffTools
           "FROM " & DBNameSpace & ".EITHRESHOLDYEARS " & _
           "where  EITHRESHOLDYEARS.STRYEAR = '" & EIStypeYear & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -9769,9 +9754,9 @@ Public Class DMUStaffTools
             "STREITYPE = '" & EIStype & "' " & _
             "where " & DBNameSpace & ".EITHRESHOLDYEARS.STRYEAR = '" & EIStypeYear & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -9794,9 +9779,9 @@ Public Class DMUStaffTools
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmdBuild = New OracleCommandBuilder(daViewCount)
 
@@ -9838,9 +9823,9 @@ Public Class DMUStaffTools
             "from " & DBNameSpace & ".EITHRESHOLDS " & _
             "where EITHRESHOLDS.STRTYPE = '" & EIStype & "'"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -9895,9 +9880,9 @@ Public Class DMUStaffTools
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmdBuild = New OracleCommandBuilder(daViewCount)
 
@@ -9946,9 +9931,9 @@ Public Class DMUStaffTools
                                 " FROM " & DBNameSpace & ".EITHRESHOLDS " & _
                                 "where   " & DBNameSpace & ".EITHRESHOLDS.STRTYPE = '" & Replace(EIStype2, "'", "''") & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -9960,9 +9945,9 @@ Public Class DMUStaffTools
                     SQL = "Select distinct(" & DBNameSpace & ".EITHRESHOLDS.STRPOLLUTANT) as Pollutant " & _
                    " FROM " & DBNameSpace & ".EITHRESHOLDS "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
 
                     dr = cmd.ExecuteReader
@@ -9979,9 +9964,9 @@ Public Class DMUStaffTools
                                 "('" & Replace(temp, "'", "''") & "', " & _
                                 "'', '', '" & Replace(EIStype2, "'", "''") & "', " & _
                                 "(Select max(PollutantID) + 1 from AIRBranch.EIThresholds) ) "
-                            cmd2 = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd2 = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr2 = cmd2.ExecuteReader
                             dr2.Close()
@@ -10003,9 +9988,9 @@ Public Class DMUStaffTools
                     "where   " & DBNameSpace & ".EITHRESHOLDS.STRTYPE = '" & Replace(EIStype2, "'", "''") & "' "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmdBuild = New OracleCommandBuilder(daViewCount)
 
@@ -10051,9 +10036,9 @@ Public Class DMUStaffTools
                   "where   " & DBNameSpace & ".EIS_ADMIN.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' " & _
                   " and EIS_ADMIN.INVENTORYYEAR = '" & Replace(EISYear, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -10064,9 +10049,9 @@ Public Class DMUStaffTools
                  "where   " & DBNameSpace & ".EIS_ADMIN.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' " & _
                  " and EIS_ADMIN.INVENTORYYEAR = '" & Replace(EISYear, "'", "''") & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -10198,9 +10183,9 @@ Public Class DMUStaffTools
                  "WHERE FACILITYSITEID = '" & fsid & "' " & _
                  "and INVENTORYYEAR = '" & inventoryyear & "' "
 
-            Dim cmd As New OracleCommand(sql, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            Dim cmd As New OracleCommand(sql, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -10248,9 +10233,9 @@ Public Class DMUStaffTools
              " FROM " & DBNameSpace & ".APBFACILITYINFORMATION " & _
              "where   " & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER = '" & Replace(airsNo, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -10282,9 +10267,9 @@ Public Class DMUStaffTools
                   " FROM " & DBNameSpace & ".EIS_FACILITYSITE " & _
                   "where   " & DBNameSpace & ".EIS_FACILITYSITE.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -10294,9 +10279,9 @@ Public Class DMUStaffTools
                  " FROM " & DBNameSpace & ".EIS_FACILITYSITE " & _
                  "where   " & DBNameSpace & ".EIS_FACILITYSITE.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -10321,9 +10306,9 @@ Public Class DMUStaffTools
                 " FROM " & DBNameSpace & ".EIS_FACILITYSITEADDRESS " & _
                 "where   " & DBNameSpace & ".EIS_FACILITYSITEADDRESS.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -10334,9 +10319,9 @@ Public Class DMUStaffTools
                  " FROM " & DBNameSpace & ".EIS_FACILITYSITEADDRESS " & _
                  "where   " & DBNameSpace & ".EIS_FACILITYSITEADDRESS.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -10391,9 +10376,9 @@ Public Class DMUStaffTools
                  "UPDATEDATETIME = '" & OracleDate & "' " & _
                  "WHERE FACILITYSITEID = '" & fsid & "' "
 
-            Dim cmd As New OracleCommand(sql, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            Dim cmd As New OracleCommand(sql, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -10406,9 +10391,9 @@ Public Class DMUStaffTools
                "UPDATEDATETIME = '" & OracleDate & "' " & _
                "WHERE FACILITYSITEID = '" & fsid & "' "
 
-            Dim cmd1 As New OracleCommand(sql1, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            Dim cmd1 As New OracleCommand(sql1, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd1.ExecuteReader
             dr.Close()
@@ -10448,9 +10433,9 @@ Public Class DMUStaffTools
                 SQL = "Select strFacilityName " & _
                 "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -10488,9 +10473,9 @@ Public Class DMUStaffTools
                 dgvUsers.Rows.Clear()
                 ds = New DataSet
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -10536,9 +10521,9 @@ Public Class DMUStaffTools
                 End While
                 dr.Close()
 
-                da = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                da = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 da.Fill(ds, "FacilityUsers")
 
@@ -10559,9 +10544,9 @@ Public Class DMUStaffTools
             SQL = "Select numUserId " & _
             "from " & DBNameSpace & ".olapuserlogin " & _
             "where struseremail = '" & Replace(UCase(txtEmail.Text), "'", "''") & "' "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -10572,9 +10557,9 @@ Public Class DMUStaffTools
                 "(numUserId, strAirsNumber, strFacilityName) values( " & _
                 "'" & userID & "', '0413" & mtbAIRSNumber.Text & "', '" & Replace(lblFaciltyName.Text, "'", "''") & "') "
 
-                Dim cmd1 As New OracleCommand(InsertString, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                Dim cmd1 As New OracleCommand(InsertString, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd1.ExecuteNonQuery()
 
@@ -10597,9 +10582,9 @@ Public Class DMUStaffTools
             "WHERE numUserID = '" & cboUsers.SelectedValue & "' " & _
             "and strAirsNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -10647,9 +10632,9 @@ Public Class DMUStaffTools
                 "WHERE numUserID = '" & dgvUsers(1, i).Value & "' " & _
                 "and strAirsNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
             Next
@@ -10734,9 +10719,9 @@ Public Class DMUStaffTools
                 "numUserID = '" & txtWebUserID.Text & "' " & _
                 "where numUserID = '" & txtWebUserID.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -10781,9 +10766,9 @@ Public Class DMUStaffTools
                 "strUserPassword = '" & getMd5Hash(txtEditUserPassword.Text) & "' " & _
                 "where numUserID = '" & txtWebUserID.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -10818,9 +10803,9 @@ Public Class DMUStaffTools
                     "from " & DBNameSpace & ".OLAPUserLogIN " & _
                     "where upper(strUserEmail) = '" & Replace(txtEditEmail.Text.ToUpper, "'", "''") & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -10844,9 +10829,9 @@ Public Class DMUStaffTools
                     "strUserEmail = '" & Replace(txtEditEmail.Text.ToUpper, "'", "''") & "' " & _
                     "where numUserID = '" & txtWebUserID.Text & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -10882,9 +10867,9 @@ Public Class DMUStaffTools
                 "where numUserId = '" & txtWebUserID.Text & "' " & _
                 "and strAirsNumber = '0413" & mtbFacilityToAdd.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -10899,9 +10884,9 @@ Public Class DMUStaffTools
                      "from " & DBNameSpace & ".APBFacilityInformation " & _
                      "where strAIRSnumber = '0413" & mtbFacilityToAdd.Text & "')) "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -10923,9 +10908,9 @@ Public Class DMUStaffTools
                 "WHERE numUserID = '" & txtWebUserID.Text & "' " & _
                 "and strAirsNumber = '0413" & cboFacilityToDelete.SelectedValue & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
 
@@ -10975,9 +10960,9 @@ Public Class DMUStaffTools
                 "WHERE numUserID = '" & txtWebUserID.Text & "' " & _
                 "and strAirsNumber = '0413" & dgvUserFacilities(0, i).Value & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
             Next
@@ -11027,9 +11012,9 @@ Public Class DMUStaffTools
             "strFacilitySiteName " & _
             "from " & DBNameSpace & ".EIS_FacilitySite " & _
             "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -11048,9 +11033,9 @@ Public Class DMUStaffTools
             "from " & DBNameSpace & ".EIS_FacilitySiteAddress " & _
             "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -11077,9 +11062,9 @@ Public Class DMUStaffTools
             "from " & DBNameSpace & ".EIS_FacilityGeoCoord " & _
             "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -11100,9 +11085,9 @@ Public Class DMUStaffTools
             "from " & DBNameSpace & ".APBFacilityInformation " & _
             "where strAIRSNumber = '0413" & txtEILogSelectedAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -11144,9 +11129,9 @@ Public Class DMUStaffTools
             "where intInventoryYear = '" & txtEILogSelectedYear.Text & "' " & _
             "and FacilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -11243,9 +11228,9 @@ Public Class DMUStaffTools
             "" & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
             "and strContactKey = '0413" & txtEILogSelectedAIRSNumber.Text & "41' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -11361,9 +11346,9 @@ Public Class DMUStaffTools
            "where inventoryYear = '" & txtEILogSelectedYear.Text & "' " & _
            "and FacilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -11622,9 +11607,9 @@ Public Class DMUStaffTools
             "where inventoryYear = '" & cboEILogYear.Text & "' " & _
             "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -11892,9 +11877,9 @@ Public Class DMUStaffTools
               "and eis_qaAdmin.qaStatusCode = '2' " & _
               "and eis_admin.inventoryyear = '" & cboEISStatisticsYear.Text & "' ) "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -12230,9 +12215,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -12418,9 +12403,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -12597,9 +12582,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -12753,9 +12738,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -12910,9 +12895,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -13077,9 +13062,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -13237,9 +13222,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -13398,9 +13383,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -13563,9 +13548,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -13721,9 +13706,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -13879,9 +13864,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -14044,9 +14029,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -14265,9 +14250,9 @@ Public Class DMUStaffTools
                      "where intInventoryyear = '" & txtSelectedEISMailout.Text & "' " & _
                      "and FacilitySiteID = '" & txtEISStatsMailoutAIRSNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
 
                     dr = cmd.ExecuteReader
@@ -14378,9 +14363,9 @@ Public Class DMUStaffTools
                 "where intInventoryYear = '" & txtSelectedEISStatYear.Text & "' " & _
                 "and FacilitySiteID = '" & txtEISStatsMailoutAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
 
@@ -14463,9 +14448,9 @@ Public Class DMUStaffTools
                     "and strMailout = '1' " & _
                     temp
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteReader()
                 End If
@@ -14549,9 +14534,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -14665,9 +14650,9 @@ Public Class DMUStaffTools
                     "and strMailout = '1' " & _
                     temp
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteReader()
                 End If
@@ -14702,9 +14687,9 @@ Public Class DMUStaffTools
                 "where inventoryYear = '" & EISConfirm & "' " & _
                 temp
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
                 ViewEISStats()
@@ -14745,9 +14730,9 @@ Public Class DMUStaffTools
                     "and inventoryYear = '" & EISConfirm & "' " & _
                     temp
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteReader(CommandBehavior.CloseConnection)
                 End If
@@ -14773,9 +14758,9 @@ Public Class DMUStaffTools
                     "and inventoryYear = '" & EISConfirm & "' " & _
                     temp
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteReader(CommandBehavior.CloseConnection)
                 End If
@@ -14801,16 +14786,16 @@ Public Class DMUStaffTools
                         "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' " & _
                         "and strOptOut = '0' )) "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader(CommandBehavior.CloseConnection)
 
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
-                        cmd = New OracleCommand("AIRBranch.PD_EIS_QASTART", Conn)
+                        cmd = New OracleCommand("AIRBranch.PD_EIS_QASTART", CurrentConnection)
                         cmd.CommandType = CommandType.StoredProcedure
 
                         cmd.Parameters.Add(New OracleParameter("AIRSNUMBER_IN", OracleDbType.Varchar2)).Value = dgvEISStats(1, i).Value
@@ -15185,8 +15170,8 @@ Public Class DMUStaffTools
                         '                End If
                         '                cmd.ExecuteReader(CommandBehavior.CloseConnection)
 
-                        If Conn.State = ConnectionState.Open Then
-                            Conn.Close()
+                        If CurrentConnection.State = ConnectionState.Open Then
+                            CurrentConnection.Close()
                         End If
                     End If
                 Next
@@ -15257,9 +15242,9 @@ Public Class DMUStaffTools
             "where inventoryyear = '" & cboEILogYear.Text & "' " & _
             "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -15287,9 +15272,9 @@ Public Class DMUStaffTools
             "where inventoryyear = '" & cboEILogYear.Text & "' " & _
             "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteReader()
 
@@ -15307,9 +15292,9 @@ Public Class DMUStaffTools
                     "strEISDeadlineComment = '" & Replace(DeadLineComments, "'", "''") & "' " & _
                     "where INventoryyear = '" & cboEILogYear.Text & "' " & _
                     "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteReader()
                 End If
@@ -15438,9 +15423,9 @@ Public Class DMUStaffTools
                "where INventoryyear = '" & cboEILogYear.Text & "' " & _
                "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -15464,10 +15449,10 @@ Public Class DMUStaffTools
             Dim Mailout As String = ""
             Dim ActiveStatus As String = ""
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
-            cmd = New OracleCommand("AIRBranch.PD_EIS_Data", Conn)
+            cmd = New OracleCommand("AIRBranch.PD_EIS_Data", CurrentConnection)
             cmd.CommandType = CommandType.StoredProcedure
 
             cmd.Parameters.Add(New OracleParameter("AIRSNUM", OracleDbType.Varchar2)).Value = txtEILogSelectedAIRSNumber.Text
@@ -15558,9 +15543,9 @@ Public Class DMUStaffTools
                     "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' & " ' "
 
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteReader()
                 Next
@@ -15701,19 +15686,19 @@ Public Class DMUStaffTools
             "where INventoryyear = '" & cboEILogYear.Text & "' " & _
             "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteReader()
 
             LoadQASpecificData()
 
             If dtpQACompleted.Checked = True Then
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
-                cmd = New OracleCommand("AIRBranch.PD_EIS_QA_Done", Conn)
+                cmd = New OracleCommand("AIRBranch.PD_EIS_QA_Done", CurrentConnection)
                 cmd.CommandType = CommandType.StoredProcedure
 
                 cmd.Parameters.Add(New OracleParameter("AIRSNUM", OracleDbType.Varchar2)).Value = txtEILogSelectedAIRSNumber.Text
@@ -15769,9 +15754,9 @@ Public Class DMUStaffTools
                 "strFacilitySiteName = '" & Replace(FacilityName, "'", "''") & "' " & _
                 "where facilitysiteid = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -15783,9 +15768,9 @@ Public Class DMUStaffTools
                 "strMailingAddressPostalCode = '" & Replace(PostalCode, "'", "''") & "' " & _
                 "where facilitysiteid = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -15816,9 +15801,9 @@ Public Class DMUStaffTools
                 "numLongitudeMeasure = '-" & mtbEIModifyLongitude.Text & "' " & _
                 "where facilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -15830,9 +15815,9 @@ Public Class DMUStaffTools
                 "datModifingDate = sysdate " & _
                 "where strAIRSNumber = '0413" & txtEILogSelectedAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -15903,9 +15888,9 @@ Public Class DMUStaffTools
             "where FacilitySiteid = '" & txtEILogSelectedAIRSNumber.Text & "' " & _
             "and intInventoryYear = '" & txtEILogSelectedYear.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteReader()
 
@@ -15991,9 +15976,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -16157,9 +16142,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -16323,9 +16308,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -16488,9 +16473,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -16653,9 +16638,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -16818,9 +16803,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -16982,9 +16967,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17153,9 +17138,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17337,9 +17322,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17447,9 +17432,9 @@ Public Class DMUStaffTools
                    "where intInventoryyear = '" & cboEISStatisticsYear.Text & "' " & _
                    "and FacilitySiteID = '" & txtEISStatsMailoutAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -17607,9 +17592,9 @@ Public Class DMUStaffTools
                 "where strAIRSnumber = '0413" & txtEISStatsMailoutAIRSNumber.Text & "' "
 
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -17733,9 +17718,9 @@ Public Class DMUStaffTools
                     "where inventoryYear = '" & EISConfirm & "' " & _
                     temp
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteReader()
                     MsgBox(EISConfirm & " Emission Inventory Facilities in Mailout.", MsgBoxStyle.Information, Me.Text)
@@ -17777,9 +17762,9 @@ Public Class DMUStaffTools
                 "where inventoryYear = '" & EISConfirm & "' " & _
                 temp
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -17827,10 +17812,10 @@ Public Class DMUStaffTools
             End If
 
             dsThreshold = New DataSet
-            daThreshold = New OracleDataAdapter(SQL, Conn)
+            daThreshold = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daThreshold.Fill(dsThreshold, "ThresholdPollutants")
@@ -17922,9 +17907,9 @@ Public Class DMUStaffTools
             "where upper(strPollutant) = '" & Replace(txtPollutant.Text.ToUpper, "'", "''") & "' " & _
             "and strType = '" & ThresholdType & "'"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -17938,9 +17923,9 @@ Public Class DMUStaffTools
                 "'" & txtThreshold.Text & "', " & _
                 "'" & txtNonAttainmentThreshold.Text & "', " & _
                 "'" & ThresholdType & "') "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
                 ViewPollutantThresholds()
@@ -17976,9 +17961,9 @@ Public Class DMUStaffTools
             "where upper(strPollutant) = '" & Replace(txtPollutant.Text.ToUpper, "'", "''") & "' " & _
             "and strType = '" & ThresholdType & "'"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -17989,9 +17974,9 @@ Public Class DMUStaffTools
                       "numThresholdNAA = '" & txtNonAttainmentThreshold.Text & "' " & _
                       "where strType = '" & ThresholdType & "'  " & _
                       "and strPollutant =  '" & Replace(txtPollutant.Text, "'", "''") & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
                 ViewPollutantThresholds()
@@ -18016,10 +18001,10 @@ Public Class DMUStaffTools
             "order by strYear desc "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, Conn)
+            da = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             da.Fill(ds, "EISYears")
@@ -18115,9 +18100,9 @@ Public Class DMUStaffTools
             "from AIRBranch.EIThresholdYears " & _
             "where strYEar = '" & Replace(mtbThresholdYear.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -18131,9 +18116,9 @@ Public Class DMUStaffTools
                 "'" & EISYearType & "', " & _
                 "'" & dtpEISDeadline.Text & "')  "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
                 LoadEISYear()
@@ -18165,9 +18150,9 @@ Public Class DMUStaffTools
             "from AIRBranch.EIThresholdYears " & _
             "where strYEar = '" & Replace(mtbThresholdYear.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -18178,9 +18163,9 @@ Public Class DMUStaffTools
                 "DatDeadline = '" & dtpEISDeadline.Text & "'  " & _
                 "where strYear = '" & mtbThresholdYear.Text & "'"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
                 LoadEISYear()
@@ -18211,92 +18196,92 @@ Public Class DMUStaffTools
             If EISConfirm = txtSelectedEISStatYear.Text Then
                 SQL = "delete airbranch.EIS_UnitControlPollutant " & _
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_UnitControlMeasure  " & _
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_UnitControlApproach  " & _
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_RPGEOCoordinates  " & _
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_RPApportionment  " & _
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_ProcessControlPollutant " & _
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_ProcessControlMeasure " & _
                 "where active = '0'"
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_ProcessControlApproach  " & _
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_ReportingPeriodEmissions  " & _
               "where active = '0'  " & _
               "and intinventoryyear = '2010' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_ProcessOperatingDetails  " & _
                 "where active = '0'  " & _
                 "and intInventoryYear = '2010' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_ProcessRPTPeriodSCP  " & _
                 "where Active = '0'  " & _
                 "and intInventoryYear = '2010'"
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -18308,9 +18293,9 @@ Public Class DMUStaffTools
              "and Airbranch.EIS_RPApportionment.ProcessId = Airbranch.eis_Process.ProcessId " & _
              "and Airbranch.EIS_RPApportionment.EmissionsUnitID  = Airbranch.eis_Process.EmissionsUnitID) "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -18325,9 +18310,9 @@ Public Class DMUStaffTools
                 " and Airbranch.EIS_ProcessControlPollutant.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID  " & _
                 " and EIS_Process.active = '0' ) "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -18339,9 +18324,9 @@ Public Class DMUStaffTools
              "and Airbranch.EIS_ProcessControlMeasure.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID " & _
              "and EIS_Process.active = '0' ) "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -18353,9 +18338,9 @@ Public Class DMUStaffTools
                 "and Airbranch.EIS_ProcessControlApproach.ProcessId = Airbranch.eis_Process.ProcessId " & _
                 "and Airbranch.EIS_ProcessControlApproach.EmissionsUnitID  = Airbranch.eis_Process.EmissionsUnitID) "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -18367,9 +18352,9 @@ Public Class DMUStaffTools
                 "and Airbranch.EIS_ProcessControlPollutant.ProcessId = Airbranch.EIS_ProcessControlApproach.ProcessId " & _
                 "and Airbranch.EIS_ProcessControlPollutant.EmissionsUnitID  = Airbranch.EIS_ProcessControlApproach.EmissionsUnitID) "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -18381,9 +18366,9 @@ Public Class DMUStaffTools
                 "and Airbranch.EIS_ProcessOperatingDetails.ProcessId = Airbranch.EIS_Process.ProcessId  " & _
                 "and Airbranch.EIS_ProcessOperatingDetails.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID)  "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -18395,9 +18380,9 @@ Public Class DMUStaffTools
                 "and Airbranch.EIS_ReportingPeriodEmissions.ProcessId = Airbranch.EIS_Process.ProcessId  " & _
                 "and Airbranch.EIS_ReportingPeriodEmissions.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID)  "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -18409,9 +18394,9 @@ Public Class DMUStaffTools
                  "and Airbranch.EIS_ProcessRPTPeriodSCP.ProcessId = Airbranch.EIS_Process.ProcessId  " & _
                  "and Airbranch.EIS_ProcessRPTPeriodSCP.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID)  "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -18423,25 +18408,25 @@ Public Class DMUStaffTools
                  "and Airbranch.eis_processReportingPeriod.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID " & _
                  "and EIS_Process.active = '0' ) "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_Process  " & _
                               "where Active = '0' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "Delete airbranch.EIS_EmissionsUnit   " & _
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -18449,9 +18434,9 @@ Public Class DMUStaffTools
                 "where active = '0'  " & _
                 "and numRPStatusCodeYear = '2010' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -18493,9 +18478,9 @@ Public Class DMUStaffTools
             "strFacilitySiteName " & _
             "from " & DBNameSpace & ".EIS_FacilitySite " & _
             "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18514,9 +18499,9 @@ Public Class DMUStaffTools
             "from " & DBNameSpace & ".EIS_FacilitySiteAddress " & _
             "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18543,9 +18528,9 @@ Public Class DMUStaffTools
             "from " & DBNameSpace & ".EIS_FacilityGeoCoord " & _
             "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18566,9 +18551,9 @@ Public Class DMUStaffTools
             "from " & DBNameSpace & ".APBFacilityInformation " & _
             "where strAIRSNumber = '0413" & txtEILogSelectedAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18610,9 +18595,9 @@ Public Class DMUStaffTools
             "where intInventoryYear = '" & txtEILogSelectedYear.Text & "' " & _
             "and FacilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18709,9 +18694,9 @@ Public Class DMUStaffTools
             "" & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
             "and strContactKey = '0413" & txtEILogSelectedAIRSNumber.Text & "41' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18831,9 +18816,9 @@ Public Class DMUStaffTools
                 "strFacilitySiteName " & _
                 "from " & DBNameSpace & ".EIS_FacilitySite " & _
                 "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -18852,9 +18837,9 @@ Public Class DMUStaffTools
                 "from " & DBNameSpace & ".EIS_FacilitySiteAddress " & _
                 "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -18881,9 +18866,9 @@ Public Class DMUStaffTools
                 "from " & DBNameSpace & ".EIS_FacilityGeoCoord " & _
                 "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -18904,9 +18889,9 @@ Public Class DMUStaffTools
                 "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & txtEILogSelectedAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -18948,9 +18933,9 @@ Public Class DMUStaffTools
                 "where intInventoryYear = '" & txtEILogSelectedYear.Text & "' " & _
                 "and FacilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -19047,9 +19032,9 @@ Public Class DMUStaffTools
                 "" & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                 "and strContactKey = '0413" & txtEILogSelectedAIRSNumber.Text & "41' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -19249,9 +19234,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -19358,9 +19343,9 @@ Public Class DMUStaffTools
                 "where inventoryyear = '" & EISConfirm & "', " & _
                 "and facilitysiteid = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -19374,9 +19359,9 @@ Public Class DMUStaffTools
                   "where inventoryYear = '" & EISConfirm & "' " & _
                   "and facilitysiteid = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteReader(CommandBehavior.CloseConnection)
 
@@ -19393,10 +19378,10 @@ Public Class DMUStaffTools
             For i = 0 To dgvEISStats.Rows.Count - 1
                 If dgvEISStats(0, i).Value = True Then
 
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
-                    cmd = New OracleCommand("airbranch.PD_EIS_QASTART", Conn)
+                    cmd = New OracleCommand("airbranch.PD_EIS_QASTART", CurrentConnection)
                     cmd.CommandType = CommandType.StoredProcedure
                     temp = dgvEISStats(1, i).Value
 
@@ -19405,8 +19390,8 @@ Public Class DMUStaffTools
 
                     cmd.ExecuteNonQuery()
 
-                    If Conn.State = ConnectionState.Open Then
-                        Conn.Close()
+                    If CurrentConnection.State = ConnectionState.Open Then
+                        CurrentConnection.Close()
                     End If
                 End If
             Next
@@ -19493,9 +19478,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -19654,10 +19639,10 @@ Public Class DMUStaffTools
             "strMailout = '1' " & _
             "where inventoryYear = '" & txtSelectedEISMailout.Text & "' " & _
             "and Active = '1' "
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -19681,10 +19666,10 @@ Public Class DMUStaffTools
           "and strMailout = '1' " & _
           "and Active = '1' "
 
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteNonQuery()
             EIS_VIEW(txtSelectedEISMailout.Text, "1", "", "1", "", "", "", "")
@@ -19727,9 +19712,9 @@ Public Class DMUStaffTools
             "where active = '1' " & _
             "and InventoryYear = '" & txtEISStatsEnrollmentYear.Text & "' " & _
             "and strMailout = '1' "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -19755,9 +19740,9 @@ Public Class DMUStaffTools
             "and InventoryYear = '" & txtEISStatsEnrollmentYear.Text & "' " & _
             "and strEnrollment = '1' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -19843,9 +19828,9 @@ Public Class DMUStaffTools
 
             dgvEISStats.Rows.Clear()
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
 

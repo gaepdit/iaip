@@ -88,17 +88,17 @@ Public Class IAIPEditContacts
                  "order by substr(strKey, 2), strKey "
 
                 dsContacts = New DataSet
-                daContacts = New OracleDataAdapter(SQL, Conn)
+                daContacts = New OracleDataAdapter(SQL, CurrentConnection)
 
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 daContacts.Fill(dsContacts, "Contacts")
                 dgvContacts.DataSource = dsContacts
                 dgvContacts.DataMember = "Contacts"
 
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
 
@@ -184,9 +184,9 @@ Public Class IAIPEditContacts
                 "where strAIRSNumber = '0413" & AirsNumber & "' " & _
                 "and strKey = '" & txtNewKey.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -325,7 +325,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -395,9 +395,9 @@ Public Class IAIPEditContacts
                     "where strAIRSnumber = '0413" & AirsNumber & "' " & _
                     "and strKey = '" & txtNewKey.Text & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     cmd.ExecuteReader()
                 Else
@@ -442,9 +442,9 @@ Public Class IAIPEditContacts
                        "STRCONTACTDESCRIPTION = '" & Replace(txtNewDescrption.Text, "'", "''") & "' " & _
                        "where strAIRSnumber = '0413" & AirsNumber & "' " & _
                        "and strKey = '" & newKey & "' "
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         cmd.ExecuteReader()
                     End If
@@ -494,9 +494,9 @@ Public Class IAIPEditContacts
                             "where strAIRSnumber = '0413" & AirsNumber & "' " & _
                             "and strKey = '" & Mid(newKey, 1, 1) & "9' "
 
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             cmd.ExecuteReader()
 
@@ -505,9 +505,9 @@ Public Class IAIPEditContacts
                             "strContactKey = substr(strContactKey, 1, 13) || (substr(strContactKey, 14, 1) + 1) " & _
                             "where strAIRSNumber = '0413" & AirsNumber & "' " & _
                             "and strKey like '" & Mid(newKey, 1, 1) & "%' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             cmd.ExecuteReader()
 
@@ -540,9 +540,9 @@ Public Class IAIPEditContacts
                             "where strKey = '" & newKey & "' " & _
                             "and strAIRSNumber = '0413" & AirsNumber & "')) "
 
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             cmd.ExecuteReader()
 
@@ -576,9 +576,9 @@ Public Class IAIPEditContacts
                             "where strKey = '" & newKey & "' " & _
                             "and strAIRSNumber = '0413" & AirsNumber & "')) "
 
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             cmd.ExecuteReader()
                     End Select
@@ -605,44 +605,6 @@ Public Class IAIPEditContacts
         OpenHelpUrl(Me)
     End Sub
 
-#End Region
-
-#Region "Unused delete code"
-    'Sub DeleteContact()
-    '    Try
-    '        If txtContactKey.Text.Length = 14 Then
-    '            SQL = "Delete " & DBNameSpace & ".APBContactInformation " & _
-    '            "where strContactKey = '" & txtContactKey.Text & "'"
-    '            cmd = New OracleCommand(SQL, Conn)
-    '            If Conn.State = ConnectionState.Closed Then
-    '                Conn.Open()
-    '            End If
-    '            dr = cmd.ExecuteReader
-    '            dr.Close()
-
-    '            LoadContactsDataset("PageLoad")
-
-    '            If FacilitySummary Is Nothing Then
-    '            Else
-    '                ' IAIPFacilitySummary.LoadContactInformation()
-    '            End If
-    '            If SSCPRequest Is Nothing Then
-    '            Else
-    '                SSCPRequest.LoadFacilityContactInformation()
-    '            End If
-
-    '        Else
-    '            MsgBox("Please select a valid contact.", MsgBoxStyle.Information, "IAIP Edit Contact Information")
-    '        End If
-
-    '    Catch ex As Exception
-    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    Finally
-    '        If Conn.State = ConnectionState.Open Then
-    '            'conn.close()
-    '        End If
-    '    End Try
-    'End Sub
 #End Region
 
 End Class

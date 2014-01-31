@@ -85,9 +85,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
             dsPublicLetters = New DataSet
 
-            daPublicLetters = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daPublicLetters = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daPublicLetters.Fill(dsPublicLetters, "PublicLetters")
@@ -144,9 +144,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "from " & DBNameSpace & ".SSPPPublicLetters " & _
             "order by datPublishedDate "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -205,9 +205,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "and strPublicInvolvement = '1' " & _
             AppNumbers
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -236,9 +236,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "and (datPNExpires > (sysdate + 24) and datPNExpires < (sysdate + 37)) " & _
              AppNumbers
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -274,9 +274,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 SIPAppNumbers & _
                 "order by strCountyName "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -379,9 +379,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 TVAppNumbers & _
                 "order by strCountyName "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -496,9 +496,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "and substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber, 5, 3) = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode  " & _
             "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+)  " & _
             "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberEditor.Text & "' "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -621,9 +621,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "and substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber, 5, 3) = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode  " & _
             "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+)  " & _
             "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberEditor.Text & "' "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -748,9 +748,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 SQL = "select strApplicationNumber " & _
                 "from " & DBNameSpace & ".SSPPApplicationMaster " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -767,7 +767,6 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     PermitTrackingLog.txtApplicationNumber.Text = txtApplicationNumber.Text
                     PermitTrackingLog.LoadApplication()
                     PermitTrackingLog.BringToFront()
-                    'PermitTrackingLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     PermitTrackingLog.TPTrackingLog.Focus()
                 Else
                     MsgBox("Application Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
@@ -815,9 +814,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 SQLLine & _
                 "order by strCountyName "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -895,9 +894,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 SQLLine & _
                 "order by strCountyName "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -975,9 +974,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "and strApplicationType = '16'  " & _
                 "order by strCountyName "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -1056,9 +1055,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "and (strApplicationType = '21' or strApplicationType = '22')  " & _
                 "order by strCountyName "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -1441,9 +1440,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 SQL = "select strFileName " & _
                 "From " & DBNameSpace & ".SSPPPublicLetters " & _
                 "where strFileName = '" & FileName & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1546,9 +1545,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "from " & DBNameSpace & ".SSPPPublicLetters " & _
                 "where strFileName = '" & FileName & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1594,9 +1593,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 If FileName <> "" Then
                     SQL = "Delete " & DBNameSpace & ".SSPPPublicLetters " & _
                     "where strFileName = '" & FileName & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1616,10 +1615,10 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     "from " & DBNameSpace & ".SSPPPublicLetters " & _
                     "where strFileName = '" & FileName & "' "
 
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
-                    da = New OracleDataAdapter(SQL, Conn)
+                    da = New OracleDataAdapter(SQL, CurrentConnection)
                     cmdCB = New OracleCommandBuilder(da)
                     ds = New DataSet("IAIPData")
                     da.MissingSchemaAction = MissingSchemaAction.AddWithKey
@@ -1663,9 +1662,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     SQLLine = Mid(SQLLine, 1, (SQLLine.Length - 3))
                 End If
                 SQL = SQL & SQLLine
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1673,9 +1672,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
                 "datPAExpires = '" & Me.DTPPADeadline.Text & "' " & _
                 "where " & SQLLine
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1697,9 +1696,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     SQLLine = Mid(SQLLine, 1, (SQLLine.Length - 3))
                 End If
                 SQL = SQL & SQLLine
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1758,9 +1757,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "from " & DBNameSpace & ".SSPPPublicLetters " & _
             "where strFileName = '" & cboPAPNReports.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2068,9 +2067,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "from " & DBNameSpace & ".SSPPPublicLetters " & _
                 "where strFileName = '" & FileName & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2115,9 +2114,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 If FileName <> "" Then
                     SQL = "Delete " & DBNameSpace & ".SSPPPublicLetters " & _
                     "where strFileName = '" & FileName & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -2137,10 +2136,10 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     "from " & DBNameSpace & ".SSPPPublicLetters " & _
                     "where strFileName = '" & FileName & "' "
 
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
-                    da = New OracleDataAdapter(SQL, Conn)
+                    da = New OracleDataAdapter(SQL, CurrentConnection)
                     cmdCB = New OracleCommandBuilder(da)
                     ds = New DataSet("IAIPData")
                     da.MissingSchemaAction = MissingSchemaAction.AddWithKey

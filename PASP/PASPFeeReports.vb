@@ -40,7 +40,7 @@ Public Class PASPFeeReports
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
             progress1.progress = 0
@@ -88,7 +88,7 @@ Public Class PASPFeeReports
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -109,16 +109,16 @@ Public Class PASPFeeReports
             + "Order by strfacilityname "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, Conn)
+            da = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             da.Fill(ds, "facilityInfo")
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -157,7 +157,7 @@ Public Class PASPFeeReports
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -173,11 +173,11 @@ Public Class PASPFeeReports
             SQL = "Select distinct strdepositno from " & DBNameSpace & ".FS_Transactions " _
           + "order by strdepositno"
 
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             Dim dr As OracleDataReader = cmd.ExecuteReader
@@ -191,7 +191,7 @@ Public Class PASPFeeReports
         Catch ex As Exception
             ErrorReport(ex, "PASPFeeReports.LoadComboBoxesD(Sub1)")
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -202,11 +202,11 @@ Public Class PASPFeeReports
             SQL = "Select distinct substr(strairsnumber,5) as strairsnumber " _
             + "from " & DBNameSpace & ".FSAddPaid order by strairsnumber"
 
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             Dim dr As OracleDataReader = cmd.ExecuteReader
@@ -219,7 +219,7 @@ Public Class PASPFeeReports
         Catch ex As Exception
             ErrorReport(ex, "PASPFeeReports.LoadComboBoxesD(Sub2)")
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -248,7 +248,7 @@ Public Class PASPFeeReports
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -267,9 +267,9 @@ Public Class PASPFeeReports
             SQL = "Select * from " & DBNameSpace & ".VW_Facility_Fee " & _
             "where strAIRSNumber = '0413" & cboAirsNo.SelectedValue & "' "
 
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Facility_Fee")
@@ -323,9 +323,9 @@ Public Class PASPFeeReports
             "from " & DBNameSpace & ".vw_total_fee " & _
             "group by intyear "
 
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Total_Fee")
@@ -367,9 +367,9 @@ Public Class PASPFeeReports
             SQL = "Select * from " & DBNameSpace & ".FSCalculations "
             SQL = "Select * from " & DBNameSpace & ".VW_Facility_Class_Counts "
 
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Facility_Class_Counts")
@@ -463,9 +463,9 @@ Public Class PASPFeeReports
             "and airbranch.feedetails.intyear = '" & mtbFacilityBalanceYear.Text & "' " & _
             "order by strairsnumber "
 
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Facility_Balance")
@@ -556,9 +556,9 @@ Public Class PASPFeeReports
             rpt = New TotalPayment10
             monitor.TrackFeature("Report." & rpt.ResourceName)
             SQL = "Select * from " & DBNameSpace & ".VW_Total_PAYMENT "
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Total_PAYMENT")
@@ -575,7 +575,7 @@ Public Class PASPFeeReports
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -603,7 +603,7 @@ Public Class PASPFeeReports
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -629,9 +629,9 @@ Public Class PASPFeeReports
             "where datPayDate between '" & Format(DateTimePicker1.Value, "dd-MMM-yyyy") & "' and '" & Format(DateTimePicker2.Value, "dd-MMM-yyyy") & "' " & _
             "order by strBatchNo "
 
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "FSAddPaid")
@@ -679,9 +679,9 @@ Public Class PASPFeeReports
             SQL = "Select * from " & DBNameSpace & ".FSAddPaid " & _
             "where datPayDate between '" & Format(DateTimePicker1.Value, "dd-MMM-yyyy") & "' and '" & Format(DateTimePicker2.Value, "dd-MMM-yyyy") & "' "
 
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "FSAddPaid")
@@ -732,9 +732,9 @@ Public Class PASPFeeReports
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
             SQL = "select * from " & DBNameSpace & ".VW_Bankrupt"
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Bankrupt")
@@ -766,9 +766,9 @@ Public Class PASPFeeReports
             monitor.TrackFeature("Report." & rpt.ResourceName)
             SQL = "Select * from " & DBNameSpace & ".FeesDue "
 
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "FeesDue")
@@ -816,9 +816,9 @@ Public Class PASPFeeReports
 
             End If
 
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "FeeVariance")
@@ -927,9 +927,9 @@ Public Class PASPFeeReports
                 "order by nuMFeeYear desc  "
             End If
 
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "FSAddPaid")
@@ -1007,9 +1007,9 @@ Public Class PASPFeeReports
 
             SQL = "select * from " & DBNameSpace & ".VW_Class_Changed"
 
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Class_Changed")
@@ -1055,7 +1055,7 @@ Public Class PASPFeeReports
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1072,9 +1072,9 @@ Public Class PASPFeeReports
             "where strnsps = 'YES' " & _
             "and STRnspsexempt = 'YES'"
 
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_NSPS_Status")
@@ -1109,9 +1109,9 @@ Public Class PASPFeeReports
             "where Strnsps1 = 'YES' " & _
             "and strnsps = 'NO'"
 
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_NSPS_Status")
@@ -1143,9 +1143,9 @@ Public Class PASPFeeReports
             "where strnsps = 'YES' " & _
             "and STRoperate <> 'YES'"
 
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_NSPS_Status")
@@ -1194,9 +1194,9 @@ Public Class PASPFeeReports
             "where intYear = '" & mtbNonRespondentYear.Text & "' " & _
             "and intSubmittal <> '1' "
 
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_NonRespondent")
@@ -1250,9 +1250,9 @@ Public Class PASPFeeReports
             monitor.TrackFeature("Report." & rpt.ResourceName)
             SQL = "Select * from " & DBNameSpace & ".VW_No_Operate "
 
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_No_Operate")
@@ -1297,9 +1297,9 @@ Public Class PASPFeeReports
             SQL = "Select * from " & DBNameSpace & ".FSPAYANDSUBMIT " & _
             "where strComments is not Null "
 
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "FSPAYANDSUBMIT")
@@ -1329,9 +1329,9 @@ Public Class PASPFeeReports
 
             SQL = "Select * from " & DBNameSpace & ".VW_Facility_Info "
 
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Facility_Info")
@@ -1361,9 +1361,9 @@ Public Class PASPFeeReports
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
             SQL = "Select * from AIRBranch.VW_Training_reg "
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Training_reg")
@@ -1416,7 +1416,7 @@ Public Class PASPFeeReports
         Catch ex As Exception
             ErrorReport(ex, "MRFunctions.DisplayReport")
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

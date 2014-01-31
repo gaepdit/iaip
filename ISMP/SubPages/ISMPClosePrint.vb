@@ -842,7 +842,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -882,7 +882,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -892,8 +892,8 @@ Public Class ISMPClosePrint
     Sub LoadInformation()
         Try
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             SQL = "Select " & _
@@ -915,7 +915,7 @@ Public Class ISMPClosePrint
             "from " & DBNameSpace & ".ISMPReportInformation " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = True Then
@@ -968,7 +968,7 @@ Public Class ISMPClosePrint
             SQL = "Select strTestLogNumber " & _
             "from " & DBNameSpace & ".ISMPTestLogLink " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = True Then
@@ -981,7 +981,7 @@ Public Class ISMPClosePrint
                 "where strTestLogNumber = '" & dr.Item("strTestLogNumber") & "' " & _
                 "order by strReferenceNumber "
 
-                cmd = New OracleCommand(SQL, Conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
                 While dr.Read
                     llbEmissionLog.Items.Add(dr.Item("strREferenceNUmber"))
@@ -992,14 +992,14 @@ Public Class ISMPClosePrint
             End If
 
             txtTestLinksCount.Text = llbEmissionLog.Items.Count
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1021,7 +1021,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1046,14 +1046,14 @@ Public Class ISMPClosePrint
             "datModifingDate = '" & OracleDate & "' " & _
             "where strReferencenumber = '" & txtReferenceNumber.Text & "' "
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -1064,7 +1064,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1079,11 +1079,10 @@ Public Class ISMPClosePrint
             PrintOut.txtPrintType.Text = "ISMPAIRSForm"
             PrintOut.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
             PrintOut.Show()
-            'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1097,11 +1096,10 @@ Public Class ISMPClosePrint
             PrintOut.txtPrintType.Text = "ISMPTestReport"
             PrintOut.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
             PrintOut.Show()
-            'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1116,12 +1114,12 @@ Public Class ISMPClosePrint
                     Me.Hide()
                 Case Else
                     ISMPCloseAndPrint = Nothing
-                    Conn.Dispose()
+                    CurrentConnection.Dispose()
             End Select
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1144,7 +1142,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1158,7 +1156,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1172,7 +1170,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1186,7 +1184,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1200,7 +1198,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1214,7 +1212,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1228,7 +1226,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1242,7 +1240,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1256,7 +1254,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

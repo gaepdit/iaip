@@ -39,9 +39,9 @@ Public Class SSPP_FeeContact
             "from " & DBNameSpace & ".APBContactInformation " & _
             "where strContactKey = '0413" & txtAIRSNumber.Text & "40' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -180,9 +180,9 @@ Public Class SSPP_FeeContact
                 "where strContactKey = '0413" & txtAIRSNumber.Text & "40' " & _
                 "and strContactDescription = '" & txtDescription.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -228,9 +228,9 @@ Public Class SSPP_FeeContact
                 "datModifingDate = '" & OracleDate & "', " & _
                 "strContactDescription = '" & Replace(txtDescription.Text, "'", "''") & "' " & _
                 "where strContactKey = '0413" & txtAIRSNumber.Text & "40' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()

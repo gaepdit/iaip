@@ -66,10 +66,10 @@ Public Class ISMPMonitoringLog
 
             dsEngineer = New DataSet
 
-            daEngineer = New OracleDataAdapter(SQL, Conn)
+            daEngineer = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daEngineer.Fill(dsEngineer, "Engineers")
@@ -142,9 +142,9 @@ Public Class ISMPMonitoringLog
 
             dsPollutants = New DataSet
 
-            daPollutants = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daPollutants = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daPollutants.Fill(dsPollutants, "Pollutants")
@@ -471,10 +471,10 @@ Public Class ISMPMonitoringLog
                 SQL = SQL & SQLWhere
 
                 dsTestReportViewer = New DataSet
-                daTestReportViewer = New OracleDataAdapter(SQL, Conn)
+                daTestReportViewer = New OracleDataAdapter(SQL, CurrentConnection)
 
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 daTestReportViewer.Fill(dsTestReportViewer, "TestReportViewer")
@@ -638,10 +638,10 @@ Public Class ISMPMonitoringLog
                 SQL = SQL & SQLWhere
 
                 dsNotificationViewer = New DataSet
-                daNotificationViewer = New OracleDataAdapter(SQL, Conn)
+                daNotificationViewer = New OracleDataAdapter(SQL, CurrentConnection)
 
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 daNotificationViewer.Fill(dsNotificationViewer, "NotificationViewer")
@@ -775,10 +775,10 @@ Public Class ISMPMonitoringLog
                 SQL = SQL & SQLWhere
 
                 dsTestFirmComments = New DataSet
-                daTestFirmComments = New OracleDataAdapter(SQL, Conn)
+                daTestFirmComments = New OracleDataAdapter(SQL, CurrentConnection)
 
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 daTestFirmComments.Fill(dsTestFirmComments, "TestFirmComments")
@@ -849,9 +849,9 @@ Public Class ISMPMonitoringLog
                 "and substr(" & DBNameSpace & ".ISMPTestNotification.strAIRSNumber, 1, 3) = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode (+)  " & _
                 "and strTestLogNumber = '" & txtTestLogNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -899,79 +899,32 @@ Public Class ISMPMonitoringLog
 
     End Sub
     Sub SelectTestReport()
-
         Try
+            Dim id As String = txtReferenceNumber.Text
+            If id = "" Then Exit Sub
 
-            'If txtReferenceNumber.Text <> "" Then
-            '    SQL = "select " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
-            '     "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
-            '     "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
-            '     "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-            '    Dim cmd As New OracleCommand(SQL, conn)
-            '    If conn.State = ConnectionState.Closed Then
-            '        conn.Open()
-            '    End If
-            '    Dim dr As OracleDataReader = cmd.ExecuteReader
-            '    Dim recExist As Boolean = dr.Read
-            '    If recExist = True Then
-            '        ISMPTestReportsEntry = Nothing
-            '        If ISMPTestReportsEntry Is Nothing Then ISMPTestReportsEntry = New ISMPTestReports
-            '        ISMPTestReportsEntry.txtReferenceNumber.Text = txtReferenceNumber.Text
-            '        ISMPTestReportsEntry.Show()
-            '        ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-            '    End If
-            'End If
-            If txtReferenceNumber.Text <> "" Then
+            If DAL.ISMP.StackTestExists(id) Then
                 If UserProgram = "3" Then
-                    SQL = "select " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                    "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
-                    "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
-                    "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    If recExist = True Then
-                        ISMPTestReportsEntry = Nothing
-                        If ISMPTestReportsEntry Is Nothing Then ISMPTestReportsEntry = New ISMPTestReports
-                        ISMPTestReportsEntry.txtReferenceNumber.Text = txtReferenceNumber.Text
-                        ISMPTestReportsEntry.Show()
-                        'ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                    End If
+                    OpenMultiForm(ISMPTestReports, id)
                 Else
-                    SQL = "Select strClosed " & _
-                    "from " & DBNameSpace & ".ISMPReportInformation " & _
-                    "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        temp = dr.Item("strClosed")
-                    End While
-                    If temp = "True" Then
-                        PrintOut = Nothing
-                        If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
+                    If DAL.ISMP.StackTestIsClosedOut(id) Then
+                        If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
+                            PrintOut.Dispose()
+                        End If
+                        PrintOut = New IAIPPrintOut
                         PrintOut.txtReferenceNumber.Text = txtReferenceNumber.Text
                         PrintOut.txtPrintType.Text = "SSCP"
                         PrintOut.Show()
-                        'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     Else
-                        MsgBox("This Test Summary has not been completely reviewed by ISMP Engineer", MsgBoxStyle.Information, "Facility Summary")
+                        MsgBox("This test has not been completely reviewed by ISMP.", MsgBoxStyle.Information, "Facility Summary")
                     End If
-
                 End If
+            Else
+                MsgBox("Reference number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Sub ResetOptions()
         Try
@@ -1010,10 +963,6 @@ Public Class ISMPMonitoringLog
     Private Sub ISMPTestReportViewer_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
 
-            If NavigationScreen Is Nothing Then
-                NavigationScreen = New IAIPNavigation
-            End If
-            NavigationScreen.Show()
             ISMPReportViewer = Nothing
             Me.Dispose()
         Catch ex As Exception
@@ -1298,7 +1247,6 @@ Public Class ISMPMonitoringLog
                 ISMPNotificationLogForm.Show()
             End If
             ISMPNotificationLogForm.LoadTestNotification()
-            'DevTestLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -1332,7 +1280,6 @@ Public Class ISMPMonitoringLog
             End If
             TestFirmComments.txtCommentID.Text = txtCommentNumber.Text
             TestFirmComments.LoadTestFirmComments()
-            'TestFirmComments.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1344,10 +1291,6 @@ Public Class ISMPMonitoringLog
     Private Sub tsbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbBack.Click
         Try
 
-            If NavigationScreen Is Nothing Then
-                NavigationScreen = New IAIPNavigation
-            End If
-            NavigationScreen.Show()
             ISMPReportViewer = Nothing
             Me.Dispose()
         Catch ex As Exception
@@ -1461,7 +1404,6 @@ Public Class ISMPMonitoringLog
                 If StaffReports Is Nothing Then StaffReports = New ISMPStaffReports
             End If
             StaffReports.Show()
-            'StaffReports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

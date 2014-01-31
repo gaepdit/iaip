@@ -13,9 +13,7 @@ Module FormHandler
             MultiForm(name) = New Dictionary(Of Integer, BaseForm)
         End If
 
-        If Not MultiForm(name).ContainsKey(id) _
-        OrElse MultiForm(name)(id) Is Nothing _
-        OrElse MultiForm(name)(id).IsDisposed Then
+        If Not MultiFormIsOpen(name, id) Then
             MultiForm(name)(id) = Activator.CreateInstance(formClass.GetType)
             MultiForm(name)(id).ID = id
         End If
@@ -24,6 +22,19 @@ Module FormHandler
         MultiForm(name)(id).Show()
         MultiForm(name)(id).Activate()
     End Sub
+
+    Public Function MultiFormIsOpen(ByVal formClass As BaseForm, ByVal id As Integer) As Boolean
+        Return MultiFormIsOpen(formClass.Name, id)
+    End Function
+
+    Public Function MultiFormIsOpen(ByVal formName As String, ByVal id As Integer) As Boolean
+        Return (MultiForm IsNot Nothing _
+        AndAlso MultiForm.ContainsKey(formName) _
+        AndAlso MultiForm(formName) IsNot Nothing _
+        AndAlso MultiForm(formName).ContainsKey(id) _
+        AndAlso MultiForm(formName)(id) IsNot Nothing _
+        AndAlso Not MultiForm(formName)(id).IsDisposed)
+    End Function
 
     Public Sub OpenSingleForm(ByVal formClass As BaseForm, Optional ByVal id As Integer = -1, Optional ByVal parameters As Dictionary(Of String, String) = Nothing, Optional ByVal closeFirst As Boolean = False)
         If SingleForm Is Nothing Then SingleForm = New Dictionary(Of String, BaseForm)

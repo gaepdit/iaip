@@ -4,6 +4,12 @@
 
 See the [release notes](README.html).
 
+## Version 2.8.x <span>(2014-01-xx)</span>
+
++ FIX: *ISMP* – Unable to open multiple test reports at once (#176); reported by Dave Sheffield
++ FIX: Error thrown if incorrect password entered in Login Screen (#177)
++ FIX: Various minor bug fixes, design tweaks, and spelling corrections
+
 ## Version 2.8.7 <span>(2014-01-23)</span>
 
 + FIX: *SSPP* – Application Tracking Log does not load data when opened from Navigation Screen (#173)

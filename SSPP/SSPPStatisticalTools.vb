@@ -111,7 +111,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -137,7 +137,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -157,10 +157,10 @@ Public Class SSPPStatisticalTools
             "order by strUnitDesc "
 
             dsPermittingUnits = New DataSet
-            daPermittingUnits = New OracleDataAdapter(SQL, Conn)
+            daPermittingUnits = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daPermittingUnits.Fill(dsPermittingUnits, "PermittingUnits")
@@ -271,9 +271,9 @@ Public Class SSPPStatisticalTools
             "or strPermitType = '13') " & _
             EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -298,7 +298,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, Conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -331,9 +331,9 @@ Public Class SSPPStatisticalTools
             "or strPermitType = '13') " & _
             EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -357,7 +357,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, Conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -395,7 +395,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, Conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -427,9 +427,9 @@ Public Class SSPPStatisticalTools
             "and (strPermitType = '4' or strPermitType = '7') " & _
             EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -453,7 +453,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, Conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -485,9 +485,9 @@ Public Class SSPPStatisticalTools
             "and (strPermitType = '4' or strPermitType = '7') " & _
             EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -510,7 +510,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, Conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -542,9 +542,9 @@ Public Class SSPPStatisticalTools
             "and (strPermitType = '4' or strPermitType = '7') " & _
             EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -567,7 +567,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, Conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -599,9 +599,9 @@ Public Class SSPPStatisticalTools
             "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '1') " & _
             EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -625,7 +625,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, Conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -657,9 +657,9 @@ Public Class SSPPStatisticalTools
             "and (strPermitType = '4' or strPermitType = '7') " & _
             EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -682,7 +682,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, Conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -715,9 +715,9 @@ Public Class SSPPStatisticalTools
             "and strPermitType = '6' " & _
             EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -740,7 +740,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, Conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -774,9 +774,9 @@ Public Class SSPPStatisticalTools
             "and (strPermitType = '7' or strPermitType = '4') " & _
             EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -801,7 +801,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, Conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -839,9 +839,9 @@ Public Class SSPPStatisticalTools
             EngineerLine
 
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -868,7 +868,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, Conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -904,9 +904,9 @@ Public Class SSPPStatisticalTools
             "and strPermitType <> '11' " & _
             EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -933,7 +933,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, Conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -958,7 +958,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -1018,9 +1018,9 @@ Public Class SSPPStatisticalTools
             "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1038,9 +1038,9 @@ Public Class SSPPStatisticalTools
             "and (datDraftIssued is Null or datDraftIssued < datToDirector) " & _
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1059,9 +1059,9 @@ Public Class SSPPStatisticalTools
             "and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) " & _
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1079,9 +1079,9 @@ Public Class SSPPStatisticalTools
             "and datDraftIssued is Not Null " & _
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1099,9 +1099,9 @@ Public Class SSPPStatisticalTools
             "and datEPAEnds is Null  " & _
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1122,9 +1122,9 @@ Public Class SSPPStatisticalTools
             "and datEPAEnds is Null  " & _
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1146,9 +1146,9 @@ Public Class SSPPStatisticalTools
             "and datToPMII is Not Null " & _
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1171,9 +1171,9 @@ Public Class SSPPStatisticalTools
             "and datToPMI is Not Null " & _
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1196,9 +1196,9 @@ Public Class SSPPStatisticalTools
             "and datToPMI is Null " & _
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1209,7 +1209,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -1271,9 +1271,9 @@ Public Class SSPPStatisticalTools
             "or strApplicationType = '27' or strApplicationType = '17') " & _
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1292,9 +1292,9 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate > add_months(sysdate, -12)  " & _
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1314,9 +1314,9 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate < add_months(sysdate, -12) " & _
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1335,9 +1335,9 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate < add_months(sysdate, -18)" & _
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1348,7 +1348,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -1411,9 +1411,9 @@ Public Class SSPPStatisticalTools
             "and strApplicationType <> '17' and strApplicationType <> '27' " & _
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1432,9 +1432,9 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate >= add_months(sysdate, -3)  " & _
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1454,9 +1454,9 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate < add_months(sysdate, -3) " & _
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1476,9 +1476,9 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate < add_months(sysdate, -6) " & _
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1498,9 +1498,9 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate < add_months(sysdate, -9) " & _
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1519,9 +1519,9 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate < add_months(sysdate, -12)" & _
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1532,7 +1532,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -1581,9 +1581,9 @@ Public Class SSPPStatisticalTools
             "and datFinalizeddate is null " & _
             "and (strEPATOPSExcluded is null or strEPATOPSExcluded = 'False'))) EPA2a2 "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1610,9 +1610,9 @@ Public Class SSPPStatisticalTools
             "and strApplicationType = '14'  " & _
             "and datFinalizeddate is null )) EPA2d2 "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1625,9 +1625,9 @@ Public Class SSPPStatisticalTools
             "where substr(strAirProgramCodes, 13, 1) = '1'  " & _
             "and strOperationalStatus = 'O' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1647,9 +1647,9 @@ Public Class SSPPStatisticalTools
             "AND datPermitIssued > '" & StartDate & "' " & _
             "AND datPermitIssued < '" & EndDate & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1670,9 +1670,9 @@ Public Class SSPPStatisticalTools
             "AND datPermitIssued < '" & EndDate & "' " & _
             "and datReceivedDate > add_months(datPermitIssued, -18) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1695,9 +1695,9 @@ Public Class SSPPStatisticalTools
             "and datPermitIssued is Null " & _
             "and datReceivedDate < add_months('" & EndDate & "', -18) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1737,9 +1737,9 @@ Public Class SSPPStatisticalTools
             "and substr(strAirProgramCodes, 13, 1) = '1'  " & _
             "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1781,9 +1781,9 @@ Public Class SSPPStatisticalTools
             "and substr(strAirProgramCodes, 13, 1) = '1'  " & _
             "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1843,9 +1843,9 @@ Public Class SSPPStatisticalTools
 "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  ) EPA6b where  EPA6A.airsnumber = EPA6b.airsNumber) "
 
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1869,9 +1869,9 @@ Public Class SSPPStatisticalTools
             "AND datPermitIssued > '" & StartDate & "' " & _
             "AND datPermitIssued < '" & EndDate & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1892,9 +1892,9 @@ Public Class SSPPStatisticalTools
             "AND datPermitIssued < '" & EndDate & "' " & _
             "and datReceivedDate > add_months(datPermitIssued, -18) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1915,9 +1915,9 @@ Public Class SSPPStatisticalTools
             "AND datPermitIssued < '" & EndDate & "' " & _
             "and datReceivedDate > add_months(datPermitIssued, -9) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1941,9 +1941,9 @@ Public Class SSPPStatisticalTools
             "and datPermitIssued is Null " & _
             "and datReceivedDate < add_months('" & EndDate & "', -18)"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1959,7 +1959,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -2002,7 +2002,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -2013,18 +2013,10 @@ Public Class SSPPStatisticalTools
     Private Sub SSPPApplicationLog_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
 
-            If NavigationScreen Is Nothing Then
-                NavigationScreen = New IAIPNavigation
-            End If
-            NavigationScreen.Show()
             StatisticalTools = Nothing
             Me.Dispose()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
 
     End Sub
@@ -2037,7 +2029,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -2125,14 +2117,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -2164,7 +2156,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -2197,7 +2189,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2209,38 +2201,18 @@ Public Class SSPPStatisticalTools
 
             If txtRecordNumber.Text <> "" Then
                 If txtRecordNumber.Text.Length = 8 Then
-                    SQL = "Select strAIRSNumber " & _
-                    "from " & DBNameSpace & ".APBMasterAIRS " & _
-                    "where strAIRSNumber = '0413" & txtRecordNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    dr.Close()
-                    If recExist = True Then
-                        If FacilitySummary Is Nothing Then
-                            FacilitySummary = Nothing
-                            If FacilitySummary Is Nothing Then FacilitySummary = New IAIPFacilitySummary
-                            FacilitySummary.mtbAIRSNumber.Text = txtRecordNumber.Text
-                            FacilitySummary.Show()
-                        Else
-                            FacilitySummary.mtbAIRSNumber.Text = txtRecordNumber.Text
-                            FacilitySummary.Show()
-                        End If
-                        'FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-
-                        FacilitySummary.LoadInitialData()
-
+                    If DAL.FacilityInfo.AirsNumberExists(txtRecordNumber.Text) Then
+                        Dim parameters As New Generic.Dictionary(Of String, String)
+                        parameters("airsnumber") = txtRecordNumber.Text
+                        OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
                     End If
                 Else
                     SQL = "select strApplicationNumber " & _
                     "from " & DBNameSpace & ".SSPPApplicationMaster " & _
                     "where strApplicationNumber = '" & txtRecordNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -2257,7 +2229,6 @@ Public Class SSPPStatisticalTools
                         PermitTrackingLog.txtApplicationNumber.Text = txtRecordNumber.Text
                         PermitTrackingLog.LoadApplication()
                         PermitTrackingLog.BringToFront()
-                        'PermitTrackingLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                         PermitTrackingLog.TPTrackingLog.Focus()
                     Else
                         MsgBox("Application Number is not in the system.", MsgBoxStyle.Information, "Statistical Tools Screen")
@@ -2271,7 +2242,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2357,14 +2328,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -2396,7 +2367,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -2482,14 +2453,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -2521,7 +2492,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -2607,14 +2578,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -2646,7 +2617,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -2732,14 +2703,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -2771,7 +2742,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -2857,14 +2828,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -2896,7 +2867,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -2982,14 +2953,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -3021,7 +2992,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3109,14 +3080,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -3148,7 +3119,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3241,14 +3212,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -3280,7 +3251,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3368,14 +3339,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -3407,7 +3378,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3422,7 +3393,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3505,14 +3476,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -3540,7 +3511,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3625,14 +3596,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -3660,7 +3631,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3745,14 +3716,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -3780,7 +3751,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3865,14 +3836,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -3900,7 +3871,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3988,14 +3959,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -4024,7 +3995,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -4113,14 +4084,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -4149,7 +4120,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -4239,14 +4210,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -4275,7 +4246,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -4365,14 +4336,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -4400,7 +4371,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -4415,7 +4386,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -4501,14 +4472,14 @@ Public Class SSPPStatisticalTools
 
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -4538,7 +4509,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -4625,14 +4596,14 @@ Public Class SSPPStatisticalTools
 
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -4662,7 +4633,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -4749,14 +4720,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -4786,7 +4757,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -4872,14 +4843,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -4909,7 +4880,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -4924,7 +4895,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -5010,14 +4981,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -5047,7 +5018,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -5134,14 +5105,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -5171,7 +5142,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -5259,14 +5230,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -5296,7 +5267,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -5384,14 +5355,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -5421,7 +5392,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -5509,14 +5480,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -5546,7 +5517,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -5633,14 +5604,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -5670,7 +5641,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -5689,7 +5660,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -5734,14 +5705,14 @@ Public Class SSPPStatisticalTools
                 "or " & DBNameSpace & ".APBHeaderData.strAIRSnumber = EPA2.AIRSNumber2) "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -5767,7 +5738,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -5818,14 +5789,14 @@ Public Class SSPPStatisticalTools
                 "or " & DBNameSpace & ".APBHeaderData.strAIRSnumber = EPA2.AIRSNumber2) "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -5853,7 +5824,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -5881,14 +5852,14 @@ Public Class SSPPStatisticalTools
                 "and strOPerationalStatus = 'O'  "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -5914,7 +5885,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -5971,14 +5942,14 @@ Public Class SSPPStatisticalTools
                 "AND datPermitIssued < '" & EndDate & "' "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -6008,7 +5979,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6066,14 +6037,14 @@ Public Class SSPPStatisticalTools
                 "and datReceivedDate > add_months(datPermitIssued, -18) "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -6104,7 +6075,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6157,14 +6128,14 @@ Public Class SSPPStatisticalTools
                 "and datReceivedDate < add_months('" & EndDate & "', -18) "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -6192,7 +6163,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6250,14 +6221,14 @@ Public Class SSPPStatisticalTools
                 "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -6281,7 +6252,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6339,14 +6310,14 @@ Public Class SSPPStatisticalTools
             "order by AIRSNumber "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -6372,7 +6343,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6449,14 +6420,14 @@ Public Class SSPPStatisticalTools
                 "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  ) EPA6b where  EPA6A.airsnumber = EPA6b.airsNumber) "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -6481,7 +6452,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6541,14 +6512,14 @@ Public Class SSPPStatisticalTools
                 "AND datPermitIssued < '" & EndDate & "' "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -6578,7 +6549,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6636,14 +6607,14 @@ Public Class SSPPStatisticalTools
                 "and datReceivedDate > add_months(datPermitIssued, -18) "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -6673,7 +6644,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6731,14 +6702,14 @@ Public Class SSPPStatisticalTools
                 "and datReceivedDate > add_months(datPermitIssued, -9) "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -6768,7 +6739,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6821,14 +6792,14 @@ Public Class SSPPStatisticalTools
                 "and datReceivedDate < add_months('" & EndDate & "', -18) "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -6857,7 +6828,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6872,7 +6843,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6897,9 +6868,9 @@ Public Class SSPPStatisticalTools
                 "WHERE numUnit = '" & cboSSPPUnits.SelectedValue & "'   " & _
                 "Order by UserName  "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -6922,9 +6893,9 @@ Public Class SSPPStatisticalTools
                     "where " & DBNameSpace & ".EPDUserProfiles.numUserID = AppUsers.Users    " & _
                     "Order by Username  "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -6963,7 +6934,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6983,7 +6954,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -7003,7 +6974,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -7037,7 +7008,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -7071,7 +7042,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -7105,7 +7076,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -7123,7 +7094,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -7173,7 +7144,7 @@ Public Class SSPPStatisticalTools
                 ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             End If
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -7209,13 +7180,13 @@ Public Class SSPPStatisticalTools
             dsPart63 = New DataSet
             dsSIP = New DataSet
 
-            daPart60 = New OracleDataAdapter(SQL, Conn)
-            daPart61 = New OracleDataAdapter(SQL2, Conn)
-            daPart63 = New OracleDataAdapter(SQL3, Conn)
-            daSIP = New OracleDataAdapter(SQL4, Conn)
+            daPart60 = New OracleDataAdapter(SQL, CurrentConnection)
+            daPart61 = New OracleDataAdapter(SQL2, CurrentConnection)
+            daPart63 = New OracleDataAdapter(SQL3, CurrentConnection)
+            daSIP = New OracleDataAdapter(SQL4, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daPart60.Fill(dsPart60, "Part60")
@@ -7362,9 +7333,9 @@ Public Class SSPPStatisticalTools
                 SQL = "Select strSubPart " & _
                 "From " & DBNameSpace & ".LookUpSubpartSIP " & _
                 "where strSubPart = '" & txtSIPCode.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -7379,9 +7350,9 @@ Public Class SSPPStatisticalTools
                     "('" & Replace(txtSIPCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtSIPDescription.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -7415,9 +7386,9 @@ Public Class SSPPStatisticalTools
                 SQL = "Select strSubPart " & _
                 "From " & DBNameSpace & ".LookUpSubpart60 " & _
                 "where strSubPart = '" & txtNSPSCode.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -7432,9 +7403,9 @@ Public Class SSPPStatisticalTools
                     "('" & Replace(txtNSPSCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtNSPSDescription.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -7467,9 +7438,9 @@ Public Class SSPPStatisticalTools
                 SQL = "Select strSubPart " & _
                 "From " & DBNameSpace & ".LookUpSubpart61 " & _
                 "where strSubPart = '" & txtNESHAPCode.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -7484,9 +7455,9 @@ Public Class SSPPStatisticalTools
                     "('" & Replace(txtNESHAPCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtNESHAPDescription.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -7520,9 +7491,9 @@ Public Class SSPPStatisticalTools
                 SQL = "Select strSubPart " & _
                 "From " & DBNameSpace & ".LookUpSubpart63 " & _
                 "where strSubPart = '" & txtMACTCode.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -7537,9 +7508,9 @@ Public Class SSPPStatisticalTools
                     "('" & Replace(txtMACTCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtMACTDescription.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -7569,9 +7540,9 @@ Public Class SSPPStatisticalTools
             SQL = "Delete " & DBNameSpace & ".LookUpSubpartSIP " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -7587,9 +7558,9 @@ Public Class SSPPStatisticalTools
             SQL = "Delete " & DBNameSpace & ".LookUpSubpart60 " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -7605,9 +7576,9 @@ Public Class SSPPStatisticalTools
             SQL = "Delete " & DBNameSpace & ".LookUpSubpart61 " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -7623,9 +7594,9 @@ Public Class SSPPStatisticalTools
             SQL = "Delete " & DBNameSpace & ".LookUpSubpart63 " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()

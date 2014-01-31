@@ -148,7 +148,7 @@ Public Class SSCPManagersTools
             "group by strLastName, strFirstName, strUnitDesc, numUserID  " & _
             "order by UserName "
 
-            daStaff = New OracleDataAdapter(SQL, Conn)
+            daStaff = New OracleDataAdapter(SQL, CurrentConnection)
 
             If AccountArray(22, 2) = "1" Then 'District Liason 
                 SQL = "select " & _
@@ -171,7 +171,7 @@ Public Class SSCPManagersTools
                 "order by strUnitDesc  "
             End If
 
-            daUnits = New OracleDataAdapter(SQL, Conn)
+            daUnits = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "Select " & _
             "(strLastName||', '||strFirstName) as UserName, " & _
@@ -183,7 +183,7 @@ Public Class SSCPManagersTools
             "    or numbranch = '5') " & _
             "and numEmployeeStatus = '1'  " & _
             "order by strLastName  "
-            daAssignStaff = New OracleDataAdapter(SQL, Conn)
+            daAssignStaff = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "select " & _
            "strUnitDesc, numUnitCode " & _
@@ -198,33 +198,33 @@ Public Class SSCPManagersTools
            "or numUnitCode = '38'  " & _
            "or numUnitCode = '37'  "
 
-            daFilterUnits = New OracleDataAdapter(SQL, Conn)
+            daFilterUnits = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "select distinct(strClass) as strClass " & _
             "from " & DBNameSpace & ".APBHeaderData  " & _
             "order by strClass "
 
-            daClassFilter = New OracleDataAdapter(SQL, Conn)
+            daClassFilter = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "Select distinct(strCMSMember) as strCMSMember " & _
             "from " & DBNameSpace & ".APBSupplamentalData " & _
             "order by strCMSMember "
 
-            daCMSMemberFilter = New OracleDataAdapter(SQL, Conn)
+            daCMSMemberFilter = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "select " & _
             "strCountyName, strCountyCode " & _
             "from " & DBNameSpace & ".LookUpCountyInformation " & _
             "order by strCountyName "
 
-            daCountyFilter = New OracleDataAdapter(SQL, Conn)
+            daCountyFilter = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "Select " & _
             "strDistrictName " & _
             "from " & DBNameSpace & ".LookupDistricts " & _
             "order by strDistrictname "
 
-            daDistrictFilter = New OracleDataAdapter(SQL, Conn)
+            daDistrictFilter = New OracleDataAdapter(SQL, CurrentConnection)
 
             'If AccountArray(22, 3) = "1" And UserUnit <> "---" Then  'SSCP Unit Manager 
             '    SQL2 = "SELECT strunitdesc, " & _
@@ -259,8 +259,8 @@ Public Class SSCPManagersTools
             '                   "order by strUnitDesc  "
             'End If
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daStaff.Fill(dsStaff, "Staff")
@@ -281,10 +281,10 @@ Public Class SSCPManagersTools
                 "order by strLastName "
 
                 dsStaff = New DataSet
-                daStaff = New OracleDataAdapter(SQL, Conn)
+                daStaff = New OracleDataAdapter(SQL, CurrentConnection)
 
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 daStaff.Fill(dsStaff, "Staff")
@@ -298,9 +298,9 @@ Public Class SSCPManagersTools
             "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
             "order by intYear desc "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -716,10 +716,10 @@ Public Class SSCPManagersTools
             "order by strLastName "
 
             dsAdminStaff = New DataSet
-            daAdminStaff = New OracleDataAdapter(SQL, Conn)
+            daAdminStaff = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daAdminStaff.Fill(dsAdminStaff, "AdminStaff")
 
@@ -732,10 +732,10 @@ Public Class SSCPManagersTools
             "order by strLastName "
 
             dsAirStaff = New DataSet
-            daAirStaff = New OracleDataAdapter(SQL, Conn)
+            daAirStaff = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daAirStaff.Fill(dsAirStaff, "AirStaff")
 
@@ -748,10 +748,10 @@ Public Class SSCPManagersTools
             "order by strLastName "
 
             dsChemStaff = New DataSet
-            daChemStaff = New OracleDataAdapter(SQL, Conn)
+            daChemStaff = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daChemStaff.Fill(dsChemStaff, "ChemStaff")
 
@@ -764,10 +764,10 @@ Public Class SSCPManagersTools
              "order by strLastName "
 
             dsVOCStaff = New DataSet
-            daVOCStaff = New OracleDataAdapter(SQL, Conn)
+            daVOCStaff = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daVOCStaff.Fill(dsVOCStaff, "VOCStaff")
 
@@ -787,10 +787,10 @@ Public Class SSCPManagersTools
             "order by strLastName "
 
             dsDistrictStaff = New DataSet
-            daDistrictStaff = New OracleDataAdapter(SQL, Conn)
+            daDistrictStaff = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daDistrictStaff.Fill(dsDistrictStaff, "DistrictStaff")
 
@@ -967,9 +967,9 @@ Public Class SSCPManagersTools
 
             dsCMSDataSet = New DataSet
 
-            daCMSDataSet = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daCMSDataSet = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daCMSDataSet.Fill(dsCMSDataSet, "CMSData")
@@ -1098,9 +1098,9 @@ Public Class SSCPManagersTools
                 SQL = "Select strAIRSNumber " & _
                 "from " & DBNameSpace & ".APBSupplamentalData " & _
                 "where strAIRSNumber = '0413" & txtCMSAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
 
@@ -1111,9 +1111,9 @@ Public Class SSCPManagersTools
                     SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                     "strCMSMember = '" & CMSState & "' " & _
                     "where strAIRSNumber = '0413" & txtCMSAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
 
                     dr = cmd.ExecuteReader
@@ -1135,9 +1135,9 @@ Public Class SSCPManagersTools
             SQL = "Select strAIRSNumber " & _
                               "from " & DBNameSpace & ".APBSupplamentalData " & _
                               "where strAIRSNumber = '0413" & txtCMSAIRSNumber.Text & "' "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -1148,9 +1148,9 @@ Public Class SSCPManagersTools
                 SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                 "strCMSMember = '' " & _
                 "where strAIRSNumber = '0413" & txtCMSAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -1435,9 +1435,9 @@ Public Class SSCPManagersTools
                     "and strDelete is Null " & _
                     "order by strClass, datInspectionDateStart "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     Try
 
@@ -1467,9 +1467,9 @@ Public Class SSCPManagersTools
                     End Try
                     '  
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     While dr2.Read
@@ -1478,9 +1478,9 @@ Public Class SSCPManagersTools
                         InspectB = dr2.Item("ClassB")
                     End While
 
-                    cmd3 = New OracleCommand(SQL3, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd3 = New OracleCommand(SQL3, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
 
                     dr3 = cmd3.ExecuteReader
@@ -1741,9 +1741,9 @@ Public Class SSCPManagersTools
 
             If SQL <> "" Then
                 dsCMSWarningDataSet = New DataSet
-                daCMSWarningDataSet = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daCMSWarningDataSet = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 daCMSWarningDataSet.Fill(dsCMSWarningDataSet, "CMSWarning")
@@ -1914,14 +1914,14 @@ Public Class SSCPManagersTools
             PollutantLine
 
             dsPollutantList = New DataSet
-            daPollutantList = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daPollutantList = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daPollutantList.Fill(dsPollutantList, "PollutantList")
             dgvPollutantFacilities.DataSource = dsPollutantList
             dgvPollutantFacilities.DataMember = "PollutantList"
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvPollutantFacilities.RowHeadersVisible = False
@@ -2001,9 +2001,9 @@ Public Class SSCPManagersTools
             EngineerList & _
             "group by strAIRSNumber) "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2023,9 +2023,9 @@ Public Class SSCPManagersTools
             "and datReceivedDate between '" & Me.DTPSearchDateStart.Text & "' and '" & Me.DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2043,9 +2043,9 @@ Public Class SSCPManagersTools
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2063,9 +2063,9 @@ Public Class SSCPManagersTools
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2084,9 +2084,9 @@ Public Class SSCPManagersTools
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2107,9 +2107,9 @@ Public Class SSCPManagersTools
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2129,9 +2129,9 @@ Public Class SSCPManagersTools
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2149,9 +2149,9 @@ Public Class SSCPManagersTools
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2169,9 +2169,9 @@ Public Class SSCPManagersTools
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2187,9 +2187,9 @@ Public Class SSCPManagersTools
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2206,9 +2206,9 @@ Public Class SSCPManagersTools
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2225,9 +2225,9 @@ Public Class SSCPManagersTools
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2244,9 +2244,9 @@ Public Class SSCPManagersTools
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2273,16 +2273,9 @@ Public Class SSCPManagersTools
     End Sub
     Private Sub llbCMSOpenFacilitySummary_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbCMSOpenFacilitySummary.LinkClicked
         Try
-
-            If FacilitySummary Is Nothing Then
-                If FacilitySummary Is Nothing Then FacilitySummary = New IAIPFacilitySummary
-            Else
-                FacilitySummary.Show()
-            End If
-            FacilitySummary.Show()
-            'FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-            FacilitySummary.mtbAIRSNumber.Text = txtCMSAIRSNumber.Text
-            FacilitySummary.LoadInitialData()
+            Dim parameters As New Generic.Dictionary(Of String, String)
+            parameters("airsnumber") = txtCMSAIRSNumber.Text
+            OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2291,22 +2284,17 @@ Public Class SSCPManagersTools
     End Sub
     Private Sub llbCMSOpenFacilitySummary2_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbCMSOpenFacilitySummary2.LinkClicked
         Try
-
-            If FacilitySummary Is Nothing Then
-                If FacilitySummary Is Nothing Then FacilitySummary = New IAIPFacilitySummary
-            Else
-                FacilitySummary.Show()
+            If Not DAL.FacilityInfo.AirsNumberExists(txtCMSAIRSNumber2.Text) Then
+                MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
+                Exit Sub
             End If
-            FacilitySummary.Show()
-            'FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-            FacilitySummary.mtbAIRSNumber.Text = txtCMSAIRSNumber2.Text
-            FacilitySummary.LoadInitialData()
-            'FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            Dim parameters As New Generic.Dictionary(Of String, String)
+            parameters("airsnumber") = txtCMSAIRSNumber.Text
+            OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
     Private Sub btnAddToCmsUniverse_LinkClicked(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddToCmsUniverse.Click
         Try
@@ -2372,9 +2360,9 @@ Public Class SSCPManagersTools
                "and Table2.numSSCPEngineer = " & DBNameSpace & ".EPDUserProfiles.numuserid (+)  " & _
                "and AIRSNumber = '" & txtCMSAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2435,9 +2423,9 @@ Public Class SSCPManagersTools
                 "and Table2.numSSCPEngineer = " & DBNameSpace & ".EPDUserProfiles.numuserid (+)  " & _
                 "and AIRSNumber = '" & txtCMSAIRSNumber2.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2568,7 +2556,6 @@ Public Class SSCPManagersTools
                 If EditAirProgramPollutants Is Nothing Then EditAirProgramPollutants = New IAIPEditAirProgramPollutants
                 EditAirProgramPollutants.txtAirsNumber.Text = Me.txtAIRSNumber.Text
                 EditAirProgramPollutants.Show()
-                'EditAirProgramPollutants.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
 
         Catch ex As Exception
@@ -2657,14 +2644,14 @@ Public Class SSCPManagersTools
             "and Table1.numSSCPEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID "
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatisticalReports.RowHeadersVisible = False
@@ -2737,14 +2724,14 @@ Public Class SSCPManagersTools
                 "order by strFacilityName "
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatisticalReports.RowHeadersVisible = False
@@ -2821,14 +2808,14 @@ Public Class SSCPManagersTools
                 "order by strFacilityName "
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatisticalReports.RowHeadersVisible = False
@@ -2906,14 +2893,14 @@ Public Class SSCPManagersTools
            "order by strFacilityName "
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatisticalReports.RowHeadersVisible = False
@@ -2993,14 +2980,14 @@ Public Class SSCPManagersTools
                 "order by strFacilityName "
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatisticalReports.RowHeadersVisible = False
@@ -3082,14 +3069,14 @@ Public Class SSCPManagersTools
                 "order by strFacilityName "
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatisticalReports.RowHeadersVisible = False
@@ -3172,14 +3159,14 @@ Public Class SSCPManagersTools
                 "order by strFacilityName "
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatisticalReports.RowHeadersVisible = False
@@ -3258,14 +3245,14 @@ Public Class SSCPManagersTools
             "order by strFacilityName "
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatisticalReports.RowHeadersVisible = False
@@ -3344,14 +3331,14 @@ Public Class SSCPManagersTools
             "order by strFacilityName "
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatisticalReports.RowHeadersVisible = False
@@ -3431,14 +3418,14 @@ Public Class SSCPManagersTools
                 "order by strFacilityName"
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatisticalReports.RowHeadersVisible = False
@@ -3520,14 +3507,14 @@ Public Class SSCPManagersTools
             "order by strFacilityName"
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatisticalReports.RowHeadersVisible = False
@@ -3607,14 +3594,14 @@ Public Class SSCPManagersTools
             "order by strFacilityName"
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatisticalReports.RowHeadersVisible = False
@@ -3694,14 +3681,14 @@ Public Class SSCPManagersTools
             "order by strFacilityName"
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatisticalReports.RowHeadersVisible = False
@@ -3882,9 +3869,9 @@ Public Class SSCPManagersTools
                 "and datDiscoveryDate between '" & dtpEnforcementStartDate.Text & "' and '" & dtpEnforcementEndDate.Text & "') StipPen "
             End If
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -3944,14 +3931,14 @@ Public Class SSCPManagersTools
                 End If
 
                 dsEnforcementPenalties = New DataSet
-                daEnforcementPenalties = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daEnforcementPenalties = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 daEnforcementPenalties.Fill(dsEnforcementPenalties, "EnforcementPenalties")
                 dgvStatisticalReports.DataSource = dsEnforcementPenalties
                 dgvStatisticalReports.DataMember = "EnforcementPenalties"
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvStatisticalReports.RowHeadersVisible = False
@@ -4065,43 +4052,16 @@ Public Class SSCPManagersTools
     End Sub
     Sub OpenFacilitySummary()
         Try
-
-            If txtRecordNumber.Text <> "" And txtRecordNumber.Text.Length = 8 Then
-                SQL = "Select strAIRSNumber " & _
-                "from " & DBNameSpace & ".APBMasterAIRS " & _
-                "where strAIRSnumber = '0413" & txtRecordNumber.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
-                End If
-
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
-                    If FacilitySummary Is Nothing Then
-                        FacilitySummary = Nothing
-                        If FacilitySummary Is Nothing Then FacilitySummary = New IAIPFacilitySummary
-                        FacilitySummary.mtbAIRSNumber.Text = txtRecordNumber.Text
-                        FacilitySummary.Show()
-                    Else
-                        FacilitySummary.mtbAIRSNumber.Text = txtRecordNumber.Text
-                        FacilitySummary.Show()
-                    End If
-                    'FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-
-                    FacilitySummary.LoadInitialData()
-                Else
-                    MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "SSCP Managers Tools")
-                End If
-            Else
-                MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "SSCP Managers Tools")
+            If Not DAL.FacilityInfo.AirsNumberExists(txtRecordNumber.Text) Then
+                MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
+                Exit Sub
             End If
-
+            Dim parameters As New Generic.Dictionary(Of String, String)
+            parameters("airsnumber") = txtRecordNumber.Text
+            OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
     Sub OpenEnforcement()
         Try
@@ -4113,42 +4073,6 @@ Public Class SSCPManagersTools
             Else
                 MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If
-
-            'If txtRecordNumber.Text <> "" Then
-            '    SQL = "select strEnforcementNumber " & _
-            '    "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
-            '    "where strEnforcementNumber = '" & txtRecordNumber.Text & "' "
-
-            '    cmd = New OracleCommand(SQL, Conn)
-            '    If Conn.State = ConnectionState.Closed Then
-            '        Conn.Open()
-            '    End If
-            '    dr = cmd.ExecuteReader
-            '    recExist = dr.Read
-            '    dr.Close()
-
-            '    If recExist = True Then
-            '        If SSCP_Enforcement Is Nothing Then
-            '            If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-            '            If txtRecordNumber.Text <> "" Then
-            '                SSCP_Enforcement.txtEnforcementNumber.Text = txtRecordNumber.Text
-            '            End If
-            '            SSCP_Enforcement.Show()
-            '        Else
-            '            SSCP_Enforcement.Close()
-            '            SSCP_Enforcement = Nothing
-            '            If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-            '            If txtRecordNumber.Text <> "" Then
-            '                SSCP_Enforcement.txtEnforcementNumber.Text = txtRecordNumber.Text
-            '            End If
-            '            SSCP_Enforcement.Show()
-            '        End If
-            '        'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-
-            '    Else
-            '        MsgBox("Enforcement Number is not in the system.", MsgBoxStyle.Information, "SSCP Managers Tools")
-            '    End If
-            'End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4162,9 +4086,9 @@ Public Class SSCPManagersTools
                 "strTrackingNumber " & _
                 "from " & DBNameSpace & ".SSCPItemMaster " & _
                 "where strTrackingNumber = '" & txtRecordNumber.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -4179,7 +4103,6 @@ Public Class SSCPManagersTools
                         SSCPReports.txtTrackingNumber.Text = txtRecordNumber.Text
                         SSCPReports.Show()
                     End If
-                    'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Else
                     MsgBox("Tracking Number is not in the system.", MsgBoxStyle.Information, "SSCP Managers Tools")
                 End If
@@ -4273,9 +4196,9 @@ Public Class SSCPManagersTools
                ComplianceWhere
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             da.Fill(ds, "ComplianceStatus")
             dgvWatchList.DataSource = ds
@@ -4570,9 +4493,9 @@ Public Class SSCPManagersTools
             End If
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             da.Fill(ds, "FacilitySearch")
             dgvFilteredFacilityList.DataSource = ds
@@ -5101,9 +5024,9 @@ Public Class SSCPManagersTools
                 "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                 "and intYear = '" & cboFiscalYear.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -5127,9 +5050,9 @@ Public Class SSCPManagersTools
                     "'" & OracleDate & "') "
                 End If
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5163,9 +5086,9 @@ Public Class SSCPManagersTools
                 "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                 "and intYear = '" & cboFiscalYear.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -5189,9 +5112,9 @@ Public Class SSCPManagersTools
                     "'" & OracleDate & "') "
                 End If
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5229,9 +5152,9 @@ Public Class SSCPManagersTools
                 SQL = "Select strAIRSNumber " & _
                 "from " & DBNameSpace & ".SSCPDistrictResponsible " & _
                 "where strAIRSNumber = '0413" & AIRSNum & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -5249,9 +5172,9 @@ Public Class SSCPManagersTools
                     "('0413" & AIRSNum & ", '" & DistResp & "', " & _
                     "'" & UserGCode & "', '" & OracleDate & "') "
                 End If
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5293,9 +5216,9 @@ Public Class SSCPManagersTools
                 "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                 "and intYear = '" & cboFiscalYear.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -5317,9 +5240,9 @@ Public Class SSCPManagersTools
                     "'" & InspectionRequired & "', " & _
                     "'" & UserGCode & "', '" & OracleDate & "') "
                 End If
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -5363,9 +5286,9 @@ Public Class SSCPManagersTools
                 "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                 "and intYear = '" & cboFiscalYear.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -5386,9 +5309,9 @@ Public Class SSCPManagersTools
                    "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " & _
                    "'" & FCERequired & "', '" & UserGCode & "', '" & OracleDate & "') "
                 End If
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -5445,9 +5368,9 @@ Public Class SSCPManagersTools
                 "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                 "and intYear = '" & cboFiscalYear.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -5475,9 +5398,9 @@ Public Class SSCPManagersTools
                     "'" & InspectionRequired & "', '" & FCERequired & "', " & _
                     "'" & UserGCode & "', '" & OracleDate & "') "
                 End If
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5485,9 +5408,9 @@ Public Class SSCPManagersTools
                 SQL = "Select strAIRSNumber " & _
                 "from " & DBNameSpace & ".SSCPDistrictResponsible " & _
                 "where strAIRSNumber = '0413" & AIRSNum & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -5505,9 +5428,9 @@ Public Class SSCPManagersTools
                     "('0413" & AIRSNum & ", '" & DistResp & "', " & _
                     "'" & UserGCode & "', '" & OracleDate & "') "
                 End If
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5538,9 +5461,9 @@ Public Class SSCPManagersTools
             SQL = "Select strAIRSNumber " & _
             "From " & DBNameSpace & ".APBMasterAIRS " & _
             "where strAIRSNumber = '0413" & mtbForcedAIRS.Text & "' "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -5551,9 +5474,9 @@ Public Class SSCPManagersTools
                 "strFacilityName " & _
                 "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & mtbForcedAIRS.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -5628,9 +5551,9 @@ Public Class SSCPManagersTools
                 "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                 "and intYear = '" & cboFiscalYear.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -5654,9 +5577,9 @@ Public Class SSCPManagersTools
                     "'" & OracleDate & "') "
                 End If
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5687,9 +5610,9 @@ Public Class SSCPManagersTools
                 "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                 "and intYear = '" & cboFiscalYear.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -5713,9 +5636,9 @@ Public Class SSCPManagersTools
                     "'" & OracleDate & "') "
                 End If
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5754,9 +5677,9 @@ Public Class SSCPManagersTools
                 "strCMSMember = '" & CMSStatus & "' " & _
                 "where strAIRSNumber = '0413" & AIRSNum & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5815,9 +5738,9 @@ Public Class SSCPManagersTools
             If chbClearExistingData.Checked = True Then
                 SQL = "Delete " & DBNameSpace & ".sscpinspectionsrequired " & _
                 "where intYear = '" & mtbNewYear.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5826,9 +5749,9 @@ Public Class SSCPManagersTools
             SQL = "select * " & _
             "from " & DBNameSpace & ".sscpinspectionsrequired " & _
             "where intYear = '" & cboExistingYears.Text & "' "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -5868,9 +5791,9 @@ Public Class SSCPManagersTools
                 "where strAIRSNumber = '" & AIRSNumber & "' " & _
                 "and intYear = '" & mtbNewYear.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr2 = cmd.ExecuteReader
                 While dr2.Read
@@ -5889,9 +5812,9 @@ Public Class SSCPManagersTools
                     "'" & SSCPEngineer & "', '" & SSCPUnit & "', " & _
                     "'" & InspectionRequired & "', '" & FCERequired & "', " & _
                     "'" & AssigningManager & "', '" & OracleDate & "' ) "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     dr2.Close()
@@ -5990,9 +5913,9 @@ Public Class SSCPManagersTools
             "where AIRbranch.APBFacilityInformation.strAIRSNumber = '0413'||TVFacilities.AIRSNumber " & _
             "and AIRbranch.APBFacilityInformation.strAIRSNumber = AIRbranch.APBHeaderdata.strairsnumber "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -6079,14 +6002,14 @@ Public Class SSCPManagersTools
             "order by AIRSNumber "
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatisticalReports.RowHeadersVisible = False
@@ -6156,9 +6079,9 @@ Public Class SSCPManagersTools
 "order by datDiscoverydate desc Nulls Last "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             da.Fill(ds, "MiscReport")
             dgvMiscReport.DataSource = ds

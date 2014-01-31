@@ -1,6 +1,5 @@
 ﻿Imports System.Reflection
 Imports Oracle.DataAccess.Client
-Imports System.Web
 Imports System.IO
 
 Module App
@@ -26,12 +25,9 @@ Module App
 
     Public Function OpenUrl(ByVal url As String, Optional ByVal objectSender As Object = Nothing) As Boolean
         ' Reference: http://code.logos.com/blog/2008/01/using_processstart_to_link_to.html
-        If url Is Nothing Then Exit Function
-
-        If objectSender IsNot Nothing Then
-            objectSender.Cursor = Cursors.AppStarting
-        End If
         Try
+            If objectSender IsNot Nothing Then objectSender.Cursor = Cursors.AppStarting
+            If url Is Nothing OrElse Not UrlIsValid(url) Then Return False
             Process.Start(url)
             Return True
         Catch ee As Exception When _
@@ -40,10 +36,21 @@ Module App
         TypeOf ee Is System.IO.FileNotFoundException
             Return False
         Finally
-            If objectSender IsNot Nothing Then
-                objectSender.Cursor = Nothing
-            End If
+            If objectSender IsNot Nothing Then objectSender.Cursor = Nothing
         End Try
+    End Function
+
+    Public Function UrlIsValid(ByVal url As String) As Boolean
+        Dim response As Net.HttpWebResponse = Nothing
+        Try
+            Dim request As Net.HttpWebRequest = Net.WebRequest.Create(url)
+            response = request.GetResponse()
+        Catch ex As Exception
+            Return False
+        Finally
+            If response IsNot Nothing Then response.Close()
+        End Try
+        Return True
     End Function
 
 #End Region
@@ -123,43 +130,26 @@ Module App
         ' (The database has to be updated by hand by an administrator)
 
         If PublishedVersion Is Nothing OrElse PublishedVersion.Equals(New Version("0.0.0.0")) Then
-            Dim publishedVersionString As String = ""
 
             ' Hit up the database for a version string
             Dim query As String = "Select strVersionNumber " & _
                 "from " & DBNameSpace & ".APBMasterApp " & _
-                "where strApplicationName = :pAppName"
-            Using connection As New OracleConnection(CurrentConnString)
-                Using command As New OracleCommand(query, connection)
-                    command.CommandType = CommandType.Text
-                    command.Parameters.Add(":pAppName", OracleDbType.Varchar2).Value = appName
+                "where strApplicationName = :pId"
+            Dim parameter As New OracleParameter("pId", appName)
+            Dim publishedVersionString As String = DB.GetSingleValue(Of String)(query, parameter)
+            If publishedVersionString Is Nothing OrElse publishedVersionString = "" Then publishedVersionString = "0.0.0.0"
 
-                    Try
-                        connection.Open()
-                        Dim reader As OracleDataReader = command.ExecuteReader
-                        While reader.Read
-                            If Not IsDBNull(reader.Item("strVersionNumber")) Then
-                                publishedVersionString = reader.Item("strVersionNumber")
-                            End If
-                        End While
-                    Catch ee As OracleException
-                        'MessageBox.Show("Could not connect to the database.")
-                        publishedVersionString = "0.0.0.0"
-                    End Try
-                End Using
-            End Using
-
-            Try
-                PublishedVersion = New Version(publishedVersionString)
-            Catch ee As Exception When _
-            TypeOf ee Is ArgumentException OrElse _
-            TypeOf ee Is ArgumentNullException OrElse _
-            TypeOf ee Is ArgumentOutOfRangeException OrElse _
-            TypeOf ee Is FormatException OrElse _
-            TypeOf ee Is OverflowException
-                MessageBox.Show("The database version string contains an error. Please inform the Data Management Unit. Thank you.")
-                PublishedVersion = New Version("0.0.0.0")
-            End Try
+        Try
+            PublishedVersion = New Version(publishedVersionString)
+        Catch ee As Exception When _
+        TypeOf ee Is ArgumentException OrElse _
+        TypeOf ee Is ArgumentNullException OrElse _
+        TypeOf ee Is ArgumentOutOfRangeException OrElse _
+        TypeOf ee Is FormatException OrElse _
+        TypeOf ee Is OverflowException
+            MessageBox.Show("The database version string contains an error. Please inform the Data Management Unit. Thank you.")
+            PublishedVersion = New Version("0.0.0.0")
+        End Try
         End If
 
         Return PublishedVersion

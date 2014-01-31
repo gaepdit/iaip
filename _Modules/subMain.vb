@@ -4,37 +4,22 @@ Imports System.Collections.Generic
 
 Module subMain
 
-#Region "DB Connection Strings"
+#Region " DB Connections "
+
     Friend Const DBNameSpace As String = "AIRBRANCH"
+    Friend CurrentConnectionString As String = DB.GetConnectionString(False)
+    Friend CurrentConnection As New OracleConnection(CurrentConnectionString)
+    Friend DevelopmentEnvironment As Boolean = False
+#If NadcEnabled Then
+    Friend NadcServer As Boolean = False
+#End If
 
-    Friend PrdConnString As String = "Data Source = PRD; User ID = AIRBRANCH_APP_USER; Password = " & SimpleCrypt("ÁÚ·Ú±Ï") & ";"
-    'Public TestConnString As String = "Data Source = TEST; User ID = AIRBRANCH_APP_USER; Password = " & SimpleCrypt("¡…“¡––’”≈“∞≥") & ";"
-    Friend DevConnString As String = "Data Source = DEV; User ID = AIRBRANCH; Password = " & SimpleCrypt("ÛÌÔÁ·ÏÂÚÙ") & ";"
-    Friend CurrentConnString As String = PrdConnString
-
-    Public TVProjectConnString As String = "Data Source = leia.dnr.state.ga.us:1521/DEV; User ID = airtvproject; Password = airproject;"
-    Public TVApplicationConnString As String = "Data Source = leia.dnr.state.ga.us:1521/DEV; User ID = airtvapplication; Password = airapp;"
-
-    Public Conn As New OracleConnection(PrdConnString)
-    Public ConnTVProject As New OracleConnection(TVProjectConnString)
-    Public ConnTVApplication As New OracleConnection(TVApplicationConnString)
-
-    Public PRDCRLogIn As String = "AirBranch_App_User"
-    Public PRDCRPassWord As String = SimpleCrypt("ÁÚ·Ú±Ï")
-
-    'Public TESTCRLogIn As String = "AirBranch_App_User"
-    'Public TESTCRPassWord As String = SimpleCrypt("¡…“¡––’”≈“∞≥")
-
-    Public DEVCRLogIn As String = "AirBranch"
-    Public DEVCRPassWord As String = SimpleCrypt("ÛÌÔÁ·ÏÂÚÙ")
-
-    Public CRLogIn As String = PRDCRLogIn
-    Public CRPassWord As String = PRDCRPassWord
 #End Region
 
-#Region "App-wide public variables"
+#Region " App-wide public variables "
 
-#Region "New public variables (by Doug)"
+#Region " New public variables (by Doug) "
+
     Friend Const AppName As String = "IAIP"
     Friend HelpUrl As String = "https://sites.google.com/site/iaipdocs/"
     Friend DownloadUrl As String = "http://airpermit.dnr.state.ga.us/iaip/IAIP.update2_6_4.exe"
@@ -43,10 +28,11 @@ Module subMain
     Friend DateFormat As String = "dd-MMM-yyyy"
     'Friend Today As Date = Date.Today
     Friend TodayString As String = Format(Date.Today, DateFormat)
-    Friend TestingEnvironment As Boolean = False
+    Friend CurrentConnectionEnvironment As DB.ConnectionEnvironment = DB.ConnectionEnvironment.Production
+
 #End Region
 
-#Region "Old public variables"
+#Region " Old public variables "
     Public OracleDate As String = Format(Date.Today, "dd-MMM-yyyy")
     Public UserGCode As String
     Public Permissions As String
@@ -73,14 +59,14 @@ Module subMain
 
 #End Region
 
-#Region "All Forms"
+#Region " All Forms "
 #Region "Universal Screens"
     'Public APB110 As IAIPLogIn
 
-    Public NavigationScreen As IAIPNavigation
+    'Public NavigationScreen As IAIPNavigation
     'Public FacilityLookUpTool As IAIPFacilityLookUpTool
     Public PrintOut As IAIPPrintOut
-    Public FacilitySummary As IAIPFacilitySummary
+    'Public FacilitySummary As IAIPFacilitySummary
 
     Public QueryGenerator As IAIPQueryGenerator
     Public EditContacts As IAIPEditContacts
@@ -124,9 +110,9 @@ Module subMain
     'Public ISMPDMU As ISMPDataManagementTools
     Public DMUOnly As DMUTool
     Public ISMPConfidential As ISMPConfidentialData
-    Public ISMPTestReportsEntry As ISMPTestReports
+    'Public ISMPTestReportsEntry As ISMPTestReports
     Public TestFirmComments As ISMPTestFirmComments
-    Public DevelopersTools As DMUDeveloperTools
+    'Public DevelopersTools As DMUDeveloperTools
     Public StaffTools As DMUStaffTools
     Public TitleVTools As DMUTitleVTools
     Public StaffReports As ISMPStaffReports
@@ -186,7 +172,7 @@ Module subMain
 #End Region
 #End Region
 
-#Region "App timeouts"
+#Region " App timeouts "
 
     'Public Sub TimerFired(ByVal sender As Object, ByVal e As System.Timers.ElapsedEventArgs)
     '    Dim Result As DialogResult

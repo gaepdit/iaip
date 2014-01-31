@@ -22,7 +22,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -51,10 +51,10 @@ Public Class SSCPEnforcementSelector
             "order by strUnitDesc  "
 
             dsComplianceUnits = New DataSet
-            daComplianceUnits = New OracleDataAdapter(SQL, Conn)
+            daComplianceUnits = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             daComplianceUnits.Fill(dsComplianceUnits, "ComplianceUnits")
 
@@ -101,7 +101,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -114,7 +114,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -127,7 +127,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -151,7 +151,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -194,7 +194,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -236,32 +236,6 @@ Public Class SSCPEnforcementSelector
                     OpenMultiForm(SscpEnforcement, -1, parameters)
 
                 End If
-
-                'If SSCP_Enforcement Is Nothing Then
-                '    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                '    SSCP_Enforcement.txtAIRSNumber.Text = txtAIRSNumber.Text
-                '    If txtEnforcementNumber.Text <> "" Then
-                '        SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcementNumber.Text
-                '    End If
-                '    If txtTrackingNumber.Text <> "" Then
-                '        SSCP_Enforcement.txtTrackingNumber.Text = txtTrackingNumber.Text
-                '    End If
-                '    SSCP_Enforcement.Show()
-                'Else
-                '    SSCP_Enforcement.Close()
-                '    SSCP_Enforcement = Nothing
-                '    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                '    SSCP_Enforcement.BringToFront()
-                '    SSCP_Enforcement.txtAIRSNumber.Text = txtAIRSNumber.Text
-                '    If txtEnforcementNumber.Text <> "" Then
-                '        SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcementNumber.Text
-                '    End If
-                '    If txtTrackingNumber.Text <> "" Then
-                '        SSCP_Enforcement.txtTrackingNumber.Text = txtTrackingNumber.Text
-                '    End If
-                '    SSCP_Enforcement.Show()
-                'End If
-                'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
                 Me.Dispose()
 
@@ -450,19 +424,19 @@ Public Class SSCPEnforcementSelector
 
             dsSSCPEnforcement = New DataSet
 
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
 
             daSSCPEnforcement = New OracleDataAdapter(cmd)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daSSCPEnforcement.Fill(dsSSCPEnforcement, "SSCPEnforcement")
             dgvSSCPEnforcement.DataSource = dsSSCPEnforcement
             dgvSSCPEnforcement.DataMember = "SSCPEnforcement"
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -501,7 +475,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(SQL & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -514,7 +488,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -534,7 +508,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -547,7 +521,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -596,7 +570,7 @@ Public Class SSCPEnforcementSelector
                 ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             End If
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

@@ -21,9 +21,9 @@ Public Class IAIPProfileUpdate
                 "strEmailAddress = '" & txtEmailAddress.Text & "' " & _
                 "where numUserID = '" & UserGCode & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -48,9 +48,9 @@ Public Class IAIPProfileUpdate
                 SQL = "Update " & DBNameSpace & ".EPDUserProfiles set " & _
                 "strPhone = '" & mtbPhoneNumber.Text & "' " & _
                 "where numuserID = '" & UserGCode & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -72,9 +72,9 @@ Public Class IAIPProfileUpdate
                     "strPassword = '" & Replace(EncryptDecrypt.EncryptText(txtUserPassword.Text), "'", "''") & "' " & _
                     "where numUserId = '" & UserGCode & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -104,9 +104,9 @@ Public Class IAIPProfileUpdate
                 "strEmailAddress = '" & txtEmailAddress.Text & "' " & _
                 "where numUserID = '" & UserGCode & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -125,9 +125,9 @@ Public Class IAIPProfileUpdate
                 SQL = "Update " & DBNameSpace & ".EPDUserProfiles set " & _
                 "strPhone = '" & mtbPhoneNumber.Text & "' " & _
                 "where numuserID = '" & UserGCode & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -145,9 +145,9 @@ Public Class IAIPProfileUpdate
                     "strPassword = '" & Replace(EncryptDecrypt.EncryptText(txtUserPassword.Text), "'", "''") & "' " & _
                     "where numUserId = '" & UserGCode & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()

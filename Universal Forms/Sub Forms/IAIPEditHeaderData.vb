@@ -95,11 +95,11 @@ Public Class IAIPEditHeaderData
             "Order by strKey DESC "
 
             dsHeaderData = New DataSet
-            daHeaderData = New OracleDataAdapter(SQL, Conn)
-            daHeaderData2 = New OracleDataAdapter(SQL2, Conn)
+            daHeaderData = New OracleDataAdapter(SQL, CurrentConnection)
+            daHeaderData2 = New OracleDataAdapter(SQL2, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daHeaderData.Fill(dsHeaderData, "Current")
@@ -435,7 +435,7 @@ Public Class IAIPEditHeaderData
             chbAPCI.Checked = False
             chbAPCM.Checked = False
             chbAPCV.Checked = False
-             chbAPCRMP.Checked = False
+            chbAPCRMP.Checked = False
 
             If Mid(AirProgramCode, 1, 1) = 1 Then
                 chbAPC0.Checked = True
@@ -626,9 +626,9 @@ Public Class IAIPEditHeaderData
                     SQL = "Select strPollutantKey " & _
                     "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                     "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "0' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -644,9 +644,9 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -656,9 +656,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "0' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -668,9 +668,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Select strUpdateStatus " & _
                             "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "0' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -681,9 +681,9 @@ Public Class IAIPEditHeaderData
                                 SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "0'"
-                                cmd = New OracleCommand(SQL, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -698,9 +698,9 @@ Public Class IAIPEditHeaderData
                        "UpdateUser = '" & UserGCode & "', " & _
                        "updateDateTime = '" & OracleDate & "' " & _
                        "where strSubPartKey = '0413" & txtAirsNumber.Text & "0' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -710,9 +710,9 @@ Public Class IAIPEditHeaderData
                     SQL = "Select strPollutantKey " & _
                     "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                     "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "1' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -728,9 +728,9 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -740,9 +740,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "1' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -752,9 +752,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Select strUpdateStatus " & _
                             "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "1' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -765,9 +765,9 @@ Public Class IAIPEditHeaderData
                                 SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "1'"
-                                cmd = New OracleCommand(SQL, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -783,9 +783,9 @@ Public Class IAIPEditHeaderData
                     SQL = "Select strPollutantKey " & _
                    "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "3' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -801,9 +801,9 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -813,9 +813,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "3' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -825,9 +825,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Select strUpdateStatus " & _
                             "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "3' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -838,9 +838,9 @@ Public Class IAIPEditHeaderData
                                 SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "3'"
-                                cmd = New OracleCommand(SQL, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -856,9 +856,9 @@ Public Class IAIPEditHeaderData
                     SQL = "Select strPollutantKey " & _
                    "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "4' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -874,9 +874,9 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -886,9 +886,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "4' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -898,9 +898,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Select strUpdateStatus " & _
                             "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "4' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -911,9 +911,9 @@ Public Class IAIPEditHeaderData
                                 SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "4'"
-                                cmd = New OracleCommand(SQL, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -929,9 +929,9 @@ Public Class IAIPEditHeaderData
                     SQL = "Select strPollutantKey " & _
                    "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "6' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -947,9 +947,9 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -959,9 +959,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "6' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -971,9 +971,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Select strUpdateStatus " & _
                             "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "6' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -984,9 +984,9 @@ Public Class IAIPEditHeaderData
                                 SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "6'"
-                                cmd = New OracleCommand(SQL, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -1002,9 +1002,9 @@ Public Class IAIPEditHeaderData
                     SQL = "Select strPollutantKey " & _
                    "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "7' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -1020,9 +1020,9 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -1032,9 +1032,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "7' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -1044,9 +1044,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Select strUpdateStatus " & _
                             "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "7' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -1057,9 +1057,9 @@ Public Class IAIPEditHeaderData
                                 SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "7'"
-                                cmd = New OracleCommand(SQL, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -1075,9 +1075,9 @@ Public Class IAIPEditHeaderData
                     SQL = "Select strPollutantKey " & _
                    "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "8' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -1093,9 +1093,9 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -1105,9 +1105,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "8' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -1117,9 +1117,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Select strUpdateStatus " & _
                             "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "8' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -1130,9 +1130,9 @@ Public Class IAIPEditHeaderData
                                 SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "8'"
-                                cmd = New OracleCommand(SQL, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -1147,9 +1147,9 @@ Public Class IAIPEditHeaderData
                    "UpdateUser = '" & UserGCode & "', " & _
                    "updateDateTime = '" & OracleDate & "' " & _
                    "where strSubPartKey = '0413" & txtAirsNumber.Text & "8' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1159,9 +1159,9 @@ Public Class IAIPEditHeaderData
                     SQL = "Select strPollutantKey " & _
                    "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "9' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -1177,9 +1177,9 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -1189,9 +1189,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "9' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -1201,9 +1201,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Select strUpdateStatus " & _
                             "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "9' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -1214,9 +1214,9 @@ Public Class IAIPEditHeaderData
                                 SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "9'"
-                                cmd = New OracleCommand(SQL, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -1231,9 +1231,9 @@ Public Class IAIPEditHeaderData
                    "UpdateUser = '" & UserGCode & "', " & _
                    "updateDateTime = '" & OracleDate & "' " & _
                    "where strSubPartKey = '0413" & txtAirsNumber.Text & "9' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1243,9 +1243,9 @@ Public Class IAIPEditHeaderData
                     SQL = "Select strPollutantKey " & _
                    "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "F' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -1261,9 +1261,9 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -1273,9 +1273,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "F' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -1285,9 +1285,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Select strUpdateStatus " & _
                             "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "F' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -1298,9 +1298,9 @@ Public Class IAIPEditHeaderData
                                 SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "F'"
-                                cmd = New OracleCommand(SQL, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -1316,9 +1316,9 @@ Public Class IAIPEditHeaderData
                     SQL = "Select strPollutantKey " & _
                    "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "A' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -1334,9 +1334,9 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -1346,9 +1346,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "A' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -1358,9 +1358,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Select strUpdateStatus " & _
                             "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "A' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -1371,9 +1371,9 @@ Public Class IAIPEditHeaderData
                                 SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "A'"
-                                cmd = New OracleCommand(SQL, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -1389,9 +1389,9 @@ Public Class IAIPEditHeaderData
                     SQL = "Select strPollutantKey " & _
                    "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "I' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -1407,9 +1407,9 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -1419,9 +1419,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "I' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -1431,9 +1431,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Select strUpdateStatus " & _
                             "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "I' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -1444,9 +1444,9 @@ Public Class IAIPEditHeaderData
                                 SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "I'"
-                                cmd = New OracleCommand(SQL, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -1462,9 +1462,9 @@ Public Class IAIPEditHeaderData
                     SQL = "Select strPollutantKey " & _
                    "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "M' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -1480,9 +1480,9 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -1492,9 +1492,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "M' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -1504,9 +1504,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Select strUpdateStatus " & _
                             "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "M' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -1517,9 +1517,9 @@ Public Class IAIPEditHeaderData
                                 SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "M'"
-                                cmd = New OracleCommand(SQL, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -1534,9 +1534,9 @@ Public Class IAIPEditHeaderData
                     "UpdateUser = '" & UserGCode & "', " & _
                     "updateDateTime = '" & OracleDate & "' " & _
                     "where strSubPartKey = '0413" & txtAirsNumber.Text & "M' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1546,9 +1546,9 @@ Public Class IAIPEditHeaderData
                     SQL = "Select strPollutantKey " & _
                    "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "V' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -1564,9 +1564,9 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -1576,9 +1576,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "V' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -1588,9 +1588,9 @@ Public Class IAIPEditHeaderData
                             SQL = "Select strUpdateStatus " & _
                             "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "V' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -1601,9 +1601,9 @@ Public Class IAIPEditHeaderData
                                 SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "V'"
-                                cmd = New OracleCommand(SQL, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -1733,21 +1733,15 @@ Public Class IAIPEditHeaderData
                             "strModifingLocation = '2' " & _
                             "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
-                            cmd = New OracleCommand(SQL, Conn)
+                            cmd = New OracleCommand(SQL, CurrentConnection)
 
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
 
 
                             dr = cmd.ExecuteReader
                             dr.Close()
-
-                            If FacilitySummary Is Nothing Then
-                            Else
-
-                            End If
-
 
                             If mtbRiskManagementNumber.Text <> "" Then
                                 RMPNumber = mtbRiskManagementNumber.Text
@@ -1759,9 +1753,9 @@ Public Class IAIPEditHeaderData
                             "strRMPID = '" & Replace(RMPNumber, "'", "''") & "' " & _
                             "where strAIRSnumber = '0413" & txtAirsNumber.Text & "' "
 
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
 
                             dr = cmd.ExecuteReader
@@ -1774,9 +1768,9 @@ Public Class IAIPEditHeaderData
                                 "UpdateUSer = '" & UserName & "', " & _
                                 "updateDateTime = sysdate " & _
                                 "where facilitySiteID = '" & txtAirsNumber.Text & "' "
-                                cmd = New OracleCommand(SQL, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 cmd.ExecuteReader()
                             End If
@@ -1785,9 +1779,9 @@ Public Class IAIPEditHeaderData
                             "strFacilitySiteDescription = '" & Replace(txtPlantDescription.Text, "'", "''") & "' " & _
                             "where facilitySiteID = '" & txtAirsNumber.Text & "' "
 
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             cmd.ExecuteReader()
 
@@ -1967,9 +1961,9 @@ Public Class IAIPEditHeaderData
                 SQL = "select * " & _
                 "from " & DBNameSpace & ".VW_HB_APBHeaderData " & _
                 "where strKEy = '" & txtKey.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read

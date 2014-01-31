@@ -400,7 +400,7 @@ Public Class SSCPWorkEnTry
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -440,7 +440,7 @@ Public Class SSCPWorkEnTry
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -460,12 +460,12 @@ Public Class SSCPWorkEnTry
             "order by strActivityName"
 
             daCompliance = New OracleDataAdapter
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
 
             daCompliance = New OracleDataAdapter(cmd)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daCompliance.Fill(dsCompliance, "ComplianceActivity")
@@ -473,7 +473,7 @@ Public Class SSCPWorkEnTry
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -511,7 +511,7 @@ Public Class SSCPWorkEnTry
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -542,11 +542,11 @@ Public Class SSCPWorkEnTry
 
                 SQL2 = "Select " & DBNameSpace & ".SSCPTrackingNumber.Currval from Dual"
 
-                cmd = New OracleCommand(SQL, Conn)
-                cmd2 = New OracleCommand(SQL2, Conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd2 = New OracleCommand(SQL2, CurrentConnection)
 
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 panel1.Text = "Saving New Compliance Event.."
@@ -557,7 +557,7 @@ Public Class SSCPWorkEnTry
                     txtTrackingNumber.Text = dr2.Item(0)
                 End While
 
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
 
@@ -574,7 +574,7 @@ Public Class SSCPWorkEnTry
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -590,7 +590,7 @@ Public Class SSCPWorkEnTry
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -604,7 +604,7 @@ Public Class SSCPWorkEnTry
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -618,7 +618,7 @@ Public Class SSCPWorkEnTry
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -638,7 +638,7 @@ Public Class SSCPWorkEnTry
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -672,7 +672,7 @@ Public Class SSCPWorkEnTry
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -706,7 +706,7 @@ Public Class SSCPWorkEnTry
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

@@ -1,5 +1,5 @@
 ﻿Imports Oracle.DataAccess.Client
-Imports System.IO
+'Imports System.IO
 
 Module ErrorReporting
 
@@ -9,11 +9,6 @@ Module ErrorReporting
     End Sub
 
     Public Sub ErrorReport(ByVal ErrorMessage As String, ByVal ErrorLocation As String, Optional ByVal exc As System.Exception = Nothing)
-        Dim SQL As String
-        Dim cmd As OracleCommand
-        Dim dr As OracleDataReader
-        Dim ErrorMess As String
-
         If UserGCode = "" Then
             UserGCode = "0"
         End If
@@ -98,32 +93,30 @@ Module ErrorReporting
                    "Integrated Air Information Platform - ERROR MESSAGE")
             Exit Sub
         End If
+
         Try
+
             ErrorMessage = GetCurrentVersion.ToString & vbCrLf & ErrorMessage
-            ErrorMess = Mid(ErrorMessage, 1, 4000)
+            Dim AbbrevErrorMess As String = Mid(ErrorMessage, 1, 4000)
 
-            SQL = "Insert into " & DBNameSpace & ".IAIPErrorLog " & _
-            "(strErrorNumber, strUser, " & _
-            "strErrorLocation, strErrorMessage, " & _
-            "datErrorDate) " & _
-            "values " & _
-            "(" & DBNameSpace & ".IAIPErrornumber.nextval, '" & UserGCode & "', " & _
-            "'" & Replace(ErrorLocation, "'", "''") & "', '" & Replace(ErrorMess, "'", "''") & "', " & _
-            "sysdate) "
+            Dim query As String = "INSERT INTO " & DBNameSpace & ".IAIPERRORLOG " & _
+                " (STRERRORNUMBER,STRUSER,STRERRORLOCATION,STRERRORMESSAGE,DATERRORDATE) " & _
+                " values (" & DBNameSpace & ".IAIPERRORNUMBER.NEXTVAL, :pGCode, :pErrorLoc, :pErrorMess, SYSDATE) "
+            Dim parameters As OracleParameter() = New OracleParameter() { _
+                New OracleParameter("pGCode", UserGCode), _
+                New OracleParameter("pErrorLoc", ErrorLocation), _
+                New OracleParameter("pErrorMess", AbbrevErrorMess) _
+            }
+            Dim result As Boolean = DB.RunCommand(query, parameters)
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If result Then
+                MsgBox("An Error has occurred." & vbCrLf & "The error has been logged and sent to the developers." & vbCrLf & _
+                "Please contact the Data Management Unit if this error is hindering your work." & vbCrLf & "Sorry for the inconvenience.", _
+                MsgBoxStyle.Information, "Integrated Air Information Platform - ERROR MESSAGE")
+            Else
+                MsgBox("There was an error in logging this problem." & vbCrLf & "Please contact the Data Management Unit with this problem." & vbCrLf & _
+                       ErrorMessage, MsgBoxStyle.Exclamation, "Integrated Air Information Platform - ERROR MESSAGE")
             End If
-
-            dr = cmd.ExecuteReader
-            dr.Read()
-            dr.Close()
-
-
-            MsgBox("An Error has occurred." & vbCrLf & "The error has been logged and sent to the developers." & vbCrLf & _
-            "Please contact the Data Management Unit if this error is hindering your work." & vbCrLf & "Sorry for the inconvenience.", _
-            MsgBoxStyle.Information, "Integrated Air Information Platform - ERROR MESSAGE")
         Catch ex As Exception
             MsgBox("There was an error in logging this problem." & vbCrLf & "Please contact the Data Management Unit with this problem." & vbCrLf & _
                    ErrorMessage, MsgBoxStyle.Exclamation, "Integrated Air Information Platform - ERROR MESSAGE")

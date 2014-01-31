@@ -92,9 +92,9 @@ Public Class SmokeSchool
             "from " & DBNameSpace & ".SmokeSchoolSchedule " & _
             "order by TermYear desc "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             cboTermYear.Items.Clear()
@@ -230,9 +230,9 @@ Public Class SmokeSchool
             Dim oracleSQL As String
 
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             cboSchedule1.Items.Clear()
@@ -240,7 +240,7 @@ Public Class SmokeSchool
             oracleSQL = "Select strSchedule from airbranch.smokeSchoolSchedule " & _
                         "where strDisplay = 'YES' " & _
                         "order by strSchedule"
-            Dim cmd As New OracleCommand(oracleSQL, Conn)
+            Dim cmd As New OracleCommand(oracleSQL, CurrentConnection)
 
             Dim dr As OracleDataReader = cmd.ExecuteReader()
 
@@ -269,13 +269,13 @@ Public Class SmokeSchool
 
             cboSchedule3.Items.Clear()
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             oracleSQL = "Select strSchedule from airbranch.smokeSchoolSchedule order by strSchedule desc"
-            Dim cmd As New OracleCommand(oracleSQL, Conn)
+            Dim cmd As New OracleCommand(oracleSQL, CurrentConnection)
 
             Dim dr As OracleDataReader = cmd.ExecuteReader()
 
@@ -346,12 +346,12 @@ Public Class SmokeSchool
             SQL = "select strSchedule, strDisplay from airbranch.smokeSchoolSchedule " & _
             "order by strSchedule desc "
 
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -390,12 +390,12 @@ Public Class SmokeSchool
             "where strDisplay = 'YES' " & _
             "order by strSchedule desc "
 
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -477,12 +477,12 @@ Public Class SmokeSchool
                              "order by strLastName, strFirstName"
                 End If
 
-                Dim cmd As New OracleCommand(SQL, Conn)
+                Dim cmd As New OracleCommand(SQL, CurrentConnection)
                 cmd.CommandType = CommandType.Text
 
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                 Else
-                    Conn.Open()
+                    CurrentConnection.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -576,12 +576,12 @@ Public Class SmokeSchool
                          "order by strLastName, strFirstName"
             End If
 
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -668,12 +668,12 @@ Public Class SmokeSchool
                          "order by strLastName, strFirstName"
             End If
 
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -757,12 +757,12 @@ Public Class SmokeSchool
                   "where strLocationTerm = '" & locationTerm & "' " & _
                   "order by strName"
 
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -828,12 +828,12 @@ Public Class SmokeSchool
                   "where strLocationTerm = '" & locationTerm & "' " & _
                   "order by strName"
 
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1018,10 +1018,10 @@ Public Class SmokeSchool
             "from " & DBNameSpace & ".SmokeSchoolSchedule " & _
             "where strSchedule = '" & schedule & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -1059,9 +1059,9 @@ Public Class SmokeSchool
             End If
 
             'Open the connection to the database and write the record
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1134,9 +1134,9 @@ Public Class SmokeSchool
 
             SQL = "delete from airbranch.SmokeSchoolSchedule where strSchedule = '" & schedule & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1227,9 +1227,9 @@ Public Class SmokeSchool
                     "from airbranch.SmokeSchoolReservation " & _
                     "where strlocationDate = '" & LocationTerm & "'"
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
 
                     dr = cmd.ExecuteReader
@@ -1272,9 +1272,9 @@ Public Class SmokeSchool
                 "and upper(strFirstName) = upper('" & Replace(txtFirstName1X.Text, "'", "''") & "') " & _
                 "and upper(strLocationDate) = upper('" & Replace(txtSchedule.Text, "'", "''") & "') "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -1309,9 +1309,9 @@ Public Class SmokeSchool
                               " and upper(strLocationDate) = upper('" & Replace(txtSchedule1.Text, "'", "''") & "')" & _
                               " and upper(strFirstName) = upper('" & Replace(txtFirstName1X.Text, "'", "''") & "')"
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -1372,9 +1372,9 @@ Public Class SmokeSchool
                           "'" & Replace(LocationTerm, "'", "''") & "', " & _
                           "to_date('" & TransactionDate & "', 'dd-mon-yyyy hh24:mi:ss')) "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1533,9 +1533,9 @@ Public Class SmokeSchool
                                     " and upper(numUserID) = upper('" & studentID & "') " & _
                                     "and strLocationDate = '" & cboSchedule1.SelectedItem & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1571,18 +1571,18 @@ Public Class SmokeSchool
 
             updateUserNumber()
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             SQL = "select max(numUserID) as strUserNumber " & _
             "from airbranch.SmokeSchoolReservation " & _
             "where strlocationDate = '" & locationDate & "'"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -1612,9 +1612,9 @@ Public Class SmokeSchool
                 SQL = "select * from airbranch.SmokeSchoolReservation " & _
                 "where upper(strLocationDate) = upper('" & Replace(locationDate, "'", "''") & "') "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -1628,9 +1628,9 @@ Public Class SmokeSchool
                           " and upper(strFirstName) = upper('" & Replace(FirstName, "'", "''") & "')" & _
                           " and upper(strLastName) = upper('" & Replace(LastName, "'", "''") & "')"
 
-                    cmd2 = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -1692,9 +1692,9 @@ Public Class SmokeSchool
                 SQL = "select * from airbranch.SmokeSchoolReservation " & _
                 "where strLocationDate = '" & txtSchedule2.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -1743,9 +1743,9 @@ Public Class SmokeSchool
                                "where strscoreKey = '" & scoreKey & "' " & _
                                "and intStudentID = " & studentID
 
-                        cmd2 = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd2 = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         recExist = dr2.Read
@@ -1794,9 +1794,9 @@ Public Class SmokeSchool
                                    "'" & Replace(firstName, "'", "''") & "', " & _
                                    "'" & TransactionDate & "')"
 
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr2 = cmd.ExecuteReader
                             dr2.Close()
@@ -1864,9 +1864,9 @@ Public Class SmokeSchool
                        "where strLocationTerm = '" & locationDate & "' " & _
                        "and strName = '" & name & "'"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1916,9 +1916,9 @@ Public Class SmokeSchool
                            "'" & Replace(firstName, "'", "''") & "', " & _
                            "'" & TransactionDate & "')"
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1952,9 +1952,9 @@ Public Class SmokeSchool
                 SQL = "Delete from airbranch.SmokeSchoolScores " & _
                 " where strlocationTerm = '" & locationTerm & "'"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -2231,9 +2231,9 @@ Public Class SmokeSchool
                         "From " & DBNameSpace & ".SmokeSchoolScores " & _
                         "where strScoreKey =  '" & Replace(txtScoreKey.Text, "'", "''") & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         i = 0
@@ -2332,9 +2332,9 @@ Public Class SmokeSchool
                         '      "where strLocationTerm = '" & LocationTerm & "' " & _
                         '      "and intStudentID = " & StudentID
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -2376,9 +2376,9 @@ Public Class SmokeSchool
                 SQL = "Select strScoreKey " & _
                 "From " & DBNameSpace & ".SmokeSchoolScores " & _
                 "where strScoreKey =  '" & Replace(txtScoreKey.Text, "'", "''") & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 i = 0
@@ -2398,9 +2398,9 @@ Public Class SmokeSchool
                         SQL = "Delete " & DBNameSpace & ".SmokeSchoolScores " & _
                         "where strScoreKey = '" & Replace(txtScoreKey.Text, "'", "''") & "' "
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -2416,9 +2416,9 @@ Public Class SmokeSchool
                                 SQL = "Delete " & DBNameSpace & ".SmokeSchoolScores " & _
                                 "where strScoreKey = '" & Replace(txtScoreKey.Text, "'", "''") & "' "
 
-                                cmd = New OracleCommand(SQL, Conn)
-                                If Conn.State = ConnectionState.Closed Then
-                                    Conn.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Close()
@@ -2497,9 +2497,9 @@ Public Class SmokeSchool
             SQL = "select * from airbranch.SmokeSchoolScores " & _
             "where strLocationTerm = '" & shortLocation & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -2509,9 +2509,9 @@ Public Class SmokeSchool
                 SQL = "select * from airbranch.SmokeSchoolScores " & _
                 "where strLocationTerm = '" & shortLocation & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -2917,9 +2917,9 @@ Public Class SmokeSchool
 
             SQL = "delete from airbranch.SmokeSchoolPrintInfo"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -2929,9 +2929,9 @@ Public Class SmokeSchool
             "  and strPassFailNoShow = '" & txtPassFailNoShow.Text & "'" & _
             " order by strName"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2953,9 +2953,9 @@ Public Class SmokeSchool
                 "and strFirstName = '" & Replace(firstName, "'", "''") & "' " & _
                 "and strLocationDate = '" & cboSchedule3.SelectedItem & "'"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr2 = cmd.ExecuteReader
                 While dr2.Read
@@ -2990,9 +2990,9 @@ Public Class SmokeSchool
                 SQL = "select * from airbranch.SmokeSchoolSchedule " & _
                 "where strScheduleShort = '" & LocationTerm & "'"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr2 = cmd.ExecuteReader
                 While dr2.Read
@@ -3041,9 +3041,9 @@ Public Class SmokeSchool
                        "'" & Replace(PassFailNoShow, "'", "''") & "') "
 
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr2 = cmd.ExecuteReader
                 dr2.Close()
@@ -3257,9 +3257,9 @@ Public Class SmokeSchool
 
             SQL = "delete from airbranch.SmokeSchoolPrintInfo"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -3270,9 +3270,9 @@ Public Class SmokeSchool
             "  and strName = '" & txtStudentName3.Text & "'" & _
             " order by strName"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -3290,9 +3290,9 @@ Public Class SmokeSchool
                        "where numUserID = '" & Replace(StudentID, "'", "''") & "' " & _
                        "and strLocationDate = '" & cboSchedule3.SelectedItem & "'"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr2 = cmd.ExecuteReader
                 While dr2.Read
@@ -3327,9 +3327,9 @@ Public Class SmokeSchool
                 SQL = "select * from airbranch.SmokeSchoolSchedule " & _
                 "where strScheduleShort = '" & LocationTerm & "'"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr2 = cmd.ExecuteReader
                 While dr2.Read
@@ -3377,9 +3377,9 @@ Public Class SmokeSchool
                        "'" & Replace(VisualRestrictions, "'", "''") & "', " & _
                        "'" & Replace(PassFailNoShow, "'", "''") & "') "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr2 = cmd.ExecuteReader
                 dr2.Close()
@@ -4019,9 +4019,9 @@ Public Class SmokeSchool
                 "where strLocationDate = '" & cboSchedule1.SelectedItem & "'"
             End If
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Read()
@@ -4047,9 +4047,9 @@ Public Class SmokeSchool
                   "where strLocationDate = '" & locationDate & "'" & _
                   "and strLectureYesNo = 'YES'"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Read()
@@ -4073,9 +4073,9 @@ Public Class SmokeSchool
             SQL = "select count(*) as numberOfStudents3 from airbranch.SmokeSchoolReservation " & _
                   "where strLocationDate = '" & txtSchedule2.Text & "'"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Read()
@@ -4094,9 +4094,9 @@ Public Class SmokeSchool
             Dim cnt As Decimal
             SQL = "select count(*) as numberOfStudents4 from airbranch.SmokeSchoolStudent "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Read()
@@ -4114,9 +4114,9 @@ Public Class SmokeSchool
             Dim IDnumber As Decimal
 
             SQL = "select * from airbranch.SmokeSchoolIDNumber"
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader()
             dr.Read()
@@ -4127,9 +4127,9 @@ Public Class SmokeSchool
 
             SQL = "update airbranch.SmokeSchoolIDNumber " & _
             "set intIDnumber = '" & IDnumber & "'"
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -4145,9 +4145,9 @@ Public Class SmokeSchool
 
             SQL = "select * from airbranch.SmokeSchoolIDNumber"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader()
             dr.Read()
@@ -4161,9 +4161,9 @@ Public Class SmokeSchool
             SQL = "update airbranch.SmokeSchoolIDNumber " & _
             "set intIDnumber = '" & IDnumber & "'"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -4733,9 +4733,9 @@ Public Class SmokeSchool
                 SQL = "select * from airbranch.SmokeSchoolReservation " & _
                 "where upper(strLocationDate) = upper('" & Replace(locationDate, "'", "''") & "')"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -4749,9 +4749,9 @@ Public Class SmokeSchool
                           " and upper(strFirstName) = upper('" & Replace(FirstName, "'", "''") & "')" & _
                           " and upper(strLastName) = upper('" & Replace(LastName, "'", "''") & "')"
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     dr2.Close()
@@ -4832,9 +4832,9 @@ Public Class SmokeSchool
             "from " & DBNameSpace & ".OlapUserLogIn " & _
             "where strUserEmail = '" & Replace(UCase(txtEmailAddress.Text), "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -4843,10 +4843,10 @@ Public Class SmokeSchool
                 Dim updateString As String = "UPDATE " & DBNameSpace & ".OlapUserLogin " & _
                           "SET strconfirm = to_char(sysdate, 'yyyy/mm/dd hh:mi:ss') " & _
                           "WHERE struseremail = '" & Replace(UCase(txtEmailAddress.Text), "'", "''") & "' "
-                cmd = New OracleCommand(updateString, Conn)
+                cmd = New OracleCommand(updateString, CurrentConnection)
 
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 cmd.ExecuteNonQuery()
 

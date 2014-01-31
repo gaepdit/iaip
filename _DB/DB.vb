@@ -5,6 +5,125 @@ Imports System.Collections.Generic
 Namespace DB
     Module DB
 
+#Region "DB Connection Strings"
+
+        Public Enum ConnectionEnvironment
+            Production
+            Development
+            NADC_Production
+            NADC_Development
+        End Enum
+
+        Private Class DatabaseConnectionParameters
+            Public Sub New(ByVal host As String, ByVal port As String, ByVal sid As String, ByVal user As String, ByVal pwd As String)
+                Me.Host = host
+                Me.Port = port
+                Me.SID = sid
+                Me.User = user
+                Me.Password = pwd
+            End Sub
+            Private _host As String
+            Public Property Host() As String
+                Get
+                    Return _host
+                End Get
+                Set(ByVal value As String)
+                    _host = value
+                End Set
+            End Property
+            Private _port As String
+            Public Property Port() As String
+                Get
+                    Return _port
+                End Get
+                Set(ByVal value As String)
+                    _port = value
+                End Set
+            End Property
+            Private _sid As String
+            Public Property SID() As String
+                Get
+                    Return _sid
+                End Get
+                Set(ByVal value As String)
+                    _sid = value
+                End Set
+            End Property
+            Private _user As String
+            Public Property User() As String
+                Get
+                    Return _user
+                End Get
+                Set(ByVal value As String)
+                    _user = value
+                End Set
+            End Property
+            Private _pwd As String
+            Public Property Password() As String
+                Get
+                    Return _pwd
+                End Get
+                Set(ByVal value As String)
+                    _pwd = value
+                End Set
+            End Property
+        End Class
+
+        Private Function GetDatabaseConnectionParameters(ByVal env As ConnectionEnvironment) As DatabaseConnectionParameters
+            Select Case env
+
+                Case ConnectionEnvironment.Production
+                    Return New DatabaseConnectionParameters("luke.dnr.state.ga.us", "1521", "PRD", "AIRBRANCH_APP_USER", SimpleCrypt("çòáðò±ì"))
+
+                Case ConnectionEnvironment.Development
+                    Return New DatabaseConnectionParameters("leia.dnr.state.ga.us", "1521", "DEV", "AIRBRANCH", SimpleCrypt("óíïçáìåòô"))
+
+                Case ConnectionEnvironment.NADC_Production
+                    Return New DatabaseConnectionParameters("167.195.93.68", "1521", "PRD", "AIRBRANCH_APP_USER", SimpleCrypt("çòáðò±ì"))
+
+                Case ConnectionEnvironment.NADC_Development
+                    Return New DatabaseConnectionParameters("167.195.93.100", "1521", "DEV", "AIRBRANCH", "123")
+
+                Case Else
+                    Return Nothing
+
+            End Select
+        End Function
+
+        ''' <summary>
+        ''' Returns the database connection string for the current database connection environment
+        ''' </summary>
+        ''' <returns>A database connection string</returns>
+        ''' <remarks></remarks>
+        Public Function GetCurrentConnectionString() As String
+            Return GetConnectionString(CurrentConnectionEnvironment)
+        End Function
+
+        ''' <summary>
+        ''' Returns a database connection string for either the production (PRD) or testing (DEV) environment
+        ''' </summary>
+        ''' <param name="env">A ConnectionEnvironment Enum designating which connection string is desired</param>
+        ''' <returns>A database connection string</returns>
+        ''' <remarks>Currently built to return an Oracle connection string</remarks>
+        Public Function GetConnectionString(ByVal env As ConnectionEnvironment) As String
+
+            ' Oracle connection method without tnsnames.ora
+            Dim oracleConnectionStringTemplate As String = "Data Source=(DESCRIPTION=(ADDRESS_LIST=" & _
+                "(ADDRESS=(PROTOCOL=TCP)(HOST={0})(PORT={1})))(CONNECT_DATA=(SERVER=DEDICATED)(SID={2})));" & _
+                "User Id={3}; Password = {4};"
+
+            ' Standard Oracle connection method (requires tnsnames.ora on client)
+            'Private oracleConnectionStringTemplate As String = "Data Source = {2}; User ID = {3}; Password = {4};"
+
+            ' Oracle EZ Connect method (maybe requires EZCONNECT enabled in sqlnet.ora file?)
+            'Private oracleConnectionStringTemplate As String = "{3}/{4}@//{0}:{1}/{2}"
+
+            Dim dbParams As DatabaseConnectionParameters = GetDatabaseConnectionParameters(env)
+            Return String.Format(oracleConnectionStringTemplate, dbParams.Host, dbParams.Port, dbParams.SID, dbParams.User, dbParams.Password)
+        End Function
+
+#End Region
+
 #Region "Read (Scalar)"
 
         Public Function GetSingleValue(Of T)(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing) As T
@@ -14,7 +133,7 @@ Namespace DB
 
         Public Function GetSingleValue(Of T)(ByVal query As String, ByVal parameterArray As OracleParameter()) As T
             Dim result As Object = Nothing
-            Using connection As New OracleConnection(CurrentConnString)
+            Using connection As New OracleConnection(GetCurrentConnectionString)
                 Using command As New OracleCommand(query, connection)
                     command.CommandType = CommandType.Text
                     command.BindByName = True
@@ -60,7 +179,7 @@ Namespace DB
 
         Public Function GetDataTable(ByVal query As String, ByVal parameterArray As OracleParameter()) As DataTable
             Dim table As New DataTable
-            Using connection As New OracleConnection(CurrentConnString)
+            Using connection As New OracleConnection(GetCurrentConnectionString)
                 Using command As New OracleCommand(query, connection)
                     command.CommandType = CommandType.Text
                     command.BindByName = True
@@ -90,7 +209,7 @@ Namespace DB
         End Function
 
         Public Function GetByteArrayFromBlob(ByVal query As String, ByVal parameterArray As OracleParameter()) As Byte()
-            Using connection As New OracleConnection(CurrentConnString)
+            Using connection As New OracleConnection(GetCurrentConnectionString)
                 Using command As New OracleCommand(query, connection)
                     command.CommandType = CommandType.Text
                     command.BindByName = True
@@ -154,7 +273,7 @@ Namespace DB
             countList.Clear()
             If queryList.Count <> parametersList.Count Then Return False
 
-            Using connection As New OracleConnection(CurrentConnString)
+            Using connection As New OracleConnection(GetCurrentConnectionString)
                 Using command As OracleCommand = connection.CreateCommand
                     command.CommandType = CommandType.Text
                     command.BindByName = True

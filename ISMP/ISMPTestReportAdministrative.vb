@@ -58,7 +58,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -75,10 +75,10 @@ Public Class ISMPTestReportAdministrative
 
             dsFacility = New DataSet
 
-            daFacility = New OracleDataAdapter(SQL, Conn)
+            daFacility = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daFacility.Fill(dsFacility, "APBFacilities")
@@ -86,7 +86,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -159,7 +159,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -174,11 +174,11 @@ Public Class ISMPTestReportAdministrative
             dsPollutant = New DataSet
             dsTestingFirms = New DataSet
 
-            daPollutant = New OracleDataAdapter(SQL, Conn)
-            daTestingFirms = New OracleDataAdapter(SQL2, Conn)
+            daPollutant = New OracleDataAdapter(SQL, CurrentConnection)
+            daTestingFirms = New OracleDataAdapter(SQL2, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daPollutant.Fill(dsPollutant, "Pollutant")
@@ -187,7 +187,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -228,7 +228,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-           
+
         End Try
 
     End Sub
@@ -262,7 +262,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -286,10 +286,10 @@ Public Class ISMPTestReportAdministrative
         "order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber"
 
         dsGrid = New DataSet
-        daGrid = New OracleDataAdapter(SQL, Conn)
+        daGrid = New OracleDataAdapter(SQL, CurrentConnection)
 
-        If Conn.State = ConnectionState.Closed Then
-            Conn.Open()
+        If CurrentConnection.State = ConnectionState.Closed Then
+            CurrentConnection.Open()
         End If
 
         daGrid.Fill(dsGrid, "Grid")
@@ -319,9 +319,9 @@ Public Class ISMPTestReportAdministrative
                 "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & cboAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -363,9 +363,9 @@ Public Class ISMPTestReportAdministrative
                 "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & cboAIRSNumber.Text & "'"
 
-                Dim cmd As New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                Dim cmd As New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 Dim dr As OracleDataReader = cmd.ExecuteReader
                 Dim recExist As Boolean = dr.Read
@@ -398,7 +398,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -425,9 +425,9 @@ Public Class ISMPTestReportAdministrative
                 "or strDelete is NUll) " & _
                 "Order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -444,7 +444,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -465,9 +465,9 @@ Public Class ISMPTestReportAdministrative
             "from " & DBNameSpace & ".ISMPMaster  " & _
             "where strReferenceNumber like '" & RefYear & "%' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -551,9 +551,9 @@ Public Class ISMPTestReportAdministrative
 
                 SQL = "Select strReferenceNumber from " & DBNameSpace & ".ISMPMaster where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -844,9 +844,9 @@ Public Class ISMPTestReportAdministrative
 
                 Try
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -856,9 +856,9 @@ Public Class ISMPTestReportAdministrative
 
                 Try
 
-                    cmd = New OracleCommand(SQL2, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL2, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -883,7 +883,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(txtReferenceNumber.Text & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -917,9 +917,9 @@ Public Class ISMPTestReportAdministrative
                     "from " & DBNameSpace & ".ISMPReportInformation " & _
                     "where strReferenceNumber = '" & RefNum & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -938,9 +938,9 @@ Public Class ISMPTestReportAdministrative
                             SQL = "Select strUpdateStatus " & _
                             "from " & DBNameSpace & ".AFSISMPRecords " & _
                             "where strReferenceNumber = '" & RefNum & "' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             recExist = dr.Read
@@ -959,9 +959,9 @@ Public Class ISMPTestReportAdministrative
                                     SQL = "Update " & DBNameSpace & ".AFSISMPRecords set " & _
                                     "strUpDateStatus = 'C' " & _
                                     "where strReferenceNumber = '" & RefNum & "' "
-                                    cmd = New OracleCommand(SQL, Conn)
-                                    If Conn.State = ConnectionState.Closed Then
-                                        Conn.Open()
+                                    cmd = New OracleCommand(SQL, CurrentConnection)
+                                    If CurrentConnection.State = ConnectionState.Closed Then
+                                        CurrentConnection.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     dr.Close()
@@ -970,9 +970,9 @@ Public Class ISMPTestReportAdministrative
                                     "from " & DBNameSpace & ".APBSupplamentalData " & _
                                     "where strAIRSNumber = '0413" & AIRSNumber & "' "
 
-                                    cmd = New OracleCommand(SQL, Conn)
-                                    If Conn.State = ConnectionState.Closed Then
-                                        Conn.Open()
+                                    cmd = New OracleCommand(SQL, CurrentConnection)
+                                    If CurrentConnection.State = ConnectionState.Closed Then
+                                        CurrentConnection.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     While dr.Read
@@ -1004,9 +1004,9 @@ Public Class ISMPTestReportAdministrative
                                     "'A', '" & UserGCode & "', " & _
                                     "'" & OracleDate & "') "
 
-                                    cmd = New OracleCommand(SQL, Conn)
-                                    If Conn.State = ConnectionState.Closed Then
-                                        Conn.Open()
+                                    cmd = New OracleCommand(SQL, CurrentConnection)
+                                    If CurrentConnection.State = ConnectionState.Closed Then
+                                        CurrentConnection.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     dr.Close()
@@ -1031,9 +1031,9 @@ Public Class ISMPTestReportAdministrative
                                     "strAFSActionNumber = '" & AFSActionNumber & "' " & _
                                     "where strAIRSNumber = '0413" & AIRSNumber & "' "
 
-                                    cmd = New OracleCommand(SQL, Conn)
-                                    If Conn.State = ConnectionState.Closed Then
-                                        Conn.Open()
+                                    cmd = New OracleCommand(SQL, CurrentConnection)
+                                    If CurrentConnection.State = ConnectionState.Closed Then
+                                        CurrentConnection.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     dr.Close()
@@ -1057,9 +1057,9 @@ Public Class ISMPTestReportAdministrative
                             "strClosed = 'True', " & _
                             "datCompleteDate = '" & DTPDateClosed.Text & "' " & _
                             "where strReferenceNumber = '" & RefNum.ToString & "' "
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Close()
@@ -1081,7 +1081,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1102,9 +1102,9 @@ Public Class ISMPTestReportAdministrative
                 temp = txtReferenceNumber.Text
 
                 SQL = "Select strAIRSNumber from " & DBNameSpace & ".ISMPMaster where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                Dim cmd As New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                Dim cmd As New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 Dim dr As OracleDataReader = cmd.ExecuteReader
@@ -1153,9 +1153,9 @@ Public Class ISMPTestReportAdministrative
               "and " & DBNameSpace & ".ISMPReportINformation.strComplianceStatus = " & DBNameSpace & ".LookUpISMPComplianceStatus.strComplianceKey " & _
               "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
 
@@ -1213,11 +1213,10 @@ Public Class ISMPTestReportAdministrative
             PrintOut.txtPrintType.Text = "ISMPAIRSForm"
             PrintOut.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
             PrintOut.Show()
-            'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1266,7 +1265,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1288,9 +1287,9 @@ Public Class ISMPTestReportAdministrative
                     "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKEy " & _
                     "and strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-                    Dim cmd As New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    Dim cmd As New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
 
                     Dim dr As OracleDataReader = cmd.ExecuteReader
@@ -1299,25 +1298,25 @@ Public Class ISMPTestReportAdministrative
                     If recExist Then
                         temp = dr.Item("strTableName")
                     End If
-                    If Conn.State = ConnectionState.Open Then
+                    If CurrentConnection.State = ConnectionState.Open Then
                         'conn.close()
                     End If
                     If temp <> "DeLeTe" Then
                         SQL = "Delete " & temp & " where strREferenceNumber = '" & txtReferenceNumber.Text & "'"
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
-                        If Conn.State = ConnectionState.Open Then
+                        If CurrentConnection.State = ConnectionState.Open Then
                             'conn.close()
                         End If
                         SQL = "Update " & DBNameSpace & ".ISMPReportInformation set " & _
                         "strDelete = 'DELETE' where strREferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         Try
 
@@ -1327,7 +1326,7 @@ Public Class ISMPTestReportAdministrative
                         End Try
 
 
-                        If Conn.State = ConnectionState.Open Then
+                        If CurrentConnection.State = ConnectionState.Open Then
                             'conn.close()
                         End If
 
@@ -1342,46 +1341,20 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(txtReferenceNumber.Text & vbCrLf & SQL & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
 
     End Sub
     Sub MoveOn()
-        Dim SQL As String
-
         Try
-
-            If txtReferenceNumber.Text <> "" Then
-                SQL = "select " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                 "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
-                 "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
-                 "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                Dim cmd As New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
-                End If
-                Dim dr As OracleDataReader = cmd.ExecuteReader
-                Dim recExist As Boolean = dr.Read
-                If recExist = True Then
-                    ISMPTestReportsEntry = Nothing
-                    If ISMPTestReportsEntry Is Nothing Then ISMPTestReportsEntry = New ISMPTestReports
-                    ISMPTestReportsEntry.txtReferenceNumber.Text = txtReferenceNumber.Text
-                    ISMPTestReportsEntry.Show()
-                    Me.Hide()
-                    'ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                End If
-            End If
+            Dim id As String = txtReferenceNumber.Text
+            If DAL.ISMP.StackTestExists(id) Then OpenMultiForm(ISMPTestReports, id)
+            Me.Hide()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
-
-
     End Sub
     Sub OpenMemo()
         Try
@@ -1391,12 +1364,11 @@ Public Class ISMPTestReportAdministrative
                 If ISMPMemoEdit Is Nothing Then ISMPMemoEdit = New ISMPMemo
                 ISMPMemoEdit.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
                 ISMPMemoEdit.Show()
-                'ISMPMemoEdit.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1415,9 +1387,9 @@ Public Class ISMPTestReportAdministrative
                 "from " & DBNameSpace & ".ISMPReportInformation " & _
                 "where strReferenceNumber = '" & RefNum & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1426,9 +1398,9 @@ Public Class ISMPTestReportAdministrative
                     SQL = "Update " & DBNameSpace & ".ISMPReportInformation set " & _
                     "strDelete = 'DELETE' " & _
                     "where strReferenceNumber = '" & RefNum & "'  "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1447,7 +1419,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1467,9 +1439,9 @@ Public Class ISMPTestReportAdministrative
                 "from " & DBNameSpace & ".SSCPTestReports " & _
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1493,9 +1465,9 @@ Public Class ISMPTestReportAdministrative
                 "and " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.intyear = maxresults.maxyear " & _
                 "group by numSSCPEngineer "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1509,9 +1481,9 @@ Public Class ISMPTestReportAdministrative
                 SQL = "select datSSCPTestReportDue " & _
                 "from " & DBNameSpace & ".APBSupplamentalData " & _
                 "where strAIRSNumber = '0413" & cboAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1537,18 +1509,18 @@ Public Class ISMPTestReportAdministrative
                 "'" & StaffResponsible & "', '', " & _
                 "'" & UserGCode & "', '" & OracleDate & "')"
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
                 SQL = "Select " & DBNameSpace & ".SSCPTrackingNumber.currval from dual "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -1567,9 +1539,9 @@ Public Class ISMPTestReportAdministrative
                 "' ', 'False', " & _
                 "'" & UserGCode & "', '" & OracleDate & "') "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1579,7 +1551,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1593,7 +1565,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1606,7 +1578,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1619,7 +1591,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1632,7 +1604,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1645,7 +1617,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1658,7 +1630,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1671,7 +1643,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1684,7 +1656,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1697,7 +1669,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1722,10 +1694,10 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, Conn)
+            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -1735,7 +1707,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1748,7 +1720,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1777,10 +1749,10 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, Conn)
+            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -1790,7 +1762,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1817,10 +1789,10 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, Conn)
+            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -1830,7 +1802,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1857,10 +1829,10 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, Conn)
+            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -1870,7 +1842,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1897,10 +1869,10 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, Conn)
+            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -1910,7 +1882,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1937,10 +1909,10 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, Conn)
+            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -1950,7 +1922,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1977,10 +1949,10 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, Conn)
+            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -1990,7 +1962,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2017,10 +1989,10 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, Conn)
+            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2030,7 +2002,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2057,10 +2029,10 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, Conn)
+            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2070,7 +2042,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2097,10 +2069,10 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, Conn)
+            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2110,7 +2082,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2137,10 +2109,10 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, Conn)
+            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2150,7 +2122,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2177,10 +2149,10 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, Conn)
+            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2190,7 +2162,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2217,10 +2189,10 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, Conn)
+            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2230,7 +2202,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2257,10 +2229,10 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, Conn)
+            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2270,7 +2242,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2297,10 +2269,10 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, Conn)
+            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2310,7 +2282,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2337,10 +2309,10 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, Conn)
+            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2350,7 +2322,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2377,10 +2349,10 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, Conn)
+            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2390,7 +2362,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2417,10 +2389,10 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, Conn)
+            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2430,7 +2402,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2457,10 +2429,10 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, Conn)
+            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2470,7 +2442,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2496,10 +2468,10 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, Conn)
+            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2509,7 +2481,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2535,10 +2507,10 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, Conn)
+            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2548,7 +2520,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2574,10 +2546,10 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, Conn)
+            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2587,7 +2559,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2623,7 +2595,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2642,7 +2614,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2658,20 +2630,11 @@ Public Class ISMPTestReportAdministrative
     Private Sub DevTestReportAdministrative_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
 
-            If NavigationScreen Is Nothing Then
-                NavigationScreen = New IAIPNavigation
-            End If
-            NavigationScreen.Show()
-
             ISMPFacility = Nothing
 
             Me.Dispose()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
 
     End Sub
@@ -2714,7 +2677,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2736,7 +2699,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2751,7 +2714,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2765,11 +2728,10 @@ Public Class ISMPTestReportAdministrative
             PrintOut.txtPrintType.Text = "ISMPAIRSForm"
             PrintOut.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
             PrintOut.Show()
-            'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2783,11 +2745,10 @@ Public Class ISMPTestReportAdministrative
             PrintOut.txtPrintType.Text = "ISMPTestReport"
             PrintOut.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
             PrintOut.Show()
-            'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2829,7 +2790,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2847,7 +2808,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2859,11 +2820,10 @@ Public Class ISMPTestReportAdministrative
             ISMPAddTestingFirm = Nothing
             If ISMPAddTestingFirm Is Nothing Then ISMPAddTestingFirm = New ISMPAddTestingFirms
             ISMPAddTestingFirm.Show()
-            'ISMPAddTestingFirm.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2875,11 +2835,10 @@ Public Class ISMPTestReportAdministrative
             ISMPAddPollutant = Nothing
             If ISMPAddPollutant Is Nothing Then ISMPAddPollutant = New ISMPAddPollutants
             ISMPAddPollutant.Show()
-            'ISMPAddPollutant.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2898,7 +2857,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2912,7 +2871,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2926,7 +2885,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2938,7 +2897,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2952,7 +2911,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3013,9 +2972,9 @@ Public Class ISMPTestReportAdministrative
                 "strReferenceNumber " & _
                 "from " & DBNameSpace & ".ISMPMaster " & _
                 "where strReferenceNumber = '" & RefNum & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -3029,9 +2988,9 @@ Public Class ISMPTestReportAdministrative
                 "strAIRSNumber " & _
                 "from " & DBNameSpace & ".APBMasterAIRS " & _
                 "where strAIRSNumber = '0413" & AIRSNumber & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -3045,9 +3004,9 @@ Public Class ISMPTestReportAdministrative
                 "values " & _
                 "('" & RefNum & "', '0413" & AIRSNumber & "', " & _
                 "'" & UserGCode & "', '" & OracleDate & "') "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -3072,9 +3031,9 @@ Public Class ISMPTestReportAdministrative
                 "'', '', " & _
                 "'', '', '') "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -3155,7 +3114,7 @@ Public Class ISMPTestReportAdministrative
         dgvFacilityInfo.Columns("strDocumentType").DisplayIndex = 5
     End Sub
 
-   
+
     Private Sub btnCloseHistoricTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCloseHistoricTestReport.Click
         Try
             If txtCloseTestReportRefNum.Text <> "" Then
@@ -3164,9 +3123,9 @@ Public Class ISMPTestReportAdministrative
                 "from " & DBNameSpace & ".ISMPReportInformation " & _
                 "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -3175,9 +3134,9 @@ Public Class ISMPTestReportAdministrative
                     SQL = "Update " & DBNameSpace & ".ISMPReportInformation set " & _
                     "strClosed = 'True' " & _
                     "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -3203,9 +3162,9 @@ Public Class ISMPTestReportAdministrative
                 "from " & DBNameSpace & ".ISMPReportInformation " & _
                 "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -3214,9 +3173,9 @@ Public Class ISMPTestReportAdministrative
                     SQL = "Update " & DBNameSpace & ".ISMPReportInformation set " & _
                     "strClosed = 'False' " & _
                     "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -3236,31 +3195,14 @@ Public Class ISMPTestReportAdministrative
 
     Private Sub btnOpenTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenTestReport.Click
         Try
-            If txtAddTestReportRefNum.Text <> "" Then
-                SQL = "select " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                 "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
-                 "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
-                 "strReferenceNumber = '" & txtAddTestReportRefNum.Text & "'"
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
-                    ISMPTestReportsEntry = Nothing
-                    If ISMPTestReportsEntry Is Nothing Then ISMPTestReportsEntry = New ISMPTestReports
-                    ISMPTestReportsEntry.txtReferenceNumber.Text = txtAddTestReportRefNum.Text
-                    ISMPTestReportsEntry.Show()
-                    'ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                End If
-            End If
+            Dim id As String = txtAddTestReportRefNum.Text
+            If DAL.ISMP.StackTestExists(id) Then OpenMultiForm(ISMPTestReports, id)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-   
+
     Private Sub btnSearchForAIRS_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearchForAIRS.Click
         Try
             If cboAIRSNumber.Text <> "" And cboAIRSNumber.Text.Length = 8 Then
@@ -3277,9 +3219,9 @@ Public Class ISMPTestReportAdministrative
                 "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & cboAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read

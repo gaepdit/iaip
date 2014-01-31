@@ -72,10 +72,10 @@ Public Class PASPDepositsAmendments
             "order by paytype"
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, Conn)
+            da = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             da.Fill(ds, "PayType")
@@ -533,12 +533,12 @@ Public Class PASPDepositsAmendments
             " from " & DBNameSpace & ".FSFeeRates " & _
             " where intyear = '" & feeyear & "' "
 
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             Dim dr As OracleDataReader = cmd.ExecuteReader()
@@ -636,12 +636,12 @@ Public Class PASPDepositsAmendments
                 + "where strairsnumber = '0413" & airsnumber & "' " _
                 + "and intyear = '" & feeyear & "' "
 
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             Dim dr As OracleDataReader = cmd.ExecuteReader()
@@ -894,9 +894,9 @@ Public Class PASPDepositsAmendments
             "from " & DBNameSpace & ".FSPayAndSubmit " & _
             "where strAIRSnumber = '0413" & cboAirsNo2.Text & "' " & _
             "and intYear = '" & cboFeeYear2.Text & "' "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1375,9 +1375,9 @@ Public Class PASPDepositsAmendments
             "where strAIRSNumber = '0413" & cboAirsNo2.Text & "' " & _
             "and intYear = '" & cboFeeYear2.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -1401,9 +1401,9 @@ Public Class PASPDepositsAmendments
                 "and intYear = '" & cboFeeYear2.Text & "' "
             End If
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1427,12 +1427,12 @@ Public Class PASPDepositsAmendments
             + "where strairsnumber = '0413" & cboAirsNo2.Text & "' " _
             + "and intyear = '" & cboFeeYear2.Text & "' "
 
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             cmd.ExecuteReader()
@@ -1491,7 +1491,7 @@ Public Class PASPDepositsAmendments
             If nspsreason.Length > 1 Then
                 nspsreason = Mid(nspsreason, 1, Len(nspsreason) - 1)
             End If
-            
+
             If nspsreason = "" Then
                 nspsreason = "0"
             End If
@@ -1524,12 +1524,12 @@ Public Class PASPDepositsAmendments
             + "and intyear = '" & cboFeeYear2.Text & "' "
 
 
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             Dim dr As OracleDataReader = cmd.ExecuteReader
@@ -1574,12 +1574,12 @@ Public Class PASPDepositsAmendments
          + "where strairsnumber = '0413" & cboAirsNo2.Text & "' " _
          + "and intyear = '" & cboFeeYear2.Text & "' "
 
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             Dim dr As OracleDataReader = cmd.ExecuteReader()
@@ -1595,9 +1595,9 @@ Public Class PASPDepositsAmendments
             "From " & DBNameSpace & ".FSPayAndSubmit " & _
             "where strAIRSNumber = '0413" & cboAirsNo2.Text & "' " & _
             "and intYear = '" & cboFeeYear2.Text & "'  "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -1610,9 +1610,9 @@ Public Class PASPDepositsAmendments
                 "'Entire Annual Year', 1, " & _
                 "'" & Replace(UserName, "'", "''") & "', 'GA APB Employee', " & _
                 "sysdate, '') "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1701,12 +1701,12 @@ Public Class PASPDepositsAmendments
             + "'" & part70 & "', '" & syntheticminor & "', " _
             + "'" & CDbl(lblcalculated.Text) & "', '0') "
 
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1718,9 +1718,9 @@ Public Class PASPDepositsAmendments
             "where strAIRSNumber = '0413" & cboAirsNo2.Text & "' " & _
             "and intYear = '" & cboFeeYear2.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -1735,9 +1735,9 @@ Public Class PASPDepositsAmendments
                     "'" & Replace(txtAmendmentComments.Text, "'", "''") & "', '', " & _
                     "" & DBNameSpace & ".SeqFSDeposit.nextval, " & _
                     "'" & cboAirsNo2.Text & "-A1-" & cboFeeYear2.Text & "') "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1751,9 +1751,9 @@ Public Class PASPDepositsAmendments
                     "" & DBNameSpace & ".SeqFSDeposit.nextval, " & _
                     "'" & cboAirsNo2.Text & "-Q1-" & cboFeeYear2.Text & "') "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1767,9 +1767,9 @@ Public Class PASPDepositsAmendments
                    "" & DBNameSpace & ".SeqFSDeposit.nextval, " & _
                    "'" & cboAirsNo2.Text & "-Q2-" & cboFeeYear2.Text & "') "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1783,9 +1783,9 @@ Public Class PASPDepositsAmendments
                    "" & DBNameSpace & ".SeqFSDeposit.nextval, " & _
                    "'" & cboAirsNo2.Text & "-Q3-" & cboFeeYear2.Text & "') "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1799,9 +1799,9 @@ Public Class PASPDepositsAmendments
                    "" & DBNameSpace & ".SeqFSDeposit.nextval, " & _
                    "'" & cboAirsNo2.Text & "-Q4-" & cboFeeYear2.Text & "') "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1865,10 +1865,6 @@ Public Class PASPDepositsAmendments
     Private Sub PASPFacilityFee_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
 
-            If NavigationScreen Is Nothing Then
-                NavigationScreen = New IAIPNavigation
-            End If
-            NavigationScreen.Show()
             FacilityFeeForm = Nothing
             Me.Dispose()
         Catch ex As Exception
@@ -1956,9 +1952,9 @@ Public Class PASPDepositsAmendments
             End If
 
             If SQL <> "" Then
-                daWorkEnTry = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daWorkEnTry = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 daWorkEnTry.Fill(dsWorkEnTry, "tblWorkEnTry")
@@ -2214,12 +2210,12 @@ Public Class PASPDepositsAmendments
                 + "strEntryPerson = '" & UserGCode & "' " _
                 + "where intpayid = '" & txtPayId.Text & "'"
 
-                cmd = New OracleCommand(SQL, Conn)
+                cmd = New OracleCommand(SQL, CurrentConnection)
                 cmd.CommandType = CommandType.Text
 
-                If Conn.State = ConnectionState.Open Then
+                If CurrentConnection.State = ConnectionState.Open Then
                 Else
-                    Conn.Open()
+                    CurrentConnection.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -2245,12 +2241,12 @@ Public Class PASPDepositsAmendments
             SQL = "Delete from " & DBNameSpace & ".FSAddPaid " _
             + "where intpayid = '" & txtPayId.Text & "'"
 
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2293,10 +2289,6 @@ Public Class PASPDepositsAmendments
     Private Sub PASPFeeDeposits_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
 
-            If NavigationScreen Is Nothing Then
-                NavigationScreen = New IAIPNavigation
-            End If
-            NavigationScreen.Show()
             FeeDeposits = Nothing
             Me.Dispose()
         Catch ex As Exception
@@ -2331,9 +2323,9 @@ Public Class PASPDepositsAmendments
                         + "where Difference2006 <> 0 and vcheck2006 = 'NO'"
             End Select
 
-            daWorkEnTry = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daWorkEnTry = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daWorkEnTry.Fill(dsWorkEnTry, "tblWorkEnTry")
@@ -2419,9 +2411,9 @@ Public Class PASPDepositsAmendments
                         + "where Difference2006 <> 0 and vcheck2006 = 'YES'"
             End Select
 
-            daWorkEnTry = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daWorkEnTry = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daWorkEnTry.Fill(dsWorkEnTry, "tblWorkEnTry")
@@ -2485,10 +2477,6 @@ Public Class PASPDepositsAmendments
     Private Sub PASPFeeVarianceCheck_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
 
-            If NavigationScreen Is Nothing Then
-                NavigationScreen = New IAIPNavigation
-            End If
-            NavigationScreen.Show()
             FeeDeposits = Nothing
             Me.Dispose()
         Catch ex As Exception
@@ -2549,12 +2537,12 @@ Public Class PASPDepositsAmendments
             + "where strairsnumber = '" & airsno & "' and " _
             + "intyear = '" & CInt(cboFeeYear3.Text) & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2619,11 +2607,11 @@ Public Class PASPDepositsAmendments
             "order by " & DBNameSpace & ".APBFacilityInformation.strFacilityName "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, Conn)
+            da = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             da.Fill(ds, "facilityInfo")
@@ -2674,9 +2662,9 @@ Public Class PASPDepositsAmendments
             SQL = "Select isbankrupt from " & DBNameSpace & ".APBSupplamentalData " _
                 + "where strairsnumber = '0413" & cboAirsNo3.Text & "'"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -2699,9 +2687,9 @@ Public Class PASPDepositsAmendments
             "where strairsnumber = '0413" & cboAirsNo3.Text & "' " & _
             "and intyear = '" & CInt(txtYear3.Text) & "'"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2740,19 +2728,19 @@ Public Class PASPDepositsAmendments
                 + "isbankrupt = '" & bankrupt & "' " _
                 + "where strairsnumber = '0413" & cboAirsNo3.Text & "'"
 
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             cmd.ExecuteNonQuery()
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             If chkFinal.Checked = True Then
@@ -2782,7 +2770,7 @@ Public Class PASPDepositsAmendments
             "where strairsnumber = '0413" & cboAirsNo3.Text & "' " & _
             "and intyear = '" & CInt(txtYear3.Text) & "'"
 
-            Dim cmd As New OracleCommand(SQL, Conn)
+            Dim cmd As New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
             cmd.ExecuteNonQuery()
 
@@ -2792,7 +2780,7 @@ Public Class PASPDepositsAmendments
             "'" & confirmation & "', '" & UserGCode & "', " & _
             "to_date('" & Format$(Now, "dd-MMM-yyyy hh:mm:ss") & "', 'dd-mon-yyyy hh:mi:ss'))"
 
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
             cmd.ExecuteNonQuery()
 
@@ -2812,9 +2800,9 @@ Public Class PASPDepositsAmendments
              "where strairsnumber = '0413" & cboAirsNo3.Text & "' " & _
              "and intyear = '" & CInt(txtYear3.Text) & "'"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -2823,9 +2811,9 @@ Public Class PASPDepositsAmendments
             "where strairsnumber = '0413" & cboAirsNo3.Text & "' " & _
              "and intyear = '" & CInt(txtYear3.Text) & "'"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -2910,12 +2898,7 @@ Public Class PASPDepositsAmendments
         End Try
     End Sub
     Private Sub HelpToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HelpToolStripMenuItem.Click
-        Try
-            Help.ShowHelp(Label1, "http://airpermit.dnr.state.ga.us/iaip/iaip_help/IAIP_Help.htm")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+        OpenHelpUrl(Me)
     End Sub
     Private Sub mmiClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClear.Click
         Try
@@ -2933,9 +2916,9 @@ Public Class PASPDepositsAmendments
             "strAIRSNumber, strFacilityName " & _
             "from " & DBNameSpace & ".APBFacilityInformation " & _
             "where strAIRSNumber = '0413" & AIRSNumber & "' "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2958,9 +2941,9 @@ Public Class PASPDepositsAmendments
                 "strAIRSNumber " & _
                 "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -3013,9 +2996,9 @@ Public Class PASPDepositsAmendments
                 SQL = "Select InvoiceID from AIRBranch.FS_FeeInvoice " & _
                 "where invoiceID = '" & txtInvoiceForDeposit.Text & "' " & _
                 "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -3052,9 +3035,9 @@ Public Class PASPDepositsAmendments
             "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
             "order by strBatchNo "
 
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            da = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             da.Fill(ds, "Deposit")
@@ -3081,9 +3064,9 @@ Public Class PASPDepositsAmendments
             SQL = "Delete " & DBNameSpace & ".FSAddPaid " & _
             "where intPayID = '" & txtTransactionID.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -3218,9 +3201,9 @@ Public Class PASPDepositsAmendments
  "where Allinvoices.InvoiceID = Transactions.InvoiceID  (+) "
 
             End If
-            daInvoice = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            daInvoice = New OracleDataAdapter(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             daInvoice.Fill(dsInvoice, "Deposit")
@@ -3504,9 +3487,9 @@ Public Class PASPDepositsAmendments
                     "'0413" & mtbAIRSNumber.Text & "', " & _
                     "'" & mtbFeeYear2.Text & "', '" & Replace(txtCreditCardNo.Text, "'", "''") & "') "
 
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -3556,9 +3539,9 @@ Public Class PASPDepositsAmendments
             "where invoiceid = '" & invoiceID & "' " & _
             "and Active = '1' ) Payments "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -3581,9 +3564,9 @@ Public Class PASPDepositsAmendments
                 "where invoiceId = '" & invoiceID & "' "
             End If
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -3617,9 +3600,9 @@ Public Class PASPDepositsAmendments
                             "strCreditCardNo = '" & txtCreditCardNo.Text & "' " & _
                             "where TransactionID = '" & txtTransactionID.Text & "' "
 
-                            cmd = New OracleCommand(SQL, Conn)
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
+                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Close()
@@ -3676,10 +3659,10 @@ Public Class PASPDepositsAmendments
                     "active = '0' " & _
                     "where TransactionId = '" & txtTransactionID.Text & "' "
 
-                    cmd = New OracleCommand(SQL, Conn)
+                    cmd = New OracleCommand(SQL, CurrentConnection)
                     cmd.CommandType = CommandType.Text
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
 
                     dr = cmd.ExecuteReader
@@ -3850,9 +3833,9 @@ Public Class PASPDepositsAmendments
                 "strFacilityName " & _
                 "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                cmd = New OracleCommand(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -3989,9 +3972,9 @@ Public Class PASPDepositsAmendments
             "where strAIRSNumber = '0413" & cboAirsNo2.Text & "' " & _
             "and intYear = '" & cboFeeYear2.Text & "' "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -4010,9 +3993,9 @@ Public Class PASPDepositsAmendments
                         "'', " & DBNameSpace & ".seqFSDeposit.nextval, " & _
                         "'" & cboAirsNo2.Text & "-A1-" & cboFeeYear2.Text & "')"
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -4027,9 +4010,9 @@ Public Class PASPDepositsAmendments
                         "'', " & DBNameSpace & ".seqFSDeposit.nextval, " & _
                         "'" & cboAirsNo2.Text & "-Q1-" & cboFeeYear2.Text & "')"
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -4044,9 +4027,9 @@ Public Class PASPDepositsAmendments
                         "'', " & DBNameSpace & ".seqFSDeposit.nextval, " & _
                         "'" & cboAirsNo2.Text & "-Q2-" & cboFeeYear2.Text & "')"
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -4061,9 +4044,9 @@ Public Class PASPDepositsAmendments
                         "'', " & DBNameSpace & ".seqFSDeposit.nextval, " & _
                         "'" & cboAirsNo2.Text & "-Q3-" & cboFeeYear2.Text & "')"
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -4078,9 +4061,9 @@ Public Class PASPDepositsAmendments
                         "'', " & DBNameSpace & ".seqFSDeposit.nextval, " & _
                         "'" & cboAirsNo2.Text & "-Q4-" & cboFeeYear2.Text & "')"
 
-                        cmd = New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
+                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        If CurrentConnection.State = ConnectionState.Closed Then
+                            CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -4244,9 +4227,9 @@ Public Class PASPDepositsAmendments
      "and AIRBranch.FS_Transactions.Active = '1' order by InvoiceID desc) Transactions " & _
      "where Allinvoices.InvoiceID = Transactions.InvoiceID  (+) "
                 End If
-                daInvoice = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daInvoice = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 daInvoice.Fill(dsInvoice, "Deposit")
@@ -4300,9 +4283,9 @@ Public Class PASPDepositsAmendments
                     "strFacilityName " & _
                     "from " & DBNameSpace & ".APBFacilityInformation " & _
                     "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, Conn)
-                    If Conn.State = ConnectionState.Closed Then
-                        Conn.Open()
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read

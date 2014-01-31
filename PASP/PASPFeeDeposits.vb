@@ -947,11 +947,11 @@ Public Class PASPFeeDeposits
             SQL = "Select distinct strdepositno from " & DBNameSpace & ".FSAddPaid " _
            + "order by strdepositno"
 
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -966,11 +966,11 @@ Public Class PASPFeeDeposits
             SQL2 = "Select distinct substr(strairsnumber, 5) as strairsnumber " _
            + "from " & DBNameSpace & ".FSAddPaid order by strairsnumber"
 
-            cmd2 = New OracleCommand(SQL2, Conn)
+            cmd2 = New OracleCommand(SQL2, CurrentConnection)
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             dr2 = cmd2.ExecuteReader
@@ -986,11 +986,11 @@ Public Class PASPFeeDeposits
             "from " & DBNameSpace & ".FSPayType " & _
             "order by paytype"
 
-            cmd3 = New OracleCommand(SQL3, Conn)
+            cmd3 = New OracleCommand(SQL3, CurrentConnection)
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             dr3 = cmd3.ExecuteReader
@@ -1007,9 +1007,9 @@ Public Class PASPFeeDeposits
             "from " & DBNameSpace & ".FSAddPaid " & _
             "order by intyear desc "
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1102,9 +1102,9 @@ Public Class PASPFeeDeposits
             End If
 
             If SQL <> "" Then
-                daWorkEnTry = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daWorkEnTry = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 daWorkEnTry.Fill(dsWorkEnTry, "tblWorkEnTry")
@@ -1277,12 +1277,12 @@ Public Class PASPFeeDeposits
              + "'" & cboPayType.Text & "', '" & txtbatchNo.Text & "', " _
              + "'" & UserGCode & "', '" & Replace(txtComments.Text, "'", "''") & "', " & DBNameSpace & ".seqfsdeposit.nextval)"
 
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1367,12 +1367,12 @@ Public Class PASPFeeDeposits
             + "strentryperson = '" & UserGCode & "' " _
             + "where intpayid = '" & txtPayId.Text & "'"
 
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1396,12 +1396,12 @@ Public Class PASPFeeDeposits
             SQL = "Delete from " & DBNameSpace & ".FSAddPaid " _
             + "where intpayid = '" & txtPayId.Text & "'"
 
-            cmd = New OracleCommand(SQL, Conn)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
-            If Conn.State = ConnectionState.Open Then
+            If CurrentConnection.State = ConnectionState.Open Then
             Else
-                Conn.Open()
+                CurrentConnection.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1460,10 +1460,6 @@ Public Class PASPFeeDeposits
     Private Sub PASPFeeDeposits_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
 
-            If NavigationScreen Is Nothing Then
-                NavigationScreen = New IAIPNavigation
-            End If
-            NavigationScreen.Show()
             FeeDeposits = Nothing
             Me.Dispose()
         Catch ex As Exception

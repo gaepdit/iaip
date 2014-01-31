@@ -203,9 +203,9 @@ Public Class IAIPFacilityLookUpTool
             End Select
             If SQL <> "" Then
                 dsSearch = New DataSet
-                daSearch = New OracleDataAdapter(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
+                daSearch = New OracleDataAdapter(SQL, CurrentConnection)
+                If CurrentConnection.State = ConnectionState.Closed Then
+                    CurrentConnection.Open()
                 End If
 
                 daSearch.Fill(dsSearch, "FacSearch")
@@ -394,62 +394,6 @@ Public Class IAIPFacilityLookUpTool
     tpZipCode.Leave, tpSIC.Leave, tpCounty.Leave, tpSubpart.Leave
         Me.AcceptButton = btnUseAIRSNumber
     End Sub
-
-#End Region
-
-#Region " Obsolete Code "
-
-    'Private Sub btnUseAIRSNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUseAIRSNumber.Click
-    '    Dim temp As String = ""
-
-    '    Try
-
-    '        temp = 8
-
-    '        'If Not ISMPFacility Is Nothing Then
-    '        '    temp = 2
-    '        '    ISMPFacility.ValueFromFacilityLookUp = txtAIRSNumber.Text
-    '        'End If
-    '        'If Not ISMPManagers Is Nothing Then
-    '        '    temp = 3
-    '        '    ISMPManagers.ValueFromFacilityLookUp = txtAIRSNumber.Text
-    '        '    ISMPManagers.ValueFromFacilityLookUp2 = txtFacilityName.Text
-    '        'End If
-    '        'If Not FacilitySummary Is Nothing Then
-    '        '    temp = 4
-    '        '    FacilitySummary.ValueFromFacilityLookUp = txtAIRSNumber.Text
-    '        '    FacilitySummary.LoadInitialData()
-    '        'End If
-    '        'If Not SSCPFCESelector Is Nothing Then
-    '        '    temp = 7
-    '        '    SSCPFCESelector.ValueFromFacilityLookUp = txtAIRSNumber.Text
-    '        '    SSCPFCESelector.OpenFCETool()
-    '        'End If
-    '        'If Not ISMPFacility Is Nothing Then
-    '        '    temp = 8
-    '        '    ISMPFacility.ValueFromFacilityLookUp = txtAIRSNumber.Text
-    '        'End If
-    '        'If Not SSCP_Work Is Nothing Then
-    '        '    temp = 9
-    '        '    SSCP_Work.ValueFromFacilityLookUp = txtAIRSNumber.Text
-    '        '    SSCP_Work.ValueFromFacilityLookUp2 = txtFacilityName.Text
-    '        'End If
-    '        'If Not TestFirmComments Is Nothing Then
-    '        '    temp = 10
-    '        '    TestFirmComments.ValueFromFacilityLookUp = txtAIRSNumber.Text
-    '        '    TestFirmComments.ValueFromFacilityLookUp2 = txtFacilityName.Text
-    '        'End If
-    '        'If Not ISMPReportViewer Is Nothing Then
-    '        '    temp = 11
-    '        '    ISMPReportViewer.ValueFromFacilityLookUp = txtAIRSNumber.Text
-    '        'End If
-    '    Catch ex As Exception
-    '        ErrorReport(temp & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    Finally
-
-    '    End Try
-
-    'End Sub
 
 #End Region
 
