@@ -4,11 +4,11 @@
 
 See the [release notes](README.html).
 
-## Version 2.8.x <span>(2014-01-xx)</span>
+## Version 2.8.8 <span>(2014-01-31)</span>
 
 + FIX: *ISMP* – Unable to open multiple test reports at once (#176); reported by Dave Sheffield
 + FIX: Error thrown if incorrect password entered in Login Screen (#177)
-+ FIX: Various minor bug fixes, design tweaks, and spelling corrections
++ FIX: Various minor bug fixes
 
 ## Version 2.8.7 <span>(2014-01-23)</span>
 

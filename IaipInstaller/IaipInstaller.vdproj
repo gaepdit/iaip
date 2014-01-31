@@ -28,12 +28,6 @@
         "Entry"
         {
         "MsmKey" = "8:_42C5E0B2019BF3E930C3B262AB7293A0"
-        "OwnerKey" = "8:_62050FE5876D4351B63141F6589FBB98"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_42C5E0B2019BF3E930C3B262AB7293A0"
         "OwnerKey" = "8:_877B2F6BA90076659F92A54DD64B8501"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -71,12 +65,6 @@
         {
         "MsmKey" = "8:_D2D2513A870BE97C804DB3E8F760B93F"
         "OwnerKey" = "8:_2AA3D45EC6009E32428426C3B4DFFE1E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D2D2513A870BE97C804DB3E8F760B93F"
-        "OwnerKey" = "8:_62050FE5876D4351B63141F6589FBB98"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -614,14 +602,14 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:IAIP"
-        "ProductCode" = "8:{2B6D593C-0336-412B-ADB1-BDEB14C86780}"
-        "PackageCode" = "8:{BA2956F2-684E-42BC-84AE-1E4ED95B8652}"
+        "ProductCode" = "8:{7530EDFC-4FA7-49AA-8359-E937B4C6C127}"
+        "PackageCode" = "8:{711C0EAB-427D-447C-B3F0-BCF493A28372}"
         "UpgradeCode" = "8:{D332FA62-F3B1-429F-B458-5F445F6846DA}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:2.8.7"
+        "ProductVersion" = "8:2.8.8"
         "Manufacturer" = "8:State of Georgia"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
