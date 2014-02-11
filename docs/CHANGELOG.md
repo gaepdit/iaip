@@ -4,15 +4,19 @@
 
 See the [release notes](README.html).
 
-## Version 2.8.8 <span>(2014-01-31)</span>
+## Version 2.8.9 <span>(2014-02-11)</span>
 
-+ FIX: *ISMP* – Unable to open multiple test reports at once (#176); reported by Dave Sheffield
++ FIX: *SSCP* – ACC memo does not correctly indicate if previously unreported deviations were reported (#179); thx Msengi Mgonella
+
+## Version 2.8.8 <span>(2014-01-31, limited release)</span>
+
++ FIX: *ISMP* – Unable to open multiple test reports at once (#176); thx Dave Sheffield
 + FIX: Error thrown if incorrect password entered in Login Screen (#177)
 + FIX: Various minor bug fixes
 
 ## Version 2.8.7 <span>(2014-01-23)</span>
 
-+ FIX: *SSPP* – Application Tracking Log does not load data when opened from Navigation Screen (#173)
++ FIX: *SSPP* – Application Tracking Log does not load data when opened from Navigation Screen (#173); thx Brad Belflower
 
 ## Version 2.8.5 <span>(2014-01-22, limited release)</span>
 
