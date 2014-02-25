@@ -1798,17 +1798,7 @@ Public Class SSCPEngineerInspectionTool
 
     End Sub
     Private Sub MmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiHelp.Click
-        Try
-
-            Help.ShowHelp(Label1, HelpUrl)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
+        OpenHelpUrl(Me)
     End Sub
 #End Region
 

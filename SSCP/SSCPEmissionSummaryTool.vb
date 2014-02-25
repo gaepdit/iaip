@@ -1643,12 +1643,7 @@ Public Class SSCPEmissionSummaryTool
         End Try
     End Sub
     Private Sub HelpToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HelpToolStripMenuItem.Click
-        Try
-            Help.ShowHelp(Label112, HelpUrl)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        OpenHelpUrl(Me)
     End Sub
     Private Sub btnEISummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEISummary.Click
         Try

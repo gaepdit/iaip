@@ -1276,7 +1276,7 @@ Public Class IAIPFacilityCreator
             Clipboard.SetDataObject(MappingAddress, True)
 
             Dim url As String = "http://mapper.acme.com/"
-            OpenUrl(url, Me)
+            OpenUri(url, Me)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

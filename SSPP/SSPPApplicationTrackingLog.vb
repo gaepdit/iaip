@@ -14406,7 +14406,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
             End Select
 
-            If URL <> "" Then OpenUrl(URL, Me)
+            If URL <> "" Then OpenUri(URL, Me)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -14928,10 +14928,7 @@ Public Class SSPPApplicationTrackingLog
         End Try
     End Sub
     Private Sub MmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiHelp.Click
-        Try
-            Help.ShowHelp(Label1, HelpUrl)
-        Catch ex As Exception
-        End Try
+        OpenHelpUrl(Me)
     End Sub
     Private Sub btnAcknowledgementLetter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAcknowledgementLetter.Click
         Try
@@ -15023,8 +15020,6 @@ Public Class SSPPApplicationTrackingLog
             StaffPhone & " or via e-mail at " & StaffEmail & ". Any written correspondence " & _
             "should reference the above application number that has been assigned to this application " & _
             "and the facility's AIRS number."
-
-            'System.Diagnostics.Process.Start("mailto:" & EmailAddress & "?subject=" & Subject & "&body=" & Body)
 
             Dim recipientsTo As String() = {EmailAddress}
             CreateEmail(Subject, Body, recipientsTo, objectSender:=Me)

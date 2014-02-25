@@ -8,27 +8,28 @@ Module App
 
     Public Sub OpenHelpUrl(Optional ByVal objectSender As Object = Nothing)
         monitor.TrackFeature("Url.OpenHelp")
-        OpenUrl(HelpUrl, objectSender)
+        OpenUri(HelpUrl, objectSender)
     End Sub
 
     Public Sub OpenDownloadUrl(Optional ByVal objectSender As Object = Nothing)
         monitor.TrackFeature("Url.OpenDownload")
-        OpenUrl(DownloadUrl, objectSender)
+        OpenUri(DownloadUrl, objectSender)
     End Sub
 
     Public Sub OpenAboutUrl(Optional ByVal objectSender As Object = Nothing)
         monitor.TrackFeature("Url.OpenAbout")
 
         CreateVersionFile()
-        OpenUrl(AboutUrl, objectSender)
+        OpenUri(AboutUrl, objectSender)
     End Sub
 
-    Public Function OpenUrl(ByVal url As String, Optional ByVal objectSender As Object = Nothing) As Boolean
+    Public Function OpenUri(ByVal uriString As String, Optional ByVal objectSender As Object = Nothing) As Boolean
         ' Reference: http://code.logos.com/blog/2008/01/using_processstart_to_link_to.html
         Try
             If objectSender IsNot Nothing Then objectSender.Cursor = Cursors.AppStarting
-            If url Is Nothing OrElse Not UrlIsValid(url) Then Return False
-            Process.Start(url)
+            If uriString Is Nothing OrElse uriString = "" Then Return False
+
+            Process.Start(uriString)
             Return True
         Catch ee As Exception When _
         TypeOf ee Is System.ComponentModel.Win32Exception OrElse _
@@ -40,17 +41,8 @@ Module App
         End Try
     End Function
 
-    Public Function UrlIsValid(ByVal url As String) As Boolean
-        Dim response As Net.HttpWebResponse = Nothing
-        Try
-            Dim request As Net.HttpWebRequest = Net.WebRequest.Create(url)
-            response = request.GetResponse()
-        Catch ex As Exception
-            Return False
-        Finally
-            If response IsNot Nothing Then response.Close()
-        End Try
-        Return True
+    Public Function OpenUri(ByVal uri As Uri, Optional ByVal objectSender As Object = Nothing) As Boolean
+        OpenUri(uri.ToString, objectSender)
     End Function
 
 #End Region
@@ -139,17 +131,17 @@ Module App
             Dim publishedVersionString As String = DB.GetSingleValue(Of String)(query, parameter)
             If publishedVersionString Is Nothing OrElse publishedVersionString = "" Then publishedVersionString = "0.0.0.0"
 
-        Try
-            PublishedVersion = New Version(publishedVersionString)
-        Catch ee As Exception When _
-        TypeOf ee Is ArgumentException OrElse _
-        TypeOf ee Is ArgumentNullException OrElse _
-        TypeOf ee Is ArgumentOutOfRangeException OrElse _
-        TypeOf ee Is FormatException OrElse _
-        TypeOf ee Is OverflowException
-            MessageBox.Show("The database version string contains an error. Please inform the Data Management Unit. Thank you.")
-            PublishedVersion = New Version("0.0.0.0")
-        End Try
+            Try
+                PublishedVersion = New Version(publishedVersionString)
+            Catch ee As Exception When _
+            TypeOf ee Is ArgumentException OrElse _
+            TypeOf ee Is ArgumentNullException OrElse _
+            TypeOf ee Is ArgumentOutOfRangeException OrElse _
+            TypeOf ee Is FormatException OrElse _
+            TypeOf ee Is OverflowException
+                MessageBox.Show("The database version string contains an error. Please inform the Data Management Unit. Thank you.")
+                PublishedVersion = New Version("0.0.0.0")
+            End Try
         End If
 
         Return PublishedVersion

@@ -2285,10 +2285,6 @@ Public Class PASPFacilityFee
     End Sub
 
     Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
-        Try
-            Help.ShowHelp(Label1, HelpUrl)
-        Catch ex As Exception
-        End Try
-
+        OpenHelpUrl(Me)
     End Sub
 End Class

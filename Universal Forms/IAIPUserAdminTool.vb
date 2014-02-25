@@ -1852,12 +1852,7 @@ Public Class IAIPUserAdminTool
     End Sub
 
     Private Sub HelpOnlineToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HelpOnlineToolStripMenuItem.Click
-        Try
-            Help.ShowHelp(Label1, HelpUrl)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+        OpenHelpUrl(Me)
     End Sub
 
 
