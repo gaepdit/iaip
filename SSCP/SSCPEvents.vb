@@ -2807,7 +2807,7 @@ Public Class SSCPEvents
         Me.pnlACCAllDeviationsReported.Controls.Add(Me.rdbACCAllDeviationsReportedNo)
         Me.pnlACCAllDeviationsReported.Location = New System.Drawing.Point(236, 207)
         Me.pnlACCAllDeviationsReported.Name = "pnlACCAllDeviationsReported"
-        Me.pnlACCAllDeviationsReported.Size = New System.Drawing.Size(161, 24)
+        Me.pnlACCAllDeviationsReported.Size = New System.Drawing.Size(164, 24)
         Me.pnlACCAllDeviationsReported.TabIndex = 9
         '
         'rdbACCAllDeviationsReportedYes
@@ -2821,7 +2821,7 @@ Public Class SSCPEvents
         'rdbACCAllDeviationsReportedUnknown
         '
         Me.rdbACCAllDeviationsReportedUnknown.AutoSize = True
-        Me.rdbACCAllDeviationsReportedUnknown.Location = New System.Drawing.Point(87, 0)
+        Me.rdbACCAllDeviationsReportedUnknown.Location = New System.Drawing.Point(90, 0)
         Me.rdbACCAllDeviationsReportedUnknown.Name = "rdbACCAllDeviationsReportedUnknown"
         Me.rdbACCAllDeviationsReportedUnknown.Size = New System.Drawing.Size(71, 17)
         Me.rdbACCAllDeviationsReportedUnknown.TabIndex = 30
