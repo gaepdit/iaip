@@ -4,9 +4,14 @@
 
 See the [release notes](README.html).
 
+## Version 2.9.0 <span>(2014-02-26)</span>
+
++ FIX: *SSPP* – Unable to generate acknowledgement email (#185); thx Gany
++ FIX: *SSCP* – Can't submit enforcement to UC or EPA (#183); thx Sean, Mike & Karen
+
 ## Version 2.8.9 <span>(2014-02-11)</span>
 
-+ FIX: *SSCP* – ACC memo does not correctly indicate if previously unreported deviations were reported (#179); thx Msengi Mgonella
++ FIX: *SSCP* – ACC memo does not correctly indicate if previously unreported deviations were reported (#179); thx Msengi
 
 ## Version 2.8.8 <span>(2014-01-31, limited release)</span>
 
@@ -16,7 +21,7 @@ See the [release notes](README.html).
 
 ## Version 2.8.7 <span>(2014-01-23)</span>
 
-+ FIX: *SSPP* – Application Tracking Log does not load data when opened from Navigation Screen (#173); thx Bradley Belflower
++ FIX: *SSPP* – Application Tracking Log does not load data when opened from Navigation Screen (#173); thx Bradley
 
 ## Version 2.8.5 <span>(2014-01-22, limited release)</span>
 
