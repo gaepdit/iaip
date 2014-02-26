@@ -42,7 +42,7 @@ Module App
     End Function
 
     Public Function OpenUri(ByVal uri As Uri, Optional ByVal objectSender As Object = Nothing) As Boolean
-        OpenUri(uri.ToString, objectSender)
+        Return OpenUri(uri.ToString, objectSender)
     End Function
 
 #End Region
