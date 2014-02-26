@@ -44,6 +44,10 @@ Public Class BaseForm
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            'Finally
+            '    If CurrentConnection.State = ConnectionState.Open Then
+            '        CurrentConnection.Close()
+            '    End If
         End Try
     End Sub
 

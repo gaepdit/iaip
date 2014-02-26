@@ -32,22 +32,23 @@
 
             If subject IsNot Nothing Then subjectParam = "subject=" & Uri.EscapeDataString(subject)
             If body IsNot Nothing Then bodyParam = "body=" & Uri.EscapeDataString(body)
-            If recipientsTo IsNot Nothing Then toParam = Uri.EscapeDataString(String.Join(";", recipientsTo))
+            If recipientsTo IsNot Nothing Then toParam = String.Join(";", recipientsTo)
             If recipientsCC IsNot Nothing Then ccParam = "cc=" & Uri.EscapeDataString(String.Join(";", recipientsCC))
             If recipientsBCC IsNot Nothing Then bccParam = "bcc=" & Uri.EscapeDataString(String.Join(";", recipientsBCC))
 
             Dim queryParams As String() = {subjectParam, bodyParam, ccParam, bccParam}
             Dim queryString As String = ConcatNonEmptyStrings("&", queryParams)
-            Dim emailUrl As String = String.Format("mailto:{0}?{1}", toParam, queryString)
+
+            Dim emailUriString As String = String.Format("mailto:{0}?{1}", toParam, queryString)
 
             Dim result As Boolean = False
 
-            If emailUrl.Length < 5000 Then
-                ' The OpenUrl method is preferable, but is limited by URL length, which can be exceeded
+            If emailUriString.Length < 5000 Then
+                ' The OpenUri method is preferable, but is limited by URI length, which can be exceeded
                 ' if a lot of recipients are added
-                result = OpenUrl(emailUrl)
+                result = OpenUri(emailUriString)
             Else
-                ' Failover is to create an Outlook 
+                ' Failover is to create an Outlook Email
                 result = CreateOutlookEmail(subject, body, recipientsTo, recipientsCC, recipientsBCC)
             End If
 

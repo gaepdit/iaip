@@ -1161,7 +1161,7 @@ Public Class IAIPFacilitySummary
 
             Dim url As String = "http://maps.google.com/maps?q=" & StreetAddress & "+" & _
                       City & "+" & State & "+" & ZipCode & "&z=14"
-            OpenUrl(url, Me)
+            OpenUri(url, Me)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1176,7 +1176,7 @@ Public Class IAIPFacilitySummary
 
             If mtbAIRSNumber.Text <> "" Then
                 Dim url As String = "http://airpermit.dnr.state.ga.us/gaairpermits/default.aspx?AirsNumber='" & mtbAIRSNumber.Text & "'"
-                OpenUrl(url, Me)
+                OpenUri(url, Me)
             End If
 
         Catch ex As Exception
