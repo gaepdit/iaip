@@ -15005,16 +15005,16 @@ Public Class SSPPApplicationTrackingLog
             " (Airs No. " & txtAIRSNumber.Text & ") in " & cboFacilityCity.Text & ", GA. " & _
             "After our initial review of the information and technical data in this application, " & _
             "we will notify you if more information is needed to complete " & _
-            "the application so that we can finish our review." & _
+            "the application so that we can finish our review. " & _
             vbNewLine & vbNewLine & _
             "If your company qualifies as a small business (generally those with fewer than 100 employees), " & _
             "you may contact our Small Business Environmental Assistance Program at 404/362-4842 for free and " & _
-            "confidential permitting assistance." & _
+            "confidential permitting assistance. " & _
             vbNewLine & vbNewLine & _
             "To track the status of the air quality permit application, log on to Georgia Environmental " & _
             "Protection Division’s Georgia Environmental Connections Online (GECO) at the web address " & _
             "http://airpermit.dnr.state.ga.us" & _
-            " (registration required) and follow the online instructions." & _
+            " (registration required) and follow the online instructions. " & _
             vbNewLine & vbNewLine & _
             "If you have any questions or concerns regarding your application, please contact me at " & _
             StaffPhone & " or via e-mail at " & StaffEmail & ". Any written correspondence " & _
