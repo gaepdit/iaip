@@ -3846,7 +3846,7 @@ Public Class SscpEnforcement
     End Sub
     Private Sub btnSubmitToUC_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSubmitToUC.Click
         Try
-            If SingleForm IsNot Nothing AndAlso SingleForm(SSCPEnforcementChecklist.Name) IsNot Nothing Then
+            If SingleFormIsOpen(SSCPEnforcementChecklist.Name) Then
                 MsgBox("Please close the linking tool before saving.", MsgBoxStyle.Exclamation, "SSCP Enforcement")
                 Exit Sub
             End If
@@ -3861,7 +3861,7 @@ Public Class SscpEnforcement
     End Sub
     Private Sub btnSubmitEnforcementToEPA_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSubmitEnforcementToEPA.Click
         Try
-            If SingleForm IsNot Nothing AndAlso SingleForm(SSCPEnforcementChecklist.Name) IsNot Nothing Then
+            If SingleFormIsOpen(SSCPEnforcementChecklist.Name) Then
                 MsgBox("Please close the linking tool before saving.", MsgBoxStyle.Exclamation, "SSCP Enforcement")
                 Exit Sub
             End If
