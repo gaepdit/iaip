@@ -1328,12 +1328,10 @@ Public Class SSCPEnforcementChecklist
     Private Sub btnLinkEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLinkEvent.Click
         Try
 
-            If MultiForm(SscpEnforcement.Name)(Me.ID) IsNot Nothing Then
+            If MultiFormIsOpen(SscpEnforcement.Name, Me.ID) Then
                 Dim enf As SscpEnforcement = MultiForm(SscpEnforcement.Name)(Me.ID)
                 enf.txtDiscoveryEventNumber.Text = txtTrackingNumber.Text
                 enf.txtTrackingNumber.Text = txtTrackingNumber.Text
-                'enf.SaveEnforcement()
-                'enf.LoadEnforcement()
             Else
                 Me.Close()
             End If
