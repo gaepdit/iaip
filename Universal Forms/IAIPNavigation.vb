@@ -48,9 +48,9 @@ Public Class IAIPNavigation
 
             EnableTestingEnvironmentOptions()
 
-#If NadcEnabled Then
-            lblTitle.Text = lblTitle.Text & " — " & CurrentConnectionEnvironment.ToString
-#End If
+            If CurrentConnectionEnvironment <> DB.ConnectionEnvironment.Production Then
+                lblTitle.Text = lblTitle.Text & " — " & CurrentConnectionEnvironment.ToString
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
