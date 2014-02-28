@@ -13,9 +13,9 @@ The repository is on [BitBucket](https://bitbucket.org/bgregory/iaip-2008).
 Prerequisites
 -------------
 
-Before you can build the IAIP, you must have several additional tools available in a directory named `_Tools` parallel to the IAIP solution directory like so:
+Before you can build the IAIP, you must have several additional tools available in a directory named `_Common_Libraries` parallel to the IAIP solution directory like so:
 
-```t
+```text
 	⊟ Repositories root directory
     ┃
 	┣─⊞ IAIP solution
@@ -23,7 +23,7 @@ Before you can build the IAIP, you must have several additional tools available 
 	┣─⊟ _Build
 	┃ ┗─⊞ IAIP
     ┃
-	┗─⊟ _Tools
+	┗─⊟ _Common_Libraries
 	   ┣─⊞ 7za
 	   ┣─⊞ 7zsd
 	   ┣─⊞ Eqatec
@@ -32,9 +32,9 @@ Before you can build the IAIP, you must have several additional tools available 
 
 *(It doesn't matter what you name the root directory or the IAIP solution directory.)*
 
-The `_Tools` repository is also on [BitBucket](https://bitbucket.org/dougwaldron/tools-for-vs-and-other-projects).
+The `_Common_Libraries` repository is also on [BitBucket](https://bitbucket.org/dougwaldron/tools-for-vs-and-other-projects).
 
-There are some items in the `_Tools` directory that are not used by the IAIP. Currently required tools are:
+There are some items in the `_Common_Libraries` directory that are not used by the IAIP. Currently required tools are:
 
 + [7za](http://sourceforge.net/projects/sevenzip/files/7-Zip/9.20/) (7-zip command line, version 9.20)
 + [7zSD extra](http://7zsfx.info/en/download.html) (Modified SFX module, 1.5 Release)
