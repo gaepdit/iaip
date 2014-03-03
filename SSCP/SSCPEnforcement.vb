@@ -2077,6 +2077,10 @@ Public Class SscpEnforcement
     End Sub
     Sub OpenChecklist()
         Try
+            If txtEnforcementNumber.Text = "" OrElse txtEnforcementNumber.Text = "N/A" Then
+                MsgBox("Please save the current enforcement before linking a Discovery Event.", MsgBoxStyle.Exclamation, "SSCP Enforcement")
+                Exit Sub
+            End If
 
             Dim parameters As New Dictionary(Of String, String)
 
@@ -2590,6 +2594,7 @@ Public Class SscpEnforcement
                     While dr.Read
                         txtEnforcementNumber.Text = dr.Item(0)
                         If Me.ID = -1 Then
+                            Me.ID = CInt(txtEnforcementNumber.Text)
                             MultiForm(Me.Name).ChangeKey(-1, CInt(txtEnforcementNumber.Text))
                         End If
                     End While
