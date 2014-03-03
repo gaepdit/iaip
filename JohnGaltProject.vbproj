@@ -1882,14 +1882,15 @@ C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(
 del "$(TargetDir)docs\*.md"
 del "$(TargetDir)docs\scripts.html"
 cd "$TargetDir"
-"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.7z" "JohnGaltProject.exe" "gaSeal.ico" "Oracle.DataAccess.dll" "docs\*.*" -mx=7
-"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update.full.7z" "JohnGaltProject.exe" "*.dll" "*.ora" "gaSeal.ico" "docs\*.*" -mx=7
-copy /b "$(TargetDir)IAIP-Updater\7zsd_All.sfx" + "$(TargetDir)IAIP-Updater\config.txt" + "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.7z" "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.exe"
+"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update.partial.7z" "JohnGaltProject.exe" "docs\*.*" -mx=7
+"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update.full.7z" "JohnGaltProject.exe" "*.dll" "*.ora" "*.ico" "docs\*.*" -mx=7
+copy /b "$(TargetDir)IAIP-Updater\7zsd_All.sfx" + "$(TargetDir)IAIP-Updater\config.txt" + "$(TargetDir)IAIP-Updater\IAIP.update.partial.7z" "$(TargetDir)IAIP-Updater\IAIP.update.new.exe"
 copy /b "$(TargetDir)IAIP-Updater\7zsd_All.sfx" + "$(TargetDir)IAIP-Updater\config.txt" + "$(TargetDir)IAIP-Updater\IAIP.update.full.7z" "$(TargetDir)IAIP-Updater\IAIP.update.exe"
 copy /b "$(TargetDir)IAIP-Updater\IAIP.update.exe" "$(TargetDir)IAIP-Updater\IAIP_Update.exe"
+copy /b "$(TargetDir)IAIP-Updater\IAIP.update.exe" "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.exe"
 copy /b "$(TargetDir)IAIP-Updater\IAIP.update.exe" "$(TargetDir)IAIP-Updater\iaip.exe"
 del "$(TargetDir)IAIP-Updater\IAIP.update.full.7z"
-del "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.7z"
+del "$(TargetDir)IAIP-Updater\IAIP.update.partial.7z"
 del "$(TargetDir)IAIP-Updater\config.txt"
 del "$(TargetDir)IAIP-Updater\7zsd_All.sfx"
 del "$(TargetDir)IAIP-Updater\make-sfx.bat"
