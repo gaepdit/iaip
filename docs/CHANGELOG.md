@@ -4,7 +4,7 @@
 
 See the [release notes](README.html).
 
-## Version 2.9.1 <span>(2014-03-03)</span>
+## Version 2.9.2 <span>(2014-03-03)</span>
 
 + FIX: *SSCP* – Can't link to discovery event from brand new enforcement (#190); thx Sherry
 + FIX: Don't display connection environment on Navigation Screen for normal connections
