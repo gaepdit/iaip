@@ -22,7 +22,7 @@ Module subMain
 
     Friend Const AppName As String = "IAIP"
     Friend HelpUrl As New Uri("https://sites.google.com/site/iaipdocs/")
-    Friend DownloadUrl As New Uri("http://airpermit.dnr.state.ga.us/iaip/IAIP.update2_6_4.exe")
+    Friend DownloadUrl As New Uri("http://airpermit.dnr.state.ga.us/iaip/IAIP.update.new.exe")
     Friend AboutUrl As New Uri(Path.GetDirectoryName(Application.ExecutablePath) & "\docs\ABOUT.html")
     Friend DateFormat As String = "dd-MMM-yyyy"
     Friend TodayString As String = Format(Date.Today, DateFormat)
