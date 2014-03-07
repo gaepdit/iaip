@@ -20,7 +20,7 @@ Module App
     Public Sub OpenAboutUrl(Optional ByVal objectSender As Object = Nothing)
         monitor.TrackFeature("Url.OpenAbout")
 
-        CreateVersionFile()
+        'CreateVersionFile()
         OpenUri(AboutUrl, objectSender)
     End Sub
 
@@ -54,53 +54,53 @@ Module App
     Friend ReleaseDate As New DateTime(1970, 1, 1, 0, 0, 0)
     Friend VersionFileUpdated As Boolean = False
 
-    Private Sub CreateVersionFile()
-        If Not VersionFileUpdated Then
-            Dim ThisReleaseDate As String = RetrieveLinkerTimestamp(Application.ExecutablePath).ToString("MMMM d, yyyy")
-            Dim ThisVersion As String = GetCurrentVersionAsBuild.ToString
-            Dim VersionFilePath As String = Path.GetDirectoryName(Application.ExecutablePath) & "\docs\version.js"
+    'Private Sub CreateVersionFile()
+    '    If Not VersionFileUpdated Then
+    '        Dim ThisReleaseDate As String = RetrieveLinkerTimestamp(Application.ExecutablePath).ToString("MMMM d, yyyy")
+    '        Dim ThisVersion As String = GetCurrentVersionAsBuild.ToString
+    '        Dim VersionFilePath As String = Path.GetDirectoryName(Application.ExecutablePath) & "\docs\version.js"
 
-            Dim FileContents As String = _
-                "var version = {" & _
-                    "'number' : '" & ThisVersion & "'," & _
-                    "'releaseDate' : '" & ThisReleaseDate & "'" & _
-                "}"
+    '        Dim FileContents As String = _
+    '            "var version = {" & _
+    '                "'number' : '" & ThisVersion & "'," & _
+    '                "'releaseDate' : '" & ThisReleaseDate & "'" & _
+    '            "}"
 
-            Dim sw As StreamWriter = Nothing
-            Try
-                sw = File.CreateText(VersionFilePath)
-                sw.WriteLine(FileContents)
-                sw.Flush()
-                sw.Close()
-                VersionFileUpdated = True
-            Finally
-                If Not sw Is Nothing Then sw.Close()
-            End Try
-        End If
-    End Sub
+    '        Dim sw As StreamWriter = Nothing
+    '        Try
+    '            sw = File.CreateText(VersionFilePath)
+    '            sw.WriteLine(FileContents)
+    '            sw.Flush()
+    '            sw.Close()
+    '            VersionFileUpdated = True
+    '        Finally
+    '            If Not sw Is Nothing Then sw.Close()
+    '        End Try
+    '    End If
+    'End Sub
 
-    Private Function RetrieveLinkerTimestamp(ByVal filePath As String) As DateTime
-        If ReleaseDate = New DateTime(1970, 1, 1, 0, 0, 0) Then
-            Const PeHeaderOffset As Integer = 60
-            Const LinkerTimestampOffset As Integer = 8
+    'Private Function RetrieveLinkerTimestamp(ByVal filePath As String) As DateTime
+    '    If ReleaseDate = New DateTime(1970, 1, 1, 0, 0, 0) Then
+    '        Const PeHeaderOffset As Integer = 60
+    '        Const LinkerTimestampOffset As Integer = 8
 
-            Dim b(2047) As Byte
-            Dim s As Stream = Nothing
-            Try
-                s = New FileStream(filePath, FileMode.Open, FileAccess.Read)
-                s.Read(b, 0, 2048)
-            Finally
-                If Not s Is Nothing Then s.Close()
-            End Try
+    '        Dim b(2047) As Byte
+    '        Dim s As Stream = Nothing
+    '        Try
+    '            s = New FileStream(filePath, FileMode.Open, FileAccess.Read)
+    '            s.Read(b, 0, 2048)
+    '        Finally
+    '            If Not s Is Nothing Then s.Close()
+    '        End Try
 
-            Dim i As Integer = BitConverter.ToInt32(b, PeHeaderOffset)
+    '        Dim i As Integer = BitConverter.ToInt32(b, PeHeaderOffset)
 
-            Dim SecondsSince1970 As Integer = BitConverter.ToInt32(b, i + LinkerTimestampOffset)
-            ReleaseDate = ReleaseDate.AddSeconds(SecondsSince1970)
-            ReleaseDate = ReleaseDate.AddHours(TimeZone.CurrentTimeZone.GetUtcOffset(ReleaseDate).Hours)
-        End If
-        Return ReleaseDate
-    End Function
+    '        Dim SecondsSince1970 As Integer = BitConverter.ToInt32(b, i + LinkerTimestampOffset)
+    '        ReleaseDate = ReleaseDate.AddSeconds(SecondsSince1970)
+    '        ReleaseDate = ReleaseDate.AddHours(TimeZone.CurrentTimeZone.GetUtcOffset(ReleaseDate).Hours)
+    '    End If
+    '    Return ReleaseDate
+    'End Function
 
     Public Function GetRunningVersion() As Version
         ' This is the currently installed (running) version

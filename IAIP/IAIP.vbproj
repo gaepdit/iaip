@@ -54,8 +54,8 @@
     <MinimumRequiredVersion>3.0.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>IAIPInstall.htm</WebPage>
-    <ApplicationRevision>14</ApplicationRevision>
-    <ApplicationVersion>3.0.0.14</ApplicationVersion>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -188,7 +188,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="docs\CHANGELOG.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="DataSet\dsIAIP10.xsc">
       <DependentUpon>dsIAIP10.xsd</DependentUpon>
@@ -1595,7 +1594,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="docs\ABOUT.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="IAIP_TemporaryKey.pfx" />
     <Content Include="..\..\_Common_Libraries\Oracle\x86\instantclient\oci.dll">
@@ -1614,23 +1612,12 @@
       <Link>OraOps11w.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="docs\Post-build Events.txt">
-    </None>
-    <None Include="docs\style.css">
+    <None Include="docs\Build Events.txt" />
+    <Content Include="docs\style.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="docs\CHANGELOG.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="docs\ABOUT.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="docs\script.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="docs\scripts.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
+    <Content Include="docs\ABOUT.html" />
+    <Content Include="docs\CHANGELOG.html" />
     <Content Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -1805,19 +1792,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-    <PostBuildEvent>if $(ConfigurationName) == Debug (
-REM Debug build -----
-C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(TargetDir)docs\ABOUT.html" -c "style.css" -A "$(TargetDir)docs\scripts.html" "$(TargetDir)docs\ABOUT.md"
-C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(TargetDir)docs\CHANGELOG.html" -c "style.css" "$(TargetDir)docs\CHANGELOG.md"
-) ELSE (
-REM Release build -----
-C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(TargetDir)docs\ABOUT.html" -c "style.css" -A "$(TargetDir)docs\scripts.html" "$(TargetDir)docs\ABOUT.md"
-C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(TargetDir)docs\CHANGELOG.html" -c "style.css" "$(TargetDir)docs\CHANGELOG.md"
-del "$(TargetDir)docs\*.md"
-del "$(TargetDir)docs\scripts.html"
-copy /b "$(TargetDir)IAIP-Updater\IAIP.update.exe" "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.exe"
-)</PostBuildEvent>
+    <PreBuildEvent>C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(ProjectDir)docs\ABOUT.html" -c "style.css" "$(ProjectDir)docs\ABOUT.md"
+C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(ProjectDir)docs\CHANGELOG.html" -c "style.css" "$(ProjectDir)docs\CHANGELOG.md"
+</PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
