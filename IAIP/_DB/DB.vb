@@ -95,6 +95,7 @@ Namespace DB
         ''' </summary>
         ''' <returns>A database connection string</returns>
         ''' <remarks></remarks>
+        <DebuggerStepThrough()> _
         Public Function GetCurrentConnectionString() As String
             Return GetConnectionString(CurrentConnectionEnvironment)
         End Function

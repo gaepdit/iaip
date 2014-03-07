@@ -5,6 +5,7 @@ Imports System.Text
 Module Encryption
 
     ' This is the function used to "hide" the database password in code
+    <DebuggerStepThrough()> _
     Public Function SimpleCrypt(ByVal Text As String) As String
         ' Encrypts/decrypts the passed string using
         ' a simple ASCII value-swapping algorithm

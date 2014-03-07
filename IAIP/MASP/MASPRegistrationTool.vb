@@ -878,7 +878,7 @@ Public Class MASPRegistrationTool
 
             Dim url As String = "http://maps.google.com/maps?q=" & StreetAddress & "+" & _
                       City & "+" & State & "+" & ZipCode & "&z=14"
-            OpenUrl(url, Me)
+            OpenUri(url, Me)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

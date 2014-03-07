@@ -2077,6 +2077,10 @@ Public Class SscpEnforcement
     End Sub
     Sub OpenChecklist()
         Try
+            If txtEnforcementNumber.Text = "" OrElse txtEnforcementNumber.Text = "N/A" Then
+                MsgBox("Please save the current enforcement before linking a Discovery Event.", MsgBoxStyle.Exclamation, "SSCP Enforcement")
+                Exit Sub
+            End If
 
             Dim parameters As New Dictionary(Of String, String)
 
@@ -2590,6 +2594,7 @@ Public Class SscpEnforcement
                     While dr.Read
                         txtEnforcementNumber.Text = dr.Item(0)
                         If Me.ID = -1 Then
+                            Me.ID = CInt(txtEnforcementNumber.Text)
                             MultiForm(Me.Name).ChangeKey(-1, CInt(txtEnforcementNumber.Text))
                         End If
                     End While
@@ -3846,7 +3851,7 @@ Public Class SscpEnforcement
     End Sub
     Private Sub btnSubmitToUC_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSubmitToUC.Click
         Try
-            If SingleForm IsNot Nothing AndAlso SingleForm(SSCPEnforcementChecklist.Name) IsNot Nothing Then
+            If SingleFormIsOpen(SSCPEnforcementChecklist.Name) Then
                 MsgBox("Please close the linking tool before saving.", MsgBoxStyle.Exclamation, "SSCP Enforcement")
                 Exit Sub
             End If
@@ -3861,7 +3866,7 @@ Public Class SscpEnforcement
     End Sub
     Private Sub btnSubmitEnforcementToEPA_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSubmitEnforcementToEPA.Click
         Try
-            If SingleForm IsNot Nothing AndAlso SingleForm(SSCPEnforcementChecklist.Name) IsNot Nothing Then
+            If SingleFormIsOpen(SSCPEnforcementChecklist.Name) Then
                 MsgBox("Please close the linking tool before saving.", MsgBoxStyle.Exclamation, "SSCP Enforcement")
                 Exit Sub
             End If

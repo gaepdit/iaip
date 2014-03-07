@@ -9,27 +9,28 @@ Module App
 
     Public Sub OpenHelpUrl(Optional ByVal objectSender As Object = Nothing)
         monitor.TrackFeature("Url.OpenHelp")
-        OpenUrl(HelpUrl, objectSender)
+        OpenUri(HelpUrl, objectSender)
     End Sub
 
     'Public Sub OpenDownloadUrl(Optional ByVal objectSender As Object = Nothing)
     '    monitor.TrackFeature("Url.OpenDownload")
-    '    OpenUrl(DownloadUrl, objectSender)
+    '    OpenUri(DownloadUrl, objectSender)
     'End Sub
 
     Public Sub OpenAboutUrl(Optional ByVal objectSender As Object = Nothing)
         monitor.TrackFeature("Url.OpenAbout")
 
         CreateVersionFile()
-        OpenUrl(AboutUrl, objectSender)
+        OpenUri(AboutUrl, objectSender)
     End Sub
 
-    Public Function OpenUrl(ByVal url As String, Optional ByVal objectSender As Object = Nothing) As Boolean
+    Public Function OpenUri(ByVal uriString As String, Optional ByVal objectSender As Object = Nothing) As Boolean
         ' Reference: http://code.logos.com/blog/2008/01/using_processstart_to_link_to.html
         Try
             If objectSender IsNot Nothing Then objectSender.Cursor = Cursors.AppStarting
-            If url Is Nothing OrElse Not UrlIsValid(url) Then Return False
-            Process.Start(url)
+            If uriString Is Nothing OrElse uriString = "" Then Return False
+
+            Process.Start(uriString)
             Return True
         Catch ee As Exception When _
         TypeOf ee Is System.ComponentModel.Win32Exception OrElse _
@@ -41,17 +42,8 @@ Module App
         End Try
     End Function
 
-    Public Function UrlIsValid(ByVal url As String) As Boolean
-        Dim response As Net.HttpWebResponse = Nothing
-        Try
-            Dim request As Net.HttpWebRequest = Net.WebRequest.Create(url)
-            response = request.GetResponse()
-        Catch ex As Exception
-            Return False
-        Finally
-            If response IsNot Nothing Then response.Close()
-        End Try
-        Return True
+    Public Function OpenUri(ByVal uri As Uri, Optional ByVal objectSender As Object = Nothing) As Boolean
+        Return OpenUri(uri.ToString, objectSender)
     End Function
 
 #End Region
@@ -157,7 +149,6 @@ Module App
     '                Catch ee As OracleException
     '                    'MessageBox.Show("Could not connect to the database.")
     '                    publishedVersionString = "0.0.0.0"
-    '                End Try
     '            End Using
     '        End Using
 

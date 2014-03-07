@@ -152,12 +152,12 @@ Public Class SSCPEvents
     Friend WithEvents Panel14 As System.Windows.Forms.Panel
     Friend WithEvents Label56 As System.Windows.Forms.Label
     Friend WithEvents Panel15 As System.Windows.Forms.Panel
-    Friend WithEvents Label69 As System.Windows.Forms.Label
+    Friend WithEvents lblACCPreviouslyUnreportedDeviations As System.Windows.Forms.Label
     Friend WithEvents Label44 As System.Windows.Forms.Label
     Friend WithEvents txtACCComments As System.Windows.Forms.TextBox
     Friend WithEvents wrnACCPreviousDeviations As System.Windows.Forms.Label
-    Friend WithEvents rdbACCPreviousDeviationsYes As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbACCPreviousDeviationsNo As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbACCPreviouslyUnreportedDeviationsYes As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbACCPreviouslyUnreportedDeviationsNo As System.Windows.Forms.RadioButton
     Friend WithEvents wrnACCDeviationsReported As System.Windows.Forms.Label
     Friend WithEvents rdbACCDeviationsReportedYes As System.Windows.Forms.RadioButton
     Friend WithEvents rdbACCDeviationsReportedNo As System.Windows.Forms.RadioButton
@@ -481,9 +481,9 @@ Public Class SSCPEvents
         Me.txtACCComments = New System.Windows.Forms.TextBox
         Me.wrnACCPreviousDeviations = New System.Windows.Forms.Label
         Me.Panel15 = New System.Windows.Forms.Panel
-        Me.rdbACCPreviousDeviationsYes = New System.Windows.Forms.RadioButton
-        Me.rdbACCPreviousDeviationsNo = New System.Windows.Forms.RadioButton
-        Me.Label69 = New System.Windows.Forms.Label
+        Me.rdbACCPreviouslyUnreportedDeviationsYes = New System.Windows.Forms.RadioButton
+        Me.rdbACCPreviouslyUnreportedDeviationsNo = New System.Windows.Forms.RadioButton
+        Me.lblACCPreviouslyUnreportedDeviations = New System.Windows.Forms.Label
         Me.wrnACCDeviationsReported = New System.Windows.Forms.Label
         Me.Panel14 = New System.Windows.Forms.Panel
         Me.rdbACCDeviationsReportedYes = New System.Windows.Forms.RadioButton
@@ -2271,7 +2271,7 @@ Public Class SSCPEvents
         Me.Panel20.Controls.Add(Me.txtACCComments)
         Me.Panel20.Controls.Add(Me.wrnACCPreviousDeviations)
         Me.Panel20.Controls.Add(Me.Panel15)
-        Me.Panel20.Controls.Add(Me.Label69)
+        Me.Panel20.Controls.Add(Me.lblACCPreviouslyUnreportedDeviations)
         Me.Panel20.Controls.Add(Me.wrnACCDeviationsReported)
         Me.Panel20.Controls.Add(Me.Panel14)
         Me.Panel20.Controls.Add(Me.Label56)
@@ -2593,37 +2593,37 @@ Public Class SSCPEvents
         '
         'Panel15
         '
-        Me.Panel15.Controls.Add(Me.rdbACCPreviousDeviationsYes)
-        Me.Panel15.Controls.Add(Me.rdbACCPreviousDeviationsNo)
+        Me.Panel15.Controls.Add(Me.rdbACCPreviouslyUnreportedDeviationsYes)
+        Me.Panel15.Controls.Add(Me.rdbACCPreviouslyUnreportedDeviationsNo)
         Me.Panel15.Location = New System.Drawing.Point(236, 184)
         Me.Panel15.Name = "Panel15"
         Me.Panel15.Size = New System.Drawing.Size(96, 16)
         Me.Panel15.TabIndex = 8
         '
-        'rdbACCPreviousDeviationsYes
+        'rdbACCPreviouslyUnreportedDeviationsYes
         '
-        Me.rdbACCPreviousDeviationsYes.Location = New System.Drawing.Point(0, 0)
-        Me.rdbACCPreviousDeviationsYes.Name = "rdbACCPreviousDeviationsYes"
-        Me.rdbACCPreviousDeviationsYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbACCPreviousDeviationsYes.TabIndex = 0
-        Me.rdbACCPreviousDeviationsYes.Text = "Yes"
+        Me.rdbACCPreviouslyUnreportedDeviationsYes.Location = New System.Drawing.Point(0, 0)
+        Me.rdbACCPreviouslyUnreportedDeviationsYes.Name = "rdbACCPreviouslyUnreportedDeviationsYes"
+        Me.rdbACCPreviouslyUnreportedDeviationsYes.Size = New System.Drawing.Size(48, 16)
+        Me.rdbACCPreviouslyUnreportedDeviationsYes.TabIndex = 0
+        Me.rdbACCPreviouslyUnreportedDeviationsYes.Text = "Yes"
         '
-        'rdbACCPreviousDeviationsNo
+        'rdbACCPreviouslyUnreportedDeviationsNo
         '
-        Me.rdbACCPreviousDeviationsNo.Location = New System.Drawing.Point(48, 0)
-        Me.rdbACCPreviousDeviationsNo.Name = "rdbACCPreviousDeviationsNo"
-        Me.rdbACCPreviousDeviationsNo.Size = New System.Drawing.Size(48, 16)
-        Me.rdbACCPreviousDeviationsNo.TabIndex = 20
-        Me.rdbACCPreviousDeviationsNo.Text = "No"
+        Me.rdbACCPreviouslyUnreportedDeviationsNo.Location = New System.Drawing.Point(48, 0)
+        Me.rdbACCPreviouslyUnreportedDeviationsNo.Name = "rdbACCPreviouslyUnreportedDeviationsNo"
+        Me.rdbACCPreviouslyUnreportedDeviationsNo.Size = New System.Drawing.Size(48, 16)
+        Me.rdbACCPreviouslyUnreportedDeviationsNo.TabIndex = 20
+        Me.rdbACCPreviouslyUnreportedDeviationsNo.Text = "No"
         '
-        'Label69
+        'lblACCPreviouslyUnreportedDeviations
         '
-        Me.Label69.AutoSize = True
-        Me.Label69.Location = New System.Drawing.Point(15, 186)
-        Me.Label69.Name = "Label69"
-        Me.Label69.Size = New System.Drawing.Size(215, 13)
-        Me.Label69.TabIndex = 129
-        Me.Label69.Text = "Reported deviations not previously reported:"
+        Me.lblACCPreviouslyUnreportedDeviations.AutoSize = True
+        Me.lblACCPreviouslyUnreportedDeviations.Location = New System.Drawing.Point(15, 186)
+        Me.lblACCPreviouslyUnreportedDeviations.Name = "lblACCPreviouslyUnreportedDeviations"
+        Me.lblACCPreviouslyUnreportedDeviations.Size = New System.Drawing.Size(215, 13)
+        Me.lblACCPreviouslyUnreportedDeviations.TabIndex = 129
+        Me.lblACCPreviouslyUnreportedDeviations.Text = "Reported deviations not previously reported:"
         '
         'wrnACCDeviationsReported
         '
@@ -2807,7 +2807,7 @@ Public Class SSCPEvents
         Me.pnlACCAllDeviationsReported.Controls.Add(Me.rdbACCAllDeviationsReportedNo)
         Me.pnlACCAllDeviationsReported.Location = New System.Drawing.Point(236, 207)
         Me.pnlACCAllDeviationsReported.Name = "pnlACCAllDeviationsReported"
-        Me.pnlACCAllDeviationsReported.Size = New System.Drawing.Size(161, 24)
+        Me.pnlACCAllDeviationsReported.Size = New System.Drawing.Size(164, 24)
         Me.pnlACCAllDeviationsReported.TabIndex = 9
         '
         'rdbACCAllDeviationsReportedYes
@@ -2821,7 +2821,7 @@ Public Class SSCPEvents
         'rdbACCAllDeviationsReportedUnknown
         '
         Me.rdbACCAllDeviationsReportedUnknown.AutoSize = True
-        Me.rdbACCAllDeviationsReportedUnknown.Location = New System.Drawing.Point(87, 0)
+        Me.rdbACCAllDeviationsReportedUnknown.Location = New System.Drawing.Point(90, 0)
         Me.rdbACCAllDeviationsReportedUnknown.Name = "rdbACCAllDeviationsReportedUnknown"
         Me.rdbACCAllDeviationsReportedUnknown.Size = New System.Drawing.Size(71, 17)
         Me.rdbACCAllDeviationsReportedUnknown.TabIndex = 30
@@ -3650,8 +3650,8 @@ Public Class SSCPEvents
             rdbACCCorrectNo.Enabled = False
             rdbACCDeviationsReportedYes.Enabled = False
             rdbACCDeviationsReportedNo.Enabled = False
-            rdbACCPreviousDeviationsYes.Enabled = False
-            rdbACCPreviousDeviationsNo.Enabled = False
+            rdbACCPreviouslyUnreportedDeviationsYes.Enabled = False
+            rdbACCPreviouslyUnreportedDeviationsNo.Enabled = False
             DTPACCPostmarked.Enabled = False
             dtpAccReportingYear.Enabled = False
             txtACCComments.ReadOnly = True
@@ -3740,8 +3740,8 @@ Public Class SSCPEvents
                 rdbACCCorrectNo.Enabled = False
                 rdbACCDeviationsReportedYes.Enabled = False
                 rdbACCDeviationsReportedNo.Enabled = False
-                rdbACCPreviousDeviationsYes.Enabled = False
-                rdbACCPreviousDeviationsNo.Enabled = False
+                rdbACCPreviouslyUnreportedDeviationsYes.Enabled = False
+                rdbACCPreviouslyUnreportedDeviationsNo.Enabled = False
                 rdbACCEnforcementNeededYes.Enabled = False
                 rdbACCEnforcementNeededNo.Enabled = False
                 rdbACCResubmittalRequestedYes.Enabled = False
@@ -3765,8 +3765,8 @@ Public Class SSCPEvents
                 rdbACCCorrectNo.Enabled = True
                 rdbACCDeviationsReportedYes.Enabled = True
                 rdbACCDeviationsReportedNo.Enabled = True
-                rdbACCPreviousDeviationsYes.Enabled = True
-                rdbACCPreviousDeviationsNo.Enabled = True
+                rdbACCPreviouslyUnreportedDeviationsYes.Enabled = True
+                rdbACCPreviouslyUnreportedDeviationsNo.Enabled = True
                 rdbACCEnforcementNeededYes.Enabled = True
                 rdbACCEnforcementNeededNo.Enabled = True
                 rdbACCResubmittalRequestedYes.Enabled = True
@@ -4317,7 +4317,7 @@ Public Class SSCPEvents
                 Else
                     ReportedDeviations = "False"
                 End If
-                If rdbACCPreviousDeviationsYes.Checked = True Then
+                If rdbACCPreviouslyUnreportedDeviationsYes.Checked = True Then
                     ReportedUnReportedDeviations = "True"
                 Else
                     ReportedUnReportedDeviations = "False"
@@ -5516,11 +5516,11 @@ Public Class SSCPEvents
                     End If
                     ReportedUnReportedDeviations = dr.Item("strDeviationsUnreported")
                     If ReportedUnReportedDeviations = "True" Then
-                        rdbACCPreviousDeviationsYes.Checked = True
-                        rdbACCPreviousDeviationsNo.Checked = False
+                        rdbACCPreviouslyUnreportedDeviationsYes.Checked = True
+                        rdbACCPreviouslyUnreportedDeviationsNo.Checked = False
                     Else
-                        rdbACCPreviousDeviationsYes.Checked = False
-                        rdbACCPreviousDeviationsNo.Checked = True
+                        rdbACCPreviouslyUnreportedDeviationsYes.Checked = False
+                        rdbACCPreviouslyUnreportedDeviationsNo.Checked = True
                     End If
                     ACCComments = dr.Item("strcomments")
                     If ACCComments = "N/A" Then
@@ -5591,8 +5591,8 @@ Public Class SSCPEvents
                     rdbACCCorrectNo.Enabled = False
                     rdbACCDeviationsReportedYes.Enabled = False
                     rdbACCDeviationsReportedNo.Enabled = False
-                    rdbACCPreviousDeviationsYes.Enabled = False
-                    rdbACCPreviousDeviationsNo.Enabled = False
+                    rdbACCPreviouslyUnreportedDeviationsYes.Enabled = False
+                    rdbACCPreviouslyUnreportedDeviationsNo.Enabled = False
                     rdbACCEnforcementNeededYes.Enabled = False
                     rdbACCEnforcementNeededNo.Enabled = False
                     dtpAccReportingYear.Enabled = False
@@ -5617,8 +5617,8 @@ Public Class SSCPEvents
                     rdbACCCorrectNo.Enabled = True
                     rdbACCDeviationsReportedYes.Enabled = True
                     rdbACCDeviationsReportedNo.Enabled = True
-                    rdbACCPreviousDeviationsYes.Enabled = True
-                    rdbACCPreviousDeviationsNo.Enabled = True
+                    rdbACCPreviouslyUnreportedDeviationsYes.Enabled = True
+                    rdbACCPreviouslyUnreportedDeviationsNo.Enabled = True
                     rdbACCEnforcementNeededYes.Enabled = True
                     rdbACCEnforcementNeededNo.Enabled = True
                     DTPACCPostmarked.Enabled = True
@@ -5734,11 +5734,11 @@ Public Class SSCPEvents
                     End If
                     ReportedUnReportedDeviations = dr.Item("strDeviationsUnreported")
                     If ReportedUnReportedDeviations = "True" Then
-                        rdbACCPreviousDeviationsYes.Checked = True
-                        rdbACCPreviousDeviationsNo.Checked = False
+                        rdbACCPreviouslyUnreportedDeviationsYes.Checked = True
+                        rdbACCPreviouslyUnreportedDeviationsNo.Checked = False
                     Else
-                        rdbACCPreviousDeviationsYes.Checked = False
-                        rdbACCPreviousDeviationsNo.Checked = True
+                        rdbACCPreviouslyUnreportedDeviationsYes.Checked = False
+                        rdbACCPreviouslyUnreportedDeviationsNo.Checked = True
                     End If
                     ACCComments = dr.Item("strcomments")
                     If ACCComments = "N/A" Then
@@ -5803,8 +5803,8 @@ Public Class SSCPEvents
                     rdbACCCorrectNo.Enabled = False
                     rdbACCDeviationsReportedYes.Enabled = False
                     rdbACCDeviationsReportedNo.Enabled = False
-                    rdbACCPreviousDeviationsYes.Enabled = False
-                    rdbACCPreviousDeviationsNo.Enabled = False
+                    rdbACCPreviouslyUnreportedDeviationsYes.Enabled = False
+                    rdbACCPreviouslyUnreportedDeviationsNo.Enabled = False
                     rdbACCEnforcementNeededYes.Enabled = False
                     rdbACCEnforcementNeededNo.Enabled = False
                     rdbACCAllDeviationsReportedYes.Enabled = False
@@ -5829,8 +5829,8 @@ Public Class SSCPEvents
                     rdbACCCorrectNo.Enabled = True
                     rdbACCDeviationsReportedYes.Enabled = True
                     rdbACCDeviationsReportedNo.Enabled = True
-                    rdbACCPreviousDeviationsYes.Enabled = True
-                    rdbACCPreviousDeviationsNo.Enabled = True
+                    rdbACCPreviouslyUnreportedDeviationsYes.Enabled = True
+                    rdbACCPreviouslyUnreportedDeviationsNo.Enabled = True
                     rdbACCEnforcementNeededYes.Enabled = True
                     rdbACCEnforcementNeededNo.Enabled = True
                     rdbACCAllDeviationsReportedYes.Enabled = True
@@ -6539,7 +6539,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbACCPreviousDeviationsYes_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbACCPreviousDeviationsYes.Validating
+    Private Sub rdbACCPreviousDeviationsYes_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbACCPreviouslyUnreportedDeviationsYes.Validating
         Try
 
             ValidatePreviouslyReportedDeviations()
@@ -6550,7 +6550,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbACCPreviousDeviationsNo_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbACCPreviousDeviationsNo.Validating
+    Private Sub rdbACCPreviousDeviationsNo_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbACCPreviouslyUnreportedDeviationsNo.Validating
         Try
 
             ValidatePreviouslyReportedDeviations()
@@ -6891,7 +6891,7 @@ Public Class SSCPEvents
     Sub ValidatePreviouslyReportedDeviations()
         Try
 
-            If rdbACCPreviousDeviationsYes.Checked = False And rdbACCPreviousDeviationsNo.Checked = False Then
+            If rdbACCPreviouslyUnreportedDeviationsYes.Checked = False And rdbACCPreviouslyUnreportedDeviationsNo.Checked = False Then
                 wrnACCPreviousDeviations.Visible = True
             Else
                 wrnACCPreviousDeviations.Visible = False
@@ -7381,6 +7381,7 @@ Public Class SSCPEvents
             .ResubmittalRequested = rdbACCResubmittalRequestedYes.Checked
             .SignedByResponsibleOfficial = rdbACCROYes.Checked
             .StaffResponsible = DAL.GetStaffInfoById(cboStaffResponsible.SelectedValue)
+            .UnreportedDeviationsReported = rdbACCPreviouslyUnreportedDeviationsYes.Checked
         End With
 
         Return thisAcc

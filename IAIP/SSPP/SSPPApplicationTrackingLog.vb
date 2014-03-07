@@ -14406,7 +14406,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
             End Select
 
-            If URL <> "" Then OpenUrl(URL, Me)
+            If URL <> "" Then OpenUri(URL, Me)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -14928,10 +14928,7 @@ Public Class SSPPApplicationTrackingLog
         End Try
     End Sub
     Private Sub MmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiHelp.Click
-        Try
-            Help.ShowHelp(Label1, HelpUrl)
-        Catch ex As Exception
-        End Try
+        OpenHelpUrl(Me)
     End Sub
     Private Sub btnAcknowledgementLetter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAcknowledgementLetter.Click
         Try
@@ -15008,23 +15005,21 @@ Public Class SSPPApplicationTrackingLog
             " (Airs No. " & txtAIRSNumber.Text & ") in " & cboFacilityCity.Text & ", GA. " & _
             "After our initial review of the information and technical data in this application, " & _
             "we will notify you if more information is needed to complete " & _
-            "the application so that we can finish our review." & _
+            "the application so that we can finish our review. " & _
             vbNewLine & vbNewLine & _
             "If your company qualifies as a small business (generally those with fewer than 100 employees), " & _
             "you may contact our Small Business Environmental Assistance Program at 404/362-4842 for free and " & _
-            "confidential permitting assistance." & _
+            "confidential permitting assistance. " & _
             vbNewLine & vbNewLine & _
             "To track the status of the air quality permit application, log on to Georgia Environmental " & _
             "Protection Division’s Georgia Environmental Connections Online (GECO) at the web address " & _
             "http://airpermit.dnr.state.ga.us" & _
-            " (registration required) and follow the online instructions." & _
+            " (registration required) and follow the online instructions. " & _
             vbNewLine & vbNewLine & _
             "If you have any questions or concerns regarding your application, please contact me at " & _
             StaffPhone & " or via e-mail at " & StaffEmail & ". Any written correspondence " & _
             "should reference the above application number that has been assigned to this application " & _
             "and the facility's AIRS number."
-
-            'System.Diagnostics.Process.Start("mailto:" & EmailAddress & "?subject=" & Subject & "&body=" & Body)
 
             Dim recipientsTo As String() = {EmailAddress}
             CreateEmail(Subject, Body, recipientsTo, objectSender:=Me)
