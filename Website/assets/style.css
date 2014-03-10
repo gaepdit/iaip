@@ -2,7 +2,7 @@
 /* 2013-10-31 Removed background images */
 body { font-family: Helvetica, arial, sans-serif; font-size: 14px; line-height: 1.6; padding-top: 10px; padding-bottom: 10px; background-color: white; }
 body > *:first-child { margin-top: 0 !important }
-body > *:last-child { margin-bottom: 0 !important }
+
 a { color: #4183C4 }
 a.absent { color: #cc0000 }
 a.anchor { display: block; padding-left: 30px; margin-left: -30px; cursor: pointer; position: absolute; top: 0; left: 0; bottom: 0; }
@@ -84,7 +84,8 @@ table { border-collapse: collapse }
 thead tr { background-color: #f8f8f8 }
 
 header { background: #333; color: #fff; }
-footer { margin: 0 8px; }
+footer { margin: 0 8px; border-top: 1px solid #999; padding-top: 16px; margin-top: 48px; margin-bottom: 16px; 
+	min-height: 100px; padding-bottom: 100px; background: no-repeat bottom right url("dmu-logo.png"); }
 h1, h2, h3, h4, h5, h6 { margin: 24px 0 8px; }
 
 body > * { margin-left: 8px; margin-right: 8px; }
@@ -94,7 +95,7 @@ header h1 { margin: 0; padding: 6px 8px; background: #ADE0A5; color: #333; borde
 abbr[title] { border-bottom: 1px dotted; }
 
 h2 { border-bottom: none; border-top: 1px solid #999; padding-top: 16px; margin-top: 48px; text-shadow: 1px 1px 1px #ddd; clear:both; }
-header + h2{ border-top: none; margin-top: 0; }
+header + h2, nav + h2 { border-top: none; margin-top: 0; }
 h2 a, h3 a { text-decoration:none; }
 
 #TOC { background: #eee; border: 1px solid #bbb; padding: 8px; margin-top: 16px; margin-bottom: 16px; font-size: 12px; float: right; opacity: .6; width: 200px; }
@@ -115,7 +116,7 @@ figure:hover figcaption:before { width: 0; height: 0; box-shadow: none; text-sha
 @media (min-width:600px) {
 	body { font-size: 16px; }
 	body > * { margin-left: 5%; margin-right: 5%; }
-	footer { margin: 0 16px; }
+	footer { margin-left: 16px; margin-right: 16px; }
 	header h1 { padding: 16px 5%; }
 	.byline { padding: 6px 5%; margin-left: 5%; margin-right: 5%; }
 	h1 { font-size: 28px }
@@ -130,7 +131,7 @@ figure:hover figcaption:before { width: 0; height: 0; box-shadow: none; text-sha
 
 @media (min-width:884px) {
 	body > * { margin-left: 32px; margin-right: 32px; }
-	footer { margin: 0 32px; }
+	footer { margin-left: 32px; margin-right: 32px; }
 	header h1 { padding: 16px 32px; }
 	.byline { padding: 6px 32px; margin-left: 32px; margin-right: 32px; }
 	header + h2 { margin-top: 16px; }
