@@ -97,12 +97,12 @@ h2 { border-bottom: none; border-top: 1px solid #999; padding-top: 16px; margin-
 header + h2{ border-top: none; margin-top: 0; }
 h2 a, h3 a { text-decoration:none; }
 
-#TOC { background: #eee; border: 1px solid #bbb; padding: 8px; margin-top: 16px; margin-bottom: 16px; font-size: 12px; float: right; opacity: .6; }
+#TOC { background: #eee; border: 1px solid #bbb; padding: 8px; margin-top: 16px; margin-bottom: 16px; font-size: 12px; float: right; opacity: .6; width: 200px; }
 #TOC:hover { opacity: 1; }
 #TOC ul { margin: 0; list-style: lower-roman; }
 #TOC abbr { border: none; }
 
-aside { background: #f1fbf1; padding: 8px; margin-top: 32px; margin-bottom: 0; clear: both; }
+aside { background: #f1fbf1; padding: 8px; margin-top: 32px; margin-bottom: 0; clear: both; overflow: auto; }
 aside h2 { border: none; margin: 8px 0 8px; padding: 0; }
 
 figure { width: 150px; transition: all .4s ease-in-out; margin: 15px 8px 15px 0; padding: 8px; float: left; position: relative; text-align: center; background: rgba(113, 175, 255, 0.1); border-radius: 5px; }
@@ -114,24 +114,26 @@ figure:hover figcaption:before { width: 0; height: 0; box-shadow: none; text-sha
 
 @media (min-width:600px) {
 	body { font-size: 16px; }
-	body > * { margin-left: 16px; margin-right: 16px; }
+	body > * { margin-left: 5%; margin-right: 5%; }
 	footer { margin: 0 16px; }
-	header h1 { padding: 16px; }
-	.byline { padding: 6px 16px; margin-left: 16px; margin-right: 16px; }
+	header h1 { padding: 16px 5%; }
+	.byline { padding: 6px 5%; margin-left: 5%; margin-right: 5%; }
 	h1 { font-size: 28px }
 	h2 { font-size: 24px }
 	h3 { font-size: 18px }
 	h4 { font-size: 16px }
 	h5 { font-size: 14px }
 	h6 { font-size: 14px; }
-	#TOC { max-width: 30%; margin-top: 32px; margin-bottom: 48px; }
-	aside { float: left; clear: none; margin-bottom: 48px; width: 65%; }
+	#TOC { width: 25%; margin-top: 32px; margin-bottom: 48px; margin-left: 0; }
+	aside { float: left; clear: none; margin-bottom: 48px; width: 60%; margin-right: 5%; }
 }
 
-@media (min-width:824px) {
+@media (min-width:884px) {
 	body > * { margin-left: 32px; margin-right: 32px; }
 	footer { margin: 0 32px; }
 	header h1 { padding: 16px 32px; }
 	.byline { padding: 6px 32px; margin-left: 32px; margin-right: 32px; }
 	header + h2 { margin-top: 16px; }
+	aside { margin-right: 32px; width: 524px; }
+	#TOC { margin-left: 0; width: 200px; }
 }
