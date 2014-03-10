@@ -54,7 +54,9 @@
     Friend Sub FirstRun()
         If Not My.Settings.FirstRun Then Exit Sub
 
+#If Not Debug Then
         DeleteOldShortcuts()
+#End If
 
         My.Settings.FirstRun = False
     End Sub
