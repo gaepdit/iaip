@@ -1,15 +1,14 @@
 % Integrated Air Information Platform
 
-The IAIP was developed by the Data Management Unit in the Georgia Air Protection Branch to collect and organize all the data required to operate an efficient air quality program. Development began in 2004 and is ongoing.
+<div class="intro">
 
+The IAIP was developed by the Data Management Unit in the Georgia Air Protection Branch to collect and organize all the data required to operate an efficient air quality program. IAIP development began in 2004 and is ongoing.
 
-Documentation
--------------
-
-[Installation instructions](/install/) are here.
+Follow the online instructions to [install the IAIP](install/index.html).
 
 Further documentation can be found on the [IAIP Documentation website](https://sites.google.com/site/iaipdocs/).
 
+</div>
 
 Support
 -------

@@ -103,8 +103,8 @@ h2 a, h3 a { text-decoration:none; }
 #TOC ul { margin: 0; list-style: lower-roman; }
 #TOC abbr { border: none; }
 
-aside { background: #f1fbf1; padding: 8px; margin-top: 32px; margin-bottom: 0; clear: both; overflow: auto; }
-aside h2 { border: none; margin: 8px 0 8px; padding: 0; }
+.intro { background: #f1fbf1; padding: 8px; margin-top: 32px; margin-bottom: 0; clear: both; overflow: auto; }
+.intro h2 { border: none; margin: 8px 0 8px; padding: 0; }
 
 figure { width: 150px; transition: all .4s ease-in-out; margin: 15px 8px 15px 0; padding: 8px; float: left; position: relative; text-align: center; background: rgba(113, 175, 255, 0.1); border-radius: 5px; }
 figcaption { transition: all .4s ease-in-out; }
@@ -126,7 +126,7 @@ figure:hover figcaption:before { width: 0; height: 0; box-shadow: none; text-sha
 	h5 { font-size: 14px }
 	h6 { font-size: 14px; }
 	#TOC { width: 25%; margin-top: 32px; margin-bottom: 48px; margin-left: 0; }
-	aside { float: left; clear: none; margin-bottom: 48px; width: 60%; margin-right: 5%; }
+	.intro { float: left; clear: none; margin-bottom: 48px; width: 60%; margin-right: 5%; }
 }
 
 @media (min-width:884px) {
@@ -135,6 +135,6 @@ figure:hover figcaption:before { width: 0; height: 0; box-shadow: none; text-sha
 	header h1 { padding: 16px 32px; }
 	.byline { padding: 6px 32px; margin-left: 32px; margin-right: 32px; }
 	header + h2 { margin-top: 16px; }
-	aside { margin-right: 32px; width: 524px; }
+	.intro { margin-right: 32px; width: 524px; }
 	#TOC { margin-left: 0; width: 200px; }
 }

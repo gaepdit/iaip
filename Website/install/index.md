@@ -1,6 +1,6 @@
 % IAIP Installation Instructions
 
-<aside>
+<div class="intro">
 
 ## Short Summary
 
@@ -8,7 +8,7 @@
 
 Go to the [Installation Page](IAIP-install.html), click the `Install` button, and follow the prompts.
 
-</aside>
+</div>
 
 ## Introduction
 
