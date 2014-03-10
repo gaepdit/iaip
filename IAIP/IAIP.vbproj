@@ -6,7 +6,8 @@
     <ProjectGuid>{B92680E9-391D-4109-993E-53E5B6946E93}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ApplicationIcon>Resources\gaSeal.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
     <AssemblyName>IAIP</AssemblyName>
@@ -38,7 +39,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <PublishUrl>ftp://167.193.56.178/AirPermit/IAIP/install/</PublishUrl>
+    <PublishUrl>ftp://167.193.56.178/AirPermit/IAIP/test/install/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -48,14 +49,14 @@
     <UpdatePeriodically>true</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://airpermit.dnr.state.ga.us/iaip/install/</InstallUrl>
+    <InstallUrl>http://airpermit.dnr.state.ga.us/iaip/test/install/</InstallUrl>
     <SupportUrl>http://airpermit.dnr.state.ga.us/iaip/</SupportUrl>
     <ProductName>Integrated Air Information Platform</ProductName>
     <PublisherName>State of Georgia</PublisherName>
     <MinimumRequiredVersion>3.0.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>IAIP-install.html</WebPage>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -1614,19 +1615,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="docs\Build Events.txt" />
-    <Content Include="docs\style.css">
+    <None Include="docs\style.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="docs\ABOUT.html" />
-    <Content Include="docs\CHANGELOG.html" />
+    </None>
+    <None Include="docs\ABOUT.html" />
+    <None Include="docs\CHANGELOG.html" />
     <Content Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </Content>
+    <None Include="Resources\gaSeal.ico" />
     <None Include="Resources\Seal_of_Georgia_red_small.ico" />
     <None Include="Resources\Seal_of_Georgia_gold_256x256x32.png" />
-    <None Include="Resources\gaSeal.ico">
-    </None>
     <Compile Include="Crystal Reports\CRViewerForm.Designer.vb">
       <DependentUpon>CRViewerForm.vb</DependentUpon>
     </Compile>

@@ -6,7 +6,7 @@
 
 ![Installation Page](screenshots/install-page.png)
 
-Go to the [Installation Page](#), click the `Install` button, and follow the prompts.
+Go to the [Installation Page](IAIP-install.html), click the `Install` button, and follow the prompts.
 
 </aside>
 
