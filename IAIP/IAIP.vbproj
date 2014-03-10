@@ -189,8 +189,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="docs\CHANGELOG.md">
-    </None>
     <None Include="DataSet\dsIAIP10.xsc">
       <DependentUpon>dsIAIP10.xsd</DependentUpon>
     </None>
@@ -1595,8 +1593,6 @@
     <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="docs\ABOUT.md">
-    </None>
     <None Include="IAIP_TemporaryKey.pfx" />
     <Content Include="..\..\_Common_Libraries\Oracle\x86\instantclient\oci.dll">
       <Link>oci.dll</Link>
@@ -1614,12 +1610,6 @@
       <Link>OraOps11w.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="docs\Build Events.txt" />
-    <None Include="docs\style.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="docs\ABOUT.html" />
-    <None Include="docs\CHANGELOG.html" />
     <Content Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -1793,9 +1783,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
-    <PreBuildEvent>C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(ProjectDir)docs\ABOUT.html" -c "style.css" "$(ProjectDir)docs\ABOUT.md"
-C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(ProjectDir)docs\CHANGELOG.html" -c "style.css" "$(ProjectDir)docs\CHANGELOG.md"
-</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>

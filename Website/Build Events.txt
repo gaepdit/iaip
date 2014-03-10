@@ -1,0 +1,20 @@
+﻿I made this file because editing these lines is easier here than in the tiny input 
+box for these commands. Nothing in this file gets executed. You have to copy these
+commands into the right place. Follow instructions below. 
+
+— Doug
+
+------------------------------
+
+Here are the Pre-build event command line(s) for the IAIP Documentation project. 
+To use, copy the following in its entirety (between the "-----" lines) and paste 
+into the box at:
+
+[Project → Properties → Compile → Build events… → Pre-build event command line]
+
+----- Start here -----
+
+C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown+abbreviations+startnum -t html5 --standalone --toc --smart -o "$(ProjectDir)index.html"         -c "http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" -c "assets/style.css"    -B "$(ProjectDir)assets/body-header.html" -A "$(ProjectDir)assets/body-footer.html" "$(ProjectDir)index.md"
+C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown+abbreviations+startnum -t html5 --standalone --toc --smart -o "$(ProjectDir)install/index.html" -c "http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" -c "../assets/style.css" -B "$(ProjectDir)assets/body-header.html" -A "$(ProjectDir)assets/body-footer.html" "$(ProjectDir)install/index.md"
+C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown+abbreviations+startnum -t html5 --standalone       --smart -o "$(ProjectDir)changelog.html"     -c "http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" -c "assets/style.css"    -B "$(ProjectDir)assets/body-header.html" -A "$(ProjectDir)assets/body-footer.html" "$(ProjectDir)changelog.md"
+----- End here -----
