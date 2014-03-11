@@ -28,6 +28,7 @@ Partial Class IaipAbout
         Me.lblDocumentation = New System.Windows.Forms.LinkLabel
         Me.lblChangelog = New System.Windows.Forms.LinkLabel
         Me.lblUpdateCheck = New System.Windows.Forms.LinkLabel
+        Me.btnClose = New System.Windows.Forms.Button
         CType(Me.LogoBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -35,7 +36,7 @@ Partial Class IaipAbout
         '
         Me.lblSubTitle.AutoSize = True
         Me.lblSubTitle.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSubTitle.Location = New System.Drawing.Point(320, 126)
+        Me.lblSubTitle.Location = New System.Drawing.Point(312, 114)
         Me.lblSubTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblSubTitle.Name = "lblSubTitle"
         Me.lblSubTitle.Size = New System.Drawing.Size(274, 48)
@@ -59,7 +60,7 @@ Partial Class IaipAbout
         '
         Me.lblTitle.AutoSize = True
         Me.lblTitle.Font = New System.Drawing.Font("Arial", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTitle.Location = New System.Drawing.Point(318, 50)
+        Me.lblTitle.Location = New System.Drawing.Point(310, 29)
         Me.lblTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblTitle.Name = "lblTitle"
         Me.lblTitle.Size = New System.Drawing.Size(343, 25)
@@ -80,7 +81,7 @@ Partial Class IaipAbout
         '
         Me.lblVersion.AutoSize = True
         Me.lblVersion.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblVersion.Location = New System.Drawing.Point(320, 95)
+        Me.lblVersion.Location = New System.Drawing.Point(312, 74)
         Me.lblVersion.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblVersion.Name = "lblVersion"
         Me.lblVersion.Size = New System.Drawing.Size(61, 16)
@@ -91,10 +92,10 @@ Partial Class IaipAbout
         '
         Me.lblSupport.AutoSize = True
         Me.lblSupport.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSupport.Location = New System.Drawing.Point(320, 194)
+        Me.lblSupport.Location = New System.Drawing.Point(312, 182)
         Me.lblSupport.Name = "lblSupport"
         Me.lblSupport.Size = New System.Drawing.Size(94, 17)
-        Me.lblSupport.TabIndex = 0
+        Me.lblSupport.TabIndex = 1
         Me.lblSupport.TabStop = True
         Me.lblSupport.Text = "Support page"
         '
@@ -102,10 +103,10 @@ Partial Class IaipAbout
         '
         Me.lblDocumentation.AutoSize = True
         Me.lblDocumentation.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDocumentation.Location = New System.Drawing.Point(320, 216)
+        Me.lblDocumentation.Location = New System.Drawing.Point(312, 204)
         Me.lblDocumentation.Name = "lblDocumentation"
         Me.lblDocumentation.Size = New System.Drawing.Size(146, 17)
-        Me.lblDocumentation.TabIndex = 1
+        Me.lblDocumentation.TabIndex = 2
         Me.lblDocumentation.TabStop = True
         Me.lblDocumentation.Text = "Online documentation"
         '
@@ -113,10 +114,10 @@ Partial Class IaipAbout
         '
         Me.lblChangelog.AutoSize = True
         Me.lblChangelog.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblChangelog.Location = New System.Drawing.Point(320, 238)
+        Me.lblChangelog.Location = New System.Drawing.Point(312, 226)
         Me.lblChangelog.Name = "lblChangelog"
         Me.lblChangelog.Size = New System.Drawing.Size(80, 17)
-        Me.lblChangelog.TabIndex = 2
+        Me.lblChangelog.TabIndex = 3
         Me.lblChangelog.TabStop = True
         Me.lblChangelog.Text = "Change log"
         '
@@ -124,18 +125,30 @@ Partial Class IaipAbout
         '
         Me.lblUpdateCheck.AutoSize = True
         Me.lblUpdateCheck.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblUpdateCheck.Location = New System.Drawing.Point(320, 260)
+        Me.lblUpdateCheck.Location = New System.Drawing.Point(312, 248)
         Me.lblUpdateCheck.Name = "lblUpdateCheck"
         Me.lblUpdateCheck.Size = New System.Drawing.Size(123, 17)
-        Me.lblUpdateCheck.TabIndex = 3
+        Me.lblUpdateCheck.TabIndex = 4
         Me.lblUpdateCheck.TabStop = True
         Me.lblUpdateCheck.Text = "Check for updates"
+        '
+        'btnClose
+        '
+        Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.btnClose.Location = New System.Drawing.Point(315, 293)
+        Me.btnClose.Name = "btnClose"
+        Me.btnClose.Size = New System.Drawing.Size(75, 23)
+        Me.btnClose.TabIndex = 0
+        Me.btnClose.Text = "Close"
+        Me.btnClose.UseVisualStyleBackColor = True
         '
         'IaipAbout
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(681, 338)
+        Me.CancelButton = Me.btnClose
+        Me.ClientSize = New System.Drawing.Size(672, 338)
+        Me.Controls.Add(Me.btnClose)
         Me.Controls.Add(Me.lblUpdateCheck)
         Me.Controls.Add(Me.lblChangelog)
         Me.Controls.Add(Me.lblDocumentation)
@@ -167,4 +180,5 @@ Partial Class IaipAbout
     Friend WithEvents lblDocumentation As System.Windows.Forms.LinkLabel
     Friend WithEvents lblChangelog As System.Windows.Forms.LinkLabel
     Friend WithEvents lblUpdateCheck As System.Windows.Forms.LinkLabel
+    Friend WithEvents btnClose As System.Windows.Forms.Button
 End Class
