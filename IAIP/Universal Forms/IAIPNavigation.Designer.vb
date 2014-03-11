@@ -29,8 +29,6 @@ Partial Class IAIPNavigation
         Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
         Me.mmiResetForm = New System.Windows.Forms.MenuItem
         Me.mmiSeparator1 = New System.Windows.Forms.MenuItem
-        Me.mmiCheckForUpdate = New System.Windows.Forms.MenuItem
-        Me.mmiSeparator2 = New System.Windows.Forms.MenuItem
         Me.mmiAbout = New System.Windows.Forms.MenuItem
         Me.mmiTesting = New System.Windows.Forms.MenuItem
         Me.lblTitle = New System.Windows.Forms.Label
@@ -151,7 +149,7 @@ Partial Class IAIPNavigation
         'mmiHelp
         '
         Me.mmiHelp.Index = 2
-        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.mmiResetForm, Me.mmiSeparator1, Me.mmiCheckForUpdate, Me.mmiSeparator2, Me.mmiAbout})
+        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.mmiResetForm, Me.mmiSeparator1, Me.mmiAbout})
         Me.mmiHelp.Text = "&Help"
         '
         'mmiOnlineHelp
@@ -170,19 +168,9 @@ Partial Class IAIPNavigation
         Me.mmiSeparator1.Index = 2
         Me.mmiSeparator1.Text = "-"
         '
-        'mmiCheckForUpdate
-        '
-        Me.mmiCheckForUpdate.Index = 3
-        Me.mmiCheckForUpdate.Text = "Check for &Update"
-        '
-        'mmiSeparator2
-        '
-        Me.mmiSeparator2.Index = 4
-        Me.mmiSeparator2.Text = "-"
-        '
         'mmiAbout
         '
-        Me.mmiAbout.Index = 5
+        Me.mmiAbout.Index = 3
         Me.mmiAbout.Text = "&About IAIP"
         '
         'mmiTesting
@@ -1193,8 +1181,6 @@ Partial Class IAIPNavigation
     Friend WithEvents mmiTesting As System.Windows.Forms.MenuItem
     Friend WithEvents mmiResetForm As System.Windows.Forms.MenuItem
     Friend WithEvents btnNav40 As System.Windows.Forms.Button
-    Friend WithEvents mmiCheckForUpdate As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiSeparator2 As System.Windows.Forms.MenuItem
     Friend WithEvents pnlCurrentList As System.Windows.Forms.Panel
     Friend WithEvents pnlContextSubView As System.Windows.Forms.Panel
 End Class

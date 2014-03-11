@@ -5927,15 +5927,11 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub mmiAbout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiAbout.Click
-        OpenSupportUrl(Me)
+        IaipAbout.ShowDialog()
     End Sub
 
     Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
         OpenDocumentationUrl(Me)
-    End Sub
-
-    Private Sub mmiCheckForUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCheckForUpdate.Click
-        App.CheckForUpdate()
     End Sub
 
 #End Region
