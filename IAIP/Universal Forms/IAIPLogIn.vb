@@ -84,7 +84,7 @@ Public Class IAIPLogIn
         'lnkUpdateLink.Visible = False
 
         With lblCurrentVersionMessage
-            .Text = String.Format("Version: {0}", GetCurrentVersionAsBuild.ToString)
+            .Text = String.Format("Version: {0}", GetCurrentVersionAsMajorMinorBuild.ToString)
             .Visible = True
         End With
 
@@ -426,7 +426,8 @@ Public Class IAIPLogIn
     End Sub
 
     Private Sub mmiAbout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiAbout.Click
-        OpenAboutUrl(Me)
+        'OpenAboutUrl(Me)
+        IaipAbout.ShowDialog()
     End Sub
 
     Private Sub IAIPLogIn_HelpButtonClicked(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.HelpButtonClicked

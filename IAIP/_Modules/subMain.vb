@@ -21,9 +21,10 @@ Module subMain
 #Region " New public variables (by Doug) "
 
     Friend Const AppName As String = "IAIP"
-    Friend HelpUrl As New Uri("https://sites.google.com/site/iaipdocs/")
+    Friend DocumentationUrl As New Uri("https://sites.google.com/site/iaipdocs/")
     'Friend DownloadUrl As New Uri("http://airpermit.dnr.state.ga.us/iaip/IAIP.update.new.exe")
-    Friend AboutUrl As New Uri("http://www.example.com/docs/ABOUT.html")
+    Friend SupportUrl As New Uri("http://airpermit.dnr.state.ga.us/iaip/test/index.html")
+    Friend ChangelogUrl As New Uri("http://airpermit.dnr.state.ga.us/iaip/test/changelog.html")
     Friend DateFormat As String = "dd-MMM-yyyy"
     Friend TodayString As String = Format(Date.Today, DateFormat)
     Friend CurrentConnectionEnvironment As DB.ConnectionEnvironment = DB.ConnectionEnvironment.Production

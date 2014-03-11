@@ -7,21 +7,28 @@ Module App
 
 #Region "URL handling"
 
-    Public Sub OpenHelpUrl(Optional ByVal objectSender As Object = Nothing)
+    Public Sub OpenHelpUrl(Optional ByVal objectSender As Form = Nothing)
         monitor.TrackFeature("Url.OpenHelp")
-        OpenUri(HelpUrl, objectSender)
+        OpenUri(DocumentationUrl, objectSender)
     End Sub
 
-    'Public Sub OpenDownloadUrl(Optional ByVal objectSender As Object = Nothing)
+    'Public Sub OpenDownloadUrl(Optional ByVal objectSender As Form = Nothing)
     '    monitor.TrackFeature("Url.OpenDownload")
     '    OpenUri(DownloadUrl, objectSender)
     'End Sub
 
-    Public Sub OpenAboutUrl(Optional ByVal objectSender As Object = Nothing)
-        monitor.TrackFeature("Url.OpenAbout")
+    Public Sub OpenAboutUrl(Optional ByVal objectSender As Form = Nothing)
+        monitor.TrackFeature("Url.OpenSupport")
 
         'CreateVersionFile()
-        OpenUri(AboutUrl, objectSender)
+        OpenUri(SupportUrl, objectSender)
+    End Sub
+
+    Public Sub OpenChangelogUrl(Optional ByVal objectSender As Form = Nothing)
+        monitor.TrackFeature("Url.OpenChangelog")
+
+        'CreateVersionFile()
+        OpenUri(ChangelogUrl, objectSender)
     End Sub
 
     Public Function OpenUri(ByVal uriString As String, Optional ByVal objectSender As Object = Nothing) As Boolean
@@ -51,8 +58,8 @@ Module App
 #Region "Versioning Info"
     'Friend PublishedVersion As Version = Nothing
     Friend CurrentVersion As Version = Nothing
-    Friend ReleaseDate As New DateTime(1970, 1, 1, 0, 0, 0)
-    Friend VersionFileUpdated As Boolean = False
+    'Friend ReleaseDate As New DateTime(1970, 1, 1, 0, 0, 0)
+    'Friend VersionFileUpdated As Boolean = False
 
     'Private Sub CreateVersionFile()
     '    If Not VersionFileUpdated Then
@@ -118,8 +125,8 @@ Module App
         Return CurrentVersion
     End Function
 
-    Public Function GetCurrentVersionAsBuild() As Version
-        Return GetVersionAsBuild(GetRunningVersion)
+    Public Function GetCurrentVersionAsMajorMinorBuild() As Version
+        Return GetVersionAsMajorMinorBuild(GetRunningVersion)
     End Function
 
     'Public Function GetPublishedVersion(Optional ByVal appName As String = AppName) As Version
@@ -186,7 +193,7 @@ Module App
     '    Return GetVersionAsMajorMinor(currentVersion).CompareTo(GetVersionAsMajorMinor(publishedVersion)) < 0
     'End Function
 
-    Private Function GetVersionAsBuild(ByVal v As Version) As Version
+    Private Function GetVersionAsMajorMinorBuild(ByVal v As Version) As Version
         ' This converts a Version from four components to three
         If v.Revision = -1 Then Return v ' (A version with fewer than four components gets returned as-is)
         Return New Version(v.Major, v.Minor, v.Build)
