@@ -253,10 +253,16 @@ Module App
             Try
                 info = AD.CheckForDetailedUpdate()
             Catch dde As DeploymentDownloadException
-                MessageBox.Show("The IAIP cannot be updated right now. " + vbNewLine & vbNewLine & "Please check your network connection or try again later. " & vbNewLine & vbNewLine & "Error: " + dde.Message)
+                MessageBox.Show("The IAIP cannot be updated right now. " & vbNewLine & vbNewLine _
+                                & "Please check your network connection or try again later. " & _
+                                vbNewLine & vbNewLine & "Error: " + dde.Message, _
+                                "Error")
                 Return
             Catch ioe As InvalidOperationException
-                MessageBox.Show("This application cannot be updated. Please contact support for more information. " + vbNewLine & vbNewLine & "Error: " & ioe.Message)
+                MessageBox.Show("This application cannot be updated. Please contact support for " & _
+                                "more information. " & vbNewLine & vbNewLine & _
+                                "Error: " & ioe.Message, _
+                                "Error")
                 Return
             End Try
 
@@ -282,15 +288,18 @@ Module App
                         MessageBox.Show("The IAIP has been updated and will now restart.")
                         Application.Restart()
                     Catch dde As DeploymentDownloadException
-                        MessageBox.Show("The IAIP cannot be updated right now. " & vbNewLine & vbNewLine & "Please check your network connection or try again later.")
+                        MessageBox.Show("The IAIP cannot be updated right now. " & vbNewLine & vbNewLine & _
+                                        "Please check your network connection or try again later.")
                         Return
                     End Try
                 End If
             Else
-                MessageBox.Show("You have the latest version. No updates are available. :)")
+                MessageBox.Show("You have the latest version. No updates are available. :)", _
+                                "No Update Available")
             End If
         Else
-            MessageBox.Show("Not running as a Network Deployed Application.")
+            MessageBox.Show("Not running as a Network Deployed Application.", _
+                            "Error")
         End If
     End Sub
 
