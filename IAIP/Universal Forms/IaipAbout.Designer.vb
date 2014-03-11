@@ -35,7 +35,7 @@ Partial Class IaipAbout
         '
         Me.lblSubTitle.AutoSize = True
         Me.lblSubTitle.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSubTitle.Location = New System.Drawing.Point(325, 134)
+        Me.lblSubTitle.Location = New System.Drawing.Point(320, 126)
         Me.lblSubTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblSubTitle.Name = "lblSubTitle"
         Me.lblSubTitle.Size = New System.Drawing.Size(274, 48)
@@ -59,7 +59,7 @@ Partial Class IaipAbout
         '
         Me.lblTitle.AutoSize = True
         Me.lblTitle.Font = New System.Drawing.Font("Arial", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTitle.Location = New System.Drawing.Point(323, 58)
+        Me.lblTitle.Location = New System.Drawing.Point(318, 50)
         Me.lblTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblTitle.Name = "lblTitle"
         Me.lblTitle.Size = New System.Drawing.Size(343, 25)
@@ -80,7 +80,7 @@ Partial Class IaipAbout
         '
         Me.lblVersion.AutoSize = True
         Me.lblVersion.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblVersion.Location = New System.Drawing.Point(325, 103)
+        Me.lblVersion.Location = New System.Drawing.Point(320, 95)
         Me.lblVersion.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblVersion.Name = "lblVersion"
         Me.lblVersion.Size = New System.Drawing.Size(61, 16)
@@ -90,19 +90,21 @@ Partial Class IaipAbout
         'lblSupport
         '
         Me.lblSupport.AutoSize = True
-        Me.lblSupport.Location = New System.Drawing.Point(325, 204)
+        Me.lblSupport.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSupport.Location = New System.Drawing.Point(320, 194)
         Me.lblSupport.Name = "lblSupport"
-        Me.lblSupport.Size = New System.Drawing.Size(44, 13)
+        Me.lblSupport.Size = New System.Drawing.Size(94, 17)
         Me.lblSupport.TabIndex = 0
         Me.lblSupport.TabStop = True
-        Me.lblSupport.Text = "Support"
+        Me.lblSupport.Text = "Support page"
         '
         'lblDocumentation
         '
         Me.lblDocumentation.AutoSize = True
-        Me.lblDocumentation.Location = New System.Drawing.Point(325, 226)
+        Me.lblDocumentation.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDocumentation.Location = New System.Drawing.Point(320, 216)
         Me.lblDocumentation.Name = "lblDocumentation"
-        Me.lblDocumentation.Size = New System.Drawing.Size(110, 13)
+        Me.lblDocumentation.Size = New System.Drawing.Size(146, 17)
         Me.lblDocumentation.TabIndex = 1
         Me.lblDocumentation.TabStop = True
         Me.lblDocumentation.Text = "Online documentation"
@@ -110,9 +112,10 @@ Partial Class IaipAbout
         'lblChangelog
         '
         Me.lblChangelog.AutoSize = True
-        Me.lblChangelog.Location = New System.Drawing.Point(325, 248)
+        Me.lblChangelog.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblChangelog.Location = New System.Drawing.Point(320, 238)
         Me.lblChangelog.Name = "lblChangelog"
-        Me.lblChangelog.Size = New System.Drawing.Size(61, 13)
+        Me.lblChangelog.Size = New System.Drawing.Size(80, 17)
         Me.lblChangelog.TabIndex = 2
         Me.lblChangelog.TabStop = True
         Me.lblChangelog.Text = "Change log"
@@ -120,9 +123,10 @@ Partial Class IaipAbout
         'lblUpdateCheck
         '
         Me.lblUpdateCheck.AutoSize = True
-        Me.lblUpdateCheck.Location = New System.Drawing.Point(325, 270)
+        Me.lblUpdateCheck.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblUpdateCheck.Location = New System.Drawing.Point(320, 260)
         Me.lblUpdateCheck.Name = "lblUpdateCheck"
-        Me.lblUpdateCheck.Size = New System.Drawing.Size(94, 13)
+        Me.lblUpdateCheck.Size = New System.Drawing.Size(123, 17)
         Me.lblUpdateCheck.TabIndex = 3
         Me.lblUpdateCheck.TabStop = True
         Me.lblUpdateCheck.Text = "Check for updates"

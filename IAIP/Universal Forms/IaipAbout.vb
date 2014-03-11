@@ -12,8 +12,12 @@ Public Class IaipAbout
         OpenDocumentationUrl(Me)
     End Sub
 
-    Private Sub lblChangelog_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblChangelog.LinkClicked, lblUpdateCheck.LinkClicked
+    Private Sub lblChangelog_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblChangelog.LinkClicked
         OpenChangelogUrl(Me)
+    End Sub
+
+    Private Sub lblUpdateCheck_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblUpdateCheck.LinkClicked
+        App.CheckForUpdate()
     End Sub
 
 End Class
