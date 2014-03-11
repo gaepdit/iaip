@@ -2,13 +2,16 @@
 
 <div class="intro">
 
-The IAIP was developed by the Data Management Unit in the Georgia Air Protection Branch to collect and organize all the data required to operate an efficient air quality program. IAIP development began in 2004 and is ongoing.
+The IAIP was developed by the Data Management Unit in the Georgia Air Protection Branch 
+to collect and organize all the data required to operate an efficient air quality program. 
+IAIP development began in 2004 and is ongoing.
 
 Follow the online instructions to [install the IAIP](install/index.html).
 
 Further documentation can be found on the [IAIP Documentation website](https://sites.google.com/site/iaipdocs/).
 
 </div>
+
 
 Support
 -------
@@ -24,10 +27,11 @@ Please submit bug reports to Doug Waldron.
 Change Log
 ----------
 
-See the [change log](CHANGELOG.html).
+See the [change log](changelog.html).
 
 
 License
 -------
 
-The IAIP is Copyright © 2004—2014 Georgia Air Protection Branch. This product is licensed only to employees of the Georgia Environmental Protection Division.
+The IAIP is Copyright © 2004—2014 Georgia Air Protection Branch. This product is licensed only 
+to employees of the State of Georgia.

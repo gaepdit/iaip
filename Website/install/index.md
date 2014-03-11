@@ -10,36 +10,43 @@ Go to the [Installation Page](IAIP-install.html), click the `Install` button, an
 
 </div>
 
+
 ## Introduction
 
 In March 2014, we will be changing the method used to distribute and update the <abbr title="Integrated Air Information Platform">IAIP</abbr>.
 
 ### The Good News:
 
-Installation will be just as easy as before (easier in most cases!), and future updates will be smaller to download and will install automatically.
+Installation will be just as easy as before (easier in most cases!), and future updates will install automatically.
 
 ### The Bad News:
 
-Switching to the new system will require all current users of the IAIP to manually install the new version from scratch. Luckily, this is a <em>one-time process</em>, and after that, updates will be automatic.
+Switching to the new system will require all current users to manually install the new version from scratch. Luckily, this is a <em>one-time event</em>. After that, updates will be automatic.
 
-## How to Install
+## Detailed Instructions
 
-1. ![Installation Page](screenshots/install-page.png)
+1. Before you begin, make note of your login user ID. 
 
-    Go to the [Installation Page](#) and click the `Install` button.
+2. ![Installation Page](screenshots/install-page.png)
 
-2. Try not to fall down.
+    Go to the [Installation Page](IAIP-install.html) and click the `Install` button.
 
-1. ![Installation Page](screenshots/install-page.png)
+3. ![Example warning](screenshots/details-warning.png) 
 
-    Go to the [Installation Page](#) and click the `Install` button.
-	
-1. The new IAIP will try to delete your old shortcuts, but if it can't, feel free to delete them yourself. 
+    At this point, you will probably get several notifications from your brower and OS warning you that downloading and installing software from the Internet is dangerous and could harm your computer. This is good advice! 
 
-## Then end
+    In this case, though, it is safe to continue the installation.
 
-+ Test list
-+ Item 2
+4. ![Crystal Reports license agreement](screenshots/details-CR-license.png) 
 
-- Test list two
-- Item 2? 4?
+    If you are asked to accept the license agreement for Crystal Reports, click `Accept`.
+
+5. ![Application Install Security Warning](screenshots/details-install.png) 
+
+    After Crystal Reports is installed, you will be asked again if you want to install the IAIP.
+
+6. ![IAIP login screen](screenshots/details-IAIP-final.png) 
+
+    If the IAIP starts and displays **Version: 3.0.0**, you're done!
+
+7. The new IAIP will try to delete your old shortcuts, but if it can't, feel free to delete them yourself. 
