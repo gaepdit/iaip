@@ -1,6 +1,7 @@
 ﻿I made this file because editing these lines is easier here than in the tiny input 
 box for these commands. Nothing in this file gets executed. You have to copy these
-commands into the right place. Follow instructions below. 
+commands into the right place. Follow instructions below. (You could also create a 
+batch file using similar commands if desired.)
 
 — Doug
 

@@ -45,8 +45,10 @@ Switching to the new system will require all current users to manually install t
 
     After Crystal Reports is installed, you will be asked again if you want to install the IAIP.
 
-6. ![IAIP login screen](screenshots/details-IAIP-final.png) 
+6. ![IAIP login screen](screenshots/details-IAIP-final-circled.png) 
 
-    If the IAIP starts and displays **Version: 3.0.0**, you're done!
+    If the IAIP starts and displays **Version: 3.0.0** (or later), you're done!
 
 7. The new IAIP will try to delete your old shortcuts, but if it can't, feel free to delete them yourself. 
+
+If you need help or encounter an error, please [contact the Data Management Unit](../index.html#support).
