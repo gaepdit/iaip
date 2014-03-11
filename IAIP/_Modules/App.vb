@@ -253,10 +253,10 @@ Module App
             Try
                 info = AD.CheckForDetailedUpdate()
             Catch dde As DeploymentDownloadException
-                MessageBox.Show("The new version of the application cannot be downloaded at this time. " + vbNewLine & vbNewLine & "Please check your network connection, or try again later. " & vbNewLine & vbNewLine & "Error: " + dde.Message)
+                MessageBox.Show("The IAIP cannot be updated right now. " + vbNewLine & vbNewLine & "Please check your network connection or try again later. " & vbNewLine & vbNewLine & "Error: " + dde.Message)
                 Return
             Catch ioe As InvalidOperationException
-                MessageBox.Show("This application cannot be updated. It is likely not a ClickOnce application. " + vbNewLine & vbNewLine & "Error: " & ioe.Message)
+                MessageBox.Show("This application cannot be updated. Please contact support for more information. " + vbNewLine & vbNewLine & "Error: " & ioe.Message)
                 Return
             End Try
 
@@ -264,29 +264,30 @@ Module App
                 Dim doUpdate As Boolean = True
 
                 If (Not info.IsUpdateRequired) Then
-                    Dim dr As DialogResult = MessageBox.Show("An update is available. Would you like to update the application now?", "Update Available", MessageBoxButtons.YesNo)
+                    Dim dr As DialogResult
+                    dr = MessageBox.Show("An update is available (" & _
+                                         info.AvailableVersion.ToString & "). Would you like to install it now?", _
+                                         "Update Available", MessageBoxButtons.YesNo)
                     If (Not System.Windows.Forms.DialogResult.Yes = dr) Then doUpdate = False
                 Else
                     ' Display a message that the app MUST reboot. Display the minimum required version.
-                    MessageBox.Show("This application has detected a mandatory update from your current " & _
-                        "version to version " & info.MinimumRequiredVersion.ToString() & _
-                        ". The application will now install the update and restart.", _
-                        "Update Available", MessageBoxButtons.OK, _
-                        MessageBoxIcon.Information)
+                    MessageBox.Show("A mandatory update will now be installed (" & info.AvailableVersion.ToString & "). ", _
+                                    "Update Available", MessageBoxButtons.OK, _
+                                    MessageBoxIcon.Information)
                 End If
 
                 If (doUpdate) Then
                     Try
                         AD.Update()
-                        MessageBox.Show("The application has been upgraded and will now restart.")
+                        MessageBox.Show("The IAIP has been updated and will now restart.")
                         Application.Restart()
                     Catch dde As DeploymentDownloadException
-                        MessageBox.Show("Cannot install the latest version of the application. " & ControlChars.Lf & ControlChars.Lf & "Please check your network connection or try again later.")
+                        MessageBox.Show("The IAIP cannot be updated right now. " & vbNewLine & vbNewLine & "Please check your network connection or try again later.")
                         Return
                     End Try
                 End If
             Else
-                MessageBox.Show("You are running the latest version. No updates are available at this time.")
+                MessageBox.Show("You have the latest version. No updates are available. :)")
             End If
         Else
             MessageBox.Show("Not running as a Network Deployed Application.")
