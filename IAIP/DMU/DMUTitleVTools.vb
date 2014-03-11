@@ -3969,7 +3969,7 @@ Public Class DMUTitleVTools
 
     End Sub
     Private Sub MmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiHelp.Click
-        OpenHelpUrl(Me)
+        OpenDocumentationUrl(Me)
     End Sub
     Private Sub btnLoadAppContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadAppContact.Click
         Try

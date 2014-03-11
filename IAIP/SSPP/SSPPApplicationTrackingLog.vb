@@ -14928,7 +14928,7 @@ Public Class SSPPApplicationTrackingLog
         End Try
     End Sub
     Private Sub MmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiHelp.Click
-        OpenHelpUrl(Me)
+        OpenDocumentationUrl(Me)
     End Sub
     Private Sub btnAcknowledgementLetter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAcknowledgementLetter.Click
         Try

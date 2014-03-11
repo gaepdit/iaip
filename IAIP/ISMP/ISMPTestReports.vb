@@ -23163,7 +23163,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
 
 
     Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
-        OpenHelpUrl(Me)
+        OpenDocumentationUrl(Me)
     End Sub
 
     Private Sub mmiOpenMemo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOpenMemo.Click

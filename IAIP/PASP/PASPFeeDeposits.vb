@@ -1483,6 +1483,6 @@ Public Class PASPFeeDeposits
 
    
     Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
-        OpenHelpUrl(Me)
+        OpenDocumentationUrl(Me)
     End Sub
 End Class

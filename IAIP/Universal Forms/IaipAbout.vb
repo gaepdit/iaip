@@ -5,11 +5,11 @@ Public Class IaipAbout
     End Sub
 
     Private Sub lblSupport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblSupport.LinkClicked
-        OpenAboutUrl(Me)
+        OpenSupportUrl(Me)
     End Sub
 
     Private Sub lblDocumentation_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblDocumentation.LinkClicked
-        OpenHelpUrl(Me)
+        OpenDocumentationUrl(Me)
     End Sub
 
     Private Sub lblChangelog_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblChangelog.LinkClicked, lblUpdateCheck.LinkClicked

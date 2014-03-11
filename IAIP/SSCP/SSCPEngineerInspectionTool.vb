@@ -1798,7 +1798,7 @@ Public Class SSCPEngineerInspectionTool
 
     End Sub
     Private Sub MmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiHelp.Click
-        OpenHelpUrl(Me)
+        OpenDocumentationUrl(Me)
     End Sub
 #End Region
 

@@ -3603,7 +3603,7 @@ Public Class SSPPApplicationLog
         Me.Close()
     End Sub
     Private Sub mmiOpenHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
-        OpenHelpUrl(Me)
+        OpenDocumentationUrl(Me)
     End Sub
     Private Sub mmiOpen_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOpen.Click, btnOpen.Click
         If selectedApp <> "" Then OpenApplication(selectedApp)

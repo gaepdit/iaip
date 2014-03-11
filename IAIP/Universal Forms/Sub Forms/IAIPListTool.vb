@@ -1757,6 +1757,6 @@ Public Class IAIPListTool
 
 
     Private Sub HelpToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HelpToolStripMenuItem.Click
-        OpenHelpUrl(Me)
+        OpenDocumentationUrl(Me)
     End Sub
 End Class

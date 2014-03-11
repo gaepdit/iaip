@@ -20182,7 +20182,7 @@ Public Class DMUDeveloperTools
         End Try
     End Sub
     Private Sub MmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiHelp.Click
-        OpenHelpUrl(Me)
+        OpenDocumentationUrl(Me)
     End Sub
 
     Private Sub btnForceBasicRefresh_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnForceBasicRefresh.Click

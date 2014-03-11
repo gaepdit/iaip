@@ -6016,7 +6016,7 @@ Public Class IAIPQueryGenerator
     End Sub
 
     Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
-        OpenHelpUrl(Me)
+        OpenDocumentationUrl(Me)
     End Sub
 
     Private Sub btnRunPermitContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunPermitContact.Click

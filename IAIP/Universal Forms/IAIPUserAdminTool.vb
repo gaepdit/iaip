@@ -1852,7 +1852,7 @@ Public Class IAIPUserAdminTool
     End Sub
 
     Private Sub HelpOnlineToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HelpOnlineToolStripMenuItem.Click
-        OpenHelpUrl(Me)
+        OpenDocumentationUrl(Me)
     End Sub
 
 

@@ -7,7 +7,7 @@ Module App
 
 #Region "URL handling"
 
-    Public Sub OpenHelpUrl(Optional ByVal objectSender As Form = Nothing)
+    Public Sub OpenDocumentationUrl(Optional ByVal objectSender As Form = Nothing)
         monitor.TrackFeature("Url.OpenHelp")
         OpenUri(DocumentationUrl, objectSender)
     End Sub
@@ -17,7 +17,7 @@ Module App
     '    OpenUri(DownloadUrl, objectSender)
     'End Sub
 
-    Public Sub OpenAboutUrl(Optional ByVal objectSender As Form = Nothing)
+    Public Sub OpenSupportUrl(Optional ByVal objectSender As Form = Nothing)
         monitor.TrackFeature("Url.OpenSupport")
 
         'CreateVersionFile()

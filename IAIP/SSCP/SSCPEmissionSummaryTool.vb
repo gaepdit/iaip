@@ -1643,7 +1643,7 @@ Public Class SSCPEmissionSummaryTool
         End Try
     End Sub
     Private Sub HelpToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HelpToolStripMenuItem.Click
-        OpenHelpUrl(Me)
+        OpenDocumentationUrl(Me)
     End Sub
     Private Sub btnEISummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEISummary.Click
         Try
