@@ -32,8 +32,6 @@ Partial Class IaipFacilitySummaryPrint
         Me.StartDateLabel = New System.Windows.Forms.Label
         Me.FullPrintEndDate = New System.Windows.Forms.DateTimePicker
         Me.FullPrintStartDate = New System.Windows.Forms.DateTimePicker
-        Me.ShapeContainer1 = New Microsoft.VisualBasic.PowerPacks.ShapeContainer
-        Me.LineShape1 = New Microsoft.VisualBasic.PowerPacks.LineShape
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -48,11 +46,10 @@ Partial Class IaipFacilitySummaryPrint
         Me.Panel1.Controls.Add(Me.StartDateLabel)
         Me.Panel1.Controls.Add(Me.FullPrintEndDate)
         Me.Panel1.Controls.Add(Me.FullPrintStartDate)
-        Me.Panel1.Controls.Add(Me.ShapeContainer1)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(406, 160)
+        Me.Panel1.Size = New System.Drawing.Size(406, 162)
         Me.Panel1.TabIndex = 0
         '
         'FacilityName
@@ -142,31 +139,11 @@ Partial Class IaipFacilitySummaryPrint
         Me.FullPrintStartDate.TabIndex = 2
         Me.FullPrintStartDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
-        'ShapeContainer1
-        '
-        Me.ShapeContainer1.Location = New System.Drawing.Point(0, 0)
-        Me.ShapeContainer1.Margin = New System.Windows.Forms.Padding(0)
-        Me.ShapeContainer1.Name = "ShapeContainer1"
-        Me.ShapeContainer1.Shapes.AddRange(New Microsoft.VisualBasic.PowerPacks.Shape() {Me.LineShape1})
-        Me.ShapeContainer1.Size = New System.Drawing.Size(406, 160)
-        Me.ShapeContainer1.TabIndex = 384
-        Me.ShapeContainer1.TabStop = False
-        '
-        'LineShape1
-        '
-        Me.LineShape1.BorderColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.LineShape1.Enabled = False
-        Me.LineShape1.Name = "LineShape1"
-        Me.LineShape1.X1 = 203
-        Me.LineShape1.X2 = 203
-        Me.LineShape1.Y1 = 52
-        Me.LineShape1.Y2 = 148
-        '
         'IaipFacilitySummaryPrint
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(406, 160)
+        Me.ClientSize = New System.Drawing.Size(406, 162)
         Me.Controls.Add(Me.Panel1)
         Me.Name = "IaipFacilitySummaryPrint"
         Me.Text = "Print Facility Summary"
@@ -185,6 +162,4 @@ Partial Class IaipFacilitySummaryPrint
     Friend WithEvents FacilityLabel As System.Windows.Forms.Label
     Friend WithEvents FacilityName As System.Windows.Forms.TextBox
     Friend WithEvents ShowFullReport As System.Windows.Forms.Button
-    Friend WithEvents ShapeContainer1 As Microsoft.VisualBasic.PowerPacks.ShapeContainer
-    Friend WithEvents LineShape1 As Microsoft.VisualBasic.PowerPacks.LineShape
 End Class
