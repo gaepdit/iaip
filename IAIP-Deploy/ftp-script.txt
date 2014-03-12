@@ -1,6 +1,6 @@
 open 167.193.56.178
 dwaldron
-goldb0nd*
+Goldbond1
 cd /AirPermit/IAIP/new
 put ../IAIP-Installer/IAIP-Installer.zip
 mput ../IAIP-Updater/*.exe
