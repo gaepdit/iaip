@@ -25,7 +25,9 @@ Switching to the new system will require all current users to manually install t
 
 ## Detailed Instructions
 
-1. Before you begin, make note of your login user ID. 
+1. ![User ID](screenshots/details-IAIP-userid.png)
+
+    Before you begin, make note of your login user ID, then **close the IAIP**.
 
 2. ![Installation Page](screenshots/install-page.png)
 
