@@ -1,7 +1,7 @@
 ﻿I made this file because editing these lines is easier here than in the tiny input 
-box for these commands. Nothing in this file gets executed. You have to copy these
-commands into the right place. Follow instructions below. (You could also create a 
-batch file using similar commands if desired.)
+box for these commands. Nothing in this file gets executed. You have to copy these 
+commands into the right place. Follow instructions below. (The batch file
+generate.bat issues equivalent commands.)
 
 — Doug
 
@@ -15,7 +15,8 @@ into the box at:
 
 ----- Start here -----
 
-C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown+abbreviations+startnum -t html5 --standalone --toc --toc-depth=1 --smart -o "$(ProjectDir)index.html" -c "http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" -c "assets/style.css"    -B "$(ProjectDir)assets/body-header.html" -A "$(ProjectDir)assets/body-footer.html" "$(ProjectDir)index.md"
-C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown+abbreviations+startnum -t html5 --standalone --toc --toc-depth=1 --smart -o "$(ProjectDir)install/index.html" -c "http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" -c "../assets/style.css" -c "../assets/instructions-style.css" -B "$(ProjectDir)assets/body-header.html" -A "$(ProjectDir)assets/body-footer.html" "$(ProjectDir)install/index.md"
-C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown+abbreviations+startnum -t html5 --standalone --smart -o "$(ProjectDir)changelog.html" -c "http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" -c "assets/style.css" -c "assets/changelog-style.css" -B "$(ProjectDir)assets/body-header.html" -A "$(ProjectDir)assets/body-footer.html" "$(ProjectDir)changelog.md"
+C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown+startnum -t html5 --toc --toc-depth=2 --smart -c "http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" -c "assets/style.css" -B "$(ProjectDir)assets/body-header.html" -A "$(ProjectDir)assets/body-footer.html" -o "$(ProjectDir)index.html" "$(ProjectDir)index.md"
+C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown+startnum -t html5 --toc --toc-depth=2 --smart -c "http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" -c "../assets/style.css" -c "../assets/instructions-style.css" -B "$(ProjectDir)assets/body-header.html" -A "$(ProjectDir)assets/body-footer.html" -o "$(ProjectDir)install/index.html" "$(ProjectDir)install/index.md"
+C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown+startnum -t html5 --smart -c "http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" -c "assets/style.css" -c "assets/changelog-style.css" -B "$(ProjectDir)assets/body-header.html" -A "$(ProjectDir)assets/body-footer.html" -o "$(ProjectDir)changelog.html" "$(ProjectDir)changelog.md"
+
 ----- End here -----

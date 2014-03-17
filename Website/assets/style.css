@@ -100,7 +100,7 @@ h2 a, h3 a { text-decoration:none; }
 #TOC { background: #eee; border: 1px solid #bbb; padding: 8px; margin-top: 16px; margin-bottom: 16px; font-size: 12px; float: right; opacity: .6; width: 200px; }
 #TOC:hover { opacity: 1; }
 #TOC ul { margin: 0; list-style: lower-roman; }
-#TOC li { margin: 6px 0; }
+#TOC li { margin: 0; }
 #TOC abbr { border: none; }
 
 .highlight { background: #f1fbf1; padding: 8px; margin-top: 32px; margin-bottom: 0; clear: both; overflow: auto; }
