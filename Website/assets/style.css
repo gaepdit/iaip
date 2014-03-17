@@ -97,7 +97,7 @@ h2 { border-bottom: none; border-top: 1px solid #999; padding-top: 16px; margin-
 header + h2, nav + h2 { border-top: none; margin-top: 0; }
 h2 a, h3 a { text-decoration:none; }
 
-#TOC { background: #eee; border: 1px solid #bbb; padding: 8px; margin-top: 16px; margin-bottom: 16px; font-size: 12px; float: right; opacity: .6; width: 200px; }
+#TOC { background: #eee; padding: 8px; margin-bottom: 16px; font-size: 12px; float: right; opacity: .6; width: 200px; }
 #TOC:hover { opacity: 1; }
 #TOC ul { margin: 0; list-style: lower-roman; }
 #TOC li { margin: 0; }
@@ -105,6 +105,8 @@ h2 a, h3 a { text-decoration:none; }
 
 .highlight { background: #f1fbf1; padding: 8px; margin-top: 32px; margin-bottom: 0; clear: both; overflow: auto; }
 .highlight h2 { border: none; margin: 8px 0 8px; padding: 0; }
+
+:target { background: #ffa; }
 
 @media (min-width:600px) {
 	body { font-size: 16px; }
