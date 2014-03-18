@@ -4,6 +4,9 @@
 
 Welcome to the latest version of the IAIP! We hope the new installation platform makes future updates easy and comfortable for all users.
 
++ FIX: New logo will display for all users.
+
+
 ## Version 2.9.2 <span>(2014-03-03)</span>
 
 + FIX: *SSCP* – Can't link to discovery event from brand new enforcement (#190); thx Sherry
