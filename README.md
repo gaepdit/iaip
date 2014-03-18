@@ -9,27 +9,43 @@ This is a special fork to prepare for moving to a [ClickOnce](http://msdn.micros
 
 ### Pre-deployment:
 
-+ Create installation website
-+ Draft emails
-+ Create dummy replacement for JohnGaltProject to inform user of new IAIP installation (with link to installation website)
-+ Beta program before final push
-
-### Post-deployment:
-
-+ Update documentation wiki
-
 ### Done:
 
 + ✓ Remove hard-coded file dependencies
 + ✓ Remove installer project
 + ✓ Change project name
-+ ✓ Add code in new project to remove old program
++ ✓ Add code in new project to remove old program (shortcuts only)
 + ✓ Remove version checking code
 + ✓ Review CPU settings
 + ✓ Review ClickOnce settings (prerequisites, etc.)
 + ✓ Review update frequency
 + ✓ Implement on-demand updater
 + ✓ Rebuild newer Crystal Reports
++ ✓ Draft emails
++ ✓ Send heads-up email
++ ✓ Create installation website
++ ✓ Create dummy replacement for JohnGaltProject to inform users of new IAIP installation (with link to installation website)
+
+### Beta program
+
++ ✓ Update changelog (#11)
+
+- Publish instructions (#1)
+- Publish 3.0 Release Candidate
+- Send beta program email (#2)
+- Check logs
+
+### Deployment
+
+- Update changelog (#16)
+- Republish instructions if modified
+- Publish 3.0 Final
+- Release JohnGaltProject deactivator (#3)
+- Send deployment email (#2)
+
+### Post-deployment:
+
+- Update documentation wiki
 
 Original IAIP Notes for Developers
 =========================
