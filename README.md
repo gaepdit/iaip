@@ -7,9 +7,7 @@ ClickOnce Fork
 
 This is a special fork to prepare for moving to a [ClickOnce](http://msdn.microsoft.com/en-us/library/142dbbz4%28v=vs.90%29.aspx) installation process.
 
-### Pre-deployment:
-
-### Done:
+### Pre-deployment (complete):
 
 + ✓ Remove hard-coded file dependencies
 + ✓ Remove installer project
@@ -26,7 +24,7 @@ This is a special fork to prepare for moving to a [ClickOnce](http://msdn.micros
 + ✓ Create installation website
 + ✓ Create dummy replacement for JohnGaltProject to inform users of new IAIP installation (with link to installation website)
 
-### Beta program
+### Beta program:
 
 + ✓ Update changelog (#11)
 
@@ -35,7 +33,7 @@ This is a special fork to prepare for moving to a [ClickOnce](http://msdn.micros
 - Send beta program email (#2)
 - Check logs
 
-### Deployment
+### Deployment:
 
 - Update changelog (#16)
 - Republish instructions if modified
