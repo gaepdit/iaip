@@ -6,7 +6,7 @@ The IAIP was developed by the Data Management Unit in the Georgia Air Protection
 to collect and organize all the data required to operate an efficient air quality program. 
 IAIP development began in 2004 and is ongoing.
 
-Follow the online instructions to [install the IAIP](install/index.html).
+Follow the online instructions to [install the IAIP](install/).
 
 Further documentation can be found on the [IAIP Documentation website](https://sites.google.com/site/iaipdocs/).
 

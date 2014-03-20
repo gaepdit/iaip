@@ -1,11 +1,25 @@
 % IAIP Change Log
 
+<!--
+
 ## Version 3.0 <span>(2014-03-??)</span>
 
 Welcome to the latest version of the IAIP! We hope the new installation platform makes future updates easy and comfortable for all users.
 
-+ FIX: New logo will display for all users.
+### Changes since 3.0 RC
 
++ ...
+
+### Changes from 2.9.2
+
++ NEW: New installer/updater
++ NEW: Correct logo will now display for all users
+
+-->
+
+## Version 3.0 RC <span>(2014-03-20)</span>
+
+Release Candidate for upcoming Version 3.0.
 
 ## Version 2.9.2 <span>(2014-03-03)</span>
 
