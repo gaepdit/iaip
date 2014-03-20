@@ -120,6 +120,8 @@
     <None Include="Build Events.txt" />
     <Content Include="assets\body-footer.html" />
     <Content Include="assets\body-header.html" />
+    <Content Include="assets\changelog-style.css" />
+    <Content Include="assets\instructions-style.css" />
     <Content Include="changelog.html" />
     <Content Include="index.html" />
     <Content Include="assets\dmu-logo.png" />
