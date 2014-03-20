@@ -23,8 +23,8 @@ Module subMain
     Friend Const AppName As String = "IAIP"
     Friend DocumentationUrl As New Uri("https://sites.google.com/site/iaipdocs/")
     'Friend DownloadUrl As New Uri("http://airpermit.dnr.state.ga.us/iaip/IAIP.update.new.exe")
-    Friend SupportUrl As New Uri("http://airpermit.dnr.state.ga.us/iaip/test/index.html")
-    Friend ChangelogUrl As New Uri("http://airpermit.dnr.state.ga.us/iaip/test/changelog.html")
+    Friend SupportUrl As New Uri("http://airpermit.dnr.state.ga.us/iaip/")
+    Friend ChangelogUrl As New Uri("http://airpermit.dnr.state.ga.us/iaip/changelog.html")
     Friend DateFormat As String = "dd-MMM-yyyy"
     Friend TodayString As String = Format(Date.Today, DateFormat)
     Friend CurrentConnectionEnvironment As DB.ConnectionEnvironment = DB.ConnectionEnvironment.Production
