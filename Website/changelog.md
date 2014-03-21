@@ -6,20 +6,24 @@
 
 Welcome to the latest version of the IAIP! We hope the new installation platform makes future updates easy and comfortable for all users.
 
-### Changes since 3.0 RC
+### Changes from 3.0 RC2
 
 + ...
 
-### Changes from 2.9.2
+-->
+
+## Version 3.0 RC2 <span>(2014-03-21)</span>
+
+Second Release Candidate for Version 3.0.
+
++ FIX: *SSCP* – Not all SSCP managers can access enforcement document uploader (#197); thx Sean
+
+## Version 3.0 RC1 <span>(2014-03-20)</span>
+
+Release Candidate for Version 3.0.
 
 + NEW: New installer/updater
 + NEW: Correct logo will now display for all users
-
--->
-
-## Version 3.0 RC <span>(2014-03-20)</span>
-
-Release Candidate for upcoming Version 3.0.
 
 ## Version 2.9.2 <span>(2014-03-03)</span>
 
