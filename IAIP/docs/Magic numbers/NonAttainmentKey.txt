@@ -1,0 +1,7 @@
+Non Attainment key
+
+1  Not Used
+2  1 hour Ozone 0 - No, 1 - Yes, 2 - Contributing
+3  8 hour ozone 0 - No, 1 - Atlanta, 2 - Macon
+4  2.5 PM 0 - No, 1 - Atlanta, 2 - Chattanoga, 3 - Floyd, 4 - Macon   
+5

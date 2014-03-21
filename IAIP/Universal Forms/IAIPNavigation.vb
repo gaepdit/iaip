@@ -1909,7 +1909,8 @@ Public Class IAIPNavigation
         End If
         If (Permissions.Contains("(19)") OrElse Permissions.Contains("(20)") _
         OrElse Permissions.Contains("(21)") OrElse Permissions.Contains("(23)") _
-        OrElse Permissions.Contains("(25)") OrElse Permissions.Contains("(118)")) Then
+        OrElse Permissions.Contains("(25)") OrElse Permissions.Contains("(118)") _
+        OrElse Permissions.Contains("(114)")) Then
             btnNav40.Text = "Enforcement Documents"
             btnNav40.Visible = True
         End If

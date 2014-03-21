@@ -1,0 +1,61 @@
+Ambient Monitoring Program 
+1   X Administrative
+2   X Specialist
+3   X Engineer 
+4   X Unit Manager 
+5   X Program Manager 
+Industrial Source Monitoring Program 
+6   0 Administrative 
+7   0 Specialist 
+8   0 Engineer 
+9   0 Unit Manager
+10  0 Program Manager 
+Mobile & Area Sources
+11  X Administrative 
+12  X Specialist 
+13  X Engineer 
+14  X Unit Manager 
+15  X Program Manager 
+Planning & Support 
+16  0 Financial 
+17  0 Data Modeling
+18  0 Regulatory Development
+19  0 Misc.
+20  0 Program Manager 
+Stationary Source Compliance Program 
+21  0 Administrative
+22  0 District Liaison 
+23  0 Engineer 
+24  0 Unit Manager 
+25  0 Program Manager 
+Stationary Source Permitting Program 
+26  0 Administrative 
+27  0 Specialist
+28  0 Engineer 
+29  0 Unit Manager 
+30  0 Program Manager 
+Air Protection Branch
+31  O Administrative 
+32  X Development ?
+33  O Director
+Districts
+34  X Administrative
+35  X Specialist
+36  X Engineer 
+37  X Unit Manager 
+38  X Program Manager 
+Unassigned
+39  0
+40  0
+Data Management Unit 
+41  0 AFS User 
+42  0 Web Worker
+43  0 DMU Developers
+44  0
+45  0
+
+46  0
+47  0
+48  0
+49  0
+50  0
