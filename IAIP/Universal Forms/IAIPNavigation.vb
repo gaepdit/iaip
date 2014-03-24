@@ -5937,4 +5937,8 @@ Public Class IAIPNavigation
 
 #End Region
 
+    Private Sub mmiPing_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPing.Click
+        DB.PingDBConnection(CurrentConnection)
+    End Sub
+
 End Class

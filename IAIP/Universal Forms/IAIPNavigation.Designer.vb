@@ -31,6 +31,7 @@ Partial Class IAIPNavigation
         Me.mmiSeparator1 = New System.Windows.Forms.MenuItem
         Me.mmiAbout = New System.Windows.Forms.MenuItem
         Me.mmiTesting = New System.Windows.Forms.MenuItem
+        Me.mmiPing = New System.Windows.Forms.MenuItem
         Me.lblTitle = New System.Windows.Forms.Label
         Me.pnlNavButtons = New System.Windows.Forms.Panel
         Me.btnNav40 = New System.Windows.Forms.Button
@@ -176,8 +177,14 @@ Partial Class IAIPNavigation
         'mmiTesting
         '
         Me.mmiTesting.Index = 3
+        Me.mmiTesting.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiPing})
         Me.mmiTesting.Text = "Testing"
         Me.mmiTesting.Visible = False
+        '
+        'mmiPing
+        '
+        Me.mmiPing.Index = 0
+        Me.mmiPing.Text = "PingDB"
         '
         'lblTitle
         '
@@ -1183,4 +1190,5 @@ Partial Class IAIPNavigation
     Friend WithEvents btnNav40 As System.Windows.Forms.Button
     Friend WithEvents pnlCurrentList As System.Windows.Forms.Panel
     Friend WithEvents pnlContextSubView As System.Windows.Forms.Panel
+    Friend WithEvents mmiPing As System.Windows.Forms.MenuItem
 End Class
