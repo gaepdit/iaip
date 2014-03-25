@@ -30,8 +30,7 @@ This is a special fork to prepare for moving to a [ClickOnce](http://msdn.micros
 + ✓ Publish instructions (#1)
 + ✓ Publish 3.0 Release Candidate
 + ✓ Send beta program email (#2)
-
-- Check logs
+- ✗ Check logs (analytics maxed out)
 
 ### Deployment:
 
