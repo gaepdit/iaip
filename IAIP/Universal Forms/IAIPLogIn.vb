@@ -78,13 +78,13 @@ Public Class IAIPLogIn
 
     Private Sub VerifyVersion()
         ' Do version checking
-        Dim currentVersion As Version = GetRunningVersion()
+        Dim currentVersion As Version = GetCurrentVersion()
         'Dim publishedVersion As Version = GetPublishedVersion()
 
         'lnkUpdateLink.Visible = False
 
         With lblCurrentVersionMessage
-            .Text = String.Format("Version: {0}", GetCurrentVersionAsMajorMinorBuild.ToString)
+            .Text = String.Format("Version: {0}", currentVersion.ToString)
             .Visible = True
         End With
 
@@ -383,17 +383,13 @@ Public Class IAIPLogIn
 
 #Region " Close application "
 
-    Private Sub CloseIaip()
-        CurrentConnection.Dispose()
-        Application.Exit()
-    End Sub
     Private Sub Form_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
         If Not SingleFormIsOpen(IAIPNavigation) Then
-            CloseIaip()
+            StartupShutdown.CloseIaip()
         End If
     End Sub
     Private Sub mmiExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExit.Click
-        CloseIaip()
+        StartupShutdown.CloseIaip()
     End Sub
 
 #End Region

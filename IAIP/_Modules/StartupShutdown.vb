@@ -1,6 +1,9 @@
 ﻿Module StartupShutdown
 
-    ' MyApplication_Startup -> App.Init()
+    ''' <summary>
+    ''' All the procedures to run as the application is starting up
+    ''' </summary>
+    ''' <remarks> Called by MyApplication_Startup -> StartupShutdown.Init() </remarks>
     Friend Sub Init()
 
 #If DEBUG Then
@@ -32,8 +35,14 @@
 
     End Sub
 
-    ' MyApplication_Shutdown -> App.Finish()
+    ''' <summary>
+    ''' All the procedures to run as the application is shutting down
+    ''' </summary>
+    ''' <remarks> Called by MyApplication_Shutdown -> StartupShutdown.Finish() </remarks>
     Friend Sub Finish()
+
+        ' Timers
+        App.StopAppTimers()
 
         ' Form settings
         SaveAllFormSettings()
@@ -72,6 +81,15 @@
         DeleteFileIfPossible(GetAllUsersDesktopPath() & shortcutName)
         DeleteFileIfPossible(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) & shortcutName)
         DeleteFileIfPossible(GetAllUsersStartMenuPath() & shortcutName)
+    End Sub
+
+    ''' <summary>
+    ''' Shuts down the running IAIP application
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Sub CloseIaip()
+        CurrentConnection.Dispose()
+        Application.Exit()
     End Sub
 
 End Module

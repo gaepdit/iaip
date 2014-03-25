@@ -52,6 +52,9 @@ Public Class IAIPNavigation
                 lblTitle.Text = lblTitle.Text & " — " & CurrentConnectionEnvironment.ToString
             End If
 
+            ' Timers
+            App.StartAppTimers()
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
