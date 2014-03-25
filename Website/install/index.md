@@ -6,7 +6,7 @@
 
 ![Installation Page](screenshots/install-page.png)
 
-Go to the [Installation Page](IAIP-install.html), click the `Install` button, and follow the prompts.
+Go to the [Installation Page](IAIP-install.html), click the **`Install`** button, and follow the prompts.
 
 </div>
 
@@ -31,7 +31,7 @@ Switching to the new system will require all current users to manually install t
 
 2. ![Installation Page](screenshots/install-page.png)
 
-    Go to the [Installation Page](IAIP-install.html) and click the `Install` button to download and run a file named `setup.exe`.
+    Go to the [Installation Page](IAIP-install.html) and click the **`Install`** button to download and run a file named `setup.exe`. (Don't click the link that says "[launch]() the application".)
 
 3. ![Example warning](screenshots/details-warning.png) 
 

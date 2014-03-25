@@ -128,7 +128,9 @@
     <Content Include="assets\style.css" />
     <Content Include="install\index.html" />
     <Content Include="install\screenshots\details-CR-license.png" />
+    <Content Include="install\screenshots\details-IAIP-final-circled.png" />
     <Content Include="install\screenshots\details-IAIP-final.png" />
+    <Content Include="install\screenshots\details-IAIP-userid.png" />
     <Content Include="install\screenshots\details-install.png" />
     <Content Include="install\screenshots\details-warning.png" />
     <Content Include="install\screenshots\install-page.png" />

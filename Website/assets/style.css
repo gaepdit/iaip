@@ -92,6 +92,7 @@ header { padding: 0; margin: 0;}
 .byline { margin: 0; padding: 8px; border-bottom: 4px solid #777; background: #444; color: #fff; text-shadow: 2px 1px 1px black; }
 header h1 { margin: 0; padding: 6px 8px; background: #ADE0A5; color: #333; border-top: none; border-bottom: 5px solid #82B97C; text-shadow: 1px 1px 1px #82B97C; }
 abbr[title] { border-bottom: 1px dotted; }
+a[href=''] { color: #333; cursor: not-allowed; }
 
 h2 { border-bottom: none; border-top: 1px solid #999; padding-top: 16px; margin-top: 48px; text-shadow: 1px 1px 1px #ddd; clear:both; }
 header + h2, nav + h2 { border-top: none; margin-top: 0; }
