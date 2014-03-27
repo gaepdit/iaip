@@ -21,10 +21,10 @@ figure:hover { width: 70%; }
 figure:hover figcaption:before { width: 0; height: 0; box-shadow: none; text-shadow: none; color: rgba(255,255,255,0); }
 code { padding: 5px; }
 
-a[href='setup.exe'] { display: block; width: 250px; padding: 15px 30px; font-size: larger; font-weight: bold; margin: 40px auto; text-align: center; border-radius: 7px; box-shadow: 0 5px rgb(28, 82, 128); background: rgb(81, 135, 182); color: #fff; position: relative; text-decoration: none; text-shadow: 1px 1px 1px rgb(28,82,128); }
-a[href='setup.exe']:hover, a[href='setup.exe']:focus { top: 1px; box-shadow: 0 4px rgb(28, 82, 128); }
-a[href='setup.exe']:active { top: 3px; box-shadow: 0 2px rgb(28, 82, 128); }
-a[href='setup.exe']:before, li:nth-child(2) code:nth-child(1):before { 
+a[href='setup.exe'] { display: block; width: 250px; padding: 15px 30px; font-size: larger; font-weight: bold; margin: 40px auto; text-align: center; border-radius: 7px; box-shadow: 0px 1px 0px rgb(103, 152, 194), 0 5px rgb(28, 82, 128); background: rgb(81, 135, 182); color: #fff; position: relative; text-decoration: none; text-shadow: 1px 1px 1px rgb(28,82,128); }
+a[href='setup.exe']:hover, a[href='setup.exe']:focus { top: 1px; box-shadow: 0px 1px 0px rgb(103, 152, 194), 0 4px rgb(28, 82, 128); }
+a[href='setup.exe']:active { top: 3px; box-shadow: 0px 1px 0px rgb(103, 152, 194), 0 2px rgb(28, 82, 128); }
+a[href='setup.exe']:before { 
 	content: "\f019 ";
 	font-family: 'icomoon';
 	speak: none;
@@ -40,8 +40,7 @@ a[href='setup.exe']:before, li:nth-child(2) code:nth-child(1):before {
 	margin-right: 5px;
 }
 a[href='setup.exe']:before {
-	line-height: 2;
-	font-size:1.5em;
+	font-size:2em;
 	display:block;
 	float:left;
 	margin-right:10px
