@@ -1,3 +1,8 @@
+@font-face { 
+	/* Have to use separate @font-face declaration for eot to get IE8 to work */
+	font-family: 'icomoon';
+	src:url('fonts/icomoon.eot?zp31l');
+}
 @font-face {
 	font-family: 'icomoon';
 	src:url('fonts/icomoon.eot?zp31l');
