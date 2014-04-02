@@ -30,18 +30,18 @@ This is a special fork to prepare for moving to a [ClickOnce](http://msdn.micros
 + ✓ Publish instructions (#1)
 + ✓ Publish 3.0 Release Candidate
 + ✓ Send beta program email (#2)
-- ✗ Check logs (analytics maxed out)
++ ✓ Check logs
 
 ### Deployment:
 
 - Update changelog (#16)
-- Republish instructions if modified
+- Republish 3.0 instructions
 - Publish 3.0 Final
-- Release JohnGaltProject deactivator (#3)
 - Send deployment email (#2)
 
 ### Post-deployment:
 
+- Release JohnGaltProject deactivator (#3)
 - Update documentation wiki
 
 Original IAIP Notes for Developers
