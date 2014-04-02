@@ -1,37 +1,15 @@
-% IAIP Installation Instructions
+% IAIP Installation Page
 
-<div class="highlight intro">
+[Download  
+IAIP Installer](setup.exe)
 
-## Short Summary
-
-![Installation Page](screenshots/install-page.png)
-
-Go to the [Installation Page](IAIP-install.html), click the `Install` button, and follow the prompts.
-
-</div>
-
-
-## Introduction
-
-In March 2014, we will be changing the method used to distribute and update the <abbr title="Integrated Air Information Platform">IAIP</abbr>.
-
-### The Good News:
-
-Installation for new users will be just as easy as before (easier in most cases!), and future updates will install automatically.
-
-### The Bad News:
-
-Switching to the new system will require all current users to manually install the new version. Luckily, this is a <em>one-time event</em>; after that, updates will be automatic.
-
-## Detailed Instructions
+## Installation Instructions
 
 1. ![User ID](screenshots/details-IAIP-userid.png)
 
-    If you already use the IAIP, make note of your login user ID, then **close the IAIP** before you begin.
+    If you already use the IAIP, make note of your login User ID, then **close the IAIP** before you begin.
 
-2. ![Installation Page](screenshots/install-page.png)
-
-    Go to the [Installation Page](IAIP-install.html) and click the `Install` button to download and run a file named `setup.exe`.
+2. Click the big **`Download`** button above to download and run a file named `setup.exe`.
 
 3. ![Example warning](screenshots/details-warning.png) 
 
@@ -45,11 +23,11 @@ Switching to the new system will require all current users to manually install t
 
 5. ![Application Install Security Warning](screenshots/details-install.png) 
 
-    After Crystal Reports is installed, you will be asked again if you want to install the IAIP.
+    After Crystal Reports is installed, you will be asked again if you want to install the IAIP. Click `Install`.
 
 6. ![IAIP login screen](screenshots/details-IAIP-final-circled.png) 
 
-    Finally, the IAIP should start, and the Login form should display **Version: 3.0.0** (or later). If you get this far, you're done!
+    When installation is completed, the IAIP should start, and the Login form should display **Version: 3.0.0** (or later). If you get this far, you're done! (Hopefully, you remember your User ID.)
 
 7. The new IAIP will try to delete your old shortcuts, but if it can't, feel free to delete them yourself. 
 

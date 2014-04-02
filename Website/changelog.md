@@ -2,15 +2,27 @@
 
 <!--
 
-## Version 3.0 <span>(2014-03-??)</span>
+## Version 3.1 <span>(2014-04-??)</span>
 
-Welcome to the latest version of the IAIP! We hope the new installation platform makes future updates easy and comfortable for all users.
-
-### Changes from 3.0 RC2
-
-+ ...
++ NEW: Another step on the road to eliminating database timeouts!
 
 -->
+
+## Version 3.0 <span>(2014-04-??)</span>
+
+Welcome to the latest version of the IAIP! We hope the new installation platform makes future updates easier for all users.
+
+Many thanks to our brave volunteers who tested the new installer and offered valuable feedback!
+
++ Travis Harris
++ Byeong Kim
++ David Lyle
++ Lynne Collier
++ Gany Seetharaman
++ Sean Taylor
++ DeAnna Oser
+
+We couldn't have done it without you!
 
 ## Version 3.0 RC2 <span>(2014-03-21)</span>
 
@@ -20,7 +32,7 @@ Second Release Candidate for Version 3.0.
 
 ## Version 3.0 RC1 <span>(2014-03-20)</span>
 
-Release Candidate for Version 3.0.
+First Release Candidate for Version 3.0.
 
 + NEW: New installer/updater
 + NEW: Correct logo will now display for all users

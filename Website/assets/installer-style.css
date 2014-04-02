@@ -1,0 +1,64 @@
+@font-face { 
+	/* Have to use separate @font-face declaration for eot to get IE8 to work */
+	font-family: 'icomoon';
+	src:url('fonts/icomoon.eot?zp31l');
+}
+@font-face {
+	font-family: 'icomoon';
+	src:url('fonts/icomoon.eot?zp31l');
+	src:url('fonts/icomoon.eot?#iefixzp31l') format('embedded-opentype'),
+		url('fonts/icomoon.woff?zp31l') format('woff'),
+		url('fonts/icomoon.ttf?zp31l') format('truetype'),
+		url('fonts/icomoon.svg?zp31l#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+ol li { margin: 0; clear: both; }
+ol li { margin: 0; clear: both; border-top: 1px dashed #aaa; padding-top: 15px; padding-bottom: 15px; }
+ol li:first-child { border-top: none; }
+figure { width: 150px; transition: all .4s ease-in-out; margin: 15px 8px 15px 0; padding: 8px; float: right; position: relative; text-align: center; background: rgba(113, 175, 255, 0.1); border-radius: 5px; }
+.intro figure { float: left; }
+figcaption { transition: all .4s ease-in-out; }
+figure img { display: inline-block; }
+figure figcaption:before { content: "+"; position: absolute; width: 1em; height: 1em; background: rgba(0,0,0,.1); transition: all .4s ease-in-out; top: 50px; left: 50%; font-size: 3em; color: #fff; text-shadow: 0 0 4px rgba(0,0,0, .5); border-radius: 50%; margin-left: -.5em; margin-top: -.5em; box-shadow: 0 0 5px rgba(50,50,50,.8); line-height: 1; overflow: hidden; }
+figure:hover { width: 70%; }
+figure:hover figcaption:before { width: 0; height: 0; box-shadow: none; text-shadow: none; color: rgba(255,255,255,0); }
+code { padding: 5px; }
+
+a[href='setup.exe'] { display: block; width: 250px; padding: 15px 30px; font-size: larger; font-weight: bold; margin: 40px auto; text-align: center; border-radius: 7px; box-shadow: 0px 1px 0px rgb(103, 152, 194), 0 5px rgb(28, 82, 128); background: rgb(81, 135, 182); color: #fff; position: relative; text-decoration: none; text-shadow: 1px 1px 1px rgb(28,82,128); }
+a[href='setup.exe']:hover, a[href='setup.exe']:focus { top: 1px; box-shadow: 0px 1px 0px rgb(103, 152, 194), 0 4px rgb(28, 82, 128); }
+a[href='setup.exe']:active { top: 3px; box-shadow: 0px 1px 0px rgb(103, 152, 194), 0 2px rgb(28, 82, 128); }
+a[href='setup.exe']:before { 
+	content: "\f019 ";
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	
+	margin-right: 5px;
+}
+a[href='setup.exe']:before {
+	font-size:2em;
+	display:block;
+	float:left;
+	margin-right:10px
+}
+a[href='setup.exe']:active:before { 
+	content: "\f135";
+	transition: 1s all;
+	-webkit-transform: rotate(-45deg);
+}
+
+.icon-uniF019:before {
+	content: "\f019";
+}
+.icon-uniF135:before {
+	content: "\f135";
+}
