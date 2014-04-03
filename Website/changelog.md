@@ -1,14 +1,6 @@
 % IAIP Change Log
 
-<!--
-
-## Version 3.1 <span>(2014-04-??)</span>
-
-+ NEW: Another step on the road to eliminating database timeouts!
-
--->
-
-## Version 3.0 <span>(2014-04-??)</span>
+## Version 3.0 <span>(2014-04-03)</span>
 
 Welcome to the latest version of the IAIP! We hope the new installation platform makes future updates easier for all users.
 
