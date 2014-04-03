@@ -37,8 +37,7 @@ This is a special fork to prepare for moving to a [ClickOnce](http://msdn.micros
 + ✓ Update changelog (#16)
 + ✓ Publish 3.0 instructions
 + ✓ Publish 3.0 Final
-
-- Send deployment email (#2)
++ ✓ Send deployment email (#2)
 
 ### Post-deployment:
 
