@@ -5,6 +5,8 @@ IAIP Installer](setup.exe)
 
 ## Installation Instructions
 
+These instructions are for installing the IAIP for the first time only. If you already have the IAIP installed, updates are handled from within the application.
+
 1. ![User ID](screenshots/details-IAIP-userid.png)
 
     If you already use the IAIP, make note of your login User ID, then **close the IAIP** before you begin.
