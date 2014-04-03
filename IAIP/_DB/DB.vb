@@ -5,7 +5,7 @@ Imports System.Collections.Generic
 Namespace DB
     Module DB
 
-#Region "DB Connection Strings"
+#Region " DB Connection Strings "
 
         Public Enum ConnectionEnvironment
             Production
@@ -125,7 +125,7 @@ Namespace DB
 
 #End Region
 
-#Region "Read (Scalar)"
+#Region " Read (Scalar) "
 
         Public Function GetSingleValue(Of T)(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing) As T
             Dim parameterArray As OracleParameter() = {parameter}
@@ -154,7 +154,7 @@ Namespace DB
 
 #End Region
 
-#Region "Read (Lookup Dictionary)"
+#Region " Read (Lookup Dictionary) "
 
         Public Function GetLookupDictionary(ByVal query As String) _
         As Dictionary(Of Integer, String)
@@ -171,7 +171,7 @@ Namespace DB
 
 #End Region
 
-#Region "Read (DataTable)"
+#Region " Read (DataTable) "
 
         Public Function GetDataTable(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing) As DataTable
             Dim parameterArray As OracleParameter() = {parameter}
@@ -202,7 +202,7 @@ Namespace DB
 
 #End Region
 
-#Region "Read (ByteArray)"
+#Region " Read (ByteArray) "
 
         Public Function GetByteArrayFromBlob(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing) As Byte()
             Dim parameterArray As OracleParameter() = {parameter}
@@ -244,7 +244,7 @@ Namespace DB
 
 #End Region
 
-#Region "Write (ExecuteNonQuery)"
+#Region " Write (ExecuteNonQuery) "
 
         Public Function RunCommand(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing, Optional ByRef count As Integer = 0) As Boolean
             count = 0

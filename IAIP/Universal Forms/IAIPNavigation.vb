@@ -52,6 +52,9 @@ Public Class IAIPNavigation
                 lblTitle.Text = lblTitle.Text & " — " & CurrentConnectionEnvironment.ToString
             End If
 
+            ' Timers
+            App.StartAppTimers()
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -5936,5 +5939,9 @@ Public Class IAIPNavigation
     End Sub
 
 #End Region
+
+    Private Sub mmiPing_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPing.Click
+        DB.PingDBConnection(CurrentConnection)
+    End Sub
 
 End Class

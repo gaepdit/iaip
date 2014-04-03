@@ -1,7 +1,7 @@
 Public Class IaipAbout
 
     Private Sub IaipAbout_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        lblVersion.Text = "Version " & GetCurrentVersionAsMajorMinorBuild().ToString
+        lblVersion.Text = "Version " & GetCurrentVersion().ToString
     End Sub
 
     Private Sub lblSupport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblSupport.LinkClicked
