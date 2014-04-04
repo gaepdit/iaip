@@ -135,7 +135,7 @@
     <Reference Include="CrystalDecisions.Windows.Forms, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="EQATEC.Analytics.Monitor, Version=3.2.61.0, Culture=neutral, PublicKeyToken=213c7c68adb58a17, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\_Common_Libraries\Telerik\Analytics\3.2.61\EQATEC.Analytics.Monitor.dll</HintPath>
+      <HintPath>..\..\common-libraries\Telerik\Analytics\3.2.61\EQATEC.Analytics.Monitor.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Outlook, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
     <Reference Include="Oracle.DataAccess, Version=2.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
