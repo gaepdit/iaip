@@ -1,11 +1,10 @@
 IAIP Notes for Developers
 =========================
 
-ClickOnce Fork
-
+ClickOnce deployment
 ---
 
-This is a special fork to prepare for moving to a [ClickOnce](http://msdn.microsoft.com/en-us/library/142dbbz4%28v=vs.90%29.aspx) installation process.
+These are/were the steps to follow for moving to a [ClickOnce](http://msdn.microsoft.com/en-us/library/142dbbz4%28v=vs.90%29.aspx) installation process. Issue numbers refer to forked repository at [IAIP ClickOnce](https://bitbucket.org/dougwaldron/iaip-clickonce). Once ClickOnce development is complete, this section will be removed.
 
 ### Pre-deployment (complete):
 
@@ -24,7 +23,7 @@ This is a special fork to prepare for moving to a [ClickOnce](http://msdn.micros
 + ✓ Create installation website
 + ✓ Create dummy replacement for JohnGaltProject to inform users of new IAIP installation (with link to installation website)
 
-### Beta program:
+### Beta program (complete):
 
 + ✓ Update changelog (#11)
 + ✓ Publish instructions (#1)
@@ -32,7 +31,7 @@ This is a special fork to prepare for moving to a [ClickOnce](http://msdn.micros
 + ✓ Send beta program email (#2)
 + ✓ Check logs
 
-### Deployment:
+### Deployment (complete):
 
 + ✓ Update changelog (#16)
 + ✓ Publish 3.0 instructions
@@ -41,70 +40,58 @@ This is a special fork to prepare for moving to a [ClickOnce](http://msdn.micros
 
 ### Post-deployment:
 
-- Release JohnGaltProject deactivator (#3)
 - Update documentation wiki
+- Release JohnGaltProject deactivator (#3)
 
-Original IAIP Notes for Developers
-=========================
 
 Source Code
 -----------
 
 The IAIP currently targets the .NET Framework version 3.5. It is built in Visual Studio 2008.
 
-The repository is on [BitBucket](https://bitbucket.org/bgregory/iaip-2008).
+The repository is on [Bitbucket](https://bitbucket.org/bgregory/iaip-2008).
 
 
 Prerequisites
 -------------
 
-Before you can build the IAIP, you must have several additional tools available in a directory named `_Common_Libraries` parallel to the IAIP solution directory like so:
+Before you can build the IAIP, you must have some additional tools available in a directory named `common-libraries` parallel to the IAIP solution directory like so:
 
 ```text
 	⊟ Repositories root directory
     ┃
-	┣─⊞ IAIP solution
+	┣─⊞ IAIP solution directory
     ┃
-	┣─⊟ _Build
-	┃ ┗─⊞ IAIP
-    ┃
-	┗─⊟ _Common_Libraries
-	   ┣─⊞ 7za
-	   ┣─⊞ 7zsd
-	   ┣─⊞ Eqatec
-	   ┗─⊞ Oracle
+	┗─⊟ common-libraries
+	   ┣─⊞ Oracle
+	   ┗─⊞ Telerik
 ```
 
 *(It doesn't matter what you name the root directory or the IAIP solution directory.)*
 
-The `_Common_Libraries` repository is also on [BitBucket](https://bitbucket.org/dougwaldron/tools-for-vs-and-other-projects).
+The `common-libraries` repository is on [Bitbucket](https://bitbucket.org/dougwaldron/common-libraries), and the easiest way to aquire it is to use the Clone command on the Bitbucket page.
 
-There are some items in the `_Common_Libraries` directory that are not used by the IAIP. Currently required tools are:
+There are some items in the `common-libraries` directory that are not used by the IAIP. Currently required tools are:
 
-+ [7za](http://sourceforge.net/projects/sevenzip/files/7-Zip/9.20/) (7-zip command line, version 9.20)
-+ [7zSD extra](http://7zsfx.info/en/download.html) (Modified SFX module, 1.5 Release)
 + Oracle (ODAC xcopy and instantclient)
-+ [Telerik Analytics](http://www.telerik.com/analytics/download/) (Application monitor, version 3.2.61)
++ [Telerik -- Analytics](https://platform.telerik.com/#downloads/analytics) (Application monitor)
 
-To build the readme and changelog docs, you must have [Pandoc](http://johnmacfarlane.net/pandoc/) installed. This script is run as part of the post-build events for Release builds. **Important: You must change the path in the post-build events to point to your installation of Pandoc.**
+To build the IAIP Documentation, you must have [Pandoc](http://johnmacfarlane.net/pandoc/) installed. A script is run as part of the pre-build events. **Important: You must change the path in the IAIP Documentation pre-build events to point to your installation of Pandoc.**
 
-Build
------
 
-The Release build outputs to a directory named `_Build` parallel to the IAIP directory (see diagram above). The Debug build outputs to the `bin` folder in the IAIP solution directory.
-
-### Branches
+Branches
+--------
 
 There are two main branches in the repository: `default` and `stable`
 
 + The `stable` branch is for releases
 + The `default` branch is for development of future releases
 
-To get the latest release version, run `hg update stable` and then build.
+To get the latest release version, run `hg update stable`.
 
 Other branches may be created for work on new features that are experimental or will take a long time to complete so that these don't intefere with regular releases. These branch names should be prefixed with `feature-`.
 
 Tips
 ----
 
-+ Before you can edit any forms, you have to build the project. (Each form inherits from `BaseForm` instead of from `System.Windows.Forms.Form`. The project has to be built before `BaseForm` is available to the visual designer.)
++ Before you can open any Winforms in design view, you have to build the project. (Each form inherits from `BaseForm` instead of from `System.Windows.Forms.Form`. The project has to be built before `BaseForm` is available to the visual designer.)
