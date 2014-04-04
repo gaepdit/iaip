@@ -140,7 +140,7 @@
     <Reference Include="Microsoft.Office.Interop.Outlook, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
     <Reference Include="Oracle.DataAccess, Version=2.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\_Common_Libraries\Oracle\x86\ODAC_xcopy\Oracle.DataAccess.dll</HintPath>
+      <HintPath>..\..\common-libraries\Oracle\x86\ODAC_xcopy\Oracle.DataAccess.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -1596,19 +1596,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="IAIP_TemporaryKey.pfx" />
-    <Content Include="..\..\_Common_Libraries\Oracle\x86\instantclient\oci.dll">
+    <Content Include="..\..\common-libraries\Oracle\x86\instantclient\oci.dll">
       <Link>oci.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\_Common_Libraries\Oracle\x86\instantclient\orannzsbb11.dll">
+    <Content Include="..\..\common-libraries\Oracle\x86\instantclient\orannzsbb11.dll">
       <Link>orannzsbb11.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\_Common_Libraries\Oracle\x86\instantclient\oraociicus11.dll">
+    <Content Include="..\..\common-libraries\Oracle\x86\instantclient\oraociicus11.dll">
       <Link>oraociicus11.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\_Common_Libraries\Oracle\x86\ODAC_xcopy\OraOps11w.dll">
+    <Content Include="..\..\common-libraries\Oracle\x86\ODAC_xcopy\OraOps11w.dll">
       <Link>OraOps11w.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
