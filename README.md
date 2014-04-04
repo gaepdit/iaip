@@ -99,9 +99,9 @@ Tips
 
 + You can set up automatic Bitbucket links within TortoiseHg Workbench by adding this to your hgrc file:
 
-    ```ini
-	[tortoisehg]
-    issue.regex = #(\d+)\b
-    issue.link = https://bitbucket.org/bgregory/iaip/issue/{1}
-    changeset.link = https://bitbucket.org/bgregory/iaip/commits/{node|short}
-	```
+```ini
+[tortoisehg]
+issue.regex = #(\d+)\b
+issue.link = https://bitbucket.org/bgregory/iaip/issue/{1}
+changeset.link = https://bitbucket.org/bgregory/iaip/commits/{node|short}
+```
