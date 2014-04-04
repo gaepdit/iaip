@@ -76,7 +76,7 @@ There are some items in the `common-libraries` directory that are not used by th
 + Oracle (ODAC xcopy and instantclient)
 + [Telerik -- Analytics](https://platform.telerik.com/#downloads/analytics) (Application monitor)
 
-To build the IAIP Documentation, you must have [Pandoc](http://johnmacfarlane.net/pandoc/) installed. A script is run as part of the pre-build events. **Important: You must change the path in the IAIP Documentation pre-build events to point to your installation of Pandoc.**
+To build the IAIP Documentation, you must have [Pandoc](http://johnmacfarlane.net/pandoc/installing.html) installed. A script is run as part of the pre-build events.
 
 
 Branches
