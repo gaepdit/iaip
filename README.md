@@ -40,8 +40,9 @@ These are/were the steps to follow for moving to a [ClickOnce](http://msdn.micro
 
 ### Post-deployment:
 
-- Update documentation wiki
-- Release JohnGaltProject deactivator (#3)
++ ✓ Update documentation wiki
+
+- Release JohnGaltProject deactivator (#3) -- Target date: 16-Apr-2014
 
 
 Source Code
@@ -95,3 +96,12 @@ Tips
 ----
 
 + Before you can open any Winforms in design view, you have to build the project. (Each form inherits from `BaseForm` instead of from `System.Windows.Forms.Form`. The project has to be built before `BaseForm` is available to the visual designer.)
+
++ You can set up automatic Bitbucket links within TortoiseHg Workbench by adding this to your hgrc file:
+
+    ```ini
+	[tortoisehg]
+    issue.regex = #(\d+)\b
+    issue.link = https://bitbucket.org/bgregory/iaip/issue/{1}
+    changeset.link = https://bitbucket.org/bgregory/iaip/commits/{node|short}
+	```
