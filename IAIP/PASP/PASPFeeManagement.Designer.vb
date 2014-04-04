@@ -22,22 +22,7 @@ Partial Class PASPFeeManagement
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PASPFeeManagement))
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MmiFile = New System.Windows.Forms.MenuItem
-        Me.mmiSave = New System.Windows.Forms.MenuItem
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem
-        Me.MmiBack = New System.Windows.Forms.MenuItem
-        Me.MmiView = New System.Windows.Forms.MenuItem
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem
-        Me.mmiNewApplication = New System.Windows.Forms.MenuItem
-        Me.MmiHelp = New System.Windows.Forms.MenuItem
         Me.TabControl1 = New System.Windows.Forms.TabControl
         Me.TPFeeAdminTools = New System.Windows.Forms.TabPage
         Me.TabControl2 = New System.Windows.Forms.TabControl
@@ -210,7 +195,6 @@ Partial Class PASPFeeManagement
         Me.Label39 = New System.Windows.Forms.Label
         Me.txtWebUserEmail = New System.Windows.Forms.TextBox
         Me.cboUserEmail = New System.Windows.Forms.ComboBox
-        Me.btnActivateEmail = New System.Windows.Forms.Button
         Me.lblViewFacility = New System.Windows.Forms.LinkLabel
         Me.Label52 = New System.Windows.Forms.Label
         Me.TPActivate = New System.Windows.Forms.TabPage
@@ -226,7 +210,6 @@ Partial Class PASPFeeManagement
         Me.Label50 = New System.Windows.Forms.Label
         Me.Label72 = New System.Windows.Forms.Label
         Me.btnAddFacility = New System.Windows.Forms.Button
-        Me.StatusStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TPFeeAdminTools.SuspendLayout()
         Me.TabControl2.SuspendLayout()
@@ -261,97 +244,6 @@ Partial Class PASPFeeManagement
         Me.TPFeeFacility.SuspendLayout()
         Me.SuspendLayout()
         '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.Panel1, Me.Panel2, Me.Panel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 670)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1001, 22)
-        Me.StatusStrip1.TabIndex = 256
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'ToolStripProgressBar1
-        '
-        Me.ToolStripProgressBar1.Name = "ToolStripProgressBar1"
-        Me.ToolStripProgressBar1.Size = New System.Drawing.Size(100, 16)
-        '
-        'Panel1
-        '
-        Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(876, 17)
-        Me.Panel1.Spring = True
-        Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Panel2
-        '
-        Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(4, 17)
-        '
-        'Panel3
-        '
-        Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(4, 17)
-        '
-        'MainMenu1
-        '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiFile, Me.MmiView, Me.MenuItem2, Me.MmiHelp})
-        '
-        'MmiFile
-        '
-        Me.MmiFile.Index = 0
-        Me.MmiFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiSave, Me.MenuItem1, Me.MmiBack})
-        Me.MmiFile.Text = "File"
-        '
-        'mmiSave
-        '
-        Me.mmiSave.Index = 0
-        Me.mmiSave.Text = "Save"
-        '
-        'MenuItem1
-        '
-        Me.MenuItem1.Index = 1
-        Me.MenuItem1.Text = "-"
-        '
-        'MmiBack
-        '
-        Me.MmiBack.Index = 2
-        Me.MmiBack.Text = "Back"
-        '
-        'MmiView
-        '
-        Me.MmiView.Index = 1
-        Me.MmiView.Text = "View"
-        '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 2
-        Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiNewApplication})
-        Me.MenuItem2.Text = "Tools"
-        '
-        'mmiNewApplication
-        '
-        Me.mmiNewApplication.Index = 0
-        Me.mmiNewApplication.Text = "Assign Application No."
-        Me.mmiNewApplication.Visible = False
-        '
-        'MmiHelp
-        '
-        Me.MmiHelp.Index = 3
-        Me.MmiHelp.Text = "Help"
-        '
         'TabControl1
         '
         Me.TabControl1.Controls.Add(Me.TPFeeAdminTools)
@@ -361,7 +253,7 @@ Partial Class PASPFeeManagement
         Me.TabControl1.Location = New System.Drawing.Point(0, 0)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(1001, 670)
+        Me.TabControl1.Size = New System.Drawing.Size(1001, 692)
         Me.TabControl1.TabIndex = 257
         '
         'TPFeeAdminTools
@@ -370,7 +262,7 @@ Partial Class PASPFeeManagement
         Me.TPFeeAdminTools.Location = New System.Drawing.Point(4, 22)
         Me.TPFeeAdminTools.Name = "TPFeeAdminTools"
         Me.TPFeeAdminTools.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPFeeAdminTools.Size = New System.Drawing.Size(993, 644)
+        Me.TPFeeAdminTools.Size = New System.Drawing.Size(993, 666)
         Me.TPFeeAdminTools.TabIndex = 0
         Me.TPFeeAdminTools.Text = "Fee Admin Tools"
         Me.TPFeeAdminTools.UseVisualStyleBackColor = True
@@ -384,7 +276,7 @@ Partial Class PASPFeeManagement
         Me.TabControl2.Location = New System.Drawing.Point(3, 3)
         Me.TabControl2.Name = "TabControl2"
         Me.TabControl2.SelectedIndex = 0
-        Me.TabControl2.Size = New System.Drawing.Size(987, 638)
+        Me.TabControl2.Size = New System.Drawing.Size(987, 660)
         Me.TabControl2.TabIndex = 402
         '
         'TabPage1
@@ -881,7 +773,7 @@ Partial Class PASPFeeManagement
         Me.TabPage3.Location = New System.Drawing.Point(4, 22)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(979, 612)
+        Me.TabPage3.Size = New System.Drawing.Size(979, 634)
         Me.TabPage3.TabIndex = 1
         Me.TabPage3.Text = "NSPS Exemption Tool"
         Me.TabPage3.UseVisualStyleBackColor = True
@@ -900,14 +792,14 @@ Partial Class PASPFeeManagement
         Me.pnlNSPSExemptions.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlNSPSExemptions.Location = New System.Drawing.Point(3, 3)
         Me.pnlNSPSExemptions.Name = "pnlNSPSExemptions"
-        Me.pnlNSPSExemptions.Size = New System.Drawing.Size(973, 606)
+        Me.pnlNSPSExemptions.Size = New System.Drawing.Size(973, 628)
         Me.pnlNSPSExemptions.TabIndex = 400
         '
         'Panel14
         '
         Me.Panel14.Controls.Add(Me.Panel13)
         Me.Panel14.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel14.Location = New System.Drawing.Point(0, 387)
+        Me.Panel14.Location = New System.Drawing.Point(0, 409)
         Me.Panel14.Name = "Panel14"
         Me.Panel14.Size = New System.Drawing.Size(973, 219)
         Me.Panel14.TabIndex = 415
@@ -1226,7 +1118,7 @@ Partial Class PASPFeeManagement
         Me.TPFeeManagementTools.Location = New System.Drawing.Point(4, 22)
         Me.TPFeeManagementTools.Name = "TPFeeManagementTools"
         Me.TPFeeManagementTools.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPFeeManagementTools.Size = New System.Drawing.Size(993, 644)
+        Me.TPFeeManagementTools.Size = New System.Drawing.Size(993, 666)
         Me.TPFeeManagementTools.TabIndex = 2
         Me.TPFeeManagementTools.Text = "Fee Management Tools"
         Me.TPFeeManagementTools.UseVisualStyleBackColor = True
@@ -1316,7 +1208,7 @@ Partial Class PASPFeeManagement
         Me.dgvFeeManagmentLists.Dock = System.Windows.Forms.DockStyle.Left
         Me.dgvFeeManagmentLists.Location = New System.Drawing.Point(3, 107)
         Me.dgvFeeManagmentLists.Name = "dgvFeeManagmentLists"
-        Me.dgvFeeManagmentLists.Size = New System.Drawing.Size(566, 534)
+        Me.dgvFeeManagmentLists.Size = New System.Drawing.Size(566, 556)
         Me.dgvFeeManagmentLists.TabIndex = 1
         '
         'Panel10
@@ -1580,6 +1472,7 @@ Partial Class PASPFeeManagement
         '
         'cboUsers
         '
+        Me.cboUsers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboUsers.FormattingEnabled = True
         Me.cboUsers.Location = New System.Drawing.Point(366, 63)
         Me.cboUsers.Name = "cboUsers"
@@ -1772,6 +1665,7 @@ Partial Class PASPFeeManagement
         '
         'cboFacilityToDelete
         '
+        Me.cboFacilityToDelete.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboFacilityToDelete.FormattingEnabled = True
         Me.cboFacilityToDelete.Location = New System.Drawing.Point(179, 329)
         Me.cboFacilityToDelete.Name = "cboFacilityToDelete"
@@ -2069,7 +1963,6 @@ Partial Class PASPFeeManagement
         Me.pnlUserEmail.Controls.Add(Me.Label39)
         Me.pnlUserEmail.Controls.Add(Me.txtWebUserEmail)
         Me.pnlUserEmail.Controls.Add(Me.cboUserEmail)
-        Me.pnlUserEmail.Controls.Add(Me.btnActivateEmail)
         Me.pnlUserEmail.Controls.Add(Me.lblViewFacility)
         Me.pnlUserEmail.Controls.Add(Me.Label52)
         Me.pnlUserEmail.Dock = System.Windows.Forms.DockStyle.Top
@@ -2111,22 +2004,11 @@ Partial Class PASPFeeManagement
         '
         Me.cboUserEmail.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboUserEmail.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboUserEmail.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboUserEmail.Location = New System.Drawing.Point(618, 9)
         Me.cboUserEmail.Name = "cboUserEmail"
         Me.cboUserEmail.Size = New System.Drawing.Size(244, 21)
         Me.cboUserEmail.TabIndex = 1
-        '
-        'btnActivateEmail
-        '
-        Me.btnActivateEmail.AutoSize = True
-        Me.btnActivateEmail.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnActivateEmail.BackColor = System.Drawing.Color.YellowGreen
-        Me.btnActivateEmail.Location = New System.Drawing.Point(371, 8)
-        Me.btnActivateEmail.Name = "btnActivateEmail"
-        Me.btnActivateEmail.Size = New System.Drawing.Size(134, 23)
-        Me.btnActivateEmail.TabIndex = 174
-        Me.btnActivateEmail.Text = "Refresh Email Addresses"
-        Me.btnActivateEmail.UseVisualStyleBackColor = False
         '
         'lblViewFacility
         '
@@ -2284,12 +2166,8 @@ Partial Class PASPFeeManagement
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1001, 692)
         Me.Controls.Add(Me.TabControl1)
-        Me.Controls.Add(Me.StatusStrip1)
-        Me.Menu = Me.MainMenu1
         Me.Name = "PASPFeeManagement"
         Me.Text = "PASP Fee Management"
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         Me.TabControl1.ResumeLayout(False)
         Me.TPFeeAdminTools.ResumeLayout(False)
         Me.TabControl2.ResumeLayout(False)
@@ -2334,23 +2212,8 @@ Partial Class PASPFeeManagement
         Me.TPFeeFacility.ResumeLayout(False)
         Me.TPFeeFacility.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents ToolStripProgressBar1 As System.Windows.Forms.ToolStripProgressBar
-    Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents MmiFile As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiSave As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiBack As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiView As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiNewApplication As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
     Friend WithEvents TPFeeAdminTools As System.Windows.Forms.TabPage
     Friend WithEvents TabControl2 As System.Windows.Forms.TabControl
@@ -2499,7 +2362,6 @@ Partial Class PASPFeeManagement
     Friend WithEvents Label39 As System.Windows.Forms.Label
     Friend WithEvents txtWebUserEmail As System.Windows.Forms.TextBox
     Friend WithEvents cboUserEmail As System.Windows.Forms.ComboBox
-    Friend WithEvents btnActivateEmail As System.Windows.Forms.Button
     Friend WithEvents lblViewFacility As System.Windows.Forms.LinkLabel
     Friend WithEvents Label52 As System.Windows.Forms.Label
     Friend WithEvents TPActivate As System.Windows.Forms.TabPage
