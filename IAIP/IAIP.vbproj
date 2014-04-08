@@ -678,12 +678,6 @@
       <DependentUpon>crESinfoByAirsNumber.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\ISMP\Copy of CROneStackThreeRuns.vb">
-      <DependentUpon>CROneStackTwoRuns.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
     <Compile Include="Crystal Reports\Oracle 9.2\ISMP\CRFlare.vb">
       <DependentUpon>CRFlare.rpt</DependentUpon>
       <SubType>Component</SubType>
