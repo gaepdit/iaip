@@ -1,6 +1,4 @@
 Imports Oracle.DataAccess.Client
-'Imports System.IO
-'Imports Microsoft.Win32
 
 Public Class IAIPLogIn
 
