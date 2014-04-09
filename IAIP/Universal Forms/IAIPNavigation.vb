@@ -46,11 +46,7 @@ Public Class IAIPNavigation
 
             LoadProgramDescription()
 
-            EnableTestingEnvironmentOptions()
-
-            If CurrentConnectionEnvironment <> DB.ConnectionEnvironment.Production Then
-                lblTitle.Text = lblTitle.Text & " — " & CurrentConnectionEnvironment.ToString
-            End If
+            EnableConnectionEnvironmentOptions()
 
             ' Timers
             App.StartAppTimers()
@@ -110,14 +106,19 @@ Public Class IAIPNavigation
         cboWorkViewerContext.SelectedIndex = 0
     End Sub
 
-    Private Sub EnableTestingEnvironmentOptions()
+    Private Sub EnableConnectionEnvironmentOptions()
+
+        If CurrentConnectionEnvironment <> DB.ConnectionEnvironment.Production Then
+            lblTitle.Text = lblTitle.Text & " — " & CurrentConnectionEnvironment.ToString
+        End If
+
         If DevelopmentEnvironment Then
             pnl4.Text = "TESTING ENVIRONMENT"
             pnl4.BackColor = Color.Tomato
             pnl4.Visible = True
 
-            mmiTesting.Visible = True
-            mmiTesting.Enabled = True
+            'mmiTesting.Visible = True
+            'mmiTesting.Enabled = True
         Else
             pnl4.Text = ""
             pnl4.Visible = False

@@ -9,6 +9,8 @@ Module subMain
     Friend Const DBNameSpace As String = "AIRBRANCH"
     Friend CurrentConnectionString As String = DB.GetConnectionString(False)
     Friend CurrentConnection As New OracleConnection(CurrentConnectionString)
+
+    Friend CurrentConnectionEnvironment As DB.ConnectionEnvironment = DB.ConnectionEnvironment.Production
     Friend DevelopmentEnvironment As Boolean = False
 #If NadcEnabled Then
     Friend NadcServer As Boolean = False
@@ -27,7 +29,6 @@ Module subMain
     Friend ChangelogUrl As New Uri("http://airpermit.dnr.state.ga.us/iaip/changelog.html")
     Friend DateFormat As String = "dd-MMM-yyyy"
     Friend TodayString As String = Format(Date.Today, DateFormat)
-    Friend CurrentConnectionEnvironment As DB.ConnectionEnvironment = DB.ConnectionEnvironment.Production
 
 #End Region
 

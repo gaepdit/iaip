@@ -14,61 +14,12 @@ Namespace DB
             NADC_Development
         End Enum
 
-        Private Class DatabaseConnectionParameters
-            Public Sub New(ByVal host As String, ByVal port As String, ByVal sid As String, ByVal user As String, ByVal pwd As String)
-                Me.Host = host
-                Me.Port = port
-                Me.SID = sid
-                Me.User = user
-                Me.Password = pwd
-            End Sub
-            Private _host As String
-            Public Property Host() As String
-                Get
-                    Return _host
-                End Get
-                Set(ByVal value As String)
-                    _host = value
-                End Set
-            End Property
-            Private _port As String
-            Public Property Port() As String
-                Get
-                    Return _port
-                End Get
-                Set(ByVal value As String)
-                    _port = value
-                End Set
-            End Property
-            Private _sid As String
-            Public Property SID() As String
-                Get
-                    Return _sid
-                End Get
-                Set(ByVal value As String)
-                    _sid = value
-                End Set
-            End Property
-            Private _user As String
-            Public Property User() As String
-                Get
-                    Return _user
-                End Get
-                Set(ByVal value As String)
-                    _user = value
-                End Set
-            End Property
-            Private _pwd As String
-            Public Property Password() As String
-                Get
-                    Return _pwd
-                End Get
-                Set(ByVal value As String)
-                    _pwd = value
-                End Set
-            End Property
-        End Class
-
+        ''' <summary>
+        ''' Returns database connection parameters as DatabaseConnectionParameters for a given ConnectionEnvironment enum
+        ''' </summary>
+        ''' <param name="env">A ConnectionEnvironment enum designating which connection string is desired</param>
+        ''' <returns>Database connection parameters</returns>
+        ''' <remarks>Currently built to return Oracle connection parameters</remarks>
         Private Function GetDatabaseConnectionParameters(ByVal env As ConnectionEnvironment) As DatabaseConnectionParameters
             Select Case env
 
@@ -90,6 +41,21 @@ Namespace DB
             End Select
         End Function
 
+        Private Structure DatabaseConnectionParameters
+            Public Sub New(ByVal host As String, ByVal port As String, ByVal sid As String, ByVal user As String, ByVal pwd As String)
+                Me.Host = host
+                Me.Port = port
+                Me.SID = sid
+                Me.User = user
+                Me.Password = pwd
+            End Sub
+            Public Host As String
+            Public Port As String
+            Public SID As String
+            Public User As String
+            Public Password As String
+        End Structure
+
         ''' <summary>
         ''' Returns the database connection string for the current database connection environment
         ''' </summary>
@@ -101,9 +67,9 @@ Namespace DB
         End Function
 
         ''' <summary>
-        ''' Returns a database connection string for either the production (PRD) or testing (DEV) environment
+        ''' Returns a database connection string based on the provided ConnectionEnvironment enum
         ''' </summary>
-        ''' <param name="env">A ConnectionEnvironment Enum designating which connection string is desired</param>
+        ''' <param name="env">A ConnectionEnvironment enum designating which connection string is desired</param>
         ''' <returns>A database connection string</returns>
         ''' <remarks>Currently built to return an Oracle connection string</remarks>
         Public Function GetConnectionString(ByVal env As ConnectionEnvironment) As String
