@@ -1,6 +1,4 @@
-'Imports Oracle.DataAccess.Client
-'Imports Oracle.DataAccess.Types
-Imports System.Data.OracleClient
+Imports Oracle.DataAccess.Client
 
 Public Class SBEAPClientSummary
     Dim dsCounty As DataSet
@@ -702,8 +700,8 @@ Public Class SBEAPClientSummary
                 "'" & Replace(City, "'", "''") & "', " & _
                 "'" & Replace(State, "'", "''") & "', " & _
                 "'" & Replace(ZipCode, "'", "''") & "', " & _
-                "'" & UserID & "', " & _
-                "sysdate, '" & UserID & "', " & _
+                "'" & UserGCode & "', " & _
+                "sysdate, '" & UserGCode & "', " & _
                 "sysdate) "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -741,7 +739,7 @@ Public Class SBEAPClientSummary
                 "strClientCity = '" & Replace(City, "'", "''") & "', " & _
                 "strClientState = '" & Replace(State, "'", "''") & "', " & _
                 "strClientZipCode = '" & Replace(ZipCode, "'", "''") & "', " & _
-                "strModifingPerson = '" & UserID & "', " & _
+                "strModifingPerson = '" & UserGCode & "', " & _
                 "datModifingDate = sysdate " & _
                 "where ClientContactID = '" & txtContactID.Text & "' "
 
@@ -919,8 +917,8 @@ Public Class SBEAPClientSummary
                 "'" & Replace(City, "'", "''") & "', " & _
                 "'" & Replace(State, "'", "''") & "', " & _
                 "'" & Replace(ZipCode, "'", "''") & "', " & _
-                "'" & UserID & "', " & _
-                "sysdate, '" & UserID & "', " & _
+                "'" & UserGCode & "', " & _
+                "sysdate, '" & UserGCode & "', " & _
                 "sysdate, '" & Replace(ContactNotes, "'", "''") & "') "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1119,7 +1117,7 @@ Public Class SBEAPClientSummary
                 "strClientCity = '" & Replace(City, "'", "''") & "', " & _
                 "strClientState = '" & Replace(State, "'", "''") & "', " & _
                 "strClientZipCode = '" & Replace(ZipCode, "'", "''") & "', " & _
-                "strModifingPerson = '" & UserID & "', " & _
+                "strModifingPerson = '" & UserGCode & "', " & _
                 "datModifingDate = sysdate, " & _
                 "strContactNotes = '" & Replace(ContactNotes, "'", "''") & "' " & _
                 "where ClientContactID = '" & txtContactID.Text & "' "
@@ -1683,7 +1681,7 @@ Public Class SBEAPClientSummary
 
             If Status = "Insert" Then
                 If txtClientID.Text = "" Then
-                    ClientCreator = UserID
+                    ClientCreator = UserGCode
                     GetNextClientID()
 
                     SQL = "Insert into " & DBNameSpace & ".SBEAPClients " & _
@@ -1705,7 +1703,7 @@ Public Class SBEAPClientSummary
                     "'" & Replace(MailingState, "'", "''") & "', " & _
                     "'" & Replace(MailingZipCode, "'", "''") & "', " & _
                     "'" & Replace(ClientCreator, "'", "''") & "', " & _
-                    "sysdate, '" & UserID & "', sysdate, '') "
+                    "sysdate, '" & UserGCode & "', sysdate, '') "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -1734,7 +1732,7 @@ Public Class SBEAPClientSummary
                     "'" & NAICS & "', '" & Employees & "', " & _
                     "'" & AIRSNumber & "', '" & AirCodes & "', " & _
                     "'" & StateCodes & "', " & _
-                    "'" & UserID & "', sysdate, '', " & _
+                    "'" & UserGCode & "', sysdate, '', " & _
                     "'" & Replace(AIRPermit, "'", "''") & "', '" & Replace(SSCPEngineer, "'", "''") & "', " & _
                     "'" & Replace(SSCPUnit, "'", "''") & "', '" & Replace(SSPPEngineer, "'", "''") & "', " & _
                     "'" & Replace(SSPPUnit, "'", "''") & "', '" & Replace(ISMPEngineer, "'", "''") & "', " & _
@@ -1766,7 +1764,7 @@ Public Class SBEAPClientSummary
                 "strMailingCity = '" & Replace(MailingCity, "'", "''") & "', " & _
                 "strMailingState = '" & Replace(MailingState, "'", "''") & "', " & _
                 "strMailingZipCode = '" & Replace(MailingZipCode, "'", "''") & "', " & _
-                "strModifingPerson = '" & UserID & "', " & _
+                "strModifingPerson = '" & UserGCode & "', " & _
                 "datModifingDate = sysdate " & _
                 "where ClientID = '" & txtClientID.Text & "' "
 
@@ -1786,7 +1784,7 @@ Public Class SBEAPClientSummary
                 "strAIRSNumber = '" & AIRSNumber & "', " & _
                 "strAirProgramCodes = '" & AirCodes & "', " & _
                 "strStateProgramCodes = '" & StateCodes & "', " & _
-                "strModifingperson = '" & UserID & "', " & _
+                "strModifingperson = '" & UserGCode & "', " & _
                 "datModifingDate = sysdate, " & _
                 "strAIRPermitNumber = '" & Replace(AIRPermit, "'", "''") & "', " & _
                 "strSSCPEngineer = '" & Replace(SSCPEngineer, "'", "''") & "', " & _

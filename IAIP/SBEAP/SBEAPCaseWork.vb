@@ -1,6 +1,4 @@
-'Imports Oracle.DataAccess.Client
-'Imports Oracle.DataAccess.Types
-Imports System.Data.OracleClient
+Imports Oracle.DataAccess.Client
 
 Public Class SBEAPCaseWork
     Dim dsCaseWork As DataSet
@@ -1276,7 +1274,7 @@ Public Class SBEAPCaseWork
                 "'" & Staff & "', '" & DTPCaseOpened.Text & "', " & _
                 "'" & Replace(txtCaseDescription.Text, "'", "''") & "', " & _
                 "'', '" & CloseDate & "', " & _
-                "'" & UserID & "', '" & OracleDate & "', " & _
+                "'" & UserGCode & "', '" & OracleDate & "', " & _
                 "'" & Replace(InterAgency, "'", "''") & "', '" & Replace(ReferralComments, "'", "''") & "', " & _
                 "'" & ReferralDate & "', '" & ComplaintBased & "', " & _
                 "'" & CaseClosedLetter & "') "
@@ -1288,7 +1286,7 @@ Public Class SBEAPCaseWork
                 "datCaseOpened = '" & DTPCaseOpened.Text & "', " & _
                 "strCaseSummary = '" & Replace(txtCaseDescription.Text, "'", "''") & "', " & _
                 "datCaseClosed = '" & CloseDate & "', " & _
-                "numModifingStaff = '" & UserID & "', " & _
+                "numModifingStaff = '" & UserGCode & "', " & _
                 "datModifingDate = '" & OracleDate & "', " & _
                 "strInterAgency = '" & Replace(InterAgency, "'", "''") & "', " & _
                 "strReferralComments = '" & Replace(ReferralComments, "'", "''") & "', " & _
@@ -1527,7 +1525,7 @@ Public Class SBEAPCaseWork
                 "'" & Replace(LeadAssist, "'", "''") & "', " & _
                 "'" & Replace(OtherAssist, "'", "''") & "', " & _
                 "'" & Replace(Comments, "'", "''") & "', " & _
-                "'" & UserID & "', '" & OracleDate & "') "
+                "'" & UserGCode & "', '" & OracleDate & "') "
             Else
                 SQL = "Update " & DBNameSpace & ".SBEAPComplianceAssist set " & _
                 "strAirAssist = '" & Replace(AirAssist, "'", "''") & "', " & _
@@ -1539,7 +1537,7 @@ Public Class SBEAPCaseWork
                 "strLeadAssist = '" & Replace(LeadAssist, "'", "''") & "', " & _
                 "strOtherAssist = '" & Replace(OtherAssist, "'", "''") & "', " & _
                 "strComment =  '" & Replace(Comments, "'", "''") & "', " & _
-                "strModifingStaff = '" & UserID & "', " & _
+                "strModifingStaff = '" & UserGCode & "', " & _
                 "datModifingDate = '" & OracleDate & "' " & _
                 "where numActionID = '" & txtActionID.Text & "' "
             End If
@@ -1767,7 +1765,7 @@ Public Class SBEAPCaseWork
                 "'" & AssistEnd & "', '" & AssistRequest & "', " & _
                 "'" & Replace(AIRSNumber, "'", "''") & "', " & _
                 "'" & Replace(TechnicalAssistComments, "'", "''") & "', " & _
-                "'" & UserID & "', '" & OracleDate & "') "
+                "'" & UserGCode & "', '" & OracleDate & "') "
             Else
                 SQL = "Update " & DBNameSpace & ".SBEAPTechnicalAssist set " & _
                 "strTechnicalAssistType = '" & Replace(AssistType, "'", "''") & "', " & _
@@ -1777,7 +1775,7 @@ Public Class SBEAPCaseWork
                 "strAssistanceRequest = '" & AssistRequest & "', " & _
                 "strAIRSNumber = '" & Replace(AIRSNumber, "'", "''") & "', " & _
                 "strTechnicalAssistNotes = '" & Replace(TechnicalAssistComments, "'", "''") & "', " & _
-                "strModifingStaff = '" & UserID & "', " & _
+                "strModifingStaff = '" & UserGCode & "', " & _
                 "datModifingDate = '" & OracleDate & "' " & _
                 "where numActionID = '" & txtActionID.Text & "' "
             End If
@@ -1846,7 +1844,7 @@ Public Class SBEAPCaseWork
                 "'" & Replace(CallerPhone, "'", "''") & "', " & _
                 "'" & Replace(PhoneCallNotes, "'", "''") & "', " & _
                 "'" & OneTimeAssist & "', '" & FrontDeskCall & "', " & _
-                "'" & UserID & "', '" & OracleDate & "') "
+                "'" & UserGCode & "', '" & OracleDate & "') "
             Else
                 SQL = "Update " & DBNameSpace & ".SBEAPPhoneLog set " & _
                 "strCallerInformation = '" & Replace(CallerInfo, "'", "''") & "', " & _
@@ -1854,7 +1852,7 @@ Public Class SBEAPCaseWork
                 "strPhoneLogNotes = '" & Replace(PhoneCallNotes, "'", "''") & "', " & _
                 "strOneTimeAssist = '" & OneTimeAssist & "', " & _
                 "strFrontDeskCall = '" & FrontDeskCall & "', " & _
-                "strModifingStaff = '" & UserID & "', " & _
+                "strModifingStaff = '" & UserGCode & "', " & _
                 "datModifingDate = '" & OracleDate & "' " & _
                 "where numActionID = '" & txtActionID.Text & "' "
             End If
@@ -1957,7 +1955,7 @@ Public Class SBEAPCaseWork
                 "'" & Replace(Attendees, "'", "''") & "', '" & Replace(ConferenceStart, "'", "''") & "', " & _
                 "'" & Replace(ConferenceEnd, "'", "'''") & "', '" & Replace(SBEAPPresentation, "'", "''") & "', " & _
                 "'" & Replace(ListofBusinesses, "'", "''") & "', '" & Replace(FollowUp, "'", "''") & "', " & _
-                "'" & StaffAttendies & "', '" & UserID & "', '" & OracleDate & "') "
+                "'" & StaffAttendies & "', '" & UserGCode & "', '" & OracleDate & "') "
             Else
                 SQL = "Update " & DBNameSpace & ".SBEAPConferenceLog set " & _
                 "strConferenceAttended = '" & Replace(ConferenceAttended, "'", "''") & "', " & _
@@ -1970,7 +1968,7 @@ Public Class SBEAPCaseWork
                 "strListOfBusinessSectors = '" & Replace(ListofBusinesses, "'", "''") & "', " & _
                 "strConferenceFollowUp = '" & Replace(FollowUp, "'", "''") & "', " & _
                 "strStaffAttending = '" & StaffAttendies & "', " & _
-                "strModifingStaff = '" & UserID & "', " & _
+                "strModifingStaff = '" & UserGCode & "', " & _
                 "datModifingDate = '" & OracleDate & "' " & _
                 "where numActionID = '" & txtActionID.Text & "' "
             End If
@@ -2012,11 +2010,11 @@ Public Class SBEAPCaseWork
                 SQL = "Insert into " & DBNameSpace & ".SBEAPOtherLog " & _
                 "values " & _
                 "('" & txtActionID.Text & "', '" & Replace(CaseNotes, "'", "''") & "', " & _
-                "'" & UserID & "', '" & OracleDate & "') "
+                "'" & UserGCode & "', '" & OracleDate & "') "
             Else
                 SQL = "Update " & DBNameSpace & ".SBEAPOtherLog set " & _
                 "strCaseNotes = '" & Replace(CaseNotes, "'", "''") & "', " & _
-                "strModifingStaff = '" & UserID & "', " & _
+                "strModifingStaff = '" & UserGCode & "', " & _
                 "datModifingDate = '" & OracleDate & "' " & _
                 "where numActionID = '" & txtActionID.Text & "' "
             End If
@@ -2047,7 +2045,7 @@ Public Class SBEAPCaseWork
             DTPReferralDate.Checked = False
             txtReferralInformation.Clear()
             cboInteragency.Text = ""
-            cboStaffResponsible.SelectedValue = UserID
+            cboStaffResponsible.SelectedValue = UserGCode
             DTPCaseClosed.Text = OracleDate
             DTPCaseClosed.Checked = False
             DTPCaseOpened.Text = OracleDate
@@ -2308,8 +2306,8 @@ Public Class SBEAPCaseWork
                 SQL = "Insert into " & DBNameSpace & ".SBEAPActionLog " & _
                 "values " & _
                 "('" & txtActionID.Text & "', '" & txtCaseID.Text & "', " & _
-                "'" & cboActionType.SelectedValue & "', '" & UserID & "', " & _
-                "'" & OracleDate & "', '" & UserID & "', " & _
+                "'" & cboActionType.SelectedValue & "', '" & UserGCode & "', " & _
+                "'" & OracleDate & "', '" & UserGCode & "', " & _
                 "'" & OracleDate & "', '" & DTPActionOccured.Text & "') "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2744,20 +2742,20 @@ Public Class SBEAPCaseWork
         End Try
     End Sub
 
-    Private Sub tsbPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbPrint.Click
-        Try
+    'Private Sub tsbPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbPrint.Click
+    '    Try
 
-            If PrintForm Is Nothing Then
-            Else
-                PrintForm.Dispose()
-            End If
-            PrintForm = New SBEAPPrintForms
-            PrintForm.txtSource.Text = txtCaseID.Text
-            PrintForm.txtOrigin.Text = "Case Work"
-            PrintForm.Show()
-            
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
+    '        If PrintForm Is Nothing Then
+    '        Else
+    '            PrintForm.Dispose()
+    '        End If
+    '        PrintForm = New SBEAPPrintForms
+    '        PrintForm.txtSource.Text = txtCaseID.Text
+    '        PrintForm.txtOrigin.Text = "Case Work"
+    '        PrintForm.Show()
+
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    End Try
+    'End Sub
 End Class

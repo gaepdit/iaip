@@ -155,7 +155,6 @@
     <Reference Include="System.Data.DataSetExtensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
@@ -1078,9 +1077,6 @@
     <EmbeddedResource Include="SBEAP\Sub Forms\SBEAPClientSearchTool.resx">
       <DependentUpon>SBEAPClientSearchTool.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SBEAP\Sub Forms\SBEAPPrintForms.resx">
-      <DependentUpon>SBEAPPrintForms.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SscpDocuments.resx">
       <DependentUpon>SscpDocuments.vb</DependentUpon>
     </EmbeddedResource>
@@ -1650,17 +1646,6 @@
     <None Include="Resources\Seal_of_Georgia_gold.ico" />
     <None Include="Resources\Seal_of_Georgia_red_small.ico" />
     <None Include="Resources\Seal_of_Georgia_gold_256x256x32.png" />
-    <None Include="SBEAP\DataSets\dsEPDUserProfiles.xsc">
-      <DependentUpon>dsEPDUserProfiles.xsd</DependentUpon>
-    </None>
-    <None Include="SBEAP\DataSets\dsEPDUserProfiles.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsEPDUserProfiles.Designer.vb</LastGenOutput>
-    </None>
-    <None Include="SBEAP\DataSets\dsEPDUserProfiles.xss">
-      <DependentUpon>dsEPDUserProfiles.xsd</DependentUpon>
-    </None>
     <Compile Include="Crystal Reports\CRViewerForm.Designer.vb">
       <DependentUpon>CRViewerForm.vb</DependentUpon>
     </Compile>
@@ -1699,11 +1684,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Crystal Reports\SmokeSchool\CrSmokeSchoolRoster.vb">
-    </Compile>
-    <Compile Include="SBEAP\DataSets\dsEPDUserProfiles.Designer.vb">
-      <DependentUpon>dsEPDUserProfiles.xsd</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="SBEAP\SBEAPCaseLog.Designer.vb">
       <DependentUpon>SBEAPCaseLog.vb</DependentUpon>
@@ -1745,12 +1725,6 @@
       <DependentUpon>SBEAPClientSearchTool.vb</DependentUpon>
     </Compile>
     <Compile Include="SBEAP\Sub Forms\SBEAPClientSearchTool.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SBEAP\Sub Forms\SBEAPPrintForms.Designer.vb">
-      <DependentUpon>SBEAPPrintForms.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SBEAP\Sub Forms\SBEAPPrintForms.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Universal Forms\IaipAbout.Designer.vb">
@@ -1808,6 +1782,7 @@
     <Compile Include="_DB\DAL.EventRegistration.vb" />
     <Compile Include="_DB\DB.Utilities.vb" />
     <Compile Include="_Modules\Analytics.vb" />
+    <Compile Include="_Modules\CrystalReports.vb" />
     <Compile Include="_Modules\Email.vb" />
     <Compile Include="_Modules\FileSystem.vb" />
     <Compile Include="_Modules\FormHandler.vb" />

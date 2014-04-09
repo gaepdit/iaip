@@ -1,6 +1,4 @@
-﻿'Imports Oracle.DataAccess.Client
-'Imports Oracle.DataAccess.Types
-Imports System.Data.OracleClient
+﻿Imports Oracle.DataAccess.Client
 Imports System.Math
 
 Public Class SBEAPCaseLog
@@ -35,7 +33,7 @@ Public Class SBEAPCaseLog
             FormLoad()
             rdbOpenCases.Checked = True
 
-            cboSearchText2.SelectedValue = UserID
+            cboSearchText2.SelectedValue = UserGCode
 
             btnSearchCaseLog.Enabled = False
             btnResetSearch.Enabled = False

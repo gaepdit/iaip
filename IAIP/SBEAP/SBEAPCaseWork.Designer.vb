@@ -61,6 +61,17 @@ Partial Class SBEAPCaseWork
         Me.txtOutstandingCases = New System.Windows.Forms.TextBox
         Me.btnRefreshClient = New System.Windows.Forms.Button
         Me.TCCaseSpecificData = New System.Windows.Forms.TabControl
+        Me.TPComplianceAssistance = New System.Windows.Forms.TabPage
+        Me.Label44 = New System.Windows.Forms.Label
+        Me.txtComplianceAssistanceComments = New System.Windows.Forms.TextBox
+        Me.chbOtherAssist = New System.Windows.Forms.CheckBox
+        Me.chbStormWaterAssist = New System.Windows.Forms.CheckBox
+        Me.chbHazardousWasteAssist = New System.Windows.Forms.CheckBox
+        Me.chbSolidWasteAssist = New System.Windows.Forms.CheckBox
+        Me.chbUSTAssist = New System.Windows.Forms.CheckBox
+        Me.chbScrapTireAssist = New System.Windows.Forms.CheckBox
+        Me.chbLeadAndAsbestosAssist = New System.Windows.Forms.CheckBox
+        Me.chbAirAssist = New System.Windows.Forms.CheckBox
         Me.TPTechnicalAssist = New System.Windows.Forms.TabPage
         Me.txtTechnicalAssistNotes = New System.Windows.Forms.TextBox
         Me.Label37 = New System.Windows.Forms.Label
@@ -186,21 +197,11 @@ Partial Class SBEAPCaseWork
         Me.txtActionID = New System.Windows.Forms.TextBox
         Me.dgvActionLog = New System.Windows.Forms.DataGridView
         Me.btnViewActionType = New System.Windows.Forms.Button
-        Me.TPComplianceAssistance = New System.Windows.Forms.TabPage
-        Me.chbAirAssist = New System.Windows.Forms.CheckBox
-        Me.chbLeadAndAsbestosAssist = New System.Windows.Forms.CheckBox
-        Me.chbScrapTireAssist = New System.Windows.Forms.CheckBox
-        Me.chbUSTAssist = New System.Windows.Forms.CheckBox
-        Me.chbSolidWasteAssist = New System.Windows.Forms.CheckBox
-        Me.chbHazardousWasteAssist = New System.Windows.Forms.CheckBox
-        Me.chbStormWaterAssist = New System.Windows.Forms.CheckBox
-        Me.chbOtherAssist = New System.Windows.Forms.CheckBox
-        Me.txtComplianceAssistanceComments = New System.Windows.Forms.TextBox
-        Me.Label44 = New System.Windows.Forms.Label
         Me.ToolStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.TCCaseSpecificData.SuspendLayout()
+        Me.TPComplianceAssistance.SuspendLayout()
         Me.TPTechnicalAssist.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.Panel4.SuspendLayout()
@@ -219,7 +220,6 @@ Partial Class SBEAPCaseWork
         Me.GroupBox1.SuspendLayout()
         Me.Panel6.SuspendLayout()
         CType(Me.dgvActionLog, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TPComplianceAssistance.SuspendLayout()
         Me.SuspendLayout()
         '
         'ToolStrip1
@@ -252,11 +252,13 @@ Partial Class SBEAPCaseWork
         'tsbPrint
         '
         Me.tsbPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.tsbPrint.Enabled = False
         Me.tsbPrint.Image = CType(resources.GetObject("tsbPrint.Image"), System.Drawing.Image)
         Me.tsbPrint.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbPrint.Name = "tsbPrint"
         Me.tsbPrint.Size = New System.Drawing.Size(23, 22)
         Me.tsbPrint.Text = "Print Case Work"
+        Me.tsbPrint.Visible = False
         '
         'tsbClearFrom
         '
@@ -326,32 +328,32 @@ Partial Class SBEAPCaseWork
         'FileToolStripMenuItem
         '
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(35, 20)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "File"
         '
         'ToolToolStripMenuItem
         '
         Me.ToolToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiAddNewClient, Me.tsmDeleteCaseWork})
         Me.ToolToolStripMenuItem.Name = "ToolToolStripMenuItem"
-        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
+        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(43, 20)
         Me.ToolToolStripMenuItem.Text = "Tool"
         '
         'mmiAddNewClient
         '
         Me.mmiAddNewClient.Name = "mmiAddNewClient"
-        Me.mmiAddNewClient.Size = New System.Drawing.Size(171, 22)
+        Me.mmiAddNewClient.Size = New System.Drawing.Size(166, 22)
         Me.mmiAddNewClient.Text = "Add New Client"
         '
         'tsmDeleteCaseWork
         '
         Me.tsmDeleteCaseWork.Name = "tsmDeleteCaseWork"
-        Me.tsmDeleteCaseWork.Size = New System.Drawing.Size(171, 22)
+        Me.tsmDeleteCaseWork.Size = New System.Drawing.Size(166, 22)
         Me.tsmDeleteCaseWork.Text = "Delete Case Work"
         '
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(40, 20)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
         'txtCaseID
@@ -587,6 +589,122 @@ Partial Class SBEAPCaseWork
         Me.TCCaseSpecificData.SelectedIndex = 0
         Me.TCCaseSpecificData.Size = New System.Drawing.Size(1016, 424)
         Me.TCCaseSpecificData.TabIndex = 33
+        '
+        'TPComplianceAssistance
+        '
+        Me.TPComplianceAssistance.Controls.Add(Me.Label44)
+        Me.TPComplianceAssistance.Controls.Add(Me.txtComplianceAssistanceComments)
+        Me.TPComplianceAssistance.Controls.Add(Me.chbOtherAssist)
+        Me.TPComplianceAssistance.Controls.Add(Me.chbStormWaterAssist)
+        Me.TPComplianceAssistance.Controls.Add(Me.chbHazardousWasteAssist)
+        Me.TPComplianceAssistance.Controls.Add(Me.chbSolidWasteAssist)
+        Me.TPComplianceAssistance.Controls.Add(Me.chbUSTAssist)
+        Me.TPComplianceAssistance.Controls.Add(Me.chbScrapTireAssist)
+        Me.TPComplianceAssistance.Controls.Add(Me.chbLeadAndAsbestosAssist)
+        Me.TPComplianceAssistance.Controls.Add(Me.chbAirAssist)
+        Me.TPComplianceAssistance.Location = New System.Drawing.Point(4, 22)
+        Me.TPComplianceAssistance.Name = "TPComplianceAssistance"
+        Me.TPComplianceAssistance.Size = New System.Drawing.Size(1008, 398)
+        Me.TPComplianceAssistance.TabIndex = 4
+        Me.TPComplianceAssistance.Text = "Compliance Assistance"
+        Me.TPComplianceAssistance.UseVisualStyleBackColor = True
+        '
+        'Label44
+        '
+        Me.Label44.AutoSize = True
+        Me.Label44.Location = New System.Drawing.Point(8, 206)
+        Me.Label44.Name = "Label44"
+        Me.Label44.Size = New System.Drawing.Size(108, 13)
+        Me.Label44.TabIndex = 34
+        Me.Label44.Text = "Additional Comments:"
+        '
+        'txtComplianceAssistanceComments
+        '
+        Me.txtComplianceAssistanceComments.Location = New System.Drawing.Point(11, 222)
+        Me.txtComplianceAssistanceComments.Multiline = True
+        Me.txtComplianceAssistanceComments.Name = "txtComplianceAssistanceComments"
+        Me.txtComplianceAssistanceComments.Size = New System.Drawing.Size(533, 100)
+        Me.txtComplianceAssistanceComments.TabIndex = 8
+        '
+        'chbOtherAssist
+        '
+        Me.chbOtherAssist.AutoSize = True
+        Me.chbOtherAssist.Location = New System.Drawing.Point(6, 179)
+        Me.chbOtherAssist.Name = "chbOtherAssist"
+        Me.chbOtherAssist.Size = New System.Drawing.Size(52, 17)
+        Me.chbOtherAssist.TabIndex = 7
+        Me.chbOtherAssist.Text = "Other"
+        Me.chbOtherAssist.UseVisualStyleBackColor = True
+        '
+        'chbStormWaterAssist
+        '
+        Me.chbStormWaterAssist.AutoSize = True
+        Me.chbStormWaterAssist.Location = New System.Drawing.Point(6, 41)
+        Me.chbStormWaterAssist.Name = "chbStormWaterAssist"
+        Me.chbStormWaterAssist.Size = New System.Drawing.Size(85, 17)
+        Me.chbStormWaterAssist.TabIndex = 6
+        Me.chbStormWaterAssist.Text = "Storm Water"
+        Me.chbStormWaterAssist.UseVisualStyleBackColor = True
+        '
+        'chbHazardousWasteAssist
+        '
+        Me.chbHazardousWasteAssist.AutoSize = True
+        Me.chbHazardousWasteAssist.Location = New System.Drawing.Point(6, 64)
+        Me.chbHazardousWasteAssist.Name = "chbHazardousWasteAssist"
+        Me.chbHazardousWasteAssist.Size = New System.Drawing.Size(111, 17)
+        Me.chbHazardousWasteAssist.TabIndex = 5
+        Me.chbHazardousWasteAssist.Text = "Hazardous Waste"
+        Me.chbHazardousWasteAssist.UseVisualStyleBackColor = True
+        '
+        'chbSolidWasteAssist
+        '
+        Me.chbSolidWasteAssist.AutoSize = True
+        Me.chbSolidWasteAssist.Location = New System.Drawing.Point(6, 87)
+        Me.chbSolidWasteAssist.Name = "chbSolidWasteAssist"
+        Me.chbSolidWasteAssist.Size = New System.Drawing.Size(83, 17)
+        Me.chbSolidWasteAssist.TabIndex = 4
+        Me.chbSolidWasteAssist.Text = "Solid Waste"
+        Me.chbSolidWasteAssist.UseVisualStyleBackColor = True
+        '
+        'chbUSTAssist
+        '
+        Me.chbUSTAssist.AutoSize = True
+        Me.chbUSTAssist.Location = New System.Drawing.Point(6, 110)
+        Me.chbUSTAssist.Name = "chbUSTAssist"
+        Me.chbUSTAssist.Size = New System.Drawing.Size(48, 17)
+        Me.chbUSTAssist.TabIndex = 3
+        Me.chbUSTAssist.Text = "UST"
+        Me.chbUSTAssist.UseVisualStyleBackColor = True
+        '
+        'chbScrapTireAssist
+        '
+        Me.chbScrapTireAssist.AutoSize = True
+        Me.chbScrapTireAssist.Location = New System.Drawing.Point(6, 133)
+        Me.chbScrapTireAssist.Name = "chbScrapTireAssist"
+        Me.chbScrapTireAssist.Size = New System.Drawing.Size(75, 17)
+        Me.chbScrapTireAssist.TabIndex = 2
+        Me.chbScrapTireAssist.Text = "Scrap Tire"
+        Me.chbScrapTireAssist.UseVisualStyleBackColor = True
+        '
+        'chbLeadAndAsbestosAssist
+        '
+        Me.chbLeadAndAsbestosAssist.AutoSize = True
+        Me.chbLeadAndAsbestosAssist.Location = New System.Drawing.Point(6, 156)
+        Me.chbLeadAndAsbestosAssist.Name = "chbLeadAndAsbestosAssist"
+        Me.chbLeadAndAsbestosAssist.Size = New System.Drawing.Size(117, 17)
+        Me.chbLeadAndAsbestosAssist.TabIndex = 1
+        Me.chbLeadAndAsbestosAssist.Text = "Lead and Asbestos"
+        Me.chbLeadAndAsbestosAssist.UseVisualStyleBackColor = True
+        '
+        'chbAirAssist
+        '
+        Me.chbAirAssist.AutoSize = True
+        Me.chbAirAssist.Location = New System.Drawing.Point(6, 18)
+        Me.chbAirAssist.Name = "chbAirAssist"
+        Me.chbAirAssist.Size = New System.Drawing.Size(38, 17)
+        Me.chbAirAssist.TabIndex = 0
+        Me.chbAirAssist.Text = "Air"
+        Me.chbAirAssist.UseVisualStyleBackColor = True
         '
         'TPTechnicalAssist
         '
@@ -1915,122 +2033,6 @@ Partial Class SBEAPCaseWork
         Me.btnViewActionType.Text = "View Action"
         Me.btnViewActionType.UseVisualStyleBackColor = True
         '
-        'TPComplianceAssistance
-        '
-        Me.TPComplianceAssistance.Controls.Add(Me.Label44)
-        Me.TPComplianceAssistance.Controls.Add(Me.txtComplianceAssistanceComments)
-        Me.TPComplianceAssistance.Controls.Add(Me.chbOtherAssist)
-        Me.TPComplianceAssistance.Controls.Add(Me.chbStormWaterAssist)
-        Me.TPComplianceAssistance.Controls.Add(Me.chbHazardousWasteAssist)
-        Me.TPComplianceAssistance.Controls.Add(Me.chbSolidWasteAssist)
-        Me.TPComplianceAssistance.Controls.Add(Me.chbUSTAssist)
-        Me.TPComplianceAssistance.Controls.Add(Me.chbScrapTireAssist)
-        Me.TPComplianceAssistance.Controls.Add(Me.chbLeadAndAsbestosAssist)
-        Me.TPComplianceAssistance.Controls.Add(Me.chbAirAssist)
-        Me.TPComplianceAssistance.Location = New System.Drawing.Point(4, 22)
-        Me.TPComplianceAssistance.Name = "TPComplianceAssistance"
-        Me.TPComplianceAssistance.Size = New System.Drawing.Size(1008, 398)
-        Me.TPComplianceAssistance.TabIndex = 4
-        Me.TPComplianceAssistance.Text = "Compliance Assistance"
-        Me.TPComplianceAssistance.UseVisualStyleBackColor = True
-        '
-        'chbAirAssist
-        '
-        Me.chbAirAssist.AutoSize = True
-        Me.chbAirAssist.Location = New System.Drawing.Point(6, 18)
-        Me.chbAirAssist.Name = "chbAirAssist"
-        Me.chbAirAssist.Size = New System.Drawing.Size(38, 17)
-        Me.chbAirAssist.TabIndex = 0
-        Me.chbAirAssist.Text = "Air"
-        Me.chbAirAssist.UseVisualStyleBackColor = True
-        '
-        'chbLeadAndAsbestosAssist
-        '
-        Me.chbLeadAndAsbestosAssist.AutoSize = True
-        Me.chbLeadAndAsbestosAssist.Location = New System.Drawing.Point(6, 156)
-        Me.chbLeadAndAsbestosAssist.Name = "chbLeadAndAsbestosAssist"
-        Me.chbLeadAndAsbestosAssist.Size = New System.Drawing.Size(117, 17)
-        Me.chbLeadAndAsbestosAssist.TabIndex = 1
-        Me.chbLeadAndAsbestosAssist.Text = "Lead and Asbestos"
-        Me.chbLeadAndAsbestosAssist.UseVisualStyleBackColor = True
-        '
-        'chbScrapTireAssist
-        '
-        Me.chbScrapTireAssist.AutoSize = True
-        Me.chbScrapTireAssist.Location = New System.Drawing.Point(6, 133)
-        Me.chbScrapTireAssist.Name = "chbScrapTireAssist"
-        Me.chbScrapTireAssist.Size = New System.Drawing.Size(75, 17)
-        Me.chbScrapTireAssist.TabIndex = 2
-        Me.chbScrapTireAssist.Text = "Scrap Tire"
-        Me.chbScrapTireAssist.UseVisualStyleBackColor = True
-        '
-        'chbUSTAssist
-        '
-        Me.chbUSTAssist.AutoSize = True
-        Me.chbUSTAssist.Location = New System.Drawing.Point(6, 110)
-        Me.chbUSTAssist.Name = "chbUSTAssist"
-        Me.chbUSTAssist.Size = New System.Drawing.Size(48, 17)
-        Me.chbUSTAssist.TabIndex = 3
-        Me.chbUSTAssist.Text = "UST"
-        Me.chbUSTAssist.UseVisualStyleBackColor = True
-        '
-        'chbSolidWasteAssist
-        '
-        Me.chbSolidWasteAssist.AutoSize = True
-        Me.chbSolidWasteAssist.Location = New System.Drawing.Point(6, 87)
-        Me.chbSolidWasteAssist.Name = "chbSolidWasteAssist"
-        Me.chbSolidWasteAssist.Size = New System.Drawing.Size(83, 17)
-        Me.chbSolidWasteAssist.TabIndex = 4
-        Me.chbSolidWasteAssist.Text = "Solid Waste"
-        Me.chbSolidWasteAssist.UseVisualStyleBackColor = True
-        '
-        'chbHazardousWasteAssist
-        '
-        Me.chbHazardousWasteAssist.AutoSize = True
-        Me.chbHazardousWasteAssist.Location = New System.Drawing.Point(6, 64)
-        Me.chbHazardousWasteAssist.Name = "chbHazardousWasteAssist"
-        Me.chbHazardousWasteAssist.Size = New System.Drawing.Size(111, 17)
-        Me.chbHazardousWasteAssist.TabIndex = 5
-        Me.chbHazardousWasteAssist.Text = "Hazardous Waste"
-        Me.chbHazardousWasteAssist.UseVisualStyleBackColor = True
-        '
-        'chbStormWaterAssist
-        '
-        Me.chbStormWaterAssist.AutoSize = True
-        Me.chbStormWaterAssist.Location = New System.Drawing.Point(6, 41)
-        Me.chbStormWaterAssist.Name = "chbStormWaterAssist"
-        Me.chbStormWaterAssist.Size = New System.Drawing.Size(85, 17)
-        Me.chbStormWaterAssist.TabIndex = 6
-        Me.chbStormWaterAssist.Text = "Storm Water"
-        Me.chbStormWaterAssist.UseVisualStyleBackColor = True
-        '
-        'chbOtherAssist
-        '
-        Me.chbOtherAssist.AutoSize = True
-        Me.chbOtherAssist.Location = New System.Drawing.Point(6, 179)
-        Me.chbOtherAssist.Name = "chbOtherAssist"
-        Me.chbOtherAssist.Size = New System.Drawing.Size(52, 17)
-        Me.chbOtherAssist.TabIndex = 7
-        Me.chbOtherAssist.Text = "Other"
-        Me.chbOtherAssist.UseVisualStyleBackColor = True
-        '
-        'txtComplianceAssistanceComments
-        '
-        Me.txtComplianceAssistanceComments.Location = New System.Drawing.Point(11, 222)
-        Me.txtComplianceAssistanceComments.Multiline = True
-        Me.txtComplianceAssistanceComments.Name = "txtComplianceAssistanceComments"
-        Me.txtComplianceAssistanceComments.Size = New System.Drawing.Size(533, 100)
-        Me.txtComplianceAssistanceComments.TabIndex = 8
-        '
-        'Label44
-        '
-        Me.Label44.AutoSize = True
-        Me.Label44.Location = New System.Drawing.Point(8, 206)
-        Me.Label44.Name = "Label44"
-        Me.Label44.Size = New System.Drawing.Size(108, 13)
-        Me.Label44.TabIndex = 34
-        Me.Label44.Text = "Additional Comments:"
-        '
         'SBEAPCaseWork
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2053,6 +2055,8 @@ Partial Class SBEAPCaseWork
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.TCCaseSpecificData.ResumeLayout(False)
+        Me.TPComplianceAssistance.ResumeLayout(False)
+        Me.TPComplianceAssistance.PerformLayout()
         Me.TPTechnicalAssist.ResumeLayout(False)
         Me.TPTechnicalAssist.PerformLayout()
         Me.Panel5.ResumeLayout(False)
@@ -2087,8 +2091,6 @@ Partial Class SBEAPCaseWork
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
         CType(Me.dgvActionLog, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TPComplianceAssistance.ResumeLayout(False)
-        Me.TPComplianceAssistance.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

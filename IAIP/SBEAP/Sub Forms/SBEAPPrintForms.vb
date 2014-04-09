@@ -1,7 +1,5 @@
-﻿'Imports Oracle.DataAccess.Client
-'Imports Oracle.DataAccess.Types
+﻿Imports Oracle.DataAccess.Client
 Imports System.Xml
-Imports System.Data.OracleClient
 
 Public Class SBEAPPrintForms
     Dim dr2 As OracleDataReader

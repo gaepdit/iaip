@@ -1,6 +1,4 @@
-﻿'Imports Oracle.DataAccess.Client
-'Imports Oracle.DataAccess.Types
-Imports System.Data.OracleClient
+﻿Imports Oracle.DataAccess.Client
 Imports CrystalDecisions.Shared
 Imports CrystalDecisions.CrystalReports.Engine
 

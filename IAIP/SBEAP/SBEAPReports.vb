@@ -1,10 +1,8 @@
-﻿'Imports Oracle.DataAccess.Client
-'Imports Oracle.DataAccess.Types
-Imports Microsoft.Reporting.WinForms
+﻿Imports Oracle.DataAccess.Client
 Imports System.Collections
 Imports System.Reflection
-Imports Microsoft.ReportingServices.ReportRendering
-Imports System.Data.OracleClient
+'Imports Microsoft.Reporting.WinForms
+'Imports Microsoft.ReportingServices.ReportRendering
 
 Public Class SBEAPReports
     Dim dsView As DataSet
