@@ -1199,7 +1199,7 @@ Namespace dsEPDUserProfilesTableAdapters
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute()>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.OracleClient.OracleConnection
-            Me._connection.ConnectionString = Global.Iaip.My.MySettings.Default.SBEAPconn
+            Me._connection.ConnectionString = Global.Iaip.My.MySettings.Default.ConnectionString
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute()>  _

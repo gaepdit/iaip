@@ -4,12 +4,12 @@
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
       <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
-          <Connection AppSettingsObjectName="MySettings" AppSettingsPropertyName="SBEAPconn" IsAppSettingsProperty="true" Modifier="Assembly" Name="SBEAPconn (MySettings)" PropertyReference="ApplicationSettings.Iaip.My.MySettings.GlobalReference.Default.SBEAPconn" Provider="System.Data.OracleClient" />
+          <Connection AppSettingsObjectName="MySettings" AppSettingsPropertyName="ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ConnectionString (MySettings)" PropertyReference="ApplicationSettings.Iaip.My.MySettings.GlobalReference.Default.ConnectionString" Provider="System.Data.OracleClient" />
         </Connections>
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="EPDUSERPROFILESTableAdapter" GeneratorDataComponentClassName="EPDUSERPROFILESTableAdapter" Name="EPDUSERPROFILES" UserDataComponentName="EPDUSERPROFILESTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="SBEAPconn (MySettings)" DbObjectName="AIRBRANCH.EPDUSERPROFILES" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="ConnectionString (MySettings)" DbObjectName="AIRBRANCH.EPDUSERPROFILES" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>DELETE FROM "AIRBRANCH"."EPDUSERPROFILES" WHERE (("NUMUSERID" = :Original_NUMUSERID) AND ("STREMPLOYEEID" = :Original_STREMPLOYEEID) AND ((:IsNull_STRLASTNAME = 1 AND "STRLASTNAME" IS NULL) OR ("STRLASTNAME" = :Original_STRLASTNAME)) AND ((:IsNull_STRFIRSTNAME = 1 AND "STRFIRSTNAME" IS NULL) OR ("STRFIRSTNAME" = :Original_STRFIRSTNAME)) AND ((:IsNull_STREMAILADDRESS = 1 AND "STREMAILADDRESS" IS NULL) OR ("STREMAILADDRESS" = :Original_STREMAILADDRESS)) AND ((:IsNull_STRPHONE = 1 AND "STRPHONE" IS NULL) OR ("STRPHONE" = :Original_STRPHONE)) AND ((:IsNull_STRFAX = 1 AND "STRFAX" IS NULL) OR ("STRFAX" = :Original_STRFAX)) AND ((:IsNull_NUMBRANCH = 1 AND "NUMBRANCH" IS NULL) OR ("NUMBRANCH" = :Original_NUMBRANCH)) AND ((:IsNull_NUMPROGRAM = 1 AND "NUMPROGRAM" IS NULL) OR ("NUMPROGRAM" = :Original_NUMPROGRAM)) AND ((:IsNull_NUMUNIT = 1 AND "NUMUNIT" IS NULL) OR ("NUMUNIT" = :Original_NUMUNIT)) AND ((:IsNull_STROFFICE = 1 AND "STROFFICE" IS NULL) OR ("STROFFICE" = :Original_STROFFICE)) AND ((:IsNull_NUMEMPLOYEESTATUS = 1 AND "NUMEMPLOYEESTATUS" IS NULL) OR ("NUMEMPLOYEESTATUS" = :Original_NUMEMPLOYEESTATUS)))</CommandText>
@@ -134,60 +134,60 @@
         <xs:element name="EPDUSERPROFILES" msprop:Generator_UserTableName="EPDUSERPROFILES" msprop:Generator_RowDeletedName="EPDUSERPROFILESRowDeleted" msprop:Generator_RowChangedName="EPDUSERPROFILESRowChanged" msprop:Generator_RowClassName="EPDUSERPROFILESRow" msprop:Generator_RowChangingName="EPDUSERPROFILESRowChanging" msprop:Generator_RowEvArgName="EPDUSERPROFILESRowChangeEvent" msprop:Generator_RowEvHandlerName="EPDUSERPROFILESRowChangeEventHandler" msprop:Generator_TableClassName="EPDUSERPROFILESDataTable" msprop:Generator_TableVarName="tableEPDUSERPROFILES" msprop:Generator_RowDeletingName="EPDUSERPROFILESRowDeleting" msprop:Generator_TablePropName="EPDUSERPROFILES">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="NUMUSERID" msprop:Generator_UserColumnName="NUMUSERID" msprop:Generator_ColumnVarNameInTable="columnNUMUSERID" msprop:Generator_ColumnPropNameInRow="NUMUSERID" msprop:Generator_ColumnPropNameInTable="NUMUSERIDColumn" type="xs:decimal" />
-              <xs:element name="STREMPLOYEEID" msprop:Generator_UserColumnName="STREMPLOYEEID" msprop:Generator_ColumnVarNameInTable="columnSTREMPLOYEEID" msprop:Generator_ColumnPropNameInRow="STREMPLOYEEID" msprop:Generator_ColumnPropNameInTable="STREMPLOYEEIDColumn">
+              <xs:element name="NUMUSERID" msprop:Generator_UserColumnName="NUMUSERID" msprop:Generator_ColumnPropNameInRow="NUMUSERID" msprop:Generator_ColumnVarNameInTable="columnNUMUSERID" msprop:Generator_ColumnPropNameInTable="NUMUSERIDColumn" type="xs:decimal" />
+              <xs:element name="STREMPLOYEEID" msprop:Generator_UserColumnName="STREMPLOYEEID" msprop:Generator_ColumnPropNameInRow="STREMPLOYEEID" msprop:Generator_ColumnVarNameInTable="columnSTREMPLOYEEID" msprop:Generator_ColumnPropNameInTable="STREMPLOYEEIDColumn">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="10" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="STRLASTNAME" msprop:Generator_UserColumnName="STRLASTNAME" msprop:Generator_ColumnVarNameInTable="columnSTRLASTNAME" msprop:Generator_ColumnPropNameInRow="STRLASTNAME" msprop:Generator_ColumnPropNameInTable="STRLASTNAMEColumn" minOccurs="0">
+              <xs:element name="STRLASTNAME" msprop:Generator_UserColumnName="STRLASTNAME" msprop:Generator_ColumnPropNameInRow="STRLASTNAME" msprop:Generator_ColumnVarNameInTable="columnSTRLASTNAME" msprop:Generator_ColumnPropNameInTable="STRLASTNAMEColumn" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="STRFIRSTNAME" msprop:Generator_UserColumnName="STRFIRSTNAME" msprop:Generator_ColumnVarNameInTable="columnSTRFIRSTNAME" msprop:Generator_ColumnPropNameInRow="STRFIRSTNAME" msprop:Generator_ColumnPropNameInTable="STRFIRSTNAMEColumn" minOccurs="0">
+              <xs:element name="STRFIRSTNAME" msprop:Generator_UserColumnName="STRFIRSTNAME" msprop:Generator_ColumnPropNameInRow="STRFIRSTNAME" msprop:Generator_ColumnVarNameInTable="columnSTRFIRSTNAME" msprop:Generator_ColumnPropNameInTable="STRFIRSTNAMEColumn" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="STREMAILADDRESS" msprop:Generator_UserColumnName="STREMAILADDRESS" msprop:Generator_ColumnVarNameInTable="columnSTREMAILADDRESS" msprop:Generator_ColumnPropNameInRow="STREMAILADDRESS" msprop:Generator_ColumnPropNameInTable="STREMAILADDRESSColumn" minOccurs="0">
+              <xs:element name="STREMAILADDRESS" msprop:Generator_UserColumnName="STREMAILADDRESS" msprop:Generator_ColumnPropNameInRow="STREMAILADDRESS" msprop:Generator_ColumnVarNameInTable="columnSTREMAILADDRESS" msprop:Generator_ColumnPropNameInTable="STREMAILADDRESSColumn" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="STRPHONE" msprop:Generator_UserColumnName="STRPHONE" msprop:Generator_ColumnVarNameInTable="columnSTRPHONE" msprop:Generator_ColumnPropNameInRow="STRPHONE" msprop:Generator_ColumnPropNameInTable="STRPHONEColumn" minOccurs="0">
+              <xs:element name="STRPHONE" msprop:Generator_UserColumnName="STRPHONE" msprop:Generator_ColumnPropNameInRow="STRPHONE" msprop:Generator_ColumnVarNameInTable="columnSTRPHONE" msprop:Generator_ColumnPropNameInTable="STRPHONEColumn" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="15" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="STRFAX" msprop:Generator_UserColumnName="STRFAX" msprop:Generator_ColumnVarNameInTable="columnSTRFAX" msprop:Generator_ColumnPropNameInRow="STRFAX" msprop:Generator_ColumnPropNameInTable="STRFAXColumn" minOccurs="0">
+              <xs:element name="STRFAX" msprop:Generator_UserColumnName="STRFAX" msprop:Generator_ColumnPropNameInRow="STRFAX" msprop:Generator_ColumnVarNameInTable="columnSTRFAX" msprop:Generator_ColumnPropNameInTable="STRFAXColumn" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="15" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="NUMBRANCH" msprop:Generator_UserColumnName="NUMBRANCH" msprop:Generator_ColumnVarNameInTable="columnNUMBRANCH" msprop:Generator_ColumnPropNameInRow="NUMBRANCH" msprop:Generator_ColumnPropNameInTable="NUMBRANCHColumn" type="xs:decimal" minOccurs="0" />
-              <xs:element name="NUMPROGRAM" msprop:Generator_UserColumnName="NUMPROGRAM" msprop:Generator_ColumnVarNameInTable="columnNUMPROGRAM" msprop:Generator_ColumnPropNameInRow="NUMPROGRAM" msprop:Generator_ColumnPropNameInTable="NUMPROGRAMColumn" type="xs:decimal" minOccurs="0" />
-              <xs:element name="NUMUNIT" msprop:Generator_UserColumnName="NUMUNIT" msprop:Generator_ColumnVarNameInTable="columnNUMUNIT" msprop:Generator_ColumnPropNameInRow="NUMUNIT" msprop:Generator_ColumnPropNameInTable="NUMUNITColumn" type="xs:decimal" minOccurs="0" />
-              <xs:element name="STROFFICE" msprop:Generator_UserColumnName="STROFFICE" msprop:Generator_ColumnVarNameInTable="columnSTROFFICE" msprop:Generator_ColumnPropNameInRow="STROFFICE" msprop:Generator_ColumnPropNameInTable="STROFFICEColumn" minOccurs="0">
+              <xs:element name="NUMBRANCH" msprop:Generator_UserColumnName="NUMBRANCH" msprop:Generator_ColumnPropNameInRow="NUMBRANCH" msprop:Generator_ColumnVarNameInTable="columnNUMBRANCH" msprop:Generator_ColumnPropNameInTable="NUMBRANCHColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="NUMPROGRAM" msprop:Generator_UserColumnName="NUMPROGRAM" msprop:Generator_ColumnPropNameInRow="NUMPROGRAM" msprop:Generator_ColumnVarNameInTable="columnNUMPROGRAM" msprop:Generator_ColumnPropNameInTable="NUMPROGRAMColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="NUMUNIT" msprop:Generator_UserColumnName="NUMUNIT" msprop:Generator_ColumnPropNameInRow="NUMUNIT" msprop:Generator_ColumnVarNameInTable="columnNUMUNIT" msprop:Generator_ColumnPropNameInTable="NUMUNITColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="STROFFICE" msprop:Generator_UserColumnName="STROFFICE" msprop:Generator_ColumnPropNameInRow="STROFFICE" msprop:Generator_ColumnVarNameInTable="columnSTROFFICE" msprop:Generator_ColumnPropNameInTable="STROFFICEColumn" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="10" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="NUMEMPLOYEESTATUS" msprop:Generator_UserColumnName="NUMEMPLOYEESTATUS" msprop:Generator_ColumnVarNameInTable="columnNUMEMPLOYEESTATUS" msprop:Generator_ColumnPropNameInRow="NUMEMPLOYEESTATUS" msprop:Generator_ColumnPropNameInTable="NUMEMPLOYEESTATUSColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="NUMEMPLOYEESTATUS" msprop:Generator_UserColumnName="NUMEMPLOYEESTATUS" msprop:Generator_ColumnPropNameInRow="NUMEMPLOYEESTATUS" msprop:Generator_ColumnVarNameInTable="columnNUMEMPLOYEESTATUS" msprop:Generator_ColumnPropNameInTable="NUMEMPLOYEESTATUSColumn" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
