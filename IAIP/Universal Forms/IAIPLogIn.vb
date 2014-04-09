@@ -3,8 +3,6 @@ Imports Oracle.DataAccess.Client
 'Imports Microsoft.Win32
 
 Public Class IAIPLogIn
-    Dim recExist As Boolean
-    Dim IaipAvailable As Boolean = True
 
 #Region " Page Load "
 
@@ -230,6 +228,7 @@ Public Class IAIPLogIn
             If CurrentConnectionEnvironment = DB.ConnectionEnvironment.Development _
             OrElse CurrentConnectionEnvironment = DB.ConnectionEnvironment.NADC_Development _
             Then monitor.TrackFeature("Main.TestingEnvironment")
+            monitor.ForceSync()
 
             SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
             OpenSingleForm(IAIPNavigation)
