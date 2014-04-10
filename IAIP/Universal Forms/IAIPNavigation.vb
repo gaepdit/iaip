@@ -6,6 +6,8 @@ Public Class IAIPNavigation
 
 #Region " Local variables and properties "
 
+#Region " WordViewer properties "
+
     Private dtWorkViewerTable As DataTable
 
     Private _currentWorkViewerContext As WorkViewerType
@@ -28,14 +30,45 @@ Public Class IAIPNavigation
         End Set
     End Property
 
+#End Region
+
+#Region " Nav Button properties "
+
+    Private Enum NavButtonCategories
+        General
+        ISMP
+        SSPP
+        SSCP
+        PASP
+        DMU
+        MASP
+    End Enum
+
     Private Structure NavButton
-        Public Sub New(ByVal text As String)
-            Me.Text = text
+        Public Sub New(ByVal buttonText As String, ByVal formClass As BaseForm)
+            Me.ButtonText = buttonText
+            Me.FormClass = formClass
         End Sub
-        Public Text As String
+        Public ButtonText As String
+        Public FormClass As BaseForm
     End Structure
 
-    Private AllTheNavButtons As New List(Of NavButton)
+    Private Structure NavButtonCategory
+        Public Sub New(ByVal category As NavButtonCategories, ByVal name As String, Optional ByVal shortname As String = Nothing)
+            Me.Category = category
+            Me.Name = name
+            Me.ShortName = If(shortname, name)
+        End Sub
+        Public Category As NavButtonCategories
+        Public Name As String
+        Public ShortName As String
+    End Structure
+
+    Private AllTheNavButtons As New Dictionary(Of NavButtonCategories, List(Of NavButton))
+
+    Private AllTheNavButtonCategories As New List(Of NavButtonCategory)
+
+#End Region
 
 #End Region
 
@@ -974,7 +1007,8 @@ Public Class IAIPNavigation
     Private Sub bgrLoadButtons_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgrLoadButtons.RunWorkerCompleted
         Try
             SetContextSelectorSubView()
-            AddButtonsToList()
+            CreateNavButtonCategoriesList()
+            CreateNavButtonsList()
             CreateNavButtons()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -985,407 +1019,162 @@ Public Class IAIPNavigation
 
 #Region " Nav button procedures "
 
-    Private Sub AddNavButton(ByVal formTitle As String)
-        AllTheNavButtons.Add(New NavButton(formTitle))
-    End Sub
-
-    Private Function AccountHasAccessToForm(ByVal index As Int32) As Boolean
-        If AccountArray(index, 0) IsNot Nothing AndAlso AccountArray(index, 0) = index.ToString _
-        AndAlso (AccountArray(index, 1) = "1" Or AccountArray(index, 2) = "1" _
-                 Or AccountArray(index, 3) = "1" Or AccountArray(index, 4) = "1") Then
-            Return True
-        Else
-            Return False
-        End If
-    End Function
-
-    Private Sub AddNavButtonIfAccountHasFormAccess(ByVal index As Int32, ByVal formTitle As String)
-        If AccountHasAccessToForm(index) Then AddNavButton(formTitle)
-    End Sub
-
-    Private Function UserHasPermission(ByVal permissionsList As List(Of String)) As Boolean
-        For Each permissionCode As String In permissionsList
+    Private Function UserHasPermission(ByVal permissionsAllowed As String()) As Boolean
+        For Each permissionCode As String In permissionsAllowed
             If Permissions.Contains(permissionCode) Then Return True
         Next
         Return False
     End Function
 
-    Private Sub AddNavButtonIfUserHasPermission(ByVal permissionsList As List(Of String), ByVal formTitle As String)
-        If UserHasPermission(permissionsList) Then AddNavButton(formTitle)
-    End Sub
+    Private Function AccountHasAccessToForm(ByVal index As Int32) As Boolean
+        Return (AccountArray(index, 0) IsNot Nothing _
+                AndAlso AccountArray(index, 0) = index.ToString _
+                AndAlso (AccountArray(index, 1) = "1" Or AccountArray(index, 2) = "1" _
+                         Or AccountArray(index, 3) = "1" Or AccountArray(index, 4) = "1") _
+                         )
+    End Function
 
-    Private Sub AddButtonsToList()
+    Private Sub AddNavButton(ByVal buttonText As String, ByVal formClass As BaseForm, ByVal category As NavButtonCategories)
+        If Not AllTheNavButtonCategories.Exists(Function(x) x.Category = category) Then
+            AllTheNavButtonCategories.Add(New NavButtonCategory(category, category.ToString))
+        End If
 
-        AddNavButtonIfAccountHasFormAccess(1, "Facility Summary")
-        AddNavButtonIfAccountHasFormAccess(3, "Application Log")
-        AddNavButtonIfAccountHasFormAccess(4, "Compliance Log")
-        AddNavButtonIfAccountHasFormAccess(5, "Monitoring Log")
-        AddNavButtonIfAccountHasFormAccess(6, "Fees Reports")
-        AddNavButtonIfAccountHasFormAccess(7, "IAIP Query Generator")
-        AddNavButtonIfAccountHasFormAccess(8, "Profile Management")
-        AddNavButtonIfAccountHasFormAccess(9, "Permit File Uploader")
-        AddNavButtonIfAccountHasFormAccess(10, "District Tools")
-        AddNavButtonIfAccountHasFormAccess(11, "AFS Validator")
-        AddNavButtonIfAccountHasFormAccess(12, "Fee Statistics && Reports")
-        'AddNavButtonIfAccountHasAccess(13, "APB Branch Tools")
-        AddNavButtonIfAccountHasFormAccess(14, "Test Report Information")
-        AddNavButtonIfAccountHasFormAccess(15, "Memo Viewer")
-        AddNavButtonIfAccountHasFormAccess(16, "Ref. Number Management")
-        AddNavButtonIfAccountHasFormAccess(17, "ISMP Managers")
-        AddNavButtonIfAccountHasFormAccess(18, "Deposits")
-        AddNavButtonIfAccountHasFormAccess(19, "Attainment Status Tool")
-        AddNavButtonIfAccountHasFormAccess(20, "Emissions Summary Tool")
-        AddNavButtonIfAccountHasFormAccess(21, "Inspection Tool")
-        AddNavButtonIfAccountHasFormAccess(22, "Compliance Managers")
-        AddNavButtonIfAccountHasFormAccess(23, "PA/PN Report")
-        AddNavButtonIfAccountHasFormAccess(24, "SSPP Tools")
-        AddNavButtonIfAccountHasFormAccess(128, "Smoke School")
-        AddNavButtonIfAccountHasFormAccess(129, "AFS Tools")
-        AddNavButtonIfAccountHasFormAccess(130, "DMU Staff Tools")
-        AddNavButtonIfAccountHasFormAccess(131, "Title V Tools")
-        AddNavButtonIfAccountHasFormAccess(132, "AFS Compare Tool")
-        AddNavButtonIfAccountHasFormAccess(63, "DMU Only Tool")
-        AddNavButtonIfAccountHasFormAccess(133, "Look Up Tables")
-        AddNavButtonIfAccountHasFormAccess(135, "Fees Log")
-        AddNavButtonIfAccountHasFormAccess(136, "Compliance Admin")
-        AddNavButtonIfAccountHasFormAccess(137, "Registration Tool")
-        AddNavButtonIfAccountHasFormAccess(139, "Fee Management")
-        AddNavButtonIfAccountHasFormAccess(140, "EIS Log")
-
-        Dim permissionList As New List(Of String)
-        permissionList.Add("(19)")
-        permissionList.Add("(20)")
-        permissionList.Add("(21)")
-        permissionList.Add("(23)")
-        permissionList.Add("(25)")
-        permissionList.Add("(118)")
-        permissionList.Add("(114)")
-        AddNavButtonIfUserHasPermission(permissionList, "Enforcement Documents")
+        If AllTheNavButtons.ContainsKey(category) Then
+            AllTheNavButtons(category).Add(New NavButton(buttonText, formClass))
+        Else
+            Dim navButtonList As New List(Of NavButton)
+            navButtonList.Add(New NavButton(buttonText, formClass))
+            AllTheNavButtons.Add(category, navButtonList)
+        End If
 
     End Sub
 
-    Private Sub OpenNewForm(ByVal formTitle As String)
-        Try
-            Select Case formTitle
-                Case "Facility Summary" '1
-                    OpenSingleForm(IAIPFacilitySummary)
-                Case "DMU Tools" '2
-                Case "Application Log" '3
-                    OpenSingleForm(SSPPApplicationLog)
-                Case "Compliance Log" '4
-                    If SSCP_Work Is Nothing Then
-                        If SSCP_Work Is Nothing Then SSCP_Work = New SSCPComplianceLog
-                    Else
-                        SSCP_Work.Dispose()
-                        SSCP_Work = New SSCPComplianceLog
-                    End If
-                    SSCP_Work.Show()
-                Case "Monitoring Log" '5
-                    If ISMPReportViewer Is Nothing Then
-                        If ISMPReportViewer Is Nothing Then ISMPReportViewer = New ISMPMonitoringLog
-                    Else
-                        ISMPReportViewer.Dispose()
-                        ISMPReportViewer = New ISMPMonitoringLog
-                    End If
-                    ISMPReportViewer.Show()
-                Case "Fees Log"
-                    If FeesLog Is Nothing Then
-                        If FeesLog Is Nothing Then FeesLog = New PASPFeesLog
-                    Else
-                        FeesLog.Dispose()
-                        FeesLog = New PASPFeesLog
-                    End If
-                    FeesLog.Show()
-                Case "Fee Management"
-                    If FeeManagement Is Nothing Then
-                        If FeeManagement Is Nothing Then FeeManagement = New PASPFeeManagement
-                    Else
-                        FeeManagement.Dispose()
-                        FeeManagement = New PASPFeeManagement
-                    End If
-                    FeeManagement.Show()
-
-                Case "Fee Statistics && Reports" ''"Fee Statistics && Mailout" '"Mailout && Statistics" '12
-                    If MailoutAndStats Is Nothing Then
-                        If MailoutAndStats Is Nothing Then MailoutAndStats = New PASPFeeStatistics
-                    Else
-                        MailoutAndStats.Dispose()
-                        MailoutAndStats = New PASPFeeStatistics
-                    End If
-                    MailoutAndStats.Show()
-
-                Case "IAIP Query Generator" '7
-                    If QueryGenerator Is Nothing Then
-                        If QueryGenerator Is Nothing Then QueryGenerator = New IAIPQueryGenerator
-                    Else
-                        QueryGenerator.Dispose()
-                        QueryGenerator = New IAIPQueryGenerator
-                    End If
-                    QueryGenerator.Show()
-                Case "Profile Management"  ' 8
-                    If UserAdminTool Is Nothing Then
-                        If UserAdminTool Is Nothing Then UserAdminTool = New IAIPUserAdminTool
-                    Else
-                        UserAdminTool.Dispose()
-                        UserAdminTool = New IAIPUserAdminTool
-                    End If
-                    UserAdminTool.Show()
-                Case "Permit File Uploader" '9
-                    If PermitUploader Is Nothing Then
-                        If PermitUploader Is Nothing Then PermitUploader = New IAIPPermitUploader
-                    Else
-                        PermitUploader.Show()
-                    End If
-                    PermitUploader.Show()
-                Case "District Tools" '10
-                    If IAIPDistrictTool Is Nothing Then
-                        If IAIPDistrictTool Is Nothing Then IAIPDistrictTool = New IAIPDistrictSourceTool
-                    Else
-                        IAIPDistrictTool.Dispose()
-                        IAIPDistrictTool = New IAIPDistrictSourceTool
-                    End If
-                    IAIPDistrictTool.Show()
-                Case "AFS Validator" '11
-                    If Validator Is Nothing Then
-                        If Validator Is Nothing Then Validator = New AFSValidator
-                    Else
-                        Validator.Dispose()
-                        Validator = New AFSValidator
-                    End If
-                    Validator.Show()
-                Case "Fees Reports" '6
-                    If FeesReports Is Nothing Then
-                        If FeesReports Is Nothing Then FeesReports = New PASPFeeReports
-                    Else
-                        FeesReports.Dispose()
-                        FeesReports = New PASPFeeReports
-                    End If
-                    FeesReports.Show()
-
-                Case "APB Branch Tools" '13
-                    If PrintOut Is Nothing Then
-                        If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
-                    Else
-                        PrintOut.Dispose()
-                        PrintOut = New IAIPPrintOut
-                    End If
-                    PrintOut.txtPrintType.Text = "OrgChart"
-
-                    PrintOut.Show()
-                Case "Test Report Information" '14
-                    If ISMPFacility Is Nothing Then
-                        If ISMPFacility Is Nothing Then ISMPFacility = New ISMPTestReportAdministrative
-                    Else
-                        ISMPFacility.Dispose()
-                        ISMPFacility = New ISMPTestReportAdministrative
-                    End If
-                    ISMPFacility.Show()
-                Case "Memo Viewer" '15
-                    If ISMPMemoViewer Is Nothing Then
-                        If ISMPMemoViewer Is Nothing Then ISMPMemoViewer = New ISMPTestMemoViewer
-                    Else
-                        ISMPMemoViewer.Dispose()
-                        ISMPMemoViewer = New ISMPTestMemoViewer
-                    End If
-                    ISMPMemoViewer.Show()
-                Case "Ref. Number Management" '16
-                    If ISMPRefNum Is Nothing Then
-                        If ISMPRefNum Is Nothing Then ISMPRefNum = New ISMPReferenceNumber
-                    Else
-                        ISMPRefNum.Dispose()
-                        ISMPRefNum = New ISMPReferenceNumber
-                    End If
-                    ISMPRefNum.Show()
-                Case "ISMP Managers" '17
-                    If ISMPManagers Is Nothing Then
-                        If ISMPManagers Is Nothing Then ISMPManagers = New ISMPManagersTools
-                    Else
-                        ISMPManagers.Dispose()
-                        ISMPManagers = New ISMPManagersTools
-                    End If
-                    ISMPManagers.txtProgram.Text = "Industrial Source Monitoring"
-                    ISMPManagers.Show()
-                Case "Deposits" '18
-                    If DepositsAmendments Is Nothing Then
-                        If DepositsAmendments Is Nothing Then DepositsAmendments = New PASPDepositsAmendments
-                    Else
-                        DepositsAmendments.Dispose()
-                        DepositsAmendments = New PASPDepositsAmendments
-                    End If
-                    DepositsAmendments.Show()
-                Case "Attainment Status Tool" '19
-                    If AttainmentStatus Is Nothing Then
-                        If AttainmentStatus Is Nothing Then AttainmentStatus = New SSPPAttainmentStatus
-                    Else
-                        AttainmentStatus.Dispose()
-                        AttainmentStatus = New SSPPAttainmentStatus
-                    End If
-                    AttainmentStatus.Show()
-                Case "Emissions Summary Tool" '20
-                    If EmissionSummary Is Nothing Then
-                        If EmissionSummary Is Nothing Then EmissionSummary = New SSCPEmissionSummaryTool
-                    Else
-                        EmissionSummary.Dispose()
-                        EmissionSummary = New SSCPEmissionSummaryTool
-                    End If
-                    EmissionSummary.Show()
-                Case "Inspection Tool" '21
-                    MsgBox("This tool is temporary disabled", MsgBoxStyle.Information, Me.Text)
-                    Exit Sub
-
-                    If InspectionTool Is Nothing Then
-                        If InspectionTool Is Nothing Then InspectionTool = New SSCPInspectionTool
-                    Else
-                        InspectionTool.Dispose()
-                        InspectionTool = New SSCPInspectionTool
-                    End If
-                    InspectionTool.Show()
-                    Exit Sub
-
-
-                    If SSCPInspectionsTool Is Nothing Then
-                        If SSCPInspectionsTool Is Nothing Then SSCPInspectionsTool = New SSCPEngineerInspectionTool
-                    Else
-                        SSCPInspectionsTool.Dispose()
-                        SSCPInspectionsTool = New SSCPEngineerInspectionTool
-                    End If
-                    SSCPInspectionsTool.Show()
-                Case "Compliance Managers" '22
-                    If ManagersTools Is Nothing Then
-                        If ManagersTools Is Nothing Then ManagersTools = New SSCPManagersTools
-                    Else
-                        ManagersTools.Dispose()
-                        ManagersTools = New SSCPManagersTools
-                    End If
-                    ManagersTools.Show()
-                Case "PA/PN Report" '23
-                    If PublicLetter2 Is Nothing Then
-                        If PublicLetter2 Is Nothing Then PublicLetter2 = New SSPPPublicNoticiesAndAdvisories
-                    Else
-                        PublicLetter2.Dispose()
-                        PublicLetter2 = New SSPPPublicNoticiesAndAdvisories
-                    End If
-                    PublicLetter2.Show()
-                Case "SSPP Tools" '24
-                    If StatisticalTools Is Nothing Then
-                        If StatisticalTools Is Nothing Then StatisticalTools = New SSPPStatisticalTools
-                    Else
-                        StatisticalTools.Show()
-                    End If
-                    StatisticalTools.Show()
-                Case "Fee Tools"
-                    If FeeTools Is Nothing Then
-                        If FeeTools Is Nothing Then FeeTools = New PASPFeeTools
-                    Else
-                        FeeTools.Dispose()
-                        FeeTools = New PASPFeeTools
-                    End If
-                Case "DMU Only Tool" '25
-                    If (UserGCode = "1" Or UserGCode = "345") Then
-                        If DMUOnly Is Nothing Then
-                            If DMUOnly Is Nothing Then DMUOnly = New DMUTool
-                        Else
-                            DMUOnly.Dispose()
-                            DMUOnly = New DMUTool
-                        End If
-                        DMUOnly.Show()
-                    Else
-                        MsgBox("ACCESS DENIED")
-                    End If
-                Case "Smoke School" '26 
-                    With SmokeSchool
-                        .Show()
-                        .Activate()
-                    End With
-                Case "AFS Tools"
-                    OpenSingleForm(DMUDeveloperTools, closeFirst:=True)
-                Case "DMU Staff Tools"
-                    If StaffTools Is Nothing Then
-                        If StaffTools Is Nothing Then StaffTools = New DMUStaffTools
-                    Else
-                        StaffTools.Dispose()
-                        StaffTools = New DMUStaffTools
-                    End If
-                    StaffTools.Show()
-                Case "Title V Tools"
-                    If TitleVTools Is Nothing Then
-                        If TitleVTools Is Nothing Then TitleVTools = New DMUTitleVTools
-                    Else
-                        TitleVTools.Dispose()
-                        TitleVTools = New DMUTitleVTools
-                    End If
-                    TitleVTools.Show()
-                Case "AFS Compare Tool"
-                    If AFSCompare Is Nothing Then
-                        If AFSCompare Is Nothing Then AFSCompare = New IAIPAFSCompare
-                    Else
-                        AFSCompare.Dispose()
-                        AFSCompare = New IAIPAFSCompare
-                    End If
-                    AFSCompare.Show()
-                Case "Look Up Tables"
-                    If LookUpTables Is Nothing Then
-                        If LookUpTables Is Nothing Then LookUpTables = New IAIPLookUpTables
-                    Else
-                        LookUpTables.Dispose()
-                        LookUpTables = New IAIPLookUpTables
-                    End If
-                    LookUpTables.Show()
-                Case "Compliance Admin"
-                    If SSCPAdmin Is Nothing Then
-                        If SSCPAdmin Is Nothing Then SSCPAdmin = New SSCPAdministrator
-                    Else
-                        SSCPAdmin.Dispose()
-                        SSCPAdmin = New SSCPAdministrator
-                    End If
-                    SSCPAdmin.Show()
-                Case "Registration Tool"
-                    With MASPRegistrationTool
-                        .Show()
-                        .Activate()
-                    End With
-                Case "EIS Log"
-                    If EISLog Is Nothing Then
-                        If EISLog Is Nothing Then EISLog = New IAIP_EIS_Log
-                    Else
-                        EISLog.Dispose()
-                        EISLog = New IAIP_EIS_Log
-                    End If
-                    EISLog.Show()
-
-                Case "Enforcement Documents"
-                    OpenSingleForm(SscpDocuments)
-
-                Case Else
-                    MsgBox(formTitle.ToString, MsgBoxStyle.Information, "IAIP Navigation")
-            End Select
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub AddNavButtonIfAccountHasFormAccess(ByVal index As Int32, _
+                                                   ByVal buttonText As String, ByVal formClass As BaseForm, _
+                                                   ByVal category As NavButtonCategories)
+        If AccountHasAccessToForm(index) Then
+            AddNavButton(buttonText, formClass, category)
+        End If
     End Sub
 
-    Private Sub NavButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        OpenNewForm(CType(sender, Button).Text)
+    Private Sub AddNavButtonIfUserHasPermission(ByVal permissionsAllowed As String(), _
+                                                ByVal buttonText As String, ByVal formClass As BaseForm, _
+                                                ByVal category As NavButtonCategories)
+        If UserHasPermission(permissionsAllowed) Then
+            AddNavButton(buttonText, formClass, category)
+        End If
+    End Sub
+
+    Private Sub CreateNavButtonCategoriesList()
+        AllTheNavButtonCategories.Add(New NavButtonCategory(NavButtonCategories.General, "General"))
+        AllTheNavButtonCategories.Add(New NavButtonCategory(NavButtonCategories.ISMP, "Industrial Source Monitoring Program", "ISMP"))
+        AllTheNavButtonCategories.Add(New NavButtonCategory(NavButtonCategories.SSPP, "Stationary Source Permitting Program", "SSPP"))
+        AllTheNavButtonCategories.Add(New NavButtonCategory(NavButtonCategories.SSCP, "Stationary Source Compliance Program", "SSCP"))
+        AllTheNavButtonCategories.Add(New NavButtonCategory(NavButtonCategories.PASP, "Planning and Support Program", "P&SP"))
+        AllTheNavButtonCategories.Add(New NavButtonCategory(NavButtonCategories.DMU, "Data Management Unit", "DMU"))
+        AllTheNavButtonCategories.Add(New NavButtonCategory(NavButtonCategories.MASP, "Mobile & Area Sources Program", "MASP"))
+    End Sub
+
+    Private Sub CreateNavButtonsList()
+
+        ' General
+        AddNavButtonIfAccountHasFormAccess(1, "Facility Summary", IAIPFacilitySummary, NavButtonCategories.General)
+        AddNavButtonIfAccountHasFormAccess(7, "IAIP Query Generator", IAIPQueryGenerator, NavButtonCategories.General)
+        AddNavButtonIfAccountHasFormAccess(8, "Profile Management", IAIPUserAdminTool, NavButtonCategories.General)
+
+        ' SSPP
+        AddNavButtonIfAccountHasFormAccess(3, "Application Log", SSPPApplicationLog, NavButtonCategories.SSPP)
+        AddNavButtonIfAccountHasFormAccess(9, "Permit File Uploader", IAIPPermitUploader, NavButtonCategories.SSPP)
+        AddNavButtonIfAccountHasFormAccess(19, "Attainment Status Tool", SSPPAttainmentStatus, NavButtonCategories.SSPP)
+        AddNavButtonIfAccountHasFormAccess(23, "PA/PN Report", SSPPPublicNoticiesAndAdvisories, NavButtonCategories.SSPP)
+        AddNavButtonIfAccountHasFormAccess(24, "SSPP Statistical Tools", SSPPStatisticalTools, NavButtonCategories.SSPP)
+        AddNavButtonIfAccountHasFormAccess(131, "Title V Tools", DMUTitleVTools, NavButtonCategories.SSPP)
+
+        ' SSCP
+        AddNavButtonIfAccountHasFormAccess(4, "Compliance Log", SSCPComplianceLog, NavButtonCategories.SSCP)
+        AddNavButtonIfAccountHasFormAccess(20, "Emissions Summary Tool", SSCPEmissionSummaryTool, NavButtonCategories.SSCP)
+        AddNavButtonIfAccountHasFormAccess(22, "Compliance Managers", SSCPManagersTools, NavButtonCategories.SSCP)
+        AddNavButtonIfAccountHasFormAccess(136, "Compliance Admin", SSCPAdministrator, NavButtonCategories.SSCP)
+        AddNavButtonIfUserHasPermission(New String() {"(19)", "(20)", "(21)", "(23)", "(25)", "(118)", "(114)"}, _
+                                        "Enforcement Documents", SscpDocuments, NavButtonCategories.SSCP)
+
+        ' ISMP
+        AddNavButtonIfAccountHasFormAccess(5, "Monitoring Log", ISMPMonitoringLog, NavButtonCategories.ISMP)
+        AddNavButtonIfAccountHasFormAccess(14, "Test Report Information", ISMPTestReportAdministrative, NavButtonCategories.ISMP)
+        AddNavButtonIfAccountHasFormAccess(15, "Memo Viewer", ISMPTestMemoViewer, NavButtonCategories.ISMP)
+        AddNavButtonIfAccountHasFormAccess(16, "Ref. Number Management", ISMPReferenceNumber, NavButtonCategories.ISMP)
+        AddNavButtonIfAccountHasFormAccess(17, "ISMP Managers", ISMPManagersTools, NavButtonCategories.ISMP)
+        AddNavButtonIfAccountHasFormAccess(128, "Smoke School", SmokeSchool, NavButtonCategories.ISMP)
+
+        ' P&SP
+        AddNavButtonIfAccountHasFormAccess(135, "Fees Log", PASPFeesLog, NavButtonCategories.PASP)
+        AddNavButtonIfAccountHasFormAccess(139, "Fee Management", PASPFeeManagement, NavButtonCategories.PASP)
+        AddNavButtonIfAccountHasFormAccess(12, "Fee Statistics && Reports", PASPFeeStatistics, NavButtonCategories.PASP)
+        AddNavButtonIfAccountHasFormAccess(6, "Fees Reports", PASPFeeReports, NavButtonCategories.PASP)
+        AddNavButtonIfAccountHasFormAccess(18, "Deposits", PASPDepositsAmendments, NavButtonCategories.PASP)
+
+        ' MASP
+        AddNavButtonIfAccountHasFormAccess(137, "Registration Tool", MASPRegistrationTool, NavButtonCategories.MASP)
+
+        ' DMU
+        AddNavButtonIfAccountHasFormAccess(140, "Emission Inventory Log", IAIP_EIS_Log, NavButtonCategories.DMU)
+        AddNavButtonIfAccountHasFormAccess(130, "EIS && GECO Tools", DMUStaffTools, NavButtonCategories.DMU)
+        AddNavButtonIfAccountHasFormAccess(129, "AFS Tools", DMUDeveloperTools, NavButtonCategories.DMU)
+        AddNavButtonIfAccountHasFormAccess(10, "District Tools", IAIPDistrictSourceTool, NavButtonCategories.DMU)
+        AddNavButtonIfAccountHasFormAccess(133, "Look Up Tables", IAIPLookUpTables, NavButtonCategories.DMU)
+        AddNavButtonIfAccountHasFormAccess(11, "AFS Validator", AFSValidator, NavButtonCategories.DMU)
+        AddNavButtonIfAccountHasFormAccess(132, "AFS Compare Tool", IAIPAFSCompare, NavButtonCategories.DMU)
+        If (UserGCode = "345") Then
+            AddNavButtonIfAccountHasFormAccess(63, "Scary DMU-Only Tool", DMUTool, NavButtonCategories.DMU)
+        End If
+
     End Sub
 
     Private Sub CreateNavButtons()
-        Dim i As Integer = 0
+        Dim margin As Integer = 7
+        Dim buttonHeight As Integer = 38
+        Dim buttonWidth As Integer = 84
+        Dim labelHeight As Integer = 13
+        Dim currentYPosition As Integer = margin
 
-        For Each eachNavButton As NavButton In AllTheNavButtons
-            Dim newButton As New Button()
-            pnlNavButtons.Controls.Add(newButton)
-            newButton.Text = eachNavButton.Text
-            newButton.Location = New System.Drawing.Point(12, (12 + 56 * i))
-            i += 1
-            newButton.Size = New Size(84, 39)
-            AddHandler newButton.Click, AddressOf NavButton_Click
+        For Each newCategory As NavButtonCategory In AllTheNavButtonCategories
+            If AllTheNavButtons.ContainsKey(newCategory.Category) Then
+
+                Dim categoryHeader As New Label
+                With categoryHeader
+                    .Text = newCategory.ShortName
+                    .Size = New Size(buttonWidth, labelHeight)
+                    .TextAlign = ContentAlignment.TopCenter
+                    .Location = New System.Drawing.Point(margin, currentYPosition)
+                End With
+                currentYPosition += margin + labelHeight
+                pnlNavButtons.Controls.Add(categoryHeader)
+
+                For Each newNavButton As NavButton In AllTheNavButtons(newCategory.Category)
+                    Dim newButton As New Button
+                    With newButton
+                        .Text = newNavButton.ButtonText
+                        .Size = New Size(buttonWidth, buttonHeight)
+                        .Location = New System.Drawing.Point(margin, currentYPosition)
+                        .Tag = newNavButton
+                    End With
+                    currentYPosition += margin + buttonHeight
+                    pnlNavButtons.Controls.Add(newButton)
+                    AddHandler newButton.Click, AddressOf NavButton_Click
+                Next
+
+            End If
         Next
+    End Sub
+
+    Private Sub NavButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        Dim nb As NavButton = CType(CType(sender, Button).Tag, NavButton)
+        OpenSingleForm(nb.FormClass)
     End Sub
 
 #End Region
 
-#Region "Main Menu click events"
+#Region " Main Menu click events "
 
     Private Sub mmiExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExit.Click
         Me.Close()
