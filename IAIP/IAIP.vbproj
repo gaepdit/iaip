@@ -38,7 +38,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <PublishUrl>ftp://167.193.56.178/AirPermit/IAIP/install/</PublishUrl>
+    <PublishUrl>ftp://167.193.56.178/AirPermit/IAIP/install/no-cr/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -48,13 +48,14 @@
     <UpdatePeriodically>true</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://airpermit.dnr.state.ga.us/iaip/install/</InstallUrl>
+    <InstallUrl>http://airpermit.dnr.state.ga.us/iaip/install/no-cr/</InstallUrl>
+    <UpdateUrl>http://airpermit.dnr.state.ga.us/iaip/install/</UpdateUrl>
     <SupportUrl>http://airpermit.dnr.state.ga.us/iaip/</SupportUrl>
     <ProductName>Integrated Air Information Platform</ProductName>
     <PublisherName>State of Georgia</PublisherName>
     <MinimumRequiredVersion>3.0.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
-    <WebPage>IAIP-install.html</WebPage>
+    <WebPage>index.html</WebPage>
     <ApplicationRevision>9</ApplicationRevision>
     <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
@@ -1715,11 +1716,6 @@
     <Compile Include="_Modules\Win32ApiCalls.vb" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include="BusinessObjects.CrystalReports.10.5">
-      <Visible>False</Visible>
-      <ProductName>Crystal Reports Basic for Visual Studio 2008 %28x86, x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework Client Profile</ProductName>
