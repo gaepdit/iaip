@@ -165,7 +165,7 @@ Partial Class IAIPNavigation
         Me.flpNavButtons.Dock = System.Windows.Forms.DockStyle.Left
         Me.flpNavButtons.Location = New System.Drawing.Point(0, 33)
         Me.flpNavButtons.Name = "flpNavButtons"
-        Me.flpNavButtons.Padding = New System.Windows.Forms.Padding(3, 0, 3, 0)
+        Me.flpNavButtons.Padding = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.flpNavButtons.Size = New System.Drawing.Size(118, 358)
         Me.flpNavButtons.TabIndex = 0
         '
@@ -246,6 +246,7 @@ Partial Class IAIPNavigation
         '
         Me.Label7.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label7.AutoSize = True
+        Me.Label7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label7.Location = New System.Drawing.Point(7, 18)
         Me.Label7.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label7.Name = "Label7"

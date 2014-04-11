@@ -129,9 +129,9 @@ Public Class IAIPLogIn
 
             UserGCode = ""
 
-            Dim loginCred As LoginCred = DAL.GetLoginCred(txtUserID.Text.ToUpper, EncryptDecrypt.EncryptText(txtUserPassword.Text))
+            CurrentUser = DAL.GetIaipUser(txtUserID.Text.ToUpper, EncryptDecrypt.EncryptText(txtUserPassword.Text))
 
-            If loginCred Is Nothing Then
+            If CurrentUser Is Nothing Then
                 MsgBox("Login information is incorrect." & vbCrLf & "Please try again.", MsgBoxStyle.Exclamation, "Login Error")
                 txtUserPassword.Clear()
                 txtUserPassword.Focus()
@@ -140,21 +140,21 @@ Public Class IAIPLogIn
                 Exit Sub
             End If
 
-            UserGCode = loginCred.Staff.StaffId
-            Permissions = loginCred.PermissionsString
+            UserGCode = CurrentUser.Staff.StaffId
+            Permissions = CurrentUser.PermissionsString
             If Permissions = "" Then Permissions = "(0)"
-            UserName = loginCred.Staff.AlphaName
+            UserName = CurrentUser.Staff.AlphaName
             If UserName = "" Then UserName = " "
-            UserBranch = loginCred.Staff.BranchID.ToString
+            UserBranch = CurrentUser.Staff.BranchID.ToString
             If UserBranch = "0" OrElse UserBranch = "" Then UserBranch = "---"
-            UserProgram = loginCred.Staff.ProgramID.ToString
+            UserProgram = CurrentUser.Staff.ProgramID.ToString
             If UserProgram = "0" OrElse UserProgram = "" Then UserProgram = "---"
-            UserUnit = loginCred.Staff.UnitId.ToString
+            UserUnit = CurrentUser.Staff.UnitId.ToString
             If UserUnit = "0" OrElse UserUnit = "" Then UserUnit = "---"
-            EmployeeStatus = If(loginCred.Staff.ActiveStatus, "1", "0")
-            PhoneNumber = loginCred.Staff.Phone
-            EmailAddress = loginCred.Staff.Email
-            LastName = loginCred.Staff.LastName
+            EmployeeStatus = If(CurrentUser.Staff.ActiveStatus, "1", "0")
+            PhoneNumber = CurrentUser.Staff.Phone
+            EmailAddress = CurrentUser.Staff.Email
+            LastName = CurrentUser.Staff.LastName
 
             If EmployeeStatus = "0" Then
                 MsgBox("You status has been flagged as inactive." & vbCrLf & "Please contact your manager for more information.", MsgBoxStyle.Exclamation, "Login Error")
@@ -220,8 +220,8 @@ Public Class IAIPLogIn
             End If
 
             ' Add additional installation meta data for analytics
-            monitorInstallationInfo.Add("IaipUserName", loginCred.UserName)
-            monitor.SetInstallationInfo(loginCred.UserName, monitorInstallationInfo)
+            monitorInstallationInfo.Add("IaipUserName", CurrentUser.UserName)
+            monitor.SetInstallationInfo(CurrentUser.UserName, monitorInstallationInfo)
 
             If CurrentConnectionEnvironment = DB.ConnectionEnvironment.Development _
             OrElse CurrentConnectionEnvironment = DB.ConnectionEnvironment.NADC_Development _

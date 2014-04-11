@@ -32,44 +32,6 @@ Public Class IAIPNavigation
 
 #End Region
 
-#Region " Nav Button properties "
-
-    Private Enum NavButtonCategories
-        General
-        ISMP
-        SSPP
-        SSCP
-        PASP
-        DMU
-        MASP
-    End Enum
-
-    Private Structure NavButton
-        Public Sub New(ByVal buttonText As String, ByVal formClass As BaseForm)
-            Me.ButtonText = buttonText
-            Me.FormClass = formClass
-        End Sub
-        Public ButtonText As String
-        Public FormClass As BaseForm
-    End Structure
-
-    Private Structure NavButtonCategory
-        Public Sub New(ByVal category As NavButtonCategories, ByVal name As String, Optional ByVal shortname As String = Nothing)
-            Me.Category = category
-            Me.Name = name
-            Me.ShortName = If(shortname, name)
-        End Sub
-        Public Category As NavButtonCategories
-        Public Name As String
-        Public ShortName As String
-    End Structure
-
-    Private AllTheNavButtons As New Dictionary(Of NavButtonCategories, List(Of NavButton))
-
-    Private AllTheNavButtonCategories As New List(Of NavButtonCategory)
-
-#End Region
-
 #End Region
 
 #Region " Form events "
@@ -1017,7 +979,48 @@ Public Class IAIPNavigation
 
 #End Region
 
-#Region " Nav button procedures "
+#Region " Nav button creation "
+
+#Region " Nav Button properties "
+
+    Private Enum NavButtonCategories
+        General
+        ISMP
+        SSPP
+        SSCP
+        PASP
+        DMU
+        MASP
+        EIS
+    End Enum
+
+    Private Structure NavButton
+        Public Sub New(ByVal buttonText As String, ByVal formClass As BaseForm)
+            Me.ButtonText = buttonText
+            Me.FormClass = formClass
+        End Sub
+        Public ButtonText As String
+        Public FormClass As BaseForm
+    End Structure
+
+    Private Structure NavButtonCategory
+        Public Sub New(ByVal category As NavButtonCategories, ByVal name As String, Optional ByVal shortname As String = Nothing)
+            Me.Category = category
+            Me.Name = name
+            Me.ShortName = If(shortname, category.ToString)
+        End Sub
+        Public Category As NavButtonCategories
+        Public Name As String
+        Public ShortName As String
+    End Structure
+
+    Private AllTheNavButtons As New Dictionary(Of NavButtonCategories, List(Of NavButton))
+
+    Private AllTheNavButtonCategories As New List(Of NavButtonCategory)
+
+#End Region
+
+#Region " Implementation "
 
     Private Function UserHasPermission(ByVal permissionsAllowed As String()) As Boolean
         For Each permissionCode As String In permissionsAllowed
@@ -1065,14 +1068,66 @@ Public Class IAIPNavigation
         End If
     End Sub
 
+    Private Sub AddNavButtonCategory(ByVal category As NavButtonCategories, ByVal name As String, Optional ByVal shortname As String = Nothing)
+        If CurrentUser.Staff.ProgramName = name OrElse CurrentUser.Staff.UnitName = name Then
+            AllTheNavButtonCategories.Insert(0, New NavButtonCategory(category, name, shortname))
+        Else
+            AllTheNavButtonCategories.Add(New NavButtonCategory(category, name, shortname))
+        End If
+    End Sub
+
+    Private Sub NavButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        Dim nb As NavButton = CType(CType(sender, Button).Tag, NavButton)
+        OpenSingleForm(nb.FormClass)
+    End Sub
+
+    Private Sub CreateNavButtons()
+        Dim margin As Integer = 7
+        Dim buttonHeight As Integer = 38
+        Dim buttonWidth As Integer = 90
+        Dim currentYPosition As Integer = margin
+
+        For Each newCategory As NavButtonCategory In AllTheNavButtonCategories
+            If AllTheNavButtons.ContainsKey(newCategory.Category) Then
+
+                Dim categoryHeader As New Label
+                With categoryHeader
+                    .Text = newCategory.ShortName
+                    .TextAlign = ContentAlignment.BottomCenter
+                    .Width = buttonWidth
+                    .UseMnemonic = False
+                    .ForeColor = SystemColors.InactiveCaptionText
+                End With
+                flpNavButtons.Controls.Add(categoryHeader)
+
+                For Each newNavButton As NavButton In AllTheNavButtons(newCategory.Category)
+                    Dim newButton As New Button
+                    With newButton
+                        .Text = newNavButton.ButtonText
+                        .Size = New Size(buttonWidth, buttonHeight)
+                        .Tag = newNavButton
+                    End With
+                    flpNavButtons.Controls.Add(newButton)
+                    AddHandler newButton.Click, AddressOf NavButton_Click
+                Next
+
+            End If
+        Next
+    End Sub
+
+#End Region
+
+#Region " Specifics "
+
     Private Sub CreateNavButtonCategoriesList()
-        AllTheNavButtonCategories.Add(New NavButtonCategory(NavButtonCategories.General, "General"))
-        AllTheNavButtonCategories.Add(New NavButtonCategory(NavButtonCategories.ISMP, "Industrial Source Monitoring Program", "ISMP"))
-        AllTheNavButtonCategories.Add(New NavButtonCategory(NavButtonCategories.SSPP, "Stationary Source Permitting Program", "SSPP"))
-        AllTheNavButtonCategories.Add(New NavButtonCategory(NavButtonCategories.SSCP, "Stationary Source Compliance Program", "SSCP"))
-        AllTheNavButtonCategories.Add(New NavButtonCategory(NavButtonCategories.PASP, "Planning and Support Program", "P&SP"))
-        AllTheNavButtonCategories.Add(New NavButtonCategory(NavButtonCategories.DMU, "Data Management Unit", "DMU"))
-        AllTheNavButtonCategories.Add(New NavButtonCategory(NavButtonCategories.MASP, "Mobile & Area Sources Program", "MASP"))
+        AddNavButtonCategory(NavButtonCategories.General, "General")
+        AddNavButtonCategory(NavButtonCategories.ISMP, "Industrial Source Monitoring Program")
+        AddNavButtonCategory(NavButtonCategories.SSPP, "Stationary Source Permitting Program")
+        AddNavButtonCategory(NavButtonCategories.SSCP, "Stationary Source Compliance Program")
+        AddNavButtonCategory(NavButtonCategories.PASP, "Planning & Support Program", "P&SP")
+        AddNavButtonCategory(NavButtonCategories.DMU, "Data Management Unit")
+        AddNavButtonCategory(NavButtonCategories.MASP, "Mobile & Area Sources Program")
+        AddNavButtonCategory(NavButtonCategories.EIS, "Emission Inventory System")
     End Sub
 
     Private Sub CreateNavButtonsList()
@@ -1092,7 +1147,6 @@ Public Class IAIPNavigation
 
         ' SSCP
         AddNavButtonIfAccountHasFormAccess(4, "Compliance Log", SSCPComplianceLog, NavButtonCategories.SSCP)
-        AddNavButtonIfAccountHasFormAccess(20, "Emissions Summary Tool", SSCPEmissionSummaryTool, NavButtonCategories.SSCP)
         AddNavButtonIfAccountHasFormAccess(22, "Compliance Managers", SSCPManagersTools, NavButtonCategories.SSCP)
         AddNavButtonIfAccountHasFormAccess(136, "Compliance Admin", SSCPAdministrator, NavButtonCategories.SSCP)
         AddNavButtonIfUserHasPermission(New String() {"(19)", "(20)", "(21)", "(23)", "(25)", "(118)", "(114)"}, _
@@ -1117,8 +1171,6 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(137, "Registration Tool", MASPRegistrationTool, NavButtonCategories.MASP)
 
         ' DMU
-        AddNavButtonIfAccountHasFormAccess(140, "Emission Inventory Log", IAIP_EIS_Log, NavButtonCategories.DMU)
-        AddNavButtonIfAccountHasFormAccess(130, "EIS && GECO Tools", DMUStaffTools, NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(129, "AFS Tools", DMUDeveloperTools, NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(10, "District Tools", IAIPDistrictSourceTool, NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(133, "Look Up Tables", IAIPLookUpTables, NavButtonCategories.DMU)
@@ -1128,45 +1180,14 @@ Public Class IAIPNavigation
             AddNavButtonIfAccountHasFormAccess(63, "Scary DMU-Only Tool", DMUTool, NavButtonCategories.DMU)
         End If
 
+        ' EIS
+        AddNavButtonIfAccountHasFormAccess(20, "Emissions Summary Tool", SSCPEmissionSummaryTool, NavButtonCategories.EIS)
+        AddNavButtonIfAccountHasFormAccess(140, "Emission Inventory Log", IAIP_EIS_Log, NavButtonCategories.EIS)
+        AddNavButtonIfAccountHasFormAccess(130, "EIS && GECO Tools", DMUStaffTools, NavButtonCategories.EIS)
+
     End Sub
 
-    Private Sub CreateNavButtons()
-        Dim margin As Integer = 7
-        Dim buttonHeight As Integer = 38
-        Dim buttonWidth As Integer = 84
-        Dim currentYPosition As Integer = margin
-
-        For Each newCategory As NavButtonCategory In AllTheNavButtonCategories
-            If AllTheNavButtons.ContainsKey(newCategory.Category) Then
-
-                Dim categoryHeader As New Label
-                With categoryHeader
-                    .Text = newCategory.ShortName
-                    .TextAlign = ContentAlignment.BottomCenter
-                    .Width = buttonWidth
-                    .UseMnemonic = False
-                End With
-                flpNavButtons.Controls.Add(categoryHeader)
-
-                For Each newNavButton As NavButton In AllTheNavButtons(newCategory.Category)
-                    Dim newButton As New Button
-                    With newButton
-                        .Text = newNavButton.ButtonText
-                        .Size = New Size(buttonWidth, buttonHeight)
-                        .Tag = newNavButton
-                    End With
-                    flpNavButtons.Controls.Add(newButton)
-                    AddHandler newButton.Click, AddressOf NavButton_Click
-                Next
-
-            End If
-        Next
-    End Sub
-
-    Private Sub NavButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Dim nb As NavButton = CType(CType(sender, Button).Tag, NavButton)
-        OpenSingleForm(nb.FormClass)
-    End Sub
+#End Region
 
 #End Region
 
