@@ -1134,7 +1134,6 @@ Public Class IAIPNavigation
         Dim margin As Integer = 7
         Dim buttonHeight As Integer = 38
         Dim buttonWidth As Integer = 84
-        Dim labelHeight As Integer = 13
         Dim currentYPosition As Integer = margin
 
         For Each newCategory As NavButtonCategory In AllTheNavButtonCategories
@@ -1143,23 +1142,20 @@ Public Class IAIPNavigation
                 Dim categoryHeader As New Label
                 With categoryHeader
                     .Text = newCategory.ShortName
-                    .Size = New Size(buttonWidth, labelHeight)
-                    .TextAlign = ContentAlignment.TopCenter
-                    .Location = New System.Drawing.Point(margin, currentYPosition)
+                    .TextAlign = ContentAlignment.BottomCenter
+                    .Width = buttonWidth
+                    .UseMnemonic = False
                 End With
-                currentYPosition += margin + labelHeight
-                pnlNavButtons.Controls.Add(categoryHeader)
+                flpNavButtons.Controls.Add(categoryHeader)
 
                 For Each newNavButton As NavButton In AllTheNavButtons(newCategory.Category)
                     Dim newButton As New Button
                     With newButton
                         .Text = newNavButton.ButtonText
                         .Size = New Size(buttonWidth, buttonHeight)
-                        .Location = New System.Drawing.Point(margin, currentYPosition)
                         .Tag = newNavButton
                     End With
-                    currentYPosition += margin + buttonHeight
-                    pnlNavButtons.Controls.Add(newButton)
+                    flpNavButtons.Controls.Add(newButton)
                     AddHandler newButton.Click, AddressOf NavButton_Click
                 Next
 

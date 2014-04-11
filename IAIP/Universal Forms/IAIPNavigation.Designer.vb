@@ -33,7 +33,7 @@ Partial Class IAIPNavigation
         Me.mmiTesting = New System.Windows.Forms.MenuItem
         Me.mmiPing = New System.Windows.Forms.MenuItem
         Me.lblTitle = New System.Windows.Forms.Label
-        Me.pnlNavButtons = New System.Windows.Forms.Panel
+        Me.flpNavButtons = New System.Windows.Forms.FlowLayoutPanel
         Me.grpQuickAccess = New System.Windows.Forms.GroupBox
         Me.llbOpenTestLog = New System.Windows.Forms.LinkLabel
         Me.txtTestLogNumber = New System.Windows.Forms.TextBox
@@ -159,15 +159,15 @@ Partial Class IAIPNavigation
         Me.lblTitle.Text = "AIR Protection Branch Navigation Screen"
         Me.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'pnlNavButtons
+        'flpNavButtons
         '
-        Me.pnlNavButtons.AutoScroll = True
-        Me.pnlNavButtons.Dock = System.Windows.Forms.DockStyle.Left
-        Me.pnlNavButtons.Location = New System.Drawing.Point(0, 33)
-        Me.pnlNavButtons.Margin = New System.Windows.Forms.Padding(2)
-        Me.pnlNavButtons.Name = "pnlNavButtons"
-        Me.pnlNavButtons.Size = New System.Drawing.Size(118, 358)
-        Me.pnlNavButtons.TabIndex = 3
+        Me.flpNavButtons.AutoScroll = True
+        Me.flpNavButtons.Dock = System.Windows.Forms.DockStyle.Left
+        Me.flpNavButtons.Location = New System.Drawing.Point(0, 33)
+        Me.flpNavButtons.Name = "flpNavButtons"
+        Me.flpNavButtons.Padding = New System.Windows.Forms.Padding(3, 0, 3, 0)
+        Me.flpNavButtons.Size = New System.Drawing.Size(118, 358)
+        Me.flpNavButtons.TabIndex = 0
         '
         'grpQuickAccess
         '
@@ -595,9 +595,9 @@ Partial Class IAIPNavigation
         Me.Controls.Add(Me.pnlCurrentList)
         Me.Controls.Add(Me.grpQuickAccess)
         Me.Controls.Add(Me.StatusStrip1)
-        Me.Controls.Add(Me.pnlNavButtons)
-        Me.Controls.Add(Me.lblTitle)
+        Me.Controls.Add(Me.flpNavButtons)
         Me.Controls.Add(Me.lblMessageLabel)
+        Me.Controls.Add(Me.lblTitle)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Menu = Me.MainMenu1
         Me.MinimumSize = New System.Drawing.Size(750, 300)
@@ -624,7 +624,6 @@ Partial Class IAIPNavigation
     Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents mmiAbout As System.Windows.Forms.MenuItem
     Friend WithEvents lblTitle As System.Windows.Forms.Label
-    Friend WithEvents pnlNavButtons As System.Windows.Forms.Panel
     Friend WithEvents grpQuickAccess As System.Windows.Forms.GroupBox
     Friend WithEvents llbTrackingNumber As System.Windows.Forms.LinkLabel
     Friend WithEvents txtTrackingNumber As System.Windows.Forms.TextBox
@@ -669,4 +668,5 @@ Partial Class IAIPNavigation
     Friend WithEvents pnlCurrentList As System.Windows.Forms.Panel
     Friend WithEvents pnlContextSubView As System.Windows.Forms.Panel
     Friend WithEvents mmiPing As System.Windows.Forms.MenuItem
+    Friend WithEvents flpNavButtons As System.Windows.Forms.FlowLayoutPanel
 End Class
