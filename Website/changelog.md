@@ -1,5 +1,14 @@
 % IAIP Change Log
 
+## Version 3.1 <span>(2014-04-14)</span>
+
+- FIX: More work to prevent database timeout errors (#199)
+- FIX: *EIS* -- Remove ambiguous Enroll Mailout List button (#198)
+- FIX: *SSCP* -- ACC memo incorrectly reported whether postmarked by deadline (#204); thx Michael
+- FIX: *SSCP* -- Make room for long company names in ACC memo (#193); thx Sherry
+- FIX: Mild UI improvements in various places
+- FIX: Unable to install IAIP in some cases if MS Office was installed before .NET framework (#213); thx Tammy
+
 ## Version 3.0 <span>(2014-04-03)</span>
 
 Welcome to the latest version of the IAIP! We hope the new installation platform makes future updates easier for all users.
