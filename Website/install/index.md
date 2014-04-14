@@ -5,7 +5,7 @@ IAIP Installer](setup.exe)
 
 ## Installation Instructions
 
-These instructions are only for installing the IAIP for the first time. If you already have the IAIP installed, updates are handled from within the application.
+These instructions are only for installing the IAIP for the first time. If you already have the IAIP installed, updates are handled from within the application (see [How to Update](#how-to-update)).
 
 1. ![User ID](screenshots/details-IAIP-userid.png)
 
@@ -34,3 +34,13 @@ These instructions are only for installing the IAIP for the first time. If you a
 7. The new IAIP will try to delete your old shortcuts, but if it can't, feel free to delete them yourself. 
 
 <div class="highlight">If you need help or encounter an error, please [contact the Data Management Unit](../index.html#support).</div>
+
+## How to Update
+
+The IAIP checks once a day to see if an update is available. If so, a notification is displayed asking if you want to update now or postpone it for later. 
+
+Sometimes, an update is mandatory. If so, you will be notified, then the program will update itself and restart.
+
+If you want to manually check for an update, simply choose `Help → Check for Update` from the menu on the Login Screen.
+
+Keep in mind, updates are only applied from the Login Screen. So if you are logged in, you will not be interrupted.
