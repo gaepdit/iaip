@@ -5,7 +5,7 @@ IAIP Installer](setup.exe)
 
 ## Installation Instructions
 
-These instructions are only for installing the IAIP for the first time. If you already have the IAIP installed, updates are handled from within the application (see [How to Update](#how-to-update)).
+These instructions are only for installing the [Integrated Air Information Platform](../) for the first time. If you already have the IAIP installed, updates are handled from within the application (see [How to Update](#how-to-update)).
 
 1. ![User ID](screenshots/details-IAIP-userid.png)
 
