@@ -50,7 +50,7 @@ Namespace Apb.SSCP
 
         Public Property PostmarkedByDeadline() As Boolean
             Get
-                Return _correctFormsUsed
+                Return _postmarkedByDeadline
             End Get
             Set(ByVal value As Boolean)
                 _postmarkedByDeadline = value

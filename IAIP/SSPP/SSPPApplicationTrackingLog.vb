@@ -49,9 +49,6 @@ Public Class SSPPApplicationTrackingLog
         monitor.TrackFeature("Forms." & Me.Name)
         Try
 
-            Panel1.Text = "Permit Tracking Application..."
-            Panel2.Text = UserName
-            Panel3.Text = OracleDate
 
             FormStatus = "Loading"
             LoadDefaults()
@@ -11046,73 +11043,13 @@ Public Class SSPPApplicationTrackingLog
 
     End Sub
     Private Sub TBSSPPPermitTrackingLog_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBSSPPPermitTrackingLog.ButtonClick
-        Try
-           
-            Select Case TBSSPPPermitTrackingLog.Buttons.IndexOf(e.Button)
-                Case 0
-                    If UserProgram = 5 Or (AccountArray(51, 1) = "1" And UserUnit = "14") Or AccountArray(51, 3) = "1" Or AccountArray(51, 4) = "1" Then  'SSPP users and Web Users 
-                        'End If
-                        'If Mid(Permissions, 26, 5) <> "00000" Or Mid(Permissions, 41, 1) = "1" Or Mid(Permissions, 42, 1) = "1" Then
-
-                        SQL = "Select datModifingDate " & _
-                        "from " & DBNameSpace & ".SSPPApplicationMaster " & _
-                        "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-
-                        cmd = New OracleCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        While dr.Read
-                            If IsDBNull(dr.Item("datModifingDate")) Then
-                                temp = ""
-                            Else
-                                temp = dr.Item("datModifingDate")
-                            End If
-                        End While
-                        dr.Close()
-
-                        If TimeStamp = "" Then
-                        Else
-                            If TimeStamp = temp Then
-                            Else
-                                MessageBox.Show("The application has been updated since you last opened it." & vbCrLf & _
-                                            "Please reopen the application to save any changes." & vbCrLf & vbCrLf & _
-                                            "NO DATA SAVED", _
-                                            "Application Tracking Log", MessageBoxButtons.OK)
-                                Exit Sub
-                            End If
-                        End If
-                        SaveApplicationData()
-                    End If
-
-                    If DTPReviewSubmitted.Checked = True Then
-                        SaveApplicationSubmitForReview()
-                    End If
-                    If DTPSSCPReview.Checked = True Then
-                        SaveSSCPReview()
-                    End If
-                    If DTPISMPReview.Checked = True Then
-                        SaveISMPReview()
-                    End If
-                    If TCApplicationTrackingLog.Contains(Me.TPContactInformation) Then
-                        If Me.txtContactFirstName.Text <> "" And txtContactLastName.Text <> "" Then
-                            SaveApplicationContact()
-                        End If
-                    End If
-                   
-                    MsgBox("Application Information Saved.", MsgBoxStyle.Information, "Application Tracking Log")
-
-                Case 1
-                        Me.Close()
-                Case Else
-            End Select
-        Catch ex As Exception
-             ErrorReport(TBSSPPPermitTrackingLog.Buttons.IndexOf(e.Button) & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-         
+        Select Case TBSSPPPermitTrackingLog.Buttons.IndexOf(e.Button)
+            Case 0
+                PreSaveCheckThenSave()
+            Case 1
+                Me.Close()
+            Case Else
+        End Select
     End Sub
     Private Sub btnSaveInformationRequest_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveInformationRequest.Click
         Try
@@ -11341,75 +11278,67 @@ Public Class SSPPApplicationTrackingLog
         End Try
          
     End Sub
-    Private Sub mmiSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSave.Click
-        Try
-            If UserProgram = 5 Or (AccountArray(51, 1) = "1" And UserUnit = "14") Or AccountArray(51, 3) = "1" Or AccountArray(51, 4) = "1" Then  'SSPP users and Web Users 
 
-                SQL = "Select datModifingDate " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster " & _
-                "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
+    Private Sub PreSaveCheckThenSave()
+        If UserProgram = 5 Or (AccountArray(51, 1) = "1" And UserUnit = "14") Or AccountArray(51, 3) = "1" Or AccountArray(51, 4) = "1" Then  'SSPP users and Web Users 
+            'End If
+            'If Mid(Permissions, 26, 5) <> "00000" Or Mid(Permissions, 41, 1) = "1" Or Mid(Permissions, 42, 1) = "1" Then
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("datModifingDate")) Then
-                        temp = ""
-                    Else
-                        temp = dr.Item("datModifingDate")
-                    End If
-                End While
-                dr.Close()
+            SQL = "Select datModifingDate " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster " & _
+            "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-                If TimeStamp = "" Then
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
+            End If
+            dr = cmd.ExecuteReader
+            While dr.Read
+                If IsDBNull(dr.Item("datModifingDate")) Then
+                    temp = ""
                 Else
-                    If TimeStamp = temp Then
-                    Else
-                        MessageBox.Show("The application has been updated since you last opened it." & vbCrLf & _
-                                    "Please reopen the application to save any changes." & vbCrLf & vbCrLf & _
-                                    "NO DATA SAVED", _
-                                    "Application Tracking Log", MessageBoxButtons.OK)
-                        Exit Sub
-                    End If
+                    temp = dr.Item("datModifingDate")
                 End If
-                SaveApplicationData()
-            End If
+            End While
+            dr.Close()
 
-            If DTPReviewSubmitted.Checked = True Then
-                SaveApplicationSubmitForReview()
-            End If
-            If DTPSSCPReview.Checked = True Then
-                SaveSSCPReview()
-            End If
-            If DTPISMPReview.Checked = True Then
-                SaveISMPReview()
-            End If
-            If TCApplicationTrackingLog.Contains(Me.TPContactInformation) Then
-                If Me.txtContactFirstName.Text <> "" And txtContactLastName.Text <> "" Then
-                    SaveApplicationContact()
+            If TimeStamp = "" Then
+            Else
+                If TimeStamp = temp Then
+                Else
+                    MessageBox.Show("The application has been updated since you last opened it." & vbCrLf & _
+                                "Please reopen the application to save any changes." & vbCrLf & vbCrLf & _
+                                "NO DATA SAVED", _
+                                "Application Tracking Log", MessageBoxButtons.OK)
+                    Exit Sub
                 End If
             End If
-            MsgBox("Application Information Saved.", MsgBoxStyle.Information, "Application Tracking Log")
+            SaveApplicationData()
+        End If
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-             
-        End Try
+        If DTPReviewSubmitted.Checked = True Then
+            SaveApplicationSubmitForReview()
+        End If
+        If DTPSSCPReview.Checked = True Then
+            SaveSSCPReview()
+        End If
+        If DTPISMPReview.Checked = True Then
+            SaveISMPReview()
+        End If
+        If TCApplicationTrackingLog.Contains(Me.TPContactInformation) Then
+            If Me.txtContactFirstName.Text <> "" And txtContactLastName.Text <> "" Then
+                SaveApplicationContact()
+            End If
+        End If
 
+        MsgBox("Application Information Saved.", MsgBoxStyle.Information, "Application Tracking Log")
     End Sub
-    Private Sub MmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiBack.Click
-        Try
-             
-            Me.Close()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
 
-        End Try
-         
+    Private Sub mmiSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSave.Click
+        PreSaveCheckThenSave()
+    End Sub
+    Private Sub mmiClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClose.Click
+        Me.Close()
     End Sub
     Private Sub DTPReviewSubmitted_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DTPReviewSubmitted.ValueChanged
         Try
@@ -14926,9 +14855,6 @@ Public Class SSPPApplicationTrackingLog
         Finally
 
         End Try
-    End Sub
-    Private Sub MmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiHelp.Click
-        OpenDocumentationUrl(Me)
     End Sub
     Private Sub btnAcknowledgementLetter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAcknowledgementLetter.Click
         Try

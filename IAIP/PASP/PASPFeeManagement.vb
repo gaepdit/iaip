@@ -612,7 +612,6 @@ Public Class PASPFeeManagement
                     System.Math.Min(System.Threading.Interlocked.Increment(x), x - 1)
                 End While
             Loop
-            MessageBox.Show("Done", Me.Text, MessageBoxButtons.OK)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

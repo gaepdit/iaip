@@ -46,11 +46,10 @@ Public Class IAIPNavigation
 
             LoadProgramDescription()
 
-            EnableTestingEnvironmentOptions()
+            EnableConnectionEnvironmentOptions()
 
-            If CurrentConnectionEnvironment <> DB.ConnectionEnvironment.Production Then
-                lblTitle.Text = lblTitle.Text & " — " & CurrentConnectionEnvironment.ToString
-            End If
+            ' Timers
+            App.StartAppTimers()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -107,14 +106,19 @@ Public Class IAIPNavigation
         cboWorkViewerContext.SelectedIndex = 0
     End Sub
 
-    Private Sub EnableTestingEnvironmentOptions()
+    Private Sub EnableConnectionEnvironmentOptions()
+
+        If CurrentConnectionEnvironment <> DB.ConnectionEnvironment.Production Then
+            lblTitle.Text = lblTitle.Text & " — " & CurrentConnectionEnvironment.ToString
+        End If
+
         If DevelopmentEnvironment Then
             pnl4.Text = "TESTING ENVIRONMENT"
             pnl4.BackColor = Color.Tomato
             pnl4.Visible = True
 
-            mmiTesting.Visible = True
-            mmiTesting.Enabled = True
+            'mmiTesting.Visible = True
+            'mmiTesting.Enabled = True
         Else
             pnl4.Text = ""
             pnl4.Visible = False
@@ -5936,5 +5940,9 @@ Public Class IAIPNavigation
     End Sub
 
 #End Region
+
+    Private Sub mmiPing_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPing.Click
+        DB.PingDBConnection(CurrentConnection)
+    End Sub
 
 End Class

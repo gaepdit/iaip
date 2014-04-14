@@ -109,7 +109,7 @@ Module App
     '    Return ReleaseDate
     'End Function
 
-    Public Function GetRunningVersion() As Version
+    Public Function GetCurrentVersion() As Version
         ' This is the currently installed (running) version
 
         If CurrentVersion Is Nothing Then
@@ -126,7 +126,7 @@ Module App
     End Function
 
     Public Function GetCurrentVersionAsMajorMinorBuild() As Version
-        Return GetVersionAsMajorMinorBuild(GetRunningVersion)
+        Return GetVersionAsMajorMinorBuild(GetCurrentVersion)
     End Function
 
     'Public Function GetPublishedVersion(Optional ByVal appName As String = AppName) As Version
@@ -301,6 +301,122 @@ Module App
             MessageBox.Show("Not running as a Network Deployed Application.", _
                             "Error")
         End If
+    End Sub
+
+#End Region
+
+#Region " App timers "
+
+#Region " Database ping timer "
+
+    Private DbPingTimer As Timers.Timer
+
+    Private Sub StartDbPingTimer()
+        Dim interval As Double = 1000 * 60 * 45 ' 45 minutes in milliseconds
+        'interval = 1000 * 30 '30 seconds (for testing purposes)
+
+        DbPingTimer = New Timers.Timer(interval)
+
+        AddHandler DbPingTimer.Elapsed, AddressOf PingDbConnection
+
+        DbPingTimer.Enabled = True
+        DbPingTimer.AutoReset = True
+    End Sub
+
+    Private Sub PingDbConnection()
+        Dim result As Boolean = DB.PingDBConnection(CurrentConnection)
+        If Not result Then
+            MessageBox.Show("The database connection has been lost. " & vbNewLine & _
+                            "Please close and restart the IAIP.", _
+                            "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
+    End Sub
+
+    Private Sub StopDbPingTimer()
+        If DbPingTimer IsNot Nothing Then
+            DbPingTimer.Enabled = False
+            DbPingTimer.Dispose()
+        End If
+    End Sub
+
+#End Region
+
+#Region " App duration and shutdown timers "
+
+    Private AppDurationTimer As Timers.Timer
+
+    Private Sub StartAppDurationTimer()
+        Dim interval As Double = 1000 * 60 * 60 * 3 ' 3 hours in milliseconds
+        'interval = 1000 * 60 ' 1 minute (for testing purposes)
+
+        AppDurationTimer = New Timers.Timer(interval)
+
+        AddHandler AppDurationTimer.Elapsed, AddressOf StartShutdownThreatTimer
+
+        AppDurationTimer.Enabled = True
+        AppDurationTimer.AutoReset = True
+    End Sub
+
+    Private Sub StopAppDurationTimer()
+        If AppDurationTimer IsNot Nothing Then
+            AppDurationTimer.Enabled = False
+            AppDurationTimer.Dispose()
+        End If
+    End Sub
+
+    Private ShutdownThreatTimer As Timers.Timer
+
+    Private Sub StartShutdownThreatTimer()
+        Dim interval As Double = 1000 * 60 * 5 ' 5 minutes in milliseconds
+        '        interval = 1000 * 30 '30 seconds (for testing purposes)
+
+        ShutdownThreatTimer = New Timers.Timer(interval)
+
+        AddHandler ShutdownThreatTimer.Elapsed, AddressOf ShutdownThreatTimerElapsed
+        ShutdownThreatTimer.Enabled = True
+        ShutdownThreatTimer.AutoReset = False
+
+        Dim result As DialogResult
+        result = MessageBox.Show("The IAIP has been open for three hours. " & vbNewLine & _
+                                 "Do you want to continue to use it?" & vbNewLine & _
+                                 vbNewLine & _
+                                 "(The IAIP will be automatically terminated " & vbNewLine & _
+                                 "in five minutes.)", _
+                                 "Are you still there?", MessageBoxButtons.YesNo, _
+                                 MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1)
+
+        Select Case Result
+            Case DialogResult.Yes
+                StopShutdownThreatTimer()
+                AppDurationTimer.Start()
+            Case DialogResult.No
+                StartupShutdown.CloseIaip()
+        End Select
+
+    End Sub
+
+    Private Sub StopShutdownThreatTimer()
+        If ShutdownThreatTimer IsNot Nothing Then
+            ShutdownThreatTimer.Enabled = False
+            ShutdownThreatTimer.Dispose()
+        End If
+    End Sub
+
+    Private Sub ShutdownThreatTimerElapsed()
+        StartupShutdown.CloseIaip()
+    End Sub
+
+#End Region
+
+    Public Sub StartAppTimers()
+        StartAppDurationTimer()
+        StartDbPingTimer()
+    End Sub
+
+    Public Sub StopAppTimers()
+        StopAppDurationTimer()
+        StopDbPingTimer()
+        StopShutdownThreatTimer()
     End Sub
 
 #End Region

@@ -7378,6 +7378,7 @@ Public Class SSCPEvents
             .DeviationsReported = rdbACCDeviationsReportedYes.Checked
             .EnforcementNeeded = rdbACCEnforcementNeededYes.Checked
             .Facility = DAL.GetFacilityInfoByAirs(AIRSNumber)
+            .PostmarkedByDeadline = rdbACCPostmarkYes.Checked
             .ResubmittalRequested = rdbACCResubmittalRequestedYes.Checked
             .SignedByResponsibleOfficial = rdbACCROYes.Checked
             .StaffResponsible = DAL.GetStaffInfoById(cboStaffResponsible.SelectedValue)

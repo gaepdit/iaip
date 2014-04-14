@@ -96,7 +96,7 @@ Module ErrorReporting
 
         Try
 
-            ErrorMessage = GetRunningVersion.ToString & vbCrLf & ErrorMessage
+            ErrorMessage = GetCurrentVersion.ToString & vbCrLf & ErrorMessage
             Dim AbbrevErrorMess As String = Mid(ErrorMessage, 1, 4000)
 
             Dim query As String = "INSERT INTO " & DBNameSpace & ".IAIPERRORLOG " & _

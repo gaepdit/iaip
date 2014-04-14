@@ -31,15 +31,12 @@ Partial Class SSPPApplicationTrackingLog
         Me.MmiFile = New System.Windows.Forms.MenuItem
         Me.mmiSave = New System.Windows.Forms.MenuItem
         Me.MenuItem1 = New System.Windows.Forms.MenuItem
-        Me.MmiBack = New System.Windows.Forms.MenuItem
-        Me.MmiView = New System.Windows.Forms.MenuItem
+        Me.mmiClose = New System.Windows.Forms.MenuItem
         Me.MenuItem2 = New System.Windows.Forms.MenuItem
         Me.mmiNewApplication = New System.Windows.Forms.MenuItem
-        Me.MmiHelp = New System.Windows.Forms.MenuItem
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.TBSSPPPermitTrackingLog = New System.Windows.Forms.ToolBar
         Me.TBBSave = New System.Windows.Forms.ToolBarButton
-        Me.TBBBack = New System.Windows.Forms.ToolBarButton
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
         Me.btnRefreshAIRSNo = New System.Windows.Forms.Button
         Me.btnRefreshAppNo = New System.Windows.Forms.Button
@@ -60,11 +57,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbClosedOut = New System.Windows.Forms.CheckBox
         Me.Label10 = New System.Windows.Forms.Label
         Me.txtOutstandingApplication = New System.Windows.Forms.TextBox
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
         Me.TPSubPartEditor = New System.Windows.Forms.TabPage
         Me.TCSupParts = New System.Windows.Forms.TabControl
         Me.TPSIP = New System.Windows.Forms.TabPage
@@ -566,7 +558,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtDistrict = New System.Windows.Forms.TextBox
         Me.TCApplicationTrackingLog = New System.Windows.Forms.TabControl
         Me.GroupBox2.SuspendLayout()
-        Me.StatusStrip1.SuspendLayout()
         Me.TPSubPartEditor.SuspendLayout()
         Me.TCSupParts.SuspendLayout()
         Me.TPSIP.SuspendLayout()
@@ -656,37 +647,34 @@ Partial Class SSPPApplicationTrackingLog
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiFile, Me.MmiView, Me.MenuItem2, Me.MmiHelp})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiFile, Me.MenuItem2})
         '
         'MmiFile
         '
         Me.MmiFile.Index = 0
-        Me.MmiFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiSave, Me.MenuItem1, Me.MmiBack})
+        Me.MmiFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiSave, Me.MenuItem1, Me.mmiClose})
         Me.MmiFile.Text = "File"
         '
         'mmiSave
         '
         Me.mmiSave.Index = 0
-        Me.mmiSave.Text = "Save"
+        Me.mmiSave.Shortcut = System.Windows.Forms.Shortcut.CtrlS
+        Me.mmiSave.Text = "&Save"
         '
         'MenuItem1
         '
         Me.MenuItem1.Index = 1
         Me.MenuItem1.Text = "-"
         '
-        'MmiBack
+        'mmiClose
         '
-        Me.MmiBack.Index = 2
-        Me.MmiBack.Text = "Back"
-        '
-        'MmiView
-        '
-        Me.MmiView.Index = 1
-        Me.MmiView.Text = "View"
+        Me.mmiClose.Index = 2
+        Me.mmiClose.Shortcut = System.Windows.Forms.Shortcut.CtrlW
+        Me.mmiClose.Text = "&Close"
         '
         'MenuItem2
         '
-        Me.MenuItem2.Index = 2
+        Me.MenuItem2.Index = 1
         Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiNewApplication})
         Me.MenuItem2.Text = "Tools"
         '
@@ -695,11 +683,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.mmiNewApplication.Index = 0
         Me.mmiNewApplication.Text = "Assign Application No."
         Me.mmiNewApplication.Visible = False
-        '
-        'MmiHelp
-        '
-        Me.MmiHelp.Index = 3
-        Me.MmiHelp.Text = "Help"
         '
         'Image_List_All
         '
@@ -793,7 +776,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'TBSSPPPermitTrackingLog
         '
-        Me.TBSSPPPermitTrackingLog.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TBBSave, Me.TBBBack})
+        Me.TBSSPPPermitTrackingLog.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TBBSave})
         Me.TBSSPPPermitTrackingLog.DropDownArrows = True
         Me.TBSSPPPermitTrackingLog.ImageList = Me.Image_List_All
         Me.TBSSPPPermitTrackingLog.Location = New System.Drawing.Point(0, 0)
@@ -801,17 +784,14 @@ Partial Class SSPPApplicationTrackingLog
         Me.TBSSPPPermitTrackingLog.ShowToolTips = True
         Me.TBSSPPPermitTrackingLog.Size = New System.Drawing.Size(792, 28)
         Me.TBSSPPPermitTrackingLog.TabIndex = 249
+        Me.TBSSPPPermitTrackingLog.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
         'TBBSave
         '
         Me.TBBSave.ImageIndex = 65
         Me.TBBSave.Name = "TBBSave"
-        Me.TBBSave.ToolTipText = "Save"
-        '
-        'TBBBack
-        '
-        Me.TBBBack.ImageIndex = 2
-        Me.TBBBack.Name = "TBBBack"
+        Me.TBBSave.Text = "Save"
+        Me.TBBSave.ToolTipText = "Save (Ctrl+S)"
         '
         'GroupBox2
         '
@@ -1028,56 +1008,12 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtOutstandingApplication.Size = New System.Drawing.Size(24, 20)
         Me.txtOutstandingApplication.TabIndex = 287
         '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.Panel1, Me.Panel2, Me.Panel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 652)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(792, 22)
-        Me.StatusStrip1.TabIndex = 254
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'ToolStripProgressBar1
-        '
-        Me.ToolStripProgressBar1.Name = "ToolStripProgressBar1"
-        Me.ToolStripProgressBar1.Size = New System.Drawing.Size(100, 16)
-        '
-        'Panel1
-        '
-        Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(667, 17)
-        Me.Panel1.Spring = True
-        Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Panel2
-        '
-        Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(4, 17)
-        '
-        'Panel3
-        '
-        Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(4, 17)
-        '
         'TPSubPartEditor
         '
         Me.TPSubPartEditor.Controls.Add(Me.TCSupParts)
         Me.TPSubPartEditor.Location = New System.Drawing.Point(4, 22)
         Me.TPSubPartEditor.Name = "TPSubPartEditor"
-        Me.TPSubPartEditor.Size = New System.Drawing.Size(784, 514)
+        Me.TPSubPartEditor.Size = New System.Drawing.Size(784, 536)
         Me.TPSubPartEditor.TabIndex = 8
         Me.TPSubPartEditor.Text = "Rule Applicability"
         Me.TPSubPartEditor.UseVisualStyleBackColor = True
@@ -1093,7 +1029,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TCSupParts.Location = New System.Drawing.Point(0, 0)
         Me.TCSupParts.Name = "TCSupParts"
         Me.TCSupParts.SelectedIndex = 0
-        Me.TCSupParts.Size = New System.Drawing.Size(784, 514)
+        Me.TCSupParts.Size = New System.Drawing.Size(784, 536)
         Me.TCSupParts.TabIndex = 211
         '
         'TPSIP
@@ -1101,7 +1037,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPSIP.Controls.Add(Me.GroupBox8)
         Me.TPSIP.Location = New System.Drawing.Point(4, 22)
         Me.TPSIP.Name = "TPSIP"
-        Me.TPSIP.Size = New System.Drawing.Size(776, 488)
+        Me.TPSIP.Size = New System.Drawing.Size(776, 510)
         Me.TPSIP.TabIndex = 4
         Me.TPSIP.Text = "0 - SIP"
         Me.TPSIP.UseVisualStyleBackColor = True
@@ -1112,7 +1048,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.GroupBox8.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox8.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox8.Name = "GroupBox8"
-        Me.GroupBox8.Size = New System.Drawing.Size(776, 488)
+        Me.GroupBox8.Size = New System.Drawing.Size(776, 510)
         Me.GroupBox8.TabIndex = 208
         Me.GroupBox8.TabStop = False
         Me.GroupBox8.Text = "0 - SIP"
@@ -1127,7 +1063,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel13.Location = New System.Drawing.Point(3, 16)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(770, 469)
+        Me.Panel13.Size = New System.Drawing.Size(770, 491)
         Me.Panel13.TabIndex = 5
         '
         'dgvSIPSubParts
@@ -1138,7 +1074,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvSIPSubParts.Location = New System.Drawing.Point(231, 34)
         Me.dgvSIPSubParts.Name = "dgvSIPSubParts"
         Me.dgvSIPSubParts.ReadOnly = True
-        Me.dgvSIPSubParts.Size = New System.Drawing.Size(295, 311)
+        Me.dgvSIPSubParts.Size = New System.Drawing.Size(295, 333)
         Me.dgvSIPSubParts.TabIndex = 0
         '
         'Panel17
@@ -1183,7 +1119,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel15.Dock = System.Windows.Forms.DockStyle.Right
         Me.Panel15.Location = New System.Drawing.Point(526, 0)
         Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(244, 345)
+        Me.Panel15.Size = New System.Drawing.Size(244, 367)
         Me.Panel15.TabIndex = 433
         '
         'Label59
@@ -1271,7 +1207,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel14.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel14.Location = New System.Drawing.Point(0, 0)
         Me.Panel14.Name = "Panel14"
-        Me.Panel14.Size = New System.Drawing.Size(231, 345)
+        Me.Panel14.Size = New System.Drawing.Size(231, 367)
         Me.Panel14.TabIndex = 432
         '
         'Label58
@@ -1352,7 +1288,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel16.Controls.Add(Me.btnAddNewSIPSubpart)
         Me.Panel16.Controls.Add(Me.cboSIPSubpart)
         Me.Panel16.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel16.Location = New System.Drawing.Point(0, 345)
+        Me.Panel16.Location = New System.Drawing.Point(0, 367)
         Me.Panel16.Name = "Panel16"
         Me.Panel16.Size = New System.Drawing.Size(770, 124)
         Me.Panel16.TabIndex = 434
@@ -1385,7 +1321,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPPart60.Controls.Add(Me.GroupBox10)
         Me.TPPart60.Location = New System.Drawing.Point(4, 22)
         Me.TPPart60.Name = "TPPart60"
-        Me.TPPart60.Size = New System.Drawing.Size(776, 488)
+        Me.TPPart60.Size = New System.Drawing.Size(776, 510)
         Me.TPPart60.TabIndex = 0
         Me.TPPart60.Text = "9 - NSPS (Part 60)"
         Me.TPPart60.UseVisualStyleBackColor = True
@@ -1396,7 +1332,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.GroupBox10.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox10.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox10.Name = "GroupBox10"
-        Me.GroupBox10.Size = New System.Drawing.Size(776, 488)
+        Me.GroupBox10.Size = New System.Drawing.Size(776, 510)
         Me.GroupBox10.TabIndex = 209
         Me.GroupBox10.TabStop = False
         Me.GroupBox10.Text = "9 - NSPS"
@@ -1411,7 +1347,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel18.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel18.Location = New System.Drawing.Point(3, 16)
         Me.Panel18.Name = "Panel18"
-        Me.Panel18.Size = New System.Drawing.Size(770, 469)
+        Me.Panel18.Size = New System.Drawing.Size(770, 491)
         Me.Panel18.TabIndex = 5
         '
         'dgvNSPSSubParts
@@ -1422,7 +1358,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvNSPSSubParts.Location = New System.Drawing.Point(231, 34)
         Me.dgvNSPSSubParts.Name = "dgvNSPSSubParts"
         Me.dgvNSPSSubParts.ReadOnly = True
-        Me.dgvNSPSSubParts.Size = New System.Drawing.Size(295, 311)
+        Me.dgvNSPSSubParts.Size = New System.Drawing.Size(295, 333)
         Me.dgvNSPSSubParts.TabIndex = 0
         '
         'Panel19
@@ -1467,7 +1403,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel20.Dock = System.Windows.Forms.DockStyle.Right
         Me.Panel20.Location = New System.Drawing.Point(526, 0)
         Me.Panel20.Name = "Panel20"
-        Me.Panel20.Size = New System.Drawing.Size(244, 345)
+        Me.Panel20.Size = New System.Drawing.Size(244, 367)
         Me.Panel20.TabIndex = 433
         '
         'Label62
@@ -1555,7 +1491,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel21.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel21.Location = New System.Drawing.Point(0, 0)
         Me.Panel21.Name = "Panel21"
-        Me.Panel21.Size = New System.Drawing.Size(231, 345)
+        Me.Panel21.Size = New System.Drawing.Size(231, 367)
         Me.Panel21.TabIndex = 432
         '
         'Label64
@@ -1636,7 +1572,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel22.Controls.Add(Me.btnAddNewNSPSSubpart)
         Me.Panel22.Controls.Add(Me.cboNSPSSubpart)
         Me.Panel22.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel22.Location = New System.Drawing.Point(0, 345)
+        Me.Panel22.Location = New System.Drawing.Point(0, 367)
         Me.Panel22.Name = "Panel22"
         Me.Panel22.Size = New System.Drawing.Size(770, 124)
         Me.Panel22.TabIndex = 434
@@ -1669,7 +1605,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPPart61.Controls.Add(Me.GroupBox11)
         Me.TPPart61.Location = New System.Drawing.Point(4, 22)
         Me.TPPart61.Name = "TPPart61"
-        Me.TPPart61.Size = New System.Drawing.Size(776, 488)
+        Me.TPPart61.Size = New System.Drawing.Size(776, 510)
         Me.TPPart61.TabIndex = 1
         Me.TPPart61.Text = "8 - NESHAP (Part 61) "
         Me.TPPart61.UseVisualStyleBackColor = True
@@ -1680,7 +1616,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.GroupBox11.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox11.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox11.Name = "GroupBox11"
-        Me.GroupBox11.Size = New System.Drawing.Size(776, 488)
+        Me.GroupBox11.Size = New System.Drawing.Size(776, 510)
         Me.GroupBox11.TabIndex = 210
         Me.GroupBox11.TabStop = False
         Me.GroupBox11.Text = "8 - NESHAP (Part 61)"
@@ -1695,7 +1631,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel23.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel23.Location = New System.Drawing.Point(3, 16)
         Me.Panel23.Name = "Panel23"
-        Me.Panel23.Size = New System.Drawing.Size(770, 469)
+        Me.Panel23.Size = New System.Drawing.Size(770, 491)
         Me.Panel23.TabIndex = 5
         '
         'dgvNESHAPSubParts
@@ -1706,7 +1642,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvNESHAPSubParts.Location = New System.Drawing.Point(231, 34)
         Me.dgvNESHAPSubParts.Name = "dgvNESHAPSubParts"
         Me.dgvNESHAPSubParts.ReadOnly = True
-        Me.dgvNESHAPSubParts.Size = New System.Drawing.Size(295, 311)
+        Me.dgvNESHAPSubParts.Size = New System.Drawing.Size(295, 333)
         Me.dgvNESHAPSubParts.TabIndex = 0
         '
         'Panel24
@@ -1752,7 +1688,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel25.Dock = System.Windows.Forms.DockStyle.Right
         Me.Panel25.Location = New System.Drawing.Point(526, 0)
         Me.Panel25.Name = "Panel25"
-        Me.Panel25.Size = New System.Drawing.Size(244, 345)
+        Me.Panel25.Size = New System.Drawing.Size(244, 367)
         Me.Panel25.TabIndex = 433
         '
         'Label66
@@ -1840,7 +1776,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel26.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel26.Location = New System.Drawing.Point(0, 0)
         Me.Panel26.Name = "Panel26"
-        Me.Panel26.Size = New System.Drawing.Size(231, 345)
+        Me.Panel26.Size = New System.Drawing.Size(231, 367)
         Me.Panel26.TabIndex = 432
         '
         'Label67
@@ -1921,7 +1857,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel27.Controls.Add(Me.btnAddNewNESHAPSubpart)
         Me.Panel27.Controls.Add(Me.cboNESHAPSubpart)
         Me.Panel27.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel27.Location = New System.Drawing.Point(0, 345)
+        Me.Panel27.Location = New System.Drawing.Point(0, 367)
         Me.Panel27.Name = "Panel27"
         Me.Panel27.Size = New System.Drawing.Size(770, 124)
         Me.Panel27.TabIndex = 434
@@ -1954,7 +1890,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPPart63.Controls.Add(Me.GroupBox12)
         Me.TPPart63.Location = New System.Drawing.Point(4, 22)
         Me.TPPart63.Name = "TPPart63"
-        Me.TPPart63.Size = New System.Drawing.Size(776, 488)
+        Me.TPPart63.Size = New System.Drawing.Size(776, 510)
         Me.TPPart63.TabIndex = 2
         Me.TPPart63.Text = "M - MACT (Part 63)"
         Me.TPPart63.UseVisualStyleBackColor = True
@@ -1965,7 +1901,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.GroupBox12.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox12.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox12.Name = "GroupBox12"
-        Me.GroupBox12.Size = New System.Drawing.Size(776, 488)
+        Me.GroupBox12.Size = New System.Drawing.Size(776, 510)
         Me.GroupBox12.TabIndex = 211
         Me.GroupBox12.TabStop = False
         Me.GroupBox12.Text = "M - MACT (Part 63)"
@@ -1980,7 +1916,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel28.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel28.Location = New System.Drawing.Point(3, 16)
         Me.Panel28.Name = "Panel28"
-        Me.Panel28.Size = New System.Drawing.Size(770, 469)
+        Me.Panel28.Size = New System.Drawing.Size(770, 491)
         Me.Panel28.TabIndex = 5
         '
         'dgvMACTSubParts
@@ -1991,7 +1927,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvMACTSubParts.Location = New System.Drawing.Point(231, 34)
         Me.dgvMACTSubParts.Name = "dgvMACTSubParts"
         Me.dgvMACTSubParts.ReadOnly = True
-        Me.dgvMACTSubParts.Size = New System.Drawing.Size(295, 311)
+        Me.dgvMACTSubParts.Size = New System.Drawing.Size(295, 333)
         Me.dgvMACTSubParts.TabIndex = 0
         '
         'Panel29
@@ -2036,7 +1972,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel30.Dock = System.Windows.Forms.DockStyle.Right
         Me.Panel30.Location = New System.Drawing.Point(526, 0)
         Me.Panel30.Name = "Panel30"
-        Me.Panel30.Size = New System.Drawing.Size(244, 345)
+        Me.Panel30.Size = New System.Drawing.Size(244, 367)
         Me.Panel30.TabIndex = 433
         '
         'Label70
@@ -2124,7 +2060,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel31.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel31.Location = New System.Drawing.Point(0, 0)
         Me.Panel31.Name = "Panel31"
-        Me.Panel31.Size = New System.Drawing.Size(231, 345)
+        Me.Panel31.Size = New System.Drawing.Size(231, 367)
         Me.Panel31.TabIndex = 432
         '
         'Label71
@@ -2205,7 +2141,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel32.Controls.Add(Me.btnAddNewMACTSubpart)
         Me.Panel32.Controls.Add(Me.cboMACTSubpart)
         Me.Panel32.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel32.Location = New System.Drawing.Point(0, 345)
+        Me.Panel32.Location = New System.Drawing.Point(0, 367)
         Me.Panel32.Name = "Panel32"
         Me.Panel32.Size = New System.Drawing.Size(770, 124)
         Me.Panel32.TabIndex = 434
@@ -2238,7 +2174,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPEditSubParts.Controls.Add(Me.TCMiscTools)
         Me.TPEditSubParts.Location = New System.Drawing.Point(4, 22)
         Me.TPEditSubParts.Name = "TPEditSubParts"
-        Me.TPEditSubParts.Size = New System.Drawing.Size(776, 488)
+        Me.TPEditSubParts.Size = New System.Drawing.Size(776, 510)
         Me.TPEditSubParts.TabIndex = 3
         Me.TPEditSubParts.Text = "Edit Sub Parts"
         Me.TPEditSubParts.UseVisualStyleBackColor = True
@@ -2253,7 +2189,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TCMiscTools.Location = New System.Drawing.Point(0, 0)
         Me.TCMiscTools.Name = "TCMiscTools"
         Me.TCMiscTools.SelectedIndex = 0
-        Me.TCMiscTools.Size = New System.Drawing.Size(776, 488)
+        Me.TCMiscTools.Size = New System.Drawing.Size(776, 510)
         Me.TCMiscTools.TabIndex = 1
         '
         'TPEditSIP
@@ -2263,7 +2199,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPEditSIP.Location = New System.Drawing.Point(4, 22)
         Me.TPEditSIP.Name = "TPEditSIP"
         Me.TPEditSIP.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPEditSIP.Size = New System.Drawing.Size(768, 462)
+        Me.TPEditSIP.Size = New System.Drawing.Size(768, 484)
         Me.TPEditSIP.TabIndex = 0
         Me.TPEditSIP.Text = "Edit SIP Subparts"
         Me.TPEditSIP.UseVisualStyleBackColor = True
@@ -2274,7 +2210,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel8.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel8.Location = New System.Drawing.Point(3, 126)
         Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(762, 333)
+        Me.Panel8.Size = New System.Drawing.Size(762, 355)
         Me.Panel8.TabIndex = 1
         '
         'dgvSIP
@@ -2284,7 +2220,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvSIP.Location = New System.Drawing.Point(0, 0)
         Me.dgvSIP.Name = "dgvSIP"
         Me.dgvSIP.ReadOnly = True
-        Me.dgvSIP.Size = New System.Drawing.Size(762, 333)
+        Me.dgvSIP.Size = New System.Drawing.Size(762, 355)
         Me.dgvSIP.TabIndex = 0
         '
         'Panel9
@@ -2373,7 +2309,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPEditNSPS.Controls.Add(Me.Panel10)
         Me.TPEditNSPS.Location = New System.Drawing.Point(4, 22)
         Me.TPEditNSPS.Name = "TPEditNSPS"
-        Me.TPEditNSPS.Size = New System.Drawing.Size(768, 462)
+        Me.TPEditNSPS.Size = New System.Drawing.Size(768, 484)
         Me.TPEditNSPS.TabIndex = 1
         Me.TPEditNSPS.Text = "Edit NSPS"
         Me.TPEditNSPS.UseVisualStyleBackColor = True
@@ -2385,7 +2321,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvNSPS.Location = New System.Drawing.Point(0, 123)
         Me.dgvNSPS.Name = "dgvNSPS"
         Me.dgvNSPS.ReadOnly = True
-        Me.dgvNSPS.Size = New System.Drawing.Size(768, 339)
+        Me.dgvNSPS.Size = New System.Drawing.Size(768, 361)
         Me.dgvNSPS.TabIndex = 2
         '
         'Panel10
@@ -2474,7 +2410,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPEditNESHAP.Controls.Add(Me.Panel11)
         Me.TPEditNESHAP.Location = New System.Drawing.Point(4, 22)
         Me.TPEditNESHAP.Name = "TPEditNESHAP"
-        Me.TPEditNESHAP.Size = New System.Drawing.Size(768, 462)
+        Me.TPEditNESHAP.Size = New System.Drawing.Size(768, 484)
         Me.TPEditNESHAP.TabIndex = 2
         Me.TPEditNESHAP.Text = "Edit NESHAP"
         Me.TPEditNESHAP.UseVisualStyleBackColor = True
@@ -2486,7 +2422,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvNESHAP.Location = New System.Drawing.Point(0, 123)
         Me.dgvNESHAP.Name = "dgvNESHAP"
         Me.dgvNESHAP.ReadOnly = True
-        Me.dgvNESHAP.Size = New System.Drawing.Size(768, 339)
+        Me.dgvNESHAP.Size = New System.Drawing.Size(768, 361)
         Me.dgvNESHAP.TabIndex = 2
         '
         'Panel11
@@ -2575,7 +2511,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPEditMACT.Controls.Add(Me.Panel12)
         Me.TPEditMACT.Location = New System.Drawing.Point(4, 22)
         Me.TPEditMACT.Name = "TPEditMACT"
-        Me.TPEditMACT.Size = New System.Drawing.Size(768, 462)
+        Me.TPEditMACT.Size = New System.Drawing.Size(768, 484)
         Me.TPEditMACT.TabIndex = 3
         Me.TPEditMACT.Text = "Edit MACT"
         Me.TPEditMACT.UseVisualStyleBackColor = True
@@ -2587,7 +2523,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvMACT.Location = New System.Drawing.Point(0, 123)
         Me.dgvMACT.Name = "dgvMACT"
         Me.dgvMACT.ReadOnly = True
-        Me.dgvMACT.Size = New System.Drawing.Size(768, 339)
+        Me.dgvMACT.Size = New System.Drawing.Size(768, 361)
         Me.dgvMACT.TabIndex = 2
         '
         'Panel12
@@ -2681,7 +2617,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPPermitUploader.Controls.Add(Me.PanelOther)
         Me.TPPermitUploader.Location = New System.Drawing.Point(4, 22)
         Me.TPPermitUploader.Name = "TPPermitUploader"
-        Me.TPPermitUploader.Size = New System.Drawing.Size(784, 514)
+        Me.TPPermitUploader.Size = New System.Drawing.Size(784, 536)
         Me.TPPermitUploader.TabIndex = 7
         Me.TPPermitUploader.Text = "Documents"
         Me.TPPermitUploader.UseVisualStyleBackColor = True
@@ -4032,7 +3968,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPContactInformation.Controls.Add(Me.Label11)
         Me.TPContactInformation.Location = New System.Drawing.Point(4, 22)
         Me.TPContactInformation.Name = "TPContactInformation"
-        Me.TPContactInformation.Size = New System.Drawing.Size(784, 514)
+        Me.TPContactInformation.Size = New System.Drawing.Size(784, 536)
         Me.TPContactInformation.TabIndex = 6
         Me.TPContactInformation.Text = "Contact"
         Me.TPContactInformation.UseVisualStyleBackColor = True
@@ -4337,7 +4273,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPWebPublisher.Controls.Add(Me.DTPDraftOnWeb)
         Me.TPWebPublisher.Location = New System.Drawing.Point(4, 22)
         Me.TPWebPublisher.Name = "TPWebPublisher"
-        Me.TPWebPublisher.Size = New System.Drawing.Size(784, 514)
+        Me.TPWebPublisher.Size = New System.Drawing.Size(784, 536)
         Me.TPWebPublisher.TabIndex = 4
         Me.TPWebPublisher.Text = "Web Publisher"
         Me.TPWebPublisher.UseVisualStyleBackColor = True
@@ -4356,12 +4292,12 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPPNExpires.Checked = False
         Me.DTPPNExpires.CustomFormat = "dd-MMM-yyyy"
         Me.DTPPNExpires.Enabled = False
-        Me.DTPPNExpires.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPPNExpires.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPPNExpires.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPPNExpires.Location = New System.Drawing.Point(209, 77)
         Me.DTPPNExpires.Name = "DTPPNExpires"
         Me.DTPPNExpires.ShowCheckBox = True
-        Me.DTPPNExpires.Size = New System.Drawing.Size(120, 22)
+        Me.DTPPNExpires.Size = New System.Drawing.Size(117, 21)
         Me.DTPPNExpires.TabIndex = 72
         Me.DTPPNExpires.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -4433,12 +4369,12 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPExperationDate.Checked = False
         Me.DTPExperationDate.CustomFormat = "dd-MMM-yyyy"
         Me.DTPExperationDate.Enabled = False
-        Me.DTPExperationDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPExperationDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPExperationDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPExperationDate.Location = New System.Drawing.Point(209, 248)
         Me.DTPExperationDate.Name = "DTPExperationDate"
         Me.DTPExperationDate.ShowCheckBox = True
-        Me.DTPExperationDate.Size = New System.Drawing.Size(120, 22)
+        Me.DTPExperationDate.Size = New System.Drawing.Size(117, 21)
         Me.DTPExperationDate.TabIndex = 77
         Me.DTPExperationDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         Me.DTPExperationDate.Visible = False
@@ -4457,12 +4393,12 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPNotifiedAppReceived.Checked = False
         Me.DTPNotifiedAppReceived.CustomFormat = "dd-MMM-yyyy"
         Me.DTPNotifiedAppReceived.Enabled = False
-        Me.DTPNotifiedAppReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPNotifiedAppReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPNotifiedAppReceived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPNotifiedAppReceived.Location = New System.Drawing.Point(209, 10)
         Me.DTPNotifiedAppReceived.Name = "DTPNotifiedAppReceived"
         Me.DTPNotifiedAppReceived.ShowCheckBox = True
-        Me.DTPNotifiedAppReceived.Size = New System.Drawing.Size(120, 22)
+        Me.DTPNotifiedAppReceived.Size = New System.Drawing.Size(117, 21)
         Me.DTPNotifiedAppReceived.TabIndex = 70
         Me.DTPNotifiedAppReceived.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -4500,12 +4436,12 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPEffectiveDateofPermit.Checked = False
         Me.DTPEffectiveDateofPermit.CustomFormat = "dd-MMM-yyyy"
         Me.DTPEffectiveDateofPermit.Enabled = False
-        Me.DTPEffectiveDateofPermit.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPEffectiveDateofPermit.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPEffectiveDateofPermit.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPEffectiveDateofPermit.Location = New System.Drawing.Point(209, 205)
         Me.DTPEffectiveDateofPermit.Name = "DTPEffectiveDateofPermit"
         Me.DTPEffectiveDateofPermit.ShowCheckBox = True
-        Me.DTPEffectiveDateofPermit.Size = New System.Drawing.Size(120, 22)
+        Me.DTPEffectiveDateofPermit.Size = New System.Drawing.Size(117, 21)
         Me.DTPEffectiveDateofPermit.TabIndex = 76
         Me.DTPEffectiveDateofPermit.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -4514,12 +4450,12 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPEPANotifiedPermitOnWeb.Checked = False
         Me.DTPEPANotifiedPermitOnWeb.CustomFormat = "dd-MMM-yyyy"
         Me.DTPEPANotifiedPermitOnWeb.Enabled = False
-        Me.DTPEPANotifiedPermitOnWeb.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPEPANotifiedPermitOnWeb.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPEPANotifiedPermitOnWeb.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPEPANotifiedPermitOnWeb.Location = New System.Drawing.Point(209, 173)
         Me.DTPEPANotifiedPermitOnWeb.Name = "DTPEPANotifiedPermitOnWeb"
         Me.DTPEPANotifiedPermitOnWeb.ShowCheckBox = True
-        Me.DTPEPANotifiedPermitOnWeb.Size = New System.Drawing.Size(120, 22)
+        Me.DTPEPANotifiedPermitOnWeb.Size = New System.Drawing.Size(117, 21)
         Me.DTPEPANotifiedPermitOnWeb.TabIndex = 75
         Me.DTPEPANotifiedPermitOnWeb.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -4528,12 +4464,12 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPFinalOnWeb.Checked = False
         Me.DTPFinalOnWeb.CustomFormat = "dd-MMM-yyyy"
         Me.DTPFinalOnWeb.Enabled = False
-        Me.DTPFinalOnWeb.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPFinalOnWeb.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPFinalOnWeb.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPFinalOnWeb.Location = New System.Drawing.Point(209, 141)
         Me.DTPFinalOnWeb.Name = "DTPFinalOnWeb"
         Me.DTPFinalOnWeb.ShowCheckBox = True
-        Me.DTPFinalOnWeb.Size = New System.Drawing.Size(120, 22)
+        Me.DTPFinalOnWeb.Size = New System.Drawing.Size(117, 21)
         Me.DTPFinalOnWeb.TabIndex = 74
         Me.DTPFinalOnWeb.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -4542,12 +4478,12 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPEPAStatesNotified.Checked = False
         Me.DTPEPAStatesNotified.CustomFormat = "dd-MMM-yyyy"
         Me.DTPEPAStatesNotified.Enabled = False
-        Me.DTPEPAStatesNotified.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPEPAStatesNotified.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPEPAStatesNotified.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPEPAStatesNotified.Location = New System.Drawing.Point(209, 109)
         Me.DTPEPAStatesNotified.Name = "DTPEPAStatesNotified"
         Me.DTPEPAStatesNotified.ShowCheckBox = True
-        Me.DTPEPAStatesNotified.Size = New System.Drawing.Size(120, 22)
+        Me.DTPEPAStatesNotified.Size = New System.Drawing.Size(117, 21)
         Me.DTPEPAStatesNotified.TabIndex = 73
         Me.DTPEPAStatesNotified.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -4556,12 +4492,12 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPDraftOnWeb.Checked = False
         Me.DTPDraftOnWeb.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDraftOnWeb.Enabled = False
-        Me.DTPDraftOnWeb.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDraftOnWeb.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDraftOnWeb.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDraftOnWeb.Location = New System.Drawing.Point(209, 45)
         Me.DTPDraftOnWeb.Name = "DTPDraftOnWeb"
         Me.DTPDraftOnWeb.ShowCheckBox = True
-        Me.DTPDraftOnWeb.Size = New System.Drawing.Size(120, 22)
+        Me.DTPDraftOnWeb.Size = New System.Drawing.Size(117, 21)
         Me.DTPDraftOnWeb.TabIndex = 71
         Me.DTPDraftOnWeb.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -4571,7 +4507,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPInformationRequests.Controls.Add(Me.GroupBox3)
         Me.TPInformationRequests.Location = New System.Drawing.Point(4, 22)
         Me.TPInformationRequests.Name = "TPInformationRequests"
-        Me.TPInformationRequests.Size = New System.Drawing.Size(784, 514)
+        Me.TPInformationRequests.Size = New System.Drawing.Size(784, 536)
         Me.TPInformationRequests.TabIndex = 2
         Me.TPInformationRequests.Text = "Information Requests"
         Me.TPInformationRequests.UseVisualStyleBackColor = True
@@ -4610,7 +4546,7 @@ Partial Class SSPPApplicationTrackingLog
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvInformationRequested.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
-        Me.dgvInformationRequested.Size = New System.Drawing.Size(784, 256)
+        Me.dgvInformationRequested.Size = New System.Drawing.Size(784, 278)
         Me.dgvInformationRequested.TabIndex = 2
         '
         'GroupBox3
@@ -4629,7 +4565,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.GroupBox3.Controls.Add(Me.DTPInformationReceived)
         Me.GroupBox3.Controls.Add(Me.DTPInformationRequested)
         Me.GroupBox3.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GroupBox3.Location = New System.Drawing.Point(0, 256)
+        Me.GroupBox3.Location = New System.Drawing.Point(0, 278)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(784, 258)
         Me.GroupBox3.TabIndex = 1
@@ -4741,12 +4677,12 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPInformationReceived.Checked = False
         Me.DTPInformationReceived.CustomFormat = "dd-MMM-yyyy"
         Me.DTPInformationReceived.Enabled = False
-        Me.DTPInformationReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPInformationReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPInformationReceived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPInformationReceived.Location = New System.Drawing.Point(340, 37)
         Me.DTPInformationReceived.Name = "DTPInformationReceived"
         Me.DTPInformationReceived.ShowCheckBox = True
-        Me.DTPInformationReceived.Size = New System.Drawing.Size(120, 22)
+        Me.DTPInformationReceived.Size = New System.Drawing.Size(117, 21)
         Me.DTPInformationReceived.TabIndex = 64
         Me.DTPInformationReceived.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -4756,12 +4692,12 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPInformationRequested.Checked = False
         Me.DTPInformationRequested.CustomFormat = "dd-MMM-yyyy"
         Me.DTPInformationRequested.Enabled = False
-        Me.DTPInformationRequested.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPInformationRequested.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPInformationRequested.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPInformationRequested.Location = New System.Drawing.Point(100, 37)
         Me.DTPInformationRequested.Name = "DTPInformationRequested"
         Me.DTPInformationRequested.ShowCheckBox = True
-        Me.DTPInformationRequested.Size = New System.Drawing.Size(120, 22)
+        Me.DTPInformationRequested.Size = New System.Drawing.Size(117, 21)
         Me.DTPInformationRequested.TabIndex = 63
         Me.DTPInformationRequested.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -4771,7 +4707,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPApplicationHistroy.Controls.Add(Me.GroupBox6)
         Me.TPApplicationHistroy.Location = New System.Drawing.Point(4, 22)
         Me.TPApplicationHistroy.Name = "TPApplicationHistroy"
-        Me.TPApplicationHistroy.Size = New System.Drawing.Size(784, 514)
+        Me.TPApplicationHistroy.Size = New System.Drawing.Size(784, 536)
         Me.TPApplicationHistroy.TabIndex = 1
         Me.TPApplicationHistroy.Text = "History"
         Me.TPApplicationHistroy.UseVisualStyleBackColor = True
@@ -4810,7 +4746,7 @@ Partial Class SSPPApplicationTrackingLog
         DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvFacilityAppHistory.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
-        Me.dgvFacilityAppHistory.Size = New System.Drawing.Size(784, 270)
+        Me.dgvFacilityAppHistory.Size = New System.Drawing.Size(784, 292)
         Me.dgvFacilityAppHistory.TabIndex = 2
         '
         'GroupBox6
@@ -4840,7 +4776,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.GroupBox6.Controls.Add(Me.Label29)
         Me.GroupBox6.Controls.Add(Me.Label33)
         Me.GroupBox6.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GroupBox6.Location = New System.Drawing.Point(0, 270)
+        Me.GroupBox6.Location = New System.Drawing.Point(0, 292)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Size = New System.Drawing.Size(784, 244)
         Me.GroupBox6.TabIndex = 1
@@ -5065,7 +5001,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPReviews.Controls.Add(Me.Panel4)
         Me.TPReviews.Location = New System.Drawing.Point(4, 22)
         Me.TPReviews.Name = "TPReviews"
-        Me.TPReviews.Size = New System.Drawing.Size(784, 514)
+        Me.TPReviews.Size = New System.Drawing.Size(784, 536)
         Me.TPReviews.TabIndex = 3
         Me.TPReviews.Text = "ISMP and Compliance Reviews"
         Me.TPReviews.UseVisualStyleBackColor = True
@@ -5083,7 +5019,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.GroupBox5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox5.Location = New System.Drawing.Point(0, 192)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(784, 322)
+        Me.GroupBox5.Size = New System.Drawing.Size(784, 344)
         Me.GroupBox5.TabIndex = 2
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "ISMP Review"
@@ -5159,12 +5095,12 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPISMPReview.Checked = False
         Me.DTPISMPReview.CustomFormat = "dd-MMM-yyyy"
         Me.DTPISMPReview.Enabled = False
-        Me.DTPISMPReview.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPISMPReview.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPISMPReview.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPISMPReview.Location = New System.Drawing.Point(135, 21)
         Me.DTPISMPReview.Name = "DTPISMPReview"
         Me.DTPISMPReview.ShowCheckBox = True
-        Me.DTPISMPReview.Size = New System.Drawing.Size(120, 22)
+        Me.DTPISMPReview.Size = New System.Drawing.Size(117, 21)
         Me.DTPISMPReview.TabIndex = 52
         Me.DTPISMPReview.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -5275,12 +5211,12 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPSSCPReview.Checked = False
         Me.DTPSSCPReview.CustomFormat = "dd-MMM-yyyy"
         Me.DTPSSCPReview.Enabled = False
-        Me.DTPSSCPReview.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPSSCPReview.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPSSCPReview.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPSSCPReview.Location = New System.Drawing.Point(130, 13)
         Me.DTPSSCPReview.Name = "DTPSSCPReview"
         Me.DTPSSCPReview.ShowCheckBox = True
-        Me.DTPSSCPReview.Size = New System.Drawing.Size(120, 22)
+        Me.DTPSSCPReview.Size = New System.Drawing.Size(117, 21)
         Me.DTPSSCPReview.TabIndex = 47
         Me.DTPSSCPReview.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -5350,12 +5286,12 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPReviewSubmitted.Checked = False
         Me.DTPReviewSubmitted.CustomFormat = "dd-MMM-yyyy"
         Me.DTPReviewSubmitted.Enabled = False
-        Me.DTPReviewSubmitted.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPReviewSubmitted.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPReviewSubmitted.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPReviewSubmitted.Location = New System.Drawing.Point(135, 8)
         Me.DTPReviewSubmitted.Name = "DTPReviewSubmitted"
         Me.DTPReviewSubmitted.ShowCheckBox = True
-        Me.DTPReviewSubmitted.Size = New System.Drawing.Size(120, 22)
+        Me.DTPReviewSubmitted.Size = New System.Drawing.Size(117, 21)
         Me.DTPReviewSubmitted.TabIndex = 44
         Me.DTPReviewSubmitted.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -5384,7 +5320,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPOtherInfo.Controls.Add(Me.ApplicableRulesGroup)
         Me.TPOtherInfo.Location = New System.Drawing.Point(4, 22)
         Me.TPOtherInfo.Name = "TPOtherInfo"
-        Me.TPOtherInfo.Size = New System.Drawing.Size(784, 514)
+        Me.TPOtherInfo.Size = New System.Drawing.Size(784, 536)
         Me.TPOtherInfo.TabIndex = 5
         Me.TPOtherInfo.Text = "Other Information"
         Me.TPOtherInfo.UseVisualStyleBackColor = True
@@ -5507,7 +5443,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPTrackingLog.Controls.Add(Me.GroupBox1)
         Me.TPTrackingLog.Location = New System.Drawing.Point(4, 22)
         Me.TPTrackingLog.Name = "TPTrackingLog"
-        Me.TPTrackingLog.Size = New System.Drawing.Size(784, 514)
+        Me.TPTrackingLog.Size = New System.Drawing.Size(784, 536)
         Me.TPTrackingLog.TabIndex = 0
         Me.TPTrackingLog.Text = "Tracking Log"
         Me.TPTrackingLog.UseVisualStyleBackColor = True
@@ -5587,7 +5523,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(784, 514)
+        Me.GroupBox1.Size = New System.Drawing.Size(784, 536)
         Me.GroupBox1.TabIndex = 250
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Facility Application Information"
@@ -5632,7 +5568,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.lblPNReady.Location = New System.Drawing.Point(336, 164)
         Me.lblPNReady.Name = "lblPNReady"
-        Me.lblPNReady.Size = New System.Drawing.Size(98, 18)
+        Me.lblPNReady.Size = New System.Drawing.Size(95, 18)
         Me.lblPNReady.TabIndex = 374
         '
         'GBOther
@@ -5879,12 +5815,12 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPDateToDO.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDateToDO.Enabled = False
-        Me.DTPDateToDO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateToDO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDateToDO.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPDateToDO.Location = New System.Drawing.Point(518, 161)
+        Me.DTPDateToDO.Location = New System.Drawing.Point(521, 163)
         Me.DTPDateToDO.Name = "DTPDateToDO"
         Me.DTPDateToDO.ShowCheckBox = True
-        Me.DTPDateToDO.Size = New System.Drawing.Size(120, 22)
+        Me.DTPDateToDO.Size = New System.Drawing.Size(117, 21)
         Me.DTPDateToDO.TabIndex = 30
         Me.DTPDateToDO.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -5901,12 +5837,12 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPDateToBC.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDateToBC.Enabled = False
-        Me.DTPDateToBC.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateToBC.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDateToBC.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDateToBC.Location = New System.Drawing.Point(314, 264)
         Me.DTPDateToBC.Name = "DTPDateToBC"
         Me.DTPDateToBC.ShowCheckBox = True
-        Me.DTPDateToBC.Size = New System.Drawing.Size(120, 22)
+        Me.DTPDateToBC.Size = New System.Drawing.Size(117, 21)
         Me.DTPDateToBC.TabIndex = 28
         Me.DTPDateToBC.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -5923,12 +5859,12 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPEPAEnds.CustomFormat = "dd-MMM-yyyy"
         Me.DTPEPAEnds.Enabled = False
-        Me.DTPEPAEnds.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPEPAEnds.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPEPAEnds.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPEPAEnds.Location = New System.Drawing.Point(314, 237)
         Me.DTPEPAEnds.Name = "DTPEPAEnds"
         Me.DTPEPAEnds.ShowCheckBox = True
-        Me.DTPEPAEnds.Size = New System.Drawing.Size(120, 22)
+        Me.DTPEPAEnds.Size = New System.Drawing.Size(117, 21)
         Me.DTPEPAEnds.TabIndex = 27
         Me.DTPEPAEnds.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -5945,12 +5881,12 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPEPAWaived.CustomFormat = "dd-MMM-yyyy"
         Me.DTPEPAWaived.Enabled = False
-        Me.DTPEPAWaived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPEPAWaived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPEPAWaived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPEPAWaived.Location = New System.Drawing.Point(314, 212)
         Me.DTPEPAWaived.Name = "DTPEPAWaived"
         Me.DTPEPAWaived.ShowCheckBox = True
-        Me.DTPEPAWaived.Size = New System.Drawing.Size(120, 22)
+        Me.DTPEPAWaived.Size = New System.Drawing.Size(117, 21)
         Me.DTPEPAWaived.TabIndex = 26
         Me.DTPEPAWaived.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -6185,7 +6121,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.cboPublicAdvisory.Enabled = False
         Me.cboPublicAdvisory.Location = New System.Drawing.Point(84, 213)
         Me.cboPublicAdvisory.Name = "cboPublicAdvisory"
-        Me.cboPublicAdvisory.Size = New System.Drawing.Size(120, 21)
+        Me.cboPublicAdvisory.Size = New System.Drawing.Size(117, 21)
         Me.cboPublicAdvisory.TabIndex = 18
         '
         'cboPermitAction
@@ -6211,12 +6147,12 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPDraftIssued.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDraftIssued.Enabled = False
-        Me.DTPDraftIssued.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDraftIssued.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDraftIssued.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDraftIssued.Location = New System.Drawing.Point(314, 137)
         Me.DTPDraftIssued.Name = "DTPDraftIssued"
         Me.DTPDraftIssued.ShowCheckBox = True
-        Me.DTPDraftIssued.Size = New System.Drawing.Size(120, 22)
+        Me.DTPDraftIssued.Size = New System.Drawing.Size(117, 21)
         Me.DTPDraftIssued.TabIndex = 23
         Me.DTPDraftIssued.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -6224,12 +6160,12 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPFinalAction.CustomFormat = "dd-MMM-yyyy"
         Me.DTPFinalAction.Enabled = False
-        Me.DTPFinalAction.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPFinalAction.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPFinalAction.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPFinalAction.Location = New System.Drawing.Point(518, 185)
+        Me.DTPFinalAction.Location = New System.Drawing.Point(521, 187)
         Me.DTPFinalAction.Name = "DTPFinalAction"
         Me.DTPFinalAction.ShowCheckBox = True
-        Me.DTPFinalAction.Size = New System.Drawing.Size(120, 22)
+        Me.DTPFinalAction.Size = New System.Drawing.Size(117, 21)
         Me.DTPFinalAction.TabIndex = 31
         Me.DTPFinalAction.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -6237,12 +6173,12 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPDateToPM.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDateToPM.Enabled = False
-        Me.DTPDateToPM.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateToPM.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDateToPM.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDateToPM.Location = New System.Drawing.Point(314, 113)
         Me.DTPDateToPM.Name = "DTPDateToPM"
         Me.DTPDateToPM.ShowCheckBox = True
-        Me.DTPDateToPM.Size = New System.Drawing.Size(120, 22)
+        Me.DTPDateToPM.Size = New System.Drawing.Size(117, 21)
         Me.DTPDateToPM.TabIndex = 22
         Me.DTPDateToPM.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -6250,12 +6186,12 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPDateToUC.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDateToUC.Enabled = False
-        Me.DTPDateToUC.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateToUC.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDateToUC.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDateToUC.Location = New System.Drawing.Point(314, 90)
         Me.DTPDateToUC.Name = "DTPDateToUC"
         Me.DTPDateToUC.ShowCheckBox = True
-        Me.DTPDateToUC.Size = New System.Drawing.Size(120, 22)
+        Me.DTPDateToUC.Size = New System.Drawing.Size(117, 21)
         Me.DTPDateToUC.TabIndex = 21
         Me.DTPDateToUC.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -6264,12 +6200,12 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPDeadline.CalendarMonthBackground = System.Drawing.SystemColors.Menu
         Me.DTPDeadline.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDeadline.Enabled = False
-        Me.DTPDeadline.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDeadline.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDeadline.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPDeadline.Location = New System.Drawing.Point(518, 212)
+        Me.DTPDeadline.Location = New System.Drawing.Point(521, 214)
         Me.DTPDeadline.Name = "DTPDeadline"
         Me.DTPDeadline.ShowCheckBox = True
-        Me.DTPDeadline.Size = New System.Drawing.Size(120, 22)
+        Me.DTPDeadline.Size = New System.Drawing.Size(117, 21)
         Me.DTPDeadline.TabIndex = 32
         Me.DTPDeadline.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -6277,12 +6213,12 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPDatePNExpires.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDatePNExpires.Enabled = False
-        Me.DTPDatePNExpires.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDatePNExpires.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDatePNExpires.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDatePNExpires.Location = New System.Drawing.Point(314, 185)
         Me.DTPDatePNExpires.Name = "DTPDatePNExpires"
         Me.DTPDatePNExpires.ShowCheckBox = True
-        Me.DTPDatePNExpires.Size = New System.Drawing.Size(120, 22)
+        Me.DTPDatePNExpires.Size = New System.Drawing.Size(117, 21)
         Me.DTPDatePNExpires.TabIndex = 25
         Me.DTPDatePNExpires.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -6290,12 +6226,12 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPDatePAExpires.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDatePAExpires.Enabled = False
-        Me.DTPDatePAExpires.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDatePAExpires.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDatePAExpires.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDatePAExpires.Location = New System.Drawing.Point(84, 264)
         Me.DTPDatePAExpires.Name = "DTPDatePAExpires"
         Me.DTPDatePAExpires.ShowCheckBox = True
-        Me.DTPDatePAExpires.Size = New System.Drawing.Size(120, 22)
+        Me.DTPDatePAExpires.Size = New System.Drawing.Size(117, 21)
         Me.DTPDatePAExpires.TabIndex = 20
         Me.DTPDatePAExpires.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -6303,12 +6239,12 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPDateAssigned.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDateAssigned.Enabled = False
-        Me.DTPDateAssigned.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateAssigned.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDateAssigned.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDateAssigned.Location = New System.Drawing.Point(84, 137)
         Me.DTPDateAssigned.Name = "DTPDateAssigned"
         Me.DTPDateAssigned.ShowCheckBox = True
-        Me.DTPDateAssigned.Size = New System.Drawing.Size(120, 22)
+        Me.DTPDateAssigned.Size = New System.Drawing.Size(117, 21)
         Me.DTPDateAssigned.TabIndex = 15
         Me.DTPDateAssigned.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -6316,12 +6252,12 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPDateReassigned.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDateReassigned.Enabled = False
-        Me.DTPDateReassigned.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateReassigned.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDateReassigned.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDateReassigned.Location = New System.Drawing.Point(84, 161)
         Me.DTPDateReassigned.Name = "DTPDateReassigned"
         Me.DTPDateReassigned.ShowCheckBox = True
-        Me.DTPDateReassigned.Size = New System.Drawing.Size(120, 22)
+        Me.DTPDateReassigned.Size = New System.Drawing.Size(117, 21)
         Me.DTPDateReassigned.TabIndex = 16
         Me.DTPDateReassigned.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -6329,12 +6265,12 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPDateAcknowledge.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDateAcknowledge.Enabled = False
-        Me.DTPDateAcknowledge.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateAcknowledge.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDateAcknowledge.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDateAcknowledge.Location = New System.Drawing.Point(84, 185)
         Me.DTPDateAcknowledge.Name = "DTPDateAcknowledge"
         Me.DTPDateAcknowledge.ShowCheckBox = True
-        Me.DTPDateAcknowledge.Size = New System.Drawing.Size(120, 22)
+        Me.DTPDateAcknowledge.Size = New System.Drawing.Size(117, 21)
         Me.DTPDateAcknowledge.TabIndex = 17
         Me.DTPDateAcknowledge.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -6342,11 +6278,11 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPDateReceived.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDateReceived.Enabled = False
-        Me.DTPDateReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDateReceived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDateReceived.Location = New System.Drawing.Point(84, 113)
         Me.DTPDateReceived.Name = "DTPDateReceived"
-        Me.DTPDateReceived.Size = New System.Drawing.Size(120, 22)
+        Me.DTPDateReceived.Size = New System.Drawing.Size(117, 21)
         Me.DTPDateReceived.TabIndex = 14
         Me.DTPDateReceived.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -6354,11 +6290,11 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPDateSent.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDateSent.Enabled = False
-        Me.DTPDateSent.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateSent.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDateSent.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDateSent.Location = New System.Drawing.Point(84, 90)
         Me.DTPDateSent.Name = "DTPDateSent"
-        Me.DTPDateSent.Size = New System.Drawing.Size(120, 22)
+        Me.DTPDateSent.Size = New System.Drawing.Size(117, 21)
         Me.DTPDateSent.TabIndex = 13
         Me.DTPDateSent.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -6504,7 +6440,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TCApplicationTrackingLog.Location = New System.Drawing.Point(0, 112)
         Me.TCApplicationTrackingLog.Name = "TCApplicationTrackingLog"
         Me.TCApplicationTrackingLog.SelectedIndex = 0
-        Me.TCApplicationTrackingLog.Size = New System.Drawing.Size(792, 540)
+        Me.TCApplicationTrackingLog.Size = New System.Drawing.Size(792, 562)
         Me.TCApplicationTrackingLog.TabIndex = 255
         '
         'SSPPApplicationTrackingLog
@@ -6513,7 +6449,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(792, 674)
         Me.Controls.Add(Me.TCApplicationTrackingLog)
-        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.TBSSPPPermitTrackingLog)
         Me.Menu = Me.MainMenu1
@@ -6521,8 +6456,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.Text = "Application Tracking Log"
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         Me.TPSubPartEditor.ResumeLayout(False)
         Me.TCSupParts.ResumeLayout(False)
         Me.TPSIP.ResumeLayout(False)
@@ -6654,15 +6587,11 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents MmiFile As System.Windows.Forms.MenuItem
     Friend WithEvents mmiSave As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiBack As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiView As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiClose As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
     Friend WithEvents mmiNewApplication As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents TBSSPPPermitTrackingLog As System.Windows.Forms.ToolBar
-    Friend WithEvents TBBSave As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TBBBack As System.Windows.Forms.ToolBarButton
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents lblLinkWarning As System.Windows.Forms.Label
     Friend WithEvents rtbFacilityInformation As System.Windows.Forms.RichTextBox
@@ -6681,11 +6610,6 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents chbClosedOut As System.Windows.Forms.CheckBox
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents txtOutstandingApplication As System.Windows.Forms.TextBox
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents ToolStripProgressBar1 As System.Windows.Forms.ToolStripProgressBar
-    Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents btnRefreshAppNo As System.Windows.Forms.Button
     Friend WithEvents btnRefreshAIRSNo As System.Windows.Forms.Button
     Friend WithEvents TPSubPartEditor As System.Windows.Forms.TabPage
@@ -7188,4 +7112,5 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents Label72 As System.Windows.Forms.Label
     Friend WithEvents chbCDS_RMP As System.Windows.Forms.CheckBox
     Friend WithEvents chbExpedited As System.Windows.Forms.CheckBox
+    Friend WithEvents TBBSave As System.Windows.Forms.ToolBarButton
 End Class

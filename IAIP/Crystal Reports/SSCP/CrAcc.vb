@@ -20,6 +20,7 @@
             Me.DeviationsReported = acc.DeviationsReported
             Me.EnforcementNeeded = acc.EnforcementNeeded
             Me.Facility = acc.Facility
+            Me.PostmarkedByDeadline = acc.PostmarkedByDeadline
             Me.ResubmittalRequested = acc.ResubmittalRequested
             Me.SignedByResponsibleOfficial = acc.SignedByResponsibleOfficial
             Me.StaffResponsible = acc.StaffResponsible

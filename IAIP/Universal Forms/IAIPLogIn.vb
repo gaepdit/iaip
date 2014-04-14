@@ -3,8 +3,6 @@ Imports Oracle.DataAccess.Client
 'Imports Microsoft.Win32
 
 Public Class IAIPLogIn
-    Dim recExist As Boolean
-    Dim IaipAvailable As Boolean = True
 
 #Region " Page Load "
 
@@ -23,12 +21,9 @@ Public Class IAIPLogIn
     Private Sub IAIPLogIn_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Main." & Me.Name)
         Try
+            DisplayVersion()
             CheckLanguageRegistrySetting()
-
-            'AddHandler t.Elapsed, AddressOf TimerFired
-            't.Enabled = True
-
-            VerifyVersion()
+            CheckDatabaseConnection()
 
 #If NadcEnabled Then
             mmiNadcServer.Enabled = True
@@ -76,52 +71,13 @@ Public Class IAIPLogIn
         End With
     End Sub
 
-    Private Sub VerifyVersion()
-        ' Do version checking
-        Dim currentVersion As Version = GetRunningVersion()
-        'Dim publishedVersion As Version = GetPublishedVersion()
-
-        'lnkUpdateLink.Visible = False
+    Private Sub DisplayVersion()
+        Dim currentVersion As Version = GetCurrentVersionAsMajorMinorBuild()
 
         With lblCurrentVersionMessage
-            .Text = String.Format("Version: {0}", GetCurrentVersionAsMajorMinorBuild.ToString)
+            .Text = String.Format("Version: {0}", currentVersion.ToString)
             .Visible = True
         End With
-
-        'If publishedVersion.Equals(New Version("0.0.0.0")) Then
-        '    DisableLogin("The Platform is currently unavailable. Please check " & vbNewLine & _
-        '                 "back later. If you continue to see this message after " & vbNewLine & _
-        '                 "two hours, please inform the Data Management Unit. " & vbNewLine & _
-        '                 "Thank you.")
-        '    lblCurrentVersionMessage.Location = New Point(337, lblCurrentVersionMessage.Location.Y)
-        '    Exit Sub
-        'End If
-
-        'If IsUpdateMandatory() Then
-        '    DisableLogin("Your installation of the Platform is out of date " & vbNewLine & _
-        '                 "and must be updated before you can proceed.")
-        '    ShowUpdateLink(currentVersion, publishedVersion)
-        '    With lblCurrentVersionMessage
-        '        .Location = New Point(337, 278)
-        '        .ForeColor = SystemColors.ControlText
-        '    End With
-        '    With lblAvailableVersionMessage
-        '        .Location = New Point(337, 296)
-        '        .ForeColor = Color.Maroon
-        '    End With
-        '    With lnkUpdateLink
-        '        .Location = New Point(337, 330)
-        '        .LinkColor = Color.Red
-        '    End With
-
-        '    Exit Sub
-        'End If
-
-        'If IsUpdateAvailable() Then
-        '    ShowUpdateLink(currentVersion, publishedVersion)
-        '    lblCurrentVersionMessage.ForeColor = SystemColors.ControlText
-        'End If
-
     End Sub
 
     'Private Sub ShowUpdateLink(ByVal currentVersion As Version, ByVal publishedVersion As Version)
@@ -142,6 +98,15 @@ Public Class IAIPLogIn
         If currentSetting Is Nothing Or currentSetting <> "AMERICAN" Then
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", "AMERICAN")
             DisableLogin("Language settings have been updated. Please close and restart the Platform.")
+        End If
+    End Sub
+
+    Private Sub CheckDatabaseConnection()
+        If Not DB.PingDBConnection(CurrentConnection) Then
+            DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine & _
+                             "back later. If you continue to see this message after " & vbNewLine & _
+                             "two hours, please inform the Data Management Unit. " & vbNewLine & _
+                             "Thank you.")
         End If
     End Sub
 
@@ -263,6 +228,7 @@ Public Class IAIPLogIn
             If CurrentConnectionEnvironment = DB.ConnectionEnvironment.Development _
             OrElse CurrentConnectionEnvironment = DB.ConnectionEnvironment.NADC_Development _
             Then monitor.TrackFeature("Main.TestingEnvironment")
+            monitor.ForceSync()
 
             SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
             OpenSingleForm(IAIPNavigation)
@@ -355,7 +321,7 @@ Public Class IAIPLogIn
 
 #Else
 
-        Private Sub ToggleTestingEnvironment()
+    Private Sub ToggleTestingEnvironment()
         mmiTestingEnvironment.Checked = Not mmiTestingEnvironment.Checked
 
         If mmiTestingEnvironment.Checked Then
@@ -383,17 +349,13 @@ Public Class IAIPLogIn
 
 #Region " Close application "
 
-    Private Sub CloseIaip()
-        CurrentConnection.Dispose()
-        Application.Exit()
-    End Sub
     Private Sub Form_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
         If Not SingleFormIsOpen(IAIPNavigation) Then
-            CloseIaip()
+            StartupShutdown.CloseIaip()
         End If
     End Sub
     Private Sub mmiExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExit.Click
-        CloseIaip()
+        StartupShutdown.CloseIaip()
     End Sub
 
 #End Region
