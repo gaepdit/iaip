@@ -72,6 +72,7 @@ Partial Class MASPRegistrationTool
         Me.tabEventOverview = New System.Windows.Forms.TabPage
         Me.dgvOverviewRegistrants = New System.Windows.Forms.DataGridView
         Me.Panel9 = New System.Windows.Forms.Panel
+        Me.lblEmail = New System.Windows.Forms.Label
         Me.chbOvLoginRequired = New System.Windows.Forms.CheckBox
         Me.txtOvNotes = New System.Windows.Forms.TextBox
         Me.txtOvVenue = New System.Windows.Forms.TextBox
@@ -153,7 +154,7 @@ Partial Class MASPRegistrationTool
         Me.btnViewDetails = New System.Windows.Forms.Button
         Me.lblEventTitle = New System.Windows.Forms.Label
         Me.lblEventDate = New System.Windows.Forms.Label
-        Me.lblEmail = New System.Windows.Forms.Label
+        Me.lblFilterEvents = New System.Windows.Forms.Label
         Me.Panel4.SuspendLayout()
         Me.tabsEventDetails.SuspendLayout()
         Me.tabEventOverview.SuspendLayout()
@@ -228,7 +229,7 @@ Partial Class MASPRegistrationTool
         Me.chbGECOlogInRequired.Location = New System.Drawing.Point(270, 153)
         Me.chbGECOlogInRequired.Name = "chbGECOlogInRequired"
         Me.chbGECOlogInRequired.Size = New System.Drawing.Size(134, 17)
-        Me.chbGECOlogInRequired.TabIndex = 453
+        Me.chbGECOlogInRequired.TabIndex = 8
         Me.chbGECOlogInRequired.Text = "GECO Log in Required"
         Me.chbGECOlogInRequired.UseVisualStyleBackColor = True
         '
@@ -237,7 +238,7 @@ Partial Class MASPRegistrationTool
         Me.txtWebsiteURL.Location = New System.Drawing.Point(465, 210)
         Me.txtWebsiteURL.Name = "txtWebsiteURL"
         Me.txtWebsiteURL.Size = New System.Drawing.Size(281, 20)
-        Me.txtWebsiteURL.TabIndex = 450
+        Me.txtWebsiteURL.TabIndex = 21
         '
         'Label48
         '
@@ -262,7 +263,7 @@ Partial Class MASPRegistrationTool
         Me.txtEventTitle.Location = New System.Drawing.Point(72, 16)
         Me.txtEventTitle.Name = "txtEventTitle"
         Me.txtEventTitle.Size = New System.Drawing.Size(305, 20)
-        Me.txtEventTitle.TabIndex = 1
+        Me.txtEventTitle.TabIndex = 0
         '
         'btnClearEventManagement
         '
@@ -271,7 +272,7 @@ Partial Class MASPRegistrationTool
         Me.btnClearEventManagement.Location = New System.Drawing.Point(336, 252)
         Me.btnClearEventManagement.Name = "btnClearEventManagement"
         Me.btnClearEventManagement.Size = New System.Drawing.Size(67, 23)
-        Me.btnClearEventManagement.TabIndex = 445
+        Me.btnClearEventManagement.TabIndex = 24
         Me.btnClearEventManagement.Text = "Clear Form"
         Me.btnClearEventManagement.UseVisualStyleBackColor = True
         '
@@ -280,7 +281,7 @@ Partial Class MASPRegistrationTool
         Me.txtEventEndTime.Location = New System.Drawing.Point(270, 127)
         Me.txtEventEndTime.Name = "txtEventEndTime"
         Me.txtEventEndTime.Size = New System.Drawing.Size(107, 20)
-        Me.txtEventEndTime.TabIndex = 451
+        Me.txtEventEndTime.TabIndex = 5
         '
         'mtbEventPhoneNumber
         '
@@ -315,17 +316,18 @@ Partial Class MASPRegistrationTool
         Me.txtEventDescription.Multiline = True
         Me.txtEventDescription.Name = "txtEventDescription"
         Me.txtEventDescription.Size = New System.Drawing.Size(305, 51)
-        Me.txtEventDescription.TabIndex = 2
+        Me.txtEventDescription.TabIndex = 1
         '
         'cboEventContact
         '
         Me.cboEventContact.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboEventContact.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboEventContact.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboEventContact.FormattingEnabled = True
         Me.cboEventContact.Location = New System.Drawing.Point(113, 207)
         Me.cboEventContact.Name = "cboEventContact"
         Me.cboEventContact.Size = New System.Drawing.Size(142, 21)
-        Me.cboEventContact.TabIndex = 8
+        Me.cboEventContact.TabIndex = 10
         '
         'Label4
         '
@@ -361,7 +363,7 @@ Partial Class MASPRegistrationTool
         Me.btnGeneratePasscode.Location = New System.Drawing.Point(154, 150)
         Me.btnGeneratePasscode.Name = "btnGeneratePasscode"
         Me.btnGeneratePasscode.Size = New System.Drawing.Size(89, 23)
-        Me.btnGeneratePasscode.TabIndex = 6
+        Me.btnGeneratePasscode.TabIndex = 7
         Me.btnGeneratePasscode.Text = "Generate Code"
         Me.btnGeneratePasscode.UseVisualStyleBackColor = True
         '
@@ -370,7 +372,7 @@ Partial Class MASPRegistrationTool
         Me.txtEventVenue.Location = New System.Drawing.Point(465, 42)
         Me.txtEventVenue.Name = "txtEventVenue"
         Me.txtEventVenue.Size = New System.Drawing.Size(121, 20)
-        Me.txtEventVenue.TabIndex = 11
+        Me.txtEventVenue.TabIndex = 13
         '
         'Label16
         '
@@ -390,7 +392,7 @@ Partial Class MASPRegistrationTool
         Me.DTPEventEndDate.Name = "DTPEventEndDate"
         Me.DTPEventEndDate.ShowCheckBox = True
         Me.DTPEventEndDate.Size = New System.Drawing.Size(120, 20)
-        Me.DTPEventEndDate.TabIndex = 446
+        Me.DTPEventEndDate.TabIndex = 3
         '
         'chbEventPasscode
         '
@@ -398,7 +400,7 @@ Partial Class MASPRegistrationTool
         Me.chbEventPasscode.Location = New System.Drawing.Point(72, 153)
         Me.chbEventPasscode.Name = "chbEventPasscode"
         Me.chbEventPasscode.Size = New System.Drawing.Size(77, 17)
-        Me.chbEventPasscode.TabIndex = 5
+        Me.chbEventPasscode.TabIndex = 6
         Me.chbEventPasscode.Text = "GA123456"
         Me.chbEventPasscode.UseVisualStyleBackColor = True
         '
@@ -409,7 +411,7 @@ Partial Class MASPRegistrationTool
         Me.btnDeleteEvent.Location = New System.Drawing.Point(667, 252)
         Me.btnDeleteEvent.Name = "btnDeleteEvent"
         Me.btnDeleteEvent.Size = New System.Drawing.Size(79, 23)
-        Me.btnDeleteEvent.TabIndex = 21
+        Me.btnDeleteEvent.TabIndex = 25
         Me.btnDeleteEvent.Text = "Delete Event"
         Me.btnDeleteEvent.UseVisualStyleBackColor = True
         '
@@ -429,7 +431,7 @@ Partial Class MASPRegistrationTool
         Me.btnUpdateEvent.Location = New System.Drawing.Point(200, 252)
         Me.btnUpdateEvent.Name = "btnUpdateEvent"
         Me.btnUpdateEvent.Size = New System.Drawing.Size(122, 23)
-        Me.btnUpdateEvent.TabIndex = 20
+        Me.btnUpdateEvent.TabIndex = 23
         Me.btnUpdateEvent.Text = "Update Existing Event"
         Me.btnUpdateEvent.UseVisualStyleBackColor = True
         '
@@ -440,7 +442,7 @@ Partial Class MASPRegistrationTool
         Me.DTPEventDate.Location = New System.Drawing.Point(72, 102)
         Me.DTPEventDate.Name = "DTPEventDate"
         Me.DTPEventDate.Size = New System.Drawing.Size(100, 20)
-        Me.DTPEventDate.TabIndex = 3
+        Me.DTPEventDate.TabIndex = 2
         '
         'btnSaveNewEvent
         '
@@ -449,7 +451,7 @@ Partial Class MASPRegistrationTool
         Me.btnSaveNewEvent.Location = New System.Drawing.Point(82, 252)
         Me.btnSaveNewEvent.Name = "btnSaveNewEvent"
         Me.btnSaveNewEvent.Size = New System.Drawing.Size(104, 23)
-        Me.btnSaveNewEvent.TabIndex = 19
+        Me.btnSaveNewEvent.TabIndex = 22
         Me.btnSaveNewEvent.Text = "Create New Event"
         Me.btnSaveNewEvent.UseVisualStyleBackColor = True
         '
@@ -486,7 +488,7 @@ Partial Class MASPRegistrationTool
         Me.txtEventNotes.Multiline = True
         Me.txtEventNotes.Name = "txtEventNotes"
         Me.txtEventNotes.Size = New System.Drawing.Size(281, 51)
-        Me.txtEventNotes.TabIndex = 18
+        Me.txtEventNotes.TabIndex = 20
         '
         'mtbEventCapacity
         '
@@ -494,7 +496,7 @@ Partial Class MASPRegistrationTool
         Me.mtbEventCapacity.Mask = "00000"
         Me.mtbEventCapacity.Name = "mtbEventCapacity"
         Me.mtbEventCapacity.Size = New System.Drawing.Size(42, 20)
-        Me.mtbEventCapacity.TabIndex = 17
+        Me.mtbEventCapacity.TabIndex = 19
         Me.mtbEventCapacity.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         Me.mtbEventCapacity.ValidatingType = GetType(Integer)
         '
@@ -506,7 +508,7 @@ Partial Class MASPRegistrationTool
         Me.cboEventStatus.Location = New System.Drawing.Point(89, 179)
         Me.cboEventStatus.Name = "cboEventStatus"
         Me.cboEventStatus.Size = New System.Drawing.Size(154, 21)
-        Me.cboEventStatus.TabIndex = 7
+        Me.cboEventStatus.TabIndex = 9
         '
         'txtEventTime
         '
@@ -556,11 +558,12 @@ Partial Class MASPRegistrationTool
         '
         Me.cboEventWebContact.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboEventWebContact.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboEventWebContact.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboEventWebContact.FormattingEnabled = True
         Me.cboEventWebContact.Location = New System.Drawing.Point(465, 19)
         Me.cboEventWebContact.Name = "cboEventWebContact"
         Me.cboEventWebContact.Size = New System.Drawing.Size(142, 21)
-        Me.cboEventWebContact.TabIndex = 9
+        Me.cboEventWebContact.TabIndex = 11
         '
         'btnMapEventLocation
         '
@@ -569,7 +572,7 @@ Partial Class MASPRegistrationTool
         Me.btnMapEventLocation.Location = New System.Drawing.Point(699, 86)
         Me.btnMapEventLocation.Name = "btnMapEventLocation"
         Me.btnMapEventLocation.Size = New System.Drawing.Size(47, 23)
-        Me.btnMapEventLocation.TabIndex = 16
+        Me.btnMapEventLocation.TabIndex = 18
         Me.btnMapEventLocation.Text = "Map It"
         Me.btnMapEventLocation.UseVisualStyleBackColor = True
         '
@@ -588,7 +591,7 @@ Partial Class MASPRegistrationTool
         Me.mtbEventZipCode.Mask = "00000-9999"
         Me.mtbEventZipCode.Name = "mtbEventZipCode"
         Me.mtbEventZipCode.Size = New System.Drawing.Size(68, 20)
-        Me.mtbEventZipCode.TabIndex = 15
+        Me.mtbEventZipCode.TabIndex = 17
         Me.mtbEventZipCode.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
         'mtbEventWebPhoneNumber
@@ -597,7 +600,7 @@ Partial Class MASPRegistrationTool
         Me.mtbEventWebPhoneNumber.Mask = "(999) 000-0000"
         Me.mtbEventWebPhoneNumber.Name = "mtbEventWebPhoneNumber"
         Me.mtbEventWebPhoneNumber.Size = New System.Drawing.Size(86, 20)
-        Me.mtbEventWebPhoneNumber.TabIndex = 10
+        Me.mtbEventWebPhoneNumber.TabIndex = 12
         Me.mtbEventWebPhoneNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
         'mtbEventState
@@ -606,7 +609,7 @@ Partial Class MASPRegistrationTool
         Me.mtbEventState.Mask = "aa"
         Me.mtbEventState.Name = "mtbEventState"
         Me.mtbEventState.Size = New System.Drawing.Size(32, 20)
-        Me.mtbEventState.TabIndex = 14
+        Me.mtbEventState.TabIndex = 16
         Me.mtbEventState.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
         'txtEventAddress
@@ -614,14 +617,14 @@ Partial Class MASPRegistrationTool
         Me.txtEventAddress.Location = New System.Drawing.Point(465, 65)
         Me.txtEventAddress.Name = "txtEventAddress"
         Me.txtEventAddress.Size = New System.Drawing.Size(224, 20)
-        Me.txtEventAddress.TabIndex = 12
+        Me.txtEventAddress.TabIndex = 14
         '
         'txtEventCity
         '
         Me.txtEventCity.Location = New System.Drawing.Point(465, 87)
         Me.txtEventCity.Name = "txtEventCity"
         Me.txtEventCity.Size = New System.Drawing.Size(112, 20)
-        Me.txtEventCity.TabIndex = 13
+        Me.txtEventCity.TabIndex = 15
         '
         'Label15
         '
@@ -708,6 +711,15 @@ Partial Class MASPRegistrationTool
         Me.Panel9.Name = "Panel9"
         Me.Panel9.Size = New System.Drawing.Size(784, 168)
         Me.Panel9.TabIndex = 422
+        '
+        'lblEmail
+        '
+        Me.lblEmail.AutoSize = True
+        Me.lblEmail.Location = New System.Drawing.Point(559, 143)
+        Me.lblEmail.Name = "lblEmail"
+        Me.lblEmail.Size = New System.Drawing.Size(35, 13)
+        Me.lblEmail.TabIndex = 438
+        Me.lblEmail.Text = "Email:"
         '
         'chbOvLoginRequired
         '
@@ -1433,6 +1445,7 @@ Partial Class MASPRegistrationTool
         '
         'pnlFilterEvents
         '
+        Me.pnlFilterEvents.Controls.Add(Me.lblFilterEvents)
         Me.pnlFilterEvents.Controls.Add(Me.rdbEventsFilterAll)
         Me.pnlFilterEvents.Controls.Add(Me.rdbEventsFilterPast)
         Me.pnlFilterEvents.Controls.Add(Me.rdbEventsFilterFuture)
@@ -1445,7 +1458,7 @@ Partial Class MASPRegistrationTool
         'rdbEventsFilterAll
         '
         Me.rdbEventsFilterAll.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rdbEventsFilterAll.Location = New System.Drawing.Point(9, 79)
+        Me.rdbEventsFilterAll.Location = New System.Drawing.Point(6, 92)
         Me.rdbEventsFilterAll.Name = "rdbEventsFilterAll"
         Me.rdbEventsFilterAll.Size = New System.Drawing.Size(109, 26)
         Me.rdbEventsFilterAll.TabIndex = 2
@@ -1455,7 +1468,7 @@ Partial Class MASPRegistrationTool
         'rdbEventsFilterPast
         '
         Me.rdbEventsFilterPast.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rdbEventsFilterPast.Location = New System.Drawing.Point(9, 46)
+        Me.rdbEventsFilterPast.Location = New System.Drawing.Point(6, 59)
         Me.rdbEventsFilterPast.Name = "rdbEventsFilterPast"
         Me.rdbEventsFilterPast.Size = New System.Drawing.Size(109, 27)
         Me.rdbEventsFilterPast.TabIndex = 1
@@ -1466,7 +1479,7 @@ Partial Class MASPRegistrationTool
         '
         Me.rdbEventsFilterFuture.Appearance = System.Windows.Forms.Appearance.Button
         Me.rdbEventsFilterFuture.Checked = True
-        Me.rdbEventsFilterFuture.Location = New System.Drawing.Point(9, 12)
+        Me.rdbEventsFilterFuture.Location = New System.Drawing.Point(6, 25)
         Me.rdbEventsFilterFuture.Name = "rdbEventsFilterFuture"
         Me.rdbEventsFilterFuture.Size = New System.Drawing.Size(109, 28)
         Me.rdbEventsFilterFuture.TabIndex = 0
@@ -1513,14 +1526,14 @@ Partial Class MASPRegistrationTool
         Me.lblEventDate.TabIndex = 5
         Me.lblEventDate.Text = "Event Date"
         '
-        'lblEmail
+        'lblFilterEvents
         '
-        Me.lblEmail.AutoSize = True
-        Me.lblEmail.Location = New System.Drawing.Point(559, 143)
-        Me.lblEmail.Name = "lblEmail"
-        Me.lblEmail.Size = New System.Drawing.Size(35, 13)
-        Me.lblEmail.TabIndex = 438
-        Me.lblEmail.Text = "Email:"
+        Me.lblFilterEvents.AutoSize = True
+        Me.lblFilterEvents.Location = New System.Drawing.Point(6, 9)
+        Me.lblFilterEvents.Name = "lblFilterEvents"
+        Me.lblFilterEvents.Size = New System.Drawing.Size(33, 13)
+        Me.lblFilterEvents.TabIndex = 3
+        Me.lblFilterEvents.Text = "View:"
         '
         'MASPRegistrationTool
         '
@@ -1546,6 +1559,7 @@ Partial Class MASPRegistrationTool
         Me.pnlEventsAndFilter.ResumeLayout(False)
         CType(Me.dgvEvents, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlFilterEvents.ResumeLayout(False)
+        Me.pnlFilterEvents.PerformLayout()
         Me.pnlEventTitle.ResumeLayout(False)
         Me.pnlEventTitle.PerformLayout()
         Me.ResumeLayout(False)
@@ -1683,4 +1697,5 @@ Partial Class MASPRegistrationTool
     Friend WithEvents txtOvCancelled As System.Windows.Forms.TextBox
     Friend WithEvents lblCancelled As System.Windows.Forms.Label
     Friend WithEvents lblEmail As System.Windows.Forms.Label
+    Friend WithEvents lblFilterEvents As System.Windows.Forms.Label
 End Class
