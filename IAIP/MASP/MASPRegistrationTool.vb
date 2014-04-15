@@ -49,10 +49,10 @@ Public Class MASPRegistrationTool
     End Sub
 
     Private Sub LoadEventContactCombos()
-        Dim staff As DataTable = DAL.GetAllActiveStaffAsDataTable
+        Dim staff As DataTable = DAL.GetAllActiveStaffAsDataTable()
 
         Dim nullRow As DataRow = staff.NewRow
-        nullRow("NUMUSERID") = DBNull.Value
+        nullRow("NUMUSERID") = 0
         nullRow("AlphaName") = "Select a contact…"
         staff.Rows.InsertAt(nullRow, 0)
 
@@ -569,23 +569,20 @@ Public Class MASPRegistrationTool
             resultcode = 1
 
             resultcode = MessageBox.Show("This will create a new Event." & vbCrLf & _
-                  "Click Yes to create a new event.", Me.Text, _
-                  MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-            Select Case resultcode
-                Case Windows.Forms.DialogResult.Yes
-                    Dim newEventId As Decimal = Insert_RES_Event(cboEventStatus.SelectedValue, txtEventTitle.Text, txtEventDescription.Text, _
-                                     DTPEventDate.Text, EndDate, txtEventVenue.Text, _
-                                     txtEventAddress.Text, txtEventCity.Text, mtbEventState.Text, _
-                                     mtbEventZipCode.Text, mtbEventCapacity.Text, txtEventNotes.Text, _
-                                     cboEventContact.SelectedValue, cboEventWebContact.SelectedValue, mtbEventWebPhoneNumber.Text, _
-                                     chbGECOlogInRequired.CheckState, chbEventPasscode.CheckState, chbEventPasscode.Text, "1", txtEventTime.Text, _
-                                     txtEventEndTime.Text, txtWebsiteURL.Text)
-                    LoadEvent()
+                  "Click Ok to create a new event.", Me.Text, _
+                  MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
+            If resultcode = Windows.Forms.DialogResult.OK Then
+                Dim newEventId As Decimal = Insert_RES_Event(cboEventStatus.SelectedValue, txtEventTitle.Text, txtEventDescription.Text, _
+                                 DTPEventDate.Text, EndDate, txtEventVenue.Text, _
+                                 txtEventAddress.Text, txtEventCity.Text, mtbEventState.Text, _
+                                 mtbEventZipCode.Text, mtbEventCapacity.Text, txtEventNotes.Text, _
+                                 cboEventContact.SelectedValue, cboEventWebContact.SelectedValue, mtbEventWebPhoneNumber.Text, _
+                                 chbGECOlogInRequired.CheckState, chbEventPasscode.CheckState, chbEventPasscode.Text, "1", txtEventTime.Text, _
+                                 txtEventEndTime.Text, txtWebsiteURL.Text)
+                LoadEvent()
 
-                    MsgBox("Data Saved/Updated", MsgBoxStyle.Information, Me.Text)
-                Case Else
-                    Exit Sub
-            End Select
+                MsgBox("Data Saved/Updated", MsgBoxStyle.Information, Me.Text)
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -827,11 +824,11 @@ Public Class MASPRegistrationTool
 #End Region
 
 
-    Private Sub cboEventWebContact_Leave(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboEventWebContact.Leave
-        If cboEventWebContact.Items.Contains(cboEventWebContact.Text) = False Then
-            cboEventWebContact.SelectedIndex = 0
-        End If
-    End Sub
+    'Private Sub cboEventWebContact_Leave(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboEventWebContact.Leave
+    '    If cboEventWebContact.Items.Contains(cboEventWebContact.Text) = False Then
+    '        cboEventWebContact.SelectedIndex = 0
+    '    End If
+    'End Sub
 
     Private Sub btnModifyRegistration_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnModifyRegistration.Click
         Try
