@@ -1,5 +1,9 @@
 % IAIP Change Log
 
+## Version 3.1.1 <span>(2014-04-15)</span>
+
+- FIX: *MASP* -- Can't create new event registration (#217); thx Thomas
+
 ## Version 3.1 <span>(2014-04-14)</span>
 
 - FIX: More work to prevent database timeout errors (#199)
