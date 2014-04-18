@@ -26,8 +26,7 @@ Public Class IAIPLogIn
             CheckDatabaseConnection()
 
 #If NadcEnabled Then
-            mmiNadcServer.Enabled = True
-            mmiNadcServer.Visible = True
+            EnableAndShow(mmiNadcServer)
 #End If
 
         Catch ex As Exception
@@ -36,30 +35,8 @@ Public Class IAIPLogIn
     End Sub
 
     Private Sub DisableLogin(Optional ByVal message As String = "")
-        With txtUserID
-            .Enabled = False
-            .Visible = False
-        End With
-
-        With lblUserID
-            .Enabled = False
-            .Visible = False
-        End With
-
-        With txtUserPassword
-            .Enabled = False
-            .Visible = False
-        End With
-
-        With lblPassword
-            .Enabled = False
-            .Visible = False
-        End With
-
-        With btnLoginButton
-            .Enabled = False
-            .Visible = False
-        End With
+        Dim controlsToHide As Control() = {txtUserID, lblUserID, txtUserPassword, lblPassword, btnLoginButton}
+        DisableAndHide(controlsToHide)
 
         Me.AcceptButton = Nothing
 
@@ -79,18 +56,6 @@ Public Class IAIPLogIn
             .Visible = True
         End With
     End Sub
-
-    'Private Sub ShowUpdateLink(ByVal currentVersion As Version, ByVal publishedVersion As Version)
-    '    lnkUpdateLink.Visible = True
-    '    With lblCurrentVersionMessage
-    '        .Text = String.Format("You are using version: {0}", currentVersion.ToString)
-    '        .Visible = True
-    '    End With
-    '    With lblAvailableVersionMessage
-    '        .Text = String.Format("Version {0} is available to install", publishedVersion.ToString)
-    '        .Visible = True
-    '    End With
-    'End Sub
 
     Private Sub CheckLanguageRegistrySetting()
         Dim currentSetting As String
