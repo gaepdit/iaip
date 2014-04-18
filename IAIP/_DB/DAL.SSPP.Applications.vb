@@ -44,7 +44,7 @@ Namespace DAL.SSPP
             With appInfo
                 .ApplicationNumber = DB.GetNullable(Of String)(row("STRAPPLICATIONNUMBER"))
                 .ApplicationType = DB.GetNullable(Of String)(row("STRAPPLICATIONTYPEDESC"))
-                .DateIssued = App.NormalizeDate(DB.GetNullable(Of Date)(row("DATFINALIZEDDATE")))
+                .DateIssued = Iaip.App.NormalizeDate(DB.GetNullable(Of Date)(row("DATFINALIZEDDATE")))
                 .PermitType = DB.GetNullable(Of String)(row("STRPERMITTYPEDESCRIPTION"))
                 .Facility = facility
                 .StaffResponsible = staff

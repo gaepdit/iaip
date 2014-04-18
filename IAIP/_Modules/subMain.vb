@@ -22,7 +22,7 @@ Module subMain
 
 #Region " New public variables (by Doug) "
 
-    Friend Const AppName As String = "IAIP"
+    Friend Const APP_NAME As String = "IAIP"
     Friend DocumentationUrl As New Uri("https://sites.google.com/site/iaipdocs/")
     'Friend DownloadUrl As New Uri("http://airpermit.dnr.state.ga.us/iaip/IAIP.update.new.exe")
     Friend SupportUrl As New Uri("http://airpermit.dnr.state.ga.us/iaip/")

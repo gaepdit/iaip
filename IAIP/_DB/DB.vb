@@ -7,6 +7,14 @@ Namespace DB
 
 #Region " Read (Scalar) "
 
+        Public Function GetBoolean(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing) As Boolean
+            Return Convert.ToBoolean(GetSingleValue(Of Boolean)(query, parameter))
+        End Function
+
+        Public Function GetBoolean(ByVal query As String, ByVal parameterArray As OracleParameter()) As Boolean
+            Return Convert.ToBoolean(GetSingleValue(Of Boolean)(query, parameterArray))
+        End Function
+
         Public Function GetSingleValue(Of T)(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing) As T
             Dim parameterArray As OracleParameter() = {parameter}
             Return GetSingleValue(Of T)(query, parameterArray)

@@ -23,7 +23,7 @@ Public Class IAIPLogIn
         Try
             DisplayVersion()
             CheckLanguageRegistrySetting()
-            CheckDatabaseConnection()
+            CheckDBAvailability()
 
 #If NadcEnabled Then
             EnableAndShow(mmiNadcServer)
@@ -66,8 +66,8 @@ Public Class IAIPLogIn
         End If
     End Sub
 
-    Private Function CheckDatabaseConnection() As Boolean
-        If Not DB.PingDBConnection(CurrentConnection) Then
+    Private Function CheckDBAvailability() As Boolean
+        If (Not DAL.AppIsEnabled) Then
             DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine & _
                              "back later. If you continue to see this message after " & vbNewLine & _
                              "two hours, please inform the Data Management Unit. " & vbNewLine & _
@@ -88,7 +88,7 @@ Public Class IAIPLogIn
         LoginProgressBar.Visible = True
         LoginProgressBar.Refresh()
 
-        If Not CheckDatabaseConnection() Then
+        If Not CheckDBAvailability() Then
             txtUserPassword.Clear()
             LoginProgressBar.Visible = False
             monitor.TrackFeatureCancel("Startup.LoggingIn")
