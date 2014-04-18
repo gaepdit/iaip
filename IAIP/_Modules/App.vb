@@ -180,7 +180,7 @@ Module App
     ''' <summary>
     ''' Disables and hides all Controls in an array by setting their .Enabled and .Visible properties to False
     ''' </summary>
-    ''' <param name="menuItem">An array of controls to disable and hide</param>
+    ''' <param name="menuItems">An array of controls to disable and hide</param>
     Public Sub DisableAndHide(ByVal menuItems As MenuItem())
         For Each menuItem As MenuItem In menuItems
             DisableAndHide(menuItem)
@@ -201,7 +201,7 @@ Module App
     ''' <summary>
     ''' Enables and shows all Controls in an array by setting their .Enabled and .Visible properties to True
     ''' </summary>
-    ''' <param name="menuItem">An array of controls to enable and show</param>
+    ''' <param name="menuItems">An array of controls to enable and show</param>
     Public Sub EnableAndShow(ByVal menuItems As MenuItem())
         For Each menuItem As MenuItem In menuItems
             EnableAndShow(menuItem)
