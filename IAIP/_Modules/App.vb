@@ -123,7 +123,7 @@ Module App
     ''' <summary>
     ''' Disables and hides a Control by setting its .Enabled and .Visible properties to False
     ''' </summary>
-    ''' <param name="control">The control to disable and hide</param>
+    ''' <param name="control">The Control to disable and hide</param>
     Public Sub DisableAndHide(ByVal control As Control)
         With control
             .Enabled = False
@@ -134,7 +134,7 @@ Module App
     ''' <summary>
     ''' Disables and hides all Controls in an array by setting their .Enabled and .Visible properties to False
     ''' </summary>
-    ''' <param name="controls">An array of controls to disable and hide</param>
+    ''' <param name="controls">An array of Controls to disable and hide</param>
     Public Sub DisableAndHide(ByVal controls As Control())
         For Each control As Control In controls
             DisableAndHide(control)
@@ -144,7 +144,7 @@ Module App
     ''' <summary>
     ''' Enables and shows a Control by setting its .Enabled and .Visible properties to True
     ''' </summary>
-    ''' <param name="control">The control to enable and show</param>
+    ''' <param name="control">The Control to enable and show</param>
     Public Sub EnableAndShow(ByVal control As Control)
         With control
             .Enabled = True
@@ -155,10 +155,56 @@ Module App
     ''' <summary>
     ''' Enables and shows all Controls in an array by setting their .Enabled and .Visible properties to True
     ''' </summary>
-    ''' <param name="controls">An array of controls to enable and show</param>
+    ''' <param name="controls">An array of Controls to enable and show</param>
     Public Sub EnableAndShow(ByVal controls As Control())
         For Each control As Control In controls
             EnableAndShow(control)
+        Next
+    End Sub
+
+#End Region
+
+#Region " MenuItem procedures "
+
+    ''' <summary>
+    ''' Disables and hides a MenuItem by setting its .Enabled and .Visible properties to False
+    ''' </summary>
+    ''' <param name="menuItem">The MenuItem to disable and hide</param>
+    Public Sub DisableAndHide(ByVal menuItem As MenuItem)
+        With menuItem
+            .Enabled = False
+            .Visible = False
+        End With
+    End Sub
+
+    ''' <summary>
+    ''' Disables and hides all Controls in an array by setting their .Enabled and .Visible properties to False
+    ''' </summary>
+    ''' <param name="menuItem">An array of controls to disable and hide</param>
+    Public Sub DisableAndHide(ByVal menuItems As MenuItem())
+        For Each menuItem As MenuItem In menuItems
+            DisableAndHide(menuItem)
+        Next
+    End Sub
+
+    ''' <summary>
+    ''' Enables and shows a MenuItem by setting its .Enabled and .Visible properties to True
+    ''' </summary>
+    ''' <param name="menuItem">The menuItem to enable and show</param>
+    Public Sub EnableAndShow(ByVal menuItem As MenuItem)
+        With menuItem
+            .Enabled = True
+            .Visible = True
+        End With
+    End Sub
+
+    ''' <summary>
+    ''' Enables and shows all Controls in an array by setting their .Enabled and .Visible properties to True
+    ''' </summary>
+    ''' <param name="menuItem">An array of controls to enable and show</param>
+    Public Sub EnableAndShow(ByVal menuItems As MenuItem())
+        For Each menuItem As MenuItem In menuItems
+            EnableAndShow(menuItem)
         Next
     End Sub
 
