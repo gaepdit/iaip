@@ -66,14 +66,16 @@ Public Class IAIPLogIn
         End If
     End Sub
 
-    Private Sub CheckDatabaseConnection()
+    Private Function CheckDatabaseConnection() As Boolean
         If Not DB.PingDBConnection(CurrentConnection) Then
             DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine & _
                              "back later. If you continue to see this message after " & vbNewLine & _
                              "two hours, please inform the Data Management Unit. " & vbNewLine & _
                              "Thank you.")
+            Return False
         End If
-    End Sub
+        Return True
+    End Function
 
 #End Region
 
@@ -85,6 +87,13 @@ Public Class IAIPLogIn
         monitor.TrackFeatureStart("Startup.LoggingIn")
         LoginProgressBar.Visible = True
         LoginProgressBar.Refresh()
+
+        If Not CheckDatabaseConnection() Then
+            txtUserPassword.Clear()
+            LoginProgressBar.Visible = False
+            monitor.TrackFeatureCancel("Startup.LoggingIn")
+            Exit Sub
+        End If
 
         Try
 
@@ -353,7 +362,6 @@ Public Class IAIPLogIn
     End Sub
 
     Private Sub mmiAbout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiAbout.Click
-        'OpenAboutUrl(Me)
         IaipAbout.ShowDialog()
     End Sub
 
@@ -371,26 +379,10 @@ Public Class IAIPLogIn
     End Sub
 #End If
 
-#End Region
-
-    '#Region "Update application"
-
-    '    Private Sub StartIaipUpdate()
-    '        OpenDownloadUrl()
-    '        CloseIaip()
-    '    End Sub
-
-    '    Private Sub mmiUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiForceUpdate.Click
-    '        StartIaipUpdate()
-    '    End Sub
-
-    '    Private Sub UpdateLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkUpdateLink.LinkClicked
-    '        StartIaipUpdate()
-    '    End Sub
-
-    '#End Region
-
     Private Sub mmiCheckForUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCheckForUpdate.Click
         App.CheckForUpdate()
     End Sub
+
+#End Region
+
 End Class
