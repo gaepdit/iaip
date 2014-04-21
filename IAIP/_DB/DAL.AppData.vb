@@ -1,7 +1,7 @@
 ﻿Imports Oracle.DataAccess.Client
 
 Namespace DAL
-    Module App
+    Module AppData
 
         Public Function AppIsEnabled() As Boolean
             Dim query As String = " SELECT FENABLED " & _

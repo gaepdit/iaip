@@ -197,7 +197,7 @@ Partial Class IAIPNavigation
         Me.lblTitle.Name = "lblTitle"
         Me.lblTitle.Size = New System.Drawing.Size(804, 33)
         Me.lblTitle.TabIndex = 5
-        Me.lblTitle.Text = "AIR Protection Branch Navigation Screen"
+        Me.lblTitle.Text = "Integrated Air Information Platform"
         Me.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'pnlNavButtons
@@ -1084,7 +1084,7 @@ Partial Class IAIPNavigation
         Me.MinimumSize = New System.Drawing.Size(750, 300)
         Me.Name = "IAIPNavigation"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
-        Me.Text = "Air Protection Branch Navigation Screen"
+        Me.Text = "IAIP Navigation Screen"
         Me.pnlNavButtons.ResumeLayout(False)
         Me.grpQuickAccess.ResumeLayout(False)
         Me.grpQuickAccess.PerformLayout()

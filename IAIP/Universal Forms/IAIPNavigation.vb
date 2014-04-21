@@ -32,7 +32,7 @@ Public Class IAIPNavigation
 
 #Region " Form events "
 
-    Private Sub APBNavigation_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub IAIPNavigation_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         monitor.TrackFeature("Main." & Me.Name)
         Try
             IAIPLogIn.Hide()
@@ -61,7 +61,7 @@ Public Class IAIPNavigation
         LoadWorkViewerData()
     End Sub
 
-    Private Sub NavigationScreen_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
+    Private Sub IAIPNavigation_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         CurrentConnection.Dispose()
         Application.Exit()
     End Sub
@@ -108,35 +108,30 @@ Public Class IAIPNavigation
 
     Private Sub EnableConnectionEnvironmentOptions()
 
-        If CurrentConnectionEnvironment <> DB.ConnectionEnvironment.Production Then
-            lblTitle.Text = lblTitle.Text & " — " & CurrentConnectionEnvironment.ToString
-        End If
-
-        If DevelopmentEnvironment Then
+        If CurrentServerEnvironment = DB.ServerEnvironment.DEV Then
             pnl4.Text = "TESTING ENVIRONMENT"
             pnl4.BackColor = Color.Tomato
             pnl4.Visible = True
-
-            'mmiTesting.Visible = True
-            'mmiTesting.Enabled = True
+            EnableAndShow(mmiTesting)
         Else
-            pnl4.Text = ""
+            pnl4.Text = "PRD"
             pnl4.Visible = False
-
-            mmiTesting.Visible = False
-            mmiTesting.Enabled = False
+            DisableAndHide(mmiTesting)
         End If
 
-#If NadcEnabled Then
+#If NadcTesting Then
 
-        If NadcServer Then
+        pnl4.Visible = True
+
+        If CurrentServerLocation = DB.ServerLocation.NADC Then
             pnl5.Text = "NADC Server"
-            pnl5.BackColor = Color.DarkOrange
             pnl5.Visible = True
         Else
-            pnl5.Text = ""
-            pnl5.Visible = False
+            pnl5.Text = "Legacy Server"
+            pnl5.Visible = True
         End If
+
+        lblTitle.Text = "IAIP Navigation Screen — " & CurrentServerLocation.ToString & " " & CurrentServerEnvironment.ToString
 
 #End If
 

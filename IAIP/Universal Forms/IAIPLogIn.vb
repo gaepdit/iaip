@@ -25,8 +25,16 @@ Public Class IAIPLogIn
             CheckLanguageRegistrySetting()
             CheckDBAvailability()
 
-#If NadcEnabled Then
+#If NadcTesting Then
             EnableAndShow(mmiNadcServer)
+            If CurrentServerLocation = DB.ServerLocation.NADC Then
+                mmiNadcServer.Checked = True
+            End If
+            Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerLocation.ToString & ", " & CurrentServerEnvironment.ToString
+#End If
+
+#If DEBUG Then
+            ToggleServerEnvironment()
 #End If
 
         Catch ex As Exception
@@ -35,16 +43,24 @@ Public Class IAIPLogIn
     End Sub
 
     Private Sub DisableLogin(Optional ByVal message As String = "")
-        Dim controlsToHide As Control() = {txtUserID, lblUserID, txtUserPassword, lblPassword, btnLoginButton}
-        DisableAndHide(controlsToHide)
+        Dim loginControls As Control() = {txtUserID, lblUserID, txtUserPassword, lblPassword, btnLoginButton}
+        DisableAndHide(loginControls)
 
         Me.AcceptButton = Nothing
-
-        mmiTestingEnvironment.Enabled = False
-
         With lblGeneralMessage
             .Text = message
             .Visible = True
+        End With
+    End Sub
+
+    Private Sub EnableLogin()
+        Dim loginControls As Control() = {txtUserID, lblUserID, txtUserPassword, lblPassword, btnLoginButton}
+        EnableAndShow(loginControls)
+
+        Me.AcceptButton = btnLoginButton
+        With lblGeneralMessage
+            .Text = ""
+            .Visible = False
         End With
     End Sub
 
@@ -63,19 +79,24 @@ Public Class IAIPLogIn
         If currentSetting Is Nothing Or currentSetting <> "AMERICAN" Then
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", "AMERICAN")
             DisableLogin("Language settings have been updated. Please close and restart the Platform.")
+            DisableAndHide(mmiNadcServer)
+            DisableAndHide(mmiTestingEnvironment)
         End If
     End Sub
 
-    Private Function CheckDBAvailability() As Boolean
-        If (Not DAL.AppIsEnabled) Then
+    Private Sub CheckDBAvailability()
+        Console.WriteLine("CurrentServerEnvironment: " & CurrentServerEnvironment.ToString)
+        Console.WriteLine("CurrentServerLocation: " & CurrentServerLocation.ToString)
+
+        If DAL.AppIsEnabled Then
+            EnableLogin()
+        Else
             DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine & _
                              "back later. If you continue to see this message after " & vbNewLine & _
                              "two hours, please inform the Data Management Unit. " & vbNewLine & _
                              "Thank you.")
-            Return False
         End If
-        Return True
-    End Function
+    End Sub
 
 #End Region
 
@@ -85,15 +106,21 @@ Public Class IAIPLogIn
         If txtUserID.Text = "" OrElse txtUserPassword.Text = "" Then Exit Sub
 
         monitor.TrackFeatureStart("Startup.LoggingIn")
-        LoginProgressBar.Visible = True
-        LoginProgressBar.Refresh()
 
-        If Not CheckDBAvailability() Then
+        Console.WriteLine("CurrentServerEnvironment: " & CurrentServerEnvironment.ToString)
+        Console.WriteLine("CurrentServerLocation: " & CurrentServerLocation.ToString)
+        If Not DAL.AppIsEnabled Then
+            DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine & _
+                             "back later. If you continue to see this message after " & vbNewLine & _
+                             "two hours, please inform the Data Management Unit. " & vbNewLine & _
+                             "Thank you.")
             txtUserPassword.Clear()
-            LoginProgressBar.Visible = False
             monitor.TrackFeatureCancel("Startup.LoggingIn")
             Exit Sub
         End If
+
+        LoginProgressBar.Visible = True
+        LoginProgressBar.Refresh()
 
         Try
 
@@ -198,10 +225,10 @@ Public Class IAIPLogIn
             ' Add additional installation meta data for analytics
             monitorInstallationInfo.Add("IaipUserName", loginCred.UserName)
             monitor.SetInstallationInfo(loginCred.UserName, monitorInstallationInfo)
-
-            If CurrentConnectionEnvironment = DB.ConnectionEnvironment.Development _
-            OrElse CurrentConnectionEnvironment = DB.ConnectionEnvironment.NADC_Development _
-            Then monitor.TrackFeature("Main.TestingEnvironment")
+            If (CurrentServerEnvironment <> DB.DefaultServerEnvironment OrElse _
+                 CurrentServerLocation <> DB.DefaultServerLocation) Then
+                monitor.TrackFeature("Main.TestingEnvironment")
+            End If
             monitor.ForceSync()
 
             SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
@@ -225,99 +252,49 @@ Public Class IAIPLogIn
 
 #Region " Database Environment "
 
-#If NadcEnabled Then
-
-    Private Sub ToggleTestingEnvironment()
+    Private Sub ToggleServerEnvironment()
+        ' Toggle mmiTestingEnvironment menu item
         mmiTestingEnvironment.Checked = Not mmiTestingEnvironment.Checked
 
         If mmiTestingEnvironment.Checked Then
-            ' Switch to testing environment
-            DevelopmentEnvironment = True
+            ' Switch to DEV environment
+            CurrentServerEnvironment = DB.ServerEnvironment.DEV
             Me.BackColor = Color.PapayaWhip
             btnLoginButton.Text = "Testing Environment"
-            CurrentConnectionEnvironment = DB.ConnectionEnvironment.Development
-
-            If NadcServer Then
-                btnLoginButton.Text = "Testing (NADC)"
-                CurrentConnectionEnvironment = DB.ConnectionEnvironment.NADC_Development
-            End If
-
         Else
-            ' Switch to production environment
-            DevelopmentEnvironment = False
+            ' Switch to PRD environment
+            CurrentServerEnvironment = DB.ServerEnvironment.PRD
             Me.BackColor = SystemColors.Control
             btnLoginButton.Text = "Log In"
-            CurrentConnectionEnvironment = DB.ConnectionEnvironment.Production
-
-            If NadcServer Then
-                btnLoginButton.Text = "Log In (NADC)"
-                CurrentConnectionEnvironment = DB.ConnectionEnvironment.NADC_Production
-            End If
         End If
 
+        Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerLocation.ToString & " " & CurrentServerEnvironment.ToString
+
         ' Reset current connection based on current connection environment
-        CurrentConnectionString = DB.GetConnectionString(CurrentConnectionEnvironment)
-        CurrentConnection = New OracleConnection(CurrentConnectionString)
+        ' and check connection/app availability
+        CurrentConnection = New OracleConnection(DB.CurrentConnectionString)
+        CheckDBAvailability()
     End Sub
 
-    Private Sub ToggleDataCenter()
+    Private Sub ToggleServerLocation()
+        ' Toggle mmiNadcServer menu item
         mmiNadcServer.Checked = Not mmiNadcServer.Checked
 
         If mmiNadcServer.Checked Then
             'Switch to NADC servers
-            NadcServer = True
-            btnLoginButton.BackColor = Color.DarkOrange
-            If DevelopmentEnvironment Then
-                btnLoginButton.Text = "Testing (NADC)"
-                CurrentConnectionEnvironment = DB.ConnectionEnvironment.NADC_Development
-            Else
-                btnLoginButton.Text = "Log In (NADC)"
-                CurrentConnectionEnvironment = DB.ConnectionEnvironment.NADC_Production
-            End If
+            CurrentServerLocation = DB.ServerLocation.NADC
         Else
-            'Switch to Luke/Leia servers
-            NadcServer = False
-            btnLoginButton.BackColor = System.Drawing.SystemColors.Control
-            If DevelopmentEnvironment Then
-                btnLoginButton.Text = "Testing Environment"
-                CurrentConnectionEnvironment = DB.ConnectionEnvironment.Development
-            Else
-                btnLoginButton.Text = "Log In"
-                CurrentConnectionEnvironment = DB.ConnectionEnvironment.Production
-            End If
+            'Switch to Legacy servers
+            CurrentServerLocation = DB.ServerLocation.Legacy
         End If
 
-        ' Reset current connection based on current connection environment
-        CurrentConnectionString = DB.GetConnectionString(CurrentConnectionEnvironment)
-        CurrentConnection = New OracleConnection(CurrentConnectionString)
-
-    End Sub
-
-#Else
-
-    Private Sub ToggleTestingEnvironment()
-        mmiTestingEnvironment.Checked = Not mmiTestingEnvironment.Checked
-
-        If mmiTestingEnvironment.Checked Then
-            ' Switch to testing environment
-            DevelopmentEnvironment = True
-            Me.BackColor = Color.PapayaWhip
-            btnLoginButton.Text = "Testing Environment"
-            CurrentConnectionEnvironment = DB.ConnectionEnvironment.Development
-        Else
-            ' Switch to production environment
-            DevelopmentEnvironment = False
-            Me.BackColor = SystemColors.Control
-            btnLoginButton.Text = "Log In"
-            CurrentConnectionEnvironment = DB.ConnectionEnvironment.Production
-        End If
+        Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerLocation.ToString & " " & CurrentServerEnvironment.ToString
 
         ' Reset current connection based on current connection environment
-        CurrentConnectionString = DB.GetConnectionString(CurrentConnectionEnvironment)
-        CurrentConnection = New OracleConnection(CurrentConnectionString)
+        ' and check connection/app availability
+        CurrentConnection = New OracleConnection(DB.CurrentConnectionString)
+        CheckDBAvailability()
     End Sub
-
-#End If
 
 #End Region
 
@@ -370,14 +347,12 @@ Public Class IAIPLogIn
     End Sub
 
     Private Sub mmiTestingEnvironment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiTestingEnvironment.Click
-        ToggleTestingEnvironment()
+        ToggleServerEnvironment()
     End Sub
 
-#If NadcEnabled Then
     Private Sub mmiNadcServer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiNadcServer.Click
-        ToggleDataCenter()
+        ToggleServerLocation()
     End Sub
-#End If
 
     Private Sub mmiCheckForUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCheckForUpdate.Click
         App.CheckForUpdate()

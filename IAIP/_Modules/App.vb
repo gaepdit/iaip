@@ -125,10 +125,12 @@ Module App
     ''' </summary>
     ''' <param name="control">The Control to disable and hide</param>
     Public Sub DisableAndHide(ByVal control As Control)
-        With control
-            .Enabled = False
-            .Visible = False
-        End With
+        If control IsNot Nothing Then
+            With control
+                .Enabled = False
+                .Visible = False
+            End With
+        End If
     End Sub
 
     ''' <summary>
@@ -146,10 +148,12 @@ Module App
     ''' </summary>
     ''' <param name="control">The Control to enable and show</param>
     Public Sub EnableAndShow(ByVal control As Control)
-        With control
-            .Enabled = True
-            .Visible = True
-        End With
+        If control IsNot Nothing Then
+            With control
+                .Enabled = True
+                .Visible = True
+            End With
+        End If
     End Sub
 
     ''' <summary>
@@ -171,10 +175,12 @@ Module App
     ''' </summary>
     ''' <param name="menuItem">The MenuItem to disable and hide</param>
     Public Sub DisableAndHide(ByVal menuItem As MenuItem)
-        With menuItem
-            .Enabled = False
-            .Visible = False
-        End With
+        If menuItem IsNot Nothing Then
+            With menuItem
+                .Enabled = False
+                .Visible = False
+            End With
+        End If
     End Sub
 
     ''' <summary>
@@ -192,10 +198,12 @@ Module App
     ''' </summary>
     ''' <param name="menuItem">The menuItem to enable and show</param>
     Public Sub EnableAndShow(ByVal menuItem As MenuItem)
-        With menuItem
-            .Enabled = True
-            .Visible = True
-        End With
+        If menuItem IsNot Nothing Then
+            With menuItem
+                .Enabled = True
+                .Visible = True
+            End With
+        End If
     End Sub
 
     ''' <summary>
