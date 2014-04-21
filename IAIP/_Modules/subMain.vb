@@ -28,7 +28,6 @@ Module subMain
     Friend SupportUrl As New Uri("http://airpermit.dnr.state.ga.us/iaip/")
     Friend ChangelogUrl As New Uri("http://airpermit.dnr.state.ga.us/iaip/changelog.html")
     Friend DateFormat As String = "dd-MMM-yyyy"
-    Friend TodayString As String = Format(Date.Today, DateFormat)
 
 #End Region
 
