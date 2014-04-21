@@ -2,7 +2,7 @@
 
 #Region "Document upload messages"
 
-    Public Enum DocumentMessageType As Byte
+    Public Enum DocumentMessageType
         InvalidApplicationNumber
         InvalidEnforcementNumber
         FileNotFound
@@ -21,7 +21,7 @@
         UploadingFile
     End Enum
 
-    Private Function GetDocumentMessageList() As Hashtable
+    Private Function GetDocumentMessages() As Hashtable
         Dim messageList As New Hashtable
         messageList.Add(DocumentMessageType.InvalidApplicationNumber, "Error: That application number does not exist.")
         messageList.Add(DocumentMessageType.InvalidEnforcementNumber, "Error: That enforcement number does not exist.")
@@ -42,9 +42,9 @@
 
         Return messageList
     End Function
-    Private DocumentMessageList As Hashtable = GetDocumentMessageList()
+    Private DocumentMessages As Hashtable = GetDocumentMessages()
     Public Function GetDocumentMessage(ByVal key As DocumentMessageType) As String
-        Return DocumentMessageList(key)
+        Return DocumentMessages(key)
     End Function
 
 #End Region
