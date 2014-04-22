@@ -6,9 +6,9 @@
         ''' Date scheduled for legacy servers to be disconnected. 
         ''' </summary>
         ''' <remarks>NADC servers will not necessarily be available yet, but that will be handled by server availability checking.</remarks>
-        Private ReadOnly Property NADC_CUTOVER_DATETIME() As DateTime
+        Public ReadOnly Property NADC_CUTOVER_DATETIME() As DateTime
             Get
-                Return New DateTime(2014, 5, 2, 12 + 5, 0, 0) ' 5pm, May 5, 2012
+                Return New DateTime(2014, 5, 2, 12 + 5, 0, 0) ' 5:00 pm, May 5, 2012
             End Get
         End Property
 
