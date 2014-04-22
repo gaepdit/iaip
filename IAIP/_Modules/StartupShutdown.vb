@@ -42,7 +42,7 @@
     Friend Sub Finish()
 
         ' Timers
-        App.StopAppTimers()
+        AppTimers.StopAppTimers()
 
         ' Form settings
         SaveAllFormSettings()

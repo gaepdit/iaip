@@ -49,7 +49,7 @@ Public Class IAIPNavigation
             EnableConnectionEnvironmentOptions()
 
             ' Timers
-            App.StartAppTimers()
+            AppTimers.StartAppTimers()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
