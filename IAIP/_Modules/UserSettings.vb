@@ -1,7 +1,7 @@
 ﻿Module UserSettings
 
     ' Define user settings here
-    Friend Enum UserSetting As Byte
+    Friend Enum UserSetting
         ExcelExportLocation
         PermitUploadLocation
         EnforcementUploadLocation

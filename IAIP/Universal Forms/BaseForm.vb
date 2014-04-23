@@ -56,8 +56,8 @@ Public Class BaseForm
 #If Not Debug Then
         ' CurrentConnectionEnvironment variable is not available in design mode
         If Not Me.DesignMode _
-        AndAlso (CurrentConnectionEnvironment = DB.ConnectionEnvironment.Development OrElse _
-                 CurrentConnectionEnvironment = DB.ConnectionEnvironment.NADC_Development) Then
+        AndAlso (CurrentServerEnvironment <> DB.DefaultServerEnvironment OrElse _
+                 CurrentServerLocation <> DB.DefaultServerLocation) Then
             Me.Icon = My.Resources.TestingIcon
         End If
 #End If
