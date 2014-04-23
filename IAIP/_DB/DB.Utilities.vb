@@ -47,36 +47,5 @@ Namespace DB
             Return byteArray
         End Function
 
-
-#Region " Ping "
-
-        ''' <summary>
-        ''' Attempt to access an OracleConnection to determine if it is available and to keep it open if so.
-        ''' </summary>
-        ''' <param name="conn">The OracleConnection to access.</param>
-        ''' <returns>True if DB connection works. Otherwise, false.</returns>
-        ''' <remarks>
-        ''' This function has a dual purpose. First, to determine if a DB connection is available 
-        ''' (and exit gracefully if it is not). Second, to keep that connection perpetually open. 
-        ''' This is useful only because the IAIP uses a single OracleConnection that it assumes 
-        ''' to always be open (and fails miserably if it is not). Hence, there is no conn.Close() 
-        ''' statement after the cmd.ExecuteScalar() statement.
-        ''' </remarks>
-        Public Function PingDBConnection(ByVal conn As Oracle.DataAccess.Client.OracleConnection) As Boolean
-            Dim sql As String = "SELECT 1 FROM DUAL"
-            Using cmd As New Oracle.DataAccess.Client.OracleCommand(sql, conn)
-                Dim result As Object = Nothing
-                Try
-                    If conn.State = ConnectionState.Closed Then conn.Open()
-                    result = cmd.ExecuteScalar()
-                    Return True
-                Catch ex As Exception
-                    Return False
-                End Try
-            End Using
-        End Function
-
-#End Region
-
     End Module
 End Namespace
