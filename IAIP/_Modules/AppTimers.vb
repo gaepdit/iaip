@@ -3,16 +3,16 @@
 #Region " Start and stop timers "
 
     Public Sub StartAppTimers()
-        StartTimer(AppDurationTimer, 1000 * 60 * 60 * 3, AddressOf AppDurationTimerElapsed, False) ' 3 hours 
-        StartTimer(DbPingTimer, 1000 * 60 * 45, AddressOf DbPingTimerElapsed) ' 45 minutes 
+        StartTimer(AppDurationTimer, AppDurationTimerInterval.TotalMilliseconds, AddressOf AppDurationTimerElapsed, False)
+        StartTimer(DbPingTimer, DbPingTimerInterval.TotalMilliseconds, AddressOf DbPingTimerElapsed)
         'StartTimer(DbPingTimer, 1000 * 60 * 2, AddressOf DbPingTimerElapsed) ' 2 minutes (for testing purposes)
         StartNadcCutoverTimer()
     End Sub
 
     Public Sub StopAppTimers()
         StopTimer(AppDurationTimer)
-        StopTimer(DbPingTimer)
         StopTimer(ShutdownWarningTimer)
+        StopTimer(DbPingTimer)
         StopTimer(NadcCutoverTimer)
     End Sub
 
@@ -49,6 +49,7 @@
 #Region " Database ping timer "
 
     Private DbPingTimer As Timers.Timer
+    Private DbPingTimerInterval As TimeSpan = TimeSpan.FromMinutes(45) ' 45 minutes 
 
     Private Sub DbPingTimerElapsed()
         Dim result As Boolean = DB.PingDBConnection(CurrentConnection)
@@ -64,10 +65,14 @@
 #Region " App duration timer "
 
     Private AppDurationTimer As Timers.Timer
+    Private AppDurationTimerInterval As TimeSpan = TimeSpan.FromHours(3) ' 3 hours
+
     Private ShutdownWarningTimer As Timers.Timer
+    Private ShutdownWarningTimerInterval As TimeSpan = TimeSpan.FromMinutes(5) ' 5 minutes
 
     Private Sub AppDurationTimerElapsed()
-        StartTimer(ShutdownWarningTimer, 1000 * 60 * 5, AddressOf ShutdownWarningTimerElapsed, False) ' 5 minutes 
+        StartTimer(ShutdownWarningTimer, ShutdownWarningTimerInterval.TotalMilliseconds, _
+                   AddressOf ShutdownWarningTimerElapsed, False)
 
         Dim result As DialogResult
         result = MessageBox.Show("The IAIP has been open for three hours. " & vbNewLine & _
@@ -102,27 +107,29 @@
         FirstWarning
         FinalWarning
     End Enum
-    Private NadcCutoverTimerStatus As NadcCutoverTimerState = NadcCutoverTimerState.Init
+    Private NadcCutoverTimerStatus As NadcCutoverTimerState
 
     Private Sub StartNadcCutoverTimer()
         If DateTime.Now < DB.NADC_CUTOVER_DATETIME Then
-            ' First time span ends 30 minutes before NADC_CUTOVER_DATETIME
-            Dim span As TimeSpan = (DB.NADC_CUTOVER_DATETIME - DateTime.Now).Subtract(TimeSpan.FromMinutes(30))
-
-            StartTimer(NadcCutoverTimer, span.TotalMilliseconds, AddressOf NadcCutoverTimerElapsed, False)
+            ' Count down until 30 minutes before NADC_CUTOVER_DATETIME
+            Dim interval As TimeSpan = (DB.NADC_CUTOVER_DATETIME - DateTime.Now).Subtract(TimeSpan.FromMinutes(30))
+            StartTimer(NadcCutoverTimer, interval.TotalMilliseconds, AddressOf NadcCutoverTimerElapsed, False)
             NadcCutoverTimerStatus = NadcCutoverTimerState.Init
         End If
     End Sub
 
     Private Sub NadcCutoverTimerElapsed()
+        Dim interval As TimeSpan
+
         Select Case NadcCutoverTimerStatus
 
-            Case NadcCutoverTimerState.Init ' Occurs 30 minutes before NADC_CUTOVER_DATETIME
-                If DateTime.Now < DB.NADC_CUTOVER_DATETIME Then
-                    ' Second time span ends 5 minutes before NADC_CUTOVER_DATETIME
-                    Dim span As TimeSpan = (DB.NADC_CUTOVER_DATETIME - DateTime.Now).Subtract(TimeSpan.FromMinutes(5))
+            Case NadcCutoverTimerState.Init
+                ' Occurs 30 minutes before NADC_CUTOVER_DATETIME
 
-                    StartTimer(NadcCutoverTimer, span.TotalMilliseconds, AddressOf NadcCutoverTimerElapsed, False)
+                If DateTime.Now < DB.NADC_CUTOVER_DATETIME Then
+                    ' Count down until 5 minutes before NADC_CUTOVER_DATETIME
+                    interval = (DB.NADC_CUTOVER_DATETIME - DateTime.Now).Subtract(TimeSpan.FromMinutes(5))
+                    StartTimer(NadcCutoverTimer, interval.TotalMilliseconds, AddressOf NadcCutoverTimerElapsed, False)
                     NadcCutoverTimerStatus = NadcCutoverTimerState.FirstWarning
 
                     MessageBox.Show("The IAIP will shut down at 5pm EDT on Friday, " & vbNewLine & _
@@ -134,12 +141,14 @@
                                              MessageBoxIcon.Warning)
                 End If
 
-            Case NadcCutoverTimerState.FirstWarning ' Occurs 5 minutes before NADC_CUTOVER_DATETIME
-                If DateTime.Now < DB.NADC_CUTOVER_DATETIME Then
-                    ' Third time span ends at NADC_CUTOVER_DATETIME
-                    Dim span As TimeSpan = (DB.NADC_CUTOVER_DATETIME - DateTime.Now)
 
-                    StartTimer(NadcCutoverTimer, span.TotalMilliseconds, AddressOf NadcCutoverTimerElapsed, False)
+            Case NadcCutoverTimerState.FirstWarning
+                ' Occurs 5 minutes before NADC_CUTOVER_DATETIME
+
+                If DateTime.Now < DB.NADC_CUTOVER_DATETIME Then
+                    ' Count down until NADC_CUTOVER_DATETIME
+                    interval = (DB.NADC_CUTOVER_DATETIME - DateTime.Now)
+                    StartTimer(NadcCutoverTimer, interval.TotalMilliseconds, AddressOf NadcCutoverTimerElapsed, False)
                     NadcCutoverTimerStatus = NadcCutoverTimerState.FinalWarning
 
                     MessageBox.Show("The IAIP will shut down at 5pm EDT on Friday, " & vbNewLine & _
@@ -154,7 +163,9 @@
                                              MessageBoxIcon.Warning)
                 End If
 
-            Case NadcCutoverTimerState.FinalWarning ' Occurs at NADC_CUTOVER_DATETIME
+            Case NadcCutoverTimerState.FinalWarning
+                ' Occurs at NADC_CUTOVER_DATETIME
+
                 StartupShutdown.CloseIaip()
 
         End Select
