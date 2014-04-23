@@ -5910,7 +5910,7 @@ Public Class IAIPNavigation
 
 #End Region
 
-#Region "Main Menu click events"
+#Region " Main Menu click events "
 
     Private Sub mmiExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExit.Click
         Me.Close()
@@ -5936,8 +5936,12 @@ Public Class IAIPNavigation
 
 #End Region
 
+#Region " Testing Menu click events "
+
     Private Sub mmiPing_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPing.Click
         DB.PingDBConnection(CurrentConnection)
     End Sub
+
+#End Region
 
 End Class
