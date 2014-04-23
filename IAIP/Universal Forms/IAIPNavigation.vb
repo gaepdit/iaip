@@ -62,8 +62,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub IAIPNavigation_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-        CurrentConnection.Dispose()
-        Application.Exit()
+        StartupShutdown.CloseIaip()
     End Sub
 
 #End Region
