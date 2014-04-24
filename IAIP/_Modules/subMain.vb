@@ -7,14 +7,9 @@ Module subMain
 #Region " DB Connections "
 
     Friend Const DBNameSpace As String = "AIRBRANCH"
-    Friend CurrentConnectionString As String = DB.GetConnectionString(False)
-    Friend CurrentConnection As New OracleConnection(CurrentConnectionString)
-
-    Friend CurrentConnectionEnvironment As DB.ConnectionEnvironment = DB.ConnectionEnvironment.Production
-    Friend DevelopmentEnvironment As Boolean = False
-#If NadcEnabled Then
-    Friend NadcServer As Boolean = False
-#End If
+    Friend CurrentServerLocation As DB.ServerLocation = DB.DefaultServerLocation
+    Friend CurrentServerEnvironment As DB.ServerEnvironment = DB.DefaultServerEnvironment
+    Friend CurrentConnection As New OracleConnection(DB.CurrentConnectionString)
 
 #End Region
 
@@ -22,13 +17,12 @@ Module subMain
 
 #Region " New public variables (by Doug) "
 
-    Friend Const AppName As String = "IAIP"
+    Friend Const APP_NAME As String = "IAIP"
+    Friend Const APP_FRIENDLY_NAME As String = "Integrated Air Information Platform"
     Friend DocumentationUrl As New Uri("https://sites.google.com/site/iaipdocs/")
-    'Friend DownloadUrl As New Uri("http://airpermit.dnr.state.ga.us/iaip/IAIP.update.new.exe")
     Friend SupportUrl As New Uri("http://airpermit.dnr.state.ga.us/iaip/")
     Friend ChangelogUrl As New Uri("http://airpermit.dnr.state.ga.us/iaip/changelog.html")
     Friend DateFormat As String = "dd-MMM-yyyy"
-    Friend TodayString As String = Format(Date.Today, DateFormat)
 
 #End Region
 

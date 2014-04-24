@@ -1,20 +1,57 @@
 ﻿Imports Oracle.DataAccess.Client
-Imports Oracle.DataAccess.Types
 Imports System.Collections.Generic
 
 Namespace DB
     Module DB
 
-#Region " Read (Scalar) "
+#Region " Ping "
 
-        Public Function GetSingleValue(Of T)(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing) As T
-            Dim parameterArray As OracleParameter() = {parameter}
-            Return GetSingleValue(Of T)(query, parameterArray)
+        ''' <summary>
+        ''' Attempt to access an OracleConnection to determine if it is available and to keep it open if so.
+        ''' </summary>
+        ''' <param name="conn">The OracleConnection to access.</param>
+        ''' <returns>True if DB connection works. Otherwise, false.</returns>
+        ''' <remarks>
+        ''' This function has a dual purpose. First, to determine if a DB connection is available 
+        ''' (and exit gracefully if it is not). Second, to keep that connection perpetually open. 
+        ''' This is useful only because the IAIP uses a single OracleConnection that it assumes 
+        ''' to always be open (and fails miserably if it is not). Hence, there is no conn.Close() 
+        ''' statement after the cmd.ExecuteScalar() statement.
+        ''' </remarks>
+        Public Function PingDBConnection(ByVal conn As OracleConnection) As Boolean
+            Dim sql As String = "SELECT 1 FROM DUAL"
+            Using cmd As New OracleCommand(sql, conn)
+                Dim result As Object = Nothing
+                Try
+                    If conn.State = ConnectionState.Closed Then conn.Open()
+                    result = cmd.ExecuteScalar()
+                    Return True
+                Catch ex As Exception
+                    Return False
+                End Try
+            End Using
         End Function
 
-        Public Function GetSingleValue(Of T)(ByVal query As String, ByVal parameterArray As OracleParameter()) As T
+#End Region
+
+#Region " Read (Scalar) "
+
+        Public Function GetBoolean(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing, Optional ByVal failSilently As Boolean = False) As Boolean
+            Return Convert.ToBoolean(GetSingleValue(Of Boolean)(query, parameter, failSilently))
+        End Function
+
+        Public Function GetBoolean(ByVal query As String, ByVal parameterArray As OracleParameter(), Optional ByVal failSilently As Boolean = False) As Boolean
+            Return Convert.ToBoolean(GetSingleValue(Of Boolean)(query, parameterArray, failSilently))
+        End Function
+
+        Public Function GetSingleValue(Of T)(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing, Optional ByVal failSilently As Boolean = False) As T
+            Dim parameterArray As OracleParameter() = {parameter}
+            Return GetSingleValue(Of T)(query, parameterArray, failSilently)
+        End Function
+
+        Public Function GetSingleValue(Of T)(ByVal query As String, ByVal parameterArray As OracleParameter(), Optional ByVal failSilently As Boolean = False) As T
             Dim result As Object = Nothing
-            Using connection As New OracleConnection(GetCurrentConnectionString)
+            Using connection As New OracleConnection(CurrentConnectionString)
                 Using command As New OracleCommand(query, connection)
                     command.CommandType = CommandType.Text
                     command.BindByName = True
@@ -24,7 +61,9 @@ Namespace DB
                         result = command.ExecuteScalar()
                         command.Connection.Close()
                     Catch ee As OracleException
-                        MessageBox.Show("Database error: " & ee.ToString)
+                        If Not failSilently Then
+                            MessageBox.Show("Database error: " & ee.ToString)
+                        End If
                     End Try
 
                     Return GetNullable(Of T)(result)
@@ -60,7 +99,7 @@ Namespace DB
 
         Public Function GetDataTable(ByVal query As String, ByVal parameterArray As OracleParameter()) As DataTable
             Dim table As New DataTable
-            Using connection As New OracleConnection(GetCurrentConnectionString)
+            Using connection As New OracleConnection(CurrentConnectionString)
                 Using command As New OracleCommand(query, connection)
                     command.CommandType = CommandType.Text
                     command.BindByName = True
@@ -90,7 +129,7 @@ Namespace DB
         End Function
 
         Public Function GetByteArrayFromBlob(ByVal query As String, ByVal parameterArray As OracleParameter()) As Byte()
-            Using connection As New OracleConnection(GetCurrentConnectionString)
+            Using connection As New OracleConnection(CurrentConnectionString)
                 Using command As New OracleCommand(query, connection)
                     command.CommandType = CommandType.Text
                     command.BindByName = True
@@ -154,11 +193,10 @@ Namespace DB
             countList.Clear()
             If queryList.Count <> parametersList.Count Then Return False
 
-            Using connection As New OracleConnection(GetCurrentConnectionString)
+            Using connection As New OracleConnection(CurrentConnectionString)
                 Using command As OracleCommand = connection.CreateCommand
                     command.CommandType = CommandType.Text
                     command.BindByName = True
-
                     Dim transaction As OracleTransaction = Nothing
 
                     Try

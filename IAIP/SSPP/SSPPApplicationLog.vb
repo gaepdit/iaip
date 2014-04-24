@@ -1949,7 +1949,7 @@ Public Class SSPPApplicationLog
                 Exit Sub
             End If
 
-            Using connection As New OracleConnection(CurrentConnectionString)
+            Using connection As New OracleConnection(DB.CurrentConnectionString)
                 Using dataAdapter As New OracleDataAdapter(SQL, CurrentConnection)
                     Try
                         connection.Open()

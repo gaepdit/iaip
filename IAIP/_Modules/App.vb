@@ -5,29 +5,20 @@ Imports System.Deployment.Application
 
 Module App
 
-#Region "URL handling"
+#Region " URL handling "
 
     Public Sub OpenDocumentationUrl(Optional ByVal objectSender As Form = Nothing)
         monitor.TrackFeature("Url.OpenHelp")
         OpenUri(DocumentationUrl, objectSender)
     End Sub
 
-    'Public Sub OpenDownloadUrl(Optional ByVal objectSender As Form = Nothing)
-    '    monitor.TrackFeature("Url.OpenDownload")
-    '    OpenUri(DownloadUrl, objectSender)
-    'End Sub
-
     Public Sub OpenSupportUrl(Optional ByVal objectSender As Form = Nothing)
         monitor.TrackFeature("Url.OpenSupport")
-
-        'CreateVersionFile()
         OpenUri(SupportUrl, objectSender)
     End Sub
 
     Public Sub OpenChangelogUrl(Optional ByVal objectSender As Form = Nothing)
         monitor.TrackFeature("Url.OpenChangelog")
-
-        'CreateVersionFile()
         OpenUri(ChangelogUrl, objectSender)
     End Sub
 
@@ -55,59 +46,8 @@ Module App
 
 #End Region
 
-#Region "Versioning Info"
-    'Friend PublishedVersion As Version = Nothing
+#Region " Versioning Info "
     Friend CurrentVersion As Version = Nothing
-    'Friend ReleaseDate As New DateTime(1970, 1, 1, 0, 0, 0)
-    'Friend VersionFileUpdated As Boolean = False
-
-    'Private Sub CreateVersionFile()
-    '    If Not VersionFileUpdated Then
-    '        Dim ThisReleaseDate As String = RetrieveLinkerTimestamp(Application.ExecutablePath).ToString("MMMM d, yyyy")
-    '        Dim ThisVersion As String = GetCurrentVersionAsBuild.ToString
-    '        Dim VersionFilePath As String = Path.GetDirectoryName(Application.ExecutablePath) & "\docs\version.js"
-
-    '        Dim FileContents As String = _
-    '            "var version = {" & _
-    '                "'number' : '" & ThisVersion & "'," & _
-    '                "'releaseDate' : '" & ThisReleaseDate & "'" & _
-    '            "}"
-
-    '        Dim sw As StreamWriter = Nothing
-    '        Try
-    '            sw = File.CreateText(VersionFilePath)
-    '            sw.WriteLine(FileContents)
-    '            sw.Flush()
-    '            sw.Close()
-    '            VersionFileUpdated = True
-    '        Finally
-    '            If Not sw Is Nothing Then sw.Close()
-    '        End Try
-    '    End If
-    'End Sub
-
-    'Private Function RetrieveLinkerTimestamp(ByVal filePath As String) As DateTime
-    '    If ReleaseDate = New DateTime(1970, 1, 1, 0, 0, 0) Then
-    '        Const PeHeaderOffset As Integer = 60
-    '        Const LinkerTimestampOffset As Integer = 8
-
-    '        Dim b(2047) As Byte
-    '        Dim s As Stream = Nothing
-    '        Try
-    '            s = New FileStream(filePath, FileMode.Open, FileAccess.Read)
-    '            s.Read(b, 0, 2048)
-    '        Finally
-    '            If Not s Is Nothing Then s.Close()
-    '        End Try
-
-    '        Dim i As Integer = BitConverter.ToInt32(b, PeHeaderOffset)
-
-    '        Dim SecondsSince1970 As Integer = BitConverter.ToInt32(b, i + LinkerTimestampOffset)
-    '        ReleaseDate = ReleaseDate.AddSeconds(SecondsSince1970)
-    '        ReleaseDate = ReleaseDate.AddHours(TimeZone.CurrentTimeZone.GetUtcOffset(ReleaseDate).Hours)
-    '    End If
-    '    Return ReleaseDate
-    'End Function
 
     Public Function GetCurrentVersion() As Version
         ' This is the currently installed (running) version
@@ -129,70 +69,6 @@ Module App
         Return GetVersionAsMajorMinorBuild(GetCurrentVersion)
     End Function
 
-    'Public Function GetPublishedVersion(Optional ByVal appName As String = AppName) As Version
-    '    ' This is the latest available version as listed in the database
-    '    ' (The database has to be updated by hand by an administrator)
-
-    '    If PublishedVersion Is Nothing OrElse PublishedVersion.Equals(New Version("0.0.0.0")) Then
-    '        Dim publishedVersionString As String = ""
-
-    '        ' Hit up the database for a version string
-    '        Dim query As String = "Select strVersionNumber " & _
-    '            "from " & DBNameSpace & ".APBMasterApp " & _
-    '            "where strApplicationName = :pAppName"
-    '        Using connection As New OracleConnection(CurrentConnString)
-    '            Using command As New OracleCommand(query, connection)
-    '                command.CommandType = CommandType.Text
-    '                command.Parameters.Add(":pAppName", OracleDbType.Varchar2).Value = appName
-
-    '                Try
-    '                    connection.Open()
-    '                    Dim reader As OracleDataReader = command.ExecuteReader
-    '                    While reader.Read
-    '                        If Not IsDBNull(reader.Item("strVersionNumber")) Then
-    '                            publishedVersionString = reader.Item("strVersionNumber")
-    '                        End If
-    '                    End While
-    '                Catch ee As OracleException
-    '                    'MessageBox.Show("Could not connect to the database.")
-    '                    publishedVersionString = "0.0.0.0"
-    '            End Using
-    '        End Using
-
-    '        Try
-    '            PublishedVersion = New Version(publishedVersionString)
-    '        Catch ee As Exception When _
-    '        TypeOf ee Is ArgumentException OrElse _
-    '        TypeOf ee Is ArgumentNullException OrElse _
-    '        TypeOf ee Is ArgumentOutOfRangeException OrElse _
-    '        TypeOf ee Is FormatException OrElse _
-    '        TypeOf ee Is OverflowException
-    '            MessageBox.Show("The database version string contains an error. Please inform the Data Management Unit. Thank you.")
-    '            PublishedVersion = New Version("0.0.0.0")
-    '        End Try
-    '    End If
-
-    '    Return PublishedVersion
-    'End Function
-
-    'Public Function IsUpdateAvailable() As Boolean
-    '    ' If Version has increased, update is available
-    '    Dim currentVersion As Version = GetCurrentVersion()
-    '    Dim publishedVersion As Version = GetPublishedVersion()
-
-    '    ' If database has an error, published version will be 0.0.0.0. This will return false.
-    '    Return currentVersion.CompareTo(publishedVersion) < 0
-    'End Function
-
-    'Public Function IsUpdateMandatory() As Boolean
-    '    ' If Version has increased beyond just the Revision number, then update is mandatory
-    '    Dim currentVersion As Version = GetCurrentVersion()
-    '    Dim publishedVersion As Version = GetPublishedVersion()
-
-    '    ' If database has an error, published version will be 0.0.0.0. This will return false.
-    '    Return GetVersionAsMajorMinor(currentVersion).CompareTo(GetVersionAsMajorMinor(publishedVersion)) < 0
-    'End Function
-
     Private Function GetVersionAsMajorMinorBuild(ByVal v As Version) As Version
         ' This converts a Version from four components to three
         If v.Revision = -1 Then Return v ' (A version with fewer than four components gets returned as-is)
@@ -207,7 +83,7 @@ Module App
 
 #End Region
 
-#Region "String functions"
+#Region " String functions "
 
     Public Function ConcatNonEmptyStrings(ByVal separator As String, ByVal value() As String) As String
         Return String.Join(separator, Array.FindAll(value, Function(s) Not String.IsNullOrEmpty(s)))
@@ -229,7 +105,7 @@ Module App
 
 #End Region
 
-#Region "Date functions"
+#Region " Date functions "
 
     Public Function NormalizeDate(ByVal d As Date?) As Date?
         ' Converts a date to Nothing if date is equal to #7/4/1776#
@@ -242,7 +118,107 @@ Module App
 
 #End Region
 
-#Region "App updater"
+#Region " Control procedures "
+
+    ''' <summary>
+    ''' Disables and hides a Control by setting its .Enabled and .Visible properties to False
+    ''' </summary>
+    ''' <param name="control">The Control to disable and hide</param>
+    Public Sub DisableAndHide(ByVal control As Control)
+        If control IsNot Nothing Then
+            With control
+                .Enabled = False
+                .Visible = False
+            End With
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' Disables and hides all Controls in an array by setting their .Enabled and .Visible properties to False
+    ''' </summary>
+    ''' <param name="controls">An array of Controls to disable and hide</param>
+    Public Sub DisableAndHide(ByVal controls As Control())
+        For Each control As Control In controls
+            DisableAndHide(control)
+        Next
+    End Sub
+
+    ''' <summary>
+    ''' Enables and shows a Control by setting its .Enabled and .Visible properties to True
+    ''' </summary>
+    ''' <param name="control">The Control to enable and show</param>
+    Public Sub EnableAndShow(ByVal control As Control)
+        If control IsNot Nothing Then
+            With control
+                .Enabled = True
+                .Visible = True
+            End With
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' Enables and shows all Controls in an array by setting their .Enabled and .Visible properties to True
+    ''' </summary>
+    ''' <param name="controls">An array of Controls to enable and show</param>
+    Public Sub EnableAndShow(ByVal controls As Control())
+        For Each control As Control In controls
+            EnableAndShow(control)
+        Next
+    End Sub
+
+#End Region
+
+#Region " MenuItem procedures "
+
+    ''' <summary>
+    ''' Disables and hides a MenuItem by setting its .Enabled and .Visible properties to False
+    ''' </summary>
+    ''' <param name="menuItem">The MenuItem to disable and hide</param>
+    Public Sub DisableAndHide(ByVal menuItem As MenuItem)
+        If menuItem IsNot Nothing Then
+            With menuItem
+                .Enabled = False
+                .Visible = False
+            End With
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' Disables and hides all Controls in an array by setting their .Enabled and .Visible properties to False
+    ''' </summary>
+    ''' <param name="menuItems">An array of controls to disable and hide</param>
+    Public Sub DisableAndHide(ByVal menuItems As MenuItem())
+        For Each menuItem As MenuItem In menuItems
+            DisableAndHide(menuItem)
+        Next
+    End Sub
+
+    ''' <summary>
+    ''' Enables and shows a MenuItem by setting its .Enabled and .Visible properties to True
+    ''' </summary>
+    ''' <param name="menuItem">The menuItem to enable and show</param>
+    Public Sub EnableAndShow(ByVal menuItem As MenuItem)
+        If menuItem IsNot Nothing Then
+            With menuItem
+                .Enabled = True
+                .Visible = True
+            End With
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' Enables and shows all Controls in an array by setting their .Enabled and .Visible properties to True
+    ''' </summary>
+    ''' <param name="menuItems">An array of controls to enable and show</param>
+    Public Sub EnableAndShow(ByVal menuItems As MenuItem())
+        For Each menuItem As MenuItem In menuItems
+            EnableAndShow(menuItem)
+        Next
+    End Sub
+
+#End Region
+
+#Region " App updater "
 
     Public Sub CheckForUpdate()
         Dim info As UpdateCheckInfo = Nothing
@@ -301,122 +277,6 @@ Module App
             MessageBox.Show("Not running as a Network Deployed Application.", _
                             "Error")
         End If
-    End Sub
-
-#End Region
-
-#Region " App timers "
-
-#Region " Database ping timer "
-
-    Private DbPingTimer As Timers.Timer
-
-    Private Sub StartDbPingTimer()
-        Dim interval As Double = 1000 * 60 * 45 ' 45 minutes in milliseconds
-        'interval = 1000 * 30 '30 seconds (for testing purposes)
-
-        DbPingTimer = New Timers.Timer(interval)
-
-        AddHandler DbPingTimer.Elapsed, AddressOf PingDbConnection
-
-        DbPingTimer.Enabled = True
-        DbPingTimer.AutoReset = True
-    End Sub
-
-    Private Sub PingDbConnection()
-        Dim result As Boolean = DB.PingDBConnection(CurrentConnection)
-        If Not result Then
-            MessageBox.Show("The database connection has been lost. " & vbNewLine & _
-                            "Please close and restart the IAIP.", _
-                            "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End If
-    End Sub
-
-    Private Sub StopDbPingTimer()
-        If DbPingTimer IsNot Nothing Then
-            DbPingTimer.Enabled = False
-            DbPingTimer.Dispose()
-        End If
-    End Sub
-
-#End Region
-
-#Region " App duration and shutdown timers "
-
-    Private AppDurationTimer As Timers.Timer
-
-    Private Sub StartAppDurationTimer()
-        Dim interval As Double = 1000 * 60 * 60 * 3 ' 3 hours in milliseconds
-        'interval = 1000 * 60 ' 1 minute (for testing purposes)
-
-        AppDurationTimer = New Timers.Timer(interval)
-
-        AddHandler AppDurationTimer.Elapsed, AddressOf StartShutdownThreatTimer
-
-        AppDurationTimer.Enabled = True
-        AppDurationTimer.AutoReset = True
-    End Sub
-
-    Private Sub StopAppDurationTimer()
-        If AppDurationTimer IsNot Nothing Then
-            AppDurationTimer.Enabled = False
-            AppDurationTimer.Dispose()
-        End If
-    End Sub
-
-    Private ShutdownThreatTimer As Timers.Timer
-
-    Private Sub StartShutdownThreatTimer()
-        Dim interval As Double = 1000 * 60 * 5 ' 5 minutes in milliseconds
-        '        interval = 1000 * 30 '30 seconds (for testing purposes)
-
-        ShutdownThreatTimer = New Timers.Timer(interval)
-
-        AddHandler ShutdownThreatTimer.Elapsed, AddressOf ShutdownThreatTimerElapsed
-        ShutdownThreatTimer.Enabled = True
-        ShutdownThreatTimer.AutoReset = False
-
-        Dim result As DialogResult
-        result = MessageBox.Show("The IAIP has been open for three hours. " & vbNewLine & _
-                                 "Do you want to continue to use it?" & vbNewLine & _
-                                 vbNewLine & _
-                                 "(The IAIP will be automatically terminated " & vbNewLine & _
-                                 "in five minutes.)", _
-                                 "Are you still there?", MessageBoxButtons.YesNo, _
-                                 MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1)
-
-        Select Case Result
-            Case DialogResult.Yes
-                StopShutdownThreatTimer()
-                AppDurationTimer.Start()
-            Case DialogResult.No
-                StartupShutdown.CloseIaip()
-        End Select
-
-    End Sub
-
-    Private Sub StopShutdownThreatTimer()
-        If ShutdownThreatTimer IsNot Nothing Then
-            ShutdownThreatTimer.Enabled = False
-            ShutdownThreatTimer.Dispose()
-        End If
-    End Sub
-
-    Private Sub ShutdownThreatTimerElapsed()
-        StartupShutdown.CloseIaip()
-    End Sub
-
-#End Region
-
-    Public Sub StartAppTimers()
-        StartAppDurationTimer()
-        StartDbPingTimer()
-    End Sub
-
-    Public Sub StopAppTimers()
-        StopAppDurationTimer()
-        StopDbPingTimer()
-        StopShutdownThreatTimer()
     End Sub
 
 #End Region

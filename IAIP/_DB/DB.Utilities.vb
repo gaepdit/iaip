@@ -47,24 +47,5 @@ Namespace DB
             Return byteArray
         End Function
 
-
-#Region " Ping "
-
-        Public Function PingDBConnection(ByVal conn As Oracle.DataAccess.Client.OracleConnection) As Boolean
-            Dim sql As String = "SELECT 1 FROM DUAL"
-            Using cmd As New Oracle.DataAccess.Client.OracleCommand(sql, conn)
-                Dim result As Object = Nothing
-                Try
-                    If conn.State = ConnectionState.Closed Then conn.Open()
-                    result = cmd.ExecuteScalar()
-                    Return True
-                Catch ex As Exception
-                    Return False
-                End Try
-            End Using
-        End Function
-
-#End Region
-
     End Module
 End Namespace
