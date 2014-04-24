@@ -36,20 +36,20 @@ Namespace DB
 
 #Region " Read (Scalar) "
 
-        Public Function GetBoolean(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing) As Boolean
-            Return Convert.ToBoolean(GetSingleValue(Of Boolean)(query, parameter))
+        Public Function GetBoolean(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing, Optional ByVal failSilently As Boolean = False) As Boolean
+            Return Convert.ToBoolean(GetSingleValue(Of Boolean)(query, parameter, failSilently))
         End Function
 
-        Public Function GetBoolean(ByVal query As String, ByVal parameterArray As OracleParameter()) As Boolean
-            Return Convert.ToBoolean(GetSingleValue(Of Boolean)(query, parameterArray))
+        Public Function GetBoolean(ByVal query As String, ByVal parameterArray As OracleParameter(), Optional ByVal failSilently As Boolean = False) As Boolean
+            Return Convert.ToBoolean(GetSingleValue(Of Boolean)(query, parameterArray, failSilently))
         End Function
 
-        Public Function GetSingleValue(Of T)(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing) As T
+        Public Function GetSingleValue(Of T)(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing, Optional ByVal failSilently As Boolean = False) As T
             Dim parameterArray As OracleParameter() = {parameter}
-            Return GetSingleValue(Of T)(query, parameterArray)
+            Return GetSingleValue(Of T)(query, parameterArray, failSilently)
         End Function
 
-        Public Function GetSingleValue(Of T)(ByVal query As String, ByVal parameterArray As OracleParameter()) As T
+        Public Function GetSingleValue(Of T)(ByVal query As String, ByVal parameterArray As OracleParameter(), Optional ByVal failSilently As Boolean = False) As T
             Dim result As Object = Nothing
             Using connection As New OracleConnection(CurrentConnectionString)
                 Using command As New OracleCommand(query, connection)
@@ -61,7 +61,9 @@ Namespace DB
                         result = command.ExecuteScalar()
                         command.Connection.Close()
                     Catch ee As OracleException
-                        MessageBox.Show("Database error: " & ee.ToString)
+                        If Not failSilently Then
+                            MessageBox.Show("Database error: " & ee.ToString)
+                        End If
                     End Try
 
                     Return GetNullable(Of T)(result)
@@ -195,7 +197,6 @@ Namespace DB
                 Using command As OracleCommand = connection.CreateCommand
                     command.CommandType = CommandType.Text
                     command.BindByName = True
-
                     Dim transaction As OracleTransaction = Nothing
 
                     Try

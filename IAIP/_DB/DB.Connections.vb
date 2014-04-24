@@ -35,11 +35,7 @@
         ''' only returns default connection environment.</remarks>
         Public ReadOnly Property DefaultServerEnvironment() As ServerEnvironment
             Get
-#If DEBUG Then
-                Return ServerEnvironment.DEV
-#Else
                 Return ServerEnvironment.PRD
-#End If
             End Get
         End Property
 

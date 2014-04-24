@@ -10,7 +10,7 @@ Namespace DAL
             Dim parameter As OracleParameter = New OracleParameter("pAppName", APP_NAME)
 
             Try
-                Return DB.GetBoolean(query, parameter)
+                Return DB.GetBoolean(query, parameter, True)
             Catch ex As OracleException
                 Return False
             Catch ex As FormatException

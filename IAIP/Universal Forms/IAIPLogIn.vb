@@ -42,6 +42,20 @@ Public Class IAIPLogIn
         End Try
     End Sub
 
+    Private Sub DisableLoginButton(Optional ByVal message As String = "")
+        btnLoginButton.Enabled = False
+        If message IsNot Nothing AndAlso message <> "" Then
+            btnLoginButton.Text = message
+        End If
+    End Sub
+
+    Private Sub EnableLoginButton(Optional ByVal message As String = "")
+        btnLoginButton.Enabled = True
+        If message IsNot Nothing AndAlso message <> "" Then
+            btnLoginButton.Text = message
+        End If
+    End Sub
+
     Private Sub DisableLogin(Optional ByVal message As String = "")
         Dim loginControls As Control() = {txtUserID, lblUserID, txtUserPassword, lblPassword, btnLoginButton}
         DisableAndHide(loginControls)
@@ -84,7 +98,7 @@ Public Class IAIPLogIn
         End If
     End Sub
 
-    Private Sub CheckDBAvailability()
+    Private Function CheckDBAvailability() As Boolean
         Console.WriteLine("CurrentServerEnvironment: " & CurrentServerEnvironment.ToString)
         Console.WriteLine("CurrentServerLocation: " & CurrentServerLocation.ToString)
 
@@ -93,18 +107,20 @@ Public Class IAIPLogIn
             DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine & _
                              "back Monday morning. " & vbNewLine & vbNewLine & _
                              "Thank you.")
-            Exit Sub
+            Return False
         End If
 
         If DAL.AppIsEnabled Then
             EnableLogin()
+            Return True
         Else
             DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine & _
                              "back later. If you continue to see this message after " & vbNewLine & _
                              "two hours, please inform the Data Management Unit. " & vbNewLine & _
                              "Thank you.")
+            Return False
         End If
-    End Sub
+    End Function
 
 #End Region
 
@@ -263,17 +279,19 @@ Public Class IAIPLogIn
     Private Sub ToggleServerEnvironment()
         ' Toggle mmiTestingEnvironment menu item
         mmiTestingEnvironment.Checked = Not mmiTestingEnvironment.Checked
+        DisableLoginButton("Switching servers…")
+        Dim buttonText As String
 
         If mmiTestingEnvironment.Checked Then
             ' Switch to DEV environment
             CurrentServerEnvironment = DB.ServerEnvironment.DEV
             Me.BackColor = Color.PapayaWhip
-            btnLoginButton.Text = "Testing Environment"
+            buttonText = "Testing Environment"
         Else
             ' Switch to PRD environment
             CurrentServerEnvironment = DB.ServerEnvironment.PRD
             Me.BackColor = SystemColors.Control
-            btnLoginButton.Text = "Log In"
+            buttonText = "Log In"
         End If
 
         Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerLocation.ToString & " " & CurrentServerEnvironment.ToString
@@ -281,12 +299,18 @@ Public Class IAIPLogIn
         ' Reset current connection based on current connection environment
         ' and check connection/app availability
         CurrentConnection = New OracleConnection(DB.CurrentConnectionString)
-        CheckDBAvailability()
+        If CheckDBAvailability() Then
+            EnableLoginButton(buttonText)
+        Else
+            DisableLoginButton(buttonText)
+        End If
     End Sub
 
     Private Sub ToggleServerLocation()
         ' Toggle mmiNadcServer menu item
         mmiNadcServer.Checked = Not mmiNadcServer.Checked
+        Dim buttonText As String = btnLoginButton.Text
+        DisableLoginButton("Switching servers…")
 
         If mmiNadcServer.Checked Then
             'Switch to NADC servers
@@ -301,7 +325,11 @@ Public Class IAIPLogIn
         ' Reset current connection based on current connection environment
         ' and check connection/app availability
         CurrentConnection = New OracleConnection(DB.CurrentConnectionString)
-        CheckDBAvailability()
+        If CheckDBAvailability() Then
+            EnableLoginButton(buttonText)
+        Else
+            DisableLoginButton(buttonText)
+        End If
     End Sub
 
 #End Region
