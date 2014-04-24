@@ -1,5 +1,4 @@
 ﻿Namespace DB
-
     Module Connections
 
         ''' <summary>
@@ -8,7 +7,7 @@
         ''' <remarks>NADC servers will not necessarily be available yet, but that will be handled by server availability checking.</remarks>
         Public ReadOnly Property NADC_CUTOVER_DATETIME() As DateTime
             Get
-                Return New DateTime(2014, 5, 2, 12 + 5, 0, 0) ' 5:00 pm, May 5, 2012
+                Return New DateTime(2014, 5, 2, 12 + 5, 0, 0) ' 5:00 pm, May 2, 2012
             End Get
         End Property
 
@@ -132,11 +131,9 @@
             ' Oracle EZ Connect method (maybe requires EZCONNECT enabled in sqlnet.ora file?)
             'Private oracleConnectionStringTemplate As String = "{3}/{4}@//{0}:{1}/{2}"
 
-            Dim dbParams As DatabaseConnectionParameters = GetDatabaseConnectionParameters(env, Loc)
+            Dim dbParams As DatabaseConnectionParameters = GetDatabaseConnectionParameters(env, loc)
             Return String.Format(oracleConnectionStringTemplate, dbParams.Host, dbParams.Port, dbParams.SID, dbParams.User, dbParams.Password)
         End Function
 
     End Module
-
 End Namespace
-
