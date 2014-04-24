@@ -88,6 +88,14 @@ Public Class IAIPLogIn
         Console.WriteLine("CurrentServerEnvironment: " & CurrentServerEnvironment.ToString)
         Console.WriteLine("CurrentServerLocation: " & CurrentServerLocation.ToString)
 
+        ' Give me an hour to add the flag to the db disabling IAIP
+        If DB.NADC_CUTOVER_DATETIME < DateTime.Now And DateTime.Now < DB.NADC_CUTOVER_DATETIME.AddHours(1) Then
+            DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine & _
+                             "back Monday morning. " & vbNewLine & vbNewLine & _
+                             "Thank you.")
+            Exit Sub
+        End If
+
         If DAL.AppIsEnabled Then
             EnableLogin()
         Else
