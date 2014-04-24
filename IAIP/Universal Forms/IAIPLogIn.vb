@@ -294,7 +294,9 @@ Public Class IAIPLogIn
             buttonText = "Log In"
         End If
 
+#If NadcTesting Then
         Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerLocation.ToString & " " & CurrentServerEnvironment.ToString
+#End If
 
         ' Reset current connection based on current connection environment
         ' and check connection/app availability
@@ -320,7 +322,9 @@ Public Class IAIPLogIn
             CurrentServerLocation = DB.ServerLocation.Legacy
         End If
 
+#If NadcTesting Then
         Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerLocation.ToString & " " & CurrentServerEnvironment.ToString
+#End If
 
         ' Reset current connection based on current connection environment
         ' and check connection/app availability
