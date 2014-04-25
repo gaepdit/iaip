@@ -1,5 +1,14 @@
 % IAIP Change Log
 
+## Version 3.2 <span>(2014-04-24)</span>
+
+This release prepares the IAIP for the upcoming server move to the 
+North Atlanta Data Center. The IAIP will be unavailable from 5 PM 
+on Friday, May 2 until Monday morning, May 5. 
+
+As a side-benefit to the preparations, database availability problems 
+are now handled more gracefully.
+
 ## Version 3.1.1 <span>(2014-04-15)</span>
 
 - FIX: *MASP* -- Can't create new event registration (#217); thx Thomas
