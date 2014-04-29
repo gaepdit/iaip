@@ -6646,37 +6646,37 @@ Public Class DMUDeveloperTools
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnTransferData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTransferData.Click
-        Try
-            btnTransferData.Enabled = False
-            btnClearSelection.Enabled = False
-            lblTransfer.Text = "Data Transfer in Progress."
+    'Private Sub btnTransferData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    '    Try
+    '        btnTransferData.Enabled = False
+    '        btnClearSelection.Enabled = False
+    '        lblTransfer.Text = "Data Transfer in Progress."
 
-            If rdbDEVTransfer.Checked = True Then
-                If Oracledll = "2.111.6.20" Then
-                    transferConn = New OracleConnection("Data Source = leia.dnr.state.ga.us:1521/DEV; User ID = AirBranch; " & _
-                             "Password = " & SimpleCrypt("óíïçáìåòô") & ";")
-                Else
-                    transferConn = New OracleConnection("data Source = DEV; " & _
-                                       "User ID = AIRBranch; Password = smogalert;")
-                End If
-            Else
-                If Oracledll = "2.111.6.20" Then
-                    transferConn = New OracleConnection("Data Source = leia.dnr.state.ga.us:1521/TEST; User ID = AIRBRANCH_APP_USER; " & _
-                            "Password = " & SimpleCrypt("ÁÉÒÁÐÐÕÓÅÒ°³") & ";")
-                Else
-                    transferConn = New OracleConnection("Data Source = TEST; " & _
-                                       "User ID = AIRBRANCH_APP_USER; Password = AIRAPPUSER03;")
-                End If
-            End If
+    '        If rdbDEVTransfer.Checked = True Then
+    '            If Oracledll = "2.111.6.20" Then
+    '                transferConn = New OracleConnection("Data Source = leia.dnr.state.ga.us:1521/DEV; User ID = AirBranch; " & _
+    '                         "Password = " & SimpleCrypt("óíïçáìåòô") & ";")
+    '            Else
+    '                transferConn = New OracleConnection("data Source = DEV; " & _
+    '                                   "User ID = AIRBranch; Password = smogalert;")
+    '            End If
+    '        Else
+    '            If Oracledll = "2.111.6.20" Then
+    '                transferConn = New OracleConnection("Data Source = leia.dnr.state.ga.us:1521/TEST; User ID = AIRBRANCH_APP_USER; " & _
+    '                        "Password = " & SimpleCrypt("ÁÉÒÁÐÐÕÓÅÒ°³") & ";")
+    '            Else
+    '                transferConn = New OracleConnection("Data Source = TEST; " & _
+    '                                   "User ID = AIRBRANCH_APP_USER; Password = AIRAPPUSER03;")
+    '            End If
+    '        End If
 
-            bgwTransfer.WorkerReportsProgress = True
-            bgwTransfer.WorkerSupportsCancellation = True
-            bgwTransfer.RunWorkerAsync()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
+    '        bgwTransfer.WorkerReportsProgress = True
+    '        bgwTransfer.WorkerSupportsCancellation = True
+    '        bgwTransfer.RunWorkerAsync()
+    '    Catch ex As Exception
+    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    End Try
+    'End Sub
     Private Sub bgwTransfer_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bgwTransfer.DoWork
         If chbAllLookUpTables.Checked = True Then
             TransferLookUpAPBManagement()
