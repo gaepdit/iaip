@@ -38,7 +38,7 @@ Public Class IAIPPrintOut
         Dim SQL As String = ""
         Dim temp As String = ""
         Dim da As OracleDataAdapter
-        Dim ds As New dsIAIP10
+        Dim ds As New DataSet
         Dim rpt As New ReportClass
 
         Try

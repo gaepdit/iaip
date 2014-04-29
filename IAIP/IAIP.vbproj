@@ -189,17 +189,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="DataSet\dsIAIP10.xsc">
-      <DependentUpon>dsIAIP10.xsd</DependentUpon>
-    </None>
-    <None Include="DataSet\dsIAIP10.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsIAIP10.Designer.vb</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DataSet\dsIAIP10.xss">
-      <DependentUpon>dsIAIP10.xsd</DependentUpon>
-    </None>
     <None Include="My Project\Settings.settings">
       <CustomToolNamespace>My</CustomToolNamespace>
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -243,11 +232,6 @@
     </Compile>
     <Compile Include="PASP\PASPFeeStatistics.vb">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DataSet\dsIAIP10.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dsIAIP10.xsd</DependentUpon>
     </Compile>
     <Compile Include="Crystal Reports\Oracle 10.1\crFS_Invoice.vb">
       <AutoGen>True</AutoGen>
@@ -1759,6 +1743,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Crystal Reports\Oracle 9.2\SSCP\" />
+    <Folder Include="DataSet\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
