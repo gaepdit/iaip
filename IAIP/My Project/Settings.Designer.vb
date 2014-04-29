@@ -54,50 +54,6 @@ Namespace My
             End Get
         End Property
         
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Provider=MSDAORA;Data Source=leia.dnr.state.ga.us:1521/DEV;Persist Security Info="& _ 
-            "True;Password=smogalert;User ID=airbranch")>  _
-        Public ReadOnly Property ConnectionString() As String
-            Get
-                Return CType(Me("ConnectionString"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Provider=MSDAORA;Data Source=//leia.dnr.state.ga.us:1521/DEV;Persist Security Inf"& _ 
-            "o=True;Password=smogalert;User ID=airbranch")>  _
-        Public ReadOnly Property ConnectionString1() As String
-            Get
-                Return CType(Me("ConnectionString1"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Provider=MSDAORA;Data Source=luke.dnr.state.ga.us:1521/PRD;Persist Security Info="& _ 
-            "True;Password=grapr1l;User ID=AIRBRanch_App_User")>  _
-        Public ReadOnly Property IAIPconnPRD() As String
-            Get
-                Return CType(Me("IAIPconnPRD"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Provider=MSDAORA;Data Source=PRD;Persist Security Info=True;Password=grapr1l;User"& _ 
-            " ID=airbranch_app_user")>  _
-        Public ReadOnly Property IAIP_conn2() As String
-            Get
-                Return CType(Me("IAIP_conn2"),String)
-            End Get
-        End Property
-        
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("")>  _
