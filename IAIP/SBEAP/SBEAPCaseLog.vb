@@ -50,34 +50,12 @@ Public Class SBEAPCaseLog
 
             CreateCaseStatement()
 
-
-            If AccountArray(1, 0) Is Nothing Then
-                mmiOpenNewCase.Visible = False
-            Else
-                If AccountArray(1, 0) = "2" Then
-                    If AccountArray(1, 2) = "1" Or AccountArray(1, 3) = "1" Then
-                        mmiOpenNewCase.Visible = True
-                    Else
-                        mmiOpenNewCase.Visible = False
-                    End If
-                End If
-            End If
-            If AccountArray(2, 0) Is Nothing Then
-                btnOpenCase.Enabled = False
-            Else
-                If AccountArray(2, 0) = "3" Then
-                    If AccountArray(2, 1) = "1" Or AccountArray(2, 2) = "1" Or AccountArray(2, 3) = "1" Or AccountArray(2, 4) = "1" Then
-                        btnOpenCase.Enabled = True
-                    Else
-                        btnOpenCase.Enabled = False
-                    End If
-                End If
-            End If
-
+            mmiOpenNewCase.Visible = True
+            btnOpenCase.Enabled = True
+            
             bgw1.WorkerReportsProgress = True
             bgw1.WorkerSupportsCancellation = True
             bgw1.RunWorkerAsync()
-
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)

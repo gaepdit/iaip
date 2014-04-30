@@ -42,11 +42,7 @@ Public Class SBEAPPhoneLog
             cboStaffResponsible.Text = ""
             DTPCaseOpened.Text = OracleDate
             DTPCaseClosed.Text = OracleDate
-            If Permissions.Contains("(4)") Then
-                chbOnetimeAssist.Checked = True
-            Else
-                chbOnetimeAssist.Checked = False
-            End If
+            chbOnetimeAssist.Checked = False
             DTPCaseClosed.Checked = False
             txtCaseSummary.Clear()
             txtReferralInformation.Clear()

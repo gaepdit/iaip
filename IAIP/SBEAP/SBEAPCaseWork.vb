@@ -31,18 +31,8 @@ Public Class SBEAPCaseWork
             Label2.Text = UserName
             Label3.Text = OracleDate
 
-            If AccountArray(2, 0) Is Nothing Then
-                FormStatus("Disable")
-            Else
-                If AccountArray(2, 0) = "3" Then
-                    If AccountArray(2, 2) = "1" Or AccountArray(2, 3) = "1" Or AccountArray(2, 4) = "1" Then
-                        FormStatus("Enable")
-                    Else
-                        FormStatus("Disable")
-                    End If
-                End If
-            End If
-
+            FormStatus("Enable")
+            
             TCCaseSpecificData.Visible = False
 
         Catch ex As Exception
@@ -2249,12 +2239,8 @@ Public Class SBEAPCaseWork
             If temp <> "Data Load" Then
                 If DTPCaseClosed.Checked = True Then
                     FormStatus("Disable")
-                    If AccountArray(3, 2) = "1" Or AccountArray(3, 3) = "1" Or AccountArray(3, 4) = "1" Then
-                        DTPCaseClosed.Enabled = True
-                        tsbSave.Enabled = True
-                    Else
-                        DTPCaseClosed.Enabled = False
-                    End If
+                    DTPCaseClosed.Enabled = True
+                    tsbSave.Enabled = True
                 Else
                     FormStatus("Enable")
                 End If
