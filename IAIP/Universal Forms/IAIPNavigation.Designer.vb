@@ -35,8 +35,11 @@ Partial Class IAIPNavigation
         Me.lblTitle = New System.Windows.Forms.Label
         Me.flpNavButtons = New System.Windows.Forms.FlowLayoutPanel
         Me.grpQuickAccess = New System.Windows.Forms.GroupBox
+        Me.OpenSbeapCaseNumber = New System.Windows.Forms.LinkLabel
         Me.llbOpenTestLog = New System.Windows.Forms.LinkLabel
+        Me.SbeapCaseNumber = New System.Windows.Forms.TextBox
         Me.txtTestLogNumber = New System.Windows.Forms.TextBox
+        Me.SbeapCaseLogNumberLabel = New System.Windows.Forms.Label
         Me.Label8 = New System.Windows.Forms.Label
         Me.llbFacilitySummary = New System.Windows.Forms.LinkLabel
         Me.Label7 = New System.Windows.Forms.Label
@@ -44,7 +47,10 @@ Partial Class IAIPNavigation
         Me.llbTrackingNumber = New System.Windows.Forms.LinkLabel
         Me.txtTrackingNumber = New System.Windows.Forms.TextBox
         Me.Label2 = New System.Windows.Forms.Label
+        Me.OpenSbeapClientID = New System.Windows.Forms.LinkLabel
         Me.llbOpenApplication = New System.Windows.Forms.LinkLabel
+        Me.SbeapClientIDLabel = New System.Windows.Forms.Label
+        Me.SbeapClientID = New System.Windows.Forms.TextBox
         Me.Label6 = New System.Windows.Forms.Label
         Me.txtApplicationNumber = New System.Windows.Forms.TextBox
         Me.llbEnforcementRecord = New System.Windows.Forms.LinkLabel
@@ -171,8 +177,11 @@ Partial Class IAIPNavigation
         '
         'grpQuickAccess
         '
+        Me.grpQuickAccess.Controls.Add(Me.OpenSbeapCaseNumber)
         Me.grpQuickAccess.Controls.Add(Me.llbOpenTestLog)
+        Me.grpQuickAccess.Controls.Add(Me.SbeapCaseNumber)
         Me.grpQuickAccess.Controls.Add(Me.txtTestLogNumber)
+        Me.grpQuickAccess.Controls.Add(Me.SbeapCaseLogNumberLabel)
         Me.grpQuickAccess.Controls.Add(Me.Label8)
         Me.grpQuickAccess.Controls.Add(Me.llbFacilitySummary)
         Me.grpQuickAccess.Controls.Add(Me.Label7)
@@ -180,7 +189,10 @@ Partial Class IAIPNavigation
         Me.grpQuickAccess.Controls.Add(Me.llbTrackingNumber)
         Me.grpQuickAccess.Controls.Add(Me.txtTrackingNumber)
         Me.grpQuickAccess.Controls.Add(Me.Label2)
+        Me.grpQuickAccess.Controls.Add(Me.OpenSbeapClientID)
         Me.grpQuickAccess.Controls.Add(Me.llbOpenApplication)
+        Me.grpQuickAccess.Controls.Add(Me.SbeapClientIDLabel)
+        Me.grpQuickAccess.Controls.Add(Me.SbeapClientID)
         Me.grpQuickAccess.Controls.Add(Me.Label6)
         Me.grpQuickAccess.Controls.Add(Me.txtApplicationNumber)
         Me.grpQuickAccess.Controls.Add(Me.llbEnforcementRecord)
@@ -197,33 +209,66 @@ Partial Class IAIPNavigation
         Me.grpQuickAccess.TabStop = False
         Me.grpQuickAccess.Text = "Quick Access"
         '
+        'OpenSbeapCaseNumber
+        '
+        Me.OpenSbeapCaseNumber.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.OpenSbeapCaseNumber.AutoSize = True
+        Me.OpenSbeapCaseNumber.Location = New System.Drawing.Point(594, 76)
+        Me.OpenSbeapCaseNumber.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.OpenSbeapCaseNumber.Name = "OpenSbeapCaseNumber"
+        Me.OpenSbeapCaseNumber.Size = New System.Drawing.Size(33, 13)
+        Me.OpenSbeapCaseNumber.TabIndex = 11
+        Me.OpenSbeapCaseNumber.TabStop = True
+        Me.OpenSbeapCaseNumber.Text = "Open"
+        '
         'llbOpenTestLog
         '
         Me.llbOpenTestLog.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.llbOpenTestLog.AutoSize = True
-        Me.llbOpenTestLog.Location = New System.Drawing.Point(530, 76)
+        Me.llbOpenTestLog.Location = New System.Drawing.Point(426, 76)
         Me.llbOpenTestLog.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.llbOpenTestLog.Name = "llbOpenTestLog"
-        Me.llbOpenTestLog.Size = New System.Drawing.Size(54, 13)
+        Me.llbOpenTestLog.Size = New System.Drawing.Size(33, 13)
         Me.llbOpenTestLog.TabIndex = 11
         Me.llbOpenTestLog.TabStop = True
-        Me.llbOpenTestLog.Text = "Open Log"
+        Me.llbOpenTestLog.Text = "Open"
+        '
+        'SbeapCaseNumber
+        '
+        Me.SbeapCaseNumber.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.SbeapCaseNumber.Location = New System.Drawing.Point(500, 73)
+        Me.SbeapCaseNumber.Margin = New System.Windows.Forms.Padding(2)
+        Me.SbeapCaseNumber.MaxLength = 10
+        Me.SbeapCaseNumber.Name = "SbeapCaseNumber"
+        Me.SbeapCaseNumber.Size = New System.Drawing.Size(90, 20)
+        Me.SbeapCaseNumber.TabIndex = 10
         '
         'txtTestLogNumber
         '
         Me.txtTestLogNumber.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtTestLogNumber.Location = New System.Drawing.Point(436, 73)
+        Me.txtTestLogNumber.Location = New System.Drawing.Point(332, 73)
         Me.txtTestLogNumber.Margin = New System.Windows.Forms.Padding(2)
         Me.txtTestLogNumber.MaxLength = 10
         Me.txtTestLogNumber.Name = "txtTestLogNumber"
         Me.txtTestLogNumber.Size = New System.Drawing.Size(90, 20)
         Me.txtTestLogNumber.TabIndex = 10
         '
+        'SbeapCaseLogNumberLabel
+        '
+        Me.SbeapCaseLogNumberLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.SbeapCaseLogNumberLabel.AutoSize = True
+        Me.SbeapCaseLogNumberLabel.Location = New System.Drawing.Point(497, 58)
+        Me.SbeapCaseLogNumberLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.SbeapCaseLogNumberLabel.Name = "SbeapCaseLogNumberLabel"
+        Me.SbeapCaseLogNumberLabel.Size = New System.Drawing.Size(100, 13)
+        Me.SbeapCaseLogNumberLabel.TabIndex = 268
+        Me.SbeapCaseLogNumberLabel.Text = "SBEAP Case Log #"
+        '
         'Label8
         '
         Me.Label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(433, 58)
+        Me.Label8.Location = New System.Drawing.Point(329, 58)
         Me.Label8.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(88, 13)
@@ -237,10 +282,10 @@ Partial Class IAIPNavigation
         Me.llbFacilitySummary.Location = New System.Drawing.Point(104, 36)
         Me.llbFacilitySummary.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.llbFacilitySummary.Name = "llbFacilitySummary"
-        Me.llbFacilitySummary.Size = New System.Drawing.Size(79, 13)
+        Me.llbFacilitySummary.Size = New System.Drawing.Size(33, 13)
         Me.llbFacilitySummary.TabIndex = 1
         Me.llbFacilitySummary.TabStop = True
-        Me.llbFacilitySummary.Text = "Open Summary"
+        Me.llbFacilitySummary.Text = "Open"
         '
         'Label7
         '
@@ -250,9 +295,9 @@ Partial Class IAIPNavigation
         Me.Label7.Location = New System.Drawing.Point(7, 18)
         Me.Label7.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(85, 13)
+        Me.Label7.Size = New System.Drawing.Size(77, 13)
         Me.Label7.TabIndex = 265
-        Me.Label7.Text = "Facility Summary"
+        Me.Label7.Text = "Facility AIRS #"
         '
         'txtAIRSNumber
         '
@@ -268,18 +313,18 @@ Partial Class IAIPNavigation
         '
         Me.llbTrackingNumber.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.llbTrackingNumber.AutoSize = True
-        Me.llbTrackingNumber.Location = New System.Drawing.Point(314, 76)
+        Me.llbTrackingNumber.Location = New System.Drawing.Point(263, 76)
         Me.llbTrackingNumber.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.llbTrackingNumber.Name = "llbTrackingNumber"
-        Me.llbTrackingNumber.Size = New System.Drawing.Size(114, 13)
+        Me.llbTrackingNumber.Size = New System.Drawing.Size(33, 13)
         Me.llbTrackingNumber.TabIndex = 9
         Me.llbTrackingNumber.TabStop = True
-        Me.llbTrackingNumber.Text = "Open Compliance Item"
+        Me.llbTrackingNumber.Text = "Open"
         '
         'txtTrackingNumber
         '
         Me.txtTrackingNumber.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtTrackingNumber.Location = New System.Drawing.Point(220, 73)
+        Me.txtTrackingNumber.Location = New System.Drawing.Point(169, 73)
         Me.txtTrackingNumber.Margin = New System.Windows.Forms.Padding(2)
         Me.txtTrackingNumber.MaxLength = 10
         Me.txtTrackingNumber.Name = "txtTrackingNumber"
@@ -290,30 +335,63 @@ Partial Class IAIPNavigation
         '
         Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(217, 58)
+        Me.Label2.Location = New System.Drawing.Point(166, 58)
         Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(68, 13)
         Me.Label2.TabIndex = 261
         Me.Label2.Text = "SSCP Item #"
         '
+        'OpenSbeapClientID
+        '
+        Me.OpenSbeapClientID.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.OpenSbeapClientID.AutoSize = True
+        Me.OpenSbeapClientID.Location = New System.Drawing.Point(594, 36)
+        Me.OpenSbeapClientID.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.OpenSbeapClientID.Name = "OpenSbeapClientID"
+        Me.OpenSbeapClientID.Size = New System.Drawing.Size(33, 13)
+        Me.OpenSbeapClientID.TabIndex = 5
+        Me.OpenSbeapClientID.TabStop = True
+        Me.OpenSbeapClientID.Text = "Open"
+        '
         'llbOpenApplication
         '
         Me.llbOpenApplication.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.llbOpenApplication.AutoSize = True
-        Me.llbOpenApplication.Location = New System.Drawing.Point(530, 36)
+        Me.llbOpenApplication.Location = New System.Drawing.Point(426, 36)
         Me.llbOpenApplication.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.llbOpenApplication.Name = "llbOpenApplication"
-        Me.llbOpenApplication.Size = New System.Drawing.Size(88, 13)
+        Me.llbOpenApplication.Size = New System.Drawing.Size(33, 13)
         Me.llbOpenApplication.TabIndex = 5
         Me.llbOpenApplication.TabStop = True
-        Me.llbOpenApplication.Text = "Open Application"
+        Me.llbOpenApplication.Text = "Open"
+        '
+        'SbeapClientIDLabel
+        '
+        Me.SbeapClientIDLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.SbeapClientIDLabel.AutoSize = True
+        Me.SbeapClientIDLabel.Location = New System.Drawing.Point(497, 18)
+        Me.SbeapClientIDLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.SbeapClientIDLabel.Name = "SbeapClientIDLabel"
+        Me.SbeapClientIDLabel.Size = New System.Drawing.Size(99, 13)
+        Me.SbeapClientIDLabel.TabIndex = 259
+        Me.SbeapClientIDLabel.Text = "SBEAP Customer #"
+        '
+        'SbeapClientID
+        '
+        Me.SbeapClientID.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.SbeapClientID.Location = New System.Drawing.Point(500, 33)
+        Me.SbeapClientID.Margin = New System.Windows.Forms.Padding(2)
+        Me.SbeapClientID.MaxLength = 10
+        Me.SbeapClientID.Name = "SbeapClientID"
+        Me.SbeapClientID.Size = New System.Drawing.Size(90, 20)
+        Me.SbeapClientID.TabIndex = 4
         '
         'Label6
         '
         Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(433, 18)
+        Me.Label6.Location = New System.Drawing.Point(329, 18)
         Me.Label6.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(100, 13)
@@ -323,7 +401,7 @@ Partial Class IAIPNavigation
         'txtApplicationNumber
         '
         Me.txtApplicationNumber.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtApplicationNumber.Location = New System.Drawing.Point(436, 33)
+        Me.txtApplicationNumber.Location = New System.Drawing.Point(332, 33)
         Me.txtApplicationNumber.Margin = New System.Windows.Forms.Padding(2)
         Me.txtApplicationNumber.MaxLength = 10
         Me.txtApplicationNumber.Name = "txtApplicationNumber"
@@ -334,19 +412,19 @@ Partial Class IAIPNavigation
         '
         Me.llbEnforcementRecord.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.llbEnforcementRecord.AutoSize = True
-        Me.llbEnforcementRecord.Location = New System.Drawing.Point(314, 36)
+        Me.llbEnforcementRecord.Location = New System.Drawing.Point(263, 36)
         Me.llbEnforcementRecord.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.llbEnforcementRecord.Name = "llbEnforcementRecord"
-        Me.llbEnforcementRecord.Size = New System.Drawing.Size(96, 13)
+        Me.llbEnforcementRecord.Size = New System.Drawing.Size(33, 13)
         Me.llbEnforcementRecord.TabIndex = 3
         Me.llbEnforcementRecord.TabStop = True
-        Me.llbEnforcementRecord.Text = "Open Enforcement"
+        Me.llbEnforcementRecord.Text = "Open"
         '
         'Label5
         '
         Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(217, 18)
+        Me.Label5.Location = New System.Drawing.Point(166, 18)
         Me.Label5.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(77, 13)
@@ -356,7 +434,7 @@ Partial Class IAIPNavigation
         'txtEnforcementNumber
         '
         Me.txtEnforcementNumber.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtEnforcementNumber.Location = New System.Drawing.Point(220, 33)
+        Me.txtEnforcementNumber.Location = New System.Drawing.Point(169, 33)
         Me.txtEnforcementNumber.Margin = New System.Windows.Forms.Padding(2)
         Me.txtEnforcementNumber.MaxLength = 8
         Me.txtEnforcementNumber.Name = "txtEnforcementNumber"
@@ -370,10 +448,10 @@ Partial Class IAIPNavigation
         Me.LLSelectReport.Location = New System.Drawing.Point(103, 76)
         Me.LLSelectReport.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LLSelectReport.Name = "LLSelectReport"
-        Me.LLSelectReport.Size = New System.Drawing.Size(68, 13)
+        Me.LLSelectReport.Size = New System.Drawing.Size(33, 13)
         Me.LLSelectReport.TabIndex = 7
         Me.LLSelectReport.TabStop = True
-        Me.LLSelectReport.Text = "Open Report"
+        Me.LLSelectReport.Text = "Open"
         '
         'Label3
         '
@@ -670,4 +748,10 @@ Partial Class IAIPNavigation
     Friend WithEvents pnlContextSubView As System.Windows.Forms.Panel
     Friend WithEvents mmiPing As System.Windows.Forms.MenuItem
     Friend WithEvents flpNavButtons As System.Windows.Forms.FlowLayoutPanel
+    Friend WithEvents OpenSbeapCaseNumber As System.Windows.Forms.LinkLabel
+    Friend WithEvents SbeapCaseNumber As System.Windows.Forms.TextBox
+    Friend WithEvents SbeapCaseLogNumberLabel As System.Windows.Forms.Label
+    Friend WithEvents OpenSbeapClientID As System.Windows.Forms.LinkLabel
+    Friend WithEvents SbeapClientIDLabel As System.Windows.Forms.Label
+    Friend WithEvents SbeapClientID As System.Windows.Forms.TextBox
 End Class

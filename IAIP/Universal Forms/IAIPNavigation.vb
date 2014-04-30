@@ -142,7 +142,7 @@ Public Class IAIPNavigation
 
 #End Region
 
-#Region "Quick Access Tool link clicked and keypress events"
+#Region " Quick Access Tool link clicked and keypress events "
 
     Private Sub LLSelectReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLSelectReport.LinkClicked
         OpenTestReport()
@@ -161,6 +161,12 @@ Public Class IAIPNavigation
     End Sub
     Private Sub llbOpenTestLog_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenTestLog.LinkClicked
         OpenTestNotification()
+    End Sub
+    Private Sub OpenSbeapClientID_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles OpenSbeapClientID.LinkClicked
+        OpenSbeapClientSummary()
+    End Sub
+    Private Sub OpenSbeapCaseNumber_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles OpenSbeapCaseNumber.LinkClicked
+        OpenSbeapCaseLog()
     End Sub
 
     Private Sub txtApplicationNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtApplicationNumber.KeyPress
@@ -181,10 +187,16 @@ Public Class IAIPNavigation
     Private Sub txtTestLogNumber_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtTestLogNumber.KeyPress
         If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then OpenTestNotification()
     End Sub
+    Private Sub SbeapClientID_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles SbeapClientID.KeyPress
+        If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then OpenSbeapClientSummary()
+    End Sub
+    Private Sub SbeapCaseNumber_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles SbeapCaseNumber.KeyPress
+        If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then OpenSbeapCaseLog()
+    End Sub
 
 #End Region
 
-#Region "Quick Access Tool procedures"
+#Region " Quick Access Tool procedures "
 
     Private Sub OpenApplication()
         Try
@@ -314,6 +326,51 @@ Public Class IAIPNavigation
         End Try
     End Sub
 
+    Private Sub OpenSbeapClientSummary()
+        Try
+            Dim id As String = SbeapClientID.Text
+            If id = "" Then Exit Sub
+
+            If DAL.SBEAP.ClientExists(id) Then
+                If ClientSummary IsNot Nothing AndAlso Not ClientSummary.IsDisposed Then
+                    ClientSummary.Dispose()
+                End If
+
+                ClientSummary = New SBEAPClientSummary
+                ClientSummary.Show()
+                ClientSummary.txtClientID.Text = id
+                ClientSummary.LoadClientData()
+            Else
+                MsgBox("Customer ID is not in the system.", MsgBoxStyle.Information, Me.Text)
+            End If
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
+    Private Sub OpenSbeapCaseLog()
+        Try
+            Dim id As String = SbeapCaseNumber.Text
+            If id = "" Then Exit Sub
+
+            If DAL.SBEAP.CaseExists(id) Then
+
+                If CaseWork IsNot Nothing AndAlso Not CaseWork.IsDisposed Then
+                    CaseWork.Dispose()
+                End If
+
+                CaseWork = New SBEAPCaseWork
+                CaseWork.Show()
+                CaseWork.txtCaseID.Text = id
+                CaseWork.LoadCaseLogData()
+            Else
+                MsgBox("Case number is not in the system.", MsgBoxStyle.Information, Me.Text)
+            End If
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
     Private Sub ClearQuickAccessTool()
         txtAIRSNumber.Clear()
         txtEnforcementNumber.Clear()
@@ -321,6 +378,8 @@ Public Class IAIPNavigation
         txtReferenceNumber.Clear()
         txtTrackingNumber.Clear()
         txtTestLogNumber.Clear()
+        SbeapClientID.Clear()
+        SbeapCaseNumber.Clear()
     End Sub
 
 #End Region
@@ -973,20 +1032,9 @@ Public Class IAIPNavigation
 
 #End Region
 
-#Region " Nav button creation "
+#Region " Nav Button creation "
 
-#Region " Nav Button properties "
-
-    Private Enum NavButtonCategories
-        General
-        ISMP
-        SSPP
-        SSCP
-        PASP
-        DMU
-        MASP
-        EIS
-    End Enum
+#Region " Containers "
 
     Private Structure NavButton
         Public Sub New(ByVal buttonText As String, ByVal formClass As BaseForm)
@@ -1113,6 +1161,18 @@ Public Class IAIPNavigation
 
 #Region " Specifics "
 
+    Private Enum NavButtonCategories
+        General
+        ISMP
+        SSPP
+        SSCP
+        PASP
+        DMU
+        MASP
+        EIS
+        SBEAP
+    End Enum
+
     Private Sub CreateNavButtonCategoriesList()
         AddNavButtonCategory(NavButtonCategories.General, "General")
         AddNavButtonCategory(NavButtonCategories.ISMP, "Industrial Source Monitoring Program")
@@ -1122,6 +1182,8 @@ Public Class IAIPNavigation
         AddNavButtonCategory(NavButtonCategories.DMU, "Data Management Unit")
         AddNavButtonCategory(NavButtonCategories.MASP, "Mobile & Area Sources Program")
         AddNavButtonCategory(NavButtonCategories.EIS, "Emission Inventory System")
+        AddNavButtonCategory(NavButtonCategories.EIS, "Emission Inventory System")
+        AddNavButtonCategory(NavButtonCategories.SBEAP, "Small Business Environmental Assistance Program")
     End Sub
 
     Private Sub CreateNavButtonsList()
@@ -1178,6 +1240,18 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(20, "Emissions Summary Tool", SSCPEmissionSummaryTool, NavButtonCategories.EIS)
         AddNavButtonIfAccountHasFormAccess(140, "Emission Inventory Log", IAIP_EIS_Log, NavButtonCategories.EIS)
         AddNavButtonIfAccountHasFormAccess(130, "EIS && GECO Tools", DMUStaffTools, NavButtonCategories.EIS)
+
+        'SBEAP
+        AddNavButtonIfUserHasPermission(New String() {"(142)", "(143)", "(118)"}, _
+                                "Customer Summary", SBEAPClientSummary, NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission(New String() {"(142)", "(143)", "(118)"}, _
+                                "Case Log", SBEAPCaseLog, NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission(New String() {"(142)", "(143)", "(118)"}, _
+                                "Report Tool", SBEAPReports, NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission(New String() {"(142)", "(143)", "(118)"}, _
+                                "Phone Log", SBEAPPhoneLog, NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission(New String() {"(142)", "(143)", "(118)"}, _
+                                "Misc. Tools", SBEAPMiscTools, NavButtonCategories.SBEAP)
 
     End Sub
 
