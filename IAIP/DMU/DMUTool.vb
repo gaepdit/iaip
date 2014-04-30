@@ -832,70 +832,70 @@ Public Class DMUTool
 
         End Try
     End Sub
-    Private Sub btnFixStacks_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFixStacks.Click
-        Try
-            Dim DevConn As New OracleConnection("Data Source = DEV; User ID = AirBranch; Password = " & SimpleCrypt("óíïçáìåòô") & ";")
-            Dim StateFacilityIdentifier As String = ""
-            Dim EmissionReleasePointID As String = ""
-            Dim sngStackHeight As String = ""
-            Dim sngStackDiameter As String = ""
+    'Private Sub btnFixStacks_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFixStacks.Click
+    '    Try
+    '        Dim DevConn As New OracleConnection("Data Source = DEV; User ID = AirBranch; Password = " & SimpleCrypt("óíïçáìåòô") & ";")
+    '        Dim StateFacilityIdentifier As String = ""
+    '        Dim EmissionReleasePointID As String = ""
+    '        Dim sngStackHeight As String = ""
+    '        Dim sngStackDiameter As String = ""
 
-            SQL = "Select " & _
-            "strInventoryYear, strStateFacilityIdentifier, " & _
-            "strEmissionReleasePointID, " & _
-            "sngStackHeight, sngStackDiameter " & _
-            "from EIER " & _
-            "where strInventoryYear = '2008' " & _
-            "and sngStackDiameter > sngStackHeight "
+    '        SQL = "Select " & _
+    '        "strInventoryYear, strStateFacilityIdentifier, " & _
+    '        "strEmissionReleasePointID, " & _
+    '        "sngStackHeight, sngStackDiameter " & _
+    '        "from EIER " & _
+    '        "where strInventoryYear = '2008' " & _
+    '        "and sngStackDiameter > sngStackHeight "
 
-            cmd = New OracleCommand(SQL, DevConn)
-            If DevConn.State = ConnectionState.Closed Then
-                DevConn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strStateFacilityIdentifier")) Then
-                    StateFacilityIdentifier = ""
-                Else
-                    StateFacilityIdentifier = dr.Item("strStateFacilityIdentifier")
-                End If
-                If StateFacilityIdentifier <> "" Then
-                    If IsDBNull(dr.Item("strEmissionReleasePointID")) Then
-                        EmissionReleasePointID = ""
-                    Else
-                        EmissionReleasePointID = dr.Item("strEmissionReleasePointID")
-                    End If
-                    If IsDBNull(dr.Item("sngStackHeight")) Then
-                        sngStackDiameter = ""
-                    Else
-                        sngStackDiameter = dr.Item("sngStackHeight")
-                    End If
-                    If IsDBNull(dr.Item("sngStackDiameter")) Then
-                        sngStackHeight = ""
-                    Else
-                        sngStackHeight = dr.Item("sngStackDiameter")
-                    End If
-                    SQL = "update " & DBNameSpace & ".EIER set " & _
-                    "sngStackHeight = '" & sngStackHeight & "', " & _
-                    "sngStackDiameter = '" & sngStackDiameter & "' " & _
-                    "where strStateFacilityIdentifier = '" & StateFacilityIdentifier & "' " & _
-                    "and strEmissionReleasePointID = '" & EmissionReleasePointID & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr2 = cmd.ExecuteReader
-                    dr2.Close()
-                End If
-            End While
-            dr.Close()
+    '        cmd = New OracleCommand(SQL, DevConn)
+    '        If DevConn.State = ConnectionState.Closed Then
+    '            DevConn.Open()
+    '        End If
+    '        dr = cmd.ExecuteReader
+    '        While dr.Read
+    '            If IsDBNull(dr.Item("strStateFacilityIdentifier")) Then
+    '                StateFacilityIdentifier = ""
+    '            Else
+    '                StateFacilityIdentifier = dr.Item("strStateFacilityIdentifier")
+    '            End If
+    '            If StateFacilityIdentifier <> "" Then
+    '                If IsDBNull(dr.Item("strEmissionReleasePointID")) Then
+    '                    EmissionReleasePointID = ""
+    '                Else
+    '                    EmissionReleasePointID = dr.Item("strEmissionReleasePointID")
+    '                End If
+    '                If IsDBNull(dr.Item("sngStackHeight")) Then
+    '                    sngStackDiameter = ""
+    '                Else
+    '                    sngStackDiameter = dr.Item("sngStackHeight")
+    '                End If
+    '                If IsDBNull(dr.Item("sngStackDiameter")) Then
+    '                    sngStackHeight = ""
+    '                Else
+    '                    sngStackHeight = dr.Item("sngStackDiameter")
+    '                End If
+    '                SQL = "update " & DBNameSpace & ".EIER set " & _
+    '                "sngStackHeight = '" & sngStackHeight & "', " & _
+    '                "sngStackDiameter = '" & sngStackDiameter & "' " & _
+    '                "where strStateFacilityIdentifier = '" & StateFacilityIdentifier & "' " & _
+    '                "and strEmissionReleasePointID = '" & EmissionReleasePointID & "' "
+    '                cmd = New OracleCommand(SQL, CurrentConnection)
+    '                If CurrentConnection.State = ConnectionState.Closed Then
+    '                    CurrentConnection.Open()
+    '                End If
+    '                dr2 = cmd.ExecuteReader
+    '                dr2.Close()
+    '            End If
+    '        End While
+    '        dr.Close()
 
-            MsgBox("Finished", MsgBoxStyle.Information, Me.Text)
+    '        MsgBox("Finished", MsgBoxStyle.Information, Me.Text)
 
-        Catch ex As Exception
+    '    Catch ex As Exception
 
-        End Try
-    End Sub
+    '    End Try
+    'End Sub
 
     Private Sub btnUpdateComplianceContacts_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateComplianceContacts.Click
         Try
@@ -2547,68 +2547,68 @@ Public Class DMUTool
         End Try
     End Sub
 
-    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
-        Try
-            Dim transferConn As OracleConnection
+    'Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
+    '    Try
+    '        Dim transferConn As OracleConnection
 
-            If Oracledll = "2.111.6.20" Then
-                transferConn = New OracleConnection("Data Source = leia.dnr.state.ga.us:1521/DEV; User ID = AirBranch; " & _
-                         "Password = " & SimpleCrypt("óíïçáìåòô") & ";")
-            Else
-                transferConn = New OracleConnection("data Source = DEV; " & _
-                                   "User ID = AIRBranch; Password = smogalert;")
-            End If
+    '        If Oracledll = "2.111.6.20" Then
+    '            transferConn = New OracleConnection("Data Source = leia.dnr.state.ga.us:1521/DEV; User ID = AirBranch; " & _
+    '                     "Password = " & SimpleCrypt("óíïçáìåòô") & ";")
+    '        Else
+    '            transferConn = New OracleConnection("data Source = DEV; " & _
+    '                               "User ID = AIRBranch; Password = smogalert;")
+    '        End If
 
-            SQL = "Delete SSCPInspectionsRequired "
-            cmd = New OracleCommand(SQL, transferConn)
-            If transferConn.State = ConnectionState.Closed Then
-                transferConn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+    '        SQL = "Delete SSCPInspectionsRequired "
+    '        cmd = New OracleCommand(SQL, transferConn)
+    '        If transferConn.State = ConnectionState.Closed Then
+    '            transferConn.Open()
+    '        End If
+    '        dr = cmd.ExecuteReader
+    '        dr.Close()
 
-            SQL = "select " & _
-            "numKey, strAIRSNumber, " & _
-            "intYear, numSSCPEngineer, " & _
-            "numSSCPUnit, strInspectionRequired, " & _
-            "strFCERequired, strAssigningManager, " & _
-            "to_char(datAssigningDate) as datAssigningDate " & _
-            "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
-            "order by numKey "
+    '        SQL = "select " & _
+    '        "numKey, strAIRSNumber, " & _
+    '        "intYear, numSSCPEngineer, " & _
+    '        "numSSCPUnit, strInspectionRequired, " & _
+    '        "strFCERequired, strAssigningManager, " & _
+    '        "to_char(datAssigningDate) as datAssigningDate " & _
+    '        "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
+    '        "order by numKey "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+    '        cmd = New OracleCommand(SQL, CurrentConnection)
 
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                SQL = "Insert into SSCPInspectionsRequired " & _
-                "values " & _
-                "('" & dr.Item("numkey") & "', " & _
-                "'" & dr.Item("strAIRSNumber") & "', " & _
-                "'" & dr.Item("intYEar") & "', " & _
-                "'" & dr.Item("numSSCPEngineer") & "', " & _
-                "'" & dr.Item("numSSCPUnit") & "', " & _
-                "'" & dr.Item("strInspectionRequired") & "', " & _
-                "'" & dr.Item("strFCERequired") & "', " & _
-                "'" & dr.Item("strAssigningManager") & "', " & _
-                "'" & dr.Item("datAssigningDate") & "' )  "
+    '        If CurrentConnection.State = ConnectionState.Closed Then
+    '            CurrentConnection.Open()
+    '        End If
+    '        dr = cmd.ExecuteReader
+    '        While dr.Read
+    '            SQL = "Insert into SSCPInspectionsRequired " & _
+    '            "values " & _
+    '            "('" & dr.Item("numkey") & "', " & _
+    '            "'" & dr.Item("strAIRSNumber") & "', " & _
+    '            "'" & dr.Item("intYEar") & "', " & _
+    '            "'" & dr.Item("numSSCPEngineer") & "', " & _
+    '            "'" & dr.Item("numSSCPUnit") & "', " & _
+    '            "'" & dr.Item("strInspectionRequired") & "', " & _
+    '            "'" & dr.Item("strFCERequired") & "', " & _
+    '            "'" & dr.Item("strAssigningManager") & "', " & _
+    '            "'" & dr.Item("datAssigningDate") & "' )  "
 
-                cmd2 = New OracleCommand(SQL, transferConn)
-                If transferConn.State = ConnectionState.Closed Then
-                    transferConn.Open()
-                End If
-                dr2 = cmd2.ExecuteReader
-                dr2.Close()
+    '            cmd2 = New OracleCommand(SQL, transferConn)
+    '            If transferConn.State = ConnectionState.Closed Then
+    '                transferConn.Open()
+    '            End If
+    '            dr2 = cmd2.ExecuteReader
+    '            dr2.Close()
 
-            End While
-            dr.Close()
+    '        End While
+    '        dr.Close()
 
-        Catch ex As Exception
+    '    Catch ex As Exception
 
-        End Try
-    End Sub
+    '    End Try
+    'End Sub
     Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
         Try
             Dim AIRSNumber As String

@@ -33,47 +33,7 @@ Partial Class IAIPNavigation
         Me.mmiTesting = New System.Windows.Forms.MenuItem
         Me.mmiPing = New System.Windows.Forms.MenuItem
         Me.lblTitle = New System.Windows.Forms.Label
-        Me.pnlNavButtons = New System.Windows.Forms.Panel
-        Me.btnNav40 = New System.Windows.Forms.Button
-        Me.btnNav39 = New System.Windows.Forms.Button
-        Me.btnNav38 = New System.Windows.Forms.Button
-        Me.btnNav37 = New System.Windows.Forms.Button
-        Me.btnNav36 = New System.Windows.Forms.Button
-        Me.btnNav35 = New System.Windows.Forms.Button
-        Me.btnNav34 = New System.Windows.Forms.Button
-        Me.btnNav33 = New System.Windows.Forms.Button
-        Me.btnNav32 = New System.Windows.Forms.Button
-        Me.btnNav31 = New System.Windows.Forms.Button
-        Me.btnNav30 = New System.Windows.Forms.Button
-        Me.btnNav29 = New System.Windows.Forms.Button
-        Me.btnNav21 = New System.Windows.Forms.Button
-        Me.btnNav20 = New System.Windows.Forms.Button
-        Me.btnNav19 = New System.Windows.Forms.Button
-        Me.btnNav18 = New System.Windows.Forms.Button
-        Me.btnNav17 = New System.Windows.Forms.Button
-        Me.btnNav16 = New System.Windows.Forms.Button
-        Me.btnNav15 = New System.Windows.Forms.Button
-        Me.btnNav28 = New System.Windows.Forms.Button
-        Me.btnNav27 = New System.Windows.Forms.Button
-        Me.btnNav26 = New System.Windows.Forms.Button
-        Me.btnNav25 = New System.Windows.Forms.Button
-        Me.btnNav24 = New System.Windows.Forms.Button
-        Me.btnNav23 = New System.Windows.Forms.Button
-        Me.btnNav22 = New System.Windows.Forms.Button
-        Me.btnNav14 = New System.Windows.Forms.Button
-        Me.btnNav13 = New System.Windows.Forms.Button
-        Me.btnNav12 = New System.Windows.Forms.Button
-        Me.btnNav11 = New System.Windows.Forms.Button
-        Me.btnNav10 = New System.Windows.Forms.Button
-        Me.btnNav9 = New System.Windows.Forms.Button
-        Me.btnNav8 = New System.Windows.Forms.Button
-        Me.btnNav7 = New System.Windows.Forms.Button
-        Me.btnNav6 = New System.Windows.Forms.Button
-        Me.btnNav5 = New System.Windows.Forms.Button
-        Me.btnNav4 = New System.Windows.Forms.Button
-        Me.btnNav3 = New System.Windows.Forms.Button
-        Me.btnNav2 = New System.Windows.Forms.Button
-        Me.btnNav1 = New System.Windows.Forms.Button
+        Me.flpNavButtons = New System.Windows.Forms.FlowLayoutPanel
         Me.grpQuickAccess = New System.Windows.Forms.GroupBox
         Me.llbOpenTestLog = New System.Windows.Forms.LinkLabel
         Me.txtTestLogNumber = New System.Windows.Forms.TextBox
@@ -112,7 +72,6 @@ Partial Class IAIPNavigation
         Me.bgrLoadButtons = New System.ComponentModel.BackgroundWorker
         Me.pnlCurrentList = New System.Windows.Forms.Panel
         Me.pnlContextSubView = New System.Windows.Forms.Panel
-        Me.pnlNavButtons.SuspendLayout()
         Me.grpQuickAccess.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.dgvWorkViewer, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -197,458 +156,18 @@ Partial Class IAIPNavigation
         Me.lblTitle.Name = "lblTitle"
         Me.lblTitle.Size = New System.Drawing.Size(804, 33)
         Me.lblTitle.TabIndex = 5
-        Me.lblTitle.Text = "AIR Protection Branch Navigation Screen"
+        Me.lblTitle.Text = "Integrated Air Information Platform"
         Me.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'pnlNavButtons
-        '
-        Me.pnlNavButtons.AutoScroll = True
-        Me.pnlNavButtons.Controls.Add(Me.btnNav40)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav39)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav38)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav37)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav36)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav35)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav34)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav33)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav32)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav31)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav30)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav29)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav21)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav20)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav19)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav18)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav17)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav16)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav15)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav28)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav27)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav26)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav25)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav24)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav23)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav22)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav14)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav13)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav12)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav11)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav10)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav9)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav8)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav7)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav6)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav5)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav4)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav3)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav2)
-        Me.pnlNavButtons.Controls.Add(Me.btnNav1)
-        Me.pnlNavButtons.Dock = System.Windows.Forms.DockStyle.Left
-        Me.pnlNavButtons.Location = New System.Drawing.Point(0, 33)
-        Me.pnlNavButtons.Margin = New System.Windows.Forms.Padding(2)
-        Me.pnlNavButtons.Name = "pnlNavButtons"
-        Me.pnlNavButtons.Size = New System.Drawing.Size(118, 358)
-        Me.pnlNavButtons.TabIndex = 3
-        '
-        'btnNav40
-        '
-        Me.btnNav40.Location = New System.Drawing.Point(508, 191)
-        Me.btnNav40.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav40.Name = "btnNav40"
-        Me.btnNav40.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav40.TabIndex = 39
-        Me.btnNav40.Text = "Button 40"
-        Me.btnNav40.Visible = False
-        '
-        'btnNav39
-        '
-        Me.btnNav39.Location = New System.Drawing.Point(508, 146)
-        Me.btnNav39.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav39.Name = "btnNav39"
-        Me.btnNav39.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav39.TabIndex = 38
-        Me.btnNav39.Text = "Button 39"
-        Me.btnNav39.Visible = False
-        '
-        'btnNav38
-        '
-        Me.btnNav38.Location = New System.Drawing.Point(508, 101)
-        Me.btnNav38.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav38.Name = "btnNav38"
-        Me.btnNav38.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav38.TabIndex = 37
-        Me.btnNav38.Text = "Button 38"
-        Me.btnNav38.Visible = False
-        '
-        'btnNav37
-        '
-        Me.btnNav37.Location = New System.Drawing.Point(508, 55)
-        Me.btnNav37.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav37.Name = "btnNav37"
-        Me.btnNav37.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav37.TabIndex = 36
-        Me.btnNav37.Text = "Button 37"
-        Me.btnNav37.Visible = False
-        '
-        'btnNav36
-        '
-        Me.btnNav36.Location = New System.Drawing.Point(508, 9)
-        Me.btnNav36.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav36.Name = "btnNav36"
-        Me.btnNav36.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav36.TabIndex = 35
-        Me.btnNav36.Text = "Button 36"
-        Me.btnNav36.Visible = False
-        '
-        'btnNav35
-        '
-        Me.btnNav35.Location = New System.Drawing.Point(415, 288)
-        Me.btnNav35.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav35.Name = "btnNav35"
-        Me.btnNav35.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav35.TabIndex = 34
-        Me.btnNav35.Text = "Button 35"
-        Me.btnNav35.Visible = False
-        '
-        'btnNav34
-        '
-        Me.btnNav34.Location = New System.Drawing.Point(415, 238)
-        Me.btnNav34.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav34.Name = "btnNav34"
-        Me.btnNav34.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav34.TabIndex = 33
-        Me.btnNav34.Text = "Button 34"
-        Me.btnNav34.Visible = False
-        '
-        'btnNav33
-        '
-        Me.btnNav33.Location = New System.Drawing.Point(413, 191)
-        Me.btnNav33.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav33.Name = "btnNav33"
-        Me.btnNav33.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav33.TabIndex = 32
-        Me.btnNav33.Text = "Button 33"
-        Me.btnNav33.Visible = False
-        '
-        'btnNav32
-        '
-        Me.btnNav32.Location = New System.Drawing.Point(415, 146)
-        Me.btnNav32.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav32.Name = "btnNav32"
-        Me.btnNav32.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav32.TabIndex = 31
-        Me.btnNav32.Text = "Button 32"
-        Me.btnNav32.Visible = False
-        '
-        'btnNav31
-        '
-        Me.btnNav31.Location = New System.Drawing.Point(415, 101)
-        Me.btnNav31.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav31.Name = "btnNav31"
-        Me.btnNav31.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav31.TabIndex = 30
-        Me.btnNav31.Text = "Button 31"
-        Me.btnNav31.Visible = False
-        '
-        'btnNav30
-        '
-        Me.btnNav30.Location = New System.Drawing.Point(415, 55)
-        Me.btnNav30.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav30.Name = "btnNav30"
-        Me.btnNav30.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav30.TabIndex = 29
-        Me.btnNav30.Text = "Button 30"
-        Me.btnNav30.Visible = False
-        '
-        'btnNav29
-        '
-        Me.btnNav29.Location = New System.Drawing.Point(415, 9)
-        Me.btnNav29.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav29.Name = "btnNav29"
-        Me.btnNav29.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav29.TabIndex = 28
-        Me.btnNav29.Text = "Button 29"
-        Me.btnNav29.Visible = False
-        '
-        'btnNav21
-        '
-        Me.btnNav21.Location = New System.Drawing.Point(217, 288)
-        Me.btnNav21.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav21.Name = "btnNav21"
-        Me.btnNav21.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav21.TabIndex = 20
-        Me.btnNav21.Text = "Button 21"
-        Me.btnNav21.Visible = False
-        '
-        'btnNav20
-        '
-        Me.btnNav20.Location = New System.Drawing.Point(217, 238)
-        Me.btnNav20.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav20.Name = "btnNav20"
-        Me.btnNav20.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav20.TabIndex = 19
-        Me.btnNav20.Text = "Button 20"
-        Me.btnNav20.Visible = False
-        '
-        'btnNav19
-        '
-        Me.btnNav19.Location = New System.Drawing.Point(217, 191)
-        Me.btnNav19.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav19.Name = "btnNav19"
-        Me.btnNav19.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav19.TabIndex = 18
-        Me.btnNav19.Text = "Button 19"
-        Me.btnNav19.Visible = False
-        '
-        'btnNav18
-        '
-        Me.btnNav18.Location = New System.Drawing.Point(217, 146)
-        Me.btnNav18.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav18.Name = "btnNav18"
-        Me.btnNav18.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav18.TabIndex = 17
-        Me.btnNav18.Text = "Button 18"
-        Me.btnNav18.Visible = False
-        '
-        'btnNav17
-        '
-        Me.btnNav17.Location = New System.Drawing.Point(217, 101)
-        Me.btnNav17.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav17.Name = "btnNav17"
-        Me.btnNav17.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav17.TabIndex = 16
-        Me.btnNav17.Text = "Button 17"
-        Me.btnNav17.Visible = False
-        '
-        'btnNav16
-        '
-        Me.btnNav16.Location = New System.Drawing.Point(217, 55)
-        Me.btnNav16.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav16.Name = "btnNav16"
-        Me.btnNav16.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav16.TabIndex = 15
-        Me.btnNav16.Text = "Button 16"
-        Me.btnNav16.Visible = False
-        '
-        'btnNav15
-        '
-        Me.btnNav15.Location = New System.Drawing.Point(217, 9)
-        Me.btnNav15.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav15.Name = "btnNav15"
-        Me.btnNav15.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav15.TabIndex = 14
-        Me.btnNav15.Text = "Button 15"
-        Me.btnNav15.Visible = False
-        '
-        'btnNav28
-        '
-        Me.btnNav28.Location = New System.Drawing.Point(320, 288)
-        Me.btnNav28.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav28.Name = "btnNav28"
-        Me.btnNav28.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav28.TabIndex = 27
-        Me.btnNav28.Text = "Button 28"
-        Me.btnNav28.Visible = False
-        '
-        'btnNav27
-        '
-        Me.btnNav27.Location = New System.Drawing.Point(320, 238)
-        Me.btnNav27.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav27.Name = "btnNav27"
-        Me.btnNav27.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav27.TabIndex = 26
-        Me.btnNav27.Text = "Button 27"
-        Me.btnNav27.Visible = False
-        '
-        'btnNav26
-        '
-        Me.btnNav26.Location = New System.Drawing.Point(320, 191)
-        Me.btnNav26.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav26.Name = "btnNav26"
-        Me.btnNav26.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav26.TabIndex = 25
-        Me.btnNav26.Text = "Button 26"
-        Me.btnNav26.Visible = False
-        '
-        'btnNav25
-        '
-        Me.btnNav25.Location = New System.Drawing.Point(320, 146)
-        Me.btnNav25.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav25.Name = "btnNav25"
-        Me.btnNav25.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav25.TabIndex = 24
-        Me.btnNav25.Text = "Button 25"
-        Me.btnNav25.Visible = False
-        '
-        'btnNav24
-        '
-        Me.btnNav24.Location = New System.Drawing.Point(320, 101)
-        Me.btnNav24.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav24.Name = "btnNav24"
-        Me.btnNav24.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav24.TabIndex = 23
-        Me.btnNav24.Text = "Button 24"
-        Me.btnNav24.Visible = False
-        '
-        'btnNav23
-        '
-        Me.btnNav23.Location = New System.Drawing.Point(320, 55)
-        Me.btnNav23.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav23.Name = "btnNav23"
-        Me.btnNav23.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav23.TabIndex = 22
-        Me.btnNav23.Text = "Button 23"
-        Me.btnNav23.Visible = False
-        '
-        'btnNav22
-        '
-        Me.btnNav22.Location = New System.Drawing.Point(320, 9)
-        Me.btnNav22.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav22.Name = "btnNav22"
-        Me.btnNav22.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav22.TabIndex = 21
-        Me.btnNav22.Text = "Button 22"
-        Me.btnNav22.Visible = False
-        '
-        'btnNav14
-        '
-        Me.btnNav14.Location = New System.Drawing.Point(121, 285)
-        Me.btnNav14.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav14.Name = "btnNav14"
-        Me.btnNav14.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav14.TabIndex = 13
-        Me.btnNav14.Text = "Button 14"
-        Me.btnNav14.Visible = False
-        '
-        'btnNav13
-        '
-        Me.btnNav13.Location = New System.Drawing.Point(121, 237)
-        Me.btnNav13.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav13.Name = "btnNav13"
-        Me.btnNav13.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav13.TabIndex = 12
-        Me.btnNav13.Text = "Button 13"
-        Me.btnNav13.Visible = False
-        '
-        'btnNav12
-        '
-        Me.btnNav12.Location = New System.Drawing.Point(121, 191)
-        Me.btnNav12.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav12.Name = "btnNav12"
-        Me.btnNav12.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav12.TabIndex = 11
-        Me.btnNav12.Text = "Button 12"
-        Me.btnNav12.Visible = False
-        '
-        'btnNav11
-        '
-        Me.btnNav11.Location = New System.Drawing.Point(121, 146)
-        Me.btnNav11.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav11.Name = "btnNav11"
-        Me.btnNav11.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav11.TabIndex = 10
-        Me.btnNav11.Text = "Button 11"
-        Me.btnNav11.Visible = False
-        '
-        'btnNav10
-        '
-        Me.btnNav10.Location = New System.Drawing.Point(121, 101)
-        Me.btnNav10.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav10.Name = "btnNav10"
-        Me.btnNav10.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav10.TabIndex = 9
-        Me.btnNav10.Text = "Button 10"
-        Me.btnNav10.Visible = False
-        '
-        'btnNav9
-        '
-        Me.btnNav9.Location = New System.Drawing.Point(121, 55)
-        Me.btnNav9.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav9.Name = "btnNav9"
-        Me.btnNav9.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav9.TabIndex = 8
-        Me.btnNav9.Text = "Button 9"
-        Me.btnNav9.Visible = False
-        '
-        'btnNav8
-        '
-        Me.btnNav8.Location = New System.Drawing.Point(121, 9)
-        Me.btnNav8.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav8.Name = "btnNav8"
-        Me.btnNav8.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav8.TabIndex = 7
-        Me.btnNav8.Text = "Button 8"
-        Me.btnNav8.Visible = False
-        '
-        'btnNav7
-        '
-        Me.btnNav7.Location = New System.Drawing.Point(11, 285)
-        Me.btnNav7.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav7.Name = "btnNav7"
-        Me.btnNav7.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav7.TabIndex = 6
-        Me.btnNav7.Text = "Button 7"
-        Me.btnNav7.Visible = False
-        '
-        'btnNav6
-        '
-        Me.btnNav6.Location = New System.Drawing.Point(11, 235)
-        Me.btnNav6.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav6.Name = "btnNav6"
-        Me.btnNav6.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav6.TabIndex = 5
-        Me.btnNav6.Text = "Button 6"
-        Me.btnNav6.Visible = False
-        '
-        'btnNav5
-        '
-        Me.btnNav5.Location = New System.Drawing.Point(11, 188)
-        Me.btnNav5.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav5.Name = "btnNav5"
-        Me.btnNav5.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav5.TabIndex = 4
-        Me.btnNav5.Text = "Button 5"
-        Me.btnNav5.Visible = False
-        '
-        'btnNav4
-        '
-        Me.btnNav4.Location = New System.Drawing.Point(11, 143)
-        Me.btnNav4.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav4.Name = "btnNav4"
-        Me.btnNav4.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav4.TabIndex = 3
-        Me.btnNav4.Text = "Button 4"
-        Me.btnNav4.Visible = False
-        '
-        'btnNav3
-        '
-        Me.btnNav3.Location = New System.Drawing.Point(11, 98)
-        Me.btnNav3.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav3.Name = "btnNav3"
-        Me.btnNav3.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav3.TabIndex = 2
-        Me.btnNav3.Text = "Button 3"
-        Me.btnNav3.Visible = False
-        '
-        'btnNav2
-        '
-        Me.btnNav2.Location = New System.Drawing.Point(11, 52)
-        Me.btnNav2.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav2.Name = "btnNav2"
-        Me.btnNav2.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav2.TabIndex = 1
-        Me.btnNav2.Text = "Button 2"
-        Me.btnNav2.Visible = False
-        '
-        'btnNav1
-        '
-        Me.btnNav1.Location = New System.Drawing.Point(11, 6)
-        Me.btnNav1.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNav1.Name = "btnNav1"
-        Me.btnNav1.Size = New System.Drawing.Size(84, 39)
-        Me.btnNav1.TabIndex = 0
-        Me.btnNav1.Text = "Button 1"
-        Me.btnNav1.Visible = False
+        'flpNavButtons
+        '
+        Me.flpNavButtons.AutoScroll = True
+        Me.flpNavButtons.Dock = System.Windows.Forms.DockStyle.Left
+        Me.flpNavButtons.Location = New System.Drawing.Point(0, 33)
+        Me.flpNavButtons.Name = "flpNavButtons"
+        Me.flpNavButtons.Padding = New System.Windows.Forms.Padding(3, 0, 3, 3)
+        Me.flpNavButtons.Size = New System.Drawing.Size(118, 358)
+        Me.flpNavButtons.TabIndex = 0
         '
         'grpQuickAccess
         '
@@ -727,6 +246,7 @@ Partial Class IAIPNavigation
         '
         Me.Label7.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label7.AutoSize = True
+        Me.Label7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label7.Location = New System.Drawing.Point(7, 18)
         Me.Label7.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label7.Name = "Label7"
@@ -1076,16 +596,15 @@ Partial Class IAIPNavigation
         Me.Controls.Add(Me.pnlCurrentList)
         Me.Controls.Add(Me.grpQuickAccess)
         Me.Controls.Add(Me.StatusStrip1)
-        Me.Controls.Add(Me.pnlNavButtons)
-        Me.Controls.Add(Me.lblTitle)
+        Me.Controls.Add(Me.flpNavButtons)
         Me.Controls.Add(Me.lblMessageLabel)
+        Me.Controls.Add(Me.lblTitle)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Menu = Me.MainMenu1
         Me.MinimumSize = New System.Drawing.Size(750, 300)
         Me.Name = "IAIPNavigation"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
-        Me.Text = "Air Protection Branch Navigation Screen"
-        Me.pnlNavButtons.ResumeLayout(False)
+        Me.Text = "IAIP Navigation Screen"
         Me.grpQuickAccess.ResumeLayout(False)
         Me.grpQuickAccess.PerformLayout()
         Me.StatusStrip1.ResumeLayout(False)
@@ -1106,7 +625,6 @@ Partial Class IAIPNavigation
     Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents mmiAbout As System.Windows.Forms.MenuItem
     Friend WithEvents lblTitle As System.Windows.Forms.Label
-    Friend WithEvents pnlNavButtons As System.Windows.Forms.Panel
     Friend WithEvents grpQuickAccess As System.Windows.Forms.GroupBox
     Friend WithEvents llbTrackingNumber As System.Windows.Forms.LinkLabel
     Friend WithEvents txtTrackingNumber As System.Windows.Forms.TextBox
@@ -1133,50 +651,11 @@ Partial Class IAIPNavigation
     Friend WithEvents pnl5 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents bgrLoadWorkViewer As System.ComponentModel.BackgroundWorker
     Friend WithEvents lblMessageLabel As System.Windows.Forms.Label
-    Friend WithEvents btnNav7 As System.Windows.Forms.Button
-    Friend WithEvents btnNav6 As System.Windows.Forms.Button
-    Friend WithEvents btnNav5 As System.Windows.Forms.Button
-    Friend WithEvents btnNav4 As System.Windows.Forms.Button
-    Friend WithEvents btnNav3 As System.Windows.Forms.Button
-    Friend WithEvents btnNav2 As System.Windows.Forms.Button
-    Friend WithEvents btnNav1 As System.Windows.Forms.Button
-    Friend WithEvents btnNav12 As System.Windows.Forms.Button
-    Friend WithEvents btnNav11 As System.Windows.Forms.Button
-    Friend WithEvents btnNav10 As System.Windows.Forms.Button
-    Friend WithEvents btnNav9 As System.Windows.Forms.Button
-    Friend WithEvents btnNav8 As System.Windows.Forms.Button
-    Friend WithEvents btnNav13 As System.Windows.Forms.Button
     Friend WithEvents mmiOnlineHelp As System.Windows.Forms.MenuItem
-    Friend WithEvents btnNav14 As System.Windows.Forms.Button
     Friend WithEvents llbOpenTestLog As System.Windows.Forms.LinkLabel
     Friend WithEvents txtTestLogNumber As System.Windows.Forms.TextBox
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents bgrLoadButtons As System.ComponentModel.BackgroundWorker
-    Friend WithEvents btnNav21 As System.Windows.Forms.Button
-    Friend WithEvents btnNav20 As System.Windows.Forms.Button
-    Friend WithEvents btnNav19 As System.Windows.Forms.Button
-    Friend WithEvents btnNav18 As System.Windows.Forms.Button
-    Friend WithEvents btnNav17 As System.Windows.Forms.Button
-    Friend WithEvents btnNav16 As System.Windows.Forms.Button
-    Friend WithEvents btnNav15 As System.Windows.Forms.Button
-    Friend WithEvents btnNav28 As System.Windows.Forms.Button
-    Friend WithEvents btnNav27 As System.Windows.Forms.Button
-    Friend WithEvents btnNav26 As System.Windows.Forms.Button
-    Friend WithEvents btnNav25 As System.Windows.Forms.Button
-    Friend WithEvents btnNav24 As System.Windows.Forms.Button
-    Friend WithEvents btnNav23 As System.Windows.Forms.Button
-    Friend WithEvents btnNav22 As System.Windows.Forms.Button
-    Friend WithEvents btnNav29 As System.Windows.Forms.Button
-    Friend WithEvents btnNav31 As System.Windows.Forms.Button
-    Friend WithEvents btnNav30 As System.Windows.Forms.Button
-    Friend WithEvents btnNav33 As System.Windows.Forms.Button
-    Friend WithEvents btnNav32 As System.Windows.Forms.Button
-    Friend WithEvents btnNav34 As System.Windows.Forms.Button
-    Friend WithEvents btnNav35 As System.Windows.Forms.Button
-    Friend WithEvents btnNav36 As System.Windows.Forms.Button
-    Friend WithEvents btnNav37 As System.Windows.Forms.Button
-    Friend WithEvents btnNav38 As System.Windows.Forms.Button
-    Friend WithEvents btnNav39 As System.Windows.Forms.Button
     Friend WithEvents btnChangeWorkViewerContext As System.Windows.Forms.Button
     Friend WithEvents lblWorkViewerContext As System.Windows.Forms.Label
     Friend WithEvents cboWorkViewerContext As System.Windows.Forms.ComboBox
@@ -1187,8 +666,8 @@ Partial Class IAIPNavigation
     Friend WithEvents mmiSeparator1 As System.Windows.Forms.MenuItem
     Friend WithEvents mmiTesting As System.Windows.Forms.MenuItem
     Friend WithEvents mmiResetForm As System.Windows.Forms.MenuItem
-    Friend WithEvents btnNav40 As System.Windows.Forms.Button
     Friend WithEvents pnlCurrentList As System.Windows.Forms.Panel
     Friend WithEvents pnlContextSubView As System.Windows.Forms.Panel
     Friend WithEvents mmiPing As System.Windows.Forms.MenuItem
+    Friend WithEvents flpNavButtons As System.Windows.Forms.FlowLayoutPanel
 End Class

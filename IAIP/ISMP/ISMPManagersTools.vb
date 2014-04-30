@@ -200,7 +200,6 @@ Public Class ISMPManagersTools
     Friend WithEvents TbbClear As System.Windows.Forms.ToolBarButton
     Friend WithEvents TbbBack As System.Windows.Forms.ToolBarButton
     Friend WithEvents TbbExit As System.Windows.Forms.ToolBarButton
-    Friend WithEvents txtProgram As System.Windows.Forms.TextBox
     Friend WithEvents SplitterManagersTools As System.Windows.Forms.Splitter
     Friend WithEvents PanelManagersTools As System.Windows.Forms.Panel
     Friend WithEvents TPReportAssignment As System.Windows.Forms.TabPage
@@ -669,7 +668,6 @@ Public Class ISMPManagersTools
         Me.TbbClear = New System.Windows.Forms.ToolBarButton
         Me.TbbBack = New System.Windows.Forms.ToolBarButton
         Me.TbbExit = New System.Windows.Forms.ToolBarButton
-        Me.txtProgram = New System.Windows.Forms.TextBox
         Me.SplitterManagersTools = New System.Windows.Forms.Splitter
         Me.PanelManagersTools = New System.Windows.Forms.Panel
         Me.TCManagersTools = New System.Windows.Forms.TabControl
@@ -1798,14 +1796,6 @@ Public Class ISMPManagersTools
         Me.TbbExit.ImageIndex = 81
         Me.TbbExit.Name = "TbbExit"
         Me.TbbExit.Visible = False
-        '
-        'txtProgram
-        '
-        Me.txtProgram.Location = New System.Drawing.Point(64, 624)
-        Me.txtProgram.Name = "txtProgram"
-        Me.txtProgram.Size = New System.Drawing.Size(24, 20)
-        Me.txtProgram.TabIndex = 228
-        Me.txtProgram.Visible = False
         '
         'SplitterManagersTools
         '
@@ -5266,7 +5256,6 @@ Public Class ISMPManagersTools
         Me.ClientSize = New System.Drawing.Size(1142, 794)
         Me.Controls.Add(Me.PanelManagersTools)
         Me.Controls.Add(Me.SplitterManagersTools)
-        Me.Controls.Add(Me.txtProgram)
         Me.Controls.Add(Me.TBManagersTools)
         Me.Menu = Me.MainMenu1
         Me.MinimumSize = New System.Drawing.Size(250, 173)

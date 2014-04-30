@@ -1,106 +1,57 @@
 ﻿Imports Oracle.DataAccess.Client
-Imports Oracle.DataAccess.Types
 Imports System.Collections.Generic
 
 Namespace DB
     Module DB
 
-#Region " DB Connection Strings "
-
-        Public Enum ConnectionEnvironment
-            Production
-            Development
-            NADC_Production
-            NADC_Development
-        End Enum
+#Region " Ping "
 
         ''' <summary>
-        ''' Returns database connection parameters as DatabaseConnectionParameters for a given ConnectionEnvironment enum
+        ''' Attempt to access an OracleConnection to determine if it is available and to keep it open if so.
         ''' </summary>
-        ''' <param name="env">A ConnectionEnvironment enum designating which connection string is desired</param>
-        ''' <returns>Database connection parameters</returns>
-        ''' <remarks>Currently built to return Oracle connection parameters</remarks>
-        Private Function GetDatabaseConnectionParameters(ByVal env As ConnectionEnvironment) As DatabaseConnectionParameters
-            Select Case env
-
-                Case ConnectionEnvironment.Production
-                    Return New DatabaseConnectionParameters("luke.dnr.state.ga.us", "1521", "PRD", "AIRBRANCH_APP_USER", SimpleCrypt("çòáðò±ì"))
-
-                Case ConnectionEnvironment.Development
-                    Return New DatabaseConnectionParameters("leia.dnr.state.ga.us", "1521", "DEV", "AIRBRANCH", SimpleCrypt("óíïçáìåòô"))
-
-                Case ConnectionEnvironment.NADC_Production
-                    Return New DatabaseConnectionParameters("167.195.93.68", "1521", "PRD", "AIRBRANCH_APP_USER", SimpleCrypt("çòáðò±ì"))
-
-                Case ConnectionEnvironment.NADC_Development
-                    Return New DatabaseConnectionParameters("167.195.93.100", "1521", "DEV", "AIRBRANCH", "123")
-
-                Case Else
-                    Return Nothing
-
-            End Select
-        End Function
-
-        Private Structure DatabaseConnectionParameters
-            Public Sub New(ByVal host As String, ByVal port As String, ByVal sid As String, ByVal user As String, ByVal pwd As String)
-                Me.Host = host
-                Me.Port = port
-                Me.SID = sid
-                Me.User = user
-                Me.Password = pwd
-            End Sub
-            Public Host As String
-            Public Port As String
-            Public SID As String
-            Public User As String
-            Public Password As String
-        End Structure
-
-        ''' <summary>
-        ''' Returns the database connection string for the current database connection environment
-        ''' </summary>
-        ''' <returns>A database connection string</returns>
-        ''' <remarks></remarks>
-        <DebuggerStepThrough()> _
-        Public Function GetCurrentConnectionString() As String
-            Return GetConnectionString(CurrentConnectionEnvironment)
-        End Function
-
-        ''' <summary>
-        ''' Returns a database connection string based on the provided ConnectionEnvironment enum
-        ''' </summary>
-        ''' <param name="env">A ConnectionEnvironment enum designating which connection string is desired</param>
-        ''' <returns>A database connection string</returns>
-        ''' <remarks>Currently built to return an Oracle connection string</remarks>
-        Public Function GetConnectionString(ByVal env As ConnectionEnvironment) As String
-
-            ' Oracle connection method without tnsnames.ora
-            Dim oracleConnectionStringTemplate As String = "Data Source=(DESCRIPTION=(ADDRESS_LIST=" & _
-                "(ADDRESS=(PROTOCOL=TCP)(HOST={0})(PORT={1})))(CONNECT_DATA=(SERVER=DEDICATED)(SID={2})));" & _
-                "User Id={3}; Password = {4};"
-
-            ' Standard Oracle connection method (requires tnsnames.ora on client)
-            'Private oracleConnectionStringTemplate As String = "Data Source = {2}; User ID = {3}; Password = {4};"
-
-            ' Oracle EZ Connect method (maybe requires EZCONNECT enabled in sqlnet.ora file?)
-            'Private oracleConnectionStringTemplate As String = "{3}/{4}@//{0}:{1}/{2}"
-
-            Dim dbParams As DatabaseConnectionParameters = GetDatabaseConnectionParameters(env)
-            Return String.Format(oracleConnectionStringTemplate, dbParams.Host, dbParams.Port, dbParams.SID, dbParams.User, dbParams.Password)
+        ''' <param name="conn">The OracleConnection to access.</param>
+        ''' <returns>True if DB connection works. Otherwise, false.</returns>
+        ''' <remarks>
+        ''' This function has a dual purpose. First, to determine if a DB connection is available 
+        ''' (and exit gracefully if it is not). Second, to keep that connection perpetually open. 
+        ''' This is useful only because the IAIP uses a single OracleConnection that it assumes 
+        ''' to always be open (and fails miserably if it is not). Hence, there is no conn.Close() 
+        ''' statement after the cmd.ExecuteScalar() statement.
+        ''' </remarks>
+        Public Function PingDBConnection(ByVal conn As OracleConnection) As Boolean
+            Dim sql As String = "SELECT 1 FROM DUAL"
+            Using cmd As New OracleCommand(sql, conn)
+                Dim result As Object = Nothing
+                Try
+                    If conn.State = ConnectionState.Closed Then conn.Open()
+                    result = cmd.ExecuteScalar()
+                    Return True
+                Catch ex As Exception
+                    Return False
+                End Try
+            End Using
         End Function
 
 #End Region
 
 #Region " Read (Scalar) "
 
-        Public Function GetSingleValue(Of T)(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing) As T
-            Dim parameterArray As OracleParameter() = {parameter}
-            Return GetSingleValue(Of T)(query, parameterArray)
+        Public Function GetBoolean(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing, Optional ByVal failSilently As Boolean = False) As Boolean
+            Return Convert.ToBoolean(GetSingleValue(Of Boolean)(query, parameter, failSilently))
         End Function
 
-        Public Function GetSingleValue(Of T)(ByVal query As String, ByVal parameterArray As OracleParameter()) As T
+        Public Function GetBoolean(ByVal query As String, ByVal parameterArray As OracleParameter(), Optional ByVal failSilently As Boolean = False) As Boolean
+            Return Convert.ToBoolean(GetSingleValue(Of Boolean)(query, parameterArray, failSilently))
+        End Function
+
+        Public Function GetSingleValue(Of T)(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing, Optional ByVal failSilently As Boolean = False) As T
+            Dim parameterArray As OracleParameter() = {parameter}
+            Return GetSingleValue(Of T)(query, parameterArray, failSilently)
+        End Function
+
+        Public Function GetSingleValue(Of T)(ByVal query As String, ByVal parameterArray As OracleParameter(), Optional ByVal failSilently As Boolean = False) As T
             Dim result As Object = Nothing
-            Using connection As New OracleConnection(GetCurrentConnectionString)
+            Using connection As New OracleConnection(CurrentConnectionString)
                 Using command As New OracleCommand(query, connection)
                     command.CommandType = CommandType.Text
                     command.BindByName = True
@@ -110,7 +61,9 @@ Namespace DB
                         result = command.ExecuteScalar()
                         command.Connection.Close()
                     Catch ee As OracleException
-                        MessageBox.Show("Database error: " & ee.ToString)
+                        If Not failSilently Then
+                            MessageBox.Show("Database error: " & ee.ToString)
+                        End If
                     End Try
 
                     Return GetNullable(Of T)(result)
@@ -146,7 +99,7 @@ Namespace DB
 
         Public Function GetDataTable(ByVal query As String, ByVal parameterArray As OracleParameter()) As DataTable
             Dim table As New DataTable
-            Using connection As New OracleConnection(GetCurrentConnectionString)
+            Using connection As New OracleConnection(CurrentConnectionString)
                 Using command As New OracleCommand(query, connection)
                     command.CommandType = CommandType.Text
                     command.BindByName = True
@@ -176,7 +129,7 @@ Namespace DB
         End Function
 
         Public Function GetByteArrayFromBlob(ByVal query As String, ByVal parameterArray As OracleParameter()) As Byte()
-            Using connection As New OracleConnection(GetCurrentConnectionString)
+            Using connection As New OracleConnection(CurrentConnectionString)
                 Using command As New OracleCommand(query, connection)
                     command.CommandType = CommandType.Text
                     command.BindByName = True
@@ -240,11 +193,10 @@ Namespace DB
             countList.Clear()
             If queryList.Count <> parametersList.Count Then Return False
 
-            Using connection As New OracleConnection(GetCurrentConnectionString)
+            Using connection As New OracleConnection(CurrentConnectionString)
                 Using command As OracleCommand = connection.CreateCommand
                     command.CommandType = CommandType.Text
                     command.BindByName = True
-
                     Dim transaction As OracleTransaction = Nothing
 
                     Try

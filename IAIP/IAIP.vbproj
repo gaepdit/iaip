@@ -52,11 +52,11 @@
     <SupportUrl>http://airpermit.dnr.state.ga.us/iaip/</SupportUrl>
     <ProductName>Integrated Air Information Platform</ProductName>
     <PublisherName>State of Georgia</PublisherName>
-    <MinimumRequiredVersion>3.0.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>3.2.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>IAIP-install.html</WebPage>
-    <ApplicationRevision>9</ApplicationRevision>
-    <ApplicationVersion>3.1.0.%2a</ApplicationVersion>
+    <ApplicationRevision>14</ApplicationRevision>
+    <ApplicationVersion>3.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -112,7 +112,7 @@
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>true</UseVSHostingProcess>
-    <DefineConstants>NadcEnabled=True</DefineConstants>
+    <DefineConstants>NadcTesting=True</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DefineTrace>true</DefineTrace>
@@ -124,7 +124,7 @@
     <NoWarn>42016,42017,42018,42019,42032</NoWarn>
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <DefineConstants>NadcEnabled=False</DefineConstants>
+    <DefineConstants>NadcTesting=False</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
@@ -137,7 +137,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\common-libraries\Telerik\Analytics\3.2.61\EQATEC.Analytics.Monitor.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Office.Interop.Outlook, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
+    <Reference Include="Microsoft.Office.Interop.Outlook, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Oracle.DataAccess, Version=2.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\common-libraries\Oracle\x86\ODAC_xcopy\Oracle.DataAccess.dll</HintPath>
@@ -187,17 +189,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="DataSet\dsIAIP10.xsc">
-      <DependentUpon>dsIAIP10.xsd</DependentUpon>
-    </None>
-    <None Include="DataSet\dsIAIP10.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsIAIP10.Designer.vb</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DataSet\dsIAIP10.xss">
-      <DependentUpon>dsIAIP10.xsd</DependentUpon>
-    </None>
     <None Include="My Project\Settings.settings">
       <CustomToolNamespace>My</CustomToolNamespace>
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -241,11 +232,6 @@
     </Compile>
     <Compile Include="PASP\PASPFeeStatistics.vb">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DataSet\dsIAIP10.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dsIAIP10.xsd</DependentUpon>
     </Compile>
     <Compile Include="Crystal Reports\Oracle 10.1\crFS_Invoice.vb">
       <AutoGen>True</AutoGen>
@@ -487,12 +473,6 @@
       <DependentUpon>crOrganizationChart.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\DMU\crESDataViewer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crESDataViewer.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Crystal Reports\Letterhead.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -671,12 +651,6 @@
     </Compile>
     <Compile Include="ISMP\ISMPTestFirmComments.vb">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\DMU\crESinfoByAirsNumber.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crESinfoByAirsNumber.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Crystal Reports\Oracle 9.2\ISMP\CRFlare.vb">
       <DependentUpon>CRFlare.rpt</DependentUpon>
@@ -1244,10 +1218,6 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crOrganizationChart.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\DMU\crESDataViewer.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crESDataViewer.vb</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Letterhead.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Letterhead.vb</LastGenOutput>
@@ -1358,10 +1328,6 @@
     <EmbeddedResource Include="ISMP\ISMPTestFirmComments.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ISMPTestFirmComments.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\DMU\crESinfoByAirsNumber.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crESinfoByAirsNumber.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Oracle 9.2\ISMP\CRFlare.resx">
       <DependentUpon>CRFlare.vb</DependentUpon>
@@ -1646,6 +1612,8 @@
     <None Include="Resources\Seal_of_Georgia_gold.ico" />
     <None Include="Resources\Seal_of_Georgia_red_small.ico" />
     <None Include="Resources\Seal_of_Georgia_gold_256x256x32.png" />
+    <Compile Include="_DB\DAL.AppData.vb" />
+    <Compile Include="_DB\DB.Connections.vb" />
     <Compile Include="Crystal Reports\CRViewerForm.Designer.vb">
       <DependentUpon>CRViewerForm.vb</DependentUpon>
     </Compile>
@@ -1733,7 +1701,7 @@
     <Compile Include="Universal Forms\IaipAbout.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="_Data Classes\LoginCred.vb" />
+    <Compile Include="_Data Classes\IaipUser.vb" />
     <Compile Include="_DB\DAL.SSCP.WorkItem.vb" />
     <Compile Include="_DB\DAL.ISMP.StackTest.vb" />
     <Compile Include="_DB\DAL.LoginCreds.vb" />
@@ -1800,6 +1768,7 @@
     <Compile Include="_Modules\StartupShutdown.vb">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="_Modules\AppTimers.vb" />
     <Compile Include="_Modules\Win32ApiCalls.vb" />
   </ItemGroup>
   <ItemGroup>
@@ -1833,6 +1802,11 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Office.PIARedist.2010">
+      <Visible>False</Visible>
+      <ProductName>Microsoft Office 2010 Primary Interop Assemblies</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
       <Visible>False</Visible>
       <ProductName>Windows Installer 3.1</ProductName>
@@ -1860,22 +1834,10 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <PublishFile Include="Microsoft.Office.Interop.Outlook">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Prerequisite</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Crystal Reports\Oracle 10.1\DMU\" />
-    <Folder Include="Crystal Reports\Oracle 10.1\ISMP\" />
-    <Folder Include="Crystal Reports\Oracle 9.2\PASP\" />
     <Folder Include="Crystal Reports\Oracle 9.2\SSCP\" />
+    <Folder Include="DataSet\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>

@@ -2705,7 +2705,7 @@ Public Class SscpEnforcement
                 query = "SELECT MAX(SSCPENFORCEMENTSTIPULATED.STRENFORCEMENTKEY) AS MaxKey " & _
                 "FROM " & DBNameSpace & ".SSCPENFORCEMENTSTIPULATED " & _
                 "WHERE SSCPENFORCEMENTSTIPULATED.STRENFORCEMENTNUMBER = :enfNumber"
-                Using connection As New OracleConnection(CurrentConnectionString)
+                Using connection As New OracleConnection(DB.CurrentConnectionString)
                     Using command As New OracleCommand(query, connection) With {.CommandType = CommandType.Text}
                         With command
                             .BindByName = True
@@ -2803,7 +2803,7 @@ Public Class SscpEnforcement
 
             query = "Insert into " & DBNameSpace & ".SSCPEnforcementStipulated " & _
             "values (:enfNumber,:stipKey,:stipPenalty,:stipComments,:afsNumber,:userGCode,:oracleDate)"
-            Using connection As New OracleConnection(CurrentConnectionString)
+            Using connection As New OracleConnection(DB.CurrentConnectionString)
                 Using command As New OracleCommand(query, connection) With {.CommandType = CommandType.Text}
                     With command
                         .BindByName = True
@@ -3718,7 +3718,7 @@ Public Class SscpEnforcement
         Dim query As String = "Delete from " & DBNameSpace & ".SSCPENforcementStipulated " & _
         "where strEnforcementNumber = :enfNumber and strEnforcementKey = :enfKey"
 
-        Using connection As New OracleConnection(CurrentConnectionString)
+        Using connection As New OracleConnection(DB.CurrentConnectionString)
             Using command As New OracleCommand(query, connection) With {.CommandType = CommandType.Text}
                 With command
                     .BindByName = True
@@ -3761,7 +3761,7 @@ Public Class SscpEnforcement
             "from " & DBNameSpace & ".SSCPENforcementStipulated " & _
             "where strEnforcementNumber = :enfNumber and strEnforcementKey = :enfKey"
 
-            Using connection As New OracleConnection(CurrentConnectionString)
+            Using connection As New OracleConnection(DB.CurrentConnectionString)
                 Using command As New OracleCommand(query, connection) With {.CommandType = CommandType.Text}
                     With command
                         .BindByName = True

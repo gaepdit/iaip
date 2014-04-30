@@ -31,6 +31,16 @@
         End Set
     End Property
 
+    Private _branchName As String
+    Public Property BranchName() As String
+        Get
+            Return _branchName
+        End Get
+        Set(ByVal value As String)
+            _branchName = value
+        End Set
+    End Property
+
     Private _programId As Integer
     Public Property ProgramID() As Integer
         Get
@@ -41,6 +51,16 @@
         End Set
     End Property
 
+    Private _programName As String
+    Public Property ProgramName() As String
+        Get
+            Return _programName
+        End Get
+        Set(ByVal value As String)
+            _programName = value
+        End Set
+    End Property
+
     Private _unitId As Integer
     Public Property UnitId() As Integer
         Get
@@ -48,6 +68,16 @@
         End Get
         Set(ByVal value As Integer)
             _unitId = value
+        End Set
+    End Property
+
+    Private _unitName As String
+    Public Property UnitName() As String
+        Get
+            Return _unitName
+        End Get
+        Set(ByVal value As String)
+            _unitName = value
         End Set
     End Property
 

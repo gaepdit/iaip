@@ -38,7 +38,7 @@ Public Class IAIPPrintOut
         Dim SQL As String = ""
         Dim temp As String = ""
         Dim da As OracleDataAdapter
-        Dim ds As New dsIAIP10
+        Dim ds As New DataSet
         Dim rpt As New ReportClass
 
         Try
@@ -670,38 +670,6 @@ Public Class IAIPPrintOut
                     'End If
                 Case "TitleVRenewal"
                     PrintOutTitleVRenewals()
-                Case "ESPrintOut"
-                    rpt = New crESinfoByAirsNumber
-                    monitor.TrackFeature("Report." & rpt.ResourceName)
-
-                    SQL = "Select * from " & DBNameSpace & ".ESSchema " & _
-                    "where strConfirmationNbr = '" & txtOther.Text & "' "
-
-                    da = New OracleDataAdapter(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    ds.EnforceConstraints = False
-                    da.Fill(ds, "ESSchema")
-                    rpt.SetDataSource(ds)
-
-                    CRViewer.ReportSource = rpt
-                Case "ES Print Out"
-                    rpt = New crESDataViewer
-                    monitor.TrackFeature("Report." & rpt.ResourceName)
-
-                    SQL = "Select * from " & DBNameSpace & ".ESSchema " & _
-                    "where strConfirmationNbr = '" & txtSQLLine.Text & "' "
-
-                    da = New OracleDataAdapter(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    ds.EnforceConstraints = False
-                    da.Fill(ds, "ESSchema")
-                    rpt.SetDataSource(ds)
-
-                    CRViewer.ReportSource = rpt
                 Case "OrgChart"
                     OpenOrgChart()
                 Case "PhoneList"

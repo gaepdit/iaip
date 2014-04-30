@@ -1,5 +1,33 @@
 % IAIP Change Log
 
+## Version xx <span> (2014-xx-xx)</span>
+
+- NEW: Navigation buttons are now grouped by program/category (#211)
+
+- FIX: Additional work to prevent connectivity problems after the server move (#225)
+
+## Version 3.2 <span>(2014-04-24)</span>
+
+This release prepares the IAIP for the upcoming server move to the 
+North Atlanta Data Center. The IAIP will be unavailable from 5 PM 
+on Friday, May 2 until Monday morning, May 5. 
+
+As a side-benefit to the preparations, database availability problems 
+are now handled more gracefully.
+
+## Version 3.1.1 <span>(2014-04-15)</span>
+
+- FIX: *MASP* -- Can't create new event registration (#217); thx Thomas
+
+## Version 3.1 <span>(2014-04-14)</span>
+
+- FIX: More work to prevent database timeout errors (#199)
+- FIX: *EIS* -- Remove ambiguous Enroll Mailout List button (#198)
+- FIX: *SSCP* -- ACC memo incorrectly reported whether postmarked by deadline (#204); thx Michael
+- FIX: *SSCP* -- Make room for long company names in ACC memo (#193); thx Sherry
+- FIX: Mild UI improvements in various places
+- FIX: Unable to install IAIP in some cases if MS Office was installed before .NET framework (#213); thx Tammy
+
 ## Version 3.0 <span>(2014-04-03)</span>
 
 Welcome to the latest version of the IAIP! We hope the new installation platform makes future updates easier for all users.

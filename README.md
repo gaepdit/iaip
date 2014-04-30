@@ -1,50 +1,6 @@
 IAIP Notes for Developers
 =========================
 
-ClickOnce deployment
----
-
-These are/were the steps to follow for moving to a [ClickOnce](http://msdn.microsoft.com/en-us/library/142dbbz4%28v=vs.90%29.aspx) installation process. Issue numbers refer to forked repository at [IAIP ClickOnce](https://bitbucket.org/dougwaldron/iaip-clickonce). Once ClickOnce development is complete, this section will be removed.
-
-### Pre-deployment (complete):
-
-+ ✓ Remove hard-coded file dependencies
-+ ✓ Remove installer project
-+ ✓ Change project name
-+ ✓ Add code in new project to remove old program (shortcuts only)
-+ ✓ Remove version checking code
-+ ✓ Review CPU settings
-+ ✓ Review ClickOnce settings (prerequisites, etc.)
-+ ✓ Review update frequency
-+ ✓ Implement on-demand updater
-+ ✓ Rebuild newer Crystal Reports
-+ ✓ Draft emails
-+ ✓ Send heads-up email
-+ ✓ Create installation website
-+ ✓ Create dummy replacement for JohnGaltProject to inform users of new IAIP installation (with link to installation website)
-
-### Beta program (complete):
-
-+ ✓ Update changelog (#11)
-+ ✓ Publish instructions (#1)
-+ ✓ Publish 3.0 Release Candidate
-+ ✓ Send beta program email (#2)
-+ ✓ Check logs
-
-### Deployment (complete):
-
-+ ✓ Update changelog (#16)
-+ ✓ Publish 3.0 instructions
-+ ✓ Publish 3.0 Final
-+ ✓ Send deployment email (#2)
-
-### Post-deployment:
-
-+ ✓ Update documentation wiki
-
-- Release JohnGaltProject deactivator (#3) -- Target date: 16-Apr-2014
-
-
 Source Code
 -----------
 
