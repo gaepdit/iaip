@@ -1,4 +1,4 @@
-﻿Public Class LoginCred
+﻿Public Class IaipUser
     Private _staff As Staff
     Public Property Staff() As Staff
         Get

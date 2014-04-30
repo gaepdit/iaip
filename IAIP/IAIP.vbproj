@@ -1608,7 +1608,7 @@
     <Compile Include="Universal Forms\IaipAbout.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="_Data Classes\LoginCred.vb" />
+    <Compile Include="_Data Classes\IaipUser.vb" />
     <Compile Include="_DB\DAL.SSCP.WorkItem.vb" />
     <Compile Include="_DB\DAL.ISMP.StackTest.vb" />
     <Compile Include="_DB\DAL.LoginCreds.vb" />
