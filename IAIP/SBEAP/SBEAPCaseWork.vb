@@ -12,6 +12,12 @@ Public Class SBEAPCaseWork
     Dim temp As String
     Dim i As Integer
 
+    Public WriteOnly Property ValueFromClientLookUp() As String
+        Set(ByVal Value As String)
+            txtClientID.Text = Value
+        End Set
+    End Property
+
     Private Sub SBEAPCaseLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
             If IsNumeric(txtCaseID.Text) = True Then
@@ -32,7 +38,7 @@ Public Class SBEAPCaseWork
             Label3.Text = OracleDate
 
             FormStatus("Enable")
-            
+
             TCCaseSpecificData.Visible = False
 
         Catch ex As Exception
@@ -2209,15 +2215,14 @@ Public Class SBEAPCaseWork
     End Sub
     Private Sub tsbClientSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbClientSearch.Click
         Try
-            If ClientSearchTool Is Nothing Then
-            Else
-                ClientSearchTool.Dispose()
+            Dim clientSearchDialog As New SBEAPClientSearchTool
+            clientSearchDialog.ShowDialog()
+            If clientSearchDialog.DialogResult = Windows.Forms.DialogResult.OK Then
+                Me.ValueFromClientLookUp = clientSearchDialog.SelectedClientID
+                LoadClientInfo()
             End If
-            ClientSearchTool = New SBEAPClientSearchTool
-            ClientSearchTool.Show()
-
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnRefreshClient_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRefreshClient.Click

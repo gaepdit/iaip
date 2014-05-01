@@ -8,6 +8,12 @@ Public Class SBEAPClientSummary
     Dim dsCaseLogGrid As DataSet
     Dim daCaseLogGrid As OracleDataAdapter
 
+    Public WriteOnly Property ValueFromClientLookUp() As String
+        Set(ByVal Value As String)
+            txtClientID.Text = Value
+        End Set
+    End Property
+
     Private Sub SBEAPClientMaintenance_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         Try
             ClientSummary = Nothing
@@ -2248,19 +2254,14 @@ Public Class SBEAPClientSummary
         End Try
     End Sub
 
-
-
-
-
-
     Private Sub tsbSearchTool_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbSearchTool.Click
         Try
-            If ClientSearchTool Is Nothing Then
-            Else
-                ClientSearchTool.Dispose()
+            Dim clientSearchDialog As New SBEAPClientSearchTool
+            clientSearchDialog.ShowDialog()
+            If clientSearchDialog.DialogResult = Windows.Forms.DialogResult.OK Then
+                Me.ValueFromClientLookUp = clientSearchDialog.SelectedClientID
+                LoadClientData()
             End If
-            ClientSearchTool = New SBEAPClientSearchTool
-            ClientSearchTool.Show()
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

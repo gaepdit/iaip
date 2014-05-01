@@ -25,15 +25,6 @@ Partial Class SBEAPClientSearchTool
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SBEAPClientSearchTool))
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
         Me.tsbClear = New System.Windows.Forms.ToolStripButton
-        Me.tsbBack = New System.Windows.Forms.ToolStripButton
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.lbl1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.lbl2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.lbl3 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
-        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer
         Me.TabControl1 = New System.Windows.Forms.TabControl
         Me.TPClientCompanyName = New System.Windows.Forms.TabPage
         Me.chbSearchHistoricalNames = New System.Windows.Forms.CheckBox
@@ -76,20 +67,14 @@ Partial Class SBEAPClientSearchTool
         Me.btnSearchNumberOfEmployees = New System.Windows.Forms.Button
         Me.Label11 = New System.Windows.Forms.Label
         Me.dgvClientInformation = New System.Windows.Forms.DataGridView
-        Me.Panel1 = New System.Windows.Forms.Panel
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.txtCount = New System.Windows.Forms.TextBox
         Me.txtClientCompanyName = New System.Windows.Forms.TextBox
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.btnUseClientID = New System.Windows.Forms.Button
+        Me.CompanyNameLabel = New System.Windows.Forms.Label
+        Me.UseSelection = New System.Windows.Forms.Button
         Me.txtClientID = New System.Windows.Forms.TextBox
-        Me.Label2 = New System.Windows.Forms.Label
+        Me.CustomerIDLabel = New System.Windows.Forms.Label
+        Me.Cancel = New System.Windows.Forms.Button
+        Me.lblSearchResults = New System.Windows.Forms.Label
         Me.ToolStrip1.SuspendLayout()
-        Me.StatusStrip1.SuspendLayout()
-        Me.MenuStrip1.SuspendLayout()
-        Me.SplitContainer1.Panel1.SuspendLayout()
-        Me.SplitContainer1.Panel2.SuspendLayout()
-        Me.SplitContainer1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TPClientCompanyName.SuspendLayout()
         Me.TPAddressSearch.SuspendLayout()
@@ -102,13 +87,12 @@ Partial Class SBEAPClientSearchTool
         Me.TPNumberOfEmployees.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.dgvClientInformation, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ToolStrip1
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbClear, Me.tsbBack})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbClear})
+        Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(492, 25)
         Me.ToolStrip1.TabIndex = 5
@@ -116,97 +100,11 @@ Partial Class SBEAPClientSearchTool
         '
         'tsbClear
         '
-        Me.tsbClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.tsbClear.Image = CType(resources.GetObject("tsbClear.Image"), System.Drawing.Image)
         Me.tsbClear.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbClear.Name = "tsbClear"
-        Me.tsbClear.Size = New System.Drawing.Size(23, 22)
-        Me.tsbClear.Text = "ToolStripButton1"
-        '
-        'tsbBack
-        '
-        Me.tsbBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbBack.Image = CType(resources.GetObject("tsbBack.Image"), System.Drawing.Image)
-        Me.tsbBack.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbBack.Name = "tsbBack"
-        Me.tsbBack.Size = New System.Drawing.Size(23, 22)
-        Me.tsbBack.Text = "Back"
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lbl1, Me.lbl2, Me.lbl3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 444)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(492, 22)
-        Me.StatusStrip1.TabIndex = 4
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'lbl1
-        '
-        Me.lbl1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.lbl1.Name = "lbl1"
-        Me.lbl1.Size = New System.Drawing.Size(469, 17)
-        Me.lbl1.Spring = True
-        Me.lbl1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'lbl2
-        '
-        Me.lbl2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.lbl2.Name = "lbl2"
-        Me.lbl2.Size = New System.Drawing.Size(4, 17)
-        '
-        'lbl3
-        '
-        Me.lbl3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.lbl3.Name = "lbl3"
-        Me.lbl3.Size = New System.Drawing.Size(4, 17)
-        '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.HelpToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(492, 24)
-        Me.MenuStrip1.TabIndex = 3
-        Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'FileToolStripMenuItem
-        '
-        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(35, 20)
-        Me.FileToolStripMenuItem.Text = "File"
-        '
-        'HelpToolStripMenuItem
-        '
-        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(40, 20)
-        Me.HelpToolStripMenuItem.Text = "Help"
-        '
-        'SplitContainer1
-        '
-        Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitContainer1.Location = New System.Drawing.Point(0, 49)
-        Me.SplitContainer1.Name = "SplitContainer1"
-        Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
-        '
-        'SplitContainer1.Panel1
-        '
-        Me.SplitContainer1.Panel1.Controls.Add(Me.TabControl1)
-        '
-        'SplitContainer1.Panel2
-        '
-        Me.SplitContainer1.Panel2.Controls.Add(Me.dgvClientInformation)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.Panel1)
-        Me.SplitContainer1.Size = New System.Drawing.Size(492, 395)
-        Me.SplitContainer1.SplitterDistance = 86
-        Me.SplitContainer1.SplitterWidth = 10
-        Me.SplitContainer1.TabIndex = 6
+        Me.tsbClear.Size = New System.Drawing.Size(54, 22)
+        Me.tsbClear.Text = "Clear"
         '
         'TabControl1
         '
@@ -219,8 +117,8 @@ Partial Class SBEAPClientSearchTool
         Me.TabControl1.Controls.Add(Me.TPNAICSSearch)
         Me.TabControl1.Controls.Add(Me.TPAIRSNumberSearch)
         Me.TabControl1.Controls.Add(Me.TPNumberOfEmployees)
-        Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TabControl1.Location = New System.Drawing.Point(0, 0)
+        Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TabControl1.Location = New System.Drawing.Point(0, 25)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
         Me.TabControl1.Size = New System.Drawing.Size(492, 86)
@@ -252,7 +150,7 @@ Partial Class SBEAPClientSearchTool
         '
         'btnSearchCompanyName
         '
-        Me.btnSearchCompanyName.Location = New System.Drawing.Point(318, 3)
+        Me.btnSearchCompanyName.Location = New System.Drawing.Point(305, 3)
         Me.btnSearchCompanyName.Name = "btnSearchCompanyName"
         Me.btnSearchCompanyName.Size = New System.Drawing.Size(65, 25)
         Me.btnSearchCompanyName.TabIndex = 2
@@ -290,7 +188,7 @@ Partial Class SBEAPClientSearchTool
         '
         'btnSearchStreet
         '
-        Me.btnSearchStreet.Location = New System.Drawing.Point(308, 3)
+        Me.btnSearchStreet.Location = New System.Drawing.Point(256, 3)
         Me.btnSearchStreet.Name = "btnSearchStreet"
         Me.btnSearchStreet.Size = New System.Drawing.Size(65, 25)
         Me.btnSearchStreet.TabIndex = 5
@@ -299,7 +197,7 @@ Partial Class SBEAPClientSearchTool
         '
         'txtSearchStreet
         '
-        Me.txtSearchStreet.Location = New System.Drawing.Point(128, 6)
+        Me.txtSearchStreet.Location = New System.Drawing.Point(89, 6)
         Me.txtSearchStreet.Name = "txtSearchStreet"
         Me.txtSearchStreet.Size = New System.Drawing.Size(161, 20)
         Me.txtSearchStreet.TabIndex = 4
@@ -327,7 +225,7 @@ Partial Class SBEAPClientSearchTool
         '
         'btnSearchCity
         '
-        Me.btnSearchCity.Location = New System.Drawing.Point(308, 3)
+        Me.btnSearchCity.Location = New System.Drawing.Point(204, 3)
         Me.btnSearchCity.Name = "btnSearchCity"
         Me.btnSearchCity.Size = New System.Drawing.Size(65, 25)
         Me.btnSearchCity.TabIndex = 5
@@ -336,7 +234,7 @@ Partial Class SBEAPClientSearchTool
         '
         'txtSearchCity
         '
-        Me.txtSearchCity.Location = New System.Drawing.Point(128, 6)
+        Me.txtSearchCity.Location = New System.Drawing.Point(37, 6)
         Me.txtSearchCity.Name = "txtSearchCity"
         Me.txtSearchCity.Size = New System.Drawing.Size(161, 20)
         Me.txtSearchCity.TabIndex = 4
@@ -364,7 +262,7 @@ Partial Class SBEAPClientSearchTool
         '
         'btnSearchZipCode
         '
-        Me.btnSearchZipCode.Location = New System.Drawing.Point(308, 3)
+        Me.btnSearchZipCode.Location = New System.Drawing.Point(230, 3)
         Me.btnSearchZipCode.Name = "btnSearchZipCode"
         Me.btnSearchZipCode.Size = New System.Drawing.Size(65, 25)
         Me.btnSearchZipCode.TabIndex = 5
@@ -373,7 +271,7 @@ Partial Class SBEAPClientSearchTool
         '
         'txtSearchZipCode
         '
-        Me.txtSearchZipCode.Location = New System.Drawing.Point(128, 6)
+        Me.txtSearchZipCode.Location = New System.Drawing.Point(63, 6)
         Me.txtSearchZipCode.Name = "txtSearchZipCode"
         Me.txtSearchZipCode.Size = New System.Drawing.Size(161, 20)
         Me.txtSearchZipCode.TabIndex = 4
@@ -401,7 +299,7 @@ Partial Class SBEAPClientSearchTool
         '
         'btnSearchCounty
         '
-        Me.btnSearchCounty.Location = New System.Drawing.Point(308, 3)
+        Me.btnSearchCounty.Location = New System.Drawing.Point(220, 3)
         Me.btnSearchCounty.Name = "btnSearchCounty"
         Me.btnSearchCounty.Size = New System.Drawing.Size(65, 25)
         Me.btnSearchCounty.TabIndex = 5
@@ -410,7 +308,7 @@ Partial Class SBEAPClientSearchTool
         '
         'txtSearchCounty
         '
-        Me.txtSearchCounty.Location = New System.Drawing.Point(128, 6)
+        Me.txtSearchCounty.Location = New System.Drawing.Point(53, 6)
         Me.txtSearchCounty.Name = "txtSearchCounty"
         Me.txtSearchCounty.Size = New System.Drawing.Size(161, 20)
         Me.txtSearchCounty.TabIndex = 4
@@ -438,7 +336,7 @@ Partial Class SBEAPClientSearchTool
         '
         'btnSearchSIC
         '
-        Me.btnSearchSIC.Location = New System.Drawing.Point(308, 3)
+        Me.btnSearchSIC.Location = New System.Drawing.Point(204, 3)
         Me.btnSearchSIC.Name = "btnSearchSIC"
         Me.btnSearchSIC.Size = New System.Drawing.Size(65, 25)
         Me.btnSearchSIC.TabIndex = 5
@@ -447,7 +345,7 @@ Partial Class SBEAPClientSearchTool
         '
         'txtSearchSIC
         '
-        Me.txtSearchSIC.Location = New System.Drawing.Point(128, 6)
+        Me.txtSearchSIC.Location = New System.Drawing.Point(37, 6)
         Me.txtSearchSIC.Name = "txtSearchSIC"
         Me.txtSearchSIC.Size = New System.Drawing.Size(161, 20)
         Me.txtSearchSIC.TabIndex = 4
@@ -475,7 +373,7 @@ Partial Class SBEAPClientSearchTool
         '
         'btnSearchNAICS
         '
-        Me.btnSearchNAICS.Location = New System.Drawing.Point(308, 3)
+        Me.btnSearchNAICS.Location = New System.Drawing.Point(219, 3)
         Me.btnSearchNAICS.Name = "btnSearchNAICS"
         Me.btnSearchNAICS.Size = New System.Drawing.Size(65, 25)
         Me.btnSearchNAICS.TabIndex = 5
@@ -484,7 +382,7 @@ Partial Class SBEAPClientSearchTool
         '
         'txtSearchNAICS
         '
-        Me.txtSearchNAICS.Location = New System.Drawing.Point(128, 6)
+        Me.txtSearchNAICS.Location = New System.Drawing.Point(52, 6)
         Me.txtSearchNAICS.Name = "txtSearchNAICS"
         Me.txtSearchNAICS.Size = New System.Drawing.Size(161, 20)
         Me.txtSearchNAICS.TabIndex = 4
@@ -512,7 +410,7 @@ Partial Class SBEAPClientSearchTool
         '
         'btnSearchAIRSNumber
         '
-        Me.btnSearchAIRSNumber.Location = New System.Drawing.Point(308, 3)
+        Me.btnSearchAIRSNumber.Location = New System.Drawing.Point(252, 3)
         Me.btnSearchAIRSNumber.Name = "btnSearchAIRSNumber"
         Me.btnSearchAIRSNumber.Size = New System.Drawing.Size(65, 25)
         Me.btnSearchAIRSNumber.TabIndex = 5
@@ -521,7 +419,7 @@ Partial Class SBEAPClientSearchTool
         '
         'txtSearchAIRSNumber
         '
-        Me.txtSearchAIRSNumber.Location = New System.Drawing.Point(128, 6)
+        Me.txtSearchAIRSNumber.Location = New System.Drawing.Point(85, 6)
         Me.txtSearchAIRSNumber.Name = "txtSearchAIRSNumber"
         Me.txtSearchAIRSNumber.Size = New System.Drawing.Size(161, 20)
         Me.txtSearchAIRSNumber.TabIndex = 4
@@ -550,7 +448,7 @@ Partial Class SBEAPClientSearchTool
         '
         'mtbSearchNumberOfEmployees
         '
-        Me.mtbSearchNumberOfEmployees.Location = New System.Drawing.Point(128, 6)
+        Me.mtbSearchNumberOfEmployees.Location = New System.Drawing.Point(93, 6)
         Me.mtbSearchNumberOfEmployees.Mask = "00000"
         Me.mtbSearchNumberOfEmployees.Name = "mtbSearchNumberOfEmployees"
         Me.mtbSearchNumberOfEmployees.Size = New System.Drawing.Size(40, 20)
@@ -564,7 +462,7 @@ Partial Class SBEAPClientSearchTool
         Me.Panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel2.Controls.Add(Me.rdbEmployeeGreaterThan)
         Me.Panel2.Controls.Add(Me.rdbEmployeeLessThan)
-        Me.Panel2.Location = New System.Drawing.Point(185, 5)
+        Me.Panel2.Location = New System.Drawing.Point(139, 3)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(86, 23)
         Me.Panel2.TabIndex = 6
@@ -593,7 +491,7 @@ Partial Class SBEAPClientSearchTool
         '
         'btnSearchNumberOfEmployees
         '
-        Me.btnSearchNumberOfEmployees.Location = New System.Drawing.Point(308, 3)
+        Me.btnSearchNumberOfEmployees.Location = New System.Drawing.Point(231, 3)
         Me.btnSearchNumberOfEmployees.Name = "btnSearchNumberOfEmployees"
         Me.btnSearchNumberOfEmployees.Size = New System.Drawing.Size(65, 25)
         Me.btnSearchNumberOfEmployees.TabIndex = 5
@@ -611,110 +509,101 @@ Partial Class SBEAPClientSearchTool
         '
         'dgvClientInformation
         '
+        Me.dgvClientInformation.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvClientInformation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvClientInformation.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvClientInformation.Location = New System.Drawing.Point(0, 70)
+        Me.dgvClientInformation.Location = New System.Drawing.Point(0, 194)
         Me.dgvClientInformation.Name = "dgvClientInformation"
-        Me.dgvClientInformation.Size = New System.Drawing.Size(492, 229)
+        Me.dgvClientInformation.Size = New System.Drawing.Size(492, 272)
         Me.dgvClientInformation.TabIndex = 1
-        '
-        'Panel1
-        '
-        Me.Panel1.Controls.Add(Me.Label12)
-        Me.Panel1.Controls.Add(Me.txtCount)
-        Me.Panel1.Controls.Add(Me.txtClientCompanyName)
-        Me.Panel1.Controls.Add(Me.Label3)
-        Me.Panel1.Controls.Add(Me.btnUseClientID)
-        Me.Panel1.Controls.Add(Me.txtClientID)
-        Me.Panel1.Controls.Add(Me.Label2)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel1.Location = New System.Drawing.Point(0, 0)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(492, 70)
-        Me.Panel1.TabIndex = 0
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(372, 48)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(38, 13)
-        Me.Label12.TabIndex = 9
-        Me.Label12.Text = "Count:"
-        '
-        'txtCount
-        '
-        Me.txtCount.Location = New System.Drawing.Point(416, 44)
-        Me.txtCount.Name = "txtCount"
-        Me.txtCount.ReadOnly = True
-        Me.txtCount.Size = New System.Drawing.Size(64, 20)
-        Me.txtCount.TabIndex = 8
         '
         'txtClientCompanyName
         '
-        Me.txtClientCompanyName.Location = New System.Drawing.Point(143, 32)
+        Me.txtClientCompanyName.Location = New System.Drawing.Point(119, 143)
         Me.txtClientCompanyName.Name = "txtClientCompanyName"
         Me.txtClientCompanyName.ReadOnly = True
         Me.txtClientCompanyName.Size = New System.Drawing.Size(161, 20)
         Me.txtClientCompanyName.TabIndex = 7
         '
-        'Label3
+        'CompanyNameLabel
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(12, 36)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(132, 13)
-        Me.Label3.TabIndex = 6
-        Me.Label3.Text = "Customer Company Name:"
+        Me.CompanyNameLabel.AutoSize = True
+        Me.CompanyNameLabel.Location = New System.Drawing.Point(15, 146)
+        Me.CompanyNameLabel.Name = "CompanyNameLabel"
+        Me.CompanyNameLabel.Size = New System.Drawing.Size(98, 13)
+        Me.CompanyNameLabel.TabIndex = 6
+        Me.CompanyNameLabel.Text = "Customer Company"
         '
-        'btnUseClientID
+        'UseSelection
         '
-        Me.btnUseClientID.Location = New System.Drawing.Point(323, 4)
-        Me.btnUseClientID.Name = "btnUseClientID"
-        Me.btnUseClientID.Size = New System.Drawing.Size(65, 25)
-        Me.btnUseClientID.TabIndex = 5
-        Me.btnUseClientID.Text = "Use"
-        Me.btnUseClientID.UseVisualStyleBackColor = True
+        Me.UseSelection.DialogResult = System.Windows.Forms.DialogResult.OK
+        Me.UseSelection.Enabled = False
+        Me.UseSelection.Location = New System.Drawing.Point(286, 117)
+        Me.UseSelection.Name = "UseSelection"
+        Me.UseSelection.Size = New System.Drawing.Size(65, 46)
+        Me.UseSelection.TabIndex = 5
+        Me.UseSelection.Text = "Use"
+        Me.UseSelection.UseVisualStyleBackColor = True
         '
         'txtClientID
         '
-        Me.txtClientID.Location = New System.Drawing.Point(143, 6)
+        Me.txtClientID.Location = New System.Drawing.Point(119, 117)
         Me.txtClientID.Name = "txtClientID"
         Me.txtClientID.ReadOnly = True
         Me.txtClientID.Size = New System.Drawing.Size(161, 20)
         Me.txtClientID.TabIndex = 4
         '
-        'Label2
+        'CustomerIDLabel
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(12, 10)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(68, 13)
-        Me.Label2.TabIndex = 3
-        Me.Label2.Text = "Customer ID:"
+        Me.CustomerIDLabel.AutoSize = True
+        Me.CustomerIDLabel.Location = New System.Drawing.Point(15, 120)
+        Me.CustomerIDLabel.Name = "CustomerIDLabel"
+        Me.CustomerIDLabel.Size = New System.Drawing.Size(65, 13)
+        Me.CustomerIDLabel.TabIndex = 3
+        Me.CustomerIDLabel.Text = "Customer ID"
+        '
+        'Cancel
+        '
+        Me.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.Cancel.Location = New System.Drawing.Point(357, 117)
+        Me.Cancel.Name = "Cancel"
+        Me.Cancel.Size = New System.Drawing.Size(65, 46)
+        Me.Cancel.TabIndex = 8
+        Me.Cancel.Text = "Cancel"
+        Me.Cancel.UseVisualStyleBackColor = True
+        '
+        'lblSearchResults
+        '
+        Me.lblSearchResults.AutoSize = True
+        Me.lblSearchResults.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSearchResults.Location = New System.Drawing.Point(15, 178)
+        Me.lblSearchResults.Name = "lblSearchResults"
+        Me.lblSearchResults.Size = New System.Drawing.Size(195, 13)
+        Me.lblSearchResults.TabIndex = 217
+        Me.lblSearchResults.Text = "Possible Matches to Your Search"
         '
         'SBEAPClientSearchTool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(492, 466)
-        Me.Controls.Add(Me.SplitContainer1)
+        Me.Controls.Add(Me.lblSearchResults)
+        Me.Controls.Add(Me.Cancel)
+        Me.Controls.Add(Me.dgvClientInformation)
+        Me.Controls.Add(Me.txtClientCompanyName)
+        Me.Controls.Add(Me.CustomerIDLabel)
+        Me.Controls.Add(Me.CompanyNameLabel)
+        Me.Controls.Add(Me.txtClientID)
+        Me.Controls.Add(Me.UseSelection)
+        Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.ToolStrip1)
-        Me.Controls.Add(Me.StatusStrip1)
-        Me.Controls.Add(Me.MenuStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow
         Me.Name = "SBEAPClientSearchTool"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "SBEAP Customer Search Tool"
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
-        Me.SplitContainer1.Panel1.ResumeLayout(False)
-        Me.SplitContainer1.Panel2.ResumeLayout(False)
-        Me.SplitContainer1.ResumeLayout(False)
         Me.TabControl1.ResumeLayout(False)
         Me.TPClientCompanyName.ResumeLayout(False)
         Me.TPClientCompanyName.PerformLayout()
@@ -737,23 +626,12 @@ Partial Class SBEAPClientSearchTool
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         CType(Me.dgvClientInformation, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
     Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents tsbClear As System.Windows.Forms.ToolStripButton
-    Friend WithEvents tsbBack As System.Windows.Forms.ToolStripButton
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents lbl1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents lbl2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents lbl3 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
-    Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
     Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
     Friend WithEvents TPClientCompanyName As System.Windows.Forms.TabPage
     Friend WithEvents Label1 As System.Windows.Forms.Label
@@ -762,14 +640,13 @@ Partial Class SBEAPClientSearchTool
     Friend WithEvents TPZipCodeSearch As System.Windows.Forms.TabPage
     Friend WithEvents TPCountySearch As System.Windows.Forms.TabPage
     Friend WithEvents dgvClientInformation As System.Windows.Forms.DataGridView
-    Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents btnSearchCompanyName As System.Windows.Forms.Button
     Friend WithEvents txtSearchCompanyName As System.Windows.Forms.TextBox
     Friend WithEvents txtClientCompanyName As System.Windows.Forms.TextBox
-    Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents btnUseClientID As System.Windows.Forms.Button
+    Friend WithEvents CompanyNameLabel As System.Windows.Forms.Label
+    Friend WithEvents UseSelection As System.Windows.Forms.Button
     Friend WithEvents txtClientID As System.Windows.Forms.TextBox
-    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents CustomerIDLabel As System.Windows.Forms.Label
     Friend WithEvents chbSearchHistoricalNames As System.Windows.Forms.CheckBox
     Friend WithEvents TPSICSearch As System.Windows.Forms.TabPage
     Friend WithEvents TPNAICSSearch As System.Windows.Forms.TabPage
@@ -798,10 +675,10 @@ Partial Class SBEAPClientSearchTool
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents btnSearchNumberOfEmployees As System.Windows.Forms.Button
     Friend WithEvents Label11 As System.Windows.Forms.Label
-    Friend WithEvents Panel2 As System.Windows.Forms.Panel
     Friend WithEvents rdbEmployeeGreaterThan As System.Windows.Forms.RadioButton
     Friend WithEvents rdbEmployeeLessThan As System.Windows.Forms.RadioButton
     Friend WithEvents mtbSearchNumberOfEmployees As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents Label12 As System.Windows.Forms.Label
-    Friend WithEvents txtCount As System.Windows.Forms.TextBox
+    Friend WithEvents Panel2 As System.Windows.Forms.Panel
+    Friend WithEvents Cancel As System.Windows.Forms.Button
+    Friend WithEvents lblSearchResults As System.Windows.Forms.Label
 End Class

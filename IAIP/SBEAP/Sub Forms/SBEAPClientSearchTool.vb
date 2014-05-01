@@ -4,19 +4,30 @@ Public Class SBEAPClientSearchTool
     Dim dsSearch As DataSet
     Dim daSearch As OracleDataAdapter
 
+#Region " Form events "
 
     Private Sub SBEAPClientSearchTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        Try
-            lbl1.Text = "Search for a Client..."
-            lbl2.Text = UserName
-            lbl3.Text = OracleDate
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        If Not Me.Modal Then Me.Close()
     End Sub
+
+    Private Sub SBEAPClientSearchTool_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
+        txtSearchCompanyName.Focus()
+    End Sub
+
+#End Region
+
+#Region " Form properties "
+
+    Public ReadOnly Property SelectedClientID() As String
+        Get
+            Return txtClientID.Text
+        End Get
+    End Property
+
+#End Region
+
+#Region " Search procedures "
+
     Sub ClientSearch(ByVal Source As String)
         Try
 
@@ -243,7 +254,6 @@ Public Class SBEAPClientSearchTool
                 Case Else
 
             End Select
-            txtCount.Text = dgvClientInformation.RowCount.ToString
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -251,6 +261,9 @@ Public Class SBEAPClientSearchTool
 
         End Try
     End Sub
+
+#Region " Search buttons "
+
     Private Sub btnSearchCompanyName_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearchCompanyName.Click
         Try
             If chbSearchHistoricalNames.Checked = False Then
@@ -340,53 +353,91 @@ Public Class SBEAPClientSearchTool
 
         End Try
     End Sub
-    Private Sub dgvClientInformation_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvClientInformation.MouseUp
-        Try
-            Dim hti As DataGridView.HitTestInfo = dgvClientInformation.HitTest(e.X, e.Y)
-            If dgvClientInformation.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvClientInformation.Columns(0).HeaderText = "Customer ID" Then
-                    If IsDBNull(dgvClientInformation(0, hti.RowIndex).Value) Then
-                        txtClientID.Text = ""
-                        txtClientCompanyName.Text = ""
-                    Else
-                        txtClientID.Text = dgvClientInformation(0, hti.RowIndex).Value
-                        txtClientCompanyName.Text = dgvClientInformation(1, hti.RowIndex).Value
-                    End If
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
-    Private Sub btnUseClientID_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUseClientID.Click
-        Try
-            If ClientSummary Is Nothing Then
-            Else
-                ClientSummary.txtClientID.Text = txtClientID.Text
-                If ClientSummary.txtClientID.Text <> "" Then
-                    ClientSummary.LoadClientData()
-                End If
-            End If
-            If CaseWork Is Nothing Then
-            Else
-                CaseWork.txtClientID.Text = txtClientID.Text
-                If CaseWork.txtClientID.Text <> "" Then
-                    CaseWork.LoadClientInfo()
-                End If
-            End If
-            If PhoneLog Is Nothing Then
-            Else
-                PhoneLog.txtClientID.Text = txtClientID.Text
-                If PhoneLog.txtClientID.Text <> "" Then
-                    PhoneLog.LoadClientInfo()
-                End If
-            End If
 
+#End Region
+
+#End Region
+
+#Region " Results DataGridView "
+
+    Private Sub dgvClientInformation_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvClientInformation.MouseUp
+        Dim hti As DataGridView.HitTestInfo = dgvClientInformation.HitTest(e.X, e.Y)
+
+        Try
+            If dgvClientInformation.RowCount > 0 And hti.RowIndex <> -1 Then
+                txtClientID.Text = dgvClientInformation(0, hti.RowIndex).FormattedValue
+                txtClientCompanyName.Text = dgvClientInformation(1, hti.RowIndex).FormattedValue
+                UseSelection.Enabled = True
+            End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
+
+#End Region
+
+#Region " Toolbar "
+
+    Private Sub tsbClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbClear.Click
+        txtSearchAIRSNumber.Clear()
+        txtSearchCity.Clear()
+        txtSearchCompanyName.Clear()
+        txtSearchCounty.Clear()
+        txtSearchNAICS.Clear()
+        txtSearchSIC.Clear()
+        txtSearchStreet.Clear()
+        txtSearchZipCode.Clear()
+        chbSearchHistoricalNames.Checked = False
+        UseSelection.Enabled = False
+        dgvClientInformation.DataSource = Nothing
+    End Sub
+
+#End Region
+
+#Region " Accept Button "
+
+    Private Sub TPClientCompanyName_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TPClientCompanyName.Enter
+        Me.AcceptButton = btnSearchCompanyName
+    End Sub
+
+    Private Sub TPAddressSearch_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TPAddressSearch.Enter
+        Me.AcceptButton = btnSearchStreet
+    End Sub
+
+    Private Sub TPCitySearch_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TPCitySearch.Enter
+        Me.AcceptButton = btnSearchCity
+    End Sub
+
+    Private Sub TPZipCodeSearch_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TPZipCodeSearch.Enter
+        Me.AcceptButton = btnSearchZipCode
+    End Sub
+
+    Private Sub TPCountySearch_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TPCountySearch.Enter
+        Me.AcceptButton = btnSearchCounty
+    End Sub
+
+    Private Sub TPSICSearch_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TPSICSearch.Enter
+        Me.AcceptButton = btnSearchSIC
+    End Sub
+
+    Private Sub TPNAICSSearch_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TPNAICSSearch.Enter
+        Me.AcceptButton = btnSearchNAICS
+    End Sub
+
+    Private Sub TPAIRSNumberSearch_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TPAIRSNumberSearch.Enter
+        Me.AcceptButton = btnSearchAIRSNumber
+    End Sub
+
+    Private Sub TPNumberOfEmployees_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TPNumberOfEmployees.Enter
+        Me.AcceptButton = btnSearchNumberOfEmployees
+    End Sub
+
+    Private Sub tabPages_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles TPClientCompanyName.Leave, TPAddressSearch.Leave, TPCitySearch.Leave, TPZipCodeSearch.Leave, _
+    TPCountySearch.Leave, TPSICSearch.Leave, TPNAICSSearch.Leave, TPAIRSNumberSearch.Leave, TPNumberOfEmployees.Leave
+        Me.AcceptButton = UseSelection
+    End Sub
+
+#End Region
 
 End Class
