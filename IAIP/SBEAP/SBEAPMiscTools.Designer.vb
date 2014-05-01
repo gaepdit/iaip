@@ -35,6 +35,7 @@ Partial Class SBEAPMiscTools
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.dgvMiscTools = New System.Windows.Forms.DataGridView
         Me.pnlMiscTools = New System.Windows.Forms.Panel
+        Me.Label6 = New System.Windows.Forms.Label
         Me.txtCount = New System.Windows.Forms.TextBox
         Me.lblCount = New System.Windows.Forms.Label
         Me.btnGetContactData = New System.Windows.Forms.Button
@@ -49,7 +50,6 @@ Partial Class SBEAPMiscTools
         Me.DTPEndDate = New System.Windows.Forms.DateTimePicker
         Me.DTPStartDate = New System.Windows.Forms.DateTimePicker
         Me.btnGetCaseLog = New System.Windows.Forms.Button
-        Me.Label6 = New System.Windows.Forms.Label
         Me.ToolStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
@@ -138,13 +138,13 @@ Partial Class SBEAPMiscTools
         'FileToolStripMenuItem
         '
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(35, 20)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "File"
         '
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(40, 20)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
         'dgvMiscTools
@@ -167,6 +167,15 @@ Partial Class SBEAPMiscTools
         Me.pnlMiscTools.Name = "pnlMiscTools"
         Me.pnlMiscTools.Size = New System.Drawing.Size(778, 86)
         Me.pnlMiscTools.TabIndex = 13
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(123, 18)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(267, 13)
+        Me.Label6.TabIndex = 4
+        Me.Label6.Text = "WARNING - This tool may take several minutes to run. "
         '
         'txtCount
         '
@@ -311,15 +320,6 @@ Partial Class SBEAPMiscTools
         Me.btnGetCaseLog.Text = "Get Case Log"
         Me.btnGetCaseLog.UseVisualStyleBackColor = True
         '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(123, 18)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(267, 13)
-        Me.Label6.TabIndex = 4
-        Me.Label6.Text = "WARNING - This tool may take several minutes to run. "
-        '
         'SBEAPMiscTools
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -329,7 +329,6 @@ Partial Class SBEAPMiscTools
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "SBEAPMiscTools"
         Me.Text = "SBEAP Miscellaneous Tools"
         Me.ToolStrip1.ResumeLayout(False)

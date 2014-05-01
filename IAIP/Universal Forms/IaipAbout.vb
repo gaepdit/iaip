@@ -1,6 +1,7 @@
 Public Class IaipAbout
 
     Private Sub IaipAbout_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         lblVersion.Text = "Version " & GetCurrentVersion().ToString
     End Sub
 

@@ -157,19 +157,19 @@ Partial Class SBEAPCaseLog
         '
         Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiOpenNewCase})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(35, 20)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "File"
         '
         'mmiOpenNewCase
         '
         Me.mmiOpenNewCase.Name = "mmiOpenNewCase"
-        Me.mmiOpenNewCase.Size = New System.Drawing.Size(162, 22)
+        Me.mmiOpenNewCase.Size = New System.Drawing.Size(158, 22)
         Me.mmiOpenNewCase.Text = "Open New Case"
         '
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(40, 20)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
         'SCCaseLog
@@ -541,7 +541,6 @@ Partial Class SBEAPCaseLog
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "SBEAPCaseLog"
         Me.Text = "SBEAP Case Log"
         Me.ToolStrip1.ResumeLayout(False)

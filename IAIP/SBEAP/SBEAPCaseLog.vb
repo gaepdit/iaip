@@ -24,6 +24,7 @@ Public Class SBEAPCaseLog
 
 
     Private Sub SBEAPCaseLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
             label1.Text = "Select Case Work"
             Label2.Text = UserName
@@ -52,7 +53,7 @@ Public Class SBEAPCaseLog
 
             mmiOpenNewCase.Visible = True
             btnOpenCase.Enabled = True
-            
+
             bgw1.WorkerReportsProgress = True
             bgw1.WorkerSupportsCancellation = True
             bgw1.RunWorkerAsync()

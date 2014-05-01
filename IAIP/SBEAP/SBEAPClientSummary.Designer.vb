@@ -74,6 +74,8 @@ Partial Class SBEAPClientSummary
         Me.txtStreetAddress = New System.Windows.Forms.TextBox
         Me.Label3 = New System.Windows.Forms.Label
         Me.TPCompanyInformation = New System.Windows.Forms.TabPage
+        Me.lblNAICS = New System.Windows.Forms.Label
+        Me.lblSIC = New System.Windows.Forms.Label
         Me.llbNAICSSearch = New System.Windows.Forms.LinkLabel
         Me.llbSICSearch = New System.Windows.Forms.LinkLabel
         Me.Label38 = New System.Windows.Forms.Label
@@ -173,8 +175,6 @@ Partial Class SBEAPClientSummary
         Me.btnOpenCase = New System.Windows.Forms.Button
         Me.txtCaseID = New System.Windows.Forms.TextBox
         Me.dgvCaseLog = New System.Windows.Forms.DataGridView
-        Me.lblSIC = New System.Windows.Forms.Label
-        Me.lblNAICS = New System.Windows.Forms.Label
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
@@ -204,26 +204,26 @@ Partial Class SBEAPClientSummary
         'FileToolStripMenuItem
         '
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(35, 20)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "File"
         '
         'ToolToolStripMenuItem
         '
         Me.ToolToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiDeleteClient})
         Me.ToolToolStripMenuItem.Name = "ToolToolStripMenuItem"
-        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
+        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(43, 20)
         Me.ToolToolStripMenuItem.Text = "Tool"
         '
         'mmiDeleteClient
         '
         Me.mmiDeleteClient.Name = "mmiDeleteClient"
-        Me.mmiDeleteClient.Size = New System.Drawing.Size(165, 22)
+        Me.mmiDeleteClient.Size = New System.Drawing.Size(162, 22)
         Me.mmiDeleteClient.Text = "Delete Customer"
         '
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(40, 20)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
         'StatusStrip1
@@ -679,6 +679,22 @@ Partial Class SBEAPClientSummary
         Me.TPCompanyInformation.Text = "Company Information"
         Me.TPCompanyInformation.UseVisualStyleBackColor = True
         '
+        'lblNAICS
+        '
+        Me.lblNAICS.AutoSize = True
+        Me.lblNAICS.Location = New System.Drawing.Point(187, 61)
+        Me.lblNAICS.Name = "lblNAICS"
+        Me.lblNAICS.Size = New System.Drawing.Size(0, 13)
+        Me.lblNAICS.TabIndex = 34
+        '
+        'lblSIC
+        '
+        Me.lblSIC.AutoSize = True
+        Me.lblSIC.Location = New System.Drawing.Point(153, 35)
+        Me.lblSIC.Name = "lblSIC"
+        Me.lblSIC.Size = New System.Drawing.Size(0, 13)
+        Me.lblSIC.TabIndex = 33
+        '
         'llbNAICSSearch
         '
         Me.llbNAICSSearch.AutoSize = True
@@ -1068,7 +1084,7 @@ Partial Class SBEAPClientSummary
         Me.TPStormWater.Location = New System.Drawing.Point(4, 22)
         Me.TPStormWater.Name = "TPStormWater"
         Me.TPStormWater.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPStormWater.Size = New System.Drawing.Size(770, 311)
+        Me.TPStormWater.Size = New System.Drawing.Size(770, 276)
         Me.TPStormWater.TabIndex = 1
         Me.TPStormWater.Text = "Storm Water"
         Me.TPStormWater.UseVisualStyleBackColor = True
@@ -1077,7 +1093,7 @@ Partial Class SBEAPClientSummary
         '
         Me.TPWasteWater.Location = New System.Drawing.Point(4, 22)
         Me.TPWasteWater.Name = "TPWasteWater"
-        Me.TPWasteWater.Size = New System.Drawing.Size(770, 311)
+        Me.TPWasteWater.Size = New System.Drawing.Size(770, 276)
         Me.TPWasteWater.TabIndex = 2
         Me.TPWasteWater.Text = "Waste Water"
         Me.TPWasteWater.UseVisualStyleBackColor = True
@@ -1086,7 +1102,7 @@ Partial Class SBEAPClientSummary
         '
         Me.TPSolidWaste.Location = New System.Drawing.Point(4, 22)
         Me.TPSolidWaste.Name = "TPSolidWaste"
-        Me.TPSolidWaste.Size = New System.Drawing.Size(770, 311)
+        Me.TPSolidWaste.Size = New System.Drawing.Size(770, 276)
         Me.TPSolidWaste.TabIndex = 3
         Me.TPSolidWaste.Text = "Solid Waste"
         Me.TPSolidWaste.UseVisualStyleBackColor = True
@@ -1095,7 +1111,7 @@ Partial Class SBEAPClientSummary
         '
         Me.TPLand.Location = New System.Drawing.Point(4, 22)
         Me.TPLand.Name = "TPLand"
-        Me.TPLand.Size = New System.Drawing.Size(770, 311)
+        Me.TPLand.Size = New System.Drawing.Size(770, 276)
         Me.TPLand.TabIndex = 4
         Me.TPLand.Text = "Land"
         Me.TPLand.UseVisualStyleBackColor = True
@@ -1104,7 +1120,7 @@ Partial Class SBEAPClientSummary
         '
         Me.TPHazardousWaste.Location = New System.Drawing.Point(4, 22)
         Me.TPHazardousWaste.Name = "TPHazardousWaste"
-        Me.TPHazardousWaste.Size = New System.Drawing.Size(770, 311)
+        Me.TPHazardousWaste.Size = New System.Drawing.Size(770, 276)
         Me.TPHazardousWaste.TabIndex = 5
         Me.TPHazardousWaste.Text = "Hazardous Waste"
         Me.TPHazardousWaste.UseVisualStyleBackColor = True
@@ -1642,22 +1658,6 @@ Partial Class SBEAPClientSummary
         Me.dgvCaseLog.Size = New System.Drawing.Size(784, 350)
         Me.dgvCaseLog.TabIndex = 0
         '
-        'lblSIC
-        '
-        Me.lblSIC.AutoSize = True
-        Me.lblSIC.Location = New System.Drawing.Point(153, 35)
-        Me.lblSIC.Name = "lblSIC"
-        Me.lblSIC.Size = New System.Drawing.Size(0, 13)
-        Me.lblSIC.TabIndex = 33
-        '
-        'lblNAICS
-        '
-        Me.lblNAICS.AutoSize = True
-        Me.lblNAICS.Location = New System.Drawing.Point(187, 61)
-        Me.lblNAICS.Name = "lblNAICS"
-        Me.lblNAICS.Size = New System.Drawing.Size(0, 13)
-        Me.lblNAICS.TabIndex = 34
-        '
         'SBEAPClientSummary
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1668,7 +1668,6 @@ Partial Class SBEAPClientSummary
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "SBEAPClientSummary"
         Me.Text = "Customer Summary"

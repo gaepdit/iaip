@@ -11,6 +11,7 @@ Public Class SBEAPPhoneLog
     End Property
 
     Private Sub SBEAPPhoneLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
             lbl1.Text = "Enter Phone Log Info..."
             lbl2.Text = UserName

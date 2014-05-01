@@ -171,20 +171,20 @@ Partial Class SBEAPPhoneLog
         'FileToolStripMenuItem
         '
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(35, 20)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "File"
         '
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiClearCaseID})
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(40, 20)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
         'mmiClearCaseID
         '
         Me.mmiClearCaseID.Name = "mmiClearCaseID"
-        Me.mmiClearCaseID.Size = New System.Drawing.Size(151, 22)
+        Me.mmiClearCaseID.Size = New System.Drawing.Size(143, 22)
         Me.mmiClearCaseID.Text = "Clear Case ID"
         '
         'txtCaseSummary
@@ -590,7 +590,6 @@ Partial Class SBEAPPhoneLog
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "SBEAPPhoneLog"
         Me.Text = "SBEAP Phone Log"
         Me.ToolStrip1.ResumeLayout(False)

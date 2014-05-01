@@ -19,6 +19,7 @@ Public Class SBEAPCaseWork
     End Property
 
     Private Sub SBEAPCaseLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
             If IsNumeric(txtCaseID.Text) = True Then
                 btnAddNewAction.Enabled = True

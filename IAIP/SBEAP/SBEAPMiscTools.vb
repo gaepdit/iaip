@@ -10,6 +10,7 @@ Public Class SBEAPMiscTools
     Dim rpt As ReportDocument
 
     Private Sub SBEAPMiscTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
 
             TCMiscTools.TabPages.Remove(TPCaseWork)
