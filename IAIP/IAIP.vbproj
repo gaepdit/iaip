@@ -38,7 +38,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <PublishUrl>ftp://167.193.56.178/AirPermit/IAIP/install/</PublishUrl>
+    <PublishUrl>ftp://167.193.56.178/AirPermit/IAIP/install/sbeap/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -48,15 +48,15 @@
     <UpdatePeriodically>true</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://airpermit.dnr.state.ga.us/iaip/install/</InstallUrl>
+    <InstallUrl>http://airpermit.dnr.state.ga.us/iaip/install/sbeap/</InstallUrl>
     <SupportUrl>http://airpermit.dnr.state.ga.us/iaip/</SupportUrl>
     <ProductName>Integrated Air Information Platform</ProductName>
     <PublisherName>State of Georgia</PublisherName>
     <MinimumRequiredVersion>3.2.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>IAIP-install.html</WebPage>
-    <ApplicationRevision>14</ApplicationRevision>
-    <ApplicationVersion>3.2.0.%2a</ApplicationVersion>
+    <ApplicationRevision>16</ApplicationRevision>
+    <ApplicationVersion>3.3.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1775,11 +1775,6 @@
     <Compile Include="_Modules\Win32ApiCalls.vb" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include="BusinessObjects.CrystalReports.10.5">
-      <Visible>False</Visible>
-      <ProductName>Crystal Reports Basic for Visual Studio 2008 %28x86, x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework Client Profile</ProductName>
@@ -1803,11 +1798,6 @@
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Office.PIARedist.2010">
-      <Visible>False</Visible>
-      <ProductName>Microsoft Office 2010 Primary Interop Assemblies</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
