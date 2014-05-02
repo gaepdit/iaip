@@ -10523,7 +10523,7 @@ Me.ClientSize = New System.Drawing.Size(1016, 713)
 Me.Controls.Add(Me.TCDMUTools)
 Me.Controls.Add(Me.Label1)
 Me.Name = "DMUStaffTools"
-Me.Text = "DMU Staff Tools"
+Me.Text = "EIS & GECO Tools"
 Me.TCDMUTools.ResumeLayout(false)
 Me.TPEISLog.ResumeLayout(false)
 Me.TabControl6.ResumeLayout(false)

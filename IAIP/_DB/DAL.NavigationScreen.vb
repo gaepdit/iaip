@@ -44,6 +44,8 @@ Namespace DAL
             ProgCoord_UC
             ProgCoord_DistrictLiaison
             ProgCoord_Staff
+            SBEAP_Staff
+            SBEAP_Program
         End Enum
 
         ''' <summary>
@@ -1383,6 +1385,20 @@ Namespace DAL
                       "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible " & _
                       "and datFinalizedDate is NULL " & _
                       "order by AIRBranch.SSPPApplicationMaster.strApplicationNumber DESC  "
+
+                Case WorkViewerType.SBEAP_Staff
+                    ' Requires :pId = UserGCode
+                    SQL = "select * " & _
+                    "from " & DBNameSpace & ".VW_SBEAP_CaseLog " & _
+                    "where caseclosed is null " & _
+                    "and numstaffresponsible = :pId " & _
+                    "order by numcaseid "
+
+                Case WorkViewerType.SBEAP_Program
+                    SQL = "select * " & _
+                    "from " & DBNameSpace & ".VW_SBEAP_CaseLog " & _
+                    "where caseclosed is null " & _
+                    "order by numcaseid "
 
                 Case Else
                     SQL = ""

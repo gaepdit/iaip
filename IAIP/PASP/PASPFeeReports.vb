@@ -338,16 +338,6 @@ Public Class PASPFeeReports
             DisplayReport(CRFeesReports, "Annual Emission and Fee")
             CRFeesReports.Refresh()
 
-            'Dim crReportDocument As TotalFee
-
-            ' 
-            'progress1.progress = -1
-            'crReportDocument = New TotalFee
-            'crReportDocument.SetDatabaseLogon("AIRBranch_App_User", SimpleCrypt("зтбрт±м"))
-
-            'CRFeesReports.ReportSource = crReportDocument
-            'DisplayReport(CRFeesReports, "Annual Emission and Fee")
-            'CRFeesReports.Refresh()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -381,16 +371,6 @@ Public Class PASPFeeReports
             DisplayReport(CRFeesReports, "Facility Classification Totals")
             CRFeesReports.Refresh()
 
-            'Dim crReportDocument As FacilityClassification
-
-            ' 
-            'progress1.progress = -1
-            'crReportDocument = New FacilityClassification
-            'crReportDocument.SetDatabaseLogon("AIRBranch_App_User", SimpleCrypt("зтбрт±м"))
-
-            'CRFeesReports.ReportSource = crReportDocument
-            'DisplayReport(CRFeesReports, "Facility Classification Totals")
-            'CRFeesReports.Refresh()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -971,7 +951,7 @@ Public Class PASPFeeReports
             p.Add(p2)
             CRFeesReports.ParameterFieldInfo = p
 
-            rpt.SetDatabaseLogon("AIRBranch_App_User", SimpleCrypt("зтбрт±м"))
+            'rpt.SetDatabaseLogon("AIRBranch_App_User", SimpleCrypt("зтбрт±м"))
             CRFeesReports.ReportSource = rpt
             DisplayReport(CRFeesReports, header)
             CRFeesReports.DisplayGroupTree = False
@@ -1020,16 +1000,6 @@ Public Class PASPFeeReports
             CRFeesReports.ShowGroupTreeButton = True
             CRFeesReports.Refresh()
 
-
-            'Dim crReportDocument As ClassChanged
-
-            ' 
-            'pnlNSPS.Visible = False
-            'crReportDocument = New ClassChanged
-            'crReportDocument.SetDatabaseLogon("AIRBranch_App_User", SimpleCrypt("зтбрт±м"))
-            'CRFeesReports.ReportSource = crReportDocument
-            'DisplayReport(CRFeesReports, "Change in Classification")
-            'CRFeesReports.Refresh()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -1264,15 +1234,6 @@ Public Class PASPFeeReports
             DisplayReport(CRFeesReports, "Did Not Operate")
             CRFeesReports.Refresh()
 
-            'Dim crReportDocument As NoOperate
-
-            ' 
-            'pnlNSPS.Visible = False
-            'crReportDocument = New NoOperate
-            'crReportDocument.SetDatabaseLogon("AIRBranch_App_User", SimpleCrypt("зтбрт±м"))
-            'CRFeesReports.ReportSource = crReportDocument
-            'DisplayReport(CRFeesReports, "Did Not Operate")
-            'CRFeesReports.Refresh()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -1383,44 +1344,6 @@ Public Class PASPFeeReports
         End Try
 
         progress1.progress = 0
-    End Sub
-
-#End Region
-
-#Region "Crystal Reports displayer"
-
-    Sub DisplayReport(ByVal crReport As Object, ByVal TabText As String)
-        Try
-            crReport.DisplayGroupTree = True
-            crReport.DisplayToolbar = True
-            crReport.showrefreshbutton = False
-            crReport.visible = True
-            crReport.DisplayGroupTree = True
-
-            Dim I As Integer
-            Do While I < crReport.Controls.Count
-                If TypeOf (crReport.Controls(I)) Is CrystalDecisions.Windows.Forms.PageView Then
-                    Dim J As Integer
-                    Do While J < crReport.Controls(I).Controls.Count
-                        If CType(crReport.Controls(I).Controls(J), System.Windows.Forms.TabControl).TabPages.Count > 0 Then
-                            'Change the tab text..
-                            CType(crReport.Controls(I).Controls(J), System.Windows.Forms.TabControl).TabPages.Item(0).Text = TabText
-                            Exit Do
-                        End If
-                    Loop
-                    Exit Do
-                Else
-                    crReport.Controls(I).Visible = False
-                End If
-            Loop
-        Catch ex As Exception
-            ErrorReport(ex, "MRFunctions.DisplayReport")
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
     End Sub
 
 #End Region

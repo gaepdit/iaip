@@ -4,6 +4,9 @@ Namespace DAL
     Module AppData
 
         Public Function AppIsEnabled() As Boolean
+#If DEBUG Then
+        Return True
+#End If
             Dim query As String = " SELECT FENABLED " & _
                 " FROM " & DBNameSpace & ".APBMASTERAPP " & _
                 " WHERE STRAPPLICATIONNAME = :pAppName "
