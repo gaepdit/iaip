@@ -1242,7 +1242,6 @@ Public Class IAIPNavigation
         AddNavButtonCategory(NavButtonCategories.DMU, "Data Management Unit")
         AddNavButtonCategory(NavButtonCategories.MASP, "Mobile & Area Sources Program")
         AddNavButtonCategory(NavButtonCategories.EIS, "Emission Inventory System")
-        AddNavButtonCategory(NavButtonCategories.EIS, "Emission Inventory System")
         AddNavButtonCategory(NavButtonCategories.SBEAP, "Small Business Environmental Assistance Program")
     End Sub
 
