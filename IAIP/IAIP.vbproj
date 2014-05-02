@@ -38,7 +38,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <PublishUrl>ftp://167.193.56.178/AirPermit/IAIP/install/</PublishUrl>
+    <PublishUrl>ftp://167.193.56.178/AirPermit/IAIP/install/sbeap/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -48,15 +48,15 @@
     <UpdatePeriodically>true</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://airpermit.dnr.state.ga.us/iaip/install/</InstallUrl>
+    <InstallUrl>http://airpermit.dnr.state.ga.us/iaip/install/sbeap/</InstallUrl>
     <SupportUrl>http://airpermit.dnr.state.ga.us/iaip/</SupportUrl>
     <ProductName>Integrated Air Information Platform</ProductName>
     <PublisherName>State of Georgia</PublisherName>
     <MinimumRequiredVersion>3.2.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>IAIP-install.html</WebPage>
-    <ApplicationRevision>14</ApplicationRevision>
-    <ApplicationVersion>3.2.0.%2a</ApplicationVersion>
+    <ApplicationRevision>19</ApplicationRevision>
+    <ApplicationVersion>3.3.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -994,6 +994,18 @@
     <EmbeddedResource Include="Crystal Reports\CRViewerForm.resx">
       <DependentUpon>CRViewerForm.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\SBEAP\crCaseReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crCaseReport.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\SBEAP\crCaseSummary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crCaseSummary.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\SBEAP\crCaseWorkLog.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crCaseWorkLog.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\SmokeSchool\SmokeSchoolRoster.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>SmokeSchoolRoster.vb</LastGenOutput>
@@ -1017,6 +1029,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PASP\PASPFeeStatistics.resx">
       <DependentUpon>PASPFeeStatistics.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SBEAP\SBEAPCaseLog.resx">
+      <DependentUpon>SBEAPCaseLog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SBEAP\SBEAPCaseWork.resx">
+      <DependentUpon>SBEAPCaseWork.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SBEAP\SBEAPClientSummary.resx">
+      <DependentUpon>SBEAPClientSummary.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SBEAP\SBEAPMiscTools.resx">
+      <DependentUpon>SBEAPMiscTools.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SBEAP\SBEAPPhoneLog.resx">
+      <DependentUpon>SBEAPPhoneLog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SBEAP\SBEAPReports.resx">
+      <DependentUpon>SBEAPReports.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SBEAP\Sub Forms\SBEAPClientSearchTool.resx">
+      <DependentUpon>SBEAPClientSearchTool.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SscpDocuments.resx">
       <DependentUpon>SscpDocuments.vb</DependentUpon>
@@ -1580,12 +1613,34 @@
     <None Include="Resources\Seal_of_Georgia_red_small.ico" />
     <None Include="Resources\Seal_of_Georgia_gold_256x256x32.png" />
     <Compile Include="_DB\DAL.AppData.vb" />
+    <Compile Include="_DB\DAL.SBEAP.vb" />
+    <Compile Include="_DB\DAL.SSPP.Applications.vb">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="_DB\DB.Connections.vb" />
     <Compile Include="Crystal Reports\CRViewerForm.Designer.vb">
       <DependentUpon>CRViewerForm.vb</DependentUpon>
     </Compile>
     <Compile Include="Crystal Reports\CRViewerForm.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crystal Reports\SBEAP\crCaseReport.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crCaseReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Crystal Reports\SBEAP\crCaseSummary.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crCaseSummary.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Crystal Reports\SBEAP\crCaseWorkLog.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crCaseWorkLog.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Crystal Reports\SmokeSchool\SmokeSchoolRoster.vb">
       <DependentUpon>SmokeSchoolRoster.rpt</DependentUpon>
@@ -1601,6 +1656,48 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Crystal Reports\SmokeSchool\CrSmokeSchoolRoster.vb">
+    </Compile>
+    <Compile Include="SBEAP\SBEAPCaseLog.Designer.vb">
+      <DependentUpon>SBEAPCaseLog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SBEAP\SBEAPCaseLog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SBEAP\SBEAPCaseWork.Designer.vb">
+      <DependentUpon>SBEAPCaseWork.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SBEAP\SBEAPCaseWork.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SBEAP\SBEAPClientSummary.Designer.vb">
+      <DependentUpon>SBEAPClientSummary.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SBEAP\SBEAPClientSummary.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SBEAP\SBEAPMiscTools.Designer.vb">
+      <DependentUpon>SBEAPMiscTools.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SBEAP\SBEAPMiscTools.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SBEAP\SBEAPPhoneLog.Designer.vb">
+      <DependentUpon>SBEAPPhoneLog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SBEAP\SBEAPPhoneLog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SBEAP\SBEAPReports.Designer.vb">
+      <DependentUpon>SBEAPReports.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SBEAP\SBEAPReports.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SBEAP\Sub Forms\SBEAPClientSearchTool.Designer.vb">
+      <DependentUpon>SBEAPClientSearchTool.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SBEAP\Sub Forms\SBEAPClientSearchTool.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Universal Forms\IaipAbout.Designer.vb">
       <DependentUpon>IaipAbout.vb</DependentUpon>
@@ -1653,10 +1750,10 @@
     <Compile Include="_Data Classes\Staff.vb" />
     <Compile Include="_DB\DAL.SSCP.Enforcement.vb" />
     <Compile Include="_DB\DAL.Documents.vb" />
-    <Compile Include="_DB\DAL.SSPP.Applications.vb" />
     <Compile Include="_DB\DAL.EventRegistration.vb" />
     <Compile Include="_DB\DB.Utilities.vb" />
     <Compile Include="_Modules\Analytics.vb" />
+    <Compile Include="_Modules\CrystalReports.vb" />
     <Compile Include="_Modules\Email.vb" />
     <Compile Include="_Modules\FileSystem.vb" />
     <Compile Include="_Modules\FormHandler.vb" />
@@ -1678,11 +1775,6 @@
     <Compile Include="_Modules\Win32ApiCalls.vb" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include="BusinessObjects.CrystalReports.10.5">
-      <Visible>False</Visible>
-      <ProductName>Crystal Reports Basic for Visual Studio 2008 %28x86, x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework Client Profile</ProductName>
@@ -1706,11 +1798,6 @@
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Office.PIARedist.2010">
-      <Visible>False</Visible>
-      <ProductName>Microsoft Office 2010 Primary Interop Assemblies</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">

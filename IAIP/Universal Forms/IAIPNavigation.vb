@@ -6,7 +6,7 @@ Public Class IAIPNavigation
 
 #Region " Local variables and properties "
 
-#Region " WordViewer properties "
+#Region " WorkViewer properties "
 
     Private dtWorkViewerTable As DataTable
 
@@ -45,6 +45,8 @@ Public Class IAIPNavigation
 
             BuildListChangerCombo()
 
+            EnableQuickAccessToolForSbeap()
+
             pnl2.Text = UserName
             pnl3.Text = OracleDate
 
@@ -72,6 +74,12 @@ Public Class IAIPNavigation
 #End Region
 
 #Region " Page Load procedures "
+
+    Private Sub EnableQuickAccessToolForSbeap()
+        If UserHasPermission(New String() {"(142)", "(143)", "(118)"}) Then
+            EnableAndShow(SbeapQuickAccessPanel)
+        End If
+    End Sub
 
     Private Sub LoadNavButtons()
         If bgrLoadButtons.IsBusy Then
@@ -105,6 +113,10 @@ Public Class IAIPNavigation
         cboWorkViewerContext.Items.Add("Monitoring Test Reports")
         cboWorkViewerContext.Items.Add("Monitoring Test Notifications")
         cboWorkViewerContext.Items.Add("Permit Applications")
+
+        If UserHasPermission(New String() {"(142)", "(143)", "(118)"}) Then
+            cboWorkViewerContext.Items.Add("SBEAP Cases")
+        End If
 
         cboWorkViewerContext.SelectedIndex = 0
     End Sub
@@ -142,7 +154,7 @@ Public Class IAIPNavigation
 
 #End Region
 
-#Region "Quick Access Tool link clicked and keypress events"
+#Region " Quick Access Tool link clicked and keypress events "
 
     Private Sub LLSelectReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLSelectReport.LinkClicked
         OpenTestReport()
@@ -161,6 +173,12 @@ Public Class IAIPNavigation
     End Sub
     Private Sub llbOpenTestLog_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenTestLog.LinkClicked
         OpenTestNotification()
+    End Sub
+    Private Sub OpenSbeapClientID_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles OpenSbeapClientID.LinkClicked
+        OpenSbeapClientSummary()
+    End Sub
+    Private Sub OpenSbeapCaseNumber_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles OpenSbeapCaseNumber.LinkClicked
+        OpenSbeapCaseLog()
     End Sub
 
     Private Sub txtApplicationNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtApplicationNumber.KeyPress
@@ -181,10 +199,16 @@ Public Class IAIPNavigation
     Private Sub txtTestLogNumber_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtTestLogNumber.KeyPress
         If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then OpenTestNotification()
     End Sub
+    Private Sub SbeapClientID_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles SbeapClientID.KeyPress
+        If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then OpenSbeapClientSummary()
+    End Sub
+    Private Sub SbeapCaseNumber_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles SbeapCaseNumber.KeyPress
+        If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then OpenSbeapCaseLog()
+    End Sub
 
 #End Region
 
-#Region "Quick Access Tool procedures"
+#Region " Quick Access Tool procedures "
 
     Private Sub OpenApplication()
         Try
@@ -314,6 +338,51 @@ Public Class IAIPNavigation
         End Try
     End Sub
 
+    Private Sub OpenSbeapClientSummary()
+        Try
+            Dim id As String = SbeapClientID.Text
+            If id = "" Then Exit Sub
+
+            If DAL.SBEAP.ClientExists(id) Then
+                If ClientSummary IsNot Nothing AndAlso Not ClientSummary.IsDisposed Then
+                    ClientSummary.Dispose()
+                End If
+
+                ClientSummary = New SBEAPClientSummary
+                ClientSummary.Show()
+                ClientSummary.txtClientID.Text = id
+                ClientSummary.LoadClientData()
+            Else
+                MsgBox("Customer ID is not in the system.", MsgBoxStyle.Information, Me.Text)
+            End If
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
+    Private Sub OpenSbeapCaseLog()
+        Try
+            Dim id As String = SbeapCaseNumber.Text
+            If id = "" Then Exit Sub
+
+            If DAL.SBEAP.CaseExists(id) Then
+
+                If CaseWork IsNot Nothing AndAlso Not CaseWork.IsDisposed Then
+                    CaseWork.Dispose()
+                End If
+
+                CaseWork = New SBEAPCaseWork
+                CaseWork.Show()
+                CaseWork.txtCaseID.Text = id
+                CaseWork.LoadCaseLogData()
+            Else
+                MsgBox("Case number is not in the system.", MsgBoxStyle.Information, Me.Text)
+            End If
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
     Private Sub ClearQuickAccessTool()
         txtAIRSNumber.Clear()
         txtEnforcementNumber.Clear()
@@ -321,11 +390,13 @@ Public Class IAIPNavigation
         txtReferenceNumber.Clear()
         txtTrackingNumber.Clear()
         txtTestLogNumber.Clear()
+        SbeapClientID.Clear()
+        SbeapCaseNumber.Clear()
     End Sub
 
 #End Region
 
-#Region "WorkViewer context selector"
+#Region " WorkViewer context selector "
 
     Private Sub SetWorkViewerContext()
         Try
@@ -355,6 +426,11 @@ Public Class IAIPNavigation
                                 Case "4" 'SSCP
                                     If UserUnit = "---" Then 'Program Manager
                                         CurrentWorkViewerContext = WorkViewerType.SSCP_PM
+                                    ElseIf UserHasPermission("(143)") Then ' SBEAP Manager
+                                        CurrentWorkViewerContext = WorkViewerType.SBEAP_Program
+                                    ElseIf UserHasPermission("(142)") Then ' SBEAP staff
+                                        CurrentWorkViewerContext = WorkViewerType.SBEAP_Staff
+                                        CurrentWorkViewerContextParameter = UserGCode
                                     ElseIf AccountArray(22, 3) = "1" Then 'Unit Manager
                                         CurrentWorkViewerContext = WorkViewerType.SSCP_UC
                                         CurrentWorkViewerContextParameter = UserUnit
@@ -477,6 +553,15 @@ Public Class IAIPNavigation
                         CurrentWorkViewerContextParameter = UserGCode
                     End If
 
+                Case "SBEAP Cases"
+                    If rdbUCView.Checked Or rdbPMView.Checked Then
+                        CurrentWorkViewerContext = WorkViewerType.SBEAP_Program
+                    Else
+                        CurrentWorkViewerContext = WorkViewerType.SBEAP_Staff
+                        CurrentWorkViewerContextParameter = UserGCode
+                    End If
+
+
                 Case Else
                     CurrentWorkViewerContext = WorkViewerType.None
 
@@ -489,7 +574,7 @@ Public Class IAIPNavigation
 
 #End Region
 
-#Region "WorkViewer context selector events"
+#Region " WorkViewer context selector events "
 
     Private Sub btnChangeWorkViewerContext_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnChangeWorkViewerContext.Click
         LoadWorkViewerData()
@@ -525,6 +610,8 @@ Public Class IAIPNavigation
                 pnlContextSubView.Visible = False
             Case "Permit Applications"
                 pnlContextSubView.Visible = True
+            Case "SBEAP Cases"
+                pnlContextSubView.Visible = True
         End Select
     End Sub
 
@@ -547,7 +634,7 @@ Public Class IAIPNavigation
 
 #End Region
 
-#Region "WorkViewer formatters"
+#Region " WorkViewer formatters "
 
     Private Sub FormatWorkViewer()
         If dgvWorkViewer.Visible = True Then
@@ -592,10 +679,40 @@ Public Class IAIPNavigation
                 Case WorkViewerType.MonitoringTestNotifications
                     FormatWorkViewerForTestNotifications()
 
+                Case WorkViewerType.SBEAP_Program, WorkViewerType.SBEAP_Staff
+                    FormatWorkViewerForSbeapCases()
+
             End Select
 
             dgvWorkViewer.SanelyResizeColumns()
         End If
+    End Sub
+
+    Private Sub FormatWorkViewerForSbeapCases()
+        dgvWorkViewer.Columns("numCaseID").HeaderText = "Case ID"
+        dgvWorkViewer.Columns("numCaseID").DisplayIndex = 0
+        dgvWorkViewer.Columns("strCompanyName").HeaderText = "Customer Name"
+        dgvWorkViewer.Columns("strCompanyName").DisplayIndex = 1
+        dgvWorkViewer.Columns("ClientID").HeaderText = "Customer ID"
+        dgvWorkViewer.Columns("ClientID").DisplayIndex = 2
+        dgvWorkViewer.Columns("CaseOpened").HeaderText = "Date Case Opened"
+        dgvWorkViewer.Columns("CaseOpened").DisplayIndex = 3
+        dgvWorkViewer.Columns("CaseOpened").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        dgvWorkViewer.Columns("StaffResponsible").HeaderText = "Staff Responsible"
+        dgvWorkViewer.Columns("StaffResponsible").DisplayIndex = 4
+        dgvWorkViewer.Columns("strCaseSummary").HeaderText = "Case Description"
+        dgvWorkViewer.Columns("strCaseSummary").DisplayIndex = 5
+        dgvWorkViewer.Columns("strCaseSummary").Width = 200
+        dgvWorkViewer.Columns("numStaffResponsible").HeaderText = "Staff Responsible"
+        dgvWorkViewer.Columns("numStaffResponsible").DisplayIndex = 6
+        dgvWorkViewer.Columns("numStaffResponsible").Visible = False
+        dgvWorkViewer.Columns("caseClosed").HeaderText = "Date Closed"
+        dgvWorkViewer.Columns("caseClosed").DisplayIndex = 7
+        dgvWorkViewer.Columns("caseClosed").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        dgvWorkViewer.Columns("caseClosed").Visible = False
+        dgvWorkViewer.Columns("LastUpDated").HeaderText = "Last Updated"
+        dgvWorkViewer.Columns("LastUpDated").DisplayIndex = 8
+        dgvWorkViewer.Columns("LastUpDated").DefaultCellStyle.Format = "dd-MMM-yyyy"
     End Sub
 
     Private Sub FormatWorkViewerForComplianceFacilitiesAssigned()
@@ -782,7 +899,7 @@ Public Class IAIPNavigation
 
 #End Region
 
-#Region "WorkViewer background worker (bgrLoadWorkViewer)"
+#Region " WorkViewer background worker (bgrLoadWorkViewer) "
 
     Private Sub LoadWorkViewerData()
         dgvWorkViewer.Visible = False
@@ -847,7 +964,7 @@ Public Class IAIPNavigation
 
 #End Region
 
-#Region "WorkViewer (dgvWorkViewer) events"
+#Region " WorkViewer (dgvWorkViewer) events "
 
     Private Sub dgvWorkViewer_Sorted(ByVal sender As Object, ByVal e As System.EventArgs) Handles dgvWorkViewer.Sorted
         If CurrentWorkViewerContext = WorkViewerType.ISMP_PM _
@@ -867,28 +984,25 @@ Public Class IAIPNavigation
         Try
             If dgvWorkViewer.RowCount > 0 And hti.RowIndex <> -1 Then
                 If dgvWorkViewer.Columns(0).HeaderText = "Reference #" Then
-                    txtReferenceNumber.Text = dgvWorkViewer(0, hti.RowIndex).Value
-                    txtAIRSNumber.Text = dgvWorkViewer(1, hti.RowIndex).Value
-                End If
-                If dgvWorkViewer.Columns(0).HeaderText = "App #" Then
-                    txtApplicationNumber.Text = dgvWorkViewer(0, hti.RowIndex).Value
-                    txtAIRSNumber.Text = dgvWorkViewer(1, hti.RowIndex).Value
-                End If
-                If dgvWorkViewer.Columns(0).HeaderText = "Enforcement #" Then
-                    txtEnforcementNumber.Text = dgvWorkViewer(0, hti.RowIndex).Value
-                    txtAIRSNumber.Text = dgvWorkViewer(1, hti.RowIndex).Value
-                    txtAIRSNumber.Text = dgvWorkViewer(1, hti.RowIndex).Value
-                End If
-                If dgvWorkViewer.Columns(0).HeaderText = "Tracking #" Then
-                    txtTrackingNumber.Text = dgvWorkViewer(0, hti.RowIndex).Value
-                    txtAIRSNumber.Text = dgvWorkViewer(1, hti.RowIndex).Value
-                End If
-                If dgvWorkViewer.Columns(0).HeaderText = "AIRS #" Then
-                    txtAIRSNumber.Text = dgvWorkViewer(0, hti.RowIndex).Value
-                End If
-                If dgvWorkViewer.Columns(0).HeaderText = "Test Log #" Then
-                    txtTestLogNumber.Text = dgvWorkViewer(0, hti.RowIndex).Value
-                    txtAIRSNumber.Text = dgvWorkViewer(3, hti.RowIndex).Value
+                    txtReferenceNumber.Text = dgvWorkViewer(0, hti.RowIndex).FormattedValue
+                    txtAIRSNumber.Text = dgvWorkViewer(1, hti.RowIndex).FormattedValue
+                ElseIf dgvWorkViewer.Columns(0).HeaderText = "App #" Then
+                    txtApplicationNumber.Text = dgvWorkViewer(0, hti.RowIndex).FormattedValue
+                    txtAIRSNumber.Text = dgvWorkViewer(1, hti.RowIndex).FormattedValue
+                ElseIf dgvWorkViewer.Columns(0).HeaderText = "Enforcement #" Then
+                    txtEnforcementNumber.Text = dgvWorkViewer(0, hti.RowIndex).FormattedValue
+                    txtAIRSNumber.Text = dgvWorkViewer(1, hti.RowIndex).FormattedValue
+                ElseIf dgvWorkViewer.Columns(0).HeaderText = "Tracking #" Then
+                    txtTrackingNumber.Text = dgvWorkViewer(0, hti.RowIndex).FormattedValue
+                    txtAIRSNumber.Text = dgvWorkViewer(1, hti.RowIndex).FormattedValue
+                ElseIf dgvWorkViewer.Columns(0).HeaderText = "AIRS #" Then
+                    txtAIRSNumber.Text = dgvWorkViewer(0, hti.RowIndex).FormattedValue
+                ElseIf dgvWorkViewer.Columns(0).HeaderText = "Test Log #" Then
+                    txtTestLogNumber.Text = dgvWorkViewer(0, hti.RowIndex).FormattedValue
+                    txtAIRSNumber.Text = dgvWorkViewer(3, hti.RowIndex).FormattedValue
+                ElseIf dgvWorkViewer.Columns(0).HeaderText = "Case ID" Then
+                    SbeapCaseNumber.Text = dgvWorkViewer(0, hti.RowIndex).FormattedValue
+                    SbeapClientID.Text = dgvWorkViewer(7, hti.RowIndex).FormattedValue
                 End If
             End If
 
@@ -973,20 +1087,9 @@ Public Class IAIPNavigation
 
 #End Region
 
-#Region " Nav button creation "
+#Region " Nav Button creation "
 
-#Region " Nav Button properties "
-
-    Private Enum NavButtonCategories
-        General
-        ISMP
-        SSPP
-        SSCP
-        PASP
-        DMU
-        MASP
-        EIS
-    End Enum
+#Region " Containers "
 
     Private Structure NavButton
         Public Sub New(ByVal buttonText As String, ByVal formClass As BaseForm)
@@ -1016,9 +1119,14 @@ Public Class IAIPNavigation
 
 #Region " Implementation "
 
+    Private Function UserHasPermission(ByVal permissionCode As String) As Boolean
+        If Permissions.Contains(permissionCode) Then Return True
+        Return False
+    End Function
+
     Private Function UserHasPermission(ByVal permissionsAllowed As String()) As Boolean
         For Each permissionCode As String In permissionsAllowed
-            If Permissions.Contains(permissionCode) Then Return True
+            If UserHasPermission(permissionCode) Then Return True
         Next
         Return False
     End Function
@@ -1113,6 +1221,18 @@ Public Class IAIPNavigation
 
 #Region " Specifics "
 
+    Private Enum NavButtonCategories
+        General
+        ISMP
+        SSPP
+        SSCP
+        PASP
+        DMU
+        MASP
+        EIS
+        SBEAP
+    End Enum
+
     Private Sub CreateNavButtonCategoriesList()
         AddNavButtonCategory(NavButtonCategories.General, "General")
         AddNavButtonCategory(NavButtonCategories.ISMP, "Industrial Source Monitoring Program")
@@ -1122,6 +1242,7 @@ Public Class IAIPNavigation
         AddNavButtonCategory(NavButtonCategories.DMU, "Data Management Unit")
         AddNavButtonCategory(NavButtonCategories.MASP, "Mobile & Area Sources Program")
         AddNavButtonCategory(NavButtonCategories.EIS, "Emission Inventory System")
+        AddNavButtonCategory(NavButtonCategories.SBEAP, "Small Business Environmental Assistance Program")
     End Sub
 
     Private Sub CreateNavButtonsList()
@@ -1178,6 +1299,18 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(20, "Emissions Summary Tool", SSCPEmissionSummaryTool, NavButtonCategories.EIS)
         AddNavButtonIfAccountHasFormAccess(140, "Emission Inventory Log", IAIP_EIS_Log, NavButtonCategories.EIS)
         AddNavButtonIfAccountHasFormAccess(130, "EIS && GECO Tools", DMUStaffTools, NavButtonCategories.EIS)
+
+        'SBEAP
+        AddNavButtonIfUserHasPermission(New String() {"(142)", "(143)", "(118)"}, _
+                                "Customer Summary", SBEAPClientSummary, NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission(New String() {"(142)", "(143)", "(118)"}, _
+                                "Case Log", SBEAPCaseLog, NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission(New String() {"(142)", "(143)", "(118)"}, _
+                                "Report Tool", SBEAPReports, NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission(New String() {"(142)", "(143)", "(118)"}, _
+                                "Phone Log", SBEAPPhoneLog, NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission(New String() {"(142)", "(143)", "(118)"}, _
+                                "Misc. Tools", SBEAPMiscTools, NavButtonCategories.SBEAP)
 
     End Sub
 

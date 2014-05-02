@@ -53,6 +53,7 @@ Module subMain
 #End Region
 
 #Region " All Forms "
+
 #Region "Universal Screens"
     'Public APB110 As IAIPLogIn
 
@@ -84,9 +85,11 @@ Module subMain
     'Public TitleVProject As DMU_TITLEV_PROJECT
 
 #End Region
+
 #Region "Ambient Monitoring Screens"
 
 #End Region
+
 #Region "ISMP Screens"
     Public ISMPFacility As ISMPTestReportAdministrative
     Public ISMPTestReportInfo As ISMPFacilityInfo
@@ -112,10 +115,12 @@ Module subMain
     'Public FeeAuditTool As IAIPFeeAuditTool
 
 #End Region
+
 #Region "Mobile & Area Screens"
     'Public RegistrationTool As MASPRegistrationTool
 
 #End Region
+
 #Region "Planning & Support Screens"
     Public FacilityFeeForm As PASPFacilityFee
     Public FeeDeposits As PASPFeeDeposits
@@ -135,6 +140,7 @@ Module subMain
     Public FeeManagement As PASPFeeManagement
 
 #End Region
+
 #Region "SSCP Screens"
     Public SSCP_Work As SSCPComplianceLog
     Public ManagersTools As SSCPManagersTools
@@ -154,6 +160,7 @@ Module subMain
     Public SSCPAdmin As SSCPAdministrator
     Public InspectionTool As SSCPInspectionTool
 #End Region
+
 #Region "SSPP Screens"
     Public ApplicationLog As SSPPApplicationLog
     Public PermitTrackingLog As SSPPApplicationTrackingLog
@@ -163,6 +170,18 @@ Module subMain
     Public FeeContact As SSPP_FeeContact
 
 #End Region
+
+#Region " SBEAP Screens "
+    Public ClientSummary As SBEAPClientSummary
+    Public CaseWork As SBEAPCaseWork
+    'Public PrintForm As SBEAPPrintForms
+    Public ClientSearchTool As SBEAPClientSearchTool
+    Public CaseLog As SBEAPCaseLog
+    Public ReportTool As SBEAPReports
+    Public PhoneLog As SBEAPPhoneLog
+    Public MiscTools As SBEAPMiscTools
+#End Region
+
 #End Region
 
 End Module
