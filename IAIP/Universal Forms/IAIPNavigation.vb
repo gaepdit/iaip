@@ -156,28 +156,28 @@ Public Class IAIPNavigation
 
 #Region " Quick Access Tool link clicked and keypress events "
 
-    Private Sub LLSelectReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLSelectReport.LinkClicked
+    Private Sub LLSelectReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenTestReport.LinkClicked
         OpenTestReport()
     End Sub
-    Private Sub llbEnforcementRecord_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEnforcementRecord.LinkClicked
+    Private Sub llbEnforcementRecord_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenEnforcement.LinkClicked
         OpenEnforcement()
     End Sub
-    Private Sub llbOpenApplication_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenApplication.LinkClicked
+    Private Sub llbOpenApplication_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenPermitApplication.LinkClicked
         OpenApplication()
     End Sub
-    Private Sub llbTrackingNumber_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbTrackingNumber.LinkClicked
+    Private Sub llbTrackingNumber_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenSscpItem.LinkClicked
         OpenSSCPWork()
     End Sub
-    Private Sub llbFacilitySummary_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFacilitySummary.LinkClicked
+    Private Sub llbFacilitySummary_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenFacilitySummary.LinkClicked
         OpenFacilitySummary()
     End Sub
     Private Sub llbOpenTestLog_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenTestLog.LinkClicked
         OpenTestNotification()
     End Sub
-    Private Sub OpenSbeapClientID_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles OpenSbeapClientID.LinkClicked
+    Private Sub OpenSbeapClientID_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenSbeapClient.LinkClicked
         OpenSbeapClientSummary()
     End Sub
-    Private Sub OpenSbeapCaseNumber_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles OpenSbeapCaseNumber.LinkClicked
+    Private Sub OpenSbeapCaseNumber_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenSbeapCase.LinkClicked
         OpenSbeapCaseLog()
     End Sub
 
@@ -187,10 +187,10 @@ Public Class IAIPNavigation
     Private Sub txtEnforcementNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtEnforcementNumber.KeyPress
         If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then OpenEnforcement()
     End Sub
-    Private Sub txtReferenceNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtReferenceNumber.KeyPress
+    Private Sub txtReferenceNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtTestReportNumber.KeyPress
         If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then OpenTestReport()
     End Sub
-    Private Sub txtTrackingNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtTrackingNumber.KeyPress
+    Private Sub txtTrackingNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtSscpItemNumber.KeyPress
         If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then OpenSSCPWork()
     End Sub
     Private Sub txtAIRSNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtAIRSNumber.KeyPress
@@ -199,10 +199,10 @@ Public Class IAIPNavigation
     Private Sub txtTestLogNumber_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtTestLogNumber.KeyPress
         If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then OpenTestNotification()
     End Sub
-    Private Sub SbeapClientID_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles SbeapClientID.KeyPress
+    Private Sub SbeapClientID_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtSbeapClientId.KeyPress
         If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then OpenSbeapClientSummary()
     End Sub
-    Private Sub SbeapCaseNumber_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles SbeapCaseNumber.KeyPress
+    Private Sub SbeapCaseNumber_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtSbeapCaseNumber.KeyPress
         If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then OpenSbeapCaseLog()
     End Sub
 
@@ -235,7 +235,7 @@ Public Class IAIPNavigation
 
     Private Sub OpenTestReport()
         Try
-            Dim id As String = txtReferenceNumber.Text
+            Dim id As String = txtTestReportNumber.Text
             If id = "" Then Exit Sub
 
             If DAL.ISMP.StackTestExists(id) Then
@@ -247,7 +247,7 @@ Public Class IAIPNavigation
                             PrintOut.Dispose()
                         End If
                         PrintOut = New IAIPPrintOut
-                        PrintOut.txtReferenceNumber.Text = txtReferenceNumber.Text
+                        PrintOut.txtReferenceNumber.Text = txtTestReportNumber.Text
                         PrintOut.txtPrintType.Text = "SSCP"
                         PrintOut.Show()
                     Else
@@ -278,7 +278,7 @@ Public Class IAIPNavigation
 
     Private Sub OpenSSCPWork()
         Try
-            Dim id As String = txtTrackingNumber.Text
+            Dim id As String = txtSscpItemNumber.Text
             If id = "" Then Exit Sub
 
             If DAL.SSCP.WorkItemExists(id) Then
@@ -340,7 +340,7 @@ Public Class IAIPNavigation
 
     Private Sub OpenSbeapClientSummary()
         Try
-            Dim id As String = SbeapClientID.Text
+            Dim id As String = txtSbeapClientId.Text
             If id = "" Then Exit Sub
 
             If DAL.SBEAP.ClientExists(id) Then
@@ -362,7 +362,7 @@ Public Class IAIPNavigation
 
     Private Sub OpenSbeapCaseLog()
         Try
-            Dim id As String = SbeapCaseNumber.Text
+            Dim id As String = txtSbeapCaseNumber.Text
             If id = "" Then Exit Sub
 
             If DAL.SBEAP.CaseExists(id) Then
@@ -387,11 +387,91 @@ Public Class IAIPNavigation
         txtAIRSNumber.Clear()
         txtEnforcementNumber.Clear()
         txtApplicationNumber.Clear()
-        txtReferenceNumber.Clear()
-        txtTrackingNumber.Clear()
+        txtTestReportNumber.Clear()
+        txtSscpItemNumber.Clear()
         txtTestLogNumber.Clear()
-        SbeapClientID.Clear()
-        SbeapCaseNumber.Clear()
+        txtSbeapClientId.Clear()
+        txtSbeapCaseNumber.Clear()
+    End Sub
+
+#End Region
+
+#Region " Quick Access Tool links "
+
+    Private Sub txtAIRSNumber_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtAIRSNumber.Enter
+        llbOpenFacilitySummary.LinkBehavior = LinkBehavior.AlwaysUnderline
+    End Sub
+
+    Private Sub txtAIRSNumber_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtAIRSNumber.Leave
+        llbOpenFacilitySummary.LinkBehavior = LinkBehavior.HoverUnderline
+    End Sub
+
+    Private Sub txtApplicationNumber_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtApplicationNumber.Enter
+        llbOpenPermitApplication.LinkBehavior = LinkBehavior.AlwaysUnderline
+    End Sub
+
+    Private Sub txtApplicationNumber_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtApplicationNumber.Leave
+        llbOpenPermitApplication.LinkBehavior = LinkBehavior.HoverUnderline
+    End Sub
+
+    Private Sub txtEnforcementNumber_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEnforcementNumber.Enter
+        llbOpenEnforcement.LinkBehavior = LinkBehavior.AlwaysUnderline
+    End Sub
+
+    Private Sub txtEnforcementNumber_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEnforcementNumber.Leave
+        llbOpenEnforcement.LinkBehavior = LinkBehavior.HoverUnderline
+    End Sub
+
+    Private Sub txtTestReportNumber_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtTestReportNumber.Enter
+        llbOpenTestReport.LinkBehavior = LinkBehavior.AlwaysUnderline
+    End Sub
+
+    Private Sub txtTestReportNumber_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtTestReportNumber.Leave
+        llbOpenTestReport.LinkBehavior = LinkBehavior.HoverUnderline
+    End Sub
+
+    Private Sub txtSbeapCaseNumber_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtSbeapCaseNumber.Enter
+        llbOpenSbeapCase.LinkBehavior = LinkBehavior.AlwaysUnderline
+    End Sub
+
+    Private Sub txtSbeapCaseNumber_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtSbeapCaseNumber.Leave
+        llbOpenSbeapCase.LinkBehavior = LinkBehavior.HoverUnderline
+    End Sub
+
+    Private Sub txtSbeapClientId_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtSbeapClientId.Enter
+        llbOpenSbeapClient.LinkBehavior = LinkBehavior.AlwaysUnderline
+    End Sub
+
+    Private Sub txtSbeapClientId_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtSbeapClientId.Leave
+        llbOpenSbeapClient.LinkBehavior = LinkBehavior.HoverUnderline
+    End Sub
+
+    Private Sub txtSscpItemNumber_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtSscpItemNumber.Enter
+        llbOpenSscpItem.LinkBehavior = LinkBehavior.AlwaysUnderline
+    End Sub
+
+    Private Sub txtSscpItemNumber_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtSscpItemNumber.Leave
+        llbOpenSscpItem.LinkBehavior = LinkBehavior.HoverUnderline
+    End Sub
+
+    Private Sub txtTestLogNumber_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtTestLogNumber.Enter
+        llbOpenTestLog.LinkBehavior = LinkBehavior.AlwaysUnderline
+    End Sub
+
+    Private Sub txtTestLogNumber_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtTestLogNumber.Leave
+        llbOpenTestLog.LinkBehavior = LinkBehavior.HoverUnderline
+    End Sub
+
+    Private Sub quickAccessToolLinkLabel_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles llbOpenEnforcement.Enter, llbOpenFacilitySummary.Enter, llbOpenPermitApplication.Enter, llbOpenSbeapCase.Enter, _
+    llbOpenSbeapClient.Enter, llbOpenSscpItem.Enter, llbOpenTestLog.Enter, llbOpenTestReport.Enter
+        CType(sender, LinkLabel).LinkBehavior = LinkBehavior.AlwaysUnderline
+    End Sub
+
+    Private Sub quickAccessToolLinkLabel_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles llbOpenEnforcement.Leave, llbOpenFacilitySummary.Leave, llbOpenPermitApplication.Leave, llbOpenSbeapCase.Leave, _
+    llbOpenSbeapClient.Leave, llbOpenSscpItem.Leave, llbOpenTestLog.Leave, llbOpenTestReport.Leave
+        CType(sender, LinkLabel).LinkBehavior = LinkBehavior.HoverUnderline
     End Sub
 
 #End Region
@@ -984,7 +1064,7 @@ Public Class IAIPNavigation
         Try
             If dgvWorkViewer.RowCount > 0 And hti.RowIndex <> -1 Then
                 If dgvWorkViewer.Columns(0).HeaderText = "Reference #" Then
-                    txtReferenceNumber.Text = dgvWorkViewer(0, hti.RowIndex).FormattedValue
+                    txtTestReportNumber.Text = dgvWorkViewer(0, hti.RowIndex).FormattedValue
                     txtAIRSNumber.Text = dgvWorkViewer(1, hti.RowIndex).FormattedValue
                 ElseIf dgvWorkViewer.Columns(0).HeaderText = "App #" Then
                     txtApplicationNumber.Text = dgvWorkViewer(0, hti.RowIndex).FormattedValue
@@ -993,7 +1073,7 @@ Public Class IAIPNavigation
                     txtEnforcementNumber.Text = dgvWorkViewer(0, hti.RowIndex).FormattedValue
                     txtAIRSNumber.Text = dgvWorkViewer(1, hti.RowIndex).FormattedValue
                 ElseIf dgvWorkViewer.Columns(0).HeaderText = "Tracking #" Then
-                    txtTrackingNumber.Text = dgvWorkViewer(0, hti.RowIndex).FormattedValue
+                    txtSscpItemNumber.Text = dgvWorkViewer(0, hti.RowIndex).FormattedValue
                     txtAIRSNumber.Text = dgvWorkViewer(1, hti.RowIndex).FormattedValue
                 ElseIf dgvWorkViewer.Columns(0).HeaderText = "AIRS #" Then
                     txtAIRSNumber.Text = dgvWorkViewer(0, hti.RowIndex).FormattedValue
@@ -1001,8 +1081,8 @@ Public Class IAIPNavigation
                     txtTestLogNumber.Text = dgvWorkViewer(0, hti.RowIndex).FormattedValue
                     txtAIRSNumber.Text = dgvWorkViewer(3, hti.RowIndex).FormattedValue
                 ElseIf dgvWorkViewer.Columns(0).HeaderText = "Case ID" Then
-                    SbeapCaseNumber.Text = dgvWorkViewer(0, hti.RowIndex).FormattedValue
-                    SbeapClientID.Text = dgvWorkViewer(7, hti.RowIndex).FormattedValue
+                    txtSbeapCaseNumber.Text = dgvWorkViewer(0, hti.RowIndex).FormattedValue
+                    txtSbeapClientId.Text = dgvWorkViewer(7, hti.RowIndex).FormattedValue
                 End If
             End If
 

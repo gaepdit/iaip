@@ -74,6 +74,7 @@ Public Class IAIPLogIn
             .Text = ""
             .Visible = False
         End With
+        txtUserID.Focus()
     End Sub
 
     Private Sub DisplayVersion()
