@@ -1,6 +1,6 @@
 % IAIP Change Log
 
-## Version 3.3 <span> (2014-05-xx)</span>
+## Version 3.3 <span> (2014-05-02)</span>
 
 - NEW: *SBEAP* -- Small Business Environmental Assistance Program now incorporated into IAIP (#210)
 - NEW: Navigation buttons are now grouped by program/category (#211)
