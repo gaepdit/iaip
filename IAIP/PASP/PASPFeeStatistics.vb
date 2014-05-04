@@ -3683,16 +3683,6 @@ Public Class PASPFeeStatistics
             DisplayReport(CRFeesReports, "Annual Emission and Fee")
             CRFeesReports.Refresh()
 
-            'Dim crReportDocument As TotalFee
-
-            ' 
-            'progress1.progress = -1
-            'crReportDocument = New TotalFee
-            'crReportDocument.SetDatabaseLogon("AIRBranch_App_User", SimpleCrypt("çòáðò±ì"))
-
-            'CRFeesReports.ReportSource = crReportDocument
-            'DisplayReport(CRFeesReports, "Annual Emission and Fee")
-            'CRFeesReports.Refresh()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -3724,16 +3714,6 @@ Public Class PASPFeeStatistics
             DisplayReport(CRFeesReports, "Facility Classification Totals")
             CRFeesReports.Refresh()
 
-            'Dim crReportDocument As FacilityClassification
-
-            ' 
-            'progress1.progress = -1
-            'crReportDocument = New FacilityClassification
-            'crReportDocument.SetDatabaseLogon("AIRBranch_App_User", SimpleCrypt("çòáðò±ì"))
-
-            'CRFeesReports.ReportSource = crReportDocument
-            'DisplayReport(CRFeesReports, "Facility Classification Totals")
-            'CRFeesReports.Refresh()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -4024,7 +4004,7 @@ Public Class PASPFeeStatistics
             p.Add(p2)
             CRFeesReports.ParameterFieldInfo = p
 
-            rpt.SetDatabaseLogon("AIRBranch_App_User", SimpleCrypt("çòáðò±ì"))
+            'rpt.SetDatabaseLogon("AIRBranch_App_User", SimpleCrypt("çòáðò±ì"))
             CRFeesReports.ReportSource = rpt
             DisplayReport(CRFeesReports, "Payments by Date - " & Format(DateTimePicker1.Value, "dd-MMM-yyyy") & " --> " & Format(DateTimePicker2.Value, "dd-MMM-yyyy"))
             CRFeesReports.DisplayGroupTree = False
@@ -4095,7 +4075,7 @@ Public Class PASPFeeStatistics
             p.Add(p2)
             CRFeesReports.ParameterFieldInfo = p
 
-            rpt.SetDatabaseLogon("AIRBranch_App_User", SimpleCrypt("çòáðò±ì"))
+            'rpt.SetDatabaseLogon("AIRBranch_App_User", SimpleCrypt("çòáðò±ì"))
             CRFeesReports.ReportSource = rpt
             DisplayReport(CRFeesReports, "Payments by Date - " & Format(DateTimePicker1.Value, "dd-MMM-yyyy") & " --> " & Format(DateTimePicker2.Value, "dd-MMM-yyyy"))
             CRFeesReports.DisplayGroupTree = False
@@ -4377,7 +4357,7 @@ Public Class PASPFeeStatistics
             'p.Add(p2)
             'CRFeesReports.ParameterFieldInfo = p
 
-            rpt.SetDatabaseLogon("AIRBranch_App_User", SimpleCrypt("çòáðò±ì"))
+            'rpt.SetDatabaseLogon("AIRBranch_App_User", SimpleCrypt("çòáðò±ì"))
             CRFeesReports.ReportSource = rpt
             DisplayReport(CRFeesReports, header)
             CRFeesReports.DisplayGroupTree = False
@@ -4425,16 +4405,6 @@ Public Class PASPFeeStatistics
             CRFeesReports.ShowGroupTreeButton = True
             CRFeesReports.Refresh()
 
-
-            'Dim crReportDocument As ClassChanged
-
-            ' 
-            'pnlNSPS.Visible = False
-            'crReportDocument = New ClassChanged
-            'crReportDocument.SetDatabaseLogon("AIRBranch_App_User", SimpleCrypt("çòáðò±ì"))
-            'CRFeesReports.ReportSource = crReportDocument
-            'DisplayReport(CRFeesReports, "Change in Classification")
-            'CRFeesReports.Refresh()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -4669,15 +4639,6 @@ Public Class PASPFeeStatistics
             DisplayReport(CRFeesReports, "Did Not Operate")
             CRFeesReports.Refresh()
 
-            'Dim crReportDocument As NoOperate
-
-            ' 
-            'pnlNSPS.Visible = False
-            'crReportDocument = New NoOperate
-            'crReportDocument.SetDatabaseLogon("AIRBranch_App_User", SimpleCrypt("çòáðò±ì"))
-            'CRFeesReports.ReportSource = crReportDocument
-            'DisplayReport(CRFeesReports, "Did Not Operate")
-            'CRFeesReports.Refresh()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -4715,7 +4676,7 @@ Public Class PASPFeeStatistics
             da.Fill(ds, "FSPAYANDSUBMIT")
             rpt.SetDataSource(ds)
 
-            rpt.SetDatabaseLogon("AIRBranch_App_User", SimpleCrypt("çòáðò±ì"))
+            'rpt.SetDatabaseLogon("AIRBranch_App_User", SimpleCrypt("çòáðò±ì"))
             CRFeesReports.ReportSource = rpt
             DisplayReport(CRFeesReports, "Facility Comments")
             CRFeesReports.ReportSource = rpt

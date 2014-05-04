@@ -189,17 +189,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="DataSet\dsIAIP10.xsc">
-      <DependentUpon>dsIAIP10.xsd</DependentUpon>
-    </None>
-    <None Include="DataSet\dsIAIP10.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsIAIP10.Designer.vb</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DataSet\dsIAIP10.xss">
-      <DependentUpon>dsIAIP10.xsd</DependentUpon>
-    </None>
     <None Include="My Project\Settings.settings">
       <CustomToolNamespace>My</CustomToolNamespace>
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -243,11 +232,6 @@
     </Compile>
     <Compile Include="PASP\PASPFeeStatistics.vb">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DataSet\dsIAIP10.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dsIAIP10.xsd</DependentUpon>
     </Compile>
     <Compile Include="Crystal Reports\Oracle 10.1\crFS_Invoice.vb">
       <AutoGen>True</AutoGen>
@@ -489,12 +473,6 @@
       <DependentUpon>crOrganizationChart.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\DMU\crESDataViewer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crESDataViewer.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Crystal Reports\Letterhead.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -673,12 +651,6 @@
     </Compile>
     <Compile Include="ISMP\ISMPTestFirmComments.vb">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\DMU\crESinfoByAirsNumber.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crESinfoByAirsNumber.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Crystal Reports\Oracle 9.2\ISMP\CRFlare.vb">
       <DependentUpon>CRFlare.rpt</DependentUpon>
@@ -1213,10 +1185,6 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crOrganizationChart.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\DMU\crESDataViewer.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crESDataViewer.vb</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Letterhead.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Letterhead.vb</LastGenOutput>
@@ -1327,10 +1295,6 @@
     <EmbeddedResource Include="ISMP\ISMPTestFirmComments.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ISMPTestFirmComments.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\DMU\crESinfoByAirsNumber.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crESinfoByAirsNumber.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Oracle 9.2\ISMP\CRFlare.resx">
       <DependentUpon>CRFlare.vb</DependentUpon>
@@ -1778,10 +1742,8 @@
   <ItemGroup>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Crystal Reports\Oracle 10.1\DMU\" />
-    <Folder Include="Crystal Reports\Oracle 10.1\ISMP\" />
-    <Folder Include="Crystal Reports\Oracle 9.2\PASP\" />
     <Folder Include="Crystal Reports\Oracle 9.2\SSCP\" />
+    <Folder Include="DataSet\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
