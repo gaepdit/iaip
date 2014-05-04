@@ -5,8 +5,11 @@
 - NEW: *SBEAP* -- Small Business Environmental Assistance Program now incorporated into IAIP (#210)
 - NEW: Navigation buttons are now grouped by program/category (#211)
 
-- FIX: Additional work to ensure database connectivity after the server move (#225) (#228)
 - FIX: Minor UI improvements
+
+## Version 3.2.1 <span> (2014-05-04)</span>
+
+- FIX: Additional work to ensure database connectivity after the server move (#225) (#228)
 
 ## Version 3.2 <span>(2014-04-24)</span>
 
