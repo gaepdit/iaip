@@ -1,8 +1,8 @@
 % IAIP Change Log
 
-## Version xx <span> (2014-xx-xx)</span>
+## Version 3.2.1 <span> (2014-05-04)</span>
 
-- FIX: Additional work to prevent connectivity problems after the server move (#225)
+- FIX: Additional work to prevent connectivity problems after the server move (#225) (#228)
 
 ## Version 3.2 <span>(2014-04-24)</span>
 

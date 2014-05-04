@@ -71,7 +71,7 @@
                         Case ServerEnvironment.PRD
                             Return New DatabaseConnectionParameters("167.195.93.68", "1521", "PRD", "AIRBRANCH_APP_USER", SimpleCrypt("çòáðò±ì"))
                         Case ServerEnvironment.DEV
-                            Return New DatabaseConnectionParameters("167.195.93.100", "1521", "DEV", "AIRBRANCH", "123")
+                            Return New DatabaseConnectionParameters("167.195.93.100", "1521", "DEV", "AIRBRANCH", SimpleCrypt("óíïçáìåòô"))
                         Case Else
                             Return Nothing
                     End Select
