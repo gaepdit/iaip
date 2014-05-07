@@ -23,14 +23,6 @@ Public Class IAIPLogIn
             CheckLanguageRegistrySetting()
             CheckDBAvailability()
 
-#If NadcTesting Then
-            EnableAndShow(mmiNadcServer)
-            If CurrentServerLocation = DB.ServerLocation.NADC Then
-                mmiNadcServer.Checked = True
-            End If
-            Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerLocation.ToString & ", " & CurrentServerEnvironment.ToString
-#End If
-
 #If DEBUG Then
             ToggleServerEnvironment()
 #End If
@@ -92,35 +84,25 @@ Public Class IAIPLogIn
         If currentSetting Is Nothing Or currentSetting <> "AMERICAN" Then
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", "AMERICAN")
             DisableLogin("Language settings have been updated. Please close and restart the Platform.")
-            DisableAndHide(mmiNadcServer)
             DisableAndHide(mmiTestingEnvironment)
         End If
     End Sub
 
     Private Function CheckDBAvailability() As Boolean
-        Console.WriteLine("CurrentServerEnvironment: " & CurrentServerEnvironment.ToString)
-        Console.WriteLine("CurrentServerLocation: " & CurrentServerLocation.ToString)
-
 #If DEBUG Then
-        Return True
+        Console.WriteLine("CurrentServerEnvironment: " & CurrentServerEnvironment.ToString)
 #End If
-
-        ' Give me an hour to add the flag to the db disabling IAIP
-        If DB.NADC_CUTOVER_DATETIME < DateTime.Now And DateTime.Now < DB.NADC_CUTOVER_DATETIME.AddHours(1) Then
-            DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine & _
-                             "back Monday morning. " & vbNewLine & vbNewLine & _
-                             "Thank you.")
-            Return False
-        End If
 
         If DAL.AppIsEnabled Then
             EnableLogin()
             Return True
         Else
             DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine & _
-                             "back later. If you continue to see this message after " & vbNewLine & _
-                             "two hours, please inform the Data Management Unit. " & vbNewLine & _
-                             "Thank you.")
+                         "back later. If you are working remotely, you must " & vbNewLine & _
+                         "connect to the VPN before using the IAIP. " & vbNewLine & vbNewLine & _
+                         "Otherwise, if you continue to see this message after " & vbNewLine & _
+                         "two hours, please inform the Data Management Unit. " & vbNewLine & vbNewLine & _
+                         "Thank you.")
             Return False
         End If
     End Function
@@ -134,8 +116,10 @@ Public Class IAIPLogIn
 
         monitor.TrackFeatureStart("Startup.LoggingIn")
 
+#If DEBUG Then
         Console.WriteLine("CurrentServerEnvironment: " & CurrentServerEnvironment.ToString)
-        Console.WriteLine("CurrentServerLocation: " & CurrentServerLocation.ToString)
+#End If
+
         If Not DAL.AppIsEnabled Then
             DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine & _
                              "back later. If you continue to see this message after " & vbNewLine & _
@@ -252,8 +236,7 @@ Public Class IAIPLogIn
             ' Add additional installation meta data for analytics
             monitorInstallationInfo.Add("IaipUserName", CurrentUser.UserName)
             monitor.SetInstallationInfo(CurrentUser.UserName, monitorInstallationInfo)
-            If (CurrentServerEnvironment <> DB.DefaultServerEnvironment OrElse _
-                 CurrentServerLocation <> DB.DefaultServerLocation) Then
+            If (CurrentServerEnvironment <> DB.DefaultServerEnvironment) Then
                 monitor.TrackFeature("Main.TestingEnvironment")
             End If
             monitor.ForceSync()
@@ -297,36 +280,8 @@ Public Class IAIPLogIn
             buttonText = "Log In"
         End If
 
-#If NadcTesting Then
-        Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerLocation.ToString & " " & CurrentServerEnvironment.ToString
-#End If
-
-        ' Reset current connection based on current connection environment
-        ' and check connection/app availability
-        CurrentConnection = New OracleConnection(DB.CurrentConnectionString)
-        If CheckDBAvailability() Then
-            EnableLoginButton(buttonText)
-        Else
-            DisableLoginButton(buttonText)
-        End If
-    End Sub
-
-    Private Sub ToggleServerLocation()
-        ' Toggle mmiNadcServer menu item
-        mmiNadcServer.Checked = Not mmiNadcServer.Checked
-        Dim buttonText As String = btnLoginButton.Text
-        DisableLoginButton("Switching servers…")
-
-        If mmiNadcServer.Checked Then
-            'Switch to NADC servers
-            CurrentServerLocation = DB.ServerLocation.NADC
-        Else
-            'Switch to Legacy servers
-            CurrentServerLocation = DB.ServerLocation.Legacy
-        End If
-
-#If NadcTesting Then
-        Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerLocation.ToString & " " & CurrentServerEnvironment.ToString
+#If DEBUG Then
+        Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerEnvironment.ToString
 #End If
 
         ' Reset current connection based on current connection environment
@@ -391,10 +346,6 @@ Public Class IAIPLogIn
 
     Private Sub mmiTestingEnvironment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiTestingEnvironment.Click
         ToggleServerEnvironment()
-    End Sub
-
-    Private Sub mmiNadcServer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiNadcServer.Click
-        ToggleServerLocation()
     End Sub
 
     Private Sub mmiCheckForUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCheckForUpdate.Click

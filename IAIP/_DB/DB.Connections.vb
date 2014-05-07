@@ -2,30 +2,13 @@
     Module Connections
 
         ''' <summary>
-        ''' Date scheduled for legacy servers to be disconnected. 
+        ''' ServerEnvironment can be either PRD (production) or DEV (development)
         ''' </summary>
-        ''' <remarks>NADC servers will not necessarily be available yet, but that will be handled by server availability checking.</remarks>
-        Public ReadOnly Property NADC_CUTOVER_DATETIME() As DateTime
-            Get
-                Return New DateTime(2014, 5, 2, 12 + 5, 0, 0) ' 5:00 pm, May 2, 2012
-            End Get
-        End Property
-
-        ''' <summary>
-        ''' Return the default db server location based on scheduled NADC cutover date
-        ''' </summary>
-        ''' <value>The default server location</value>
-        ''' <remarks>Does not depend on selected server location or connection environment at any given time; 
-        ''' only returns default location.</remarks>
-        Public ReadOnly Property DefaultServerLocation() As ServerLocation
-            Get
-                If DateTime.Now < NADC_CUTOVER_DATETIME Then
-                    Return ServerLocation.Legacy
-                Else
-                    Return ServerLocation.NADC
-                End If
-            End Get
-        End Property
+        ''' <remarks></remarks>
+        Public Enum ServerEnvironment
+            PRD
+            DEV
+        End Enum
 
         ''' <summary>
         ''' Return the default connection environment based on setting of DEBUG compiler flag
@@ -39,42 +22,18 @@
             End Get
         End Property
 
-        Public Enum ServerLocation
-            Legacy
-            NADC
-        End Enum
-
-        Public Enum ServerEnvironment
-            PRD
-            DEV
-        End Enum
-
         ''' <summary>
         ''' Returns database connection parameters as DatabaseConnectionParameters for a given ConnectionEnvironment enum
         ''' </summary>
         ''' <param name="env">A ConnectionEnvironment enum designating which connection string is desired</param>
         ''' <returns>Database connection parameters</returns>
         ''' <remarks>Currently built to return Oracle connection parameters</remarks>
-        Private Function GetDatabaseConnectionParameters(ByVal env As ServerEnvironment, ByVal loc As ServerLocation) As DatabaseConnectionParameters
-            Select Case loc
-                Case ServerLocation.Legacy
-                    Select Case env
-                        Case ServerEnvironment.PRD
-                            Return New DatabaseConnectionParameters("luke.dnr.state.ga.us", "1521", "PRD", "AIRBRANCH_APP_USER", SimpleCrypt("çòáðò±ì"))
-                        Case ServerEnvironment.DEV
-                            Return New DatabaseConnectionParameters("leia.dnr.state.ga.us", "1521", "DEV", "AIRBRANCH", SimpleCrypt("óíïçáìåòô"))
-                        Case Else
-                            Return Nothing
-                    End Select
-                Case ServerLocation.NADC
-                    Select Case env
-                        Case ServerEnvironment.PRD
-                            Return New DatabaseConnectionParameters("167.195.93.68", "1521", "PRD", "AIRBRANCH_APP_USER", SimpleCrypt("çòáðò±ì"))
-                        Case ServerEnvironment.DEV
-                            Return New DatabaseConnectionParameters("167.195.93.100", "1521", "DEV", "AIRBRANCH", SimpleCrypt("óíïçáìåòô"))
-                        Case Else
-                            Return Nothing
-                    End Select
+        Private Function GetDatabaseConnectionParameters(ByVal env As ServerEnvironment) As DatabaseConnectionParameters
+            Select Case env
+                Case ServerEnvironment.PRD
+                    Return New DatabaseConnectionParameters("167.195.93.68", "1521", "PRD", "AIRBRANCH_APP_USER", SimpleCrypt("çòáðò±ì"))
+                Case ServerEnvironment.DEV
+                    Return New DatabaseConnectionParameters("167.195.93.100", "1521", "DEV", "AIRBRANCH", SimpleCrypt("óíïçáìåòô"))
                 Case Else
                     Return Nothing
             End Select
@@ -103,7 +62,7 @@
         ''' <remarks></remarks>
         Public ReadOnly Property CurrentConnectionString() As String
             Get
-                Return GetConnectionString(CurrentServerEnvironment, CurrentServerLocation)
+                Return GetConnectionString(CurrentServerEnvironment)
             End Get
         End Property
 
@@ -114,7 +73,7 @@
         ''' <param name="env">A ConnectionEnvironment enum designating which connection string is desired</param>
         ''' <returns>A database connection string</returns>
         ''' <remarks>Currently built to return an Oracle connection string</remarks>
-        Private Function GetConnectionString(ByVal env As ServerEnvironment, ByVal loc As ServerLocation) As String
+        Private Function GetConnectionString(ByVal env As ServerEnvironment) As String
 
             ' Oracle connection method without tnsnames.ora
             Dim oracleConnectionStringTemplate As String = "Data Source=(DESCRIPTION=(ADDRESS_LIST=" & _
@@ -127,7 +86,7 @@
             ' Oracle EZ Connect method (maybe requires EZCONNECT enabled in sqlnet.ora file?)
             'Private oracleConnectionStringTemplate As String = "{3}/{4}@//{0}:{1}/{2}"
 
-            Dim dbParams As DatabaseConnectionParameters = GetDatabaseConnectionParameters(env, loc)
+            Dim dbParams As DatabaseConnectionParameters = GetDatabaseConnectionParameters(env)
             Return String.Format(oracleConnectionStringTemplate, dbParams.Host, dbParams.Port, dbParams.SID, dbParams.User, dbParams.Password)
         End Function
 

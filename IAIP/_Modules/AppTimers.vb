@@ -6,14 +6,12 @@
         StartTimer(AppDurationTimer, AppDurationTimerInterval.TotalMilliseconds, AddressOf AppDurationTimerElapsed, False)
         StartTimer(DbPingTimer, DbPingTimerInterval.TotalMilliseconds, AddressOf DbPingTimerElapsed)
         'StartTimer(DbPingTimer, 1000 * 60 * 2, AddressOf DbPingTimerElapsed) ' 2 minutes (for testing purposes)
-        StartNadcCutoverTimer()
     End Sub
 
     Public Sub StopAppTimers()
         StopTimer(AppDurationTimer)
         StopTimer(ShutdownWarningTimer)
         StopTimer(DbPingTimer)
-        StopTimer(NadcCutoverTimer)
     End Sub
 
     ''' <summary>
@@ -95,80 +93,6 @@
 
     Private Sub ShutdownWarningTimerElapsed()
         StartupShutdown.CloseIaip()
-    End Sub
-
-#End Region
-
-#Region " NADC cutover timer "
-
-    Private NadcCutoverTimer As Timers.Timer
-    Private Enum NadcCutoverTimerState
-        Init
-        FirstWarning
-        FinalWarning
-    End Enum
-    Private NadcCutoverTimerStatus As NadcCutoverTimerState
-
-    Private Sub StartNadcCutoverTimer()
-        If DateTime.Now < DB.NADC_CUTOVER_DATETIME Then
-            ' Count down until 30 minutes before NADC_CUTOVER_DATETIME
-            Dim interval As TimeSpan = (DB.NADC_CUTOVER_DATETIME - DateTime.Now).Subtract(TimeSpan.FromMinutes(30))
-            StartTimer(NadcCutoverTimer, interval.TotalMilliseconds, AddressOf NadcCutoverTimerElapsed, False)
-            NadcCutoverTimerStatus = NadcCutoverTimerState.Init
-        End If
-    End Sub
-
-    Private Sub NadcCutoverTimerElapsed()
-        Dim interval As TimeSpan
-
-        Select Case NadcCutoverTimerStatus
-
-            Case NadcCutoverTimerState.Init
-                ' Occurs 30 minutes before NADC_CUTOVER_DATETIME
-
-                If DateTime.Now < DB.NADC_CUTOVER_DATETIME Then
-                    ' Count down until 5 minutes before NADC_CUTOVER_DATETIME
-                    interval = (DB.NADC_CUTOVER_DATETIME - DateTime.Now).Subtract(TimeSpan.FromMinutes(5))
-                    StartTimer(NadcCutoverTimer, interval.TotalMilliseconds, AddressOf NadcCutoverTimerElapsed, False)
-                    NadcCutoverTimerStatus = NadcCutoverTimerState.FirstWarning
-
-                    MessageBox.Show("The IAIP will shut down at 5pm EDT on Friday, " & vbNewLine & _
-                                    "May 2, 2014. Service will resume on Monday " & vbNewLine & _
-                                    "morning (May 5). Please finish your work. " & vbNewLine & _
-                                    vbNewLine & _
-                                    "Thank you for your patience and understanding. ", _
-                                    "Service interruption: 30-minute warning", MessageBoxButtons.OK, _
-                                             MessageBoxIcon.Warning)
-                End If
-
-
-            Case NadcCutoverTimerState.FirstWarning
-                ' Occurs 5 minutes before NADC_CUTOVER_DATETIME
-
-                If DateTime.Now < DB.NADC_CUTOVER_DATETIME Then
-                    ' Count down until NADC_CUTOVER_DATETIME
-                    interval = (DB.NADC_CUTOVER_DATETIME - DateTime.Now)
-                    StartTimer(NadcCutoverTimer, interval.TotalMilliseconds, AddressOf NadcCutoverTimerElapsed, False)
-                    NadcCutoverTimerStatus = NadcCutoverTimerState.FinalWarning
-
-                    MessageBox.Show("The IAIP will shut down at 5pm EDT on Friday, " & vbNewLine & _
-                                    "May 2, 2014. Service will resume on Monday " & vbNewLine & _
-                                    "morning (May 5). Please finish your work and " & vbNewLine & _
-                                    "close the IAIP. " & vbNewLine & _
-                                    vbNewLine & _
-                                    "This is your final notice. " & vbNewLine & _
-                                    vbNewLine & _
-                                    "Thank you for your patience and understanding. ", _
-                                    "Service interruption: 5-MINUTE WARNING", MessageBoxButtons.OK, _
-                                             MessageBoxIcon.Warning)
-                End If
-
-            Case NadcCutoverTimerState.FinalWarning
-                ' Occurs at NADC_CUTOVER_DATETIME
-
-                StartupShutdown.CloseIaip()
-
-        End Select
     End Sub
 
 #End Region

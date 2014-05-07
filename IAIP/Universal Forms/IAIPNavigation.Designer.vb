@@ -65,7 +65,6 @@ Partial Class IAIPNavigation
         Me.pnl2 = New System.Windows.Forms.ToolStripStatusLabel
         Me.pnl3 = New System.Windows.Forms.ToolStripStatusLabel
         Me.pnl4 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.pnl5 = New System.Windows.Forms.ToolStripStatusLabel
         Me.rdbPMView = New System.Windows.Forms.RadioButton
         Me.rdbUCView = New System.Windows.Forms.RadioButton
         Me.rdbStaffView = New System.Windows.Forms.RadioButton
@@ -492,7 +491,7 @@ Partial Class IAIPNavigation
         '
         'StatusStrip1
         '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.pnl1, Me.pnl2, Me.pnl3, Me.pnl4, Me.pnl5})
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.pnl1, Me.pnl2, Me.pnl3, Me.pnl4})
         Me.StatusStrip1.Location = New System.Drawing.Point(118, 304)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 10, 0)
@@ -506,7 +505,7 @@ Partial Class IAIPNavigation
         Me.pnl1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.pnl1.Name = "pnl1"
         Me.pnl1.Padding = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.pnl1.Size = New System.Drawing.Size(506, 19)
+        Me.pnl1.Size = New System.Drawing.Size(475, 19)
         Me.pnl1.Spring = True
         Me.pnl1.Text = "Program"
         Me.pnl1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -537,16 +536,6 @@ Partial Class IAIPNavigation
         Me.pnl4.Padding = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.pnl4.Size = New System.Drawing.Size(83, 19)
         Me.pnl4.Text = "Environment"
-        '
-        'pnl5
-        '
-        Me.pnl5.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left
-        Me.pnl5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.pnl5.Name = "pnl5"
-        Me.pnl5.Padding = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.pnl5.Size = New System.Drawing.Size(47, 19)
-        Me.pnl5.Text = "Server"
-        Me.pnl5.Visible = False
         '
         'rdbPMView
         '
@@ -745,7 +734,6 @@ Partial Class IAIPNavigation
     Friend WithEvents txtAIRSNumber As System.Windows.Forms.TextBox
     Friend WithEvents dgvWorkViewer As System.Windows.Forms.DataGridView
     Friend WithEvents pnl4 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents pnl5 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents bgrLoadWorkViewer As System.ComponentModel.BackgroundWorker
     Friend WithEvents lblMessageLabel As System.Windows.Forms.Label
     Friend WithEvents mmiOnlineHelp As System.Windows.Forms.MenuItem
