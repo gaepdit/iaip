@@ -123,7 +123,6 @@ Module subMain
 #Region "Planning & Support Screens"
     Public FacilityFeeForm As PASPFacilityFee
     Public FeeDeposits As PASPFeeDeposits
-    Public Modifications As PASPModifications
     Public FeesReports As PASPFeeReports
     Public VarianceTool As PASPFeeVarianceCheck
     Public WebAppUser As PASPWebApplicationUser

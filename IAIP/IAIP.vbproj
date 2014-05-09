@@ -562,9 +562,6 @@
     <Compile Include="PASP\PASPFeeVarianceCheck.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PASP\PASPModifications.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="PASP\PASPWebApplicationUser.Designer.vb">
       <DependentUpon>PASPWebApplicationUser.vb</DependentUpon>
     </Compile>
@@ -1273,9 +1270,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PASP\PASPFeeVarianceCheck.resx">
       <DependentUpon>PASPFeeVarianceCheck.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PASP\PASPModifications.resx">
-      <DependentUpon>PASPModifications.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PASP\PASPWebApplicationUser.resx">
       <DependentUpon>PASPWebApplicationUser.vb</DependentUpon>
