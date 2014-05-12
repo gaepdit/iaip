@@ -49,13 +49,14 @@
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://airpermit.dnr.state.ga.us/iaip/install/</InstallUrl>
+    <UpdateUrl>http://airpermit.dnr.state.ga.us/iaip/install/</UpdateUrl>
     <SupportUrl>http://airpermit.dnr.state.ga.us/iaip/</SupportUrl>
     <ProductName>Integrated Air Information Platform</ProductName>
     <PublisherName>State of Georgia</PublisherName>
-    <MinimumRequiredVersion>3.2.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>3.2.1.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>IAIP-install.html</WebPage>
-    <ApplicationRevision>24</ApplicationRevision>
+    <ApplicationRevision>26</ApplicationRevision>
     <ApplicationVersion>3.3.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
