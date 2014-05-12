@@ -10,9 +10,8 @@ Module Encryption
         ' Encrypts/decrypts the passed string using
         ' a simple ASCII value-swapping algorithm
         Dim strTempChar As String = ""
-        Dim i As Integer
 
-        For i = 1 To Len(Text)
+        For i As Integer = 1 To Len(Text)
             If Asc(Mid$(Text, i, 1)) < 128 Then
                 strTempChar = _
           CType(Asc(Mid$(Text, i, 1)) + 128, String)

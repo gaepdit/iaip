@@ -19,7 +19,7 @@ Module CodeFile
             If AIRSNumber = "" Then
                 Return False
             End If
-            SQL = "Insert into " & DBNameSpace & ".APBContactInformation " & _
+            Dim SQL As String = "Insert into " & DBNameSpace & ".APBContactInformation " & _
              "values " & _
              "('0413" & AIRSNumber & Key & "', '0413" & AIRSNumber & "', " & _
              "" & Key & " , '" & Replace(ContactFirstName, "'", "''") & "', " & _
@@ -65,7 +65,7 @@ Module CodeFile
                 Return False
             End If
 
-            SQL = "Select " & _
+            Dim SQL As String = "Select " & _
             "substr(max(strKey) + 1, 2, 1) as NewKey " & _
             "from " & DBNameSpace & ".APBContactInformation " & _
             "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
@@ -227,7 +227,7 @@ Module CodeFile
                 End If
             End If
 
-            SQL = "Insert into FS_FeeRate " & _
+            Dim SQL As String = "Insert into FS_FeeRate " & _
             "values " & _
             "((Select max(numFeeRateID) + 1 from " & DBNameSpace & ".FS_FeeRate), " & _
             "'" & FeeYear & "', '" & PeriodStart & "', " & _
@@ -332,7 +332,7 @@ Module CodeFile
                 End If
             End If
 
-            SQL = "Update " & DBNameSpace & ".FS_FeeRate set " & _
+            Dim SQL As String = "Update " & DBNameSpace & ".FS_FeeRate set " & _
             "numFeeYear = '" & FeeYear & "', " & _
             "datFeePeriodStart = '" & PeriodStart & "', " & _
             "datFeePeriodEnd = '" & PeriodEnd & "', " & _
@@ -369,7 +369,7 @@ Module CodeFile
     End Function
     Function Insert_FSLK_NSPSReason(ByVal Description As String) As Boolean
         Try
-            SQL = "Insert into " & DBNameSpace & ".FSLK_NSPSReason " & _
+            Dim SQL As String = "Insert into " & DBNameSpace & ".FSLK_NSPSReason " & _
             "Values " & _
             "((select max(NSPSReasonCode) + 1 from " & DBNameSpace & ".FSLK_NSPSReason), " & _
             "'" & Replace(Description, "'", "''") & "', " & _
@@ -391,14 +391,15 @@ Module CodeFile
     End Function
     Function Update_FSLK_NSPSReason(ByVal NSPSReasonCode As String, ByVal Description As String, ByVal ActiveStatus As String) As Boolean
         Try
+            Dim SQL As String
             If Description = "" Then
-                SQL = "Update " & DBNameSpace & ".FSLK_NSPSReason set " & _
+                Sql = "Update " & DBNameSpace & ".FSLK_NSPSReason set " & _
                 "Active = '" & ActiveStatus & "', " & _
                 "updateUser = '" & UserGCode & "', " & _
                 "UpdateDateTime = '" & OracleDate & "' " & _
                 "where NSPSReasonCode = '" & NSPSReasonCode & "' "
             Else
-                SQL = "Update " & DBNameSpace & ".FSLK_NSPSReason set " & _
+                Sql = "Update " & DBNameSpace & ".FSLK_NSPSReason set " & _
                 "Description = '" & Replace(Description, "'", "''") & "', " & _
                 "Active = '" & ActiveStatus & "', " & _
                 "updateUser = '" & UserGCode & "', " & _
@@ -406,7 +407,7 @@ Module CodeFile
                 "where NSPSReasonCode = '" & NSPSReasonCode & "' "
             End If
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New OracleCommand(Sql, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -421,7 +422,7 @@ Module CodeFile
     End Function
     Function Insert_FSLK_NSPSReasonYear(ByVal numFeeYear As String, ByVal NSPSReasonCode As String, ByVal DisplayOrder As String) As Boolean
         Try
-            SQL = "Insert into " & DBNameSpace & ".FSLK_NSPSReasonYear " & _
+            Dim SQL As String = "Insert into " & DBNameSpace & ".FSLK_NSPSReasonYear " & _
             "values " & _
             "('" & numFeeYear & "', '" & NSPSReasonCode & "', " & _
             "'" & DisplayOrder & "', '1', " & _
@@ -441,7 +442,7 @@ Module CodeFile
     Function Update_FSLK_NSPSReasonYear(ByVal numFeeYear As String, ByVal NSPSReasonCode As String, ByVal DisplayOrder As String, _
                                        ByVal ActiveStatus As String) As Boolean
         Try
-            SQL = "Update " & DBNameSpace & ".FSLK_NSPSReasonYear set " & _
+            Dim SQL As String = "Update " & DBNameSpace & ".FSLK_NSPSReasonYear set " & _
             "NSPSReasonCode = '" & NSPSReasonCode & "', " & _
             "DisplayOrder = '" & DisplayOrder & "', " & _
             "Active = '" & ActiveStatus & "', " & _
@@ -478,7 +479,7 @@ Module CodeFile
                 Return False
             End If
 
-            SQL = "Select " & _
+            Dim SQL As String = "Select " & _
             "count(*) as AdminCount " & _
             "from " & DBNameSpace & ".FS_Admin " & _
             "where numFeeYear = '" & FeeYear & "' " & _
@@ -608,7 +609,7 @@ Module CodeFile
                              ByVal CurrentStatus As String, _
                              ByVal Comment As String, ByVal Active As String) As Boolean
         Try
-            SQL = ""
+            Dim SQL As String = ""
             If IsDBNull(Enrolled) Or Enrolled = "" Then
             Else
                 If Enrolled = False Then
@@ -810,7 +811,7 @@ Module CodeFile
                 Active = "1"
             End If
 
-            SQL = "Insert into " & DBNameSpace & ".FS_MailOut " & _
+            Dim SQL As String = "Insert into " & DBNameSpace & ".FS_MailOut " & _
             "values " & _
             "('" & FeeYear & "', '0413" & AIRSNumber & "', " & _
             "'" & Replace(FirstName, "'", "''") & "', '" & Replace(LastName, "'", "''") & "', " & _
@@ -863,7 +864,7 @@ Module CodeFile
             If IsDBNull(AIRSNumber) Then
                 Return False
             End If
-            SQL = ""
+            Dim SQL As String = ""
 
             If IsDBNull(FirstName) Then
             Else
@@ -995,7 +996,7 @@ Module CodeFile
     Function Validate_FS_Invoices(ByVal FeeYear As String, ByVal AIRSNumber As String) As Boolean
         Try
 
-            SQL = "Update airbranch.FS_FeeInvoice set " & _
+            Dim SQL As String = "Update airbranch.FS_FeeInvoice set " & _
             "strInvoiceStatus = '1', " & _
             "UpdateUser = '" & Replace(UserName, "'", "''") & "',  " & _
             "updateDateTime = sysdate " & _
@@ -1032,7 +1033,7 @@ Module CodeFile
 
     Function ValidateNAICS(ByVal NAICSCode As String) As Boolean
         Try
-            SQL = "Select strNAICSCode " & _
+            Dim SQL As String = "Select strNAICSCode " & _
             "from AIRBranch.EILookUpNAICS " & _
             "where strNAICSCode = '" & NAICSCode & "' "
 
@@ -1056,7 +1057,7 @@ Module CodeFile
     End Function
     Function ValidateSIC(ByVal SICCode As String) As Boolean
         Try
-            SQL = "Select strSICCode " & _
+            Dim SQL As String = "Select strSICCode " & _
             "from AIRBranch.LookUpSICCodes " & _
             "where strSICCode = '" & SICCode & "' " & _
             "and length(strSICCode) = 4 "

@@ -8,6 +8,7 @@ Public Class IAIPProfileUpdate
 
     Private Sub btnUpdateEmail_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateEmail.Click
         Try
+            Dim SQL As String
             Dim myInput As String = txtEmailAddress.Text.Trim()
 
             Dim pattern As String = "^[\w-]+(?:\.[\w-]+)*@(?:[\w-]+\.)+[a-zA-Z]{2,7}$"
@@ -21,7 +22,7 @@ Public Class IAIPProfileUpdate
                 "strEmailAddress = '" & txtEmailAddress.Text & "' " & _
                 "where numUserID = '" & UserGCode & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New OracleCommand(Sql, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -45,7 +46,7 @@ Public Class IAIPProfileUpdate
             Dim pattern As String = "^1?\s*-?\s*(\d{3}|\(\s*\d{3}\s*\))\s*-?\s*\d{3}\s*-?\s*\d{4}$"
             Dim myRegEx As New System.Text.RegularExpressions.Regex(pattern)
             If myRegEx.IsMatch(myInput) Then
-                SQL = "Update " & DBNameSpace & ".EPDUserProfiles set " & _
+                Dim SQL As String = "Update " & DBNameSpace & ".EPDUserProfiles set " & _
                 "strPhone = '" & mtbPhoneNumber.Text & "' " & _
                 "where numuserID = '" & UserGCode & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -68,7 +69,7 @@ Public Class IAIPProfileUpdate
         Try
             If txtUserPassword.Text <> "" And txtConfirmPassword.Text <> "" Then
                 If txtUserPassword.Text = txtConfirmPassword.Text Then
-                    SQL = "Update " & DBNameSpace & ".EPDUsers set " & _
+                    Dim SQL As String = "Update " & DBNameSpace & ".EPDUsers set " & _
                     "strPassword = '" & Replace(EncryptDecrypt.EncryptText(txtUserPassword.Text), "'", "''") & "' " & _
                     "where numUserId = '" & UserGCode & "' "
 
@@ -96,6 +97,7 @@ Public Class IAIPProfileUpdate
             Dim myInput As String = txtEmailAddress.Text.Trim()
             Dim pattern As String = "^[\w-]+(?:\.[\w-]+)*@(?:[\w-]+\.)+[a-zA-Z]{2,7}$"
             Dim myRegEx As New System.Text.RegularExpressions.Regex(pattern)
+            Dim SQL As String
 
             If myRegEx.IsMatch(myInput) Then
                 ' MessageBox.Show("E-Mail is valid")

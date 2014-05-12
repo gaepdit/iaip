@@ -4,6 +4,7 @@ Imports CrystalDecisions.CrystalReports.Engine
 
 
 Public Class PASPFeeAuditLog
+    Dim SQL As String
     Dim ds As DataSet
     Dim da As OracleDataAdapter
     Dim dtairs As New DataTable
@@ -1172,7 +1173,7 @@ Public Class PASPFeeAuditLog
             dgvInvoiceData.Columns("strComment").Width = dgvInvoiceData.Width * 0.45
 
             rdbInvoiceDataPaidStatus.Checked = True
-            For i = 0 To dgvInvoiceData.RowCount - 1
+            For i As Integer = 0 To dgvInvoiceData.RowCount - 1
                 temp = dgvInvoiceData(5, i).Value
                 If dgvInvoiceData(5, i).Value = "Unpaid" Then
                     rdbInvoiceDataUnpaidStatus.Checked = True
@@ -3990,7 +3991,7 @@ Public Class PASPFeeAuditLog
                     NSPSExempt = "0"
                 End If
                 If NSPSExempt = "1" Then
-                    For i = 0 To dgvEditExemptions.Rows.Count - 1
+                    For i As Integer = 0 To dgvEditExemptions.Rows.Count - 1
                         If dgvEditExemptions(0, i).Value = True Then
                             NSPSExemptions = NSPSExemptions & dgvEditExemptions(1, i).Value & ","
                         End If
@@ -5184,7 +5185,7 @@ Public Class PASPFeeAuditLog
                     NSPSExempt = "0"
                 End If
                 If NSPSExempt = "1" Then
-                    For i = 0 To dgvEditExemptions.Rows.Count - 1
+                    For i As Integer = 0 To dgvEditExemptions.Rows.Count - 1
                         If dgvEditExemptions(0, i).Value = True Then
                             NSPSExemptions = NSPSExemptions & dgvEditExemptions(1, i).Value & ","
                         End If

@@ -2,6 +2,7 @@
 Imports System.Math
 
 Public Class SBEAPCaseLog
+    Dim SQL As String
     Dim dsCaseLog As DataSet
     Dim daActions As OracleDataAdapter
     Dim daStaff As OracleDataAdapter

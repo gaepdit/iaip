@@ -1,6 +1,7 @@
 ﻿Imports Oracle.DataAccess.Client
 
 Public Class PASPFeeTools
+    Dim SQL As String
     Dim da As OracleDataAdapter
     Dim ds As DataSet
     Dim daInvoice As OracleDataAdapter

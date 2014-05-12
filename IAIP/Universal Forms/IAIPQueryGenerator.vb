@@ -6049,7 +6049,6 @@ Public Class IAIPQueryGenerator
             dgvQueryGenerator.DataSource = dsSQLQuery
             dgvQueryGenerator.DataMember = "SQLQuery"
 
-            i = 0
             dgvQueryGenerator.RowHeadersVisible = False
             dgvQueryGenerator.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvQueryGenerator.AllowUserToResizeColumns = True

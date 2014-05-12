@@ -1,6 +1,7 @@
 ﻿Imports Oracle.DataAccess.Client
 
 Public Class PASPFeeManagement
+    Dim SQL As String
     Dim ds As DataSet
     Dim da As OracleDataAdapter
     Dim dtairs As New DataTable
@@ -2003,7 +2004,7 @@ Public Class PASPFeeManagement
             Dim eiaccess As String
             Dim esaccess As String
 
-            For i = 0 To dgvUsers.Rows.Count - 1
+            For i As Integer = 0 To dgvUsers.Rows.Count - 1
                 If dgvUsers(3, i).Value = True Then
                     adminaccess = "1"
                 Else
@@ -2554,7 +2555,7 @@ Public Class PASPFeeManagement
             Dim eiaccess As String
             Dim esaccess As String
 
-            For i = 0 To dgvUserFacilities.Rows.Count - 1
+            For i As Integer = 0 To dgvUserFacilities.Rows.Count - 1
                 If dgvUserFacilities(2, i).Value = True Then
                     adminaccess = "1"
                 Else

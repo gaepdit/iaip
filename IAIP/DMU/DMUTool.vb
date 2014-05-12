@@ -3,7 +3,7 @@ Imports System.Data.OleDb
 'Imports System.Data.Odbc
 
 Public Class DMUTool
-    Dim SQL As String
+    Dim SQL, SQL2 As String
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader
     Dim RecExist As Boolean
@@ -12,29 +12,6 @@ Public Class DMUTool
 
     Private Sub DMUTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
-        Try
-
-            Panel1.Text = "Enter SQL statement above..."
-            Panel2.Text = UserName
-            Panel3.Text = OracleDate
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".btnRunSQL_Click")
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub tsbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbBack.Click
-        Try
-            DMUOnly.Dispose()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".btnRunSQL_Click")
-        Finally
-
-        End Try
-
     End Sub
     Private Sub btnClearSQL_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearSQL.Click
         Try

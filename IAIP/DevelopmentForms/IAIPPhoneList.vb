@@ -202,7 +202,7 @@
         Try
             Dim SQLWhere As String = ""
 
-            SQL = "select " & _
+            Dim SQL As String = "select " & _
             "(strLastName||', '||strFirstName) as PhoneListName, " & _
             "strOffice, strPhone " & _
             "from " & DBNameSpace & ".EPDUSerProfiles " & _

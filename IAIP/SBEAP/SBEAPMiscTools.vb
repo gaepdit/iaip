@@ -34,7 +34,7 @@ Public Class SBEAPMiscTools
         Try
             dsMiscTools = New DataSet
 
-            SQL = "select " & _
+            Dim SQL As String = "select " & _
             "" & DBNameSpace & ".SBEAPClients.ClientID, " & _
             "strCompanyName, " & _
             "strClientFirstName, strClientLastName, " & _
@@ -174,6 +174,7 @@ Public Class SBEAPMiscTools
         Try
             ds = New DataSet
             rpt = New crCaseWorkLog
+            Dim SQL As String
 
             If chbAllDates.Checked = True Then
                 SQL = "Select * " & _

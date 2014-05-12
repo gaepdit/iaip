@@ -1,6 +1,7 @@
 ﻿Imports Oracle.DataAccess.Client
 
 Public Class IAIPLookUpTables
+    Dim SQL As String
     Dim ds As DataSet
     Dim da As OracleDataAdapter
 

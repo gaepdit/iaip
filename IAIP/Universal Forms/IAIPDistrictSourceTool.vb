@@ -3,7 +3,7 @@ Imports Oracle.DataAccess.Client
 
 
 Public Class IAIPDistrictSourceTool
-    Dim SQL As String
+    Dim SQL, SQL2 As String
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader
     Dim recExist As Boolean
@@ -382,7 +382,6 @@ Public Class IAIPDistrictSourceTool
     Sub Back()
         Try
 
-            IAIPDistrictTool = Nothing
             Me.Dispose()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

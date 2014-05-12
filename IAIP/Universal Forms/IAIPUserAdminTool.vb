@@ -1823,7 +1823,7 @@ Public Class IAIPUserAdminTool
     Private Sub tsbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbBack.Click
         Try
             Me.Hide()
-            UserAdminTool.Dispose()
+
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1857,17 +1857,7 @@ Public Class IAIPUserAdminTool
 
 
     Private Sub mmiViewPhoneList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiViewPhoneList.Click
-        Try
-            If PhoneList Is Nothing Then
-                If PhoneList Is Nothing Then PhoneList = New IAIPPhoneList
-            Else
-                PhoneList.Dispose()
-                PhoneList = New IAIPPhoneList
-            End If
-            PhoneList.Show()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenSingleForm(IAIPPhoneList)
     End Sub
 
 End Class

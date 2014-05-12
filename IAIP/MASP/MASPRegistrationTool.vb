@@ -4,6 +4,7 @@ Imports Iaip.DAL.EventRegistration
 Imports Iaip.Apb.Res
 
 Public Class MASPRegistrationTool
+    Dim SQL As String
     Dim ds As DataSet
     Dim da As OracleDataAdapter
 
@@ -308,7 +309,7 @@ Public Class MASPRegistrationTool
 
     Sub LoadEventManagement()
         Try
-            SQL = "Select " & _
+            Sql = "Select " & _
             "numRes_EventID, " & _
             "numEventStatusCode, strUserGCode, " & _
             "strTitle, strDescription, " & _
@@ -1057,7 +1058,7 @@ Public Class MASPRegistrationTool
                            ByVal Active As String, ByVal EventTime As String, _
                            ByVal EventEndTime As String, ByVal WebURL As String) As Boolean
         Try
-            SQL = ""
+            Dim SQL As String = ""
             If IsDBNull(EventStatusCode) Then
             Else
                 If EventStatusCode <> "" Then

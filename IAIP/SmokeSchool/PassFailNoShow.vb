@@ -14,7 +14,7 @@ Public Class PassFailNoShow
             Dim ds As DataSet
             Dim da As OracleDataAdapter
 
-            SQL = "Select * from " & DBNameSpace & ".SmokeSchoolPrintInfo "
+            Dim SQL As String = "Select * from " & DBNameSpace & ".SmokeSchoolPrintInfo "
 
             ds = New DataSet
 

@@ -1100,7 +1100,7 @@ Public Class IAIPNavigation
                     If accountAccess <> "" Then
                         Do While accountAccess <> ""
                             navTemp = False
-                            For j = 0 To 4
+                            For j As Integer = 0 To 4
                                 If AccountArray(j, 0) = Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1)) Then
                                     navTemp = True
                                 End If

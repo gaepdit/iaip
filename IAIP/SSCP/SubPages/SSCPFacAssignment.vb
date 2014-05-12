@@ -4,6 +4,7 @@ Imports Oracle.DataAccess.Client
 Public Class SSCPFacAssignment
     Inherits BaseForm
 
+    Dim SQL As String
     Dim statusBar1 As New StatusBar
     Dim panel1 As New StatusBarPanel
     Dim panel2 As New StatusBarPanel

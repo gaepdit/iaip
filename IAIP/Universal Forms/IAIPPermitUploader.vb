@@ -39,7 +39,6 @@ Public Class IAIPPermitUploader
 
     Private Sub IAIPPermitUploader_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
-            PermitUploader = Nothing
             Me.Dispose()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -339,7 +338,6 @@ Public Class IAIPPermitUploader
 
     Private Sub tbbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tbbBack.Click
         Try
-            PermitUploader = Nothing
             Me.Close()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

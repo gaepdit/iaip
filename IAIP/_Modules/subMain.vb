@@ -34,19 +34,12 @@ Module subMain
     Public UserBranch As String
     Public UserProgram As String
     Public UserUnit As String
+    Public AccountArray(150, 4) As String
 
-    Public SQL, SQL2, SQL3 As String
     Public cmd, cmd2, cmd3 As OracleCommand
     Public dr, dr2, dr3 As OracleDataReader
     Public recExist As Boolean
     Public temp As String
-    Public AccountArray(150, 4) As String
-    Public j As Integer
-    Public i As Integer
-    'Public DefaultX As Integer
-    'Public DefaultY As Integer
-    Public Oracledll As String
-
 #End Region
 
 #End Region
@@ -54,35 +47,16 @@ Module subMain
 #Region " All Forms "
 
 #Region "Universal Screens"
-    'Public APB110 As IAIPLogIn
-
-    'Public NavigationScreen As IAIPNavigation
-    'Public FacilityLookUpTool As IAIPFacilityLookUpTool
     Public PrintOut As IAIPPrintOut
-    'Public FacilitySummary As IAIPFacilitySummary
-
-    Public QueryGenerator As IAIPQueryGenerator
-    Public EditContacts As IAIPEditContacts
-    'Public EditContacts2 As DEVEditContacts
-    Public EditFacilityLocation As IAIPEditFacilityLocation
-    Public EditHeaderData As IAIPEditHeaderData
+    Public EditContacts As IAIPEditContacts ' TODO DWW: Remove
+    Public EditFacilityLocation As IAIPEditFacilityLocation ' TODO DWW: Remove
+    Public EditHeaderData As IAIPEditHeaderData ' TODO DWW: Remove
     Public EditAirProgramPollutants As IAIPEditAirProgramPollutants
-    Public EditSubParts As IAIPEditSubParts
-    'Public DevelopmentTeam As IAIPDevelopmentTeam
-    Public IAIPDistrictTool As IAIPDistrictSourceTool
-    Public PermitUploader As IAIPPermitUploader
-    Public Validator As AFSValidator
-    Public UserAdminTool As IAIPUserAdminTool
-    Public ListTool As IAIPListTool
-    Public PhoneList As IAIPPhoneList
+    Public EditSubParts As IAIPEditSubParts ' TODO DWW: Remove
+    Public ListTool As IAIPListTool ' TODO DWW: Remove
     Public ProfileUpdate As IAIPProfileUpdate
-    Public AFSCompare As IAIPAFSCompare
-    Public FacilityPrintOut As IaipFacilitySummaryPrint
-    Public LookUpTables As IAIPLookUpTables
-    Public FacilityCreator As IAIPFacilityCreator
-    Public EISLog As IAIP_EIS_Log
-    'Public TitleVProject As DMU_TITLEV_PROJECT
-
+    Public FacilityPrintOut As IaipFacilitySummaryPrint ' TODO DWW: Remove
+    Public FacilityCreator As IAIPFacilityCreator ' TODO DWW: Remove
 #End Region
 
 #Region "Ambient Monitoring Screens"
@@ -90,34 +64,15 @@ Module subMain
 #End Region
 
 #Region "ISMP Screens"
-    Public ISMPFacility As ISMPTestReportAdministrative
-    Public ISMPTestReportInfo As ISMPFacilityInfo
-    Public ISMPManagers As ISMPManagersTools
-    Public ISMPReportViewer As ISMPMonitoringLog
-    Public ISMPMemoViewer As ISMPTestMemoViewer
-    Public ISMPRefNum As ISMPReferenceNumber
-    Public ISMPMemoEdit As ISMPMemo
-    Public ISMPNotificationLogForm As ISMPNotificationLog
-    Public ISMPCloseAndPrint As ISMPClosePrint
-    'Public ISMPExcelFilePage As ISMPExcelFiles
-    Public ISMPAddPollutant As ISMPAddPollutants
-    Public ISMPAddTestingFirm As ISMPAddTestingFirms
-    'Public ISMPDMU As ISMPDataManagementTools
-    Public DMUOnly As DMUTool
-    Public ISMPConfidential As ISMPConfidentialData
-    'Public ISMPTestReportsEntry As ISMPTestReports
-    Public TestFirmComments As ISMPTestFirmComments
-    'Public DevelopersTools As DMUDeveloperTools
-    Public StaffTools As DMUStaffTools
-    Public TitleVTools As DMUTitleVTools
-    Public StaffReports As ISMPStaffReports
-    'Public FeeAuditTool As IAIPFeeAuditTool
-
-#End Region
-
-#Region "Mobile & Area Screens"
-    'Public RegistrationTool As MASPRegistrationTool
-
+    Public ISMPTestReportInfo As ISMPFacilityInfo ' TODO DWW: Remove
+    Public ISMPMemoEdit As ISMPMemo ' TODO DWW: Remove
+    Public ISMPNotificationLogForm As ISMPNotificationLog ' TODO DWW: Remove
+    Public ISMPCloseAndPrint As ISMPClosePrint ' TODO DWW: Remove
+    Public ISMPAddPollutant As ISMPAddPollutants ' TODO DWW: Remove
+    Public ISMPAddTestingFirm As ISMPAddTestingFirms ' TODO DWW: Remove
+    Public ISMPConfidential As ISMPConfidentialData ' TODO DWW: Remove
+    Public TestFirmComments As ISMPTestFirmComments ' TODO DWW: Remove
+    Public StaffReports As ISMPStaffReports ' TODO DWW: Remove
 #End Region
 
 #Region "Planning & Support Screens"
@@ -128,11 +83,7 @@ Module subMain
     Public WebAppUser As PASPWebApplicationUser
     Public DepositsAmendments As PASPDepositsAmendments
     Public MailoutAndStats As PASPFeeStatistics
-    'Public MailoutAndStats As DEVMailoutAndStats
-    'Public FeeStat As DEVMailoutAndStats
-
     Public FeeTools As PASPFeeTools
-    'Public ComputerInventory As PASPInventory
     Public FeeStats As PASPFeeAuditLog
     Public FeesLog As PASPFeesLog
     Public FeeManagement As PASPFeeManagement
@@ -143,14 +94,10 @@ Module subMain
     Public SSCP_Work As SSCPComplianceLog
     Public ManagersTools As SSCPManagersTools
     Public SSCPReports As SSCPEvents
-    'Public SSCP_Enforcement As SSCPEnforcementAudit
     Public SSCPFCE As SSCPFCEWork
     Public SSCPFacAssign As SSCPFacAssignment
     Public SSCPEngWork As SSCPWorkEnTry
-    'Public SSCPTemplates As SSCPLetterTemplates
     Public SSCPRequest As SSCPInformationRequest
-    'Public SSCPFCESelector As SSCPFCESelectorTool
-    'Public SSCPSelectEnforcement As SSCPEnforcementSelector
     Public EnforcementChecklist As SSCPEnforcementChecklist
     Public SSCPInspectionsTool As SSCPEngineerInspectionTool
     Public SSCPInspectionscheduleTool As SSCPInspectionscheduleLink
@@ -166,13 +113,11 @@ Module subMain
     Public PublicLetter2 As SSPPPublicNoticiesAndAdvisories
     Public StatisticalTools As SSPPStatisticalTools
     Public FeeContact As SSPP_FeeContact
-
 #End Region
 
 #Region " SBEAP Screens "
     Public ClientSummary As SBEAPClientSummary
     Public CaseWork As SBEAPCaseWork
-    'Public PrintForm As SBEAPPrintForms
     Public ClientSearchTool As SBEAPClientSearchTool
     Public CaseLog As SBEAPCaseLog
     Public ReportTool As SBEAPReports

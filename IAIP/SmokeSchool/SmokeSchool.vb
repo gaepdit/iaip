@@ -5,6 +5,7 @@ Imports CrystalDecisions.Shared
 'Imports Excel
 
 Public Class SmokeSchool
+    Dim SQL, SQL2 As String
     Public dsSchedule As DataSet
     Public daSchedule As OracleDataAdapter
     Public dsYear As DataSet
@@ -2236,7 +2237,7 @@ Public Class SmokeSchool
                             CurrentConnection.Open()
                         End If
                         dr = cmd.ExecuteReader
-                        i = 0
+                        Dim i As Integer = 0
                         While dr.Read
                             If IsDBNull(dr.Item("strScoreKey")) Then
                             Else

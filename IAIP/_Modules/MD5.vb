@@ -32,8 +32,7 @@ Module MD5
 
         ' Loop through each byte of the hashed data 
         ' and format each one as a hexadecimal string.
-        Dim i As Integer
-        For i = 0 To data.Length - 1
+        For i As Integer = 0 To data.Length - 1
             sBuilder.Append(data(i).ToString("x2"))
         Next i
 
