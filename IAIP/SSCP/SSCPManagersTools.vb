@@ -5,7 +5,7 @@ Imports System.IO
 
 Public Class SSCPManagersTools
     
-    Dim SQL As String
+    Dim SQL, SQL2, SQL3 As String
     Dim cmd, cmd2, cmd3 As OracleCommand
     Dim dr, dr2, dr3 As OracleDataReader
     Dim recExist As Boolean
@@ -5012,7 +5012,7 @@ Public Class SSCPManagersTools
                 Exit Sub
             End If
 
-            For i = 0 To dgvSelectedFacilityList.Rows.Count - 1
+            For i As Integer = 0 To dgvSelectedFacilityList.Rows.Count - 1
                 AIRSNum = ""
                 Eng = ""
 
@@ -5058,7 +5058,7 @@ Public Class SSCPManagersTools
                 dr.Close()
             Next
 
-            For i = 0 To dgvSelectedFacilityList.RowCount - 1
+            For i As Integer = 0 To dgvSelectedFacilityList.RowCount - 1
                 dgvSelectedFacilityList(2, i).Value = cboSSCPEngineer.Text
             Next
 
@@ -5078,7 +5078,7 @@ Public Class SSCPManagersTools
                 Exit Sub
             End If
 
-            For i = 0 To dgvSelectedFacilityList.Rows.Count - 1
+            For i As Integer = 0 To dgvSelectedFacilityList.Rows.Count - 1
                 AIRSNum = dgvSelectedFacilityList(0, i).Value
 
                 SQL = "select strAIRSNumber " & _
@@ -5120,7 +5120,7 @@ Public Class SSCPManagersTools
                 dr.Close()
             Next
 
-            For i = 0 To dgvSelectedFacilityList.RowCount - 1
+            For i As Integer = 0 To dgvSelectedFacilityList.RowCount - 1
                 dgvSelectedFacilityList(3, i).Value = cboSSCPUnit2.Text
             Next
 
@@ -5146,7 +5146,7 @@ Public Class SSCPManagersTools
                 Exit Sub
             End If
 
-            For i = 0 To dgvSelectedFacilityList.Rows.Count - 1
+            For i As Integer = 0 To dgvSelectedFacilityList.Rows.Count - 1
                 AIRSNum = dgvSelectedFacilityList(0, i).Value
 
                 SQL = "Select strAIRSNumber " & _
@@ -5180,7 +5180,7 @@ Public Class SSCPManagersTools
                 dr.Close()
             Next
 
-            For i = 0 To dgvSelectedFacilityList.RowCount - 1
+            For i As Integer = 0 To dgvSelectedFacilityList.RowCount - 1
                 dgvSelectedFacilityList(4, i).Value = DistResp
             Next
             MsgBox("District Responsibilitie(s) Completed", MsgBoxStyle.Information, "Managers Tools")
@@ -5208,7 +5208,7 @@ Public Class SSCPManagersTools
                 Exit Sub
             End If
 
-            For i = 0 To dgvSelectedFacilityList.Rows.Count - 1
+            For i As Integer = 0 To dgvSelectedFacilityList.Rows.Count - 1
                 AIRSNum = dgvSelectedFacilityList(0, i).Value
 
                 SQL = "Select strAIRSNumber " & _
@@ -5249,7 +5249,7 @@ Public Class SSCPManagersTools
                 dr.Close()
             Next
 
-            For i = 0 To dgvSelectedFacilityList.RowCount - 1
+            For i As Integer = 0 To dgvSelectedFacilityList.RowCount - 1
                 dgvSelectedFacilityList(5, i).Value = InspectionNote
             Next
 
@@ -5278,7 +5278,7 @@ Public Class SSCPManagersTools
                 Exit Sub
             End If
 
-            For i = 0 To dgvSelectedFacilityList.Rows.Count - 1
+            For i As Integer = 0 To dgvSelectedFacilityList.Rows.Count - 1
                 AIRSNum = dgvSelectedFacilityList(0, i).Value
 
                 SQL = "Select strAIRSNumber " & _
@@ -5318,7 +5318,7 @@ Public Class SSCPManagersTools
                 dr.Close()
             Next
 
-            For i = 0 To dgvSelectedFacilityList.RowCount - 1
+            For i As Integer = 0 To dgvSelectedFacilityList.RowCount - 1
                 dgvSelectedFacilityList(7, i).Value = FCENote
             Next
 
@@ -5360,7 +5360,7 @@ Public Class SSCPManagersTools
                 FCERequired = "False"
             End If
 
-            For i = 0 To dgvSelectedFacilityList.Rows.Count - 1
+            For i As Integer = 0 To dgvSelectedFacilityList.Rows.Count - 1
                 AIRSNum = dgvSelectedFacilityList(0, i).Value
 
                 SQL = "select strAIRSNumber " & _
@@ -5436,7 +5436,7 @@ Public Class SSCPManagersTools
                 dr.Close()
             Next
 
-            For i = 0 To dgvSelectedFacilityList.RowCount - 1
+            For i As Integer = 0 To dgvSelectedFacilityList.RowCount - 1
                 dgvSelectedFacilityList(4, i).Value = DistResp
                 dgvSelectedFacilityList(2, i).Value = cboSSCPEngineer.Text
                 dgvSelectedFacilityList(3, i).Value = cboSSCPUnit2.Text
@@ -5540,7 +5540,7 @@ Public Class SSCPManagersTools
                 Exit Sub
             End If
 
-            For i = 0 To dgvSelectedFacilityList.Rows.Count - 1
+            For i As Integer = 0 To dgvSelectedFacilityList.Rows.Count - 1
                 AIRSNum = ""
                 '  Eng = ""
 
@@ -5602,7 +5602,7 @@ Public Class SSCPManagersTools
                 Exit Sub
             End If
 
-            For i = 0 To dgvSelectedFacilityList.Rows.Count - 1
+            For i As Integer = 0 To dgvSelectedFacilityList.Rows.Count - 1
                 AIRSNum = dgvSelectedFacilityList(0, i).Value
 
                 SQL = "select strAIRSNumber " & _
@@ -5670,7 +5670,7 @@ Public Class SSCPManagersTools
                 Exit Sub
             End If
 
-            For i = 0 To dgvSelectedFacilityList.Rows.Count - 1
+            For i As Integer = 0 To dgvSelectedFacilityList.Rows.Count - 1
                 AIRSNum = dgvSelectedFacilityList(0, i).Value
 
                 SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
@@ -5687,7 +5687,7 @@ Public Class SSCPManagersTools
                 dgvSelectedFacilityList(9, i).Value = CMSStatus
             Next
 
-            For i = 0 To dgvSelectedFacilityList.RowCount - 1
+            For i As Integer = 0 To dgvSelectedFacilityList.RowCount - 1
                 dgvSelectedFacilityList(5, i).Value = CMSStatus
             Next
             MsgBox("Compliance Monitoring Strategy Updated", MsgBoxStyle.Information, "Managers Tools")

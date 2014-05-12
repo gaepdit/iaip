@@ -1,6 +1,7 @@
 Imports Oracle.DataAccess.Client
 
 Public Class SBEAPClientSummary
+    Dim SQL As String
     Dim dsCounty As DataSet
     Dim daCounty As OracleDataAdapter
     Dim dsContact As DataSet

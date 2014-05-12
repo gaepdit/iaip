@@ -134,20 +134,8 @@ Public Class IAIPNavigation
             DisableAndHide(mmiTesting)
         End If
 
-#If NadcTesting Then
-
-        pnl4.Visible = True
-
-        If CurrentServerLocation = DB.ServerLocation.NADC Then
-            pnl5.Text = "NADC Server"
-            pnl5.Visible = True
-        Else
-            pnl5.Text = "Legacy Server"
-            pnl5.Visible = True
-        End If
-
-        lblTitle.Text = "IAIP Navigation Screen — " & CurrentServerLocation.ToString & " " & CurrentServerEnvironment.ToString
-
+#If DEBUG Then
+        lblTitle.Text = "IAIP Navigation Screen — " & CurrentServerEnvironment.ToString
 #End If
 
     End Sub
@@ -1112,7 +1100,7 @@ Public Class IAIPNavigation
                     If accountAccess <> "" Then
                         Do While accountAccess <> ""
                             navTemp = False
-                            For j = 0 To 4
+                            For j As Integer = 0 To 4
                                 If AccountArray(j, 0) = Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1)) Then
                                     navTemp = True
                                 End If

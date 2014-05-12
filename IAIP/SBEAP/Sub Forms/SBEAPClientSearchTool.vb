@@ -1,6 +1,7 @@
 ﻿Imports Oracle.DataAccess.Client
 
 Public Class SBEAPClientSearchTool
+    Dim SQL As String
     Dim dsSearch As DataSet
     Dim daSearch As OracleDataAdapter
 

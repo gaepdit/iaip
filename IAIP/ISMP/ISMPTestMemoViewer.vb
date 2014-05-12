@@ -654,8 +654,6 @@ Public Class ISMPTestMemoViewer
 
     Private Sub ISMPTestMemoViewer_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
-
-            ISMPMemoViewer = Nothing
             Me.Dispose()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

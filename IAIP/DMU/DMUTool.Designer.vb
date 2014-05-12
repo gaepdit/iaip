@@ -22,13 +22,6 @@ Partial Class DMUTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DMUTool))
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
-        Me.tsbBack = New System.Windows.Forms.ToolStripButton
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
         Me.SCDMUTool = New System.Windows.Forms.SplitContainer
         Me.txtSQL = New System.Windows.Forms.TextBox
         Me.mtbVersionNumber = New System.Windows.Forms.MaskedTextBox
@@ -77,71 +70,15 @@ Partial Class DMUTool
         Me.btnDeleteEnforcement = New System.Windows.Forms.Button
         Me.btnClearSQL = New System.Windows.Forms.Button
         Me.btnRunSQL = New System.Windows.Forms.Button
-        Me.ToolStrip1.SuspendLayout()
-        Me.StatusStrip1.SuspendLayout()
         Me.SCDMUTool.Panel1.SuspendLayout()
         Me.SCDMUTool.Panel2.SuspendLayout()
         Me.SCDMUTool.SuspendLayout()
         Me.SuspendLayout()
         '
-        'ToolStrip1
-        '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbBack})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(715, 25)
-        Me.ToolStrip1.TabIndex = 0
-        Me.ToolStrip1.Text = "ToolStrip1"
-        '
-        'tsbBack
-        '
-        Me.tsbBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbBack.Image = CType(resources.GetObject("tsbBack.Image"), System.Drawing.Image)
-        Me.tsbBack.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbBack.Name = "tsbBack"
-        Me.tsbBack.Size = New System.Drawing.Size(23, 22)
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Panel1, Me.Panel2, Me.Panel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 463)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(715, 22)
-        Me.StatusStrip1.TabIndex = 1
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'Panel1
-        '
-        Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(692, 17)
-        Me.Panel1.Spring = True
-        '
-        'Panel2
-        '
-        Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(4, 17)
-        '
-        'Panel3
-        '
-        Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(4, 17)
-        '
         'SCDMUTool
         '
         Me.SCDMUTool.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SCDMUTool.Location = New System.Drawing.Point(0, 25)
+        Me.SCDMUTool.Location = New System.Drawing.Point(0, 0)
         Me.SCDMUTool.Name = "SCDMUTool"
         Me.SCDMUTool.Orientation = System.Windows.Forms.Orientation.Horizontal
         '
@@ -197,8 +134,8 @@ Partial Class DMUTool
         Me.SCDMUTool.Panel2.Controls.Add(Me.btnDeleteEnforcement)
         Me.SCDMUTool.Panel2.Controls.Add(Me.btnClearSQL)
         Me.SCDMUTool.Panel2.Controls.Add(Me.btnRunSQL)
-        Me.SCDMUTool.Size = New System.Drawing.Size(715, 438)
-        Me.SCDMUTool.SplitterDistance = 274
+        Me.SCDMUTool.Size = New System.Drawing.Size(715, 485)
+        Me.SCDMUTool.SplitterDistance = 303
         Me.SCDMUTool.TabIndex = 2
         '
         'txtSQL
@@ -209,7 +146,7 @@ Partial Class DMUTool
         Me.txtSQL.Multiline = True
         Me.txtSQL.Name = "txtSQL"
         Me.txtSQL.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtSQL.Size = New System.Drawing.Size(715, 274)
+        Me.txtSQL.Size = New System.Drawing.Size(715, 303)
         Me.txtSQL.TabIndex = 0
         '
         'mtbVersionNumber
@@ -663,29 +600,16 @@ Partial Class DMUTool
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(715, 485)
         Me.Controls.Add(Me.SCDMUTool)
-        Me.Controls.Add(Me.StatusStrip1)
-        Me.Controls.Add(Me.ToolStrip1)
         Me.Name = "DMUTool"
         Me.Text = "DMU Tool"
-        Me.ToolStrip1.ResumeLayout(False)
-        Me.ToolStrip1.PerformLayout()
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         Me.SCDMUTool.Panel1.ResumeLayout(False)
         Me.SCDMUTool.Panel1.PerformLayout()
         Me.SCDMUTool.Panel2.ResumeLayout(False)
         Me.SCDMUTool.Panel2.PerformLayout()
         Me.SCDMUTool.ResumeLayout(False)
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
-    Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
-    Friend WithEvents tsbBack As System.Windows.Forms.ToolStripButton
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents SCDMUTool As System.Windows.Forms.SplitContainer
     Friend WithEvents txtSQL As System.Windows.Forms.TextBox
     Friend WithEvents btnClearSQL As System.Windows.Forms.Button

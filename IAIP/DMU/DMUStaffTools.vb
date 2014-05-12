@@ -77,11 +77,7 @@ Public Class DMUStaffTools
             TCDMUTools.TabPages.Remove(TPESTools)
             TCDMUTools.TabPages.Remove(TabEISTool)
 
-            'StaffTools.Width = 800
-            'StaffTools.Height = 600
-
             If AccountArray(130, 3) = "1" Or AccountArray(130, 4) = "1" Then
-                'TCDMUTools.TabPages.Add(TPEmissionInventory)
                 TCDMUTools.TabPages.Add(TPESTools)
                 TCDMUTools.TabPages.Add(TPFeeTools)
             End If
@@ -591,7 +587,6 @@ Public Class DMUStaffTools
 #End Region
     Private Sub DEVDataManagementTools_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
-            StaffTools = Nothing
             Me.Dispose()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -10577,7 +10572,7 @@ Public Class DMUStaffTools
             Dim eiaccess As String
             Dim esaccess As String
 
-            For i = 0 To dgvUsers.Rows.Count - 1
+            For i As Integer = 0 To dgvUsers.Rows.Count - 1
                 If dgvUsers(3, i).Value = True Then
                     adminaccess = "1"
                 Else
@@ -10905,7 +10900,7 @@ Public Class DMUStaffTools
             Dim eiaccess As String
             Dim esaccess As String
 
-            For i = 0 To dgvUserFacilities.Rows.Count - 1
+            For i As Integer = 0 To dgvUserFacilities.Rows.Count - 1
                 If dgvUserFacilities(2, i).Value = True Then
                     adminaccess = "1"
                 Else
@@ -14403,7 +14398,7 @@ Public Class DMUStaffTools
 
             If EISConfirm = txtEISStatsEnrollmentYear.Text Then
                 temp = ""
-                For i = 0 To dgvEISStats.Rows.Count - 1
+                For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     If dgvEISStats(0, i).Value = True Then
                         temp = temp & " FacilitySiteID = '" & dgvEISStats(1, i).Value & "' or "
                     End If
@@ -14605,7 +14600,7 @@ Public Class DMUStaffTools
 
             If EISConfirm = txtEISStatsEnrollmentYear.Text Then
                 temp = ""
-                For i = 0 To dgvEISStats.Rows.Count - 1
+                For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     If dgvEISStats(0, i).Value = True Then
                         temp = temp & " FacilitySiteID = '" & dgvEISStats(1, i).Value & "' or "
                     End If
@@ -14652,7 +14647,7 @@ Public Class DMUStaffTools
 
             If EISConfirm = txtSelectedEISStatYear.Text Then
                 temp = ""
-                For i = 0 To dgvEISStats.Rows.Count - 1
+                For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     temp = temp & " FacilitySiteID = '" & dgvEISStats(1, i).Value & "' or "
                 Next
                 temp = " and ( " & Mid(temp, 1, (temp.Length - 3)) & " ) "
@@ -14687,7 +14682,7 @@ Public Class DMUStaffTools
 
             If EISConfirm = txtSelectedEISStatYear.Text Then
                 temp = ""
-                For i = 0 To dgvEISStats.Rows.Count - 1
+                For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     If dgvEISStats(0, i).Value = True And dgvEISStats(6, i).Value = "No" Then
                         temp = temp & " FacilitySiteID = '" & dgvEISStats(1, i).Value & "' or "
                     End If
@@ -14713,7 +14708,7 @@ Public Class DMUStaffTools
                 End If
 
                 temp = ""
-                For i = 0 To dgvEISStats.Rows.Count - 1
+                For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     'temp = dgvEISStats(6, i).Value
 
                     If dgvEISStats(0, i).Value = True And dgvEISStats(6, i).Value = "Yes" Then
@@ -14740,7 +14735,7 @@ Public Class DMUStaffTools
                     cmd.ExecuteReader(CommandBehavior.CloseConnection)
                 End If
 
-                For i = 0 To dgvEISStats.Rows.Count - 1
+                For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     If dgvEISStats(0, i).Value = True Then
                         SQL = "insert into AIRBranch.EIS_QAAdmin " & _
                         "(select " & _
@@ -15508,7 +15503,7 @@ Public Class DMUStaffTools
             If EISConfirm = txtSelectedEISStatYear.Text Then
                 temp = ""
 
-                For i = 0 To dgvEISStats.Rows.Count - 1
+                For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     SQL = "Update airbranch.EIS_QAAdmin set " & _
                     "datDateAQPass = sysdate " & _
                     "strDMUResponsibleStaff = '" & UserName & "', " & _
@@ -17670,14 +17665,8 @@ Public Class DMUStaffTools
 
             If EISConfirm = txtSelectedEISStatYear.Text Then
                 temp = ""
-                'For i = 0 To dgvEISStats.Rows.Count - 1
-                '    temp = temp & " FacilitySiteID = '" & dgvEISStats(1, i).Value & "' or "
-                'Next
-                'temp = " and ( " & Mid(temp, 1, (temp.Length - 3)) & " ) "
 
-
-
-                For i = 0 To dgvEISStats.Rows.Count - 1
+                For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     If dgvEISStats(0, i).Value = True And dgvEISStats(7, i).Value = "No" Then
                         temp = temp & " FacilitySiteID = '" & dgvEISStats(1, i).Value & "' or "
                     End If
@@ -17721,7 +17710,7 @@ Public Class DMUStaffTools
 
             If EISConfirm = txtSelectedEISStatYear.Text Then
                 temp = ""
-                For i = 0 To dgvEISStats.Rows.Count - 1
+                For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     If dgvEISStats(0, i).Value = True Then
                         temp = temp & " FacilitySiteID = '" & dgvEISStats(1, i).Value & "' or "
                     End If
@@ -19350,7 +19339,7 @@ Public Class DMUStaffTools
 
     Private Sub btnCleanUp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCleanUp.Click
         Try
-            For i = 0 To dgvEISStats.Rows.Count - 1
+            For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                 If dgvEISStats(0, i).Value = True Then
 
                     If CurrentConnection.State = ConnectionState.Closed Then

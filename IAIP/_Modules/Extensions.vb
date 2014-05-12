@@ -95,7 +95,7 @@ Module Extensions
             End If
 
             ' Replace column names with the defined column header text
-            For i = 0 To dgv.Columns.Count - 1
+            For i As Integer = 0 To dgv.Columns.Count - 1
                 dataTable.Columns(i).Caption = dgv.Columns(i).HeaderText
             Next
 

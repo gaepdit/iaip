@@ -2060,7 +2060,7 @@ Public Class SscpEnforcement
                 dgvStipulatedPenalties.Columns("strEnforcementKey").DisplayIndex = 3
                 dgvStipulatedPenalties.Columns("strEnforcementKey").Visible = False
                 txtStipulatedPenalitiesActionNumber.Clear()
-                For i = 0 To dgvStipulatedPenalties.RowCount - 1
+                For i As Integer = 0 To dgvStipulatedPenalties.RowCount - 1
                     txtStipulatedPenalitiesActionNumber.Text = txtStipulatedPenalitiesActionNumber.Text & _
                     dgvStipulatedPenalties.Item(2, i).Value & ", "
                 Next

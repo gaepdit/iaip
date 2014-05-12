@@ -5,6 +5,7 @@ Imports Oracle.DataAccess.Client
 'Imports System.Net.Mail
 
 Public Class SSCPAdministrator
+    Dim SQL As String
     Dim ds As DataSet
     Dim da As OracleDataAdapter
 

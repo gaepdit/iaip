@@ -5,6 +5,7 @@ Imports System.Data.OleDb
 'Imports System.Data.Odbc
 
 Public Class DMUTitleVTools
+    Dim SQL, SQL2 As String
     Dim dsWebPublisher As DataSet
     Dim daWebPublisher As OracleDataAdapter
     Dim dsStaff As DataSet
@@ -338,11 +339,6 @@ Public Class DMUTitleVTools
             TCDMUTools.TabPages.Remove(TPTitleVRenewals)
             TCDMUTools.TabPages.Remove(TPPermittingContact)
 
-            'AFS Users
-            If AccountArray(131, 1) = "1" Then
-                TitleVTools.Width = 800
-                TitleVTools.Height = 600
-            End If
             'Web Publishers
             If AccountArray(131, 2) = "1" Then
                 TCDMUTools.TabPages.Add(TPWebPublishing)
@@ -366,19 +362,6 @@ Public Class DMUTitleVTools
                 DTPExperationDate.Text = OracleDate
                 DTPTitleVRenewalEnd.Text = Format(CDate(OracleDate).AddMonths(1), "dd-MMM-yyyy")
 
-                TitleVTools.Width = 800
-                TitleVTools.Height = 600
-
-            End If
-            If AccountArray(131, 3) = "1" Or AccountArray(131, 4) = "1" Then
-                TitleVTools.Width = 800
-                'If SystemInformation.PrimaryMonitorSize.Width > 1200 Then
-                '    '  TitleVTools.Width = (SystemInformation.PrimaryMonitorSize.Width - 400)
-                '    TitleVTools.Width = 800
-                'Else
-                '    TitleVTools.Width = 800
-                'End If
-                TitleVTools.Height = 600
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3180,7 +3163,6 @@ Public Class DMUTitleVTools
 #End Region
     Private Sub DEVDataManagementTools_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
-            TitleVTools = Nothing
             Me.Dispose()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -4287,19 +4269,19 @@ Public Class DMUTitleVTools
                 ContactPrefix = " "
             End If
             If txtContactPedigree.Text <> "" Then
-                contactSuffix = txtContactPedigree.Text
+                ContactSuffix = txtContactPedigree.Text
             Else
-                contactSuffix = " "
+                ContactSuffix = " "
             End If
             If txtContactTitle.Text <> "" Then
-                contactTitle = txtContactTitle.Text
+                ContactTitle = txtContactTitle.Text
             Else
-                contactTitle = " "
+                ContactTitle = " "
             End If
             If txtContactCompanyName.Text <> "" Then
-                contactCompany = txtContactCompanyName.Text
+                ContactCompany = txtContactCompanyName.Text
             Else
-                contactCompany = " "
+                ContactCompany = " "
             End If
             If mtbContactPhoneNumber.Text <> "" Then
                 ContactPhone = mtbContactPhoneNumber.Text
@@ -4814,5 +4796,5 @@ Public Class DMUTitleVTools
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
- 
+
 End Class

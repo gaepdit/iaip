@@ -28,7 +28,6 @@ Partial Class IAIPLogIn
         Me.mmiResetAllForms = New System.Windows.Forms.MenuItem
         Me.MenuItem2 = New System.Windows.Forms.MenuItem
         Me.mmiTestingEnvironment = New System.Windows.Forms.MenuItem
-        Me.mmiNadcServer = New System.Windows.Forms.MenuItem
         Me.mmiHelp = New System.Windows.Forms.MenuItem
         Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
         Me.MenuItem4 = New System.Windows.Forms.MenuItem
@@ -70,7 +69,7 @@ Partial Class IAIPLogIn
         'MenuItem1
         '
         Me.MenuItem1.Index = 1
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiRefreshUserID, Me.mmiResetAllForms, Me.MenuItem2, Me.mmiTestingEnvironment, Me.mmiNadcServer})
+        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiRefreshUserID, Me.mmiResetAllForms, Me.MenuItem2, Me.mmiTestingEnvironment})
         Me.MenuItem1.Text = "&Tools"
         '
         'mmiRefreshUserID
@@ -93,14 +92,6 @@ Partial Class IAIPLogIn
         Me.mmiTestingEnvironment.Index = 3
         Me.mmiTestingEnvironment.Shortcut = System.Windows.Forms.Shortcut.CtrlT
         Me.mmiTestingEnvironment.Text = "&Testing Environment"
-        '
-        'mmiNadcServer
-        '
-        Me.mmiNadcServer.Enabled = False
-        Me.mmiNadcServer.Index = 4
-        Me.mmiNadcServer.Shortcut = System.Windows.Forms.Shortcut.CtrlN
-        Me.mmiNadcServer.Text = "NADC Server"
-        Me.mmiNadcServer.Visible = False
         '
         'mmiHelp
         '
@@ -212,27 +203,26 @@ Partial Class IAIPLogIn
         '
         'lblLicenseLabel
         '
-        Me.lblLicenseLabel.AutoSize = True
         Me.lblLicenseLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLicenseLabel.Location = New System.Drawing.Point(39, 330)
+        Me.lblLicenseLabel.Location = New System.Drawing.Point(26, 327)
         Me.lblLicenseLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblLicenseLabel.Name = "lblLicenseLabel"
-        Me.lblLicenseLabel.Size = New System.Drawing.Size(237, 36)
+        Me.lblLicenseLabel.Size = New System.Drawing.Size(259, 36)
         Me.lblLicenseLabel.TabIndex = 37
         Me.lblLicenseLabel.Text = "This product is licensed to Georgia" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "DNR/EPD/APB employees only"
         Me.lblLicenseLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'lblCurrentVersionMessage
         '
-        Me.lblCurrentVersionMessage.AutoSize = True
         Me.lblCurrentVersionMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblCurrentVersionMessage.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.lblCurrentVersionMessage.Location = New System.Drawing.Point(419, 330)
+        Me.lblCurrentVersionMessage.Location = New System.Drawing.Point(26, 377)
         Me.lblCurrentVersionMessage.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblCurrentVersionMessage.Name = "lblCurrentVersionMessage"
-        Me.lblCurrentVersionMessage.Size = New System.Drawing.Size(193, 18)
+        Me.lblCurrentVersionMessage.Size = New System.Drawing.Size(259, 18)
         Me.lblCurrentVersionMessage.TabIndex = 38
         Me.lblCurrentVersionMessage.Text = "Current Version Placeholder"
+        Me.lblCurrentVersionMessage.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.lblCurrentVersionMessage.Visible = False
         '
         'lblGeneralMessage
@@ -340,6 +330,5 @@ Partial Class IAIPLogIn
     Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
     Friend WithEvents mmiResetAllForms As System.Windows.Forms.MenuItem
     Friend WithEvents mmiCheckForUpdate As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiNadcServer As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem5 As System.Windows.Forms.MenuItem
 End Class

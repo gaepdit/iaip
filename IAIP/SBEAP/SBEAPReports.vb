@@ -5,6 +5,7 @@ Imports System.Reflection
 'Imports Microsoft.ReportingServices.ReportRendering
 
 Public Class SBEAPReports
+    Dim SQL, SQL2 As String
     Dim dsView As DataSet
     Dim daView As OracleDataAdapter
     Dim dsCombo As DataSet

@@ -5,6 +5,7 @@ Imports System.Data.OleDb
 Imports System.Text.RegularExpressions
 
 Public Class DMUDeveloperTools
+    Dim SQL, SQL2 As String
     Dim dsStaff As DataSet
     Dim daStaff As New OracleDataAdapter
     Dim ds As DataSet
@@ -20765,7 +20766,7 @@ Public Class DMUDeveloperTools
                                     End If
                                     Len = Subpart.Length
                                     If Subpart.Length <> 5 Then
-                                        For i = Len To 4
+                                        For i As Integer = Len To 4
                                             Subpart = Subpart & " "
                                         Next
                                     End If
@@ -20781,7 +20782,7 @@ Public Class DMUDeveloperTools
                             End If
                             Len = SubpartData.Length
                             If SubpartData.Length <> 64 Then
-                                For i = Len To 63
+                                For i As Integer = Len To 63
                                     SubpartData = SubpartData & " "
                                 Next
                             End If
@@ -20809,7 +20810,7 @@ Public Class DMUDeveloperTools
                                     End If
                                     Len = Subpart.Length
                                     If Subpart.Length <> 5 Then
-                                        For i = Len To 4
+                                        For i As Integer = Len To 4
                                             Subpart = Subpart & " "
                                         Next
                                     End If
@@ -20825,7 +20826,7 @@ Public Class DMUDeveloperTools
                             End If
                             Len = SubpartData.Length
                             If SubpartData.Length <> 64 Then
-                                For i = Len To 63
+                                For i As Integer = Len To 63
                                     SubpartData = SubpartData & " "
                                 Next
                             End If
@@ -20853,7 +20854,7 @@ Public Class DMUDeveloperTools
                                     End If
                                     Len = Subpart.Length
                                     If Subpart.Length <> 5 Then
-                                        For i = Len To 4
+                                        For i As Integer = Len To 4
                                             Subpart = Subpart & " "
                                         Next
                                     End If
@@ -20869,7 +20870,7 @@ Public Class DMUDeveloperTools
                             End If
                             Len = SubpartData.Length
                             If SubpartData.Length <> 64 Then
-                                For i = Len To 63
+                                For i As Integer = Len To 63
                                     SubpartData = SubpartData & " "
                                 Next
                             End If
@@ -20947,7 +20948,7 @@ Public Class DMUDeveloperTools
                                     End If
                                     Len = Subpart.Length
                                     If Subpart.Length <> 5 Then
-                                        For i = Len To 4
+                                        For i As Integer = Len To 4
                                             Subpart = Subpart & " "
                                         Next
                                     End If
@@ -20963,7 +20964,7 @@ Public Class DMUDeveloperTools
                             End If
                             Len = SubpartData.Length
                             If SubpartData.Length <> 64 Then
-                                For i = Len To 63
+                                For i As Integer = Len To 63
                                     SubpartData = SubpartData & " "
                                 Next
                             End If
@@ -20991,7 +20992,7 @@ Public Class DMUDeveloperTools
                                     End If
                                     Len = Subpart.Length
                                     If Subpart.Length <> 5 Then
-                                        For i = Len To 4
+                                        For i As Integer = Len To 4
                                             Subpart = Subpart & " "
                                         Next
                                     End If
@@ -21007,7 +21008,7 @@ Public Class DMUDeveloperTools
                             End If
                             Len = SubpartData.Length
                             If SubpartData.Length <> 64 Then
-                                For i = Len To 63
+                                For i As Integer = Len To 63
                                     SubpartData = SubpartData & " "
                                 Next
                             End If
@@ -21035,7 +21036,7 @@ Public Class DMUDeveloperTools
                                     End If
                                     Len = Subpart.Length
                                     If Subpart.Length <> 5 Then
-                                        For i = Len To 4
+                                        For i As Integer = Len To 4
                                             Subpart = Subpart & " "
                                         Next
                                     End If
@@ -21051,7 +21052,7 @@ Public Class DMUDeveloperTools
                             End If
                             Len = SubpartData.Length
                             If SubpartData.Length <> 64 Then
-                                For i = Len To 63
+                                For i As Integer = Len To 63
                                     SubpartData = SubpartData & " "
                                 Next
                             End If

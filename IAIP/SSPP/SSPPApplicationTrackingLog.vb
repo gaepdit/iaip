@@ -9027,7 +9027,7 @@ Public Class SSPPApplicationTrackingLog
                             dr.Close()
                         End If
                     End If
-                    For i = 0 To dgvSIPSubPartDelete.Rows.Count - 1
+                    For i As Integer = 0 To dgvSIPSubPartDelete.Rows.Count - 1
                         Subpart = dgvSIPSubPartDelete(0, i).Value
 
                         SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
@@ -9045,7 +9045,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Close()
                     Next
 
-                    For i = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
+                    For i As Integer = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
                         Subpart = dgvSIPSubpartAddEdit(0, i).Value
 
                         SQL = "Select " & _
@@ -9508,7 +9508,7 @@ Public Class SSPPApplicationTrackingLog
                             dr.Close()
                         End If
                     End If
-                    For i = 0 To dgvNESHAPSubPartDelete.Rows.Count - 1
+                    For i As Integer = 0 To dgvNESHAPSubPartDelete.Rows.Count - 1
                         Subpart = dgvNESHAPSubPartDelete(0, i).Value
 
                         SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
@@ -9526,7 +9526,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Close()
                     Next
 
-                    For i = 0 To dgvNESHAPSubpartAddEdit.Rows.Count - 1
+                    For i As Integer = 0 To dgvNESHAPSubpartAddEdit.Rows.Count - 1
                         Subpart = dgvNESHAPSubpartAddEdit(0, i).Value
 
                         SQL = "Select " & _
@@ -9644,7 +9644,7 @@ Public Class SSPPApplicationTrackingLog
                             dr.Close()
                         End If
                     End If
-                    For i = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
+                    For i As Integer = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
                         Subpart = dgvNSPSSubPartDelete(0, i).Value
 
                         SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
@@ -9662,7 +9662,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Close()
                     Next
 
-                    For i = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
+                    For i As Integer = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
                         Subpart = dgvNSPSSubpartAddEdit(0, i).Value
 
                         SQL = "Select " & _
@@ -9987,7 +9987,7 @@ Public Class SSPPApplicationTrackingLog
                             dr.Close()
                         End If
                     End If
-                    For i = 0 To dgvMACTSubPartDelete.Rows.Count - 1
+                    For i As Integer = 0 To dgvMACTSubPartDelete.Rows.Count - 1
                         Subpart = dgvMACTSubPartDelete(0, i).Value
 
                         SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
@@ -10005,7 +10005,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Close()
                     Next
 
-                    For i = 0 To dgvMACTSubpartAddEdit.Rows.Count - 1
+                    For i As Integer = 0 To dgvMACTSubpartAddEdit.Rows.Count - 1
                         Subpart = dgvMACTSubpartAddEdit(0, i).Value
 
                         SQL = "Select " & _
@@ -15376,7 +15376,7 @@ Public Class SSPPApplicationTrackingLog
 
             If dgvSIPSubPartDelete.Rows.Count > 0 Then
                 Subpart = dgvSIPSubPartDelete(0, dgvSIPSubPartDelete.CurrentRow.Index).Value
-                For j = 0 To dgvSIPSubParts.Rows.Count - 1
+                For j As Integer = 0 To dgvSIPSubParts.Rows.Count - 1
                     If dgvSIPSubParts(1, j).Value = Subpart Then
                         temp2 = j
                     End If
@@ -15448,13 +15448,12 @@ Public Class SSPPApplicationTrackingLog
     Private Sub btnSIPUndeleteAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSIPUndeleteAll.Click
         Try
             Dim dgvRow As New DataGridViewRow
-            Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
 
-            For i = 0 To dgvSIPSubPartDelete.Rows.Count - 1
+            For i As Integer = 0 To dgvSIPSubPartDelete.Rows.Count - 1
                 Subpart = dgvSIPSubPartDelete(0, i).Value
-                For j = 0 To dgvSIPSubParts.Rows.Count - 1
+                For j As Integer = 0 To dgvSIPSubParts.Rows.Count - 1
                     If dgvSIPSubParts(1, j).Value = Subpart Then
                         temp2 = j
                     End If
@@ -15472,13 +15471,12 @@ Public Class SSPPApplicationTrackingLog
     Private Sub btnClearSIPDeletes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearSIPDeletes.Click
         Try
             Dim dgvRow As New DataGridViewRow
-            Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
 
-            For i = 0 To dgvSIPSubPartDelete.Rows.Count - 1
+            For i As Integer = 0 To dgvSIPSubPartDelete.Rows.Count - 1
                 Subpart = dgvSIPSubPartDelete(0, i).Value
-                For j = 0 To dgvSIPSubParts.Rows.Count - 1
+                For j As Integer = 0 To dgvSIPSubParts.Rows.Count - 1
                     If dgvSIPSubParts(1, j).Value = Subpart Then
                         temp2 = j
                     End If
@@ -15683,7 +15681,7 @@ Public Class SSPPApplicationTrackingLog
             If dgvSIPSubpartAddEdit.Rows.Count > 0 Then
                 Subpart = dgvSIPSubpartAddEdit(0, dgvSIPSubpartAddEdit.CurrentRow.Index).Value
                 Action = dgvSIPSubpartAddEdit(3, dgvSIPSubpartAddEdit.CurrentRow.Index).Value
-                For j = 0 To dgvSIPSubParts.Rows.Count - 1
+                For j As Integer = 0 To dgvSIPSubParts.Rows.Count - 1
                     If dgvSIPSubParts(1, j).Value = Subpart Then
                         temp2 = j
                     End If
@@ -15703,18 +15701,17 @@ Public Class SSPPApplicationTrackingLog
     Private Sub btnSIPEditAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSIPEditAll.Click
         Try
             Dim dgvRow As New DataGridViewRow
-            Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
             Dim Desc As String = ""
             Dim Action As String = ""
 
-            For i = 0 To dgvSIPSubParts.Rows.Count - 1
+            For i As Integer = 0 To dgvSIPSubParts.Rows.Count - 1
                 Subpart = dgvSIPSubParts(1, i).Value
                 Desc = dgvSIPSubParts(2, i).Value
                 Action = dgvSIPSubParts(4, i).Value
 
-                For j = 0 To dgvSIPSubPartDelete.Rows.Count - 1
+                For j As Integer = 0 To dgvSIPSubPartDelete.Rows.Count - 1
                     If dgvSIPSubPartDelete(0, j).Value = Subpart Then
                         temp2 = "Message"
                     End If
@@ -15729,7 +15726,7 @@ Public Class SSPPApplicationTrackingLog
                 End If
 
                 temp2 = ""
-                For j = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
+                For j As Integer = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
                     If dgvSIPSubpartAddEdit(0, j).Value = Subpart Then
                         temp2 = "Ignore"
                     End If
@@ -15758,7 +15755,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub btnSIPUneditAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSIPUneditAll.Click
         Try
             Dim dgvRow As New DataGridViewRow
-            Dim i As Integer = 0
+            Dim i As Integer
             Dim temp2 As String = ""
             Dim Subpart As String = ""
             Dim TempRemove As String = ""
@@ -15767,7 +15764,7 @@ Public Class SSPPApplicationTrackingLog
 
             For i = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
                 Subpart = dgvSIPSubpartAddEdit(0, i).Value
-                For j = 0 To dgvSIPSubParts.Rows.Count - 1
+                For j As Integer = 0 To dgvSIPSubParts.Rows.Count - 1
                     If dgvSIPSubParts(1, j).Value = Subpart Then
                         If dgvSIPSubParts(4, j).Value = "Existing" Then
                             With Me.dgvSIPSubParts.Rows(j)
@@ -15797,16 +15794,15 @@ Public Class SSPPApplicationTrackingLog
     Private Sub btnClearAddModifiedSIPs_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearAddModifiedSIPs.Click
         Try
             Dim dgvRow As New DataGridViewRow
-            Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            For i = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
+            For i As Integer = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
                 Subpart = dgvSIPSubpartAddEdit(0, i).Value
                 temp2 = ""
                 Action = ""
-                For j = 0 To dgvSIPSubParts.Rows.Count - 1
+                For j As Integer = 0 To dgvSIPSubParts.Rows.Count - 1
                     temp = dgvSIPSubParts(1, j).Value
                     If dgvSIPSubParts(1, j).Value = Subpart Then
                         temp2 = j
@@ -16372,7 +16368,7 @@ Public Class SSPPApplicationTrackingLog
 
             If dgvNSPSSubPartDelete.Rows.Count > 0 Then
                 Subpart = dgvNSPSSubPartDelete(0, dgvNSPSSubPartDelete.CurrentRow.Index).Value
-                For j = 0 To dgvNSPSSubParts.Rows.Count - 1
+                For j As Integer = 0 To dgvNSPSSubParts.Rows.Count - 1
                     If dgvNSPSSubParts(1, j).Value = Subpart Then
                         temp2 = j
                     End If
@@ -16444,13 +16440,12 @@ Public Class SSPPApplicationTrackingLog
     Private Sub btnNSPSUndeleteAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNSPSUndeleteAll.Click
         Try
             Dim dgvRow As New DataGridViewRow
-            Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
 
-            For i = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
+            For i As Integer = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
                 Subpart = dgvNSPSSubPartDelete(0, i).Value
-                For j = 0 To dgvNSPSSubParts.Rows.Count - 1
+                For j As Integer = 0 To dgvNSPSSubParts.Rows.Count - 1
                     If dgvNSPSSubParts(1, j).Value = Subpart Then
                         temp2 = j
                     End If
@@ -16468,13 +16463,12 @@ Public Class SSPPApplicationTrackingLog
     Private Sub btnClearNSPSDeletes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearNSPSDeletes.Click
         Try
             Dim dgvRow As New DataGridViewRow
-            Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
 
-            For i = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
+            For i As Integer = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
                 Subpart = dgvNSPSSubPartDelete(0, i).Value
-                For j = 0 To dgvNSPSSubParts.Rows.Count - 1
+                For j As Integer = 0 To dgvNSPSSubParts.Rows.Count - 1
                     If dgvNSPSSubParts(1, j).Value = Subpart Then
                         temp2 = j
                     End If
@@ -16666,7 +16660,6 @@ Public Class SSPPApplicationTrackingLog
     Private Sub btnNSPSUnedit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNSPSUnedit.Click
         Try
             Dim dgvRow As New DataGridViewRow
-            Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
             Dim Action As String = ""
@@ -16679,7 +16672,7 @@ Public Class SSPPApplicationTrackingLog
             If dgvNSPSSubpartAddEdit.Rows.Count > 0 Then
                 Subpart = dgvNSPSSubpartAddEdit(0, dgvNSPSSubpartAddEdit.CurrentRow.Index).Value
                 Action = dgvNSPSSubpartAddEdit(3, dgvNSPSSubpartAddEdit.CurrentRow.Index).Value
-                For j = 0 To dgvNSPSSubParts.Rows.Count - 1
+                For j As Integer = 0 To dgvNSPSSubParts.Rows.Count - 1
                     If dgvNSPSSubParts(1, j).Value = Subpart Then
                         temp2 = j
                     End If
@@ -16699,18 +16692,17 @@ Public Class SSPPApplicationTrackingLog
     Private Sub btnNSPSEditAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNSPSEditAll.Click
         Try
             Dim dgvRow As New DataGridViewRow
-            Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
             Dim Desc As String = ""
             Dim Action As String = ""
 
-            For i = 0 To dgvNSPSSubParts.Rows.Count - 1
+            For i As Integer = 0 To dgvNSPSSubParts.Rows.Count - 1
                 Subpart = dgvNSPSSubParts(1, i).Value
                 Desc = dgvNSPSSubParts(2, i).Value
                 Action = dgvNSPSSubParts(4, i).Value
 
-                For j = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
+                For j As Integer = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
                     If dgvNSPSSubPartDelete(0, j).Value = Subpart Then
                         temp2 = "Message"
                     End If
@@ -16725,7 +16717,7 @@ Public Class SSPPApplicationTrackingLog
                 End If
 
                 temp2 = ""
-                For j = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
+                For j As Integer = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
                     If dgvNSPSSubpartAddEdit(0, j).Value = Subpart Then
                         temp2 = "Ignore"
                     End If
@@ -16763,7 +16755,7 @@ Public Class SSPPApplicationTrackingLog
 
             For i = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
                 Subpart = dgvNSPSSubpartAddEdit(0, i).Value
-                For j = 0 To dgvNSPSSubParts.Rows.Count - 1
+                For j As Integer = 0 To dgvNSPSSubParts.Rows.Count - 1
                     If dgvNSPSSubParts(1, j).Value = Subpart Then
                         If dgvNSPSSubParts(4, j).Value = "Existing" Then
                             With Me.dgvNSPSSubParts.Rows(j)
@@ -16802,7 +16794,7 @@ Public Class SSPPApplicationTrackingLog
                 Subpart = dgvNSPSSubpartAddEdit(0, i).Value
                 temp2 = ""
                 Action = ""
-                For j = 0 To dgvNSPSSubParts.Rows.Count - 1
+                For j As Integer = 0 To dgvNSPSSubParts.Rows.Count - 1
                     temp = dgvNSPSSubParts(1, j).Value
                     If dgvNSPSSubParts(1, j).Value = Subpart Then
                         temp2 = j
@@ -17677,7 +17669,7 @@ Public Class SSPPApplicationTrackingLog
 
             If dgvNESHAPSubPartDelete.Rows.Count > 0 Then
                 Subpart = dgvNESHAPSubPartDelete(0, dgvNESHAPSubPartDelete.CurrentRow.Index).Value
-                For j = 0 To dgvNESHAPSubParts.Rows.Count - 1
+                For j As Integer = 0 To dgvNESHAPSubParts.Rows.Count - 1
                     If dgvNESHAPSubParts(1, j).Value = Subpart Then
                         temp2 = j
                     End If
@@ -17755,7 +17747,7 @@ Public Class SSPPApplicationTrackingLog
 
             For i = 0 To dgvNESHAPSubPartDelete.Rows.Count - 1
                 Subpart = dgvNESHAPSubPartDelete(0, i).Value
-                For j = 0 To dgvNESHAPSubParts.Rows.Count - 1
+                For j As Integer = 0 To dgvNESHAPSubParts.Rows.Count - 1
                     If dgvNESHAPSubParts(1, j).Value = Subpart Then
                         temp2 = j
                     End If
@@ -17779,7 +17771,7 @@ Public Class SSPPApplicationTrackingLog
 
             For i = 0 To dgvNESHAPSubPartDelete.Rows.Count - 1
                 Subpart = dgvNESHAPSubPartDelete(0, i).Value
-                For j = 0 To dgvNESHAPSubParts.Rows.Count - 1
+                For j As Integer = 0 To dgvNESHAPSubParts.Rows.Count - 1
                     If dgvNESHAPSubParts(1, j).Value = Subpart Then
                         temp2 = j
                     End If
@@ -17985,7 +17977,7 @@ Public Class SSPPApplicationTrackingLog
             If dgvNESHAPSubpartAddEdit.Rows.Count > 0 Then
                 Subpart = dgvNESHAPSubpartAddEdit(0, dgvNESHAPSubpartAddEdit.CurrentRow.Index).Value
                 Action = dgvNESHAPSubpartAddEdit(3, dgvNESHAPSubpartAddEdit.CurrentRow.Index).Value
-                For j = 0 To dgvNESHAPSubParts.Rows.Count - 1
+                For j As Integer = 0 To dgvNESHAPSubParts.Rows.Count - 1
                     If dgvNESHAPSubParts(1, j).Value = Subpart Then
                         temp2 = j
                     End If
@@ -18016,7 +18008,7 @@ Public Class SSPPApplicationTrackingLog
                 Desc = dgvNESHAPSubParts(2, i).Value
                 Action = dgvNESHAPSubParts(4, i).Value
 
-                For j = 0 To dgvNESHAPSubPartDelete.Rows.Count - 1
+                For j As Integer = 0 To dgvNESHAPSubPartDelete.Rows.Count - 1
                     If dgvNESHAPSubPartDelete(0, j).Value = Subpart Then
                         temp2 = "Message"
                     End If
@@ -18031,7 +18023,7 @@ Public Class SSPPApplicationTrackingLog
                 End If
 
                 temp2 = ""
-                For j = 0 To dgvNESHAPSubpartAddEdit.Rows.Count - 1
+                For j As Integer = 0 To dgvNESHAPSubpartAddEdit.Rows.Count - 1
                     If dgvNESHAPSubpartAddEdit(0, j).Value = Subpart Then
                         temp2 = "Ignore"
                     End If
@@ -18069,7 +18061,7 @@ Public Class SSPPApplicationTrackingLog
 
             For i = 0 To dgvNESHAPSubpartAddEdit.Rows.Count - 1
                 Subpart = dgvNESHAPSubpartAddEdit(0, i).Value
-                For j = 0 To dgvNESHAPSubParts.Rows.Count - 1
+                For j As Integer = 0 To dgvNESHAPSubParts.Rows.Count - 1
                     If dgvNESHAPSubParts(1, j).Value = Subpart Then
                         If dgvNESHAPSubParts(4, j).Value = "Existing" Then
                             With Me.dgvNESHAPSubParts.Rows(j)
@@ -18108,7 +18100,7 @@ Public Class SSPPApplicationTrackingLog
                 Subpart = dgvNESHAPSubpartAddEdit(0, i).Value
                 temp2 = ""
                 Action = ""
-                For j = 0 To dgvNESHAPSubParts.Rows.Count - 1
+                For j As Integer = 0 To dgvNESHAPSubParts.Rows.Count - 1
                     temp = dgvNESHAPSubParts(1, j).Value
                     If dgvNESHAPSubParts(1, j).Value = Subpart Then
                         temp2 = j
@@ -18666,7 +18658,7 @@ Public Class SSPPApplicationTrackingLog
 
             If dgvMACTSubPartDelete.Rows.Count > 0 Then
                 Subpart = dgvMACTSubPartDelete(0, dgvMACTSubPartDelete.CurrentRow.Index).Value
-                For j = 0 To dgvMACTSubParts.Rows.Count - 1
+                For j As Integer = 0 To dgvMACTSubParts.Rows.Count - 1
                     If dgvMACTSubParts(1, j).Value = Subpart Then
                         temp2 = j
                     End If
@@ -18744,7 +18736,7 @@ Public Class SSPPApplicationTrackingLog
 
             For i = 0 To dgvMACTSubPartDelete.Rows.Count - 1
                 Subpart = dgvMACTSubPartDelete(0, i).Value
-                For j = 0 To dgvMACTSubParts.Rows.Count - 1
+                For j As Integer = 0 To dgvMACTSubParts.Rows.Count - 1
                     If dgvMACTSubParts(1, j).Value = Subpart Then
                         temp2 = j
                     End If
@@ -18768,7 +18760,7 @@ Public Class SSPPApplicationTrackingLog
 
             For i = 0 To dgvMACTSubPartDelete.Rows.Count - 1
                 Subpart = dgvMACTSubPartDelete(0, i).Value
-                For j = 0 To dgvMACTSubParts.Rows.Count - 1
+                For j As Integer = 0 To dgvMACTSubParts.Rows.Count - 1
                     If dgvMACTSubParts(1, j).Value = Subpart Then
                         temp2 = j
                     End If
@@ -18973,7 +18965,7 @@ Public Class SSPPApplicationTrackingLog
             If dgvMACTSubpartAddEdit.Rows.Count > 0 Then
                 Subpart = dgvMACTSubpartAddEdit(0, dgvMACTSubpartAddEdit.CurrentRow.Index).Value
                 Action = dgvMACTSubpartAddEdit(3, dgvMACTSubpartAddEdit.CurrentRow.Index).Value
-                For j = 0 To dgvMACTSubParts.Rows.Count - 1
+                For j As Integer = 0 To dgvMACTSubParts.Rows.Count - 1
                     If dgvMACTSubParts(1, j).Value = Subpart Then
                         temp2 = j
                     End If
@@ -19004,7 +18996,7 @@ Public Class SSPPApplicationTrackingLog
                 Desc = dgvMACTSubParts(2, i).Value
                 Action = dgvMACTSubParts(4, i).Value
 
-                For j = 0 To dgvMACTSubPartDelete.Rows.Count - 1
+                For j As Integer = 0 To dgvMACTSubPartDelete.Rows.Count - 1
                     If dgvMACTSubPartDelete(0, j).Value = Subpart Then
                         temp2 = "Message"
                     End If
@@ -19019,7 +19011,7 @@ Public Class SSPPApplicationTrackingLog
                 End If
 
                 temp2 = ""
-                For j = 0 To dgvMACTSubpartAddEdit.Rows.Count - 1
+                For j As Integer = 0 To dgvMACTSubpartAddEdit.Rows.Count - 1
                     If dgvMACTSubpartAddEdit(0, j).Value = Subpart Then
                         temp2 = "Ignore"
                     End If
@@ -19057,7 +19049,7 @@ Public Class SSPPApplicationTrackingLog
 
             For i = 0 To dgvMACTSubpartAddEdit.Rows.Count - 1
                 Subpart = dgvMACTSubpartAddEdit(0, i).Value
-                For j = 0 To dgvMACTSubParts.Rows.Count - 1
+                For j As Integer = 0 To dgvMACTSubParts.Rows.Count - 1
                     If dgvMACTSubParts(1, j).Value = Subpart Then
                         If dgvMACTSubParts(4, j).Value = "Existing" Then
                             With Me.dgvMACTSubParts.Rows(j)
@@ -19087,16 +19079,15 @@ Public Class SSPPApplicationTrackingLog
     Private Sub btnClearAddModifiedMACTs_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearAddModifiedMACTs.Click
         Try
             Dim dgvRow As New DataGridViewRow
-            Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
             Dim Action As String = ""
 
-            For i = 0 To dgvMACTSubpartAddEdit.Rows.Count - 1
+            For i As Integer = 0 To dgvMACTSubpartAddEdit.Rows.Count - 1
                 Subpart = dgvMACTSubpartAddEdit(0, i).Value
                 temp2 = ""
                 Action = ""
-                For j = 0 To dgvMACTSubParts.Rows.Count - 1
+                For j As Integer = 0 To dgvMACTSubParts.Rows.Count - 1
                     temp = dgvMACTSubParts(1, j).Value
                     If dgvMACTSubParts(1, j).Value = Subpart Then
                         temp2 = j

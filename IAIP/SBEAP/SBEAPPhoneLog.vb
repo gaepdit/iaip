@@ -1,6 +1,7 @@
 ﻿Imports Oracle.DataAccess.Client
 
 Public Class SBEAPPhoneLog
+    Dim SQL, SQL2 As String
     Dim dsStaff As DataSet
     Dim daStaff As OracleDataAdapter
 

@@ -1,6 +1,7 @@
 Imports Oracle.DataAccess.Client
 
 Public Class SBEAPCaseWork
+    Dim SQL, SQL2 As String
     Dim dsCaseWork As DataSet
     Dim daCaseWork As OracleDataAdapter
     Dim dsStaff As DataSet

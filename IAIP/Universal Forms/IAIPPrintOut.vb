@@ -16,6 +16,7 @@ Public Class IAIPPrintOut
     Dim ds As DataSet
     Dim da As OracleDataAdapter
     Dim da2 As OracleDataAdapter
+    Dim i As Integer
     Dim j As Integer
     Dim k As Integer
     Dim l As Integer
@@ -16342,11 +16343,7 @@ Public Class IAIPPrintOut
         Dim ProgramManager As String = ""
         Dim rpt As New ReportClass
 
-        If Oracledll = "2.111.6.20" Then
-            rpt = New CRTitleVRenewal10
-        Else
-            rpt = New CRTitleVRenewal
-        End If
+        rpt = New CRTitleVRenewal
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
@@ -16751,7 +16748,7 @@ Public Class IAIPPrintOut
                 CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
-            i = 0
+            Dim i As Integer = 0
             While dr.Read
                 If IsDBNull(dr.Item("Staff")) Then
                     DataAnalysisUnit = DataAnalysisUnit & vbCrLf
