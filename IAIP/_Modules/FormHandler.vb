@@ -51,6 +51,7 @@ Module FormHandler
         End If
 
         If Not SingleFormIsOpen(name) Then
+            'SingleForm(name) = Activator.CreateInstance(Type.GetType(APP_ROOT_NAMESPACE & "." & name))
             SingleForm(name) = Activator.CreateInstance(formClass.GetType)
         End If
 
