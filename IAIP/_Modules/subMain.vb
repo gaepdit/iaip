@@ -46,7 +46,7 @@ Module subMain
 
 #Region " All Forms "
 
-#Region "Universal Screens"
+#Region " Universal Screens "
     Public PrintOut As IAIPPrintOut
     Public EditContacts As IAIPEditContacts ' TODO DWW: Remove
     Public EditFacilityLocation As IAIPEditFacilityLocation ' TODO DWW: Remove
@@ -59,11 +59,7 @@ Module subMain
     Public FacilityCreator As IAIPFacilityCreator ' TODO DWW: Remove
 #End Region
 
-#Region "Ambient Monitoring Screens"
-
-#End Region
-
-#Region "ISMP Screens"
+#Region " ISMP Screens "
     Public ISMPTestReportInfo As ISMPFacilityInfo ' TODO DWW: Remove
     Public ISMPMemoEdit As ISMPMemo ' TODO DWW: Remove
     Public ISMPNotificationLogForm As ISMPNotificationLog ' TODO DWW: Remove
@@ -75,19 +71,8 @@ Module subMain
     Public StaffReports As ISMPStaffReports ' TODO DWW: Remove
 #End Region
 
-#Region "Planning & Support Screens"
-    Public FacilityFeeForm As PASPFacilityFee
-    Public FeeDeposits As PASPFeeDeposits
-    Public FeesReports As PASPFeeReports
-    Public VarianceTool As PASPFeeVarianceCheck
-    Public WebAppUser As PASPWebApplicationUser
-    Public DepositsAmendments As PASPDepositsAmendments
-    Public MailoutAndStats As PASPFeeStatistics
-    Public FeeTools As PASPFeeTools
+#Region " Planning & Support Screens "
     Public FeeStats As PASPFeeAuditLog
-    Public FeesLog As PASPFeesLog
-    Public FeeManagement As PASPFeeManagement
-
 #End Region
 
 #Region "SSCP Screens"
@@ -115,7 +100,7 @@ Module subMain
     Public FeeContact As SSPP_FeeContact
 #End Region
 
-#Region " SBEAP Screens "
+#Region "SBEAP Screens"
     Public ClientSummary As SBEAPClientSummary
     Public CaseWork As SBEAPCaseWork
     Public ClientSearchTool As SBEAPClientSearchTool

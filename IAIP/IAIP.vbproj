@@ -554,21 +554,6 @@
     <Compile Include="PASP\PASPFeesLog.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PASP\PASPFeeTools.Designer.vb">
-      <DependentUpon>PASPFeeTools.vb</DependentUpon>
-    </Compile>
-    <Compile Include="PASP\PASPFeeTools.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PASP\PASPFeeVarianceCheck.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PASP\PASPWebApplicationUser.Designer.vb">
-      <DependentUpon>PASPWebApplicationUser.vb</DependentUpon>
-    </Compile>
-    <Compile Include="PASP\PASPWebApplicationUser.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="SmokeSchool\SmokeSchool.Designer.vb">
       <DependentUpon>SmokeSchool.vb</DependentUpon>
     </Compile>
@@ -1265,15 +1250,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PASP\PASPFeesLog.resx">
       <DependentUpon>PASPFeesLog.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PASP\PASPFeeTools.resx">
-      <DependentUpon>PASPFeeTools.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PASP\PASPFeeVarianceCheck.resx">
-      <DependentUpon>PASPFeeVarianceCheck.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PASP\PASPWebApplicationUser.resx">
-      <DependentUpon>PASPWebApplicationUser.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SmokeSchool\SmokeSchool.resx">
       <DependentUpon>SmokeSchool.vb</DependentUpon>
