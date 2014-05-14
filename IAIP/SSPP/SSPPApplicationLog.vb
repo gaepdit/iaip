@@ -734,7 +734,6 @@ Public Class SSPPApplicationLog
 
     End Sub
     Private Sub SSPPApplicationLog_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        ApplicationLog = Nothing
         Me.Dispose()
     End Sub
 #End Region

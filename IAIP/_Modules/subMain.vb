@@ -76,39 +76,25 @@ Module subMain
     Public FeeStats As PASPFeeAuditLog
 #End Region
 
-#Region "SSCP Screens"
-    Public SSCP_Work As SSCPComplianceLog
-    Public ManagersTools As SSCPManagersTools
+#Region " SSCP Screens "
+    Public SSCP_Work As SSCPComplianceLog ' TODO DWW: Remove
     Public SSCPReports As SSCPEvents
     Public SSCPFCE As SSCPFCEWork
-    Public SSCPFacAssign As SSCPFacAssignment
-    Public SSCPEngWork As SSCPWorkEnTry
-    Public SSCPRequest As SSCPInformationRequest
-    Public EnforcementChecklist As SSCPEnforcementChecklist
-    Public SSCPInspectionsTool As SSCPEngineerInspectionTool
-    Public SSCPInspectionscheduleTool As SSCPInspectionscheduleLink
-    Public EmissionSummary As SSCPEmissionSummaryTool
-    Public SSCPAdmin As SSCPAdministrator
-    Public InspectionTool As SSCPInspectionTool
+    Public SSCPFacAssign As SSCPFacAssignment ' TODO DWW: Remove
+    Public SSCPEngWork As SSCPWorkEnTry ' TODO DWW: Remove
+    Public SSCPRequest As SSCPInformationRequest ' TODO DWW: Remove
+    Public SSCPInspectionscheduleTool As SSCPInspectionscheduleLink ' TODO DWW: Remove
 #End Region
 
-#Region "SSPP Screens"
-    Public ApplicationLog As SSPPApplicationLog
-    Public PermitTrackingLog As SSPPApplicationTrackingLog
-    Public AttainmentStatus As SSPPAttainmentStatus
-    Public PublicLetter2 As SSPPPublicNoticiesAndAdvisories
-    Public StatisticalTools As SSPPStatisticalTools
-    Public FeeContact As SSPP_FeeContact
+#Region " SSPP Screens "
+    Public PermitTrackingLog As SSPPApplicationTrackingLog ' TODO DWW: Remove
+    Public AttainmentStatus As SSPPAttainmentStatus ' TODO DWW: Remove
+    Public FeeContact As SSPP_FeeContact ' TODO DWW: Remove
 #End Region
 
-#Region "SBEAP Screens"
+#Region " SBEAP Screens "
     Public ClientSummary As SBEAPClientSummary
     Public CaseWork As SBEAPCaseWork
-    Public ClientSearchTool As SBEAPClientSearchTool
-    Public CaseLog As SBEAPCaseLog
-    Public ReportTool As SBEAPReports
-    Public PhoneLog As SBEAPPhoneLog
-    Public MiscTools As SBEAPMiscTools
 #End Region
 
 #End Region

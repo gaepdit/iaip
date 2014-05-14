@@ -891,7 +891,6 @@ Public Class SBEAPCaseLog
     End Sub
     Private Sub tsbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbBack.Click
         Try
-            CaseLog = Nothing
             Me.Close()
 
         Catch ex As Exception

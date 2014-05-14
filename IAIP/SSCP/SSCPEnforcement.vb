@@ -2094,20 +2094,6 @@ Public Class SscpEnforcement
 
             OpenSingleForm(SSCPEnforcementChecklist, Me.ID, parameters, True)
 
-            'EnforcementChecklist = Nothing
-            'If EnforcementChecklist Is Nothing Then EnforcementChecklist = New SSCPEnforcementChecklist
-
-            'If txtAIRSNumber.Text <> "" Then
-            '    EnforcementChecklist.txtAIRSNumber.Text = txtAIRSNumber.Text
-            'End If
-            'If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
-            '    EnforcementChecklist.txtEnforcementNumber.Text = txtEnforcementNumber.Text
-            'End If
-            'If txtTrackingNumber.Text <> "" Then
-            '    EnforcementChecklist.txtTrackingNumber.Text = txtTrackingNumber.Text
-            'End If
-
-            'EnforcementChecklist.Show()
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
