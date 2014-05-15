@@ -14311,27 +14311,21 @@ Public Class SSPPApplicationTrackingLog
             Select Case Mid(temp, 1, 1)
                 Case "V"
                     If PDFFile <> "" Then
-                        URL = "http://airpermit.dnr.state.ga.us/gaairpermits/PermitPdf.aspx?id=PDF-VF-" & txtApplicationNumber.Text
+                        URL = "http://search.georgiaair.org/permit.aspx?id=PDF-VF-" & txtApplicationNumber.Text
                     Else
-                        URL = "http://airpermit.dnr.state.ga.us/gaairpermits/PermitPdf.aspx?id=DOC-VF-" & txtApplicationNumber.Text
+                        URL = "http://search.georgiaair.org/permit.aspx?id=DOC-VF-" & txtApplicationNumber.Text
                     End If
                 Case "P"
                     If PDFFile <> "" Then
-                        URL = "http://airpermit.dnr.state.ga.us/gaairpermits/PermitPdf.aspx?id=PDF-PF-" & txtApplicationNumber.Text
+                        URL = "http://search.georgiaair.org/permit.aspx?id=PDF-PI-" & txtApplicationNumber.Text
                     Else
-                        URL = "http://airpermit.dnr.state.ga.us/gaairpermits/PermitPdf.aspx?id=DOC-PF-" & txtApplicationNumber.Text
-                    End If
-                Case "O"
-                    If PDFFile <> "" Then
-                        URL = "http://airpermit.dnr.state.ga.us/gaairpermits/PermitPdf.aspx?id=PDF-OP-" & txtApplicationNumber.Text
-                    Else
-                        URL = "http://airpermit.dnr.state.ga.us/gaairpermits/PermitPdf.aspx?id=DOC-OP-" & txtApplicationNumber.Text
+                        URL = "http://search.georgiaair.org/permit.aspx?id=DOC-PI-" & txtApplicationNumber.Text
                     End If
                 Case Else
                     If PDFFile <> "" Then
-                        URL = "http://airpermit.dnr.state.ga.us/gaairpermits/PermitPdf.aspx?id=PDF-OP-" & txtApplicationNumber.Text
+                        URL = "http://search.georgiaair.org/permit.aspx?id=PDF-OP-" & txtApplicationNumber.Text
                     Else
-                        URL = "http://airpermit.dnr.state.ga.us/gaairpermits/PermitPdf.aspx?id=DOC-OP-" & txtApplicationNumber.Text
+                        URL = "http://search.georgiaair.org/permit.aspx?id=DOC-OP-" & txtApplicationNumber.Text
                     End If
             End Select
 
@@ -14939,7 +14933,7 @@ Public Class SSPPApplicationTrackingLog
             vbNewLine & vbNewLine & _
             "To track the status of the air quality permit application, log on to Georgia Environmental " & _
             "Protection Division’s Georgia Environmental Connections Online (GECO) at the web address " & _
-            "http://airpermit.dnr.state.ga.us" & _
+            "http://geco.georgiaair.org/" & _
             " (registration required) and follow the online instructions. " & _
             vbNewLine & vbNewLine & _
             "If you have any questions or concerns regarding your application, please contact me at " & _

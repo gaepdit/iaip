@@ -1176,7 +1176,7 @@ Public Class IAIPFacilitySummary
 
 
             If mtbAIRSNumber.Text <> "" Then
-                Dim url As String = "http://airpermit.dnr.state.ga.us/gaairpermits/default.aspx?AirsNumber='" & mtbAIRSNumber.Text & "'"
+                Dim url As String = "http://search.georgiaair.org/?AirsNumber=" & mtbAIRSNumber.Text
                 OpenUri(url, Me)
             End If
 
