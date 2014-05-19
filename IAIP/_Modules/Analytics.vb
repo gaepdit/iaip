@@ -7,7 +7,7 @@ Module Analytics
     Public monitor As IAnalyticsMonitor
     Public monitorInstallationInfo As New Dictionary(Of String, String)
 
-    Public Sub MonitorInit()
+    Public Sub InitializeMonitor()
         Dim AnalyticsApiKey As String = "F635C42ABA7B4DE886EEFCEE31C98000"
         Dim monitorSettings As IAnalyticsMonitorSettings = AnalyticsMonitorFactory.CreateSettings(AnalyticsApiKey)
 
@@ -32,11 +32,13 @@ Module Analytics
         monitor.SetInstallationInfo(Environment.MachineName, monitorInstallationInfo)
     End Sub
 
-    Public Sub MonitorStop()
+    Public Sub StopMonitor()
         With monitor
             .TrackFeatureStop("Runtime")
             .Stop()
+            .Dispose()
         End With
+
     End Sub
 
 End Module
