@@ -157,7 +157,7 @@ Public Class IAIPNavigation
         txtOpenTestReport.Tag = btnOpenTestReport
     End Sub
 
-    Private Sub btnOpenFacilitySummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Private Sub QuickAccessButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) _
     Handles btnOpenFacilitySummary.Click, btnOpenTestReport.Click, btnOpenTestLog.Click, btnOpenSscpItem.Click, btnOpenSbeapClient.Click, btnOpenSbeapCaseLog.Click, btnOpenEnforcement.Click, btnOpenApplication.Click
         Dim thisButton As Button = CType(sender, Button)
         Select Case thisButton.Name
@@ -1009,39 +1009,34 @@ Public Class IAIPNavigation
         End If
     End Sub
 
-    Private Sub dgvWorkViewer_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvWorkViewer.MouseUp
-        ' TODO (Doug): Is this the best way to handle this?
-        Dim hti As DataGridView.HitTestInfo = dgvWorkViewer.HitTest(e.X, e.Y)
+    Private Sub dgvWorkViewer_CellSelect(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
+    Handles dgvWorkViewer.CellClick, dgvWorkViewer.CellEnter
+        If e.RowIndex <> -1 AndAlso e.RowIndex < dgvWorkViewer.RowCount Then
+            Select Case dgvWorkViewer.Columns(0).HeaderText
+                Case "Case ID" ' SBEAP cases
+                    txtOpenSbeapCaseLog.Text = dgvWorkViewer(0, e.RowIndex).FormattedValue
+                    txtOpenSbeapClient.Text = dgvWorkViewer(2, e.RowIndex).FormattedValue
+                Case "AIRS #" ' Compliance facilities assigned; delinquent FCEs; facility subparts
+                    txtOpenFacilitySummary.Text = dgvWorkViewer(0, e.RowIndex).FormattedValue
+                Case "Tracking #"
+                    txtOpenSscpItem.Text = dgvWorkViewer(0, e.RowIndex).FormattedValue
+                    txtOpenFacilitySummary.Text = dgvWorkViewer(1, e.RowIndex).FormattedValue
+                Case "Enforcement #"
+                    txtOpenEnforcement.Text = dgvWorkViewer(0, e.RowIndex).FormattedValue
+                    txtOpenFacilitySummary.Text = dgvWorkViewer(1, e.RowIndex).FormattedValue
+                Case "Reference #" ' ISMP Test Reports
+                    txtOpenTestReport.Text = dgvWorkViewer(0, e.RowIndex).FormattedValue
+                    txtOpenFacilitySummary.Text = dgvWorkViewer(1, e.RowIndex).FormattedValue
+                Case "Test Log #"
+                    txtOpenTestLog.Text = dgvWorkViewer(0, e.RowIndex).FormattedValue
+                    txtOpenTestReport.Text = dgvWorkViewer(1, e.RowIndex).FormattedValue
+                Case "App #"
+                    txtOpenApplication.Text = dgvWorkViewer(0, e.RowIndex).FormattedValue
+                    txtOpenFacilitySummary.Text = dgvWorkViewer(1, e.RowIndex).FormattedValue
 
-        Try
-            If dgvWorkViewer.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvWorkViewer.Columns(0).HeaderText = "Reference #" Then
-                    txtOpenTestReport.Text = dgvWorkViewer(0, hti.RowIndex).FormattedValue
-                    txtOpenFacilitySummary.Text = dgvWorkViewer(1, hti.RowIndex).FormattedValue
-                ElseIf dgvWorkViewer.Columns(0).HeaderText = "App #" Then
-                    txtOpenApplication.Text = dgvWorkViewer(0, hti.RowIndex).FormattedValue
-                    txtOpenFacilitySummary.Text = dgvWorkViewer(1, hti.RowIndex).FormattedValue
-                ElseIf dgvWorkViewer.Columns(0).HeaderText = "Enforcement #" Then
-                    txtOpenEnforcement.Text = dgvWorkViewer(0, hti.RowIndex).FormattedValue
-                    txtOpenFacilitySummary.Text = dgvWorkViewer(1, hti.RowIndex).FormattedValue
-                ElseIf dgvWorkViewer.Columns(0).HeaderText = "Tracking #" Then
-                    txtOpenSscpItem.Text = dgvWorkViewer(0, hti.RowIndex).FormattedValue
-                    txtOpenFacilitySummary.Text = dgvWorkViewer(1, hti.RowIndex).FormattedValue
-                ElseIf dgvWorkViewer.Columns(0).HeaderText = "AIRS #" Then
-                    txtOpenFacilitySummary.Text = dgvWorkViewer(0, hti.RowIndex).FormattedValue
-                ElseIf dgvWorkViewer.Columns(0).HeaderText = "Test Log #" Then
-                    txtOpenTestLog.Text = dgvWorkViewer(0, hti.RowIndex).FormattedValue
-                    txtOpenFacilitySummary.Text = dgvWorkViewer(3, hti.RowIndex).FormattedValue
-                ElseIf dgvWorkViewer.Columns(0).HeaderText = "Case ID" Then
-                    txtOpenSbeapCaseLog.Text = dgvWorkViewer(0, hti.RowIndex).FormattedValue
-                    txtOpenSbeapClient.Text = dgvWorkViewer(7, hti.RowIndex).FormattedValue
-                End If
-            End If
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+            End Select
+        End If
     End Sub
 
 #End Region

@@ -3539,8 +3539,12 @@ Public Class SSPPApplicationLog
 
     End Sub
 
+#End Region
+
+#Region " DataGridView Events "
+
     Private Sub dgvApplicationLog_CellMouseEnter(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
-        Handles dgvApplicationLog.CellMouseEnter
+    Handles dgvApplicationLog.CellMouseEnter
         ' Change cursor and text color when hovering over first column (treats text like a hyperlink)
 
         If e.ColumnIndex = dgvApplicationLog.Columns("strApplicationNumber").Index And e.RowIndex <> -1 Then
@@ -3548,8 +3552,9 @@ Public Class SSPPApplicationLog
             dgvApplicationLog.Rows(e.RowIndex).Cells("strApplicationNumber").Style.ForeColor = Color.BlueViolet
         End If
     End Sub
+
     Private Sub dgvApplicationLog_CellMouseLeave(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
-        Handles dgvApplicationLog.CellMouseLeave
+    Handles dgvApplicationLog.CellMouseLeave
         ' Reset cursor and text color when mouse leaves (un-hovers) a cell
         If e.ColumnIndex = dgvApplicationLog.Columns("strApplicationNumber").Index And e.RowIndex <> -1 Then
             dgvApplicationLog.Cursor = Cursors.Default
@@ -3558,7 +3563,7 @@ Public Class SSPPApplicationLog
     End Sub
 
     Private Sub dgvApplicationLog_CellClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
-        Handles dgvApplicationLog.CellClick
+    Handles dgvApplicationLog.CellClick
 
         ' Anywhere in any cell in any non-header row in grid
         If e.RowIndex <> -1 And e.RowIndex < dgvApplicationLog.RowCount Then
@@ -3575,15 +3580,18 @@ Public Class SSPPApplicationLog
             OpenApplication(dgvApplicationLog.Rows(e.RowIndex).Cells("strApplicationNumber").Value)
         End If
     End Sub
+
     Private Sub dgvApplicationLog_CellDoubleClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
-        Handles dgvApplicationLog.CellDoubleClick
+    Handles dgvApplicationLog.CellDoubleClick
         'Double-click within the cell content (exclude first column to avoid double-firing)
         If e.RowIndex <> -1 And e.RowIndex < dgvApplicationLog.RowCount _
             And e.ColumnIndex <> dgvApplicationLog.Columns("strApplicationNumber").Index Then
             OpenApplication(dgvApplicationLog.Rows(e.RowIndex).Cells("strApplicationNumber").Value)
         End If
     End Sub
-    Private Sub dgvApplicationLog_CellEnter(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvApplicationLog.CellEnter
+
+    Private Sub dgvApplicationLog_CellEnter(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
+    Handles dgvApplicationLog.CellEnter
         If e.RowIndex <> -1 And e.RowIndex < dgvApplicationLog.RowCount Then
             selectedApp = dgvApplicationLog.Rows(e.RowIndex).Cells("strApplicationNumber").Value
             Panel1.Text = selectedApp & " – " & _
@@ -3592,6 +3600,7 @@ Public Class SSPPApplicationLog
             mmiOpen.Enabled = True
         End If
     End Sub
+
 #End Region
 
 #Region "Menu, buttons, and toolbar"
