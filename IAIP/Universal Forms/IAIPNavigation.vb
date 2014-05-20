@@ -49,8 +49,8 @@ Public Class IAIPNavigation
 
             EnableQuickAccessToolForSbeap()
 
-            pnl2.Text = UserName
-            pnl3.Text = OracleDate
+            pnlName.Text = UserName
+            pnlDate.Text = OracleDate
 
             LoadProgramDescription()
 
@@ -97,7 +97,7 @@ Public Class IAIPNavigation
         Dim id As Integer
 
         If Integer.TryParse(UserProgram, id) Then
-            pnl1.Text = DAL.GetProgramDescription(id)
+            pnlProgram.Text = DAL.GetProgramDescription(id)
         End If
     End Sub
 
@@ -126,13 +126,13 @@ Public Class IAIPNavigation
     Private Sub EnableConnectionEnvironmentOptions()
 
         If CurrentServerEnvironment = DB.ServerEnvironment.DEV Then
-            pnl4.Text = "TESTING ENVIRONMENT"
-            pnl4.BackColor = Color.Tomato
-            pnl4.Visible = True
+            pnlDbEnv.Text = "TESTING ENVIRONMENT"
+            pnlDbEnv.BackColor = Color.Tomato
+            pnlDbEnv.Visible = True
             EnableAndShow(mmiTesting)
         Else
-            pnl4.Text = "PRD"
-            pnl4.Visible = False
+            pnlDbEnv.Text = "PRD"
+            pnlDbEnv.Visible = False
             DisableAndHide(mmiTesting)
         End If
 
@@ -452,7 +452,7 @@ Public Class IAIPNavigation
                                         CurrentWorkViewerContext = WorkViewerType.ISMP_Staff
                                         ' TODO (Doug): When a better user object is set up, change this (pnl2.Text)
                                         ' to something more appropriate
-                                        CurrentWorkViewerContextParameter = pnl2.Text
+                                        CurrentWorkViewerContextParameter = pnlName.Text
                                     End If
 
                                 Case "4" 'SSCP
@@ -563,7 +563,7 @@ Public Class IAIPNavigation
                         CurrentWorkViewerContext = WorkViewerType.MonitoringTestReports_Staff
                         ' TODO (Doug): When a better user object is set up, change this (pnl2.Text)
                         ' to something more appropriate
-                        CurrentWorkViewerContextParameter = pnl2.Text
+                        CurrentWorkViewerContextParameter = pnlName.Text
                     ElseIf rdbUCView.Checked Then
                         CurrentWorkViewerContext = WorkViewerType.MonitoringTestReports_UC
                         CurrentWorkViewerContextParameter = UserUnit

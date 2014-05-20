@@ -6,6 +6,8 @@ Namespace DAL.SSPP
     Module Applications
 
         Public Function ApplicationExists(ByVal appNumber As String) As Boolean
+            If appNumber = "" OrElse Not Integer.TryParse(appNumber, Nothing) Then Return False
+
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
                 " FROM " & DBNameSpace & ".SSPPAPPLICATIONMASTER " & _
                 " WHERE ROWNUM = 1 " & _
