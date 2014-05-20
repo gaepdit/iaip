@@ -20,6 +20,7 @@ Partial Class IAIPNavigation
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.mmiFile = New System.Windows.Forms.MenuItem
         Me.mmiExit = New System.Windows.Forms.MenuItem
@@ -154,8 +155,7 @@ Partial Class IAIPNavigation
         '
         'lblTitle
         '
-        Me.lblTitle.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.lblTitle.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.lblTitle.BackColor = System.Drawing.SystemColors.Control
         Me.lblTitle.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTitle.ForeColor = System.Drawing.SystemColors.HotTrack
@@ -640,11 +640,18 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.AllowUserToAddRows = False
         Me.dgvWorkViewer.AllowUserToDeleteRows = False
         Me.dgvWorkViewer.AllowUserToOrderColumns = True
+        Me.dgvWorkViewer.AllowUserToResizeRows = False
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvWorkViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvWorkViewer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
+        Me.dgvWorkViewer.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleVertical
+        Me.dgvWorkViewer.ColumnHeadersHeight = 35
         Me.dgvWorkViewer.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvWorkViewer.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvWorkViewer.Location = New System.Drawing.Point(118, 33)
         Me.dgvWorkViewer.Name = "dgvWorkViewer"
         Me.dgvWorkViewer.ReadOnly = True
+        Me.dgvWorkViewer.RowHeadersVisible = False
         Me.dgvWorkViewer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 117)
         Me.dgvWorkViewer.TabIndex = 4

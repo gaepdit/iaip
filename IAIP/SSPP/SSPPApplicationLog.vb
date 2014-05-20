@@ -2010,9 +2010,6 @@ Public Class SSPPApplicationLog
 
         dgvApplicationLog.Columns("strApplicationNumber").HeaderText = "APL #"
         dgvApplicationLog.Columns("strApplicationNumber").DisplayIndex = 0
-        dgvApplicationLog.Columns("strApplicationNumber").DefaultCellStyle.ForeColor = Color.Blue
-        dgvApplicationLog.Columns("strApplicationNumber").DefaultCellStyle.Font = _
-            New Font(dgvApplicationLog.DefaultCellStyle.Font, FontStyle.Underline)
         dgvApplicationLog.Columns("strApplicationType").HeaderText = "APL Type"
         dgvApplicationLog.Columns("strApplicationType").DisplayIndex = 4
         dgvApplicationLog.Columns("datReceivedDate").HeaderText = "APL Rcvd"
@@ -2038,6 +2035,8 @@ Public Class SSPPApplicationLog
         dgvApplicationLog.Columns("strSICCode").DisplayIndex = 11
         dgvApplicationLog.Columns("strPlantDescription").HeaderText = "Plant Description"
         dgvApplicationLog.Columns("strPlantDescription").DisplayIndex = 12
+
+        dgvApplicationLog.MakeColumnsLookLikeLinks(0)
 
         If chbShowAll.Checked = True Then
             dgvApplicationLog.Columns("strFacilityStreet1").HeaderText = "Facility Address"
@@ -3548,8 +3547,7 @@ Public Class SSPPApplicationLog
         ' Change cursor and text color when hovering over first column (treats text like a hyperlink)
 
         If e.ColumnIndex = dgvApplicationLog.Columns("strApplicationNumber").Index And e.RowIndex <> -1 Then
-            dgvApplicationLog.Cursor = Cursors.Hand
-            dgvApplicationLog.Rows(e.RowIndex).Cells("strApplicationNumber").Style.ForeColor = Color.BlueViolet
+            dgvApplicationLog.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex)
         End If
     End Sub
 
@@ -3557,8 +3555,7 @@ Public Class SSPPApplicationLog
     Handles dgvApplicationLog.CellMouseLeave
         ' Reset cursor and text color when mouse leaves (un-hovers) a cell
         If e.ColumnIndex = dgvApplicationLog.Columns("strApplicationNumber").Index And e.RowIndex <> -1 Then
-            dgvApplicationLog.Cursor = Cursors.Default
-            dgvApplicationLog.Rows(e.RowIndex).Cells("strApplicationNumber").Style.ForeColor = Color.Blue
+            dgvApplicationLog.MakeCellNotLookLikeHoveredLink(e.RowIndex, e.ColumnIndex)
         End If
     End Sub
 

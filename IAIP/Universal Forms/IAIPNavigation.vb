@@ -671,15 +671,6 @@ Public Class IAIPNavigation
     Private Sub FormatWorkViewer()
         If dgvWorkViewer.Visible = True Then
 
-            dgvWorkViewer.RowHeadersVisible = False
-            dgvWorkViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvWorkViewer.AllowUserToResizeColumns = True
-            dgvWorkViewer.AllowUserToAddRows = False
-            dgvWorkViewer.AllowUserToDeleteRows = False
-            dgvWorkViewer.AllowUserToOrderColumns = True
-            dgvWorkViewer.AllowUserToResizeRows = True
-            dgvWorkViewer.ColumnHeadersHeight = "35"
-
             Select Case CurrentWorkViewerContext
 
                 Case WorkViewerType.ISMP_PM, WorkViewerType.ISMP_Staff, WorkViewerType.ISMP_UC, _
@@ -717,16 +708,22 @@ Public Class IAIPNavigation
             End Select
 
             dgvWorkViewer.SanelyResizeColumns()
+            dgvWorkViewer.MakeColumnsLookLikeLinks(0)
+            'Try
+            '    dgvWorkViewer.Columns("AIRSNumber").DefaultCellStyle.Format = "000-00000"
+            'Catch e As Exception
+            'End Try
+
         End If
     End Sub
 
     Private Sub FormatWorkViewerForSbeapCases()
         dgvWorkViewer.Columns("numCaseID").HeaderText = "Case ID"
         dgvWorkViewer.Columns("numCaseID").DisplayIndex = 0
-        dgvWorkViewer.Columns("strCompanyName").HeaderText = "Customer Name"
-        dgvWorkViewer.Columns("strCompanyName").DisplayIndex = 1
         dgvWorkViewer.Columns("ClientID").HeaderText = "Customer ID"
-        dgvWorkViewer.Columns("ClientID").DisplayIndex = 2
+        dgvWorkViewer.Columns("ClientID").DisplayIndex = 1
+        dgvWorkViewer.Columns("strCompanyName").HeaderText = "Customer Name"
+        dgvWorkViewer.Columns("strCompanyName").DisplayIndex = 2
         dgvWorkViewer.Columns("CaseOpened").HeaderText = "Date Case Opened"
         dgvWorkViewer.Columns("CaseOpened").DisplayIndex = 3
         dgvWorkViewer.Columns("CaseOpened").DefaultCellStyle.Format = "dd-MMM-yyyy"
@@ -1009,36 +1006,91 @@ Public Class IAIPNavigation
         End If
     End Sub
 
-    Private Sub dgvWorkViewer_CellSelect(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
-    Handles dgvWorkViewer.CellClick, dgvWorkViewer.CellEnter
-        If e.RowIndex <> -1 AndAlso e.RowIndex < dgvWorkViewer.RowCount Then
-            Select Case dgvWorkViewer.Columns(0).HeaderText
-                Case "Case ID" ' SBEAP cases
-                    txtOpenSbeapCaseLog.Text = dgvWorkViewer(0, e.RowIndex).FormattedValue
-                    txtOpenSbeapClient.Text = dgvWorkViewer(2, e.RowIndex).FormattedValue
-                Case "AIRS #" ' Compliance facilities assigned; delinquent FCEs; facility subparts
-                    txtOpenFacilitySummary.Text = dgvWorkViewer(0, e.RowIndex).FormattedValue
-                Case "Tracking #"
-                    txtOpenSscpItem.Text = dgvWorkViewer(0, e.RowIndex).FormattedValue
-                    txtOpenFacilitySummary.Text = dgvWorkViewer(1, e.RowIndex).FormattedValue
-                Case "Enforcement #"
-                    txtOpenEnforcement.Text = dgvWorkViewer(0, e.RowIndex).FormattedValue
-                    txtOpenFacilitySummary.Text = dgvWorkViewer(1, e.RowIndex).FormattedValue
-                Case "Reference #" ' ISMP Test Reports
-                    txtOpenTestReport.Text = dgvWorkViewer(0, e.RowIndex).FormattedValue
-                    txtOpenFacilitySummary.Text = dgvWorkViewer(1, e.RowIndex).FormattedValue
-                Case "Test Log #"
-                    txtOpenTestLog.Text = dgvWorkViewer(0, e.RowIndex).FormattedValue
-                    txtOpenTestReport.Text = dgvWorkViewer(1, e.RowIndex).FormattedValue
-                Case "App #"
-                    txtOpenApplication.Text = dgvWorkViewer(0, e.RowIndex).FormattedValue
-                    txtOpenFacilitySummary.Text = dgvWorkViewer(1, e.RowIndex).FormattedValue
-
-
-            End Select
+    Private Sub dgvWorkViewer_CellMouseEnter(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
+    Handles dgvWorkViewer.CellMouseEnter
+        'Console.WriteLine("CellMouseEnter: " & e.ColumnIndex.ToString & ", " & e.RowIndex.ToString)
+        ' Change cursor and text color when hovering over first column (treats text like a hyperlink)
+        If e.RowIndex <> -1 AndAlso e.RowIndex < dgvWorkViewer.RowCount AndAlso e.ColumnIndex = 0 Then
+            dgvWorkViewer.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex)
         End If
     End Sub
 
+    Private Sub dgvWorkViewer_CellMouseLeave(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
+    Handles dgvWorkViewer.CellMouseLeave
+        'Console.WriteLine("CellMouseLeave: " & e.ColumnIndex.ToString & ", " & e.RowIndex.ToString)
+        ' Reset cursor and text color when mouse leaves (un-hovers) a cell
+        If e.RowIndex <> -1 AndAlso e.RowIndex < dgvWorkViewer.RowCount AndAlso e.ColumnIndex = 0 Then
+            dgvWorkViewer.MakeCellNotLookLikeHoveredLink(e.RowIndex, e.ColumnIndex)
+        End If
+    End Sub
+
+    Private Sub dgvWorkViewer_CellEnter(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
+    Handles dgvWorkViewer.CellEnter
+        'Console.WriteLine("CellEnter: " & e.ColumnIndex.ToString & ", " & e.RowIndex.ToString)
+        If e.RowIndex <> -1 AndAlso e.RowIndex < dgvWorkViewer.RowCount Then
+            SelectItemNumbers(e.RowIndex)
+        End If
+    End Sub
+
+    Private Sub dgvWorkViewer_CellClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
+    Handles dgvWorkViewer.CellClick
+        'Console.WriteLine("CellClick: " & e.ColumnIndex.ToString & ", " & e.RowIndex.ToString)
+        If e.RowIndex <> -1 AndAlso e.RowIndex < dgvWorkViewer.RowCount AndAlso e.ColumnIndex = 0 Then
+            OpenSelectedItem()
+        End If
+    End Sub
+
+    Private Sub dgvWorkViewer_CellDoubleClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
+    Handles dgvWorkViewer.CellDoubleClick
+        'Console.WriteLine("CellDoubleClick: " & e.ColumnIndex.ToString & ", " & e.RowIndex.ToString)
+        If e.RowIndex <> -1 AndAlso e.RowIndex < dgvWorkViewer.RowCount AndAlso e.ColumnIndex <> 0 Then
+            OpenSelectedItem()
+        End If
+    End Sub
+
+    Private Sub OpenSelectedItem()
+        Select Case dgvWorkViewer.Columns(0).HeaderText
+            Case "Case ID" ' SBEAP cases
+                OpenSbeapCaseLog()
+            Case "AIRS #" ' Compliance facilities assigned; delinquent FCEs; facility subparts
+                OpenFacilitySummary()
+            Case "Tracking #" ' Compliance work
+                OpenSscpItem()
+            Case "Enforcement #" 'Enforcement
+                OpenEnforcement()
+            Case "Reference #" ' ISMP Test Reports
+                OpenTestReport()
+            Case "Test Log #" ' ISMP Test Notifications
+                OpenTestLog()
+            Case "App #" ' Permit applications
+                OpenApplication()
+        End Select
+    End Sub
+
+    Private Sub SelectItemNumbers(ByVal row As Integer)
+        Select Case dgvWorkViewer.Columns(0).HeaderText
+            Case "Case ID" ' SBEAP cases
+                txtOpenSbeapCaseLog.Text = dgvWorkViewer(0, row).FormattedValue
+                txtOpenSbeapClient.Text = dgvWorkViewer(1, row).FormattedValue
+            Case "AIRS #" ' Compliance facilities assigned; delinquent FCEs; facility subparts
+                txtOpenFacilitySummary.Text = dgvWorkViewer(0, row).FormattedValue
+            Case "Tracking #" ' Compliance work
+                txtOpenSscpItem.Text = dgvWorkViewer(0, row).FormattedValue
+                txtOpenFacilitySummary.Text = dgvWorkViewer(1, row).FormattedValue
+            Case "Enforcement #" ' Enforcement
+                txtOpenEnforcement.Text = dgvWorkViewer(0, row).FormattedValue
+                txtOpenFacilitySummary.Text = dgvWorkViewer(1, row).FormattedValue
+            Case "Reference #" ' ISMP Test Reports
+                txtOpenTestReport.Text = dgvWorkViewer(0, row).FormattedValue
+                txtOpenFacilitySummary.Text = dgvWorkViewer(1, row).FormattedValue
+            Case "Test Log #" ' ISMP Test Notifications
+                txtOpenTestLog.Text = dgvWorkViewer(0, row).FormattedValue
+                txtOpenTestReport.Text = dgvWorkViewer(1, row).FormattedValue
+            Case "App #" ' Permit applications
+                txtOpenApplication.Text = dgvWorkViewer(0, row).FormattedValue
+                txtOpenFacilitySummary.Text = dgvWorkViewer(1, row).FormattedValue
+        End Select
+    End Sub
 #End Region
 
 #Region " Nav buttons background worker (bgrLoadButtons) "
@@ -1379,4 +1431,16 @@ Public Class IAIPNavigation
 
 #End Region
 
+    Private Sub dgvWorkViewer_CellFormatting(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) Handles dgvWorkViewer.CellFormatting
+        If e IsNot Nothing Then
+            Try
+                If dgvWorkViewer.Columns(e.ColumnIndex).HeaderText = "AIRS #" Then
+                    Dim text As String = e.Value.ToString
+                    e.Value = String.Format("{0}-{1}", text.Substring(0, 3), text.Substring(3))
+                End If
+            Catch ex As Exception
+
+            End Try
+        End If
+    End Sub
 End Class
