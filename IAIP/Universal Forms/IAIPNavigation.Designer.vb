@@ -73,18 +73,18 @@ Partial Class IAIPNavigation
         Me.lblWorkViewerContext = New System.Windows.Forms.Label
         Me.cboWorkViewerContext = New System.Windows.Forms.ComboBox
         Me.lblResultsCount = New System.Windows.Forms.Label
-        Me.dgvWorkViewer = New System.Windows.Forms.DataGridView
         Me.bgrLoadWorkViewer = New System.ComponentModel.BackgroundWorker
         Me.lblMessageLabel = New System.Windows.Forms.Label
         Me.bgrUserPermissions = New System.ComponentModel.BackgroundWorker
         Me.pnlCurrentList = New System.Windows.Forms.Panel
         Me.pnlContextSubView = New System.Windows.Forms.Panel
+        Me.dgvWorkViewer = New System.Windows.Forms.DataGridView
         Me.grpQuickAccess.SuspendLayout()
         Me.SbeapQuickAccessPanel.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
-        CType(Me.dgvWorkViewer, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlCurrentList.SuspendLayout()
         Me.pnlContextSubView.SuspendLayout()
+        CType(Me.dgvWorkViewer, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MainMenu1
@@ -594,6 +594,7 @@ Partial Class IAIPNavigation
         '
         Me.btnChangeWorkViewerContext.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnChangeWorkViewerContext.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnChangeWorkViewerContext.Enabled = False
         Me.btnChangeWorkViewerContext.Location = New System.Drawing.Point(278, 5)
         Me.btnChangeWorkViewerContext.Name = "btnChangeWorkViewerContext"
         Me.btnChangeWorkViewerContext.Size = New System.Drawing.Size(61, 23)
@@ -635,30 +636,8 @@ Partial Class IAIPNavigation
         Me.lblResultsCount.TextAlign = System.Drawing.ContentAlignment.TopRight
         Me.lblResultsCount.Visible = False
         '
-        'dgvWorkViewer
-        '
-        Me.dgvWorkViewer.AllowUserToAddRows = False
-        Me.dgvWorkViewer.AllowUserToDeleteRows = False
-        Me.dgvWorkViewer.AllowUserToOrderColumns = True
-        Me.dgvWorkViewer.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvWorkViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvWorkViewer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
-        Me.dgvWorkViewer.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleVertical
-        Me.dgvWorkViewer.ColumnHeadersHeight = 35
-        Me.dgvWorkViewer.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvWorkViewer.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.dgvWorkViewer.Location = New System.Drawing.Point(118, 33)
-        Me.dgvWorkViewer.Name = "dgvWorkViewer"
-        Me.dgvWorkViewer.ReadOnly = True
-        Me.dgvWorkViewer.RowHeadersVisible = False
-        Me.dgvWorkViewer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 117)
-        Me.dgvWorkViewer.TabIndex = 4
-        '
         'bgrLoadWorkViewer
         '
-        Me.bgrLoadWorkViewer.WorkerReportsProgress = True
         Me.bgrLoadWorkViewer.WorkerSupportsCancellation = True
         '
         'lblMessageLabel
@@ -673,7 +652,6 @@ Partial Class IAIPNavigation
         '
         'bgrUserPermissions
         '
-        Me.bgrUserPermissions.WorkerReportsProgress = True
         Me.bgrUserPermissions.WorkerSupportsCancellation = True
         '
         'pnlCurrentList
@@ -700,6 +678,27 @@ Partial Class IAIPNavigation
         Me.pnlContextSubView.Size = New System.Drawing.Size(252, 30)
         Me.pnlContextSubView.TabIndex = 295
         '
+        'dgvWorkViewer
+        '
+        Me.dgvWorkViewer.AllowUserToAddRows = False
+        Me.dgvWorkViewer.AllowUserToDeleteRows = False
+        Me.dgvWorkViewer.AllowUserToOrderColumns = True
+        Me.dgvWorkViewer.AllowUserToResizeRows = False
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvWorkViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvWorkViewer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
+        Me.dgvWorkViewer.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleVertical
+        Me.dgvWorkViewer.ColumnHeadersHeight = 35
+        Me.dgvWorkViewer.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvWorkViewer.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.dgvWorkViewer.Location = New System.Drawing.Point(118, 33)
+        Me.dgvWorkViewer.Name = "dgvWorkViewer"
+        Me.dgvWorkViewer.ReadOnly = True
+        Me.dgvWorkViewer.RowHeadersVisible = False
+        Me.dgvWorkViewer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 117)
+        Me.dgvWorkViewer.TabIndex = 4
+        '
         'IAIPNavigation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -724,11 +723,11 @@ Partial Class IAIPNavigation
         Me.SbeapQuickAccessPanel.PerformLayout()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
-        CType(Me.dgvWorkViewer, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlCurrentList.ResumeLayout(False)
         Me.pnlCurrentList.PerformLayout()
         Me.pnlContextSubView.ResumeLayout(False)
         Me.pnlContextSubView.PerformLayout()
+        CType(Me.dgvWorkViewer, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -751,7 +750,6 @@ Partial Class IAIPNavigation
     Friend WithEvents pnlName As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents pnlDate As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents lblOpenFacilitySummary As System.Windows.Forms.Label
-    Friend WithEvents dgvWorkViewer As System.Windows.Forms.DataGridView
     Friend WithEvents pnlDbEnv As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents lblMessageLabel As System.Windows.Forms.Label
     Friend WithEvents mmiOnlineHelp As System.Windows.Forms.MenuItem
@@ -791,4 +789,5 @@ Partial Class IAIPNavigation
     Friend WithEvents txtOpenSbeapClient As Iaip.CueTextBox
     Private WithEvents bgrLoadWorkViewer As System.ComponentModel.BackgroundWorker
     Private WithEvents bgrUserPermissions As System.ComponentModel.BackgroundWorker
+    Friend WithEvents dgvWorkViewer As System.Windows.Forms.DataGridView
 End Class

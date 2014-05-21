@@ -39,9 +39,6 @@ Public Class IAIPNavigation
     Private Sub IAIPNavigation_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         monitor.TrackFeature("Main." & Me.Name)
 
-        ' Start the bgrUserPermissions background worker
-        BuildAccountPermissions()
-
         ' UI adjustments
         AssociateQuickNavButtons()
         SetContextSelectorSubView()
@@ -57,7 +54,9 @@ Public Class IAIPNavigation
 
     Private Sub IAIPNavigation_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
         monitor.TrackFeatureStop("Startup.LoggingIn")
-        LoadWorkViewerData()
+
+        ' Start the bgrUserPermissions background worker
+        BuildAccountPermissions()
     End Sub
 
     Private Sub IAIPNavigation_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
@@ -1127,8 +1126,11 @@ Public Class IAIPNavigation
         End Try
     End Sub
 
-    Private Sub bgrLoadButtons_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgrUserPermissions.RunWorkerCompleted
+    Private Sub bgrUserPermissions_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgrUserPermissions.RunWorkerCompleted
         Try
+            btnChangeWorkViewerContext.Enabled = True
+            LoadWorkViewerData()
+
             CreateNavButtonCategoriesList()
             CreateNavButtonsList()
             CreateNavButtons()
