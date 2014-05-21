@@ -39,7 +39,7 @@ Public Class PASPFeeStatistics
             'Web Tab
             pnlDetails.Dock = DockStyle.None
 
-            If AccountArray(12, 3) <> "1" Then
+            If AccountFormAccess(12, 3) <> "1" Then
                 TCMailoutAndStats.TabPages.Remove(TPNonRespondersReport)
             End If
             loadDepositAndPayment()
@@ -65,7 +65,7 @@ Public Class PASPFeeStatistics
             chbFacilityBalance.Checked = False
             cboFeeStatYear.Text = cboFeeStatYear.Items.Item(0)
 
-            If AccountArray(135, 1) = "1" Or AccountArray(135, 2) = "1" Or AccountArray(135, 3) = "1" Or AccountArray(135, 4) = "1" Then
+            If AccountFormAccess(135, 1) = "1" Or AccountFormAccess(135, 2) = "1" Or AccountFormAccess(135, 3) = "1" Or AccountFormAccess(135, 4) = "1" Then
                 btnOpenFeesLog.Visible = True
                 txtFeeStatAirsNumber.Visible = True
             End If

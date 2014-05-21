@@ -60,7 +60,7 @@ Public Class SmokeSchool
     Sub setPermissions()
         Try
 
-            If AccountArray(128, 3) <> "1" Then
+            If AccountFormAccess(128, 3) <> "1" Then
                 tcSmokeSchool.TabPages.Remove(TabMoveRes2Scores)
                 tcSmokeSchool.TabPages.Remove(TPDiplomas)
                 tcSmokeSchool.TabPages.Remove(TabSetup)

@@ -6603,7 +6603,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
     End Sub
     Sub LoadUserPermissions()
         Try
-            If AccountArray(69, 1) = "1" Or AccountArray(69, 2) = "1" Or AccountArray(69, 3) = "1" Or AccountArray(69, 4) = "1" Then
+            If AccountFormAccess(69, 1) = "1" Or AccountFormAccess(69, 2) = "1" Or AccountFormAccess(69, 3) = "1" Or AccountFormAccess(69, 4) = "1" Then
             Else
                 tsbSave.Visible = False
                 mmiSave.Visible = False
@@ -6624,7 +6624,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 End If
             End If
 
-            If AccountArray(69, 3) = "1" Then
+            If AccountFormAccess(69, 3) = "1" Then
                 mmiPrintNonConf.Visible = True
                 mmiPrePopulate.Visible = True
                 mmiDefaultCompliance.Visible = True
@@ -6634,7 +6634,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 mmiDefaultCompliance.Visible = False
             End If
 
-            If AccountArray(69, 3) = "1" And ReportStatus <> "True" Then
+            If AccountFormAccess(69, 3) = "1" And ReportStatus <> "True" Then
                 txtSourceTested.ReadOnly = False
                 cboPollutantDetermined.Enabled = True
                 cboMethodDetermined.Enabled = True
@@ -9526,7 +9526,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 End Select
             End If
 
-            If AccountArray(69, 4) = "1" Then
+            If AccountFormAccess(69, 4) = "1" Then
                 chbEventComplete.Enabled = True
                 DTPEventCompleteDate.Enabled = True
                 cboStaffResponsible.Enabled = True
@@ -9685,7 +9685,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 'chbAcknoledgmentLetterSent.Checked = False
                 DTPEventCompleteDate.Enabled = False
 
-                If AccountArray(69, 4) = "1" Then
+                If AccountFormAccess(69, 4) = "1" Then
                     If chbEventComplete.Checked = False Then
                         CloseSSCPWork(False)
                     Else
@@ -17813,7 +17813,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
 #Region "Tool Strip Buttons"
     Private Sub tsbSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbSave.Click
         Try
-            If AccountArray(69, 3) = "1" Then
+            If AccountFormAccess(69, 3) = "1" Then
                 SaveStackTest()
                 If cboTestNotificationNumber.Text = "" Or cboTestNotificationNumber.Text = " " Then
                     MsgBox("WARNING" & vbCrLf & "Please associate a test notification number to this Test Report before you close out the report.", _
@@ -17822,7 +17822,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 MsgBox("Save Complete", MsgBoxStyle.Information, "Performance Test Report")
             End If
 
-            If AccountArray(69, 4) = "1" Then
+            If AccountFormAccess(69, 4) = "1" Then
                 SaveSSCPWork()
             End If
 
@@ -17956,7 +17956,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
 #Region "Main Menu"
     Private Sub mmiSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSave.Click
         Try
-            If AccountArray(69, 3) = "1" Then
+            If AccountFormAccess(69, 3) = "1" Then
                 SaveStackTest()
                 If cboTestNotificationNumber.Text = "" Or cboTestNotificationNumber.Text = " " Then
                     MsgBox("WARNING" & vbCrLf & "Please associate a test notification number to this Test Report before you close out the report.", _
@@ -17965,7 +17965,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 MsgBox("Save Complete", MsgBoxStyle.Information, "Performance Test Report")
             End If
 
-            If AccountArray(69, 4) = "1" Then
+            If AccountFormAccess(69, 4) = "1" Then
                 SaveSSCPWork()
             End If
 
@@ -23054,7 +23054,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
     End Sub
     Private Sub btnSaveSSCPData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveSSCPData.Click
         Try
-            If AccountArray(69, 4) = "1" Then
+            If AccountFormAccess(69, 4) = "1" Then
                 SaveSSCPWork()
             End If
 

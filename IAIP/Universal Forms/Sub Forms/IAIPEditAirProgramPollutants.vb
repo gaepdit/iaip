@@ -37,7 +37,7 @@ Public Class IAIPEditAirProgramPollutants
             '    TCEditPollutants.TabPages.Remove(TPEnforcementPollutants)
             'End If
 
-            If AccountArray(27, 3) = "1" Or AccountArray(27, 2) = "1" Or (UserBranch = "1" And UserUnit = "---") Then
+            If AccountFormAccess(27, 3) = "1" Or AccountFormAccess(27, 2) = "1" Or (UserBranch = "1" And UserUnit = "---") Then
                 cboComplianceStatus.Enabled = True
                 cboComplianceStatus.SelectedValue = 4
             Else
@@ -429,8 +429,8 @@ Public Class IAIPEditAirProgramPollutants
         Try
 
             'If Mid(Permissions, 21, 5) = "00000" Then
-            If UserProgram <> "4" And Mid(Permissions, 27, 2) = "0" And Mid(Permissions, 27, 3) = "0" _
-               And Mid(Permissions, 27, 4) = "0" Then
+            If UserProgram <> "4" And Mid(UserAccounts, 27, 2) = "0" And Mid(UserAccounts, 27, 3) = "0" _
+               And Mid(UserAccounts, 27, 4) = "0" Then
                 MsgBox("You do not have sufficent prilvages to Save Pollutant data.", MsgBoxStyle.Information, "Air Program Pollutants")
             Else
                 Dim AIRSPollutantKey As String

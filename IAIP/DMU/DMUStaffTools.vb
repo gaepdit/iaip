@@ -77,7 +77,7 @@ Public Class DMUStaffTools
             TCDMUTools.TabPages.Remove(TPESTools)
             TCDMUTools.TabPages.Remove(TabEISTool)
 
-            If AccountArray(130, 3) = "1" Or AccountArray(130, 4) = "1" Then
+            If AccountFormAccess(130, 3) = "1" Or AccountFormAccess(130, 4) = "1" Then
                 TCDMUTools.TabPages.Add(TPESTools)
                 TCDMUTools.TabPages.Add(TPFeeTools)
             End If

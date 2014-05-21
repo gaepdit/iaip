@@ -31,7 +31,7 @@ Public Class IAIPUserAdminTool
             mtbPhoneNumber.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals
             mtbFaxNumber.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals
 
-            If AccountArray(8, 4) = "1" Then
+            If AccountFormAccess(8, 4) = "1" Then
                 tsmOpenMaintenanceTool.Visible = True
                 cboPermissionBranch.Enabled = True
                 cboBranch.Enabled = True
@@ -39,15 +39,15 @@ Public Class IAIPUserAdminTool
                 tsmOpenMaintenanceTool.Visible = False
                 cboPermissionBranch.Enabled = False
                 cboBranch.Enabled = False
-                If AccountArray(8, 3) = "1" Then
+                If AccountFormAccess(8, 3) = "1" Then
 
                 Else
                     cboPermissionProgram.Enabled = False
                     cboProgram.Enabled = False
-                    If AccountArray(8, 2) = "1" Then
+                    If AccountFormAccess(8, 2) = "1" Then
 
                     Else
-                        If AccountArray(8, 1) = "1" Then
+                        If AccountFormAccess(8, 1) = "1" Then
                             btnClearAllPermissions.Enabled = False
                             cboPermissionProgram.Enabled = False
                             'cboPermissionAccounts.Enabled = False
@@ -765,7 +765,7 @@ Public Class IAIPUserAdminTool
                     temp = "Add"
                 End If
             Next
-            If AccountArray(8, 2) = "0" And AccountArray(8, 3) = "0" And AccountArray(8, 4) = "0" Then
+            If AccountFormAccess(8, 2) = "0" And AccountFormAccess(8, 3) = "0" And AccountFormAccess(8, 4) = "0" Then
                 chb1.Enabled = False
                 chb2.Enabled = False
                 chb3.Enabled = False
@@ -808,7 +808,7 @@ Public Class IAIPUserAdminTool
             recExist = dr.Read
             dr.Close()
 
-            If UserUnit = "14" And AccountArray(129, 3) = "1" Then
+            If UserUnit = "14" And AccountFormAccess(129, 3) = "1" Then
             Else
                 lblPermissions.Text.Replace("(118)", "")
             End If
@@ -1531,15 +1531,15 @@ Public Class IAIPUserAdminTool
     Private Sub btnSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSave.Click
         Try
             If lblUserID.Text <> "" And lblUserID.Text <> "numUserID" Then
-                If AccountArray(8, 2) = "0" And AccountArray(8, 3) = "0" And AccountArray(8, 4) = "0" Then
+                If AccountFormAccess(8, 2) = "0" And AccountFormAccess(8, 3) = "0" And AccountFormAccess(8, 4) = "0" Then
                     If lblUserID.Text = UserGCode Then
                         UpdateUser()
                     Else
                         MsgBox("Sorry but you only have attorization to edit your own data.", MsgBoxStyle.Information, "IAIP User Admin Tool")
                     End If
                 Else
-                    If AccountArray(8, 4) = "0" Then
-                        If AccountArray(8, 3) = "0" Then
+                    If AccountFormAccess(8, 4) = "0" Then
+                        If AccountFormAccess(8, 3) = "0" Then
                             If UserBranch.ToString = cboBranch.SelectedValue.ToString And UserProgram.ToString = cboProgram.SelectedValue.ToString Then
                                 UpdateUser()
                             Else

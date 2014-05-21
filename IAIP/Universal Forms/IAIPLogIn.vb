@@ -155,8 +155,8 @@ Public Class IAIPLogIn
             End If
 
             UserGCode = CurrentUser.Staff.StaffId
-            Permissions = CurrentUser.PermissionsString
-            If Permissions = "" Then Permissions = "(0)"
+            UserAccounts = CurrentUser.PermissionsString
+            If UserAccounts = "" Then UserAccounts = "(0)"
             UserName = CurrentUser.Staff.AlphaName
             If UserName = "" Then UserName = " "
             UserBranch = CurrentUser.Staff.BranchID.ToString

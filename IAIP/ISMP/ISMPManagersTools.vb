@@ -5433,7 +5433,7 @@ Public Class ISMPManagersTools
     Sub ShowCorrectTabs()
         Try
 
-            If Permissions <> "" Then
+            If UserAccounts <> "" Then
                 TCManagersTools.TabPages.Remove(TPAIRSReportsPrinted)
                 TCManagersTools.TabPages.Remove(TPMonthlyReport)
                 TCManagersTools.TabPages.Remove(TPReportAssignment)
@@ -5448,7 +5448,7 @@ Public Class ISMPManagersTools
                 TCMiscTools.TabPages.Remove(TPMethods)
 
                 'Program Manager 
-                If AccountArray(17, 3) = "1" Then
+                If AccountFormAccess(17, 3) = "1" Then
                     TCManagersTools.TabPages.Add(TPReportAssignment)
                     TCManagersTools.TabPages.Add(TPMonthlyReport)
                     TCManagersTools.TabPages.Add(TPUnitStatistics2)
@@ -5462,7 +5462,7 @@ Public Class ISMPManagersTools
                     LoadAFSPrintList()
                 Else
                     'Unit Manager 
-                    If AccountArray(17, 2) = "1" Then
+                    If AccountFormAccess(17, 2) = "1" Then
                         TCManagersTools.TabPages.Add(TPUnitAssignment)
                         TCManagersTools.TabPages.Add(TPReportAssignment)
                         TCManagersTools.TabPages.Add(TPUnitStatistics2)
@@ -5663,7 +5663,7 @@ Public Class ISMPManagersTools
     Sub LoadTestReportAssignmentDataSet()
         Try
 
-            If AccountArray(17, 3) = "1" Then
+            If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " & _
                 "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,   " & _
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " & _
@@ -5683,7 +5683,7 @@ Public Class ISMPManagersTools
                 "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = '0'  " & _
                 "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL "
             Else
-                If AccountArray(17, 2) = "1" Then
+                If AccountFormAccess(17, 2) = "1" Then
                     SQL = "Select " & _
                     "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
@@ -6170,7 +6170,7 @@ Public Class ISMPManagersTools
     Sub LoadAllByUnitTestReportAssignmentDataSet()
         Try
 
-            If AccountArray(17, 3) = "1" Then
+            If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " & _
                 "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
@@ -6188,7 +6188,7 @@ Public Class ISMPManagersTools
                 "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                   "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
             Else
-                If AccountArray(17, 2) = "1" Then
+                If AccountFormAccess(17, 2) = "1" Then
                     SQL = "Select " & _
                     "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
@@ -6235,7 +6235,7 @@ Public Class ISMPManagersTools
     Sub LoadAllNoUnitTestReportAssignmentDataSet()
         Try
 
-            If AccountArray(17, 3) = "1" Then
+            If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " & _
                 "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
@@ -6253,7 +6253,7 @@ Public Class ISMPManagersTools
                 "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                   "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
             Else
-                If AccountArray(17, 2) = "1" Then
+                If AccountFormAccess(17, 2) = "1" Then
                     SQL = "Select " & _
                     "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
@@ -6301,7 +6301,7 @@ Public Class ISMPManagersTools
     Sub LoadUnassignedNoUnitTestReportAssignmentDataSet()
         Try
 
-            If AccountArray(17, 3) = "1" Then
+            If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " & _
                 "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
@@ -6320,7 +6320,7 @@ Public Class ISMPManagersTools
                 "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = '0' " & _
                   "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
             Else
-                If AccountArray(17, 2) = "1" Then
+                If AccountFormAccess(17, 2) = "1" Then
                     SQL = "Select " & _
                     "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
@@ -6367,7 +6367,7 @@ Public Class ISMPManagersTools
     Sub LoadAssignedByUnitTestReportAssignmentDataSet()
         Try
 
-            If AccountArray(17, 3) = "1" Then
+            If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " & _
                 "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
@@ -6386,7 +6386,7 @@ Public Class ISMPManagersTools
                 "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer <> '0' " & _
                   "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
             Else
-                If AccountArray(17, 2) = "1" Then
+                If AccountFormAccess(17, 2) = "1" Then
                     SQL = "Select " & _
                     "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
@@ -6435,7 +6435,7 @@ Public Class ISMPManagersTools
     Sub LoadAssignedNoUnitTestReportAssignmentDataSet()
         Try
 
-            If AccountArray(17, 3) = "1" Then
+            If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " & _
                 "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
@@ -6454,7 +6454,7 @@ Public Class ISMPManagersTools
                 "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer <> '0' " & _
                   "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
             Else
-                If AccountArray(17, 2) = "1" Then
+                If AccountFormAccess(17, 2) = "1" Then
                     SQL = "Select " & _
                     "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
@@ -6502,7 +6502,7 @@ Public Class ISMPManagersTools
     Sub LoadDeletedTestReportAssignmentDataSet()
         Try
 
-            If AccountArray(17, 3) = "1" Then
+            If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " & _
                 "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
@@ -6520,7 +6520,7 @@ Public Class ISMPManagersTools
                 "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                 "and " & DBNameSpace & ".ISMPReportInformation.strDelete is not NULL"
             Else
-                If AccountArray(17, 2) = "1" Then
+                If AccountFormAccess(17, 2) = "1" Then
                     SQL = "Select " & _
                     "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
@@ -6567,7 +6567,7 @@ Public Class ISMPManagersTools
     Sub LoadByTestReportTestReportAssignmentDataSet(ByRef ReportType As String)
         Try
 
-            If AccountArray(17, 3) = "1" Then
+            If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " & _
                 "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
@@ -6587,7 +6587,7 @@ Public Class ISMPManagersTools
                  "and " & DBNameSpace & ".ISMPReportInformation.strDocumentType = '" & ReportType & "' " & _
                 "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
             Else
-                If AccountArray(17, 2) = "1" Then
+                If AccountFormAccess(17, 2) = "1" Then
                     SQL = "Select " & _
                     "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
@@ -6636,7 +6636,7 @@ Public Class ISMPManagersTools
     Sub LoadByTestReportAllTestReportAssignmentDataSet(ByRef ReportType As String)
         Try
 
-            If AccountArray(17, 3) = "1" Then
+            If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " & _
                 "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
@@ -6656,7 +6656,7 @@ Public Class ISMPManagersTools
                 "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer <> '0' " & _
                 "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
             Else
-                If AccountArray(17, 2) = "1" Then
+                If AccountFormAccess(17, 2) = "1" Then
                     SQL = "Select " & _
                     "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
@@ -6707,7 +6707,7 @@ Public Class ISMPManagersTools
     Sub LoadByTestReportAssignedTestReportAssignmentDataSet(ByRef ReportType As String)
         Try
 
-            If AccountArray(17, 3) = "1" Then
+            If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " & _
                     "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
@@ -6726,7 +6726,7 @@ Public Class ISMPManagersTools
                     "and " & DBNameSpace & ".ISMPReportInformation.strDocumentType = '" & ReportType & "' " & _
                     "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
             Else
-                If AccountArray(17, 2) = "1" Then
+                If AccountFormAccess(17, 2) = "1" Then
                     SQL = "Select " & _
                     "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
@@ -6775,7 +6775,7 @@ Public Class ISMPManagersTools
     Sub LoadByAIRSNumberTestReportAssignmentDataSet()
         Try
 
-            If AccountArray(17, 3) = "1" Then
+            If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " & _
                 "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
@@ -6794,7 +6794,7 @@ Public Class ISMPManagersTools
                 "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
                 "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
             Else
-                If AccountArray(17, 2) = "1" Then
+                If AccountFormAccess(17, 2) = "1" Then
                     SQL = "Select " & _
                     "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _

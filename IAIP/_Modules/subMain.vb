@@ -30,12 +30,12 @@ Module subMain
 #Region " Old public variables "
     Public OracleDate As String = Format(Date.Today, "dd-MMM-yyyy")
     Public UserGCode As String
-    Public Permissions As String
+    Public UserAccounts As String
     Public UserName As String
     Public UserBranch As String
     Public UserProgram As String
     Public UserUnit As String
-    Public AccountArray(150, 4) As String
+    Public AccountFormAccess(150, 4) As String
 
     Public cmd, cmd2, cmd3 As OracleCommand
     Public dr, dr2, dr3 As OracleDataReader

@@ -682,12 +682,12 @@ Public Class SSPPApplicationLog
             txtSearchText2.Clear()
 
             cboApplicationStatus.Text = "Active"
-            If AccountArray(3, 3) = "1" And UserUnit = "---" Then
+            If AccountFormAccess(3, 3) = "1" And UserUnit = "---" Then
                 'All active Applications
                 cboApplicationType.Text = "All"
                 'cboApplicationType.Text = "Title V"
             Else
-                If AccountArray(3, 3) = "1" And UserUnit <> "---" Then
+                If AccountFormAccess(3, 3) = "1" And UserUnit <> "---" Then
                     'All Active Applications from UC's Unit
                     SQL = "Select numUnit " & _
                     "from " & DBNameSpace & ".EPDUserProfiles " & _
@@ -723,7 +723,7 @@ Public Class SSPPApplicationLog
                     'End If
                 End If
             End If
-            If AccountArray(3, 4) = "1" Then
+            If AccountFormAccess(3, 4) = "1" Then
                 mmiNewApplication.Visible = True
             End If
         Catch ex As Exception
@@ -2162,7 +2162,7 @@ Public Class SSPPApplicationLog
 #Region "Other procedures"
     Private Sub StartNewApplication()
         Try
-            If AccountArray(3, 4) = "1" Then
+            If AccountFormAccess(3, 4) = "1" Then
                 If PermitTrackingLog Is Nothing Then
                     PermitTrackingLog = New SSPPApplicationTrackingLog
                     PermitTrackingLog.Show()

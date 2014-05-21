@@ -411,7 +411,7 @@ Public Class ISMPMemo
 
             CreateStatusBar()
             LoadMemo()
-            If AccountArray(15, 0) = "1" Or AccountArray(15, 1) = "1" Or AccountArray(15, 2) = "1" Or AccountArray(15, 3) = "1" Then
+            If AccountFormAccess(15, 0) = "1" Or AccountFormAccess(15, 1) = "1" Or AccountFormAccess(15, 2) = "1" Or AccountFormAccess(15, 3) = "1" Then
             Else
                 TBMemo.Buttons.Remove(TbbSave)
                 MmiSave.Visible = False

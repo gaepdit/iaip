@@ -16,10 +16,10 @@ Public Class IAIPFacilityCreator
             TCFacilityTools.TabPages.Remove(TPCreateNewFacility)
             TCFacilityTools.TabPages.Remove(TPApproveNewFacility)
 
-            If AccountArray(138, 0) Is Nothing Then
+            If AccountFormAccess(138, 0) Is Nothing Then
             Else
-                If AccountArray(138, 0) = "138" Then
-                    If AccountArray(138, 3) = "1" Or AccountArray(138, 4) = "1" Then
+                If AccountFormAccess(138, 0) = "138" Then
+                    If AccountFormAccess(138, 3) = "1" Or AccountFormAccess(138, 4) = "1" Then
                         TCFacilityTools.TabPages.Add(TPApproveNewFacility)
                         dtpStartFilter.Text = OracleDate
                         dtpEndFilter.Text = OracleDate

@@ -76,7 +76,7 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer = New System.Windows.Forms.DataGridView
         Me.bgrLoadWorkViewer = New System.ComponentModel.BackgroundWorker
         Me.lblMessageLabel = New System.Windows.Forms.Label
-        Me.bgrLoadButtons = New System.ComponentModel.BackgroundWorker
+        Me.bgrUserPermissions = New System.ComponentModel.BackgroundWorker
         Me.pnlCurrentList = New System.Windows.Forms.Panel
         Me.pnlContextSubView = New System.Windows.Forms.Panel
         Me.grpQuickAccess.SuspendLayout()
@@ -658,6 +658,8 @@ Partial Class IAIPNavigation
         '
         'bgrLoadWorkViewer
         '
+        Me.bgrLoadWorkViewer.WorkerReportsProgress = True
+        Me.bgrLoadWorkViewer.WorkerSupportsCancellation = True
         '
         'lblMessageLabel
         '
@@ -669,8 +671,10 @@ Partial Class IAIPNavigation
         Me.lblMessageLabel.Text = "Message placeholder"
         Me.lblMessageLabel.Visible = False
         '
-        'bgrLoadButtons
+        'bgrUserPermissions
         '
+        Me.bgrUserPermissions.WorkerReportsProgress = True
+        Me.bgrUserPermissions.WorkerSupportsCancellation = True
         '
         'pnlCurrentList
         '
@@ -749,11 +753,9 @@ Partial Class IAIPNavigation
     Friend WithEvents lblOpenFacilitySummary As System.Windows.Forms.Label
     Friend WithEvents dgvWorkViewer As System.Windows.Forms.DataGridView
     Friend WithEvents pnlDbEnv As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents bgrLoadWorkViewer As System.ComponentModel.BackgroundWorker
     Friend WithEvents lblMessageLabel As System.Windows.Forms.Label
     Friend WithEvents mmiOnlineHelp As System.Windows.Forms.MenuItem
     Friend WithEvents Label8 As System.Windows.Forms.Label
-    Friend WithEvents bgrLoadButtons As System.ComponentModel.BackgroundWorker
     Friend WithEvents btnChangeWorkViewerContext As System.Windows.Forms.Button
     Friend WithEvents lblWorkViewerContext As System.Windows.Forms.Label
     Friend WithEvents cboWorkViewerContext As System.Windows.Forms.ComboBox
@@ -787,4 +789,6 @@ Partial Class IAIPNavigation
     Friend WithEvents txtOpenTestLog As Iaip.CueTextBox
     Friend WithEvents txtOpenSbeapCaseLog As Iaip.CueTextBox
     Friend WithEvents txtOpenSbeapClient As Iaip.CueTextBox
+    Private WithEvents bgrLoadWorkViewer As System.ComponentModel.BackgroundWorker
+    Private WithEvents bgrUserPermissions As System.ComponentModel.BackgroundWorker
 End Class

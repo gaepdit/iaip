@@ -340,7 +340,7 @@ Public Class DMUTitleVTools
             TCDMUTools.TabPages.Remove(TPPermittingContact)
 
             'Web Publishers
-            If AccountArray(131, 2) = "1" Then
+            If AccountFormAccess(131, 2) = "1" Then
                 TCDMUTools.TabPages.Add(TPWebPublishing)
                 TCDMUTools.TabPages.Add(TPTVEmails)
                 TCDMUTools.TabPages.Add(TPTitleVRenewals)

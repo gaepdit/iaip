@@ -232,10 +232,10 @@ Public Class IAIPEditSubParts
     Sub SetPermissions()
         Try
             If _
-                AccountArray(26, 1) = "1" Or AccountArray(26, 2) = "1" Or _
-                AccountArray(26, 3) = "1" Or AccountArray(26, 4) = "1" Or _
-                Permissions.Contains("(19)") Or Permissions.Contains("(113)") Or _
-                Permissions.Contains("(114)") Or Permissions.Contains("(141)") _
+                AccountFormAccess(26, 1) = "1" Or AccountFormAccess(26, 2) = "1" Or _
+                AccountFormAccess(26, 3) = "1" Or AccountFormAccess(26, 4) = "1" Or _
+                UserAccounts.Contains("(19)") Or UserAccounts.Contains("(113)") Or _
+                UserAccounts.Contains("(114)") Or UserAccounts.Contains("(141)") _
             Then
             Else
                 TbbSave.Visible = False

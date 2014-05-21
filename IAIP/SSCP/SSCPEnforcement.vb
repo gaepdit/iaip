@@ -262,7 +262,7 @@ Public Class SscpEnforcement
             ClearStipulatedPenaltyForm()
             LoadEnforcementInfo()
 
-            If AccountArray(48, 3) = "1" Or AccountArray(22, 3) = "1" Then
+            If AccountFormAccess(48, 3) = "1" Or AccountFormAccess(22, 3) = "1" Then
                 DTPEnforcementResolved.Enabled = True
             Else
                 DTPEnforcementResolved.Enabled = False
@@ -270,7 +270,7 @@ Public Class SscpEnforcement
 
             SetUserPermissions()
 
-            If AccountArray(48, 2) = "1" Or AccountArray(48, 3) = "1" Or AccountArray(48, 4) = "1" Then
+            If AccountFormAccess(48, 2) = "1" Or AccountFormAccess(48, 3) = "1" Or AccountFormAccess(48, 4) = "1" Then
                 CheckOpenStatus()
             End If
 
@@ -506,7 +506,7 @@ Public Class SscpEnforcement
     End Sub
     Sub SetUserPermissions()
         Try
-            If AccountArray(48, 3) = "1" Or AccountArray(48, 2) = "1" Then
+            If AccountFormAccess(48, 3) = "1" Or AccountFormAccess(48, 2) = "1" Then
                 btnLinkEnforcement.Enabled = True
                 DTPDiscoveryDate.Enabled = True
                 chbLON.Enabled = True
@@ -676,11 +676,11 @@ Public Class SscpEnforcement
                 tsbSave.Visible = False
                 mmiDelete.Visible = False
 
-                If AccountArray(48, 3) = "1" Then
+                If AccountFormAccess(48, 3) = "1" Then
                     DTPEnforcementResolved.Enabled = True
                 End If
             Else
-                If AccountArray(48, 4) = "1" And AccountArray(4, 4) = "0" And Not Permissions.Contains("(114)") Then 'District
+                If AccountFormAccess(48, 4) = "1" And AccountFormAccess(4, 4) = "0" And Not UserAccounts.Contains("(114)") Then 'District
                     btnEditAirProgramPollutants.Enabled = False
                     cboPollutantStatus.Enabled = False
                     btnSubmitEnforcementToEPA.Enabled = False
@@ -746,7 +746,7 @@ Public Class SscpEnforcement
                     mmiSave.Enabled = True
 
                 Else
-                    If AccountArray(48, 2) = "1" Or AccountArray(48, 3) = "1" Or AccountArray(48, 4) = "1" Then
+                    If AccountFormAccess(48, 2) = "1" Or AccountFormAccess(48, 3) = "1" Or AccountFormAccess(48, 4) = "1" Then
                         btnLinkEnforcement.Enabled = True
                         DTPDiscoveryDate.Enabled = True
                         chbLON.Enabled = True
@@ -1615,7 +1615,7 @@ Public Class SscpEnforcement
             End If
             txtSubmitToUC.Text = Status
             If Status <> "" Then
-                If AccountArray(48, 2) = "1" Then
+                If AccountFormAccess(48, 2) = "1" Then
                     Select Case Status
                         Case ""
                             btnSubmitToUC.Visible = True
@@ -1854,7 +1854,7 @@ Public Class SscpEnforcement
             lvPollutants.GridLines = True
             lvPollutants.FullRowSelect = True
 
-            If AccountArray(48, 2) = "1" And AccountArray(48, 4) = "1" And AccountArray(48, 3) = "0" Then
+            If AccountFormAccess(48, 2) = "1" And AccountFormAccess(48, 4) = "1" And AccountFormAccess(48, 3) = "0" Then
                 lvPollutants.Columns.Add("", 0, HorizontalAlignment.Left)
                 lvPollutants.Columns.Add("Air Program", 75, HorizontalAlignment.Left)
                 lvPollutants.Columns.Add("Pollutant", 100, HorizontalAlignment.Left)
@@ -2184,7 +2184,7 @@ Public Class SscpEnforcement
             Dim Pollutant As String = ""
 
 
-            If AccountArray(48, 2) = "0" And AccountArray(48, 3) = "0" And AccountArray(48, 4) = "0" Then
+            If AccountFormAccess(48, 2) = "0" And AccountFormAccess(48, 3) = "0" And AccountFormAccess(48, 4) = "0" Then
                 MsgBox("You do not have sufficent permission to save Compliance Events.", MsgBoxStyle.Information, "Compliance Events")
                 Exit Sub
             Else
@@ -3467,16 +3467,16 @@ Public Class SscpEnforcement
                     Else
                         cboHPVType.Visible = False
                     End If
-                    If AccountArray(48, 2) = "1" Then
+                    If AccountFormAccess(48, 2) = "1" Then
                         btnSubmitToUC.Visible = True
                     End If
 
-                    If AccountArray(48, 3) = "1" Then
+                    If AccountFormAccess(48, 3) = "1" Then
                         btnSubmitEnforcementToEPA.Visible = True
                         btnManuallyEnterAFS.Visible = True
                         btnSubmitToUC.Visible = False
                     End If
-                    If AccountArray(48, 4) = "1" Then
+                    If AccountFormAccess(48, 4) = "1" Then
                         btnManuallyEnterAFS.Visible = True
                     End If
                     If txtAFSKeyActionNumber.Text <> "" Then
@@ -3527,16 +3527,16 @@ Public Class SscpEnforcement
                     Else
                         cboHPVType.Visible = False
                     End If
-                    If AccountArray(48, 2) = "1" And txtAFSKeyActionNumber.Text = "" Then
+                    If AccountFormAccess(48, 2) = "1" And txtAFSKeyActionNumber.Text = "" Then
                         btnSubmitToUC.Visible = True
                     End If
 
-                    If AccountArray(48, 3) = "1" Then
+                    If AccountFormAccess(48, 3) = "1" Then
                         btnSubmitEnforcementToEPA.Visible = True
                         btnManuallyEnterAFS.Visible = True
                         btnSubmitToUC.Visible = False
                     End If
-                    If AccountArray(48, 4) = "1" Then
+                    If AccountFormAccess(48, 4) = "1" Then
                         btnManuallyEnterAFS.Visible = True
                     End If
                     If txtAFSKeyActionNumber.Text <> "" Then
@@ -3585,16 +3585,16 @@ Public Class SscpEnforcement
                         cboHPVType.Visible = False
                     End If
 
-                    If AccountArray(48, 2) = "1" And txtAFSKeyActionNumber.Text = "" Then
+                    If AccountFormAccess(48, 2) = "1" And txtAFSKeyActionNumber.Text = "" Then
                         btnSubmitToUC.Visible = True
                     End If
 
-                    If AccountArray(48, 3) = "1" Then
+                    If AccountFormAccess(48, 3) = "1" Then
                         btnSubmitEnforcementToEPA.Visible = True
                         btnManuallyEnterAFS.Visible = True
                         btnSubmitToUC.Visible = False
                     End If
-                    If AccountArray(48, 4) = "1" Then
+                    If AccountFormAccess(48, 4) = "1" Then
                         btnManuallyEnterAFS.Visible = True
                     End If
                     If txtAFSKeyActionNumber.Text <> "" Then
@@ -3975,7 +3975,7 @@ Public Class SscpEnforcement
             SaveEnforcement()
             LoadEnforcement()
 
-            If AccountArray(48, 2) = "1" Or AccountArray(48, 3) = "1" Or AccountArray(48, 4) = "1" Then
+            If AccountFormAccess(48, 2) = "1" Or AccountFormAccess(48, 3) = "1" Or AccountFormAccess(48, 4) = "1" Then
                 CheckOpenStatus()
             End If
 

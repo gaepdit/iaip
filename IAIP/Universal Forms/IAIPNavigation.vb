@@ -38,30 +38,21 @@ Public Class IAIPNavigation
 
     Private Sub IAIPNavigation_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         monitor.TrackFeature("Main." & Me.Name)
-        Try
-            IAIPLogIn.Hide()
 
-            AssociateQuickNavButtons()
+        ' Start the bgrUserPermissions background worker
+        BuildAccountPermissions()
 
-            LoadNavButtons()
+        ' UI adjustments
+        AssociateQuickNavButtons()
+        SetContextSelectorSubView()
+        BuildListChangerCombo()
+        EnableSbeapTools()
+        LoadStatusBar()
+        EnableConnectionEnvironmentOptions()
 
-            BuildListChangerCombo()
+        ' Start various Timers
+        AppTimers.StartAppTimers()
 
-            EnableQuickAccessToolForSbeap()
-
-            pnlName.Text = UserName
-            pnlDate.Text = OracleDate
-
-            LoadProgramDescription()
-
-            EnableConnectionEnvironmentOptions()
-
-            ' Timers
-            AppTimers.StartAppTimers()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
     End Sub
 
     Private Sub IAIPNavigation_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
@@ -77,25 +68,18 @@ Public Class IAIPNavigation
 
 #Region " Page Load procedures "
 
-    Private Sub EnableQuickAccessToolForSbeap()
+    Private Sub EnableSbeapTools()
         If UserHasPermission(New String() {"(142)", "(143)", "(118)"}) Then
+            cboWorkViewerContext.Items.Add("SBEAP Cases")
             EnableAndShow(SbeapQuickAccessPanel)
         End If
     End Sub
 
-    Private Sub LoadNavButtons()
-        If bgrLoadButtons.IsBusy Then
-            bgrLoadButtons.CancelAsync()
-        Else
-            bgrLoadButtons.WorkerReportsProgress = True
-            bgrLoadButtons.WorkerSupportsCancellation = True
-            bgrLoadButtons.RunWorkerAsync()
-        End If
-    End Sub
+    Private Sub LoadStatusBar()
+        pnlName.Text = UserName
+        pnlDate.Text = OracleDate
 
-    Private Sub LoadProgramDescription()
         Dim id As Integer
-
         If Integer.TryParse(UserProgram, id) Then
             pnlProgram.Text = DAL.GetProgramDescription(id)
         End If
@@ -115,10 +99,6 @@ Public Class IAIPNavigation
         cboWorkViewerContext.Items.Add("Monitoring Test Reports")
         cboWorkViewerContext.Items.Add("Monitoring Test Notifications")
         cboWorkViewerContext.Items.Add("Permit Applications")
-
-        If UserHasPermission(New String() {"(142)", "(143)", "(118)"}) Then
-            cboWorkViewerContext.Items.Add("SBEAP Cases")
-        End If
 
         cboWorkViewerContext.SelectedIndex = 0
     End Sub
@@ -445,7 +425,7 @@ Public Class IAIPNavigation
                                 Case "3" 'ISMP
                                     If UserUnit = "---" Then 'Program Manager
                                         CurrentWorkViewerContext = WorkViewerType.ISMP_PM
-                                    ElseIf AccountArray(17, 2) = "1" Then  'Unit Manager
+                                    ElseIf AccountFormAccess(17, 2) = "1" Then  'Unit Manager
                                         CurrentWorkViewerContext = WorkViewerType.ISMP_UC
                                         CurrentWorkViewerContextParameter = UserUnit
                                     Else
@@ -463,10 +443,10 @@ Public Class IAIPNavigation
                                     ElseIf UserHasPermission("(142)") Then ' SBEAP staff
                                         CurrentWorkViewerContext = WorkViewerType.SBEAP_Staff
                                         CurrentWorkViewerContextParameter = UserGCode
-                                    ElseIf AccountArray(22, 3) = "1" Then 'Unit Manager
+                                    ElseIf AccountFormAccess(22, 3) = "1" Then 'Unit Manager
                                         CurrentWorkViewerContext = WorkViewerType.SSCP_UC
                                         CurrentWorkViewerContextParameter = UserUnit
-                                    ElseIf AccountArray(10, 3) = "1" Then 'District Liaison
+                                    ElseIf AccountFormAccess(10, 3) = "1" Then 'District Liaison
                                         CurrentWorkViewerContext = WorkViewerType.SSCP_DistrictLiaison
                                     Else
                                         CurrentWorkViewerContext = WorkViewerType.SSCP_Staff
@@ -474,12 +454,12 @@ Public Class IAIPNavigation
                                     End If
 
                                 Case "5" 'SSPP
-                                    If AccountArray(3, 3) = "1" And UserUnit = "---" Then  'Program Manager
+                                    If AccountFormAccess(3, 3) = "1" And UserUnit = "---" Then  'Program Manager
                                         CurrentWorkViewerContext = WorkViewerType.SSPP_PM
-                                    ElseIf AccountArray(24, 3) = "1" Then 'Unit Manager
+                                    ElseIf AccountFormAccess(24, 3) = "1" Then 'Unit Manager
                                         CurrentWorkViewerContext = WorkViewerType.SSPP_UC
                                         CurrentWorkViewerContextParameter = UserUnit
-                                    ElseIf AccountArray(9, 3) = "1" Then 'Administrative 2
+                                    ElseIf AccountFormAccess(9, 3) = "1" Then 'Administrative 2
                                         CurrentWorkViewerContext = WorkViewerType.SSPP_Administrative
                                         CurrentWorkViewerContextParameter = UserGCode
                                     Else
@@ -495,10 +475,10 @@ Public Class IAIPNavigation
                         Case "5" 'Program Coordination 
                             If UserUnit = "---" Then 'Program Manager
                                 CurrentWorkViewerContext = WorkViewerType.ProgCoord_PM
-                            ElseIf AccountArray(22, 3) = "1" Then 'Unit Manager
+                            ElseIf AccountFormAccess(22, 3) = "1" Then 'Unit Manager
                                 CurrentWorkViewerContext = WorkViewerType.ProgCoord_UC
                                 CurrentWorkViewerContextParameter = UserUnit
-                            ElseIf AccountArray(10, 3) = "1" Then 'District Liaison
+                            ElseIf AccountFormAccess(10, 3) = "1" Then 'District Liaison
                                 CurrentWorkViewerContext = WorkViewerType.ProgCoord_DistrictLiaison
                             Else
                                 CurrentWorkViewerContext = WorkViewerType.ProgCoord_Staff
@@ -650,16 +630,11 @@ Public Class IAIPNavigation
     Private Sub SetContextSelectorSubView()
         rdbStaffView.Checked = True
 
-        If (AccountArray(24, 3) = "1" And AccountArray(12, 1) = "1" And AccountArray(12, 2) = "0" And AccountArray(3, 4) = "0") Or _
-        (AccountArray(17, 1) = "0" And AccountArray(17, 2) = "1" And AccountArray(17, 3) = "1") Or _
-        (AccountArray(22, 4) = "0" And AccountArray(22, 3) = "1") Then
+        If UserHasPermission(New String() {"(114)", "(115)", "(121)", "(128)", "(141)", "(63)"}) Then
             rdbUCView.Checked = True
         End If
 
-        If AccountArray(129, 3) = "1" Or _
-        (AccountArray(24, 3) = "1" And AccountArray(3, 4) = "1" And AccountArray(12, 1) = "1" And AccountArray(12, 2) = "0") Or _
-        (AccountArray(17, 3) = "1" And AccountArray(17, 4) = "0") Or _
-        (AccountArray(22, 4) = "1" And AccountArray(22, 3) = "0") Then
+        If UserHasPermission(New String() {"(2)", "(19)", "(28)", "(45)", "(57)", "(143)"}) Then
             rdbPMView.Checked = True
         End If
     End Sub
@@ -926,6 +901,19 @@ Public Class IAIPNavigation
         End Try
     End Sub
 
+    Private Sub dgvWorkViewer_CellFormatting(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) Handles dgvWorkViewer.CellFormatting
+        If e IsNot Nothing Then
+            Try
+                If dgvWorkViewer.Columns(e.ColumnIndex).HeaderText = "AIRS #" Then
+                    Dim text As String = e.Value.ToString
+                    e.Value = String.Format("{0}-{1}", text.Substring(0, 3), text.Substring(3))
+                End If
+            Catch ex As Exception
+
+            End Try
+        End If
+    End Sub
+
 #End Region
 
 #Region " WorkViewer background worker (bgrLoadWorkViewer) "
@@ -934,8 +922,6 @@ Public Class IAIPNavigation
         dgvWorkViewer.Visible = False
         lblMessageLabel.Visible = True
         lblMessageLabel.Text = "Loading data…"
-        'cboWorkViewerContext.Enabled = False
-        'btnChangeWorkViewerContext.Enabled = False
         pnlCurrentList.Enabled = False
         btnChangeWorkViewerContext.Text = "Loading…"
         lblResultsCount.Visible = False
@@ -1093,69 +1079,56 @@ Public Class IAIPNavigation
     End Sub
 #End Region
 
-#Region " Nav buttons background worker (bgrLoadButtons) "
+#Region " User account permissions background worker (bgrUserPermissions) "
 
-    Private Sub bgrLoadButtons_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bgrLoadButtons.DoWork
+    Private Sub BuildAccountPermissions()
+        If bgrUserPermissions.IsBusy Then
+            bgrUserPermissions.CancelAsync()
+        Else
+            bgrUserPermissions.RunWorkerAsync()
+        End If
+    End Sub
+
+
+    Private Sub bgrUserPermissions_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bgrUserPermissions.DoWork
         Try
-            Dim navTemp As Boolean
-            Dim accountTemp As String = Permissions
-            Dim accessTemp As String = ""
-            Dim accountAccess As String = ""
+            Dim AccountFormAccessLookup As DataTable = GetAccountFormAccessLookup()
+            AccountFormAccessLookup.PrimaryKey = New DataColumn() {AccountFormAccessLookup.Columns(0)}
 
-            If accountTemp <> "" Then
+            If UserAccounts.Length > 0 Then
+                Dim userAccountArray() As String = UserAccounts.Split(New Char() {"(", ")"}, StringSplitOptions.RemoveEmptyEntries)
 
-                Do While accountTemp <> ""
+                For Each account As String In userAccountArray
+                    Dim accountFormAccessString As String = AccountFormAccessLookup.Rows.Find(account)(1).ToString
 
-                    accountAccess = GetFormAccessForAccountCode(Mid(accountTemp, 2, (accountTemp.IndexOf(")") - 1)))
+                    If accountFormAccessString.Length > 0 Then
+                        Dim formAccessArray() As String = accountFormAccessString.Split(New Char() {"(", ")"}, StringSplitOptions.RemoveEmptyEntries)
 
-                    If accountAccess <> "" Then
-                        Do While accountAccess <> ""
-                            navTemp = False
-                            For j As Integer = 0 To 4
-                                If AccountArray(j, 0) = Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1)) Then
-                                    navTemp = True
-                                End If
+                        For Each formAccessString As String In formAccessArray
+                            Dim formAccessSplit() As String = formAccessString.Split(New Char() {"-", ","})
+                            Dim formNumber As String = formAccessSplit(0)
+                            AccountFormAccess(formNumber, 0) = formNumber
+                            For i As Integer = 1 To 4
+                                AccountFormAccess(formNumber, i) = Convert.ToInt32(AccountFormAccess(formNumber, i)) Or Convert.ToInt32(formAccessSplit(i))
                             Next
-                            If navTemp = False Then
-                                accessTemp = Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1))
-                                AccountArray(Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1)), 0) = Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1))
-
-                                If AccountArray(accessTemp, 1) = "1" Then
-                                    AccountArray(Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1)), 1) = "1"
-                                Else
-                                    AccountArray(Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1)), 1) = Mid(accountAccess, (accountAccess.IndexOf("-") + 2), 1)
-                                End If
-                                If AccountArray(accessTemp, 2) = "1" Then
-                                    AccountArray(Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1)), 2) = "1"
-                                Else
-                                    AccountArray(Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1)), 2) = Mid(accountAccess, (accountAccess.IndexOf("-") + 4), 1)
-                                End If
-                                If AccountArray(accessTemp, 3) = "1" Then
-                                    AccountArray(Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1)), 3) = "1"
-                                Else
-                                    AccountArray(Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1)), 3) = Mid(accountAccess, (accountAccess.IndexOf("-") + 6), 1)
-                                End If
-                                If AccountArray(accessTemp, 4) = "1" Then
-                                    AccountArray(Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1)), 4) = "1"
-                                Else
-                                    AccountArray(Mid(accountAccess, 2, (accountAccess.IndexOf("-") - 1)), 4) = Mid(accountAccess, (accountAccess.IndexOf("-") + 8), 1)
-                                End If
-                            End If
-                            accountAccess = Replace(accountAccess, (Mid(accountAccess, accountAccess.IndexOf("(") + 1, accountAccess.IndexOf(")") + 1)), "")
-                        Loop
+                        Next
                     End If
-                    accountTemp = Replace(accountTemp, ("(" & Mid(accountTemp, 2, (accountTemp.IndexOf(")") - 1)) & ")"), "")
-                Loop
+                Next
             End If
+
+            'Dim sb As New System.Text.StringBuilder
+            'For Each a As String In AccountFormAccess
+            '    sb.Append(a)
+            'Next
+            'Console.WriteLine(sb.ToString)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub bgrLoadButtons_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgrLoadButtons.RunWorkerCompleted
+    Private Sub bgrLoadButtons_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgrUserPermissions.RunWorkerCompleted
         Try
-            SetContextSelectorSubView()
             CreateNavButtonCategoriesList()
             CreateNavButtonsList()
             CreateNavButtons()
@@ -1199,7 +1172,7 @@ Public Class IAIPNavigation
 #Region " Implementation "
 
     Private Function UserHasPermission(ByVal permissionCode As String) As Boolean
-        If Permissions.Contains(permissionCode) Then Return True
+        If UserAccounts.Contains(permissionCode) Then Return True
         Return False
     End Function
 
@@ -1211,10 +1184,10 @@ Public Class IAIPNavigation
     End Function
 
     Private Function AccountHasAccessToForm(ByVal index As Int32) As Boolean
-        Return (AccountArray(index, 0) IsNot Nothing _
-                AndAlso AccountArray(index, 0) = index.ToString _
-                AndAlso (AccountArray(index, 1) = "1" Or AccountArray(index, 2) = "1" _
-                         Or AccountArray(index, 3) = "1" Or AccountArray(index, 4) = "1") _
+        Return (AccountFormAccess(index, 0) IsNot Nothing _
+                AndAlso AccountFormAccess(index, 0) = index.ToString _
+                AndAlso (AccountFormAccess(index, 1) = "1" Or AccountFormAccess(index, 2) = "1" _
+                         Or AccountFormAccess(index, 3) = "1" Or AccountFormAccess(index, 4) = "1") _
                          )
     End Function
 
@@ -1431,16 +1404,4 @@ Public Class IAIPNavigation
 
 #End Region
 
-    Private Sub dgvWorkViewer_CellFormatting(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) Handles dgvWorkViewer.CellFormatting
-        If e IsNot Nothing Then
-            Try
-                If dgvWorkViewer.Columns(e.ColumnIndex).HeaderText = "AIRS #" Then
-                    Dim text As String = e.Value.ToString
-                    e.Value = String.Format("{0}-{1}", text.Substring(0, 3), text.Substring(3))
-                End If
-            Catch ex As Exception
-
-            End Try
-        End If
-    End Sub
 End Class

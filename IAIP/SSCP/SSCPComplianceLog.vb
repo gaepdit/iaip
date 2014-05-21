@@ -47,11 +47,11 @@ Public Class SSCPComplianceLog
             clbDistrictOffices.SelectedItems.Clear()
 
             'If AccountArray(4, 1) = "1" Then 'District Only 
-            If AccountArray(4, 1) = "1" _
-            And Not Permissions.Contains("(19)") _
-            And Not Permissions.Contains("(113)") _
-            And Not Permissions.Contains("(114)") _
-            And Not Permissions.Contains("(141)") _
+            If AccountFormAccess(4, 1) = "1" _
+            And Not UserAccounts.Contains("(19)") _
+            And Not UserAccounts.Contains("(113)") _
+            And Not UserAccounts.Contains("(114)") _
+            And Not UserAccounts.Contains("(141)") _
             Then
                 btnAddNewEntry.Visible = False
                 btnDeleteWork.Visible = False
@@ -62,7 +62,7 @@ Public Class SSCPComplianceLog
             Else
 
             End If
-            If AccountArray(4, 2) = "1" Then
+            If AccountFormAccess(4, 2) = "1" Then
                 rdbEnforcementAction.Enabled = True
                 rdbFCE.Enabled = True
             End If
@@ -285,7 +285,7 @@ Public Class SSCPComplianceLog
     End Sub
     Sub LoadDefaultSettings()
         Try
-            If AccountArray(4, 3) = "1" Or AccountArray(4, 4) = "1" Then 'Full Access in unit or District Liaison
+            If AccountFormAccess(4, 3) = "1" Or AccountFormAccess(4, 4) = "1" Then 'Full Access in unit or District Liaison
                 chbEngineer.Checked = False
             Else
                 chbEngineer.Checked = True

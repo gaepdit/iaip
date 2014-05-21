@@ -29,13 +29,13 @@ Public Class ISMPTestFirmComments
             If txtTestNotificationNumber.Text <> "" Or txtTestReportNumber.Text <> "" Then
                 LoadTestFirmComments()
             End If
-            If AccountArray(67, 3) = "1" Then
+            If AccountFormAccess(67, 3) = "1" Then
                 btnOpenManagerTools.Visible = True
             Else
                 btnOpenManagerTools.Visible = False
             End If
 
-            If AccountArray(67, 1) = "1" Or AccountArray(67, 2) = "1" Or AccountArray(67, 3) = "1" Or AccountArray(67, 4) = "1" Then
+            If AccountFormAccess(67, 1) = "1" Or AccountFormAccess(67, 2) = "1" Or AccountFormAccess(67, 3) = "1" Or AccountFormAccess(67, 4) = "1" Then
             Else
                 tsbSave.Visible = False
                 btnSavePreTest.Visible = False

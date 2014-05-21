@@ -101,11 +101,11 @@ Public Class SSCPManagersTools
             Panel15.Enabled = False
 
             TCNewFacilitySearch.TabPages.Remove(TPCopyYear)
-            If AccountArray(129, 3) = "1" Or _
-                (AccountArray(22, 4) = "1" And AccountArray(22, 3) = "0") Then
+            If AccountFormAccess(129, 3) = "1" Or _
+                (AccountFormAccess(22, 4) = "1" And AccountFormAccess(22, 3) = "0") Then
                 TCNewFacilitySearch.TabPages.Add(TPCopyYear)
             End If
-            If AccountArray(48, 2) = "1" And AccountArray(48, 3) = "0" Then
+            If AccountFormAccess(48, 2) = "1" And AccountFormAccess(48, 3) = "0" Then
                 btnAddToCmsUniverse.Visible = False
                 btnDeleteFacilityFromCms.Visible = False
                 Panel8.Visible = False
@@ -150,7 +150,7 @@ Public Class SSCPManagersTools
 
             daStaff = New OracleDataAdapter(SQL, CurrentConnection)
 
-            If AccountArray(22, 2) = "1" Then 'District Liason 
+            If AccountFormAccess(22, 2) = "1" Then 'District Liason 
                 SQL = "select " & _
                 "strUnitDesc, numUnitCode " & _
                 "from " & DBNameSpace & ".LookUPEPDUnits " & _
