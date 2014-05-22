@@ -139,6 +139,8 @@ Public Class IAIPNavigation
     Private Sub QuickAccessButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) _
     Handles btnOpenFacilitySummary.Click, btnOpenTestReport.Click, btnOpenTestLog.Click, btnOpenSscpItem.Click, btnOpenSbeapClient.Click, btnOpenSbeapCaseLog.Click, btnOpenEnforcement.Click, btnOpenApplication.Click
         Dim thisButton As Button = CType(sender, Button)
+        monitor.TrackFeature("QuickAccess." & thisButton.Name)
+        monitor.TrackFeature("NavScreen.QuickAccess")
         Select Case thisButton.Name
             Case btnOpenApplication.Name
                 OpenApplication()
@@ -588,6 +590,7 @@ Public Class IAIPNavigation
 #Region " WorkViewer context selector events "
 
     Private Sub btnChangeWorkViewerContext_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnChangeWorkViewerContext.Click
+        monitor.TrackFeature("NavScreen.ChangeWorkViewer")
         LoadWorkViewerData()
     End Sub
 
@@ -1034,6 +1037,8 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub OpenSelectedItem()
+        monitor.TrackFeature("NavScreen.WorkViewerLink")
+        monitor.TrackFeature("WorkViewerLink." & dgvWorkViewer.Columns(0).HeaderText.Replace(" ", "_"))
         Select Case dgvWorkViewer.Columns(0).HeaderText
             Case "Case ID" ' SBEAP cases
                 OpenSbeapCaseLog()
@@ -1234,6 +1239,8 @@ Public Class IAIPNavigation
 
     Private Sub NavButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim nb As NavButton = CType(CType(sender, Button).Tag, NavButton)
+        monitor.TrackFeature("NavScreen.NavButton")
+        monitor.TrackFeature("NavButton." & nb.FormName)
         OpenSingleForm(nb.FormName)
     End Sub
 
