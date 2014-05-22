@@ -22,7 +22,6 @@ Public Class SBEAPMiscTools
     Private Sub tsbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbBack.Click
         Try
 
-            MiscTools = Nothing
             Me.Close()
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)

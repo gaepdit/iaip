@@ -73,7 +73,7 @@ Public Class DMUDeveloperTools
             LoadOtherComboBoxes()
 
             'AFS Users
-            If AccountArray(129, 1) = "1" Then
+            If AccountFormAccess(129, 1) = "1" Then
                 TCDMUTools.TabPages.Add(TPATSTool)
             End If
 
@@ -81,7 +81,7 @@ Public Class DMUDeveloperTools
             'If AccountArray(129, 2) = "1" Then
             'End If
 
-            If AccountArray(129, 3) = "1" Or AccountArray(129, 4) = "1" Then
+            If AccountFormAccess(129, 3) = "1" Or AccountFormAccess(129, 4) = "1" Then
                 TCDMUTools.TabPages.Add(TPErrorLog)
                 rdbViewUnresolvedErrors.Checked = True
 

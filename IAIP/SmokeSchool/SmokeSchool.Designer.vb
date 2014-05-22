@@ -548,6 +548,7 @@ Partial Class SmokeSchool
         '
         'cboSalutation
         '
+        Me.cboSalutation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSalutation.FormattingEnabled = True
         Me.cboSalutation.Location = New System.Drawing.Point(406, 102)
         Me.cboSalutation.Name = "cboSalutation"
@@ -618,6 +619,7 @@ Partial Class SmokeSchool
         '
         'cboLecture
         '
+        Me.cboLecture.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboLecture.FormattingEnabled = True
         Me.cboLecture.Location = New System.Drawing.Point(408, 344)
         Me.cboLecture.Name = "cboLecture"
@@ -1259,6 +1261,7 @@ Partial Class SmokeSchool
         '
         'cboVisionCorrection
         '
+        Me.cboVisionCorrection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboVisionCorrection.FormattingEnabled = True
         Me.cboVisionCorrection.Location = New System.Drawing.Point(571, 412)
         Me.cboVisionCorrection.Name = "cboVisionCorrection"
@@ -1267,6 +1270,7 @@ Partial Class SmokeSchool
         '
         'cboPassFail
         '
+        Me.cboPassFail.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboPassFail.FormattingEnabled = True
         Me.cboPassFail.Location = New System.Drawing.Point(431, 414)
         Me.cboPassFail.Name = "cboPassFail"
@@ -1948,6 +1952,7 @@ Partial Class SmokeSchool
         '
         'cboSchedule3
         '
+        Me.cboSchedule3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSchedule3.FormattingEnabled = True
         Me.cboSchedule3.Location = New System.Drawing.Point(19, 37)
         Me.cboSchedule3.Name = "cboSchedule3"
@@ -2090,6 +2095,7 @@ Partial Class SmokeSchool
         '
         'cboTermYear
         '
+        Me.cboTermYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboTermYear.FormattingEnabled = True
         Me.cboTermYear.Location = New System.Drawing.Point(43, 18)
         Me.cboTermYear.Name = "cboTermYear"
@@ -2134,6 +2140,7 @@ Partial Class SmokeSchool
         '
         'cboDisplay
         '
+        Me.cboDisplay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboDisplay.FormattingEnabled = True
         Me.cboDisplay.Location = New System.Drawing.Point(388, 320)
         Me.cboDisplay.Name = "cboDisplay"
@@ -2235,6 +2242,7 @@ Partial Class SmokeSchool
         '
         'cboCity
         '
+        Me.cboCity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboCity.FormattingEnabled = True
         Me.cboCity.Location = New System.Drawing.Point(388, 272)
         Me.cboCity.Name = "cboCity"
@@ -2243,6 +2251,7 @@ Partial Class SmokeSchool
         '
         'cboSeason
         '
+        Me.cboSeason.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSeason.FormattingEnabled = True
         Me.cboSeason.Location = New System.Drawing.Point(236, 272)
         Me.cboSeason.Name = "cboSeason"
@@ -2251,6 +2260,7 @@ Partial Class SmokeSchool
         '
         'cboYear
         '
+        Me.cboYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboYear.FormattingEnabled = True
         Me.cboYear.Location = New System.Drawing.Point(116, 272)
         Me.cboYear.Name = "cboYear"

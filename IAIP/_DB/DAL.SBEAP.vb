@@ -5,6 +5,8 @@ Namespace DAL.SBEAP
     Module Sbeap
 
         Public Function ClientExists(ByVal clientID As String) As Boolean
+            If clientID = "" OrElse Not Integer.TryParse(clientID, Nothing) Then Return False
+
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
                 " FROM " & DBNameSpace & ".SBEAPCLIENTS " & _
                 " WHERE RowNum = 1 " & _
@@ -17,6 +19,8 @@ Namespace DAL.SBEAP
         End Function
 
         Public Function CaseExists(ByVal caseNumber As String) As Boolean
+            If caseNumber = "" OrElse Not Integer.TryParse(caseNumber, Nothing) Then Return False
+
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
                 " FROM " & DBNameSpace & ".SBEAPCASELOG " & _
                 " WHERE RowNum = 1 " & _

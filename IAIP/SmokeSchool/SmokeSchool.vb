@@ -1,8 +1,6 @@
 ﻿Imports System.Collections.Generic
 Imports Oracle.DataAccess.Client
 Imports CrystalDecisions.Shared
-'Imports System.Data.OleDb
-'Imports Excel
 
 Public Class SmokeSchool
     Dim SQL, SQL2 As String
@@ -22,7 +20,6 @@ Public Class SmokeSchool
     Public daScores As OracleDataAdapter
     Public dsScores3 As DataSet
     Public daScores3 As OracleDataAdapter
-    'Dim my1 As Roster
     Dim my2 As PassFailNoShow
     Public getIDoverRideFlag As String = "off"
     Public ErrorFlag As String = "no"
@@ -63,7 +60,7 @@ Public Class SmokeSchool
     Sub setPermissions()
         Try
 
-            If AccountArray(128, 3) <> "1" Then
+            If AccountFormAccess(128, 3) <> "1" Then
                 tcSmokeSchool.TabPages.Remove(TabMoveRes2Scores)
                 tcSmokeSchool.TabPages.Remove(TPDiplomas)
                 tcSmokeSchool.TabPages.Remove(TabSetup)
@@ -534,94 +531,6 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    'just a shell
-    Private Sub BindDataGridReservation1()
-        Try
-            dsRes = New DataSet
-
-            If txtsortnbr.Text = "1" Then
-                SQL = "SELECT numUserID, " & _
-                             "strLastName, " & _
-                             "strFirstName, " & _
-                             "strTitle, " & _
-                             "strCompanyName, " & _
-                             "strAddress1, " & _
-                             "strCity, " & _
-                             "strState, " & _
-                             "strZip, " & _
-                             "strPhoneNumber, " & _
-                             "strFax, " & _
-                             "strConfirmationNbr, " & _
-                             "strLocationDate, " & _
-                             "strLectureYesNo " & _
-                      "from airbranch.smokeSchoolReservation " & _
-                      "order by strLocationDate, strLastName"
-            End If
-            If txtsortnbr.Text = "2" Then
-                SQL = "SELECT numUserID, " & _
-                             "strLastName, " & _
-                             "strFirstName, " & _
-                             "strTitle, " & _
-                             "strCompanyName, " & _
-                             "strAddress1, " & _
-                             "strCity, " & _
-                             "strState, " & _
-                             "strZip, " & _
-                             "strPhoneNumber, " & _
-                             "strFax, " & _
-                             "strConfirmationNbr, " & _
-                             "strLocationDate, " & _
-                             "strLectureYesNo " & _
-                      "from airbranch.smokeSchoolReservation " & _
-                         "where strLocationDate = '" & txtSortItem.Text & "' " & _
-                         "order by strLastName, strFirstName"
-            End If
-
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
-            cmd.CommandType = CommandType.Text
-
-            If CurrentConnection.State = ConnectionState.Open Then
-            Else
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-
-            dgvRes.Rows.Clear()
-
-            dgvRes.Columns.Add("numUserID", "ID")
-            dgvRes.Columns.Add("strLastName", "Last Name")
-            dgvRes.Columns.Add("strFirstName", "First Name")
-            dgvRes.Columns.Add("strTitle", "Title")
-            dgvRes.Columns.Add("strCompanyName", "Company")
-            dgvRes.Columns.Add("strAddress1", "Address")
-            dgvRes.Columns.Add("strCity", "City")
-            dgvRes.Columns.Add("strState", "State")
-            dgvRes.Columns.Add("strZip", "Zip")
-            dgvRes.Columns.Add("strPhoneNumber", "Phone")
-            dgvRes.Columns.Add("strFax", "Fax")
-            dgvRes.Columns.Add("strEmail", "Email")
-            dgvRes.Columns.Add("strConfirmationNbr", "Confirmation Number")
-            dgvRes.Columns.Add("strLocationDate", "Session")
-            dgvRes.Columns.Add("strLectureYesNo", "Lecture")
-
-            dgvRes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
-            dgvRes.RowHeadersVisible = False
-
-            While dr.Read
-                'Get row data as an object array
-                'objCells(2) means col[0], col[1], col[2]
-                'which returns the first colums in the table
-                Dim objCells(14) As Object
-                dr.GetValues(objCells)
-                dgvRes.Rows.Add(objCells)
-            End While
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
     Private Sub BindDataGridReservation2()
         Try
             Dim SQL As String = ""
@@ -863,104 +772,6 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    'just a shell
-    Private Sub BindDataGridScores()
-
-        '    Dim strSQL As String
-
-        '    Try
-
-        '        dsScores = New DataSet
-
-        '        If txtsortnbr.Text = "1" Then
-        '            strSQL = "SELECT * from smokeSchoolScores order by strLocationTerm, strName"
-        '        End If
-        '        If txtsortnbr.Text = "2" Then
-        '            strSQL = "SELECT * from smokeSchoolReservation " & _
-        '                     "where strLocationTerm = '" & txtSortItem.Text & "' " & _
-        '                     "order by strLocationTerm, strName"
-        '        End If
-        '        daScores = New OracleDataAdapter
-        '        daScores.SelectCommand = New OracleCommand
-        '        daScores.SelectCommand.Connection = conn
-        '        daScores.SelectCommand.CommandText = strSQL
-
-        '        If conn.State = ConnectionState.Open Then
-        '        Else
-        '            conn.Open()
-        '        End If
-
-        '        daScores.Fill(dsScores, "score")
-        '        If conn.State = ConnectionState.Open Then
-        '            conn.Close()
-        '        End If
-
-        '        dgrScores.DataSource = dsScores
-        '        dgrScores.DataMember = "score"
-
-        '        'Formatting our DataGrid
-        '        Dim objGrid As New DataGridTableStyle
-        '        Dim objTextCol As New DataGridTextBoxColumn
-
-        '        objGrid.AlternatingBackColor = Color.WhiteSmoke
-        '        objGrid.MappingName = "res"
-        '        objGrid.RowHeadersVisible = False
-        '        objGrid.AllowSorting = True
-        '        objGrid.ReadOnly = True
-
-        '        objTextCol = New DataGridTextBoxColumn
-        '        objTextCol.MappingName = "intStudentID"
-        '        objTextCol.HeaderText = "ID"
-        '        objTextCol.Width = 60
-        '        objGrid.GridColumnStyles.Add(objTextCol)
-
-        '        objTextCol = New DataGridTextBoxColumn
-        '        objTextCol.MappingName = "strName"
-        '        objTextCol.HeaderText = "Name"
-        '        objTextCol.Width = 100
-        '        objGrid.GridColumnStyles.Add(objTextCol)
-
-        '        objTextCol = New DataGridTextBoxColumn
-        '        objTextCol.MappingName = "strFacilityName"
-        '        objTextCol.HeaderText = "Facility"
-        '        objTextCol.Width = 150
-        '        objGrid.GridColumnStyles.Add(objTextCol)
-
-        '        objTextCol = New DataGridTextBoxColumn
-        '        objTextCol.MappingName = "strPhoneNumber"
-        '        objTextCol.HeaderText = "Phone"
-        '        objTextCol.Width = 80
-        '        objGrid.GridColumnStyles.Add(objTextCol)
-
-        '        objTextCol = New DataGridTextBoxColumn
-        '        objTextCol.MappingName = "strLocationTerm"
-        '        objTextCol.HeaderText = "Term/Location"
-        '        objTextCol.Width = 120
-        '        objGrid.GridColumnStyles.Add(objTextCol)
-
-        '        'Applying the above formating 
-        '        dgrScores.TableStyles.Clear()
-        '        dgrScores.TableStyles.Add(objGrid)
-
-        '        'Setting the DataGrid Caption, which defines the table title
-        '        dgrScores.CaptionText = "Reservation Schedule"
-        '        dgrScores.ColumnHeadersVisible = True
-
-        '        dgrScores.DataSource = dsScores
-        '        dgrScores.DataMember = "score"
-
-        '    Catch ex As Exception
-        '        MsgBox(ex.ToString)
-        '    Finally
-        '        txtsortnbr.Text = "1"
-        '        If conn.State = ConnectionState.Open Then
-        '            conn.Close()
-        '        End If
-        '    End Try
-
-
-
-    End Sub
 #End Region
 #Region " SETUP Routines "
     Private Sub btnSaveSchedule_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveSchedule.Click
@@ -1009,9 +820,7 @@ Public Class SmokeSchool
             End If
             startDate = Format(CDate(startDate), "MMM-dd-yyyy")
             endDate = Format(CDate(endDate), "MMM-dd-yyyy")
-            'startDate = convertDate(CDate(startDate))
-            'endDate = convertDate(CDate(endDate))
-
+            
             scheduleShort = year & " " & season & " - " & city
             schedule = scheduleShort & ": " & startDate & " thru " & endDate
 
@@ -1127,9 +936,7 @@ Public Class SmokeSchool
             End If
             startDate = Format(CDate(startDate), "MMM-dd-yyyy")
             endDate = Format(CDate(endDate), "MMM-dd-yyyy")
-            'startDate = convertDate(CDate(startDate))
-            'endDate = convertDate(CDate(endDate))
-
+            
             scheduleShort = year & " " & season & " - " & city
             schedule = scheduleShort & ": " & startDate & " thru " & endDate
 
@@ -1201,7 +1008,6 @@ Public Class SmokeSchool
             Dim faxexc As String = txtFaxEXC1.Text
             Dim faxnbr As String = txtFaxNBR1.Text
             Dim email As String = txtEmail1.Text
-            'Dim day1 As String= getToday() 
             Dim day1 As String = Format(Now.Date, "dd-MMM-yyyy")
             Dim hr As String = Now.Hour
             Dim min As String = Now.Minute
@@ -1252,11 +1058,9 @@ Public Class SmokeSchool
 
                 fname = txtFirstName1.Text
                 lname = txtLastName1.Text
-                'Name = lname & ", " & fname
 
                 If txtConfirmation.Text = "" Then
                     'Create confirmation number
-                    'RequestDate = toOraDate(Now.Date)
                     RequestDate = Format(Now.Date, "dd-MMM-yyyy")
                     ConfirmNbr = "1111" & Now.Date.ToString("yyyy MM dd").Replace(" ", "")
                     ConfirmNbr = ConfirmNbr & time24.Replace(":", "")
@@ -1320,9 +1124,6 @@ Public Class SmokeSchool
                         txtSortItem.Text = cboSchedule1.SelectedItem
                         txtsortnbr.Text = "2"
                         BindDataGridReservation()
-                        'txtSortItem.Text = cboSchedule1.SelectedItem
-                        'txtsortnbr.Text = "2"
-                        'BindDataGridReservation1()
 
                         numberOfStudents1()
                         numberOfAttendingLecture()
@@ -1383,9 +1184,6 @@ Public Class SmokeSchool
                     txtSortItem.Text = cboSchedule1.SelectedItem
                     txtsortnbr.Text = "2"
                     BindDataGridReservation()
-                    'txtSortItem.Text = cboSchedule1.SelectedItem
-                    'txtsortnbr.Text = "2"
-                    'BindDataGridReservation1()
 
                     numberOfStudents1()
                     numberOfAttendingLecture()
@@ -1400,7 +1198,7 @@ Public Class SmokeSchool
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            'clearRes()
+
         End Try
     End Sub
     Private Sub checkForEmptyTextBoxes()
@@ -1546,9 +1344,6 @@ Public Class SmokeSchool
                     txtSortItem.Text = cboSchedule1.SelectedItem
                     txtsortnbr.Text = "2"
                     BindDataGridReservation()
-                    'txtSortItem.Text = cboSchedule1.SelectedItem
-                    'txtsortnbr.Text = "2"
-                    'BindDataGridReservation1()
                     clearRes()
 
                     numberOfStudents1()
@@ -1560,85 +1355,6 @@ Public Class SmokeSchool
                 End If
             End If
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
-    Private Sub getUserNumber()
-        Try
-            Dim userNumber As String = "0"
-            Dim locationDate As String = cboSchedule1.SelectedItem
-
-            updateUserNumber()
-
-            If CurrentConnection.State = ConnectionState.Open Then
-            Else
-                CurrentConnection.Open()
-            End If
-
-            SQL = "select max(numUserID) as strUserNumber " & _
-            "from airbranch.SmokeSchoolReservation " & _
-            "where strlocationDate = '" & locationDate & "'"
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-
-            While dr.Read
-                userNumber = dr.Item("strUserNumber")
-            End While
-            dr.Close()
-
-            userNumber = userNumber + 1
-            txtID1.Text = userNumber
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
-    Private Sub updateUserNumber()
-        Try
-            Dim studentID As Decimal = 0
-            Dim FirstName As String = ""
-            Dim LastName As String = ""
-            Dim locationDate As String = ""
-
-            If cboSchedule1.SelectedIndex = 0 Then
-                MsgBox("You must click on a Location/Term.")
-            Else
-                locationDate = cboSchedule1.SelectedItem
-                SQL = "select * from airbranch.SmokeSchoolReservation " & _
-                "where upper(strLocationDate) = upper('" & Replace(locationDate, "'", "''") & "') "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    studentID = studentID + 1
-                    FirstName = dr.Item("strFirstName")
-                    LastName = dr.Item("strLastName")
-
-                    SQL2 = "update airbranch.SmokeSchoolReservation " & _
-                          "set numUserID = " & studentID & " " & _
-                          " where upper(strLocationDate) = upper('" & Replace(locationDate, "'", "''") & "')" & _
-                          " and upper(strFirstName) = upper('" & Replace(FirstName, "'", "''") & "')" & _
-                          " and upper(strLastName) = upper('" & Replace(LastName, "'", "''") & "')"
-
-                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr2 = cmd2.ExecuteReader
-                    dr2.Close()
-                End While
-                dr.Close()
-
-            End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -1677,7 +1393,6 @@ Public Class SmokeSchool
             Dim Run8 As String = "No Test"
             Dim Run9 As String = "No Test"
             Dim Run10 As String = "No Test"
-            'Dim day1 As String = getToday()
             Dim day1 As String = Format(CDate(Now.Date), "dd-MMM-yyyy")
             Dim hr As String = Now.Hour
             Dim min As String = Now.Minute
@@ -1843,7 +1558,6 @@ Public Class SmokeSchool
             Dim Run8 As String = "No Test"
             Dim Run9 As String = "No Test"
             Dim Run10 As String = "No Test"
-            'Dim day1 As String = getToday()
             Dim day1 As String = Format(CDate(Now.Date), "dd-MMM-yyyy")
             Dim hr As String = Now.Hour
             Dim min As String = Now.Minute
@@ -2077,7 +1791,6 @@ Public Class SmokeSchool
             Dim VisualRestrictions As String = ""
             Dim datePassed As String = ""
             Dim space1 As Integer = 0
-            'Dim day1 As String = getToday()
             Dim day1 As String = Format(CDate(Now.Date), "dd-MMM-yyyy")
             Dim hr As String = Now.Hour
             Dim min As String = Now.Minute
@@ -2223,7 +1936,6 @@ Public Class SmokeSchool
                         datePassed = Mid(datePassed, 1, space1 - 1)
                     End If
 
-                    'datePassed = toOraDate(datePassed)
                     datePassed = Format(CDate(datePassed), "dd-MMM-yyyy")
                     name = Replace(name, "'", "''")
 
@@ -2307,31 +2019,6 @@ Public Class SmokeSchool
                                         Exit Sub
                                 End Select
                         End Select
-
-
-                        'SQL = "update airbranch.SmokeSchoolScores " & _
-                        '      "set strPassFailNoShow = '" & PassFailNoShow & "', " & _
-                        '      "strQuizScore = '" & QuizScore & "', " & _
-                        '      "strComment = '" & Replace(Comment, "'", "''") & "', " & _
-                        '      "strRun1 = '" & Run1 & "', " & _
-                        '      "strRun2 = '" & Run2 & "', " & _
-                        '      "strRun3 = '" & Run3 & "', " & _
-                        '      "strRun4 = '" & Run4 & "', " & _
-                        '      "strRun5 = '" & Run5 & "', " & _
-                        '      "strRun6 = '" & Run6 & "', " & _
-                        '      "strRun7 = '" & Run7 & "', " & _
-                        '      "strRun8 = '" & Run8 & "', " & _
-                        '      "strRun9 = '" & Run9 & "', " & _
-                        '      "strRun10 = '" & Run10 & "', " & _
-                        '      "strFirstName = '" & fname & "', " & _
-                        '      "strLastName = '" & lname & "', " & _
-                        '      "strName = '" & name & "', " & _
-                        '      "strCompanyName = '" & CompanyName & "', " & _
-                        '      "strVisualRestrictions = '" & VisualRestrictions & "', " & _
-                        '      "strDatePassed = '" & datePassed & "', " & _
-                        '      "datTransactionDate = '" & TransactionDate & "' " & _
-                        '      "where strLocationTerm = '" & LocationTerm & "' " & _
-                        '      "and intStudentID = " & StudentID
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -2427,21 +2114,6 @@ Public Class SmokeSchool
                                 Exit Sub
                         End Select
                 End Select
-                'colon = InStr(LocationTerm, ":")
-                'LocationTerm = Mid(LocationTerm, 1, colon - 1)
-
-                'name = Replace(name, "'", "''")
-
-                'SQL = "delete from airbranch.SmokeSchoolScores " & _
-                '"where strLocationTerm = '" & LocationTerm & "' " & _
-                '"and strName = '" & name & "'"
-
-                'cmd = New OracleCommand(SQL, conn)
-                'If conn.State = ConnectionState.Closed Then
-                '    conn.Open()
-                'End If
-                'dr = cmd.ExecuteReader
-                'dr.Close()
 
                 BindDataGridScores3()
 
@@ -2852,20 +2524,6 @@ Public Class SmokeSchool
     Private Sub btnPrintRoster_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrintRoster.Click
         PrintRoster()
 
-        'Try
-        '    If cboSchedule1.SelectedItem = "- Select a Location/Term -" Or cboSchedule1.SelectedItem = "- All Terms -" Then
-        '        MsgBox("You must select a Location/Term")
-        '    Else
-        '        my1 = Nothing
-        '        If my1 Is Nothing Then my1 = New Roster
-        '        my1.txtLocationTerm.Text = Me.cboSchedule1.SelectedItem
-        '        loadPrintInfo4Res()
-        '        my1.Show()
-        '    End If
-        'Catch ex As Exception
-        '    ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        'Finally
-        'End Try
     End Sub
     Private Sub btnPrintPass_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrintPass.Click
         Try
@@ -3061,153 +2719,6 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    'Private Sub loadPrintInfo4Res()
-    '    Try
-    '        Dim StudentID As String = ""
-    '        Dim name As String = ""
-    '        Dim title As String = ""
-    '        Dim CompanyName As String = ""
-    '        Dim Address1 As String = ""
-    '        Dim Address2 As String = ""
-    '        Dim city As String = ""
-    '        Dim state As String = ""
-    '        Dim zip As String = ""
-    '        Dim phone As String = ""
-    '        Dim phoneOut As String = ""
-    '        Dim phone1 As String = ""
-    '        Dim phone2 As String = ""
-    '        Dim phone3 As String = ""
-    '        Dim phone4 As String = ""
-    '        Dim fax As String = ""
-    '        Dim faxOut As String = ""
-    '        Dim fax1 As String = ""
-    '        Dim fax2 As String = ""
-    '        Dim fax3 As String = ""
-    '        Dim email As String = ""
-    '        Dim firstName As String = ""
-    '        Dim lastName As String = ""
-    '        Dim confirmationNbr As String = ""
-    '        Dim lecture As String = ""
-    '        Dim LocationDate As String = ""
-
-    '        LocationDate = cboSchedule1.SelectedItem
-
-    '        SQL = "delete from airbranch.SmokeSchoolPrintInfo"
-
-    '        cmd = New OracleCommand(SQL, Conn)
-    '        If Conn.State = ConnectionState.Closed Then
-    '            Conn.Open()
-    '        End If
-    '        dr = cmd.ExecuteReader
-    '        dr.Close()
-
-    '        SQL = "select * from airbranch.SmokeSchoolReservation " & _
-    '               "where strLocationDate = '" & LocationDate & "'" & _
-    '               "order by strLastName, strFirstName"
-
-    '        cmd = New OracleCommand(SQL, Conn)
-    '        If Conn.State = ConnectionState.Closed Then
-    '            Conn.Open()
-    '        End If
-    '        dr = cmd.ExecuteReader
-    '        While dr.Read
-    '            LocationDate = dr.Item("strLocationDate")
-
-    '            If IsDBNull(dr.Item("numUserID")) Then
-    '                StudentID = 0
-    '            Else
-    '                StudentID = dr.Item("numUserID")
-    '            End If
-    '            If IsDBNull(dr.Item("strTitle")) Then
-    '                title = ""
-    '            Else
-    '                title = dr.Item("strTitle")
-    '            End If
-    '            firstName = dr.Item("strFirstName")
-    '            lastName = dr.Item("strLastName")
-    '            CompanyName = dr.Item("strCompanyName")
-    '            Address1 = dr.Item("strAddress1")
-    '            If IsDBNull(dr.Item("strAddress2")) Then
-    '                Address2 = "NA"
-    '            Else
-    '                Address2 = dr.Item("strAddress2")
-    '            End If
-    '            city = dr.Item("strCity")
-    '            state = dr.Item("strState")
-    '            zip = dr.Item("strZip")
-    '            phone = dr.Item("strPhoneNumber")
-    '            phone1 = Mid(phone, 1, 3)
-    '            phone2 = Mid(phone, 4, 3)
-    '            phone3 = Mid(phone, 7, 4)
-    '            phone4 = Mid(phone, 11)
-    '            phoneOut = "(" & phone1 & ")" & " " & phone2 & "-" & phone3 & " Ext: " & phone4
-    '            If IsDBNull(dr.Item("strFax")) Then
-    '                fax = "NA"
-    '            Else
-    '                fax = dr.Item("strFax")
-    '                fax1 = Mid(fax, 1, 3)
-    '                fax2 = Mid(fax, 4, 3)
-    '                fax3 = Mid(fax, 7, 4)
-    '                faxOut = "(" & fax1 & ")" & " " & fax2 & "-" & fax3
-    '            End If
-    '            email = dr.Item("strEmail")
-    '            confirmationNbr = dr.Item("strConfirmationNbr")
-    '            lecture = dr.Item("strLectureYesNo")
-    '            name = lastName & ", " & firstName
-
-    '            SQL = "insert into airbranch.SmokeSchoolPrintInfo (" & _
-    '                   "intStudentID, " & _
-    '                   "strName, " & _
-    '                   "strLocationTerm, " & _
-    '                   "strCompanyName, " & _
-    '                   "strAddress1, " & _
-    '                   "strAddress2, " & _
-    '                   "strCity, " & _
-    '                   "strState, " & _
-    '                   "strZip, " & _
-    '                   "strFirstName, " & _
-    '                   "strLastName, " & _
-    '                   "strPhoneNumber, " & _
-    '                   "strFax, " & _
-    '                   "strEmail, " & _
-    '                   "strConfirmationNbr, " & _
-    '                   "strLectureYesNo, " & _
-    '                   "strTitle) " & _
-    '                   "values (" & _
-    '                   "'" & StudentID & "', " & _
-    '                   "'" & Replace(name, "'", "''") & "', " & _
-    '                   "'" & Replace(LocationDate, "'", "''") & "', " & _
-    '                   "'" & Replace(CompanyName, "'", "''") & "', " & _
-    '                   "'" & Replace(Address1, "'", "''") & "', " & _
-    '                   "'" & Replace(Address2, "'", "''") & "', " & _
-    '                   "'" & Replace(city, "'", "''") & "', " & _
-    '                   "'" & Replace(state, "'", "''") & "', " & _
-    '                   "'" & Replace(zip, "'", "''") & "', " & _
-    '                   "'" & Replace(firstName, "'", "''") & "', " & _
-    '                   "'" & Replace(lastName, "'", "''") & "', " & _
-    '                   "'" & Replace(phoneOut, "'", "''") & "', " & _
-    '                   "'" & Replace(faxOut, "'", "''") & "', " & _
-    '                   "'" & Replace(email, "'", "''") & "', " & _
-    '                   "'" & Replace(confirmationNbr, "'", "''") & "', " & _
-    '                   "'" & Replace(lecture, "'", "''") & "', " & _
-    '                   "'" & Replace(title, "'", "''") & "') "
-
-    '            cmd = New OracleCommand(SQL, Conn)
-    '            If Conn.State = ConnectionState.Closed Then
-    '                Conn.Open()
-    '            End If
-    '            dr2 = cmd.ExecuteReader
-    '            dr2.Close()
-    '        End While
-    '        dr.Close()
-
-    '        MsgBox("The print information is ready")
-
-    '    Catch ex As Exception
-    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    Finally
-    '    End Try
-    'End Sub
     Private Sub btnPrintThisOne_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrintThisOne.Click
         Try
             txtPassFailNoShow.Text = "Pass"
@@ -3827,16 +3338,6 @@ Public Class SmokeSchool
                         run10 = dgvScore3(17, hti.RowIndex).Value
                     End If
 
-                    'run2 = dgvScore3(9, hti.RowIndex).Value
-                    'run3 = dgvScore3(10, hti.RowIndex).Value
-                    'run4 = dgvScore3(11, hti.RowIndex).Value
-                    'run5 = dgvScore3(12, hti.RowIndex).Value
-                    'run6 = dgvScore3(13, hti.RowIndex).Value
-                    'run7 = dgvScore3(14, hti.RowIndex).Value
-                    'run8 = dgvScore3(15, hti.RowIndex).Value
-                    'run9 = dgvScore3(16, hti.RowIndex).Value
-                    'run10 = dgvScore3(17, hti.RowIndex).Value
-
                     If IsDBNull(dgvScore3(18, hti.RowIndex).Value) Then
                         txtFirstName3.Text = ""
                     Else
@@ -4090,277 +3591,6 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub numberOfStudents4()
-        Try
-            Dim cnt As Decimal
-            SQL = "select count(*) as numberOfStudents4 from airbranch.SmokeSchoolStudent "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Read()
-
-            cnt = dr.Item("numberOfStudents4")
-            dr.Close()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
-    Private Sub GetNext()
-        Try
-            Dim IDnumber As Decimal
-
-            SQL = "select * from airbranch.SmokeSchoolIDNumber"
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader()
-            dr.Read()
-
-            IDnumber = dr("intIDnumber")
-            IDnumber = IDnumber + 1
-            dr.Close()
-
-            SQL = "update airbranch.SmokeSchoolIDNumber " & _
-            "set intIDnumber = '" & IDnumber & "'"
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
-    Private Sub GetNext1()
-        Try
-            Dim IDnumber As Decimal
-
-            SQL = "select * from airbranch.SmokeSchoolIDNumber"
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader()
-            dr.Read()
-
-            IDnumber = dr("intIDnumber")
-            txtID1.Text = IDnumber
-            dr.Close()
-
-            IDnumber = IDnumber + 1
-
-            SQL = "update airbranch.SmokeSchoolIDNumber " & _
-            "set intIDnumber = '" & IDnumber & "'"
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
-#Region "Functions"
-    'Public Function getToday()
-    '    Try
-    '        Dim mon As String
-    '        Dim Day As String
-    '        Dim Month As String
-    '        Dim Year As String
-    '        Dim dateOut As String
-    '        Dim dateIN As Date = Now.Date
-
-    '        Day = dateIN.Day.ToString
-    '        Month = dateIN.Month.ToString
-    '        Select Case Month
-    '            Case "1"
-    '                mon = "Jan"
-    '            Case "2"
-    '                mon = "Feb"
-    '            Case "3"
-    '                mon = "Mar"
-    '            Case "4"
-    '                mon = "Apr"
-    '            Case "5"
-    '                mon = "May"
-    '            Case "6"
-    '                mon = "Jun"
-    '            Case "7"
-    '                mon = "Jul"
-    '            Case "8"
-    '                mon = "Aug"
-    '            Case "9"
-    '                mon = "Sep"
-    '            Case "10"
-    '                mon = "Oct"
-    '            Case "11"
-    '                mon = "Nov"
-    '            Case Else
-    '                mon = "Dec"
-    '        End Select
-
-    '        Year = dateIN.Year.ToString
-    '        dateOut = Day & "-" & mon & "-" & Year
-
-    '        Return dateOut
-    '    Catch ex As Exception
-    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    Finally
-    '    End Try
-    'End Function
-    'Private Function mondayyear(ByVal dateIN)
-    '    Try
-    '        Dim mon As String
-    '        Dim Day As String
-    '        Dim Month As String
-    '        Dim Year As String
-    '        Dim dateOut As String
-    '        'Dim dateIN As Date = dtPStartDate.Value
-
-    '        Day = dateIN.Day.ToString
-    '        Month = dateIN.Month.ToString
-    '        Select Case Month
-    '            Case "1"
-    '                mon = "Jan"
-    '            Case "2"
-    '                mon = "Feb"
-    '            Case "3"
-    '                mon = "Mar"
-    '            Case "4"
-    '                mon = "Apr"
-    '            Case "5"
-    '                mon = "May"
-    '            Case "6"
-    '                mon = "Jun"
-    '            Case "7"
-    '                mon = "Jul"
-    '            Case "8"
-    '                mon = "Aug"
-    '            Case "9"
-    '                mon = "Sep"
-    '            Case "10"
-    '                mon = "Oct"
-    '            Case "11"
-    '                mon = "Nov"
-    '            Case Else
-    '                mon = "Dec"
-    '        End Select
-
-    '        Year = dateIN.Year.ToString
-    '        dateOut = mon & "-" & Day & "-" & Year
-
-    '        Return dateOut
-    '    Catch ex As Exception
-    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    Finally
-    '    End Try
-    'End Function
-    'Private Function toOraDate(ByVal dateIn As Date)
-    '    Try
-    '        'Function to convert date (mm/dd/yyyy) to Oracle format (dd-mmm-yyyy)
-    '        Dim dateOut As String
-    '        Dim day As String
-    '        Dim month As String
-    '        Dim mon As String
-    '        Dim year As String
-
-    '        dateIn = CDate(dateIn)
-
-    '        day = dateIn.Day.ToString
-    '        month = dateIn.Month.ToString
-    '        year = dateIn.Year.ToString
-
-    '        Select Case month
-    '            Case "1"
-    '                mon = "Jan"
-    '            Case "2"
-    '                mon = "Feb"
-    '            Case "3"
-    '                mon = "Mar"
-    '            Case "4"
-    '                mon = "Apr"
-    '            Case "5"
-    '                mon = "May"
-    '            Case "6"
-    '                mon = "Jun"
-    '            Case "7"
-    '                mon = "Jul"
-    '            Case "8"
-    '                mon = "Aug"
-    '            Case "9"
-    '                mon = "Sep"
-    '            Case "10"
-    '                mon = "Oct"
-    '            Case "11"
-    '                mon = "Nov"
-    '            Case Else
-    '                mon = "Dec"
-    '        End Select
-
-    '        dateOut = day & "-" & mon & "-" & year
-
-    '        Return dateOut
-    '    Catch ex As Exception
-    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    Finally
-    '    End Try
-    'End Function
-    'Private Function convertDate(ByVal dateIn As Object)
-    '    Try
-    '        Dim dateout As String
-    '        Dim month As String = dateIn.Month
-    '        Dim day As String = dateIn.Day
-    '        Dim year As String = dateIn.Year
-
-    '        Select Case month
-    '            Case 1
-    '                month = "Jan"
-    '            Case 2
-    '                month = "Feb"
-    '            Case 3
-    '                month = "Mar"
-    '            Case 4
-    '                month = "Apr"
-    '            Case 5
-    '                month = "May"
-    '            Case 6
-    '                month = "Jun"
-    '            Case 7
-    '                month = "Jul"
-    '            Case 8
-    '                month = "Aug"
-    '            Case 9
-    '                month = "Sep"
-    '            Case 10
-    '                month = "Oct"
-    '            Case 11
-    '                month = "Nov"
-    '            Case 12
-    '                month = "Dec"
-    '        End Select
-
-    '        dateout = month & "-" & day & "-" & year
-    '        Return dateout
-    '    Catch ex As Exception
-    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    Finally
-    '    End Try
-    'End Function
-#End Region
     Private Sub btnSelectClass1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSelectClass1.Click
         Try
             If cboSchedule1.SelectedIndex <> 0 Or cboSchedule1.SelectedIndex <> 1 Then
@@ -4388,328 +3618,6 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-
-#Region "Obsolete Code "
-
-    'Private Sub export()
-    '    Try
-    '        'Response.AddHeader("content-disposition", "attachment;filename=EIData.xls")
-    '        '' Set MIME type to Excel.
-    '        'Response.ContentType = "application/vnd.ms-excel"
-    '        '' Remove the charset from the Content-Type header.
-    '        'Response.Charset = ""
-    '        Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-    '        'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-    '        'Dim ExcelApp As Excel.Application = New Excel.ApplicationClass
-    '        Dim col, row As Integer
-    '        Dim x As String
-    '        Dim y As String
-    '        'Dim a As Integer
-    '        'Dim b As Integer
-    '        Dim c As Integer
-    '        Dim d As Integer
-    '        Dim startRow As Integer = 1
-    '        Dim location As String = cboSchedule1.SelectedItem
-
-    '        'load Reservation data into Excel
-    '        If dgvRes.RowCount <> 0 Then
-
-    '            ExcelApp.SheetsInNewWorkbook = 1
-    '            ExcelApp.Workbooks.Add()
-
-    '            ExcelApp.Cells(startRow, 1).value = location
-
-    '            ExcelApp.Visible = True
-
-    '            startRow = startRow + 1
-
-    '            'For displaying the column name in the the excel file.
-    '            For col = 0 To dgvRes.ColumnCount - 1
-    '                y = dgvRes.Columns(col).HeaderText.ToString
-    '                ExcelApp.Cells(startRow, col + 1).value = y
-    '            Next
-
-    '            'a = dgvRes.ColumnCount - 1
-    '            'b = dgvRes.RowCount - 1
-
-    '            'For col = 0 To dgvEU.RowCount - 1
-    '            '    For row = 0 To dgvEU.ColumnCount - 1
-    '            startRow = startRow + 1
-    '            d = dgvRes.RowCount - 2
-    '            For row = 0 To d
-
-    '                c = dgvRes.ColumnCount - 1
-    '                For col = 0 To c
-    '                    If IsDBNull(dgvRes.Item(col, row).Value.ToString) Then
-    '                        x = ""
-    '                    Else
-    '                        x = dgvRes.Item(col, row).Value.ToString
-    '                    End If
-    '                    'x = dgvEU.Item(col, row).Value.ToString
-    '                    ExcelApp.Cells(startRow, col + 1).value = x
-
-    '                Next
-    '                startRow = startRow + 1
-    '            Next
-    '        End If
-
-    '    Catch ex As Exception
-    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    Finally
-    '    End Try
-
-    'End Sub
-
-    'Private Sub btnMoveWalkupToRes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-    '    Try
-    '        moveWalkupToRes()
-    '    Catch ex As Exception
-    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    Finally
-    '    End Try
-    'End Sub
-    'Private Sub moveWalkupToRes()
-    '    Try
-    '        Dim fname As String = ""
-    '        Dim lname As String = ""
-    '        Dim title As String = ""
-    '        Dim salutation As String = ""
-    '        Dim facility As String = ""
-    '        Dim address1 As String = ""
-    '        Dim address2 As String = ""
-    '        Dim city As String = ""
-    '        Dim state As String = ""
-    '        Dim zip As String = ""
-    '        Dim phone As String = ""
-    '        Dim fax As String = ""
-    '        Dim email As String = ""
-    '        Dim TransactionDate As String = ""
-    '        Dim LocationTerm As String = cboSchedule1.SelectedItem
-    '        Dim ConfirmNbr As String = ""
-    '        Dim lecture As String = ""
-    '        Dim locationDate As String = ""
-    '        Dim ipAddress As String = "NA"
-    '        Dim userNumber As Integer = 0
-    '        Dim SQL1 As String = ""
-    '        Dim SQL2 As String = ""
-    '        Dim SQL3 As String = ""
-    '        Dim SQL4 As String = ""
-    '        Dim dr1 As OleDbDataReader
-    '        Dim dr2 As OracleDataReader
-    '        Dim dr3 As OracleDataReader
-    '        Dim dr4 As OracleDataReader
-
-
-
-    '        If cboSchedule1.SelectedIndex = 0 Or cboSchedule1.SelectedIndex = 1 Then
-    '            MsgBox("You must click on a Location/Term.")
-    '        Else
-    '            If OleDBconn.State = ConnectionState.Open Then
-    '            Else
-    '                OleDBconn.Open()
-    '            End If
-
-    '            If conn.State = ConnectionState.Open Then
-    '            Else
-    '                conn.Open()
-    '            End If
-
-    '            SQL1 = "select * from SmokeSchoolReservation "
-
-
-    '            Dim cmd1 As New OleDbCommand(SQL1, OleDBconn)
-    '            cmd1.CommandType = CommandType.Text
-
-    '            dr1 = cmd1.ExecuteReader
-
-    '            dr1.Read()
-    '            Do
-
-    '                If IsDBNull(dr1("numUserID")) Then
-    '                    userNumber = 0
-    '                Else
-    '                    userNumber = dr1("numUserID")
-    '                End If
-    '                If IsDBNull(dr1("strFirstName")) Then
-    '                    fname = ""
-    '                Else
-    '                    fname = dr1("strFirstName")
-    '                End If
-    '                If IsDBNull(dr1("strLastName")) Then
-    '                    lname = ""
-    '                Else
-    '                    lname = dr1("strLastName")
-    '                End If
-    '                If IsDBNull(dr1("strTitle")) Then
-    '                    title = ""
-    '                Else
-    '                    title = dr1("strTitle")
-    '                End If
-    '                If IsDBNull(dr1("strSalutation")) Then
-    '                    salutation = ""
-    '                Else
-    '                    salutation = dr1("strSalutation")
-    '                End If
-    '                If IsDBNull(dr1("strCompanyName")) Then
-    '                    facility = ""
-    '                Else
-    '                    facility = dr1("strCompanyName")
-    '                End If
-    '                If IsDBNull(dr1("strAddress1")) Then
-    '                    address1 = ""
-    '                Else
-    '                    address1 = dr1("strAddress1")
-    '                End If
-    '                If IsDBNull(dr1("strAddress2")) Then
-    '                    address2 = ""
-    '                Else
-    '                    address2 = dr1("strAddress2")
-    '                End If
-    '                If IsDBNull(dr1("strCity")) Then
-    '                    city = ""
-    '                Else
-    '                    city = dr1("strCity")
-    '                End If
-    '                If IsDBNull(dr1("strState")) Then
-    '                    state = ""
-    '                Else
-    '                    state = dr1("strState")
-    '                End If
-    '                If IsDBNull(dr1("strZip")) Then
-    '                    zip = ""
-    '                Else
-    '                    zip = dr1("strZip")
-    '                End If
-    '                If IsDBNull(dr1("strPhoneNumber")) Then
-    '                    phone = ""
-    '                Else
-    '                    phone = dr1("strPhoneNumber")
-    '                End If
-    '                If IsDBNull(dr1("strFax")) Then
-    '                    fax = ""
-    '                Else
-    '                    fax = dr1("strFax")
-    '                End If
-    '                If IsDBNull(dr1("strEmail")) Then
-    '                    email = ""
-    '                Else
-    '                    email = dr1("strEmail")
-    '                End If
-    '                If IsDBNull(dr1("strLectureYesNO")) Then
-    '                    lecture = ""
-    '                Else
-    '                    lecture = dr1("strLectureYesNO")
-    '                End If
-    '                If IsDBNull(dr1("strConfirmationNbr")) Then
-    '                    ConfirmNbr = ""
-    '                Else
-    '                    ConfirmNbr = dr1("strConfirmationNbr")
-    '                End If
-    '                If IsDBNull(dr1("strLocationDate")) Then
-    '                    locationDate = ""
-    '                Else
-    '                    locationDate = dr1("strLocationDate")
-    '                End If
-    '                If IsDBNull(dr1("datTransactionDate")) Then
-    '                    TransactionDate = ""
-    '                Else
-    '                    TransactionDate = dr1("datTransactionDate")
-    '                End If
-
-    '                'TransactionDate = toOraDate(TransactionDate)
-    '                TransactionDate = Format(CDate(TransactionDate), "dd-MMM-yyyy")
-    '                SQL2 = "Select * from airbranch.SmokeSchoolReservation " & _
-    '                    "where strLocationDate = '" & locationDate & "' " & _
-    '                    "and strLastName = '" & lname & "' " & _
-    '                    "and strFirstName = '" & fname & "' "
-
-    '                Dim cmd2 As New OracleCommand(SQL2, conn)
-    '                cmd2.CommandType = CommandType.Text
-
-    '                dr2 = cmd2.ExecuteReader
-
-    '                Dim recExist As Boolean = dr2.Read
-
-    '                If recExist = True Then
-    '                    MsgBox("Student " & fname & " " & lname & " already exist")
-    '                Else
-    '                    SQL3 = "select max(numUserID) as strUserNumber from airbranch.SmokeSchoolReservation " & _
-    '                           "where strlocationDate = '" & locationDate & "'"
-
-    '                    Dim cmd3 As New OracleCommand(SQL3, conn)
-    '                    cmd3.CommandType = CommandType.Text
-
-    '                    dr3 = cmd3.ExecuteReader
-
-    '                    While dr3.Read
-    '                        If IsDBNull(dr3("strUserNumber")) Then
-    '                            userNumber = 0
-    '                        Else
-    '                            userNumber = dr3("strUserNumber")
-    '                        End If
-    '                    End While
-
-    '                    userNumber = userNumber + 1
-
-    '                    SQL4 = "insert into airbranch.SmokeSchoolReservation " & _
-    '                           "(numUserID, " & _
-    '                           "strFirstName, " & _
-    '                           "strLastName, " & _
-    '                           "strTitle, " & _
-    '                           "strSalutation, " & _
-    '                           "strCompanyName, " & _
-    '                           "strAddress1, " & _
-    '                           "strAddress2, " & _
-    '                           "strCity, " & _
-    '                           "strState, " & _
-    '                           "strZip, " & _
-    '                           "strPhoneNumber, " & _
-    '                           "strFax, " & _
-    '                           "strEmail, " & _
-    '                           "strLectureYesNO, " & _
-    '                           "strConfirmationNbr, " & _
-    '                           "strLocationDate, " & _
-    '                           "datTransactionDate) " & _
-    '                           "values (" & _
-    '                           "'" & Replace(userNumber, "'", "''") & "', " & _
-    '                           "'" & Replace(fname, "'", "''") & "', " & _
-    '                           "'" & Replace(lname, "'", "''") & "', " & _
-    '                           "'" & Replace(title, "'", "''") & "', " & _
-    '                           "'" & Replace(salutation, "'", "''") & "', " & _
-    '                           "'" & Replace(facility, "'", "''") & "', " & _
-    '                           "'" & Replace(address1, "'", "''") & "', " & _
-    '                           "'" & Replace(address2, "'", "''") & "', " & _
-    '                           "'" & Replace(city, "'", "''") & "', " & _
-    '                           "'" & Replace(state, "'", "''") & "', " & _
-    '                           "'" & Replace(zip, "'", "''") & "', " & _
-    '                           "'" & Replace(phone, "'", "''") & "', " & _
-    '                           "'" & Replace(fax, "'", "''") & "', " & _
-    '                           "'" & Replace(email, "'", "''") & "', " & _
-    '                           "'" & Replace(lecture, "'", "''") & "', " & _
-    '                           "'" & Replace(ConfirmNbr, "'", "''") & "', " & _
-    '                           "'" & Replace(LocationTerm, "'", "''") & "', " & _
-    '                           "to_date('" & TransactionDate & "', 'dd-mon-yyyy hh24:mi:ss')) "
-
-    '                    Dim cmd4 As New OracleCommand(SQL4, conn)
-    '                    cmd4.CommandType = CommandType.Text
-
-    '                    dr4 = cmd4.ExecuteReader
-    '                    dr4.Close()
-
-    '                End If
-
-    '            Loop While dr1.Read()
-
-    '        End If
-
-    '    Catch ex As Exception
-    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    Finally
-    '    End Try
-
-    'End Sub
-
-#End Region
 
     Private Sub btnUpdateIDs_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateIDs.Click
         Try
@@ -4769,14 +3677,10 @@ Public Class SmokeSchool
     End Sub
     Private Sub btnExportPassToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportPassToExcel.Click
         Try
-            'Dim ExcelApp As Excel.Application = New Excel.ApplicationClass
             Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-            'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
             Dim col, row As Integer
             Dim x As String
             Dim y As String
-            'Dim a As Integer
-            'Dim b As Integer
             Dim c As Integer
             Dim d As Integer
             Dim startRow As Integer = 1
@@ -4800,9 +3704,6 @@ Public Class SmokeSchool
                     ExcelApp.Cells(startRow, col + 1).value = y
                 Next
 
-                'a = dgvScore3.ColumnCount - 1
-                'b = dgvScore3.RowCount - 1
-
                 startRow = startRow + 1
                 d = dgvScore3.RowCount - 2
                 For row = 0 To d
@@ -4814,7 +3715,6 @@ Public Class SmokeSchool
                         Else
                             x = dgvScore3.Item(col, row).Value.ToString
                         End If
-                        'x = dgvEU.Item(col, row).Value.ToString
                         ExcelApp.Cells(startRow, col + 1).value = x
 
                     Next
@@ -4940,7 +3840,6 @@ Public Class SmokeSchool
             Dim dtSmokeSchoolClasses As DataTable = GetSmokeSchoolClassesByTerm(termYear, termSeason)
             Dim dtSmokeSchoolPassingGrades As DataTable = GetSmokeSchoolPassingGradesByTerm(termYear, termSeason)
 
-            'strLastName, strFirstName, strLocationTerm, strLocation, CertId
             dtSmokeSchoolPassingGrades.Columns.Add("CertNumber")
             dtSmokeSchoolPassingGrades.Columns.Add("ExpDate")
             dtSmokeSchoolPassingGrades.Columns.Add("ClassDates")

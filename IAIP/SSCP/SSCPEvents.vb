@@ -3082,7 +3082,7 @@ Public Class SSCPEvents
 
             ShowCorrectTab()
 
-            If AccountArray(49, 2) = "1" Or AccountArray(49, 3) = "1" Or AccountArray(49, 4) = "1" Then
+            If AccountFormAccess(49, 2) = "1" Or AccountFormAccess(49, 3) = "1" Or AccountFormAccess(49, 4) = "1" Then
                 tbToolbar.Visible = True
                 mmiSave.Visible = True
             Else
@@ -3853,7 +3853,7 @@ Public Class SSCPEvents
             If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" And txtFacilityInformation.Text <> "" Then
                 Dim enfNum As String = txtEnforcementNumber.Text
                 If DAL.SSCP.EnforcementExists(enfNum) Then
-                    OpenMultiForm(SscpEnforcement, enfNum)
+                    OpenMultiForm("SscpEnforcement", enfNum)
                 Else
                     MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
                 End If
@@ -3879,7 +3879,7 @@ Public Class SSCPEvents
     Sub SaveMaster()
         Try
 
-            If AccountArray(49, 2) = "0" And AccountArray(49, 3) = "0" And AccountArray(49, 4) = "0" Then
+            If AccountFormAccess(49, 2) = "0" And AccountFormAccess(49, 3) = "0" And AccountFormAccess(49, 4) = "0" Then
                 MsgBox("You do not have sufficent permission to save Compliance Events.", MsgBoxStyle.Information, "Compliance Events")
             Else
                 If TPReport.Focus = True Then
@@ -7191,7 +7191,7 @@ Public Class SSCPEvents
     Private Sub chbEventComplete_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbEventComplete.CheckedChanged
         Try
 
-            If AccountArray(49, 1) = "1" Or AccountArray(49, 2) = "1" Or AccountArray(49, 3) = "1" Or AccountArray(49, 4) = "1" Then
+            If AccountFormAccess(49, 1) = "1" Or AccountFormAccess(49, 2) = "1" Or AccountFormAccess(49, 3) = "1" Or AccountFormAccess(49, 4) = "1" Then
                 chbEventComplete.Enabled = True
                 CompleteReport()
             Else

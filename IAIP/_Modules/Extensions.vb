@@ -7,7 +7,7 @@ Module Extensions
 
 #Region "DataGridView"
 
-#Region "Resize columns"
+#Region "Columns"
 
     <Extension()> _
     Public Sub SanelyResizeColumns(ByVal datagridview As DataGridView, _
@@ -28,6 +28,34 @@ Module Extensions
         ' Allow user resizing of columns:
         datagridview.AllowUserToResizeColumns = True
 
+    End Sub
+
+    <Extension()> _
+    Public Sub MakeColumnsLookLikeLinks(ByVal dgv As DataGridView, ByVal col As Integer)
+        dgv.MakeColumnsLookLikeLinks(New Integer() {col})
+    End Sub
+
+    <Extension()> _
+    Public Sub MakeColumnsLookLikeLinks(ByVal dgv As DataGridView, ByVal cols As Integer())
+        For Each col As Integer In cols
+            dgv.Columns(col).DefaultCellStyle.ForeColor = SystemColors.HotTrack
+        Next
+    End Sub
+
+    <Extension()> _
+    Public Sub MakeCellLookLikeHoveredLink(ByVal dgv As DataGridView, ByVal row As Integer, ByVal col As Integer)
+        dgv.Cursor = Cursors.Hand
+        dgv.Rows(row).Cells(col).Style.ForeColor = Color.Blue
+        dgv.Rows(row).Cells(col).Style.Font = _
+            New Font(dgv.DefaultCellStyle.Font, FontStyle.Underline)
+    End Sub
+
+    <Extension()> _
+Public Sub MakeCellNotLookLikeHoveredLink(ByVal dgv As DataGridView, ByVal row As Integer, ByVal col As Integer)
+        dgv.Cursor = Cursors.Default
+        dgv.Rows(row).Cells(col).Style.ForeColor = SystemColors.HotTrack
+        dgv.Rows(row).Cells(col).Style.Font = _
+            New Font(dgv.DefaultCellStyle.Font, FontStyle.Regular)
     End Sub
 
 #End Region

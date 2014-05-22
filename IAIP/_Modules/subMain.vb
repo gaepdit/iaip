@@ -18,6 +18,7 @@ Module subMain
 
     Friend Const APP_NAME As String = "IAIP"
     Friend Const APP_FRIENDLY_NAME As String = "Integrated Air Information Platform"
+    Friend Const APP_ROOT_NAMESPACE As String = "Iaip"
     Friend DocumentationUrl As New Uri("https://sites.google.com/site/iaipdocs/")
     Friend SupportUrl As New Uri("http://airpermit.dnr.state.ga.us/iaip/")
     Friend ChangelogUrl As New Uri("http://airpermit.dnr.state.ga.us/iaip/changelog.html")
@@ -29,12 +30,12 @@ Module subMain
 #Region " Old public variables "
     Public OracleDate As String = Format(Date.Today, "dd-MMM-yyyy")
     Public UserGCode As String
-    Public Permissions As String
+    Public UserAccounts As String
     Public UserName As String
     Public UserBranch As String
     Public UserProgram As String
     Public UserUnit As String
-    Public AccountArray(150, 4) As String
+    Public AccountFormAccess(150, 4) As String
 
     Public cmd, cmd2, cmd3 As OracleCommand
     Public dr, dr2, dr3 As OracleDataReader
@@ -46,7 +47,7 @@ Module subMain
 
 #Region " All Forms "
 
-#Region "Universal Screens"
+#Region " Universal Screens "
     Public PrintOut As IAIPPrintOut
     Public EditContacts As IAIPEditContacts ' TODO DWW: Remove
     Public EditFacilityLocation As IAIPEditFacilityLocation ' TODO DWW: Remove
@@ -59,11 +60,7 @@ Module subMain
     Public FacilityCreator As IAIPFacilityCreator ' TODO DWW: Remove
 #End Region
 
-#Region "Ambient Monitoring Screens"
-
-#End Region
-
-#Region "ISMP Screens"
+#Region " ISMP Screens "
     Public ISMPTestReportInfo As ISMPFacilityInfo ' TODO DWW: Remove
     Public ISMPMemoEdit As ISMPMemo ' TODO DWW: Remove
     Public ISMPNotificationLogForm As ISMPNotificationLog ' TODO DWW: Remove
@@ -75,54 +72,29 @@ Module subMain
     Public StaffReports As ISMPStaffReports ' TODO DWW: Remove
 #End Region
 
-#Region "Planning & Support Screens"
-    Public FacilityFeeForm As PASPFacilityFee
-    Public FeeDeposits As PASPFeeDeposits
-    Public FeesReports As PASPFeeReports
-    Public VarianceTool As PASPFeeVarianceCheck
-    Public WebAppUser As PASPWebApplicationUser
-    Public DepositsAmendments As PASPDepositsAmendments
-    Public MailoutAndStats As PASPFeeStatistics
-    Public FeeTools As PASPFeeTools
+#Region " Planning & Support Screens "
     Public FeeStats As PASPFeeAuditLog
-    Public FeesLog As PASPFeesLog
-    Public FeeManagement As PASPFeeManagement
-
 #End Region
 
-#Region "SSCP Screens"
-    Public SSCP_Work As SSCPComplianceLog
-    Public ManagersTools As SSCPManagersTools
+#Region " SSCP Screens "
+    Public SSCP_Work As SSCPComplianceLog ' TODO DWW: Remove
     Public SSCPReports As SSCPEvents
     Public SSCPFCE As SSCPFCEWork
-    Public SSCPFacAssign As SSCPFacAssignment
-    Public SSCPEngWork As SSCPWorkEnTry
-    Public SSCPRequest As SSCPInformationRequest
-    Public EnforcementChecklist As SSCPEnforcementChecklist
-    Public SSCPInspectionsTool As SSCPEngineerInspectionTool
-    Public SSCPInspectionscheduleTool As SSCPInspectionscheduleLink
-    Public EmissionSummary As SSCPEmissionSummaryTool
-    Public SSCPAdmin As SSCPAdministrator
-    Public InspectionTool As SSCPInspectionTool
+    Public SSCPFacAssign As SSCPFacAssignment ' TODO DWW: Remove
+    Public SSCPEngWork As SSCPWorkEnTry ' TODO DWW: Remove
+    Public SSCPRequest As SSCPInformationRequest ' TODO DWW: Remove
+    Public SSCPInspectionscheduleTool As SSCPInspectionscheduleLink ' TODO DWW: Remove
 #End Region
 
-#Region "SSPP Screens"
-    Public ApplicationLog As SSPPApplicationLog
-    Public PermitTrackingLog As SSPPApplicationTrackingLog
-    Public AttainmentStatus As SSPPAttainmentStatus
-    Public PublicLetter2 As SSPPPublicNoticiesAndAdvisories
-    Public StatisticalTools As SSPPStatisticalTools
-    Public FeeContact As SSPP_FeeContact
+#Region " SSPP Screens "
+    Public PermitTrackingLog As SSPPApplicationTrackingLog ' TODO DWW: Remove
+    Public AttainmentStatus As SSPPAttainmentStatus ' TODO DWW: Remove
+    Public FeeContact As SSPP_FeeContact ' TODO DWW: Remove
 #End Region
 
 #Region " SBEAP Screens "
     Public ClientSummary As SBEAPClientSummary
     Public CaseWork As SBEAPCaseWork
-    Public ClientSearchTool As SBEAPClientSearchTool
-    Public CaseLog As SBEAPCaseLog
-    Public ReportTool As SBEAPReports
-    Public PhoneLog As SBEAPPhoneLog
-    Public MiscTools As SBEAPMiscTools
 #End Region
 
 #End Region

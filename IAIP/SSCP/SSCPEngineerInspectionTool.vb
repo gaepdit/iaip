@@ -1408,7 +1408,7 @@ Public Class SSCPEngineerInspectionTool
     Sub SaveInspectionData()
         Try
 
-            If AccountArray(21, 2) = "0" And AccountArray(21, 3) = "0" And AccountArray(21, 4) = "0" Then
+            If AccountFormAccess(21, 2) = "0" And AccountFormAccess(21, 3) = "0" And AccountFormAccess(21, 4) = "0" Then
                 MsgBox("You do not have sufficent permission to save Compliance Events.", MsgBoxStyle.Information, "Compliance Events")
             Else
                 Dim AIRSNumber As String = ""
@@ -1806,7 +1806,6 @@ Public Class SSCPEngineerInspectionTool
     Private Sub SSCPEngineerInspectionTool_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
 
-            SSCPInspectionsTool = Nothing
             Me.Dispose()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

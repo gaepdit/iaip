@@ -181,7 +181,7 @@ Public Class IAIPEditFacilityLocation
             txtFacilityLatitude.BackColor = Color.White
             txtComments.BackColor = Color.White
 
-            If AccountArray(28, 2) = "1" Or AccountArray(28, 3) = "1" Or AccountArray(28, 4) = "1" Then
+            If AccountFormAccess(28, 2) = "1" Or AccountFormAccess(28, 3) = "1" Or AccountFormAccess(28, 4) = "1" Then
                 'End If
                 'If UserProgram = "5" Or (UserBranch = "1" And UserUnit = "---") _
                 '  Or (UserProgram = "3" And AccountArray(68, 3) = "1") Then

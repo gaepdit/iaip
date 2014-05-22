@@ -340,7 +340,7 @@ Public Class DMUTitleVTools
             TCDMUTools.TabPages.Remove(TPPermittingContact)
 
             'Web Publishers
-            If AccountArray(131, 2) = "1" Then
+            If AccountFormAccess(131, 2) = "1" Then
                 TCDMUTools.TabPages.Add(TPWebPublishing)
                 TCDMUTools.TabPages.Add(TPTVEmails)
                 TCDMUTools.TabPages.Add(TPTitleVRenewals)
@@ -2806,7 +2806,7 @@ Public Class DMUTitleVTools
                 txtEmailLetter.Text = txtEmailLetter.Text & "The final permit, permit review narrative and in most cases the " & _
                 "permit application will be available from the Georgia Air Permit Search Engine web page located at: " & _
                 vbCrLf & vbCrLf & _
-                "http://airpermit.dnr.state.ga.us/gaairpermits/" & vbCrLf & vbCrLf & _
+                "http://search.georgiaair.org/" & vbCrLf & vbCrLf & _
                 "Please reply to acknowledge receipt of this notification. Any questions regarding the final permits " & _
                 "may be directed to: " & vbCrLf & vbCrLf & _
                 "Eric Cornwell " & vbCrLf & "Program Manager" & vbCrLf & _

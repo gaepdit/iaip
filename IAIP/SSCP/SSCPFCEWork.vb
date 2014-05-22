@@ -50,7 +50,7 @@ Public Class SSCPFCEWork
             DTPFilterStartDate.Value = Format(Date.Today.AddDays(-365), "dd-MMM-yyyy")
             DTPFilterEndDate.Value = OracleDate
 
-            If AccountArray(50, 1) = "1" Or AccountArray(50, 2) = "1" Or AccountArray(50, 3) = "1" Or AccountArray(50, 4) = "1" Then
+            If AccountFormAccess(50, 1) = "1" Or AccountFormAccess(50, 2) = "1" Or AccountFormAccess(50, 3) = "1" Or AccountFormAccess(50, 4) = "1" Then
             Else
                 MenuSave.Visible = False
                 TBFCE.Buttons.Remove(TbbSave)
@@ -1813,7 +1813,7 @@ Public Class SSCPFCEWork
     Sub SaveFCE()
         Try
 
-            If AccountArray(50, 2) = "0" And AccountArray(50, 3) = "0" And AccountArray(50, 4) = "0" Then
+            If AccountFormAccess(50, 2) = "0" And AccountFormAccess(50, 3) = "0" And AccountFormAccess(50, 4) = "0" Then
                 MsgBox("Insufficent permissions to save Full Compliance Evaluations.", MsgBoxStyle.Information, "Full Compliance Evaluation.")
             Else
                 Dim FCENumber As String = ""
@@ -2177,7 +2177,7 @@ Public Class SSCPFCEWork
             If txtEnforcement.Text <> "" Then
                 Dim enfNum As String = txtEnforcement.Text
                 If DAL.SSCP.EnforcementExists(enfNum) Then
-                    OpenMultiForm(SscpEnforcement, enfNum)
+                    OpenMultiForm("SscpEnforcement", enfNum)
                 Else
                     MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
                 End If

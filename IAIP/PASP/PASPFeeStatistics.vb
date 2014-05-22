@@ -39,7 +39,7 @@ Public Class PASPFeeStatistics
             'Web Tab
             pnlDetails.Dock = DockStyle.None
 
-            If AccountArray(12, 3) <> "1" Then
+            If AccountFormAccess(12, 3) <> "1" Then
                 TCMailoutAndStats.TabPages.Remove(TPNonRespondersReport)
             End If
             loadDepositAndPayment()
@@ -65,7 +65,7 @@ Public Class PASPFeeStatistics
             chbFacilityBalance.Checked = False
             cboFeeStatYear.Text = cboFeeStatYear.Items.Item(0)
 
-            If AccountArray(135, 1) = "1" Or AccountArray(135, 2) = "1" Or AccountArray(135, 3) = "1" Or AccountArray(135, 4) = "1" Then
+            If AccountFormAccess(135, 1) = "1" Or AccountFormAccess(135, 2) = "1" Or AccountFormAccess(135, 3) = "1" Or AccountFormAccess(135, 4) = "1" Then
                 btnOpenFeesLog.Visible = True
                 txtFeeStatAirsNumber.Visible = True
             End If
@@ -3116,7 +3116,7 @@ Public Class PASPFeeStatistics
                         Dim enfNum As String = txtFeeComplianceEvent.Text
                         If enfNum = "" Then Exit Sub
                         If DAL.SSCP.EnforcementExists(enfNum) Then
-                            OpenMultiForm(SscpEnforcement, enfNum)
+                            OpenMultiForm("SscpEnforcement", enfNum)
                         Else
                             MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
                         End If
@@ -3148,7 +3148,7 @@ Public Class PASPFeeStatistics
                         End If
                         dr.Close()
                         If RefNum <> "" Then
-                            If DAL.ISMP.StackTestExists(RefNum) Then OpenMultiForm(ISMPTestReports, RefNum)
+                            If DAL.ISMP.StackTestExists(RefNum) Then OpenMultiForm("ISMPTestReports", RefNum)
                         Else
                             If SSCPReports Is Nothing Then
                                 SSCPReports = Nothing

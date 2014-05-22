@@ -905,7 +905,7 @@ Public Class ISMPMonitoringLog
 
             If DAL.ISMP.StackTestExists(id) Then
                 If UserProgram = "3" Then
-                    OpenMultiForm(ISMPTestReports, id)
+                    OpenMultiForm("ISMPTestReports", id)
                 Else
                     If DAL.ISMP.StackTestIsClosedOut(id) Then
                         If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then

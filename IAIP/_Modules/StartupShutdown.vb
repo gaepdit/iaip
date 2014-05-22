@@ -25,12 +25,13 @@
         ' The False setting should be migrated by above Upgrade()
         If My.Settings.FirstRun Then
             FirstRun()
+            My.Settings.FirstRun = False
         End If
 
         ' EQATEC analytics monitor
-        MonitorInit()
+        InitializeMonitor()
 
-        ' Form settings
+        ' Initialize form settings
         AllFormSettings = GetAllFormSettings()
 
     End Sub
@@ -48,7 +49,7 @@
         SaveAllFormSettings()
 
         ' EQATEC analytics monitor
-        MonitorStop()
+        StopMonitor()
 
     End Sub
 
@@ -67,7 +68,6 @@
         DeleteOldShortcuts()
 #End If
 
-        My.Settings.FirstRun = False
     End Sub
 
     ''' <summary>
@@ -87,7 +87,7 @@
     ''' Shuts down the running IAIP application
     ''' </summary>
     ''' <remarks></remarks>
-    Public Sub CloseIaip()
+    Friend Sub CloseIaip()
         CurrentConnection.Dispose()
         Application.Exit()
     End Sub

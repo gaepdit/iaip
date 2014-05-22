@@ -47,11 +47,11 @@ Public Class SSCPComplianceLog
             clbDistrictOffices.SelectedItems.Clear()
 
             'If AccountArray(4, 1) = "1" Then 'District Only 
-            If AccountArray(4, 1) = "1" _
-            And Not Permissions.Contains("(19)") _
-            And Not Permissions.Contains("(113)") _
-            And Not Permissions.Contains("(114)") _
-            And Not Permissions.Contains("(141)") _
+            If AccountFormAccess(4, 1) = "1" _
+            And Not UserAccounts.Contains("(19)") _
+            And Not UserAccounts.Contains("(113)") _
+            And Not UserAccounts.Contains("(114)") _
+            And Not UserAccounts.Contains("(141)") _
             Then
                 btnAddNewEntry.Visible = False
                 btnDeleteWork.Visible = False
@@ -62,7 +62,7 @@ Public Class SSCPComplianceLog
             Else
 
             End If
-            If AccountArray(4, 2) = "1" Then
+            If AccountFormAccess(4, 2) = "1" Then
                 rdbEnforcementAction.Enabled = True
                 rdbFCE.Enabled = True
             End If
@@ -285,7 +285,7 @@ Public Class SSCPComplianceLog
     End Sub
     Sub LoadDefaultSettings()
         Try
-            If AccountArray(4, 3) = "1" Or AccountArray(4, 4) = "1" Then 'Full Access in unit or District Liaison
+            If AccountFormAccess(4, 3) = "1" Or AccountFormAccess(4, 4) = "1" Then 'Full Access in unit or District Liaison
                 chbEngineer.Checked = False
             Else
                 chbEngineer.Checked = True
@@ -917,7 +917,7 @@ Public Class SSCPComplianceLog
             If rdbEnforcementAction.Checked = True Then
                 Dim parameters As New Dictionary(Of String, String)
                 parameters("airsnumber") = txtNewAIRSNumber.Text
-                OpenMultiForm(SscpEnforcement, -1, parameters)
+                OpenMultiForm("SscpEnforcement", -1, parameters)
 
                 'If SSCP_Enforcement Is Nothing Then
                 '    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = SSCPEnforcementAudit
@@ -969,7 +969,7 @@ Public Class SSCPComplianceLog
                             End If
                             dr.Close()
                             If RefNum <> "" Then
-                                If DAL.ISMP.StackTestExists(RefNum) Then OpenMultiForm(ISMPTestReports, RefNum)
+                                If DAL.ISMP.StackTestExists(RefNum) Then OpenMultiForm("ISMPTestReports", RefNum)
                             Else
                                 MsgBox("The Reference Number is not valid." & vbCrLf & _
                                 "Please check the number you entered.", MsgBoxStyle.Information, "SSCP Compliance Log")
@@ -1902,7 +1902,7 @@ Public Class SSCPComplianceLog
                     Dim enfNum As String = txtWorkNumber.Text
                     If enfNum = "" Then Exit Sub
                     If DAL.SSCP.EnforcementExists(enfNum) Then
-                        OpenMultiForm(SscpEnforcement, enfNum)
+                        OpenMultiForm("SscpEnforcement", enfNum)
                     Else
                         MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
                     End If
@@ -1991,7 +1991,7 @@ Public Class SSCPComplianceLog
                     End If
                     dr.Close()
                     If RefNum <> "" Then
-                        If DAL.ISMP.StackTestExists(RefNum) Then OpenMultiForm(ISMPTestReports, RefNum)
+                        If DAL.ISMP.StackTestExists(RefNum) Then OpenMultiForm("ISMPTestReports", RefNum)
                     Else
                         If SSCPReports Is Nothing Then
                             SSCPReports = Nothing

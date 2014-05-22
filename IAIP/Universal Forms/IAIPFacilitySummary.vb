@@ -112,7 +112,7 @@ Public Class IAIPFacilitySummary
                                 mmiISMPNewReport.Visible = True
                                 mmiSeperator.Visible = True
                             Else
-                                If AccountArray(17, 3) = "1" Then 'Unit Manager 
+                                If AccountFormAccess(17, 3) = "1" Then 'Unit Manager 
                                     mmiISMPNewReport.Visible = True
                                     mmiISMPNewLogEnTry.Visible = True
                                     mmiISMPTestLogLink.Visible = False
@@ -121,7 +121,7 @@ Public Class IAIPFacilitySummary
                                     mmiISMPNewReport.Visible = False
                                     mmiSeperator.Visible = False
                                 Else
-                                    If AccountArray(68, 3) = "1" Then 'ISMP Administrator
+                                    If AccountFormAccess(68, 3) = "1" Then 'ISMP Administrator
                                         mmiISMPNewReport.Visible = True
                                         mmiISMPNewLogEnTry.Visible = True
                                         mmiISMPTestLogLink.Visible = False
@@ -130,7 +130,7 @@ Public Class IAIPFacilitySummary
                                         mmiISMPNewReport.Visible = True
                                         mmiSeperator.Visible = False
                                     Else
-                                        If AccountArray(68, 2) = "1" Then 'ISMP Specialist
+                                        If AccountFormAccess(68, 2) = "1" Then 'ISMP Specialist
                                             mmiISMPNewReport.Visible = True
                                             mmiISMPNewLogEnTry.Visible = True
                                             mmiISMPTestLogLink.Visible = False
@@ -159,13 +159,13 @@ Public Class IAIPFacilitySummary
                                 mmiSSCPNewWork.Visible = True
                                 mmiSSCPFCE.Visible = True
                             Else
-                                If AccountArray(22, 3) = "1" Then 'Unit Manager 
+                                If AccountFormAccess(22, 3) = "1" Then 'Unit Manager 
                                     'mmiSSCPAssignEngineer.Visible = True
                                     mmiSSCPAssignEngineer.Visible = False
                                     mmiSSCPNewWork.Visible = True
                                     mmiSSCPFCE.Visible = True
                                 Else
-                                    If AccountArray(10, 3) = "1" Then 'Distirct Liason 
+                                    If AccountFormAccess(10, 3) = "1" Then 'Distirct Liason 
                                         mmiSSCPAssignEngineer.Visible = False
                                         mmiSSCPNewWork.Visible = True
                                         mmiSSCPFCE.Visible = True
@@ -194,10 +194,10 @@ Public Class IAIPFacilitySummary
             End Select
 
             mmiNewFacility.Visible = False
-            If AccountArray(138, 0) Is Nothing Then
+            If AccountFormAccess(138, 0) Is Nothing Then
             Else
-                If AccountArray(138, 0) = "138" Then
-                    If AccountArray(138, 1) = "1" Or AccountArray(138, 2) = "1" Or AccountArray(138, 3) = "1" Or AccountArray(138, 4) = "1" Then
+                If AccountFormAccess(138, 0) = "138" Then
+                    If AccountFormAccess(138, 1) = "1" Or AccountFormAccess(138, 2) = "1" Or AccountFormAccess(138, 3) = "1" Or AccountFormAccess(138, 4) = "1" Then
                         mmiNewFacility.Visible = True
                     End If
                 End If
@@ -216,7 +216,7 @@ Public Class IAIPFacilitySummary
         pnlLocationEditor.Visible = False
         pnlEditHeaderData.Visible = False
 
-        If UserUnit = "---" Or AccountArray(22, 3) = "1" Or AccountArray(1, 3) = "1" Then
+        If UserUnit = "---" Or AccountFormAccess(22, 3) = "1" Or AccountFormAccess(1, 3) = "1" Then
             pnlLocationEditor.Visible = True
             pnlEditHeaderData.Visible = True
         End If
@@ -1176,7 +1176,7 @@ Public Class IAIPFacilitySummary
 
 
             If mtbAIRSNumber.Text <> "" Then
-                Dim url As String = "http://airpermit.dnr.state.ga.us/gaairpermits/default.aspx?AirsNumber='" & mtbAIRSNumber.Text & "'"
+                Dim url As String = "http://search.georgiaair.org/?AirsNumber=" & mtbAIRSNumber.Text
                 OpenUri(url, Me)
             End If
 
@@ -3200,7 +3200,7 @@ Public Class IAIPFacilitySummary
 
             If DAL.ISMP.StackTestExists(id) Then
                 If UserProgram = "3" Then
-                    OpenMultiForm(ISMPTestReports, id)
+                    OpenMultiForm("ISMPTestReports", id)
                 Else
                     If DAL.ISMP.StackTestIsClosedOut(id) Then
                         If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
@@ -3511,7 +3511,7 @@ Public Class IAIPFacilitySummary
             Dim enfNum As String = txtEnforcementNumber.Text
             If enfNum = "" Then Exit Sub
             If DAL.SSCP.EnforcementExists(enfNum) Then
-                OpenMultiForm(SscpEnforcement, enfNum)
+                OpenMultiForm("SscpEnforcement", enfNum)
             Else
                 MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If

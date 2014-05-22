@@ -682,12 +682,12 @@ Public Class SSPPApplicationLog
             txtSearchText2.Clear()
 
             cboApplicationStatus.Text = "Active"
-            If AccountArray(3, 3) = "1" And UserUnit = "---" Then
+            If AccountFormAccess(3, 3) = "1" And UserUnit = "---" Then
                 'All active Applications
                 cboApplicationType.Text = "All"
                 'cboApplicationType.Text = "Title V"
             Else
-                If AccountArray(3, 3) = "1" And UserUnit <> "---" Then
+                If AccountFormAccess(3, 3) = "1" And UserUnit <> "---" Then
                     'All Active Applications from UC's Unit
                     SQL = "Select numUnit " & _
                     "from " & DBNameSpace & ".EPDUserProfiles " & _
@@ -723,7 +723,7 @@ Public Class SSPPApplicationLog
                     'End If
                 End If
             End If
-            If AccountArray(3, 4) = "1" Then
+            If AccountFormAccess(3, 4) = "1" Then
                 mmiNewApplication.Visible = True
             End If
         Catch ex As Exception
@@ -734,7 +734,6 @@ Public Class SSPPApplicationLog
 
     End Sub
     Private Sub SSPPApplicationLog_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        ApplicationLog = Nothing
         Me.Dispose()
     End Sub
 #End Region
@@ -2011,9 +2010,6 @@ Public Class SSPPApplicationLog
 
         dgvApplicationLog.Columns("strApplicationNumber").HeaderText = "APL #"
         dgvApplicationLog.Columns("strApplicationNumber").DisplayIndex = 0
-        dgvApplicationLog.Columns("strApplicationNumber").DefaultCellStyle.ForeColor = Color.Blue
-        dgvApplicationLog.Columns("strApplicationNumber").DefaultCellStyle.Font = _
-            New Font(dgvApplicationLog.DefaultCellStyle.Font, FontStyle.Underline)
         dgvApplicationLog.Columns("strApplicationType").HeaderText = "APL Type"
         dgvApplicationLog.Columns("strApplicationType").DisplayIndex = 4
         dgvApplicationLog.Columns("datReceivedDate").HeaderText = "APL Rcvd"
@@ -2039,6 +2035,8 @@ Public Class SSPPApplicationLog
         dgvApplicationLog.Columns("strSICCode").DisplayIndex = 11
         dgvApplicationLog.Columns("strPlantDescription").HeaderText = "Plant Description"
         dgvApplicationLog.Columns("strPlantDescription").DisplayIndex = 12
+
+        dgvApplicationLog.MakeColumnsLookLikeLinks(0)
 
         If chbShowAll.Checked = True Then
             dgvApplicationLog.Columns("strFacilityStreet1").HeaderText = "Facility Address"
@@ -2164,7 +2162,7 @@ Public Class SSPPApplicationLog
 #Region "Other procedures"
     Private Sub StartNewApplication()
         Try
-            If AccountArray(3, 4) = "1" Then
+            If AccountFormAccess(3, 4) = "1" Then
                 If PermitTrackingLog Is Nothing Then
                     PermitTrackingLog = New SSPPApplicationTrackingLog
                     PermitTrackingLog.Show()
@@ -3540,26 +3538,29 @@ Public Class SSPPApplicationLog
 
     End Sub
 
+#End Region
+
+#Region " DataGridView Events "
+
     Private Sub dgvApplicationLog_CellMouseEnter(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
-        Handles dgvApplicationLog.CellMouseEnter
+    Handles dgvApplicationLog.CellMouseEnter
         ' Change cursor and text color when hovering over first column (treats text like a hyperlink)
 
         If e.ColumnIndex = dgvApplicationLog.Columns("strApplicationNumber").Index And e.RowIndex <> -1 Then
-            dgvApplicationLog.Cursor = Cursors.Hand
-            dgvApplicationLog.Rows(e.RowIndex).Cells("strApplicationNumber").Style.ForeColor = Color.BlueViolet
+            dgvApplicationLog.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex)
         End If
     End Sub
+
     Private Sub dgvApplicationLog_CellMouseLeave(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
-        Handles dgvApplicationLog.CellMouseLeave
+    Handles dgvApplicationLog.CellMouseLeave
         ' Reset cursor and text color when mouse leaves (un-hovers) a cell
         If e.ColumnIndex = dgvApplicationLog.Columns("strApplicationNumber").Index And e.RowIndex <> -1 Then
-            dgvApplicationLog.Cursor = Cursors.Default
-            dgvApplicationLog.Rows(e.RowIndex).Cells("strApplicationNumber").Style.ForeColor = Color.Blue
+            dgvApplicationLog.MakeCellNotLookLikeHoveredLink(e.RowIndex, e.ColumnIndex)
         End If
     End Sub
 
     Private Sub dgvApplicationLog_CellClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
-        Handles dgvApplicationLog.CellClick
+    Handles dgvApplicationLog.CellClick
 
         ' Anywhere in any cell in any non-header row in grid
         If e.RowIndex <> -1 And e.RowIndex < dgvApplicationLog.RowCount Then
@@ -3576,15 +3577,18 @@ Public Class SSPPApplicationLog
             OpenApplication(dgvApplicationLog.Rows(e.RowIndex).Cells("strApplicationNumber").Value)
         End If
     End Sub
+
     Private Sub dgvApplicationLog_CellDoubleClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
-        Handles dgvApplicationLog.CellDoubleClick
+    Handles dgvApplicationLog.CellDoubleClick
         'Double-click within the cell content (exclude first column to avoid double-firing)
         If e.RowIndex <> -1 And e.RowIndex < dgvApplicationLog.RowCount _
             And e.ColumnIndex <> dgvApplicationLog.Columns("strApplicationNumber").Index Then
             OpenApplication(dgvApplicationLog.Rows(e.RowIndex).Cells("strApplicationNumber").Value)
         End If
     End Sub
-    Private Sub dgvApplicationLog_CellEnter(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvApplicationLog.CellEnter
+
+    Private Sub dgvApplicationLog_CellEnter(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
+    Handles dgvApplicationLog.CellEnter
         If e.RowIndex <> -1 And e.RowIndex < dgvApplicationLog.RowCount Then
             selectedApp = dgvApplicationLog.Rows(e.RowIndex).Cells("strApplicationNumber").Value
             Panel1.Text = selectedApp & " – " & _
@@ -3593,6 +3597,7 @@ Public Class SSPPApplicationLog
             mmiOpen.Enabled = True
         End If
     End Sub
+
 #End Region
 
 #Region "Menu, buttons, and toolbar"

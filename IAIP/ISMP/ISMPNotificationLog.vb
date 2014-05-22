@@ -27,7 +27,7 @@ Public Class ISMPNotificationLog
             DTPTestDateStart.Text = OracleDate
             DTPTestDateEnd.Text = OracleDate
 
-            If AccountArray(66, 2) <> "1" And AccountArray(66, 3) <> "1" Then
+            If AccountFormAccess(66, 2) <> "1" And AccountFormAccess(66, 3) <> "1" Then
                 bbtSave.Visible = False
                 SaveToolStripMenuItem.Visible = False
                 btnNewTestNotification.Visible = False
@@ -354,7 +354,7 @@ Public Class ISMPNotificationLog
 #Region "Subs and Functions"
     Sub SaveNotification()
         Try
-            If AccountArray(66, 2) = "1" Or AccountArray(66, 3) = "1" Then
+            If AccountFormAccess(66, 2) = "1" Or AccountFormAccess(66, 3) = "1" Then
                 Dim UserIDNum As String = ""
                 Dim TestPlan As String = ""
                 Dim TimelyNotification As String = ""
