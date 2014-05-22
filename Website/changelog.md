@@ -1,5 +1,13 @@
 % IAIP Change Log
 
+## Version 3.4 <span> (2014-05-22)</span>
+
++ NEW: Several UI improvements to Navigation Screen (#238, #216, #167)
+
+- FIX: Sometimes Navigation Screen default list does not load (#215); thx Dave M.
+- FIX: Huge performance gain on Navigation Screen upon login (#239)
+- FIX: Some URLs have changed after the Great NADC Server Consolidation (#234)
+
 ## Version 3.3 <span> (2014-05-12)</span>
 
 - NEW: *SBEAP* -- Small Business Environmental Assistance Program now incorporated into IAIP (#210)
@@ -40,7 +48,6 @@ Welcome to the latest version of the IAIP! We hope the new installation platform
 Many thanks to our brave volunteers who tested the new installer and offered valuable feedback!
 
 + Travis Harris
-+ Byeong Kim
 + David Lyle
 + Lynne Collier
 + Gany Seetharaman
@@ -78,7 +85,7 @@ First Release Candidate for Version 3.0.
 
 ## Version 2.8.8 <span>(2014-01-31, limited release)</span>
 
-+ FIX: *ISMP* – Unable to open multiple test reports at once (#176); thx Dave Sheffield
++ FIX: *ISMP* – Unable to open multiple test reports at once (#176); thx Dave S.
 + FIX: Error thrown if incorrect password entered in Login Screen (#177)
 + FIX: Various minor bug fixes
 
