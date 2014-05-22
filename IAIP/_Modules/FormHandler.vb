@@ -27,7 +27,7 @@ Module FormHandler
         End If
 
         If Not MultiFormIsOpen(formName, id) Then
-            MultiForm(formName)(id) = Activator.CreateInstance(formType.GetType)
+            MultiForm(formName)(id) = Activator.CreateInstance(formType)
             MultiForm(formName)(id).ID = id
         End If
 
