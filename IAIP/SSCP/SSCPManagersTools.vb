@@ -4069,7 +4069,7 @@ Public Class SSCPManagersTools
             Dim enfNum As String = txtRecordNumber.Text
             If enfNum = "" Then Exit Sub
             If DAL.SSCP.EnforcementExists(enfNum) Then
-                OpenMultiForm(SscpEnforcement, enfNum)
+                OpenMultiForm("SscpEnforcement", enfNum)
             Else
                 MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If

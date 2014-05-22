@@ -251,7 +251,7 @@ Public Class IAIPNavigation
 
             If DAL.ISMP.StackTestExists(id) Then
                 If UserProgram = "3" Then
-                    OpenMultiForm(ISMPTestReports, id)
+                    OpenMultiForm("ISMPTestReports", id)
                 Else
                     If DAL.ISMP.StackTestIsClosedOut(id) Then
                         If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
@@ -278,7 +278,7 @@ Public Class IAIPNavigation
             Dim id As String = txtOpenEnforcement.Text
             If id = "" Then Exit Sub
             If DAL.SSCP.EnforcementExists(id) Then
-                OpenMultiForm(SscpEnforcement, id)
+                OpenMultiForm("SscpEnforcement", id)
             Else
                 MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If
@@ -295,7 +295,7 @@ Public Class IAIPNavigation
             If DAL.SSCP.WorkItemExists(id) Then
                 Dim refNum As String = ""
                 If DAL.SSCP.WorkItemIsAStackTest(id, refNum) Then
-                    OpenMultiForm(ISMPTestReports, refNum)
+                    OpenMultiForm("ISMPTestReports", refNum)
                 Else
                     If SSCPReports IsNot Nothing AndAlso Not SSCPReports.IsDisposed Then
                         SSCPReports.Dispose()

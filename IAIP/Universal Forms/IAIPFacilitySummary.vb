@@ -3200,7 +3200,7 @@ Public Class IAIPFacilitySummary
 
             If DAL.ISMP.StackTestExists(id) Then
                 If UserProgram = "3" Then
-                    OpenMultiForm(ISMPTestReports, id)
+                    OpenMultiForm("ISMPTestReports", id)
                 Else
                     If DAL.ISMP.StackTestIsClosedOut(id) Then
                         If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
@@ -3511,7 +3511,7 @@ Public Class IAIPFacilitySummary
             Dim enfNum As String = txtEnforcementNumber.Text
             If enfNum = "" Then Exit Sub
             If DAL.SSCP.EnforcementExists(enfNum) Then
-                OpenMultiForm(SscpEnforcement, enfNum)
+                OpenMultiForm("SscpEnforcement", enfNum)
             Else
                 MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If

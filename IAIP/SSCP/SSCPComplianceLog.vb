@@ -917,7 +917,7 @@ Public Class SSCPComplianceLog
             If rdbEnforcementAction.Checked = True Then
                 Dim parameters As New Dictionary(Of String, String)
                 parameters("airsnumber") = txtNewAIRSNumber.Text
-                OpenMultiForm(SscpEnforcement, -1, parameters)
+                OpenMultiForm("SscpEnforcement", -1, parameters)
 
                 'If SSCP_Enforcement Is Nothing Then
                 '    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = SSCPEnforcementAudit
@@ -969,7 +969,7 @@ Public Class SSCPComplianceLog
                             End If
                             dr.Close()
                             If RefNum <> "" Then
-                                If DAL.ISMP.StackTestExists(RefNum) Then OpenMultiForm(ISMPTestReports, RefNum)
+                                If DAL.ISMP.StackTestExists(RefNum) Then OpenMultiForm("ISMPTestReports", RefNum)
                             Else
                                 MsgBox("The Reference Number is not valid." & vbCrLf & _
                                 "Please check the number you entered.", MsgBoxStyle.Information, "SSCP Compliance Log")
@@ -1902,7 +1902,7 @@ Public Class SSCPComplianceLog
                     Dim enfNum As String = txtWorkNumber.Text
                     If enfNum = "" Then Exit Sub
                     If DAL.SSCP.EnforcementExists(enfNum) Then
-                        OpenMultiForm(SscpEnforcement, enfNum)
+                        OpenMultiForm("SscpEnforcement", enfNum)
                     Else
                         MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
                     End If
@@ -1991,7 +1991,7 @@ Public Class SSCPComplianceLog
                     End If
                     dr.Close()
                     If RefNum <> "" Then
-                        If DAL.ISMP.StackTestExists(RefNum) Then OpenMultiForm(ISMPTestReports, RefNum)
+                        If DAL.ISMP.StackTestExists(RefNum) Then OpenMultiForm("ISMPTestReports", RefNum)
                     Else
                         If SSCPReports Is Nothing Then
                             SSCPReports = Nothing

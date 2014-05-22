@@ -3116,7 +3116,7 @@ Public Class PASPFeeStatistics
                         Dim enfNum As String = txtFeeComplianceEvent.Text
                         If enfNum = "" Then Exit Sub
                         If DAL.SSCP.EnforcementExists(enfNum) Then
-                            OpenMultiForm(SscpEnforcement, enfNum)
+                            OpenMultiForm("SscpEnforcement", enfNum)
                         Else
                             MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
                         End If
@@ -3148,7 +3148,7 @@ Public Class PASPFeeStatistics
                         End If
                         dr.Close()
                         If RefNum <> "" Then
-                            If DAL.ISMP.StackTestExists(RefNum) Then OpenMultiForm(ISMPTestReports, RefNum)
+                            If DAL.ISMP.StackTestExists(RefNum) Then OpenMultiForm("ISMPTestReports", RefNum)
                         Else
                             If SSCPReports Is Nothing Then
                                 SSCPReports = Nothing

@@ -3853,7 +3853,7 @@ Public Class SSCPEvents
             If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" And txtFacilityInformation.Text <> "" Then
                 Dim enfNum As String = txtEnforcementNumber.Text
                 If DAL.SSCP.EnforcementExists(enfNum) Then
-                    OpenMultiForm(SscpEnforcement, enfNum)
+                    OpenMultiForm("SscpEnforcement", enfNum)
                 Else
                     MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
                 End If
