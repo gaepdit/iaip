@@ -1358,7 +1358,6 @@ Public Class IAIPNavigation
 
         ' EIS
         AddNavButtonIfAccountHasFormAccess(20, "Emissions Summary Tool", "SSCPEmissionSummaryTool", NavButtonCategories.EIS)
-        AddNavButtonIfAccountHasFormAccess(140, "Emission Inventory Log", "IAIP_EIS_Log", NavButtonCategories.EIS)
         AddNavButtonIfAccountHasFormAccess(130, "EIS && GECO Tools", "DMUStaffTools", NavButtonCategories.EIS)
 
         'SBEAP

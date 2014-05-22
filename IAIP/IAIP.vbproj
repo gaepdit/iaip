@@ -211,12 +211,6 @@
     <Compile Include="DevelopmentForms\IAIPPhoneList.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DMU\IAIP_EIS_Log.Designer.vb">
-      <DependentUpon>IAIP_EIS_Log.vb</DependentUpon>
-    </Compile>
-    <Compile Include="DMU\IAIP_EIS_Log.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Universal Forms\BaseForm.Designer.vb">
       <DependentUpon>BaseForm.vb</DependentUpon>
     </Compile>
@@ -1005,9 +999,6 @@
     <EmbeddedResource Include="DevelopmentForms\IAIPPhoneList.resx">
       <DependentUpon>IAIPPhoneList.vb</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DMU\IAIP_EIS_Log.resx">
-      <DependentUpon>IAIP_EIS_Log.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PASP\PASPFeeStatistics.resx">
       <DependentUpon>PASPFeeStatistics.vb</DependentUpon>
