@@ -165,7 +165,13 @@
 
 #Region "Shared Functions"
 
-        Public Shared Function IsAirsNumberValid(ByVal airsNumber As String) As Boolean
+        ''' <summary>
+        ''' Tests whether a given string represents a valid AIRS number in format
+        ''' (not whether the AIRS number is actually in use).
+        ''' </summary>
+        ''' <param name="airsNumber">The string to test</param>
+        ''' <returns>True if test string is in the format of a valid AIRS number. Otherwise, false.</returns>
+        Public Shared Function IsValidAirsNumber(ByVal airsNumber As String) As Boolean
             ' Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000
             ' (with or without the dashes)
 
@@ -195,7 +201,7 @@
             ' Return value indicates whether the conversion succeeded.
 
             ' First, validate the raw AIRS number
-            If Not IsAirsNumberValid(airsNumber) Then Return False
+            If Not IsValidAirsNumber(airsNumber) Then Return False
 
             ' If okay, then remove spaces and dashes
             airsNumber = airsNumber.Replace("-", "").Replace(" ", "")

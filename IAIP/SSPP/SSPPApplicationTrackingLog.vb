@@ -2,6 +2,7 @@ Imports System.DateTime
 Imports Oracle.DataAccess.Client
 Imports System.IO
 Imports System.Net.Mail
+Imports System.Collections.Generic
 
 Public Class SSPPApplicationTrackingLog
     Dim SQL, SQL2, SQL3 As String
@@ -7346,8 +7347,7 @@ Public Class SSPPApplicationTrackingLog
                     Next
                 End If
 
-                If DTPFinalAction.Checked = True And Me.chbClosedOut.Checked = True And txtAIRSNumber.Text.Length = 8 _
-                   And IsNumeric(txtAIRSNumber.Text) = True Then
+                If DTPFinalAction.Checked = True And chbClosedOut.Checked = True And txtAIRSNumber.Text.Length = 8 Then
 
                     SQL = "Select strSICCode " & _
                     "from " & DBNameSpace & ".LookUPSICCodes " & _
@@ -7377,38 +7377,81 @@ Public Class SSPPApplicationTrackingLog
                         GenerateAFSEntry()
                     End If
 
-                    Dim temp As String
+                    If Mid(txtAIRSNumber.Text, 1, 2) <> "AP" And Apb.Facility.IsValidAirsNumber(txtAIRSNumber.Text) Then
+                        Dim dresult As DialogResult = MessageBox.Show("Do you want to update Facility Information with this Application?", _
+                           "Permit Tracking Log", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
+                        If dresult = Windows.Forms.DialogResult.Yes Then
+                            UpdateAPBTables()
+                        End If
 
-                    If Mid(txtAIRSNumber.Text, 1, 2) <> "AP" Then
-                        temp = MessageBox.Show("Do you want to update Faciltiy Information with this Application?", _
-                           "Permit Tracking Log", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                        Select Case temp
-                            Case Windows.Forms.DialogResult.Yes
-                                UpdateAPBTables()
-                            Case Windows.Forms.DialogResult.No
+                        PermitRevocationQuery()
 
-                            Case Windows.Forms.DialogResult.Cancel
+                        If Apb.SSPP.Permit.IsValidPermitNumber(txtPermitNumber.Text) Then
+                            SaveIssuedPermit()
+                        End If
 
-                            Case Else
-
-                        End Select
                     End If
 
                 End If
                 FormStatus = "Loading"
                 LoadBasicFacilityInfo()
                 FormStatus = ""
-                'MsgBox("Application Information Saved.", MsgBoxStyle.Information, "Application Tracking Log")
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-         
     End Sub
-    Sub SaveInformationRequest()
+
+    Private Sub PermitRevocationQuery()
+        ' Check for existing permits first
+        Dim activePermits As List(Of Apb.SSPP.Permit) = DAL.SSPP.GetActivePermitsAsList(txtAIRSNumber.Text)
+
+        If activePermits IsNot Nothing AndAlso activePermits.Count > 0 Then
+
+            Dim permitRevocationDialog As New SsppPermitRevocationDialog
+            permitRevocationDialog.ActivePermits = activePermits ' Send list of existing permits to dialog
+            permitRevocationDialog.ShowDialog()
+            Dim revokedPermits As List(Of Apb.SSPP.Permit) = permitRevocationDialog.SelectedPermits
+
+            If revokedPermits IsNot Nothing AndAlso revokedPermits.Count > 0 Then
+                For Each p As Apb.SSPP.Permit In revokedPermits
+                    p.RevokedDate = DTPFinalAction.Value
+                Next
+
+                Dim result As Boolean = DAL.SSPP.UpdatePermits(revokedPermits)
+                If Not result Then
+                    MessageBox.Show("There was an error revoking permits." & vbNewLine & _
+                                    "Please contact the Data Management Unit.", "Error", _
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
+            End If
+        End If
+    End Sub
+
+    Private Sub SaveIssuedPermit()
+        Dim result As Boolean = False
+        Dim permit As Apb.SSPP.Permit
+
+        If Not DAL.SSPP.PermitExists(txtPermitNumber.Text) Then
+            permit = New Apb.SSPP.Permit(txtAIRSNumber.Text, txtPermitNumber.Text, _
+                                         DTPFinalAction.Value, True, cboApplicationType.SelectedValue)
+            result = DAL.SSPP.AddPermit(permit)
+        Else
+            permit = DAL.SSPP.GetPermit(txtPermitNumber.Text)
+            permit.IssuedDate = DTPFinalAction.Value
+            permit.PermitTypeCode = cboApplicationType.SelectedValue
+            result = DAL.SSPP.UpdatePermit(permit)
+        End If
+
+        If Not result Then
+            MessageBox.Show("There was an error saving the permit." & vbNewLine & _
+                            "Please contact the Data Management Unit.", "Error", _
+                            MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
+    End Sub
+
+    Private Sub SaveInformationRequest()
         Dim InformationRequestKey As String = ""
         Dim InformationRequested As String = ""
         Dim InformationReceived As String = ""
@@ -7416,7 +7459,7 @@ Public Class SSPPApplicationTrackingLog
         Dim DateInfoReceived As String
 
         Try
-             
+
             If txtApplicationNumber.Text <> "" Then
                 SQL = "Select strApplicationNumber " & _
                 "from " & DBNameSpace & ".SSPPApplicationMaster " & _
@@ -7534,7 +7577,7 @@ Public Class SSPPApplicationTrackingLog
         Finally
 
         End Try
-         
+
 
     End Sub
     Sub DeleteInformationRequest()

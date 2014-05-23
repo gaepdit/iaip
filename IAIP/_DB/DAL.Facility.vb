@@ -27,7 +27,7 @@ Namespace DAL
             Return DB.GetSingleValue(Of String)(query, parameter)
         End Function
 
-        Public Function GetFacilityInfoByAirsAsDataRow(ByVal id As String) As DataRow
+        Private Function GetFacilityInfoByAirsAsDataRow(ByVal id As String) As DataRow
             If Not Facility.NormalizeAirsNumber(id, True) Then Return Nothing
 
             Dim query As String = "SELECT APBFACILITYINFORMATION.STRAIRSNUMBER, " & _
