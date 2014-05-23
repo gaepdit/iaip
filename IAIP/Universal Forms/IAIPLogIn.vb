@@ -7,13 +7,13 @@ Public Class IAIPLogIn
     Private Sub IAIPLogIn_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
         If txtUserID.Enabled Then txtUserID.Text = GetUserSetting(UserSetting.PrefillLoginId)
         FocusLogin()
+        DisplayVersion()
         monitor.TrackFeatureStop("Startup.Loading")
     End Sub
 
     Private Sub IAIPLogIn_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Main." & Me.Name)
         Try
-            DisplayVersion()
             CheckLanguageRegistrySetting()
             CheckDBAvailability()
 
@@ -108,6 +108,8 @@ Public Class IAIPLogIn
                          "Thank you.")
             Return False
         End If
+
+
     End Function
 
 #End Region

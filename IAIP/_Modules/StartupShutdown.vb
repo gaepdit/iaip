@@ -12,7 +12,7 @@
         Console.WriteLine("Environment.UserName: " & Environment.UserName)
 #End If
 
-        ' Settings
+        ' Upgrade Settings
         ' Should run each time program is upgraded
         ' Upgrade() folds in settings from previous version
         If My.Settings.CallUpgrade Then
@@ -22,9 +22,9 @@
 
         ' First Run
         ' Should only run the first time a new installation is run
-        ' The False setting should be migrated by above Upgrade()
+        ' A False setting should be migrated by My.Settings.Upgrade() above
         If My.Settings.FirstRun Then
-            FirstRun()
+            DeleteOldShortcuts()
             My.Settings.FirstRun = False
         End If
 
@@ -50,23 +50,6 @@
 
         ' EQATEC analytics monitor
         StopMonitor()
-
-    End Sub
-
-    ''' <summary>
-    ''' Should only execute the first time a new installation is run
-    ''' </summary>
-    ''' <remarks>
-    ''' Flips FirstRun setting to false when run
-    ''' Can be used for setup requirements
-    ''' + Deletes old JohnGa1tProject shortcut icons
-    ''' </remarks>
-    Friend Sub FirstRun()
-        If Not My.Settings.FirstRun Then Exit Sub
-
-#If Not Debug Then
-        DeleteOldShortcuts()
-#End If
 
     End Sub
 
