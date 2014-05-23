@@ -1860,4 +1860,11 @@ Public Class IAIPUserAdminTool
         OpenSingleForm(IAIPPhoneList)
     End Sub
 
+    Private Sub pnlSearch_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles pnlSearch.Enter
+        Me.AcceptButton = btnSearch
+    End Sub
+
+    Private Sub pnlSearch_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles pnlSearch.Leave
+        Me.AcceptButton = Nothing
+    End Sub
 End Class

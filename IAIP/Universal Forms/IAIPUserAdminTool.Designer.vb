@@ -115,7 +115,7 @@ Partial Class IAIPUserAdminTool
         Me.Label20 = New System.Windows.Forms.Label
         Me.Label17 = New System.Windows.Forms.Label
         Me.Label18 = New System.Windows.Forms.Label
-        Me.Panel2 = New System.Windows.Forms.Panel
+        Me.pnlSearch = New System.Windows.Forms.Panel
         Me.lblCount = New System.Windows.Forms.Label
         Me.dgvUserAdminTool = New System.Windows.Forms.DataGridView
         Me.btnAll = New System.Windows.Forms.Button
@@ -145,7 +145,7 @@ Partial Class IAIPUserAdminTool
         Me.Panel3.SuspendLayout()
         Me.TPPermission.SuspendLayout()
         Me.Panel4.SuspendLayout()
-        Me.Panel2.SuspendLayout()
+        Me.pnlSearch.SuspendLayout()
         CType(Me.dgvUserAdminTool, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -433,7 +433,7 @@ Partial Class IAIPUserAdminTool
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control
-        Me.SplitContainer1.Panel2.Controls.Add(Me.Panel2)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.pnlSearch)
         Me.SplitContainer1.Size = New System.Drawing.Size(792, 408)
         Me.SplitContainer1.SplitterDistance = 221
         Me.SplitContainer1.TabIndex = 11
@@ -1059,30 +1059,30 @@ Partial Class IAIPUserAdminTool
         Me.Label18.TabIndex = 9
         Me.Label18.Text = "User Name:"
         '
-        'Panel2
+        'pnlSearch
         '
-        Me.Panel2.Controls.Add(Me.lblCount)
-        Me.Panel2.Controls.Add(Me.dgvUserAdminTool)
-        Me.Panel2.Controls.Add(Me.btnAll)
-        Me.Panel2.Controls.Add(Me.btnReset)
-        Me.Panel2.Controls.Add(Me.btnSearch)
-        Me.Panel2.Controls.Add(Me.cboSearchUnit)
-        Me.Panel2.Controls.Add(Me.cboSearchProgram)
-        Me.Panel2.Controls.Add(Me.cboSearchBranch)
-        Me.Panel2.Controls.Add(Me.Label25)
-        Me.Panel2.Controls.Add(Me.Label26)
-        Me.Panel2.Controls.Add(Me.Label27)
-        Me.Panel2.Controls.Add(Me.txtSearchLastName)
-        Me.Panel2.Controls.Add(Me.txtSearchFirstName)
-        Me.Panel2.Controls.Add(Me.Label23)
-        Me.Panel2.Controls.Add(Me.Label24)
-        Me.Panel2.Controls.Add(Me.txtSearchEmployeeID)
-        Me.Panel2.Controls.Add(Me.Label22)
-        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel2.Location = New System.Drawing.Point(0, 0)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(792, 183)
-        Me.Panel2.TabIndex = 0
+        Me.pnlSearch.Controls.Add(Me.lblCount)
+        Me.pnlSearch.Controls.Add(Me.dgvUserAdminTool)
+        Me.pnlSearch.Controls.Add(Me.btnAll)
+        Me.pnlSearch.Controls.Add(Me.btnReset)
+        Me.pnlSearch.Controls.Add(Me.btnSearch)
+        Me.pnlSearch.Controls.Add(Me.cboSearchUnit)
+        Me.pnlSearch.Controls.Add(Me.cboSearchProgram)
+        Me.pnlSearch.Controls.Add(Me.cboSearchBranch)
+        Me.pnlSearch.Controls.Add(Me.Label25)
+        Me.pnlSearch.Controls.Add(Me.Label26)
+        Me.pnlSearch.Controls.Add(Me.Label27)
+        Me.pnlSearch.Controls.Add(Me.txtSearchLastName)
+        Me.pnlSearch.Controls.Add(Me.txtSearchFirstName)
+        Me.pnlSearch.Controls.Add(Me.Label23)
+        Me.pnlSearch.Controls.Add(Me.Label24)
+        Me.pnlSearch.Controls.Add(Me.txtSearchEmployeeID)
+        Me.pnlSearch.Controls.Add(Me.Label22)
+        Me.pnlSearch.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlSearch.Location = New System.Drawing.Point(0, 0)
+        Me.pnlSearch.Name = "pnlSearch"
+        Me.pnlSearch.Size = New System.Drawing.Size(792, 183)
+        Me.pnlSearch.TabIndex = 0
         '
         'lblCount
         '
@@ -1272,8 +1272,8 @@ Partial Class IAIPUserAdminTool
         Me.TPPermission.PerformLayout()
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
-        Me.Panel2.ResumeLayout(False)
-        Me.Panel2.PerformLayout()
+        Me.pnlSearch.ResumeLayout(False)
+        Me.pnlSearch.PerformLayout()
         CType(Me.dgvUserAdminTool, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -1300,7 +1300,7 @@ Partial Class IAIPUserAdminTool
     Friend WithEvents TCUserData As System.Windows.Forms.TabControl
     Friend WithEvents TPUserInformation As System.Windows.Forms.TabPage
     Friend WithEvents TPPermission As System.Windows.Forms.TabPage
-    Friend WithEvents Panel2 As System.Windows.Forms.Panel
+    Friend WithEvents pnlSearch As System.Windows.Forms.Panel
     Friend WithEvents txtEmailAddress As System.Windows.Forms.TextBox
     Friend WithEvents txtEmployeeID As System.Windows.Forms.TextBox
     Friend WithEvents txtLastName As System.Windows.Forms.TextBox
