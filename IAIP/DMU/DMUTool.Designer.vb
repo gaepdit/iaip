@@ -52,7 +52,6 @@ Partial Class DMUTool
         Me.Button5 = New System.Windows.Forms.Button
         Me.Button4 = New System.Windows.Forms.Button
         Me.Button3 = New System.Windows.Forms.Button
-        Me.Button2 = New System.Windows.Forms.Button
         Me.btnUpdateComplianceContacts = New System.Windows.Forms.Button
         Me.btnFixStacks = New System.Windows.Forms.Button
         Me.btnFixInvoice = New System.Windows.Forms.Button
@@ -116,7 +115,6 @@ Partial Class DMUTool
         Me.SCDMUTool.Panel2.Controls.Add(Me.Button5)
         Me.SCDMUTool.Panel2.Controls.Add(Me.Button4)
         Me.SCDMUTool.Panel2.Controls.Add(Me.Button3)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Button2)
         Me.SCDMUTool.Panel2.Controls.Add(Me.btnUpdateComplianceContacts)
         Me.SCDMUTool.Panel2.Controls.Add(Me.btnFixStacks)
         Me.SCDMUTool.Panel2.Controls.Add(Me.btnFixInvoice)
@@ -423,16 +421,6 @@ Partial Class DMUTool
         Me.Button3.UseVisualStyleBackColor = True
         Me.Button3.Visible = False
         '
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(666, 102)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(17, 23)
-        Me.Button2.TabIndex = 23
-        Me.Button2.Text = "Pop. SSCP"
-        Me.Button2.UseVisualStyleBackColor = True
-        Me.Button2.Visible = False
-        '
         'btnUpdateComplianceContacts
         '
         Me.btnUpdateComplianceContacts.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
@@ -629,7 +617,6 @@ Partial Class DMUTool
     Friend WithEvents btnFixInvoice As System.Windows.Forms.Button
     Friend WithEvents btnFixStacks As System.Windows.Forms.Button
     Friend WithEvents btnUpdateComplianceContacts As System.Windows.Forms.Button
-    Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents Button3 As System.Windows.Forms.Button
     Friend WithEvents Button4 As System.Windows.Forms.Button
     Friend WithEvents Button5 As System.Windows.Forms.Button
