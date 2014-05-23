@@ -5,14 +5,8 @@ Public Class IAIPLogIn
 #Region " Page Load "
 
     Private Sub IAIPLogIn_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
-        If txtUserID.Enabled Then
-            txtUserID.Text = GetUserSetting(UserSetting.PrefillLoginId)
-            If txtUserID.Text = "" Then
-                txtUserID.Focus()
-            Else
-                If txtUserPassword.Enabled Then txtUserPassword.Focus()
-            End If
-        End If
+        If txtUserID.Enabled Then txtUserID.Text = GetUserSetting(UserSetting.PrefillLoginId)
+        FocusLogin()
         monitor.TrackFeatureStop("Startup.Loading")
     End Sub
 
@@ -66,7 +60,16 @@ Public Class IAIPLogIn
             .Text = ""
             .Visible = False
         End With
-        txtUserID.Focus()
+
+        FocusLogin()
+    End Sub
+
+    Private Sub FocusLogin()
+        If txtUserID.Text = "" Then
+            If txtUserID.Enabled Then txtUserID.Focus()
+        Else
+            If txtUserPassword.Enabled Then txtUserPassword.Focus()
+        End If
     End Sub
 
     Private Sub DisplayVersion()
@@ -148,7 +151,7 @@ Public Class IAIPLogIn
             If CurrentUser Is Nothing Then
                 MsgBox("Login information is incorrect." & vbCrLf & "Please try again.", MsgBoxStyle.Exclamation, "Login Error")
                 txtUserPassword.Clear()
-                txtUserPassword.Focus()
+                FocusLogin()
                 LoginProgressBar.Visible = False
                 monitor.TrackFeatureCancel("Startup.LoggingIn")
                 Exit Sub
@@ -181,7 +184,7 @@ Public Class IAIPLogIn
             If UserGCode = "" Then
                 MsgBox("Login information is incorrect." & vbCrLf & "Please try again.", MsgBoxStyle.Exclamation, "Login Error")
                 txtUserPassword.Clear()
-                txtUserPassword.Focus()
+                FocusLogin()
                 LoginProgressBar.Visible = False
                 monitor.TrackFeatureCancel("Startup.LoggingIn")
                 Exit Sub
