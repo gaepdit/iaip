@@ -24,7 +24,6 @@ Partial Class DMUTool
     Private Sub InitializeComponent()
         Me.SCDMUTool = New System.Windows.Forms.SplitContainer
         Me.txtSQL = New System.Windows.Forms.TextBox
-        Me.mtbVersionNumber = New System.Windows.Forms.MaskedTextBox
         Me.Label4 = New System.Windows.Forms.Label
         Me.txtEISYear = New System.Windows.Forms.TextBox
         Me.Label3 = New System.Windows.Forms.Label
@@ -61,7 +60,6 @@ Partial Class DMUTool
         Me.txtOldAIRS = New System.Windows.Forms.TextBox
         Me.btnMoveAIRSData = New System.Windows.Forms.Button
         Me.Button1 = New System.Windows.Forms.Button
-        Me.btnUpdateVersionNumber = New System.Windows.Forms.Button
         Me.txtVersionNumber = New System.Windows.Forms.TextBox
         Me.txtACCNumber = New System.Windows.Forms.TextBox
         Me.btnDeleteACC = New System.Windows.Forms.Button
@@ -87,7 +85,6 @@ Partial Class DMUTool
         '
         'SCDMUTool.Panel2
         '
-        Me.SCDMUTool.Panel2.Controls.Add(Me.mtbVersionNumber)
         Me.SCDMUTool.Panel2.Controls.Add(Me.Label4)
         Me.SCDMUTool.Panel2.Controls.Add(Me.txtEISYear)
         Me.SCDMUTool.Panel2.Controls.Add(Me.Label3)
@@ -124,7 +121,6 @@ Partial Class DMUTool
         Me.SCDMUTool.Panel2.Controls.Add(Me.txtOldAIRS)
         Me.SCDMUTool.Panel2.Controls.Add(Me.btnMoveAIRSData)
         Me.SCDMUTool.Panel2.Controls.Add(Me.Button1)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.btnUpdateVersionNumber)
         Me.SCDMUTool.Panel2.Controls.Add(Me.txtVersionNumber)
         Me.SCDMUTool.Panel2.Controls.Add(Me.txtACCNumber)
         Me.SCDMUTool.Panel2.Controls.Add(Me.btnDeleteACC)
@@ -146,14 +142,6 @@ Partial Class DMUTool
         Me.txtSQL.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtSQL.Size = New System.Drawing.Size(715, 303)
         Me.txtSQL.TabIndex = 0
-        '
-        'mtbVersionNumber
-        '
-        Me.mtbVersionNumber.Location = New System.Drawing.Point(413, 108)
-        Me.mtbVersionNumber.Mask = "0.0.0.0"
-        Me.mtbVersionNumber.Name = "mtbVersionNumber"
-        Me.mtbVersionNumber.Size = New System.Drawing.Size(46, 20)
-        Me.mtbVersionNumber.TabIndex = 51
         '
         'Label4
         '
@@ -506,17 +494,6 @@ Partial Class DMUTool
         Me.Button1.UseVisualStyleBackColor = True
         Me.Button1.Visible = False
         '
-        'btnUpdateVersionNumber
-        '
-        Me.btnUpdateVersionNumber.AutoSize = True
-        Me.btnUpdateVersionNumber.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnUpdateVersionNumber.Location = New System.Drawing.Point(306, 106)
-        Me.btnUpdateVersionNumber.Name = "btnUpdateVersionNumber"
-        Me.btnUpdateVersionNumber.Size = New System.Drawing.Size(100, 23)
-        Me.btnUpdateVersionNumber.TabIndex = 13
-        Me.btnUpdateVersionNumber.Text = "Update Version #"
-        Me.btnUpdateVersionNumber.UseVisualStyleBackColor = True
-        '
         'txtVersionNumber
         '
         Me.txtVersionNumber.Location = New System.Drawing.Point(413, 83)
@@ -606,7 +583,6 @@ Partial Class DMUTool
     Friend WithEvents btnDeleteEnforcement As System.Windows.Forms.Button
     Friend WithEvents txtACCNumber As System.Windows.Forms.TextBox
     Friend WithEvents btnDeleteACC As System.Windows.Forms.Button
-    Friend WithEvents btnUpdateVersionNumber As System.Windows.Forms.Button
     Friend WithEvents txtVersionNumber As System.Windows.Forms.TextBox
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents txtNewAIRS As System.Windows.Forms.TextBox
@@ -644,5 +620,4 @@ Partial Class DMUTool
     Friend WithEvents txtEISYear As System.Windows.Forms.TextBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents txtEISAIRSNumber As System.Windows.Forms.TextBox
-    Friend WithEvents mtbVersionNumber As System.Windows.Forms.MaskedTextBox
 End Class

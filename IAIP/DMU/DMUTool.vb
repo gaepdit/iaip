@@ -327,24 +327,6 @@ Public Class DMUTool
         End Try
 
     End Sub
-    Private Sub btnUpdateVersionNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateVersionNumber.Click
-        Try
-            SQL = "Update " & DBNameSpace & ".APBMasterApp set " & _
-            "strVersionNumber = '" & Replace(mtbVersionNumber.Text, "'", "''") & "' " & _
-            "where strApplicationName = 'IAIP' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-            MsgBox("Version Number Updated.", MsgBoxStyle.Information, Me.Name)
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".btnUpdateVersionNumber_Click")
-        End Try
-    End Sub
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         Try
             Exit Sub

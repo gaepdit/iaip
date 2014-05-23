@@ -24,15 +24,6 @@ Partial Class DMUDeveloperTools
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DMUDeveloperTools))
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MmiFile = New System.Windows.Forms.MenuItem
-        Me.MmiBack = New System.Windows.Forms.MenuItem
-        Me.MmiView = New System.Windows.Forms.MenuItem
-        Me.MmiHelp = New System.Windows.Forms.MenuItem
         Me.bgwTransfer = New System.ComponentModel.BackgroundWorker
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.TCDMUTools = New System.Windows.Forms.TabControl
@@ -65,12 +56,6 @@ Partial Class DMUDeveloperTools
         Me.rdbAIRSSpecific = New System.Windows.Forms.RadioButton
         Me.rdbGenerateStandardFile = New System.Windows.Forms.RadioButton
         Me.btnClearAFSFileGenerator = New System.Windows.Forms.Button
-        Me.TPATSTool = New System.Windows.Forms.TabPage
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.VersionNumberInput = New System.Windows.Forms.TextBox
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.lblCurrentVersion = New System.Windows.Forms.Label
-        Me.UpdateVersionNumber = New System.Windows.Forms.Button
         Me.TPErrorLog = New System.Windows.Forms.TabPage
         Me.GroupBox3 = New System.Windows.Forms.GroupBox
         Me.Panel4 = New System.Windows.Forms.Panel
@@ -353,9 +338,6 @@ Partial Class DMUDeveloperTools
         Me.btnNewFacility = New System.Windows.Forms.Button
         Me.Label4 = New System.Windows.Forms.Label
         Me.txtCDSAIRSNumber = New System.Windows.Forms.TextBox
-        Me.TSDMUStaffTools = New System.Windows.Forms.ToolStrip
-        Me.tsbBack = New System.Windows.Forms.ToolStripButton
-        Me.StatusStrip1.SuspendLayout()
         Me.TCDMUTools.SuspendLayout()
         Me.TPAFSFileGenerator.SuspendLayout()
         Me.PanelBatchOrder.SuspendLayout()
@@ -364,8 +346,6 @@ Partial Class DMUDeveloperTools
         Me.pnlAIRSSpecific.SuspendLayout()
         Me.pnlStandardFile.SuspendLayout()
         Me.Panel8.SuspendLayout()
-        Me.TPATSTool.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
         Me.TPErrorLog.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.Panel4.SuspendLayout()
@@ -395,71 +375,7 @@ Partial Class DMUDeveloperTools
         Me.GBHeaderData.SuspendLayout()
         Me.GBMailingLocation.SuspendLayout()
         Me.GBFacilityInformation.SuspendLayout()
-        Me.TSDMUStaffTools.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Panel1, Me.Panel2, Me.Panel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 665)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(792, 22)
-        Me.StatusStrip1.TabIndex = 254
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'Panel1
-        '
-        Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(769, 17)
-        Me.Panel1.Spring = True
-        Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Panel2
-        '
-        Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(4, 17)
-        '
-        'Panel3
-        '
-        Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(4, 17)
-        '
-        'MainMenu1
-        '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiFile, Me.MmiView, Me.MmiHelp})
-        '
-        'MmiFile
-        '
-        Me.MmiFile.Index = 0
-        Me.MmiFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiBack})
-        Me.MmiFile.Text = "File"
-        '
-        'MmiBack
-        '
-        Me.MmiBack.Index = 0
-        Me.MmiBack.Text = "Back"
-        '
-        'MmiView
-        '
-        Me.MmiView.Index = 1
-        Me.MmiView.Text = "View"
-        '
-        'MmiHelp
-        '
-        Me.MmiHelp.Index = 2
-        Me.MmiHelp.Text = "Help"
         '
         'bgwTransfer
         '
@@ -557,16 +473,15 @@ Partial Class DMUDeveloperTools
         'TCDMUTools
         '
         Me.TCDMUTools.Controls.Add(Me.TPAFSFileGenerator)
-        Me.TCDMUTools.Controls.Add(Me.TPATSTool)
         Me.TCDMUTools.Controls.Add(Me.TPErrorLog)
         Me.TCDMUTools.Controls.Add(Me.TPWebErrorLog)
         Me.TCDMUTools.Controls.Add(Me.TPUpdateDEVTest)
         Me.TCDMUTools.Controls.Add(Me.TPAddNewFacility)
         Me.TCDMUTools.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCDMUTools.Location = New System.Drawing.Point(0, 25)
+        Me.TCDMUTools.Location = New System.Drawing.Point(0, 0)
         Me.TCDMUTools.Name = "TCDMUTools"
         Me.TCDMUTools.SelectedIndex = 0
-        Me.TCDMUTools.Size = New System.Drawing.Size(792, 640)
+        Me.TCDMUTools.Size = New System.Drawing.Size(792, 687)
         Me.TCDMUTools.TabIndex = 256
         '
         'TPAFSFileGenerator
@@ -575,7 +490,7 @@ Partial Class DMUDeveloperTools
         Me.TPAFSFileGenerator.Controls.Add(Me.PanelBatchOrder)
         Me.TPAFSFileGenerator.Location = New System.Drawing.Point(4, 22)
         Me.TPAFSFileGenerator.Name = "TPAFSFileGenerator"
-        Me.TPAFSFileGenerator.Size = New System.Drawing.Size(784, 614)
+        Me.TPAFSFileGenerator.Size = New System.Drawing.Size(784, 661)
         Me.TPAFSFileGenerator.TabIndex = 1
         Me.TPAFSFileGenerator.Text = "AFS File Generator"
         Me.TPAFSFileGenerator.UseVisualStyleBackColor = True
@@ -588,7 +503,7 @@ Partial Class DMUDeveloperTools
         Me.txtAFSBatchFile.Multiline = True
         Me.txtAFSBatchFile.Name = "txtAFSBatchFile"
         Me.txtAFSBatchFile.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtAFSBatchFile.Size = New System.Drawing.Size(784, 357)
+        Me.txtAFSBatchFile.Size = New System.Drawing.Size(784, 404)
         Me.txtAFSBatchFile.TabIndex = 11
         '
         'PanelBatchOrder
@@ -868,74 +783,13 @@ Partial Class DMUDeveloperTools
         Me.btnClearAFSFileGenerator.TabIndex = 9
         Me.btnClearAFSFileGenerator.Text = "Clear Form"
         '
-        'TPATSTool
-        '
-        Me.TPATSTool.Controls.Add(Me.GroupBox2)
-        Me.TPATSTool.Location = New System.Drawing.Point(4, 22)
-        Me.TPATSTool.Name = "TPATSTool"
-        Me.TPATSTool.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPATSTool.Size = New System.Drawing.Size(784, 614)
-        Me.TPATSTool.TabIndex = 13
-        Me.TPATSTool.Text = "Misc Tools"
-        Me.TPATSTool.UseVisualStyleBackColor = True
-        '
-        'GroupBox2
-        '
-        Me.GroupBox2.Controls.Add(Me.VersionNumberInput)
-        Me.GroupBox2.Controls.Add(Me.Label13)
-        Me.GroupBox2.Controls.Add(Me.lblCurrentVersion)
-        Me.GroupBox2.Controls.Add(Me.UpdateVersionNumber)
-        Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GroupBox2.Location = New System.Drawing.Point(3, 3)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(778, 69)
-        Me.GroupBox2.TabIndex = 5
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "IAIP Version Update"
-        '
-        'VersionNumberInput
-        '
-        Me.VersionNumberInput.Location = New System.Drawing.Point(170, 21)
-        Me.VersionNumberInput.Name = "VersionNumberInput"
-        Me.VersionNumberInput.Size = New System.Drawing.Size(87, 20)
-        Me.VersionNumberInput.TabIndex = 56
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(12, 44)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(269, 13)
-        Me.Label13.TabIndex = 55
-        Me.Label13.Text = "* 0.0.0.0 will prevent users from logging into the platform"
-        '
-        'lblCurrentVersion
-        '
-        Me.lblCurrentVersion.AutoSize = True
-        Me.lblCurrentVersion.Location = New System.Drawing.Point(263, 24)
-        Me.lblCurrentVersion.Name = "lblCurrentVersion"
-        Me.lblCurrentVersion.Size = New System.Drawing.Size(104, 13)
-        Me.lblCurrentVersion.TabIndex = 54
-        Me.lblCurrentVersion.Text = "Version Placeholder "
-        '
-        'UpdateVersionNumber
-        '
-        Me.UpdateVersionNumber.AutoSize = True
-        Me.UpdateVersionNumber.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.UpdateVersionNumber.Location = New System.Drawing.Point(15, 19)
-        Me.UpdateVersionNumber.Name = "UpdateVersionNumber"
-        Me.UpdateVersionNumber.Size = New System.Drawing.Size(149, 23)
-        Me.UpdateVersionNumber.TabIndex = 52
-        Me.UpdateVersionNumber.Text = "Update Published Version #"
-        Me.UpdateVersionNumber.UseVisualStyleBackColor = True
-        '
         'TPErrorLog
         '
         Me.TPErrorLog.Controls.Add(Me.GroupBox3)
         Me.TPErrorLog.Controls.Add(Me.dgvErrorList)
         Me.TPErrorLog.Location = New System.Drawing.Point(4, 22)
         Me.TPErrorLog.Name = "TPErrorLog"
-        Me.TPErrorLog.Size = New System.Drawing.Size(784, 614)
+        Me.TPErrorLog.Size = New System.Drawing.Size(784, 661)
         Me.TPErrorLog.TabIndex = 7
         Me.TPErrorLog.Text = "IAIP Error Log"
         Me.TPErrorLog.UseVisualStyleBackColor = True
@@ -946,7 +800,7 @@ Partial Class DMUDeveloperTools
         Me.GroupBox3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox3.Location = New System.Drawing.Point(0, 242)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(784, 372)
+        Me.GroupBox3.Size = New System.Drawing.Size(784, 419)
         Me.GroupBox3.TabIndex = 1
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "IAIP Error Log"
@@ -977,7 +831,7 @@ Partial Class DMUDeveloperTools
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel4.Location = New System.Drawing.Point(3, 16)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(778, 353)
+        Me.Panel4.Size = New System.Drawing.Size(778, 400)
         Me.Panel4.TabIndex = 18
         '
         'btnExporttoExcel
@@ -1208,7 +1062,7 @@ Partial Class DMUDeveloperTools
         Me.TPWebErrorLog.Controls.Add(Me.dgrWebErrorList)
         Me.TPWebErrorLog.Location = New System.Drawing.Point(4, 22)
         Me.TPWebErrorLog.Name = "TPWebErrorLog"
-        Me.TPWebErrorLog.Size = New System.Drawing.Size(784, 614)
+        Me.TPWebErrorLog.Size = New System.Drawing.Size(784, 661)
         Me.TPWebErrorLog.TabIndex = 8
         Me.TPWebErrorLog.Text = "Web Site Error Log"
         Me.TPWebErrorLog.UseVisualStyleBackColor = True
@@ -1219,7 +1073,7 @@ Partial Class DMUDeveloperTools
         Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox4.Location = New System.Drawing.Point(0, 241)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(784, 373)
+        Me.GroupBox4.Size = New System.Drawing.Size(784, 420)
         Me.GroupBox4.TabIndex = 3
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Web Error Log"
@@ -1250,7 +1104,7 @@ Partial Class DMUDeveloperTools
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel5.Location = New System.Drawing.Point(3, 16)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(778, 354)
+        Me.Panel5.Size = New System.Drawing.Size(778, 401)
         Me.Panel5.TabIndex = 20
         '
         'Label95
@@ -1445,7 +1299,7 @@ Partial Class DMUDeveloperTools
         Me.TPUpdateDEVTest.Controls.Add(Me.PanelSources)
         Me.TPUpdateDEVTest.Location = New System.Drawing.Point(4, 22)
         Me.TPUpdateDEVTest.Name = "TPUpdateDEVTest"
-        Me.TPUpdateDEVTest.Size = New System.Drawing.Size(784, 614)
+        Me.TPUpdateDEVTest.Size = New System.Drawing.Size(784, 661)
         Me.TPUpdateDEVTest.TabIndex = 12
         Me.TPUpdateDEVTest.Text = "Update DEV/Test Environments"
         Me.TPUpdateDEVTest.UseVisualStyleBackColor = True
@@ -1457,7 +1311,7 @@ Partial Class DMUDeveloperTools
         Me.TCTables.Location = New System.Drawing.Point(0, 64)
         Me.TCTables.Name = "TCTables"
         Me.TCTables.SelectedIndex = 0
-        Me.TCTables.Size = New System.Drawing.Size(784, 550)
+        Me.TCTables.Size = New System.Drawing.Size(784, 597)
         Me.TCTables.TabIndex = 2
         '
         'TPAllTables
@@ -1475,7 +1329,7 @@ Partial Class DMUDeveloperTools
         Me.TPAllTables.Location = New System.Drawing.Point(4, 22)
         Me.TPAllTables.Name = "TPAllTables"
         Me.TPAllTables.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPAllTables.Size = New System.Drawing.Size(776, 524)
+        Me.TPAllTables.Size = New System.Drawing.Size(776, 571)
         Me.TPAllTables.TabIndex = 0
         Me.TPAllTables.Text = "All Tables"
         Me.TPAllTables.UseVisualStyleBackColor = True
@@ -1492,7 +1346,7 @@ Partial Class DMUDeveloperTools
         Me.pnlMiscTables.Dock = System.Windows.Forms.DockStyle.Left
         Me.pnlMiscTables.Location = New System.Drawing.Point(1393, 30)
         Me.pnlMiscTables.Name = "pnlMiscTables"
-        Me.pnlMiscTables.Size = New System.Drawing.Size(200, 474)
+        Me.pnlMiscTables.Size = New System.Drawing.Size(200, 521)
         Me.pnlMiscTables.TabIndex = 42
         '
         'chbUpdateEIEU
@@ -1569,7 +1423,7 @@ Partial Class DMUDeveloperTools
         Me.pnlAFSTables.Dock = System.Windows.Forms.DockStyle.Left
         Me.pnlAFSTables.Location = New System.Drawing.Point(1193, 30)
         Me.pnlAFSTables.Name = "pnlAFSTables"
-        Me.pnlAFSTables.Size = New System.Drawing.Size(200, 474)
+        Me.pnlAFSTables.Size = New System.Drawing.Size(200, 521)
         Me.pnlAFSTables.TabIndex = 41
         '
         'chbAllAFSTables
@@ -1678,7 +1532,7 @@ Partial Class DMUDeveloperTools
         Me.pnlSSPPTables.Dock = System.Windows.Forms.DockStyle.Left
         Me.pnlSSPPTables.Location = New System.Drawing.Point(993, 30)
         Me.pnlSSPPTables.Name = "pnlSSPPTables"
-        Me.pnlSSPPTables.Size = New System.Drawing.Size(200, 474)
+        Me.pnlSSPPTables.Size = New System.Drawing.Size(200, 521)
         Me.pnlSSPPTables.TabIndex = 40
         '
         'chbAllSSPPTables
@@ -1811,7 +1665,7 @@ Partial Class DMUDeveloperTools
         Me.pnlSSCPTables.Dock = System.Windows.Forms.DockStyle.Left
         Me.pnlSSCPTables.Location = New System.Drawing.Point(793, 30)
         Me.pnlSSCPTables.Name = "pnlSSCPTables"
-        Me.pnlSSCPTables.Size = New System.Drawing.Size(200, 474)
+        Me.pnlSSCPTables.Size = New System.Drawing.Size(200, 521)
         Me.pnlSSCPTables.TabIndex = 39
         '
         'chbAllSSCPTables
@@ -2069,7 +1923,7 @@ Partial Class DMUDeveloperTools
         Me.pnlSBEAPTables.Dock = System.Windows.Forms.DockStyle.Left
         Me.pnlSBEAPTables.Location = New System.Drawing.Point(593, 30)
         Me.pnlSBEAPTables.Name = "pnlSBEAPTables"
-        Me.pnlSBEAPTables.Size = New System.Drawing.Size(200, 474)
+        Me.pnlSBEAPTables.Size = New System.Drawing.Size(200, 521)
         Me.pnlSBEAPTables.TabIndex = 38
         '
         'chbAllSBEAPTables
@@ -2190,7 +2044,7 @@ Partial Class DMUDeveloperTools
         Me.pnlISMPTables.Dock = System.Windows.Forms.DockStyle.Left
         Me.pnlISMPTables.Location = New System.Drawing.Point(393, 30)
         Me.pnlISMPTables.Name = "pnlISMPTables"
-        Me.pnlISMPTables.Size = New System.Drawing.Size(200, 474)
+        Me.pnlISMPTables.Size = New System.Drawing.Size(200, 521)
         Me.pnlISMPTables.TabIndex = 37
         '
         'chbAllISMPTables
@@ -2434,7 +2288,7 @@ Partial Class DMUDeveloperTools
         Me.pnlHeaderTables.Dock = System.Windows.Forms.DockStyle.Left
         Me.pnlHeaderTables.Location = New System.Drawing.Point(193, 30)
         Me.pnlHeaderTables.Name = "pnlHeaderTables"
-        Me.pnlHeaderTables.Size = New System.Drawing.Size(200, 474)
+        Me.pnlHeaderTables.Size = New System.Drawing.Size(200, 521)
         Me.pnlHeaderTables.TabIndex = 36
         '
         'chbEPDUsers
@@ -2627,7 +2481,7 @@ Partial Class DMUDeveloperTools
         Me.pnlLookUpTables.Dock = System.Windows.Forms.DockStyle.Left
         Me.pnlLookUpTables.Location = New System.Drawing.Point(3, 30)
         Me.pnlLookUpTables.Name = "pnlLookUpTables"
-        Me.pnlLookUpTables.Size = New System.Drawing.Size(190, 474)
+        Me.pnlLookUpTables.Size = New System.Drawing.Size(190, 521)
         Me.pnlLookUpTables.TabIndex = 35
         '
         'chbFSNSPSReason
@@ -3087,7 +2941,7 @@ Partial Class DMUDeveloperTools
         Me.TPAddNewFacility.Controls.Add(Me.txtCDSAIRSNumber)
         Me.TPAddNewFacility.Location = New System.Drawing.Point(4, 22)
         Me.TPAddNewFacility.Name = "TPAddNewFacility"
-        Me.TPAddNewFacility.Size = New System.Drawing.Size(784, 614)
+        Me.TPAddNewFacility.Size = New System.Drawing.Size(784, 661)
         Me.TPAddNewFacility.TabIndex = 2
         Me.TPAddNewFacility.Text = "Add New Facility"
         Me.TPAddNewFacility.UseVisualStyleBackColor = True
@@ -3872,37 +3726,14 @@ Partial Class DMUDeveloperTools
         Me.txtCDSAIRSNumber.TabIndex = 52
         Me.txtCDSAIRSNumber.Text = "0413"
         '
-        'TSDMUStaffTools
-        '
-        Me.TSDMUStaffTools.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbBack})
-        Me.TSDMUStaffTools.Location = New System.Drawing.Point(0, 0)
-        Me.TSDMUStaffTools.Name = "TSDMUStaffTools"
-        Me.TSDMUStaffTools.Size = New System.Drawing.Size(792, 25)
-        Me.TSDMUStaffTools.TabIndex = 258
-        Me.TSDMUStaffTools.Text = "ToolStrip1"
-        '
-        'tsbBack
-        '
-        Me.tsbBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbBack.Image = CType(resources.GetObject("tsbBack.Image"), System.Drawing.Image)
-        Me.tsbBack.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbBack.Name = "tsbBack"
-        Me.tsbBack.Size = New System.Drawing.Size(23, 22)
-        Me.tsbBack.Text = "Back"
-        '
         'DMUDeveloperTools
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(792, 687)
         Me.Controls.Add(Me.TCDMUTools)
-        Me.Controls.Add(Me.StatusStrip1)
-        Me.Controls.Add(Me.TSDMUStaffTools)
-        Me.Menu = Me.MainMenu1
         Me.Name = "DMUDeveloperTools"
         Me.Text = "AFS Tools"
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         Me.TCDMUTools.ResumeLayout(False)
         Me.TPAFSFileGenerator.ResumeLayout(False)
         Me.TPAFSFileGenerator.PerformLayout()
@@ -3917,9 +3748,6 @@ Partial Class DMUDeveloperTools
         Me.pnlStandardFile.PerformLayout()
         Me.Panel8.ResumeLayout(False)
         Me.Panel8.PerformLayout()
-        Me.TPATSTool.ResumeLayout(False)
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
         Me.TPErrorLog.ResumeLayout(False)
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
@@ -3971,21 +3799,9 @@ Partial Class DMUDeveloperTools
         Me.GBMailingLocation.PerformLayout()
         Me.GBFacilityInformation.ResumeLayout(False)
         Me.GBFacilityInformation.PerformLayout()
-        Me.TSDMUStaffTools.ResumeLayout(False)
-        Me.TSDMUStaffTools.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents MmiFile As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiBack As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiView As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents bgwTransfer As System.ComponentModel.BackgroundWorker
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents TCDMUTools As System.Windows.Forms.TabControl
@@ -4275,8 +4091,6 @@ Partial Class DMUDeveloperTools
     Friend WithEvents Panel20 As System.Windows.Forms.Panel
     Friend WithEvents rdbTESTTransfer As System.Windows.Forms.RadioButton
     Friend WithEvents rdbDEVTransfer As System.Windows.Forms.RadioButton
-    Friend WithEvents TSDMUStaffTools As System.Windows.Forms.ToolStrip
-    Friend WithEvents tsbBack As System.Windows.Forms.ToolStripButton
     Friend WithEvents btnForceBasicRefresh As System.Windows.Forms.Button
     Friend WithEvents chbCDS_14 As System.Windows.Forms.CheckBox
     Friend WithEvents Panel5 As System.Windows.Forms.Panel
@@ -4288,7 +4102,6 @@ Partial Class DMUDeveloperTools
     Friend WithEvents btnExporttoExcel As System.Windows.Forms.Button
     Friend WithEvents dgvErrorList As System.Windows.Forms.DataGridView
     Friend WithEvents btnUpdateAllSubParts As System.Windows.Forms.Button
-    Friend WithEvents TPATSTool As System.Windows.Forms.TabPage
     Friend WithEvents mtbAFSAirsNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents Label6 As System.Windows.Forms.Label
@@ -4303,9 +4116,4 @@ Partial Class DMUDeveloperTools
     Friend WithEvents rdbAIRSSpecific As System.Windows.Forms.RadioButton
     Friend WithEvents rdbGenerateStandardFile As System.Windows.Forms.RadioButton
     Friend WithEvents rdbBasicData As System.Windows.Forms.RadioButton
-    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
-    Friend WithEvents UpdateVersionNumber As System.Windows.Forms.Button
-    Friend WithEvents lblCurrentVersion As System.Windows.Forms.Label
-    Friend WithEvents Label13 As System.Windows.Forms.Label
-    Friend WithEvents VersionNumberInput As System.Windows.Forms.TextBox
 End Class

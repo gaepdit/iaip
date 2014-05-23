@@ -20,42 +20,16 @@ Public Class DMUDeveloperTools
     Private Sub DMUDeveloperTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Try
-            Panel1.Text = "Select a Function..."
-            Panel2.Text = UserName
-            Panel3.Text = OracleDate
 
             LoadPermissions()
             rdbDEVTransfer.Text = CurrentConnection.DataSource.ToString & " --> DEV "
             rdbTESTTransfer.Text = CurrentConnection.DataSource.ToString & " --> TEST "
-            lblCurrentVersion.Text = "GetCurrentVersion: " & GetCurrentVersion.ToString
-            'lblCurrentVersion.Text = "GetCurrentVersion: " & GetCurrentVersion.ToString & "; GetPublishedVersion: " & GetPublishedVersion.ToString
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub MmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiBack.Click
-        Try
 
-            Me.Close()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-    Private Sub tsbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbBack.Click
-        Try
-
-            Me.Close()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-
-    
 #Region "Page Load Functions"
     Sub LoadPermissions()
         Try
@@ -65,21 +39,10 @@ Public Class DMUDeveloperTools
             TCDMUTools.TabPages.Remove(TPErrorLog)
             TCDMUTools.TabPages.Remove(TPWebErrorLog)
             TCDMUTools.TabPages.Remove(TPUpdateDEVTest)
-            TCDMUTools.TabPages.Remove(TPATSTool)
 
 
             TCDMUTools.TabPages.Add(TPAFSFileGenerator)
-            'TCDMUTools.TabPages.Add(TPATSTool)
             LoadOtherComboBoxes()
-
-            'AFS Users
-            If AccountFormAccess(129, 1) = "1" Then
-                TCDMUTools.TabPages.Add(TPATSTool)
-            End If
-
-            'Web Publishers
-            'If AccountArray(129, 2) = "1" Then
-            'End If
 
             If AccountFormAccess(129, 3) = "1" Or AccountFormAccess(129, 4) = "1" Then
                 TCDMUTools.TabPages.Add(TPErrorLog)
@@ -114,13 +77,13 @@ Public Class DMUDeveloperTools
 
             daStaff.Fill(dsStaff, "Staff")
 
-           
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-           
+
         End Try
-         
+
     End Sub
     Sub FormatWebErrorListGrid()
         Try
@@ -207,7 +170,7 @@ Public Class DMUDeveloperTools
     End Sub
     Private Sub LoadOtherComboBoxes()
         Try
-            
+
             cboCDSOperationalStatus.Items.Add("O - Operating")
             cboCDSOperationalStatus.Items.Add("P - Planned")
             cboCDSOperationalStatus.Items.Add("C - Under Construction")
@@ -225,9 +188,9 @@ Public Class DMUDeveloperTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-          
+
         End Try
-         
+
     End Sub
 #End Region
 
@@ -20182,7 +20145,7 @@ Public Class DMUDeveloperTools
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub MmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiHelp.Click
+    Private Sub MmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         OpenDocumentationUrl(Me)
     End Sub
 
@@ -22112,21 +22075,4 @@ Public Class DMUDeveloperTools
         End Try
     End Sub
 
-    Private Sub UpdateVersionNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UpdateVersionNumber.Click
-        Try
-            SQL = "Update " & DBNameSpace & ".APBMasterApp set " & _
-            "strVersionNumber = '" & Replace(VersionNumberInput.Text, "'", "''") & "' " & _
-            "where strApplicationName = 'IAIP' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-            MsgBox("Version number updated to: " & Replace(VersionNumberInput.Text, "'", "''"), MsgBoxStyle.Information, Me.Name)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".UpdateVersionNumber_Click")
-        End Try
-    End Sub
 End Class
