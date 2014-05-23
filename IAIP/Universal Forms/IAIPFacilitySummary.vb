@@ -104,47 +104,27 @@ Public Class IAIPFacilitySummary
                             mmiISMP.Visible = True
 
                             If UserUnit = "---" Then 'Program Manager
-                                mmiISMPNewReport.Visible = True
                                 mmiISMPNewLogEnTry.Visible = True
-                                mmiISMPTestLogLink.Visible = False
                                 llbClosePrintTestReport.Visible = True
-                                mmiISMPClosePrint.Visible = True
-                                mmiISMPNewReport.Visible = True
                                 mmiSeperator.Visible = True
                             Else
                                 If AccountFormAccess(17, 3) = "1" Then 'Unit Manager 
-                                    mmiISMPNewReport.Visible = True
                                     mmiISMPNewLogEnTry.Visible = True
-                                    mmiISMPTestLogLink.Visible = False
                                     llbClosePrintTestReport.Visible = False
-                                    mmiISMPClosePrint.Visible = False
-                                    mmiISMPNewReport.Visible = False
                                     mmiSeperator.Visible = False
                                 Else
                                     If AccountFormAccess(68, 3) = "1" Then 'ISMP Administrator
-                                        mmiISMPNewReport.Visible = True
                                         mmiISMPNewLogEnTry.Visible = True
-                                        mmiISMPTestLogLink.Visible = False
                                         llbClosePrintTestReport.Visible = True
-                                        mmiISMPClosePrint.Visible = True
-                                        mmiISMPNewReport.Visible = True
                                         mmiSeperator.Visible = False
                                     Else
                                         If AccountFormAccess(68, 2) = "1" Then 'ISMP Specialist
-                                            mmiISMPNewReport.Visible = True
                                             mmiISMPNewLogEnTry.Visible = True
-                                            mmiISMPTestLogLink.Visible = False
                                             llbClosePrintTestReport.Visible = False
-                                            mmiISMPClosePrint.Visible = True
-                                            mmiISMPNewReport.Visible = True
                                             mmiSeperator.Visible = False
                                         Else
-                                            mmiISMPNewReport.Visible = False
                                             mmiISMPNewLogEnTry.Visible = True
-                                            mmiISMPTestLogLink.Visible = False
                                             llbClosePrintTestReport.Visible = False
-                                            mmiISMPClosePrint.Visible = False
-                                            mmiISMPNewReport.Visible = False
                                             mmiSeperator.Visible = False
                                         End If
                                     End If
@@ -4386,56 +4366,6 @@ Public Class IAIPFacilitySummary
 
 #Region "ISMP Menu"
 
-    Private Sub mmiISMPNewReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiISMPNewReport.Click
-        Try
-
-            If mtbAIRSNumber.Text.Length <> 8 Then
-                MsgBox("Please Enter a valid AIRS Number.", MsgBoxStyle.Information, "Facility Summary Warning")
-            Else
-                If txtFacilityName.Text = "" Then
-                    MsgBox("Please verify that the AIRS Number is correct", MsgBoxStyle.Information, "Facility Summary")
-                Else
-                    ISMPTestReportInfo = Nothing
-                    If ISMPTestReportInfo Is Nothing Then ISMPTestReportInfo = New ISMPFacilityInfo
-                    ISMPTestReportInfo.txtAIRSNumber.Text = Me.mtbAIRSNumber.Text
-                    ISMPTestReportInfo.txtFacilityName.Text = Me.txtFacilityName.Text
-                    ISMPTestReportInfo.Show()
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub mmiISMPClosePrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiISMPClosePrint.Click
-        Try
-            If txtReferenceNumber.Text <> "" Then
-                Sql = "Select " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                 "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
-                 "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
-                 "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                Dim cmd As New OracleCommand(Sql, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                Dim dr As OracleDataReader = cmd.ExecuteReader
-                Dim recExist As Boolean = dr.Read
-                If recExist = True Then
-                    ISMPCloseAndPrint = Nothing
-                    If ISMPCloseAndPrint Is Nothing Then ISMPCloseAndPrint = New ISMPClosePrint
-                    ISMPCloseAndPrint.txtTestReportType.Text = dr.Item("strDocumentType")
-                    ISMPCloseAndPrint.txtReferenceNumber.Text = txtReferenceNumber.Text
-                    ISMPCloseAndPrint.txtAIRSNumber.Text = mtbAIRSNumber.Text
-                    ISMPCloseAndPrint.txtFacilityName.Text = txtFacilityName.Text
-                    ISMPCloseAndPrint.txtOrigin.Text = "Facility Summary"
-                    ISMPCloseAndPrint.Show()
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
     Private Sub mmiISMPNewLogEnTry_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiISMPNewLogEnTry.Click
         Try
             If mtbAIRSNumber.Text.Length <> 8 Then
@@ -4448,22 +4378,6 @@ Public Class IAIPFacilitySummary
                     If ISMPNotificationLogForm Is Nothing Then ISMPNotificationLogForm = New ISMPNotificationLog
                     ISMPNotificationLogForm.txtTestNotificationNumber.Text = Me.txtTestingNumber.Text
                     ISMPNotificationLogForm.Show()
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub mmiISMPTestLogLink_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiISMPTestLogLink.Click
-        Try
-            If mtbAIRSNumber.Text.Length <> 8 Then
-                MsgBox("Please Enter a valid AIRS Number.", MsgBoxStyle.Information, "Facility Summary Warning")
-            Else
-                If txtFacilityName.Text = "" Then
-                    MsgBox("Please verify that the AIRS Number is correct", MsgBoxStyle.Information, "Facility Summary Warning")
-                Else
-                    MsgBox("Underconstruction")
                 End If
             End If
         Catch ex As Exception

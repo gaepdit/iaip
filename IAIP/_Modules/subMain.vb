@@ -61,7 +61,6 @@ Module subMain
 #End Region
 
 #Region " ISMP Screens "
-    Public ISMPTestReportInfo As ISMPFacilityInfo ' TODO DWW: Remove
     Public ISMPMemoEdit As ISMPMemo ' TODO DWW: Remove
     Public ISMPNotificationLogForm As ISMPNotificationLog ' TODO DWW: Remove
     Public ISMPCloseAndPrint As ISMPClosePrint ' TODO DWW: Remove
