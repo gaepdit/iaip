@@ -74,6 +74,13 @@ Namespace My.Resources
             End Get
         End Property
         
+        Friend ReadOnly Property SaveButtonImage() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("SaveButtonImage", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
         Friend ReadOnly Property TestingIcon() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("TestingIcon", resourceCulture)
