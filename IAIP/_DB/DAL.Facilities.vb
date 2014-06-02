@@ -2,36 +2,60 @@
 Imports Iaip.Apb
 
 Namespace DAL
-    Module FacilityInfo
+    Module Facilities
 
-        Public Function AirsNumberExists(ByVal id As String) As Boolean
-            If Not Facility.NormalizeAirsNumber(id, True) Then Return False
+        ''' <summary>
+        ''' Returns whether an AIRS number already exists in the database
+        ''' </summary>
+        ''' <param name="airsNumber">The AIRS number to test.</param>
+        ''' <returns>True if the AIRS number exists; otherwise false.</returns>
+        ''' <remarks>Does not make any judgements about state of facility otherwise.</remarks>
+        Public Function AirsNumberExists(ByVal airsNumber As String) As Boolean
+            If Not Facility.NormalizeAirsNumber(airsNumber, True) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
                 " FROM " & DBNameSpace & ".APBMasterAIRS " & _
                 " WHERE RowNum = 1 " & _
                 " AND strAIRSnumber = :pId "
-            Dim parameter As New OracleParameter("pId", id)
+            Dim parameter As New OracleParameter("pId", airsNumber)
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
             Return Convert.ToBoolean(result)
         End Function
 
-        Public Function GetFacilityNameByAirs(ByVal id As String) As String
-            If Not Facility.NormalizeAirsNumber(id, True) Then Return Nothing
+        ''' <summary>
+        ''' Returns the facility name for a given AIRS number.
+        ''' </summary>
+        ''' <param name="airsNumber">The AIRS number to search for.</param>
+        ''' <returns>The facility name, or an empty string if facility AIRS number does not exist.</returns>
+        Public Function GetFacilityName(ByVal airsNumber As String) As String
+            If Not Facility.NormalizeAirsNumber(airsNumber, True) Then Return Nothing
 
             Dim query As String = "SELECT STRFACILITYNAME " & _
                 " FROM AIRBRANCH.APBFACILITYINFORMATION " & _
                 " WHERE STRAIRSNUMBER = :pId"
-            Dim parameter As New OracleParameter("pId", id)
+            Dim parameter As New OracleParameter("pId", airsNumber)
             Return DB.GetSingleValue(Of String)(query, parameter)
         End Function
 
-        Private Function GetFacilityInfoByAirsAsDataRow(ByVal id As String) As DataRow
-            If Not Facility.NormalizeAirsNumber(id, True) Then Return Nothing
+        ''' <summary>
+        ''' Returns a Facility with basic information for a given AIRS number.
+        ''' </summary>
+        ''' <param name="airsNumber">The AIRS number to search for.</param>
+        ''' <returns>A Facility with basic information, or Nothing if AIRS number does not exist.</returns>
+        ''' <remarks></remarks>
+        Public Function GetFacility(ByVal airsNumber As String) As Facility
+            Dim row As DataRow = GetFacilityAsDataRow(airsNumber)
+            Dim facility As New Facility(airsNumber)
 
-            Dim query As String = "SELECT APBFACILITYINFORMATION.STRAIRSNUMBER, " & _
-                "   APBFACILITYINFORMATION.STRFACILITYNAME, " & _
+            FillFacilityFromDataRow(row, facility)
+            Return facility
+        End Function
+
+        Private Function GetFacilityAsDataRow(ByVal airsNumber As String) As DataRow
+            If Not Facility.NormalizeAirsNumber(airsNumber, True) Then Return Nothing
+
+            Dim query As String = "SELECT APBFACILITYINFORMATION.STRFACILITYNAME, " & _
                 "   APBFACILITYINFORMATION.STRFACILITYCITY, " & _
                 "   APBFACILITYINFORMATION.STRFACILITYSTATE, " & _
                 "   APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
@@ -39,21 +63,13 @@ Namespace DAL
                 "   APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
                 "   APBFACILITYINFORMATION.NUMFACILITYLONGITUDE, " & _
                 "   APBFACILITYINFORMATION.NUMFACILITYLATITUDE, " & _
-                "   APBHEADERDATA.STROPERATIONALSTATUS, " & _
-                "   APBHEADERDATA.STRCLASS, " & _
-                "   APBHEADERDATA.STRSICCODE, " & _
-                "   APBHEADERDATA.STRFEINUMBER, " & _
-                "   APBHEADERDATA.STRPLANTDESCRIPTION, " & _
-                "   APBHEADERDATA.STRNAICSCODE, " & _
                 "   LOOKUPCOUNTYINFORMATION.STRCOUNTYNAME " & _
                 " FROM " & DBNameSpace & ".APBFACILITYINFORMATION " & _
-                " LEFT JOIN " & DBNameSpace & ".APBHEADERDATA " & _
-                " ON APBFACILITYINFORMATION.STRAIRSNUMBER    = APBHEADERDATA.STRAIRSNUMBER " & _
                 " LEFT JOIN " & DBNameSpace & ".LOOKUPCOUNTYINFORMATION " & _
                 " ON SUBSTR(APBFACILITYINFORMATION.STRAIRSNUMBER, 5, 3) = LOOKUPCOUNTYINFORMATION.STRCOUNTYCODE " & _
                 " WHERE APBFACILITYINFORMATION.STRAIRSNUMBER = :pId "
 
-            Dim parameter As New OracleParameter("pId", id)
+            Dim parameter As New OracleParameter("pId", airsNumber)
 
             Dim dataTable As DataTable = DB.GetDataTable(query, parameter)
             If dataTable Is Nothing Then Return Nothing
@@ -61,16 +77,7 @@ Namespace DAL
             Return dataTable.Rows(0)
         End Function
 
-        Public Function GetFacilityInfoByAirs(ByVal id As String) As Facility
-            Dim dataRow As DataRow = GetFacilityInfoByAirsAsDataRow(id)
-            Dim facility As New Facility
-
-            FillFacilityInfoFromDataRow(dataRow, facility)
-            Return facility
-        End Function
-
-
-        Private Sub FillFacilityInfoFromDataRow(ByVal row As DataRow, ByRef facility As Facility)
+        Private Sub FillFacilityFromDataRow(ByVal row As DataRow, ByRef facility As Facility)
             Dim address As New Address
             With address
                 .City = DB.GetNullable(Of String)(row("STRFACILITYCITY"))
@@ -90,15 +97,8 @@ Namespace DAL
             End With
 
             With facility
-                .AirsNumber = row("STRAIRSNUMBER")
-                .Classification = DB.GetNullable(Of String)(row("STRCLASS"))
-                .Description = DB.GetNullable(Of String)(row("STRPLANTDESCRIPTION"))
                 .FacilityLocation = location
-                .Fein = DB.GetNullable(Of String)(row("STRFEINUMBER"))
-                .Naics = DB.GetNullable(Of String)(row("STRNAICSCODE"))
                 .Name = DB.GetNullable(Of String)(row("STRFACILITYNAME"))
-                .OperationalStatus = DB.GetNullable(Of String)(row("STROPERATIONALSTATUS"))
-                .Sic = DB.GetNullable(Of String)(row("STRSICCODE"))
             End With
         End Sub
 

@@ -1,10 +1,18 @@
-﻿Namespace Apb
+﻿Imports System.ComponentModel
 
-    Public Class Facility
-        ' This is the fundamental class for a stationary source. Currently, only
-        ' used for displaying data already in the database, or moving data from
-        ' form to form or report. In the future... maybe also creating/editing
-        ' data?
+Namespace Apb
+
+    ''' <summary>
+    ''' Basic information about a stationary source.
+    ''' </summary>
+    Public Structure Facility
+
+        Shared Sub New()
+        End Sub
+
+        Public Sub New(ByVal airsNumber As String)
+            Me.AirsNumber = airsNumber
+        End Sub
 
 #Region "Properties"
 
@@ -38,10 +46,11 @@
         End Property
         Private _name As String
 
-        ' Facility Location is where the facility is actually located,
-        ' distinct from a mailing address. Facility Location may not
-        ' have a real postal address, but will have some of the elements
-        ' of a postal address
+        ''' <summary>
+        ''' Facility Location is where the facility is actually located, distinct 
+        ''' from a mailing address. Facility Location may not have a real 
+        ''' postal address, but will have some of the elements of a postal address
+        ''' </summary>
         Public Property FacilityLocation() As Location
             Get
                 Return _facilityLocation
@@ -61,105 +70,16 @@
             End Set
         End Property
         Private _mailingAddress As Address
-        Public Property OperationalStatus() As String
+
+        Public Property HeaderData() As FacilityHeaderData
             Get
-                Return _operationalStatus
+                Return _headerData
             End Get
-            Set(ByVal value As String)
-                _operationalStatus = value
+            Set(ByVal value As FacilityHeaderData)
+                _headerData = value
             End Set
         End Property
-        Private _operationalStatus As String
-        Public Property Classification() As String
-            Get
-                Return _classification
-            End Get
-            Set(ByVal value As String)
-                _classification = value
-            End Set
-        End Property
-        Private _classification As String
-        Public Property Sic() As String
-            Get
-                Return _sic
-            End Get
-            Set(ByVal value As String)
-                _sic = value
-            End Set
-        End Property
-        Private _sic As String
-        Public Property Fein() As String
-            Get
-                Return _fein
-            End Get
-            Set(ByVal value As String)
-                _fein = value
-            End Set
-        End Property
-        Private _fein As String
-        Public Property DistrictOffice() As String
-            Get
-                Return _districtOffice
-            End Get
-            Set(ByVal value As String)
-                _districtOffice = value
-            End Set
-        End Property
-        Private _districtOffice As String
-        Public Property StartupDate() As Nullable(Of System.DateTime)
-            Get
-                Return _startupDate
-            End Get
-            Set(ByVal value As Nullable(Of System.DateTime))
-                _startupDate = value
-            End Set
-        End Property
-        Private _startupDate As Nullable(Of System.DateTime)
-        Public Property ShutdownDate() As Nullable(Of System.DateTime)
-            Get
-                Return _shutdownDate
-            End Get
-            Set(ByVal value As Nullable(Of System.DateTime))
-                _shutdownDate = value
-            End Set
-        End Property
-        Private _shutdownDate As Nullable(Of System.DateTime)
-        Public Property CmsStatus() As String
-            Get
-                Return _cmsStatus
-            End Get
-            Set(ByVal value As String)
-                _cmsStatus = value
-            End Set
-        End Property
-        Private _cmsStatus As String
-        Public Property Description() As String
-            Get
-                Return _description
-            End Get
-            Set(ByVal value As String)
-                _description = value
-            End Set
-        End Property
-        Private _description As String
-        Public Property Naics() As String
-            Get
-                Return _naics
-            End Get
-            Set(ByVal value As String)
-                _naics = value
-            End Set
-        End Property
-        Private _naics As String
-        Public Property RmpId() As String
-            Get
-                Return _rmpId
-            End Get
-            Set(ByVal value As String)
-                _rmpId = value
-            End Set
-        End Property
-        Private _rmpId As String
+        Private _headerData As FacilityHeaderData
 
 #End Region
 
@@ -172,6 +92,7 @@
         ''' <param name="airsNumber">The string to test</param>
         ''' <returns>True if test string is in the format of a valid AIRS number. Otherwise, false.</returns>
         Public Shared Function IsValidAirsNumber(ByVal airsNumber As String) As Boolean
+            If airsNumber Is Nothing Then Return False
             ' Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000
             ' (with or without the dashes)
 
@@ -191,6 +112,15 @@
             Return True
         End Function
 
+        ''' <summary>
+        ''' Converts an AIRS number to an 8 or 12-character string with no dashes. A return value indicates whether the conversion succeeded.
+        ''' </summary>
+        ''' <param name="airsNumber">A string containing an AIRS number to convert.
+        ''' When this method returns, contains the converted AIRS number, or the original string if the conversion failed. 
+        ''' The conversion fails if the original string is not of the correct format for an AIRS number.
+        ''' </param>
+        ''' <param name="expand">Whether the string should be expanded to 12 characters or not. Default is false (8 characters).</param>
+        ''' <returns>True if airsNumber was converted successfully; otherwise, false.</returns>
         Public Shared Function NormalizeAirsNumber(ByRef airsNumber As String, Optional ByVal expand As Boolean = False) As Boolean
             ' Converts a string representation of an AIRS number to the "00000000" form 
             ' (eight numerals, no dashes).
@@ -217,13 +147,15 @@
             Return True
         End Function
 
+        ''' <summary>
+        ''' Converts an AIRS number to its standard string representation, either "000-00000" (eight numerals, one dash), 
+        ''' or "04-13-000-00000" (12 numerals, dashes added, beginning with "04-13").
+        ''' </summary>
+        ''' <param name="airsNumber">A string containing an AIRS number to convert.</param>
+        ''' <param name="expand">Whether the string should be expanded to 12 digits or not. Default is false (8 digits).</param>
+        ''' <returns>A formatted string representation of an AIRS number.</returns>
+        ''' <remarks></remarks>
         Public Shared Function FormatAirsNumber(ByVal airsNumber As String, Optional ByVal expand As Boolean = False) As String
-            ' Converts a string representation of an AIRS number to the "000-00000" form 
-            ' (eight numerals, one dash).
-            '
-            ' If 'expand' is True, then the AIRS number is expanded to the "04-13-000-00000"
-            ' form (12 numerals, dashes added, beginning with "04-13").
-
             If Not NormalizeAirsNumber(airsNumber, expand) Then Return Nothing
             If expand Then
                 Return Mid(airsNumber, 1, 2) & "-" & Mid(airsNumber, 3, 2) & "-" & _
@@ -235,6 +167,123 @@
 
 #End Region
 
-    End Class
+#Region " Enums "
+
+#Region " Operation "
+
+        ''' <summary>
+        ''' The operational status of a facility.
+        ''' </summary>
+        ''' <remarks>Stored in database as a single-character string.</remarks>
+        Public Enum OperationalStatus
+            Unspecified
+            <Description("Operational")> O
+            <Description("Planned")> P
+            <Description("Under Construction")> C
+            <Description("Temporarily Closed")> T
+            <Description("Closed/Dismantled")> X
+            <Description("Seasonal Operation")> I
+        End Enum
+
+        ''' <summary>
+        ''' The source classification of a facility (based on permit type).
+        ''' </summary>
+        ''' <remarks>Stored in database as a two-character string.</remarks>
+        Public Enum Classification
+            Unspecified
+            <Description("Major source")> A
+            <Description("Minor source")> B
+            <Description("Synthetic minor")> SM
+            <Description("Permit by rule")> PR
+            <Description("Unclassified")> C
+        End Enum
+
+#End Region
+
+#Region " Nonattainment status "
+
+        ''' <summary>
+        ''' Specifies whether a facility is located within a one-hour ozone nonattainment area.
+        ''' </summary>
+        ''' <remarks>The value of each enumeration member is significant because the members are stored
+        ''' and retrieved from the database in a coded string (along with EightHourNonattainmentStatus and
+        ''' PMFineNonattainmentStatus.)</remarks>
+        Public Enum OneHourNonattainmentStatus
+            No = 0
+            Yes = 1
+            Contribute = 2
+        End Enum
+
+        ''' <summary>
+        ''' Specifies whether a facility is located within an eight-hour ozone nonattainment area.
+        ''' </summary>
+        ''' <remarks>The value of each enumeration member is significant because the members are stored
+        ''' and retrieved from the database in a coded string (along with OneHourNonattainmentStatus and
+        ''' PMFineNonattainmentStatus.)</remarks>
+        Public Enum EightHourNonattainmentStatus
+            None = 0
+            Atlanta = 1
+            Macon = 2
+        End Enum
+
+        ''' <summary>
+        ''' Specifies whether a facility is located within a PM Fine (PM 2.5) nonattainment area.
+        ''' </summary>
+        ''' <remarks>The value of each enumeration member is significant because the members are stored
+        ''' and retrieved from the database in a coded string (along with EightHourNonattainmentStatus and
+        ''' OneHourNonattainmentStatus.)</remarks>
+        Public Enum PMFineNonattainmentStatus
+            None = 0
+            Atlanta = 1
+            Chattanooga = 2
+            Floyd = 3
+            Macon = 4
+        End Enum
+
+#End Region
+
+#Region " Program Codes "
+
+        ''' <summary>
+        ''' Bitwise flag for enumerating which air programs apply to a facility.
+        ''' </summary>
+        ''' <remarks>The enum value of the flags is significant because the flags are stored 
+        ''' in the database as a (reversed) bitwise string. The string is 15 characters, but 
+        ''' only the first 14 are used.</remarks>
+        <Flags()> Public Enum AirPrograms
+            None = 0
+            <Description("SIP")> SIP = 1
+            <Description("Federal SIP")> FederalSIP = 2
+            <Description("Non-Federal SIP")> NonFederalSIP = 4
+            <Description("CFC Tracking")> CfcTracking = 8
+            <Description("PSD")> PSD = 16
+            <Description("NSR")> NSR = 32
+            <Description("NESHAP (Part 61)")> NESHAP = 64
+            <Description("NSPS")> NSPS = 128
+            <Description("FESOP")> FESOP = 256
+            <Description("Acid Precipitation")> AcidPrecipitation = 512
+            <Description("Native American")> NativeAmerican = 1024
+            <Description("MACT (Part63)")> MACT = 2048
+            <Description("Title V")> TitleV = 4096
+            <Description("Risk Management Plan")> RMP = 8192
+        End Enum
+
+        ''' <summary>
+        ''' Bitwise flag for enumerating which air program classifications apply to a facility.
+        ''' </summary>
+        ''' <remarks>The enum value of the flags is significant because the flags are stored 
+        ''' in the database as a (reversed) bitwise string. The string is 5 characters, but 
+        ''' only the first 2 are used.</remarks>
+        <Flags()> Public Enum AirProgramClassifications
+            None = 0
+            <Description("NSR/PSD Major")> NsrMajor = 1
+            <Description("HAPs Major")> HapMajor = 2
+        End Enum
+
+#End Region
+
+#End Region
+
+    End Structure
 
 End Namespace

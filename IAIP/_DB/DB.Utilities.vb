@@ -16,25 +16,23 @@ Namespace DB
             End If
         End Function
 
-        Public Sub AddBlankRowToDictionary(ByRef d As Dictionary(Of Integer, String), Optional ByVal blankPrompt As String = "")
-            d.Add(0, blankPrompt)
-        End Sub
+        Public Function GetNullableDateTimeFromString(ByVal obj As Object) As DateTime?
+            Try
 
-        Public Sub BindDictionaryToComboBox(ByVal d As Dictionary(Of Integer, String), ByVal c As ComboBox)
-            With c
-                .DataSource = New BindingSource(d, Nothing)
-                .DisplayMember = "Value"
-                .ValueMember = "Key"
-            End With
-        End Sub
-
-        Public Sub BindSortedDictionaryToComboBox(ByVal d As SortedDictionary(Of Integer, String), ByVal c As ComboBox)
-            With c
-                .DataSource = New BindingSource(d, Nothing)
-                .DisplayMember = "Value"
-                .ValueMember = "Key"
-            End With
-        End Sub
+                If obj Is Nothing OrElse IsDBNull(obj) OrElse String.IsNullOrEmpty(obj) Then
+                    Return Nothing
+                Else
+                    Dim newDate As New DateTime
+                    If DateTime.TryParse(obj, newDate) Then
+                        Return newDate
+                    Else
+                        Return Nothing
+                    End If
+                End If
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Function
 
         Public Function ReadByteArrayFromFile(ByVal pathToFile As String) As Byte()
             Dim fs As New FileStream(pathToFile, FileMode.Open, FileAccess.Read)

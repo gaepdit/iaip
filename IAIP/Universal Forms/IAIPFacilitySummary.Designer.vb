@@ -1796,9 +1796,9 @@ Partial Class IAIPFacilitySummary
         Me.btnEditHeaderData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnEditHeaderData.Location = New System.Drawing.Point(3, 5)
         Me.btnEditHeaderData.Name = "btnEditHeaderData"
-        Me.btnEditHeaderData.Size = New System.Drawing.Size(99, 23)
+        Me.btnEditHeaderData.Size = New System.Drawing.Size(127, 23)
         Me.btnEditHeaderData.TabIndex = 1
-        Me.btnEditHeaderData.Text = "Edit Header Data"
+        Me.btnEditHeaderData.Text = "Edit/View Header Data"
         Me.btnEditHeaderData.UseVisualStyleBackColor = True
         '
         'TPFeesData

@@ -50,7 +50,7 @@
     Private DbPingTimerInterval As TimeSpan = TimeSpan.FromMinutes(35) ' 35 minutes 
 
     Private Sub DbPingTimerElapsed()
-        monitor.TrackFeature("Timers." & AppDurationTimer.ToString)
+        monitor.TrackFeature("Timers." & "DbPingTimer")
         Dim result As Boolean = DB.PingDBConnection(CurrentConnection)
         If Not result Then
             MessageBox.Show("The database connection has been lost. " & vbNewLine & _
@@ -70,7 +70,7 @@
     Private ShutdownWarningTimerInterval As TimeSpan = TimeSpan.FromMinutes(5) ' 5 minutes
 
     Private Sub AppDurationTimerElapsed()
-        monitor.TrackFeature("Timers." & AppDurationTimer.ToString)
+        monitor.TrackFeature("Timers." & "AppDurationTimer")
         StartTimer(ShutdownWarningTimer, ShutdownWarningTimerInterval, _
                    AddressOf ShutdownWarningTimerElapsed, False)
 
@@ -94,7 +94,7 @@
     End Sub
 
     Private Sub ShutdownWarningTimerElapsed()
-        monitor.TrackFeature("Timers." & AppDurationTimer.ToString)
+        monitor.TrackFeature("Timers." & "ShutdownWarningTimer")
         StartupShutdown.CloseIaip()
     End Sub
 

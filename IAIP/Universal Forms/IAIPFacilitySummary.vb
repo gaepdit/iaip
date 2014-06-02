@@ -4290,24 +4290,24 @@ Public Class IAIPFacilitySummary
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnEditHeaderData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditHeaderData.Click
-        Try
-            If EditHeaderData Is Nothing Then
-                EditHeaderData = New IAIPEditHeaderData
-                EditHeaderData.txtAirsNumber.Text = mtbAIRSNumber.Text
-                EditHeaderData.txtFacilityName.Text = txtFacilityName.Text
-                EditHeaderData.Show()
-            Else
-                EditHeaderData.txtAirsNumber.Text = mtbAIRSNumber.Text
-                EditHeaderData.txtFacilityName.Text = txtFacilityName.Text
-                EditHeaderData.Show()
-                EditHeaderData.BringToFront()
+        If Apb.Facility.IsValidAirsNumber(mtbAIRSNumber.Text) Then
+
+            Dim editHeaderDataDialog As New IAIPEditHeaderData
+            editHeaderDataDialog.AirsNumber = mtbAIRSNumber.Text
+            editHeaderDataDialog.FacilityName = txtFacilityName.Text
+
+            editHeaderDataDialog.ShowDialog()
+
+            If editHeaderDataDialog.SomethingWasSaved Then
+                LoadInitialData()
             End If
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+            editHeaderDataDialog.Dispose()
+        End If
     End Sub
+
     Private Sub btnEditContacts_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditContacts.Click
         OpenEditContactInformationTool()
     End Sub

@@ -95,7 +95,6 @@ Partial Class SsppPermitRevocationDialog
         Me.Controls.Add(Me.Warning)
         Me.Controls.Add(Me.Intro)
         Me.Controls.Add(Me.OkButton)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "SsppPermitRevocationDialog"

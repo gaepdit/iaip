@@ -84,6 +84,7 @@
         Public Shared Function IsValidPermitNumber(ByVal permitNumber As String) As Boolean
             ' Valid permit numbers are in the form 0000-000-0000-A-00-?
             ' (with the dashes)
+            If permitNumber Is Nothing Then Return False
             Dim rgx As New System.Text.RegularExpressions.Regex("^\d{4}-\d{3}-\d{4}-[A-Z]-\d{2}-[A-Z0-9]$")
             Return rgx.IsMatch(permitNumber)
         End Function

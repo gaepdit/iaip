@@ -113,7 +113,7 @@ Partial Class IAIPLogIn
         'mmiCheckForUpdate
         '
         Me.mmiCheckForUpdate.Index = 2
-        Me.mmiCheckForUpdate.Text = "Check for &Update"
+        Me.mmiCheckForUpdate.Text = "Check for &Updates"
         '
         'MenuItem5
         '

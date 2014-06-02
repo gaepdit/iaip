@@ -1568,8 +1568,10 @@
     <Compile Include="SSPP\Sub Forms\SsppPermitRevocationDialog.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="_Data Classes\FacilityHeaderData.vb" />
     <Compile Include="_Data Classes\SSPP.Permit.vb" />
     <Compile Include="_DB\DAL.AppData.vb" />
+    <Compile Include="_DB\DAL.FacilityHeaderData.vb" />
     <Compile Include="_DB\DAL.SBEAP.vb" />
     <Compile Include="_DB\DAL.SSPP.Applications.vb">
       <SubType>Code</SubType>
@@ -1678,7 +1680,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_Data Classes\SSCP.Acc.vb" />
-    <Compile Include="_DB\DAL.Facility.vb" />
+    <Compile Include="_DB\DAL.Facilities.vb" />
     <Compile Include="_DB\DAL.Staff.vb" />
     <Compile Include="SSCP\SscpDocuments.Designer.vb">
       <DependentUpon>SscpDocuments.vb</DependentUpon>
@@ -1711,6 +1713,7 @@
     <Compile Include="_DB\DAL.EventRegistration.vb" />
     <Compile Include="_DB\DB.Utilities.vb" />
     <Compile Include="_Modules\Analytics.vb" />
+    <Compile Include="_Modules\BitFields.vb" />
     <Compile Include="_Modules\CrystalReports.vb" />
     <Compile Include="_Modules\CueTextBox.vb">
       <SubType>Component</SubType>

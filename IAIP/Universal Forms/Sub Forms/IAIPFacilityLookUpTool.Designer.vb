@@ -646,7 +646,6 @@ Partial Class IAIPFacilityLookUpTool
         Me.Controls.Add(Me.btnUseAIRSNumber)
         Me.Controls.Add(Me.tcSearchOptions)
         Me.Controls.Add(Me.FacilityLookupToolBar)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.MinimumSize = New System.Drawing.Size(470, 300)

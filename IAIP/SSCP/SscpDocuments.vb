@@ -30,8 +30,8 @@ Public Class SscpDocuments
         Dim documentTypes As Dictionary(Of Integer, String) = DAL.GetEnforcementDocumentTypesDict
 
         If documentTypes.Count > 0 Then
-            DB.BindDictionaryToComboBox(documentTypes, ddlNewDocumentType)
-            DB.BindDictionaryToComboBox(documentTypes, ddlDocumentType)
+            ddlNewDocumentType.BindToDictionary(documentTypes)
+            ddlDocumentType.BindToDictionary(documentTypes)
 
             ' When a doc type is selected, display whether it already exists
             ' This has to be added after the list is bound (above) or it will trigger

@@ -103,6 +103,14 @@ Module App
         End If
     End Function
 
+    Public Function NothingifyEmptyString(ByVal s As String) As String
+        If String.IsNullOrEmpty(s) Then
+            Return Nothing
+        Else
+            Return s
+        End If
+    End Function
+
 #End Region
 
 #Region " Date functions "
@@ -144,6 +152,16 @@ Module App
     End Sub
 
     ''' <summary>
+    ''' Disables all Controls in an array by setting their .Enabled property to False
+    ''' </summary>
+    ''' <param name="controls">An array of Controls to disable</param>
+    Public Sub DisableControls(ByVal controls As Control())
+        For Each control As Control In controls
+            control.Enabled = False
+        Next
+    End Sub
+
+    ''' <summary>
     ''' Enables and shows a Control by setting its .Enabled and .Visible properties to True
     ''' </summary>
     ''' <param name="control">The Control to enable and show</param>
@@ -163,6 +181,16 @@ Module App
     Public Sub EnableAndShow(ByVal controls As Control())
         For Each control As Control In controls
             EnableAndShow(control)
+        Next
+    End Sub
+
+    ''' <summary>
+    ''' Enables all Controls in an array by setting their .Enabled property to True
+    ''' </summary>
+    ''' <param name="controls">An array of Controls to enable</param>
+    Public Sub EnableControls(ByVal controls As Control())
+        For Each control As Control In controls
+            control.Enabled = True
         Next
     End Sub
 

@@ -7377,7 +7377,7 @@ Public Class SSCPEvents
             .Deleted = ItemIsDeleted
             .DeviationsReported = rdbACCDeviationsReportedYes.Checked
             .EnforcementNeeded = rdbACCEnforcementNeededYes.Checked
-            .Facility = DAL.GetFacilityInfoByAirs(AIRSNumber)
+            .Facility = DAL.GetFacility(AIRSNumber)
             .PostmarkedByDeadline = rdbACCPostmarkYes.Checked
             .ResubmittalRequested = rdbACCResubmittalRequestedYes.Checked
             .SignedByResponsibleOfficial = rdbACCROYes.Checked
