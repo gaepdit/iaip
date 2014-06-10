@@ -24,16 +24,16 @@ Partial Class IAIPEditHeaderData
         Me.FacilityDescriptionLabel = New System.Windows.Forms.Label
         Me.FacilityHistoryDisplay = New System.Windows.Forms.DataGridView
         Me.Comments = New System.Windows.Forms.TextBox
-        Me.Label6 = New System.Windows.Forms.Label
+        Me.CommentsLabel = New System.Windows.Forms.Label
         Me.PermitRevocationDateLabel = New System.Windows.Forms.Label
         Me.StartupDateLabel = New System.Windows.Forms.Label
         Me.StartUpDate = New System.Windows.Forms.DateTimePicker
         Me.ShutdownDate = New System.Windows.Forms.DateTimePicker
-        Me.Label3 = New System.Windows.Forms.Label
+        Me.ClassificationLabel = New System.Windows.Forms.Label
         Me.Classification = New System.Windows.Forms.ComboBox
-        Me.Label10 = New System.Windows.Forms.Label
+        Me.OperationalStatusLabel = New System.Windows.Forms.Label
         Me.OperationalStatus = New System.Windows.Forms.ComboBox
-        Me.Label8 = New System.Windows.Forms.Label
+        Me.SicCodeLabel = New System.Windows.Forms.Label
         Me.SicCode = New System.Windows.Forms.TextBox
         Me.AirProgramCodes = New System.Windows.Forms.GroupBox
         Me.ApcRmp = New System.Windows.Forms.CheckBox
@@ -52,7 +52,7 @@ Partial Class IAIPEditHeaderData
         Me.ApcNonfederalSip = New System.Windows.Forms.CheckBox
         Me.ApcFederalSip = New System.Windows.Forms.CheckBox
         Me.ApcSip = New System.Windows.Forms.CheckBox
-        Me.RmpLabel = New System.Windows.Forms.Label
+        Me.RmpIdLabel = New System.Windows.Forms.Label
         Me.RmpId = New System.Windows.Forms.MaskedTextBox
         Me.ModifiedDescDisplay = New System.Windows.Forms.Label
         Me.FacilityNameDisplay = New System.Windows.Forms.Label
@@ -64,7 +64,7 @@ Partial Class IAIPEditHeaderData
         Me.Label97 = New System.Windows.Forms.Label
         Me.Label96 = New System.Windows.Forms.Label
         Me.Label94 = New System.Windows.Forms.Label
-        Me.Label9 = New System.Windows.Forms.Label
+        Me.NaicsCodeLabel = New System.Windows.Forms.Label
         Me.NaicsCode = New System.Windows.Forms.TextBox
         Me.SaveChangesButton = New System.Windows.Forms.Button
         Me.CancelEditButton = New System.Windows.Forms.Button
@@ -77,7 +77,6 @@ Partial Class IAIPEditHeaderData
         'FacilityDescription
         '
         Me.FacilityDescription.AcceptsReturn = True
-        Me.FacilityDescription.BackColor = System.Drawing.Color.White
         Me.FacilityDescription.Location = New System.Drawing.Point(116, 259)
         Me.FacilityDescription.MaxLength = 4000
         Me.FacilityDescription.Multiline = True
@@ -121,7 +120,6 @@ Partial Class IAIPEditHeaderData
         'Comments
         '
         Me.Comments.AcceptsReturn = True
-        Me.Comments.BackColor = System.Drawing.Color.White
         Me.Comments.Location = New System.Drawing.Point(116, 285)
         Me.Comments.MaxLength = 4000
         Me.Comments.Multiline = True
@@ -129,16 +127,16 @@ Partial Class IAIPEditHeaderData
         Me.Comments.Size = New System.Drawing.Size(478, 40)
         Me.Comments.TabIndex = 10
         '
-        'Label6
+        'CommentsLabel
         '
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(12, 288)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(59, 13)
-        Me.Label6.TabIndex = 372
-        Me.Label6.Text = "Comments:"
-        Me.Label6.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.CommentsLabel.AutoSize = True
+        Me.CommentsLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CommentsLabel.Location = New System.Drawing.Point(12, 288)
+        Me.CommentsLabel.Name = "CommentsLabel"
+        Me.CommentsLabel.Size = New System.Drawing.Size(59, 13)
+        Me.CommentsLabel.TabIndex = 372
+        Me.CommentsLabel.Text = "Comments:"
+        Me.CommentsLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         '
         'PermitRevocationDateLabel
         '
@@ -183,64 +181,61 @@ Partial Class IAIPEditHeaderData
         Me.ShutdownDate.TabIndex = 4
         Me.ShutdownDate.Value = New Date(2006, 11, 3, 0, 0, 0, 0)
         '
-        'Label3
+        'ClassificationLabel
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(12, 59)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(71, 13)
-        Me.Label3.TabIndex = 356
-        Me.Label3.Text = "Classification:"
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.BottomLeft
+        Me.ClassificationLabel.AutoSize = True
+        Me.ClassificationLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ClassificationLabel.Location = New System.Drawing.Point(12, 59)
+        Me.ClassificationLabel.Name = "ClassificationLabel"
+        Me.ClassificationLabel.Size = New System.Drawing.Size(71, 13)
+        Me.ClassificationLabel.TabIndex = 356
+        Me.ClassificationLabel.Text = "Classification:"
+        Me.ClassificationLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft
         '
         'Classification
         '
         Me.Classification.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.Classification.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.Classification.BackColor = System.Drawing.Color.White
         Me.Classification.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Classification.Location = New System.Drawing.Point(89, 57)
         Me.Classification.Name = "Classification"
         Me.Classification.Size = New System.Drawing.Size(121, 21)
         Me.Classification.TabIndex = 0
         '
-        'Label10
+        'OperationalStatusLabel
         '
-        Me.Label10.AutoSize = True
-        Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(225, 59)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(89, 13)
-        Me.Label10.TabIndex = 359
-        Me.Label10.Text = "Operating Status:"
-        Me.Label10.TextAlign = System.Drawing.ContentAlignment.BottomLeft
+        Me.OperationalStatusLabel.AutoSize = True
+        Me.OperationalStatusLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.OperationalStatusLabel.Location = New System.Drawing.Point(225, 59)
+        Me.OperationalStatusLabel.Name = "OperationalStatusLabel"
+        Me.OperationalStatusLabel.Size = New System.Drawing.Size(89, 13)
+        Me.OperationalStatusLabel.TabIndex = 359
+        Me.OperationalStatusLabel.Text = "Operating Status:"
+        Me.OperationalStatusLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft
         '
         'OperationalStatus
         '
         Me.OperationalStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.OperationalStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.OperationalStatus.BackColor = System.Drawing.Color.White
         Me.OperationalStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.OperationalStatus.Location = New System.Drawing.Point(320, 56)
         Me.OperationalStatus.Name = "OperationalStatus"
         Me.OperationalStatus.Size = New System.Drawing.Size(121, 21)
         Me.OperationalStatus.TabIndex = 1
         '
-        'Label8
+        'SicCodeLabel
         '
-        Me.Label8.AutoSize = True
-        Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(462, 59)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(55, 13)
-        Me.Label8.TabIndex = 357
-        Me.Label8.Text = "SIC Code:"
-        Me.Label8.TextAlign = System.Drawing.ContentAlignment.BottomLeft
+        Me.SicCodeLabel.AutoSize = True
+        Me.SicCodeLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SicCodeLabel.Location = New System.Drawing.Point(462, 59)
+        Me.SicCodeLabel.Name = "SicCodeLabel"
+        Me.SicCodeLabel.Size = New System.Drawing.Size(55, 13)
+        Me.SicCodeLabel.TabIndex = 357
+        Me.SicCodeLabel.Text = "SIC Code:"
+        Me.SicCodeLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft
         '
         'SicCode
         '
-        Me.SicCode.BackColor = System.Drawing.Color.White
         Me.SicCode.Location = New System.Drawing.Point(523, 56)
         Me.SicCode.Name = "SicCode"
         Me.SicCode.Size = New System.Drawing.Size(71, 20)
@@ -420,14 +415,14 @@ Partial Class IAIPEditHeaderData
         Me.ApcSip.TabIndex = 0
         Me.ApcSip.Text = "SIP"
         '
-        'RmpLabel
+        'RmpIdLabel
         '
-        Me.RmpLabel.AutoSize = True
-        Me.RmpLabel.Location = New System.Drawing.Point(455, 262)
-        Me.RmpLabel.Name = "RmpLabel"
-        Me.RmpLabel.Size = New System.Drawing.Size(48, 13)
-        Me.RmpLabel.TabIndex = 163
-        Me.RmpLabel.Text = "RMP ID:"
+        Me.RmpIdLabel.AutoSize = True
+        Me.RmpIdLabel.Location = New System.Drawing.Point(455, 262)
+        Me.RmpIdLabel.Name = "RmpIdLabel"
+        Me.RmpIdLabel.Size = New System.Drawing.Size(48, 13)
+        Me.RmpIdLabel.TabIndex = 163
+        Me.RmpIdLabel.Text = "RMP ID:"
         '
         'RmpId
         '
@@ -485,7 +480,6 @@ Partial Class IAIPEditHeaderData
         Me.PmFine.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PmFine.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.PmFine.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.PmFine.BackColor = System.Drawing.Color.White
         Me.PmFine.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.PmFine.FormattingEnabled = True
         Me.PmFine.Location = New System.Drawing.Point(72, 67)
@@ -498,7 +492,6 @@ Partial Class IAIPEditHeaderData
         Me.EightHourOzone.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.EightHourOzone.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.EightHourOzone.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.EightHourOzone.BackColor = System.Drawing.Color.White
         Me.EightHourOzone.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.EightHourOzone.FormattingEnabled = True
         Me.EightHourOzone.Location = New System.Drawing.Point(72, 43)
@@ -511,7 +504,6 @@ Partial Class IAIPEditHeaderData
         Me.OneHourOzone.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.OneHourOzone.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.OneHourOzone.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.OneHourOzone.BackColor = System.Drawing.Color.White
         Me.OneHourOzone.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.OneHourOzone.FormattingEnabled = True
         Me.OneHourOzone.Location = New System.Drawing.Point(72, 19)
@@ -552,20 +544,19 @@ Partial Class IAIPEditHeaderData
         Me.Label94.TabIndex = 0
         Me.Label94.Text = "1-hr ozone:"
         '
-        'Label9
+        'NaicsCodeLabel
         '
-        Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(447, 86)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(70, 13)
-        Me.Label9.TabIndex = 379
-        Me.Label9.Text = "NAICS Code:"
-        Me.Label9.TextAlign = System.Drawing.ContentAlignment.BottomLeft
+        Me.NaicsCodeLabel.AutoSize = True
+        Me.NaicsCodeLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.NaicsCodeLabel.Location = New System.Drawing.Point(447, 86)
+        Me.NaicsCodeLabel.Name = "NaicsCodeLabel"
+        Me.NaicsCodeLabel.Size = New System.Drawing.Size(70, 13)
+        Me.NaicsCodeLabel.TabIndex = 379
+        Me.NaicsCodeLabel.Text = "NAICS Code:"
+        Me.NaicsCodeLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft
         '
         'NaicsCode
         '
-        Me.NaicsCode.BackColor = System.Drawing.Color.White
         Me.NaicsCode.Location = New System.Drawing.Point(523, 83)
         Me.NaicsCode.Name = "NaicsCode"
         Me.NaicsCode.Size = New System.Drawing.Size(71, 20)
@@ -609,8 +600,8 @@ Partial Class IAIPEditHeaderData
         Me.ClientSize = New System.Drawing.Size(612, 560)
         Me.Controls.Add(Me.EditableButton)
         Me.Controls.Add(Me.CancelEditButton)
-        Me.Controls.Add(Me.RmpLabel)
-        Me.Controls.Add(Me.Label9)
+        Me.Controls.Add(Me.RmpIdLabel)
+        Me.Controls.Add(Me.NaicsCodeLabel)
         Me.Controls.Add(Me.RmpId)
         Me.Controls.Add(Me.NaicsCode)
         Me.Controls.Add(Me.NonattainmentStatuses)
@@ -618,16 +609,16 @@ Partial Class IAIPEditHeaderData
         Me.Controls.Add(Me.FacilityDescriptionLabel)
         Me.Controls.Add(Me.FacilityHistoryDisplay)
         Me.Controls.Add(Me.Comments)
-        Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.CommentsLabel)
         Me.Controls.Add(Me.PermitRevocationDateLabel)
         Me.Controls.Add(Me.StartupDateLabel)
         Me.Controls.Add(Me.StartUpDate)
         Me.Controls.Add(Me.ShutdownDate)
-        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.ClassificationLabel)
         Me.Controls.Add(Me.Classification)
-        Me.Controls.Add(Me.Label10)
+        Me.Controls.Add(Me.OperationalStatusLabel)
         Me.Controls.Add(Me.OperationalStatus)
-        Me.Controls.Add(Me.Label8)
+        Me.Controls.Add(Me.SicCodeLabel)
         Me.Controls.Add(Me.SicCode)
         Me.Controls.Add(Me.AirProgramCodes)
         Me.Controls.Add(Me.ModifiedDescDisplay)
@@ -652,16 +643,16 @@ Partial Class IAIPEditHeaderData
     Friend WithEvents FacilityDescriptionLabel As System.Windows.Forms.Label
     Friend WithEvents FacilityHistoryDisplay As System.Windows.Forms.DataGridView
     Friend WithEvents Comments As System.Windows.Forms.TextBox
-    Friend WithEvents Label6 As System.Windows.Forms.Label
+    Friend WithEvents CommentsLabel As System.Windows.Forms.Label
     Friend WithEvents PermitRevocationDateLabel As System.Windows.Forms.Label
     Friend WithEvents StartupDateLabel As System.Windows.Forms.Label
     Friend WithEvents StartUpDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents ShutdownDate As System.Windows.Forms.DateTimePicker
-    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents ClassificationLabel As System.Windows.Forms.Label
     Friend WithEvents Classification As System.Windows.Forms.ComboBox
-    Friend WithEvents Label10 As System.Windows.Forms.Label
+    Friend WithEvents OperationalStatusLabel As System.Windows.Forms.Label
     Friend WithEvents OperationalStatus As System.Windows.Forms.ComboBox
-    Friend WithEvents Label8 As System.Windows.Forms.Label
+    Friend WithEvents SicCodeLabel As System.Windows.Forms.Label
     Friend WithEvents SicCode As System.Windows.Forms.TextBox
     Friend WithEvents AirProgramCodes As System.Windows.Forms.GroupBox
     Friend WithEvents ApcAcid As System.Windows.Forms.CheckBox
@@ -690,9 +681,9 @@ Partial Class IAIPEditHeaderData
     Friend WithEvents PmFine As System.Windows.Forms.ComboBox
     Friend WithEvents EightHourOzone As System.Windows.Forms.ComboBox
     Friend WithEvents ApcRmp As System.Windows.Forms.CheckBox
-    Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents NaicsCodeLabel As System.Windows.Forms.Label
     Friend WithEvents NaicsCode As System.Windows.Forms.TextBox
-    Friend WithEvents RmpLabel As System.Windows.Forms.Label
+    Friend WithEvents RmpIdLabel As System.Windows.Forms.Label
     Friend WithEvents RmpId As System.Windows.Forms.MaskedTextBox
     Friend WithEvents SaveChangesButton As System.Windows.Forms.Button
     Friend WithEvents CancelEditButton As System.Windows.Forms.Button

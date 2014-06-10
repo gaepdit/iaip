@@ -1,5 +1,5 @@
-Imports Oracle.DataAccess.Client
 Imports Iaip.Apb
+Imports System.Collections.Generic
 
 Public Class IAIPEditHeaderData
 
@@ -184,12 +184,13 @@ Public Class IAIPEditHeaderData
 
     Private Sub CancelEditButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CancelEditButton.Click
         If EditableButton.Checked Then
+            ResetHighlight()
             EditableButton.Checked = False
         End If
     End Sub
 
     Private Sub SaveChangesButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SaveChangesButton.Click
-        SaveData()
+        SaveEditedData()
     End Sub
 
 #End Region
@@ -321,314 +322,126 @@ Public Class IAIPEditHeaderData
         Return facilityHeaderData
     End Function
 
-    Private Sub SaveData()
-        Dim editedFacility As FacilityHeaderData = BoxUpFacilityFromForm()
-
+    Private Function PreSaveCheck(ByVal editedFacility As FacilityHeaderData) As Boolean
         ' Compare edited data to current data
-        If ComparableFacility(editedFacility).Equals(ComparableFacility(CurrentFacility)) Then
+        If ComparableHeaderData(editedFacility).Equals(ComparableHeaderData(CurrentFacility)) Then
             MessageBox.Show("No data has been changed. Nothing saved.", "Nothing Changed", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Exit Sub
+            Return False
         End If
 
         ' Validate fields and require comment ... See Save()
-        'If invalid Then
-        '    MessageBox.Show("Some data is not valid. Nothing saved.", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-        '    Exit Sub
-        'End If
+        Dim invalidControls As New List(Of Control)
+        If Not ValidateAllFields(invalidControls) Then
+            HighlightInvalidControls(invalidControls)
+            MessageBox.Show("Some data is not valid. Please double-check your entries." & vbNewLine & vbNewLine & "Nothing saved.", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return False
+        End If
 
-        ' Save edited data
-        'Dim result As Boolean = DAL.FacilityHeaderData.SaveFacilityHeaderData(editedFacility)
+        Return True
+    End Function
 
-        ' If successful, report back to Facility Summary and close
-        'If result Then
-        '    Me.SomethingWasSaved = True
-        '    Me.Close()
-        'Else
-        '    MessageBox.Show("There was an error saving the new data. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        'End If
+    Private Function ValidateAllFields(<Runtime.InteropServices.Out()> ByVal invalidControls As List(Of Control)) As Boolean
+        Dim valid As Boolean = True
+        invalidControls = New List(Of Control)
 
+        If Classification.SelectedValue = Facility.Classification.Unspecified Then
+            valid = False
+            invalidControls.Add(ClassificationLabel)
+        End If
+
+        If OperationalStatus.SelectedValue = Facility.OperationalStatus.Unspecified Then
+            valid = False
+            invalidControls.Add(OperationalStatusLabel)
+        End If
+
+        If Not DAL.FacilityHeaderData.SicCodeExists(SicCode.Text) Then
+            valid = False
+            invalidControls.Add(SicCodeLabel)
+        End If
+
+        If Not DAL.FacilityHeaderData.NaicsCodeExists(NaicsCode.Text) Then
+            valid = False
+            invalidControls.Add(NaicsCodeLabel)
+        End If
+
+        If String.IsNullOrEmpty(Comments.Text) Then
+            MessageBox.Show("Since this is a direct change to the data, please add a useful comment so future users will know the reason for the change." & vbNewLine & vbNewLine & "Nothing saved.", "Missing Comment", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            valid = False
+            invalidControls.Add(CommentsLabel)
+        End If
+
+        If String.IsNullOrEmpty(FacilityDescription.Text) Then
+            valid = False
+            invalidControls.Add(FacilityDescriptionLabel)
+        End If
+
+        If Not (String.IsNullOrEmpty(RmpId.Text) OrElse FacilityHeaderData.IsValidRmpId(RmpId.Text)) Then
+            valid = False
+            invalidControls.Add(RmpIdLabel)
+        End If
+
+        Return valid
+    End Function
+
+    Private Sub HighlightInvalidControls(ByVal invalidControls As List(Of Control))
+        For Each c As Control In invalidControls
+            c.BackColor = Color.Yellow
+        Next
     End Sub
 
-    Private Function ComparableFacility(ByVal hd As FacilityHeaderData) As FacilityHeaderData
-        Dim hdwc As FacilityHeaderData = hd
-        With hdwc
+    Private Sub ResetHighlight()
+        Dim resetableControls As New List(Of Control)(New Control() { _
+          ClassificationLabel, _
+          OperationalStatusLabel, _
+          SicCodeLabel, _
+          NaicsCodeLabel, _
+          CommentsLabel, _
+          FacilityDescriptionLabel, _
+          RmpIdLabel _
+        })
+
+        For Each c As Control In resetableControls
+            c.BackColor = System.Drawing.SystemColors.Control
+        Next
+    End Sub
+
+    Private Function ComparableHeaderData(ByVal headerdata As FacilityHeaderData) As FacilityHeaderData
+        Dim comparableHeaderData As FacilityHeaderData = headerdata
+        With comparableHeaderData
             .HeaderUpdateComment = Nothing
             .DateDataModified = Nothing
             .WhoModified = Nothing
             .WhereModified = Nothing
         End With
-        Return hdwc
+        Return comparableHeaderData
     End Function
+
+    Private Sub SaveEditedData()
+        ResetHighlight()
+
+        Dim editedFacility As FacilityHeaderData = BoxUpFacilityFromForm()
+
+        If PreSaveCheck(editedFacility) Then
+
+            ' Save edited data
+            'Dim result As Boolean = 
+
+            ' If successful, report back to Facility Summary and close
+            'If result Then
+            '    Me.SomethingWasSaved = True
+            '    Me.Close()
+            'Else
+            '    MessageBox.Show("There was an error saving the new data. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            'End If
+
+        End If
+    End Sub
 
 #End Region
 
 
 
 #Region "old stuff"
-
-    'Sub LoadFacilityHeaderData()
-    '    Dim temp As String = ""
-    '    Dim ModifingPerson As String
-    '    Dim ModifingDate As String
-    '    Dim ModifingLocation As String
-
-    '    Try
-    '        SQL = "Select * " & _
-    '        "From " & DBNameSpace & ".VW_APBFacilityHeader " & _
-    '        "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
-
-    '        SQL2 = "Select * " & _
-    '        "from " & DBNameSpace & ".VW_HB_APBHeaderData " & _
-    '        "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' " & _
-    '        "Order by strKey DESC "
-
-    '        dsHeaderData = New DataSet
-    '        daHeaderData = New OracleDataAdapter(SQL, CurrentConnection)
-    '        daHeaderData2 = New OracleDataAdapter(SQL2, CurrentConnection)
-
-    '        If CurrentConnection.State = ConnectionState.Closed Then
-    '            CurrentConnection.Open()
-    '        End If
-
-    '        daHeaderData.Fill(dsHeaderData, "Current")
-    '        daHeaderData2.Fill(dsHeaderData, "Historical")
-
-    '        temp = dsHeaderData.Tables("Current").Rows(0).Item(1).ToString
-    '        Select Case temp
-    '            Case "O"
-    '                OperationalStatus.Text = "O - Operational"
-    '            Case "P"
-    '                OperationalStatus.Text = "P - Planned"
-    '            Case "C"
-    '                OperationalStatus.Text = "C - Under Construction"
-    '            Case "T"
-    '                OperationalStatus.Text = "T - Temporarily Closed"
-    '            Case "X"
-    '                OperationalStatus.Text = "X - Closed/Dismantled"
-    '            Case "I"
-    '                OperationalStatus.Text = "I - Seasonal Operation"
-    '            Case Else
-    '                OperationalStatus.Text = "Unknown - Please Fix"
-    '        End Select
-    '        Classification.Text = dsHeaderData.Tables("Current").Rows(0).Item(2).ToString
-    '        SicCode.Text = dsHeaderData.Tables("Current").Rows(0).Item(4).ToString
-    '        Comments.Text = dsHeaderData.Tables("Current").Rows(0).Item(13).ToString
-    '        ModifingPerson = dsHeaderData.Tables("Current").Rows(0).Item(7).ToString
-    '        ModifingDate = dsHeaderData.Tables("Current").Rows(0).Item(12).ToString
-    '        ModifingLocation = dsHeaderData.Tables("Current").Rows(0).Item(16).ToString
-    '        NaicsCode.Text = dsHeaderData.Tables("Current").Rows(0).Item(17).ToString
-
-    '        txtModifingComments.Text = "Modified on " & ModifingDate & " by " & ModifingPerson & " from " & ModifingLocation
-
-    '        temp = dsHeaderData.Tables("Current").Rows(0).Item(9).ToString
-    '        If temp = "" Then
-    '            StartUpDate.Checked = False
-    '            StartUpDate.Text = OracleDate
-    '        Else
-    '            StartUpDate.Checked = True
-    '            StartUpDate.Text = temp
-    '        End If
-
-    '        temp = dsHeaderData.Tables("Current").Rows(0).Item(10).ToString
-    '        If temp = "" Then
-    '            ShutdownDate.Checked = False
-    '            ShutdownDate.Text = OracleDate
-    '        Else
-    '            ShutdownDate.Checked = True
-    '            ShutdownDate.Text = temp
-    '        End If
-
-    '        FacilityDescription.Text = dsHeaderData.Tables("Current").Rows(0).Item(14).ToString
-    '        temp = dsHeaderData.Tables("Current").Rows(0).Item(15).ToString
-
-    '        If temp = "" Then
-    '            NsrMajor.Checked = False
-    '            HapMajor.Checked = False
-    '        Else
-    '            If Mid(temp, 1, 1) = "1" Then
-    '                NsrMajor.Checked = True
-    '            Else
-    '                NsrMajor.Checked = False
-    '            End If
-    '            If Mid(temp, 2, 1) = "1" Then
-    '                HapMajor.Checked = True
-    '            Else
-    '                HapMajor.Checked = False
-    '            End If
-    '        End If
-
-    '        temp = dsHeaderData.Tables("Current").Rows(0).Item(6).ToString
-    '        If temp = "" Then
-    '            OneHourOzone.Text = "No"
-    '            EightHourOzone.Text = "No"
-    '            PmFine.Text = "No"
-    '        Else
-    '            Select Case (Mid(temp, 2, 1))
-    '                Case 1
-    '                    OneHourOzone.Text = "Yes"
-    '                Case 2
-    '                    OneHourOzone.Text = "Contribute"
-    '                Case Else
-    '                    OneHourOzone.Text = "No"
-    '            End Select
-    '            Select Case (Mid(temp, 3, 1))
-    '                Case 1
-    '                    EightHourOzone.Text = "Atlanta"
-    '                Case 2
-    '                    EightHourOzone.Text = "Macon"
-    '                Case Else
-    '                    EightHourOzone.Text = "No"
-    '            End Select
-    '            Select Case (Mid(temp, 4, 1))
-    '                Case 1
-    '                    PmFine.Text = "Atlanta"
-    '                Case 2
-    '                    PmFine.Text = "Chattanooga"
-    '                Case 3
-    '                    PmFine.Text = "Floyd"
-    '                Case 4
-    '                    PmFine.Text = "Macon"
-    '                Case Else
-    '                    PmFine.Text = "No"
-    '            End Select
-    '        End If
-    '        temp = dsHeaderData.Tables("Current").Rows(0).Item(3).ToString
-    '        AddAirProgramCodes(temp)
-
-    '        HeaderDataHistory.DataSource = dsHeaderData
-    '        HeaderDataHistory.DataMember = "Historical"
-    '        HeaderDataHistory.RowHeadersVisible = False
-    '        HeaderDataHistory.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-    '        HeaderDataHistory.AllowUserToResizeColumns = True
-    '        HeaderDataHistory.AllowUserToAddRows = False
-    '        HeaderDataHistory.AllowUserToDeleteRows = False
-    '        HeaderDataHistory.AllowUserToOrderColumns = True
-    '        HeaderDataHistory.AllowUserToResizeRows = True
-    '        HeaderDataHistory.Columns("strKey").HeaderText = "Key"
-    '        HeaderDataHistory.Columns("strKey").AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
-    '        HeaderDataHistory.Columns("strKey").DisplayIndex = 0
-    '        HeaderDataHistory.Columns("strKey").Visible = False
-    '        HeaderDataHistory.Columns("UserName").HeaderText = "Modifing Person"
-    '        HeaderDataHistory.Columns("UserName").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-    '        HeaderDataHistory.Columns("UserName").DisplayIndex = 1
-    '        HeaderDataHistory.Columns("ModifingDate").HeaderText = "Date Modified"
-    '        HeaderDataHistory.Columns("ModifingDate").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-    '        HeaderDataHistory.Columns("ModifingDate").DisplayIndex = 2
-    '        HeaderDataHistory.Columns("strModifingLocation").HeaderText = "Modifing Location"
-    '        HeaderDataHistory.Columns("strModifingLocation").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-    '        HeaderDataHistory.Columns("strModifingLocation").DisplayIndex = 3
-    '        HeaderDataHistory.Columns("strOperationalStatus").HeaderText = "Operating Status"
-    '        HeaderDataHistory.Columns("strOperationalStatus").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-    '        HeaderDataHistory.Columns("strOperationalStatus").DisplayIndex = 4
-    '        HeaderDataHistory.Columns("strClass").HeaderText = "Classification"
-    '        HeaderDataHistory.Columns("strClass").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-    '        HeaderDataHistory.Columns("strClass").DisplayIndex = 5
-    '        HeaderDataHistory.Columns("strAIRProgramCodes").HeaderText = "Air Program Codes"
-    '        HeaderDataHistory.Columns("strAIRProgramCodes").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-    '        HeaderDataHistory.Columns("strAIRProgramCodes").DisplayIndex = 6
-    '        HeaderDataHistory.Columns("strAIRProgramCodes").Visible = False
-    '        HeaderDataHistory.Columns("strSICCode").HeaderText = "SIC Code"
-    '        HeaderDataHistory.Columns("strSICCode").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-    '        HeaderDataHistory.Columns("strSICCode").DisplayIndex = 7
-    '        HeaderDataHistory.Columns("strComments").HeaderText = "Comments"
-    '        HeaderDataHistory.Columns("strComments").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-    '        HeaderDataHistory.Columns("strComments").DisplayIndex = 8
-    '        HeaderDataHistory.Columns("datStartUpDate").HeaderText = "Start Up Date"
-    '        HeaderDataHistory.Columns("datStartUpDate").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-    '        HeaderDataHistory.Columns("datStartUpDate").DisplayIndex = 9
-    '        HeaderDataHistory.Columns("datShutDownDate").HeaderText = "Shut Down Date"
-    '        HeaderDataHistory.Columns("datShutDownDate").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-    '        HeaderDataHistory.Columns("datShutDownDate").DisplayIndex = 10
-    '        HeaderDataHistory.Columns("strPlantDescription").HeaderText = "Plant Description"
-    '        HeaderDataHistory.Columns("strPlantDescription").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-    '        HeaderDataHistory.Columns("strPlantDescription").DisplayIndex = 11
-    '        HeaderDataHistory.Columns("strAIRSNumber").HeaderText = "AIRS Number"
-    '        HeaderDataHistory.Columns("strAIRSNumber").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-    '        HeaderDataHistory.Columns("strAIRSNumber").DisplayIndex = 12
-    '        HeaderDataHistory.Columns("strAIRSNumber").Visible = False
-    '        HeaderDataHistory.Columns("strAttainmentStatus").Visible = False
-    '        HeaderDataHistory.Columns("strStateProgramCodes").Visible = False
-    '        HeaderDataHistory.Columns("strNAICSCode").HeaderText = "NAICS Code"
-    '        HeaderDataHistory.Columns("strNAICSCode").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-    '        HeaderDataHistory.Columns("strNAICSCode").DisplayIndex = 13
-
-    '    Catch ex As Exception
-    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    Finally
-
-    '    End Try
-
-    'End Sub
-
-    'Sub AddAirProgramCodes(ByRef AirProgramCode As String)
-    '    Try
-
-    '        ApcSip.Checked = False
-    '        ApcFederalSip.Checked = False
-    '        ApcNonfederalSip.Checked = False
-    '        ApcCfc.Checked = False
-    '        ApcPsd.Checked = False
-    '        ApcNsr.Checked = False
-    '        ApcNeshap.Checked = False
-    '        ApcNsps.Checked = False
-    '        ApcFesop.Checked = False
-    '        ApcAcid.Checked = False
-    '        ApcNativeAmerican.Checked = False
-    '        ApcMact.Checked = False
-    '        ApcTitleV.Checked = False
-    '        ApcRmp.Checked = False
-
-    '        If Mid(AirProgramCode, 1, 1) = 1 Then
-    '            ApcSip.Checked = True
-    '        End If
-    '        If Mid(AirProgramCode, 2, 1) = 1 Then
-    '            ApcFederalSip.Checked = True
-    '        End If
-    '        If Mid(AirProgramCode, 3, 1) = 1 Then
-    '            ApcNonfederalSip.Checked = True
-    '        End If
-    '        If Mid(AirProgramCode, 4, 1) = 1 Then
-    '            ApcCfc.Checked = True
-    '        End If
-    '        If Mid(AirProgramCode, 5, 1) = 1 Then
-    '            ApcPsd.Checked = True
-    '        End If
-    '        If Mid(AirProgramCode, 6, 1) = 1 Then
-    '            ApcNsr.Checked = True
-    '        End If
-    '        If Mid(AirProgramCode, 7, 1) = 1 Then
-    '            ApcNeshap.Checked = True
-    '        End If
-    '        If Mid(AirProgramCode, 8, 1) = 1 Then
-    '            ApcNsps.Checked = True
-    '        End If
-    '        If Mid(AirProgramCode, 9, 1) = 1 Then
-    '            ApcFesop.Checked = True
-    '        End If
-    '        If Mid(AirProgramCode, 10, 1) = 1 Then
-    '            ApcAcid.Checked = True
-    '        End If
-    '        If Mid(AirProgramCode, 11, 1) = 1 Then
-    '            ApcNativeAmerican.Checked = True
-    '        End If
-    '        If Mid(AirProgramCode, 12, 1) = 1 Then
-    '            ApcMact.Checked = True
-    '        End If
-    '        If Mid(AirProgramCode, 13, 1) = 1 Then
-    '            ApcTitleV.Checked = True
-    '        End If
-    '        If Mid(AirProgramCode, 14, 1) = 1 Then
-    '            ApcRmp.Checked = True
-    '        End If
-
-    '    Catch ex As Exception
-    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    Finally
-
-    '    End Try
-
-
-    'End Sub
 
     'Sub Save()
     '    Dim ErrorCheck As Boolean = False
@@ -647,119 +460,6 @@ Public Class IAIPEditHeaderData
     '    Dim AttainmentStatus As String = "00000"
     '    Dim RMPNumber As String = ""
 
-    '    Try
-    '        temp = txtAirsNumber.Text
-
-    '        OperationalStatus.BackColor = Color.White
-    '        Classification.BackColor = Color.White
-    '        SICCode.BackColor = Color.White
-    '        NAICSCode.BackColor = Color.White
-
-    '        If AccountFormAccess(29, 2) = "1" Or AccountFormAccess(29, 3) = "1" Or AccountFormAccess(29, 4) = "1" Then
-    '            'End If
-    '            'If UserProgram = "5" Or (UserBranch = "1" And UserUnit = "---") _
-    '            '    Or (UserProgram = "3" And AccountArray(68, 3) = "1") Then
-    '            If Classification.Text <> "" And Classification.Text <> " " Then
-    '                If Classification.Text <> dsHeaderData.Tables("Current").Rows(0).Item(2).ToString Then
-    '                    Classification = Classification.Text
-    '                Else
-    '                    Classification = ""
-    '                End If
-    '            Else
-    '                ErrorCheck = True
-    '                Classification.BackColor = Color.Yellow
-    '            End If
-    '            If OperationalStatus.Text <> "" And OperationalStatus.Text <> " " Then
-    '                If Mid(OperationalStatus.Text, 1, 1) <> dsHeaderData.Tables("Current").Rows(0).Item(1).ToString Then
-    '                    OperationalStatus = Mid(OperationalStatus.Text, 1, 1)
-    '                Else
-    '                    OperationalStatus = ""
-    '                End If
-    '            Else
-    '                ErrorCheck = True
-    '                OperationalStatus.BackColor = Color.Yellow
-    '            End If
-    '            If SICCode.Text <> dsHeaderData.Tables("Current").Rows(0).Item(4).ToString Then
-    '                If IsNumeric(SICCode.Text) Then
-    '                    If SICCode.Text <> "" Then
-    '                        SICCode = SICCode.Text
-    '                    Else
-    '                        SICCode = ""
-    '                    End If
-    '                Else
-    '                    ErrorCheck = True
-    '                    SICCode.BackColor = Color.Yellow
-    '                End If
-    '            Else
-    '                SICCode = ""
-    '            End If
-    '            If NAICSCode.Text <> dsHeaderData.Tables("Current").Rows(0).Item(5).ToString Then
-    '                If IsNumeric(NAICSCode.Text) Then
-    '                    If NAICSCode.Text <> "" Then
-    '                        If ValidateNAICS(NAICSCode.Text) = False Then
-    '                            ErrorCheck = True
-    '                            NAICSCode.BackColor = Color.Yellow
-    '                        End If
-    '                        NAICSCode = NAICSCode.Text
-    '                    Else
-    '                        NAICSCode = ""
-    '                    End If
-    '                Else
-    '                    ErrorCheck = True
-    '                    NAICSCode.BackColor = Color.Yellow
-    '                End If
-    '            End If
-    '            If NSRMajor.Checked = True Then
-    '                StateProgramCodes = "10000"
-    '            Else
-    '                StateProgramCodes = "00000"
-    '            End If
-    '            If HapMajor.Checked = True Then
-    '                StateProgramCodes = Mid(StateProgramCodes, 1, 1) & "1" & Mid(StateProgramCodes, 3)
-    '            Else
-    '                StateProgramCodes = Mid(StateProgramCodes, 1, 1) & "0" & Mid(StateProgramCodes, 3)
-    '            End If
-    '            If StateProgramCodes <> dsHeaderData.Tables("Current").Rows(0).Item(15).ToString Then
-    '                'StateProgramCodes = StateProgramCodes
-    '            Else
-    '                StateProgramCodes = ""
-    '            End If
-
-    '            Select Case OneHourOzone.Text
-    '                Case "Yes"
-    '                    AttainmentStatus = "01000"
-    '                Case "Contribute"
-    '                    AttainmentStatus = "02000"
-    '                Case Else
-    '                    AttainmentStatus = "00000"
-    '            End Select
-    '            Select Case EightHourOzone.Text
-    '                Case "Atlanta"
-    '                    AttainmentStatus = Mid(AttainmentStatus, 1, 2) & "1" & Mid(AttainmentStatus, 4)
-    '                Case "Macon"
-    '                    AttainmentStatus = Mid(AttainmentStatus, 1, 2) & "2" & Mid(AttainmentStatus, 4)
-    '                Case Else
-    '                    AttainmentStatus = Mid(AttainmentStatus, 1, 2) & "0" & Mid(AttainmentStatus, 4)
-    '            End Select
-    '            Select Case PmFine.Text
-    '                Case "Atlanta"
-    '                    AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "1" & Mid(AttainmentStatus, 5)
-    '                Case "Chattanooga"
-    '                    AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "2" & Mid(AttainmentStatus, 5)
-    '                Case "Floyd"
-    '                    AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "3" & Mid(AttainmentStatus, 5)
-    '                Case "Macon"
-    '                    AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "4" & Mid(AttainmentStatus, 5)
-    '                Case Else
-    '                    AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "0" & Mid(AttainmentStatus, 5)
-    '            End Select
-    '            If AttainmentStatus <> dsHeaderData.Tables("Current").Rows(0).Item(6).ToString Then
-    '                'AttainmentStatus = AttainmentStatus
-    '            Else
-    '                AttainmentStatus = ""
-    '            End If
-
-    '            AirProgramCode = ""
 
     '            If ApcSip.Checked = True Then
     '                AirProgramCode = "1"

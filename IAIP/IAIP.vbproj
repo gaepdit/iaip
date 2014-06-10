@@ -1722,6 +1722,7 @@
     <Compile Include="_Modules\FileSystem.vb" />
     <Compile Include="_Modules\FormHandler.vb" />
     <Compile Include="_Modules\FormSettings.vb" />
+    <Compile Include="_Modules\General.vb" />
     <Compile Include="_Modules\MD5.vb" />
     <Compile Include="_Modules\Messages.vb" />
     <Compile Include="_Modules\Email.Outlook.vb" />

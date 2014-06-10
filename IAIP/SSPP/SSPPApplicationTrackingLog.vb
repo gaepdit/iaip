@@ -6688,7 +6688,7 @@ Public Class SSPPApplicationTrackingLog
                 End If
 
                 If txtNAICSCode.Text <> "" And txtNAICSCode.Text <> "N/A" Then
-                    If ValidateNAICS(txtNAICSCode.Text) = False Then
+                    If DAL.FacilityHeaderData.NaicsCodeExists(txtNAICSCode.Text) = False Then
                         MsgBox("ERROR" & vbCrLf & "The NAICS Code is not valid and will be excluded from this record.", MsgBoxStyle.Exclamation, Me.Text)
                         txtNAICSCode.Text = ""
                         Exit Sub

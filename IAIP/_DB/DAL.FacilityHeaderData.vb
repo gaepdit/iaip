@@ -4,6 +4,58 @@ Imports Iaip.Apb
 Namespace DAL
     Module FacilityHeaderData
 
+#Region " Validate SIC/NAICS "
+
+        ''' <summary>
+        ''' Returns whether an SIC Code exists in the database lookup table
+        ''' </summary>
+        ''' <param name="sicCode">The SIC Code to test.</param>
+        ''' <returns>True if the SIC Code exists; otherwise false.</returns>
+        ''' <remarks>Does not make any judgements about appropriateness of SIC Code otherwise.</remarks>
+        Public Function SicCodeExists(ByVal sicCode As String) As Boolean
+            If sicCode Is Nothing OrElse String.IsNullOrEmpty(sicCode) Then Return False
+
+            ' Valid SIC Codes are one to four digits
+            Dim rgx As New System.Text.RegularExpressions.Regex("^\d{1,4}$")
+            If Not rgx.IsMatch(sicCode) Then Return False
+
+            Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
+                " FROM " & DBNameSpace & ".LOOKUPSICCODES " & _
+                " WHERE RowNum = 1 " & _
+                " AND STRSICCODE = :pId "
+            Dim parameter As New OracleParameter("pId", sicCode)
+
+            Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
+            Return Convert.ToBoolean(result)
+        End Function
+
+        ''' <summary>
+        ''' Returns whether an NAICS Code exists in the database lookup table
+        ''' </summary>
+        ''' <param name="naicsCode">The NAICS Code to test.</param>
+        ''' <returns>True if the NAICS Code exists; otherwise false.</returns>
+        ''' <remarks>Does not make any judgements about appropriateness of NAICS Code otherwise.</remarks>
+        Public Function NaicsCodeExists(ByVal naicsCode As String) As Boolean
+            If naicsCode Is Nothing OrElse String.IsNullOrEmpty(naicsCode) Then Return False
+
+            ' Valid NAICS Codes are two to six digits
+            Dim rgx As New System.Text.RegularExpressions.Regex("^\d{2,6}$")
+            If Not rgx.IsMatch(naicsCode) Then Return False
+
+            Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
+                " FROM " & DBNameSpace & ".EILOOKUPNAICS " & _
+                " WHERE RowNum = 1 " & _
+                " AND STRNAICSCODE = :pId "
+            Dim parameter As New OracleParameter("pId", naicsCode)
+
+            Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
+            Return Convert.ToBoolean(result)
+        End Function
+
+#End Region
+
+#Region " Read "
+
         Public Function GetFacilityHeaderDataAsDataRow(ByVal airsNumber As String) As DataRow
             If Not Facility.NormalizeAirsNumber(airsNumber, True) Then Return Nothing
 
@@ -63,10 +115,6 @@ Namespace DAL
             End With
         End Sub
 
-        Public Function SaveFacilityHeaderData(ByVal headerData As Apb.FacilityHeaderData) As Boolean
-            Return False
-        End Function
-
         Public Function GetFacilityHeaderDataHistoryAsDataTable(ByVal airsNumber As String) As DataTable
             If Not Facility.NormalizeAirsNumber(airsNumber, True) Then Return Nothing
 
@@ -95,6 +143,17 @@ Namespace DAL
 
             Return DB.GetDataTable(query, parameter)
         End Function
+
+#End Region
+
+#Region " Write "
+
+        Public Function SaveFacilityHeaderData(ByVal headerData As Apb.FacilityHeaderData) As Boolean
+
+            Return False
+        End Function
+
+#End Region
 
     End Module
 End Namespace
