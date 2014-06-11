@@ -553,6 +553,7 @@ Public Class PASPFeeManagement
             "NSPSReasonCode, DisplayOrder " & _
             "from " & DBNameSpace & ".FSLK_NSPSReasonYear " & _
             "where numFeeYear = '" & cboNSPSExemptionYear.Text & "' " & _
+            " and active = '1' " & _
             "order by NSPSReasonCode "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -579,6 +580,7 @@ Public Class PASPFeeManagement
             dr.Close()
 
             dgvNSPSExemptionsByYear.Rows.Clear()
+
             Do While NSPStemp <> ""
                 ReasonID = Mid(NSPStemp, 1, InStr(NSPStemp, "-", CompareMethod.Text) - 1)
 
@@ -588,9 +590,8 @@ Public Class PASPFeeManagement
                     DisplayOrder = Mid(NSPStemp, InStr(NSPStemp, "-", CompareMethod.Text) + 1, InStr(NSPStemp, ",", CompareMethod.Text) - 4)
                 End If
 
-
-                temp = ReasonID & "-" & DisplayOrder & ","
-                NSPStemp = Replace(NSPStemp, temp, "")
+                Dim rgxPattern As String = "\b" & ReasonID & "-" & DisplayOrder & ","
+                NSPStemp = System.Text.RegularExpressions.Regex.Replace(NSPStemp, rgxPattern, "")
 
                 Dim x As Integer = 0
                 While x < dgvNSPSExemptions.Rows.Count
@@ -765,6 +766,11 @@ Public Class PASPFeeManagement
         End Try
     End Sub
     Private Sub btnUpdateNSPSbyYear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateNSPSbyYear.Click
+        If cboNSPSExemptionYear.Text = "" OrElse Not IsNumeric(cboNSPSExemptionYear.Text) Then
+            MessageBox.Show("Please select a Fee Year first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
+
         Try
             Dim x As Integer = 0
             Dim y As Integer = 0
