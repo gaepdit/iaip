@@ -285,7 +285,7 @@ Partial Class PASPFeeManagement
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(979, 612)
+        Me.TabPage1.Size = New System.Drawing.Size(979, 634)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Annual Fee Rates"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -297,7 +297,7 @@ Partial Class PASPFeeManagement
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel6.Location = New System.Drawing.Point(3, 3)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(973, 606)
+        Me.Panel6.Size = New System.Drawing.Size(973, 628)
         Me.Panel6.TabIndex = 399
         '
         'Panel12
@@ -350,7 +350,7 @@ Partial Class PASPFeeManagement
         Me.Panel12.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel12.Location = New System.Drawing.Point(628, 0)
         Me.Panel12.Name = "Panel12"
-        Me.Panel12.Size = New System.Drawing.Size(345, 606)
+        Me.Panel12.Size = New System.Drawing.Size(345, 628)
         Me.Panel12.TabIndex = 405
         '
         'Label16
@@ -764,7 +764,7 @@ Partial Class PASPFeeManagement
         Me.dgvFeeRates.Dock = System.Windows.Forms.DockStyle.Left
         Me.dgvFeeRates.Location = New System.Drawing.Point(0, 0)
         Me.dgvFeeRates.Name = "dgvFeeRates"
-        Me.dgvFeeRates.Size = New System.Drawing.Size(628, 606)
+        Me.dgvFeeRates.Size = New System.Drawing.Size(628, 628)
         Me.dgvFeeRates.TabIndex = 404
         '
         'TabPage3
@@ -934,6 +934,7 @@ Partial Class PASPFeeManagement
         '
         'cboNSPSExemptionYear
         '
+        Me.cboNSPSExemptionYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboNSPSExemptionYear.FormattingEnabled = True
         Me.cboNSPSExemptionYear.Location = New System.Drawing.Point(75, 8)
         Me.cboNSPSExemptionYear.Name = "cboNSPSExemptionYear"
@@ -945,7 +946,7 @@ Partial Class PASPFeeManagement
         Me.TabPage2.Controls.Add(Me.Panel15)
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Size = New System.Drawing.Size(979, 612)
+        Me.TabPage2.Size = New System.Drawing.Size(979, 634)
         Me.TabPage2.TabIndex = 2
         Me.TabPage2.Text = "Edit Exemptions"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -969,7 +970,7 @@ Partial Class PASPFeeManagement
         Me.Panel15.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel15.Location = New System.Drawing.Point(0, 0)
         Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(979, 612)
+        Me.Panel15.Size = New System.Drawing.Size(979, 634)
         Me.Panel15.TabIndex = 415
         '
         'btnClearNSPSExemptions
@@ -1016,7 +1017,7 @@ Partial Class PASPFeeManagement
         '
         Me.dgvExistingExemptions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvExistingExemptions.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.dgvExistingExemptions.Location = New System.Drawing.Point(0, 298)
+        Me.dgvExistingExemptions.Location = New System.Drawing.Point(0, 320)
         Me.dgvExistingExemptions.Name = "dgvExistingExemptions"
         Me.dgvExistingExemptions.Size = New System.Drawing.Size(977, 312)
         Me.dgvExistingExemptions.TabIndex = 403
@@ -1318,6 +1319,7 @@ Partial Class PASPFeeManagement
         '
         'cboAvailableFeeYears
         '
+        Me.cboAvailableFeeYears.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboAvailableFeeYears.FormattingEnabled = True
         Me.cboAvailableFeeYears.Location = New System.Drawing.Point(18, 22)
         Me.cboAvailableFeeYears.Name = "cboAvailableFeeYears"
@@ -1386,7 +1388,7 @@ Partial Class PASPFeeManagement
         Me.TPWebTools.Controls.Add(Me.TabControl3)
         Me.TPWebTools.Location = New System.Drawing.Point(4, 22)
         Me.TPWebTools.Name = "TPWebTools"
-        Me.TPWebTools.Size = New System.Drawing.Size(993, 644)
+        Me.TPWebTools.Size = New System.Drawing.Size(993, 666)
         Me.TPWebTools.TabIndex = 5
         Me.TPWebTools.Text = "GECO Tools"
         Me.TPWebTools.UseVisualStyleBackColor = True
@@ -1401,7 +1403,7 @@ Partial Class PASPFeeManagement
         Me.TabControl3.Location = New System.Drawing.Point(0, 0)
         Me.TabControl3.Name = "TabControl3"
         Me.TabControl3.SelectedIndex = 0
-        Me.TabControl3.Size = New System.Drawing.Size(993, 644)
+        Me.TabControl3.Size = New System.Drawing.Size(993, 666)
         Me.TabControl3.TabIndex = 151
         '
         'TPWebUsers
@@ -1410,7 +1412,7 @@ Partial Class PASPFeeManagement
         Me.TPWebUsers.Controls.Add(Me.PanelFacility)
         Me.TPWebUsers.Location = New System.Drawing.Point(4, 22)
         Me.TPWebUsers.Name = "TPWebUsers"
-        Me.TPWebUsers.Size = New System.Drawing.Size(985, 618)
+        Me.TPWebUsers.Size = New System.Drawing.Size(985, 640)
         Me.TPWebUsers.TabIndex = 1
         Me.TPWebUsers.Text = "Web App Users - Facility"
         Me.TPWebUsers.UseVisualStyleBackColor = True
@@ -1421,7 +1423,7 @@ Partial Class PASPFeeManagement
         Me.pnlUser.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlUser.Location = New System.Drawing.Point(0, 144)
         Me.pnlUser.Name = "pnlUser"
-        Me.pnlUser.Size = New System.Drawing.Size(985, 474)
+        Me.pnlUser.Size = New System.Drawing.Size(985, 496)
         Me.pnlUser.TabIndex = 147
         '
         'dgvUsers
@@ -1430,7 +1432,7 @@ Partial Class PASPFeeManagement
         Me.dgvUsers.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvUsers.Location = New System.Drawing.Point(0, 0)
         Me.dgvUsers.Name = "dgvUsers"
-        Me.dgvUsers.Size = New System.Drawing.Size(985, 474)
+        Me.dgvUsers.Size = New System.Drawing.Size(985, 496)
         Me.dgvUsers.TabIndex = 274
         '
         'PanelFacility
@@ -1566,7 +1568,7 @@ Partial Class PASPFeeManagement
         Me.TPWebUsers1.Controls.Add(Me.pnlUserEmail)
         Me.TPWebUsers1.Location = New System.Drawing.Point(4, 22)
         Me.TPWebUsers1.Name = "TPWebUsers1"
-        Me.TPWebUsers1.Size = New System.Drawing.Size(985, 618)
+        Me.TPWebUsers1.Size = New System.Drawing.Size(985, 640)
         Me.TPWebUsers1.TabIndex = 2
         Me.TPWebUsers1.Text = "Web App Users - Email"
         Me.TPWebUsers1.UseVisualStyleBackColor = True
@@ -1578,7 +1580,7 @@ Partial Class PASPFeeManagement
         Me.pnlUserFacility.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlUserFacility.Location = New System.Drawing.Point(0, 49)
         Me.pnlUserFacility.Name = "pnlUserFacility"
-        Me.pnlUserFacility.Size = New System.Drawing.Size(985, 569)
+        Me.pnlUserFacility.Size = New System.Drawing.Size(985, 591)
         Me.pnlUserFacility.TabIndex = 148
         '
         'dgvUserFacilities
@@ -1587,7 +1589,7 @@ Partial Class PASPFeeManagement
         Me.dgvUserFacilities.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvUserFacilities.Location = New System.Drawing.Point(0, 366)
         Me.dgvUserFacilities.Name = "dgvUserFacilities"
-        Me.dgvUserFacilities.Size = New System.Drawing.Size(985, 203)
+        Me.dgvUserFacilities.Size = New System.Drawing.Size(985, 225)
         Me.dgvUserFacilities.TabIndex = 151
         '
         'pnlUserInfo
@@ -2039,7 +2041,7 @@ Partial Class PASPFeeManagement
         Me.TPActivate.Controls.Add(Me.txtEmailAddress)
         Me.TPActivate.Location = New System.Drawing.Point(4, 22)
         Me.TPActivate.Name = "TPActivate"
-        Me.TPActivate.Size = New System.Drawing.Size(985, 618)
+        Me.TPActivate.Size = New System.Drawing.Size(985, 640)
         Me.TPActivate.TabIndex = 3
         Me.TPActivate.Text = "Activate User Account"
         Me.TPActivate.UseVisualStyleBackColor = True
@@ -2082,7 +2084,7 @@ Partial Class PASPFeeManagement
         Me.TPFeeFacility.Controls.Add(Me.btnAddFacility)
         Me.TPFeeFacility.Location = New System.Drawing.Point(4, 22)
         Me.TPFeeFacility.Name = "TPFeeFacility"
-        Me.TPFeeFacility.Size = New System.Drawing.Size(985, 618)
+        Me.TPFeeFacility.Size = New System.Drawing.Size(985, 640)
         Me.TPFeeFacility.TabIndex = 4
         Me.TPFeeFacility.Text = "Add/Remove Fee Facility"
         Me.TPFeeFacility.UseVisualStyleBackColor = True
