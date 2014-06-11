@@ -1,6 +1,12 @@
 % IAIP Change Log
 
-## Version 3.4 <span> (2014-05-22)</span>
+## Version 3.4.1 <span>(2014-06-11)</span>
+
++ NEW: Some minor UI refinements and code cleanup
+
+- FIX: Several bugs in Fee Mailout System (#245 & #246)
+
+## Version 3.4 <span>(2014-05-22)</span>
 
 + NEW: Several UI improvements to Navigation Screen (#238, #216, #167)
 
@@ -8,14 +14,14 @@
 - FIX: Huge performance gain on Navigation Screen upon login (#239)
 - FIX: Some URLs have changed after the Great NADC Server Consolidation (#234)
 
-## Version 3.3 <span> (2014-05-12)</span>
+## Version 3.3 <span>(2014-05-12)</span>
 
 - NEW: *SBEAP* -- Small Business Environmental Assistance Program now incorporated into IAIP (#210)
 - NEW: Navigation buttons are now grouped by program/category (#211)
 
 - FIX: Minor UI improvements
 
-## Version 3.2.1 <span> (2014-05-04)</span>
+## Version 3.2.1 <span>(2014-05-04)</span>
 
 - FIX: Additional work to ensure database connectivity after the server move (#225) (#228)
 
