@@ -1508,23 +1508,33 @@ Public Class PASPFeeManagement
                     dr2.Close()
 
                     SQL = "Update " & DBNameSpace & ".FS_MailOut set " & _
-                    "strFirstName = '" & ContactFirstName & "', " & _
-                    "strLastName = '" & ContactLastName & "', " & _
-                    "strPrefix = '" & ContactPrefix & "',  " & _
-                    "strTitle = '" & ContactSuffix & "', " & _
-                    "strContactCoName = '" & ContactCompanyName & "', " & _
-                    "strContactAddress1 = '" & ContactAddress & "', " & _
-                    "strContactCity = '" & ContactCity & "', " & _
-                    "strContactState = '" & ContactState & "', " & _
-                    "strcontactZipCode = '" & ContactZipCode & "' " & _
-                    "where strAIRSNumber = '" & AIRSNumber & "' " & _
-                    "and numFeeYear = '" & cboAvailableFeeYears.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr2 = cmd.ExecuteReader
-                    dr2.Close()
+                    "strFirstName = :ContactFirstName, " & _
+                    "strLastName = :ContactLastName, " & _
+                    "strPrefix = :ContactPrefix,  " & _
+                    "strTitle = :ContactSuffix, " & _
+                    "strContactCoName = :ContactCompanyName, " & _
+                    "strContactAddress1 = :ContactAddress, " & _
+                    "strContactCity = :ContactCity, " & _
+                    "strContactState = :ContactState, " & _
+                    "strcontactZipCode = :ContactZipCode " & _
+                    "where strAIRSNumber = :AIRSNumber " & _
+                    "and numFeeYear = :AvailableFeeYears "
+
+                    Dim parameters As OracleParameter()
+                    parameters = New OracleParameter() { _
+                        New OracleParameter("ContactFirstName", ContactFirstName), _
+                        New OracleParameter("ContactLastName", ContactLastName), _
+                        New OracleParameter("ContactPrefix", ContactPrefix), _
+                        New OracleParameter("ContactSuffix", ContactSuffix), _
+                        New OracleParameter("ContactCompanyName", ContactCompanyName), _
+                        New OracleParameter("ContactAddress", ContactAddress), _
+                        New OracleParameter("ContactCity", ContactCity), _
+                        New OracleParameter("ContactState", ContactState), _
+                        New OracleParameter("ContactZipCode", ContactZipCode), _
+                        New OracleParameter("AIRSNumber", AIRSNumber), _
+                        New OracleParameter("AvailableFeeYears", cboAvailableFeeYears.Text) _
+                    }
+                    DB.RunCommand(SQL, parameters)
 
                 End If
             End While
