@@ -26,8 +26,10 @@ Public Class PASPFeeManagement
             btnUnenrollFeeYear.Enabled = False
             btnUpdateContactData.Enabled = False
             btnSetMailoutDate.Enabled = False
+            dtpDateMailoutSent.Enabled = False
 
             FeeManagementListCount.Text = ""
+            btnExportToExcel.Visible = False
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1189,6 +1191,11 @@ Public Class PASPFeeManagement
             dgvFeeManagementLists.Columns("strGECOUserEmail").DisplayIndex = 17
 
             FeeManagementListCount.Text = "Count: " & dgvFeeManagementLists.RowCount.ToString
+            If dgvFeeManagementLists.RowCount > 0 Then
+                btnExportToExcel.Visible = True
+            Else
+                btnExportToExcel.Visible = False
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1386,6 +1393,11 @@ Public Class PASPFeeManagement
             dgvFeeManagementLists.Columns("strGECOUserEmail").DisplayIndex = 17
 
             FeeManagementListCount.Text = "Count: " & dgvFeeManagementLists.RowCount.ToString
+            If dgvFeeManagementLists.RowCount > 0 Then
+                btnExportToExcel.Visible = True
+            Else
+                btnExportToExcel.Visible = False
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1675,7 +1687,13 @@ Public Class PASPFeeManagement
             dgvFeeManagementLists.Columns("strInitialMailout").DisplayIndex = 11
             dgvFeeManagementLists.Columns("strMailoutSent").HeaderText = "In Mailout"
             dgvFeeManagementLists.Columns("strMailoutSent").DisplayIndex = 12
+
             FeeManagementListCount.Text = "Count: " & dgvFeeManagementLists.RowCount.ToString
+            If dgvFeeManagementLists.RowCount > 0 Then
+                btnExportToExcel.Visible = True
+            Else
+                btnExportToExcel.Visible = False
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2616,71 +2634,63 @@ Public Class PASPFeeManagement
     '    End Try
     'End Sub
 
-    Private Sub CheckFacilityButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckFacilityButton.Click
-        Try
-            If cboAvailableFeeYears.Text.Length <> "4" OrElse Not IsNumeric(cboAvailableFeeYears.Text) Then
-                MsgBox("Please select a year first.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
-            End If
+    'Private Sub CheckFacilityButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    '    Try
+    '        If cboAvailableFeeYears.Text.Length <> "4" OrElse Not IsNumeric(cboAvailableFeeYears.Text) Then
+    '            MsgBox("Please select a year first.", MsgBoxStyle.Exclamation, Me.Text)
+    '            Exit Sub
+    '        End If
 
-            CheckFacilityName.Visible = True
-            CheckFacilityEnrolled.Visible = True
-            CheckFacilityInMailout.Visible = True
-            CheckFacilityMailoutSent.Visible = True
-            CheckFacilityEnrolled.Checked = False
-            CheckFacilityInMailout.Checked = False
-            CheckFacilityMailoutSent.Checked = False
+    '        SQL = "Select " & _
+    '        "strFacilityName " & _
+    '        "from " & DBNameSpace & ".APBFacilityInformation  " & _
+    '       "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & mtbCheckAIRSNumber.Text & "' "
 
-            SQL = "Select " & _
-            "strFacilityName " & _
-            "from " & DBNameSpace & ".APBFacilityInformation  " & _
-           "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & mtbCheckAIRSNumber.Text & "' "
+    '        cmd = New OracleCommand(SQL, CurrentConnection)
+    '        If CurrentConnection.State = ConnectionState.Closed Then
+    '            CurrentConnection.Open()
+    '        End If
+    '        dr = cmd.ExecuteReader
+    '        While dr.Read
+    '            If IsDBNull(dr.Item("strFacilityName")) Then
+    '                CheckFacilityName.Clear()
+    '            Else
+    '                CheckFacilityName.Text = dr.Item("strFacilityname")
+    '            End If
+    '        End While
+    '        dr.Close()
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    CheckFacilityName.Clear()
-                Else
-                    CheckFacilityName.Text = dr.Item("strFacilityname")
-                End If
-            End While
-            dr.Close()
+    '        SQL = "Select " & _
+    '        "strEnrolled, " & _
+    '        "strInitialMailout, strMailoutSent " & _
+    '        "from " & DBNameSpace & ".FS_Admin " & _
+    '        "where numfeeyear = '" & cboAvailableFeeYears.Text & "'  " & _
+    '        "and " & DBNameSpace & ".FS_Admin.strAIRSNumber = '0413" & mtbCheckAIRSNumber.Text & "' "
 
-            SQL = "Select " & _
-            "strEnrolled, " & _
-            "strInitialMailout, strMailoutSent " & _
-            "from " & DBNameSpace & ".FS_Admin " & _
-            "where numfeeyear = '" & cboAvailableFeeYears.Text & "'  " & _
-            "and " & DBNameSpace & ".FS_Admin.strAIRSNumber = '0413" & mtbCheckAIRSNumber.Text & "' "
+    '        cmd = New OracleCommand(SQL, CurrentConnection)
+    '        If CurrentConnection.State = ConnectionState.Closed Then
+    '            CurrentConnection.Open()
+    '        End If
+    '        dr = cmd.ExecuteReader
+    '        While dr.Read
+    '            If Not IsDBNull(dr.Item("strEnrolled")) AndAlso dr.Item("strEnrolled") = "1" Then
+    '                CheckFacilityEnrolled.Checked = True
+    '            End If
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If Not IsDBNull(dr.Item("strEnrolled")) AndAlso dr.Item("strEnrolled") = "1" Then
-                    CheckFacilityEnrolled.Checked = True
-                End If
+    '            If Not IsDBNull(dr.Item("strInitialMailout")) AndAlso dr.Item("strInitialMailout") = "1" Then
+    '                CheckFacilityInMailout.Checked = True
+    '            End If
 
-                If Not IsDBNull(dr.Item("strInitialMailout")) AndAlso dr.Item("strInitialMailout") = "1" Then
-                    CheckFacilityInMailout.Checked = True
-                End If
+    '            If Not IsDBNull(dr.Item("strMailoutSent")) AndAlso dr.Item("strMailoutSent") = "1" Then
+    '                CheckFacilityMailoutSent.Checked = True
+    '            End If
+    '        End While
+    '        dr.Close()
 
-                If Not IsDBNull(dr.Item("strMailoutSent")) AndAlso dr.Item("strMailoutSent") = "1" Then
-                    CheckFacilityMailoutSent.Checked = True
-                End If
-            End While
-            dr.Close()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
+    '    Catch ex As Exception
+    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    End Try
+    'End Sub
 
     Private Sub cboAvailableFeeYears_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboAvailableFeeYears.TextChanged
         Try
@@ -2690,18 +2700,15 @@ Public Class PASPFeeManagement
                 btnUnenrollFeeYear.Enabled = True
                 btnUpdateContactData.Enabled = True
                 btnSetMailoutDate.Enabled = True
+                dtpDateMailoutSent.Enabled = True
             Else
                 btnGenerateMailoutList.Enabled = False
                 btnFirstEnrollment.Enabled = False
                 btnUnenrollFeeYear.Enabled = False
                 btnUpdateContactData.Enabled = False
                 btnSetMailoutDate.Enabled = False
+                dtpDateMailoutSent.Enabled = False
             End If
-
-            CheckFacilityEnrolled.Visible = False
-            CheckFacilityInMailout.Visible = False
-            CheckFacilityName.Visible = False
-            CheckFacilityMailoutSent.Visible = False
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2719,7 +2726,6 @@ Public Class PASPFeeManagement
             FeeStats.Show()
 
             FeeStats.mtbFeeAdminAIRSNumber.Text = mtbCheckAIRSNumber.Text
-            FeeStats.txtFeeAdminFacilityName.Text = CheckFacilityName.Text
             FeeStats.mtbFeeAdminExistingYear.Text = cboAvailableFeeYears.Text
 
             If FeeStats.mtbFeeAdminAIRSNumber.Text <> "" Then
@@ -2762,11 +2768,11 @@ Public Class PASPFeeManagement
         End Try
     End Sub
 
-    Private Sub mtbCheckAIRSNumber_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mtbCheckAIRSNumber.TextChanged
-        CheckFacilityEnrolled.Visible = False
-        CheckFacilityInMailout.Visible = False
-        CheckFacilityName.Visible = False
-        CheckFacilityMailoutSent.Visible = False
-    End Sub
+    'Private Sub mtbCheckAIRSNumber_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mtbCheckAIRSNumber.TextChanged
+    '    CheckFacilityEnrolled.Visible = False
+    '    CheckFacilityInMailout.Visible = False
+    '    CheckFacilityName.Visible = False
+    '    CheckFacilityMailoutSent.Visible = False
+    'End Sub
 
 End Class
