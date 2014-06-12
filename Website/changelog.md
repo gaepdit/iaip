@@ -1,6 +1,6 @@
 % IAIP Change Log
 
-## Version 3.4.2 <span>(2014-06-12)</span>
+## Version 3.4.3 <span>(2014-06-12)</span>
 
 + NEW: *PASP* -- Updates to the Initial Mailout workflow in Fee Management Tools (#246)
 
