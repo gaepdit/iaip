@@ -107,31 +107,32 @@ Partial Class PASPFeeManagement
         Me.txtDeleteNSPSExemptions = New System.Windows.Forms.TextBox
         Me.Label107 = New System.Windows.Forms.Label
         Me.TPFeeManagementTools = New System.Windows.Forms.TabPage
+        Me.dgvFeeManagementLists = New System.Windows.Forms.DataGridView
+        Me.FeeManagementSidePanel = New System.Windows.Forms.Panel
+        Me.CheckFacilityMailoutSent = New System.Windows.Forms.CheckBox
+        Me.CheckFacilityInMailout = New System.Windows.Forms.CheckBox
+        Me.CheckFacilityEnrolled = New System.Windows.Forms.CheckBox
+        Me.CheckFacilityButton = New System.Windows.Forms.Button
         Me.btnOpenFeesLog = New System.Windows.Forms.Button
-        Me.lblCheckState = New System.Windows.Forms.Label
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.txtCheckFacility = New System.Windows.Forms.TextBox
-        Me.llbCheckFacility = New System.Windows.Forms.LinkLabel
-        Me.btnSaveAddition = New System.Windows.Forms.Button
+        Me.CheckFacilityName = New System.Windows.Forms.TextBox
         Me.Label6 = New System.Windows.Forms.Label
         Me.mtbCheckAIRSNumber = New System.Windows.Forms.MaskedTextBox
-        Me.dgvFeeManagmentLists = New System.Windows.Forms.DataGridView
-        Me.Panel10 = New System.Windows.Forms.Panel
-        Me.btnViewEnrolledFacilities = New System.Windows.Forms.Button
-        Me.btnViewMailout = New System.Windows.Forms.Button
-        Me.btnSetMailoutDate = New System.Windows.Forms.Button
-        Me.btnUpdateContactData = New System.Windows.Forms.Button
-        Me.dtpDateMailoutSent = New System.Windows.Forms.DateTimePicker
-        Me.btnViewFacilitiesSubjectToFees = New System.Windows.Forms.Button
-        Me.btnGenerateMailoutList = New System.Windows.Forms.Button
-        Me.btnUnenrollFeeYear = New System.Windows.Forms.Button
-        Me.cboAvailableFeeYears = New System.Windows.Forms.ComboBox
-        Me.btnFirstEnrollment = New System.Windows.Forms.Button
-        Me.Label18 = New System.Windows.Forms.Label
         Me.btnExportToExcel = New System.Windows.Forms.Button
-        Me.txtCount = New System.Windows.Forms.TextBox
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.Label10 = New System.Windows.Forms.Label
+        Me.FeeManagementListCount = New System.Windows.Forms.Label
+        Me.FeeManagementToolPanel = New System.Windows.Forms.Panel
+        Me.EnrollmentGroupbox = New System.Windows.Forms.GroupBox
+        Me.btnUnenrollFeeYear = New System.Windows.Forms.Button
+        Me.btnFirstEnrollment = New System.Windows.Forms.Button
+        Me.btnViewMailout = New System.Windows.Forms.Button
+        Me.btnViewEnrolledFacilities = New System.Windows.Forms.Button
+        Me.btnViewFacilitiesSubjectToFees = New System.Windows.Forms.Button
+        Me.cboAvailableFeeYears = New System.Windows.Forms.ComboBox
+        Me.Label18 = New System.Windows.Forms.Label
+        Me.InitialMailoutGroupbox = New System.Windows.Forms.GroupBox
+        Me.dtpDateMailoutSent = New System.Windows.Forms.DateTimePicker
+        Me.btnSetMailoutDate = New System.Windows.Forms.Button
+        Me.btnGenerateMailoutList = New System.Windows.Forms.Button
+        Me.btnUpdateContactData = New System.Windows.Forms.Button
         Me.TPWebTools = New System.Windows.Forms.TabPage
         Me.TabControl3 = New System.Windows.Forms.TabControl
         Me.TPWebUsers = New System.Windows.Forms.TabPage
@@ -227,8 +228,11 @@ Partial Class PASPFeeManagement
         Me.Panel15.SuspendLayout()
         CType(Me.dgvExistingExemptions, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPFeeManagementTools.SuspendLayout()
-        CType(Me.dgvFeeManagmentLists, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel10.SuspendLayout()
+        CType(Me.dgvFeeManagementLists, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.FeeManagementSidePanel.SuspendLayout()
+        Me.FeeManagementToolPanel.SuspendLayout()
+        Me.EnrollmentGroupbox.SuspendLayout()
+        Me.InitialMailoutGroupbox.SuspendLayout()
         Me.TPWebTools.SuspendLayout()
         Me.TabControl3.SuspendLayout()
         Me.TPWebUsers.SuspendLayout()
@@ -1102,20 +1106,9 @@ Partial Class PASPFeeManagement
         '
         'TPFeeManagementTools
         '
-        Me.TPFeeManagementTools.Controls.Add(Me.btnOpenFeesLog)
-        Me.TPFeeManagementTools.Controls.Add(Me.lblCheckState)
-        Me.TPFeeManagementTools.Controls.Add(Me.Label8)
-        Me.TPFeeManagementTools.Controls.Add(Me.txtCheckFacility)
-        Me.TPFeeManagementTools.Controls.Add(Me.llbCheckFacility)
-        Me.TPFeeManagementTools.Controls.Add(Me.btnSaveAddition)
-        Me.TPFeeManagementTools.Controls.Add(Me.Label6)
-        Me.TPFeeManagementTools.Controls.Add(Me.mtbCheckAIRSNumber)
-        Me.TPFeeManagementTools.Controls.Add(Me.dgvFeeManagmentLists)
-        Me.TPFeeManagementTools.Controls.Add(Me.Panel10)
-        Me.TPFeeManagementTools.Controls.Add(Me.btnExportToExcel)
-        Me.TPFeeManagementTools.Controls.Add(Me.txtCount)
-        Me.TPFeeManagementTools.Controls.Add(Me.Label13)
-        Me.TPFeeManagementTools.Controls.Add(Me.Label10)
+        Me.TPFeeManagementTools.Controls.Add(Me.dgvFeeManagementLists)
+        Me.TPFeeManagementTools.Controls.Add(Me.FeeManagementSidePanel)
+        Me.TPFeeManagementTools.Controls.Add(Me.FeeManagementToolPanel)
         Me.TPFeeManagementTools.Location = New System.Drawing.Point(4, 22)
         Me.TPFeeManagementTools.Name = "TPFeeManagementTools"
         Me.TPFeeManagementTools.Padding = New System.Windows.Forms.Padding(3)
@@ -1124,71 +1117,106 @@ Partial Class PASPFeeManagement
         Me.TPFeeManagementTools.Text = "Fee Management Tools"
         Me.TPFeeManagementTools.UseVisualStyleBackColor = True
         '
+        'dgvFeeManagementLists
+        '
+        Me.dgvFeeManagementLists.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvFeeManagementLists.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvFeeManagementLists.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.dgvFeeManagementLists.Location = New System.Drawing.Point(3, 112)
+        Me.dgvFeeManagementLists.Name = "dgvFeeManagementLists"
+        Me.dgvFeeManagementLists.Size = New System.Drawing.Size(604, 551)
+        Me.dgvFeeManagementLists.TabIndex = 1
+        '
+        'FeeManagementSidePanel
+        '
+        Me.FeeManagementSidePanel.Controls.Add(Me.CheckFacilityMailoutSent)
+        Me.FeeManagementSidePanel.Controls.Add(Me.CheckFacilityInMailout)
+        Me.FeeManagementSidePanel.Controls.Add(Me.CheckFacilityEnrolled)
+        Me.FeeManagementSidePanel.Controls.Add(Me.CheckFacilityButton)
+        Me.FeeManagementSidePanel.Controls.Add(Me.btnOpenFeesLog)
+        Me.FeeManagementSidePanel.Controls.Add(Me.CheckFacilityName)
+        Me.FeeManagementSidePanel.Controls.Add(Me.Label6)
+        Me.FeeManagementSidePanel.Controls.Add(Me.mtbCheckAIRSNumber)
+        Me.FeeManagementSidePanel.Controls.Add(Me.btnExportToExcel)
+        Me.FeeManagementSidePanel.Controls.Add(Me.FeeManagementListCount)
+        Me.FeeManagementSidePanel.Dock = System.Windows.Forms.DockStyle.Right
+        Me.FeeManagementSidePanel.Location = New System.Drawing.Point(607, 112)
+        Me.FeeManagementSidePanel.Name = "FeeManagementSidePanel"
+        Me.FeeManagementSidePanel.Size = New System.Drawing.Size(383, 551)
+        Me.FeeManagementSidePanel.TabIndex = 474
+        '
+        'CheckFacilityMailoutSent
+        '
+        Me.CheckFacilityMailoutSent.AutoSize = True
+        Me.CheckFacilityMailoutSent.Enabled = False
+        Me.CheckFacilityMailoutSent.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.CheckFacilityMailoutSent.Location = New System.Drawing.Point(93, 220)
+        Me.CheckFacilityMailoutSent.Name = "CheckFacilityMailoutSent"
+        Me.CheckFacilityMailoutSent.Size = New System.Drawing.Size(85, 17)
+        Me.CheckFacilityMailoutSent.TabIndex = 475
+        Me.CheckFacilityMailoutSent.Text = "Mailout Sent"
+        Me.CheckFacilityMailoutSent.UseVisualStyleBackColor = True
+        Me.CheckFacilityMailoutSent.Visible = False
+        '
+        'CheckFacilityInMailout
+        '
+        Me.CheckFacilityInMailout.AutoSize = True
+        Me.CheckFacilityInMailout.Enabled = False
+        Me.CheckFacilityInMailout.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.CheckFacilityInMailout.Location = New System.Drawing.Point(93, 197)
+        Me.CheckFacilityInMailout.Name = "CheckFacilityInMailout"
+        Me.CheckFacilityInMailout.Size = New System.Drawing.Size(99, 17)
+        Me.CheckFacilityInMailout.TabIndex = 475
+        Me.CheckFacilityInMailout.Text = "In Initial Mailout"
+        Me.CheckFacilityInMailout.UseVisualStyleBackColor = True
+        Me.CheckFacilityInMailout.Visible = False
+        '
+        'CheckFacilityEnrolled
+        '
+        Me.CheckFacilityEnrolled.AutoSize = True
+        Me.CheckFacilityEnrolled.Enabled = False
+        Me.CheckFacilityEnrolled.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.CheckFacilityEnrolled.Location = New System.Drawing.Point(93, 174)
+        Me.CheckFacilityEnrolled.Name = "CheckFacilityEnrolled"
+        Me.CheckFacilityEnrolled.Size = New System.Drawing.Size(64, 17)
+        Me.CheckFacilityEnrolled.TabIndex = 475
+        Me.CheckFacilityEnrolled.Text = "Enrolled"
+        Me.CheckFacilityEnrolled.UseVisualStyleBackColor = True
+        Me.CheckFacilityEnrolled.Visible = False
+        '
+        'CheckFacilityButton
+        '
+        Me.CheckFacilityButton.Location = New System.Drawing.Point(165, 119)
+        Me.CheckFacilityButton.Name = "CheckFacilityButton"
+        Me.CheckFacilityButton.Size = New System.Drawing.Size(100, 23)
+        Me.CheckFacilityButton.TabIndex = 474
+        Me.CheckFacilityButton.Text = "Check Facility"
+        Me.CheckFacilityButton.UseVisualStyleBackColor = True
+        '
         'btnOpenFeesLog
         '
         Me.btnOpenFeesLog.AutoSize = True
         Me.btnOpenFeesLog.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnOpenFeesLog.Location = New System.Drawing.Point(844, 226)
+        Me.btnOpenFeesLog.Location = New System.Drawing.Point(271, 119)
         Me.btnOpenFeesLog.Name = "btnOpenFeesLog"
         Me.btnOpenFeesLog.Size = New System.Drawing.Size(90, 23)
         Me.btnOpenFeesLog.TabIndex = 473
         Me.btnOpenFeesLog.Text = "Open Fees Log"
         Me.btnOpenFeesLog.UseVisualStyleBackColor = True
         '
-        'lblCheckState
+        'CheckFacilityName
         '
-        Me.lblCheckState.AutoSize = True
-        Me.lblCheckState.Location = New System.Drawing.Point(765, 349)
-        Me.lblCheckState.Name = "lblCheckState"
-        Me.lblCheckState.Size = New System.Drawing.Size(0, 13)
-        Me.lblCheckState.TabIndex = 472
-        Me.lblCheckState.Visible = False
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(618, 271)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(70, 13)
-        Me.Label8.TabIndex = 471
-        Me.Label8.Text = "Facility Name"
-        '
-        'txtCheckFacility
-        '
-        Me.txtCheckFacility.Location = New System.Drawing.Point(693, 268)
-        Me.txtCheckFacility.Name = "txtCheckFacility"
-        Me.txtCheckFacility.ReadOnly = True
-        Me.txtCheckFacility.Size = New System.Drawing.Size(274, 20)
-        Me.txtCheckFacility.TabIndex = 470
-        '
-        'llbCheckFacility
-        '
-        Me.llbCheckFacility.AutoSize = True
-        Me.llbCheckFacility.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.llbCheckFacility.Location = New System.Drawing.Point(765, 231)
-        Me.llbCheckFacility.Name = "llbCheckFacility"
-        Me.llbCheckFacility.Size = New System.Drawing.Size(73, 13)
-        Me.llbCheckFacility.TabIndex = 469
-        Me.llbCheckFacility.TabStop = True
-        Me.llbCheckFacility.Text = "Check Facility"
-        '
-        'btnSaveAddition
-        '
-        Me.btnSaveAddition.AutoSize = True
-        Me.btnSaveAddition.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSaveAddition.Enabled = False
-        Me.btnSaveAddition.Location = New System.Drawing.Point(612, 294)
-        Me.btnSaveAddition.Name = "btnSaveAddition"
-        Me.btnSaveAddition.Size = New System.Drawing.Size(116, 23)
-        Me.btnSaveAddition.TabIndex = 468
-        Me.btnSaveAddition.Text = "Add to Mailout/Enroll"
-        Me.btnSaveAddition.UseVisualStyleBackColor = True
-        Me.btnSaveAddition.Visible = False
+        Me.CheckFacilityName.Location = New System.Drawing.Point(93, 148)
+        Me.CheckFacilityName.Name = "CheckFacilityName"
+        Me.CheckFacilityName.ReadOnly = True
+        Me.CheckFacilityName.Size = New System.Drawing.Size(268, 20)
+        Me.CheckFacilityName.TabIndex = 470
+        Me.CheckFacilityName.Visible = False
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(615, 232)
+        Me.Label6.Location = New System.Drawing.Point(15, 124)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(72, 13)
         Me.Label6.TabIndex = 466
@@ -1196,192 +1224,177 @@ Partial Class PASPFeeManagement
         '
         'mtbCheckAIRSNumber
         '
-        Me.mtbCheckAIRSNumber.Location = New System.Drawing.Point(693, 228)
+        Me.mtbCheckAIRSNumber.Location = New System.Drawing.Point(93, 121)
         Me.mtbCheckAIRSNumber.Mask = "000-00000"
         Me.mtbCheckAIRSNumber.Name = "mtbCheckAIRSNumber"
         Me.mtbCheckAIRSNumber.Size = New System.Drawing.Size(66, 20)
         Me.mtbCheckAIRSNumber.TabIndex = 467
         Me.mtbCheckAIRSNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
-        'dgvFeeManagmentLists
-        '
-        Me.dgvFeeManagmentLists.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvFeeManagmentLists.Dock = System.Windows.Forms.DockStyle.Left
-        Me.dgvFeeManagmentLists.Location = New System.Drawing.Point(3, 107)
-        Me.dgvFeeManagmentLists.Name = "dgvFeeManagmentLists"
-        Me.dgvFeeManagmentLists.Size = New System.Drawing.Size(566, 556)
-        Me.dgvFeeManagmentLists.TabIndex = 1
-        '
-        'Panel10
-        '
-        Me.Panel10.Controls.Add(Me.btnViewEnrolledFacilities)
-        Me.Panel10.Controls.Add(Me.btnViewMailout)
-        Me.Panel10.Controls.Add(Me.btnSetMailoutDate)
-        Me.Panel10.Controls.Add(Me.btnUpdateContactData)
-        Me.Panel10.Controls.Add(Me.dtpDateMailoutSent)
-        Me.Panel10.Controls.Add(Me.btnViewFacilitiesSubjectToFees)
-        Me.Panel10.Controls.Add(Me.btnGenerateMailoutList)
-        Me.Panel10.Controls.Add(Me.btnUnenrollFeeYear)
-        Me.Panel10.Controls.Add(Me.cboAvailableFeeYears)
-        Me.Panel10.Controls.Add(Me.btnFirstEnrollment)
-        Me.Panel10.Controls.Add(Me.Label18)
-        Me.Panel10.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel10.Location = New System.Drawing.Point(3, 3)
-        Me.Panel10.Name = "Panel10"
-        Me.Panel10.Size = New System.Drawing.Size(987, 104)
-        Me.Panel10.TabIndex = 0
-        '
-        'btnViewEnrolledFacilities
-        '
-        Me.btnViewEnrolledFacilities.AutoSize = True
-        Me.btnViewEnrolledFacilities.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnViewEnrolledFacilities.Location = New System.Drawing.Point(189, 12)
-        Me.btnViewEnrolledFacilities.Name = "btnViewEnrolledFacilities"
-        Me.btnViewEnrolledFacilities.Size = New System.Drawing.Size(81, 23)
-        Me.btnViewEnrolledFacilities.TabIndex = 471
-        Me.btnViewEnrolledFacilities.Text = "View Enrolled"
-        Me.btnViewEnrolledFacilities.UseVisualStyleBackColor = True
-        '
-        'btnViewMailout
-        '
-        Me.btnViewMailout.AutoSize = True
-        Me.btnViewMailout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnViewMailout.Location = New System.Drawing.Point(377, 12)
-        Me.btnViewMailout.Name = "btnViewMailout"
-        Me.btnViewMailout.Size = New System.Drawing.Size(77, 23)
-        Me.btnViewMailout.TabIndex = 470
-        Me.btnViewMailout.Text = "View Mailout"
-        Me.btnViewMailout.UseVisualStyleBackColor = True
-        '
-        'btnSetMailoutDate
-        '
-        Me.btnSetMailoutDate.AutoSize = True
-        Me.btnSetMailoutDate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSetMailoutDate.Location = New System.Drawing.Point(582, 14)
-        Me.btnSetMailoutDate.Name = "btnSetMailoutDate"
-        Me.btnSetMailoutDate.Size = New System.Drawing.Size(105, 23)
-        Me.btnSetMailoutDate.TabIndex = 469
-        Me.btnSetMailoutDate.Text = "Save Mailout Date"
-        Me.btnSetMailoutDate.UseVisualStyleBackColor = True
-        '
-        'btnUpdateContactData
-        '
-        Me.btnUpdateContactData.AutoSize = True
-        Me.btnUpdateContactData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnUpdateContactData.Location = New System.Drawing.Point(377, 70)
-        Me.btnUpdateContactData.Name = "btnUpdateContactData"
-        Me.btnUpdateContactData.Size = New System.Drawing.Size(137, 23)
-        Me.btnUpdateContactData.TabIndex = 468
-        Me.btnUpdateContactData.Text = "Get Current Fee Contacts"
-        Me.btnUpdateContactData.UseVisualStyleBackColor = True
-        '
-        'dtpDateMailoutSent
-        '
-        Me.dtpDateMailoutSent.CustomFormat = "dd-MMM-yyyy"
-        Me.dtpDateMailoutSent.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpDateMailoutSent.Location = New System.Drawing.Point(690, 15)
-        Me.dtpDateMailoutSent.Name = "dtpDateMailoutSent"
-        Me.dtpDateMailoutSent.Size = New System.Drawing.Size(100, 20)
-        Me.dtpDateMailoutSent.TabIndex = 467
-        '
-        'btnViewFacilitiesSubjectToFees
-        '
-        Me.btnViewFacilitiesSubjectToFees.AutoSize = True
-        Me.btnViewFacilitiesSubjectToFees.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnViewFacilitiesSubjectToFees.Location = New System.Drawing.Point(113, 22)
-        Me.btnViewFacilitiesSubjectToFees.Name = "btnViewFacilitiesSubjectToFees"
-        Me.btnViewFacilitiesSubjectToFees.Size = New System.Drawing.Size(60, 36)
-        Me.btnViewFacilitiesSubjectToFees.TabIndex = 466
-        Me.btnViewFacilitiesSubjectToFees.Text = "View " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Fee Year"
-        Me.btnViewFacilitiesSubjectToFees.UseVisualStyleBackColor = True
-        '
-        'btnGenerateMailoutList
-        '
-        Me.btnGenerateMailoutList.AutoSize = True
-        Me.btnGenerateMailoutList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnGenerateMailoutList.Location = New System.Drawing.Point(377, 41)
-        Me.btnGenerateMailoutList.Name = "btnGenerateMailoutList"
-        Me.btnGenerateMailoutList.Size = New System.Drawing.Size(117, 23)
-        Me.btnGenerateMailoutList.TabIndex = 10
-        Me.btnGenerateMailoutList.Text = "Generate Mailout List"
-        Me.btnGenerateMailoutList.UseVisualStyleBackColor = True
-        '
-        'btnUnenrollFeeYear
-        '
-        Me.btnUnenrollFeeYear.AutoSize = True
-        Me.btnUnenrollFeeYear.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnUnenrollFeeYear.Location = New System.Drawing.Point(189, 70)
-        Me.btnUnenrollFeeYear.Name = "btnUnenrollFeeYear"
-        Me.btnUnenrollFeeYear.Size = New System.Drawing.Size(129, 23)
-        Me.btnUnenrollFeeYear.TabIndex = 9
-        Me.btnUnenrollFeeYear.Text = "Un-enroll entire fee year"
-        Me.btnUnenrollFeeYear.UseVisualStyleBackColor = True
-        '
-        'cboAvailableFeeYears
-        '
-        Me.cboAvailableFeeYears.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboAvailableFeeYears.FormattingEnabled = True
-        Me.cboAvailableFeeYears.Location = New System.Drawing.Point(18, 22)
-        Me.cboAvailableFeeYears.Name = "cboAvailableFeeYears"
-        Me.cboAvailableFeeYears.Size = New System.Drawing.Size(89, 21)
-        Me.cboAvailableFeeYears.TabIndex = 7
-        '
-        'btnFirstEnrollment
-        '
-        Me.btnFirstEnrollment.AutoSize = True
-        Me.btnFirstEnrollment.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnFirstEnrollment.Location = New System.Drawing.Point(189, 41)
-        Me.btnFirstEnrollment.Name = "btnFirstEnrollment"
-        Me.btnFirstEnrollment.Size = New System.Drawing.Size(100, 23)
-        Me.btnFirstEnrollment.TabIndex = 6
-        Me.btnFirstEnrollment.Text = "Enroll All Facilities"
-        Me.btnFirstEnrollment.UseVisualStyleBackColor = True
-        '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(4, 6)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(66, 13)
-        Me.Label18.TabIndex = 4
-        Me.Label18.Text = "Mailout Year"
-        '
         'btnExportToExcel
         '
         Me.btnExportToExcel.AutoSize = True
         Me.btnExportToExcel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnExportToExcel.Location = New System.Drawing.Point(672, 113)
+        Me.btnExportToExcel.Location = New System.Drawing.Point(15, 33)
         Me.btnExportToExcel.Name = "btnExportToExcel"
         Me.btnExportToExcel.Size = New System.Drawing.Size(88, 23)
         Me.btnExportToExcel.TabIndex = 465
         Me.btnExportToExcel.Text = "Export to Excel"
         Me.btnExportToExcel.UseVisualStyleBackColor = True
         '
-        'txtCount
+        'FeeManagementListCount
         '
-        Me.txtCount.Location = New System.Drawing.Point(612, 114)
-        Me.txtCount.Name = "txtCount"
-        Me.txtCount.ReadOnly = True
-        Me.txtCount.Size = New System.Drawing.Size(54, 20)
-        Me.txtCount.TabIndex = 463
+        Me.FeeManagementListCount.AutoSize = True
+        Me.FeeManagementListCount.Location = New System.Drawing.Point(15, 17)
+        Me.FeeManagementListCount.Name = "FeeManagementListCount"
+        Me.FeeManagementListCount.Size = New System.Drawing.Size(35, 13)
+        Me.FeeManagementListCount.TabIndex = 464
+        Me.FeeManagementListCount.Text = "Count"
         '
-        'Label13
+        'FeeManagementToolPanel
         '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(576, 118)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(35, 13)
-        Me.Label13.TabIndex = 464
-        Me.Label13.Text = "Count"
+        Me.FeeManagementToolPanel.Controls.Add(Me.EnrollmentGroupbox)
+        Me.FeeManagementToolPanel.Controls.Add(Me.btnViewMailout)
+        Me.FeeManagementToolPanel.Controls.Add(Me.btnViewEnrolledFacilities)
+        Me.FeeManagementToolPanel.Controls.Add(Me.btnViewFacilitiesSubjectToFees)
+        Me.FeeManagementToolPanel.Controls.Add(Me.cboAvailableFeeYears)
+        Me.FeeManagementToolPanel.Controls.Add(Me.Label18)
+        Me.FeeManagementToolPanel.Controls.Add(Me.InitialMailoutGroupbox)
+        Me.FeeManagementToolPanel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.FeeManagementToolPanel.Location = New System.Drawing.Point(3, 3)
+        Me.FeeManagementToolPanel.Name = "FeeManagementToolPanel"
+        Me.FeeManagementToolPanel.Size = New System.Drawing.Size(987, 109)
+        Me.FeeManagementToolPanel.TabIndex = 0
         '
-        'Label10
+        'EnrollmentGroupbox
         '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(595, 197)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(201, 13)
-        Me.Label10.TabIndex = 8
-        Me.Label10.Text = "Add Facility to Current Mailout/Enrollment"
+        Me.EnrollmentGroupbox.Controls.Add(Me.btnUnenrollFeeYear)
+        Me.EnrollmentGroupbox.Controls.Add(Me.btnFirstEnrollment)
+        Me.EnrollmentGroupbox.Location = New System.Drawing.Point(635, 0)
+        Me.EnrollmentGroupbox.Name = "EnrollmentGroupbox"
+        Me.EnrollmentGroupbox.Size = New System.Drawing.Size(155, 98)
+        Me.EnrollmentGroupbox.TabIndex = 473
+        Me.EnrollmentGroupbox.TabStop = False
+        Me.EnrollmentGroupbox.Text = "Initial Enrollment"
+        '
+        'btnUnenrollFeeYear
+        '
+        Me.btnUnenrollFeeYear.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnUnenrollFeeYear.Location = New System.Drawing.Point(6, 66)
+        Me.btnUnenrollFeeYear.Name = "btnUnenrollFeeYear"
+        Me.btnUnenrollFeeYear.Size = New System.Drawing.Size(133, 23)
+        Me.btnUnenrollFeeYear.TabIndex = 9
+        Me.btnUnenrollFeeYear.Text = "Un-enroll Entire Fee Year"
+        Me.btnUnenrollFeeYear.UseVisualStyleBackColor = True
+        '
+        'btnFirstEnrollment
+        '
+        Me.btnFirstEnrollment.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnFirstEnrollment.Location = New System.Drawing.Point(6, 19)
+        Me.btnFirstEnrollment.Name = "btnFirstEnrollment"
+        Me.btnFirstEnrollment.Size = New System.Drawing.Size(133, 36)
+        Me.btnFirstEnrollment.TabIndex = 6
+        Me.btnFirstEnrollment.Text = "Enroll All Active Facilities For New Fee Year"
+        Me.btnFirstEnrollment.UseVisualStyleBackColor = True
+        '
+        'btnViewMailout
+        '
+        Me.btnViewMailout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnViewMailout.Location = New System.Drawing.Point(159, 37)
+        Me.btnViewMailout.Name = "btnViewMailout"
+        Me.btnViewMailout.Size = New System.Drawing.Size(132, 23)
+        Me.btnViewMailout.TabIndex = 470
+        Me.btnViewMailout.Text = "View Mailout List"
+        Me.btnViewMailout.UseVisualStyleBackColor = True
+        '
+        'btnViewEnrolledFacilities
+        '
+        Me.btnViewEnrolledFacilities.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnViewEnrolledFacilities.Location = New System.Drawing.Point(159, 66)
+        Me.btnViewEnrolledFacilities.Name = "btnViewEnrolledFacilities"
+        Me.btnViewEnrolledFacilities.Size = New System.Drawing.Size(132, 23)
+        Me.btnViewEnrolledFacilities.TabIndex = 471
+        Me.btnViewEnrolledFacilities.Text = "View Enrolled Facilities"
+        Me.btnViewEnrolledFacilities.UseVisualStyleBackColor = True
+        '
+        'btnViewFacilitiesSubjectToFees
+        '
+        Me.btnViewFacilitiesSubjectToFees.Location = New System.Drawing.Point(159, 8)
+        Me.btnViewFacilitiesSubjectToFees.Name = "btnViewFacilitiesSubjectToFees"
+        Me.btnViewFacilitiesSubjectToFees.Size = New System.Drawing.Size(132, 23)
+        Me.btnViewFacilitiesSubjectToFees.TabIndex = 466
+        Me.btnViewFacilitiesSubjectToFees.Text = "View Fee Year"
+        Me.btnViewFacilitiesSubjectToFees.UseVisualStyleBackColor = True
+        '
+        'cboAvailableFeeYears
+        '
+        Me.cboAvailableFeeYears.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboAvailableFeeYears.FormattingEnabled = True
+        Me.cboAvailableFeeYears.Location = New System.Drawing.Point(64, 9)
+        Me.cboAvailableFeeYears.Name = "cboAvailableFeeYears"
+        Me.cboAvailableFeeYears.Size = New System.Drawing.Size(89, 21)
+        Me.cboAvailableFeeYears.TabIndex = 7
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Location = New System.Drawing.Point(5, 12)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(53, 13)
+        Me.Label18.TabIndex = 4
+        Me.Label18.Text = "Fee Year:"
+        '
+        'InitialMailoutGroupbox
+        '
+        Me.InitialMailoutGroupbox.Controls.Add(Me.dtpDateMailoutSent)
+        Me.InitialMailoutGroupbox.Controls.Add(Me.btnSetMailoutDate)
+        Me.InitialMailoutGroupbox.Controls.Add(Me.btnGenerateMailoutList)
+        Me.InitialMailoutGroupbox.Controls.Add(Me.btnUpdateContactData)
+        Me.InitialMailoutGroupbox.Location = New System.Drawing.Point(314, 0)
+        Me.InitialMailoutGroupbox.Name = "InitialMailoutGroupbox"
+        Me.InitialMailoutGroupbox.Size = New System.Drawing.Size(293, 98)
+        Me.InitialMailoutGroupbox.TabIndex = 472
+        Me.InitialMailoutGroupbox.TabStop = False
+        Me.InitialMailoutGroupbox.Text = "Initial Mailout"
+        '
+        'dtpDateMailoutSent
+        '
+        Me.dtpDateMailoutSent.CustomFormat = "dd-MMM-yyyy"
+        Me.dtpDateMailoutSent.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpDateMailoutSent.Location = New System.Drawing.Point(38, 68)
+        Me.dtpDateMailoutSent.Name = "dtpDateMailoutSent"
+        Me.dtpDateMailoutSent.Size = New System.Drawing.Size(105, 20)
+        Me.dtpDateMailoutSent.TabIndex = 467
+        '
+        'btnSetMailoutDate
+        '
+        Me.btnSetMailoutDate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnSetMailoutDate.Location = New System.Drawing.Point(149, 66)
+        Me.btnSetMailoutDate.Name = "btnSetMailoutDate"
+        Me.btnSetMailoutDate.Size = New System.Drawing.Size(137, 23)
+        Me.btnSetMailoutDate.TabIndex = 469
+        Me.btnSetMailoutDate.Text = "Save Initial Mailout Date"
+        Me.btnSetMailoutDate.UseVisualStyleBackColor = True
+        '
+        'btnGenerateMailoutList
+        '
+        Me.btnGenerateMailoutList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnGenerateMailoutList.Location = New System.Drawing.Point(6, 19)
+        Me.btnGenerateMailoutList.Name = "btnGenerateMailoutList"
+        Me.btnGenerateMailoutList.Size = New System.Drawing.Size(137, 36)
+        Me.btnGenerateMailoutList.TabIndex = 10
+        Me.btnGenerateMailoutList.Text = "Generate Initial " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Mailout List"
+        Me.btnGenerateMailoutList.UseVisualStyleBackColor = True
+        '
+        'btnUpdateContactData
+        '
+        Me.btnUpdateContactData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnUpdateContactData.Location = New System.Drawing.Point(149, 19)
+        Me.btnUpdateContactData.Name = "btnUpdateContactData"
+        Me.btnUpdateContactData.Size = New System.Drawing.Size(137, 36)
+        Me.btnUpdateContactData.TabIndex = 468
+        Me.btnUpdateContactData.Text = "Update Mailout List With Current Fee Contacts"
+        Me.btnUpdateContactData.UseVisualStyleBackColor = True
         '
         'TPWebTools
         '
@@ -2191,10 +2204,13 @@ Partial Class PASPFeeManagement
         Me.Panel15.PerformLayout()
         CType(Me.dgvExistingExemptions, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPFeeManagementTools.ResumeLayout(False)
-        Me.TPFeeManagementTools.PerformLayout()
-        CType(Me.dgvFeeManagmentLists, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel10.ResumeLayout(False)
-        Me.Panel10.PerformLayout()
+        CType(Me.dgvFeeManagementLists, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.FeeManagementSidePanel.ResumeLayout(False)
+        Me.FeeManagementSidePanel.PerformLayout()
+        Me.FeeManagementToolPanel.ResumeLayout(False)
+        Me.FeeManagementToolPanel.PerformLayout()
+        Me.EnrollmentGroupbox.ResumeLayout(False)
+        Me.InitialMailoutGroupbox.ResumeLayout(False)
         Me.TPWebTools.ResumeLayout(False)
         Me.TabControl3.ResumeLayout(False)
         Me.TPWebUsers.ResumeLayout(False)
@@ -2282,14 +2298,12 @@ Partial Class PASPFeeManagement
     Friend WithEvents Label108 As System.Windows.Forms.Label
     Friend WithEvents cboNSPSExemptionYear As System.Windows.Forms.ComboBox
     Friend WithEvents TPFeeManagementTools As System.Windows.Forms.TabPage
-    Friend WithEvents dgvFeeManagmentLists As System.Windows.Forms.DataGridView
-    Friend WithEvents Panel10 As System.Windows.Forms.Panel
+    Friend WithEvents dgvFeeManagementLists As System.Windows.Forms.DataGridView
+    Friend WithEvents FeeManagementToolPanel As System.Windows.Forms.Panel
     Friend WithEvents btnExportToExcel As System.Windows.Forms.Button
-    Friend WithEvents Label13 As System.Windows.Forms.Label
-    Friend WithEvents txtCount As System.Windows.Forms.TextBox
+    Friend WithEvents FeeManagementListCount As System.Windows.Forms.Label
     Friend WithEvents btnGenerateMailoutList As System.Windows.Forms.Button
     Friend WithEvents btnUnenrollFeeYear As System.Windows.Forms.Button
-    Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents cboAvailableFeeYears As System.Windows.Forms.ComboBox
     Friend WithEvents btnFirstEnrollment As System.Windows.Forms.Button
     Friend WithEvents Label18 As System.Windows.Forms.Label
@@ -2383,13 +2397,9 @@ Partial Class PASPFeeManagement
     Friend WithEvents lblFacility As System.Windows.Forms.Label
     Friend WithEvents lblFaciltyName As System.Windows.Forms.Label
     Friend WithEvents dgvUserFacilities As System.Windows.Forms.DataGridView
-    Friend WithEvents llbCheckFacility As System.Windows.Forms.LinkLabel
-    Friend WithEvents btnSaveAddition As System.Windows.Forms.Button
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents mtbCheckAIRSNumber As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents Label8 As System.Windows.Forms.Label
-    Friend WithEvents txtCheckFacility As System.Windows.Forms.TextBox
-    Friend WithEvents lblCheckState As System.Windows.Forms.Label
+    Friend WithEvents CheckFacilityName As System.Windows.Forms.TextBox
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents dtpFourthQrtDue As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label14 As System.Windows.Forms.Label
@@ -2403,4 +2413,11 @@ Partial Class PASPFeeManagement
     Friend WithEvents txtNonAttainmentThreshold As System.Windows.Forms.TextBox
     Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents txtAttainmentThreshold As System.Windows.Forms.TextBox
+    Friend WithEvents InitialMailoutGroupbox As System.Windows.Forms.GroupBox
+    Friend WithEvents EnrollmentGroupbox As System.Windows.Forms.GroupBox
+    Friend WithEvents FeeManagementSidePanel As System.Windows.Forms.Panel
+    Friend WithEvents CheckFacilityButton As System.Windows.Forms.Button
+    Friend WithEvents CheckFacilityInMailout As System.Windows.Forms.CheckBox
+    Friend WithEvents CheckFacilityEnrolled As System.Windows.Forms.CheckBox
+    Friend WithEvents CheckFacilityMailoutSent As System.Windows.Forms.CheckBox
 End Class
