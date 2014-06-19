@@ -1491,6 +1491,7 @@ Partial Class PASPFeeAuditLog
         '
         'cboInvoiceType
         '
+        Me.cboInvoiceType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboInvoiceType.FormattingEnabled = True
         Me.cboInvoiceType.Location = New System.Drawing.Point(70, 137)
         Me.cboInvoiceType.Name = "cboInvoiceType"
@@ -1982,6 +1983,7 @@ Partial Class PASPFeeAuditLog
         '
         'cboTransactionType
         '
+        Me.cboTransactionType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboTransactionType.FormattingEnabled = True
         Me.cboTransactionType.Location = New System.Drawing.Point(106, 59)
         Me.cboTransactionType.Name = "cboTransactionType"
@@ -2196,6 +2198,7 @@ Partial Class PASPFeeAuditLog
         '
         'cboEditClassification
         '
+        Me.cboEditClassification.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboEditClassification.FormattingEnabled = True
         Me.cboEditClassification.Location = New System.Drawing.Point(342, 73)
         Me.cboEditClassification.Name = "cboEditClassification"
@@ -2759,6 +2762,7 @@ Partial Class PASPFeeAuditLog
         '
         'cboEditPaymentType
         '
+        Me.cboEditPaymentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboEditPaymentType.FormattingEnabled = True
         Me.cboEditPaymentType.Location = New System.Drawing.Point(12, 98)
         Me.cboEditPaymentType.Name = "cboEditPaymentType"
@@ -3305,6 +3309,7 @@ Partial Class PASPFeeAuditLog
         '
         'cboAuditType
         '
+        Me.cboAuditType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboAuditType.FormattingEnabled = True
         Me.cboAuditType.Location = New System.Drawing.Point(75, 85)
         Me.cboAuditType.Name = "cboAuditType"
@@ -3473,6 +3478,7 @@ Partial Class PASPFeeAuditLog
         '
         'cboStaffResponsible
         '
+        Me.cboStaffResponsible.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStaffResponsible.FormattingEnabled = True
         Me.cboStaffResponsible.Location = New System.Drawing.Point(98, 58)
         Me.cboStaffResponsible.Name = "cboStaffResponsible"
@@ -3757,6 +3763,7 @@ Partial Class PASPFeeAuditLog
         '
         'cboInitialClassification
         '
+        Me.cboInitialClassification.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboInitialClassification.FormattingEnabled = True
         Me.cboInitialClassification.Location = New System.Drawing.Point(348, 88)
         Me.cboInitialClassification.Name = "cboInitialClassification"
@@ -3765,6 +3772,7 @@ Partial Class PASPFeeAuditLog
         '
         'cboInitialOpStatus
         '
+        Me.cboInitialOpStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboInitialOpStatus.FormattingEnabled = True
         Me.cboInitialOpStatus.Location = New System.Drawing.Point(102, 88)
         Me.cboInitialOpStatus.Name = "cboInitialOpStatus"

@@ -2717,22 +2717,23 @@ Public Class PASPFeeManagement
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFeesLog.Click
         Try
-            If FeeStats Is Nothing Then
-                If FeeStats Is Nothing Then FeeStats = New PASPFeeAuditLog
-            Else
-                FeeStats.Dispose()
-                FeeStats = New PASPFeeAuditLog
+            If Apb.Facility.IsAirsNumberValid(mtbCheckAIRSNumber.Text) Then
+                If FeeStats Is Nothing Then
+                    If FeeStats Is Nothing Then FeeStats = New PASPFeeAuditLog
+                Else
+                    FeeStats.Dispose()
+                    FeeStats = New PASPFeeAuditLog
+                End If
+                FeeStats.Show()
+
+                FeeStats.mtbFeeAdminAIRSNumber.Text = mtbCheckAIRSNumber.Text
+                FeeStats.mtbFeeAdminExistingYear.Text = cboAvailableFeeYears.Text
+
+                If FeeStats.mtbFeeAdminAIRSNumber.Text <> "" Then
+                    FeeStats.LoadAdminData()
+                    FeeStats.LoadAuditedData()
+                End If
             End If
-            FeeStats.Show()
-
-            FeeStats.mtbFeeAdminAIRSNumber.Text = mtbCheckAIRSNumber.Text
-            FeeStats.mtbFeeAdminExistingYear.Text = cboAvailableFeeYears.Text
-
-            If FeeStats.mtbFeeAdminAIRSNumber.Text <> "" Then
-                FeeStats.LoadAdminData()
-                FeeStats.LoadAuditedData()
-            End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
