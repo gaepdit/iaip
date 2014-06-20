@@ -858,10 +858,10 @@
     <Compile Include="Universal Forms\IAIPNavigation.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\IAIPPermitUploader.Designer.vb">
-      <DependentUpon>IAIPPermitUploader.vb</DependentUpon>
+    <Compile Include="SSPP\SSPPPermitUploader.Designer.vb">
+      <DependentUpon>SSPPPermitUploader.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\IAIPPermitUploader.vb">
+    <Compile Include="SSPP\SSPPPermitUploader.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Universal Forms\IAIPPrintOut.Designer.vb">
@@ -1441,9 +1441,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>IAIPNavigation.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\IAIPPermitUploader.resx">
+    <EmbeddedResource Include="SSPP\SSPPPermitUploader.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>IAIPPermitUploader.vb</DependentUpon>
+      <DependentUpon>SSPPPermitUploader.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Universal Forms\IAIPPrintOut.resx">
       <SubType>Designer</SubType>
