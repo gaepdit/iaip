@@ -1310,7 +1310,7 @@ Public Class IAIPNavigation
 
         ' General
         AddNavButtonIfAccountHasFormAccess(1, "Facility Summary", "IAIPFacilitySummary", NavButtonCategories.General)
-        AddNavButtonIfAccountHasFormAccess(7, "IAIP Query Generator", "IAIPQueryGenerator", NavButtonCategories.General)
+        AddNavButtonIfAccountHasFormAccess(7, "Query Generator", "IAIPQueryGenerator", NavButtonCategories.General)
         AddNavButtonIfAccountHasFormAccess(8, "Profile Management", "IAIPUserAdminTool", NavButtonCategories.General)
 
         ' SSPP
