@@ -1287,7 +1287,7 @@ Public Class IAIPNavigation
         ISMP
         SSPP
         SSCP
-        PASP
+        Fees
         DMU
         MASP
         EIS
@@ -1299,7 +1299,7 @@ Public Class IAIPNavigation
         AddNavButtonCategory(NavButtonCategories.ISMP, "Industrial Source Monitoring Program")
         AddNavButtonCategory(NavButtonCategories.SSPP, "Stationary Source Permitting Program")
         AddNavButtonCategory(NavButtonCategories.SSCP, "Stationary Source Compliance Program")
-        AddNavButtonCategory(NavButtonCategories.PASP, "Planning & Support Program", "P&SP")
+        AddNavButtonCategory(NavButtonCategories.Fees, "Financial Management Unit")
         AddNavButtonCategory(NavButtonCategories.DMU, "Data Management Unit")
         AddNavButtonCategory(NavButtonCategories.MASP, "Mobile & Area Sources Program")
         AddNavButtonCategory(NavButtonCategories.EIS, "Emission Inventory System")
@@ -1335,12 +1335,12 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(17, "ISMP Managers", "ISMPManagersTools", NavButtonCategories.ISMP)
         AddNavButtonIfAccountHasFormAccess(128, "Smoke School", "SmokeSchool", NavButtonCategories.ISMP)
 
-        ' P&SP
-        AddNavButtonIfAccountHasFormAccess(135, "Fees Log", "PASPFeesLog", NavButtonCategories.PASP)
-        AddNavButtonIfAccountHasFormAccess(139, "Fee Management", "PASPFeeManagement", NavButtonCategories.PASP)
-        AddNavButtonIfAccountHasFormAccess(12, "Fee Statistics && Reports", "PASPFeeStatistics", NavButtonCategories.PASP)
-        AddNavButtonIfAccountHasFormAccess(6, "Fees Reports", "PASPFeeReports", NavButtonCategories.PASP)
-        AddNavButtonIfAccountHasFormAccess(18, "Deposits", "PASPDepositsAmendments", NavButtonCategories.PASP)
+        ' Fees
+        AddNavButtonIfAccountHasFormAccess(135, "Fees Log", "PASPFeesLog", NavButtonCategories.Fees)
+        AddNavButtonIfAccountHasFormAccess(139, "Fee Management", "PASPFeeManagement", NavButtonCategories.Fees)
+        AddNavButtonIfAccountHasFormAccess(12, "Fee Statistics && Reports", "PASPFeeStatistics", NavButtonCategories.Fees)
+        AddNavButtonIfAccountHasFormAccess(6, "Fees Reports", "PASPFeeReports", NavButtonCategories.Fees)
+        AddNavButtonIfAccountHasFormAccess(18, "Deposits", "PASPDepositsAmendments", NavButtonCategories.Fees)
 
         ' MASP
         AddNavButtonIfAccountHasFormAccess(137, "Registration Tool", "MASPRegistrationTool", NavButtonCategories.MASP)

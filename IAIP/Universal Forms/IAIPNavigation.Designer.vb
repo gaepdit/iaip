@@ -77,16 +77,16 @@ Partial Class IAIPNavigation
         Me.lblMessageLabel = New System.Windows.Forms.Label
         Me.bgrUserPermissions = New System.ComponentModel.BackgroundWorker
         Me.pnlCurrentList = New System.Windows.Forms.Panel
+        Me.ListChangerPanel = New System.Windows.Forms.Panel
         Me.pnlContextSubView = New System.Windows.Forms.Panel
         Me.dgvWorkViewer = New System.Windows.Forms.DataGridView
-        Me.ListChangerPanel = New System.Windows.Forms.Panel
         Me.grpQuickAccess.SuspendLayout()
         Me.SbeapQuickAccessPanel.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.pnlCurrentList.SuspendLayout()
+        Me.ListChangerPanel.SuspendLayout()
         Me.pnlContextSubView.SuspendLayout()
         CType(Me.dgvWorkViewer, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.ListChangerPanel.SuspendLayout()
         Me.SuspendLayout()
         '
         'MainMenu1
@@ -666,6 +666,20 @@ Partial Class IAIPNavigation
         Me.pnlCurrentList.Size = New System.Drawing.Size(686, 37)
         Me.pnlCurrentList.TabIndex = 1
         '
+        'ListChangerPanel
+        '
+        Me.ListChangerPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ListChangerPanel.Controls.Add(Me.btnChangeWorkViewerContext)
+        Me.ListChangerPanel.Controls.Add(Me.lblWorkViewerContext)
+        Me.ListChangerPanel.Controls.Add(Me.cboWorkViewerContext)
+        Me.ListChangerPanel.Controls.Add(Me.pnlContextSubView)
+        Me.ListChangerPanel.Location = New System.Drawing.Point(0, 0)
+        Me.ListChangerPanel.MaximumSize = New System.Drawing.Size(630, 37)
+        Me.ListChangerPanel.Name = "ListChangerPanel"
+        Me.ListChangerPanel.Size = New System.Drawing.Size(594, 37)
+        Me.ListChangerPanel.TabIndex = 296
+        '
         'pnlContextSubView
         '
         Me.pnlContextSubView.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -697,20 +711,6 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 187)
         Me.dgvWorkViewer.TabIndex = 4
         '
-        'ListChangerPanel
-        '
-        Me.ListChangerPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ListChangerPanel.Controls.Add(Me.btnChangeWorkViewerContext)
-        Me.ListChangerPanel.Controls.Add(Me.lblWorkViewerContext)
-        Me.ListChangerPanel.Controls.Add(Me.cboWorkViewerContext)
-        Me.ListChangerPanel.Controls.Add(Me.pnlContextSubView)
-        Me.ListChangerPanel.Location = New System.Drawing.Point(0, 0)
-        Me.ListChangerPanel.MaximumSize = New System.Drawing.Size(630, 37)
-        Me.ListChangerPanel.Name = "ListChangerPanel"
-        Me.ListChangerPanel.Size = New System.Drawing.Size(594, 37)
-        Me.ListChangerPanel.TabIndex = 296
-        '
         'IAIPNavigation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -736,11 +736,11 @@ Partial Class IAIPNavigation
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         Me.pnlCurrentList.ResumeLayout(False)
+        Me.ListChangerPanel.ResumeLayout(False)
+        Me.ListChangerPanel.PerformLayout()
         Me.pnlContextSubView.ResumeLayout(False)
         Me.pnlContextSubView.PerformLayout()
         CType(Me.dgvWorkViewer, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.ListChangerPanel.ResumeLayout(False)
-        Me.ListChangerPanel.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

@@ -220,10 +220,10 @@
     <Compile Include="_Classes\ListViewItemComparer.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="PASP\PASPFeeStatistics.Designer.vb">
+    <Compile Include="Fees\PASPFeeStatistics.Designer.vb">
       <DependentUpon>PASPFeeStatistics.vb</DependentUpon>
     </Compile>
-    <Compile Include="PASP\PASPFeeStatistics.vb">
+    <Compile Include="Fees\PASPFeeStatistics.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Crystal Reports\Oracle 10.1\crFS_Invoice.vb">
@@ -502,10 +502,10 @@
     <Compile Include="ISMP\SubPages\ISMPStaffReports.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PASP\PASPFeeAuditLog.Designer.vb">
+    <Compile Include="Fees\PASPFeeAuditLog.Designer.vb">
       <DependentUpon>PASPFeeAuditLog.vb</DependentUpon>
     </Compile>
-    <Compile Include="PASP\PASPFeeAuditLog.vb">
+    <Compile Include="Fees\PASPFeeAuditLog.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MASP\MASPRegistrationTool.Designer.vb">
@@ -514,34 +514,31 @@
     <Compile Include="MASP\MASPRegistrationTool.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PASP\PASPDepositsAmendments.Designer.vb">
+    <Compile Include="Fees\PASPDepositsAmendments.Designer.vb">
       <DependentUpon>PASPDepositsAmendments.vb</DependentUpon>
     </Compile>
-    <Compile Include="PASP\PASPDepositsAmendments.vb">
+    <Compile Include="Fees\PASPDepositsAmendments.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PASP\PASPFacilityFee.vb">
+    <Compile Include="Fees\PASPFeeDeposits.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PASP\PASPFeeDeposits.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PASP\PASPFeeManagement.Designer.vb">
+    <Compile Include="Fees\PASPFeeManagement.Designer.vb">
       <DependentUpon>PASPFeeManagement.vb</DependentUpon>
     </Compile>
-    <Compile Include="PASP\PASPFeeManagement.vb">
+    <Compile Include="Fees\PASPFeeManagement.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PASP\PASPFeeReports.Designer.vb">
+    <Compile Include="Fees\PASPFeeReports.Designer.vb">
       <DependentUpon>PASPFeeReports.vb</DependentUpon>
     </Compile>
-    <Compile Include="PASP\PASPFeeReports.vb">
+    <Compile Include="Fees\PASPFeeReports.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PASP\PASPFeesLog.Designer.vb">
+    <Compile Include="Fees\PASPFeesLog.Designer.vb">
       <DependentUpon>PASPFeesLog.vb</DependentUpon>
     </Compile>
-    <Compile Include="PASP\PASPFeesLog.vb">
+    <Compile Include="Fees\PASPFeesLog.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SmokeSchool\SmokeSchool.Designer.vb">
@@ -993,7 +990,7 @@
       <DependentUpon>IAIPPhoneList.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="PASP\PASPFeeStatistics.resx">
+    <EmbeddedResource Include="Fees\PASPFeeStatistics.resx">
       <DependentUpon>PASPFeeStatistics.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SBEAP\SBEAPCaseLog.resx">
@@ -1208,28 +1205,25 @@
     <EmbeddedResource Include="ISMP\SubPages\ISMPStaffReports.resx">
       <DependentUpon>ISMPStaffReports.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PASP\PASPFeeAuditLog.resx">
+    <EmbeddedResource Include="Fees\PASPFeeAuditLog.resx">
       <DependentUpon>PASPFeeAuditLog.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MASP\MASPRegistrationTool.resx">
       <DependentUpon>MASPRegistrationTool.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PASP\PASPDepositsAmendments.resx">
+    <EmbeddedResource Include="Fees\PASPDepositsAmendments.resx">
       <DependentUpon>PASPDepositsAmendments.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PASP\PASPFacilityFee.resx">
-      <DependentUpon>PASPFacilityFee.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PASP\PASPFeeDeposits.resx">
+    <EmbeddedResource Include="Fees\PASPFeeDeposits.resx">
       <DependentUpon>PASPFeeDeposits.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PASP\PASPFeeManagement.resx">
+    <EmbeddedResource Include="Fees\PASPFeeManagement.resx">
       <DependentUpon>PASPFeeManagement.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PASP\PASPFeeReports.resx">
+    <EmbeddedResource Include="Fees\PASPFeeReports.resx">
       <DependentUpon>PASPFeeReports.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PASP\PASPFeesLog.resx">
+    <EmbeddedResource Include="Fees\PASPFeesLog.resx">
       <DependentUpon>PASPFeesLog.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SmokeSchool\SmokeSchool.resx">
@@ -1803,7 +1797,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Crystal Reports\Oracle 9.2\SSCP\" />
-    <Folder Include="DataSet\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
