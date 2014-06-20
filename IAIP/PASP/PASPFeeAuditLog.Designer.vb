@@ -97,6 +97,39 @@ Partial Class PASPFeeAuditLog
         Me.chbInvoiceDataNSPSExempt = New System.Windows.Forms.CheckBox
         Me.Label80 = New System.Windows.Forms.Label
         Me.txtInvoiceClassification = New System.Windows.Forms.TextBox
+        Me.TPGECOSubmittalContact = New System.Windows.Forms.TabPage
+        Me.dgvGECOFeeContacts = New System.Windows.Forms.DataGridView
+        Me.Panel16 = New System.Windows.Forms.Panel
+        Me.txtGECOContactSalutation = New System.Windows.Forms.TextBox
+        Me.btnGECOViewPastContacts = New System.Windows.Forms.Button
+        Me.txtGECOContactFirstName = New System.Windows.Forms.TextBox
+        Me.btnGECOViewCurrentContacts = New System.Windows.Forms.Button
+        Me.Label15 = New System.Windows.Forms.Label
+        Me.btnGECOOpenForEditing = New System.Windows.Forms.Button
+        Me.txtGECOContactLastName = New System.Windows.Forms.TextBox
+        Me.btnGECOSaveUpdates = New System.Windows.Forms.Button
+        Me.Label16 = New System.Windows.Forms.Label
+        Me.mtbGECOContactPhontNumber = New System.Windows.Forms.MaskedTextBox
+        Me.txtGECOContactState = New System.Windows.Forms.TextBox
+        Me.mtbGECOContactFaxNumber = New System.Windows.Forms.MaskedTextBox
+        Me.Label17 = New System.Windows.Forms.Label
+        Me.mtbGECOContactZipCode = New System.Windows.Forms.MaskedTextBox
+        Me.txtGECOContactCity = New System.Windows.Forms.TextBox
+        Me.Label20 = New System.Windows.Forms.Label
+        Me.Label78 = New System.Windows.Forms.Label
+        Me.txtGECOContactStreetAddress = New System.Windows.Forms.TextBox
+        Me.Label77 = New System.Windows.Forms.Label
+        Me.Label63 = New System.Windows.Forms.Label
+        Me.Label76 = New System.Windows.Forms.Label
+        Me.txtGECOContactCompanyName = New System.Windows.Forms.TextBox
+        Me.txtGECOContactEmail = New System.Windows.Forms.TextBox
+        Me.Label71 = New System.Windows.Forms.Label
+        Me.Label75 = New System.Windows.Forms.Label
+        Me.txtGECOContactTitle = New System.Windows.Forms.TextBox
+        Me.txtGECOContactComments = New System.Windows.Forms.TextBox
+        Me.Label72 = New System.Windows.Forms.Label
+        Me.Label74 = New System.Windows.Forms.Label
+        Me.Label73 = New System.Windows.Forms.Label
         Me.TPInvoices = New System.Windows.Forms.TabPage
         Me.Panel32 = New System.Windows.Forms.Panel
         Me.crFeeStatsAndInvoices = New CrystalDecisions.Windows.Forms.CrystalReportViewer
@@ -391,43 +424,9 @@ Partial Class PASPFeeAuditLog
         Me.txtContactFirstName = New System.Windows.Forms.TextBox
         Me.txtGECOUserEmail = New System.Windows.Forms.TextBox
         Me.Label48 = New System.Windows.Forms.Label
-        Me.TPGECOFeeContact = New System.Windows.Forms.TabPage
-        Me.dgvGECOFeeContacts = New System.Windows.Forms.DataGridView
-        Me.Panel16 = New System.Windows.Forms.Panel
-        Me.txtGECOContactSalutation = New System.Windows.Forms.TextBox
-        Me.btnGECOViewPastContacts = New System.Windows.Forms.Button
-        Me.txtGECOContactFirstName = New System.Windows.Forms.TextBox
-        Me.btnGECOViewCurrentContacts = New System.Windows.Forms.Button
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.btnGECOOpenForEditing = New System.Windows.Forms.Button
-        Me.txtGECOContactLastName = New System.Windows.Forms.TextBox
-        Me.btnGECOSaveUpdates = New System.Windows.Forms.Button
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.mtbGECOContactPhontNumber = New System.Windows.Forms.MaskedTextBox
-        Me.txtGECOContactState = New System.Windows.Forms.TextBox
-        Me.mtbGECOContactFaxNumber = New System.Windows.Forms.MaskedTextBox
-        Me.Label17 = New System.Windows.Forms.Label
-        Me.mtbGECOContactZipCode = New System.Windows.Forms.MaskedTextBox
-        Me.txtGECOContactCity = New System.Windows.Forms.TextBox
-        Me.Label20 = New System.Windows.Forms.Label
-        Me.Label78 = New System.Windows.Forms.Label
-        Me.txtGECOContactStreetAddress = New System.Windows.Forms.TextBox
-        Me.Label77 = New System.Windows.Forms.Label
-        Me.Label63 = New System.Windows.Forms.Label
-        Me.Label76 = New System.Windows.Forms.Label
-        Me.txtGECOContactCompanyName = New System.Windows.Forms.TextBox
-        Me.txtGECOContactEmail = New System.Windows.Forms.TextBox
-        Me.Label71 = New System.Windows.Forms.Label
-        Me.Label75 = New System.Windows.Forms.Label
-        Me.txtGECOContactTitle = New System.Windows.Forms.TextBox
-        Me.txtGECOContactComments = New System.Windows.Forms.TextBox
-        Me.Label72 = New System.Windows.Forms.Label
-        Me.Label74 = New System.Windows.Forms.Label
-        Me.Label73 = New System.Windows.Forms.Label
         Me.Panel4 = New System.Windows.Forms.Panel
         Me.btnCheckInvoices = New System.Windows.Forms.Button
         Me.txtYear = New System.Windows.Forms.TextBox
-        Me.Label1 = New System.Windows.Forms.Label
         Me.txtAIRSNumber = New System.Windows.Forms.TextBox
         Me.txtGECOAdminStatus = New System.Windows.Forms.TextBox
         Me.Label14 = New System.Windows.Forms.Label
@@ -437,7 +436,6 @@ Partial Class PASPFeeAuditLog
         Me.Panel5 = New System.Windows.Forms.Panel
         Me.rdbLetterMailedFalse = New System.Windows.Forms.RadioButton
         Me.rdbLetterMailedTrue = New System.Windows.Forms.RadioButton
-        Me.Label6 = New System.Windows.Forms.Label
         Me.btnReloadFSData = New System.Windows.Forms.Button
         Me.btnAddFSAdmin = New System.Windows.Forms.Button
         Me.btnUpdateFSAdmin = New System.Windows.Forms.Button
@@ -490,6 +488,9 @@ Partial Class PASPFeeAuditLog
         Me.Panel7.SuspendLayout()
         Me.Panel8.SuspendLayout()
         CType(Me.dgvInvoiceDataNSPSExemptions, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TPGECOSubmittalContact.SuspendLayout()
+        CType(Me.dgvGECOFeeContacts, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel16.SuspendLayout()
         Me.TPInvoices.SuspendLayout()
         Me.Panel32.SuspendLayout()
         Me.Panel31.SuspendLayout()
@@ -524,9 +525,6 @@ Partial Class PASPFeeAuditLog
         Me.GroupBox2.SuspendLayout()
         Me.Panel22.SuspendLayout()
         Me.Panel21.SuspendLayout()
-        Me.TPGECOFeeContact.SuspendLayout()
-        CType(Me.dgvGECOFeeContacts, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel16.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.Panel19.SuspendLayout()
@@ -651,11 +649,11 @@ Partial Class PASPFeeAuditLog
         'TabControl3
         '
         Me.TabControl3.Controls.Add(Me.TPGECOSubmittal)
+        Me.TabControl3.Controls.Add(Me.TPGECOSubmittalContact)
         Me.TabControl3.Controls.Add(Me.TPInvoices)
         Me.TabControl3.Controls.Add(Me.TPTransactions)
         Me.TabControl3.Controls.Add(Me.TPFeeAudit)
         Me.TabControl3.Controls.Add(Me.TPMailoutInformation)
-        Me.TabControl3.Controls.Add(Me.TPGECOFeeContact)
         Me.TabControl3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControl3.Location = New System.Drawing.Point(3, 220)
         Me.TabControl3.Name = "TabControl3"
@@ -1229,6 +1227,341 @@ Partial Class PASPFeeAuditLog
         Me.txtInvoiceClassification.ReadOnly = True
         Me.txtInvoiceClassification.Size = New System.Drawing.Size(51, 20)
         Me.txtInvoiceClassification.TabIndex = 475
+        '
+        'TPGECOSubmittalContact
+        '
+        Me.TPGECOSubmittalContact.Controls.Add(Me.dgvGECOFeeContacts)
+        Me.TPGECOSubmittalContact.Controls.Add(Me.Panel16)
+        Me.TPGECOSubmittalContact.Location = New System.Drawing.Point(4, 22)
+        Me.TPGECOSubmittalContact.Name = "TPGECOSubmittalContact"
+        Me.TPGECOSubmittalContact.Size = New System.Drawing.Size(994, 416)
+        Me.TPGECOSubmittalContact.TabIndex = 2
+        Me.TPGECOSubmittalContact.Text = "GECO Submittal Contact"
+        Me.TPGECOSubmittalContact.UseVisualStyleBackColor = True
+        '
+        'dgvGECOFeeContacts
+        '
+        Me.dgvGECOFeeContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvGECOFeeContacts.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvGECOFeeContacts.Location = New System.Drawing.Point(0, 187)
+        Me.dgvGECOFeeContacts.Name = "dgvGECOFeeContacts"
+        Me.dgvGECOFeeContacts.Size = New System.Drawing.Size(994, 229)
+        Me.dgvGECOFeeContacts.TabIndex = 481
+        '
+        'Panel16
+        '
+        Me.Panel16.Controls.Add(Me.txtGECOContactSalutation)
+        Me.Panel16.Controls.Add(Me.btnGECOViewPastContacts)
+        Me.Panel16.Controls.Add(Me.txtGECOContactFirstName)
+        Me.Panel16.Controls.Add(Me.btnGECOViewCurrentContacts)
+        Me.Panel16.Controls.Add(Me.Label15)
+        Me.Panel16.Controls.Add(Me.btnGECOOpenForEditing)
+        Me.Panel16.Controls.Add(Me.txtGECOContactLastName)
+        Me.Panel16.Controls.Add(Me.btnGECOSaveUpdates)
+        Me.Panel16.Controls.Add(Me.Label16)
+        Me.Panel16.Controls.Add(Me.mtbGECOContactPhontNumber)
+        Me.Panel16.Controls.Add(Me.txtGECOContactState)
+        Me.Panel16.Controls.Add(Me.mtbGECOContactFaxNumber)
+        Me.Panel16.Controls.Add(Me.Label17)
+        Me.Panel16.Controls.Add(Me.mtbGECOContactZipCode)
+        Me.Panel16.Controls.Add(Me.txtGECOContactCity)
+        Me.Panel16.Controls.Add(Me.Label20)
+        Me.Panel16.Controls.Add(Me.Label78)
+        Me.Panel16.Controls.Add(Me.txtGECOContactStreetAddress)
+        Me.Panel16.Controls.Add(Me.Label77)
+        Me.Panel16.Controls.Add(Me.Label63)
+        Me.Panel16.Controls.Add(Me.Label76)
+        Me.Panel16.Controls.Add(Me.txtGECOContactCompanyName)
+        Me.Panel16.Controls.Add(Me.txtGECOContactEmail)
+        Me.Panel16.Controls.Add(Me.Label71)
+        Me.Panel16.Controls.Add(Me.Label75)
+        Me.Panel16.Controls.Add(Me.txtGECOContactTitle)
+        Me.Panel16.Controls.Add(Me.txtGECOContactComments)
+        Me.Panel16.Controls.Add(Me.Label72)
+        Me.Panel16.Controls.Add(Me.Label74)
+        Me.Panel16.Controls.Add(Me.Label73)
+        Me.Panel16.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel16.Location = New System.Drawing.Point(0, 0)
+        Me.Panel16.Name = "Panel16"
+        Me.Panel16.Size = New System.Drawing.Size(994, 187)
+        Me.Panel16.TabIndex = 489
+        '
+        'txtGECOContactSalutation
+        '
+        Me.txtGECOContactSalutation.Location = New System.Drawing.Point(64, 5)
+        Me.txtGECOContactSalutation.Name = "txtGECOContactSalutation"
+        Me.txtGECOContactSalutation.ReadOnly = True
+        Me.txtGECOContactSalutation.Size = New System.Drawing.Size(100, 20)
+        Me.txtGECOContactSalutation.TabIndex = 469
+        '
+        'btnGECOViewPastContacts
+        '
+        Me.btnGECOViewPastContacts.AutoSize = True
+        Me.btnGECOViewPastContacts.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnGECOViewPastContacts.Location = New System.Drawing.Point(327, 148)
+        Me.btnGECOViewPastContacts.Name = "btnGECOViewPastContacts"
+        Me.btnGECOViewPastContacts.Size = New System.Drawing.Size(109, 23)
+        Me.btnGECOViewPastContacts.TabIndex = 488
+        Me.btnGECOViewPastContacts.Text = "View Past Contacts"
+        Me.btnGECOViewPastContacts.UseVisualStyleBackColor = True
+        '
+        'txtGECOContactFirstName
+        '
+        Me.txtGECOContactFirstName.Location = New System.Drawing.Point(64, 30)
+        Me.txtGECOContactFirstName.Name = "txtGECOContactFirstName"
+        Me.txtGECOContactFirstName.ReadOnly = True
+        Me.txtGECOContactFirstName.Size = New System.Drawing.Size(133, 20)
+        Me.txtGECOContactFirstName.TabIndex = 455
+        '
+        'btnGECOViewCurrentContacts
+        '
+        Me.btnGECOViewCurrentContacts.AutoSize = True
+        Me.btnGECOViewCurrentContacts.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnGECOViewCurrentContacts.Location = New System.Drawing.Point(64, 148)
+        Me.btnGECOViewCurrentContacts.Name = "btnGECOViewCurrentContacts"
+        Me.btnGECOViewCurrentContacts.Size = New System.Drawing.Size(117, 23)
+        Me.btnGECOViewCurrentContacts.TabIndex = 487
+        Me.btnGECOViewCurrentContacts.Text = "View Current Contact"
+        Me.btnGECOViewCurrentContacts.UseVisualStyleBackColor = True
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(5, 34)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(57, 13)
+        Me.Label15.TabIndex = 456
+        Me.Label15.Text = "First Name"
+        '
+        'btnGECOOpenForEditing
+        '
+        Me.btnGECOOpenForEditing.AutoSize = True
+        Me.btnGECOOpenForEditing.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnGECOOpenForEditing.Enabled = False
+        Me.btnGECOOpenForEditing.Location = New System.Drawing.Point(826, 9)
+        Me.btnGECOOpenForEditing.Name = "btnGECOOpenForEditing"
+        Me.btnGECOOpenForEditing.Size = New System.Drawing.Size(93, 23)
+        Me.btnGECOOpenForEditing.TabIndex = 486
+        Me.btnGECOOpenForEditing.Text = "Open for Editing"
+        Me.btnGECOOpenForEditing.UseVisualStyleBackColor = True
+        Me.btnGECOOpenForEditing.Visible = False
+        '
+        'txtGECOContactLastName
+        '
+        Me.txtGECOContactLastName.Location = New System.Drawing.Point(64, 55)
+        Me.txtGECOContactLastName.Name = "txtGECOContactLastName"
+        Me.txtGECOContactLastName.ReadOnly = True
+        Me.txtGECOContactLastName.Size = New System.Drawing.Size(133, 20)
+        Me.txtGECOContactLastName.TabIndex = 457
+        '
+        'btnGECOSaveUpdates
+        '
+        Me.btnGECOSaveUpdates.AutoSize = True
+        Me.btnGECOSaveUpdates.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnGECOSaveUpdates.Enabled = False
+        Me.btnGECOSaveUpdates.Location = New System.Drawing.Point(826, 38)
+        Me.btnGECOSaveUpdates.Name = "btnGECOSaveUpdates"
+        Me.btnGECOSaveUpdates.Size = New System.Drawing.Size(85, 23)
+        Me.btnGECOSaveUpdates.TabIndex = 485
+        Me.btnGECOSaveUpdates.Text = "Save Updates"
+        Me.btnGECOSaveUpdates.UseVisualStyleBackColor = True
+        Me.btnGECOSaveUpdates.Visible = False
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(4, 59)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(58, 13)
+        Me.Label16.TabIndex = 458
+        Me.Label16.Text = "Last Name"
+        '
+        'mtbGECOContactPhontNumber
+        '
+        Me.mtbGECOContactPhontNumber.Location = New System.Drawing.Point(613, 5)
+        Me.mtbGECOContactPhontNumber.Mask = "(999) 000-0000"
+        Me.mtbGECOContactPhontNumber.Name = "mtbGECOContactPhontNumber"
+        Me.mtbGECOContactPhontNumber.ReadOnly = True
+        Me.mtbGECOContactPhontNumber.Size = New System.Drawing.Size(86, 20)
+        Me.mtbGECOContactPhontNumber.TabIndex = 484
+        Me.mtbGECOContactPhontNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
+        '
+        'txtGECOContactState
+        '
+        Me.txtGECOContactState.Location = New System.Drawing.Point(327, 83)
+        Me.txtGECOContactState.MaxLength = 2
+        Me.txtGECOContactState.Name = "txtGECOContactState"
+        Me.txtGECOContactState.ReadOnly = True
+        Me.txtGECOContactState.Size = New System.Drawing.Size(54, 20)
+        Me.txtGECOContactState.TabIndex = 459
+        '
+        'mtbGECOContactFaxNumber
+        '
+        Me.mtbGECOContactFaxNumber.Location = New System.Drawing.Point(613, 30)
+        Me.mtbGECOContactFaxNumber.Mask = "(999) 000-0000"
+        Me.mtbGECOContactFaxNumber.Name = "mtbGECOContactFaxNumber"
+        Me.mtbGECOContactFaxNumber.ReadOnly = True
+        Me.mtbGECOContactFaxNumber.Size = New System.Drawing.Size(86, 20)
+        Me.mtbGECOContactFaxNumber.TabIndex = 483
+        Me.mtbGECOContactFaxNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(242, 87)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(32, 13)
+        Me.Label17.TabIndex = 460
+        Me.Label17.Text = "State"
+        '
+        'mtbGECOContactZipCode
+        '
+        Me.mtbGECOContactZipCode.Location = New System.Drawing.Point(327, 110)
+        Me.mtbGECOContactZipCode.Mask = "00000-9999"
+        Me.mtbGECOContactZipCode.Name = "mtbGECOContactZipCode"
+        Me.mtbGECOContactZipCode.ReadOnly = True
+        Me.mtbGECOContactZipCode.Size = New System.Drawing.Size(71, 20)
+        Me.mtbGECOContactZipCode.TabIndex = 482
+        Me.mtbGECOContactZipCode.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
+        '
+        'txtGECOContactCity
+        '
+        Me.txtGECOContactCity.Location = New System.Drawing.Point(327, 55)
+        Me.txtGECOContactCity.Name = "txtGECOContactCity"
+        Me.txtGECOContactCity.ReadOnly = True
+        Me.txtGECOContactCity.Size = New System.Drawing.Size(133, 20)
+        Me.txtGECOContactCity.TabIndex = 461
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Location = New System.Drawing.Point(242, 59)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(24, 13)
+        Me.Label20.TabIndex = 462
+        Me.Label20.Text = "City"
+        '
+        'Label78
+        '
+        Me.Label78.AutoSize = True
+        Me.Label78.Location = New System.Drawing.Point(531, 9)
+        Me.Label78.Name = "Label78"
+        Me.Label78.Size = New System.Drawing.Size(78, 13)
+        Me.Label78.TabIndex = 480
+        Me.Label78.Text = "Phone Number"
+        '
+        'txtGECOContactStreetAddress
+        '
+        Me.txtGECOContactStreetAddress.Location = New System.Drawing.Point(327, 30)
+        Me.txtGECOContactStreetAddress.Name = "txtGECOContactStreetAddress"
+        Me.txtGECOContactStreetAddress.ReadOnly = True
+        Me.txtGECOContactStreetAddress.Size = New System.Drawing.Size(198, 20)
+        Me.txtGECOContactStreetAddress.TabIndex = 463
+        '
+        'Label77
+        '
+        Me.Label77.AutoSize = True
+        Me.Label77.Location = New System.Drawing.Point(531, 34)
+        Me.Label77.Name = "Label77"
+        Me.Label77.Size = New System.Drawing.Size(64, 13)
+        Me.Label77.TabIndex = 478
+        Me.Label77.Text = "Fax Number"
+        '
+        'Label63
+        '
+        Me.Label63.AutoSize = True
+        Me.Label63.Location = New System.Drawing.Point(242, 34)
+        Me.Label63.Name = "Label63"
+        Me.Label63.Size = New System.Drawing.Size(76, 13)
+        Me.Label63.TabIndex = 464
+        Me.Label63.Text = "Street Address"
+        '
+        'Label76
+        '
+        Me.Label76.AutoSize = True
+        Me.Label76.Location = New System.Drawing.Point(531, 59)
+        Me.Label76.Name = "Label76"
+        Me.Label76.Size = New System.Drawing.Size(32, 13)
+        Me.Label76.TabIndex = 476
+        Me.Label76.Text = "Email"
+        '
+        'txtGECOContactCompanyName
+        '
+        Me.txtGECOContactCompanyName.Location = New System.Drawing.Point(327, 5)
+        Me.txtGECOContactCompanyName.Name = "txtGECOContactCompanyName"
+        Me.txtGECOContactCompanyName.ReadOnly = True
+        Me.txtGECOContactCompanyName.Size = New System.Drawing.Size(198, 20)
+        Me.txtGECOContactCompanyName.TabIndex = 465
+        '
+        'txtGECOContactEmail
+        '
+        Me.txtGECOContactEmail.Location = New System.Drawing.Point(613, 55)
+        Me.txtGECOContactEmail.Name = "txtGECOContactEmail"
+        Me.txtGECOContactEmail.ReadOnly = True
+        Me.txtGECOContactEmail.Size = New System.Drawing.Size(205, 20)
+        Me.txtGECOContactEmail.TabIndex = 475
+        '
+        'Label71
+        '
+        Me.Label71.AutoSize = True
+        Me.Label71.Location = New System.Drawing.Point(242, 9)
+        Me.Label71.Name = "Label71"
+        Me.Label71.Size = New System.Drawing.Size(82, 13)
+        Me.Label71.TabIndex = 466
+        Me.Label71.Text = "Company Name"
+        '
+        'Label75
+        '
+        Me.Label75.AutoSize = True
+        Me.Label75.Location = New System.Drawing.Point(531, 87)
+        Me.Label75.Name = "Label75"
+        Me.Label75.Size = New System.Drawing.Size(56, 13)
+        Me.Label75.TabIndex = 474
+        Me.Label75.Text = "Comments"
+        '
+        'txtGECOContactTitle
+        '
+        Me.txtGECOContactTitle.Location = New System.Drawing.Point(64, 83)
+        Me.txtGECOContactTitle.Name = "txtGECOContactTitle"
+        Me.txtGECOContactTitle.ReadOnly = True
+        Me.txtGECOContactTitle.Size = New System.Drawing.Size(172, 20)
+        Me.txtGECOContactTitle.TabIndex = 467
+        '
+        'txtGECOContactComments
+        '
+        Me.txtGECOContactComments.Location = New System.Drawing.Point(613, 83)
+        Me.txtGECOContactComments.Multiline = True
+        Me.txtGECOContactComments.Name = "txtGECOContactComments"
+        Me.txtGECOContactComments.ReadOnly = True
+        Me.txtGECOContactComments.Size = New System.Drawing.Size(349, 53)
+        Me.txtGECOContactComments.TabIndex = 473
+        '
+        'Label72
+        '
+        Me.Label72.AutoSize = True
+        Me.Label72.Location = New System.Drawing.Point(35, 87)
+        Me.Label72.Name = "Label72"
+        Me.Label72.Size = New System.Drawing.Size(27, 13)
+        Me.Label72.TabIndex = 468
+        Me.Label72.Text = "Title"
+        '
+        'Label74
+        '
+        Me.Label74.AutoSize = True
+        Me.Label74.Location = New System.Drawing.Point(242, 114)
+        Me.Label74.Name = "Label74"
+        Me.Label74.Size = New System.Drawing.Size(50, 13)
+        Me.Label74.TabIndex = 472
+        Me.Label74.Text = "Zip Code"
+        '
+        'Label73
+        '
+        Me.Label73.AutoSize = True
+        Me.Label73.Location = New System.Drawing.Point(7, 9)
+        Me.Label73.Name = "Label73"
+        Me.Label73.Size = New System.Drawing.Size(54, 13)
+        Me.Label73.TabIndex = 470
+        Me.Label73.Text = "Salutation"
         '
         'TPInvoices
         '
@@ -4127,342 +4460,10 @@ Partial Class PASPFeeAuditLog
         Me.Label48.TabIndex = 452
         Me.Label48.Text = "GECO User Email"
         '
-        'TPGECOFeeContact
-        '
-        Me.TPGECOFeeContact.Controls.Add(Me.dgvGECOFeeContacts)
-        Me.TPGECOFeeContact.Controls.Add(Me.Panel16)
-        Me.TPGECOFeeContact.Location = New System.Drawing.Point(4, 22)
-        Me.TPGECOFeeContact.Name = "TPGECOFeeContact"
-        Me.TPGECOFeeContact.Size = New System.Drawing.Size(994, 416)
-        Me.TPGECOFeeContact.TabIndex = 2
-        Me.TPGECOFeeContact.Text = "GECO Fee Contact"
-        Me.TPGECOFeeContact.UseVisualStyleBackColor = True
-        '
-        'dgvGECOFeeContacts
-        '
-        Me.dgvGECOFeeContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvGECOFeeContacts.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvGECOFeeContacts.Location = New System.Drawing.Point(0, 187)
-        Me.dgvGECOFeeContacts.Name = "dgvGECOFeeContacts"
-        Me.dgvGECOFeeContacts.Size = New System.Drawing.Size(994, 229)
-        Me.dgvGECOFeeContacts.TabIndex = 481
-        '
-        'Panel16
-        '
-        Me.Panel16.Controls.Add(Me.txtGECOContactSalutation)
-        Me.Panel16.Controls.Add(Me.btnGECOViewPastContacts)
-        Me.Panel16.Controls.Add(Me.txtGECOContactFirstName)
-        Me.Panel16.Controls.Add(Me.btnGECOViewCurrentContacts)
-        Me.Panel16.Controls.Add(Me.Label15)
-        Me.Panel16.Controls.Add(Me.btnGECOOpenForEditing)
-        Me.Panel16.Controls.Add(Me.txtGECOContactLastName)
-        Me.Panel16.Controls.Add(Me.btnGECOSaveUpdates)
-        Me.Panel16.Controls.Add(Me.Label16)
-        Me.Panel16.Controls.Add(Me.mtbGECOContactPhontNumber)
-        Me.Panel16.Controls.Add(Me.txtGECOContactState)
-        Me.Panel16.Controls.Add(Me.mtbGECOContactFaxNumber)
-        Me.Panel16.Controls.Add(Me.Label17)
-        Me.Panel16.Controls.Add(Me.mtbGECOContactZipCode)
-        Me.Panel16.Controls.Add(Me.txtGECOContactCity)
-        Me.Panel16.Controls.Add(Me.Label20)
-        Me.Panel16.Controls.Add(Me.Label78)
-        Me.Panel16.Controls.Add(Me.txtGECOContactStreetAddress)
-        Me.Panel16.Controls.Add(Me.Label77)
-        Me.Panel16.Controls.Add(Me.Label63)
-        Me.Panel16.Controls.Add(Me.Label76)
-        Me.Panel16.Controls.Add(Me.txtGECOContactCompanyName)
-        Me.Panel16.Controls.Add(Me.txtGECOContactEmail)
-        Me.Panel16.Controls.Add(Me.Label71)
-        Me.Panel16.Controls.Add(Me.Label75)
-        Me.Panel16.Controls.Add(Me.txtGECOContactTitle)
-        Me.Panel16.Controls.Add(Me.txtGECOContactComments)
-        Me.Panel16.Controls.Add(Me.Label72)
-        Me.Panel16.Controls.Add(Me.Label74)
-        Me.Panel16.Controls.Add(Me.Label73)
-        Me.Panel16.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel16.Location = New System.Drawing.Point(0, 0)
-        Me.Panel16.Name = "Panel16"
-        Me.Panel16.Size = New System.Drawing.Size(994, 187)
-        Me.Panel16.TabIndex = 489
-        '
-        'txtGECOContactSalutation
-        '
-        Me.txtGECOContactSalutation.Location = New System.Drawing.Point(64, 5)
-        Me.txtGECOContactSalutation.Name = "txtGECOContactSalutation"
-        Me.txtGECOContactSalutation.ReadOnly = True
-        Me.txtGECOContactSalutation.Size = New System.Drawing.Size(100, 20)
-        Me.txtGECOContactSalutation.TabIndex = 469
-        '
-        'btnGECOViewPastContacts
-        '
-        Me.btnGECOViewPastContacts.AutoSize = True
-        Me.btnGECOViewPastContacts.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnGECOViewPastContacts.Location = New System.Drawing.Point(327, 148)
-        Me.btnGECOViewPastContacts.Name = "btnGECOViewPastContacts"
-        Me.btnGECOViewPastContacts.Size = New System.Drawing.Size(109, 23)
-        Me.btnGECOViewPastContacts.TabIndex = 488
-        Me.btnGECOViewPastContacts.Text = "View Past Contacts"
-        Me.btnGECOViewPastContacts.UseVisualStyleBackColor = True
-        '
-        'txtGECOContactFirstName
-        '
-        Me.txtGECOContactFirstName.Location = New System.Drawing.Point(64, 30)
-        Me.txtGECOContactFirstName.Name = "txtGECOContactFirstName"
-        Me.txtGECOContactFirstName.ReadOnly = True
-        Me.txtGECOContactFirstName.Size = New System.Drawing.Size(133, 20)
-        Me.txtGECOContactFirstName.TabIndex = 455
-        '
-        'btnGECOViewCurrentContacts
-        '
-        Me.btnGECOViewCurrentContacts.AutoSize = True
-        Me.btnGECOViewCurrentContacts.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnGECOViewCurrentContacts.Location = New System.Drawing.Point(64, 148)
-        Me.btnGECOViewCurrentContacts.Name = "btnGECOViewCurrentContacts"
-        Me.btnGECOViewCurrentContacts.Size = New System.Drawing.Size(117, 23)
-        Me.btnGECOViewCurrentContacts.TabIndex = 487
-        Me.btnGECOViewCurrentContacts.Text = "View Current Contact"
-        Me.btnGECOViewCurrentContacts.UseVisualStyleBackColor = True
-        '
-        'Label15
-        '
-        Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(5, 34)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(57, 13)
-        Me.Label15.TabIndex = 456
-        Me.Label15.Text = "First Name"
-        '
-        'btnGECOOpenForEditing
-        '
-        Me.btnGECOOpenForEditing.AutoSize = True
-        Me.btnGECOOpenForEditing.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnGECOOpenForEditing.Location = New System.Drawing.Point(826, 9)
-        Me.btnGECOOpenForEditing.Name = "btnGECOOpenForEditing"
-        Me.btnGECOOpenForEditing.Size = New System.Drawing.Size(93, 23)
-        Me.btnGECOOpenForEditing.TabIndex = 486
-        Me.btnGECOOpenForEditing.Text = "Open for Editing"
-        Me.btnGECOOpenForEditing.UseVisualStyleBackColor = True
-        '
-        'txtGECOContactLastName
-        '
-        Me.txtGECOContactLastName.Location = New System.Drawing.Point(64, 55)
-        Me.txtGECOContactLastName.Name = "txtGECOContactLastName"
-        Me.txtGECOContactLastName.ReadOnly = True
-        Me.txtGECOContactLastName.Size = New System.Drawing.Size(133, 20)
-        Me.txtGECOContactLastName.TabIndex = 457
-        '
-        'btnGECOSaveUpdates
-        '
-        Me.btnGECOSaveUpdates.AutoSize = True
-        Me.btnGECOSaveUpdates.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnGECOSaveUpdates.Location = New System.Drawing.Point(826, 38)
-        Me.btnGECOSaveUpdates.Name = "btnGECOSaveUpdates"
-        Me.btnGECOSaveUpdates.Size = New System.Drawing.Size(85, 23)
-        Me.btnGECOSaveUpdates.TabIndex = 485
-        Me.btnGECOSaveUpdates.Text = "Save Updates"
-        Me.btnGECOSaveUpdates.UseVisualStyleBackColor = True
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(4, 59)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(58, 13)
-        Me.Label16.TabIndex = 458
-        Me.Label16.Text = "Last Name"
-        '
-        'mtbGECOContactPhontNumber
-        '
-        Me.mtbGECOContactPhontNumber.Location = New System.Drawing.Point(613, 5)
-        Me.mtbGECOContactPhontNumber.Mask = "(999) 000-0000"
-        Me.mtbGECOContactPhontNumber.Name = "mtbGECOContactPhontNumber"
-        Me.mtbGECOContactPhontNumber.ReadOnly = True
-        Me.mtbGECOContactPhontNumber.Size = New System.Drawing.Size(86, 20)
-        Me.mtbGECOContactPhontNumber.TabIndex = 484
-        Me.mtbGECOContactPhontNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        '
-        'txtGECOContactState
-        '
-        Me.txtGECOContactState.Location = New System.Drawing.Point(327, 83)
-        Me.txtGECOContactState.MaxLength = 2
-        Me.txtGECOContactState.Name = "txtGECOContactState"
-        Me.txtGECOContactState.ReadOnly = True
-        Me.txtGECOContactState.Size = New System.Drawing.Size(54, 20)
-        Me.txtGECOContactState.TabIndex = 459
-        '
-        'mtbGECOContactFaxNumber
-        '
-        Me.mtbGECOContactFaxNumber.Location = New System.Drawing.Point(613, 30)
-        Me.mtbGECOContactFaxNumber.Mask = "(999) 000-0000"
-        Me.mtbGECOContactFaxNumber.Name = "mtbGECOContactFaxNumber"
-        Me.mtbGECOContactFaxNumber.ReadOnly = True
-        Me.mtbGECOContactFaxNumber.Size = New System.Drawing.Size(86, 20)
-        Me.mtbGECOContactFaxNumber.TabIndex = 483
-        Me.mtbGECOContactFaxNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        '
-        'Label17
-        '
-        Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(242, 87)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(32, 13)
-        Me.Label17.TabIndex = 460
-        Me.Label17.Text = "State"
-        '
-        'mtbGECOContactZipCode
-        '
-        Me.mtbGECOContactZipCode.Location = New System.Drawing.Point(327, 110)
-        Me.mtbGECOContactZipCode.Mask = "00000-9999"
-        Me.mtbGECOContactZipCode.Name = "mtbGECOContactZipCode"
-        Me.mtbGECOContactZipCode.ReadOnly = True
-        Me.mtbGECOContactZipCode.Size = New System.Drawing.Size(71, 20)
-        Me.mtbGECOContactZipCode.TabIndex = 482
-        Me.mtbGECOContactZipCode.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        '
-        'txtGECOContactCity
-        '
-        Me.txtGECOContactCity.Location = New System.Drawing.Point(327, 55)
-        Me.txtGECOContactCity.Name = "txtGECOContactCity"
-        Me.txtGECOContactCity.ReadOnly = True
-        Me.txtGECOContactCity.Size = New System.Drawing.Size(133, 20)
-        Me.txtGECOContactCity.TabIndex = 461
-        '
-        'Label20
-        '
-        Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(242, 59)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(24, 13)
-        Me.Label20.TabIndex = 462
-        Me.Label20.Text = "City"
-        '
-        'Label78
-        '
-        Me.Label78.AutoSize = True
-        Me.Label78.Location = New System.Drawing.Point(531, 9)
-        Me.Label78.Name = "Label78"
-        Me.Label78.Size = New System.Drawing.Size(78, 13)
-        Me.Label78.TabIndex = 480
-        Me.Label78.Text = "Phone Number"
-        '
-        'txtGECOContactStreetAddress
-        '
-        Me.txtGECOContactStreetAddress.Location = New System.Drawing.Point(327, 30)
-        Me.txtGECOContactStreetAddress.Name = "txtGECOContactStreetAddress"
-        Me.txtGECOContactStreetAddress.ReadOnly = True
-        Me.txtGECOContactStreetAddress.Size = New System.Drawing.Size(198, 20)
-        Me.txtGECOContactStreetAddress.TabIndex = 463
-        '
-        'Label77
-        '
-        Me.Label77.AutoSize = True
-        Me.Label77.Location = New System.Drawing.Point(531, 34)
-        Me.Label77.Name = "Label77"
-        Me.Label77.Size = New System.Drawing.Size(64, 13)
-        Me.Label77.TabIndex = 478
-        Me.Label77.Text = "Fax Number"
-        '
-        'Label63
-        '
-        Me.Label63.AutoSize = True
-        Me.Label63.Location = New System.Drawing.Point(242, 34)
-        Me.Label63.Name = "Label63"
-        Me.Label63.Size = New System.Drawing.Size(76, 13)
-        Me.Label63.TabIndex = 464
-        Me.Label63.Text = "Street Address"
-        '
-        'Label76
-        '
-        Me.Label76.AutoSize = True
-        Me.Label76.Location = New System.Drawing.Point(531, 59)
-        Me.Label76.Name = "Label76"
-        Me.Label76.Size = New System.Drawing.Size(32, 13)
-        Me.Label76.TabIndex = 476
-        Me.Label76.Text = "Email"
-        '
-        'txtGECOContactCompanyName
-        '
-        Me.txtGECOContactCompanyName.Location = New System.Drawing.Point(327, 5)
-        Me.txtGECOContactCompanyName.Name = "txtGECOContactCompanyName"
-        Me.txtGECOContactCompanyName.ReadOnly = True
-        Me.txtGECOContactCompanyName.Size = New System.Drawing.Size(198, 20)
-        Me.txtGECOContactCompanyName.TabIndex = 465
-        '
-        'txtGECOContactEmail
-        '
-        Me.txtGECOContactEmail.Location = New System.Drawing.Point(613, 55)
-        Me.txtGECOContactEmail.Name = "txtGECOContactEmail"
-        Me.txtGECOContactEmail.ReadOnly = True
-        Me.txtGECOContactEmail.Size = New System.Drawing.Size(205, 20)
-        Me.txtGECOContactEmail.TabIndex = 475
-        '
-        'Label71
-        '
-        Me.Label71.AutoSize = True
-        Me.Label71.Location = New System.Drawing.Point(242, 9)
-        Me.Label71.Name = "Label71"
-        Me.Label71.Size = New System.Drawing.Size(82, 13)
-        Me.Label71.TabIndex = 466
-        Me.Label71.Text = "Company Name"
-        '
-        'Label75
-        '
-        Me.Label75.AutoSize = True
-        Me.Label75.Location = New System.Drawing.Point(531, 87)
-        Me.Label75.Name = "Label75"
-        Me.Label75.Size = New System.Drawing.Size(56, 13)
-        Me.Label75.TabIndex = 474
-        Me.Label75.Text = "Comments"
-        '
-        'txtGECOContactTitle
-        '
-        Me.txtGECOContactTitle.Location = New System.Drawing.Point(64, 83)
-        Me.txtGECOContactTitle.Name = "txtGECOContactTitle"
-        Me.txtGECOContactTitle.ReadOnly = True
-        Me.txtGECOContactTitle.Size = New System.Drawing.Size(172, 20)
-        Me.txtGECOContactTitle.TabIndex = 467
-        '
-        'txtGECOContactComments
-        '
-        Me.txtGECOContactComments.Location = New System.Drawing.Point(613, 83)
-        Me.txtGECOContactComments.Multiline = True
-        Me.txtGECOContactComments.Name = "txtGECOContactComments"
-        Me.txtGECOContactComments.ReadOnly = True
-        Me.txtGECOContactComments.Size = New System.Drawing.Size(349, 53)
-        Me.txtGECOContactComments.TabIndex = 473
-        '
-        'Label72
-        '
-        Me.Label72.AutoSize = True
-        Me.Label72.Location = New System.Drawing.Point(35, 87)
-        Me.Label72.Name = "Label72"
-        Me.Label72.Size = New System.Drawing.Size(27, 13)
-        Me.Label72.TabIndex = 468
-        Me.Label72.Text = "Title"
-        '
-        'Label74
-        '
-        Me.Label74.AutoSize = True
-        Me.Label74.Location = New System.Drawing.Point(242, 114)
-        Me.Label74.Name = "Label74"
-        Me.Label74.Size = New System.Drawing.Size(50, 13)
-        Me.Label74.TabIndex = 472
-        Me.Label74.Text = "Zip Code"
-        '
-        'Label73
-        '
-        Me.Label73.AutoSize = True
-        Me.Label73.Location = New System.Drawing.Point(7, 9)
-        Me.Label73.Name = "Label73"
-        Me.Label73.Size = New System.Drawing.Size(54, 13)
-        Me.Label73.TabIndex = 470
-        Me.Label73.Text = "Salutation"
-        '
         'Panel4
         '
         Me.Panel4.Controls.Add(Me.btnCheckInvoices)
         Me.Panel4.Controls.Add(Me.txtYear)
-        Me.Panel4.Controls.Add(Me.Label1)
         Me.Panel4.Controls.Add(Me.txtAIRSNumber)
         Me.Panel4.Controls.Add(Me.txtGECOAdminStatus)
         Me.Panel4.Controls.Add(Me.Label14)
@@ -4470,7 +4471,6 @@ Partial Class PASPFeeAuditLog
         Me.Panel4.Controls.Add(Me.Label9)
         Me.Panel4.Controls.Add(Me.Label8)
         Me.Panel4.Controls.Add(Me.Panel5)
-        Me.Panel4.Controls.Add(Me.Label6)
         Me.Panel4.Controls.Add(Me.btnReloadFSData)
         Me.Panel4.Controls.Add(Me.btnAddFSAdmin)
         Me.Panel4.Controls.Add(Me.btnUpdateFSAdmin)
@@ -4526,42 +4526,33 @@ Partial Class PASPFeeAuditLog
         '
         'txtYear
         '
-        Me.txtYear.Location = New System.Drawing.Point(233, 3)
+        Me.txtYear.Location = New System.Drawing.Point(106, 29)
         Me.txtYear.Name = "txtYear"
         Me.txtYear.ReadOnly = True
-        Me.txtYear.Size = New System.Drawing.Size(63, 20)
+        Me.txtYear.Size = New System.Drawing.Size(47, 20)
         Me.txtYear.TabIndex = 496
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(407, 7)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(117, 13)
-        Me.Label1.TabIndex = 495
-        Me.Label1.Text = "Currently selected Data"
         '
         'txtAIRSNumber
         '
-        Me.txtAIRSNumber.Location = New System.Drawing.Point(301, 3)
+        Me.txtAIRSNumber.Location = New System.Drawing.Point(159, 29)
         Me.txtAIRSNumber.Name = "txtAIRSNumber"
         Me.txtAIRSNumber.ReadOnly = True
-        Me.txtAIRSNumber.Size = New System.Drawing.Size(100, 20)
+        Me.txtAIRSNumber.Size = New System.Drawing.Size(58, 20)
         Me.txtAIRSNumber.TabIndex = 494
         '
         'txtGECOAdminStatus
         '
-        Me.txtGECOAdminStatus.Location = New System.Drawing.Point(613, 77)
+        Me.txtGECOAdminStatus.Location = New System.Drawing.Point(593, 81)
         Me.txtGECOAdminStatus.Multiline = True
         Me.txtGECOAdminStatus.Name = "txtGECOAdminStatus"
         Me.txtGECOAdminStatus.ReadOnly = True
-        Me.txtGECOAdminStatus.Size = New System.Drawing.Size(176, 33)
+        Me.txtGECOAdminStatus.Size = New System.Drawing.Size(198, 33)
         Me.txtGECOAdminStatus.TabIndex = 492
         '
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(590, 60)
+        Me.Label14.Location = New System.Drawing.Point(590, 65)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(107, 13)
         Me.Label14.TabIndex = 493
@@ -4571,7 +4562,7 @@ Partial Class PASPFeeAuditLog
         '
         Me.dtpLetterMailed.CustomFormat = "dd-MMM-yyyy"
         Me.dtpLetterMailed.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpLetterMailed.Location = New System.Drawing.Point(479, 77)
+        Me.dtpLetterMailed.Location = New System.Drawing.Point(479, 85)
         Me.dtpLetterMailed.Name = "dtpLetterMailed"
         Me.dtpLetterMailed.Size = New System.Drawing.Size(100, 20)
         Me.dtpLetterMailed.TabIndex = 491
@@ -4579,7 +4570,7 @@ Partial Class PASPFeeAuditLog
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(406, 81)
+        Me.Label9.Location = New System.Drawing.Point(390, 87)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(68, 13)
         Me.Label9.TabIndex = 490
@@ -4588,7 +4579,7 @@ Partial Class PASPFeeAuditLog
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(211, 83)
+        Me.Label8.Location = New System.Drawing.Point(197, 87)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(89, 13)
         Me.Label8.TabIndex = 488
@@ -4600,7 +4591,7 @@ Partial Class PASPFeeAuditLog
         Me.Panel5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel5.Controls.Add(Me.rdbLetterMailedFalse)
         Me.Panel5.Controls.Add(Me.rdbLetterMailedTrue)
-        Me.Panel5.Location = New System.Drawing.Point(301, 77)
+        Me.Panel5.Location = New System.Drawing.Point(292, 83)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(91, 22)
         Me.Panel5.TabIndex = 489
@@ -4627,24 +4618,17 @@ Partial Class PASPFeeAuditLog
         Me.rdbLetterMailedTrue.Text = "Yes"
         Me.rdbLetterMailedTrue.UseVisualStyleBackColor = True
         '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(125, 7)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(41, 13)
-        Me.Label6.TabIndex = 487
-        Me.Label6.Text = "Reload"
-        '
         'btnReloadFSData
         '
-        Me.btnReloadFSData.AutoSize = True
         Me.btnReloadFSData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnReloadFSData.Image = CType(resources.GetObject("btnReloadFSData.Image"), System.Drawing.Image)
-        Me.btnReloadFSData.Location = New System.Drawing.Point(102, 2)
+        Me.btnReloadFSData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnReloadFSData.Location = New System.Drawing.Point(223, 0)
         Me.btnReloadFSData.Name = "btnReloadFSData"
-        Me.btnReloadFSData.Size = New System.Drawing.Size(22, 22)
+        Me.btnReloadFSData.Size = New System.Drawing.Size(68, 24)
         Me.btnReloadFSData.TabIndex = 486
+        Me.btnReloadFSData.Text = "Reload"
+        Me.btnReloadFSData.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.btnReloadFSData.UseVisualStyleBackColor = True
         '
         'btnAddFSAdmin
@@ -4671,25 +4655,26 @@ Partial Class PASPFeeAuditLog
         '
         'mtbFeeAdminExistingYear
         '
-        Me.mtbFeeAdminExistingYear.Location = New System.Drawing.Point(60, 3)
+        Me.mtbFeeAdminExistingYear.Location = New System.Drawing.Point(66, 3)
         Me.mtbFeeAdminExistingYear.Mask = "0000"
         Me.mtbFeeAdminExistingYear.Name = "mtbFeeAdminExistingYear"
         Me.mtbFeeAdminExistingYear.Size = New System.Drawing.Size(39, 20)
         Me.mtbFeeAdminExistingYear.TabIndex = 422
+        Me.mtbFeeAdminExistingYear.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label56
         '
         Me.Label56.AutoSize = True
-        Me.Label56.Location = New System.Drawing.Point(125, 28)
+        Me.Label56.Location = New System.Drawing.Point(10, 32)
         Me.Label56.Name = "Label56"
-        Me.Label56.Size = New System.Drawing.Size(107, 13)
+        Me.Label56.Size = New System.Drawing.Size(90, 13)
         Me.Label56.TabIndex = 462
-        Me.Label56.Text = "Current Facility Name"
+        Me.Label56.Text = "Currently viewing:"
         '
         'Label26
         '
         Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(5, 6)
+        Me.Label26.Location = New System.Drawing.Point(10, 6)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(50, 13)
         Me.Label26.TabIndex = 421
@@ -4697,16 +4682,17 @@ Partial Class PASPFeeAuditLog
         '
         'txtFeeAdminFacilityName
         '
-        Me.txtFeeAdminFacilityName.Location = New System.Drawing.Point(233, 24)
+        Me.txtFeeAdminFacilityName.Location = New System.Drawing.Point(223, 29)
         Me.txtFeeAdminFacilityName.Name = "txtFeeAdminFacilityName"
-        Me.txtFeeAdminFacilityName.Size = New System.Drawing.Size(335, 20)
+        Me.txtFeeAdminFacilityName.ReadOnly = True
+        Me.txtFeeAdminFacilityName.Size = New System.Drawing.Size(356, 20)
         Me.txtFeeAdminFacilityName.TabIndex = 461
         '
         'dtpSubmittalDate
         '
         Me.dtpSubmittalDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpSubmittalDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpSubmittalDate.Location = New System.Drawing.Point(252, 107)
+        Me.dtpSubmittalDate.Location = New System.Drawing.Point(284, 112)
         Me.dtpSubmittalDate.Name = "dtpSubmittalDate"
         Me.dtpSubmittalDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpSubmittalDate.TabIndex = 423
@@ -4714,7 +4700,7 @@ Partial Class PASPFeeAuditLog
         'Label25
         '
         Me.Label25.AutoSize = True
-        Me.Label25.Location = New System.Drawing.Point(5, 83)
+        Me.Label25.Location = New System.Drawing.Point(9, 87)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(85, 13)
         Me.Label25.TabIndex = 424
@@ -4724,7 +4710,7 @@ Partial Class PASPFeeAuditLog
         '
         Me.dtpEnrollmentDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpEnrollmentDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEnrollmentDate.Location = New System.Drawing.Point(296, 52)
+        Me.dtpEnrollmentDate.Location = New System.Drawing.Point(285, 57)
         Me.dtpEnrollmentDate.Name = "dtpEnrollmentDate"
         Me.dtpEnrollmentDate.Size = New System.Drawing.Size(99, 20)
         Me.dtpEnrollmentDate.TabIndex = 450
@@ -4732,7 +4718,7 @@ Partial Class PASPFeeAuditLog
         'Label24
         '
         Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(33, 56)
+        Me.Label24.Location = New System.Drawing.Point(9, 59)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(45, 13)
         Me.Label24.TabIndex = 425
@@ -4741,7 +4727,7 @@ Partial Class PASPFeeAuditLog
         'Label39
         '
         Me.Label39.AutoSize = True
-        Me.Label39.Location = New System.Drawing.Point(209, 56)
+        Me.Label39.Location = New System.Drawing.Point(197, 59)
         Me.Label39.Name = "Label39"
         Me.Label39.Size = New System.Drawing.Size(82, 13)
         Me.Label39.TabIndex = 449
@@ -4750,7 +4736,7 @@ Partial Class PASPFeeAuditLog
         'Label23
         '
         Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(5, 28)
+        Me.Label23.Location = New System.Drawing.Point(111, 6)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(42, 13)
         Me.Label23.TabIndex = 426
@@ -4760,7 +4746,7 @@ Partial Class PASPFeeAuditLog
         '
         Me.dtpEnrollmentInitial.CustomFormat = "dd-MMM-yyyy"
         Me.dtpEnrollmentInitial.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEnrollmentInitial.Location = New System.Drawing.Point(479, 53)
+        Me.dtpEnrollmentInitial.Location = New System.Drawing.Point(479, 57)
         Me.dtpEnrollmentInitial.Name = "dtpEnrollmentInitial"
         Me.dtpEnrollmentInitial.Size = New System.Drawing.Size(100, 20)
         Me.dtpEnrollmentInitial.TabIndex = 448
@@ -4768,7 +4754,7 @@ Partial Class PASPFeeAuditLog
         'Label22
         '
         Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(167, 111)
+        Me.Label22.Location = New System.Drawing.Point(197, 115)
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(80, 13)
         Me.Label22.TabIndex = 427
@@ -4777,7 +4763,7 @@ Partial Class PASPFeeAuditLog
         'Label38
         '
         Me.Label38.AutoSize = True
-        Me.Label38.Location = New System.Drawing.Point(394, 57)
+        Me.Label38.Location = New System.Drawing.Point(390, 59)
         Me.Label38.Name = "Label38"
         Me.Label38.Size = New System.Drawing.Size(83, 13)
         Me.Label38.TabIndex = 447
@@ -4786,7 +4772,7 @@ Partial Class PASPFeeAuditLog
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(5, 111)
+        Me.Label21.Location = New System.Drawing.Point(9, 115)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(50, 13)
         Me.Label21.TabIndex = 428
@@ -4797,18 +4783,19 @@ Partial Class PASPFeeAuditLog
         Me.dtpFSAdminCreateDateTime.CustomFormat = "dd-MMM-yyyy"
         Me.dtpFSAdminCreateDateTime.Enabled = False
         Me.dtpFSAdminCreateDateTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpFSAdminCreateDateTime.Location = New System.Drawing.Point(879, 184)
+        Me.dtpFSAdminCreateDateTime.Location = New System.Drawing.Point(881, 186)
         Me.dtpFSAdminCreateDateTime.Name = "dtpFSAdminCreateDateTime"
         Me.dtpFSAdminCreateDateTime.Size = New System.Drawing.Size(100, 20)
         Me.dtpFSAdminCreateDateTime.TabIndex = 446
         '
         'mtbFeeAdminAIRSNumber
         '
-        Me.mtbFeeAdminAIRSNumber.Location = New System.Drawing.Point(60, 24)
+        Me.mtbFeeAdminAIRSNumber.Location = New System.Drawing.Point(159, 3)
         Me.mtbFeeAdminAIRSNumber.Mask = "000-00000"
         Me.mtbFeeAdminAIRSNumber.Name = "mtbFeeAdminAIRSNumber"
         Me.mtbFeeAdminAIRSNumber.Size = New System.Drawing.Size(58, 20)
         Me.mtbFeeAdminAIRSNumber.TabIndex = 429
+        Me.mtbFeeAdminAIRSNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.mtbFeeAdminAIRSNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
         'dtpFSAdminUpdate
@@ -4816,7 +4803,7 @@ Partial Class PASPFeeAuditLog
         Me.dtpFSAdminUpdate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpFSAdminUpdate.Enabled = False
         Me.dtpFSAdminUpdate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpFSAdminUpdate.Location = New System.Drawing.Point(879, 162)
+        Me.dtpFSAdminUpdate.Location = New System.Drawing.Point(881, 160)
         Me.dtpFSAdminUpdate.Name = "dtpFSAdminUpdate"
         Me.dtpFSAdminUpdate.Size = New System.Drawing.Size(100, 20)
         Me.dtpFSAdminUpdate.TabIndex = 445
@@ -4827,7 +4814,7 @@ Partial Class PASPFeeAuditLog
         Me.Panel19.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel19.Controls.Add(Me.rdbEnrolledFalse)
         Me.Panel19.Controls.Add(Me.rdbEnrolledTrue)
-        Me.Panel19.Location = New System.Drawing.Point(89, 51)
+        Me.Panel19.Location = New System.Drawing.Point(100, 55)
         Me.Panel19.Name = "Panel19"
         Me.Panel19.Size = New System.Drawing.Size(91, 22)
         Me.Panel19.TabIndex = 430
@@ -4860,15 +4847,15 @@ Partial Class PASPFeeAuditLog
         Me.Panel20.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel20.Controls.Add(Me.rdbInactiveStatus)
         Me.Panel20.Controls.Add(Me.rdbActiveAdmin)
-        Me.Panel20.Location = New System.Drawing.Point(690, 158)
+        Me.Panel20.Location = New System.Drawing.Point(691, 158)
         Me.Panel20.Name = "Panel20"
-        Me.Panel20.Size = New System.Drawing.Size(90, 22)
+        Me.Panel20.Size = New System.Drawing.Size(98, 22)
         Me.Panel20.TabIndex = 443
         '
         'rdbInactiveStatus
         '
         Me.rdbInactiveStatus.AutoSize = True
-        Me.rdbInactiveStatus.Location = New System.Drawing.Point(48, 2)
+        Me.rdbInactiveStatus.Location = New System.Drawing.Point(56, 2)
         Me.rdbInactiveStatus.Name = "rdbInactiveStatus"
         Me.rdbInactiveStatus.Size = New System.Drawing.Size(39, 17)
         Me.rdbInactiveStatus.TabIndex = 1
@@ -4893,7 +4880,7 @@ Partial Class PASPFeeAuditLog
         Me.Panel18.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel18.Controls.Add(Me.rdbMailoutFalse)
         Me.Panel18.Controls.Add(Me.rdbMailoutTrue)
-        Me.Panel18.Location = New System.Drawing.Point(90, 79)
+        Me.Panel18.Location = New System.Drawing.Point(100, 83)
         Me.Panel18.Name = "Panel18"
         Me.Panel18.Size = New System.Drawing.Size(91, 22)
         Me.Panel18.TabIndex = 431
@@ -4923,7 +4910,7 @@ Partial Class PASPFeeAuditLog
         'Label49
         '
         Me.Label49.AutoSize = True
-        Me.Label49.Location = New System.Drawing.Point(591, 188)
+        Me.Label49.Location = New System.Drawing.Point(590, 188)
         Me.Label49.Name = "Label49"
         Me.Label49.Size = New System.Drawing.Size(66, 13)
         Me.Label49.TabIndex = 454
@@ -4935,7 +4922,7 @@ Partial Class PASPFeeAuditLog
         Me.Panel17.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel17.Controls.Add(Me.rdbSubmittalFalse)
         Me.Panel17.Controls.Add(Me.rdbSubmittalTrue)
-        Me.Panel17.Location = New System.Drawing.Point(61, 106)
+        Me.Panel17.Location = New System.Drawing.Point(100, 111)
         Me.Panel17.Name = "Panel17"
         Me.Panel17.Size = New System.Drawing.Size(91, 22)
         Me.Panel17.TabIndex = 432
@@ -4965,7 +4952,7 @@ Partial Class PASPFeeAuditLog
         'Label31
         '
         Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(799, 166)
+        Me.Label31.Location = New System.Drawing.Point(801, 162)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(74, 13)
         Me.Label31.TabIndex = 441
@@ -4973,25 +4960,25 @@ Partial Class PASPFeeAuditLog
         '
         'txtIAIPAdminStatus
         '
-        Me.txtIAIPAdminStatus.Location = New System.Drawing.Point(615, 23)
+        Me.txtIAIPAdminStatus.Location = New System.Drawing.Point(593, 29)
         Me.txtIAIPAdminStatus.Multiline = True
         Me.txtIAIPAdminStatus.Name = "txtIAIPAdminStatus"
         Me.txtIAIPAdminStatus.ReadOnly = True
-        Me.txtIAIPAdminStatus.Size = New System.Drawing.Size(176, 33)
+        Me.txtIAIPAdminStatus.Size = New System.Drawing.Size(198, 33)
         Me.txtIAIPAdminStatus.TabIndex = 433
         '
         'txtFSAdminUpdatingUser
         '
-        Me.txtFSAdminUpdatingUser.Location = New System.Drawing.Point(658, 184)
+        Me.txtFSAdminUpdatingUser.Location = New System.Drawing.Point(662, 186)
         Me.txtFSAdminUpdatingUser.Name = "txtFSAdminUpdatingUser"
         Me.txtFSAdminUpdatingUser.ReadOnly = True
-        Me.txtFSAdminUpdatingUser.Size = New System.Drawing.Size(133, 20)
+        Me.txtFSAdminUpdatingUser.Size = New System.Drawing.Size(131, 20)
         Me.txtFSAdminUpdatingUser.TabIndex = 453
         '
         'Label29
         '
         Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(592, 6)
+        Me.Label29.Location = New System.Drawing.Point(590, 13)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(97, 13)
         Me.Label29.TabIndex = 434
@@ -5000,7 +4987,7 @@ Partial Class PASPFeeAuditLog
         'Label32
         '
         Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(799, 188)
+        Me.Label32.Location = New System.Drawing.Point(801, 188)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(70, 13)
         Me.Label32.TabIndex = 440
@@ -5009,7 +4996,7 @@ Partial Class PASPFeeAuditLog
         'Label28
         '
         Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(5, 143)
+        Me.Label28.Location = New System.Drawing.Point(10, 142)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(117, 13)
         Me.Label28.TabIndex = 435
@@ -5018,7 +5005,7 @@ Partial Class PASPFeeAuditLog
         'Label33
         '
         Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(617, 162)
+        Me.Label33.Location = New System.Drawing.Point(590, 162)
         Me.Label33.Name = "Label33"
         Me.Label33.Size = New System.Drawing.Size(70, 13)
         Me.Label33.TabIndex = 439
@@ -5027,7 +5014,7 @@ Partial Class PASPFeeAuditLog
         'Label27
         '
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(636, 137)
+        Me.Label27.Location = New System.Drawing.Point(590, 138)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(63, 13)
         Me.Label27.TabIndex = 436
@@ -5035,10 +5022,10 @@ Partial Class PASPFeeAuditLog
         '
         'txtFSAdminComments
         '
-        Me.txtFSAdminComments.Location = New System.Drawing.Point(128, 137)
+        Me.txtFSAdminComments.Location = New System.Drawing.Point(133, 139)
         Me.txtFSAdminComments.Multiline = True
         Me.txtFSAdminComments.Name = "txtFSAdminComments"
-        Me.txtFSAdminComments.Size = New System.Drawing.Size(437, 67)
+        Me.txtFSAdminComments.Size = New System.Drawing.Size(446, 65)
         Me.txtFSAdminComments.TabIndex = 438
         '
         'dtpFeeAdminStatusDate
@@ -5046,7 +5033,7 @@ Partial Class PASPFeeAuditLog
         Me.dtpFeeAdminStatusDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpFeeAdminStatusDate.Enabled = False
         Me.dtpFeeAdminStatusDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpFeeAdminStatusDate.Location = New System.Drawing.Point(705, 133)
+        Me.dtpFeeAdminStatusDate.Location = New System.Drawing.Point(691, 132)
         Me.dtpFeeAdminStatusDate.Name = "dtpFeeAdminStatusDate"
         Me.dtpFeeAdminStatusDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpFeeAdminStatusDate.TabIndex = 437
@@ -5073,6 +5060,10 @@ Partial Class PASPFeeAuditLog
         Me.Panel8.ResumeLayout(False)
         Me.Panel8.PerformLayout()
         CType(Me.dgvInvoiceDataNSPSExemptions, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TPGECOSubmittalContact.ResumeLayout(False)
+        CType(Me.dgvGECOFeeContacts, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel16.ResumeLayout(False)
+        Me.Panel16.PerformLayout()
         Me.TPInvoices.ResumeLayout(False)
         Me.Panel32.ResumeLayout(False)
         Me.Panel31.ResumeLayout(False)
@@ -5124,10 +5115,6 @@ Partial Class PASPFeeAuditLog
         Me.Panel22.PerformLayout()
         Me.Panel21.ResumeLayout(False)
         Me.Panel21.PerformLayout()
-        Me.TPGECOFeeContact.ResumeLayout(False)
-        CType(Me.dgvGECOFeeContacts, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel16.ResumeLayout(False)
-        Me.Panel16.PerformLayout()
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
         Me.Panel5.ResumeLayout(False)
@@ -5262,12 +5249,11 @@ Partial Class PASPFeeAuditLog
     Friend WithEvents btnRefreshCurrentFacilityInfo As System.Windows.Forms.Button
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents btnRefreshContactData As System.Windows.Forms.Button
-    Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents btnReloadFSData As System.Windows.Forms.Button
     Friend WithEvents TabControl3 As System.Windows.Forms.TabControl
     Friend WithEvents TPMailoutInformation As System.Windows.Forms.TabPage
     Friend WithEvents TPGECOSubmittal As System.Windows.Forms.TabPage
-    Friend WithEvents TPGECOFeeContact As System.Windows.Forms.TabPage
+    Friend WithEvents TPGECOSubmittalContact As System.Windows.Forms.TabPage
     Friend WithEvents TPTransactions As System.Windows.Forms.TabPage
     Friend WithEvents TPFeeAudit As System.Windows.Forms.TabPage
     Friend WithEvents dtpLetterMailed As System.Windows.Forms.DateTimePicker
@@ -5580,7 +5566,6 @@ Partial Class PASPFeeAuditLog
     Friend WithEvents btnClearAuditData As System.Windows.Forms.Button
     Friend WithEvents btnClearInvoiceData As System.Windows.Forms.Button
     Friend WithEvents chbMakeEdits As System.Windows.Forms.CheckBox
-    Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents txtAIRSNumber As System.Windows.Forms.TextBox
     Friend WithEvents txtYear As System.Windows.Forms.TextBox
     Friend WithEvents Panel6 As System.Windows.Forms.Panel
