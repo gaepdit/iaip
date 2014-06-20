@@ -2357,75 +2357,127 @@ Public Class PASPFeeAuditLog
         End Try
     End Sub
 #End Region
+
+#Region " Mailout Information tab "
+
     Private Sub btnOpenFSMailout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFSMailout.Click
-        Try
-
-            EditingToggle(True)
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        MailoutEditingToggle(True)
     End Sub
-    Sub EditingToggle(ByVal setState As String)
-        Try
-            If setState = True Then
-                txtContactFirstName.Enabled = True
-                txtContactLastName.Enabled = True
-                txtContactPrefix.Enabled = True
-                txtContactTitle.Enabled = True
-                txtContactCoName.Enabled = True
-                txtContactAddress.Enabled = True
-                txtContactCity.Enabled = True
-                txtContactState.Enabled = True
-                mtbContactZipCode.Enabled = True
-                txtContactAddress2.Enabled = True
-                txtGECOUserEmail.Enabled = True
-                txtInitialFacilityName.Enabled = True
-                txtInitailFacilityAddress.Enabled = True
-                txtInitialAddressLine2.Enabled = True
-                txtInitialCity.Enabled = True
-                mtbInitialZipCode.Enabled = True
-                cboInitialOpStatus.Enabled = True
-                cboInitialClassification.Enabled = True
-                rdbInitialNSPSTrue.Enabled = True
-                rdbInitialNSPSFalse.Enabled = True
-                rdbInitialPart70True.Enabled = True
-                rdbInitialPart70False.Enabled = True
-                txtFSMailOutComments.Enabled = True
-            Else
-                txtContactFirstName.Enabled = False
-                txtContactLastName.Enabled = False
-                txtContactPrefix.Enabled = False
-                txtContactTitle.Enabled = False
-                txtContactCoName.Enabled = False
-                txtContactAddress.Enabled = False
-                txtContactCity.Enabled = False
-                txtContactState.Enabled = False
-                mtbContactZipCode.Enabled = False
-                txtContactAddress2.Enabled = False
-                txtGECOUserEmail.Enabled = False
-                txtInitialFacilityName.Enabled = False
-                txtInitailFacilityAddress.Enabled = False
-                txtInitialAddressLine2.Enabled = False
-                txtInitialCity.Enabled = False
-                mtbInitialZipCode.Enabled = False
-                cboInitialOpStatus.Enabled = False
-                cboInitialClassification.Enabled = False
-                rdbInitialNSPSTrue.Enabled = False
-                rdbInitialNSPSFalse.Enabled = False
-                rdbInitialPart70True.Enabled = False
-                rdbInitialPart70False.Enabled = False
-                txtFSMailOutComments.Enabled = False
-                txtFSMailOutUpdateUser.Enabled = False
-                DTPFSMailOutUpdateDate.Enabled = False
-                DTPFSMailOutDateCreated.Enabled = False
 
+    Private Sub MailoutEditingToggle(ByVal setState As Boolean)
+        txtContactFirstName.Enabled = setState
+        txtContactLastName.Enabled = setState
+        txtContactPrefix.Enabled = setState
+        txtContactTitle.Enabled = setState
+        txtContactCoName.Enabled = setState
+        txtContactAddress.Enabled = setState
+        txtContactCity.Enabled = setState
+        txtContactState.Enabled = setState
+        mtbContactZipCode.Enabled = setState
+        txtContactAddress2.Enabled = setState
+        txtGECOUserEmail.Enabled = setState
+        txtInitialFacilityName.Enabled = setState
+        txtInitailFacilityAddress.Enabled = setState
+        txtInitialAddressLine2.Enabled = setState
+        txtInitialCity.Enabled = setState
+        mtbInitialZipCode.Enabled = setState
+        cboInitialOpStatus.Enabled = setState
+        cboInitialClassification.Enabled = setState
+        rdbInitialNSPSTrue.Enabled = setState
+        rdbInitialNSPSFalse.Enabled = setState
+        rdbInitialPart70True.Enabled = setState
+        rdbInitialPart70False.Enabled = setState
+        txtFSMailOutComments.Enabled = setState
+    End Sub
+
+    Private Sub btnMailoutSaveUpdates_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMailoutSaveUpdates.Click
+        Try
+            Dim MailOutCheck As String = ""
+            Dim ShutDownDate As String = ""
+
+            If (mtbFeeAdminAIRSNumber.Text <> txtAIRSNumber.Text) _
+                Or (mtbFeeAdminExistingYear.Text <> txtYear.Text) _
+                Or txtAIRSNumber.Text = "" Or mtbFeeAdminExistingYear.Text = "" _
+                Or txtYear.Text = "" Then
+                MsgBox("The currently selected AIRS # does not match the selecting AIRS #." & _
+                       vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
+                Exit Sub
             End If
 
+            SQL = "Select " & _
+            "count(*) as MailoutCheck " & _
+            "from " & DBNameSpace & ".FS_Mailout " & _
+            "where numFeeYear = '" & mtbFeeAdminExistingYear.Text & "' " & _
+            "and strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' "
+
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
+            End If
+            dr = cmd.ExecuteReader
+            While dr.Read
+                If IsDBNull(dr.Item("MailoutCheck")) Then
+                    MailOutCheck = "0"
+                Else
+                    MailOutCheck = dr.Item("MailoutCheck")
+                End If
+            End While
+            dr.Close()
+
+            If dtpShutDownDate.Checked = True Then
+                ShutDownDate = dtpShutDownDate.Text
+            Else
+                ShutDownDate = ""
+            End If
+
+            If MailOutCheck = "0" Then
+                If Insert_FS_Mailout(mtbFeeAdminExistingYear.Text, mtbFeeAdminAIRSNumber.Text, _
+                                  txtContactFirstName.Text, txtContactLastName.Text, _
+                                  txtContactPrefix.Text, txtContactTitle.Text, _
+                                  txtContactCoName.Text, txtContactAddress.Text, _
+                                  txtContactAddress2.Text, txtContactCity.Text, _
+                                  txtContactState.Text, mtbContactZipCode.Text, _
+                                  txtGECOUserEmail.Text, cboInitialOpStatus.Text, _
+                                  cboInitialClassification.Text, rdbInitialNSPSTrue.Checked, _
+                                  rdbInitialPart70True.Checked, ShutDownDate, _
+                                  txtInitialFacilityName.Text, _
+                                  txtInitailFacilityAddress.Text, txtInitialAddressLine2.Text, _
+                                  txtInitialCity.Text, mtbInitialZipCode.Text, _
+                                  txtFSMailOutComments.Text, rdbActiveAdmin.Checked) = True Then
+                    MsgBox("Save completed", MsgBoxStyle.Information, Me.Text)
+                Else
+                    MsgBox("Did not Save", MsgBoxStyle.Information, Me.Text)
+                End If
+
+            Else
+                If Update_FS_Mailout(mtbFeeAdminExistingYear.Text, mtbFeeAdminAIRSNumber.Text, _
+                               txtContactFirstName.Text, txtContactLastName.Text, _
+                               txtContactPrefix.Text, txtContactTitle.Text, _
+                               txtContactCoName.Text, txtContactAddress.Text, _
+                               txtContactAddress2.Text, txtContactCity.Text, _
+                               txtContactState.Text, mtbContactZipCode.Text, _
+                               txtGECOUserEmail.Text, cboInitialOpStatus.Text, _
+                               cboInitialClassification.Text, rdbInitialNSPSTrue.Checked, _
+                               rdbInitialPart70True.Checked, ShutDownDate, _
+                               txtInitialFacilityName.Text, _
+                               txtInitailFacilityAddress.Text, txtInitialAddressLine2.Text, _
+                               txtInitialCity.Text, mtbInitialZipCode.Text, _
+                               txtFSMailOutComments.Text, rdbActiveAdmin.Checked) = True Then
+                    MsgBox("Save completed", MsgBoxStyle.Information, Me.Text)
+                Else
+                    MsgBox("Did not Save", MsgBoxStyle.Information, Me.Text)
+                End If
+            End If
+
+            MailoutEditingToggle(False)
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
+#End Region
+
     Private Sub btnReloadFSData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReloadFSData.Click
         Try
             FeeYear = mtbFeeAdminExistingYear.Text
@@ -2541,7 +2593,7 @@ Public Class PASPFeeAuditLog
             txtGECOContactEmail.ReadOnly = True
             txtGECOContactComments.ReadOnly = True
 
-            EditingToggle(False)
+            MailoutEditingToggle(False)
             ClearEditData()
 
         Catch ex As Exception
@@ -2927,200 +2979,115 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnMailoutSaveUpdates_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMailoutSaveUpdates.Click
-        Try
-            Dim MailOutCheck As String = ""
-            Dim ShutDownDate As String = ""
+    'Private Sub btnGECOViewCurrentContacts_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGECOViewCurrentContacts.Click
+    '    Try
+    '        SQL = "Select " & _
+    '         "strContactFirstName, strContactlastName, " & _
+    '         "strContactPrefix, strContactTitle, " & _
+    '         "strContactCompanyName, strContactAddress, " & _
+    '         "strContactCity, strContactState, " & _
+    '         "strContactZipCode, strContactPhoneNumber, " & _
+    '         "strContactFaxNumber, strContactEmail, " & _
+    '         "strComment " & _
+    '         "from " & DBNameSpace & ".FS_ContactInfo " & _
+    '         "where numfeeyear = '" & mtbFeeAdminExistingYear.Text & "' " & _
+    '         "and strAIRSnumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' "
 
-            If (mtbFeeAdminAIRSNumber.Text <> txtAIRSNumber.Text) _
-                Or (mtbFeeAdminExistingYear.Text <> txtYear.Text) _
-                Or txtAIRSNumber.Text = "" Or mtbFeeAdminExistingYear.Text = "" _
-                Or txtYear.Text = "" Then
-                MsgBox("The currently selected AIRS # does not match the selecting AIRS #." & _
-                       vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
-            End If
+    '        cmd = New OracleCommand(SQL, CurrentConnection)
 
-            SQL = "Select " & _
-            "count(*) as MailoutCheck " & _
-            "from " & DBNameSpace & ".FS_Mailout " & _
-            "where numFeeYear = '" & mtbFeeAdminExistingYear.Text & "' " & _
-            "and strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' "
+    '        If CurrentConnection.State = ConnectionState.Closed Then
+    '            CurrentConnection.Open()
+    '        End If
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("MailoutCheck")) Then
-                    MailOutCheck = "0"
-                Else
-                    MailOutCheck = dr.Item("MailoutCheck")
-                End If
-            End While
-            dr.Close()
+    '        dr = cmd.ExecuteReader
+    '        While dr.Read
+    '            If IsDBNull(dr.Item("strContactFirstName")) Then
+    '                txtGECOContactFirstName.Clear()
+    '            Else
+    '                txtGECOContactFirstName.Text = dr.Item("strContactFirstName")
+    '            End If
 
-            If dtpShutDownDate.Checked = True Then
-                ShutDownDate = dtpShutDownDate.Text
-            Else
-                ShutDownDate = ""
-            End If
+    '            If IsDBNull(dr.Item("strContactLastName")) Then
+    '                txtGECOContactLastName.Clear()
+    '            Else
+    '                txtGECOContactLastName.Text = dr.Item("strContactLastName")
+    '            End If
+    '            If IsDBNull(dr.Item("strContactPrefix")) Then
+    '                txtGECOContactSalutation.Clear()
+    '            Else
+    '                txtGECOContactSalutation.Text = dr.Item("strContactPrefix")
+    '            End If
+    '            If IsDBNull(dr.Item("strContactTitle")) Then
+    '                txtGECOContactTitle.Clear()
+    '            Else
+    '                txtGECOContactTitle.Text = dr.Item("strContactTitle")
+    '            End If
+    '            If IsDBNull(dr.Item("strContactCompanyName")) Then
+    '                txtGECOContactCompanyName.Clear()
+    '            Else
+    '                txtGECOContactCompanyName.Text = dr.Item("strContactCompanyName")
+    '            End If
+    '            If IsDBNull(dr.Item("strContactAddress")) Then
+    '                txtGECOContactStreetAddress.Clear()
+    '            Else
+    '                txtGECOContactStreetAddress.Text = dr.Item("strContactAddress")
+    '            End If
+    '            If IsDBNull(dr.Item("strContactCity")) Then
+    '                txtGECOContactCity.Clear()
+    '            Else
+    '                txtGECOContactCity.Text = dr.Item("strContactCity")
+    '            End If
+    '            If IsDBNull(dr.Item("strContactState")) Then
+    '                txtGECOContactState.Clear()
+    '            Else
+    '                txtGECOContactState.Text = dr.Item("strContactState")
+    '            End If
+    '            If IsDBNull(dr.Item("strContactZipCode")) Then
+    '                mtbGECOContactZipCode.Clear()
+    '            Else
+    '                mtbGECOContactZipCode.Text = dr.Item("strContactZipCode")
+    '            End If
+    '            If IsDBNull(dr.Item("strContactPhoneNumber")) Then
+    '                mtbGECOContactPhontNumber.Clear()
+    '            Else
+    '                mtbGECOContactPhontNumber.Text = dr.Item("strContactPhoneNumber")
+    '            End If
+    '            If IsDBNull(dr.Item("strContactFaxNumber")) Then
+    '                mtbGECOContactFaxNumber.Clear()
+    '            Else
+    '                mtbGECOContactFaxNumber.Text = dr.Item("strContactFaxNumber")
+    '            End If
+    '            If IsDBNull(dr.Item("strContactEmail")) Then
+    '                txtGECOContactEmail.Clear()
+    '            Else
+    '                txtGECOContactEmail.Text = dr.Item("strContactEmail")
+    '            End If
+    '            If IsDBNull(dr.Item("strComment")) Then
+    '                txtGECOContactComments.Clear()
+    '            Else
+    '                txtGECOContactComments.Text = dr.Item("strComment")
+    '            End If
+    '        End While
+    '        dr.Close()
 
-            If MailOutCheck = "0" Then
-                If Insert_FS_Mailout(mtbFeeAdminExistingYear.Text, mtbFeeAdminAIRSNumber.Text, _
-                                  txtContactFirstName.Text, txtContactLastName.Text, _
-                                  txtContactPrefix.Text, txtContactTitle.Text, _
-                                  txtContactCoName.Text, txtContactAddress.Text, _
-                                  txtContactAddress2.Text, txtContactCity.Text, _
-                                  txtContactState.Text, mtbContactZipCode.Text, _
-                                  txtGECOUserEmail.Text, cboInitialOpStatus.Text, _
-                                  cboInitialClassification.Text, rdbInitialNSPSTrue.Checked, _
-                                  rdbInitialPart70True.Checked, ShutDownDate, _
-                                  txtInitialFacilityName.Text, _
-                                  txtInitailFacilityAddress.Text, txtInitialAddressLine2.Text, _
-                                  txtInitialCity.Text, mtbInitialZipCode.Text, _
-                                  txtFSMailOutComments.Text, rdbActiveAdmin.Checked) = True Then
-                    MsgBox("Save completed", MsgBoxStyle.Information, Me.Text)
-                Else
-                    MsgBox("Did not Save", MsgBoxStyle.Information, Me.Text)
-                End If
+    '        txtGECOContactSalutation.ReadOnly = True
+    '        txtGECOContactFirstName.ReadOnly = True
+    '        txtGECOContactLastName.ReadOnly = True
+    '        txtGECOContactTitle.ReadOnly = True
+    '        txtGECOContactCompanyName.ReadOnly = True
+    '        txtGECOContactStreetAddress.ReadOnly = True
+    '        txtGECOContactCity.ReadOnly = True
+    '        txtGECOContactState.ReadOnly = True
+    '        mtbGECOContactZipCode.ReadOnly = True
+    '        mtbGECOContactPhontNumber.ReadOnly = True
+    '        mtbGECOContactFaxNumber.ReadOnly = True
+    '        txtGECOContactEmail.ReadOnly = True
+    '        txtGECOContactComments.ReadOnly = True
 
-            Else
-                If Update_FS_Mailout(mtbFeeAdminExistingYear.Text, mtbFeeAdminAIRSNumber.Text, _
-                               txtContactFirstName.Text, txtContactLastName.Text, _
-                               txtContactPrefix.Text, txtContactTitle.Text, _
-                               txtContactCoName.Text, txtContactAddress.Text, _
-                               txtContactAddress2.Text, txtContactCity.Text, _
-                               txtContactState.Text, mtbContactZipCode.Text, _
-                               txtGECOUserEmail.Text, cboInitialOpStatus.Text, _
-                               cboInitialClassification.Text, rdbInitialNSPSTrue.Checked, _
-                               rdbInitialPart70True.Checked, ShutDownDate, _
-                               txtInitialFacilityName.Text, _
-                               txtInitailFacilityAddress.Text, txtInitialAddressLine2.Text, _
-                               txtInitialCity.Text, mtbInitialZipCode.Text, _
-                               txtFSMailOutComments.Text, rdbActiveAdmin.Checked) = True Then
-                    MsgBox("Save completed", MsgBoxStyle.Information, Me.Text)
-                Else
-                    MsgBox("Did not Save", MsgBoxStyle.Information, Me.Text)
-                End If
-            End If
-
-            EditingToggle(False)
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnGECOViewCurrentContacts_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGECOViewCurrentContacts.Click
-        Try
-            SQL = "Select " & _
-             "strContactFirstName, strContactlastName, " & _
-             "strContactPrefix, strContactTitle, " & _
-             "strContactCompanyName, strContactAddress, " & _
-             "strContactCity, strContactState, " & _
-             "strContactZipCode, strContactPhoneNumber, " & _
-             "strContactFaxNumber, strContactEmail, " & _
-             "strComment " & _
-             "from " & DBNameSpace & ".FS_ContactInfo " & _
-             "where numfeeyear = '" & mtbFeeAdminExistingYear.Text & "' " & _
-             "and strAIRSnumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    txtGECOContactFirstName.Clear()
-                Else
-                    txtGECOContactFirstName.Text = dr.Item("strContactFirstName")
-                End If
-
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    txtGECOContactLastName.Clear()
-                Else
-                    txtGECOContactLastName.Text = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    txtGECOContactSalutation.Clear()
-                Else
-                    txtGECOContactSalutation.Text = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactTitle")) Then
-                    txtGECOContactTitle.Clear()
-                Else
-                    txtGECOContactTitle.Text = dr.Item("strContactTitle")
-                End If
-                If IsDBNull(dr.Item("strContactCompanyName")) Then
-                    txtGECOContactCompanyName.Clear()
-                Else
-                    txtGECOContactCompanyName.Text = dr.Item("strContactCompanyName")
-                End If
-                If IsDBNull(dr.Item("strContactAddress")) Then
-                    txtGECOContactStreetAddress.Clear()
-                Else
-                    txtGECOContactStreetAddress.Text = dr.Item("strContactAddress")
-                End If
-                If IsDBNull(dr.Item("strContactCity")) Then
-                    txtGECOContactCity.Clear()
-                Else
-                    txtGECOContactCity.Text = dr.Item("strContactCity")
-                End If
-                If IsDBNull(dr.Item("strContactState")) Then
-                    txtGECOContactState.Clear()
-                Else
-                    txtGECOContactState.Text = dr.Item("strContactState")
-                End If
-                If IsDBNull(dr.Item("strContactZipCode")) Then
-                    mtbGECOContactZipCode.Clear()
-                Else
-                    mtbGECOContactZipCode.Text = dr.Item("strContactZipCode")
-                End If
-                If IsDBNull(dr.Item("strContactPhoneNumber")) Then
-                    mtbGECOContactPhontNumber.Clear()
-                Else
-                    mtbGECOContactPhontNumber.Text = dr.Item("strContactPhoneNumber")
-                End If
-                If IsDBNull(dr.Item("strContactFaxNumber")) Then
-                    mtbGECOContactFaxNumber.Clear()
-                Else
-                    mtbGECOContactFaxNumber.Text = dr.Item("strContactFaxNumber")
-                End If
-                If IsDBNull(dr.Item("strContactEmail")) Then
-                    txtGECOContactEmail.Clear()
-                Else
-                    txtGECOContactEmail.Text = dr.Item("strContactEmail")
-                End If
-                If IsDBNull(dr.Item("strComment")) Then
-                    txtGECOContactComments.Clear()
-                Else
-                    txtGECOContactComments.Text = dr.Item("strComment")
-                End If
-            End While
-            dr.Close()
-
-            txtGECOContactSalutation.ReadOnly = True
-            txtGECOContactFirstName.ReadOnly = True
-            txtGECOContactLastName.ReadOnly = True
-            txtGECOContactTitle.ReadOnly = True
-            txtGECOContactCompanyName.ReadOnly = True
-            txtGECOContactStreetAddress.ReadOnly = True
-            txtGECOContactCity.ReadOnly = True
-            txtGECOContactState.ReadOnly = True
-            mtbGECOContactZipCode.ReadOnly = True
-            mtbGECOContactPhontNumber.ReadOnly = True
-            mtbGECOContactFaxNumber.ReadOnly = True
-            txtGECOContactEmail.ReadOnly = True
-            txtGECOContactComments.ReadOnly = True
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
+    '    Catch ex As Exception
+    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    End Try
+    'End Sub
     Private Sub btnGECOViewPastContacts_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGECOViewPastContacts.Click
         Try
             SQL = "Select * " & _
