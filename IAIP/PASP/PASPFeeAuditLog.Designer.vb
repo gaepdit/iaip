@@ -22,24 +22,7 @@ Partial Class PASPFeeAuditLog
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PASPFeeAuditLog))
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MmiFile = New System.Windows.Forms.MenuItem
-        Me.mmiSave = New System.Windows.Forms.MenuItem
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem
-        Me.MmiBack = New System.Windows.Forms.MenuItem
-        Me.MmiView = New System.Windows.Forms.MenuItem
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem
-        Me.mmiNewApplication = New System.Windows.Forms.MenuItem
-        Me.MmiHelp = New System.Windows.Forms.MenuItem
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.TabControl1 = New System.Windows.Forms.TabControl
-        Me.TPFeeAdmin = New System.Windows.Forms.TabPage
         Me.TabControl3 = New System.Windows.Forms.TabControl
         Me.TPGECOSubmittal = New System.Windows.Forms.TabPage
         Me.dgvInvoiceData = New System.Windows.Forms.DataGridView
@@ -479,9 +462,6 @@ Partial Class PASPFeeAuditLog
         Me.Label27 = New System.Windows.Forms.Label
         Me.txtFSAdminComments = New System.Windows.Forms.TextBox
         Me.dtpFeeAdminStatusDate = New System.Windows.Forms.DateTimePicker
-        Me.StatusStrip1.SuspendLayout()
-        Me.TabControl1.SuspendLayout()
-        Me.TPFeeAdmin.SuspendLayout()
         Me.TabControl3.SuspendLayout()
         Me.TPGECOSubmittal.SuspendLayout()
         CType(Me.dgvInvoiceData, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -533,119 +513,6 @@ Partial Class PASPFeeAuditLog
         Me.Panel17.SuspendLayout()
         Me.SuspendLayout()
         '
-        'MainMenu1
-        '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiFile, Me.MmiView, Me.MenuItem2, Me.MmiHelp})
-        '
-        'MmiFile
-        '
-        Me.MmiFile.Index = 0
-        Me.MmiFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiSave, Me.MenuItem1, Me.MmiBack})
-        Me.MmiFile.Text = "File"
-        '
-        'mmiSave
-        '
-        Me.mmiSave.Index = 0
-        Me.mmiSave.Text = "Save"
-        '
-        'MenuItem1
-        '
-        Me.MenuItem1.Index = 1
-        Me.MenuItem1.Text = "-"
-        '
-        'MmiBack
-        '
-        Me.MmiBack.Index = 2
-        Me.MmiBack.Text = "Back"
-        '
-        'MmiView
-        '
-        Me.MmiView.Index = 1
-        Me.MmiView.Text = "View"
-        '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 2
-        Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiNewApplication})
-        Me.MenuItem2.Text = "Tools"
-        '
-        'mmiNewApplication
-        '
-        Me.mmiNewApplication.Index = 0
-        Me.mmiNewApplication.Text = "Assign Application No."
-        Me.mmiNewApplication.Visible = False
-        '
-        'MmiHelp
-        '
-        Me.MmiHelp.Index = 3
-        Me.MmiHelp.Text = "Help"
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.Panel1, Me.Panel2, Me.Panel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 691)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1016, 22)
-        Me.StatusStrip1.TabIndex = 255
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'ToolStripProgressBar1
-        '
-        Me.ToolStripProgressBar1.Name = "ToolStripProgressBar1"
-        Me.ToolStripProgressBar1.Size = New System.Drawing.Size(100, 16)
-        '
-        'Panel1
-        '
-        Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(891, 17)
-        Me.Panel1.Spring = True
-        Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Panel2
-        '
-        Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(4, 17)
-        '
-        'Panel3
-        '
-        Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(4, 17)
-        '
-        'TabControl1
-        '
-        Me.TabControl1.Controls.Add(Me.TPFeeAdmin)
-        Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TabControl1.Location = New System.Drawing.Point(0, 0)
-        Me.TabControl1.Name = "TabControl1"
-        Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(1016, 691)
-        Me.TabControl1.TabIndex = 256
-        '
-        'TPFeeAdmin
-        '
-        Me.TPFeeAdmin.Controls.Add(Me.TabControl3)
-        Me.TPFeeAdmin.Controls.Add(Me.Panel4)
-        Me.TPFeeAdmin.Location = New System.Drawing.Point(4, 22)
-        Me.TPFeeAdmin.Name = "TPFeeAdmin"
-        Me.TPFeeAdmin.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPFeeAdmin.Size = New System.Drawing.Size(1008, 665)
-        Me.TPFeeAdmin.TabIndex = 3
-        Me.TPFeeAdmin.Text = "Fee Admin Tool(s)"
-        Me.TPFeeAdmin.UseVisualStyleBackColor = True
-        '
         'TabControl3
         '
         Me.TabControl3.Controls.Add(Me.TPGECOSubmittal)
@@ -655,10 +522,10 @@ Partial Class PASPFeeAuditLog
         Me.TabControl3.Controls.Add(Me.TPFeeAudit)
         Me.TabControl3.Controls.Add(Me.TPMailoutInformation)
         Me.TabControl3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TabControl3.Location = New System.Drawing.Point(3, 220)
+        Me.TabControl3.Location = New System.Drawing.Point(0, 227)
         Me.TabControl3.Name = "TabControl3"
         Me.TabControl3.SelectedIndex = 0
-        Me.TabControl3.Size = New System.Drawing.Size(1002, 442)
+        Me.TabControl3.Size = New System.Drawing.Size(1016, 483)
         Me.TabControl3.TabIndex = 464
         '
         'TPGECOSubmittal
@@ -668,7 +535,7 @@ Partial Class PASPFeeAuditLog
         Me.TPGECOSubmittal.Location = New System.Drawing.Point(4, 22)
         Me.TPGECOSubmittal.Name = "TPGECOSubmittal"
         Me.TPGECOSubmittal.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPGECOSubmittal.Size = New System.Drawing.Size(994, 416)
+        Me.TPGECOSubmittal.Size = New System.Drawing.Size(1008, 457)
         Me.TPGECOSubmittal.TabIndex = 1
         Me.TPGECOSubmittal.Text = "GECO Submittal"
         Me.TPGECOSubmittal.UseVisualStyleBackColor = True
@@ -680,7 +547,7 @@ Partial Class PASPFeeAuditLog
         Me.dgvInvoiceData.Location = New System.Drawing.Point(3, 254)
         Me.dgvInvoiceData.Name = "dgvInvoiceData"
         Me.dgvInvoiceData.ReadOnly = True
-        Me.dgvInvoiceData.Size = New System.Drawing.Size(988, 159)
+        Me.dgvInvoiceData.Size = New System.Drawing.Size(1002, 200)
         Me.dgvInvoiceData.TabIndex = 478
         '
         'Panel7
@@ -739,7 +606,7 @@ Partial Class PASPFeeAuditLog
         Me.Panel7.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel7.Location = New System.Drawing.Point(3, 3)
         Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(988, 251)
+        Me.Panel7.Size = New System.Drawing.Size(1002, 251)
         Me.Panel7.TabIndex = 477
         '
         'llbAuditPerformed
@@ -4507,16 +4374,16 @@ Partial Class PASPFeeAuditLog
         Me.Panel4.Controls.Add(Me.txtFSAdminComments)
         Me.Panel4.Controls.Add(Me.dtpFeeAdminStatusDate)
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel4.Location = New System.Drawing.Point(3, 3)
+        Me.Panel4.Location = New System.Drawing.Point(0, 0)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(1002, 217)
+        Me.Panel4.Size = New System.Drawing.Size(1016, 227)
         Me.Panel4.TabIndex = 463
         '
         'btnCheckInvoices
         '
         Me.btnCheckInvoices.AutoSize = True
         Me.btnCheckInvoices.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnCheckInvoices.Location = New System.Drawing.Point(827, 87)
+        Me.btnCheckInvoices.Location = New System.Drawing.Point(827, 96)
         Me.btnCheckInvoices.Name = "btnCheckInvoices"
         Me.btnCheckInvoices.Size = New System.Drawing.Size(111, 23)
         Me.btnCheckInvoices.TabIndex = 497
@@ -4526,7 +4393,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtYear
         '
-        Me.txtYear.Location = New System.Drawing.Point(106, 29)
+        Me.txtYear.Location = New System.Drawing.Point(106, 38)
         Me.txtYear.Name = "txtYear"
         Me.txtYear.ReadOnly = True
         Me.txtYear.Size = New System.Drawing.Size(47, 20)
@@ -4534,7 +4401,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtAIRSNumber
         '
-        Me.txtAIRSNumber.Location = New System.Drawing.Point(159, 29)
+        Me.txtAIRSNumber.Location = New System.Drawing.Point(159, 38)
         Me.txtAIRSNumber.Name = "txtAIRSNumber"
         Me.txtAIRSNumber.ReadOnly = True
         Me.txtAIRSNumber.Size = New System.Drawing.Size(58, 20)
@@ -4542,7 +4409,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtGECOAdminStatus
         '
-        Me.txtGECOAdminStatus.Location = New System.Drawing.Point(593, 81)
+        Me.txtGECOAdminStatus.Location = New System.Drawing.Point(593, 90)
         Me.txtGECOAdminStatus.Multiline = True
         Me.txtGECOAdminStatus.Name = "txtGECOAdminStatus"
         Me.txtGECOAdminStatus.ReadOnly = True
@@ -4552,7 +4419,7 @@ Partial Class PASPFeeAuditLog
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(590, 65)
+        Me.Label14.Location = New System.Drawing.Point(590, 74)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(107, 13)
         Me.Label14.TabIndex = 493
@@ -4562,7 +4429,7 @@ Partial Class PASPFeeAuditLog
         '
         Me.dtpLetterMailed.CustomFormat = "dd-MMM-yyyy"
         Me.dtpLetterMailed.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpLetterMailed.Location = New System.Drawing.Point(479, 85)
+        Me.dtpLetterMailed.Location = New System.Drawing.Point(479, 94)
         Me.dtpLetterMailed.Name = "dtpLetterMailed"
         Me.dtpLetterMailed.Size = New System.Drawing.Size(100, 20)
         Me.dtpLetterMailed.TabIndex = 491
@@ -4570,7 +4437,7 @@ Partial Class PASPFeeAuditLog
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(390, 87)
+        Me.Label9.Location = New System.Drawing.Point(390, 96)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(68, 13)
         Me.Label9.TabIndex = 490
@@ -4579,7 +4446,7 @@ Partial Class PASPFeeAuditLog
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(197, 87)
+        Me.Label8.Location = New System.Drawing.Point(197, 96)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(89, 13)
         Me.Label8.TabIndex = 488
@@ -4591,7 +4458,7 @@ Partial Class PASPFeeAuditLog
         Me.Panel5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel5.Controls.Add(Me.rdbLetterMailedFalse)
         Me.Panel5.Controls.Add(Me.rdbLetterMailedTrue)
-        Me.Panel5.Location = New System.Drawing.Point(292, 83)
+        Me.Panel5.Location = New System.Drawing.Point(292, 92)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(91, 22)
         Me.Panel5.TabIndex = 489
@@ -4623,7 +4490,7 @@ Partial Class PASPFeeAuditLog
         Me.btnReloadFSData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnReloadFSData.Image = CType(resources.GetObject("btnReloadFSData.Image"), System.Drawing.Image)
         Me.btnReloadFSData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnReloadFSData.Location = New System.Drawing.Point(223, 0)
+        Me.btnReloadFSData.Location = New System.Drawing.Point(223, 9)
         Me.btnReloadFSData.Name = "btnReloadFSData"
         Me.btnReloadFSData.Size = New System.Drawing.Size(68, 24)
         Me.btnReloadFSData.TabIndex = 486
@@ -4655,7 +4522,7 @@ Partial Class PASPFeeAuditLog
         '
         'mtbFeeAdminExistingYear
         '
-        Me.mtbFeeAdminExistingYear.Location = New System.Drawing.Point(66, 3)
+        Me.mtbFeeAdminExistingYear.Location = New System.Drawing.Point(66, 12)
         Me.mtbFeeAdminExistingYear.Mask = "0000"
         Me.mtbFeeAdminExistingYear.Name = "mtbFeeAdminExistingYear"
         Me.mtbFeeAdminExistingYear.Size = New System.Drawing.Size(39, 20)
@@ -4665,7 +4532,7 @@ Partial Class PASPFeeAuditLog
         'Label56
         '
         Me.Label56.AutoSize = True
-        Me.Label56.Location = New System.Drawing.Point(10, 32)
+        Me.Label56.Location = New System.Drawing.Point(10, 41)
         Me.Label56.Name = "Label56"
         Me.Label56.Size = New System.Drawing.Size(90, 13)
         Me.Label56.TabIndex = 462
@@ -4674,7 +4541,7 @@ Partial Class PASPFeeAuditLog
         'Label26
         '
         Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(10, 6)
+        Me.Label26.Location = New System.Drawing.Point(10, 15)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(50, 13)
         Me.Label26.TabIndex = 421
@@ -4682,7 +4549,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtFeeAdminFacilityName
         '
-        Me.txtFeeAdminFacilityName.Location = New System.Drawing.Point(223, 29)
+        Me.txtFeeAdminFacilityName.Location = New System.Drawing.Point(223, 38)
         Me.txtFeeAdminFacilityName.Name = "txtFeeAdminFacilityName"
         Me.txtFeeAdminFacilityName.ReadOnly = True
         Me.txtFeeAdminFacilityName.Size = New System.Drawing.Size(356, 20)
@@ -4692,7 +4559,7 @@ Partial Class PASPFeeAuditLog
         '
         Me.dtpSubmittalDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpSubmittalDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpSubmittalDate.Location = New System.Drawing.Point(284, 112)
+        Me.dtpSubmittalDate.Location = New System.Drawing.Point(284, 121)
         Me.dtpSubmittalDate.Name = "dtpSubmittalDate"
         Me.dtpSubmittalDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpSubmittalDate.TabIndex = 423
@@ -4700,7 +4567,7 @@ Partial Class PASPFeeAuditLog
         'Label25
         '
         Me.Label25.AutoSize = True
-        Me.Label25.Location = New System.Drawing.Point(9, 87)
+        Me.Label25.Location = New System.Drawing.Point(9, 96)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(85, 13)
         Me.Label25.TabIndex = 424
@@ -4710,7 +4577,7 @@ Partial Class PASPFeeAuditLog
         '
         Me.dtpEnrollmentDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpEnrollmentDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEnrollmentDate.Location = New System.Drawing.Point(285, 57)
+        Me.dtpEnrollmentDate.Location = New System.Drawing.Point(285, 66)
         Me.dtpEnrollmentDate.Name = "dtpEnrollmentDate"
         Me.dtpEnrollmentDate.Size = New System.Drawing.Size(99, 20)
         Me.dtpEnrollmentDate.TabIndex = 450
@@ -4718,7 +4585,7 @@ Partial Class PASPFeeAuditLog
         'Label24
         '
         Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(9, 59)
+        Me.Label24.Location = New System.Drawing.Point(9, 68)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(45, 13)
         Me.Label24.TabIndex = 425
@@ -4727,7 +4594,7 @@ Partial Class PASPFeeAuditLog
         'Label39
         '
         Me.Label39.AutoSize = True
-        Me.Label39.Location = New System.Drawing.Point(197, 59)
+        Me.Label39.Location = New System.Drawing.Point(197, 68)
         Me.Label39.Name = "Label39"
         Me.Label39.Size = New System.Drawing.Size(82, 13)
         Me.Label39.TabIndex = 449
@@ -4736,7 +4603,7 @@ Partial Class PASPFeeAuditLog
         'Label23
         '
         Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(111, 6)
+        Me.Label23.Location = New System.Drawing.Point(111, 15)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(42, 13)
         Me.Label23.TabIndex = 426
@@ -4746,7 +4613,7 @@ Partial Class PASPFeeAuditLog
         '
         Me.dtpEnrollmentInitial.CustomFormat = "dd-MMM-yyyy"
         Me.dtpEnrollmentInitial.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEnrollmentInitial.Location = New System.Drawing.Point(479, 57)
+        Me.dtpEnrollmentInitial.Location = New System.Drawing.Point(479, 66)
         Me.dtpEnrollmentInitial.Name = "dtpEnrollmentInitial"
         Me.dtpEnrollmentInitial.Size = New System.Drawing.Size(100, 20)
         Me.dtpEnrollmentInitial.TabIndex = 448
@@ -4754,7 +4621,7 @@ Partial Class PASPFeeAuditLog
         'Label22
         '
         Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(197, 115)
+        Me.Label22.Location = New System.Drawing.Point(197, 124)
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(80, 13)
         Me.Label22.TabIndex = 427
@@ -4763,7 +4630,7 @@ Partial Class PASPFeeAuditLog
         'Label38
         '
         Me.Label38.AutoSize = True
-        Me.Label38.Location = New System.Drawing.Point(390, 59)
+        Me.Label38.Location = New System.Drawing.Point(390, 68)
         Me.Label38.Name = "Label38"
         Me.Label38.Size = New System.Drawing.Size(83, 13)
         Me.Label38.TabIndex = 447
@@ -4772,7 +4639,7 @@ Partial Class PASPFeeAuditLog
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(9, 115)
+        Me.Label21.Location = New System.Drawing.Point(9, 124)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(50, 13)
         Me.Label21.TabIndex = 428
@@ -4783,14 +4650,14 @@ Partial Class PASPFeeAuditLog
         Me.dtpFSAdminCreateDateTime.CustomFormat = "dd-MMM-yyyy"
         Me.dtpFSAdminCreateDateTime.Enabled = False
         Me.dtpFSAdminCreateDateTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpFSAdminCreateDateTime.Location = New System.Drawing.Point(881, 186)
+        Me.dtpFSAdminCreateDateTime.Location = New System.Drawing.Point(881, 195)
         Me.dtpFSAdminCreateDateTime.Name = "dtpFSAdminCreateDateTime"
         Me.dtpFSAdminCreateDateTime.Size = New System.Drawing.Size(100, 20)
         Me.dtpFSAdminCreateDateTime.TabIndex = 446
         '
         'mtbFeeAdminAIRSNumber
         '
-        Me.mtbFeeAdminAIRSNumber.Location = New System.Drawing.Point(159, 3)
+        Me.mtbFeeAdminAIRSNumber.Location = New System.Drawing.Point(159, 12)
         Me.mtbFeeAdminAIRSNumber.Mask = "000-00000"
         Me.mtbFeeAdminAIRSNumber.Name = "mtbFeeAdminAIRSNumber"
         Me.mtbFeeAdminAIRSNumber.Size = New System.Drawing.Size(58, 20)
@@ -4803,7 +4670,7 @@ Partial Class PASPFeeAuditLog
         Me.dtpFSAdminUpdate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpFSAdminUpdate.Enabled = False
         Me.dtpFSAdminUpdate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpFSAdminUpdate.Location = New System.Drawing.Point(881, 160)
+        Me.dtpFSAdminUpdate.Location = New System.Drawing.Point(881, 169)
         Me.dtpFSAdminUpdate.Name = "dtpFSAdminUpdate"
         Me.dtpFSAdminUpdate.Size = New System.Drawing.Size(100, 20)
         Me.dtpFSAdminUpdate.TabIndex = 445
@@ -4814,7 +4681,7 @@ Partial Class PASPFeeAuditLog
         Me.Panel19.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel19.Controls.Add(Me.rdbEnrolledFalse)
         Me.Panel19.Controls.Add(Me.rdbEnrolledTrue)
-        Me.Panel19.Location = New System.Drawing.Point(100, 55)
+        Me.Panel19.Location = New System.Drawing.Point(100, 64)
         Me.Panel19.Name = "Panel19"
         Me.Panel19.Size = New System.Drawing.Size(91, 22)
         Me.Panel19.TabIndex = 430
@@ -4847,7 +4714,7 @@ Partial Class PASPFeeAuditLog
         Me.Panel20.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel20.Controls.Add(Me.rdbInactiveStatus)
         Me.Panel20.Controls.Add(Me.rdbActiveAdmin)
-        Me.Panel20.Location = New System.Drawing.Point(691, 158)
+        Me.Panel20.Location = New System.Drawing.Point(691, 167)
         Me.Panel20.Name = "Panel20"
         Me.Panel20.Size = New System.Drawing.Size(98, 22)
         Me.Panel20.TabIndex = 443
@@ -4880,7 +4747,7 @@ Partial Class PASPFeeAuditLog
         Me.Panel18.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel18.Controls.Add(Me.rdbMailoutFalse)
         Me.Panel18.Controls.Add(Me.rdbMailoutTrue)
-        Me.Panel18.Location = New System.Drawing.Point(100, 83)
+        Me.Panel18.Location = New System.Drawing.Point(100, 92)
         Me.Panel18.Name = "Panel18"
         Me.Panel18.Size = New System.Drawing.Size(91, 22)
         Me.Panel18.TabIndex = 431
@@ -4910,7 +4777,7 @@ Partial Class PASPFeeAuditLog
         'Label49
         '
         Me.Label49.AutoSize = True
-        Me.Label49.Location = New System.Drawing.Point(590, 188)
+        Me.Label49.Location = New System.Drawing.Point(590, 197)
         Me.Label49.Name = "Label49"
         Me.Label49.Size = New System.Drawing.Size(66, 13)
         Me.Label49.TabIndex = 454
@@ -4922,7 +4789,7 @@ Partial Class PASPFeeAuditLog
         Me.Panel17.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel17.Controls.Add(Me.rdbSubmittalFalse)
         Me.Panel17.Controls.Add(Me.rdbSubmittalTrue)
-        Me.Panel17.Location = New System.Drawing.Point(100, 111)
+        Me.Panel17.Location = New System.Drawing.Point(100, 120)
         Me.Panel17.Name = "Panel17"
         Me.Panel17.Size = New System.Drawing.Size(91, 22)
         Me.Panel17.TabIndex = 432
@@ -4952,7 +4819,7 @@ Partial Class PASPFeeAuditLog
         'Label31
         '
         Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(801, 162)
+        Me.Label31.Location = New System.Drawing.Point(801, 171)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(74, 13)
         Me.Label31.TabIndex = 441
@@ -4960,7 +4827,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtIAIPAdminStatus
         '
-        Me.txtIAIPAdminStatus.Location = New System.Drawing.Point(593, 29)
+        Me.txtIAIPAdminStatus.Location = New System.Drawing.Point(593, 38)
         Me.txtIAIPAdminStatus.Multiline = True
         Me.txtIAIPAdminStatus.Name = "txtIAIPAdminStatus"
         Me.txtIAIPAdminStatus.ReadOnly = True
@@ -4969,7 +4836,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtFSAdminUpdatingUser
         '
-        Me.txtFSAdminUpdatingUser.Location = New System.Drawing.Point(662, 186)
+        Me.txtFSAdminUpdatingUser.Location = New System.Drawing.Point(662, 195)
         Me.txtFSAdminUpdatingUser.Name = "txtFSAdminUpdatingUser"
         Me.txtFSAdminUpdatingUser.ReadOnly = True
         Me.txtFSAdminUpdatingUser.Size = New System.Drawing.Size(131, 20)
@@ -4978,7 +4845,7 @@ Partial Class PASPFeeAuditLog
         'Label29
         '
         Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(590, 13)
+        Me.Label29.Location = New System.Drawing.Point(590, 22)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(97, 13)
         Me.Label29.TabIndex = 434
@@ -4987,7 +4854,7 @@ Partial Class PASPFeeAuditLog
         'Label32
         '
         Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(801, 188)
+        Me.Label32.Location = New System.Drawing.Point(801, 197)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(70, 13)
         Me.Label32.TabIndex = 440
@@ -4996,7 +4863,7 @@ Partial Class PASPFeeAuditLog
         'Label28
         '
         Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(10, 142)
+        Me.Label28.Location = New System.Drawing.Point(10, 151)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(117, 13)
         Me.Label28.TabIndex = 435
@@ -5005,7 +4872,7 @@ Partial Class PASPFeeAuditLog
         'Label33
         '
         Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(590, 162)
+        Me.Label33.Location = New System.Drawing.Point(590, 171)
         Me.Label33.Name = "Label33"
         Me.Label33.Size = New System.Drawing.Size(70, 13)
         Me.Label33.TabIndex = 439
@@ -5014,7 +4881,7 @@ Partial Class PASPFeeAuditLog
         'Label27
         '
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(590, 138)
+        Me.Label27.Location = New System.Drawing.Point(590, 147)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(63, 13)
         Me.Label27.TabIndex = 436
@@ -5022,7 +4889,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtFSAdminComments
         '
-        Me.txtFSAdminComments.Location = New System.Drawing.Point(133, 139)
+        Me.txtFSAdminComments.Location = New System.Drawing.Point(133, 148)
         Me.txtFSAdminComments.Multiline = True
         Me.txtFSAdminComments.Name = "txtFSAdminComments"
         Me.txtFSAdminComments.Size = New System.Drawing.Size(446, 65)
@@ -5033,7 +4900,7 @@ Partial Class PASPFeeAuditLog
         Me.dtpFeeAdminStatusDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpFeeAdminStatusDate.Enabled = False
         Me.dtpFeeAdminStatusDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpFeeAdminStatusDate.Location = New System.Drawing.Point(691, 132)
+        Me.dtpFeeAdminStatusDate.Location = New System.Drawing.Point(691, 141)
         Me.dtpFeeAdminStatusDate.Name = "dtpFeeAdminStatusDate"
         Me.dtpFeeAdminStatusDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpFeeAdminStatusDate.TabIndex = 437
@@ -5042,16 +4909,11 @@ Partial Class PASPFeeAuditLog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1016, 713)
-        Me.Controls.Add(Me.TabControl1)
-        Me.Controls.Add(Me.StatusStrip1)
-        Me.Menu = Me.MainMenu1
+        Me.ClientSize = New System.Drawing.Size(1016, 710)
+        Me.Controls.Add(Me.TabControl3)
+        Me.Controls.Add(Me.Panel4)
         Me.Name = "PASPFeeAuditLog"
-        Me.Text = "PASP Fee Audit Log"
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
-        Me.TabControl1.ResumeLayout(False)
-        Me.TPFeeAdmin.ResumeLayout(False)
+        Me.Text = "Fee Audit Log"
         Me.TabControl3.ResumeLayout(False)
         Me.TPGECOSubmittal.ResumeLayout(False)
         CType(Me.dgvInvoiceData, System.ComponentModel.ISupportInitialize).EndInit()
@@ -5128,25 +4990,8 @@ Partial Class PASPFeeAuditLog
         Me.Panel17.ResumeLayout(False)
         Me.Panel17.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
-    Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents MmiFile As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiSave As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiBack As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiView As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiNewApplication As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiHelp As System.Windows.Forms.MenuItem
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents ToolStripProgressBar1 As System.Windows.Forms.ToolStripProgressBar
-    Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
-    Friend WithEvents TPFeeAdmin As System.Windows.Forms.TabPage
     Friend WithEvents dtpFSAdminCreateDateTime As System.Windows.Forms.DateTimePicker
     Friend WithEvents dtpFSAdminUpdate As System.Windows.Forms.DateTimePicker
     Friend WithEvents Panel20 As System.Windows.Forms.Panel
