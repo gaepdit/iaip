@@ -418,7 +418,7 @@ Partial Class PASPFeeAuditLog
         Me.Panel5 = New System.Windows.Forms.Panel
         Me.rdbLetterMailedFalse = New System.Windows.Forms.RadioButton
         Me.rdbLetterMailedTrue = New System.Windows.Forms.RadioButton
-        Me.btnReloadFSData = New System.Windows.Forms.Button
+        Me.ReloadButton = New System.Windows.Forms.Button
         Me.btnAddFSAdmin = New System.Windows.Forms.Button
         Me.btnUpdateFSAdmin = New System.Windows.Forms.Button
         Me.mtbFeeAdminExistingYear = New System.Windows.Forms.MaskedTextBox
@@ -461,6 +461,7 @@ Partial Class PASPFeeAuditLog
         Me.Label27 = New System.Windows.Forms.Label
         Me.txtFSAdminComments = New System.Windows.Forms.TextBox
         Me.dtpFeeAdminStatusDate = New System.Windows.Forms.DateTimePicker
+        Me.LoadPanel = New System.Windows.Forms.Panel
         Me.TabControl3.SuspendLayout()
         Me.TPGECOSubmittal.SuspendLayout()
         CType(Me.dgvInvoiceData, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -510,6 +511,7 @@ Partial Class PASPFeeAuditLog
         Me.Panel20.SuspendLayout()
         Me.Panel18.SuspendLayout()
         Me.Panel17.SuspendLayout()
+        Me.LoadPanel.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl3
@@ -3707,8 +3709,8 @@ Partial Class PASPFeeAuditLog
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.btnMailoutSaveUpdates)
-        Me.GroupBox1.Controls.Add(Me.Label5)
         Me.GroupBox1.Controls.Add(Me.btnRefreshContactData)
+        Me.GroupBox1.Controls.Add(Me.Label5)
         Me.GroupBox1.Controls.Add(Me.btnOpenFSMailout)
         Me.GroupBox1.Controls.Add(Me.DTPFSMailOutDateCreated)
         Me.GroupBox1.Controls.Add(Me.DTPFSMailOutUpdateDate)
@@ -3761,7 +3763,7 @@ Partial Class PASPFeeAuditLog
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(484, 118)
+        Me.Label5.Location = New System.Drawing.Point(849, 67)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(128, 13)
         Me.Label5.TabIndex = 485
@@ -3772,7 +3774,7 @@ Partial Class PASPFeeAuditLog
         Me.btnRefreshContactData.AutoSize = True
         Me.btnRefreshContactData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnRefreshContactData.Image = CType(resources.GetObject("btnRefreshContactData.Image"), System.Drawing.Image)
-        Me.btnRefreshContactData.Location = New System.Drawing.Point(456, 113)
+        Me.btnRefreshContactData.Location = New System.Drawing.Point(821, 62)
         Me.btnRefreshContactData.Name = "btnRefreshContactData"
         Me.btnRefreshContactData.Size = New System.Drawing.Size(22, 22)
         Me.btnRefreshContactData.TabIndex = 484
@@ -3782,7 +3784,7 @@ Partial Class PASPFeeAuditLog
         '
         Me.btnOpenFSMailout.AutoSize = True
         Me.btnOpenFSMailout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnOpenFSMailout.Location = New System.Drawing.Point(821, 16)
+        Me.btnOpenFSMailout.Location = New System.Drawing.Point(813, 107)
         Me.btnOpenFSMailout.Name = "btnOpenFSMailout"
         Me.btnOpenFSMailout.Size = New System.Drawing.Size(93, 23)
         Me.btnOpenFSMailout.TabIndex = 483
@@ -4316,6 +4318,7 @@ Partial Class PASPFeeAuditLog
         '
         'Panel4
         '
+        Me.Panel4.Controls.Add(Me.LoadPanel)
         Me.Panel4.Controls.Add(Me.btnCheckInvoices)
         Me.Panel4.Controls.Add(Me.txtYear)
         Me.Panel4.Controls.Add(Me.txtAIRSNumber)
@@ -4325,25 +4328,20 @@ Partial Class PASPFeeAuditLog
         Me.Panel4.Controls.Add(Me.Label9)
         Me.Panel4.Controls.Add(Me.Label8)
         Me.Panel4.Controls.Add(Me.Panel5)
-        Me.Panel4.Controls.Add(Me.btnReloadFSData)
         Me.Panel4.Controls.Add(Me.btnAddFSAdmin)
         Me.Panel4.Controls.Add(Me.btnUpdateFSAdmin)
-        Me.Panel4.Controls.Add(Me.mtbFeeAdminExistingYear)
         Me.Panel4.Controls.Add(Me.Label56)
-        Me.Panel4.Controls.Add(Me.Label26)
         Me.Panel4.Controls.Add(Me.txtFeeAdminFacilityName)
         Me.Panel4.Controls.Add(Me.dtpSubmittalDate)
         Me.Panel4.Controls.Add(Me.Label25)
         Me.Panel4.Controls.Add(Me.dtpEnrollmentDate)
         Me.Panel4.Controls.Add(Me.Label24)
         Me.Panel4.Controls.Add(Me.Label39)
-        Me.Panel4.Controls.Add(Me.Label23)
         Me.Panel4.Controls.Add(Me.dtpEnrollmentInitial)
         Me.Panel4.Controls.Add(Me.Label22)
         Me.Panel4.Controls.Add(Me.Label38)
         Me.Panel4.Controls.Add(Me.Label21)
         Me.Panel4.Controls.Add(Me.dtpFSAdminCreateDateTime)
-        Me.Panel4.Controls.Add(Me.mtbFeeAdminAIRSNumber)
         Me.Panel4.Controls.Add(Me.dtpFSAdminUpdate)
         Me.Panel4.Controls.Add(Me.Panel19)
         Me.Panel4.Controls.Add(Me.Panel20)
@@ -4472,18 +4470,18 @@ Partial Class PASPFeeAuditLog
         Me.rdbLetterMailedTrue.Text = "Yes"
         Me.rdbLetterMailedTrue.UseVisualStyleBackColor = True
         '
-        'btnReloadFSData
+        'ReloadButton
         '
-        Me.btnReloadFSData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnReloadFSData.Image = CType(resources.GetObject("btnReloadFSData.Image"), System.Drawing.Image)
-        Me.btnReloadFSData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnReloadFSData.Location = New System.Drawing.Point(223, 9)
-        Me.btnReloadFSData.Name = "btnReloadFSData"
-        Me.btnReloadFSData.Size = New System.Drawing.Size(68, 24)
-        Me.btnReloadFSData.TabIndex = 486
-        Me.btnReloadFSData.Text = "Reload"
-        Me.btnReloadFSData.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.btnReloadFSData.UseVisualStyleBackColor = True
+        Me.ReloadButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.ReloadButton.Image = CType(resources.GetObject("ReloadButton.Image"), System.Drawing.Image)
+        Me.ReloadButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ReloadButton.Location = New System.Drawing.Point(223, 9)
+        Me.ReloadButton.Name = "ReloadButton"
+        Me.ReloadButton.Size = New System.Drawing.Size(68, 24)
+        Me.ReloadButton.TabIndex = 486
+        Me.ReloadButton.Text = "Reload"
+        Me.ReloadButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.ReloadButton.UseVisualStyleBackColor = True
         '
         'btnAddFSAdmin
         '
@@ -4892,6 +4890,18 @@ Partial Class PASPFeeAuditLog
         Me.dtpFeeAdminStatusDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpFeeAdminStatusDate.TabIndex = 437
         '
+        'LoadPanel
+        '
+        Me.LoadPanel.Controls.Add(Me.ReloadButton)
+        Me.LoadPanel.Controls.Add(Me.mtbFeeAdminExistingYear)
+        Me.LoadPanel.Controls.Add(Me.Label26)
+        Me.LoadPanel.Controls.Add(Me.Label23)
+        Me.LoadPanel.Controls.Add(Me.mtbFeeAdminAIRSNumber)
+        Me.LoadPanel.Location = New System.Drawing.Point(0, 0)
+        Me.LoadPanel.Name = "LoadPanel"
+        Me.LoadPanel.Size = New System.Drawing.Size(299, 37)
+        Me.LoadPanel.TabIndex = 498
+        '
         'PASPFeeAuditLog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -4976,6 +4986,8 @@ Partial Class PASPFeeAuditLog
         Me.Panel18.PerformLayout()
         Me.Panel17.ResumeLayout(False)
         Me.Panel17.PerformLayout()
+        Me.LoadPanel.ResumeLayout(False)
+        Me.LoadPanel.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -5081,7 +5093,7 @@ Partial Class PASPFeeAuditLog
     Friend WithEvents btnRefreshCurrentFacilityInfo As System.Windows.Forms.Button
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents btnRefreshContactData As System.Windows.Forms.Button
-    Friend WithEvents btnReloadFSData As System.Windows.Forms.Button
+    Friend WithEvents ReloadButton As System.Windows.Forms.Button
     Friend WithEvents TabControl3 As System.Windows.Forms.TabControl
     Friend WithEvents TPMailoutInformation As System.Windows.Forms.TabPage
     Friend WithEvents TPGECOSubmittal As System.Windows.Forms.TabPage
@@ -5417,4 +5429,5 @@ Partial Class PASPFeeAuditLog
     Friend WithEvents chbChangeInvoiceNumber As System.Windows.Forms.CheckBox
     Friend WithEvents cboAuditType As System.Windows.Forms.ComboBox
     Friend WithEvents Label13 As System.Windows.Forms.Label
+    Friend WithEvents LoadPanel As System.Windows.Forms.Panel
 End Class

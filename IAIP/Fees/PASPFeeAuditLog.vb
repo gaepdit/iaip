@@ -2476,243 +2476,6 @@ Public Class PASPFeeAuditLog
         End Try
     End Sub
 
-#End Region
-
-    Private Sub btnReloadFSData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReloadFSData.Click
-        Try
-            FeeYear = mtbFeeAdminExistingYear.Text
-            AIRSNumber = mtbFeeAdminAIRSNumber.Text
-
-            ClearForm()
-            mtbFeeAdminAIRSNumber.Text = AIRSNumber
-            txtAIRSNumber.Text = mtbFeeAdminAIRSNumber.Text
-            txtYear.Text = mtbFeeAdminExistingYear.Text
-            mtbFeeAdminExistingYear.Text = FeeYear
-            LoadAdminData()
-            LoadAuditedData()
-
-            ds = New DataSet
-
-            dgvInvoices.DataMember = ""
-            dgvInvoices.DataSource = ds
-
-            ClearInvoices()
-            ClearAuditData()
-            crFeeStatsAndInvoices.ReportSource = Nothing
-            crFeeStatsAndInvoices.Refresh()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Sub ClearForm()
-        Try
-            ClearAdminData()
-            rdbInvoiceDataPaidStatus.Checked = False
-            rdbInvoiceDataUnpaidStatus.Checked = False
-            txtInvoiceClassification.Clear()
-            chbInvoiceDataOperating.Checked = False
-            chbInvoicedataNonAttainment.Checked = False
-            chbInvoiceDataNSPS.Checked = False
-            chbInvoiceDataPart70.Checked = False
-            chbInvoiceDataSyntheticMinor.Checked = False
-            txtInvoiceDataPaymentType.Clear()
-            txtInvoiceDataGECOComments.Clear()
-            txtInvoiceDataVOCTons.Clear()
-            txtInvoiceDataPMTons.Clear()
-            txtInvoiceDataSO2Tons.Clear()
-            txtInvoiceDataNOxTons.Clear()
-            txtInvoiceDataFeeRate.Clear()
-            txtInvoiceDataPart70Fee.Clear()
-            txtInvoiceDataSMFee.Clear()
-            txtInvoiceDataNSPSFee.Clear()
-            txtInvoiceDataAdminFee.Clear()
-            txtInvoiceDataTotalFees.Clear()
-            dtpInvoiceDataDateInvoiced.Text = OracleDate
-            chbInvoiceDataNSPSExempt.Checked = False
-            txtInvoiceDataNSPSExempts.Clear()
-            ds = New DataSet
-            dgvInvoiceDataNSPSExemptions.DataMember = ""
-            dgvInvoiceDataNSPSExemptions.DataSource = ds
-
-            txtInvoiceDataOfficialName.Clear()
-            txtInvoiceDataOfficialTitle.Clear()
-            txtInvoiceDataConfirmationNumber.Clear()
-            txtInvoiceDataUpdate.Clear()
-            dtpInvoiceDataDateUpdated.Text = OracleDate
-            dtpInvoiceDataCreatedDate.Text = OracleDate
-            dgvInvoiceData.DataMember = ""
-            dgvInvoiceData.DataSource = ds
-
-            txtGECOContactSalutation.Clear()
-            txtGECOContactFirstName.Clear()
-            txtGECOContactLastName.Clear()
-            txtGECOContactTitle.Clear()
-            txtGECOContactCompanyName.Clear()
-            txtGECOContactStreetAddress.Clear()
-            txtGECOContactCity.Clear()
-            txtGECOContactState.Clear()
-            mtbGECOContactZipCode.Clear()
-            mtbGECOContactPhontNumber.Clear()
-            mtbGECOContactFaxNumber.Clear()
-            txtGECOContactEmail.Clear()
-            txtGECOContactComments.Clear()
-
-            dgvGECOFeeContacts.DataMember = ""
-            dgvGECOFeeContacts.DataSource = ds
-
-            txtTransactionID.Clear()
-            txtInvoiceID.Clear()
-            txtDepositNo.Clear()
-            txtBatchNo.Clear()
-            txtTransactionCreatedBy.Clear()
-            cboTransactionType.SelectedValue = 0
-            dtpTransactionDate.Text = OracleDate
-            txtTransactionAmount.Clear()
-            txtTransactionCheckNo.Clear()
-            txtTransactionCreditCardNo.Clear()
-            txtAPBComments.Clear()
-            txtTransactionUpdated.Clear()
-            dtpTransactionUpdated.Text = OracleDate
-            dtpTransactionCreated.Text = OracleDate
-
-            dgvTransactions.DataMember = ""
-            dgvTransactions.DataSource = ds
-
-            txtGECOContactSalutation.ReadOnly = True
-            txtGECOContactFirstName.ReadOnly = True
-            txtGECOContactLastName.ReadOnly = True
-            txtGECOContactTitle.ReadOnly = True
-            txtGECOContactCompanyName.ReadOnly = True
-            txtGECOContactStreetAddress.ReadOnly = True
-            txtGECOContactCity.ReadOnly = True
-            txtGECOContactState.ReadOnly = True
-            mtbGECOContactZipCode.ReadOnly = True
-            mtbGECOContactPhontNumber.ReadOnly = True
-            mtbGECOContactFaxNumber.ReadOnly = True
-            txtGECOContactEmail.ReadOnly = True
-            txtGECOContactComments.ReadOnly = True
-
-            MailoutEditingToggle(False)
-            ClearEditData()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnUpdateFSAdmin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateFSAdmin.Click
-        Try
-            Dim ResultDoc As DialogResult
-
-            If rdbInactiveStatus.Checked = True Then
-                ResultDoc = MessageBox.Show("If there are any transactions associated with this fee year they will ""effectively"" be deleted." & vbCrLf & _
-                         "Do you want to continue with an inactive status for this fee year data?", Me.Text, _
-                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-
-                Select Case ResultDoc
-                    Case Windows.Forms.DialogResult.Yes
-
-                    Case Else
-                        MsgBox("NO DATA SAVED.", MsgBoxStyle.Exclamation, Me.Text)
-                        Exit Sub
-                End Select
-            End If
-
-            If (mtbFeeAdminAIRSNumber.Text <> txtAIRSNumber.Text) _
-                Or (mtbFeeAdminExistingYear.Text <> txtYear.Text) _
-                Or txtAIRSNumber.Text = "" Or mtbFeeAdminExistingYear.Text = "" _
-                Or txtYear.Text = "" Then
-                MsgBox("The currently selected AIRS # does not match the selecting AIRS #." & _
-                       vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
-            End If
-
-            SQL = "Select strAIRSNumber from airbranch.FS_Admin " & _
-            "where numFeeYear = '" & mtbFeeAdminExistingYear.Text & "' " & _
-            "and strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-
-            If recExist = False Then
-                MsgBox("The faciltiy is not currently in the Fee universe for the selected year." & vbCrLf & _
-                       "Use the Add New Facility to Year." & vbCrLf & vbCrLf & "NO DATA SAVED", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
-            End If
-
-
-            If Update_FS_Admin(mtbFeeAdminExistingYear.Text, mtbFeeAdminAIRSNumber.Text, _
-                             rdbEnrolledTrue.Checked, _
-                             dtpEnrollmentDate.Text, rdbMailoutTrue.Checked, _
-                             rdbLetterMailedTrue.Checked, dtpLetterMailed.Text, _
-                             rdbSubmittalTrue.Checked, dtpSubmittalDate.Text, _
-                             "", _
-                             txtFSAdminComments.Text, rdbActiveAdmin.Checked) = True Then
-
-                If rdbInactiveStatus.Checked = True Then
-                    FeeYear = mtbFeeAdminExistingYear.Text
-                    AIRSNumber = mtbFeeAdminAIRSNumber.Text
-
-                    ClearForm()
-                    mtbFeeAdminAIRSNumber.Text = AIRSNumber
-                    txtAIRSNumber.Text = mtbFeeAdminAIRSNumber.Text
-                    txtYear.Text = mtbFeeAdminExistingYear.Text
-                    mtbFeeAdminExistingYear.Text = FeeYear
-                    LoadAdminData()
-                    LoadAuditedData()
-
-                    ds = New DataSet
-
-                    dgvInvoices.DataMember = ""
-                    dgvInvoices.DataSource = ds
-
-                    ClearInvoices()
-                    ClearAuditData()
-
-                End If
-
-                MsgBox("Save completed", MsgBoxStyle.Information, Me.Text)
-            Else
-                MsgBox("Did not Save", MsgBoxStyle.Information, Me.Text)
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnAddFSAdmin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddFSAdmin.Click
-        Try
-            If (mtbFeeAdminAIRSNumber.Text <> txtAIRSNumber.Text) _
-             Or (mtbFeeAdminExistingYear.Text <> txtYear.Text) _
-             Or txtAIRSNumber.Text = "" Or mtbFeeAdminExistingYear.Text = "" _
-             Or txtYear.Text = "" Then
-                MsgBox("The currently selected AIRS # does not match the selecting AIRS #." & _
-                       vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
-            End If
-
-            If Insert_FS_Admin(mtbFeeAdminExistingYear.Text, mtbFeeAdminAIRSNumber.Text, _
-                          rdbEnrolledTrue.Checked, _
-                          dtpEnrollmentDate.Text, rdbMailoutTrue.Checked, _
-                          rdbLetterMailedTrue.Checked, dtpLetterMailed.Text, _
-                          rdbSubmittalTrue.Checked, dtpSubmittalDate.Text, _
-                          "", _
-                          txtFSAdminComments.Text, rdbActiveAdmin.Checked) = True Then
-
-                MsgBox("Save completed", MsgBoxStyle.Information, Me.Text)
-            Else
-                MsgBox("Did not Save", MsgBoxStyle.Information, Me.Text)
-            End If
-
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
     Private Sub btnRefreshContactData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRefreshContactData.Click
         Try
             If mtbFeeAdminAIRSNumber.Text = "" Or mtbFeeAdminAIRSNumber.Text.Length <> 8 Then
@@ -2974,6 +2737,244 @@ Public Class PASPFeeAuditLog
                 End If
             End While
             dr.Close()
+
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
+#End Region
+
+    Private Sub btnReloadFSData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ReloadButton.Click
+        Try
+            FeeYear = mtbFeeAdminExistingYear.Text
+            AIRSNumber = mtbFeeAdminAIRSNumber.Text
+
+            ClearForm()
+            mtbFeeAdminAIRSNumber.Text = AIRSNumber
+            txtAIRSNumber.Text = mtbFeeAdminAIRSNumber.Text
+            txtYear.Text = mtbFeeAdminExistingYear.Text
+            mtbFeeAdminExistingYear.Text = FeeYear
+            LoadAdminData()
+            LoadAuditedData()
+
+            ds = New DataSet
+
+            dgvInvoices.DataMember = ""
+            dgvInvoices.DataSource = ds
+
+            ClearInvoices()
+            ClearAuditData()
+            crFeeStatsAndInvoices.ReportSource = Nothing
+            crFeeStatsAndInvoices.Refresh()
+
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Sub ClearForm()
+        Try
+            ClearAdminData()
+            rdbInvoiceDataPaidStatus.Checked = False
+            rdbInvoiceDataUnpaidStatus.Checked = False
+            txtInvoiceClassification.Clear()
+            chbInvoiceDataOperating.Checked = False
+            chbInvoicedataNonAttainment.Checked = False
+            chbInvoiceDataNSPS.Checked = False
+            chbInvoiceDataPart70.Checked = False
+            chbInvoiceDataSyntheticMinor.Checked = False
+            txtInvoiceDataPaymentType.Clear()
+            txtInvoiceDataGECOComments.Clear()
+            txtInvoiceDataVOCTons.Clear()
+            txtInvoiceDataPMTons.Clear()
+            txtInvoiceDataSO2Tons.Clear()
+            txtInvoiceDataNOxTons.Clear()
+            txtInvoiceDataFeeRate.Clear()
+            txtInvoiceDataPart70Fee.Clear()
+            txtInvoiceDataSMFee.Clear()
+            txtInvoiceDataNSPSFee.Clear()
+            txtInvoiceDataAdminFee.Clear()
+            txtInvoiceDataTotalFees.Clear()
+            dtpInvoiceDataDateInvoiced.Text = OracleDate
+            chbInvoiceDataNSPSExempt.Checked = False
+            txtInvoiceDataNSPSExempts.Clear()
+            ds = New DataSet
+            dgvInvoiceDataNSPSExemptions.DataMember = ""
+            dgvInvoiceDataNSPSExemptions.DataSource = ds
+
+            txtInvoiceDataOfficialName.Clear()
+            txtInvoiceDataOfficialTitle.Clear()
+            txtInvoiceDataConfirmationNumber.Clear()
+            txtInvoiceDataUpdate.Clear()
+            dtpInvoiceDataDateUpdated.Text = OracleDate
+            dtpInvoiceDataCreatedDate.Text = OracleDate
+            dgvInvoiceData.DataMember = ""
+            dgvInvoiceData.DataSource = ds
+
+            txtGECOContactSalutation.Clear()
+            txtGECOContactFirstName.Clear()
+            txtGECOContactLastName.Clear()
+            txtGECOContactTitle.Clear()
+            txtGECOContactCompanyName.Clear()
+            txtGECOContactStreetAddress.Clear()
+            txtGECOContactCity.Clear()
+            txtGECOContactState.Clear()
+            mtbGECOContactZipCode.Clear()
+            mtbGECOContactPhontNumber.Clear()
+            mtbGECOContactFaxNumber.Clear()
+            txtGECOContactEmail.Clear()
+            txtGECOContactComments.Clear()
+
+            dgvGECOFeeContacts.DataMember = ""
+            dgvGECOFeeContacts.DataSource = ds
+
+            txtTransactionID.Clear()
+            txtInvoiceID.Clear()
+            txtDepositNo.Clear()
+            txtBatchNo.Clear()
+            txtTransactionCreatedBy.Clear()
+            cboTransactionType.SelectedValue = 0
+            dtpTransactionDate.Text = OracleDate
+            txtTransactionAmount.Clear()
+            txtTransactionCheckNo.Clear()
+            txtTransactionCreditCardNo.Clear()
+            txtAPBComments.Clear()
+            txtTransactionUpdated.Clear()
+            dtpTransactionUpdated.Text = OracleDate
+            dtpTransactionCreated.Text = OracleDate
+
+            dgvTransactions.DataMember = ""
+            dgvTransactions.DataSource = ds
+
+            txtGECOContactSalutation.ReadOnly = True
+            txtGECOContactFirstName.ReadOnly = True
+            txtGECOContactLastName.ReadOnly = True
+            txtGECOContactTitle.ReadOnly = True
+            txtGECOContactCompanyName.ReadOnly = True
+            txtGECOContactStreetAddress.ReadOnly = True
+            txtGECOContactCity.ReadOnly = True
+            txtGECOContactState.ReadOnly = True
+            mtbGECOContactZipCode.ReadOnly = True
+            mtbGECOContactPhontNumber.ReadOnly = True
+            mtbGECOContactFaxNumber.ReadOnly = True
+            txtGECOContactEmail.ReadOnly = True
+            txtGECOContactComments.ReadOnly = True
+
+            MailoutEditingToggle(False)
+            ClearEditData()
+
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnUpdateFSAdmin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateFSAdmin.Click
+        Try
+            Dim ResultDoc As DialogResult
+
+            If rdbInactiveStatus.Checked = True Then
+                ResultDoc = MessageBox.Show("If there are any transactions associated with this fee year they will ""effectively"" be deleted." & vbCrLf & _
+                         "Do you want to continue with an inactive status for this fee year data?", Me.Text, _
+                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
+
+                Select Case ResultDoc
+                    Case Windows.Forms.DialogResult.Yes
+
+                    Case Else
+                        MsgBox("NO DATA SAVED.", MsgBoxStyle.Exclamation, Me.Text)
+                        Exit Sub
+                End Select
+            End If
+
+            If (mtbFeeAdminAIRSNumber.Text <> txtAIRSNumber.Text) _
+                Or (mtbFeeAdminExistingYear.Text <> txtYear.Text) _
+                Or txtAIRSNumber.Text = "" Or mtbFeeAdminExistingYear.Text = "" _
+                Or txtYear.Text = "" Then
+                MsgBox("The currently selected AIRS # does not match the selecting AIRS #." & _
+                       vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
+                Exit Sub
+            End If
+
+            SQL = "Select strAIRSNumber from airbranch.FS_Admin " & _
+            "where numFeeYear = '" & mtbFeeAdminExistingYear.Text & "' " & _
+            "and strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' "
+
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
+            End If
+            dr = cmd.ExecuteReader
+            recExist = dr.Read
+
+            If recExist = False Then
+                MsgBox("The faciltiy is not currently in the Fee universe for the selected year." & vbCrLf & _
+                       "Use the Add New Facility to Year." & vbCrLf & vbCrLf & "NO DATA SAVED", MsgBoxStyle.Information, Me.Text)
+                Exit Sub
+            End If
+
+
+            If Update_FS_Admin(mtbFeeAdminExistingYear.Text, mtbFeeAdminAIRSNumber.Text, _
+                             rdbEnrolledTrue.Checked, _
+                             dtpEnrollmentDate.Text, rdbMailoutTrue.Checked, _
+                             rdbLetterMailedTrue.Checked, dtpLetterMailed.Text, _
+                             rdbSubmittalTrue.Checked, dtpSubmittalDate.Text, _
+                             "", _
+                             txtFSAdminComments.Text, rdbActiveAdmin.Checked) = True Then
+
+                If rdbInactiveStatus.Checked = True Then
+                    FeeYear = mtbFeeAdminExistingYear.Text
+                    AIRSNumber = mtbFeeAdminAIRSNumber.Text
+
+                    ClearForm()
+                    mtbFeeAdminAIRSNumber.Text = AIRSNumber
+                    txtAIRSNumber.Text = mtbFeeAdminAIRSNumber.Text
+                    txtYear.Text = mtbFeeAdminExistingYear.Text
+                    mtbFeeAdminExistingYear.Text = FeeYear
+                    LoadAdminData()
+                    LoadAuditedData()
+
+                    ds = New DataSet
+
+                    dgvInvoices.DataMember = ""
+                    dgvInvoices.DataSource = ds
+
+                    ClearInvoices()
+                    ClearAuditData()
+
+                End If
+
+                MsgBox("Save completed", MsgBoxStyle.Information, Me.Text)
+            Else
+                MsgBox("Did not Save", MsgBoxStyle.Information, Me.Text)
+            End If
+
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnAddFSAdmin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddFSAdmin.Click
+        Try
+            If (mtbFeeAdminAIRSNumber.Text <> txtAIRSNumber.Text) _
+             Or (mtbFeeAdminExistingYear.Text <> txtYear.Text) _
+             Or txtAIRSNumber.Text = "" Or mtbFeeAdminExistingYear.Text = "" _
+             Or txtYear.Text = "" Then
+                MsgBox("The currently selected AIRS # does not match the selecting AIRS #." & _
+                       vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
+                Exit Sub
+            End If
+
+            If Insert_FS_Admin(mtbFeeAdminExistingYear.Text, mtbFeeAdminAIRSNumber.Text, _
+                          rdbEnrolledTrue.Checked, _
+                          dtpEnrollmentDate.Text, rdbMailoutTrue.Checked, _
+                          rdbLetterMailedTrue.Checked, dtpLetterMailed.Text, _
+                          rdbSubmittalTrue.Checked, dtpSubmittalDate.Text, _
+                          "", _
+                          txtFSAdminComments.Text, rdbActiveAdmin.Checked) = True Then
+
+                MsgBox("Save completed", MsgBoxStyle.Information, Me.Text)
+            Else
+                MsgBox("Did not Save", MsgBoxStyle.Information, Me.Text)
+            End If
+
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -5973,5 +5974,12 @@ Public Class PASPFeeAuditLog
         End Try
     End Sub
 
+    Private Sub LoadPanel_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LoadPanel.Enter
+        Me.AcceptButton = ReloadButton
+    End Sub
+
+    Private Sub LoadPanel_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LoadPanel.Leave
+        Me.AcceptButton = Nothing
+    End Sub
 End Class
 
