@@ -20,6 +20,11 @@ Namespace DB
             d.Add(0, blankPrompt)
         End Sub
 
+        Public Function AddBlankRowToList(ByRef l As List(Of String), Optional ByVal blankPrompt As String = "") As List(Of String)
+            l.Insert(0, blankPrompt)
+            Return l
+        End Function
+
         Public Sub BindDictionaryToComboBox(ByVal d As Dictionary(Of Integer, String), ByVal c As ComboBox)
             With c
                 .DataSource = New BindingSource(d, Nothing)

@@ -71,10 +71,6 @@ Module subMain
     Public StaffReports As ISMPStaffReports ' TODO DWW: Remove
 #End Region
 
-#Region " Planning & Support Screens "
-    Public FeeStats As PASPFeeAuditLog
-#End Region
-
 #Region " SSCP Screens "
     Public SSCP_Work As SSCPComplianceLog ' TODO DWW: Remove
     Public SSCPReports As SSCPEvents

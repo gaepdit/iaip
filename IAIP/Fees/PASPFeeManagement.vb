@@ -1,4 +1,5 @@
 ﻿Imports Oracle.DataAccess.Client
+Imports System.Collections.Generic
 
 Public Class PASPFeeManagement
     Dim SQL As String
@@ -14,7 +15,7 @@ Public Class PASPFeeManagement
             LoadFeeRates("1")
             LoadNSPSExemptions("1")
             LoadNSPSExemptions2("1")
-            LoadNSPSExemptionYear()
+            LoadFeeYears()
             LoadSelectedNSPSExemptions()
 
             FormatWebUsers()
@@ -28,7 +29,7 @@ Public Class PASPFeeManagement
             btnSetMailoutDate.Enabled = False
             dtpDateMailoutSent.Enabled = False
 
-            FeeManagementListCount.Text = ""
+            FeeManagementListCountLabel.Text = ""
             btnExportToExcel.Visible = False
 
         Catch ex As Exception
@@ -279,44 +280,14 @@ Public Class PASPFeeManagement
         End Try
     End Sub
 
-    Sub LoadNSPSExemptionYear()
-        Try
-            Dim NSPSYear As String = ""
-            cboNSPSExemptionYear.Items.Clear()
-            'cboNSPSExemptionYear.Items.Add(Today.Year + 1)
-            cboAvailableFeeYears.Items.Clear()
-            'cboAvailableFeeYears.Items.Add(Today.Year + 1)
+    Private Sub LoadFeeYears()
+        Dim allFeeYears As List(Of String) = DB.AddBlankRowToList(DAL.GetAllFeeYears())
 
-            SQL = "Select " & _
-            "distinct(numFeeYear) as NSPSYear " & _
-            "from " & DBNameSpace & ".FSLK_NSPSReasonYear " & _
-            "order by numFeeyear desc "
+        cboNSPSExemptionYear.Items.Clear()
+        cboNSPSExemptionYear.DataSource = allFeeYears
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("NSPSYear")) Then
-                Else
-                    NSPSYear = dr.Item("NSPSYear")
-
-                    If cboNSPSExemptionYear.Items.Contains(NSPSYear) Then
-                    Else
-                        cboNSPSExemptionYear.Items.Add(NSPSYear)
-                    End If
-                    If cboAvailableFeeYears.Items.Contains(NSPSYear) Then
-                    Else
-                        cboAvailableFeeYears.Items.Add(NSPSYear)
-                    End If
-                End If
-            End While
-            dr.Close()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        cboAvailableFeeYears.Items.Clear()
+        cboAvailableFeeYears.DataSource = allFeeYears
     End Sub
     Sub LoadSelectedNSPSExemptions()
         Try
@@ -856,7 +827,7 @@ Public Class PASPFeeManagement
                     End If
                 Loop
             End If
-            LoadNSPSExemptionYear()
+            LoadFeeYears()
             MessageBox.Show("Update Complete", Me.Text, MessageBoxButtons.OK)
 
         Catch ex As Exception
@@ -1190,7 +1161,7 @@ Public Class PASPFeeManagement
             dgvFeeManagementLists.Columns("strGECOUserEmail").HeaderText = "Contact Email"
             dgvFeeManagementLists.Columns("strGECOUserEmail").DisplayIndex = 17
 
-            FeeManagementListCount.Text = "Count: " & dgvFeeManagementLists.RowCount.ToString
+            FeeManagementListCountLabel.Text = String.Format("Viewing {0} Fee Year: {1} result{2}", cboAvailableFeeYears.Text, dgvFeeManagementLists.RowCount.ToString, If(dgvFeeManagementLists.RowCount = 1, "", "s"))
             If dgvFeeManagementLists.RowCount > 0 Then
                 btnExportToExcel.Visible = True
             Else
@@ -1392,7 +1363,7 @@ Public Class PASPFeeManagement
             dgvFeeManagementLists.Columns("strGECOUserEmail").HeaderText = "Contact Email"
             dgvFeeManagementLists.Columns("strGECOUserEmail").DisplayIndex = 17
 
-            FeeManagementListCount.Text = "Count: " & dgvFeeManagementLists.RowCount.ToString
+            FeeManagementListCountLabel.Text = String.Format("Viewing {0} Fee Year: {1} result{2}", cboAvailableFeeYears.Text, dgvFeeManagementLists.RowCount.ToString, If(dgvFeeManagementLists.RowCount = 1, "", "s"))
             If dgvFeeManagementLists.RowCount > 0 Then
                 btnExportToExcel.Visible = True
             Else
@@ -1404,6 +1375,16 @@ Public Class PASPFeeManagement
         End Try
     End Sub
     Private Sub btnUpdateContactData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateContactData.Click
+        ' Warn user
+        Dim confirm As DialogResult = MessageBox.Show("This will replace mailout contact data with the current " & vbNewLine & _
+            "fee contact for all sources in the mailout list. " & _
+            vbNewLine & vbNewLine & _
+            "Are you sure you want to proceed?", _
+            "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2)
+        If confirm = Windows.Forms.DialogResult.No Then
+            Exit Sub
+        End If
+
         Try
             Dim AIRSNumber As String = ""
             Dim ContactFirstName As String = ""
@@ -1688,7 +1669,7 @@ Public Class PASPFeeManagement
             dgvFeeManagementLists.Columns("strMailoutSent").HeaderText = "In Mailout"
             dgvFeeManagementLists.Columns("strMailoutSent").DisplayIndex = 12
 
-            FeeManagementListCount.Text = "Count: " & dgvFeeManagementLists.RowCount.ToString
+            FeeManagementListCountLabel.Text = String.Format("Viewing {0} Fee Year: {1} result{2}", cboAvailableFeeYears.Text, dgvFeeManagementLists.RowCount.ToString, If(dgvFeeManagementLists.RowCount = 1, "", "s"))
             If dgvFeeManagementLists.RowCount > 0 Then
                 btnExportToExcel.Visible = True
             Else
@@ -1700,6 +1681,12 @@ Public Class PASPFeeManagement
         End Try
     End Sub
     Private Sub btnSetMailoutDate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSetMailoutDate.Click
+        Dim confirm As DialogResult = MessageBox.Show("Are you sure you want to set the initial mailout date for all sources in the mailout list?", _
+            "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1)
+        If confirm = Windows.Forms.DialogResult.No Then
+            Exit Sub
+        End If
+
         Try
             SQL = "Update " & DBNameSpace & ".FS_Admin set " & _
             " datMailoutSent = '" & dtpDateMailoutSent.Text & "', " & _
@@ -2692,88 +2679,583 @@ Public Class PASPFeeManagement
     '    End Try
     'End Sub
 
-    Private Sub cboAvailableFeeYears_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboAvailableFeeYears.TextChanged
+    Private Sub cboAvailableFeeYears_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboAvailableFeeYears.SelectedIndexChanged
+        If cboAvailableFeeYears.SelectedIndex = 0 Or cboAvailableFeeYears.SelectedIndex = 1 Then
+            btnGenerateMailoutList.Enabled = False
+            btnFirstEnrollment.Enabled = False
+            btnUnenrollFeeYear.Enabled = False
+            btnUpdateContactData.Enabled = False
+            btnSetMailoutDate.Enabled = False
+            dtpDateMailoutSent.Enabled = False
+        Else
+            btnGenerateMailoutList.Enabled = True
+            btnFirstEnrollment.Enabled = True
+            btnUnenrollFeeYear.Enabled = True
+            btnUpdateContactData.Enabled = True
+            btnSetMailoutDate.Enabled = True
+            dtpDateMailoutSent.Enabled = True
+        End If
+    End Sub
+
+    Private Sub btnOpenFeesLog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFeesLog.Click
+        Dim parameters As New Generic.Dictionary(Of String, String)
+        If Apb.Facility.IsAirsNumberValid(mtbCheckAIRSNumber.Text) Then
+            parameters("airsnumber") = mtbCheckAIRSNumber.Text
+        End If
+        parameters("feeyear") = cboAvailableFeeYears.SelectedText
+
+        OpenSingleForm("PASPFeeAuditLog", parameters:=parameters, closeFirst:=True)
+    End Sub
+
+    Private Sub dgvFeeManagementLists_SelectionChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dgvFeeManagementLists.SelectionChanged
+        mtbCheckAIRSNumber.Clear()
+        If dgvFeeManagementLists.SelectedRows.Count = 1 Then
+            mtbCheckAIRSNumber.Text = dgvFeeManagementLists.CurrentRow.Cells("AIRSNumber").Value.ToString
+        End If
+    End Sub
+
+#Region " CodeFile "
+    ' Code that was formerly in CodeFile.vb but is only used in this form anyway
+
+    Function Insert_FS_Mailout(ByVal FeeYear As String, ByVal AIRSNumber As String, _
+                        ByVal FirstName As String, ByVal LastName As String, _
+                        ByVal Prefix As String, ByVal Title As String, _
+                        ByVal ContactCoName As String, ByVal ContactAddress1 As String, _
+                        ByVal ContactAddress2 As String, ByVal ContactCity As String, _
+                        ByVal ContactState As String, ByVal ContactZipCode As String, _
+                        ByVal ContactEmail As String, ByVal OpStatus As String, _
+                        ByVal Classification As String, ByVal NSPS As String, _
+                        ByVal Part70 As String, ByVal ShutDownDate As String, _
+                        ByVal FacilityName As String, _
+                        ByVal FacilityAddress1 As String, ByVal FacilityAddress2 As String, _
+                        ByVal FacilityCity As String, ByVal FacilityZipCode As String, _
+                        ByVal Comment As String, ByVal Active As String) As Boolean
         Try
-            If cboAvailableFeeYears.Text >= (Today.Year - 1) Then
-                btnGenerateMailoutList.Enabled = True
-                btnFirstEnrollment.Enabled = True
-                btnUnenrollFeeYear.Enabled = True
-                btnUpdateContactData.Enabled = True
-                btnSetMailoutDate.Enabled = True
-                dtpDateMailoutSent.Enabled = True
+            If IsDBNull(FeeYear) Then
+                Return False
+            End If
+            If IsDBNull(AIRSNumber) Then
+                Return False
+            End If
+
+            If IsDBNull(OpStatus) Then
             Else
-                btnGenerateMailoutList.Enabled = False
-                btnFirstEnrollment.Enabled = False
-                btnUnenrollFeeYear.Enabled = False
-                btnUpdateContactData.Enabled = False
-                btnSetMailoutDate.Enabled = False
-                dtpDateMailoutSent.Enabled = False
+                OpStatus = Mid(OpStatus, 1, 1)
+            End If
+            If NSPS = True Then
+                NSPS = "1"
+            Else
+                NSPS = "0"
+            End If
+            If Part70 = True Then
+                Part70 = "1"
+            Else
+                Part70 = "0"
+            End If
+            If Active = False Then
+                Active = "0"
+            Else
+                Active = "1"
             End If
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
+            Dim SQL As String = "Insert into " & DBNameSpace & ".FS_MailOut " & _
+            "values " & _
+            "('" & FeeYear & "', '0413" & AIRSNumber & "', " & _
+            "'" & Replace(FirstName, "'", "''") & "', '" & Replace(LastName, "'", "''") & "', " & _
+            "'" & Replace(Prefix, "'", "''") & "', '" & Replace(Title, "'", "''") & "', " & _
+            "'" & Replace(ContactCoName, "'", "''") & "', '" & Replace(ContactAddress1, "'", "''") & "', " & _
+            "'" & Replace(ContactAddress2, "'", "''") & "', '" & Replace(ContactCity, "'", "''") & "', " & _
+            "'" & Replace(ContactState, "'", "''") & "', '" & Replace(ContactZipCode, "'", "''") & "', " & _
+            "'" & Replace(ContactEmail, "'", "''") & "', '" & Replace(OpStatus, "'", "''") & "', " & _
+            "'" & Replace(Classification, "'", "''") & "', '" & Replace(NSPS, "'", "''") & "', " & _
+            "'" & Replace(Part70, "'", "''") & "', '" & ShutDownDate & "', " & _
+            "'" & Replace(FacilityName, "'", "''") & "', " & _
+            "'" & Replace(FacilityAddress1, "'", "''") & "', '" & Replace(FacilityAddress2, "'", "''") & "', " & _
+            "'" & Replace(FacilityCity, "'", "''") & "', '" & Replace(FacilityZipCode, "'", "''") & "', " & _
+            "'" & Replace(Comment, "'", "''") & "', " & _
+            "'" & Active & "', " & _
+            "'IAIP||" & UserName & "', '" & OracleDate & "', " & _
+            "'" & OracleDate & "') "
 
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFeesLog.Click
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
+            End If
+            dr = cmd.ExecuteReader
+            dr.Close()
+            Update_FS_Admin_Status(FeeYear, AIRSNumber)
+
+            Return True
+
+        Catch ex As Exception
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Function
+
+    Function Update_FS_Mailout(ByVal FeeYear As String, ByVal AIRSNumber As String, _
+                            ByVal FirstName As String, ByVal LastName As String, _
+                            ByVal Prefix As String, ByVal Title As String, _
+                            ByVal ContactCoName As String, ByVal ContactAddress1 As String, _
+                            ByVal ContactAddress2 As String, ByVal ContactCity As String, _
+                            ByVal ContactState As String, ByVal ContactZipCode As String, _
+                            ByVal ContactEmail As String, ByVal OpStatus As String, _
+                            ByVal Classification As String, ByVal NSPS As String, _
+                            ByVal Part70 As String, ByVal ShutDownDate As String, _
+                            ByVal FacilityName As String, _
+                            ByVal FacilityAddress1 As String, ByVal FacilityAddress2 As String, _
+                            ByVal FacilityCity As String, ByVal FacilityZipCode As String, _
+                            ByVal Comment As String, ByVal Active As String) As Boolean
         Try
-            If Apb.Facility.IsAirsNumberValid(mtbCheckAIRSNumber.Text) Then
-                If FeeStats Is Nothing Then
-                    If FeeStats Is Nothing Then FeeStats = New PASPFeeAuditLog
+            If IsDBNull(FeeYear) Then
+                Return False
+            End If
+            If IsDBNull(AIRSNumber) Then
+                Return False
+            End If
+            Dim SQL As String = ""
+
+            If IsDBNull(FirstName) Then
+            Else
+                SQL = SQL & "strFirstName = '" & Replace(FirstName, "'", "''") & "', "
+            End If
+            If IsDBNull(LastName) Then
+            Else
+                SQL = SQL & "strLastName = '" & Replace(LastName, "'", "''") & "', "
+            End If
+            If IsDBNull(Prefix) Then
+            Else
+                SQL = SQL & "strPrefix = '" & Replace(Prefix, "'", "''") & "', "
+            End If
+            If IsDBNull(Title) Then
+            Else
+                SQL = SQL & "strTitle = '" & Replace(Title, "'", "''") & "', "
+            End If
+            If IsDBNull(ContactCoName) Then
+            Else
+                SQL = SQL & "strcontactCoName = '" & Replace(ContactCoName, "'", "''") & "', "
+            End If
+            If IsDBNull(ContactAddress1) Then
+            Else
+                SQL = SQL & "strContactAddress1 = '" & Replace(ContactAddress1, "'", "''") & "', "
+            End If
+            If IsDBNull(ContactAddress2) Then
+            Else
+                SQL = SQL & "strContactAddress2 = '" & Replace(ContactAddress2, "'", "''") & "', "
+            End If
+            If IsDBNull(ContactCity) Then
+            Else
+                SQL = SQL & "strContactCity = '" & Replace(ContactCity, "'", "''") & "', "
+            End If
+            If IsDBNull(ContactState) Then
+            Else
+                SQL = SQL & "strContactState = '" & Replace(ContactState, "'", "''") & "', "
+            End If
+            If IsDBNull(ContactZipCode) Then
+            Else
+                SQL = SQL & "strContactZipCode = '" & Replace(ContactZipCode, "'", "''") & "', "
+            End If
+            If IsDBNull(ContactEmail) Then
+            Else
+                SQL = SQL & "strGECOUserEmail = '" & Replace(ContactEmail, "'", "''") & "', "
+            End If
+            If IsDBNull(OpStatus) Then
+            Else
+                OpStatus = Mid(OpStatus, 1, 1)
+                SQL = SQL & "strOperationalStatus = '" & Replace(OpStatus, "'", "''") & "', "
+            End If
+            If IsDBNull(Classification) Then
+            Else
+                SQL = SQL & "strClass = '" & Replace(Classification, "'", "''") & "', "
+            End If
+            If IsDBNull(NSPS) Then
+            Else
+                If NSPS = True Then
+                    SQL = SQL & "strNSPS = '1', "
                 Else
-                    FeeStats.Dispose()
-                    FeeStats = New PASPFeeAuditLog
-                End If
-                FeeStats.Show()
-
-                FeeStats.mtbFeeAdminAIRSNumber.Text = mtbCheckAIRSNumber.Text
-                FeeStats.mtbFeeAdminExistingYear.Text = cboAvailableFeeYears.Text
-
-                If FeeStats.mtbFeeAdminAIRSNumber.Text <> "" Then
-                    FeeStats.LoadAdminData()
-                    FeeStats.LoadAuditedData()
+                    SQL = SQL & "strNSPS = '0', "
                 End If
             End If
+            If IsDBNull(Part70) Then
+            Else
+                If Part70 = True Then
+                    SQL = SQL & "strPart70 = '1', "
+                Else
+                    SQL = SQL & "strPart70 = '0', "
+                End If
+            End If
+            If IsDBNull(ShutDownDate) Then
+            Else
+                SQL = SQL & "datShutDownDate = '" & ShutDownDate & "', "
+            End If
+
+            If IsDBNull(FacilityName) Then
+            Else
+                SQL = SQL & "strFacilityName = '" & Replace(FacilityName, "'", "''") & "', "
+            End If
+            If IsDBNull(FacilityAddress1) Then
+            Else
+                SQL = SQL & "strFacilityAddress1 = '" & Replace(FacilityAddress1, "'", "''") & "', "
+            End If
+            If IsDBNull(FacilityAddress2) Then
+            Else
+                SQL = SQL & "strFacilityAddress2 = '" & Replace(FacilityAddress2, "'", "''") & "', "
+            End If
+            If IsDBNull(FacilityCity) Then
+            Else
+                SQL = SQL & "strFacilityCity = '" & Replace(FacilityCity, "'", "''") & "', "
+            End If
+            If IsDBNull(FacilityZipCode) Then
+            Else
+                SQL = SQL & "strFacilityZipCode = '" & Replace(FacilityZipCode, "'", "''") & "', "
+            End If
+            If IsDBNull(Comment) Then
+            Else
+                SQL = SQL & "strComment = '" & Replace(Comment, "'", "''") & "', "
+            End If
+            If IsDBNull(Active) Then
+            Else
+                If Active = False Then
+                    SQL = SQL & "Active = '0', "
+                Else
+                    SQL = SQL & "Active = '1', "
+                End If
+            End If
+            SQL = "Update " & DBNameSpace & ".FS_MailOut set " & _
+            SQL & _
+            "updateUser = 'IAIP||" & UserName & "', " & _
+            "updateDateTime = '" & OracleDate & "' " & _
+            "where numFeeYear = '" & FeeYear & "' " & _
+            "and strAIRSNumber = '0413" & AIRSNumber & "' "
+
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
+            End If
+            dr = cmd.ExecuteReader
+            dr.Close()
+
+            Update_FS_Admin_Status(FeeYear, AIRSNumber)
+            Return True
+
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-    End Sub
+    End Function
 
-    Private Sub dgvFeeManagmentLists_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvFeeManagementLists.MouseUp
-
+    Function Insert_FS_FeeRate(ByVal FeeYear As String, ByVal PeriodStart As String, _
+                          ByVal PeriodEnd As String, ByVal Part70Fee As String, ByVal SMFee As String, _
+                          ByVal PerTonRate As String, ByVal NSPSFee As String, ByVal FeeDueDate As String, _
+                          ByVal AdminFee As String, ByVal AdminApplicable As String, ByVal Comments As String, _
+                          ByVal Active As String, ByVal FirstQrtDue As String, ByVal SecondQrtDue As String, _
+                          ByVal ThirdQrtDue As String, ByVal FourthQrtDue As String, ByVal AAThres As String, _
+                          ByVal NAThres As String) As Boolean
         Try
-            Dim hti As DataGridView.HitTestInfo = dgvFeeManagementLists.HitTest(e.X, e.Y)
-
-            If dgvFeeManagementLists.RowCount > 0 And hti.RowIndex <> -1 Then
-
-
-                mtbCheckAIRSNumber.Text = dgvFeeManagementLists(0, hti.RowIndex).Value.ToString
-
-
-                'txtDeleteNSPSExemptions.Clear()
-                'txtNSPSExemption.Clear()
-                'If IsDBNull(dgvExistingExemptions(0, hti.RowIndex).Value) Then
-                '    Exit Sub
-                'Else
-                '    txtDeleteNSPSExemptions.Text = dgvExistingExemptions(0, hti.RowIndex).Value
-                'End If
-                'If IsDBNull(dgvExistingExemptions(1, hti.RowIndex).Value) Then
-                '    txtNSPSExemption.Clear()
-                'Else
-                '    txtNSPSExemption.Text = dgvExistingExemptions(1, hti.RowIndex).Value
-                'End If
+            If IsDBNull(FeeYear) Or FeeYear = "" Then
+                Return False
+            Else
+                If IsNumeric(FeeYear) Then
+                Else
+                    Return False
+                End If
             End If
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
+            If IsDBNull(Part70Fee) Or Part70Fee = "" Then
+            Else
+                If IsNumeric(Part70Fee) Then
+                Else
+                    Return False
+                End If
+            End If
 
-    'Private Sub mtbCheckAIRSNumber_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mtbCheckAIRSNumber.TextChanged
-    '    CheckFacilityEnrolled.Visible = False
-    '    CheckFacilityInMailout.Visible = False
-    '    CheckFacilityName.Visible = False
-    '    CheckFacilityMailoutSent.Visible = False
-    'End Sub
+            If IsDBNull(SMFee) Or SMFee = "" Then
+            Else
+                If IsNumeric(SMFee) Then
+                Else
+                    Return False
+                End If
+            End If
+
+            If IsDBNull(PerTonRate) Or PerTonRate = "" Then
+            Else
+                If IsNumeric(PerTonRate) Then
+                Else
+                    Return False
+                End If
+            End If
+
+            If IsDBNull(NSPSFee) Or NSPSFee = "" Then
+            Else
+                If IsNumeric(NSPSFee) Then
+                Else
+                    Return False
+                End If
+            End If
+
+            If IsDBNull(AdminFee) Or AdminFee = "" Then
+            Else
+                If IsNumeric(AdminFee) Then
+                Else
+                    Return False
+                End If
+            End If
+
+            If IsDBNull(AAThres) Or AAThres = "" Then
+            Else
+                If IsNumeric(AAThres) Then
+                Else
+                    Return False
+                End If
+            End If
+
+            If IsDBNull(NAThres) Or NAThres = "" Then
+            Else
+                If IsNumeric(NAThres) Then
+                Else
+                    Return False
+                End If
+            End If
+
+            Dim SQL As String = "Insert into FS_FeeRate " & _
+            "values " & _
+            "((Select max(numFeeRateID) + 1 from " & DBNameSpace & ".FS_FeeRate), " & _
+            "'" & FeeYear & "', '" & PeriodStart & "', " & _
+            "'" & PeriodEnd & "', '" & Part70Fee & "', " & _
+            "'" & SMFee & "', '" & PerTonRate & "', " & _
+            "'" & NSPSFee & "', '" & FeeDueDate & "', " & _
+            "'" & AdminFee & "', " & _
+            "'" & AdminApplicable & "', '" & Replace(Comments, "'", "''") & "', " & _
+            "'1', '" & UserGCode & "', " & _
+            "(to_char(sysdate, 'DD-mon-YY HH12:MI:SS')), " & _
+            "(to_char(sysdate, 'DD-mon-YY HH12:MI:SS')), " & _
+            "'" & FirstQrtDue & "', '" & SecondQrtDue & "', " & _
+            "'" & ThirdQrtDue & "', '" & FourthQrtDue & "', " & _
+            "'', '" & AAThres & "', '" & NAThres & "') "
+
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
+            End If
+            dr = cmd.ExecuteReader
+            dr.Close()
+
+            Return True
+
+        Catch ex As Exception
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Function
+
+    Function Update_FS_FeeRate(ByVal FeeRateID As String, ByVal FeeYear As String, ByVal PeriodStart As String, _
+                          ByVal PeriodEnd As String, ByVal Part70Fee As String, ByVal SMFee As String, _
+                          ByVal PerTonRate As String, ByVal NSPSFee As String, ByVal FeeDueDate As String, _
+                          ByVal AdminFee As String, ByVal AdminApplicable As String, ByVal Comments As String, _
+                          ByVal Active As String, ByVal FirstQrtDue As String, ByVal SecondQrtDue As String, _
+                          ByVal ThridQrtDue As String, ByVal FourthQrtDue As String, ByVal AAThres As String, _
+                          ByVal NAThres As String) As Boolean
+        Try
+            If IsNumeric(FeeRateID) Then
+            Else
+                Return False
+            End If
+
+            If IsDBNull(FeeYear) Or FeeYear = "" Then
+                Return False
+            Else
+                If IsNumeric(FeeYear) Then
+                Else
+                    Return False
+                End If
+            End If
+
+            If IsDBNull(Part70Fee) Or Part70Fee = "" Then
+            Else
+                If IsNumeric(Part70Fee) Then
+                Else
+                    Return False
+                End If
+            End If
+
+            If IsDBNull(SMFee) Or SMFee = "" Then
+            Else
+                If IsNumeric(SMFee) Then
+                Else
+                    Return False
+                End If
+            End If
+
+            If IsDBNull(PerTonRate) Or PerTonRate = "" Then
+            Else
+                If IsNumeric(PerTonRate) Then
+                Else
+                    Return False
+                End If
+            End If
+
+            If IsDBNull(NSPSFee) Or NSPSFee = "" Then
+            Else
+                If IsNumeric(NSPSFee) Then
+                Else
+                    Return False
+                End If
+            End If
+
+            If IsDBNull(AdminFee) Or AdminFee = "" Then
+            Else
+                If IsNumeric(AdminFee) Then
+                Else
+                    Return False
+                End If
+            End If
+            If IsDBNull(AAThres) Or AAThres = "" Then
+            Else
+                If IsNumeric(AAThres) Then
+                Else
+                    Return False
+                End If
+            End If
+            If IsDBNull(NAThres) Or NAThres = "" Then
+            Else
+                If IsNumeric(NAThres) Then
+                Else
+                    Return False
+                End If
+            End If
+
+            Dim SQL As String = "Update " & DBNameSpace & ".FS_FeeRate set " & _
+            "numFeeYear = '" & FeeYear & "', " & _
+            "datFeePeriodStart = '" & PeriodStart & "', " & _
+            "datFeePeriodEnd = '" & PeriodEnd & "', " & _
+            "numPart70Fee = '" & Part70Fee & "', " & _
+            "numSMFee = '" & SMFee & "', " & _
+            "numPerTonRate = '" & PerTonRate & "', " & _
+            "numNSPSFee = '" & NSPSFee & "', " & _
+            "datFeeDueDate = '" & FeeDueDate & "', " & _
+            "numAdminFeeRate = '" & AdminFee & "', " & _
+            "datAdminApplicable = '" & AdminApplicable & "', " & _
+            "strComments = '" & Replace(Comments, "'", "''") & "', " & _
+            "Active = '" & Active & "', " & _
+            "UpdateUser = '" & UserGCode & "', " & _
+            "upDateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
+            "datFirstQrtDue = '" & FirstQrtDue & "', " & _
+            "datSecondQrtDue = '" & SecondQrtDue & "', " & _
+            "datThirdQrtDue = '" & ThridQrtDue & "', " & _
+            "datFourthQrtDue = '" & FourthQrtDue & "',  " & _
+            "numAAThres = '" & AAThres & "', " & _
+            "numNAThres = '" & NAThres & "' " & _
+            "where numFeeRateID = '" & FeeRateID & "' "
+
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
+            End If
+            dr = cmd.ExecuteReader
+            dr.Close()
+
+            Return True
+        Catch ex As Exception
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Function
+
+    Function Insert_FSLK_NSPSReason(ByVal Description As String) As Boolean
+        Try
+            Dim SQL As String = "Insert into " & DBNameSpace & ".FSLK_NSPSReason " & _
+            "Values " & _
+            "((select max(NSPSReasonCode) + 1 from " & DBNameSpace & ".FSLK_NSPSReason), " & _
+            "'" & Replace(Description, "'", "''") & "', " & _
+            "'1', '" & UserGCode & "', " & _
+            "'" & OracleDate & "', '" & OracleDate & "') "
+
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
+            End If
+            dr = cmd.ExecuteReader
+            dr.Close()
+
+            Return True
+
+        Catch ex As Exception
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Function
+
+    Function Update_FSLK_NSPSReason(ByVal NSPSReasonCode As String, ByVal Description As String, ByVal ActiveStatus As String) As Boolean
+        Try
+            Dim SQL As String
+            If Description = "" Then
+                Sql = "Update " & DBNameSpace & ".FSLK_NSPSReason set " & _
+                "Active = '" & ActiveStatus & "', " & _
+                "updateUser = '" & UserGCode & "', " & _
+                "UpdateDateTime = '" & OracleDate & "' " & _
+                "where NSPSReasonCode = '" & NSPSReasonCode & "' "
+            Else
+                Sql = "Update " & DBNameSpace & ".FSLK_NSPSReason set " & _
+                "Description = '" & Replace(Description, "'", "''") & "', " & _
+                "Active = '" & ActiveStatus & "', " & _
+                "updateUser = '" & UserGCode & "', " & _
+                "UpdateDateTime = '" & OracleDate & "' " & _
+                "where NSPSReasonCode = '" & NSPSReasonCode & "' "
+            End If
+
+            cmd = New OracleCommand(Sql, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
+            End If
+            dr = cmd.ExecuteReader
+            dr.Close()
+
+            Return True
+
+        Catch ex As Exception
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Function
+
+    Function Insert_FSLK_NSPSReasonYear(ByVal numFeeYear As String, ByVal NSPSReasonCode As String, ByVal DisplayOrder As String) As Boolean
+        Try
+            Dim SQL As String = "Insert into " & DBNameSpace & ".FSLK_NSPSReasonYear " & _
+            "values " & _
+            "('" & numFeeYear & "', '" & NSPSReasonCode & "', " & _
+            "'" & DisplayOrder & "', '1', " & _
+            "'" & UserGCode & "', '" & OracleDate & "', " & _
+            "'" & OracleDate & "') "
+
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
+            End If
+            dr = cmd.ExecuteReader
+            dr.Close()
+        Catch ex As Exception
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Function
+
+    Function Update_FSLK_NSPSReasonYear(ByVal numFeeYear As String, ByVal NSPSReasonCode As String, ByVal DisplayOrder As String, _
+                                       ByVal ActiveStatus As String) As Boolean
+        Try
+            Dim SQL As String = "Update " & DBNameSpace & ".FSLK_NSPSReasonYear set " & _
+            "NSPSReasonCode = '" & NSPSReasonCode & "', " & _
+            "DisplayOrder = '" & DisplayOrder & "', " & _
+            "Active = '" & ActiveStatus & "', " & _
+            "updateUser = '" & UserGCode & "', " & _
+            "updateDateTime = '" & OracleDate & "' " & _
+            "where numFeeYear = '" & numFeeYear & "' " & _
+            "and NSPSReasonCode = '" & NSPSReasonCode & "' "
+
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
+            End If
+            dr = cmd.ExecuteReader
+            dr.Close()
+            Return True
+        Catch ex As Exception
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Function
+
+#End Region
 
 End Class
