@@ -915,6 +915,7 @@ Partial Class SSCPFCEWork
         '
         Me.cboReviewer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboReviewer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboReviewer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboReviewer.Location = New System.Drawing.Point(101, 40)
         Me.cboReviewer.Name = "cboReviewer"
         Me.cboReviewer.Size = New System.Drawing.Size(160, 21)
@@ -992,6 +993,7 @@ Partial Class SSCPFCEWork
         '
         'cboFCEYear
         '
+        Me.cboFCEYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboFCEYear.Location = New System.Drawing.Point(101, 13)
         Me.cboFCEYear.Name = "cboFCEYear"
         Me.cboFCEYear.Size = New System.Drawing.Size(101, 21)
