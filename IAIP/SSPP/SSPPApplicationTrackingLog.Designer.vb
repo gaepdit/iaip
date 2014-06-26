@@ -21,12 +21,12 @@ Partial Class SSPPApplicationTrackingLog
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSPPApplicationTrackingLog))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.MmiFile = New System.Windows.Forms.MenuItem
         Me.mmiSave = New System.Windows.Forms.MenuItem
@@ -48,11 +48,11 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtApplicationNumber = New System.Windows.Forms.TextBox
         Me.Label2 = New System.Windows.Forms.Label
         Me.Label13 = New System.Windows.Forms.Label
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.Label4 = New System.Windows.Forms.Label
+        Me.lblApplicationUnit = New System.Windows.Forms.Label
+        Me.lblEngineer = New System.Windows.Forms.Label
         Me.cboApplicationUnit = New System.Windows.Forms.ComboBox
         Me.cboEngineer = New System.Windows.Forms.ComboBox
-        Me.Label3 = New System.Windows.Forms.Label
+        Me.lblApplicationType = New System.Windows.Forms.Label
         Me.cboApplicationType = New System.Windows.Forms.ComboBox
         Me.chbClosedOut = New System.Windows.Forms.CheckBox
         Me.Label10 = New System.Windows.Forms.Label
@@ -437,7 +437,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Label24 = New System.Windows.Forms.Label
         Me.DTPISMPReview = New System.Windows.Forms.DateTimePicker
         Me.cboISMPStaff = New System.Windows.Forms.ComboBox
-        Me.Label28 = New System.Windows.Forms.Label
+        Me.lblISMPStaff = New System.Windows.Forms.Label
         Me.GroupBox4 = New System.Windows.Forms.GroupBox
         Me.lblSSCPReview = New System.Windows.Forms.Label
         Me.txtSSCPComments = New System.Windows.Forms.TextBox
@@ -448,13 +448,13 @@ Partial Class SSPPApplicationTrackingLog
         Me.Label21 = New System.Windows.Forms.Label
         Me.DTPSSCPReview = New System.Windows.Forms.DateTimePicker
         Me.cboSSCPStaff = New System.Windows.Forms.ComboBox
-        Me.Label19 = New System.Windows.Forms.Label
+        Me.lblSSCPStaff = New System.Windows.Forms.Label
         Me.Panel4 = New System.Windows.Forms.Panel
         Me.lblReviewSubmitted = New System.Windows.Forms.Label
         Me.cboISMPUnits = New System.Windows.Forms.ComboBox
-        Me.Label37 = New System.Windows.Forms.Label
+        Me.lblISMPUnits = New System.Windows.Forms.Label
         Me.DTPReviewSubmitted = New System.Windows.Forms.DateTimePicker
-        Me.Label36 = New System.Windows.Forms.Label
+        Me.lblSSCPUnit = New System.Windows.Forms.Label
         Me.cboSSCPUnits = New System.Windows.Forms.ComboBox
         Me.TPOtherInfo = New System.Windows.Forms.TabPage
         Me.GBSignificationComments = New System.Windows.Forms.GroupBox
@@ -520,9 +520,9 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtPlantDescription = New System.Windows.Forms.TextBox
         Me.Label63 = New System.Windows.Forms.Label
         Me.cboOperationalStatus = New System.Windows.Forms.ComboBox
-        Me.Label51 = New System.Windows.Forms.Label
+        Me.lblOperationalStatus = New System.Windows.Forms.Label
         Me.cboClassification = New System.Windows.Forms.ComboBox
-        Me.Label49 = New System.Windows.Forms.Label
+        Me.lblClassification = New System.Windows.Forms.Label
         Me.Label42 = New System.Windows.Forms.Label
         Me.txtSICCode = New System.Windows.Forms.TextBox
         Me.txtComments = New System.Windows.Forms.TextBox
@@ -542,7 +542,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPDateAcknowledge = New System.Windows.Forms.DateTimePicker
         Me.DTPDateReceived = New System.Windows.Forms.DateTimePicker
         Me.DTPDateSent = New System.Windows.Forms.DateTimePicker
-        Me.Label9 = New System.Windows.Forms.Label
+        Me.lblCounty = New System.Windows.Forms.Label
         Me.cboFacilityCity = New System.Windows.Forms.ComboBox
         Me.cboCounty = New System.Windows.Forms.ComboBox
         Me.txtOffice = New System.Windows.Forms.TextBox
@@ -805,11 +805,11 @@ Partial Class SSPPApplicationTrackingLog
         Me.GroupBox2.Controls.Add(Me.txtApplicationNumber)
         Me.GroupBox2.Controls.Add(Me.Label2)
         Me.GroupBox2.Controls.Add(Me.Label13)
-        Me.GroupBox2.Controls.Add(Me.Label5)
-        Me.GroupBox2.Controls.Add(Me.Label4)
+        Me.GroupBox2.Controls.Add(Me.lblApplicationUnit)
+        Me.GroupBox2.Controls.Add(Me.lblEngineer)
         Me.GroupBox2.Controls.Add(Me.cboApplicationUnit)
         Me.GroupBox2.Controls.Add(Me.cboEngineer)
-        Me.GroupBox2.Controls.Add(Me.Label3)
+        Me.GroupBox2.Controls.Add(Me.lblApplicationType)
         Me.GroupBox2.Controls.Add(Me.cboApplicationType)
         Me.GroupBox2.Controls.Add(Me.chbClosedOut)
         Me.GroupBox2.Controls.Add(Me.Label10)
@@ -924,29 +924,30 @@ Partial Class SSPPApplicationTrackingLog
         Me.Label13.TabIndex = 261
         Me.Label13.Text = "Current Facility Info."
         '
-        'Label5
+        'lblApplicationUnit
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(568, 34)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(49, 13)
-        Me.Label5.TabIndex = 253
-        Me.Label5.Text = "APL Unit"
+        Me.lblApplicationUnit.AutoSize = True
+        Me.lblApplicationUnit.Location = New System.Drawing.Point(568, 34)
+        Me.lblApplicationUnit.Name = "lblApplicationUnit"
+        Me.lblApplicationUnit.Size = New System.Drawing.Size(49, 13)
+        Me.lblApplicationUnit.TabIndex = 253
+        Me.lblApplicationUnit.Text = "APL Unit"
         '
-        'Label4
+        'lblEngineer
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(568, 10)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(49, 13)
-        Me.Label4.TabIndex = 252
-        Me.Label4.Text = "Engineer"
+        Me.lblEngineer.AutoSize = True
+        Me.lblEngineer.Location = New System.Drawing.Point(568, 10)
+        Me.lblEngineer.Name = "lblEngineer"
+        Me.lblEngineer.Size = New System.Drawing.Size(49, 13)
+        Me.lblEngineer.TabIndex = 252
+        Me.lblEngineer.Text = "Engineer"
         '
         'cboApplicationUnit
         '
         Me.cboApplicationUnit.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboApplicationUnit.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboApplicationUnit.BackColor = System.Drawing.SystemColors.Window
+        Me.cboApplicationUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboApplicationUnit.Enabled = False
         Me.cboApplicationUnit.Location = New System.Drawing.Point(624, 32)
         Me.cboApplicationUnit.Name = "cboApplicationUnit"
@@ -957,25 +958,27 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.cboEngineer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboEngineer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboEngineer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboEngineer.Enabled = False
         Me.cboEngineer.Location = New System.Drawing.Point(624, 8)
         Me.cboEngineer.Name = "cboEngineer"
         Me.cboEngineer.Size = New System.Drawing.Size(160, 21)
         Me.cboEngineer.TabIndex = 3
         '
-        'Label3
+        'lblApplicationType
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(568, 58)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(50, 13)
-        Me.Label3.TabIndex = 251
-        Me.Label3.Text = "APL type"
+        Me.lblApplicationType.AutoSize = True
+        Me.lblApplicationType.Location = New System.Drawing.Point(568, 58)
+        Me.lblApplicationType.Name = "lblApplicationType"
+        Me.lblApplicationType.Size = New System.Drawing.Size(50, 13)
+        Me.lblApplicationType.TabIndex = 251
+        Me.lblApplicationType.Text = "APL type"
         '
         'cboApplicationType
         '
         Me.cboApplicationType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboApplicationType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboApplicationType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboApplicationType.Enabled = False
         Me.cboApplicationType.Location = New System.Drawing.Point(624, 56)
         Me.cboApplicationType.Name = "cboApplicationType"
@@ -4517,35 +4520,35 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvInformationRequested.AllowUserToAddRows = False
         Me.dgvInformationRequested.AllowUserToDeleteRows = False
         Me.dgvInformationRequested.AllowUserToOrderColumns = True
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvInformationRequested.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvInformationRequested.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.dgvInformationRequested.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvInformationRequested.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvInformationRequested.DefaultCellStyle = DataGridViewCellStyle8
         Me.dgvInformationRequested.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvInformationRequested.Location = New System.Drawing.Point(0, 0)
         Me.dgvInformationRequested.Name = "dgvInformationRequested"
         Me.dgvInformationRequested.ReadOnly = True
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvInformationRequested.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvInformationRequested.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
         Me.dgvInformationRequested.Size = New System.Drawing.Size(784, 278)
         Me.dgvInformationRequested.TabIndex = 2
         '
@@ -4717,35 +4720,35 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvFacilityAppHistory.AllowUserToAddRows = False
         Me.dgvFacilityAppHistory.AllowUserToDeleteRows = False
         Me.dgvFacilityAppHistory.AllowUserToOrderColumns = True
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvFacilityAppHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvFacilityAppHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
         Me.dgvFacilityAppHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvFacilityAppHistory.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvFacilityAppHistory.DefaultCellStyle = DataGridViewCellStyle11
         Me.dgvFacilityAppHistory.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvFacilityAppHistory.Location = New System.Drawing.Point(0, 0)
         Me.dgvFacilityAppHistory.Name = "dgvFacilityAppHistory"
         Me.dgvFacilityAppHistory.ReadOnly = True
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvFacilityAppHistory.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvFacilityAppHistory.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
         Me.dgvFacilityAppHistory.Size = New System.Drawing.Size(784, 292)
         Me.dgvFacilityAppHistory.TabIndex = 2
         '
@@ -5015,7 +5018,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.GroupBox5.Controls.Add(Me.Label24)
         Me.GroupBox5.Controls.Add(Me.DTPISMPReview)
         Me.GroupBox5.Controls.Add(Me.cboISMPStaff)
-        Me.GroupBox5.Controls.Add(Me.Label28)
+        Me.GroupBox5.Controls.Add(Me.lblISMPStaff)
         Me.GroupBox5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox5.Location = New System.Drawing.Point(0, 192)
         Me.GroupBox5.Name = "GroupBox5"
@@ -5108,20 +5111,21 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.cboISMPStaff.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboISMPStaff.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboISMPStaff.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboISMPStaff.Enabled = False
         Me.cboISMPStaff.Location = New System.Drawing.Point(127, 46)
         Me.cboISMPStaff.Name = "cboISMPStaff"
         Me.cboISMPStaff.Size = New System.Drawing.Size(160, 21)
         Me.cboISMPStaff.TabIndex = 53
         '
-        'Label28
+        'lblISMPStaff
         '
-        Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(7, 49)
-        Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(111, 13)
-        Me.Label28.TabIndex = 333
-        Me.Label28.Text = "ISMP Reviewing Staff"
+        Me.lblISMPStaff.AutoSize = True
+        Me.lblISMPStaff.Location = New System.Drawing.Point(7, 49)
+        Me.lblISMPStaff.Name = "lblISMPStaff"
+        Me.lblISMPStaff.Size = New System.Drawing.Size(111, 13)
+        Me.lblISMPStaff.TabIndex = 333
+        Me.lblISMPStaff.Text = "ISMP Reviewing Staff"
         '
         'GroupBox4
         '
@@ -5132,7 +5136,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.GroupBox4.Controls.Add(Me.Label21)
         Me.GroupBox4.Controls.Add(Me.DTPSSCPReview)
         Me.GroupBox4.Controls.Add(Me.cboSSCPStaff)
-        Me.GroupBox4.Controls.Add(Me.Label19)
+        Me.GroupBox4.Controls.Add(Me.lblSSCPStaff)
         Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Top
         Me.GroupBox4.Location = New System.Drawing.Point(0, 40)
         Me.GroupBox4.Name = "GroupBox4"
@@ -5224,28 +5228,29 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.cboSSCPStaff.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboSSCPStaff.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSSCPStaff.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSSCPStaff.Enabled = False
         Me.cboSSCPStaff.Location = New System.Drawing.Point(148, 38)
         Me.cboSSCPStaff.Name = "cboSSCPStaff"
         Me.cboSSCPStaff.Size = New System.Drawing.Size(160, 21)
         Me.cboSSCPStaff.TabIndex = 48
         '
-        'Label19
+        'lblSSCPStaff
         '
-        Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(7, 42)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(140, 13)
-        Me.Label19.TabIndex = 262
-        Me.Label19.Text = "Compliance Reviewing Staff"
+        Me.lblSSCPStaff.AutoSize = True
+        Me.lblSSCPStaff.Location = New System.Drawing.Point(7, 42)
+        Me.lblSSCPStaff.Name = "lblSSCPStaff"
+        Me.lblSSCPStaff.Size = New System.Drawing.Size(140, 13)
+        Me.lblSSCPStaff.TabIndex = 262
+        Me.lblSSCPStaff.Text = "Compliance Reviewing Staff"
         '
         'Panel4
         '
         Me.Panel4.Controls.Add(Me.lblReviewSubmitted)
         Me.Panel4.Controls.Add(Me.cboISMPUnits)
-        Me.Panel4.Controls.Add(Me.Label37)
+        Me.Panel4.Controls.Add(Me.lblISMPUnits)
         Me.Panel4.Controls.Add(Me.DTPReviewSubmitted)
-        Me.Panel4.Controls.Add(Me.Label36)
+        Me.Panel4.Controls.Add(Me.lblSSCPUnit)
         Me.Panel4.Controls.Add(Me.cboSSCPUnits)
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel4.Location = New System.Drawing.Point(0, 0)
@@ -5266,20 +5271,21 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.cboISMPUnits.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboISMPUnits.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboISMPUnits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboISMPUnits.Enabled = False
         Me.cboISMPUnits.Location = New System.Drawing.Point(517, 8)
         Me.cboISMPUnits.Name = "cboISMPUnits"
         Me.cboISMPUnits.Size = New System.Drawing.Size(160, 21)
         Me.cboISMPUnits.TabIndex = 46
         '
-        'Label37
+        'lblISMPUnits
         '
-        Me.Label37.AutoSize = True
-        Me.Label37.Location = New System.Drawing.Point(477, 12)
-        Me.Label37.Name = "Label37"
-        Me.Label37.Size = New System.Drawing.Size(36, 13)
-        Me.Label37.TabIndex = 335
-        Me.Label37.Text = "ISMP:"
+        Me.lblISMPUnits.AutoSize = True
+        Me.lblISMPUnits.Location = New System.Drawing.Point(477, 12)
+        Me.lblISMPUnits.Name = "lblISMPUnits"
+        Me.lblISMPUnits.Size = New System.Drawing.Size(36, 13)
+        Me.lblISMPUnits.TabIndex = 335
+        Me.lblISMPUnits.Text = "ISMP:"
         '
         'DTPReviewSubmitted
         '
@@ -5295,19 +5301,20 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPReviewSubmitted.TabIndex = 44
         Me.DTPReviewSubmitted.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
-        'Label36
+        'lblSSCPUnit
         '
-        Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(270, 12)
-        Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(38, 13)
-        Me.Label36.TabIndex = 334
-        Me.Label36.Text = "SSCP:"
+        Me.lblSSCPUnit.AutoSize = True
+        Me.lblSSCPUnit.Location = New System.Drawing.Point(270, 12)
+        Me.lblSSCPUnit.Name = "lblSSCPUnit"
+        Me.lblSSCPUnit.Size = New System.Drawing.Size(38, 13)
+        Me.lblSSCPUnit.TabIndex = 334
+        Me.lblSSCPUnit.Text = "SSCP:"
         '
         'cboSSCPUnits
         '
         Me.cboSSCPUnits.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboSSCPUnits.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSSCPUnits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSSCPUnits.Enabled = False
         Me.cboSSCPUnits.Location = New System.Drawing.Point(310, 8)
         Me.cboSSCPUnits.Name = "cboSSCPUnits"
@@ -5484,9 +5491,9 @@ Partial Class SSPPApplicationTrackingLog
         Me.GroupBox1.Controls.Add(Me.txtPlantDescription)
         Me.GroupBox1.Controls.Add(Me.Label63)
         Me.GroupBox1.Controls.Add(Me.cboOperationalStatus)
-        Me.GroupBox1.Controls.Add(Me.Label51)
+        Me.GroupBox1.Controls.Add(Me.lblOperationalStatus)
         Me.GroupBox1.Controls.Add(Me.cboClassification)
-        Me.GroupBox1.Controls.Add(Me.Label49)
+        Me.GroupBox1.Controls.Add(Me.lblClassification)
         Me.GroupBox1.Controls.Add(Me.Label42)
         Me.GroupBox1.Controls.Add(Me.txtSICCode)
         Me.GroupBox1.Controls.Add(Me.txtComments)
@@ -5506,7 +5513,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.GroupBox1.Controls.Add(Me.DTPDateAcknowledge)
         Me.GroupBox1.Controls.Add(Me.DTPDateReceived)
         Me.GroupBox1.Controls.Add(Me.DTPDateSent)
-        Me.GroupBox1.Controls.Add(Me.Label9)
+        Me.GroupBox1.Controls.Add(Me.lblCounty)
         Me.GroupBox1.Controls.Add(Me.cboFacilityCity)
         Me.GroupBox1.Controls.Add(Me.cboCounty)
         Me.GroupBox1.Controls.Add(Me.txtOffice)
@@ -6040,39 +6047,41 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.cboOperationalStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboOperationalStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboOperationalStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboOperationalStatus.Enabled = False
         Me.cboOperationalStatus.Location = New System.Drawing.Point(461, 40)
         Me.cboOperationalStatus.Name = "cboOperationalStatus"
         Me.cboOperationalStatus.Size = New System.Drawing.Size(177, 21)
         Me.cboOperationalStatus.TabIndex = 11
         '
-        'Label51
+        'lblOperationalStatus
         '
-        Me.Label51.AutoSize = True
-        Me.Label51.Location = New System.Drawing.Point(385, 42)
-        Me.Label51.Name = "Label51"
-        Me.Label51.Size = New System.Drawing.Size(54, 13)
-        Me.Label51.TabIndex = 335
-        Me.Label51.Text = "Op Status"
+        Me.lblOperationalStatus.AutoSize = True
+        Me.lblOperationalStatus.Location = New System.Drawing.Point(385, 42)
+        Me.lblOperationalStatus.Name = "lblOperationalStatus"
+        Me.lblOperationalStatus.Size = New System.Drawing.Size(54, 13)
+        Me.lblOperationalStatus.TabIndex = 335
+        Me.lblOperationalStatus.Text = "Op Status"
         '
         'cboClassification
         '
         Me.cboClassification.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboClassification.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboClassification.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboClassification.Enabled = False
         Me.cboClassification.Location = New System.Drawing.Point(461, 64)
         Me.cboClassification.Name = "cboClassification"
         Me.cboClassification.Size = New System.Drawing.Size(177, 21)
         Me.cboClassification.TabIndex = 12
         '
-        'Label49
+        'lblClassification
         '
-        Me.Label49.AutoSize = True
-        Me.Label49.Location = New System.Drawing.Point(385, 66)
-        Me.Label49.Name = "Label49"
-        Me.Label49.Size = New System.Drawing.Size(68, 13)
-        Me.Label49.TabIndex = 334
-        Me.Label49.Text = "Classification"
+        Me.lblClassification.AutoSize = True
+        Me.lblClassification.Location = New System.Drawing.Point(385, 66)
+        Me.lblClassification.Name = "lblClassification"
+        Me.lblClassification.Size = New System.Drawing.Size(68, 13)
+        Me.lblClassification.TabIndex = 334
+        Me.lblClassification.Text = "Classification"
         '
         'Label42
         '
@@ -6118,6 +6127,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.cboPublicAdvisory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboPublicAdvisory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboPublicAdvisory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboPublicAdvisory.Enabled = False
         Me.cboPublicAdvisory.Location = New System.Drawing.Point(84, 213)
         Me.cboPublicAdvisory.Name = "cboPublicAdvisory"
@@ -6128,6 +6138,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.cboPermitAction.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboPermitAction.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboPermitAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboPermitAction.Enabled = False
         Me.cboPermitAction.Location = New System.Drawing.Point(513, 265)
         Me.cboPermitAction.Name = "cboPermitAction"
@@ -6298,20 +6309,21 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPDateSent.TabIndex = 13
         Me.DTPDateSent.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
-        'Label9
+        'lblCounty
         '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(218, 20)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(40, 13)
-        Me.Label9.TabIndex = 297
-        Me.Label9.Text = "County"
+        Me.lblCounty.AutoSize = True
+        Me.lblCounty.Location = New System.Drawing.Point(218, 20)
+        Me.lblCounty.Name = "lblCounty"
+        Me.lblCounty.Size = New System.Drawing.Size(40, 13)
+        Me.lblCounty.TabIndex = 297
+        Me.lblCounty.Text = "County"
         '
         'cboFacilityCity
         '
         Me.cboFacilityCity.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboFacilityCity.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboFacilityCity.BackColor = System.Drawing.SystemColors.Window
+        Me.cboFacilityCity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboFacilityCity.Enabled = False
         Me.cboFacilityCity.Location = New System.Drawing.Point(8, 64)
         Me.cboFacilityCity.Name = "cboFacilityCity"
@@ -6322,6 +6334,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.cboCounty.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboCounty.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboCounty.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboCounty.Enabled = False
         Me.cboCounty.Location = New System.Drawing.Point(260, 16)
         Me.cboCounty.Name = "cboCounty"
@@ -6601,11 +6614,11 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents txtApplicationNumber As System.Windows.Forms.TextBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label13 As System.Windows.Forms.Label
-    Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents lblApplicationUnit As System.Windows.Forms.Label
+    Friend WithEvents lblEngineer As System.Windows.Forms.Label
     Friend WithEvents cboApplicationUnit As System.Windows.Forms.ComboBox
     Friend WithEvents cboEngineer As System.Windows.Forms.ComboBox
-    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents lblApplicationType As System.Windows.Forms.Label
     Friend WithEvents cboApplicationType As System.Windows.Forms.ComboBox
     Friend WithEvents chbClosedOut As System.Windows.Forms.CheckBox
     Friend WithEvents Label10 As System.Windows.Forms.Label
@@ -6891,7 +6904,7 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents Label24 As System.Windows.Forms.Label
     Friend WithEvents DTPISMPReview As System.Windows.Forms.DateTimePicker
     Friend WithEvents cboISMPStaff As System.Windows.Forms.ComboBox
-    Friend WithEvents Label28 As System.Windows.Forms.Label
+    Friend WithEvents lblISMPStaff As System.Windows.Forms.Label
     Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
     Friend WithEvents lblSSCPReview As System.Windows.Forms.Label
     Friend WithEvents txtSSCPComments As System.Windows.Forms.TextBox
@@ -6902,13 +6915,13 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents Label21 As System.Windows.Forms.Label
     Friend WithEvents DTPSSCPReview As System.Windows.Forms.DateTimePicker
     Friend WithEvents cboSSCPStaff As System.Windows.Forms.ComboBox
-    Friend WithEvents Label19 As System.Windows.Forms.Label
+    Friend WithEvents lblSSCPStaff As System.Windows.Forms.Label
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
     Friend WithEvents lblReviewSubmitted As System.Windows.Forms.Label
     Friend WithEvents cboISMPUnits As System.Windows.Forms.ComboBox
-    Friend WithEvents Label37 As System.Windows.Forms.Label
+    Friend WithEvents lblISMPUnits As System.Windows.Forms.Label
     Friend WithEvents DTPReviewSubmitted As System.Windows.Forms.DateTimePicker
-    Friend WithEvents Label36 As System.Windows.Forms.Label
+    Friend WithEvents lblSSCPUnit As System.Windows.Forms.Label
     Friend WithEvents cboSSCPUnits As System.Windows.Forms.ComboBox
     Friend WithEvents TPOtherInfo As System.Windows.Forms.TabPage
     Friend WithEvents GBSignificationComments As System.Windows.Forms.GroupBox
@@ -6970,9 +6983,9 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents txtPlantDescription As System.Windows.Forms.TextBox
     Friend WithEvents Label63 As System.Windows.Forms.Label
     Friend WithEvents cboOperationalStatus As System.Windows.Forms.ComboBox
-    Friend WithEvents Label51 As System.Windows.Forms.Label
+    Friend WithEvents lblOperationalStatus As System.Windows.Forms.Label
     Friend WithEvents cboClassification As System.Windows.Forms.ComboBox
-    Friend WithEvents Label49 As System.Windows.Forms.Label
+    Friend WithEvents lblClassification As System.Windows.Forms.Label
     Friend WithEvents Label42 As System.Windows.Forms.Label
     Friend WithEvents txtSICCode As System.Windows.Forms.TextBox
     Friend WithEvents txtComments As System.Windows.Forms.TextBox
@@ -6992,7 +7005,7 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents DTPDateAcknowledge As System.Windows.Forms.DateTimePicker
     Friend WithEvents DTPDateReceived As System.Windows.Forms.DateTimePicker
     Friend WithEvents DTPDateSent As System.Windows.Forms.DateTimePicker
-    Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents lblCounty As System.Windows.Forms.Label
     Friend WithEvents cboFacilityCity As System.Windows.Forms.ComboBox
     Friend WithEvents cboCounty As System.Windows.Forms.ComboBox
     Friend WithEvents txtOffice As System.Windows.Forms.TextBox

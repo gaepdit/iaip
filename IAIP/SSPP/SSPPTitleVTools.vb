@@ -4,7 +4,7 @@ Imports Oracle.DataAccess.Client
 Imports System.Data.OleDb
 'Imports System.Data.Odbc
 
-Public Class DMUTitleVTools
+Public Class SSPPTitleVTools
     Dim SQL, SQL2 As String
     Dim dsWebPublisher As DataSet
     Dim daWebPublisher As OracleDataAdapter
@@ -19,9 +19,6 @@ Public Class DMUTitleVTools
     Private Sub DMUTitleVTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Try
-            Panel1.Text = "Select a Function..."
-            Panel2.Text = UserName
-            Panel3.Text = OracleDate
 
             LoadPermissions()
 
@@ -33,26 +30,6 @@ Public Class DMUTitleVTools
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub MmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiBack.Click
-        Try
-
-            Me.Close()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-    Private Sub tsbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbBack.Click
-        Try
-
-            Me.Close()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 
@@ -3949,9 +3926,6 @@ Public Class DMUTitleVTools
 
         End Try
 
-    End Sub
-    Private Sub MmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiHelp.Click
-        OpenDocumentationUrl(Me)
     End Sub
     Private Sub btnLoadAppContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadAppContact.Click
         Try

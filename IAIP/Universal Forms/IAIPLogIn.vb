@@ -176,7 +176,7 @@ Public Class IAIPLogIn
             LastName = CurrentUser.Staff.LastName
 
             If EmployeeStatus = "0" Then
-                MsgBox("You status has been flagged as inactive." & vbCrLf & "Please contact your manager for more information.", MsgBoxStyle.Exclamation, "Login Error")
+                MsgBox("Your status has been flagged as inactive." & vbCrLf & "Please contact your manager for more information.", MsgBoxStyle.Exclamation, "Login Error")
                 txtUserPassword.Clear()
                 LoginProgressBar.Visible = False
                 monitor.TrackFeatureCancel("Startup.LoggingIn")

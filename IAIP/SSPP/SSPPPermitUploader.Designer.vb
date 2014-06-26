@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class IAIPPermitUploader
+Partial Class SSPPPermitUploader
     Inherits BaseForm
 
     'Form overrides dispose to clean up the component list.
@@ -20,7 +20,7 @@ Partial Class IAIPPermitUploader
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPPermitUploader))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSPPPermitUploader))
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
         Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
         Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel

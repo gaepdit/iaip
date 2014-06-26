@@ -354,7 +354,7 @@ Public Class PASPFacilityFee
         Me.TBFacilitySummary.Location = New System.Drawing.Point(0, 0)
         Me.TBFacilitySummary.Name = "TBFacilitySummary"
         Me.TBFacilitySummary.ShowToolTips = True
-        Me.TBFacilitySummary.Size = New System.Drawing.Size(950, 28)
+        Me.TBFacilitySummary.Size = New System.Drawing.Size(967, 28)
         Me.TBFacilitySummary.TabIndex = 139
         '
         'tbbClear
@@ -911,13 +911,13 @@ Public Class PASPFacilityFee
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScroll = True
-        Me.ClientSize = New System.Drawing.Size(950, 591)
+        Me.ClientSize = New System.Drawing.Size(967, 591)
         Me.Controls.Add(Me.pnlFeeCalculation)
         Me.Controls.Add(Me.TBFacilitySummary)
         Me.Menu = Me.MainMenu1
         Me.Name = "PASPFacilityFee"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
-        Me.Text = "PASP Facility Fee"
+        Me.Text = "Facility Fee"
         Me.PanelFacility.ResumeLayout(False)
         Me.PanelFacility.PerformLayout()
         Me.pnlFeeCalculation.ResumeLayout(False)

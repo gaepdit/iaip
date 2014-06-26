@@ -20,8 +20,6 @@ Partial Class SSPPApplicationLog
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSPPApplicationLog))
-        Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.mmiFile = New System.Windows.Forms.MenuItem
         Me.mmiClose = New System.Windows.Forms.MenuItem
@@ -74,9 +72,6 @@ Partial Class SSPPApplicationLog
         Me.DTPSearchDate1b = New System.Windows.Forms.DateTimePicker
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
         Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.SearchGroupBox = New System.Windows.Forms.GroupBox
         Me.SortGroupBox = New System.Windows.Forms.GroupBox
         Me.btnExport = New System.Windows.Forms.Button
         Me.cboMACT1 = New System.Windows.Forms.ComboBox
@@ -91,101 +86,13 @@ Partial Class SSPPApplicationLog
         Me.pnlDataGridView = New System.Windows.Forms.Panel
         Me.lblMessage = New System.Windows.Forms.Label
         Me.bgwApplicationLog = New System.ComponentModel.BackgroundWorker
+        Me.Panel2 = New System.Windows.Forms.Panel
         CType(Me.dgvApplicationLog, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
-        Me.SearchGroupBox.SuspendLayout()
+        Me.SortGroupBox.SuspendLayout()
         Me.pnlDataGridView.SuspendLayout()
+        Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'Image_List_All
-        '
-        Me.Image_List_All.ImageStream = CType(resources.GetObject("Image_List_All.ImageStream"), System.Windows.Forms.ImageListStreamer)
-        Me.Image_List_All.TransparentColor = System.Drawing.Color.Transparent
-        Me.Image_List_All.Images.SetKeyName(0, "")
-        Me.Image_List_All.Images.SetKeyName(1, "")
-        Me.Image_List_All.Images.SetKeyName(2, "")
-        Me.Image_List_All.Images.SetKeyName(3, "")
-        Me.Image_List_All.Images.SetKeyName(4, "")
-        Me.Image_List_All.Images.SetKeyName(5, "")
-        Me.Image_List_All.Images.SetKeyName(6, "")
-        Me.Image_List_All.Images.SetKeyName(7, "")
-        Me.Image_List_All.Images.SetKeyName(8, "")
-        Me.Image_List_All.Images.SetKeyName(9, "")
-        Me.Image_List_All.Images.SetKeyName(10, "")
-        Me.Image_List_All.Images.SetKeyName(11, "")
-        Me.Image_List_All.Images.SetKeyName(12, "")
-        Me.Image_List_All.Images.SetKeyName(13, "")
-        Me.Image_List_All.Images.SetKeyName(14, "")
-        Me.Image_List_All.Images.SetKeyName(15, "")
-        Me.Image_List_All.Images.SetKeyName(16, "")
-        Me.Image_List_All.Images.SetKeyName(17, "")
-        Me.Image_List_All.Images.SetKeyName(18, "")
-        Me.Image_List_All.Images.SetKeyName(19, "")
-        Me.Image_List_All.Images.SetKeyName(20, "")
-        Me.Image_List_All.Images.SetKeyName(21, "")
-        Me.Image_List_All.Images.SetKeyName(22, "")
-        Me.Image_List_All.Images.SetKeyName(23, "")
-        Me.Image_List_All.Images.SetKeyName(24, "")
-        Me.Image_List_All.Images.SetKeyName(25, "")
-        Me.Image_List_All.Images.SetKeyName(26, "")
-        Me.Image_List_All.Images.SetKeyName(27, "")
-        Me.Image_List_All.Images.SetKeyName(28, "")
-        Me.Image_List_All.Images.SetKeyName(29, "")
-        Me.Image_List_All.Images.SetKeyName(30, "")
-        Me.Image_List_All.Images.SetKeyName(31, "")
-        Me.Image_List_All.Images.SetKeyName(32, "")
-        Me.Image_List_All.Images.SetKeyName(33, "")
-        Me.Image_List_All.Images.SetKeyName(34, "")
-        Me.Image_List_All.Images.SetKeyName(35, "")
-        Me.Image_List_All.Images.SetKeyName(36, "")
-        Me.Image_List_All.Images.SetKeyName(37, "")
-        Me.Image_List_All.Images.SetKeyName(38, "")
-        Me.Image_List_All.Images.SetKeyName(39, "")
-        Me.Image_List_All.Images.SetKeyName(40, "")
-        Me.Image_List_All.Images.SetKeyName(41, "")
-        Me.Image_List_All.Images.SetKeyName(42, "")
-        Me.Image_List_All.Images.SetKeyName(43, "")
-        Me.Image_List_All.Images.SetKeyName(44, "")
-        Me.Image_List_All.Images.SetKeyName(45, "")
-        Me.Image_List_All.Images.SetKeyName(46, "")
-        Me.Image_List_All.Images.SetKeyName(47, "")
-        Me.Image_List_All.Images.SetKeyName(48, "")
-        Me.Image_List_All.Images.SetKeyName(49, "")
-        Me.Image_List_All.Images.SetKeyName(50, "")
-        Me.Image_List_All.Images.SetKeyName(51, "")
-        Me.Image_List_All.Images.SetKeyName(52, "")
-        Me.Image_List_All.Images.SetKeyName(53, "")
-        Me.Image_List_All.Images.SetKeyName(54, "")
-        Me.Image_List_All.Images.SetKeyName(55, "")
-        Me.Image_List_All.Images.SetKeyName(56, "")
-        Me.Image_List_All.Images.SetKeyName(57, "")
-        Me.Image_List_All.Images.SetKeyName(58, "")
-        Me.Image_List_All.Images.SetKeyName(59, "")
-        Me.Image_List_All.Images.SetKeyName(60, "")
-        Me.Image_List_All.Images.SetKeyName(61, "")
-        Me.Image_List_All.Images.SetKeyName(62, "")
-        Me.Image_List_All.Images.SetKeyName(63, "")
-        Me.Image_List_All.Images.SetKeyName(64, "")
-        Me.Image_List_All.Images.SetKeyName(65, "")
-        Me.Image_List_All.Images.SetKeyName(66, "")
-        Me.Image_List_All.Images.SetKeyName(67, "")
-        Me.Image_List_All.Images.SetKeyName(68, "")
-        Me.Image_List_All.Images.SetKeyName(69, "")
-        Me.Image_List_All.Images.SetKeyName(70, "")
-        Me.Image_List_All.Images.SetKeyName(71, "")
-        Me.Image_List_All.Images.SetKeyName(72, "")
-        Me.Image_List_All.Images.SetKeyName(73, "")
-        Me.Image_List_All.Images.SetKeyName(74, "")
-        Me.Image_List_All.Images.SetKeyName(75, "")
-        Me.Image_List_All.Images.SetKeyName(76, "")
-        Me.Image_List_All.Images.SetKeyName(77, "")
-        Me.Image_List_All.Images.SetKeyName(78, "")
-        Me.Image_List_All.Images.SetKeyName(79, "")
-        Me.Image_List_All.Images.SetKeyName(80, "")
-        Me.Image_List_All.Images.SetKeyName(81, "")
-        Me.Image_List_All.Images.SetKeyName(82, "")
-        Me.Image_List_All.Images.SetKeyName(83, "")
-        Me.Image_List_All.Images.SetKeyName(84, "")
         '
         'MainMenu1
         '
@@ -255,7 +162,8 @@ Partial Class SSPPApplicationLog
         '
         Me.cboSortOrder2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboSortOrder2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboSortOrder2.Location = New System.Drawing.Point(162, 113)
+        Me.cboSortOrder2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboSortOrder2.Location = New System.Drawing.Point(156, 42)
         Me.cboSortOrder2.Name = "cboSortOrder2"
         Me.cboSortOrder2.Size = New System.Drawing.Size(121, 21)
         Me.cboSortOrder2.TabIndex = 11
@@ -264,7 +172,8 @@ Partial Class SSPPApplicationLog
         '
         Me.cboSort2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboSort2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboSort2.Location = New System.Drawing.Point(34, 113)
+        Me.cboSort2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboSort2.Location = New System.Drawing.Point(28, 42)
         Me.cboSort2.Name = "cboSort2"
         Me.cboSort2.Size = New System.Drawing.Size(121, 21)
         Me.cboSort2.TabIndex = 10
@@ -273,7 +182,8 @@ Partial Class SSPPApplicationLog
         '
         Me.cboSortOrder1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboSortOrder1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboSortOrder1.Location = New System.Drawing.Point(162, 89)
+        Me.cboSortOrder1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboSortOrder1.Location = New System.Drawing.Point(161, 81)
         Me.cboSortOrder1.Name = "cboSortOrder1"
         Me.cboSortOrder1.Size = New System.Drawing.Size(121, 21)
         Me.cboSortOrder1.TabIndex = 9
@@ -282,7 +192,8 @@ Partial Class SSPPApplicationLog
         '
         Me.cboSort1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboSort1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboSort1.Location = New System.Drawing.Point(34, 89)
+        Me.cboSort1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboSort1.Location = New System.Drawing.Point(33, 81)
         Me.cboSort1.Name = "cboSort1"
         Me.cboSort1.Size = New System.Drawing.Size(121, 21)
         Me.cboSort1.TabIndex = 8
@@ -291,7 +202,8 @@ Partial Class SSPPApplicationLog
         '
         Me.cboApplicationStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboApplicationStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboApplicationStatus.Location = New System.Drawing.Point(680, 75)
+        Me.cboApplicationStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboApplicationStatus.Location = New System.Drawing.Point(679, 67)
         Me.cboApplicationStatus.Name = "cboApplicationStatus"
         Me.cboApplicationStatus.Size = New System.Drawing.Size(121, 21)
         Me.cboApplicationStatus.TabIndex = 6
@@ -300,7 +212,8 @@ Partial Class SSPPApplicationLog
         '
         Me.cboApplicationUnit.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboApplicationUnit.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboApplicationUnit.Location = New System.Drawing.Point(680, 48)
+        Me.cboApplicationUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboApplicationUnit.Location = New System.Drawing.Point(679, 40)
         Me.cboApplicationUnit.Name = "cboApplicationUnit"
         Me.cboApplicationUnit.Size = New System.Drawing.Size(121, 21)
         Me.cboApplicationUnit.TabIndex = 5
@@ -309,7 +222,8 @@ Partial Class SSPPApplicationLog
         '
         Me.cboApplicationType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboApplicationType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboApplicationType.Location = New System.Drawing.Point(680, 21)
+        Me.cboApplicationType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboApplicationType.Location = New System.Drawing.Point(679, 13)
         Me.cboApplicationType.Name = "cboApplicationType"
         Me.cboApplicationType.Size = New System.Drawing.Size(121, 21)
         Me.cboApplicationType.TabIndex = 4
@@ -318,7 +232,8 @@ Partial Class SSPPApplicationLog
         '
         Me.cboFieldType2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboFieldType2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboFieldType2.Location = New System.Drawing.Point(368, 21)
+        Me.cboFieldType2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboFieldType2.Location = New System.Drawing.Point(367, 13)
         Me.cboFieldType2.Name = "cboFieldType2"
         Me.cboFieldType2.Size = New System.Drawing.Size(214, 21)
         Me.cboFieldType2.TabIndex = 2
@@ -327,7 +242,8 @@ Partial Class SSPPApplicationLog
         '
         Me.cboFieldType1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboFieldType1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboFieldType1.Location = New System.Drawing.Point(76, 21)
+        Me.cboFieldType1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboFieldType1.Location = New System.Drawing.Point(75, 13)
         Me.cboFieldType1.Name = "cboFieldType1"
         Me.cboFieldType1.Size = New System.Drawing.Size(215, 21)
         Me.cboFieldType1.TabIndex = 0
@@ -335,7 +251,7 @@ Partial Class SSPPApplicationLog
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(588, 105)
+        Me.Label11.Location = New System.Drawing.Point(587, 97)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(49, 13)
         Me.Label11.TabIndex = 10
@@ -344,7 +260,7 @@ Partial Class SSPPApplicationLog
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(588, 78)
+        Me.Label10.Location = New System.Drawing.Point(587, 70)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(92, 13)
         Me.Label10.TabIndex = 9
@@ -353,7 +269,7 @@ Partial Class SSPPApplicationLog
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(588, 51)
+        Me.Label9.Location = New System.Drawing.Point(587, 43)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(81, 13)
         Me.Label9.TabIndex = 8
@@ -362,7 +278,7 @@ Partial Class SSPPApplicationLog
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(588, 24)
+        Me.Label8.Location = New System.Drawing.Point(587, 16)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(86, 13)
         Me.Label8.TabIndex = 7
@@ -371,7 +287,7 @@ Partial Class SSPPApplicationLog
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(10, 115)
+        Me.Label7.Location = New System.Drawing.Point(4, 44)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(19, 13)
         Me.Label7.TabIndex = 6
@@ -380,7 +296,7 @@ Partial Class SSPPApplicationLog
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(10, 92)
+        Me.Label6.Location = New System.Drawing.Point(9, 84)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(19, 13)
         Me.Label6.TabIndex = 5
@@ -389,7 +305,7 @@ Partial Class SSPPApplicationLog
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(297, 51)
+        Me.Label4.Location = New System.Drawing.Point(296, 43)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(65, 13)
         Me.Label4.TabIndex = 3
@@ -398,7 +314,7 @@ Partial Class SSPPApplicationLog
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(297, 24)
+        Me.Label3.Location = New System.Drawing.Point(296, 16)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(56, 13)
         Me.Label3.TabIndex = 2
@@ -407,7 +323,7 @@ Partial Class SSPPApplicationLog
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(5, 51)
+        Me.Label2.Location = New System.Drawing.Point(4, 43)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(65, 13)
         Me.Label2.TabIndex = 1
@@ -416,7 +332,7 @@ Partial Class SSPPApplicationLog
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(5, 24)
+        Me.Label1.Location = New System.Drawing.Point(4, 16)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(56, 13)
         Me.Label1.TabIndex = 0
@@ -441,11 +357,11 @@ Partial Class SSPPApplicationLog
         'btnOpen
         '
         Me.btnOpen.Enabled = False
-        Me.btnOpen.Location = New System.Drawing.Point(300, 111)
+        Me.btnOpen.Location = New System.Drawing.Point(299, 107)
         Me.btnOpen.Name = "btnOpen"
-        Me.btnOpen.Size = New System.Drawing.Size(102, 23)
+        Me.btnOpen.Size = New System.Drawing.Size(160, 23)
         Me.btnOpen.TabIndex = 15
-        Me.btnOpen.Text = "View Application"
+        Me.btnOpen.Text = "View Selected Application"
         '
         'MenuItem4
         '
@@ -468,7 +384,7 @@ Partial Class SSPPApplicationLog
         '
         Me.DTPSearchDate2.CustomFormat = "dd-MMM-yyyy"
         Me.DTPSearchDate2.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPSearchDate2.Location = New System.Drawing.Point(368, 48)
+        Me.DTPSearchDate2.Location = New System.Drawing.Point(367, 40)
         Me.DTPSearchDate2.Name = "DTPSearchDate2"
         Me.DTPSearchDate2.Size = New System.Drawing.Size(100, 20)
         Me.DTPSearchDate2.TabIndex = 3
@@ -485,7 +401,7 @@ Partial Class SSPPApplicationLog
         '
         Me.DTPSearchDate1.CustomFormat = "dd-MMM-yyyy"
         Me.DTPSearchDate1.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPSearchDate1.Location = New System.Drawing.Point(76, 48)
+        Me.DTPSearchDate1.Location = New System.Drawing.Point(75, 40)
         Me.DTPSearchDate1.Name = "DTPSearchDate1"
         Me.DTPSearchDate1.Size = New System.Drawing.Size(100, 20)
         Me.DTPSearchDate1.TabIndex = 1
@@ -494,30 +410,30 @@ Partial Class SSPPApplicationLog
         '
         'btnResetSearch
         '
-        Me.btnResetSearch.Location = New System.Drawing.Point(383, 75)
+        Me.btnResetSearch.Location = New System.Drawing.Point(382, 73)
         Me.btnResetSearch.Name = "btnResetSearch"
-        Me.btnResetSearch.Size = New System.Drawing.Size(77, 23)
+        Me.btnResetSearch.Size = New System.Drawing.Size(77, 30)
         Me.btnResetSearch.TabIndex = 14
         Me.btnResetSearch.Text = "Reset Form"
         '
         'btnFind
         '
-        Me.btnFind.Location = New System.Drawing.Point(300, 75)
+        Me.btnFind.Location = New System.Drawing.Point(299, 73)
         Me.btnFind.Name = "btnFind"
-        Me.btnFind.Size = New System.Drawing.Size(77, 23)
+        Me.btnFind.Size = New System.Drawing.Size(77, 30)
         Me.btnFind.TabIndex = 13
         Me.btnFind.Text = "Search"
         '
         'txtSearchText2
         '
-        Me.txtSearchText2.Location = New System.Drawing.Point(368, 48)
+        Me.txtSearchText2.Location = New System.Drawing.Point(367, 40)
         Me.txtSearchText2.Name = "txtSearchText2"
         Me.txtSearchText2.Size = New System.Drawing.Size(214, 20)
         Me.txtSearchText2.TabIndex = 3
         '
         'txtSearchText1
         '
-        Me.txtSearchText1.Location = New System.Drawing.Point(77, 48)
+        Me.txtSearchText1.Location = New System.Drawing.Point(76, 40)
         Me.txtSearchText1.Name = "txtSearchText1"
         Me.txtSearchText1.Size = New System.Drawing.Size(214, 20)
         Me.txtSearchText1.TabIndex = 1
@@ -525,7 +441,7 @@ Partial Class SSPPApplicationLog
         'chbShowAll
         '
         Me.chbShowAll.AutoSize = True
-        Me.chbShowAll.Location = New System.Drawing.Point(485, 77)
+        Me.chbShowAll.Location = New System.Drawing.Point(477, 80)
         Me.chbShowAll.Name = "chbShowAll"
         Me.chbShowAll.Size = New System.Drawing.Size(97, 17)
         Me.chbShowAll.TabIndex = 12
@@ -535,7 +451,8 @@ Partial Class SSPPApplicationLog
         '
         Me.cboEngineer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboEngineer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboEngineer.Location = New System.Drawing.Point(680, 102)
+        Me.cboEngineer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboEngineer.Location = New System.Drawing.Point(679, 94)
         Me.cboEngineer.Name = "cboEngineer"
         Me.cboEngineer.Size = New System.Drawing.Size(121, 21)
         Me.cboEngineer.TabIndex = 7
@@ -544,8 +461,9 @@ Partial Class SSPPApplicationLog
         '
         Me.cboSearchText1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboSearchText1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSearchText1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSearchText1.FormattingEnabled = True
-        Me.cboSearchText1.Location = New System.Drawing.Point(77, 48)
+        Me.cboSearchText1.Location = New System.Drawing.Point(76, 40)
         Me.cboSearchText1.Name = "cboSearchText1"
         Me.cboSearchText1.Size = New System.Drawing.Size(214, 21)
         Me.cboSearchText1.TabIndex = 1
@@ -554,8 +472,9 @@ Partial Class SSPPApplicationLog
         '
         Me.cboSearchText2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboSearchText2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSearchText2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSearchText2.FormattingEnabled = True
-        Me.cboSearchText2.Location = New System.Drawing.Point(368, 48)
+        Me.cboSearchText2.Location = New System.Drawing.Point(367, 40)
         Me.cboSearchText2.Name = "cboSearchText2"
         Me.cboSearchText2.Size = New System.Drawing.Size(214, 21)
         Me.cboSearchText2.TabIndex = 3
@@ -570,6 +489,7 @@ Partial Class SSPPApplicationLog
         Me.dgvApplicationLog.Location = New System.Drawing.Point(0, 0)
         Me.dgvApplicationLog.Name = "dgvApplicationLog"
         Me.dgvApplicationLog.ReadOnly = True
+        Me.dgvApplicationLog.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvApplicationLog.Size = New System.Drawing.Size(812, 379)
         Me.dgvApplicationLog.TabIndex = 253
         Me.dgvApplicationLog.Visible = False
@@ -578,7 +498,7 @@ Partial Class SSPPApplicationLog
         '
         Me.DTPSearchDate1b.CustomFormat = "dd-MMM-yyyy"
         Me.DTPSearchDate1b.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPSearchDate1b.Location = New System.Drawing.Point(187, 48)
+        Me.DTPSearchDate1b.Location = New System.Drawing.Point(186, 40)
         Me.DTPSearchDate1b.Name = "DTPSearchDate1b"
         Me.DTPSearchDate1b.Size = New System.Drawing.Size(100, 20)
         Me.DTPSearchDate1b.TabIndex = 1
@@ -587,7 +507,7 @@ Partial Class SSPPApplicationLog
         '
         'StatusStrip1
         '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Panel1, Me.Panel2, Me.Panel3})
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Panel1})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 523)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(812, 22)
@@ -596,93 +516,20 @@ Partial Class SSPPApplicationLog
         '
         'Panel1
         '
-        Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.Panel1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(789, 17)
+        Me.Panel1.Size = New System.Drawing.Size(797, 17)
         Me.Panel1.Spring = True
         Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'Panel2
-        '
-        Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(4, 17)
-        Me.Panel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Panel3
-        '
-        Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(4, 17)
-        Me.Panel3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'SearchGroupBox
-        '
-        Me.SearchGroupBox.Controls.Add(Me.Label6)
-        Me.SearchGroupBox.Controls.Add(Me.Label7)
-        Me.SearchGroupBox.Controls.Add(Me.cboSortOrder2)
-        Me.SearchGroupBox.Controls.Add(Me.cboSort2)
-        Me.SearchGroupBox.Controls.Add(Me.cboSortOrder1)
-        Me.SearchGroupBox.Controls.Add(Me.cboSort1)
-        Me.SearchGroupBox.Controls.Add(Me.SortGroupBox)
-        Me.SearchGroupBox.Controls.Add(Me.btnExport)
-        Me.SearchGroupBox.Controls.Add(Me.cboMACT1)
-        Me.SearchGroupBox.Controls.Add(Me.cboNSPS1)
-        Me.SearchGroupBox.Controls.Add(Me.cboMACT2)
-        Me.SearchGroupBox.Controls.Add(Me.cboNSPS2)
-        Me.SearchGroupBox.Controls.Add(Me.cboNESHAP2)
-        Me.SearchGroupBox.Controls.Add(Me.cboNESHAP1)
-        Me.SearchGroupBox.Controls.Add(Me.cboSIP2)
-        Me.SearchGroupBox.Controls.Add(Me.cboSIP1)
-        Me.SearchGroupBox.Controls.Add(Me.DTPSearchDate2b)
-        Me.SearchGroupBox.Controls.Add(Me.DTPSearchDate1b)
-        Me.SearchGroupBox.Controls.Add(Me.Label1)
-        Me.SearchGroupBox.Controls.Add(Me.btnOpen)
-        Me.SearchGroupBox.Controls.Add(Me.Label2)
-        Me.SearchGroupBox.Controls.Add(Me.Label3)
-        Me.SearchGroupBox.Controls.Add(Me.Label4)
-        Me.SearchGroupBox.Controls.Add(Me.btnResetSearch)
-        Me.SearchGroupBox.Controls.Add(Me.btnFind)
-        Me.SearchGroupBox.Controls.Add(Me.Label8)
-        Me.SearchGroupBox.Controls.Add(Me.chbShowAll)
-        Me.SearchGroupBox.Controls.Add(Me.Label9)
-        Me.SearchGroupBox.Controls.Add(Me.cboEngineer)
-        Me.SearchGroupBox.Controls.Add(Me.Label10)
-        Me.SearchGroupBox.Controls.Add(Me.Label11)
-        Me.SearchGroupBox.Controls.Add(Me.cboFieldType1)
-        Me.SearchGroupBox.Controls.Add(Me.cboApplicationStatus)
-        Me.SearchGroupBox.Controls.Add(Me.cboFieldType2)
-        Me.SearchGroupBox.Controls.Add(Me.cboApplicationUnit)
-        Me.SearchGroupBox.Controls.Add(Me.cboApplicationType)
-        Me.SearchGroupBox.Controls.Add(Me.cboSearchText1)
-        Me.SearchGroupBox.Controls.Add(Me.cboSearchText2)
-        Me.SearchGroupBox.Controls.Add(Me.DTPSearchDate1)
-        Me.SearchGroupBox.Controls.Add(Me.txtSearchText1)
-        Me.SearchGroupBox.Controls.Add(Me.DTPSearchDate2)
-        Me.SearchGroupBox.Controls.Add(Me.txtSearchText2)
-        Me.SearchGroupBox.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.SearchGroupBox.Location = New System.Drawing.Point(0, 379)
-        Me.SearchGroupBox.Name = "SearchGroupBox"
-        Me.SearchGroupBox.Size = New System.Drawing.Size(812, 144)
-        Me.SearchGroupBox.TabIndex = 255
-        Me.SearchGroupBox.TabStop = False
-        Me.SearchGroupBox.Text = "Specify Search and Sort Criteria"
-        '
         'SortGroupBox
         '
-        Me.SortGroupBox.Location = New System.Drawing.Point(6, 74)
+        Me.SortGroupBox.Controls.Add(Me.cboSortOrder2)
+        Me.SortGroupBox.Controls.Add(Me.Label7)
+        Me.SortGroupBox.Controls.Add(Me.cboSort2)
+        Me.SortGroupBox.Location = New System.Drawing.Point(5, 66)
         Me.SortGroupBox.Name = "SortGroupBox"
-        Me.SortGroupBox.Size = New System.Drawing.Size(285, 70)
+        Me.SortGroupBox.Size = New System.Drawing.Size(285, 71)
         Me.SortGroupBox.TabIndex = 41
         Me.SortGroupBox.TabStop = False
         Me.SortGroupBox.Text = "Sort By"
@@ -690,19 +537,20 @@ Partial Class SSPPApplicationLog
         'btnExport
         '
         Me.btnExport.Enabled = False
-        Me.btnExport.Location = New System.Drawing.Point(408, 111)
+        Me.btnExport.Location = New System.Drawing.Point(465, 107)
         Me.btnExport.Name = "btnExport"
-        Me.btnExport.Size = New System.Drawing.Size(89, 23)
+        Me.btnExport.Size = New System.Drawing.Size(116, 23)
         Me.btnExport.TabIndex = 16
-        Me.btnExport.Text = "Export to Excel"
+        Me.btnExport.Text = "Export Grid to Excel"
         Me.btnExport.UseVisualStyleBackColor = True
         '
         'cboMACT1
         '
         Me.cboMACT1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboMACT1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboMACT1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboMACT1.FormattingEnabled = True
-        Me.cboMACT1.Location = New System.Drawing.Point(76, 48)
+        Me.cboMACT1.Location = New System.Drawing.Point(75, 40)
         Me.cboMACT1.Name = "cboMACT1"
         Me.cboMACT1.Size = New System.Drawing.Size(215, 21)
         Me.cboMACT1.TabIndex = 1
@@ -711,8 +559,9 @@ Partial Class SSPPApplicationLog
         '
         Me.cboNSPS1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboNSPS1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboNSPS1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboNSPS1.FormattingEnabled = True
-        Me.cboNSPS1.Location = New System.Drawing.Point(77, 48)
+        Me.cboNSPS1.Location = New System.Drawing.Point(76, 40)
         Me.cboNSPS1.Name = "cboNSPS1"
         Me.cboNSPS1.Size = New System.Drawing.Size(214, 21)
         Me.cboNSPS1.TabIndex = 1
@@ -721,8 +570,9 @@ Partial Class SSPPApplicationLog
         '
         Me.cboMACT2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboMACT2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboMACT2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboMACT2.FormattingEnabled = True
-        Me.cboMACT2.Location = New System.Drawing.Point(368, 48)
+        Me.cboMACT2.Location = New System.Drawing.Point(367, 40)
         Me.cboMACT2.Name = "cboMACT2"
         Me.cboMACT2.Size = New System.Drawing.Size(214, 21)
         Me.cboMACT2.TabIndex = 3
@@ -731,8 +581,9 @@ Partial Class SSPPApplicationLog
         '
         Me.cboNSPS2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboNSPS2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboNSPS2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboNSPS2.FormattingEnabled = True
-        Me.cboNSPS2.Location = New System.Drawing.Point(368, 48)
+        Me.cboNSPS2.Location = New System.Drawing.Point(367, 40)
         Me.cboNSPS2.Name = "cboNSPS2"
         Me.cboNSPS2.Size = New System.Drawing.Size(214, 21)
         Me.cboNSPS2.TabIndex = 3
@@ -741,8 +592,9 @@ Partial Class SSPPApplicationLog
         '
         Me.cboNESHAP2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboNESHAP2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboNESHAP2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboNESHAP2.FormattingEnabled = True
-        Me.cboNESHAP2.Location = New System.Drawing.Point(368, 48)
+        Me.cboNESHAP2.Location = New System.Drawing.Point(367, 40)
         Me.cboNESHAP2.Name = "cboNESHAP2"
         Me.cboNESHAP2.Size = New System.Drawing.Size(214, 21)
         Me.cboNESHAP2.TabIndex = 3
@@ -751,8 +603,9 @@ Partial Class SSPPApplicationLog
         '
         Me.cboNESHAP1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboNESHAP1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboNESHAP1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboNESHAP1.FormattingEnabled = True
-        Me.cboNESHAP1.Location = New System.Drawing.Point(77, 48)
+        Me.cboNESHAP1.Location = New System.Drawing.Point(76, 40)
         Me.cboNESHAP1.Name = "cboNESHAP1"
         Me.cboNESHAP1.Size = New System.Drawing.Size(214, 21)
         Me.cboNESHAP1.TabIndex = 1
@@ -761,8 +614,9 @@ Partial Class SSPPApplicationLog
         '
         Me.cboSIP2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboSIP2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSIP2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSIP2.FormattingEnabled = True
-        Me.cboSIP2.Location = New System.Drawing.Point(368, 48)
+        Me.cboSIP2.Location = New System.Drawing.Point(367, 40)
         Me.cboSIP2.Name = "cboSIP2"
         Me.cboSIP2.Size = New System.Drawing.Size(214, 21)
         Me.cboSIP2.TabIndex = 3
@@ -771,8 +625,9 @@ Partial Class SSPPApplicationLog
         '
         Me.cboSIP1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboSIP1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSIP1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSIP1.FormattingEnabled = True
-        Me.cboSIP1.Location = New System.Drawing.Point(76, 48)
+        Me.cboSIP1.Location = New System.Drawing.Point(75, 40)
         Me.cboSIP1.Name = "cboSIP1"
         Me.cboSIP1.Size = New System.Drawing.Size(215, 21)
         Me.cboSIP1.TabIndex = 1
@@ -781,7 +636,7 @@ Partial Class SSPPApplicationLog
         '
         Me.DTPSearchDate2b.CustomFormat = "dd-MMM-yyyy"
         Me.DTPSearchDate2b.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPSearchDate2b.Location = New System.Drawing.Point(478, 48)
+        Me.DTPSearchDate2b.Location = New System.Drawing.Point(477, 40)
         Me.DTPSearchDate2b.Name = "DTPSearchDate2b"
         Me.DTPSearchDate2b.Size = New System.Drawing.Size(100, 20)
         Me.DTPSearchDate2b.TabIndex = 3
@@ -803,7 +658,8 @@ Partial Class SSPPApplicationLog
         Me.lblMessage.AutoSize = True
         Me.lblMessage.Location = New System.Drawing.Point(3, 3)
         Me.lblMessage.Name = "lblMessage"
-        Me.lblMessage.Size = New System.Drawing.Size(127, 13)
+        Me.lblMessage.Padding = New System.Windows.Forms.Padding(10)
+        Me.lblMessage.Size = New System.Drawing.Size(147, 33)
         Me.lblMessage.TabIndex = 254
         Me.lblMessage.Text = "No applications to display"
         '
@@ -811,6 +667,53 @@ Partial Class SSPPApplicationLog
         '
         Me.bgwApplicationLog.WorkerReportsProgress = True
         Me.bgwApplicationLog.WorkerSupportsCancellation = True
+        '
+        'Panel2
+        '
+        Me.Panel2.Controls.Add(Me.Label6)
+        Me.Panel2.Controls.Add(Me.cboSortOrder1)
+        Me.Panel2.Controls.Add(Me.cboSort1)
+        Me.Panel2.Controls.Add(Me.SortGroupBox)
+        Me.Panel2.Controls.Add(Me.btnExport)
+        Me.Panel2.Controls.Add(Me.cboMACT1)
+        Me.Panel2.Controls.Add(Me.cboNSPS1)
+        Me.Panel2.Controls.Add(Me.cboMACT2)
+        Me.Panel2.Controls.Add(Me.cboNSPS2)
+        Me.Panel2.Controls.Add(Me.cboNESHAP2)
+        Me.Panel2.Controls.Add(Me.cboNESHAP1)
+        Me.Panel2.Controls.Add(Me.cboSIP2)
+        Me.Panel2.Controls.Add(Me.cboSIP1)
+        Me.Panel2.Controls.Add(Me.DTPSearchDate2b)
+        Me.Panel2.Controls.Add(Me.DTPSearchDate1b)
+        Me.Panel2.Controls.Add(Me.Label1)
+        Me.Panel2.Controls.Add(Me.btnOpen)
+        Me.Panel2.Controls.Add(Me.Label2)
+        Me.Panel2.Controls.Add(Me.Label3)
+        Me.Panel2.Controls.Add(Me.Label4)
+        Me.Panel2.Controls.Add(Me.btnResetSearch)
+        Me.Panel2.Controls.Add(Me.btnFind)
+        Me.Panel2.Controls.Add(Me.Label8)
+        Me.Panel2.Controls.Add(Me.chbShowAll)
+        Me.Panel2.Controls.Add(Me.Label9)
+        Me.Panel2.Controls.Add(Me.cboEngineer)
+        Me.Panel2.Controls.Add(Me.Label10)
+        Me.Panel2.Controls.Add(Me.Label11)
+        Me.Panel2.Controls.Add(Me.cboFieldType1)
+        Me.Panel2.Controls.Add(Me.cboApplicationStatus)
+        Me.Panel2.Controls.Add(Me.cboFieldType2)
+        Me.Panel2.Controls.Add(Me.cboApplicationUnit)
+        Me.Panel2.Controls.Add(Me.cboApplicationType)
+        Me.Panel2.Controls.Add(Me.cboSearchText1)
+        Me.Panel2.Controls.Add(Me.cboSearchText2)
+        Me.Panel2.Controls.Add(Me.DTPSearchDate1)
+        Me.Panel2.Controls.Add(Me.txtSearchText1)
+        Me.Panel2.Controls.Add(Me.DTPSearchDate2)
+        Me.Panel2.Controls.Add(Me.txtSearchText2)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Panel2.Location = New System.Drawing.Point(0, 379)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(812, 144)
+        Me.Panel2.TabIndex = 42
         '
         'SSPPApplicationLog
         '
@@ -820,7 +723,7 @@ Partial Class SSPPApplicationLog
         Me.AutoScroll = True
         Me.ClientSize = New System.Drawing.Size(812, 545)
         Me.Controls.Add(Me.pnlDataGridView)
-        Me.Controls.Add(Me.SearchGroupBox)
+        Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Menu = Me.MainMenu1
         Me.Name = "SSPPApplicationLog"
@@ -828,15 +731,16 @@ Partial Class SSPPApplicationLog
         CType(Me.dgvApplicationLog, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
-        Me.SearchGroupBox.ResumeLayout(False)
-        Me.SearchGroupBox.PerformLayout()
+        Me.SortGroupBox.ResumeLayout(False)
+        Me.SortGroupBox.PerformLayout()
         Me.pnlDataGridView.ResumeLayout(False)
         Me.pnlDataGridView.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
     Friend WithEvents mmiTools As System.Windows.Forms.MenuItem
     Friend WithEvents mmiClose As System.Windows.Forms.MenuItem
@@ -884,9 +788,6 @@ Partial Class SSPPApplicationLog
     Friend WithEvents DTPSearchDate1b As System.Windows.Forms.DateTimePicker
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents SearchGroupBox As System.Windows.Forms.GroupBox
     Friend WithEvents DTPSearchDate2b As System.Windows.Forms.DateTimePicker
     Friend WithEvents pnlDataGridView As System.Windows.Forms.Panel
     Friend WithEvents bgwApplicationLog As System.ComponentModel.BackgroundWorker
@@ -906,4 +807,5 @@ Partial Class SSPPApplicationLog
     Friend WithEvents mmiOpen As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem8 As System.Windows.Forms.MenuItem
     Friend WithEvents mmiFile As System.Windows.Forms.MenuItem
+    Friend WithEvents Panel2 As System.Windows.Forms.Panel
 End Class

@@ -297,7 +297,7 @@ Public Class PASPFeesLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub mmiOpenBlankForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOpenBlankForm.Click
+    Private Sub mmiOpenBlankForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Try
 
             If FeeStats Is Nothing Then
@@ -348,14 +348,6 @@ Public Class PASPFeesLog
                 End If
             End If
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub Back_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Back.Click
-        Try
-
-            Me.Hide()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

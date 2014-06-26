@@ -342,7 +342,7 @@ Partial Class SSCPComplianceLog
                     Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(824, 17)
+        Me.Panel1.Size = New System.Drawing.Size(808, 17)
         Me.Panel1.Spring = True
         Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -1109,6 +1109,7 @@ Partial Class SSCPComplianceLog
         '
         'cboEvent
         '
+        Me.cboEvent.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboEvent.Location = New System.Drawing.Point(9, 78)
         Me.cboEvent.Name = "cboEvent"
         Me.cboEvent.Size = New System.Drawing.Size(198, 21)

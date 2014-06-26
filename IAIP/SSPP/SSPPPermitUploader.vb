@@ -3,7 +3,7 @@ Imports System.IO
 Imports System
 Imports System.Data
 
-Public Class IAIPPermitUploader
+Public Class SSPPPermitUploader
     Dim SQL As String
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader

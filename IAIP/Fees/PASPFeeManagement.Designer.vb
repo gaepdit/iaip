@@ -23,7 +23,7 @@ Partial Class PASPFeeManagement
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PASPFeeManagement))
-        Me.TabControl1 = New System.Windows.Forms.TabControl
+        Me.FeeManagementTabControl = New System.Windows.Forms.TabControl
         Me.TPFeeAdminTools = New System.Windows.Forms.TabPage
         Me.TabControl2 = New System.Windows.Forms.TabControl
         Me.TabPage1 = New System.Windows.Forms.TabPage
@@ -200,7 +200,7 @@ Partial Class PASPFeeManagement
         Me.Label74 = New System.Windows.Forms.Label
         Me.Label72 = New System.Windows.Forms.Label
         Me.btnAddFacility = New System.Windows.Forms.Button
-        Me.TabControl1.SuspendLayout()
+        Me.FeeManagementTabControl.SuspendLayout()
         Me.TPFeeAdminTools.SuspendLayout()
         Me.TabControl2.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -236,17 +236,17 @@ Partial Class PASPFeeManagement
         Me.TPFeeFacility.SuspendLayout()
         Me.SuspendLayout()
         '
-        'TabControl1
+        'FeeManagementTabControl
         '
-        Me.TabControl1.Controls.Add(Me.TPFeeAdminTools)
-        Me.TabControl1.Controls.Add(Me.TPFeeManagementTools)
-        Me.TabControl1.Controls.Add(Me.TPWebTools)
-        Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TabControl1.Location = New System.Drawing.Point(0, 0)
-        Me.TabControl1.Name = "TabControl1"
-        Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(1001, 692)
-        Me.TabControl1.TabIndex = 257
+        Me.FeeManagementTabControl.Controls.Add(Me.TPFeeAdminTools)
+        Me.FeeManagementTabControl.Controls.Add(Me.TPFeeManagementTools)
+        Me.FeeManagementTabControl.Controls.Add(Me.TPWebTools)
+        Me.FeeManagementTabControl.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.FeeManagementTabControl.Location = New System.Drawing.Point(0, 0)
+        Me.FeeManagementTabControl.Name = "FeeManagementTabControl"
+        Me.FeeManagementTabControl.SelectedIndex = 0
+        Me.FeeManagementTabControl.Size = New System.Drawing.Size(1001, 692)
+        Me.FeeManagementTabControl.TabIndex = 257
         '
         'TPFeeAdminTools
         '
@@ -2105,10 +2105,10 @@ Partial Class PASPFeeManagement
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1001, 692)
-        Me.Controls.Add(Me.TabControl1)
+        Me.Controls.Add(Me.FeeManagementTabControl)
         Me.Name = "PASPFeeManagement"
-        Me.Text = "PASP Fee Management"
-        Me.TabControl1.ResumeLayout(False)
+        Me.Text = "Fee System Management"
+        Me.FeeManagementTabControl.ResumeLayout(False)
         Me.TPFeeAdminTools.ResumeLayout(False)
         Me.TabControl2.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
@@ -2156,7 +2156,7 @@ Partial Class PASPFeeManagement
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
+    Friend WithEvents FeeManagementTabControl As System.Windows.Forms.TabControl
     Friend WithEvents TPFeeAdminTools As System.Windows.Forms.TabPage
     Friend WithEvents TabControl2 As System.Windows.Forms.TabControl
     Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
