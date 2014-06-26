@@ -1,5 +1,11 @@
 % IAIP Change Log
 
+## Version 3.4.4 <span>(2014-06-26)</span>
+
++ NEW: Minor UI refinements and code cleanup
+
++ FIX: *PASP* -- Fee audit log Update Audit button throws error (#224); thx Debbie
+
 ## Version 3.4.3 <span>(2014-06-12)</span>
 
 + NEW: *PASP* -- Updates to the Initial Mailout workflow in Fee Management Tools (#246)
