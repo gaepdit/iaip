@@ -795,6 +795,7 @@ Public Class SSCPEvents
         '
         Me.cboStaffResponsible.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboStaffResponsible.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboStaffResponsible.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStaffResponsible.Location = New System.Drawing.Point(622, 122)
         Me.cboStaffResponsible.Name = "cboStaffResponsible"
         Me.cboStaffResponsible.Size = New System.Drawing.Size(154, 21)
@@ -1175,6 +1176,7 @@ Public Class SSCPEvents
         '
         'cboReportSchedule
         '
+        Me.cboReportSchedule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboReportSchedule.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.cboReportSchedule.Location = New System.Drawing.Point(152, 48)
         Me.cboReportSchedule.Name = "cboReportSchedule"
@@ -1468,7 +1470,7 @@ Public Class SSCPEvents
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(360, 10)
+        Me.Label6.Location = New System.Drawing.Point(360, 11)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(77, 12)
         Me.Label6.TabIndex = 295
@@ -1479,9 +1481,9 @@ Public Class SSCPEvents
         Me.btnViewTestReport.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnViewTestReport.ImageIndex = 53
         Me.btnViewTestReport.ImageList = Me.Image_List_All
-        Me.btnViewTestReport.Location = New System.Drawing.Point(328, 8)
+        Me.btnViewTestReport.Location = New System.Drawing.Point(330, 7)
         Me.btnViewTestReport.Name = "btnViewTestReport"
-        Me.btnViewTestReport.Size = New System.Drawing.Size(24, 16)
+        Me.btnViewTestReport.Size = New System.Drawing.Size(24, 23)
         Me.btnViewTestReport.TabIndex = 294
         '
         'txtTestReportReceivedbySSCPDate
@@ -1745,9 +1747,9 @@ Public Class SSCPEvents
         Me.Label34.AutoSize = True
         Me.Label34.Location = New System.Drawing.Point(8, 304)
         Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(121, 13)
+        Me.Label34.Size = New System.Drawing.Size(124, 13)
         Me.Label34.TabIndex = 81
-        Me.Label34.Text = "Follow-Up Action Taken"
+        Me.Label34.Text = "Follow-Up Action Taken:"
         '
         'Label17
         '
@@ -1815,6 +1817,7 @@ Public Class SSCPEvents
         '
         'cboInspectionComplianceStatus
         '
+        Me.cboInspectionComplianceStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboInspectionComplianceStatus.Location = New System.Drawing.Point(160, 176)
         Me.cboInspectionComplianceStatus.Name = "cboInspectionComplianceStatus"
         Me.cboInspectionComplianceStatus.Size = New System.Drawing.Size(206, 21)
@@ -1894,12 +1897,13 @@ Public Class SSCPEvents
         Me.Label64.AutoSize = True
         Me.Label64.Location = New System.Drawing.Point(8, 152)
         Me.Label64.Name = "Label64"
-        Me.Label64.Size = New System.Drawing.Size(88, 13)
+        Me.Label64.Size = New System.Drawing.Size(91, 13)
         Me.Label64.TabIndex = 68
-        Me.Label64.Text = "Facility Operating"
+        Me.Label64.Text = "Facility Operating:"
         '
         'cboInspectionReason
         '
+        Me.cboInspectionReason.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboInspectionReason.Location = New System.Drawing.Point(160, 72)
         Me.cboInspectionReason.Name = "cboInspectionReason"
         Me.cboInspectionReason.Size = New System.Drawing.Size(206, 21)
@@ -1948,9 +1952,9 @@ Public Class SSCPEvents
         Me.Label21.AutoSize = True
         Me.Label21.Location = New System.Drawing.Point(8, 208)
         Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(114, 13)
+        Me.Label21.Size = New System.Drawing.Size(111, 13)
         Me.Label21.TabIndex = 20
-        Me.Label21.Text = "Inspection Conclusion:"
+        Me.Label21.Text = "Inspection Comments:"
         '
         'txtInspectionGuide
         '
@@ -2146,6 +2150,7 @@ Public Class SSCPEvents
         '
         'cboNotificationType
         '
+        Me.cboNotificationType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboNotificationType.Location = New System.Drawing.Point(568, 40)
         Me.cboNotificationType.Name = "cboNotificationType"
         Me.cboNotificationType.Size = New System.Drawing.Size(192, 21)
