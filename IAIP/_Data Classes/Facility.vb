@@ -1,10 +1,7 @@
 ﻿Namespace Apb
 
     Public Class Facility
-        ' This is the fundamental class for a stationary source. Currently, only
-        ' used for displaying data already in the database, or moving data from
-        ' form to form or report. In the future... maybe also creating/editing
-        ' data?
+        ' This is the fundamental class for a stationary source. 
 
 #Region "Properties"
 
@@ -28,15 +25,15 @@
             End Get
         End Property
 
-        Public Property Name() As String
+        Public Property FacilityName() As String
             Get
-                Return _name
+                Return _facilityName
             End Get
             Set(ByVal value As String)
-                _name = value
+                _facilityName = value
             End Set
         End Property
-        Private _name As String
+        Private _facilityName As String
 
         ' Facility Location is where the facility is actually located,
         ' distinct from a mailing address. Facility Location may not
@@ -61,6 +58,7 @@
             End Set
         End Property
         Private _mailingAddress As Address
+
         Public Property OperationalStatus() As String
             Get
                 Return _operationalStatus
@@ -70,6 +68,7 @@
             End Set
         End Property
         Private _operationalStatus As String
+
         Public Property Classification() As String
             Get
                 Return _classification
@@ -79,6 +78,7 @@
             End Set
         End Property
         Private _classification As String
+
         Public Property Sic() As String
             Get
                 Return _sic
@@ -88,6 +88,7 @@
             End Set
         End Property
         Private _sic As String
+
         Public Property Fein() As String
             Get
                 Return _fein
@@ -97,6 +98,7 @@
             End Set
         End Property
         Private _fein As String
+
         Public Property DistrictOffice() As String
             Get
                 Return _districtOffice
@@ -106,6 +108,7 @@
             End Set
         End Property
         Private _districtOffice As String
+
         Public Property StartupDate() As Nullable(Of System.DateTime)
             Get
                 Return _startupDate
@@ -115,6 +118,7 @@
             End Set
         End Property
         Private _startupDate As Nullable(Of System.DateTime)
+
         Public Property ShutdownDate() As Nullable(Of System.DateTime)
             Get
                 Return _shutdownDate
@@ -124,6 +128,7 @@
             End Set
         End Property
         Private _shutdownDate As Nullable(Of System.DateTime)
+
         Public Property CmsStatus() As String
             Get
                 Return _cmsStatus
@@ -133,6 +138,7 @@
             End Set
         End Property
         Private _cmsStatus As String
+
         Public Property Description() As String
             Get
                 Return _description
@@ -142,6 +148,7 @@
             End Set
         End Property
         Private _description As String
+
         Public Property Naics() As String
             Get
                 Return _naics
@@ -151,6 +158,7 @@
             End Set
         End Property
         Private _naics As String
+
         Public Property RmpId() As String
             Get
                 Return _rmpId
@@ -160,6 +168,36 @@
             End Set
         End Property
         Private _rmpId As String
+
+        Private _subjectToNsps As Boolean?
+        Public Property SubjectToNsps() As Boolean?
+            Get
+                Return _subjectToNsps
+            End Get
+            Set(ByVal value As Boolean?)
+                _subjectToNsps = value
+            End Set
+        End Property
+
+        Private _part70Source As Boolean?
+        Public Property Part70Source() As Boolean?
+            Get
+                Return _part70Source
+            End Get
+            Set(ByVal value As Boolean?)
+                _part70Source = value
+            End Set
+        End Property
+
+        Private _comment As String
+        Public Property Comment() As String
+            Get
+                Return _comment
+            End Get
+            Set(ByVal value As String)
+                _comment = value
+            End Set
+        End Property
 
 #End Region
 

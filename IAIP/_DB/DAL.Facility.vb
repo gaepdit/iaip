@@ -96,7 +96,7 @@ Namespace DAL
                 .FacilityLocation = location
                 .Fein = DB.GetNullable(Of String)(row("STRFEINUMBER"))
                 .Naics = DB.GetNullable(Of String)(row("STRNAICSCODE"))
-                .Name = DB.GetNullable(Of String)(row("STRFACILITYNAME"))
+                .FacilityName = DB.GetNullable(Of String)(row("STRFACILITYNAME"))
                 .OperationalStatus = DB.GetNullable(Of String)(row("STROPERATIONALSTATUS"))
                 .Sic = DB.GetNullable(Of String)(row("STRSICCODE"))
             End With

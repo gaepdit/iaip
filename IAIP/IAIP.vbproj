@@ -1526,6 +1526,7 @@
     <None Include="Resources\Seal_of_Georgia_gold.ico" />
     <None Include="Resources\Seal_of_Georgia_red_small.ico" />
     <None Include="Resources\Seal_of_Georgia_gold_256x256x32.png" />
+    <Compile Include="_Data Classes\Contact.vb" />
     <Compile Include="_DB\DAL.AppData.vb" />
     <Compile Include="_DB\DAL.Fees.vb" />
     <Compile Include="_DB\DAL.SBEAP.vb" />

@@ -81,7 +81,7 @@ Public Class SscpDocuments
 
             infoDisplay.AppendFormat("Enforcement #{0}", enforcementInfo.EnforcementNumber).AppendLine()
             Dim airsNum As Integer = CInt(enforcementInfo.Facility.AirsNumber)
-            infoDisplay.AppendFormat("AIRS # {0:000-00000}: {1}", airsNum, enforcementInfo.Facility.Name).AppendLine()
+            infoDisplay.AppendFormat("AIRS # {0:000-00000}: {1}", airsNum, enforcementInfo.Facility.FacilityName).AppendLine()
             lblEnforcementInfo.Text = infoDisplay.ToString
 
             infoDisplay.Length = 0

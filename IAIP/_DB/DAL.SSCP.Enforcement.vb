@@ -51,7 +51,7 @@ Namespace DAL.SSCP
             Dim facility As New Apb.Facility
             With facility
                 .AirsNumber = DB.GetNullable(Of String)(row("STRAIRSNUMBER"))
-                .Name = DB.GetNullable(Of String)(row("STRFACILITYNAME"))
+                .FacilityName = DB.GetNullable(Of String)(row("STRFACILITYNAME"))
                 .FacilityLocation = location
             End With
 

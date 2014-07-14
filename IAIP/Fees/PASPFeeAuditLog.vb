@@ -39,40 +39,16 @@ Public Class PASPFeeAuditLog
 
 #End Region
 
-    Private Sub PASPFeeStatisticsAndMailout_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub PASPFeeAuditLog_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Try
             LoadSelectedNSPSExemptions()
             LoadTransactionTypes()
             LoadPayTypes()
             LoadStaff()
-
             LoadFeeYears()
 
-            cboInitialOpStatus.Items.Add("")
-            cboInitialOpStatus.Items.Add("O - Operational")
-            cboInitialOpStatus.Items.Add("P - Planned")
-            cboInitialOpStatus.Items.Add("C - Under Construction")
-            cboInitialOpStatus.Items.Add("T - Temporarily Closed")
-            cboInitialOpStatus.Items.Add("X - Closed/Dismantled")
-            cboInitialOpStatus.Items.Add("I - Seasonal Operation")
-
-            cboInitialClassification.Items.Add("")
-            cboInitialClassification.Items.Add("A")
-            cboInitialClassification.Items.Add("B")
-            cboInitialClassification.Items.Add("SM")
-            cboInitialClassification.Items.Add("PR")
-            cboInitialClassification.Items.Add("C")
-
-            cboEditClassification.Items.Add("")
-            cboEditClassification.Items.Add("A")
-            cboEditClassification.Items.Add("SM")
-            cboEditClassification.Items.Add("B")
-            cboEditClassification.Items.Add("PR")
-
-            cboEditPaymentType.Items.Add("")
-            cboEditPaymentType.Items.Add("Entire Annual Year")
-            cboEditPaymentType.Items.Add("Four Quarterly Payments")
+            PopulateComboBoxes()
 
             DTPAuditStart.Text = OracleDate
             DTPAuditEnd.Text = OracleDate
@@ -83,13 +59,6 @@ Public Class PASPFeeAuditLog
             pnlFacilityData.Enabled = False
             pnlFacilityData2.Enabled = False
 
-            cboAuditType.Items.Add("")
-            cboAuditType.Items.Add("Facility Self Amendment")
-            cboAuditType.Items.Add("Level 1 Audit")
-            cboAuditType.Items.Add("Level 2 Audit")
-            cboAuditType.Items.Add("Level 3 Audit")
-            cboAuditType.Items.Add("Other")
-
             ParseParameters()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -97,6 +66,40 @@ Public Class PASPFeeAuditLog
     End Sub
 
 #Region "Subs and Functions"
+
+    Private Sub PopulateComboBoxes()
+        cboInitialOpStatus.Items.Add("")
+        cboInitialOpStatus.Items.Add("O - Operational")
+        cboInitialOpStatus.Items.Add("P - Planned")
+        cboInitialOpStatus.Items.Add("C - Under Construction")
+        cboInitialOpStatus.Items.Add("T - Temporarily Closed")
+        cboInitialOpStatus.Items.Add("X - Closed/Dismantled")
+        cboInitialOpStatus.Items.Add("I - Seasonal Operation")
+
+        cboInitialClassification.Items.Add("")
+        cboInitialClassification.Items.Add("A")
+        cboInitialClassification.Items.Add("B")
+        cboInitialClassification.Items.Add("SM")
+        cboInitialClassification.Items.Add("PR")
+        cboInitialClassification.Items.Add("C")
+
+        cboEditClassification.Items.Add("")
+        cboEditClassification.Items.Add("A")
+        cboEditClassification.Items.Add("SM")
+        cboEditClassification.Items.Add("B")
+        cboEditClassification.Items.Add("PR")
+
+        cboEditPaymentType.Items.Add("")
+        cboEditPaymentType.Items.Add("Entire Annual Year")
+        cboEditPaymentType.Items.Add("Four Quarterly Payments")
+
+        cboAuditType.Items.Add("")
+        cboAuditType.Items.Add("Facility Self Amendment")
+        cboAuditType.Items.Add("Level 1 Audit")
+        cboAuditType.Items.Add("Level 2 Audit")
+        cboAuditType.Items.Add("Level 3 Audit")
+        cboAuditType.Items.Add("Other")
+    End Sub
 
     Private Sub ParseParameters()
         If Parameters IsNot Nothing Then
@@ -174,8 +177,6 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-
-
 
     Sub LoadTransactionTypes()
         Try
@@ -353,10 +354,8 @@ Public Class PASPFeeAuditLog
                 btnTransactionNew.Enabled = False
                 btnTransactionUpdate.Enabled = False
                 btnTransactionDelete.Enabled = False
-                btnOpenFSMailout.Enabled = False
-                btnMailoutSaveUpdates.Enabled = False
-                btnGECOOpenForEditing.Enabled = False
-                btnGECOSaveUpdates.Enabled = False
+                MailoutEnableEditingButton.Enabled = False
+                MailoutSaveUpdatesButton.Enabled = False
             Else
                 btnUpdateFSAdmin.Enabled = True
                 btnAddFSAdmin.Enabled = True
@@ -369,10 +368,8 @@ Public Class PASPFeeAuditLog
                 btnTransactionNew.Enabled = True
                 btnTransactionUpdate.Enabled = True
                 btnTransactionDelete.Enabled = True
-                btnOpenFSMailout.Enabled = True
-                btnMailoutSaveUpdates.Enabled = True
-                btnGECOOpenForEditing.Enabled = True
-                btnGECOSaveUpdates.Enabled = True
+                MailoutEnableEditingButton.Enabled = True
+                MailoutSaveUpdatesButton.Enabled = True
             End If
 
 
@@ -2402,7 +2399,11 @@ Public Class PASPFeeAuditLog
 
 #Region " Mailout Information tab "
 
-    Private Sub btnOpenFSMailout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFSMailout.Click
+    Private Sub MailoutReplaceContactWithFeeContactButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutReplaceContactWithFeeContactButton.Click, MailoutReplaceFacilityInfoButton.Click
+
+    End Sub
+
+    Private Sub btnOpenFSMailout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutEnableEditingButton.Click, Button1.Click
         MailoutEditingToggle(True)
     End Sub
 
@@ -2432,7 +2433,7 @@ Public Class PASPFeeAuditLog
         txtFSMailOutComments.Enabled = setState
     End Sub
 
-    Private Sub btnMailoutSaveUpdates_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMailoutSaveUpdates.Click
+    Private Sub btnMailoutSaveUpdates_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutSaveUpdatesButton.Click, Button2.Click
         Try
             Dim MailOutCheck As String = ""
             Dim ShutDownDate As String = ""
@@ -2518,7 +2519,10 @@ Public Class PASPFeeAuditLog
         End Try
     End Sub
 
-    Private Sub btnRefreshContactData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRefreshContactData.Click
+    ''' <summary>
+    ''' Obsolete
+    ''' </summary>
+    Private Sub btnRefreshContactData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Try
             If Me.AirsNumber Is Nothing Then
                 Exit Sub
@@ -2661,7 +2665,11 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnRefreshCurrentFacilityInfo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRefreshCurrentFacilityInfo.Click
+
+    ''' <summary>
+    ''' Obsolete
+    ''' </summary>
+    Private Sub btnRefreshCurrentFacilityInfo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Try
             Dim OpStatus As String = ""
             Dim Classification As String = ""
@@ -3179,123 +3187,10 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnGECOOpenForEditing_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGECOOpenForEditing.Click
-        Try
 
-            txtGECOContactSalutation.ReadOnly = False
-            txtGECOContactFirstName.ReadOnly = False
-            txtGECOContactLastName.ReadOnly = False
-            txtGECOContactTitle.ReadOnly = False
-            txtGECOContactCompanyName.ReadOnly = False
-            txtGECOContactStreetAddress.ReadOnly = False
-            txtGECOContactCity.ReadOnly = False
-            txtGECOContactState.ReadOnly = False
-            mtbGECOContactZipCode.ReadOnly = False
-            mtbGECOContactPhontNumber.ReadOnly = False
-            mtbGECOContactFaxNumber.ReadOnly = False
-            txtGECOContactEmail.ReadOnly = False
-            txtGECOContactComments.ReadOnly = False
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnGECOSaveUpdates_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGECOSaveUpdates.Click
-        Try
-            If (mtbAirsNumber.Text <> txtAIRSNumber.Text) _
-                Or (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) _
-                Or txtAIRSNumber.Text = "" Or FeeYearsComboBox.SelectedIndex = 0 _
-                Or txtYear.Text = "" Then
-                MsgBox("The currently selected AIRS # does not match the selecting AIRS #." & _
-                       vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
-            End If
-
-            If txtGECOContactFirstName.ReadOnly = True Then
-                MsgBox("Contact Data is not open for editing" & vbCrLf & "No data saved.", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
-            End If
-
-            SQL = "Select " & _
-            "numFeeYear " & _
-            "from " & DBNameSpace & ".FS_ContactInfo " & _
-            "where numFeeYear = '" & Me.FeeYear & "' " & _
-            "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            dr.Close()
-            If recExist = True Then
-                SQL = "Update " & DBNameSpace & ".FS_ContactInfo set " & _
-                "strContactFirstName = '" & txtGECOContactFirstName.Text & "', " & _
-                "strContactLastName = '" & txtGECOContactLastName.Text & "', " & _
-                "strContactPrefix = '" & txtGECOContactSalutation.Text & "', " & _
-                "strContactTitle = '" & txtGECOContactTitle.Text & "', " & _
-                "strContactCompanyName = '" & txtGECOContactCompanyName.Text & "', " & _
-                "strContactAddress = '" & txtGECOContactStreetAddress.Text & "', " & _
-                "strContactCity = '" & txtGECOContactCity.Text & "', " & _
-                "strContactState = '" & txtGECOContactState.Text & "', " & _
-                "strContactZipCode = '" & mtbGECOContactZipCode.Text & "', " & _
-                "strContactPhoneNumber = '" & mtbGECOContactPhontNumber.Text & "', " & _
-                "strContactFaxNumber = '" & mtbGECOContactFaxNumber.Text & "', " & _
-                "strContactEmail = '" & txtGECOContactEmail.Text & "', " & _
-                "strComment = '" & txtGECOContactComments.Text & "', " & _
-                "updateuser = '" & UserGCode & "', " & _
-                "updateDateTime = '" & OracleDate & "' " & _
-                "where numFeeYear = '" & Me.FeeYear & "' " & _
-                "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' "
-
-            Else
-                SQL = "Insert into " & DBNameSpace & ".FS_ContactInfo " & _
-                "values " & _
-                "('" & Me.FeeYear & "', '" & Me.ExpandedAirsNumber & "', " & _
-                "'" & txtGECOContactFirstName.Text & "', '" & txtGECOContactLastName.Text & "', " & _
-                "'" & txtGECOContactSalutation.Text & "', '" & txtGECOContactTitle.Text & "', " & _
-                "'" & txtGECOContactCompanyName.Text & "', '" & txtGECOContactStreetAddress.Text & "', " & _
-                "'" & txtGECOContactCity.Text & "', '" & txtGECOContactState.Text & "', " & _
-                "'" & mtbGECOContactZipCode.Text & "', '" & mtbGECOContactPhontNumber.Text & "', " & _
-                "'" & mtbGECOContactFaxNumber.Text & "', '" & txtGECOContactEmail.Text & "', " & _
-                "'" & txtGECOContactComments.Text & "', '1', " & _
-                "'" & UserGCode & "', '" & OracleDate & "', " & _
-                "'" & OracleDate & "' ) "
-            End If
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            txtGECOContactSalutation.ReadOnly = True
-            txtGECOContactFirstName.ReadOnly = True
-            txtGECOContactLastName.ReadOnly = True
-            txtGECOContactTitle.ReadOnly = True
-            txtGECOContactCompanyName.ReadOnly = True
-            txtGECOContactStreetAddress.ReadOnly = True
-            txtGECOContactCity.ReadOnly = True
-            txtGECOContactState.ReadOnly = True
-            mtbGECOContactZipCode.ReadOnly = True
-            mtbGECOContactPhontNumber.ReadOnly = True
-            mtbGECOContactFaxNumber.ReadOnly = True
-            txtGECOContactEmail.ReadOnly = True
-            txtGECOContactComments.ReadOnly = True
-            Update_FS_Admin_Status(Me.FeeYear, Me.AirsNumber)
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
     Function InvoiceCheck(ByVal ValidInvoice As String) As Boolean
         Try
             If IsNumeric(txtInvoiceID.Text) Then
-
-
-
                 SQL = "Select " & _
                 "InvoiceID " & _
                 "from AIRBranch.FS_FeeInvoice " & _
@@ -3324,10 +3219,6 @@ Public Class PASPFeeAuditLog
             Return False
         End Try
     End Function
-
-
-
-
 
     Private Sub btnTransactionNew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTransactionNew.Click
         Try
@@ -3636,13 +3527,6 @@ Public Class PASPFeeAuditLog
                 MsgBox("The Invoice Number entered is not valid." & vbCrLf & "No Data saved", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
-
-            'SQL = "Update " & DBNameSpace & ".FS_Transactions set " & _
-            '"invoiceid = '', " & _
-            '"active = '0', " & _
-            '"updateUser = '" & UserGCode & "', " & _
-            '"updateDateTime = sysdate " & _
-            '"where TransactionID = '" & txtTransactionID.Text & "' "
 
             SQL = "Update " & DBNameSpace & ".FS_Transactions set " & _
             "active = '0', " & _
@@ -6221,7 +6105,231 @@ Public Class PASPFeeAuditLog
         End Try
     End Function
 
+    Function Insert_FS_Mailout(ByVal FeeYear As String, ByVal AIRSNumber As String, _
+                        ByVal FirstName As String, ByVal LastName As String, _
+                        ByVal Prefix As String, ByVal Title As String, _
+                        ByVal ContactCoName As String, ByVal ContactAddress1 As String, _
+                        ByVal ContactAddress2 As String, ByVal ContactCity As String, _
+                        ByVal ContactState As String, ByVal ContactZipCode As String, _
+                        ByVal ContactEmail As String, ByVal OpStatus As String, _
+                        ByVal Classification As String, ByVal NSPS As String, _
+                        ByVal Part70 As String, ByVal ShutDownDate As String, _
+                        ByVal FacilityName As String, _
+                        ByVal FacilityAddress1 As String, ByVal FacilityAddress2 As String, _
+                        ByVal FacilityCity As String, ByVal FacilityZipCode As String, _
+                        ByVal Comment As String, ByVal Active As String) As Boolean
+        Try
+            If IsDBNull(FeeYear) Then
+                Return False
+            End If
+            If IsDBNull(AIRSNumber) Then
+                Return False
+            End If
+
+            If IsDBNull(OpStatus) Then
+            Else
+                OpStatus = Mid(OpStatus, 1, 1)
+            End If
+            If NSPS = True Then
+                NSPS = "1"
+            Else
+                NSPS = "0"
+            End If
+            If Part70 = True Then
+                Part70 = "1"
+            Else
+                Part70 = "0"
+            End If
+            If Active = False Then
+                Active = "0"
+            Else
+                Active = "1"
+            End If
+
+            Dim SQL As String = "Insert into " & DBNameSpace & ".FS_MailOut " & _
+            "values " & _
+            "('" & FeeYear & "', '0413" & AIRSNumber & "', " & _
+            "'" & Replace(FirstName, "'", "''") & "', '" & Replace(LastName, "'", "''") & "', " & _
+            "'" & Replace(Prefix, "'", "''") & "', '" & Replace(Title, "'", "''") & "', " & _
+            "'" & Replace(ContactCoName, "'", "''") & "', '" & Replace(ContactAddress1, "'", "''") & "', " & _
+            "'" & Replace(ContactAddress2, "'", "''") & "', '" & Replace(ContactCity, "'", "''") & "', " & _
+            "'" & Replace(ContactState, "'", "''") & "', '" & Replace(ContactZipCode, "'", "''") & "', " & _
+            "'" & Replace(ContactEmail, "'", "''") & "', '" & Replace(OpStatus, "'", "''") & "', " & _
+            "'" & Replace(Classification, "'", "''") & "', '" & Replace(NSPS, "'", "''") & "', " & _
+            "'" & Replace(Part70, "'", "''") & "', '" & ShutDownDate & "', " & _
+            "'" & Replace(FacilityName, "'", "''") & "', " & _
+            "'" & Replace(FacilityAddress1, "'", "''") & "', '" & Replace(FacilityAddress2, "'", "''") & "', " & _
+            "'" & Replace(FacilityCity, "'", "''") & "', '" & Replace(FacilityZipCode, "'", "''") & "', " & _
+            "'" & Replace(Comment, "'", "''") & "', " & _
+            "'" & Active & "', " & _
+            "'IAIP||" & UserName & "', '" & OracleDate & "', " & _
+            "'" & OracleDate & "') "
+
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
+            End If
+            dr = cmd.ExecuteReader
+            dr.Close()
+            Update_FS_Admin_Status(FeeYear, AIRSNumber)
+
+            Return True
+
+        Catch ex As Exception
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Function
+
+    Function Update_FS_Mailout(ByVal FeeYear As String, ByVal AIRSNumber As String, _
+                            ByVal FirstName As String, ByVal LastName As String, _
+                            ByVal Prefix As String, ByVal Title As String, _
+                            ByVal ContactCoName As String, ByVal ContactAddress1 As String, _
+                            ByVal ContactAddress2 As String, ByVal ContactCity As String, _
+                            ByVal ContactState As String, ByVal ContactZipCode As String, _
+                            ByVal ContactEmail As String, ByVal OpStatus As String, _
+                            ByVal Classification As String, ByVal NSPS As String, _
+                            ByVal Part70 As String, ByVal ShutDownDate As String, _
+                            ByVal FacilityName As String, _
+                            ByVal FacilityAddress1 As String, ByVal FacilityAddress2 As String, _
+                            ByVal FacilityCity As String, ByVal FacilityZipCode As String, _
+                            ByVal Comment As String, ByVal Active As String) As Boolean
+        Try
+            If IsDBNull(FeeYear) Then
+                Return False
+            End If
+            If IsDBNull(AIRSNumber) Then
+                Return False
+            End If
+            Dim SQL As String = ""
+
+            If IsDBNull(FirstName) Then
+            Else
+                SQL = SQL & "strFirstName = '" & Replace(FirstName, "'", "''") & "', "
+            End If
+            If IsDBNull(LastName) Then
+            Else
+                SQL = SQL & "strLastName = '" & Replace(LastName, "'", "''") & "', "
+            End If
+            If IsDBNull(Prefix) Then
+            Else
+                SQL = SQL & "strPrefix = '" & Replace(Prefix, "'", "''") & "', "
+            End If
+            If IsDBNull(Title) Then
+            Else
+                SQL = SQL & "strTitle = '" & Replace(Title, "'", "''") & "', "
+            End If
+            If IsDBNull(ContactCoName) Then
+            Else
+                SQL = SQL & "strcontactCoName = '" & Replace(ContactCoName, "'", "''") & "', "
+            End If
+            If IsDBNull(ContactAddress1) Then
+            Else
+                SQL = SQL & "strContactAddress1 = '" & Replace(ContactAddress1, "'", "''") & "', "
+            End If
+            If IsDBNull(ContactAddress2) Then
+            Else
+                SQL = SQL & "strContactAddress2 = '" & Replace(ContactAddress2, "'", "''") & "', "
+            End If
+            If IsDBNull(ContactCity) Then
+            Else
+                SQL = SQL & "strContactCity = '" & Replace(ContactCity, "'", "''") & "', "
+            End If
+            If IsDBNull(ContactState) Then
+            Else
+                SQL = SQL & "strContactState = '" & Replace(ContactState, "'", "''") & "', "
+            End If
+            If IsDBNull(ContactZipCode) Then
+            Else
+                SQL = SQL & "strContactZipCode = '" & Replace(ContactZipCode, "'", "''") & "', "
+            End If
+            If IsDBNull(ContactEmail) Then
+            Else
+                SQL = SQL & "strGECOUserEmail = '" & Replace(ContactEmail, "'", "''") & "', "
+            End If
+            If IsDBNull(OpStatus) Then
+            Else
+                OpStatus = Mid(OpStatus, 1, 1)
+                SQL = SQL & "strOperationalStatus = '" & Replace(OpStatus, "'", "''") & "', "
+            End If
+            If IsDBNull(Classification) Then
+            Else
+                SQL = SQL & "strClass = '" & Replace(Classification, "'", "''") & "', "
+            End If
+            If IsDBNull(NSPS) Then
+            Else
+                If NSPS = True Then
+                    SQL = SQL & "strNSPS = '1', "
+                Else
+                    SQL = SQL & "strNSPS = '0', "
+                End If
+            End If
+            If IsDBNull(Part70) Then
+            Else
+                If Part70 = True Then
+                    SQL = SQL & "strPart70 = '1', "
+                Else
+                    SQL = SQL & "strPart70 = '0', "
+                End If
+            End If
+            If IsDBNull(ShutDownDate) Then
+            Else
+                SQL = SQL & "datShutDownDate = '" & ShutDownDate & "', "
+            End If
+
+            If IsDBNull(FacilityName) Then
+            Else
+                SQL = SQL & "strFacilityName = '" & Replace(FacilityName, "'", "''") & "', "
+            End If
+            If IsDBNull(FacilityAddress1) Then
+            Else
+                SQL = SQL & "strFacilityAddress1 = '" & Replace(FacilityAddress1, "'", "''") & "', "
+            End If
+            If IsDBNull(FacilityAddress2) Then
+            Else
+                SQL = SQL & "strFacilityAddress2 = '" & Replace(FacilityAddress2, "'", "''") & "', "
+            End If
+            If IsDBNull(FacilityCity) Then
+            Else
+                SQL = SQL & "strFacilityCity = '" & Replace(FacilityCity, "'", "''") & "', "
+            End If
+            If IsDBNull(FacilityZipCode) Then
+            Else
+                SQL = SQL & "strFacilityZipCode = '" & Replace(FacilityZipCode, "'", "''") & "', "
+            End If
+            If IsDBNull(Comment) Then
+            Else
+                SQL = SQL & "strComment = '" & Replace(Comment, "'", "''") & "', "
+            End If
+            If IsDBNull(Active) Then
+            Else
+                If Active = False Then
+                    SQL = SQL & "Active = '0', "
+                Else
+                    SQL = SQL & "Active = '1', "
+                End If
+            End If
+            SQL = "Update " & DBNameSpace & ".FS_MailOut set " & _
+            SQL & _
+            "updateUser = 'IAIP||" & UserName & "', " & _
+            "updateDateTime = '" & OracleDate & "' " & _
+            "where numFeeYear = '" & FeeYear & "' " & _
+            "and strAIRSNumber = '0413" & AIRSNumber & "' "
+
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
+            End If
+            dr = cmd.ExecuteReader
+            dr.Close()
+
+            Update_FS_Admin_Status(FeeYear, AIRSNumber)
+            Return True
+
+        Catch ex As Exception
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Function
+
 #End Region
 
 End Class
-
