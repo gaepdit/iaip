@@ -1,6 +1,7 @@
 ﻿Public Class Contact
     Inherits Person
 
+    Private _companyName As String
     Public Property CompanyName() As String
         Get
             Return _companyName
@@ -9,7 +10,6 @@
             _companyName = value
         End Set
     End Property
-    Private _companyName As String
 
     Private _mailingAddress As Address
     Public Property MailingAddress() As Address

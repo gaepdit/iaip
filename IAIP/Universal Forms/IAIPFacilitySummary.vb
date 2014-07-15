@@ -145,7 +145,7 @@ Public Class IAIPFacilitySummary
                                     mmiSSCPNewWork.Visible = True
                                     mmiSSCPFCE.Visible = True
                                 Else
-                                    If AccountFormAccess(10, 3) = "1" Then 'Distirct Liason 
+                                    If AccountFormAccess(10, 3) = "1" Then 'District Liason 
                                         mmiSSCPAssignEngineer.Visible = False
                                         mmiSSCPNewWork.Visible = True
                                         mmiSSCPFCE.Visible = True

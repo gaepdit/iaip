@@ -4,6 +4,7 @@ Imports Oracle.DataAccess.Client
 Public Class IAIPEditContacts
 
 #Region "Properties"
+
     Private _airsNumber As String
     Public Property AirsNumber() As String
         Get
@@ -13,6 +14,7 @@ Public Class IAIPEditContacts
             _airsNumber = value
         End Set
     End Property
+
     Private _facilityName As String
     Public Property FacilityName() As String
         Get
@@ -22,6 +24,17 @@ Public Class IAIPEditContacts
             _facilityName = value
         End Set
     End Property
+
+    Private _key As String
+    Public Property Key() As String
+        Get
+            Return _key
+        End Get
+        Set(ByVal value As String)
+            _key = value
+        End Set
+    End Property
+
 #End Region
 
     Dim SQL As String
@@ -95,75 +108,75 @@ Public Class IAIPEditContacts
                 End If
 
                 daContacts.Fill(dsContacts, "Contacts")
-                dgvContacts.DataSource = dsContacts
-                dgvContacts.DataMember = "Contacts"
+                ContactsDataGrid.DataSource = dsContacts
+                ContactsDataGrid.DataMember = "Contacts"
 
                 If CurrentConnection.State = ConnectionState.Open Then
                     'conn.close()
                 End If
 
-                dgvContacts.RowHeadersVisible = False
-                dgvContacts.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                dgvContacts.AllowUserToResizeColumns = True
-                dgvContacts.AllowUserToAddRows = False
-                dgvContacts.AllowUserToDeleteRows = False
-                dgvContacts.AllowUserToOrderColumns = True
-                dgvContacts.AllowUserToResizeRows = True
-                dgvContacts.Columns("ContactType").HeaderText = "Contact Type"
-                dgvContacts.Columns("strContactKey").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                dgvContacts.Columns("strContactKey").DisplayIndex = 0
-                dgvContacts.Columns("strContactKey").HeaderText = "Key"
-                dgvContacts.Columns("strContactKey").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                dgvContacts.Columns("strContactKey").DisplayIndex = 17
-                dgvContacts.Columns("strContactKey").Visible = False
-                dgvContacts.Columns("strContactPrefix").HeaderText = "Social Title"
-                dgvContacts.Columns("strContactPrefix").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                dgvContacts.Columns("strContactPrefix").DisplayIndex = 2
-                dgvContacts.Columns("strContactFirstName").HeaderText = "First Name"
-                dgvContacts.Columns("strContactFirstName").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                dgvContacts.Columns("strContactFirstName").DisplayIndex = 3
-                dgvContacts.Columns("strContactLastName").HeaderText = "Last Name"
-                dgvContacts.Columns("strContactLastName").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                dgvContacts.Columns("strContactLastName").DisplayIndex = 4
-                dgvContacts.Columns("strContactSuffix").HeaderText = "Pedigree"
-                dgvContacts.Columns("strContactSuffix").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                dgvContacts.Columns("strContactSuffix").DisplayIndex = 5
-                dgvContacts.Columns("strContactTitle").HeaderText = "Title"
-                dgvContacts.Columns("strContactTitle").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                dgvContacts.Columns("strContactTitle").DisplayIndex = 6
-                dgvContacts.Columns("strContactCompanyName").HeaderText = "Company Name"
-                dgvContacts.Columns("strContactCompanyName").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                dgvContacts.Columns("strContactCompanyName").DisplayIndex = 7
-                dgvContacts.Columns("strContactPhoneNumber1").HeaderText = "Phone Number 1"
-                dgvContacts.Columns("strContactPhoneNumber1").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                dgvContacts.Columns("strContactPhoneNumber1").DisplayIndex = 8
-                dgvContacts.Columns("ContactPhoneNumber2").HeaderText = "Phone Number 2"
-                dgvContacts.Columns("ContactPhoneNumber2").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                dgvContacts.Columns("ContactPhoneNumber2").DisplayIndex = 9
-                dgvContacts.Columns("strContactFaxNumber").HeaderText = "Fax Number"
-                dgvContacts.Columns("strContactFaxNumber").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                dgvContacts.Columns("strContactFaxNumber").DisplayIndex = 10
-                dgvContacts.Columns("ContactEmail").HeaderText = "Email Address"
-                dgvContacts.Columns("ContactEmail").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                dgvContacts.Columns("ContactEmail").DisplayIndex = 11
-                dgvContacts.Columns("strContactAddress1").HeaderText = "Address Line 1"
-                dgvContacts.Columns("strContactAddress1").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                dgvContacts.Columns("strContactAddress1").DisplayIndex = 12
-                dgvContacts.Columns("strContactAddress2").HeaderText = "Address Line 2"
-                dgvContacts.Columns("strContactAddress2").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                dgvContacts.Columns("strContactAddress2").DisplayIndex = 13
-                dgvContacts.Columns("strContactCity").HeaderText = "City"
-                dgvContacts.Columns("strContactCity").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                dgvContacts.Columns("strContactCity").DisplayIndex = 14
-                dgvContacts.Columns("strContactState").HeaderText = "State"
-                dgvContacts.Columns("strContactState").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                dgvContacts.Columns("strContactState").DisplayIndex = 15
-                dgvContacts.Columns("strContactZipCode").HeaderText = "Zip Code"
-                dgvContacts.Columns("strContactZipCode").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                dgvContacts.Columns("strContactZipCode").DisplayIndex = 16
-                dgvContacts.Columns("ContactDescription").HeaderText = "Description"
-                dgvContacts.Columns("ContactDescription").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                dgvContacts.Columns("ContactDescription").DisplayIndex = 1
+                ContactsDataGrid.RowHeadersVisible = False
+                ContactsDataGrid.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+                ContactsDataGrid.AllowUserToResizeColumns = True
+                ContactsDataGrid.AllowUserToAddRows = False
+                ContactsDataGrid.AllowUserToDeleteRows = False
+                ContactsDataGrid.AllowUserToOrderColumns = True
+                ContactsDataGrid.AllowUserToResizeRows = True
+                ContactsDataGrid.Columns("ContactType").HeaderText = "Contact Type"
+                ContactsDataGrid.Columns("strContactKey").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                ContactsDataGrid.Columns("strContactKey").DisplayIndex = 0
+                ContactsDataGrid.Columns("strContactKey").HeaderText = "Key"
+                ContactsDataGrid.Columns("strContactKey").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                ContactsDataGrid.Columns("strContactKey").DisplayIndex = 17
+                ContactsDataGrid.Columns("strContactKey").Visible = False
+                ContactsDataGrid.Columns("strContactPrefix").HeaderText = "Social Title"
+                ContactsDataGrid.Columns("strContactPrefix").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                ContactsDataGrid.Columns("strContactPrefix").DisplayIndex = 2
+                ContactsDataGrid.Columns("strContactFirstName").HeaderText = "First Name"
+                ContactsDataGrid.Columns("strContactFirstName").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                ContactsDataGrid.Columns("strContactFirstName").DisplayIndex = 3
+                ContactsDataGrid.Columns("strContactLastName").HeaderText = "Last Name"
+                ContactsDataGrid.Columns("strContactLastName").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                ContactsDataGrid.Columns("strContactLastName").DisplayIndex = 4
+                ContactsDataGrid.Columns("strContactSuffix").HeaderText = "Pedigree"
+                ContactsDataGrid.Columns("strContactSuffix").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                ContactsDataGrid.Columns("strContactSuffix").DisplayIndex = 5
+                ContactsDataGrid.Columns("strContactTitle").HeaderText = "Title"
+                ContactsDataGrid.Columns("strContactTitle").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                ContactsDataGrid.Columns("strContactTitle").DisplayIndex = 6
+                ContactsDataGrid.Columns("strContactCompanyName").HeaderText = "Company Name"
+                ContactsDataGrid.Columns("strContactCompanyName").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                ContactsDataGrid.Columns("strContactCompanyName").DisplayIndex = 7
+                ContactsDataGrid.Columns("strContactPhoneNumber1").HeaderText = "Phone Number 1"
+                ContactsDataGrid.Columns("strContactPhoneNumber1").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                ContactsDataGrid.Columns("strContactPhoneNumber1").DisplayIndex = 8
+                ContactsDataGrid.Columns("ContactPhoneNumber2").HeaderText = "Phone Number 2"
+                ContactsDataGrid.Columns("ContactPhoneNumber2").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                ContactsDataGrid.Columns("ContactPhoneNumber2").DisplayIndex = 9
+                ContactsDataGrid.Columns("strContactFaxNumber").HeaderText = "Fax Number"
+                ContactsDataGrid.Columns("strContactFaxNumber").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                ContactsDataGrid.Columns("strContactFaxNumber").DisplayIndex = 10
+                ContactsDataGrid.Columns("ContactEmail").HeaderText = "Email Address"
+                ContactsDataGrid.Columns("ContactEmail").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                ContactsDataGrid.Columns("ContactEmail").DisplayIndex = 11
+                ContactsDataGrid.Columns("strContactAddress1").HeaderText = "Address Line 1"
+                ContactsDataGrid.Columns("strContactAddress1").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                ContactsDataGrid.Columns("strContactAddress1").DisplayIndex = 12
+                ContactsDataGrid.Columns("strContactAddress2").HeaderText = "Address Line 2"
+                ContactsDataGrid.Columns("strContactAddress2").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                ContactsDataGrid.Columns("strContactAddress2").DisplayIndex = 13
+                ContactsDataGrid.Columns("strContactCity").HeaderText = "City"
+                ContactsDataGrid.Columns("strContactCity").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                ContactsDataGrid.Columns("strContactCity").DisplayIndex = 14
+                ContactsDataGrid.Columns("strContactState").HeaderText = "State"
+                ContactsDataGrid.Columns("strContactState").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                ContactsDataGrid.Columns("strContactState").DisplayIndex = 15
+                ContactsDataGrid.Columns("strContactZipCode").HeaderText = "Zip Code"
+                ContactsDataGrid.Columns("strContactZipCode").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                ContactsDataGrid.Columns("strContactZipCode").DisplayIndex = 16
+                ContactsDataGrid.Columns("ContactDescription").HeaderText = "Description"
+                ContactsDataGrid.Columns("ContactDescription").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                ContactsDataGrid.Columns("ContactDescription").DisplayIndex = 1
 
             End If
 
@@ -309,14 +322,14 @@ Public Class IAIPEditContacts
         End Try
     End Sub
 
-    Private Sub dgrContacts_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvContacts.MouseUp
-        Dim hti As DataGridView.HitTestInfo = dgvContacts.HitTest(e.X, e.Y)
+    Private Sub dgrContacts_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles ContactsDataGrid.MouseUp
+        Dim hti As DataGridView.HitTestInfo = ContactsDataGrid.HitTest(e.X, e.Y)
 
         Try
 
-            If dgvContacts.RowCount > 0 And hti.RowIndex <> -1 Then
-                AirsNumber = Mid(dgvContacts(1, hti.RowIndex).Value, 5, 8)
-                txtNewKey.Text = Mid(dgvContacts(1, hti.RowIndex).Value, 13)
+            If ContactsDataGrid.RowCount > 0 And hti.RowIndex <> -1 Then
+                AirsNumber = Mid(ContactsDataGrid(1, hti.RowIndex).Value, 5, 8)
+                txtNewKey.Text = Mid(ContactsDataGrid(1, hti.RowIndex).Value, 13)
                 NewContactDataLoad()
                 'txtContactKey.Text = dgvContacts(1, hti.RowIndex).Value
                 'ContactKeyChange(True)
@@ -336,7 +349,7 @@ Public Class IAIPEditContacts
 
 #Region "Buttons"
 
-    Private Sub btnNewClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNewClear.Click, mmiClear.Click
+    Private Sub btnNewClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNewClear.Click
         Try
             txtNewAddress.Clear()
             txtNewCity.Clear()
@@ -591,18 +604,6 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-    End Sub
-
-#End Region
-
-#Region "Main Menu"
-
-    Private Sub mmiClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClose.Click
-        Me.Close()
-    End Sub
-
-    Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
-        OpenDocumentationUrl(Me)
     End Sub
 
 #End Region

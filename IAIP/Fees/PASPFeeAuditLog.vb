@@ -355,7 +355,7 @@ Public Class PASPFeeAuditLog
                 btnTransactionUpdate.Enabled = False
                 btnTransactionDelete.Enabled = False
                 MailoutEnableEditingButton.Enabled = False
-                MailoutSaveUpdatesButton.Enabled = False
+                MailoutSaveContactButton.Enabled = False
             Else
                 btnUpdateFSAdmin.Enabled = True
                 btnAddFSAdmin.Enabled = True
@@ -369,7 +369,7 @@ Public Class PASPFeeAuditLog
                 btnTransactionUpdate.Enabled = True
                 btnTransactionDelete.Enabled = True
                 MailoutEnableEditingButton.Enabled = True
-                MailoutSaveUpdatesButton.Enabled = True
+                MailoutSaveContactButton.Enabled = True
             End If
 
 
@@ -2403,7 +2403,7 @@ Public Class PASPFeeAuditLog
 
     End Sub
 
-    Private Sub btnOpenFSMailout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutEnableEditingButton.Click, Button1.Click
+    Private Sub btnOpenFSMailout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutEnableEditingButton.Click, Button1.Click, MailoutCancelEditingContactButton.Click, MailoutEditContactsButton.Click, Button2.Click
         MailoutEditingToggle(True)
     End Sub
 
@@ -2433,7 +2433,7 @@ Public Class PASPFeeAuditLog
         txtFSMailOutComments.Enabled = setState
     End Sub
 
-    Private Sub btnMailoutSaveUpdates_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutSaveUpdatesButton.Click, Button2.Click
+    Private Sub btnMailoutSaveUpdates_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutSaveContactButton.Click, Button4.Click
         Try
             Dim MailOutCheck As String = ""
             Dim ShutDownDate As String = ""
