@@ -49,7 +49,6 @@ Module subMain
 
 #Region " Universal Screens "
     Public PrintOut As IAIPPrintOut
-    Public EditContacts As IAIPEditContacts ' TODO DWW: Remove
     Public EditFacilityLocation As IAIPEditFacilityLocation ' TODO DWW: Remove
     Public EditHeaderData As IAIPEditHeaderData ' TODO DWW: Remove
     Public EditAirProgramPollutants As IAIPEditAirProgramPollutants

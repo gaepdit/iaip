@@ -1,5 +1,5 @@
 Imports Oracle.DataAccess.Client
-
+Imports Iaip.Apb.Facility
 
 Public Class IAIPEditContacts
 
@@ -25,12 +25,12 @@ Public Class IAIPEditContacts
         End Set
     End Property
 
-    Private _key As String
-    Public Property Key() As String
+    Private _key As DAL.ContactKey
+    Friend Property Key() As DAL.ContactKey
         Get
             Return _key
         End Get
-        Set(ByVal value As String)
+        Set(ByVal value As DAL.ContactKey)
             _key = value
         End Set
     End Property
@@ -48,18 +48,39 @@ Public Class IAIPEditContacts
 
     Private Sub APBAddContacts_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
-        SetHeaderLabels()
+        ParseParameters()
         LoadContactsDataset()
+        If Me.Key <> DAL.ContactKey.None AndAlso [Enum].IsDefined(GetType(DAL.ContactKey), Me.Key) Then
+            NewContactDataLoad()
+        End If
     End Sub
 
-    Private Sub SetHeaderLabels()
-        lblAirsNumber.Text = CInt(AirsNumber).ToString("000-00000")
-        lblFacilityName.Text = FacilityName
+    Private Sub ParseParameters()
+        If Parameters IsNot Nothing Then
+            If Parameters.ContainsKey("airsnumber") Then
+                Me.AirsNumber = Parameters("airsnumber")
+                If Apb.Facility.NormalizeAirsNumber(Me.AirsNumber) Then
+                    lblAirsNumber.Text = CInt(Me.AirsNumber).ToString("000-00000")
+                Else
+                    lblAirsNumber.Text = ""
+                    Me.AirsNumber = Nothing
+                End If
+            End If
+            If Parameters.ContainsKey("facilityname") Then
+                Me.FacilityName = Parameters("facilityname")
+                lblFacilityName.Text = Me.FacilityName
+            Else
+                lblFacilityName.Text = "Error"
+            End If
+            If Parameters.ContainsKey("key") Then
+                Me.Key = [Enum].Parse(GetType(DAL.ContactKey), Parameters("key"))
+            End If
+        End If
     End Sub
 
     Private Sub LoadContactsDataset()
         Try
-            If AirsNumber <> "" Then
+            If AirsNumber IsNot Nothing Then
 
                 SQL = "Select " & _
                 "case " & _
@@ -103,17 +124,9 @@ Public Class IAIPEditContacts
                 dsContacts = New DataSet
                 daContacts = New OracleDataAdapter(SQL, CurrentConnection)
 
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-
                 daContacts.Fill(dsContacts, "Contacts")
                 ContactsDataGrid.DataSource = dsContacts
                 ContactsDataGrid.DataMember = "Contacts"
-
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
 
                 ContactsDataGrid.RowHeadersVisible = False
                 ContactsDataGrid.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -192,130 +205,141 @@ Public Class IAIPEditContacts
 
     Sub NewContactDataLoad()
         Try
-            If AirsNumber <> "" And txtNewKey.Text <> "" Then
-                SQL = "Select * from AIRBranch.APBContactInformation " & _
-                "where strAIRSNumber = '0413" & AirsNumber & "' " & _
-                "and strKey = '" & txtNewKey.Text & "' "
+            If Me.AirsNumber <> "" And Me.Key <> "" Then
+                Dim query As String = "Select * from " & DBNameSpace & ".APBContactInformation " & _
+                "where strAIRSNumber = :airsnumber " & _
+                "and strKey = :key "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("strContactFirstName")) Then
-                        txtNewFirstName.Clear()
-                    Else
-                        txtNewFirstName.Text = dr.Item("strContactFirstName")
-                    End If
-                    If IsDBNull(dr.Item("strContactLastName")) Then
-                        txtNewLastName.Clear()
-                    Else
-                        txtNewLastName.Text = dr.Item("strContactLastName")
-                    End If
-                    If IsDBNull(dr.Item("strContactPrefix")) Then
-                        txtNewPrefix.Clear()
-                    Else
-                        txtNewPrefix.Text = dr.Item("strContactPrefix")
-                    End If
-                    If IsDBNull(dr.Item("strContactSuffix")) Then
-                        txtNewSuffix.Clear()
-                    Else
-                        txtNewSuffix.Text = dr.Item("strContactSuffix")
-                    End If
-                    If IsDBNull(dr.Item("STRCONTACTTITLE")) Then
-                        txtNewTitle.Clear()
-                    Else
-                        txtNewTitle.Text = dr.Item("STRCONTACTTITLE")
-                    End If
-                    If IsDBNull(dr.Item("STRCONTACTCOMPANYNAME")) Then
-                        txtNewCompany.Clear()
-                    Else
-                        txtNewCompany.Text = dr.Item("STRCONTACTCOMPANYNAME")
-                    End If
-                    If IsDBNull(dr.Item("STRCONTACTPHONENUMBER1")) Then
-                        mtbNewPhoneNumber.Clear()
-                    Else
-                        mtbNewPhoneNumber.Text = dr.Item("STRCONTACTPHONENUMBER1")
-                    End If
-                    If IsDBNull(dr.Item("STRCONTACTPHONENUMBER2")) Then
-                        mtbNewPhoneNumber2.Clear()
-                    Else
-                        mtbNewPhoneNumber2.Text = dr.Item("STRCONTACTPHONENUMBER2")
-                    End If
-                    If IsDBNull(dr.Item("STRCONTACTFAXNUMBER")) Then
-                        mtbNewFaxNumber.Clear()
-                    Else
-                        mtbNewFaxNumber.Text = dr.Item("STRCONTACTFAXNUMBER")
-                    End If
-                    If IsDBNull(dr.Item("STRCONTACTEMAIL")) Then
-                        txtNewEmail.Clear()
-                    Else
-                        txtNewEmail.Text = dr.Item("STRCONTACTEMAIL")
-                    End If
-                    If IsDBNull(dr.Item("STRCONTACTADDRESS1")) Then
-                        txtNewAddress.Clear()
-                    Else
-                        txtNewAddress.Text = dr.Item("STRCONTACTADDRESS1")
-                    End If
-                    'If IsDBNull(dr.Item("STRCONTACTADDRESS2")) Then
-                    '    txtNewFirstName.Clear()
-                    'Else
-                    '    txtNewFirstName.Text = dr.Item("STRCONTACTADDRESS2")
-                    'End If
-                    If IsDBNull(dr.Item("STRCONTACTCITY")) Then
-                        txtNewCity.Clear()
-                    Else
-                        txtNewCity.Text = dr.Item("STRCONTACTCITY")
-                    End If
-                    If IsDBNull(dr.Item("STRCONTACTSTATE")) Then
-                        txtNewState.Clear()
-                    Else
-                        txtNewState.Text = dr.Item("STRCONTACTSTATE")
-                    End If
-                    If IsDBNull(dr.Item("STRCONTACTZIPCODE")) Then
-                        mtbNewZipCode.Clear()
-                    Else
-                        mtbNewZipCode.Text = dr.Item("STRCONTACTZIPCODE")
-                    End If
-                    If IsDBNull(dr.Item("STRCONTACTDESCRIPTION")) Then
-                        txtNewDescrption.Clear()
-                    Else
-                        txtNewDescrption.Text = dr.Item("STRCONTACTDESCRIPTION")
-                    End If
-                End While
-                dr.Close()
+                Dim parameters As OracleParameter() = New OracleParameter() { _
+                    New OracleParameter("airsnumber", NormalizeAirsNumber(Me.AirsNumber, True)), _
+                    New OracleParameter("key", Me.Key.ToString("D")) _
+                }
 
-                Select Case txtNewKey.Text
-                    Case "10"
+                Using connection As New OracleConnection(DB.CurrentConnectionString)
+                    Using command As New OracleCommand(query, connection)
+                        command.CommandType = CommandType.Text
+                        command.BindByName = True
+                        command.Parameters.AddRange(parameters)
+
+                        Dim dr As OracleDataReader = command.ExecuteReader
+                        While dr.Read
+                            If IsDBNull(dr.Item("strContactFirstName")) Then
+                                txtNewFirstName.Clear()
+                            Else
+                                txtNewFirstName.Text = dr.Item("strContactFirstName")
+                            End If
+                            If IsDBNull(dr.Item("strContactLastName")) Then
+                                txtNewLastName.Clear()
+                            Else
+                                txtNewLastName.Text = dr.Item("strContactLastName")
+                            End If
+                            If IsDBNull(dr.Item("strContactPrefix")) Then
+                                txtNewPrefix.Clear()
+                            Else
+                                txtNewPrefix.Text = dr.Item("strContactPrefix")
+                            End If
+                            If IsDBNull(dr.Item("strContactSuffix")) Then
+                                txtNewSuffix.Clear()
+                            Else
+                                txtNewSuffix.Text = dr.Item("strContactSuffix")
+                            End If
+                            If IsDBNull(dr.Item("STRCONTACTTITLE")) Then
+                                txtNewTitle.Clear()
+                            Else
+                                txtNewTitle.Text = dr.Item("STRCONTACTTITLE")
+                            End If
+                            If IsDBNull(dr.Item("STRCONTACTCOMPANYNAME")) Then
+                                txtNewCompany.Clear()
+                            Else
+                                txtNewCompany.Text = dr.Item("STRCONTACTCOMPANYNAME")
+                            End If
+                            If IsDBNull(dr.Item("STRCONTACTPHONENUMBER1")) Then
+                                mtbNewPhoneNumber.Clear()
+                            Else
+                                mtbNewPhoneNumber.Text = dr.Item("STRCONTACTPHONENUMBER1")
+                            End If
+                            If IsDBNull(dr.Item("STRCONTACTPHONENUMBER2")) Then
+                                mtbNewPhoneNumber2.Clear()
+                            Else
+                                mtbNewPhoneNumber2.Text = dr.Item("STRCONTACTPHONENUMBER2")
+                            End If
+                            If IsDBNull(dr.Item("STRCONTACTFAXNUMBER")) Then
+                                mtbNewFaxNumber.Clear()
+                            Else
+                                mtbNewFaxNumber.Text = dr.Item("STRCONTACTFAXNUMBER")
+                            End If
+                            If IsDBNull(dr.Item("STRCONTACTEMAIL")) Then
+                                txtNewEmail.Clear()
+                            Else
+                                txtNewEmail.Text = dr.Item("STRCONTACTEMAIL")
+                            End If
+                            If IsDBNull(dr.Item("STRCONTACTADDRESS1")) Then
+                                txtNewAddress.Clear()
+                            Else
+                                txtNewAddress.Text = dr.Item("STRCONTACTADDRESS1")
+                            End If
+                            'If IsDBNull(dr.Item("STRCONTACTADDRESS2")) Then
+                            '    txtNewFirstName.Clear()
+                            'Else
+                            '    txtNewFirstName.Text = dr.Item("STRCONTACTADDRESS2")
+                            'End If
+                            If IsDBNull(dr.Item("STRCONTACTCITY")) Then
+                                txtNewCity.Clear()
+                            Else
+                                txtNewCity.Text = dr.Item("STRCONTACTCITY")
+                            End If
+                            If IsDBNull(dr.Item("STRCONTACTSTATE")) Then
+                                txtNewState.Clear()
+                            Else
+                                txtNewState.Text = dr.Item("STRCONTACTSTATE")
+                            End If
+                            If IsDBNull(dr.Item("STRCONTACTZIPCODE")) Then
+                                mtbNewZipCode.Clear()
+                            Else
+                                mtbNewZipCode.Text = dr.Item("STRCONTACTZIPCODE")
+                            End If
+                            If IsDBNull(dr.Item("STRCONTACTDESCRIPTION")) Then
+                                txtNewDescrption.Clear()
+                            Else
+                                txtNewDescrption.Text = dr.Item("STRCONTACTDESCRIPTION")
+                            End If
+                        End While
+                        dr.Close()
+
+                    End Using
+                End Using
+
+                rdbNewMonitoringContact.Checked = False
+                rdbNewComplianceContact.Checked = False
+                rdbNewPermittingContact.Checked = False
+                rdbNewFeeContact.Checked = False
+                rdbNewEISContact.Checked = False
+                rdbNewESContact.Checked = False
+                rdbNewAmbientContact.Checked = False
+                rdbNewPlanningContact.Checked = False
+                rdbNewDistrictContact.Checked = False
+
+                Select Case Me.Key
+                    Case DAL.ContactKey.IndustrialSourceMonitoring
                         rdbNewMonitoringContact.Checked = True
-                    Case "20"
+                    Case DAL.ContactKey.StationarySourceCompliance
                         rdbNewComplianceContact.Checked = True
-                    Case "30"
+                    Case DAL.ContactKey.StationarySourcePermitting
                         rdbNewPermittingContact.Checked = True
-                    Case "40"
+                    Case DAL.ContactKey.Fees
                         rdbNewFeeContact.Checked = True
-                    Case "41"
+                    Case DAL.ContactKey.EmissionInventory
                         rdbNewEISContact.Checked = True
-                    Case "42"
+                    Case DAL.ContactKey.EmissionStatement
                         rdbNewESContact.Checked = True
-                    Case "50"
+                    Case DAL.ContactKey.AmbientMonitoring
                         rdbNewAmbientContact.Checked = True
-                    Case "60"
+                    Case DAL.ContactKey.PlanningAndSupport
                         rdbNewPlanningContact.Checked = True
-                    Case "70"
+                    Case DAL.ContactKey.DistrictOffices
                         rdbNewDistrictContact.Checked = True
-                    Case Else
-                        rdbNewMonitoringContact.Checked = False
-                        rdbNewComplianceContact.Checked = False
-                        rdbNewPermittingContact.Checked = False
-                        rdbNewFeeContact.Checked = False
-                        rdbNewEISContact.Checked = False
-                        rdbNewESContact.Checked = False
-                        rdbNewAmbientContact.Checked = False
-                        rdbNewPlanningContact.Checked = False
-                        rdbNewDistrictContact.Checked = False
                 End Select
+
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -329,18 +353,12 @@ Public Class IAIPEditContacts
 
             If ContactsDataGrid.RowCount > 0 And hti.RowIndex <> -1 Then
                 AirsNumber = Mid(ContactsDataGrid(1, hti.RowIndex).Value, 5, 8)
-                txtNewKey.Text = Mid(ContactsDataGrid(1, hti.RowIndex).Value, 13)
+                Key = Mid(ContactsDataGrid(1, hti.RowIndex).Value, 13)
                 NewContactDataLoad()
-                'txtContactKey.Text = dgvContacts(1, hti.RowIndex).Value
-                'ContactKeyChange(True)
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
 
     End Sub
@@ -350,27 +368,22 @@ Public Class IAIPEditContacts
 #Region "Buttons"
 
     Private Sub btnNewClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNewClear.Click
-        Try
-            txtNewAddress.Clear()
-            txtNewCity.Clear()
-            txtNewCompany.Clear()
-            txtNewDescrption.Clear()
-            txtNewEmail.Clear()
-            txtNewFirstName.Clear()
-            txtNewLastName.Clear()
-            txtNewPrefix.Clear()
-            txtNewState.Clear()
-            txtNewSuffix.Clear()
-            txtNewTitle.Clear()
-            mtbNewFaxNumber.Clear()
-            mtbNewPhoneNumber.Clear()
-            mtbNewPhoneNumber2.Clear()
-            mtbNewZipCode.Clear()
-            txtNewKey.Clear()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        txtNewAddress.Clear()
+        txtNewCity.Clear()
+        txtNewCompany.Clear()
+        txtNewDescrption.Clear()
+        txtNewEmail.Clear()
+        txtNewFirstName.Clear()
+        txtNewLastName.Clear()
+        txtNewPrefix.Clear()
+        txtNewState.Clear()
+        txtNewSuffix.Clear()
+        txtNewTitle.Clear()
+        mtbNewFaxNumber.Clear()
+        mtbNewPhoneNumber.Clear()
+        mtbNewPhoneNumber2.Clear()
+        mtbNewZipCode.Clear()
+        Key = DAL.ContactKey.None
     End Sub
 
     Private Sub btnNewUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNewUpdate.Click
@@ -386,7 +399,8 @@ Public Class IAIPEditContacts
                     MsgBox("Please select a Contact Type first" & vbCrLf & "No Data Saved", MsgBoxStyle.Information, Me.Text)
                     Exit Sub
                 End If
-                If txtNewKey.Text <> "" Then
+
+                If Key <> DAL.ContactKey.None Then
                     SQL = "Update airbranch.APBContactInformation set " & _
                     "STRCONTACTFIRSTNAME = '" & Replace(txtNewFirstName.Text, "'", "''") & "', " & _
                     "STRCONTACTLASTNAME = '" & Replace(txtNewLastName.Text, "'", "''") & "', " & _
@@ -406,7 +420,7 @@ Public Class IAIPEditContacts
                     "DATMODIFINGDATE = sysdate,  " & _
                     "STRCONTACTDESCRIPTION = '" & Replace(txtNewDescrption.Text, "'", "''") & "' " & _
                     "where strAIRSnumber = '0413" & AirsNumber & "' " & _
-                    "and strKey = '" & txtNewKey.Text & "' "
+                    "and strKey = '" & Key.ToString("D") & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then

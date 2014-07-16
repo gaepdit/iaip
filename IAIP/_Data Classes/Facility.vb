@@ -203,29 +203,27 @@
 
 #Region "Shared Functions"
 
+        ''' <summary>
+        ''' Determines whether a string is in the format of a valid AIRS number.
+        ''' </summary>
+        ''' <param name="airsNumber">The string to test</param>
+        ''' <returns>True if airsNumber is valid; otherwise, false.</returns>
+        ''' <remarks>Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000 (with or without the dashes)</remarks>
         Public Shared Function IsAirsNumberValid(ByVal airsNumber As String) As Boolean
             ' Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000
             ' (with or without the dashes)
 
             Dim rgx As New System.Text.RegularExpressions.Regex("^(04-?13-?)?\d{3}-?\d{5}$")
             Return rgx.IsMatch(airsNumber.Replace(" ", ""))
-
-            '' Remove dashes and spaces (the only non-numeral characters allowed)
-            'Dim a As String = airsNumber.Replace("-", "").Replace(" ", "")
-
-            '' Test to see if remaining string can be parsed as an integer
-            '' (i.e., only numerals remain)
-            'If Not (Int64.TryParse(a, Nothing)) Then _
-            '    Return False
-            'If Not (a.Length = 8 Or a.Length = 12) Then _
-            '    Return False
-            'If (a.Length = 12 And Mid(a, 1, 4) <> "0413") Then _
-            '    Return False
-
-            '' No red flags? Give a green light (to mix metaphors)
-            'Return True
         End Function
 
+        ''' <summary>
+        ''' Converts a string representation of an AIRS number to the "00000000" form. If 'expand' is True, then 
+        ''' the AIRS number is expanded to the "041300000000" form.
+        ''' </summary>
+        ''' <param name="airsNumber">The AIRS number to format</param>
+        ''' <param name="expand">Whether to expand to the 12-digit form</param>
+        ''' <returns>A string representation of an AIRS number in the "00000000" or "041300000000" form.</returns>
         Public Shared Function NormalizeAirsNumber(ByRef airsNumber As String, Optional ByVal expand As Boolean = False) As Boolean
             ' Converts a string representation of an AIRS number to the "00000000" form 
             ' (eight numerals, no dashes).
@@ -252,6 +250,13 @@
             Return True
         End Function
 
+        ''' <summary>
+        ''' Converts a string representation of an AIRS number to the "000-00000" form. If expand = True, then 
+        ''' the AIRS number is expanded to the "04-13-000-00000" form.
+        ''' </summary>
+        ''' <param name="airsNumber">The AIRS number to format</param>
+        ''' <param name="expand">Whether to expand to the 12-digit form</param>
+        ''' <returns>A string representation of an AIRS number in the "000-00000" or "04-13-000-00000" form.</returns>
         Public Shared Function FormatAirsNumber(ByVal airsNumber As String, Optional ByVal expand As Boolean = False) As String
             ' Converts a string representation of an AIRS number to the "000-00000" form 
             ' (eight numerals, one dash).

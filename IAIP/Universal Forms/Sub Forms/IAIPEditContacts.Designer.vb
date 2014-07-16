@@ -62,7 +62,6 @@ Partial Class IAIPEditContacts
         Me.txtNewSuffix = New System.Windows.Forms.TextBox
         Me.txtNewPrefix = New System.Windows.Forms.TextBox
         Me.txtNewLastName = New System.Windows.Forms.TextBox
-        Me.txtNewKey = New System.Windows.Forms.TextBox
         Me.pnlHeaderPanel = New System.Windows.Forms.Panel
         Me.lblAirsNumber = New System.Windows.Forms.Label
         Me.lblFacilityName = New System.Windows.Forms.Label
@@ -533,19 +532,10 @@ Partial Class IAIPEditContacts
         Me.txtNewLastName.Size = New System.Drawing.Size(176, 20)
         Me.txtNewLastName.TabIndex = 2
         '
-        'txtNewKey
-        '
-        Me.txtNewKey.Location = New System.Drawing.Point(762, 6)
-        Me.txtNewKey.Name = "txtNewKey"
-        Me.txtNewKey.Size = New System.Drawing.Size(18, 20)
-        Me.txtNewKey.TabIndex = 239
-        Me.txtNewKey.Visible = False
-        '
         'pnlHeaderPanel
         '
         Me.pnlHeaderPanel.Controls.Add(Me.lblAirsNumber)
         Me.pnlHeaderPanel.Controls.Add(Me.lblFacilityName)
-        Me.pnlHeaderPanel.Controls.Add(Me.txtNewKey)
         Me.pnlHeaderPanel.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlHeaderPanel.Location = New System.Drawing.Point(0, 0)
         Me.pnlHeaderPanel.Name = "pnlHeaderPanel"
@@ -612,7 +602,6 @@ Partial Class IAIPEditContacts
     Friend WithEvents mtbNewZipCode As System.Windows.Forms.MaskedTextBox
     Friend WithEvents mtbNewPhoneNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents Label9 As System.Windows.Forms.Label
-    Friend WithEvents txtNewKey As System.Windows.Forms.TextBox
     Friend WithEvents txtNewCity As System.Windows.Forms.TextBox
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents txtNewState As System.Windows.Forms.TextBox

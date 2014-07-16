@@ -1,4 +1,5 @@
 ﻿Imports Oracle.DataAccess.Client
+Imports System.Collections.Generic
 
 Public Class IAIPFacilitySummary
     Dim SQL As String
@@ -301,17 +302,10 @@ Public Class IAIPFacilitySummary
     End Property
 
     Private Sub OpenEditContactInformationTool()
-        Try
-            If Not EditContacts Is Nothing Then
-                EditContacts.Dispose()
-            End If
-            EditContacts = New IAIPEditContacts
-            EditContacts.AirsNumber = mtbAIRSNumber.Text
-            EditContacts.FacilityName = txtFacilityName.Text
-            EditContacts.Show()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        Dim parameters As New Dictionary(Of String, String)
+        parameters("airsnumber") = mtbAIRSNumber.Text
+        parameters("facilityname") = txtFacilityName.Text
+        OpenMultiForm("IAIPEditContacts", mtbAIRSNumber.Text, parameters)
     End Sub
 
     Private Sub OpenFacilityLookupTool()
@@ -537,7 +531,7 @@ Public Class IAIPFacilitySummary
             Dim dtFacilityWideData As New DataTable
             Dim drDSRow As DataRow
 
-            Sql = "select " & _
+            SQL = "select " & _
             "" & DBNameSpace & ".VW_APBFacilityLocation.strAIRSnumber, " & _
             "" & DBNameSpace & ".VW_APBFacilityLocation.strFacilityName, " & _
             "strFacilityStreet1, strFacilityStreet2, " & _
@@ -557,7 +551,7 @@ Public Class IAIPFacilitySummary
             "" & DBNameSpace & ".VW_APBFacilityHeader " & _
             "where " & DBNameSpace & ".VW_APBFacilityLocation.strAIRSNumber = " & DBNameSpace & ".VW_APBFacilityHeader.strAIRSNumber " & _
             "and " & DBNameSpace & ".VW_APBFacilityLocation.strAIRSnumber = '0413" & mtbAIRSNumber.Text & "' "
-            cmd = New OracleCommand(Sql, CurrentConnection)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -808,11 +802,11 @@ Public Class IAIPFacilitySummary
             End While
             dr.Close()
 
-            Sql = "select distinct(strComplianceStatus) as PollutantStatus " & _
+            SQL = "select distinct(strComplianceStatus) as PollutantStatus " & _
             "from AIRBranch.APBAirProgramPollutants  " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(Sql, CurrentConnection)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -897,14 +891,14 @@ Public Class IAIPFacilitySummary
 
             dsFacilityWideData = New DataSet
 
-            Sql = "Select " & _
+            SQL = "Select " & _
             "" & DBNameSpace & ".VW_APBFacilityFees.*, " & _
             "(numTotalFee - TotalPaid) as Balance " & _
             "from " & DBNameSpace & ".VW_APBFacilityFees " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  " & _
             "order by intYear DESC "
 
-            daFacilityWideData = New OracleDataAdapter(Sql, CurrentConnection)
+            daFacilityWideData = New OracleDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1088,10 +1082,10 @@ Public Class IAIPFacilitySummary
 
             End If
 
-            Sql = "select strDistrictResponsible " & _
+            SQL = "select strDistrictResponsible " & _
             "from " & DBNameSpace & ".SSCPDistrictResponsible " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-            cmd = New OracleCommand(Sql, CurrentConnection)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1256,7 +1250,7 @@ Public Class IAIPFacilitySummary
 
             dsFacilityWideData = New DataSet
 
-            Sql = "select " & _
+            SQL = "select " & _
            "distinct(" & DBNameSpace & ".OLAPUserAccess.numUserID), " & _
            "strUserType, " & _
            "(strSalutation||' '||strFirstName||' '||strLastName||', '||strTitle) as GECOContact, " & _
@@ -1271,14 +1265,14 @@ Public Class IAIPFacilitySummary
            "and " & DBNameSpace & ".OLAPUserAccess.numUserID = " & DBNameSpace & ".OLAPUserLogIN.numUserID (+) " & _
            "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-            daFacilityWideData = New OracleDataAdapter(Sql, CurrentConnection)
+            daFacilityWideData = New OracleDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
             daFacilityWideData.Fill(dsFacilityWideData, "GECOContacts")
 
-            Sql = "Select strContactKey, " & _
+            SQL = "Select strContactKey, " & _
             "(strContactPrefix||' '||strContactFirstName||' '||strContactLastName||' '||strContactSuffix||', '||strContactTitle) as ContactName, " & _
             "strContactCompanyName, " & _
             "strContactPhoneNumber1, strContactPhoneNumber2, " & _
@@ -1291,14 +1285,14 @@ Public Class IAIPFacilitySummary
             "and strKey like '1%' " & _
             "order by strContactKey "
 
-            daFacilityWideData = New OracleDataAdapter(Sql, CurrentConnection)
+            daFacilityWideData = New OracleDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
             daFacilityWideData.Fill(dsFacilityWideData, "ISMPContacts")
 
-            Sql = "Select strContactKey, " & _
+            SQL = "Select strContactKey, " & _
             "(strContactPrefix||' '||strContactFirstName||' '||strContactLastName||' '||strContactSuffix||', '||strContactTitle) as ContactName, " & _
             "strContactCompanyName, " & _
             "strContactPhoneNumber1, strContactPhoneNumber2, " & _
@@ -1311,14 +1305,14 @@ Public Class IAIPFacilitySummary
             "and strKey like '2%' " & _
             "order by strContactKey "
 
-            daFacilityWideData = New OracleDataAdapter(Sql, CurrentConnection)
+            daFacilityWideData = New OracleDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
             daFacilityWideData.Fill(dsFacilityWideData, "SSCPContacts")
 
-            Sql = "Select strContactKey, " & _
+            SQL = "Select strContactKey, " & _
             "(strContactPrefix||' '||strContactFirstName||' '||strContactLastName||' '||strContactSuffix||', '||strContactTitle) as ContactName, " & _
             "strContactCompanyName, " & _
             "strContactPhoneNumber1, strContactPhoneNumber2, " & _
@@ -1331,14 +1325,14 @@ Public Class IAIPFacilitySummary
             "and strKey like '3%' " & _
             "order by strContactKey "
 
-            daFacilityWideData = New OracleDataAdapter(Sql, CurrentConnection)
+            daFacilityWideData = New OracleDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
             daFacilityWideData.Fill(dsFacilityWideData, "SSPPContacts")
 
-            Sql = "Select strContactKey, " & _
+            SQL = "Select strContactKey, " & _
             "(strContactPrefix||' '||strContactFirstName||' '||strContactLastName||' '||strContactSuffix||', '||strContactTitle) as ContactName, " & _
             "strContactCompanyName, " & _
             "strContactPhoneNumber1, strContactPhoneNumber2, " & _
@@ -1351,7 +1345,7 @@ Public Class IAIPFacilitySummary
             "and strKey like '4%' " & _
             "order by strContactKey "
 
-            daFacilityWideData = New OracleDataAdapter(Sql, CurrentConnection)
+            daFacilityWideData = New OracleDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1365,7 +1359,7 @@ Public Class IAIPFacilitySummary
             '"and numUserID = strSSCPEngineer   " & _
             '"and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  "
 
-            Sql = "select " & _
+            SQL = "select " & _
 "SSCPENGINEER, " & _
 "STRUNITDESC " & _
 "from " & _
@@ -1386,14 +1380,14 @@ Public Class IAIPFacilitySummary
 "group by NUMSSCPENGINEER, (STRLASTNAME||', '||STRFIRSTNAME), STRUNITDESC)  "
 
 
-            daFacilityWideData = New OracleDataAdapter(Sql, CurrentConnection)
+            daFacilityWideData = New OracleDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
             daFacilityWideData.Fill(dsFacilityWideData, "ComplianceContact")
 
-            Sql = "Select " & _
+            SQL = "Select " & _
             "Distinct((strLastName||', '||strFirstName)) as ISMPEngineer, strUnitDesc   " & _
             "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation,   " & _
             "" & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".LookUpEPDUnits    " & _
@@ -1408,14 +1402,14 @@ Public Class IAIPFacilitySummary
             "and strClosed = 'True')  " & _
             "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  "
 
-            daFacilityWideData = New OracleDataAdapter(Sql, CurrentConnection)
+            daFacilityWideData = New OracleDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
             daFacilityWideData.Fill(dsFacilityWideData, "MonitoringContact")
 
-            Sql = "select  " & _
+            SQL = "select  " & _
             "Distinct((strLastName||', '||strFirstName)) as SSPPStaffResponsible, strUnitDesc   " & _
             "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".SSPPApplicationMaster, " & _
             "" & DBNameSpace & ".LookUpEPDUnits " & _
@@ -1427,7 +1421,7 @@ Public Class IAIPFacilitySummary
             "where " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "')  " & _
             "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber = '0413" & mtbAIRSNumber.Text & "'  "
 
-            daFacilityWideData = New OracleDataAdapter(Sql, CurrentConnection)
+            daFacilityWideData = New OracleDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1729,12 +1723,12 @@ Public Class IAIPFacilitySummary
 
             cboEIYear.Items.Clear()
 
-            Sql = "select distinct(strInventoryYear)  as EIYear " & _
+            SQL = "select distinct(strInventoryYear)  as EIYear " & _
             "from " & DBNameSpace & ".EISI " & _
             "where strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "' " & _
             "order by EIYear desc "
 
-            Sql = "select * from " & _
+            SQL = "select * from " & _
             "(select  " & _
             "distinct(inventoryyear) as EIYear  " & _
             "from airbranch.eis_admin  " & _
@@ -1747,7 +1741,7 @@ Public Class IAIPFacilitySummary
             "and strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  ) " & _
             "order by EIYear desc "
 
-            cmd = New OracleCommand(Sql, CurrentConnection)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1762,9 +1756,9 @@ Public Class IAIPFacilitySummary
                 chkNotNonAttain.Checked = False
                 chkLessThan25.Checked = False
 
-                Sql = "Select * from " & DBNameSpace & ".eiSI where strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "' " ' & _ 
+                SQL = "Select * from " & DBNameSpace & ".eiSI where strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "' " ' & _ 
 
-                cmd = New OracleCommand(Sql, CurrentConnection)
+                cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1773,7 +1767,7 @@ Public Class IAIPFacilitySummary
                 dr.Close()
 
                 If recExist = True Then
-                    Sql = "Select " & _
+                    SQL = "Select " & _
                     "distinct(EIEM.strInventoryYear),  " & _
                     "case  " & _
                     "when COTable.TotalEmissions is Null then  0 " & _
@@ -1930,7 +1924,7 @@ Public Class IAIPFacilitySummary
                     "order by EIEM.strInventoryYear DESC "
 
                     ds = New DataSet
-                    da = New OracleDataAdapter(Sql, CurrentConnection)
+                    da = New OracleDataAdapter(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1988,7 +1982,7 @@ Public Class IAIPFacilitySummary
                     'cboEIYear.Text = Now.Year
                 End If
 
-                Sql = "select * " & _
+                SQL = "select * " & _
                 "from " & DBNameSpace & ".ESSchema " & _
                 "where strAirsNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                 "and intESYear = '" & inventoryYear & "' "
@@ -2000,7 +1994,7 @@ Public Class IAIPFacilitySummary
 
                 Dim county As String = Mid(mtbAIRSNumber.Text, 1, 3)
 
-                cmd = New OracleCommand(Sql, CurrentConnection)
+                cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2012,12 +2006,12 @@ Public Class IAIPFacilitySummary
                     If county = "057" Or county = "063" Or county = "067" Or county = "077" Or county = "089" _
                                                 Or county = "097" Or county = "113" Or county = "117" Or county = "121" _
                                                 Or county = "135" Or county = "151" Or county = "223" Or county = "247" Then
-                        Sql = "Select dblVOCEmission, dblNOXEmission, strOptOut " & _
+                        SQL = "Select dblVOCEmission, dblNOXEmission, strOptOut " & _
                         "from " & DBNameSpace & ".ESSchema " & _
                         "where intESYear = '" & inventoryYear & "' " & _
                         "and strAirsNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-                        cmd = New OracleCommand(Sql, CurrentConnection)
+                        cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -2043,11 +2037,11 @@ Public Class IAIPFacilitySummary
 
             End If
 
-            Sql = "select inventoryyear from airbranch.eis_admin where facilitysiteId = '" & mtbAIRSNumber.Text & "' " & _
+            SQL = "select inventoryyear from airbranch.eis_admin where facilitysiteId = '" & mtbAIRSNumber.Text & "' " & _
             "and inventoryyear > 2009 "
 
 
-            cmd = New OracleCommand(Sql, CurrentConnection)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2056,11 +2050,11 @@ Public Class IAIPFacilitySummary
             dr.Close()
 
             If recExist = True Then
-                Sql = "select * from Airbranch.VW_EIS_EmissionSummary  " & _
+                SQL = "select * from Airbranch.VW_EIS_EmissionSummary  " & _
                 "where FacilitySiteID = '" & mtbAIRSNumber.Text & "' "
 
                 ds = New DataSet
-                da = New OracleDataAdapter(Sql, CurrentConnection)
+                da = New OracleDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2945,7 +2939,7 @@ Public Class IAIPFacilitySummary
                 TCFacilitySummary.TabPages.Add(TPISMPTestingWork)
             End If
 
-            Sql = "Select " & DBNameSpace & ".VW_ISMPWorkDataGrid.*, strPreComplianceStatus  " & _
+            SQL = "Select " & DBNameSpace & ".VW_ISMPWorkDataGrid.*, strPreComplianceStatus  " & _
             "from " & DBNameSpace & ".VW_ISMPWorkDataGrid, " & DBNameSpace & ".ISMPReportInformation " & _
             "where " & DBNameSpace & ".VW_ISMPWorkDataGrid.strReferenceNumber = " & _
             "" & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
@@ -2953,14 +2947,14 @@ Public Class IAIPFacilitySummary
             SQLLine '& _
             ' "order by " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber DESC "
 
-            daISMP = New OracleDataAdapter(Sql, CurrentConnection)
+            daISMP = New OracleDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
             daISMP.Fill(dsISMP, "ISMPWork")
 
-            Sql = "Select strTestLogNumber, " & _
+            SQL = "Select strTestLogNumber, " & _
             "(strLastName||', '||strFirstName) as Engineer,  " & _
             "strEmissionUnit, strUnitDesc, " & _
             "datTestNotification, datProposedstartDate,  " & _
@@ -2972,14 +2966,14 @@ Public Class IAIPFacilitySummary
             "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  " & _
             "order by strTestLogNumber DESC "
 
-            daISMP = New OracleDataAdapter(Sql, CurrentConnection)
+            daISMP = New OracleDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
             daISMP.Fill(dsISMP, "ISMPTestLog")
 
-            Sql = "Select " & DBNameSpace & ".ISMPTestREportMemo.strReferenceNumber, " & _
+            SQL = "Select " & DBNameSpace & ".ISMPTestREportMemo.strReferenceNumber, " & _
             "strMemorandumField " & _
             "from " & DBNameSpace & ".ISMPTestREportMemo, " & DBNameSpace & ".ISMPMaster " & _
             "where " & DBNameSpace & ".ISMPTestREportMemo.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber " & _
@@ -2987,7 +2981,7 @@ Public Class IAIPFacilitySummary
             SQLLine & _
             "Order by " & DBNameSpace & ".ISMPTestREportMemo.strReferenceNumber DESC "
 
-            daISMP = New OracleDataAdapter(Sql, CurrentConnection)
+            daISMP = New OracleDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -3205,11 +3199,11 @@ Public Class IAIPFacilitySummary
         Try
 
             If txtReferenceNumber.Text <> "" Then
-                Sql = "Select " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                SQL = "Select " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
                  "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
                  "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
                  "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                Dim cmd As New OracleCommand(Sql, CurrentConnection)
+                Dim cmd As New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -3286,12 +3280,12 @@ Public Class IAIPFacilitySummary
                 TCFacilitySummary.TabPages.Add(TPComplianceWork)
             End If
 
-            Sql = "Select * " & _
+            SQL = "Select * " & _
             "From " & DBNameSpace & ".VW_SSCPWorkDataGrid " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "Order by strTrackingNumber DESC "
 
-            daSSCP = New OracleDataAdapter(Sql, CurrentConnection)
+            daSSCP = New OracleDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -3299,7 +3293,7 @@ Public Class IAIPFacilitySummary
             daSSCP.Fill(dsSSCP, "SSCPEvents")
 
 
-            Sql = "Select distinct(strEnforcementNumber), " & _
+            SQL = "Select distinct(strEnforcementNumber), " & _
            "Case  " & _
            "	when datDiscoveryDate is Null then '' " & _
            "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " & _
@@ -3315,14 +3309,14 @@ Public Class IAIPFacilitySummary
            "Where  strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
            "order by strENforcementNumber DESC "
 
-            daSSCP = New OracleDataAdapter(Sql, CurrentConnection)
+            daSSCP = New OracleDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
             daSSCP.Fill(dsSSCP, "SSCPEnforcement")
 
-            Sql = "Select " & DBNameSpace & ".SSCPFCEMaster.strFCENumber, " & _
+            SQL = "Select " & DBNameSpace & ".SSCPFCEMaster.strFCENumber, " & _
             "strFCEStatus, " & _
             "(strLastname||', '||strFirstName) as ReviewingEngineer, " & _
             "to_char(DatFCECompleted, 'dd-Mon-yyyy') as FCECompleted, " & _
@@ -3334,7 +3328,7 @@ Public Class IAIPFacilitySummary
             "and " & DBNameSpace & ".EPDuserProfiles.numUserID = " & DBNameSpace & ".SSCPFCE.strReviewer  " & _
             "order by DatFCECompleted DESC "
 
-            daSSCP = New OracleDataAdapter(Sql, CurrentConnection)
+            daSSCP = New OracleDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -3604,7 +3598,7 @@ Public Class IAIPFacilitySummary
                 TCFacilitySummary.TabPages.Add(TPPermittingData)
             End If
 
-            Sql = "Select  " & _
+            SQL = "Select  " & _
            "distinct(to_Number(" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,   " & _
            "  case   " & _
            "	when strApplicationTypeDesc IS Null then ' '   " & _
@@ -3682,16 +3676,16 @@ Public Class IAIPFacilitySummary
    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID (+)   " & _
          "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'   "
 
-            Sql = Sql & SQLLine & "order by strApplicationNumber DESC "
+            SQL = SQL & SQLLine & "order by strApplicationNumber DESC "
 
-            daSSPP = New OracleDataAdapter(Sql, CurrentConnection)
+            daSSPP = New OracleDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
             daSSPP.Fill(dsSSPP, "ApplictionLog")
 
-            Sql = "select " & _
+            SQL = "select " & _
             "substr(strAIRSNumber, 5) as AIRSNumber,  " & _
             "'0-SIP' as Subpart, " & _
             "" & DBNameSpace & ".LookUpSUBPartSip.strSubpart, " & _
@@ -3739,14 +3733,14 @@ Public Class IAIPFacilitySummary
             "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and substr(strSubpartKey, 13, 1) = 'M' "
 
-            daSSPP = New OracleDataAdapter(Sql, CurrentConnection)
+            daSSPP = New OracleDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
             daSSPP.Fill(dsSSPP, "ActiveRules")
 
-            Sql = "select " & _
+            SQL = "select " & _
             "'0-SIP' as Subpart,  " & _
             "" & DBNameSpace & ".LookUpSubpartSIP.strSubpart,  " & _
             "" & DBNameSpace & ".LookupSubpartSIP.strDescription,  " & _
@@ -3822,7 +3816,7 @@ Public Class IAIPFacilitySummary
             "and strAIRSnumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and substr(strSubpartKey, 6,1) = 'M'"
 
-            daSSPP = New OracleDataAdapter(Sql, CurrentConnection)
+            daSSPP = New OracleDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -3981,7 +3975,7 @@ Public Class IAIPFacilitySummary
                 TCFacilitySummary.TabPages.Add(TPPlanningSupportData)
             End If
 
-            Sql = "select substr(" & DBNameSpace & ".FS_FeeAuditedData.strAIRSNumber, 5) as AIRSNumber, " & _
+            SQL = "select substr(" & DBNameSpace & ".FS_FeeAuditedData.strAIRSNumber, 5) as AIRSNumber, " & _
             "" & DBNameSpace & ".FS_FeeAuditedData.numFeeYear,  " & _
             "" & DBNameSpace & ".FS_FeeAuditedData.intVOCTons,  " & _
             "" & DBNameSpace & ".FS_FeeAuditedData.intPMTons,  " & _
@@ -4033,14 +4027,14 @@ Public Class IAIPFacilitySummary
             "and strenrolled = '1'" & _
             "order by " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear desc "
 
-            da = New OracleDataAdapter(Sql, CurrentConnection)
+            da = New OracleDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
             da.Fill(ds, "FeeData")
 
 
-            Sql = "select distinct " & _
+            SQL = "select distinct " & _
             "" & DBNameSpace & ".FS_FeeInvoice.numFeeYear, " & _
            "" & DBNameSpace & ".FS_FeeInvoice.InvoiceID, " & _
            "" & DBNameSpace & ".FS_FeeInvoice.numAmount, " & _
@@ -4063,13 +4057,13 @@ Public Class IAIPFacilitySummary
            "and " & DBNameSpace & ".FS_FeeInvoice.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
            "order by numFeeyear desc, datInvoiceDate desc  "
 
-            da = New OracleDataAdapter(Sql, CurrentConnection)
+            da = New OracleDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
             da.Fill(ds, "FeeInvoice")
 
-            Sql = "Select " & _
+            SQL = "Select " & _
             "substr(strAIRSNumber, 5) as AIRSNumber, numFeeYear,  " & _
             "numPayment, dattransactiondate, Invoiceid, strCheckNo,  " & _
             "strDepositNo, " & _
@@ -4091,7 +4085,7 @@ Public Class IAIPFacilitySummary
             "and Active = '1' " & _
             "order by numFeeYear desc, dattransactiondate desc "
 
-            da = New OracleDataAdapter(Sql, CurrentConnection)
+            da = New OracleDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4402,29 +4396,29 @@ Public Class IAIPFacilitySummary
 #Region "AFS Updates"
     Private Sub mmiAddAFS_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiAddAFS.Click
         Try
-            Sql = "Update " & DBNameSpace & ".AFSFacilityData set " & _
+            SQL = "Update " & DBNameSpace & ".AFSFacilityData set " & _
             "strUpdateStatus = 'A' " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(Sql, CurrentConnection)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            Sql = "Update " & DBNameSpace & ".AFSAirPollutantData set " & _
+            SQL = "Update " & DBNameSpace & ".AFSAirPollutantData set " & _
             "strUpdateStatus = 'A' " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(Sql, CurrentConnection)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            Sql = "update AIRBranch.AFSSSPPRecords set " & _
+            SQL = "update AIRBranch.AFSSSPPRecords set " & _
             "strUpdateStatus = 'A'  " & _
             "where exists  " & _
             "(select AIRBranch.SSPPApplicationmaster.strApplicationNumber  " & _
@@ -4433,14 +4427,14 @@ Public Class IAIPFacilitySummary
             "airbranch.AFSSSPPrecords.strApplicationNumber  " & _
             "and AIRbranch.SSPPApplicationMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
 
-            cmd = New OracleCommand(Sql, CurrentConnection)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            Sql = "update AIRBranch.AFSSSCPRecords set " & _
+            SQL = "update AIRBranch.AFSSSCPRecords set " & _
             "strUpdateStatus = 'A'  " & _
             "where exists  " & _
             "(select AIRBranch.SSCPItemMaster.strTrackingNumber  " & _
@@ -4449,14 +4443,14 @@ Public Class IAIPFacilitySummary
             "       airbranch.AFSSSCPRecords.strTrackingNumber  " & _
             "and AIRbranch.SSCPItemMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
 
-            cmd = New OracleCommand(Sql, CurrentConnection)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            Sql = "update AIRBranch.AFSISMPRecords set " & _
+            SQL = "update AIRBranch.AFSISMPRecords set " & _
             "strUpdateStatus = 'A'  " & _
             "where exists  " & _
             "(select AIRBranch.ISMPMaster.strReferenceNumber  " & _
@@ -4466,18 +4460,18 @@ Public Class IAIPFacilitySummary
             "and AIRbranch.ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
 
 
-            cmd = New OracleCommand(Sql, CurrentConnection)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            Sql = "Update " & DBNameSpace & ".AFSSSCPEnforcementRecords set " & _
+            SQL = "Update " & DBNameSpace & ".AFSSSCPEnforcementRecords set " & _
            "strUpdateStatus = 'A' " & _
            "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-            Sql = "update AIRBranch.AFSSSCPEnforcementRecords set " & _
+            SQL = "update AIRBranch.AFSSSCPEnforcementRecords set " & _
            "strUpdateStatus = 'A'  " & _
            "where exists  " & _
            "(select AIRBranch.SSCPEnforcementItems.strEnforcementNumber  " & _
@@ -4487,18 +4481,18 @@ Public Class IAIPFacilitySummary
            "and AIRbranch.SSCPEnforcementItems.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
 
 
-            cmd = New OracleCommand(Sql, CurrentConnection)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            Sql = "Update " & DBNameSpace & ".AFSSSCPFCERecords set " & _
+            SQL = "Update " & DBNameSpace & ".AFSSSCPFCERecords set " & _
     "strUpdateStatus = 'A' " & _
     "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-            Sql = "update AIRBranch.AFSSSCPFCERecords set " & _
+            SQL = "update AIRBranch.AFSSSCPFCERecords set " & _
         "strUpdateStatus = 'A'  " & _
         "where exists  " & _
         "(select AIRBranch.SSCPFCEMaster.strFCENumber  " & _
@@ -4507,7 +4501,7 @@ Public Class IAIPFacilitySummary
         "       airbranch.AFSSSCPFCERecords.strFCENumber  " & _
         "and AIRbranch.SSCPFCEMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
 
-            cmd = New OracleCommand(Sql, CurrentConnection)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4522,29 +4516,29 @@ Public Class IAIPFacilitySummary
 
     Private Sub mmiUpdateAFSData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiUpdateAFSData.Click
         Try
-            Sql = "Update " & DBNameSpace & ".AFSFacilityData set " & _
+            SQL = "Update " & DBNameSpace & ".AFSFacilityData set " & _
             "strUpdateStatus = 'C' " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(Sql, CurrentConnection)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            Sql = "Update " & DBNameSpace & ".AFSAirPollutantData set " & _
+            SQL = "Update " & DBNameSpace & ".AFSAirPollutantData set " & _
             "strUpdateStatus = 'C' " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(Sql, CurrentConnection)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            Sql = "update AIRBranch.AFSSSPPRecords set " & _
+            SQL = "update AIRBranch.AFSSSPPRecords set " & _
             "strUpdateStatus = 'C'  " & _
             "where exists  " & _
             "(select AIRBranch.SSPPApplicationmaster.strApplicationNumber  " & _
@@ -4553,14 +4547,14 @@ Public Class IAIPFacilitySummary
             "airbranch.AFSSSPPrecords.strApplicationNumber  " & _
             "and AIRbranch.SSPPApplicationMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
 
-            cmd = New OracleCommand(Sql, CurrentConnection)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            Sql = "update AIRBranch.AFSSSCPRecords set " & _
+            SQL = "update AIRBranch.AFSSSCPRecords set " & _
             "strUpdateStatus = 'C'  " & _
             "where exists  " & _
             "(select AIRBranch.SSCPItemMaster.strTrackingNumber  " & _
@@ -4569,14 +4563,14 @@ Public Class IAIPFacilitySummary
             "       airbranch.AFSSSCPRecords.strTrackingNumber  " & _
             "and AIRbranch.SSCPItemMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
 
-            cmd = New OracleCommand(Sql, CurrentConnection)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            Sql = "update AIRBranch.AFSISMPRecords set " & _
+            SQL = "update AIRBranch.AFSISMPRecords set " & _
             "strUpdateStatus = 'C'  " & _
             "where exists  " & _
             "(select AIRBranch.ISMPMaster.strReferenceNumber  " & _
@@ -4586,14 +4580,14 @@ Public Class IAIPFacilitySummary
             "and AIRbranch.ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
 
 
-            cmd = New OracleCommand(Sql, CurrentConnection)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            Sql = "update AIRBranch.AFSSSCPEnforcementRecords set " & _
+            SQL = "update AIRBranch.AFSSSCPEnforcementRecords set " & _
            "strUpdateStatus = 'C'  " & _
            "where exists  " & _
            "(select AIRBranch.SSCPEnforcementItems.strEnforcementNumber  " & _
@@ -4603,14 +4597,14 @@ Public Class IAIPFacilitySummary
            "and AIRbranch.SSCPEnforcementItems.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
 
 
-            cmd = New OracleCommand(Sql, CurrentConnection)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            Sql = "update AIRBranch.AFSSSCPFCERecords set " & _
+            SQL = "update AIRBranch.AFSSSCPFCERecords set " & _
         "strUpdateStatus = 'C'  " & _
         "where exists  " & _
         "(select AIRBranch.SSCPFCEMaster.strFCENumber  " & _
@@ -4619,7 +4613,7 @@ Public Class IAIPFacilitySummary
         "       airbranch.AFSSSCPFCERecords.strFCENumber  " & _
         "and AIRbranch.SSCPFCEMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
 
-            cmd = New OracleCommand(Sql, CurrentConnection)
+            cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
