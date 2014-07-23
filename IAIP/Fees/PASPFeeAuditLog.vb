@@ -9,6 +9,9 @@ Public Class PASPFeeAuditLog
     Dim da As OracleDataAdapter
     Dim dtairs As New DataTable
 
+    Dim tempContact As Contact
+    Dim tempFacility As Apb.Facility
+
 #Region " Properties "
 
     Private _feeYear As String
@@ -33,7 +36,7 @@ Public Class PASPFeeAuditLog
 
     Public ReadOnly Property ExpandedAirsNumber() As String
         Get
-            Return NormalizeAirsNumber(Me.AirsNumber, True)
+            Return GetNormalizedAirsNumber(Me.AirsNumber, True)
         End Get
     End Property
 
@@ -105,26 +108,29 @@ Public Class PASPFeeAuditLog
         If Parameters IsNot Nothing Then
             If Parameters.ContainsKey("airsnumber") Then
                 Me.AirsNumber = Parameters("airsnumber")
-                If NormalizeAirsNumber(Me.AirsNumber) Then
-                    mtbAirsNumber.Text = Me.AirsNumber
-                Else
-                    mtbAirsNumber.Clear()
-                    Me.AirsNumber = Nothing
-                End If
             End If
             If Parameters.ContainsKey("feeyear") Then
                 Me.FeeYear = Parameters("feeyear")
-                If FeeYearsComboBox.Items.Contains(Me.FeeYear) Then
-                    FeeYearsComboBox.SelectedItem = Me.FeeYear
-                Else
-                    FeeYearsComboBox.SelectedIndex = 0
-                    Me.FeeYear = Nothing
-                End If
             End If
-            If Me.AirsNumber IsNot Nothing AndAlso Me.FeeYear IsNot Nothing Then
-                LoadAdminData()
-                LoadAuditedData()
-            End If
+        End If
+
+        If NormalizeAirsNumber(Me.AirsNumber) Then
+            mtbAirsNumber.Text = Me.AirsNumber
+        Else
+            mtbAirsNumber.Clear()
+            Me.AirsNumber = Nothing
+        End If
+
+        If FeeYearsComboBox.Items.Contains(Me.FeeYear) Then
+            FeeYearsComboBox.SelectedItem = Me.FeeYear
+        Else
+            FeeYearsComboBox.SelectedIndex = 0
+            Me.FeeYear = Nothing
+        End If
+
+        If Me.AirsNumber IsNot Nothing AndAlso Me.FeeYear IsNot Nothing Then
+            LoadAdminData()
+            LoadAuditedData()
         End If
     End Sub
 
@@ -286,7 +292,7 @@ Public Class PASPFeeAuditLog
             txtContactState.Clear()
             mtbContactZipCode.Clear()
             txtContactAddress2.Clear()
-            txtGECOUserEmail.Clear()
+            txtContactEmail.Clear()
             txtInitialFacilityName.Clear()
             txtInitailFacilityAddress.Clear()
             txtInitialAddressLine2.Clear()
@@ -298,10 +304,7 @@ Public Class PASPFeeAuditLog
             rdbInitialNSPSFalse.Checked = False
             rdbInitialPart70True.Checked = False
             rdbInitialPart70False.Checked = False
-            txtFSMailOutComments.Clear()
-            txtFSMailOutUpdateUser.Clear()
-            DTPFSMailOutUpdateDate.Text = OracleDate
-            DTPFSMailOutDateCreated.Text = OracleDate
+            txtInitialFacilityComment.Clear()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -321,28 +324,9 @@ Public Class PASPFeeAuditLog
             txtAIRSNumber.Text = Me.AirsNumber
             txtYear.Text = Me.FeeYear
 
-            txtFeeAdminFacilityName.Clear()
+            txtFeeAdminFacilityName.Text = DAL.GetFacilityNameByAirs(Me.AirsNumber)
 
-            SQL = "Select " & _
-                "strFacilityName " & _
-                "from " & DBNameSpace & ".APBFacilityInformation " & _
-                "where strAIRSNumber = '" & Me.ExpandedAirsNumber & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            txtFeeAdminFacilityName.Text = "ERROR"
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strFacilityname")) Then
-                    txtFeeAdminFacilityName.Text = "ERROR"
-                Else
-                    txtFeeAdminFacilityName.Text = dr.Item("strFacilityname")
-                End If
-            End While
-            dr.Close()
-
-            If txtFeeAdminFacilityName.Text = "ERROR" Then
+            If txtFeeAdminFacilityName.Text Is Nothing OrElse txtFeeAdminFacilityName.Text = "" Then
                 btnUpdateFSAdmin.Enabled = False
                 btnAddFSAdmin.Enabled = False
                 btnSaveNewFeeAudit.Enabled = False
@@ -517,8 +501,8 @@ Public Class PASPFeeAuditLog
             "strFacilityAddress1, strFacilityAddress2, " & _
             "strFacilityCity, strFacilityZipCode, " & _
             "strComment, " & _
-            "Active, UpdateUser, " & _
-            "UpdateDateTime, CreateDateTime " & _
+            "datShutDownDate, " & _
+            "Active " & _
             "from " & DBNameSpace & ".FS_MailOut " & _
             "where numFeeYear = '" & Me.FeeYear & "' " & _
             "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' "
@@ -580,9 +564,9 @@ Public Class PASPFeeAuditLog
                     mtbContactZipCode.Text = dr.Item("strContactZipCode")
                 End If
                 If IsDBNull(dr.Item("strGECOUserEmail")) Then
-                    txtGECOUserEmail.Clear()
+                    txtContactEmail.Clear()
                 Else
-                    txtGECOUserEmail.Text = dr.Item("strGECOUserEmail")
+                    txtContactEmail.Text = dr.Item("strGECOUserEmail")
                 End If
                 If IsDBNull(dr.Item("strOperationalStatus")) Then
                     cboInitialOpStatus.Text = ""
@@ -670,24 +654,14 @@ Public Class PASPFeeAuditLog
                     mtbInitialZipCode.Text = dr.Item("strFacilityZipCode")
                 End If
                 If IsDBNull(dr.Item("strComment")) Then
-                    txtFSMailOutComments.Clear()
+                    txtInitialFacilityComment.Clear()
                 Else
-                    txtFSMailOutComments.Text = dr.Item("strComment")
+                    txtInitialFacilityComment.Text = dr.Item("strComment")
                 End If
-                If IsDBNull(dr.Item("UpdateUser")) Then
-                    txtFSMailOutUpdateUser.Clear()
+                If IsDBNull(dr.Item("datShutDownDate")) Then
+                    dtpInitialShutDownDate.Checked = False
                 Else
-                    txtFSMailOutUpdateUser.Text = dr.Item("UpdateUser")
-                End If
-                If IsDBNull(dr.Item("UpdateDateTime")) Then
-                    DTPFSMailOutUpdateDate.Text = OracleDate
-                Else
-                    DTPFSMailOutUpdateDate.Text = dr.Item("UpdateDateTime")
-                End If
-                If IsDBNull(dr.Item("CreateDateTime")) Then
-                    DTPFSMailOutDateCreated.Text = OracleDate
-                Else
-                    DTPFSMailOutDateCreated.Text = dr.Item("CreateDateTime")
+                    dtpInitialShutDownDate.Value = dr.Item("datShutDownDate")
                 End If
 
             End While
@@ -703,7 +677,7 @@ Public Class PASPFeeAuditLog
             txtContactState.Enabled = False
             mtbContactZipCode.Enabled = False
             txtContactAddress2.Enabled = False
-            txtGECOUserEmail.Enabled = False
+            txtContactEmail.Enabled = False
             txtInitialFacilityName.Enabled = False
             txtInitailFacilityAddress.Enabled = False
             txtInitialAddressLine2.Enabled = False
@@ -711,15 +685,10 @@ Public Class PASPFeeAuditLog
             mtbInitialZipCode.Enabled = False
             cboInitialOpStatus.Enabled = False
             cboInitialClassification.Enabled = False
-            rdbInitialNSPSTrue.Enabled = False
-            rdbInitialNSPSFalse.Enabled = False
-            rdbInitialPart70True.Enabled = False
-            rdbInitialPart70False.Enabled = False
-            txtFSMailOutComments.Enabled = False
-            txtFSMailOutUpdateUser.Enabled = False
-            DTPFSMailOutUpdateDate.Enabled = False
-            DTPFSMailOutDateCreated.Enabled = False
-
+            MailoutInitialNspsPanel.Enabled = False
+            MailoutInitialPart70Panel.Enabled = False
+            txtInitialFacilityComment.Enabled = False
+            
             SQL = "Select " & _
             "strContactFirstName, strContactlastName, " & _
             "strContactPrefix, strContactTitle, " & _
@@ -2399,41 +2368,161 @@ Public Class PASPFeeAuditLog
 
 #Region " Mailout Information tab "
 
-    Private Sub MailoutReplaceContactWithFeeContactButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutReplaceContactWithFeeContactButton.Click, MailoutReplaceFacilityInfoButton.Click
-
-    End Sub
-
-    Private Sub btnOpenFSMailout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutEnableEditingButton.Click, Button1.Click, MailoutCancelEditingContactButton.Click, MailoutEditContactsButton.Click, Button2.Click
+    Private Sub MailoutEnableEditingButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutEnableEditingButton.Click
         MailoutEditingToggle(True)
     End Sub
 
-    Private Sub MailoutEditingToggle(ByVal setState As Boolean)
-        txtContactFirstName.Enabled = setState
-        txtContactLastName.Enabled = setState
-        txtContactPrefix.Enabled = setState
-        txtContactTitle.Enabled = setState
-        txtContactCoName.Enabled = setState
-        txtContactAddress.Enabled = setState
-        txtContactCity.Enabled = setState
-        txtContactState.Enabled = setState
-        mtbContactZipCode.Enabled = setState
-        txtContactAddress2.Enabled = setState
-        txtGECOUserEmail.Enabled = setState
-        txtInitialFacilityName.Enabled = setState
-        txtInitailFacilityAddress.Enabled = setState
-        txtInitialAddressLine2.Enabled = setState
-        txtInitialCity.Enabled = setState
-        mtbInitialZipCode.Enabled = setState
-        cboInitialOpStatus.Enabled = setState
-        cboInitialClassification.Enabled = setState
-        rdbInitialNSPSTrue.Enabled = setState
-        rdbInitialNSPSFalse.Enabled = setState
-        rdbInitialPart70True.Enabled = setState
-        rdbInitialPart70False.Enabled = setState
-        txtFSMailOutComments.Enabled = setState
+    Private Sub MailoutEditFacilityButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutEditFacilityButton.Click
+        MailoutEditingToggle(True, False)
     End Sub
 
-    Private Sub btnMailoutSaveUpdates_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutSaveContactButton.Click, Button4.Click
+    Private Sub MailoutEditingToggle(ByVal enable As Boolean, Optional ByVal facilitySection As Boolean = True)
+        If facilitySection Then
+
+            tempContact = New Contact()
+            Dim tempAddress As Address = New Address(txtContactAddress.Text, txtContactCity.Text, _
+                                                     txtContactState.Text, txtContactAddress2.Text, _
+                                                     mtbContactZipCode.Text)
+            With tempContact
+                .FirstName = txtContactFirstName.Text
+                .LastName = txtContactLastName.Text
+                .EmailAddress = txtContactEmail.Text
+                .Prefix = txtContactPrefix.Text
+                .Suffix = txtContactSuffix.Text
+                .Title = txtContactTitle.Text
+                .CompanyName = txtContactCoName.Text
+                .MailingAddress = tempAddress
+            End With
+
+            txtContactPrefix.Enabled = enable
+            txtContactFirstName.Enabled = enable
+            txtContactLastName.Enabled = enable
+            txtContactSuffix.Enabled = enable
+            txtContactTitle.Enabled = enable
+            txtContactCoName.Enabled = enable
+            txtContactAddress.Enabled = enable
+            txtContactAddress2.Enabled = enable
+            txtContactCity.Enabled = enable
+            txtContactState.Enabled = enable
+            mtbContactZipCode.Enabled = enable
+            txtContactEmail.Enabled = enable
+
+            MailoutEnableEditingButton.Enabled = Not (enable)
+            MailoutEnableEditingButton.Visible = Not (enable)
+            MailoutReplaceContactWithFeeContactButton.Enabled = Not (enable)
+            MailoutCancelEditingContactButton.Enabled = enable
+            MailoutCancelEditingContactButton.Visible = enable
+            MailoutSaveContactButton.Enabled = enable
+            MailoutSaveContactButton.Visible = enable
+
+        Else
+
+            tempFacility = New Apb.Facility()
+            With tempFacility
+                .FacilityName = txtInitialFacilityName.Text
+                .FacilityLocation = New Location
+                .FacilityLocation.Address = New Address
+                .FacilityLocation.Address.Street = txtInitailFacilityAddress.Text
+                .FacilityLocation.Address.Street2 = txtInitialAddressLine2.Text
+                .FacilityLocation.Address.PostalCode = mtbInitialZipCode.Text
+                .Comment = txtInitialFacilityComment.Text
+                .OperationalStatus = cboInitialOpStatus.Text
+                .Classification = cboInitialClassification.Text
+                .SubjectToNsps = rdbInitialNSPSTrue.Checked
+                .SubjectToPart70 = rdbInitialPart70True.Checked
+                .ShutdownDate = If(dtpInitialShutDownDate.Checked, dtpInitialShutDownDate.Value, Nothing)
+            End With
+
+            txtInitialFacilityName.Enabled = enable
+            txtInitailFacilityAddress.Enabled = enable
+            txtInitialAddressLine2.Enabled = enable
+            txtInitialCity.Enabled = enable
+            mtbInitialZipCode.Enabled = enable
+            txtInitialFacilityComment.Enabled = enable
+            cboInitialOpStatus.Enabled = enable
+            cboInitialClassification.Enabled = enable
+            MailoutInitialNspsPanel.Enabled = enable
+            MailoutInitialPart70Panel.Enabled = enable
+            dtpInitialShutDownDate.Enabled = enable
+
+            MailoutEditFacilityButton.Enabled = Not (enable)
+            MailoutEditFacilityButton.Visible = Not (enable)
+            MailoutReplaceFacilityInfoButton.Enabled = Not (enable)
+            MailoutCancelEditFacilityButton.Enabled = enable
+            MailoutCancelEditFacilityButton.Visible = enable
+            MailoutSaveFacilityButton.Enabled = enable
+            MailoutSaveFacilityButton.Visible = enable
+
+        End If
+    End Sub
+
+    Private Sub MailoutCancelEditingContactButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutCancelEditingContactButton.Click
+        With tempContact
+            txtContactFirstName.Text = .FirstName
+            txtContactLastName.Text = .LastName
+            txtContactEmail.Text = .EmailAddress
+            txtContactPrefix.Text = .Prefix
+            txtContactSuffix.Text = .Suffix
+            txtContactTitle.Text = .Title
+            txtContactCoName.Text = .CompanyName
+            txtContactAddress.Text = .MailingAddress.Street
+            txtContactAddress2.Text = .MailingAddress.Street2
+            txtContactCity.Text = .MailingAddress.City
+            txtContactState.Text = .MailingAddress.State
+            mtbContactZipCode.Text = .MailingAddress.PostalCode
+        End With
+        tempContact = Nothing
+
+        MailoutEditingToggle(False)
+    End Sub
+
+    Private Sub MailoutCancelEditFacilityButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutCancelEditFacilityButton.Click
+        With tempFacility
+            txtInitialFacilityName.Text = .FacilityName
+            txtInitailFacilityAddress.Text = .FacilityLocation.Address.Street
+            txtInitialAddressLine2.Text = .FacilityLocation.Address.Street2
+            txtInitialCity.Text = .FacilityLocation.Address.City
+            mtbInitialZipCode.Text = .FacilityLocation.Address.PostalCode
+            txtInitialFacilityComment.Text = .Comment
+            cboInitialOpStatus.Text = .OperationalStatus
+            cboInitialClassification.Text = .Classification
+            rdbInitialNSPSTrue.Checked = .SubjectToNsps
+            rdbInitialNSPSFalse.Checked = Not (.SubjectToNsps)
+            rdbInitialPart70True.Checked = .SubjectToPart70
+            rdbInitialPart70False.Checked = Not (.SubjectToPart70)
+            If .ShutdownDate Is Nothing Then
+                dtpInitialShutDownDate.Checked = False
+            Else
+                dtpInitialShutDownDate.Checked = True
+                dtpInitialShutDownDate.Value = .ShutdownDate
+            End If
+        End With
+
+        MailoutEditingToggle(False, False)
+    End Sub
+
+    Private Sub MailoutReplaceContactWithFeeContactButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutReplaceContactWithFeeContactButton.Click
+
+
+    End Sub
+
+    Private Sub MailoutReplaceFacilityInfoButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutReplaceFacilityInfoButton.Click
+
+
+    End Sub
+
+    Private Sub MailoutSaveContactButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutSaveContactButton.Click
+        tempContact = Nothing
+
+    End Sub
+
+    Private Sub MailoutSaveFacilityButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutSaveFacilityButton.Click
+        tempFacility = Nothing
+
+    End Sub
+
+    <Obsolete("This method is obsolete.", True)> _
+    Private Sub btnMailoutSaveUpdates_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Try
             Dim MailOutCheck As String = ""
             Dim ShutDownDate As String = ""
@@ -2467,8 +2556,8 @@ Public Class PASPFeeAuditLog
             End While
             dr.Close()
 
-            If dtpShutDownDate.Checked = True Then
-                ShutDownDate = dtpShutDownDate.Text
+            If dtpInitialShutDownDate.Checked = True Then
+                ShutDownDate = dtpInitialShutDownDate.Text
             Else
                 ShutDownDate = ""
             End If
@@ -2480,13 +2569,13 @@ Public Class PASPFeeAuditLog
                                   txtContactCoName.Text, txtContactAddress.Text, _
                                   txtContactAddress2.Text, txtContactCity.Text, _
                                   txtContactState.Text, mtbContactZipCode.Text, _
-                                  txtGECOUserEmail.Text, cboInitialOpStatus.Text, _
+                                  txtContactEmail.Text, cboInitialOpStatus.Text, _
                                   cboInitialClassification.Text, rdbInitialNSPSTrue.Checked, _
                                   rdbInitialPart70True.Checked, ShutDownDate, _
                                   txtInitialFacilityName.Text, _
                                   txtInitailFacilityAddress.Text, txtInitialAddressLine2.Text, _
                                   txtInitialCity.Text, mtbInitialZipCode.Text, _
-                                  txtFSMailOutComments.Text, rdbActiveAdmin.Checked) = True Then
+                                  txtInitialFacilityComment.Text, rdbActiveAdmin.Checked) = True Then
                     MsgBox("Save completed", MsgBoxStyle.Information, Me.Text)
                 Else
                     MsgBox("Did not Save", MsgBoxStyle.Information, Me.Text)
@@ -2499,13 +2588,13 @@ Public Class PASPFeeAuditLog
                                txtContactCoName.Text, txtContactAddress.Text, _
                                txtContactAddress2.Text, txtContactCity.Text, _
                                txtContactState.Text, mtbContactZipCode.Text, _
-                               txtGECOUserEmail.Text, cboInitialOpStatus.Text, _
+                               txtContactEmail.Text, cboInitialOpStatus.Text, _
                                cboInitialClassification.Text, rdbInitialNSPSTrue.Checked, _
                                rdbInitialPart70True.Checked, ShutDownDate, _
                                txtInitialFacilityName.Text, _
                                txtInitailFacilityAddress.Text, txtInitialAddressLine2.Text, _
                                txtInitialCity.Text, mtbInitialZipCode.Text, _
-                               txtFSMailOutComments.Text, rdbActiveAdmin.Checked) = True Then
+                               txtInitialFacilityComment.Text, rdbActiveAdmin.Checked) = True Then
                     MsgBox("Save completed", MsgBoxStyle.Information, Me.Text)
                 Else
                     MsgBox("Did not Save", MsgBoxStyle.Information, Me.Text)
@@ -2519,9 +2608,7 @@ Public Class PASPFeeAuditLog
         End Try
     End Sub
 
-    ''' <summary>
-    ''' Obsolete
-    ''' </summary>
+    <Obsolete("This method is obsolete. Use MailoutReplaceContactWithFeeContactButton_Click instead.", True)> _
     Private Sub btnRefreshContactData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Try
             If Me.AirsNumber Is Nothing Then
@@ -2654,9 +2741,9 @@ Public Class PASPFeeAuditLog
                     mtbContactZipCode.Text = dr.Item("strContactZipCode")
                 End If
                 If IsDBNull(dr.Item("strContactEmail")) Then
-                    txtGECOUserEmail.Clear()
+                    txtContactEmail.Clear()
                 Else
-                    txtGECOUserEmail.Text = dr.Item("strContactEmail")
+                    txtContactEmail.Text = dr.Item("strContactEmail")
                 End If
             End While
             dr.Close()
@@ -2666,9 +2753,7 @@ Public Class PASPFeeAuditLog
         End Try
     End Sub
 
-    ''' <summary>
-    ''' Obsolete
-    ''' </summary>
+    <Obsolete("This method is obsolete. Use MailoutReplaceFacilityInfoButton_Click instead.", True)> _
     Private Sub btnRefreshCurrentFacilityInfo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Try
             Dim OpStatus As String = ""
@@ -2795,6 +2880,14 @@ Public Class PASPFeeAuditLog
 
 #End Region
 
+    Private Sub EditContactsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditContactsButton.Click
+        Dim parameters As New Generic.Dictionary(Of String, String)
+        parameters("airsnumber") = Me.AirsNumber
+        parameters("facilityname") = txtFeeAdminFacilityName.Text
+        parameters("key") = DAL.ContactKey.Fees.ToString
+        OpenMultiForm("IAIPEditContacts", Me.AirsNumber, parameters)
+    End Sub
+
     Private Sub ReloadButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ReloadButton.Click
         Try
             If FeeYearsComboBox.SelectedIndex = 0 Then
@@ -2806,7 +2899,7 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            Me.FeeYear = FeeYearsComboBox.SelectedText
+            Me.FeeYear = FeeYearsComboBox.Text
             Me.AirsNumber = mtbAirsNumber.Text
 
             ClearForm()

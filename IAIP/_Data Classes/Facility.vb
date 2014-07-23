@@ -3,7 +3,7 @@
     Public Class Facility
         ' This is the fundamental class for a stationary source. 
 
-#Region "Properties"
+#Region " Properties "
 
         Public Property AirsNumber() As String
             Get
@@ -179,13 +179,13 @@
             End Set
         End Property
 
-        Private _part70Source As Boolean?
-        Public Property Part70Source() As Boolean?
+        Private _subjectToPart70 As Boolean?
+        Public Property SubjectToPart70() As Boolean?
             Get
-                Return _part70Source
+                Return _subjectToPart70
             End Get
             Set(ByVal value As Boolean?)
-                _part70Source = value
+                _subjectToPart70 = value
             End Set
         End Property
 
@@ -219,11 +219,13 @@
 
         ''' <summary>
         ''' Converts a string representation of an AIRS number to the "00000000" form. If 'expand' is True, then 
-        ''' the AIRS number is expanded to the "041300000000" form.
+        ''' the AIRS number is expanded to the "041300000000" form. A return value indicates whether the conversion 
+        ''' succeeded.
         ''' </summary>
-        ''' <param name="airsNumber">The AIRS number to format</param>
-        ''' <param name="expand">Whether to expand to the 12-digit form</param>
-        ''' <returns>A string representation of an AIRS number in the "00000000" or "041300000000" form.</returns>
+        ''' <param name="airsNumber">A string containing the AIRS number to convert. When this method returns, contains
+        ''' the formatted AIRS number if the conversion succeeded, or the original string if the conversion failed.</param>
+        ''' <param name="expand">Whether to expand to the 12-digit form.</param>
+        ''' <returns>true if airsNumber was converted successfully; otherwise, false.</returns>
         Public Shared Function NormalizeAirsNumber(ByRef airsNumber As String, Optional ByVal expand As Boolean = False) As Boolean
             ' Converts a string representation of an AIRS number to the "00000000" form 
             ' (eight numerals, no dashes).
@@ -233,10 +235,29 @@
             '
             ' Return value indicates whether the conversion succeeded.
 
-            ' First, validate the raw AIRS number
-            If Not IsAirsNumberValid(airsNumber) Then Return False
+            ' First, validate the raw AIRS number.
+            If airsNumber Is Nothing OrElse Not (IsAirsNumberValid(airsNumber)) Then Return False
 
-            ' If okay, then remove spaces and dashes
+            ' If okay, then convert.
+            airsNumber = GetNormalizedAirsNumber(airsNumber, expand)
+            Return True
+        End Function
+
+        ''' <summary>
+        ''' Converts a string representation of an AIRS number to the "00000000" form. If 'expand' is True, then 
+        ''' the AIRS number is expanded to the "041300000000" form.
+        ''' </summary>
+        ''' <param name="airsNumber">The AIRS number to convert.</param>
+        ''' <param name="expand">Whether to expand to the 12-digit form.</param>
+        ''' <returns>A string representation of an AIRS number in the "00000000" or "041300000000" form.</returns>
+        Public Shared Function GetNormalizedAirsNumber(ByVal airsNumber As String, Optional ByVal expand As Boolean = False) As String
+            ' Converts a string representation of an AIRS number to the "00000000" form 
+            ' (eight numerals, no dashes).
+            '
+            ' If 'expand' is True, then the AIRS number is expanded to the "041300000000"
+            ' form (12 numerals, no dashes, beginning with "0413").
+
+            ' Remove spaces and dashes.
             airsNumber = airsNumber.Replace("-", "").Replace(" ", "")
 
             If expand Then
@@ -247,7 +268,7 @@
                 If airsNumber.Length = 12 Then airsNumber = airsNumber.Remove(0, 4)
             End If
 
-            Return True
+            Return airsNumber
         End Function
 
         ''' <summary>

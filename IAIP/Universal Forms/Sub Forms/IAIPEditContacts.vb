@@ -1,5 +1,6 @@
 Imports Oracle.DataAccess.Client
 Imports Iaip.Apb.Facility
+Imports Iaip.DAL
 
 Public Class IAIPEditContacts
 
@@ -25,12 +26,12 @@ Public Class IAIPEditContacts
         End Set
     End Property
 
-    Private _key As DAL.ContactKey
-    Friend Property Key() As DAL.ContactKey
+    Private _key As ContactKey
+    Friend Property Key() As ContactKey
         Get
             Return _key
         End Get
-        Set(ByVal value As DAL.ContactKey)
+        Set(ByVal value As ContactKey)
             _key = value
         End Set
     End Property
@@ -50,7 +51,7 @@ Public Class IAIPEditContacts
         monitor.TrackFeature("Forms." & Me.Name)
         ParseParameters()
         LoadContactsDataset()
-        If Me.Key <> DAL.ContactKey.None AndAlso [Enum].IsDefined(GetType(DAL.ContactKey), Me.Key) Then
+        If Key <> ContactKey.None AndAlso [Enum].IsDefined(GetType(ContactKey), Key) Then
             NewContactDataLoad()
         End If
     End Sub
@@ -59,22 +60,23 @@ Public Class IAIPEditContacts
         If Parameters IsNot Nothing Then
             If Parameters.ContainsKey("airsnumber") Then
                 Me.AirsNumber = Parameters("airsnumber")
-                If Apb.Facility.NormalizeAirsNumber(Me.AirsNumber) Then
-                    lblAirsNumber.Text = CInt(Me.AirsNumber).ToString("000-00000")
-                Else
-                    lblAirsNumber.Text = ""
-                    Me.AirsNumber = Nothing
-                End If
             End If
             If Parameters.ContainsKey("facilityname") Then
                 Me.FacilityName = Parameters("facilityname")
-                lblFacilityName.Text = Me.FacilityName
-            Else
-                lblFacilityName.Text = "Error"
             End If
             If Parameters.ContainsKey("key") Then
-                Me.Key = [Enum].Parse(GetType(DAL.ContactKey), Parameters("key"))
+                Me.Key = [Enum].Parse(GetType(ContactKey), Parameters("key"))
             End If
+        End If
+
+        If Apb.Facility.NormalizeAirsNumber(AirsNumber) Then
+            lblAirsNumber.Text = Apb.Facility.FormatAirsNumber(AirsNumber)
+        Else
+            AirsNumber = Nothing
+        End If
+
+        If FacilityName IsNot Nothing Then
+            lblFacilityName.Text = FacilityName
         End If
     End Sub
 
@@ -136,8 +138,6 @@ Public Class IAIPEditContacts
                 ContactsDataGrid.AllowUserToOrderColumns = True
                 ContactsDataGrid.AllowUserToResizeRows = True
                 ContactsDataGrid.Columns("ContactType").HeaderText = "Contact Type"
-                ContactsDataGrid.Columns("strContactKey").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                ContactsDataGrid.Columns("strContactKey").DisplayIndex = 0
                 ContactsDataGrid.Columns("strContactKey").HeaderText = "Key"
                 ContactsDataGrid.Columns("strContactKey").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
                 ContactsDataGrid.Columns("strContactKey").DisplayIndex = 17
@@ -151,7 +151,7 @@ Public Class IAIPEditContacts
                 ContactsDataGrid.Columns("strContactLastName").HeaderText = "Last Name"
                 ContactsDataGrid.Columns("strContactLastName").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
                 ContactsDataGrid.Columns("strContactLastName").DisplayIndex = 4
-                ContactsDataGrid.Columns("strContactSuffix").HeaderText = "Pedigree"
+                ContactsDataGrid.Columns("strContactSuffix").HeaderText = "Suffix"
                 ContactsDataGrid.Columns("strContactSuffix").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
                 ContactsDataGrid.Columns("strContactSuffix").DisplayIndex = 5
                 ContactsDataGrid.Columns("strContactTitle").HeaderText = "Title"
@@ -205,14 +205,14 @@ Public Class IAIPEditContacts
 
     Sub NewContactDataLoad()
         Try
-            If Me.AirsNumber <> "" And Me.Key <> "" Then
+            If Me.AirsNumber IsNot Nothing And Key <> ContactKey.None Then
                 Dim query As String = "Select * from " & DBNameSpace & ".APBContactInformation " & _
                 "where strAIRSNumber = :airsnumber " & _
                 "and strKey = :key "
 
                 Dim parameters As OracleParameter() = New OracleParameter() { _
-                    New OracleParameter("airsnumber", NormalizeAirsNumber(Me.AirsNumber, True)), _
-                    New OracleParameter("key", Me.Key.ToString("D")) _
+                    New OracleParameter("airsnumber", GetNormalizedAirsNumber(Me.AirsNumber, True)), _
+                    New OracleParameter("key", Key.ToString("D")) _
                 }
 
                 Using connection As New OracleConnection(DB.CurrentConnectionString)
@@ -220,6 +220,7 @@ Public Class IAIPEditContacts
                         command.CommandType = CommandType.Text
                         command.BindByName = True
                         command.Parameters.AddRange(parameters)
+                        command.Connection.Open()
 
                         Dim dr As OracleDataReader = command.ExecuteReader
                         While dr.Read
@@ -306,6 +307,7 @@ Public Class IAIPEditContacts
                         End While
                         dr.Close()
 
+                        command.Connection.Close()
                     End Using
                 End Using
 
@@ -319,24 +321,24 @@ Public Class IAIPEditContacts
                 rdbNewPlanningContact.Checked = False
                 rdbNewDistrictContact.Checked = False
 
-                Select Case Me.Key
-                    Case DAL.ContactKey.IndustrialSourceMonitoring
+                Select Case Key
+                    Case ContactKey.IndustrialSourceMonitoring
                         rdbNewMonitoringContact.Checked = True
-                    Case DAL.ContactKey.StationarySourceCompliance
+                    Case ContactKey.StationarySourceCompliance
                         rdbNewComplianceContact.Checked = True
-                    Case DAL.ContactKey.StationarySourcePermitting
+                    Case ContactKey.StationarySourcePermitting
                         rdbNewPermittingContact.Checked = True
-                    Case DAL.ContactKey.Fees
+                    Case ContactKey.Fees
                         rdbNewFeeContact.Checked = True
-                    Case DAL.ContactKey.EmissionInventory
+                    Case ContactKey.EmissionInventory
                         rdbNewEISContact.Checked = True
-                    Case DAL.ContactKey.EmissionStatement
+                    Case ContactKey.EmissionStatement
                         rdbNewESContact.Checked = True
-                    Case DAL.ContactKey.AmbientMonitoring
+                    Case ContactKey.AmbientMonitoring
                         rdbNewAmbientContact.Checked = True
-                    Case DAL.ContactKey.PlanningAndSupport
+                    Case ContactKey.PlanningAndSupport
                         rdbNewPlanningContact.Checked = True
-                    Case DAL.ContactKey.DistrictOffices
+                    Case ContactKey.DistrictOffices
                         rdbNewDistrictContact.Checked = True
                 End Select
 
@@ -383,7 +385,7 @@ Public Class IAIPEditContacts
         mtbNewPhoneNumber.Clear()
         mtbNewPhoneNumber2.Clear()
         mtbNewZipCode.Clear()
-        Key = DAL.ContactKey.None
+        Key = ContactKey.None
     End Sub
 
     Private Sub btnNewUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNewUpdate.Click
@@ -400,7 +402,7 @@ Public Class IAIPEditContacts
                     Exit Sub
                 End If
 
-                If Key <> DAL.ContactKey.None Then
+                If Key <> ContactKey.None Then
                     SQL = "Update airbranch.APBContactInformation set " & _
                     "STRCONTACTFIRSTNAME = '" & Replace(txtNewFirstName.Text, "'", "''") & "', " & _
                     "STRCONTACTLASTNAME = '" & Replace(txtNewLastName.Text, "'", "''") & "', " & _

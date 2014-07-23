@@ -1418,7 +1418,7 @@ Partial Class SSPPTitleVTools
         Me.Label39.Name = "Label39"
         Me.Label39.Size = New System.Drawing.Size(49, 13)
         Me.Label39.TabIndex = 391
-        Me.Label39.Text = "Pedigree"
+        Me.Label39.Text = "Suffix"
         '
         'Label44
         '

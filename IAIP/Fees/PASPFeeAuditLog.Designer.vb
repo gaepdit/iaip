@@ -345,6 +345,7 @@ Partial Class PASPFeeAuditLog
         Me.MailoutContactDataGroup = New System.Windows.Forms.GroupBox
         Me.MailoutReplaceContactWithFeeContactButton = New System.Windows.Forms.Button
         Me.MailoutSaveContactButton = New System.Windows.Forms.Button
+        Me.MailoutCancelEditingContactButton = New System.Windows.Forms.Button
         Me.MailoutEnableEditingButton = New System.Windows.Forms.Button
         Me.mtbContactZipCode = New System.Windows.Forms.MaskedTextBox
         Me.Label54 = New System.Windows.Forms.Label
@@ -367,22 +368,24 @@ Partial Class PASPFeeAuditLog
         Me.txtContactLastName = New System.Windows.Forms.TextBox
         Me.Label40 = New System.Windows.Forms.Label
         Me.txtContactFirstName = New System.Windows.Forms.TextBox
-        Me.txtGECOUserEmail = New System.Windows.Forms.TextBox
+        Me.txtContactEmail = New System.Windows.Forms.TextBox
         Me.Label48 = New System.Windows.Forms.Label
         Me.MailoutFacilityInfoGroup = New System.Windows.Forms.GroupBox
         Me.MailoutReplaceFacilityInfoButton = New System.Windows.Forms.Button
-        Me.dtpShutDownDate = New System.Windows.Forms.DateTimePicker
+        Me.MailoutSaveFacilityButton = New System.Windows.Forms.Button
+        Me.MailoutCancelEditFacilityButton = New System.Windows.Forms.Button
+        Me.dtpInitialShutDownDate = New System.Windows.Forms.DateTimePicker
         Me.Label11 = New System.Windows.Forms.Label
-        Me.Button1 = New System.Windows.Forms.Button
-        Me.Panel22 = New System.Windows.Forms.Panel
+        Me.MailoutEditFacilityButton = New System.Windows.Forms.Button
+        Me.MailoutInitialPart70Panel = New System.Windows.Forms.Panel
         Me.rdbInitialPart70False = New System.Windows.Forms.RadioButton
         Me.rdbInitialPart70True = New System.Windows.Forms.RadioButton
-        Me.Panel21 = New System.Windows.Forms.Panel
+        Me.MailoutInitialNspsPanel = New System.Windows.Forms.Panel
         Me.rdbInitialNSPSFalse = New System.Windows.Forms.RadioButton
         Me.rdbInitialNSPSTrue = New System.Windows.Forms.RadioButton
         Me.cboInitialClassification = New System.Windows.Forms.ComboBox
         Me.cboInitialOpStatus = New System.Windows.Forms.ComboBox
-        Me.txtFSMailOutComments = New System.Windows.Forms.TextBox
+        Me.txtInitialFacilityComment = New System.Windows.Forms.TextBox
         Me.Label62 = New System.Windows.Forms.Label
         Me.mtbInitialZipCode = New System.Windows.Forms.MaskedTextBox
         Me.Label67 = New System.Windows.Forms.Label
@@ -397,13 +400,6 @@ Partial Class PASPFeeAuditLog
         Me.Label50 = New System.Windows.Forms.Label
         Me.Label51 = New System.Windows.Forms.Label
         Me.Label52 = New System.Windows.Forms.Label
-        Me.MailoutUpdatePanel = New System.Windows.Forms.Panel
-        Me.txtFSMailOutUpdateUser = New System.Windows.Forms.TextBox
-        Me.Label70 = New System.Windows.Forms.Label
-        Me.Label69 = New System.Windows.Forms.Label
-        Me.Label68 = New System.Windows.Forms.Label
-        Me.DTPFSMailOutDateCreated = New System.Windows.Forms.DateTimePicker
-        Me.DTPFSMailOutUpdateDate = New System.Windows.Forms.DateTimePicker
         Me.Panel4 = New System.Windows.Forms.Panel
         Me.LoadPanel = New System.Windows.Forms.Panel
         Me.ClearFormButton = New System.Windows.Forms.Button
@@ -413,6 +409,7 @@ Partial Class PASPFeeAuditLog
         Me.Label23 = New System.Windows.Forms.Label
         Me.mtbAirsNumber = New System.Windows.Forms.MaskedTextBox
         Me.btnCheckInvoices = New System.Windows.Forms.Button
+        Me.EditContactsButton = New System.Windows.Forms.Button
         Me.txtYear = New System.Windows.Forms.TextBox
         Me.txtAIRSNumber = New System.Windows.Forms.TextBox
         Me.txtGECOAdminStatus = New System.Windows.Forms.TextBox
@@ -461,10 +458,6 @@ Partial Class PASPFeeAuditLog
         Me.Label27 = New System.Windows.Forms.Label
         Me.txtFSAdminComments = New System.Windows.Forms.TextBox
         Me.dtpFeeAdminStatusDate = New System.Windows.Forms.DateTimePicker
-        Me.MailoutEditContactsButton = New System.Windows.Forms.Button
-        Me.MailoutCancelEditingContactButton = New System.Windows.Forms.Button
-        Me.Button2 = New System.Windows.Forms.Button
-        Me.Button4 = New System.Windows.Forms.Button
         Me.TabControl3.SuspendLayout()
         Me.TPGECOSubmittal.SuspendLayout()
         CType(Me.dgvInvoiceData, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -506,9 +499,8 @@ Partial Class PASPFeeAuditLog
         Me.TPMailoutInformation.SuspendLayout()
         Me.MailoutContactDataGroup.SuspendLayout()
         Me.MailoutFacilityInfoGroup.SuspendLayout()
-        Me.Panel22.SuspendLayout()
-        Me.Panel21.SuspendLayout()
-        Me.MailoutUpdatePanel.SuspendLayout()
+        Me.MailoutInitialPart70Panel.SuspendLayout()
+        Me.MailoutInitialNspsPanel.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.LoadPanel.SuspendLayout()
         Me.Panel5.SuspendLayout()
@@ -3675,7 +3667,6 @@ Partial Class PASPFeeAuditLog
         '
         Me.TPMailoutInformation.Controls.Add(Me.MailoutContactDataGroup)
         Me.TPMailoutInformation.Controls.Add(Me.MailoutFacilityInfoGroup)
-        Me.TPMailoutInformation.Controls.Add(Me.MailoutUpdatePanel)
         Me.TPMailoutInformation.Location = New System.Drawing.Point(4, 22)
         Me.TPMailoutInformation.Name = "TPMailoutInformation"
         Me.TPMailoutInformation.Padding = New System.Windows.Forms.Padding(3)
@@ -3711,12 +3702,12 @@ Partial Class PASPFeeAuditLog
         Me.MailoutContactDataGroup.Controls.Add(Me.txtContactLastName)
         Me.MailoutContactDataGroup.Controls.Add(Me.Label40)
         Me.MailoutContactDataGroup.Controls.Add(Me.txtContactFirstName)
-        Me.MailoutContactDataGroup.Controls.Add(Me.txtGECOUserEmail)
+        Me.MailoutContactDataGroup.Controls.Add(Me.txtContactEmail)
         Me.MailoutContactDataGroup.Controls.Add(Me.Label48)
         Me.MailoutContactDataGroup.Dock = System.Windows.Forms.DockStyle.Top
         Me.MailoutContactDataGroup.Location = New System.Drawing.Point(3, 3)
         Me.MailoutContactDataGroup.Name = "MailoutContactDataGroup"
-        Me.MailoutContactDataGroup.Size = New System.Drawing.Size(1002, 214)
+        Me.MailoutContactDataGroup.Size = New System.Drawing.Size(1002, 226)
         Me.MailoutContactDataGroup.TabIndex = 451
         Me.MailoutContactDataGroup.TabStop = False
         Me.MailoutContactDataGroup.Text = "Mailout Contact (not necessarily current fee contact)"
@@ -3735,17 +3726,30 @@ Partial Class PASPFeeAuditLog
         '
         Me.MailoutSaveContactButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.MailoutSaveContactButton.Enabled = False
-        Me.MailoutSaveContactButton.Location = New System.Drawing.Point(812, 159)
+        Me.MailoutSaveContactButton.Location = New System.Drawing.Point(812, 62)
         Me.MailoutSaveContactButton.Name = "MailoutSaveContactButton"
         Me.MailoutSaveContactButton.Size = New System.Drawing.Size(71, 36)
         Me.MailoutSaveContactButton.TabIndex = 486
         Me.MailoutSaveContactButton.Text = "Save"
         Me.MailoutSaveContactButton.UseVisualStyleBackColor = True
+        Me.MailoutSaveContactButton.Visible = False
+        '
+        'MailoutCancelEditingContactButton
+        '
+        Me.MailoutCancelEditingContactButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.MailoutCancelEditingContactButton.Enabled = False
+        Me.MailoutCancelEditingContactButton.Location = New System.Drawing.Point(890, 62)
+        Me.MailoutCancelEditingContactButton.Name = "MailoutCancelEditingContactButton"
+        Me.MailoutCancelEditingContactButton.Size = New System.Drawing.Size(71, 36)
+        Me.MailoutCancelEditingContactButton.TabIndex = 483
+        Me.MailoutCancelEditingContactButton.Text = "Cancel"
+        Me.MailoutCancelEditingContactButton.UseVisualStyleBackColor = True
+        Me.MailoutCancelEditingContactButton.Visible = False
         '
         'MailoutEnableEditingButton
         '
         Me.MailoutEnableEditingButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.MailoutEnableEditingButton.Location = New System.Drawing.Point(812, 129)
+        Me.MailoutEnableEditingButton.Location = New System.Drawing.Point(812, 62)
         Me.MailoutEnableEditingButton.Name = "MailoutEnableEditingButton"
         Me.MailoutEnableEditingButton.Size = New System.Drawing.Size(149, 36)
         Me.MailoutEnableEditingButton.TabIndex = 483
@@ -3921,12 +3925,12 @@ Partial Class PASPFeeAuditLog
         Me.txtContactFirstName.Size = New System.Drawing.Size(176, 20)
         Me.txtContactFirstName.TabIndex = 435
         '
-        'txtGECOUserEmail
+        'txtContactEmail
         '
-        Me.txtGECOUserEmail.Location = New System.Drawing.Point(94, 175)
-        Me.txtGECOUserEmail.Name = "txtGECOUserEmail"
-        Me.txtGECOUserEmail.Size = New System.Drawing.Size(283, 20)
-        Me.txtGECOUserEmail.TabIndex = 451
+        Me.txtContactEmail.Location = New System.Drawing.Point(94, 175)
+        Me.txtContactEmail.Name = "txtContactEmail"
+        Me.txtContactEmail.Size = New System.Drawing.Size(283, 20)
+        Me.txtContactEmail.TabIndex = 451
         '
         'Label48
         '
@@ -3940,16 +3944,16 @@ Partial Class PASPFeeAuditLog
         'MailoutFacilityInfoGroup
         '
         Me.MailoutFacilityInfoGroup.Controls.Add(Me.MailoutReplaceFacilityInfoButton)
-        Me.MailoutFacilityInfoGroup.Controls.Add(Me.Button4)
-        Me.MailoutFacilityInfoGroup.Controls.Add(Me.Button2)
-        Me.MailoutFacilityInfoGroup.Controls.Add(Me.dtpShutDownDate)
+        Me.MailoutFacilityInfoGroup.Controls.Add(Me.MailoutSaveFacilityButton)
+        Me.MailoutFacilityInfoGroup.Controls.Add(Me.MailoutCancelEditFacilityButton)
+        Me.MailoutFacilityInfoGroup.Controls.Add(Me.dtpInitialShutDownDate)
         Me.MailoutFacilityInfoGroup.Controls.Add(Me.Label11)
-        Me.MailoutFacilityInfoGroup.Controls.Add(Me.Button1)
-        Me.MailoutFacilityInfoGroup.Controls.Add(Me.Panel22)
-        Me.MailoutFacilityInfoGroup.Controls.Add(Me.Panel21)
+        Me.MailoutFacilityInfoGroup.Controls.Add(Me.MailoutEditFacilityButton)
+        Me.MailoutFacilityInfoGroup.Controls.Add(Me.MailoutInitialPart70Panel)
+        Me.MailoutFacilityInfoGroup.Controls.Add(Me.MailoutInitialNspsPanel)
         Me.MailoutFacilityInfoGroup.Controls.Add(Me.cboInitialClassification)
         Me.MailoutFacilityInfoGroup.Controls.Add(Me.cboInitialOpStatus)
-        Me.MailoutFacilityInfoGroup.Controls.Add(Me.txtFSMailOutComments)
+        Me.MailoutFacilityInfoGroup.Controls.Add(Me.txtInitialFacilityComment)
         Me.MailoutFacilityInfoGroup.Controls.Add(Me.Label62)
         Me.MailoutFacilityInfoGroup.Controls.Add(Me.mtbInitialZipCode)
         Me.MailoutFacilityInfoGroup.Controls.Add(Me.Label67)
@@ -3965,9 +3969,9 @@ Partial Class PASPFeeAuditLog
         Me.MailoutFacilityInfoGroup.Controls.Add(Me.Label51)
         Me.MailoutFacilityInfoGroup.Controls.Add(Me.Label52)
         Me.MailoutFacilityInfoGroup.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.MailoutFacilityInfoGroup.Location = New System.Drawing.Point(3, 236)
+        Me.MailoutFacilityInfoGroup.Location = New System.Drawing.Point(3, 265)
         Me.MailoutFacilityInfoGroup.Name = "MailoutFacilityInfoGroup"
-        Me.MailoutFacilityInfoGroup.Size = New System.Drawing.Size(1002, 182)
+        Me.MailoutFacilityInfoGroup.Size = New System.Drawing.Size(1002, 189)
         Me.MailoutFacilityInfoGroup.TabIndex = 463
         Me.MailoutFacilityInfoGroup.TabStop = False
         Me.MailoutFacilityInfoGroup.Text = "Responsible Facility (not necessarily current facility information) "
@@ -3982,46 +3986,70 @@ Partial Class PASPFeeAuditLog
         Me.MailoutReplaceFacilityInfoButton.Text = "Replace with " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "current facility info"
         Me.MailoutReplaceFacilityInfoButton.UseVisualStyleBackColor = True
         '
-        'dtpShutDownDate
+        'MailoutSaveFacilityButton
         '
-        Me.dtpShutDownDate.CustomFormat = "dd-MMM-yyyy"
-        Me.dtpShutDownDate.Enabled = False
-        Me.dtpShutDownDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpShutDownDate.Location = New System.Drawing.Point(523, 129)
-        Me.dtpShutDownDate.Name = "dtpShutDownDate"
-        Me.dtpShutDownDate.ShowCheckBox = True
-        Me.dtpShutDownDate.Size = New System.Drawing.Size(120, 20)
-        Me.dtpShutDownDate.TabIndex = 484
+        Me.MailoutSaveFacilityButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.MailoutSaveFacilityButton.Enabled = False
+        Me.MailoutSaveFacilityButton.Location = New System.Drawing.Point(812, 62)
+        Me.MailoutSaveFacilityButton.Name = "MailoutSaveFacilityButton"
+        Me.MailoutSaveFacilityButton.Size = New System.Drawing.Size(71, 36)
+        Me.MailoutSaveFacilityButton.TabIndex = 486
+        Me.MailoutSaveFacilityButton.Text = "Save"
+        Me.MailoutSaveFacilityButton.UseVisualStyleBackColor = True
+        Me.MailoutSaveFacilityButton.Visible = False
+        '
+        'MailoutCancelEditFacilityButton
+        '
+        Me.MailoutCancelEditFacilityButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.MailoutCancelEditFacilityButton.Enabled = False
+        Me.MailoutCancelEditFacilityButton.Location = New System.Drawing.Point(890, 62)
+        Me.MailoutCancelEditFacilityButton.Name = "MailoutCancelEditFacilityButton"
+        Me.MailoutCancelEditFacilityButton.Size = New System.Drawing.Size(71, 36)
+        Me.MailoutCancelEditFacilityButton.TabIndex = 483
+        Me.MailoutCancelEditFacilityButton.Text = "Cancel"
+        Me.MailoutCancelEditFacilityButton.UseVisualStyleBackColor = True
+        Me.MailoutCancelEditFacilityButton.Visible = False
+        '
+        'dtpInitialShutDownDate
+        '
+        Me.dtpInitialShutDownDate.CustomFormat = "dd-MMM-yyyy"
+        Me.dtpInitialShutDownDate.Enabled = False
+        Me.dtpInitialShutDownDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpInitialShutDownDate.Location = New System.Drawing.Point(523, 124)
+        Me.dtpInitialShutDownDate.Name = "dtpInitialShutDownDate"
+        Me.dtpInitialShutDownDate.ShowCheckBox = True
+        Me.dtpInitialShutDownDate.Size = New System.Drawing.Size(120, 20)
+        Me.dtpInitialShutDownDate.TabIndex = 484
         '
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(436, 129)
+        Me.Label11.Location = New System.Drawing.Point(436, 126)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(81, 13)
         Me.Label11.TabIndex = 483
         Me.Label11.Text = "Shutdown Date"
         '
-        'Button1
+        'MailoutEditFacilityButton
         '
-        Me.Button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Button1.Location = New System.Drawing.Point(812, 87)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(149, 36)
-        Me.Button1.TabIndex = 483
-        Me.Button1.Text = "Edit responsible facility"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.MailoutEditFacilityButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.MailoutEditFacilityButton.Location = New System.Drawing.Point(812, 62)
+        Me.MailoutEditFacilityButton.Name = "MailoutEditFacilityButton"
+        Me.MailoutEditFacilityButton.Size = New System.Drawing.Size(149, 36)
+        Me.MailoutEditFacilityButton.TabIndex = 483
+        Me.MailoutEditFacilityButton.Text = "Edit responsible facility"
+        Me.MailoutEditFacilityButton.UseVisualStyleBackColor = True
         '
-        'Panel22
+        'MailoutInitialPart70Panel
         '
-        Me.Panel22.AutoSize = True
-        Me.Panel22.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Panel22.Controls.Add(Me.rdbInitialPart70False)
-        Me.Panel22.Controls.Add(Me.rdbInitialPart70True)
-        Me.Panel22.Location = New System.Drawing.Point(523, 101)
-        Me.Panel22.Name = "Panel22"
-        Me.Panel22.Size = New System.Drawing.Size(91, 22)
-        Me.Panel22.TabIndex = 480
+        Me.MailoutInitialPart70Panel.AutoSize = True
+        Me.MailoutInitialPart70Panel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.MailoutInitialPart70Panel.Controls.Add(Me.rdbInitialPart70False)
+        Me.MailoutInitialPart70Panel.Controls.Add(Me.rdbInitialPart70True)
+        Me.MailoutInitialPart70Panel.Location = New System.Drawing.Point(523, 96)
+        Me.MailoutInitialPart70Panel.Name = "MailoutInitialPart70Panel"
+        Me.MailoutInitialPart70Panel.Size = New System.Drawing.Size(91, 22)
+        Me.MailoutInitialPart70Panel.TabIndex = 480
         '
         'rdbInitialPart70False
         '
@@ -4045,16 +4073,16 @@ Partial Class PASPFeeAuditLog
         Me.rdbInitialPart70True.Text = "Yes"
         Me.rdbInitialPart70True.UseVisualStyleBackColor = True
         '
-        'Panel21
+        'MailoutInitialNspsPanel
         '
-        Me.Panel21.AutoSize = True
-        Me.Panel21.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Panel21.Controls.Add(Me.rdbInitialNSPSFalse)
-        Me.Panel21.Controls.Add(Me.rdbInitialNSPSTrue)
-        Me.Panel21.Location = New System.Drawing.Point(523, 73)
-        Me.Panel21.Name = "Panel21"
-        Me.Panel21.Size = New System.Drawing.Size(91, 22)
-        Me.Panel21.TabIndex = 479
+        Me.MailoutInitialNspsPanel.AutoSize = True
+        Me.MailoutInitialNspsPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.MailoutInitialNspsPanel.Controls.Add(Me.rdbInitialNSPSFalse)
+        Me.MailoutInitialNspsPanel.Controls.Add(Me.rdbInitialNSPSTrue)
+        Me.MailoutInitialNspsPanel.Location = New System.Drawing.Point(523, 70)
+        Me.MailoutInitialNspsPanel.Name = "MailoutInitialNspsPanel"
+        Me.MailoutInitialNspsPanel.Size = New System.Drawing.Size(91, 22)
+        Me.MailoutInitialNspsPanel.TabIndex = 479
         '
         'rdbInitialNSPSFalse
         '
@@ -4091,18 +4119,18 @@ Partial Class PASPFeeAuditLog
         '
         Me.cboInitialOpStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboInitialOpStatus.FormattingEnabled = True
-        Me.cboInitialOpStatus.Location = New System.Drawing.Point(523, 46)
+        Me.cboInitialOpStatus.Location = New System.Drawing.Point(523, 45)
         Me.cboInitialOpStatus.Name = "cboInitialOpStatus"
         Me.cboInitialOpStatus.Size = New System.Drawing.Size(148, 21)
         Me.cboInitialOpStatus.TabIndex = 477
         '
-        'txtFSMailOutComments
+        'txtInitialFacilityComment
         '
-        Me.txtFSMailOutComments.Location = New System.Drawing.Point(94, 123)
-        Me.txtFSMailOutComments.Multiline = True
-        Me.txtFSMailOutComments.Name = "txtFSMailOutComments"
-        Me.txtFSMailOutComments.Size = New System.Drawing.Size(283, 34)
-        Me.txtFSMailOutComments.TabIndex = 476
+        Me.txtInitialFacilityComment.Location = New System.Drawing.Point(94, 123)
+        Me.txtInitialFacilityComment.Multiline = True
+        Me.txtInitialFacilityComment.Name = "txtInitialFacilityComment"
+        Me.txtInitialFacilityComment.Size = New System.Drawing.Size(283, 34)
+        Me.txtInitialFacilityComment.TabIndex = 476
         '
         'Label62
         '
@@ -4189,7 +4217,7 @@ Partial Class PASPFeeAuditLog
         'Label30
         '
         Me.Label30.AutoSize = True
-        Me.Label30.Location = New System.Drawing.Point(423, 49)
+        Me.Label30.Location = New System.Drawing.Point(423, 48)
         Me.Label30.Name = "Label30"
         Me.Label30.Size = New System.Drawing.Size(94, 13)
         Me.Label30.TabIndex = 442
@@ -4207,7 +4235,7 @@ Partial Class PASPFeeAuditLog
         'Label51
         '
         Me.Label51.AutoSize = True
-        Me.Label51.Location = New System.Drawing.Point(481, 77)
+        Me.Label51.Location = New System.Drawing.Point(481, 74)
         Me.Label51.Name = "Label51"
         Me.Label51.Size = New System.Drawing.Size(36, 13)
         Me.Label51.TabIndex = 458
@@ -4216,87 +4244,17 @@ Partial Class PASPFeeAuditLog
         'Label52
         '
         Me.Label52.AutoSize = True
-        Me.Label52.Location = New System.Drawing.Point(476, 105)
+        Me.Label52.Location = New System.Drawing.Point(476, 100)
         Me.Label52.Name = "Label52"
         Me.Label52.Size = New System.Drawing.Size(41, 13)
         Me.Label52.TabIndex = 460
         Me.Label52.Text = "Part 70"
         '
-        'MailoutUpdatePanel
-        '
-        Me.MailoutUpdatePanel.BackColor = System.Drawing.SystemColors.Control
-        Me.MailoutUpdatePanel.Controls.Add(Me.txtFSMailOutUpdateUser)
-        Me.MailoutUpdatePanel.Controls.Add(Me.Label70)
-        Me.MailoutUpdatePanel.Controls.Add(Me.Label69)
-        Me.MailoutUpdatePanel.Controls.Add(Me.Label68)
-        Me.MailoutUpdatePanel.Controls.Add(Me.DTPFSMailOutDateCreated)
-        Me.MailoutUpdatePanel.Controls.Add(Me.DTPFSMailOutUpdateDate)
-        Me.MailoutUpdatePanel.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.MailoutUpdatePanel.Location = New System.Drawing.Point(3, 418)
-        Me.MailoutUpdatePanel.Name = "MailoutUpdatePanel"
-        Me.MailoutUpdatePanel.Size = New System.Drawing.Size(1002, 36)
-        Me.MailoutUpdatePanel.TabIndex = 464
-        '
-        'txtFSMailOutUpdateUser
-        '
-        Me.txtFSMailOutUpdateUser.Location = New System.Drawing.Point(100, 10)
-        Me.txtFSMailOutUpdateUser.Name = "txtFSMailOutUpdateUser"
-        Me.txtFSMailOutUpdateUser.ReadOnly = True
-        Me.txtFSMailOutUpdateUser.Size = New System.Drawing.Size(319, 20)
-        Me.txtFSMailOutUpdateUser.TabIndex = 481
-        '
-        'Label70
-        '
-        Me.Label70.AutoSize = True
-        Me.Label70.Location = New System.Drawing.Point(608, 14)
-        Me.Label70.Name = "Label70"
-        Me.Label70.Size = New System.Drawing.Size(70, 13)
-        Me.Label70.TabIndex = 477
-        Me.Label70.Text = "Date Created"
-        '
-        'Label69
-        '
-        Me.Label69.AutoSize = True
-        Me.Label69.Location = New System.Drawing.Point(425, 14)
-        Me.Label69.Name = "Label69"
-        Me.Label69.Size = New System.Drawing.Size(74, 13)
-        Me.Label69.TabIndex = 478
-        Me.Label69.Text = "Date Updated"
-        '
-        'Label68
-        '
-        Me.Label68.AutoSize = True
-        Me.Label68.Location = New System.Drawing.Point(8, 14)
-        Me.Label68.Name = "Label68"
-        Me.Label68.Size = New System.Drawing.Size(86, 13)
-        Me.Label68.TabIndex = 482
-        Me.Label68.Text = "Last updated by:"
-        '
-        'DTPFSMailOutDateCreated
-        '
-        Me.DTPFSMailOutDateCreated.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPFSMailOutDateCreated.Enabled = False
-        Me.DTPFSMailOutDateCreated.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPFSMailOutDateCreated.Location = New System.Drawing.Point(688, 10)
-        Me.DTPFSMailOutDateCreated.Name = "DTPFSMailOutDateCreated"
-        Me.DTPFSMailOutDateCreated.Size = New System.Drawing.Size(100, 20)
-        Me.DTPFSMailOutDateCreated.TabIndex = 480
-        '
-        'DTPFSMailOutUpdateDate
-        '
-        Me.DTPFSMailOutUpdateDate.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPFSMailOutUpdateDate.Enabled = False
-        Me.DTPFSMailOutUpdateDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPFSMailOutUpdateDate.Location = New System.Drawing.Point(505, 10)
-        Me.DTPFSMailOutUpdateDate.Name = "DTPFSMailOutUpdateDate"
-        Me.DTPFSMailOutUpdateDate.Size = New System.Drawing.Size(100, 20)
-        Me.DTPFSMailOutUpdateDate.TabIndex = 479
-        '
         'Panel4
         '
         Me.Panel4.Controls.Add(Me.LoadPanel)
         Me.Panel4.Controls.Add(Me.btnCheckInvoices)
-        Me.Panel4.Controls.Add(Me.MailoutEditContactsButton)
+        Me.Panel4.Controls.Add(Me.EditContactsButton)
         Me.Panel4.Controls.Add(Me.txtYear)
         Me.Panel4.Controls.Add(Me.txtAIRSNumber)
         Me.Panel4.Controls.Add(Me.txtGECOAdminStatus)
@@ -4351,12 +4309,12 @@ Partial Class PASPFeeAuditLog
         Me.LoadPanel.Controls.Add(Me.mtbAirsNumber)
         Me.LoadPanel.Location = New System.Drawing.Point(0, 0)
         Me.LoadPanel.Name = "LoadPanel"
-        Me.LoadPanel.Size = New System.Drawing.Size(396, 37)
+        Me.LoadPanel.Size = New System.Drawing.Size(429, 37)
         Me.LoadPanel.TabIndex = 498
         '
         'ClearFormButton
         '
-        Me.ClearFormButton.Location = New System.Drawing.Point(304, 10)
+        Me.ClearFormButton.Location = New System.Drawing.Point(326, 10)
         Me.ClearFormButton.Name = "ClearFormButton"
         Me.ClearFormButton.Size = New System.Drawing.Size(80, 22)
         Me.ClearFormButton.TabIndex = 500
@@ -4369,7 +4327,7 @@ Partial Class PASPFeeAuditLog
         Me.FeeYearsComboBox.FormattingEnabled = True
         Me.FeeYearsComboBox.Location = New System.Drawing.Point(66, 11)
         Me.FeeYearsComboBox.Name = "FeeYearsComboBox"
-        Me.FeeYearsComboBox.Size = New System.Drawing.Size(39, 21)
+        Me.FeeYearsComboBox.Size = New System.Drawing.Size(61, 21)
         Me.FeeYearsComboBox.TabIndex = 499
         '
         'ReloadButton
@@ -4377,7 +4335,7 @@ Partial Class PASPFeeAuditLog
         Me.ReloadButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.ReloadButton.Image = CType(resources.GetObject("ReloadButton.Image"), System.Drawing.Image)
         Me.ReloadButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ReloadButton.Location = New System.Drawing.Point(223, 9)
+        Me.ReloadButton.Location = New System.Drawing.Point(245, 9)
         Me.ReloadButton.Name = "ReloadButton"
         Me.ReloadButton.Padding = New System.Windows.Forms.Padding(3, 0, 4, 0)
         Me.ReloadButton.Size = New System.Drawing.Size(75, 24)
@@ -4398,7 +4356,7 @@ Partial Class PASPFeeAuditLog
         'Label23
         '
         Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(111, 15)
+        Me.Label23.Location = New System.Drawing.Point(133, 15)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(42, 13)
         Me.Label23.TabIndex = 426
@@ -4406,7 +4364,7 @@ Partial Class PASPFeeAuditLog
         '
         'mtbAirsNumber
         '
-        Me.mtbAirsNumber.Location = New System.Drawing.Point(159, 12)
+        Me.mtbAirsNumber.Location = New System.Drawing.Point(181, 12)
         Me.mtbAirsNumber.Mask = "000-00000"
         Me.mtbAirsNumber.Name = "mtbAirsNumber"
         Me.mtbAirsNumber.Size = New System.Drawing.Size(58, 20)
@@ -4424,6 +4382,16 @@ Partial Class PASPFeeAuditLog
         Me.btnCheckInvoices.Text = "Validate all Invoices"
         Me.btnCheckInvoices.UseVisualStyleBackColor = True
         Me.btnCheckInvoices.Visible = False
+        '
+        'EditContactsButton
+        '
+        Me.EditContactsButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.EditContactsButton.Location = New System.Drawing.Point(819, 137)
+        Me.EditContactsButton.Name = "EditContactsButton"
+        Me.EditContactsButton.Size = New System.Drawing.Size(149, 23)
+        Me.EditContactsButton.TabIndex = 483
+        Me.EditContactsButton.Text = "Edit facility contacts"
+        Me.EditContactsButton.UseVisualStyleBackColor = True
         '
         'txtYear
         '
@@ -4887,47 +4855,6 @@ Partial Class PASPFeeAuditLog
         Me.dtpFeeAdminStatusDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpFeeAdminStatusDate.TabIndex = 437
         '
-        'MailoutEditContactsButton
-        '
-        Me.MailoutEditContactsButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.MailoutEditContactsButton.Location = New System.Drawing.Point(819, 137)
-        Me.MailoutEditContactsButton.Name = "MailoutEditContactsButton"
-        Me.MailoutEditContactsButton.Size = New System.Drawing.Size(149, 23)
-        Me.MailoutEditContactsButton.TabIndex = 483
-        Me.MailoutEditContactsButton.Text = "Edit contacts"
-        Me.MailoutEditContactsButton.UseVisualStyleBackColor = True
-        '
-        'MailoutCancelEditingContactButton
-        '
-        Me.MailoutCancelEditingContactButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.MailoutCancelEditingContactButton.Location = New System.Drawing.Point(890, 159)
-        Me.MailoutCancelEditingContactButton.Name = "MailoutCancelEditingContactButton"
-        Me.MailoutCancelEditingContactButton.Size = New System.Drawing.Size(71, 36)
-        Me.MailoutCancelEditingContactButton.TabIndex = 483
-        Me.MailoutCancelEditingContactButton.Text = "Cancel"
-        Me.MailoutCancelEditingContactButton.UseVisualStyleBackColor = True
-        '
-        'Button2
-        '
-        Me.Button2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Button2.Location = New System.Drawing.Point(890, 121)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(71, 36)
-        Me.Button2.TabIndex = 483
-        Me.Button2.Text = "Cancel"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
-        'Button4
-        '
-        Me.Button4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Button4.Enabled = False
-        Me.Button4.Location = New System.Drawing.Point(812, 121)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(71, 36)
-        Me.Button4.TabIndex = 486
-        Me.Button4.Text = "Save"
-        Me.Button4.UseVisualStyleBackColor = True
-        '
         'PASPFeeAuditLog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -4996,12 +4923,10 @@ Partial Class PASPFeeAuditLog
         Me.MailoutContactDataGroup.PerformLayout()
         Me.MailoutFacilityInfoGroup.ResumeLayout(False)
         Me.MailoutFacilityInfoGroup.PerformLayout()
-        Me.Panel22.ResumeLayout(False)
-        Me.Panel22.PerformLayout()
-        Me.Panel21.ResumeLayout(False)
-        Me.Panel21.PerformLayout()
-        Me.MailoutUpdatePanel.ResumeLayout(False)
-        Me.MailoutUpdatePanel.PerformLayout()
+        Me.MailoutInitialPart70Panel.ResumeLayout(False)
+        Me.MailoutInitialPart70Panel.PerformLayout()
+        Me.MailoutInitialNspsPanel.ResumeLayout(False)
+        Me.MailoutInitialNspsPanel.PerformLayout()
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
         Me.LoadPanel.ResumeLayout(False)
@@ -5081,11 +5006,11 @@ Partial Class PASPFeeAuditLog
     Friend WithEvents Label49 As System.Windows.Forms.Label
     Friend WithEvents txtFSAdminUpdatingUser As System.Windows.Forms.TextBox
     Friend WithEvents Label48 As System.Windows.Forms.Label
-    Friend WithEvents txtGECOUserEmail As System.Windows.Forms.TextBox
+    Friend WithEvents txtContactEmail As System.Windows.Forms.TextBox
     Friend WithEvents Label56 As System.Windows.Forms.Label
     Friend WithEvents txtFeeAdminFacilityName As System.Windows.Forms.TextBox
     Friend WithEvents MailoutFacilityInfoGroup As System.Windows.Forms.GroupBox
-    Friend WithEvents txtFSMailOutComments As System.Windows.Forms.TextBox
+    Friend WithEvents txtInitialFacilityComment As System.Windows.Forms.TextBox
     Friend WithEvents Label62 As System.Windows.Forms.Label
     Friend WithEvents mtbInitialZipCode As System.Windows.Forms.MaskedTextBox
     Friend WithEvents Label67 As System.Windows.Forms.Label
@@ -5096,17 +5021,11 @@ Partial Class PASPFeeAuditLog
     Friend WithEvents txtInitialAddressLine2 As System.Windows.Forms.TextBox
     Friend WithEvents txtInitialCity As System.Windows.Forms.TextBox
     Friend WithEvents Label61 As System.Windows.Forms.Label
-    Friend WithEvents DTPFSMailOutDateCreated As System.Windows.Forms.DateTimePicker
-    Friend WithEvents DTPFSMailOutUpdateDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents cboInitialOpStatus As System.Windows.Forms.ComboBox
-    Friend WithEvents Label68 As System.Windows.Forms.Label
-    Friend WithEvents Label69 As System.Windows.Forms.Label
-    Friend WithEvents txtFSMailOutUpdateUser As System.Windows.Forms.TextBox
-    Friend WithEvents Label70 As System.Windows.Forms.Label
-    Friend WithEvents Panel22 As System.Windows.Forms.Panel
+    Friend WithEvents MailoutInitialPart70Panel As System.Windows.Forms.Panel
     Friend WithEvents rdbInitialPart70False As System.Windows.Forms.RadioButton
     Friend WithEvents rdbInitialPart70True As System.Windows.Forms.RadioButton
-    Friend WithEvents Panel21 As System.Windows.Forms.Panel
+    Friend WithEvents MailoutInitialNspsPanel As System.Windows.Forms.Panel
     Friend WithEvents rdbInitialNSPSFalse As System.Windows.Forms.RadioButton
     Friend WithEvents rdbInitialNSPSTrue As System.Windows.Forms.RadioButton
     Friend WithEvents cboInitialClassification As System.Windows.Forms.ComboBox
@@ -5128,7 +5047,7 @@ Partial Class PASPFeeAuditLog
     Friend WithEvents rdbLetterMailedFalse As System.Windows.Forms.RadioButton
     Friend WithEvents rdbLetterMailedTrue As System.Windows.Forms.RadioButton
     Friend WithEvents MailoutSaveContactButton As System.Windows.Forms.Button
-    Friend WithEvents dtpShutDownDate As System.Windows.Forms.DateTimePicker
+    Friend WithEvents dtpInitialShutDownDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents txtGECOAdminStatus As System.Windows.Forms.TextBox
     Friend WithEvents Label14 As System.Windows.Forms.Label
@@ -5451,14 +5370,13 @@ Partial Class PASPFeeAuditLog
     Friend WithEvents LoadPanel As System.Windows.Forms.Panel
     Friend WithEvents FeeYearsComboBox As System.Windows.Forms.ComboBox
     Friend WithEvents ClearFormButton As System.Windows.Forms.Button
-    Friend WithEvents MailoutUpdatePanel As System.Windows.Forms.Panel
     Friend WithEvents MailoutReplaceContactWithFeeContactButton As System.Windows.Forms.Button
     Friend WithEvents MailoutReplaceFacilityInfoButton As System.Windows.Forms.Button
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents MailoutEditFacilityButton As System.Windows.Forms.Button
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents txtContactSuffix As System.Windows.Forms.TextBox
-    Friend WithEvents MailoutEditContactsButton As System.Windows.Forms.Button
+    Friend WithEvents EditContactsButton As System.Windows.Forms.Button
     Friend WithEvents MailoutCancelEditingContactButton As System.Windows.Forms.Button
-    Friend WithEvents Button4 As System.Windows.Forms.Button
-    Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents MailoutSaveFacilityButton As System.Windows.Forms.Button
+    Friend WithEvents MailoutCancelEditFacilityButton As System.Windows.Forms.Button
 End Class
