@@ -63,8 +63,10 @@ Public Class IAIPFacilitySummary
 
     Private Sub ParseParameters()
         If Parameters IsNot Nothing AndAlso Parameters.ContainsKey("airsnumber") Then
-            mtbAIRSNumber.Text = Parameters("airsnumber")
-            LoadInitialData()
+            If (Apb.Facility.NormalizeAirsNumber(Parameters("airsnumber"))) Then
+                mtbAIRSNumber.Text = Parameters("airsnumber")
+                LoadInitialData()
+            End If
         End If
     End Sub
 

@@ -413,7 +413,7 @@ Partial Class IAIPNavigation
         Me.txtOpenFacilitySummary.Cue = "AIRS #"
         Me.txtOpenFacilitySummary.Location = New System.Drawing.Point(10, 36)
         Me.txtOpenFacilitySummary.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtOpenFacilitySummary.MaxLength = 8
+        Me.txtOpenFacilitySummary.MaxLength = 9
         Me.txtOpenFacilitySummary.Name = "txtOpenFacilitySummary"
         Me.txtOpenFacilitySummary.Size = New System.Drawing.Size(90, 20)
         Me.txtOpenFacilitySummary.TabIndex = 0
