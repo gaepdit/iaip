@@ -4,31 +4,31 @@ Imports Iaip.Apb
 Namespace DAL
     Module FacilityInfo
 
-        Public Function AirsNumberExists(ByVal id As String) As Boolean
-            If Not Facility.NormalizeAirsNumber(id, True) Then Return False
+        Public Function AirsNumberExists(ByVal airsnumber As String) As Boolean
+            If Not Facility.NormalizeAirsNumber(airsnumber, True) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
                 " FROM " & DBNameSpace & ".APBMasterAIRS " & _
                 " WHERE RowNum = 1 " & _
                 " AND strAIRSnumber = :pId "
-            Dim parameter As New OracleParameter("pId", id)
+            Dim parameter As New OracleParameter("pId", airsnumber)
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
             Return Convert.ToBoolean(result)
         End Function
 
-        Public Function GetFacilityNameByAirs(ByVal id As String) As String
-            If Not Facility.NormalizeAirsNumber(id, True) Then Return Nothing
+        Public Function GetFacilityNameByAirs(ByVal airsnumber As String) As String
+            If Not Facility.NormalizeAirsNumber(airsnumber, True) Then Return Nothing
 
             Dim query As String = "SELECT STRFACILITYNAME " & _
                 " FROM AIRBRANCH.APBFACILITYINFORMATION " & _
                 " WHERE STRAIRSNUMBER = :pId"
-            Dim parameter As New OracleParameter("pId", id)
+            Dim parameter As New OracleParameter("pId", airsnumber)
             Return DB.GetSingleValue(Of String)(query, parameter)
         End Function
 
-        Public Function GetFacilityInfoByAirsAsDataRow(ByVal id As String) As DataRow
-            If Not Facility.NormalizeAirsNumber(id, True) Then Return Nothing
+        Public Function GetFacilityInfoByAirsAsDataRow(ByVal airsnumber As String) As DataRow
+            If Not Facility.NormalizeAirsNumber(airsnumber, True) Then Return Nothing
 
             Dim query As String = "SELECT APBFACILITYINFORMATION.STRAIRSNUMBER, " & _
                 "   APBFACILITYINFORMATION.STRFACILITYNAME, " & _
@@ -53,7 +53,7 @@ Namespace DAL
                 " ON SUBSTR(APBFACILITYINFORMATION.STRAIRSNUMBER, 5, 3) = LOOKUPCOUNTYINFORMATION.STRCOUNTYCODE " & _
                 " WHERE APBFACILITYINFORMATION.STRAIRSNUMBER = :pId "
 
-            Dim parameter As New OracleParameter("pId", id)
+            Dim parameter As New OracleParameter("pId", airsnumber)
 
             Dim dataTable As DataTable = DB.GetDataTable(query, parameter)
             If dataTable Is Nothing Then Return Nothing
@@ -61,14 +61,13 @@ Namespace DAL
             Return dataTable.Rows(0)
         End Function
 
-        Public Function GetFacilityInfoByAirs(ByVal id As String) As Facility
-            Dim dataRow As DataRow = GetFacilityInfoByAirsAsDataRow(id)
+        Public Function GetFacilityInfoByAirs(ByVal airsnumber As String) As Facility
+            Dim dataRow As DataRow = GetFacilityInfoByAirsAsDataRow(airsnumber)
             Dim facility As New Facility
 
             FillFacilityInfoFromDataRow(dataRow, facility)
             Return facility
         End Function
-
 
         Private Sub FillFacilityInfoFromDataRow(ByVal row As DataRow, ByRef facility As Facility)
             Dim address As New Address

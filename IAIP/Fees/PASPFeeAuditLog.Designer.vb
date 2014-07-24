@@ -346,7 +346,7 @@ Partial Class PASPFeeAuditLog
         Me.MailoutReplaceContactWithFeeContactButton = New System.Windows.Forms.Button
         Me.MailoutSaveContactButton = New System.Windows.Forms.Button
         Me.MailoutCancelEditingContactButton = New System.Windows.Forms.Button
-        Me.MailoutEnableEditingButton = New System.Windows.Forms.Button
+        Me.MailoutEditContactButton = New System.Windows.Forms.Button
         Me.mtbContactZipCode = New System.Windows.Forms.MaskedTextBox
         Me.Label54 = New System.Windows.Forms.Label
         Me.Label53 = New System.Windows.Forms.Label
@@ -3680,7 +3680,7 @@ Partial Class PASPFeeAuditLog
         Me.MailoutContactDataGroup.Controls.Add(Me.MailoutReplaceContactWithFeeContactButton)
         Me.MailoutContactDataGroup.Controls.Add(Me.MailoutSaveContactButton)
         Me.MailoutContactDataGroup.Controls.Add(Me.MailoutCancelEditingContactButton)
-        Me.MailoutContactDataGroup.Controls.Add(Me.MailoutEnableEditingButton)
+        Me.MailoutContactDataGroup.Controls.Add(Me.MailoutEditContactButton)
         Me.MailoutContactDataGroup.Controls.Add(Me.mtbContactZipCode)
         Me.MailoutContactDataGroup.Controls.Add(Me.Label54)
         Me.MailoutContactDataGroup.Controls.Add(Me.Label53)
@@ -3746,15 +3746,15 @@ Partial Class PASPFeeAuditLog
         Me.MailoutCancelEditingContactButton.UseVisualStyleBackColor = True
         Me.MailoutCancelEditingContactButton.Visible = False
         '
-        'MailoutEnableEditingButton
+        'MailoutEditContactButton
         '
-        Me.MailoutEnableEditingButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.MailoutEnableEditingButton.Location = New System.Drawing.Point(812, 62)
-        Me.MailoutEnableEditingButton.Name = "MailoutEnableEditingButton"
-        Me.MailoutEnableEditingButton.Size = New System.Drawing.Size(149, 36)
-        Me.MailoutEnableEditingButton.TabIndex = 483
-        Me.MailoutEnableEditingButton.Text = "Edit mailout contact"
-        Me.MailoutEnableEditingButton.UseVisualStyleBackColor = True
+        Me.MailoutEditContactButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.MailoutEditContactButton.Location = New System.Drawing.Point(812, 62)
+        Me.MailoutEditContactButton.Name = "MailoutEditContactButton"
+        Me.MailoutEditContactButton.Size = New System.Drawing.Size(149, 36)
+        Me.MailoutEditContactButton.TabIndex = 483
+        Me.MailoutEditContactButton.Text = "Edit mailout contact"
+        Me.MailoutEditContactButton.UseVisualStyleBackColor = True
         '
         'mtbContactZipCode
         '
@@ -5030,7 +5030,7 @@ Partial Class PASPFeeAuditLog
     Friend WithEvents rdbInitialNSPSTrue As System.Windows.Forms.RadioButton
     Friend WithEvents cboInitialClassification As System.Windows.Forms.ComboBox
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
-    Friend WithEvents MailoutEnableEditingButton As System.Windows.Forms.Button
+    Friend WithEvents MailoutEditContactButton As System.Windows.Forms.Button
     Friend WithEvents btnAddFSAdmin As System.Windows.Forms.Button
     Friend WithEvents btnUpdateFSAdmin As System.Windows.Forms.Button
     Friend WithEvents ReloadButton As System.Windows.Forms.Button
