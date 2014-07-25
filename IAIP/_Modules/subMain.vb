@@ -49,7 +49,6 @@ Module subMain
 
 #Region " Universal Screens "
     Public PrintOut As IAIPPrintOut
-    Public EditContacts As IAIPEditContacts ' TODO DWW: Remove
     Public EditFacilityLocation As IAIPEditFacilityLocation ' TODO DWW: Remove
     Public EditHeaderData As IAIPEditHeaderData ' TODO DWW: Remove
     Public EditAirProgramPollutants As IAIPEditAirProgramPollutants
@@ -69,10 +68,6 @@ Module subMain
     Public ISMPConfidential As ISMPConfidentialData ' TODO DWW: Remove
     Public TestFirmComments As ISMPTestFirmComments ' TODO DWW: Remove
     Public StaffReports As ISMPStaffReports ' TODO DWW: Remove
-#End Region
-
-#Region " Planning & Support Screens "
-    Public FeeStats As PASPFeeAuditLog
 #End Region
 
 #Region " SSCP Screens "

@@ -32,7 +32,7 @@
 
         Public ReadOnly Property FacilityName() As String
             Get
-                Return Me.Facility.Name
+                Return Me.Facility.FacilityName
             End Get
         End Property
 
