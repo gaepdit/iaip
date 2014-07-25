@@ -249,7 +249,7 @@ Public Class SmokeSchool
             While (dr.Read)
                 locTerm = dr("strSchedule")
                 cboSchedule1.Items.Add(locTerm)
-+            End While
+            End While
 
             cboSchedule1.SelectedIndex = 0
 
