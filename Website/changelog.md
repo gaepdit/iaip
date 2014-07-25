@@ -1,5 +1,9 @@
 % IAIP Change Log
 
+## Version 3.5.1 <span>(2014-07-25)</span>
+
+- FIX: *Fees* -- Fee Management Tools button to open Fee Audit Log does not populate fee year
+
 ## Version 3.5.0 <span>(2014-07-25)</span>
 
 + NEW: *Fees* -- Change how Fee Mailout Contact is edited. Edit contacts directly from Fees Audit Log (#247)
