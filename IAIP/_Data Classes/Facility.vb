@@ -212,9 +212,9 @@
         Public Shared Function IsAirsNumberValid(ByVal airsNumber As String) As Boolean
             ' Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000
             ' (with or without the dashes)
-
+            If airsNumber Is Nothing Then Return False
             Dim rgx As New System.Text.RegularExpressions.Regex("^(04-?13-?)?\d{3}-?\d{5}$")
-            Return rgx.IsMatch(airsNumber.Replace(" ", ""))
+            Return rgx.IsMatch(airsNumber)
         End Function
 
         ''' <summary>

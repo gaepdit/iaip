@@ -2414,6 +2414,7 @@ Public Class PASPFeeAuditLog
             .MailingAddress = New Address
             .MailingAddress.Street = txtInitailFacilityAddress.Text
             .MailingAddress.Street2 = txtInitialAddressLine2.Text
+            .MailingAddress.City = txtInitialCity.Text
             .MailingAddress.PostalCode = mtbInitialZipCode.Text
             .Comment = txtInitialFacilityComment.Text
             .OperationalStatus = cboInitialOpStatus.Text
@@ -2600,8 +2601,6 @@ Public Class PASPFeeAuditLog
     End Sub
 
     Private Sub MailoutSaveContactButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutSaveContactButton.Click
-        tempContact = Nothing
-
         If (mtbAirsNumber.Text <> AirsNumber) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
             MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " & _
                             "Please double-check and try again." & _
@@ -2617,18 +2616,18 @@ Public Class PASPFeeAuditLog
         End If
 
         Dim contact As Contact = MailoutGetContactFromForm()
-        Dim result As Boolean = DAL.UpdateFeeMailoutContact(contact, AirsNumber, FeeYear)
-        If Not result Then
+        Dim result As Boolean = DAL.UpdateFeeMailoutContact(contact, ExpandedAirsNumber, FeeYear)
+
+        If result Then
+            tempContact = Nothing
+            MailoutEditingToggle(False)
+        Else
             MessageBox.Show("There was an error saving contact data. Please try again.", _
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
-
-        MailoutEditingToggle(False)
     End Sub
 
     Private Sub MailoutSaveFacilityButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutSaveFacilityButton.Click
-        tempFacility = Nothing
-
         If (mtbAirsNumber.Text <> AirsNumber) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
             MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " & _
                             "Please double-check and try again." & _
@@ -2638,53 +2637,32 @@ Public Class PASPFeeAuditLog
         End If
 
         If Not DAL.FeeMailoutEntryExists(AirsNumber, FeeYear) Then
-            MessageBox.Show("Can't save facility: No mailout exists for that AIRS number and year.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Can't save facility: No mailout exists for that AIRS number and year.", _
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
         Dim facility As Apb.Facility = MailoutGetFacilityFromForm()
-        Dim result As Boolean = DAL.UpdateFeeMailoutFacility(facility, AirsNumber, FeeYear)
-        If Not result Then
+        Dim result As Boolean = DAL.UpdateFeeMailoutFacility(facility, ExpandedAirsNumber, FeeYear)
+
+        If result Then
+            tempFacility = Nothing
+            MailoutEditingToggle(False, False)
+        Else
             MessageBox.Show("There was an error saving facility data. Please try again.", _
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
-
-        MailoutEditingToggle(False, False)
     End Sub
-
-#Region " Obsolete "
-
-    <Obsolete("This method is obsolete.", True)> _
-    Private Sub btnMailoutSaveUpdates_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Dim ShutDownDate As String = ""
-
-        If Update_FS_Mailout(Me.FeeYear, Me.AirsNumber, _
-                           txtContactFirstName.Text, txtContactLastName.Text, _
-                           txtContactPrefix.Text, txtContactTitle.Text, _
-                           txtContactCoName.Text, txtContactAddress.Text, _
-                           txtContactAddress2.Text, txtContactCity.Text, _
-                           txtContactState.Text, mtbContactZipCode.Text, _
-                           txtContactEmail.Text, cboInitialOpStatus.Text, _
-                           cboInitialClassification.Text, rdbInitialNSPSTrue.Checked, _
-                           rdbInitialPart70True.Checked, ShutDownDate, _
-                           txtInitialFacilityName.Text, _
-                           txtInitailFacilityAddress.Text, txtInitialAddressLine2.Text, _
-                           txtInitialCity.Text, mtbInitialZipCode.Text, _
-                           txtInitialFacilityComment.Text, rdbActiveAdmin.Checked) = True Then
-            MsgBox("Save completed", MsgBoxStyle.Information, Me.Text)
-        Else
-            MsgBox("Did not Save", MsgBoxStyle.Information, Me.Text)
-        End If
-
-        MailoutEditingToggle(False)
-
-    End Sub
-
-#End Region
 
 #End Region
 
     Private Sub EditContactsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditContactsButton.Click
+        If Not Apb.Facility.IsAirsNumberValid(AirsNumber) OrElse (mtbAirsNumber.Text <> AirsNumber) Then
+            MessageBox.Show("Please select a valid AIRS number first.", _
+                            "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
+
         Dim parameters As New Generic.Dictionary(Of String, String)
         parameters("airsnumber") = Me.AirsNumber
         parameters("facilityname") = txtFeeAdminFacilityName.Text
@@ -5998,231 +5976,6 @@ Public Class PASPFeeAuditLog
 
             cmd.ExecuteNonQuery()
 
-            Return True
-
-        Catch ex As Exception
-            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Function
-
-    Function Insert_FS_Mailout(ByVal FeeYear As String, ByVal AIRSNumber As String, _
-                        ByVal FirstName As String, ByVal LastName As String, _
-                        ByVal Prefix As String, ByVal Title As String, _
-                        ByVal ContactCoName As String, ByVal ContactAddress1 As String, _
-                        ByVal ContactAddress2 As String, ByVal ContactCity As String, _
-                        ByVal ContactState As String, ByVal ContactZipCode As String, _
-                        ByVal ContactEmail As String, ByVal OpStatus As String, _
-                        ByVal Classification As String, ByVal NSPS As String, _
-                        ByVal Part70 As String, ByVal ShutDownDate As String, _
-                        ByVal FacilityName As String, _
-                        ByVal FacilityAddress1 As String, ByVal FacilityAddress2 As String, _
-                        ByVal FacilityCity As String, ByVal FacilityZipCode As String, _
-                        ByVal Comment As String, ByVal Active As String) As Boolean
-        Try
-            If IsDBNull(FeeYear) Then
-                Return False
-            End If
-            If IsDBNull(AIRSNumber) Then
-                Return False
-            End If
-
-            If IsDBNull(OpStatus) Then
-            Else
-                OpStatus = Mid(OpStatus, 1, 1)
-            End If
-            If NSPS = True Then
-                NSPS = "1"
-            Else
-                NSPS = "0"
-            End If
-            If Part70 = True Then
-                Part70 = "1"
-            Else
-                Part70 = "0"
-            End If
-            If Active = False Then
-                Active = "0"
-            Else
-                Active = "1"
-            End If
-
-            Dim SQL As String = "Insert into " & DBNameSpace & ".FS_MailOut " & _
-            "values " & _
-            "('" & FeeYear & "', '0413" & AIRSNumber & "', " & _
-            "'" & Replace(FirstName, "'", "''") & "', '" & Replace(LastName, "'", "''") & "', " & _
-            "'" & Replace(Prefix, "'", "''") & "', '" & Replace(Title, "'", "''") & "', " & _
-            "'" & Replace(ContactCoName, "'", "''") & "', '" & Replace(ContactAddress1, "'", "''") & "', " & _
-            "'" & Replace(ContactAddress2, "'", "''") & "', '" & Replace(ContactCity, "'", "''") & "', " & _
-            "'" & Replace(ContactState, "'", "''") & "', '" & Replace(ContactZipCode, "'", "''") & "', " & _
-            "'" & Replace(ContactEmail, "'", "''") & "', '" & Replace(OpStatus, "'", "''") & "', " & _
-            "'" & Replace(Classification, "'", "''") & "', '" & Replace(NSPS, "'", "''") & "', " & _
-            "'" & Replace(Part70, "'", "''") & "', '" & ShutDownDate & "', " & _
-            "'" & Replace(FacilityName, "'", "''") & "', " & _
-            "'" & Replace(FacilityAddress1, "'", "''") & "', '" & Replace(FacilityAddress2, "'", "''") & "', " & _
-            "'" & Replace(FacilityCity, "'", "''") & "', '" & Replace(FacilityZipCode, "'", "''") & "', " & _
-            "'" & Replace(Comment, "'", "''") & "', " & _
-            "'" & Active & "', " & _
-            "'IAIP||" & UserName & "', '" & OracleDate & "', " & _
-            "'" & OracleDate & "') "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-            Update_FS_Admin_Status(FeeYear, AIRSNumber)
-
-            Return True
-
-        Catch ex As Exception
-            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Function
-
-    Function Update_FS_Mailout(ByVal FeeYear As String, ByVal AIRSNumber As String, _
-                            ByVal FirstName As String, ByVal LastName As String, _
-                            ByVal Prefix As String, ByVal Title As String, _
-                            ByVal ContactCoName As String, ByVal ContactAddress1 As String, _
-                            ByVal ContactAddress2 As String, ByVal ContactCity As String, _
-                            ByVal ContactState As String, ByVal ContactZipCode As String, _
-                            ByVal ContactEmail As String, ByVal OpStatus As String, _
-                            ByVal Classification As String, ByVal NSPS As String, _
-                            ByVal Part70 As String, ByVal ShutDownDate As String, _
-                            ByVal FacilityName As String, _
-                            ByVal FacilityAddress1 As String, ByVal FacilityAddress2 As String, _
-                            ByVal FacilityCity As String, ByVal FacilityZipCode As String, _
-                            ByVal Comment As String, ByVal Active As String) As Boolean
-        Try
-            If IsDBNull(FeeYear) Then
-                Return False
-            End If
-            If IsDBNull(AIRSNumber) Then
-                Return False
-            End If
-            Dim SQL As String = ""
-
-            If IsDBNull(FirstName) Then
-            Else
-                SQL = SQL & "strFirstName = '" & Replace(FirstName, "'", "''") & "', "
-            End If
-            If IsDBNull(LastName) Then
-            Else
-                SQL = SQL & "strLastName = '" & Replace(LastName, "'", "''") & "', "
-            End If
-            If IsDBNull(Prefix) Then
-            Else
-                SQL = SQL & "strPrefix = '" & Replace(Prefix, "'", "''") & "', "
-            End If
-            If IsDBNull(Title) Then
-            Else
-                SQL = SQL & "strTitle = '" & Replace(Title, "'", "''") & "', "
-            End If
-            If IsDBNull(ContactCoName) Then
-            Else
-                SQL = SQL & "strcontactCoName = '" & Replace(ContactCoName, "'", "''") & "', "
-            End If
-            If IsDBNull(ContactAddress1) Then
-            Else
-                SQL = SQL & "strContactAddress1 = '" & Replace(ContactAddress1, "'", "''") & "', "
-            End If
-            If IsDBNull(ContactAddress2) Then
-            Else
-                SQL = SQL & "strContactAddress2 = '" & Replace(ContactAddress2, "'", "''") & "', "
-            End If
-            If IsDBNull(ContactCity) Then
-            Else
-                SQL = SQL & "strContactCity = '" & Replace(ContactCity, "'", "''") & "', "
-            End If
-            If IsDBNull(ContactState) Then
-            Else
-                SQL = SQL & "strContactState = '" & Replace(ContactState, "'", "''") & "', "
-            End If
-            If IsDBNull(ContactZipCode) Then
-            Else
-                SQL = SQL & "strContactZipCode = '" & Replace(ContactZipCode, "'", "''") & "', "
-            End If
-            If IsDBNull(ContactEmail) Then
-            Else
-                SQL = SQL & "strGECOUserEmail = '" & Replace(ContactEmail, "'", "''") & "', "
-            End If
-            If IsDBNull(OpStatus) Then
-            Else
-                OpStatus = Mid(OpStatus, 1, 1)
-                SQL = SQL & "strOperationalStatus = '" & Replace(OpStatus, "'", "''") & "', "
-            End If
-            If IsDBNull(Classification) Then
-            Else
-                SQL = SQL & "strClass = '" & Replace(Classification, "'", "''") & "', "
-            End If
-            If IsDBNull(NSPS) Then
-            Else
-                If NSPS = True Then
-                    SQL = SQL & "strNSPS = '1', "
-                Else
-                    SQL = SQL & "strNSPS = '0', "
-                End If
-            End If
-            If IsDBNull(Part70) Then
-            Else
-                If Part70 = True Then
-                    SQL = SQL & "strPart70 = '1', "
-                Else
-                    SQL = SQL & "strPart70 = '0', "
-                End If
-            End If
-            If IsDBNull(ShutDownDate) Then
-            Else
-                SQL = SQL & "datShutDownDate = '" & ShutDownDate & "', "
-            End If
-
-            If IsDBNull(FacilityName) Then
-            Else
-                SQL = SQL & "strFacilityName = '" & Replace(FacilityName, "'", "''") & "', "
-            End If
-            If IsDBNull(FacilityAddress1) Then
-            Else
-                SQL = SQL & "strFacilityAddress1 = '" & Replace(FacilityAddress1, "'", "''") & "', "
-            End If
-            If IsDBNull(FacilityAddress2) Then
-            Else
-                SQL = SQL & "strFacilityAddress2 = '" & Replace(FacilityAddress2, "'", "''") & "', "
-            End If
-            If IsDBNull(FacilityCity) Then
-            Else
-                SQL = SQL & "strFacilityCity = '" & Replace(FacilityCity, "'", "''") & "', "
-            End If
-            If IsDBNull(FacilityZipCode) Then
-            Else
-                SQL = SQL & "strFacilityZipCode = '" & Replace(FacilityZipCode, "'", "''") & "', "
-            End If
-            If IsDBNull(Comment) Then
-            Else
-                SQL = SQL & "strComment = '" & Replace(Comment, "'", "''") & "', "
-            End If
-            If IsDBNull(Active) Then
-            Else
-                If Active = False Then
-                    SQL = SQL & "Active = '0', "
-                Else
-                    SQL = SQL & "Active = '1', "
-                End If
-            End If
-            SQL = "Update " & DBNameSpace & ".FS_MailOut set " & _
-            SQL & _
-            "updateUser = 'IAIP||" & UserName & "', " & _
-            "updateDateTime = '" & OracleDate & "' " & _
-            "where numFeeYear = '" & FeeYear & "' " & _
-            "and strAIRSNumber = '0413" & AIRSNumber & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            Update_FS_Admin_Status(FeeYear, AIRSNumber)
             Return True
 
         Catch ex As Exception

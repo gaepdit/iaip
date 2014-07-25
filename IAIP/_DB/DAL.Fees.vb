@@ -44,7 +44,7 @@ Namespace DAL
                 " SET STRFIRSTNAME       = :v2, " & _
                 "  STRLASTNAME          = :v3, " & _
                 "  STRPREFIX            = :v4, " & _
-                "  STRCONTACTSUFFIX     = :v28 " & _
+                "  STRCONTACTSUFFIX     = :v28, " & _
                 "  STRTITLE             = :v5, " & _
                 "  STRCONTACTCONAME     = :v6, " & _
                 "  STRCONTACTADDRESS1   = :v7, " & _
@@ -82,43 +82,47 @@ Namespace DAL
         End Function
 
         Public Function UpdateFeeMailoutFacility(ByVal facility As Apb.Facility, ByVal airsNumber As String, ByVal feeYear As String) As Boolean
+            Try
 
-            Dim query As String = "UPDATE " & DBNameSpace & ".FS_MAILOUT " & _
-                " SET STROPERATIONALSTATUS = :v13, " & _
-                "  STRCLASS             = :v14, " & _
-                "  STRNSPS              = :v15, " & _
-                "  STRPART70            = :v16, " & _
-                "  DATSHUTDOWNDATE      = :v17, " & _
-                "  STRFACILITYNAME      = :v18, " & _
-                "  STRFACILITYADDRESS1  = :v19, " & _
-                "  STRFACILITYADDRESS2  = :v20, " & _
-                "  STRFACILITYCITY      = :v21, " & _
-                "  STRFACILITYZIPCODE   = :v22, " & _
-                "  STRCOMMENT           = :v23, " & _
-                "  UPDATEUSER           = :v25, " & _
-                "  UPDATEDATETIME       = :v26 " & _
-                " WHERE STRAIRSNUMBER   = :airsnumber " & _
-                " AND NUMFEEYEAR        = :feeyear "
+                Dim query As String = "UPDATE " & DBNameSpace & ".FS_MAILOUT " & _
+                    " SET STROPERATIONALSTATUS = :v13, " & _
+                    "  STRCLASS             = :v14, " & _
+                    "  STRNSPS              = :v15, " & _
+                    "  STRPART70            = :v16, " & _
+                    "  DATSHUTDOWNDATE      = :v17, " & _
+                    "  STRFACILITYNAME      = :v18, " & _
+                    "  STRFACILITYADDRESS1  = :v19, " & _
+                    "  STRFACILITYADDRESS2  = :v20, " & _
+                    "  STRFACILITYCITY      = :v21, " & _
+                    "  STRFACILITYZIPCODE   = :v22, " & _
+                    "  STRCOMMENT           = :v23, " & _
+                    "  UPDATEUSER           = :v25, " & _
+                    "  UPDATEDATETIME       = :v26 " & _
+                    " WHERE STRAIRSNUMBER   = :airsnumber " & _
+                    " AND NUMFEEYEAR        = :feeyear "
 
-            Dim parameters As OracleParameter() = { _
-                New OracleParameter("v13", Left(facility.OperationalStatus, 1)), _
-                New OracleParameter("v14", facility.Classification), _
-                New OracleParameter("v15", facility.SubjectToNsps), _
-                New OracleParameter("v16", facility.SubjectToPart70), _
-                New OracleParameter("v17", facility.ShutdownDate), _
-                New OracleParameter("v18", facility.FacilityName), _
-                New OracleParameter("v19", facility.MailingAddress.Street), _
-                New OracleParameter("v20", facility.MailingAddress.Street2), _
-                New OracleParameter("v21", facility.MailingAddress.City), _
-                New OracleParameter("v22", facility.MailingAddress.PostalCode), _
-                New OracleParameter("v23", facility.Comment), _
-                New OracleParameter("v25", UserGCode), _
-                New OracleParameter("v26", OracleDate), _
-                New OracleParameter("airsnumber", airsNumber), _
-                New OracleParameter("feeyear", feeYear) _
-            }
+                Dim parameters As OracleParameter() = { _
+                    New OracleParameter("v13", Left(facility.OperationalStatus, 1)), _
+                    New OracleParameter("v14", facility.Classification), _
+                    New OracleParameter("v15", If(facility.SubjectToNsps, "1", "0")), _
+                    New OracleParameter("v16", If(facility.SubjectToPart70, "1", "0")), _
+                    New OracleParameter("v17", facility.ShutdownDate), _
+                    New OracleParameter("v18", facility.FacilityName), _
+                    New OracleParameter("v19", facility.MailingAddress.Street), _
+                    New OracleParameter("v20", facility.MailingAddress.Street2), _
+                    New OracleParameter("v21", facility.MailingAddress.City), _
+                    New OracleParameter("v22", facility.MailingAddress.PostalCode), _
+                    New OracleParameter("v23", facility.Comment), _
+                    New OracleParameter("v25", UserGCode), _
+                    New OracleParameter("v26", OracleDate), _
+                    New OracleParameter("airsnumber", airsNumber), _
+                    New OracleParameter("feeyear", feeYear) _
+                }
 
-            Return DB.RunCommand(query, parameters)
+                Return DB.RunCommand(query, parameters)
+            Catch ex As Exception
+
+            End Try
 
         End Function
 
