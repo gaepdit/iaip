@@ -2603,7 +2603,7 @@ Public Class PASPFeeManagement
         If Apb.Facility.IsAirsNumberValid(mtbCheckAIRSNumber.Text) Then
             parameters("airsnumber") = mtbCheckAIRSNumber.Text
         End If
-        parameters("feeyear") = cboAvailableFeeYears.SelectedText
+        parameters("feeyear") = cboAvailableFeeYears.Text
 
         OpenSingleForm("PASPFeeAuditLog", parameters:=parameters, closeFirst:=True)
     End Sub
