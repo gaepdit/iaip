@@ -1,10 +1,19 @@
 % IAIP Change Log
 
+## Version 3.5.0 <span>(2014-07-25)</span>
+
++ NEW: *Fees* -- Change how Fee Mailout Contact is edited. Edit contacts directly from Fees Audit Log (#247)
+
+- FIX: Allow AIRS number with dash in Navigation screen quick access (#249)
+- FIX: *Smoke School* -- InvalidOperationException when opening Smoke School tool if no classes are current (#248)
+- FIX: *Fees* -- Don't allow editing of GECO contact
+- FIX: Various additional bug fixes and code cleanup
+
 ## Version 3.4.4 <span>(2014-06-26)</span>
 
 + NEW: Minor UI refinements and code cleanup
 
-+ FIX: *PASP* -- Fee audit log Update Audit button throws error (#224); thx Debbie
+- FIX: *PASP* -- Fee audit log Update Audit button throws error (#224); thx Debbie
 
 ## Version 3.4.3 <span>(2014-06-12)</span>
 
