@@ -107,7 +107,7 @@ Partial Class PASPFeeManagement
         Me.FeeManagementSidePanel = New System.Windows.Forms.Panel
         Me.dgvFeeManagementLists = New System.Windows.Forms.DataGridView
         Me.btnExportToExcel = New System.Windows.Forms.Button
-        Me.FeeManagementListCount = New System.Windows.Forms.Label
+        Me.FeeManagementListCountLabel = New System.Windows.Forms.Label
         Me.mtbCheckAIRSNumber = New System.Windows.Forms.MaskedTextBox
         Me.btnOpenFeesLog = New System.Windows.Forms.Button
         Me.FeeManagementToolPanel = New System.Windows.Forms.Panel
@@ -1130,7 +1130,7 @@ Partial Class PASPFeeManagement
         '
         Me.FeeManagementSidePanel.Controls.Add(Me.dgvFeeManagementLists)
         Me.FeeManagementSidePanel.Controls.Add(Me.btnExportToExcel)
-        Me.FeeManagementSidePanel.Controls.Add(Me.FeeManagementListCount)
+        Me.FeeManagementSidePanel.Controls.Add(Me.FeeManagementListCountLabel)
         Me.FeeManagementSidePanel.Controls.Add(Me.mtbCheckAIRSNumber)
         Me.FeeManagementSidePanel.Controls.Add(Me.btnOpenFeesLog)
         Me.FeeManagementSidePanel.Dock = System.Windows.Forms.DockStyle.Fill
@@ -1141,13 +1141,20 @@ Partial Class PASPFeeManagement
         '
         'dgvFeeManagementLists
         '
+        Me.dgvFeeManagementLists.AllowUserToAddRows = False
+        Me.dgvFeeManagementLists.AllowUserToDeleteRows = False
+        Me.dgvFeeManagementLists.AllowUserToOrderColumns = True
+        Me.dgvFeeManagementLists.AllowUserToResizeRows = False
         Me.dgvFeeManagementLists.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvFeeManagementLists.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvFeeManagementLists.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvFeeManagementLists.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvFeeManagementLists.Location = New System.Drawing.Point(0, 39)
         Me.dgvFeeManagementLists.Name = "dgvFeeManagementLists"
+        Me.dgvFeeManagementLists.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvFeeManagementLists.ShowEditingIcon = False
         Me.dgvFeeManagementLists.Size = New System.Drawing.Size(802, 618)
         Me.dgvFeeManagementLists.TabIndex = 3
         '
@@ -1155,26 +1162,26 @@ Partial Class PASPFeeManagement
         '
         Me.btnExportToExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnExportToExcel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnExportToExcel.Location = New System.Drawing.Point(608, 10)
+        Me.btnExportToExcel.Location = New System.Drawing.Point(701, 9)
         Me.btnExportToExcel.Name = "btnExportToExcel"
         Me.btnExportToExcel.Size = New System.Drawing.Size(96, 23)
         Me.btnExportToExcel.TabIndex = 2
         Me.btnExportToExcel.Text = "Export to Excel"
         Me.btnExportToExcel.UseVisualStyleBackColor = True
         '
-        'FeeManagementListCount
+        'FeeManagementListCountLabel
         '
-        Me.FeeManagementListCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.FeeManagementListCount.AutoSize = True
-        Me.FeeManagementListCount.Location = New System.Drawing.Point(710, 15)
-        Me.FeeManagementListCount.Name = "FeeManagementListCount"
-        Me.FeeManagementListCount.Size = New System.Drawing.Size(35, 13)
-        Me.FeeManagementListCount.TabIndex = 464
-        Me.FeeManagementListCount.Text = "Count"
+        Me.FeeManagementListCountLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.FeeManagementListCountLabel.Location = New System.Drawing.Point(511, 14)
+        Me.FeeManagementListCountLabel.Name = "FeeManagementListCountLabel"
+        Me.FeeManagementListCountLabel.Size = New System.Drawing.Size(184, 17)
+        Me.FeeManagementListCountLabel.TabIndex = 464
+        Me.FeeManagementListCountLabel.Text = "Count"
+        Me.FeeManagementListCountLabel.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'mtbCheckAIRSNumber
         '
-        Me.mtbCheckAIRSNumber.Location = New System.Drawing.Point(37, 12)
+        Me.mtbCheckAIRSNumber.Location = New System.Drawing.Point(0, 11)
         Me.mtbCheckAIRSNumber.Mask = "000-00000"
         Me.mtbCheckAIRSNumber.Name = "mtbCheckAIRSNumber"
         Me.mtbCheckAIRSNumber.Size = New System.Drawing.Size(66, 20)
@@ -1185,7 +1192,7 @@ Partial Class PASPFeeManagement
         'btnOpenFeesLog
         '
         Me.btnOpenFeesLog.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnOpenFeesLog.Location = New System.Drawing.Point(109, 10)
+        Me.btnOpenFeesLog.Location = New System.Drawing.Point(72, 9)
         Me.btnOpenFeesLog.Name = "btnOpenFeesLog"
         Me.btnOpenFeesLog.Size = New System.Drawing.Size(101, 23)
         Me.btnOpenFeesLog.TabIndex = 1
@@ -1211,7 +1218,7 @@ Partial Class PASPFeeManagement
         '
         Me.EnrollmentGroupbox.Controls.Add(Me.btnUnenrollFeeYear)
         Me.EnrollmentGroupbox.Controls.Add(Me.btnFirstEnrollment)
-        Me.EnrollmentGroupbox.Location = New System.Drawing.Point(12, 358)
+        Me.EnrollmentGroupbox.Location = New System.Drawing.Point(12, 367)
         Me.EnrollmentGroupbox.Name = "EnrollmentGroupbox"
         Me.EnrollmentGroupbox.Size = New System.Drawing.Size(151, 99)
         Me.EnrollmentGroupbox.TabIndex = 5
@@ -1271,7 +1278,7 @@ Partial Class PASPFeeManagement
         '
         Me.cboAvailableFeeYears.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboAvailableFeeYears.FormattingEnabled = True
-        Me.cboAvailableFeeYears.Location = New System.Drawing.Point(74, 11)
+        Me.cboAvailableFeeYears.Location = New System.Drawing.Point(74, 10)
         Me.cboAvailableFeeYears.Name = "cboAvailableFeeYears"
         Me.cboAvailableFeeYears.Size = New System.Drawing.Size(81, 21)
         Me.cboAvailableFeeYears.TabIndex = 0
@@ -1293,7 +1300,7 @@ Partial Class PASPFeeManagement
         Me.InitialMailoutGroupbox.Controls.Add(Me.btnUpdateContactData)
         Me.InitialMailoutGroupbox.Location = New System.Drawing.Point(12, 145)
         Me.InitialMailoutGroupbox.Name = "InitialMailoutGroupbox"
-        Me.InitialMailoutGroupbox.Size = New System.Drawing.Size(151, 185)
+        Me.InitialMailoutGroupbox.Size = New System.Drawing.Size(151, 194)
         Me.InitialMailoutGroupbox.TabIndex = 4
         Me.InitialMailoutGroupbox.TabStop = False
         Me.InitialMailoutGroupbox.Text = "Initial Mailout"
@@ -1312,9 +1319,9 @@ Partial Class PASPFeeManagement
         Me.btnSetMailoutDate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnSetMailoutDate.Location = New System.Drawing.Point(6, 145)
         Me.btnSetMailoutDate.Name = "btnSetMailoutDate"
-        Me.btnSetMailoutDate.Size = New System.Drawing.Size(137, 23)
+        Me.btnSetMailoutDate.Size = New System.Drawing.Size(137, 36)
         Me.btnSetMailoutDate.TabIndex = 3
-        Me.btnSetMailoutDate.Text = "Save Initial Mailout Date"
+        Me.btnSetMailoutDate.Text = "Save Initial Mailout Date" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "For Selected Fee Year"
         Me.btnSetMailoutDate.UseVisualStyleBackColor = True
         '
         'btnGenerateMailoutList
@@ -2223,7 +2230,7 @@ Partial Class PASPFeeManagement
     Friend WithEvents dgvFeeManagementLists As System.Windows.Forms.DataGridView
     Friend WithEvents FeeManagementToolPanel As System.Windows.Forms.Panel
     Friend WithEvents btnExportToExcel As System.Windows.Forms.Button
-    Friend WithEvents FeeManagementListCount As System.Windows.Forms.Label
+    Friend WithEvents FeeManagementListCountLabel As System.Windows.Forms.Label
     Friend WithEvents btnGenerateMailoutList As System.Windows.Forms.Button
     Friend WithEvents btnUnenrollFeeYear As System.Windows.Forms.Button
     Friend WithEvents cboAvailableFeeYears As System.Windows.Forms.ComboBox

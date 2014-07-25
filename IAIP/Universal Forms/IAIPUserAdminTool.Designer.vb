@@ -1000,9 +1000,9 @@ Partial Class IAIPUserAdminTool
         Me.cboPermissionBranch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboPermissionBranch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboPermissionBranch.FormattingEnabled = True
-        Me.cboPermissionBranch.Location = New System.Drawing.Point(49, 58)
+        Me.cboPermissionBranch.Location = New System.Drawing.Point(51, 58)
         Me.cboPermissionBranch.Name = "cboPermissionBranch"
-        Me.cboPermissionBranch.Size = New System.Drawing.Size(217, 21)
+        Me.cboPermissionBranch.Size = New System.Drawing.Size(215, 21)
         Me.cboPermissionBranch.TabIndex = 2
         '
         'txtUserName

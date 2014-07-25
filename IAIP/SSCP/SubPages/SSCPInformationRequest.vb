@@ -1892,30 +1892,9 @@ Public Class SSCPInformationRequest
 
 #End Region
     Private Sub mmiAddContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiAddContact.Click
-        Try
-
-            If EditContacts Is Nothing Then
-                If EditContacts Is Nothing Then EditContacts = New IAIPEditContacts
-                EditContacts.AirsNumber = txtAIRSNumber.Text
-                EditContacts.lblFacilityName.Text = ""
-                EditContacts.Show()
-            Else
-                EditContacts.Dispose()
-                EditContacts = New IAIPEditContacts
-                If EditContacts Is Nothing Then EditContacts = New IAIPEditContacts
-                EditContacts.AirsNumber = txtAIRSNumber.Text
-                EditContacts.lblFacilityName.Text = ""
-                EditContacts.Show()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
+        Dim parameters As New Generic.Dictionary(Of String, String)
+        parameters("airsnumber") = txtAIRSNumber.Text
+        OpenMultiForm("IAIPEditContacts", txtAIRSNumber.Text, parameters)
     End Sub
 
 

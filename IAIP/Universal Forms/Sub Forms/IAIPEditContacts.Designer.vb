@@ -19,15 +19,7 @@ Partial Class IAIPEditContacts
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.mmiFile = New System.Windows.Forms.MenuItem
-        Me.mmiClear = New System.Windows.Forms.MenuItem
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem
-        Me.mmiClose = New System.Windows.Forms.MenuItem
-        Me.mmiHelp = New System.Windows.Forms.MenuItem
-        Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
-        Me.dgvContacts = New System.Windows.Forms.DataGridView
+        Me.ContactsDataGrid = New System.Windows.Forms.DataGridView
         Me.pnlInfoPanel = New System.Windows.Forms.Panel
         Me.Panel6 = New System.Windows.Forms.Panel
         Me.rdbNewDistrictContact = New System.Windows.Forms.RadioButton
@@ -70,64 +62,31 @@ Partial Class IAIPEditContacts
         Me.txtNewSuffix = New System.Windows.Forms.TextBox
         Me.txtNewPrefix = New System.Windows.Forms.TextBox
         Me.txtNewLastName = New System.Windows.Forms.TextBox
-        Me.txtNewKey = New System.Windows.Forms.TextBox
         Me.pnlHeaderPanel = New System.Windows.Forms.Panel
         Me.lblAirsNumber = New System.Windows.Forms.Label
         Me.lblFacilityName = New System.Windows.Forms.Label
-        CType(Me.dgvContacts, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ContactsDataGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlInfoPanel.SuspendLayout()
         Me.Panel6.SuspendLayout()
         Me.pnlHeaderPanel.SuspendLayout()
         Me.SuspendLayout()
         '
-        'MainMenu1
+        'ContactsDataGrid
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiHelp})
-        '
-        'mmiFile
-        '
-        Me.mmiFile.Index = 0
-        Me.mmiFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiClear, Me.MenuItem1, Me.mmiClose})
-        Me.mmiFile.Text = "&File"
-        '
-        'mmiClear
-        '
-        Me.mmiClear.Index = 0
-        Me.mmiClear.Text = "Clear &Form"
-        '
-        'MenuItem1
-        '
-        Me.MenuItem1.Index = 1
-        Me.MenuItem1.Text = "-"
-        '
-        'mmiClose
-        '
-        Me.mmiClose.Index = 2
-        Me.mmiClose.Shortcut = System.Windows.Forms.Shortcut.CtrlW
-        Me.mmiClose.Text = "&Close"
-        '
-        'mmiHelp
-        '
-        Me.mmiHelp.Index = 1
-        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp})
-        Me.mmiHelp.Text = "&Help"
-        '
-        'mmiOnlineHelp
-        '
-        Me.mmiOnlineHelp.Index = 0
-        Me.mmiOnlineHelp.Shortcut = System.Windows.Forms.Shortcut.F1
-        Me.mmiOnlineHelp.Text = "Online &Help"
-        '
-        'dgvContacts
-        '
-        Me.dgvContacts.AllowUserToOrderColumns = True
-        Me.dgvContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvContacts.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvContacts.Location = New System.Drawing.Point(0, 294)
-        Me.dgvContacts.Name = "dgvContacts"
-        Me.dgvContacts.ReadOnly = True
-        Me.dgvContacts.Size = New System.Drawing.Size(799, 307)
-        Me.dgvContacts.TabIndex = 243
+        Me.ContactsDataGrid.AccessibleDescription = "Contacts"
+        Me.ContactsDataGrid.AllowUserToAddRows = False
+        Me.ContactsDataGrid.AllowUserToDeleteRows = False
+        Me.ContactsDataGrid.AllowUserToOrderColumns = True
+        Me.ContactsDataGrid.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.ContactsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.ContactsDataGrid.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ContactsDataGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.ContactsDataGrid.Location = New System.Drawing.Point(0, 294)
+        Me.ContactsDataGrid.Name = "ContactsDataGrid"
+        Me.ContactsDataGrid.ReadOnly = True
+        Me.ContactsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.ContactsDataGrid.Size = New System.Drawing.Size(799, 307)
+        Me.ContactsDataGrid.TabIndex = 243
         '
         'pnlInfoPanel
         '
@@ -573,19 +532,10 @@ Partial Class IAIPEditContacts
         Me.txtNewLastName.Size = New System.Drawing.Size(176, 20)
         Me.txtNewLastName.TabIndex = 2
         '
-        'txtNewKey
-        '
-        Me.txtNewKey.Location = New System.Drawing.Point(762, 6)
-        Me.txtNewKey.Name = "txtNewKey"
-        Me.txtNewKey.Size = New System.Drawing.Size(18, 20)
-        Me.txtNewKey.TabIndex = 239
-        Me.txtNewKey.Visible = False
-        '
         'pnlHeaderPanel
         '
         Me.pnlHeaderPanel.Controls.Add(Me.lblAirsNumber)
         Me.pnlHeaderPanel.Controls.Add(Me.lblFacilityName)
-        Me.pnlHeaderPanel.Controls.Add(Me.txtNewKey)
         Me.pnlHeaderPanel.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlHeaderPanel.Location = New System.Drawing.Point(0, 0)
         Me.pnlHeaderPanel.Name = "pnlHeaderPanel"
@@ -617,13 +567,12 @@ Partial Class IAIPEditContacts
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(799, 601)
-        Me.Controls.Add(Me.dgvContacts)
+        Me.Controls.Add(Me.ContactsDataGrid)
         Me.Controls.Add(Me.pnlInfoPanel)
         Me.Controls.Add(Me.pnlHeaderPanel)
-        Me.Menu = Me.MainMenu1
         Me.Name = "IAIPEditContacts"
         Me.Text = "Add/Edit Contacts"
-        CType(Me.dgvContacts, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ContactsDataGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlInfoPanel.ResumeLayout(False)
         Me.pnlInfoPanel.PerformLayout()
         Me.Panel6.ResumeLayout(False)
@@ -633,14 +582,7 @@ Partial Class IAIPEditContacts
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents mmiFile As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiClose As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
-    Friend WithEvents dgvContacts As System.Windows.Forms.DataGridView
-    Friend WithEvents mmiOnlineHelp As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiClear As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
+    Friend WithEvents ContactsDataGrid As System.Windows.Forms.DataGridView
     Friend WithEvents pnlInfoPanel As System.Windows.Forms.Panel
     Friend WithEvents Panel6 As System.Windows.Forms.Panel
     Friend WithEvents rdbNewDistrictContact As System.Windows.Forms.RadioButton
@@ -660,7 +602,6 @@ Partial Class IAIPEditContacts
     Friend WithEvents mtbNewZipCode As System.Windows.Forms.MaskedTextBox
     Friend WithEvents mtbNewPhoneNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents Label9 As System.Windows.Forms.Label
-    Friend WithEvents txtNewKey As System.Windows.Forms.TextBox
     Friend WithEvents txtNewCity As System.Windows.Forms.TextBox
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents txtNewState As System.Windows.Forms.TextBox

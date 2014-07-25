@@ -30,24 +30,24 @@ Public Class BaseForm
 
     Private Sub BaseForm_Disposed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Disposed
         Try
+
             If MultiForm IsNot Nothing AndAlso _
             MultiForm.ContainsKey(Me.Name) AndAlso _
             MultiForm(Me.Name).ContainsKey(Me.ID) Then
-
                 MultiForm(Me.Name).Remove(Me.ID)
-
-            ElseIf SingleForm IsNot Nothing AndAlso _
-            SingleForm.ContainsKey(Me.Name) Then
-
-                SingleForm.Remove(Me.Name)
-
             End If
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            'Finally
+
+            If SingleForm IsNot Nothing AndAlso _
+            SingleForm.ContainsKey(Me.Name) Then
+                SingleForm.Remove(Me.Name)
+            End If
+
             '    If CurrentConnection.State = ConnectionState.Open Then
             '        CurrentConnection.Close()
             '    End If
+
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 

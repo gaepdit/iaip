@@ -20,25 +20,25 @@
     End Property
     Private _lastName As String
 
-    Public Property Email() As String
+    Public Property EmailAddress() As String
         Get
-            Return _email
+            Return _emailAddress
         End Get
         Set(ByVal value As String)
-            _email = value
+            _emailAddress = value
         End Set
     End Property
-    Private _email As String
+    Private _emailAddress As String
 
-    Public Property Phone() As String
+    Public Property PhoneNumber() As String
         Get
-            Return _phone
+            Return _phoneNumber
         End Get
         Set(ByVal value As String)
-            _phone = value
+            _phoneNumber = value
         End Set
     End Property
-    Private _phone As String
+    Private _phoneNumber As String
 
     Public Overrides Function ToString() As String
         Return AlphaName
@@ -55,5 +55,35 @@
             Return Convert.ToString(LastName & ", " & FirstName)
         End Get
     End Property
+
+    Public Property Prefix() As String
+        Get
+            Return _prefix
+        End Get
+        Set(ByVal value As String)
+            _prefix = value
+        End Set
+    End Property
+    Private _prefix As String
+
+    Public Property Suffix() As String
+        Get
+            Return _suffix
+        End Get
+        Set(ByVal value As String)
+            _suffix = value
+        End Set
+    End Property
+    Private _suffix As String
+
+    Public Property Title() As String
+        Get
+            Return _title
+        End Get
+        Set(ByVal value As String)
+            _title = value
+        End Set
+    End Property
+    Private _title As String
 
 End Class

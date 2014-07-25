@@ -35,8 +35,8 @@ Namespace DAL
                 .StaffId = DB.GetNullable(Of Integer)(row("NUMUSERID"))
                 .FirstName = DB.GetNullable(Of String)(row("STRFIRSTNAME"))
                 .LastName = DB.GetNullable(Of String)(row("STRLASTNAME"))
-                .Phone = DB.GetNullable(Of String)(row("STRPHONE"))
-                .Email = DB.GetNullable(Of String)(row("STREMAILADDRESS"))
+                .PhoneNumber = DB.GetNullable(Of String)(row("STRPHONE"))
+                .EmailAddress = DB.GetNullable(Of String)(row("STREMAILADDRESS"))
                 .ActiveStatus = Convert.ToBoolean(DB.GetNullable(Of Integer)(row("NUMEMPLOYEESTATUS")))
             End With
         End Sub
