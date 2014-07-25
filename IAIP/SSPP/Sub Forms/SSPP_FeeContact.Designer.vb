@@ -291,7 +291,7 @@ Partial Class SSPP_FeeContact
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(49, 13)
         Me.Label9.TabIndex = 10
-        Me.Label9.Text = "Pedigree"
+        Me.Label9.Text = "Suffix"
         '
         'Label8
         '

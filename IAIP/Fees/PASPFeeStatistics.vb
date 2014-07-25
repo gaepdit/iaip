@@ -9773,28 +9773,13 @@ Public Class PASPFeeStatistics
     End Sub
 
     Private Sub btnOpenFeesLog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFeesLog.Click
-        Try
-            If txtFeeStatAirsNumber.Text <> "" And cboFeeStatYear.Text.Length = 4 Then
-                If FeeStats Is Nothing Then
-                    If FeeStats Is Nothing Then FeeStats = New PASPFeeAuditLog
-                Else
-                    FeeStats.Dispose()
-                    FeeStats = New PASPFeeAuditLog
-                End If
-                FeeStats.Show()
+        Dim parameters As New Generic.Dictionary(Of String, String)
+        If Apb.Facility.IsAirsNumberValid(txtFeeStatAirsNumber.Text) Then
+            parameters("airsnumber") = txtFeeStatAirsNumber.Text
+        End If
+        parameters("feeyear") = cboFeeStatYear.Text
 
-                FeeStats.mtbFeeAdminAIRSNumber.Text = txtFeeStatAirsNumber.Text
-                FeeStats.txtFeeAdminFacilityName.Text = txtSelectedFacilityName.Text
-                FeeStats.mtbFeeAdminExistingYear.Text = cboFeeStatYear.Text
-
-                If FeeStats.mtbFeeAdminAIRSNumber.Text <> "" Then
-                    FeeStats.LoadAdminData()
-                    FeeStats.LoadAuditedData()
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenSingleForm("PASPFeeAuditLog", parameters:=parameters, closeFirst:=True)
     End Sub
 
     Private Sub btnInvoiceReportVariance_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnInvoiceReportVariance.Click

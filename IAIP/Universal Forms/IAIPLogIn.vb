@@ -171,12 +171,12 @@ Public Class IAIPLogIn
             UserUnit = CurrentUser.Staff.UnitId.ToString
             If UserUnit = "0" OrElse UserUnit = "" Then UserUnit = "---"
             EmployeeStatus = If(CurrentUser.Staff.ActiveStatus, "1", "0")
-            PhoneNumber = CurrentUser.Staff.Phone
-            EmailAddress = CurrentUser.Staff.Email
+            PhoneNumber = CurrentUser.Staff.PhoneNumber
+            EmailAddress = CurrentUser.Staff.EmailAddress
             LastName = CurrentUser.Staff.LastName
 
             If EmployeeStatus = "0" Then
-                MsgBox("You status has been flagged as inactive." & vbCrLf & "Please contact your manager for more information.", MsgBoxStyle.Exclamation, "Login Error")
+                MsgBox("Your status has been flagged as inactive." & vbCrLf & "Please contact your manager for more information.", MsgBoxStyle.Exclamation, "Login Error")
                 txtUserPassword.Clear()
                 LoginProgressBar.Visible = False
                 monitor.TrackFeatureCancel("Startup.LoggingIn")

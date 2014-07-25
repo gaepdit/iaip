@@ -107,12 +107,10 @@ Partial Class IAIPUserAdminTool
         Me.btnClearAllPermissions = New System.Windows.Forms.Button
         Me.Label28 = New System.Windows.Forms.Label
         Me.txtCurrentPermissions = New System.Windows.Forms.TextBox
-        Me.cboPermissionAccounts = New System.Windows.Forms.ComboBox
         Me.txtPassword = New System.Windows.Forms.TextBox
         Me.cboPermissionBranch = New System.Windows.Forms.ComboBox
         Me.txtUserName = New System.Windows.Forms.TextBox
         Me.Label21 = New System.Windows.Forms.Label
-        Me.Label20 = New System.Windows.Forms.Label
         Me.Label17 = New System.Windows.Forms.Label
         Me.Label18 = New System.Windows.Forms.Label
         Me.pnlSearch = New System.Windows.Forms.Panel
@@ -403,7 +401,7 @@ Partial Class IAIPUserAdminTool
         Me.btnCreateNewUser.Location = New System.Drawing.Point(113, 56)
         Me.btnCreateNewUser.Name = "btnCreateNewUser"
         Me.btnCreateNewUser.Size = New System.Drawing.Size(98, 23)
-        Me.btnCreateNewUser.TabIndex = 31
+        Me.btnCreateNewUser.TabIndex = 1
         Me.btnCreateNewUser.Text = "Create New User"
         Me.btnCreateNewUser.UseVisualStyleBackColor = True
         '
@@ -413,7 +411,7 @@ Partial Class IAIPUserAdminTool
         Me.btnSave.Location = New System.Drawing.Point(6, 56)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(98, 23)
-        Me.btnSave.TabIndex = 30
+        Me.btnSave.TabIndex = 0
         Me.btnSave.Text = "Save"
         Me.btnSave.UseVisualStyleBackColor = True
         '
@@ -539,6 +537,7 @@ Partial Class IAIPUserAdminTool
         '
         Me.cboUnit.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cboUnit.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboUnit.FormattingEnabled = True
         Me.cboUnit.Location = New System.Drawing.Point(546, 121)
         Me.cboUnit.Name = "cboUnit"
@@ -549,6 +548,7 @@ Partial Class IAIPUserAdminTool
         '
         Me.cboProgram.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cboProgram.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboProgram.FormattingEnabled = True
         Me.cboProgram.Location = New System.Drawing.Point(258, 121)
         Me.cboProgram.Name = "cboProgram"
@@ -559,6 +559,7 @@ Partial Class IAIPUserAdminTool
         '
         Me.cboBranch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cboBranch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboBranch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboBranch.FormattingEnabled = True
         Me.cboBranch.Location = New System.Drawing.Point(54, 121)
         Me.cboBranch.Name = "cboBranch"
@@ -700,12 +701,10 @@ Partial Class IAIPUserAdminTool
         Me.TPPermission.Controls.Add(Me.btnClearAllPermissions)
         Me.TPPermission.Controls.Add(Me.Label28)
         Me.TPPermission.Controls.Add(Me.txtCurrentPermissions)
-        Me.TPPermission.Controls.Add(Me.cboPermissionAccounts)
         Me.TPPermission.Controls.Add(Me.txtPassword)
         Me.TPPermission.Controls.Add(Me.cboPermissionBranch)
         Me.TPPermission.Controls.Add(Me.txtUserName)
         Me.TPPermission.Controls.Add(Me.Label21)
-        Me.TPPermission.Controls.Add(Me.Label20)
         Me.TPPermission.Controls.Add(Me.Label17)
         Me.TPPermission.Controls.Add(Me.Label18)
         Me.TPPermission.Location = New System.Drawing.Point(4, 22)
@@ -720,11 +719,12 @@ Partial Class IAIPUserAdminTool
         '
         Me.cboPermissionProgram.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cboPermissionProgram.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboPermissionProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboPermissionProgram.FormattingEnabled = True
         Me.cboPermissionProgram.Location = New System.Drawing.Point(51, 84)
         Me.cboPermissionProgram.Name = "cboPermissionProgram"
         Me.cboPermissionProgram.Size = New System.Drawing.Size(215, 21)
-        Me.cboPermissionProgram.TabIndex = 13
+        Me.cboPermissionProgram.TabIndex = 3
         '
         'Label1
         '
@@ -761,7 +761,7 @@ Partial Class IAIPUserAdminTool
         Me.Panel4.Location = New System.Drawing.Point(272, 6)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(257, 184)
-        Me.Panel4.TabIndex = 34
+        Me.Panel4.TabIndex = 5
         '
         'lbl10
         '
@@ -960,7 +960,7 @@ Partial Class IAIPUserAdminTool
         Me.btnClearAllPermissions.Location = New System.Drawing.Point(51, 109)
         Me.btnClearAllPermissions.Name = "btnClearAllPermissions"
         Me.btnClearAllPermissions.Size = New System.Drawing.Size(113, 23)
-        Me.btnClearAllPermissions.TabIndex = 33
+        Me.btnClearAllPermissions.TabIndex = 4
         Me.btnClearAllPermissions.Text = "Clear All Permissions"
         Me.btnClearAllPermissions.UseVisualStyleBackColor = True
         '
@@ -986,41 +986,31 @@ Partial Class IAIPUserAdminTool
         Me.txtCurrentPermissions.Size = New System.Drawing.Size(241, 170)
         Me.txtCurrentPermissions.TabIndex = 19
         '
-        'cboPermissionAccounts
-        '
-        Me.cboPermissionAccounts.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.cboPermissionAccounts.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboPermissionAccounts.FormattingEnabled = True
-        Me.cboPermissionAccounts.Location = New System.Drawing.Point(68, 133)
-        Me.cboPermissionAccounts.Name = "cboPermissionAccounts"
-        Me.cboPermissionAccounts.Size = New System.Drawing.Size(26, 21)
-        Me.cboPermissionAccounts.TabIndex = 14
-        Me.cboPermissionAccounts.Visible = False
-        '
         'txtPassword
         '
         Me.txtPassword.Location = New System.Drawing.Point(100, 32)
         Me.txtPassword.Name = "txtPassword"
         Me.txtPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtPassword.Size = New System.Drawing.Size(125, 20)
-        Me.txtPassword.TabIndex = 11
+        Me.txtPassword.TabIndex = 1
         '
         'cboPermissionBranch
         '
         Me.cboPermissionBranch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cboPermissionBranch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboPermissionBranch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboPermissionBranch.FormattingEnabled = True
-        Me.cboPermissionBranch.Location = New System.Drawing.Point(49, 58)
+        Me.cboPermissionBranch.Location = New System.Drawing.Point(51, 58)
         Me.cboPermissionBranch.Name = "cboPermissionBranch"
-        Me.cboPermissionBranch.Size = New System.Drawing.Size(217, 21)
-        Me.cboPermissionBranch.TabIndex = 12
+        Me.cboPermissionBranch.Size = New System.Drawing.Size(215, 21)
+        Me.cboPermissionBranch.TabIndex = 2
         '
         'txtUserName
         '
         Me.txtUserName.Location = New System.Drawing.Point(65, 6)
         Me.txtUserName.Name = "txtUserName"
         Me.txtUserName.Size = New System.Drawing.Size(160, 20)
-        Me.txtUserName.TabIndex = 10
+        Me.txtUserName.TabIndex = 0
         '
         'Label21
         '
@@ -1030,16 +1020,6 @@ Partial Class IAIPUserAdminTool
         Me.Label21.Size = New System.Drawing.Size(44, 13)
         Me.Label21.TabIndex = 12
         Me.Label21.Text = "Branch:"
-        '
-        'Label20
-        '
-        Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(17, 136)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(55, 13)
-        Me.Label20.TabIndex = 11
-        Me.Label20.Text = "Accounts:"
-        Me.Label20.Visible = False
         '
         'Label17
         '
@@ -1102,7 +1082,7 @@ Partial Class IAIPUserAdminTool
         Me.dgvUserAdminTool.Name = "dgvUserAdminTool"
         Me.dgvUserAdminTool.ReadOnly = True
         Me.dgvUserAdminTool.Size = New System.Drawing.Size(792, 121)
-        Me.dgvUserAdminTool.TabIndex = 32
+        Me.dgvUserAdminTool.TabIndex = 9
         '
         'btnAll
         '
@@ -1110,7 +1090,7 @@ Partial Class IAIPUserAdminTool
         Me.btnAll.Location = New System.Drawing.Point(667, 6)
         Me.btnAll.Name = "btnAll"
         Me.btnAll.Size = New System.Drawing.Size(58, 23)
-        Me.btnAll.TabIndex = 22
+        Me.btnAll.TabIndex = 5
         Me.btnAll.Text = "Show All"
         Me.btnAll.UseVisualStyleBackColor = True
         '
@@ -1120,7 +1100,7 @@ Partial Class IAIPUserAdminTool
         Me.btnReset.Location = New System.Drawing.Point(593, 6)
         Me.btnReset.Name = "btnReset"
         Me.btnReset.Size = New System.Drawing.Size(58, 23)
-        Me.btnReset.TabIndex = 21
+        Me.btnReset.TabIndex = 4
         Me.btnReset.Text = "Reset"
         Me.btnReset.UseVisualStyleBackColor = True
         '
@@ -1130,7 +1110,7 @@ Partial Class IAIPUserAdminTool
         Me.btnSearch.Location = New System.Drawing.Point(519, 6)
         Me.btnSearch.Name = "btnSearch"
         Me.btnSearch.Size = New System.Drawing.Size(58, 23)
-        Me.btnSearch.TabIndex = 20
+        Me.btnSearch.TabIndex = 3
         Me.btnSearch.Text = "Search"
         Me.btnSearch.UseVisualStyleBackColor = True
         '
@@ -1138,31 +1118,34 @@ Partial Class IAIPUserAdminTool
         '
         Me.cboSearchUnit.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cboSearchUnit.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSearchUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSearchUnit.FormattingEnabled = True
         Me.cboSearchUnit.Location = New System.Drawing.Point(543, 34)
         Me.cboSearchUnit.Name = "cboSearchUnit"
         Me.cboSearchUnit.Size = New System.Drawing.Size(225, 21)
-        Me.cboSearchUnit.TabIndex = 19
+        Me.cboSearchUnit.TabIndex = 8
         '
         'cboSearchProgram
         '
         Me.cboSearchProgram.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cboSearchProgram.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSearchProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSearchProgram.FormattingEnabled = True
         Me.cboSearchProgram.Location = New System.Drawing.Point(255, 34)
         Me.cboSearchProgram.Name = "cboSearchProgram"
         Me.cboSearchProgram.Size = New System.Drawing.Size(250, 21)
-        Me.cboSearchProgram.TabIndex = 18
+        Me.cboSearchProgram.TabIndex = 7
         '
         'cboSearchBranch
         '
         Me.cboSearchBranch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cboSearchBranch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSearchBranch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSearchBranch.FormattingEnabled = True
         Me.cboSearchBranch.Location = New System.Drawing.Point(55, 34)
         Me.cboSearchBranch.Name = "cboSearchBranch"
         Me.cboSearchBranch.Size = New System.Drawing.Size(150, 21)
-        Me.cboSearchBranch.TabIndex = 17
+        Me.cboSearchBranch.TabIndex = 6
         '
         'Label25
         '
@@ -1196,14 +1179,14 @@ Partial Class IAIPUserAdminTool
         Me.txtSearchLastName.Location = New System.Drawing.Point(231, 7)
         Me.txtSearchLastName.Name = "txtSearchLastName"
         Me.txtSearchLastName.Size = New System.Drawing.Size(100, 20)
-        Me.txtSearchLastName.TabIndex = 15
+        Me.txtSearchLastName.TabIndex = 1
         '
         'txtSearchFirstName
         '
         Me.txtSearchFirstName.Location = New System.Drawing.Point(405, 7)
         Me.txtSearchFirstName.Name = "txtSearchFirstName"
         Me.txtSearchFirstName.Size = New System.Drawing.Size(100, 20)
-        Me.txtSearchFirstName.TabIndex = 16
+        Me.txtSearchFirstName.TabIndex = 2
         '
         'Label23
         '
@@ -1228,7 +1211,7 @@ Partial Class IAIPUserAdminTool
         Me.txtSearchEmployeeID.Location = New System.Drawing.Point(78, 7)
         Me.txtSearchEmployeeID.Name = "txtSearchEmployeeID"
         Me.txtSearchEmployeeID.Size = New System.Drawing.Size(83, 20)
-        Me.txtSearchEmployeeID.TabIndex = 14
+        Me.txtSearchEmployeeID.TabIndex = 0
         '
         'Label22
         '
@@ -1330,10 +1313,8 @@ Partial Class IAIPUserAdminTool
     Friend WithEvents cboPermissionBranch As System.Windows.Forms.ComboBox
     Friend WithEvents txtUserName As System.Windows.Forms.TextBox
     Friend WithEvents Label21 As System.Windows.Forms.Label
-    Friend WithEvents Label20 As System.Windows.Forms.Label
     Friend WithEvents Label17 As System.Windows.Forms.Label
     Friend WithEvents Label18 As System.Windows.Forms.Label
-    Friend WithEvents cboPermissionAccounts As System.Windows.Forms.ComboBox
     Friend WithEvents txtSearchEmployeeID As System.Windows.Forms.TextBox
     Friend WithEvents Label22 As System.Windows.Forms.Label
     Friend WithEvents cboSearchUnit As System.Windows.Forms.ComboBox

@@ -77,12 +77,14 @@ Partial Class IAIPNavigation
         Me.lblMessageLabel = New System.Windows.Forms.Label
         Me.bgrUserPermissions = New System.ComponentModel.BackgroundWorker
         Me.pnlCurrentList = New System.Windows.Forms.Panel
+        Me.ListChangerPanel = New System.Windows.Forms.Panel
         Me.pnlContextSubView = New System.Windows.Forms.Panel
         Me.dgvWorkViewer = New System.Windows.Forms.DataGridView
         Me.grpQuickAccess.SuspendLayout()
         Me.SbeapQuickAccessPanel.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.pnlCurrentList.SuspendLayout()
+        Me.ListChangerPanel.SuspendLayout()
         Me.pnlContextSubView.SuspendLayout()
         CType(Me.dgvWorkViewer, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -174,7 +176,7 @@ Partial Class IAIPNavigation
         Me.flpNavButtons.Location = New System.Drawing.Point(0, 0)
         Me.flpNavButtons.Name = "flpNavButtons"
         Me.flpNavButtons.Padding = New System.Windows.Forms.Padding(3, 0, 3, 3)
-        Me.flpNavButtons.Size = New System.Drawing.Size(118, 328)
+        Me.flpNavButtons.Size = New System.Drawing.Size(118, 398)
         Me.flpNavButtons.TabIndex = 0
         '
         'grpQuickAccess
@@ -199,7 +201,7 @@ Partial Class IAIPNavigation
         Me.grpQuickAccess.Controls.Add(Me.lblOpenTestReport)
         Me.grpQuickAccess.Controls.Add(Me.txtOpenTestReport)
         Me.grpQuickAccess.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.grpQuickAccess.Location = New System.Drawing.Point(118, 187)
+        Me.grpQuickAccess.Location = New System.Drawing.Point(118, 257)
         Me.grpQuickAccess.Name = "grpQuickAccess"
         Me.grpQuickAccess.Size = New System.Drawing.Size(686, 117)
         Me.grpQuickAccess.TabIndex = 2
@@ -411,7 +413,7 @@ Partial Class IAIPNavigation
         Me.txtOpenFacilitySummary.Cue = "AIRS #"
         Me.txtOpenFacilitySummary.Location = New System.Drawing.Point(10, 36)
         Me.txtOpenFacilitySummary.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtOpenFacilitySummary.MaxLength = 8
+        Me.txtOpenFacilitySummary.MaxLength = 9
         Me.txtOpenFacilitySummary.Name = "txtOpenFacilitySummary"
         Me.txtOpenFacilitySummary.Size = New System.Drawing.Size(90, 20)
         Me.txtOpenFacilitySummary.TabIndex = 0
@@ -509,7 +511,7 @@ Partial Class IAIPNavigation
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.pnlName, Me.pnlProgram, Me.pnlDate, Me.pnlDbEnv})
-        Me.StatusStrip1.Location = New System.Drawing.Point(118, 304)
+        Me.StatusStrip1.Location = New System.Drawing.Point(118, 374)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 10, 0)
         Me.StatusStrip1.Size = New System.Drawing.Size(686, 24)
@@ -595,7 +597,7 @@ Partial Class IAIPNavigation
         Me.btnChangeWorkViewerContext.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnChangeWorkViewerContext.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnChangeWorkViewerContext.Enabled = False
-        Me.btnChangeWorkViewerContext.Location = New System.Drawing.Point(278, 5)
+        Me.btnChangeWorkViewerContext.Location = New System.Drawing.Point(272, 5)
         Me.btnChangeWorkViewerContext.Name = "btnChangeWorkViewerContext"
         Me.btnChangeWorkViewerContext.Size = New System.Drawing.Size(61, 23)
         Me.btnChangeWorkViewerContext.TabIndex = 1
@@ -605,7 +607,7 @@ Partial Class IAIPNavigation
         'lblWorkViewerContext
         '
         Me.lblWorkViewerContext.AutoSize = True
-        Me.lblWorkViewerContext.Location = New System.Drawing.Point(7, 10)
+        Me.lblWorkViewerContext.Location = New System.Drawing.Point(5, 10)
         Me.lblWorkViewerContext.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblWorkViewerContext.Name = "lblWorkViewerContext"
         Me.lblWorkViewerContext.Size = New System.Drawing.Size(63, 13)
@@ -618,9 +620,9 @@ Partial Class IAIPNavigation
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cboWorkViewerContext.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboWorkViewerContext.FormattingEnabled = True
-        Me.cboWorkViewerContext.Location = New System.Drawing.Point(75, 6)
+        Me.cboWorkViewerContext.Location = New System.Drawing.Point(73, 6)
         Me.cboWorkViewerContext.Name = "cboWorkViewerContext"
-        Me.cboWorkViewerContext.Size = New System.Drawing.Size(197, 21)
+        Me.cboWorkViewerContext.Size = New System.Drawing.Size(193, 21)
         Me.cboWorkViewerContext.TabIndex = 0
         '
         'lblResultsCount
@@ -656,16 +658,27 @@ Partial Class IAIPNavigation
         '
         'pnlCurrentList
         '
-        Me.pnlCurrentList.Controls.Add(Me.btnChangeWorkViewerContext)
-        Me.pnlCurrentList.Controls.Add(Me.pnlContextSubView)
-        Me.pnlCurrentList.Controls.Add(Me.lblWorkViewerContext)
-        Me.pnlCurrentList.Controls.Add(Me.cboWorkViewerContext)
+        Me.pnlCurrentList.Controls.Add(Me.ListChangerPanel)
         Me.pnlCurrentList.Controls.Add(Me.lblResultsCount)
         Me.pnlCurrentList.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pnlCurrentList.Location = New System.Drawing.Point(118, 150)
+        Me.pnlCurrentList.Location = New System.Drawing.Point(118, 220)
         Me.pnlCurrentList.Name = "pnlCurrentList"
         Me.pnlCurrentList.Size = New System.Drawing.Size(686, 37)
         Me.pnlCurrentList.TabIndex = 1
+        '
+        'ListChangerPanel
+        '
+        Me.ListChangerPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ListChangerPanel.Controls.Add(Me.btnChangeWorkViewerContext)
+        Me.ListChangerPanel.Controls.Add(Me.lblWorkViewerContext)
+        Me.ListChangerPanel.Controls.Add(Me.cboWorkViewerContext)
+        Me.ListChangerPanel.Controls.Add(Me.pnlContextSubView)
+        Me.ListChangerPanel.Location = New System.Drawing.Point(0, 0)
+        Me.ListChangerPanel.MaximumSize = New System.Drawing.Size(630, 37)
+        Me.ListChangerPanel.Name = "ListChangerPanel"
+        Me.ListChangerPanel.Size = New System.Drawing.Size(594, 37)
+        Me.ListChangerPanel.TabIndex = 296
         '
         'pnlContextSubView
         '
@@ -673,7 +686,7 @@ Partial Class IAIPNavigation
         Me.pnlContextSubView.Controls.Add(Me.rdbStaffView)
         Me.pnlContextSubView.Controls.Add(Me.rdbUCView)
         Me.pnlContextSubView.Controls.Add(Me.rdbPMView)
-        Me.pnlContextSubView.Location = New System.Drawing.Point(342, 1)
+        Me.pnlContextSubView.Location = New System.Drawing.Point(342, 0)
         Me.pnlContextSubView.Name = "pnlContextSubView"
         Me.pnlContextSubView.Size = New System.Drawing.Size(252, 30)
         Me.pnlContextSubView.TabIndex = 295
@@ -695,14 +708,14 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.ReadOnly = True
         Me.dgvWorkViewer.RowHeadersVisible = False
         Me.dgvWorkViewer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 117)
+        Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 187)
         Me.dgvWorkViewer.TabIndex = 4
         '
         'IAIPNavigation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(804, 328)
+        Me.ClientSize = New System.Drawing.Size(804, 398)
         Me.Controls.Add(Me.dgvWorkViewer)
         Me.Controls.Add(Me.pnlCurrentList)
         Me.Controls.Add(Me.grpQuickAccess)
@@ -723,7 +736,8 @@ Partial Class IAIPNavigation
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         Me.pnlCurrentList.ResumeLayout(False)
-        Me.pnlCurrentList.PerformLayout()
+        Me.ListChangerPanel.ResumeLayout(False)
+        Me.ListChangerPanel.PerformLayout()
         Me.pnlContextSubView.ResumeLayout(False)
         Me.pnlContextSubView.PerformLayout()
         CType(Me.dgvWorkViewer, System.ComponentModel.ISupportInitialize).EndInit()
@@ -789,4 +803,5 @@ Partial Class IAIPNavigation
     Private WithEvents bgrLoadWorkViewer As System.ComponentModel.BackgroundWorker
     Private WithEvents bgrUserPermissions As System.ComponentModel.BackgroundWorker
     Friend WithEvents dgvWorkViewer As System.Windows.Forms.DataGridView
+    Friend WithEvents ListChangerPanel As System.Windows.Forms.Panel
 End Class

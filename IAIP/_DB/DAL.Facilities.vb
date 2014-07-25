@@ -98,7 +98,7 @@ Namespace DAL
 
             With facility
                 .FacilityLocation = location
-                .Name = DB.GetNullable(Of String)(row("STRFACILITYNAME"))
+                .FacilityName = DB.GetNullable(Of String)(row("STRFACILITYNAME"))
             End With
         End Sub
 

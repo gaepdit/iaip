@@ -1,10 +1,6 @@
 ﻿Imports System.Collections.Generic
 
 Module FormHandler
-    Public Enum MultiFormTypes
-        SingleForm
-        MultiForm
-    End Enum
     Public MultiForm As Dictionary(Of String, Dictionary(Of Integer, BaseForm))
     Public SingleForm As Dictionary(Of String, BaseForm)
 

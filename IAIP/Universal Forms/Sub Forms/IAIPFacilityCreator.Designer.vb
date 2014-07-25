@@ -521,7 +521,7 @@ Partial Class IAIPFacilityCreator
         Me.Label34.Name = "Label34"
         Me.Label34.Size = New System.Drawing.Size(49, 13)
         Me.Label34.TabIndex = 370
-        Me.Label34.Text = "Pedigree"
+        Me.Label34.Text = "Suffix"
         '
         'txtContactLastName
         '

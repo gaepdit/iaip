@@ -51,7 +51,6 @@ Partial Class DMUTool
         Me.Button5 = New System.Windows.Forms.Button
         Me.Button4 = New System.Windows.Forms.Button
         Me.Button3 = New System.Windows.Forms.Button
-        Me.btnUpdateComplianceContacts = New System.Windows.Forms.Button
         Me.btnFixStacks = New System.Windows.Forms.Button
         Me.btnFixInvoice = New System.Windows.Forms.Button
         Me.Label2 = New System.Windows.Forms.Label
@@ -112,7 +111,6 @@ Partial Class DMUTool
         Me.SCDMUTool.Panel2.Controls.Add(Me.Button5)
         Me.SCDMUTool.Panel2.Controls.Add(Me.Button4)
         Me.SCDMUTool.Panel2.Controls.Add(Me.Button3)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.btnUpdateComplianceContacts)
         Me.SCDMUTool.Panel2.Controls.Add(Me.btnFixStacks)
         Me.SCDMUTool.Panel2.Controls.Add(Me.btnFixInvoice)
         Me.SCDMUTool.Panel2.Controls.Add(Me.Label2)
@@ -409,17 +407,6 @@ Partial Class DMUTool
         Me.Button3.UseVisualStyleBackColor = True
         Me.Button3.Visible = False
         '
-        'btnUpdateComplianceContacts
-        '
-        Me.btnUpdateComplianceContacts.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnUpdateComplianceContacts.Location = New System.Drawing.Point(684, 125)
-        Me.btnUpdateComplianceContacts.Name = "btnUpdateComplianceContacts"
-        Me.btnUpdateComplianceContacts.Size = New System.Drawing.Size(17, 23)
-        Me.btnUpdateComplianceContacts.TabIndex = 22
-        Me.btnUpdateComplianceContacts.Text = "Update Compliance Contacts"
-        Me.btnUpdateComplianceContacts.UseVisualStyleBackColor = True
-        Me.btnUpdateComplianceContacts.Visible = False
-        '
         'btnFixStacks
         '
         Me.btnFixStacks.Location = New System.Drawing.Point(684, 57)
@@ -592,7 +579,6 @@ Partial Class DMUTool
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents btnFixInvoice As System.Windows.Forms.Button
     Friend WithEvents btnFixStacks As System.Windows.Forms.Button
-    Friend WithEvents btnUpdateComplianceContacts As System.Windows.Forms.Button
     Friend WithEvents Button3 As System.Windows.Forms.Button
     Friend WithEvents Button4 As System.Windows.Forms.Button
     Friend WithEvents Button5 As System.Windows.Forms.Button

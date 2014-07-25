@@ -18,6 +18,11 @@ Namespace DB
 
         Public Function GetNullableDateTimeFromString(ByVal obj As Object) As DateTime?
             Try
+        Public Function AddBlankRowToList(ByRef l As List(Of String), Optional ByVal blankPrompt As String = "") As List(Of String)
+            l.Insert(0, blankPrompt)
+            Return l
+        End Function
+
 
                 If obj Is Nothing OrElse IsDBNull(obj) OrElse String.IsNullOrEmpty(obj) Then
                     Return Nothing

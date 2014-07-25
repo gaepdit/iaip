@@ -59,23 +59,9 @@ Public Class PASPFeeDeposits
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiBack As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem13 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiExit As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiCut As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiCopy As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiPaste As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem6 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiClear As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem3 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents TBFacilitySummary As System.Windows.Forms.ToolBar
     Friend WithEvents tbbClear As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbBack As System.Windows.Forms.ToolBarButton
     Friend WithEvents PanelFacility As System.Windows.Forms.Panel
     Friend WithEvents llbViewAll As System.Windows.Forms.LinkLabel
     Friend WithEvents Label1 As System.Windows.Forms.Label
@@ -111,23 +97,9 @@ Public Class PASPFeeDeposits
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PASPFeeDeposits))
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem
-        Me.mmiBack = New System.Windows.Forms.MenuItem
-        Me.MenuItem13 = New System.Windows.Forms.MenuItem
-        Me.mmiExit = New System.Windows.Forms.MenuItem
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem
-        Me.mmiCut = New System.Windows.Forms.MenuItem
-        Me.mmiCopy = New System.Windows.Forms.MenuItem
-        Me.mmiPaste = New System.Windows.Forms.MenuItem
-        Me.MenuItem6 = New System.Windows.Forms.MenuItem
-        Me.mmiClear = New System.Windows.Forms.MenuItem
-        Me.MenuItem3 = New System.Windows.Forms.MenuItem
-        Me.mmiHelp = New System.Windows.Forms.MenuItem
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.TBFacilitySummary = New System.Windows.Forms.ToolBar
         Me.tbbClear = New System.Windows.Forms.ToolBarButton
-        Me.tbbBack = New System.Windows.Forms.ToolBarButton
         Me.tbbExportToExcel = New System.Windows.Forms.ToolBarButton
         Me.PanelFacility = New System.Windows.Forms.Panel
         Me.Panel4 = New System.Windows.Forms.Panel
@@ -182,72 +154,6 @@ Public Class PASPFeeDeposits
         Me.SplitContainer1.SuspendLayout()
         CType(Me.dgvDeposit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'MainMenu1
-        '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.MenuItem2, Me.MenuItem3, Me.mmiHelp})
-        '
-        'MenuItem1
-        '
-        Me.MenuItem1.Index = 0
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiBack, Me.MenuItem13, Me.mmiExit})
-        Me.MenuItem1.Text = "File"
-        '
-        'mmiBack
-        '
-        Me.mmiBack.Index = 0
-        Me.mmiBack.Text = "Back"
-        '
-        'MenuItem13
-        '
-        Me.MenuItem13.Index = 1
-        Me.MenuItem13.Text = "-"
-        '
-        'mmiExit
-        '
-        Me.mmiExit.Index = 2
-        Me.mmiExit.Text = "Exit"
-        '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 1
-        Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiCut, Me.mmiCopy, Me.mmiPaste, Me.MenuItem6, Me.mmiClear})
-        Me.MenuItem2.Text = "Edit"
-        '
-        'mmiCut
-        '
-        Me.mmiCut.Index = 0
-        Me.mmiCut.Text = "Cut"
-        '
-        'mmiCopy
-        '
-        Me.mmiCopy.Index = 1
-        Me.mmiCopy.Text = "Copy "
-        '
-        'mmiPaste
-        '
-        Me.mmiPaste.Index = 2
-        Me.mmiPaste.Text = "Paste"
-        '
-        'MenuItem6
-        '
-        Me.MenuItem6.Index = 3
-        Me.MenuItem6.Text = "-"
-        '
-        'mmiClear
-        '
-        Me.mmiClear.Index = 4
-        Me.mmiClear.Text = "Clear"
-        '
-        'MenuItem3
-        '
-        Me.MenuItem3.Index = 2
-        Me.MenuItem3.Text = "View"
-        '
-        'mmiHelp
-        '
-        Me.mmiHelp.Index = 3
-        Me.mmiHelp.Text = "Help"
         '
         'Image_List_All
         '
@@ -341,7 +247,7 @@ Public Class PASPFeeDeposits
         '
         'TBFacilitySummary
         '
-        Me.TBFacilitySummary.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.tbbClear, Me.tbbBack, Me.tbbExportToExcel})
+        Me.TBFacilitySummary.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.tbbClear, Me.tbbExportToExcel})
         Me.TBFacilitySummary.DropDownArrows = True
         Me.TBFacilitySummary.ImageList = Me.Image_List_All
         Me.TBFacilitySummary.Location = New System.Drawing.Point(0, 0)
@@ -355,12 +261,6 @@ Public Class PASPFeeDeposits
         Me.tbbClear.ImageIndex = 84
         Me.tbbClear.Name = "tbbClear"
         Me.tbbClear.ToolTipText = "Clear"
-        '
-        'tbbBack
-        '
-        Me.tbbBack.ImageIndex = 2
-        Me.tbbBack.Name = "tbbBack"
-        Me.tbbBack.ToolTipText = "Back"
         '
         'tbbExportToExcel
         '
@@ -538,7 +438,7 @@ Public Class PASPFeeDeposits
         '
         Me.txtPayId.Location = New System.Drawing.Point(353, 140)
         Me.txtPayId.Name = "txtPayId"
-        Me.txtPayId.Size = New System.Drawing.Size(83, 22)
+        Me.txtPayId.Size = New System.Drawing.Size(83, 20)
         Me.txtPayId.TabIndex = 0
         Me.txtPayId.Text = "PayId"
         Me.txtPayId.Visible = False
@@ -572,7 +472,6 @@ Public Class PASPFeeDeposits
         Me.GroupBox4.Controls.Add(Me.txtAirsNo)
         Me.GroupBox4.Controls.Add(Me.Label6)
         Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox4.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox4.Location = New System.Drawing.Point(0, 57)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(969, 224)
@@ -585,7 +484,7 @@ Public Class PASPFeeDeposits
         Me.mtbAirsNo.Location = New System.Drawing.Point(353, 29)
         Me.mtbAirsNo.Mask = "000_00000"
         Me.mtbAirsNo.Name = "mtbAirsNo"
-        Me.mtbAirsNo.Size = New System.Drawing.Size(83, 22)
+        Me.mtbAirsNo.Size = New System.Drawing.Size(83, 20)
         Me.mtbAirsNo.TabIndex = 170
         '
         'txtInvoiceNo
@@ -603,7 +502,7 @@ Public Class PASPFeeDeposits
         Me.Label10.AutoSize = True
         Me.Label10.Location = New System.Drawing.Point(528, 33)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(69, 15)
+        Me.Label10.Size = New System.Drawing.Size(62, 13)
         Me.Label10.TabIndex = 168
         Me.Label10.Text = "Invoice No:"
         '
@@ -856,9 +755,8 @@ Public Class PASPFeeDeposits
         Me.ClientSize = New System.Drawing.Size(969, 582)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.TBFacilitySummary)
-        Me.Menu = Me.MainMenu1
         Me.Name = "PASPFeeDeposits"
-        Me.Text = "PASP Fee Deposits"
+        Me.Text = "Fee Deposits"
         Me.PanelFacility.ResumeLayout(False)
         Me.PanelFacility.PerformLayout()
         Me.Panel4.ResumeLayout(False)
@@ -1439,48 +1337,16 @@ Public Class PASPFeeDeposits
 
     End Sub
     Private Sub TBFacilitySummary_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBFacilitySummary.ButtonClick
-        Try
-
-            Select Case TBFacilitySummary.Buttons.IndexOf(e.Button)
-                Case 0
-                    ClearPage()
-                Case 1
-                    Me.Close()
-                Case 2
-                    ExportToExcel()
-                Case Else
-            End Select
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        Select Case TBFacilitySummary.Buttons.IndexOf(e.Button)
+            Case 0
+                ClearPage()
+            Case 1
+                ExportToExcel()
+            Case Else
+        End Select
     End Sub
     Private Sub PASPFeeDeposits_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-            Me.Dispose()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiBack.Click
-        Try
-
-            Me.Close()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        Me.Dispose()
     End Sub
 
-   
-    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
-        OpenDocumentationUrl(Me)
-    End Sub
 End Class

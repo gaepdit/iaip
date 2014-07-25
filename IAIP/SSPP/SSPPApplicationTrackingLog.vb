@@ -70,7 +70,6 @@ Public Class SSPPApplicationTrackingLog
 
             TCApplicationTrackingLog.TabPages.Add(TPSubPartEditor)
             LoadSubPartData()
-            SetPermissions()
 
             TCSupParts.TabPages.Remove(TPEditSubParts)
             
@@ -1466,13 +1465,16 @@ Public Class SSPPApplicationTrackingLog
             If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or _
                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
                 cboApplicationType.BackColor = Color.LightGreen
+                lblApplicationType.BackColor = Color.LightGreen
             End If
             If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
                 cboApplicationType.BackColor = Color.PeachPuff
+                lblApplicationType.BackColor = Color.PeachPuff
             End If
             If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or _
                 (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
                 cboApplicationType.BackColor = Color.Yellow
+                lblApplicationType.BackColor = Color.Yellow
             End If
 
             'cboApplicationUnit
@@ -1485,9 +1487,11 @@ Public Class SSPPApplicationTrackingLog
             If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or _
                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
                 cboApplicationUnit.BackColor = Color.LightBlue
+                lblApplicationUnit.BackColor = Color.LightBlue
             End If
             If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
                 cboApplicationUnit.BackColor = Color.PeachPuff
+                lblApplicationUnit.BackColor = Color.PeachPuff
             End If
 
             'cboClassification
@@ -1501,10 +1505,12 @@ Public Class SSPPApplicationTrackingLog
             If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or _
                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
                 cboClassification.BackColor = Color.LightGreen
+                lblClassification.BackColor = Color.LightGreen
             End If
             If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or _
                 (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
                 cboClassification.BackColor = Color.Yellow
+                lblClassification.BackColor = Color.Yellow
             End If
 
             'cboCounty
@@ -1521,6 +1527,7 @@ Public Class SSPPApplicationTrackingLog
             If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or _
                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
                 cboEngineer.BackColor = Color.LightBlue
+                lblEngineer.BackColor = Color.LightBlue
             End If
 
             'cboFacilityCity
@@ -1547,6 +1554,7 @@ Public Class SSPPApplicationTrackingLog
             If (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Or _
                 (AccountFormAccess(48, 2) = "1" And AccountFormAccess(48, 3) = "0" And AccountFormAccess(48, 4) = "0") Then
                 cboISMPStaff.BackColor = Color.Yellow
+                lblISMPStaff.BackColor = Color.Yellow
             End If
             'cboOperationalStatus
             If AccountFormAccess(129, 3) = "1" Or _
@@ -1560,13 +1568,16 @@ Public Class SSPPApplicationTrackingLog
             If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or _
                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
                 cboOperationalStatus.BackColor = Color.LightGreen
+                lblOperationalStatus.BackColor = Color.LightGreen
             End If
             If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
                 cboOperationalStatus.BackColor = Color.PeachPuff
+                lblOperationalStatus.BackColor = Color.PeachPuff
             End If
             If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or _
                 (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
                 cboOperationalStatus.BackColor = Color.Yellow
+                lblOperationalStatus.BackColor = Color.Yellow
             End If
             'cboPermitAction
             If AccountFormAccess(129, 3) = "1" Or _
@@ -1579,10 +1590,12 @@ Public Class SSPPApplicationTrackingLog
             If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or _
                   (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
                 cboPermitAction.BackColor = Color.LightGreen
+                lblPermitAction.BackColor = Color.LightGreen
             End If
             If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or _
                 (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
                 cboPermitAction.BackColor = Color.Yellow
+                lblPermitAction.BackColor = Color.Yellow
             End If
             'cboPublicAdvisory
             If AccountFormAccess(129, 3) = "1" Or _
@@ -1594,18 +1607,22 @@ Public Class SSPPApplicationTrackingLog
             End If
             If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Then
                 cboPublicAdvisory.BackColor = Color.LightBlue
+                lblPublicAdvisory.BackColor = Color.LightBlue
             End If
             If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
                 cboPublicAdvisory.BackColor = Color.LightGreen
+                lblPublicAdvisory.BackColor = Color.LightGreen
             End If
             If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or _
                 (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Then
                 cboPublicAdvisory.BackColor = Color.Yellow
+                lblPublicAdvisory.BackColor = Color.Yellow
             End If
             'cboSSCPStaff 
             If (AccountFormAccess(3, 2) = "1" And AccountFormAccess(3, 4) = "0") Or _
                 AccountFormAccess(67, 2) = "1" Then
                 cboSSCPStaff.BackColor = Color.Yellow
+                lblSSCPStaff.BackColor = Color.Yellow
             End If
             'chbNAANSR
             If AccountFormAccess(129, 3) = "1" Or _
@@ -2706,8 +2723,11 @@ Public Class SSPPApplicationTrackingLog
                 txtAIRSNumber.BackColor = Color.PeachPuff
                 chbClosedOut.BackColor = Color.LightBlue
                 cboEngineer.BackColor = Color.LightBlue
+                lblEngineer.BackColor = Color.LightBlue
                 cboApplicationUnit.BackColor = Color.LightBlue
+                lblApplicationUnit.BackColor = Color.LightBlue
                 cboApplicationType.BackColor = Color.LightGreen
+                lblApplicationType.BackColor = Color.LightGreen
                 txtFacilityName.BackColor = Color.LightGreen
                 txtFacilityStreetAddress.BackColor = Color.LightGreen
                 cboFacilityCity.BackColor = Color.LightGreen
@@ -2715,7 +2735,9 @@ Public Class SSPPApplicationTrackingLog
                 txtSICCode.BackColor = Color.LightGreen
                 txtNAICSCode.BackColor = Color.LightGreen
                 cboOperationalStatus.BackColor = Color.LightGreen
+                lblOperationalStatus.BackColor = Color.LightGreen
                 cboClassification.BackColor = Color.LightGreen
+                lblClassification.BackColor = Color.LightGreen
                 lblDated.BackColor = Color.PeachPuff
                 lblReceived.BackColor = Color.PeachPuff
                 lblDateAssigned.BackColor = Color.LightBlue
@@ -2816,6 +2838,9 @@ Public Class SSPPApplicationTrackingLog
                     cboEngineer.BackColor = Color.LightBlue
                     cboApplicationUnit.BackColor = Color.LightBlue
                     cboApplicationType.BackColor = Color.LightGreen
+                    lblEngineer.BackColor = Color.LightBlue
+                    lblApplicationUnit.BackColor = Color.LightBlue
+                    lblApplicationType.BackColor = Color.LightGreen
                     txtFacilityName.BackColor = Color.LightGreen
                     txtFacilityStreetAddress.BackColor = Color.LightGreen
                     cboFacilityCity.BackColor = Color.LightGreen
@@ -2824,9 +2849,12 @@ Public Class SSPPApplicationTrackingLog
                     txtNAICSCode.BackColor = Color.LightGreen
                     cboOperationalStatus.BackColor = Color.LightGreen
                     cboClassification.BackColor = Color.LightGreen
+                    lblOperationalStatus.BackColor = Color.LightGreen
+                    lblClassification.BackColor = Color.LightGreen
                     lblDated.BackColor = Color.PeachPuff
                     lblReceived.BackColor = Color.PeachPuff
                     cboPublicAdvisory.BackColor = Color.LightGreen
+                    lblPublicAdvisory.BackColor = Color.LightGreen
                     chbPAReady.BackColor = Color.LightGreen
                     lblDateToUC.BackColor = Color.LightGreen
                     chbPNReady.BackColor = Color.LightGreen
@@ -2905,6 +2933,8 @@ Public Class SSPPApplicationTrackingLog
                         chbClosedOut.BackColor = Color.PeachPuff
                         cboApplicationUnit.BackColor = Color.PeachPuff
                         cboApplicationType.BackColor = Color.PeachPuff
+                        lblApplicationUnit.BackColor = Color.PeachPuff
+                        lblApplicationType.BackColor = Color.PeachPuff
                         txtFacilityName.BackColor = Color.PeachPuff
                         txtFacilityStreetAddress.BackColor = Color.PeachPuff
                         cboFacilityCity.BackColor = Color.PeachPuff
@@ -2912,6 +2942,7 @@ Public Class SSPPApplicationTrackingLog
                         txtSICCode.BackColor = Color.PeachPuff
                         txtNAICSCode.BackColor = Color.PeachPuff
                         cboOperationalStatus.BackColor = Color.PeachPuff
+                        lblOperationalStatus.BackColor = Color.PeachPuff
                         lblDated.BackColor = Color.PeachPuff
                         lblReceived.BackColor = Color.PeachPuff
                         lblDatePAExpires.BackColor = Color.PeachPuff
@@ -2956,6 +2987,7 @@ Public Class SSPPApplicationTrackingLog
                             End If
 
                             cboApplicationType.BackColor = Color.Yellow
+                            lblApplicationType.BackColor = Color.Yellow
                             txtFacilityName.BackColor = Color.Yellow
                             txtFacilityStreetAddress.BackColor = Color.Yellow
                             cboFacilityCity.BackColor = Color.Yellow
@@ -2965,12 +2997,16 @@ Public Class SSPPApplicationTrackingLog
                             cboOperationalStatus.BackColor = Color.Yellow
                             cboClassification.BackColor = Color.Yellow
                             cboPublicAdvisory.BackColor = Color.Yellow
+                            lblOperationalStatus.BackColor = Color.Yellow
+                            lblClassification.BackColor = Color.Yellow
+                            lblPublicAdvisory.BackColor = Color.Yellow
                             chbPAReady.BackColor = Color.Yellow
                             lblDateToUC.BackColor = Color.Yellow
                             chbPNReady.BackColor = Color.Yellow
                             txtPlantDescription.BackColor = Color.Yellow
                             txtPermitNumber.BackColor = Color.Yellow
                             cboPermitAction.BackColor = Color.Yellow
+                            lblPermitAction.BackColor = Color.Yellow
                             txtReasonAppSubmitted.BackColor = Color.Yellow
                             txtComments.BackColor = Color.Yellow
                             chbCDS_0.BackColor = Color.Yellow
@@ -3064,6 +3100,7 @@ Public Class SSPPApplicationTrackingLog
 
                                     lblISMPReview.BackColor = Color.Yellow
                                     cboISMPStaff.BackColor = Color.Yellow
+                                    lblISMPStaff.BackColor = Color.Yellow
                                     rdbISMPYes.BackColor = Color.Yellow
                                     rdbISMPNo.BackColor = Color.Yellow
                                     txtISMPComments.BackColor = Color.Yellow
@@ -3090,6 +3127,7 @@ Public Class SSPPApplicationTrackingLog
 
                                         lblSSCPReview.BackColor = Color.Yellow
                                         cboSSCPStaff.BackColor = Color.Yellow
+                                        lblSSCPStaff.BackColor = Color.Yellow
                                         rdbSSCPYes.BackColor = Color.Yellow
                                         rdbSSCPNo.BackColor = Color.Yellow
                                         txtSSCPComments.BackColor = Color.Yellow
@@ -3123,6 +3161,7 @@ Public Class SSPPApplicationTrackingLog
                                             End If
 
                                             cboApplicationType.BackColor = Color.Yellow
+                                            lblApplicationType.BackColor = Color.Yellow
                                             txtFacilityName.BackColor = Color.Yellow
                                             txtFacilityStreetAddress.BackColor = Color.Yellow
                                             cboFacilityCity.BackColor = Color.Yellow
@@ -3130,8 +3169,11 @@ Public Class SSPPApplicationTrackingLog
                                             txtSICCode.BackColor = Color.Yellow
                                             txtNAICSCode.BackColor = Color.Yellow
                                             cboOperationalStatus.BackColor = Color.Yellow
+                                            lblOperationalStatus.BackColor = Color.Yellow
                                             cboClassification.BackColor = Color.Yellow
                                             cboPublicAdvisory.BackColor = Color.Yellow
+                                            lblClassification.BackColor = Color.Yellow
+                                            lblPublicAdvisory.BackColor = Color.Yellow
                                             chbPAReady.BackColor = Color.Yellow
                                             lblDateAcknowledge.BackColor = Color.Yellow
                                             lblDateToUC.BackColor = Color.Yellow
@@ -3139,6 +3181,7 @@ Public Class SSPPApplicationTrackingLog
                                             txtPlantDescription.BackColor = Color.Yellow
                                             txtPermitNumber.BackColor = Color.Yellow
                                             cboPermitAction.BackColor = Color.Yellow
+                                            lblPermitAction.BackColor = Color.Yellow
                                             txtReasonAppSubmitted.BackColor = Color.Yellow
                                             txtComments.BackColor = Color.Yellow
                                             chbCDS_0.BackColor = Color.Yellow
@@ -3168,11 +3211,13 @@ Public Class SSPPApplicationTrackingLog
                                             txtSignificantComments.BackColor = Color.LightYellow
                                             lblSSCPReview.BackColor = Color.Yellow
                                             cboSSCPStaff.BackColor = Color.Yellow
+                                            lblSSCPStaff.BackColor = Color.Yellow
                                             rdbSSCPYes.BackColor = Color.Yellow
                                             rdbSSCPNo.BackColor = Color.Yellow
                                             txtSSCPComments.BackColor = Color.Yellow
                                             lblISMPReview.BackColor = Color.Yellow
                                             cboISMPStaff.BackColor = Color.Yellow
+                                            lblISMPStaff.BackColor = Color.Yellow
                                             rdbISMPYes.BackColor = Color.Yellow
                                             rdbISMPNo.BackColor = Color.Yellow
                                             txtISMPComments.BackColor = Color.Yellow
@@ -3214,21 +3259,28 @@ Public Class SSPPApplicationTrackingLog
                 cboEngineer.Enabled = True
                 cboApplicationUnit.Enabled = True
                 cboApplicationType.Enabled = True
+                lblEngineer.Enabled = True
+                lblApplicationUnit.Enabled = True
+                lblApplicationType.Enabled = True
                 txtFacilityName.ReadOnly = False
                 txtFacilityStreetAddress.ReadOnly = False
                 cboFacilityCity.Enabled = True
                 txtFacilityZipCode.ReadOnly = False
                 cboCounty.Enabled = True
+                lblCounty.Enabled = True
                 txtSICCode.ReadOnly = False
                 txtNAICSCode.ReadOnly = False
                 cboOperationalStatus.Enabled = True
                 cboClassification.Enabled = True
+                lblOperationalStatus.Enabled = True
+                lblClassification.Enabled = True
                 DTPDateSent.Enabled = True
                 DTPDateReceived.Enabled = True
                 DTPDateAssigned.Enabled = True
                 DTPDateReassigned.Enabled = True
                 DTPDateAcknowledge.Enabled = True
                 cboPublicAdvisory.Enabled = True
+                lblPublicAdvisory.Enabled = True
                 chbPAReady.Enabled = True
                 DTPDatePAExpires.Enabled = True
                 DTPDateToUC.Enabled = True
@@ -3245,6 +3297,7 @@ Public Class SSPPApplicationTrackingLog
                 DTPDeadline.Enabled = True
                 txtPermitNumber.ReadOnly = False
                 cboPermitAction.Enabled = True
+                lblPermitAction.Enabled = True
                 chbCDS_0.Enabled = True
                 chbCDS_6.Enabled = True
                 chbCDS_7.Enabled = True
@@ -4344,27 +4397,9 @@ Public Class SSPPApplicationTrackingLog
          
 
     End Sub
-    Sub SetPermissions()
-        Try
-            If UserProgram <> "4" And UserProgram <> "2" Then   ' Not SSCP, Not Planning and Support
-                'btnSaveSIPSubpart.Enabled = False
-                'btnRemoveSIPSubpart.Enabled = False
-                'btnSaveNSPSSubpart.Enabled = False
-                'btnRemoveNSPSSubpart.Enabled = False
-                'btnSaveNESHAPSubpart.Enabled = False
-                'btnRemoveNESHAPSubpart.Enabled = False
-                'btnAddMACTSubpart.Enabled = False
-                'btnremoveMACTSubPart.Enabled = False
-                'TCSupParts.TabPages.Remove(TPEditSubParts)
-            End If
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
 #End Region
+
 #Region "Subs and Functions"
     Sub LoadBasicFacilityInfo()
         Dim Facilityname As String = ""
@@ -5016,11 +5051,11 @@ Public Class SSPPApplicationTrackingLog
         Finally
 
         End Try
-         
+
     End Sub
     Sub LoadMiscData()
         Try
-             
+
             Dim Attainment As String = ""
             Dim AttainmentStatus As String = ""
             Dim StateProgramCodes As String = ""
@@ -5111,7 +5146,7 @@ Public Class SSPPApplicationTrackingLog
         Finally
 
         End Try
-         
+
 
     End Sub
     Sub LoadContactData()
@@ -5252,7 +5287,7 @@ Public Class SSPPApplicationTrackingLog
         Finally
 
         End Try
-         
+
     End Sub
     Sub LoadApplicationData()
         Dim AIRSNumber As String = ""
@@ -5260,7 +5295,7 @@ Public Class SSPPApplicationTrackingLog
         Dim temp As String = ""
 
         Try
-             
+
 
             txtAIRSNumber.Clear()
 
@@ -6039,9 +6074,9 @@ Public Class SSPPApplicationTrackingLog
         Catch ex As Exception
             ErrorReport(temp & vbCrLf & ex.ToString(), "SSPPPermitTracking.LoadApplicationData")
         Finally
-          
+
         End Try
-         
+
 
     End Sub
     Sub ReLoadBasicFacilityInfo()
@@ -6509,11 +6544,11 @@ Public Class SSPPApplicationTrackingLog
         Finally
 
         End Try
-         
+
     End Sub
     Sub CheckOpenApplications()
         Try
-             
+
             SQL = "select count(*) as ApplicationCount " & _
                "from " & DBNameSpace & ".SSPPApplicationMaster " & _
                "where datFinalizedDate Is Null " & _
@@ -6540,7 +6575,7 @@ Public Class SSPPApplicationTrackingLog
         Finally
 
         End Try
-         
+
 
     End Sub
     Sub CheckForLinks()
@@ -6548,7 +6583,7 @@ Public Class SSPPApplicationTrackingLog
         Dim ApplicationCount As String = 0
 
         Try
-             
+
             MasterApplication = ""
             txtMasterApp.Clear()
             txtMasterAppLock.Text = ""
@@ -6616,7 +6651,7 @@ Public Class SSPPApplicationTrackingLog
         Finally
 
         End Try
-         
+
 
     End Sub
     Sub SaveApplicationData()
@@ -7584,7 +7619,7 @@ Public Class SSPPApplicationTrackingLog
         Dim InformationRequestKey As String
 
         Try
-             
+
             If txtInformationRequestedKey.Text <> "" Then
                 InformationRequestKey = txtInformationRequestedKey.Text
                 SQL = "Delete " & DBNameSpace & ".SSPPApplicationInformation " & _
@@ -7613,13 +7648,13 @@ Public Class SSPPApplicationTrackingLog
         Finally
 
         End Try
-         
+
     End Sub
     Sub SaveApplicationSubmitForReview()
         Dim DateReviewSubmitted As String = OracleDate
 
         Try
-             
+
             If txtApplicationNumber.Text <> "" Then
                 If DTPReviewSubmitted.Checked = True Then
                     DateReviewSubmitted = DTPReviewSubmitted.Text
@@ -7689,14 +7724,14 @@ Public Class SSPPApplicationTrackingLog
         Finally
 
         End Try
-         
+
 
     End Sub
     Sub SaveSSCPReview()
         Dim SSCPComments As String
 
         Try
-             
+
             If txtApplicationNumber.Text <> "" Then
                 SQL = "Select strApplicationNumber " & _
                 "from " & DBNameSpace & ".SSPPApplicationMaster " & _
@@ -7766,14 +7801,14 @@ Public Class SSPPApplicationTrackingLog
         Finally
 
         End Try
-         
+
 
     End Sub
     Sub SaveISMPReview()
         Dim ISMPComments As String
 
         Try
-             
+
             If txtApplicationNumber.Text <> "" Then
                 SQL = "Select strApplicationNumber " & _
                 "from " & DBNameSpace & ".SSPPApplicationMaster " & _
@@ -7841,7 +7876,7 @@ Public Class SSPPApplicationTrackingLog
         Finally
 
         End Try
-         
+
 
     End Sub
     Sub SaveApplicationContact()
@@ -7879,19 +7914,19 @@ Public Class SSPPApplicationTrackingLog
                 ContactPrefix = " "
             End If
             If txtContactPedigree.Text <> "" Then
-                contactSuffix = txtContactPedigree.Text
+                ContactSuffix = txtContactPedigree.Text
             Else
-                contactSuffix = " "
+                ContactSuffix = " "
             End If
             If txtContactTitle.Text <> "" Then
-                contactTitle = txtContactTitle.Text
+                ContactTitle = txtContactTitle.Text
             Else
-                contactTitle = " "
+                ContactTitle = " "
             End If
             If txtContactCompanyName.Text <> "" Then
-                contactCompany = txtContactCompanyName.Text
+                ContactCompany = txtContactCompanyName.Text
             Else
-                contactCompany = " "
+                ContactCompany = " "
             End If
             If mtbContactPhoneNumber.Text <> "" Then
                 ContactPhone = mtbContactPhoneNumber.Text
@@ -8225,11 +8260,11 @@ Public Class SSPPApplicationTrackingLog
         Finally
 
         End Try
-         
+
     End Sub
     Sub CloseOutApplication(ByVal Status As String)
         Try
-             
+
             Select Case Status
                 Case "True"
                     txtFacilityName.ReadOnly = True
@@ -8394,7 +8429,7 @@ Public Class SSPPApplicationTrackingLog
         Finally
 
         End Try
-         
+
     End Sub
     Sub LinkApplications()
         Dim MasterApplication As String
@@ -8402,7 +8437,7 @@ Public Class SSPPApplicationTrackingLog
         Dim i As Integer
 
         Try
-             
+
             If lbLinkApplications.Items.Count > 1 Then
                 MasterApplication = txtApplicationNumber.Text
                 MasterAppType = cboApplicationType.SelectedValue
@@ -8514,20 +8549,20 @@ Public Class SSPPApplicationTrackingLog
             Else
                 MsgBox("A minimum of two applications are needed in order to link an application.", MsgBoxStyle.Information, "Application Tracking Log")
             End If
-         
+
         Catch ex As Exception
             ErrorReport(SQL & vbCrLf & txtAIRSNumber.Text & vbCrLf & ex.ToString(), "SSPPPermitTracking.LinkApplications")
         Finally
 
         End Try
-         
+
 
     End Sub
     Sub ClearApplicationLinks()
         Dim MasterLink As String = ""
 
         Try
-             
+
             If txtMasterApp.Text <> "" Then
                 SQL = "Select strMasterApplication " & _
                 "from " & DBNameSpace & ".SSPPApplicationLinking " & _
@@ -8564,13 +8599,13 @@ Public Class SSPPApplicationTrackingLog
 
                 End If
             End If
-          
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
-         
+
     End Sub
     Sub SaveWebPublisherData()
         Dim EPAStatesNotifiedAppRec As String
@@ -8584,7 +8619,7 @@ Public Class SSPPApplicationTrackingLog
         Dim PNExpires As String
 
         Try
-             
+
 
             If DTPNotifiedAppReceived.Checked = True Then
                 EPAStatesNotifiedAppRec = DTPNotifiedAppReceived.Text
@@ -8714,7 +8749,7 @@ Public Class SSPPApplicationTrackingLog
         Finally
 
         End Try
-         
+
 
     End Sub
     Sub GenerateAFSEntry()
@@ -8722,7 +8757,7 @@ Public Class SSPPApplicationTrackingLog
         Dim UpdateStatus As String
 
         Try
-             
+
             SQL = "Select " & _
             "strUpdateStatus " & _
             "from " & DBNameSpace & ".AFSSSPPRecords " & _
@@ -8837,7 +8872,7 @@ Public Class SSPPApplicationTrackingLog
         Finally
 
         End Try
-         
+
 
     End Sub
     Sub UpdateAPBTables()
@@ -10175,7 +10210,7 @@ Public Class SSPPApplicationTrackingLog
         Finally
 
         End Try
-         
+
     End Sub
     Sub DisplayPermitPanel()
         Try
@@ -10212,7 +10247,7 @@ Public Class SSPPApplicationTrackingLog
         Finally
 
         End Try
-         
+
     End Sub
     Sub FindMasterApp()
         Dim temp As String = ""
@@ -10611,7 +10646,7 @@ Public Class SSPPApplicationTrackingLog
         Finally
 
         End Try
-         
+
     End Sub
     Sub DownloadFile(ByVal FileName As String, ByVal FileType As String)
         Try
@@ -10825,7 +10860,7 @@ Public Class SSPPApplicationTrackingLog
 
         End Try
     End Sub
-  
+
 #End Region
 #Region "Clears"
     Sub ClearApplicationData()
@@ -11089,9 +11124,6 @@ Public Class SSPPApplicationTrackingLog
         Select Case TBSSPPPermitTrackingLog.Buttons.IndexOf(e.Button)
             Case 0
                 PreSaveCheckThenSave()
-            Case 1
-                Me.Close()
-            Case Else
         End Select
     End Sub
     Private Sub btnSaveInformationRequest_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveInformationRequest.Click

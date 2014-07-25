@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class DMUTitleVTools
+Partial Class SSPPTitleVTools
     Inherits BaseForm
 
     'Form overrides dispose to clean up the component list.
@@ -23,16 +23,7 @@ Partial Class DMUTitleVTools
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DMUTitleVTools))
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MmiFile = New System.Windows.Forms.MenuItem
-        Me.MmiBack = New System.Windows.Forms.MenuItem
-        Me.MmiView = New System.Windows.Forms.MenuItem
-        Me.MmiHelp = New System.Windows.Forms.MenuItem
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSPPTitleVTools))
         Me.bgwTransfer = New System.ComponentModel.BackgroundWorker
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.TCDMUTools = New System.Windows.Forms.TabControl
@@ -160,9 +151,6 @@ Partial Class DMUTitleVTools
         Me.Label18 = New System.Windows.Forms.Label
         Me.Label3 = New System.Windows.Forms.Label
         Me.Label11 = New System.Windows.Forms.Label
-        Me.TSDMUStaffTools = New System.Windows.Forms.ToolStrip
-        Me.tsbBack = New System.Windows.Forms.ToolStripButton
-        Me.StatusStrip1.SuspendLayout()
         Me.TCDMUTools.SuspendLayout()
         Me.TPWebPublishing.SuspendLayout()
         CType(Me.dgrWebPublisher, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -174,71 +162,7 @@ Partial Class DMUTitleVTools
         Me.TPTitleVRenewals.SuspendLayout()
         Me.GBTitleVRenewals.SuspendLayout()
         Me.TPPermittingContact.SuspendLayout()
-        Me.TSDMUStaffTools.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Panel1, Me.Panel2, Me.Panel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 520)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(823, 22)
-        Me.StatusStrip1.TabIndex = 254
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'Panel1
-        '
-        Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(800, 17)
-        Me.Panel1.Spring = True
-        Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Panel2
-        '
-        Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(4, 17)
-        '
-        'Panel3
-        '
-        Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(4, 17)
-        '
-        'MainMenu1
-        '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiFile, Me.MmiView, Me.MmiHelp})
-        '
-        'MmiFile
-        '
-        Me.MmiFile.Index = 0
-        Me.MmiFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiBack})
-        Me.MmiFile.Text = "File"
-        '
-        'MmiBack
-        '
-        Me.MmiBack.Index = 0
-        Me.MmiBack.Text = "Back"
-        '
-        'MmiView
-        '
-        Me.MmiView.Index = 1
-        Me.MmiView.Text = "View"
-        '
-        'MmiHelp
-        '
-        Me.MmiHelp.Index = 2
-        Me.MmiHelp.Text = "Help"
         '
         'Image_List_All
         '
@@ -337,10 +261,10 @@ Partial Class DMUTitleVTools
         Me.TCDMUTools.Controls.Add(Me.TPTitleVRenewals)
         Me.TCDMUTools.Controls.Add(Me.TPPermittingContact)
         Me.TCDMUTools.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCDMUTools.Location = New System.Drawing.Point(0, 25)
+        Me.TCDMUTools.Location = New System.Drawing.Point(0, 0)
         Me.TCDMUTools.Name = "TCDMUTools"
         Me.TCDMUTools.SelectedIndex = 0
-        Me.TCDMUTools.Size = New System.Drawing.Size(823, 495)
+        Me.TCDMUTools.Size = New System.Drawing.Size(823, 542)
         Me.TCDMUTools.TabIndex = 256
         '
         'TPWebPublishing
@@ -349,7 +273,7 @@ Partial Class DMUTitleVTools
         Me.TPWebPublishing.Controls.Add(Me.Panel4)
         Me.TPWebPublishing.Location = New System.Drawing.Point(4, 22)
         Me.TPWebPublishing.Name = "TPWebPublishing"
-        Me.TPWebPublishing.Size = New System.Drawing.Size(815, 469)
+        Me.TPWebPublishing.Size = New System.Drawing.Size(815, 516)
         Me.TPWebPublishing.TabIndex = 0
         Me.TPWebPublishing.Text = "Title V Web Publishing"
         Me.TPWebPublishing.UseVisualStyleBackColor = True
@@ -362,7 +286,7 @@ Partial Class DMUTitleVTools
         Me.dgrWebPublisher.Location = New System.Drawing.Point(419, 0)
         Me.dgrWebPublisher.Name = "dgrWebPublisher"
         Me.dgrWebPublisher.ReadOnly = True
-        Me.dgrWebPublisher.Size = New System.Drawing.Size(396, 469)
+        Me.dgrWebPublisher.Size = New System.Drawing.Size(396, 516)
         Me.dgrWebPublisher.TabIndex = 2
         '
         'Panel4
@@ -403,7 +327,7 @@ Partial Class DMUTitleVTools
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel4.Location = New System.Drawing.Point(0, 0)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(419, 469)
+        Me.Panel4.Size = New System.Drawing.Size(419, 516)
         Me.Panel4.TabIndex = 1
         '
         'Label12
@@ -1494,7 +1418,7 @@ Partial Class DMUTitleVTools
         Me.Label39.Name = "Label39"
         Me.Label39.Size = New System.Drawing.Size(49, 13)
         Me.Label39.TabIndex = 391
-        Me.Label39.Text = "Pedigree"
+        Me.Label39.Text = "Suffix"
         '
         'Label44
         '
@@ -1586,24 +1510,6 @@ Partial Class DMUTitleVTools
         Me.Label11.TabIndex = 381
         Me.Label11.Text = "First Name"
         '
-        'TSDMUStaffTools
-        '
-        Me.TSDMUStaffTools.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbBack})
-        Me.TSDMUStaffTools.Location = New System.Drawing.Point(0, 0)
-        Me.TSDMUStaffTools.Name = "TSDMUStaffTools"
-        Me.TSDMUStaffTools.Size = New System.Drawing.Size(823, 25)
-        Me.TSDMUStaffTools.TabIndex = 259
-        Me.TSDMUStaffTools.Text = "ToolStrip1"
-        '
-        'tsbBack
-        '
-        Me.tsbBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbBack.Image = CType(resources.GetObject("tsbBack.Image"), System.Drawing.Image)
-        Me.tsbBack.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbBack.Name = "tsbBack"
-        Me.tsbBack.Size = New System.Drawing.Size(23, 22)
-        Me.tsbBack.Text = "Back"
-        '
         'DMUTitleVTools
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1611,13 +1517,8 @@ Partial Class DMUTitleVTools
         Me.AutoScroll = True
         Me.ClientSize = New System.Drawing.Size(823, 542)
         Me.Controls.Add(Me.TCDMUTools)
-        Me.Controls.Add(Me.TSDMUStaffTools)
-        Me.Controls.Add(Me.StatusStrip1)
-        Me.Menu = Me.MainMenu1
         Me.Name = "DMUTitleVTools"
         Me.Text = "DMU Title V Tools"
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         Me.TCDMUTools.ResumeLayout(False)
         Me.TPWebPublishing.ResumeLayout(False)
         CType(Me.dgrWebPublisher, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1634,21 +1535,9 @@ Partial Class DMUTitleVTools
         Me.GBTitleVRenewals.PerformLayout()
         Me.TPPermittingContact.ResumeLayout(False)
         Me.TPPermittingContact.PerformLayout()
-        Me.TSDMUStaffTools.ResumeLayout(False)
-        Me.TSDMUStaffTools.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents MmiFile As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiBack As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiView As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents bgwTransfer As System.ComponentModel.BackgroundWorker
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents TCDMUTools As System.Windows.Forms.TabControl
@@ -1725,8 +1614,6 @@ Partial Class DMUTitleVTools
     Friend WithEvents txtRenewalCount As System.Windows.Forms.TextBox
     Friend WithEvents Label57 As System.Windows.Forms.Label
     Friend WithEvents Label56 As System.Windows.Forms.Label
-    Friend WithEvents TSDMUStaffTools As System.Windows.Forms.ToolStrip
-    Friend WithEvents tsbBack As System.Windows.Forms.ToolStripButton
     Friend WithEvents TPPermittingContact As System.Windows.Forms.TabPage
     Friend WithEvents btnGetCurrentPermittingContact As System.Windows.Forms.Button
     Friend WithEvents mtbContactZipCode As System.Windows.Forms.MaskedTextBox

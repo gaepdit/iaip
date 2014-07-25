@@ -686,6 +686,7 @@ Partial Class SscpEnforcement
         '
         Me.cboHPVType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboHPVType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboHPVType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboHPVType.Location = New System.Drawing.Point(16, 82)
         Me.cboHPVType.Name = "cboHPVType"
         Me.cboHPVType.Size = New System.Drawing.Size(747, 21)
@@ -844,6 +845,7 @@ Partial Class SscpEnforcement
         '
         Me.cboStaffResponsible.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboStaffResponsible.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboStaffResponsible.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStaffResponsible.Enabled = False
         Me.cboStaffResponsible.Location = New System.Drawing.Point(410, 5)
         Me.cboStaffResponsible.Name = "cboStaffResponsible"
@@ -913,6 +915,7 @@ Partial Class SscpEnforcement
         '
         Me.cboPollutantStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboPollutantStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboPollutantStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboPollutantStatus.Location = New System.Drawing.Point(636, 23)
         Me.cboPollutantStatus.Name = "cboPollutantStatus"
         Me.cboPollutantStatus.Size = New System.Drawing.Size(216, 21)

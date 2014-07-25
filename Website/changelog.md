@@ -1,6 +1,35 @@
 % IAIP Change Log
 
-## Version 3.4 <span> (2014-05-22)</span>
+## Version 3.5.1 <span>(2014-07-25)</span>
+
+- FIX: *Fees* -- Fee Management Tools button to open Fee Audit Log does not populate fee year
+
+## Version 3.5.0 <span>(2014-07-25)</span>
+
++ NEW: *Fees* -- Change how Fee Mailout Contact is edited. Edit contacts directly from Fees Audit Log (#247)
+
+- FIX: Allow AIRS number with dash in Navigation screen quick access (#249)
+- FIX: *Smoke School* -- InvalidOperationException when opening Smoke School tool if no classes are current (#248)
+- FIX: *Fees* -- Don't allow editing of GECO contact
+- FIX: Various additional bug fixes and code cleanup
+
+## Version 3.4.4 <span>(2014-06-26)</span>
+
++ NEW: Minor UI refinements and code cleanup
+
+- FIX: *PASP* -- Fee audit log Update Audit button throws error (#224); thx Debbie
+
+## Version 3.4.3 <span>(2014-06-12)</span>
+
++ NEW: *PASP* -- Updates to the Initial Mailout workflow in Fee Management Tools (#246)
+
+## Version 3.4.1 <span>(2014-06-11)</span>
+
++ NEW: Some minor UI refinements and code cleanup
+
+- FIX: *PASP* -- Several bugs in Fee Mailout System (#245 & #246)
+
+## Version 3.4 <span>(2014-05-22)</span>
 
 + NEW: Several UI improvements to Navigation Screen (#238, #216, #167)
 
@@ -8,14 +37,14 @@
 - FIX: Huge performance gain on Navigation Screen upon login (#239)
 - FIX: Some URLs have changed after the Great NADC Server Consolidation (#234)
 
-## Version 3.3 <span> (2014-05-12)</span>
+## Version 3.3 <span>(2014-05-12)</span>
 
 - NEW: *SBEAP* -- Small Business Environmental Assistance Program now incorporated into IAIP (#210)
 - NEW: Navigation buttons are now grouped by program/category (#211)
 
 - FIX: Minor UI improvements
 
-## Version 3.2.1 <span> (2014-05-04)</span>
+## Version 3.2.1 <span>(2014-05-04)</span>
 
 - FIX: Additional work to ensure database connectivity after the server move (#225) (#228)
 

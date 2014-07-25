@@ -246,11 +246,10 @@ Public Class SmokeSchool
             cboSchedule1.Items.Add("- All Terms -")
 
             dr.Read()
-            Do
+            While (dr.Read)
                 locTerm = dr("strSchedule")
                 cboSchedule1.Items.Add(locTerm)
-
-            Loop While dr.Read
+            End While
 
             cboSchedule1.SelectedIndex = 0
 
@@ -281,10 +280,11 @@ Public Class SmokeSchool
             cboSchedule3.Items.Add("- All Terms -")
 
             dr.Read()
-            Do
-                locTerm = dr("strSchedule")
+
+            While (dr.Read)
+			locTerm = dr("strSchedule")
                 cboSchedule3.Items.Add(locTerm)
-            Loop While dr.Read
+            End While
 
             cboSchedule3.SelectedIndex = 0
 

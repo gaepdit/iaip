@@ -22,19 +22,6 @@ Partial Class PASPFeesLog
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PASPFeesLog))
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
-        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.tspBack = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiOpenBlankForm = New System.Windows.Forms.ToolStripMenuItem
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.tsFeesLog = New System.Windows.Forms.ToolStrip
-        Me.Back = New System.Windows.Forms.ToolStripButton
-        Me.ToolStripButton2 = New System.Windows.Forms.ToolStripButton
-        Me.ToolStripButton3 = New System.Windows.Forms.ToolStripButton
-        Me.ToolStripButton4 = New System.Windows.Forms.ToolStripButton
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.btnExportToExcel = New System.Windows.Forms.Button
         Me.txtResultsCount = New System.Windows.Forms.TextBox
@@ -71,8 +58,6 @@ Partial Class PASPFeesLog
         Me.Label3 = New System.Windows.Forms.Label
         Me.Label2 = New System.Windows.Forms.Label
         Me.dgvExistingYearAdmin = New System.Windows.Forms.DataGridView
-        Me.MenuStrip1.SuspendLayout()
-        Me.tsFeesLog.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -81,103 +66,6 @@ Partial Class PASPFeesLog
         Me.TPFacilitySpecific.SuspendLayout()
         CType(Me.dgvExistingYearAdmin, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 544)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(792, 22)
-        Me.StatusStrip1.TabIndex = 0
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.ToolsToolStripMenuItem, Me.HelpToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(792, 24)
-        Me.MenuStrip1.TabIndex = 1
-        Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'FileToolStripMenuItem
-        '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tspBack})
-        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.FileToolStripMenuItem.Text = "File"
-        '
-        'tspBack
-        '
-        Me.tspBack.Name = "tspBack"
-        Me.tspBack.Size = New System.Drawing.Size(99, 22)
-        Me.tspBack.Text = "Back"
-        '
-        'ToolsToolStripMenuItem
-        '
-        Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiOpenBlankForm})
-        Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
-        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(48, 20)
-        Me.ToolsToolStripMenuItem.Text = "Tools"
-        '
-        'mmiOpenBlankForm
-        '
-        Me.mmiOpenBlankForm.Name = "mmiOpenBlankForm"
-        Me.mmiOpenBlankForm.Size = New System.Drawing.Size(166, 22)
-        Me.mmiOpenBlankForm.Text = "Open Blank Form"
-        '
-        'HelpToolStripMenuItem
-        '
-        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
-        Me.HelpToolStripMenuItem.Text = "Help"
-        '
-        'tsFeesLog
-        '
-        Me.tsFeesLog.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Back, Me.ToolStripButton2, Me.ToolStripButton3, Me.ToolStripButton4})
-        Me.tsFeesLog.Location = New System.Drawing.Point(0, 24)
-        Me.tsFeesLog.Name = "tsFeesLog"
-        Me.tsFeesLog.Size = New System.Drawing.Size(792, 25)
-        Me.tsFeesLog.TabIndex = 2
-        Me.tsFeesLog.Text = "ToolStrip1"
-        '
-        'Back
-        '
-        Me.Back.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.Back.Image = CType(resources.GetObject("Back.Image"), System.Drawing.Image)
-        Me.Back.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.Back.Name = "Back"
-        Me.Back.Size = New System.Drawing.Size(23, 22)
-        Me.Back.Text = "Back"
-        '
-        'ToolStripButton2
-        '
-        Me.ToolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.ToolStripButton2.Image = CType(resources.GetObject("ToolStripButton2.Image"), System.Drawing.Image)
-        Me.ToolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ToolStripButton2.Name = "ToolStripButton2"
-        Me.ToolStripButton2.Size = New System.Drawing.Size(23, 22)
-        Me.ToolStripButton2.Text = "Search"
-        Me.ToolStripButton2.Visible = False
-        '
-        'ToolStripButton3
-        '
-        Me.ToolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.ToolStripButton3.Image = CType(resources.GetObject("ToolStripButton3.Image"), System.Drawing.Image)
-        Me.ToolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ToolStripButton3.Name = "ToolStripButton3"
-        Me.ToolStripButton3.Size = New System.Drawing.Size(23, 22)
-        Me.ToolStripButton3.Text = "Export To Excel"
-        Me.ToolStripButton3.Visible = False
-        '
-        'ToolStripButton4
-        '
-        Me.ToolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.ToolStripButton4.Image = CType(resources.GetObject("ToolStripButton4.Image"), System.Drawing.Image)
-        Me.ToolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ToolStripButton4.Name = "ToolStripButton4"
-        Me.ToolStripButton4.Size = New System.Drawing.Size(23, 22)
-        Me.ToolStripButton4.Text = "Reset"
-        Me.ToolStripButton4.Visible = False
         '
         'GroupBox1
         '
@@ -195,7 +83,7 @@ Partial Class PASPFeesLog
         Me.GroupBox1.Controls.Add(Me.btnRunFilter)
         Me.GroupBox1.Controls.Add(Me.TabControl1)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GroupBox1.Location = New System.Drawing.Point(0, 49)
+        Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(792, 241)
         Me.GroupBox1.TabIndex = 3
@@ -542,9 +430,9 @@ Partial Class PASPFeesLog
         '
         Me.dgvExistingYearAdmin.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvExistingYearAdmin.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvExistingYearAdmin.Location = New System.Drawing.Point(0, 290)
+        Me.dgvExistingYearAdmin.Location = New System.Drawing.Point(0, 241)
         Me.dgvExistingYearAdmin.Name = "dgvExistingYearAdmin"
-        Me.dgvExistingYearAdmin.Size = New System.Drawing.Size(792, 254)
+        Me.dgvExistingYearAdmin.Size = New System.Drawing.Size(792, 325)
         Me.dgvExistingYearAdmin.TabIndex = 4
         '
         'PASPFeesLog
@@ -554,16 +442,8 @@ Partial Class PASPFeesLog
         Me.ClientSize = New System.Drawing.Size(792, 566)
         Me.Controls.Add(Me.dgvExistingYearAdmin)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.tsFeesLog)
-        Me.Controls.Add(Me.StatusStrip1)
-        Me.Controls.Add(Me.MenuStrip1)
-        Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "PASPFeesLog"
-        Me.Text = "PASP Fee(s) Log"
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
-        Me.tsFeesLog.ResumeLayout(False)
-        Me.tsFeesLog.PerformLayout()
+        Me.Text = "Fees Log"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
@@ -576,19 +456,8 @@ Partial Class PASPFeesLog
         Me.TPFacilitySpecific.PerformLayout()
         CType(Me.dgvExistingYearAdmin, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
-    Friend WithEvents tsFeesLog As System.Windows.Forms.ToolStrip
-    Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tspBack As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents Back As System.Windows.Forms.ToolStripButton
-    Friend WithEvents ToolStripButton2 As System.Windows.Forms.ToolStripButton
-    Friend WithEvents ToolStripButton3 As System.Windows.Forms.ToolStripButton
-    Friend WithEvents ToolStripButton4 As System.Windows.Forms.ToolStripButton
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents dgvExistingYearAdmin As System.Windows.Forms.DataGridView
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
@@ -607,8 +476,6 @@ Partial Class PASPFeesLog
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents mtbSelectedAIRSNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents mtbSelectedFeeYear As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents ToolsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiOpenBlankForm As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
     Friend WithEvents chbOperating As System.Windows.Forms.CheckBox
     Friend WithEvents chbClosed As System.Windows.Forms.CheckBox

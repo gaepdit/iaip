@@ -870,7 +870,7 @@ Partial Class PASPFeeReports
         Me.Controls.Add(Me.tabReport)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "PASPFeeReports"
-        Me.Text = "PASPFeeReports"
+        Me.Text = "Fee Reports"
         Me.tabReport.ResumeLayout(False)
         Me.TPFacilitySpecific.ResumeLayout(False)
         Me.TPFacilitySpecific.PerformLayout()

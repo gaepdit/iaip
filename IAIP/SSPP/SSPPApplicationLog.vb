@@ -75,10 +75,6 @@ Public Class SSPPApplicationLog
             mmiOpen.Enabled = False
             mmiExport.Enabled = False
 
-            Panel1.Text = "Loading…"
-            Panel2.Text = UserName
-            Panel3.Text = OracleDate
-
             LoadComboBoxes()
             LoadDefaults()
             RunSearch()
@@ -745,7 +741,6 @@ Public Class SSPPApplicationLog
         selectedApp = ""
 
         dgvApplicationLog.Visible = False
-        Panel1.Text = "Loading…"
         lblMessage.Text = "Loading…"
         lblMessage.Visible = True
 
@@ -1990,7 +1985,6 @@ Public Class SSPPApplicationLog
             'dgvApplicationLog.DataSource = dsApplication
 
             dgvApplicationLog.Visible = False
-            Panel1.Text = "Search canceled"
             lblMessage.Text = "Search canceled"
             lblMessage.Visible = True
 
@@ -2138,13 +2132,12 @@ Public Class SSPPApplicationLog
             lblMessage.Visible = True
         Else
             If dsApplication.Tables(0).Rows.Count = 1 Then
-                Panel2.Text = dsApplication.Tables(0).Rows.Count & " application found"
+                Panel1.Text = dsApplication.Tables(0).Rows.Count & " application found"
             Else
-                Panel2.Text = dsApplication.Tables(0).Rows.Count & " applications found"
+                Panel1.Text = dsApplication.Tables(0).Rows.Count & " applications found"
             End If
             dgvApplicationLog.Visible = True
             dgvApplicationLog.SanelyResizeColumns()
-            Panel1.Text = "Select an Application…"
             lblMessage.Visible = False
 
             btnExport.Enabled = True
@@ -2196,7 +2189,7 @@ Public Class SSPPApplicationLog
 #End Region
 
 #Region "Events"
-    Private Sub cboFieldType1_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboFieldType1.TextChanged
+    Private Sub cboFieldType1_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboFieldType1.SelectedIndexChanged
         Try
 
             Select Case cboFieldType1.Text
@@ -2866,7 +2859,7 @@ Public Class SSPPApplicationLog
         End Try
 
     End Sub
-    Private Sub cboFieldType2_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboFieldType2.TextChanged
+    Private Sub cboFieldType2_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboFieldType2.SelectedIndexChanged
         Try
 
             Select Case cboFieldType2.Text
@@ -3565,8 +3558,8 @@ Public Class SSPPApplicationLog
         ' Anywhere in any cell in any non-header row in grid
         If e.RowIndex <> -1 And e.RowIndex < dgvApplicationLog.RowCount Then
             selectedApp = dgvApplicationLog.Rows(e.RowIndex).Cells("strApplicationNumber").Value
-            Panel1.Text = selectedApp & " – " & _
-                dgvApplicationLog.Rows(e.RowIndex).Cells("strFacilityName").Value
+            'Panel1.Text = selectedApp & " – " & _
+            '    dgvApplicationLog.Rows(e.RowIndex).Cells("strFacilityName").Value
             btnOpen.Enabled = True
             mmiOpen.Enabled = True
         End If
@@ -3591,8 +3584,8 @@ Public Class SSPPApplicationLog
     Handles dgvApplicationLog.CellEnter
         If e.RowIndex <> -1 And e.RowIndex < dgvApplicationLog.RowCount Then
             selectedApp = dgvApplicationLog.Rows(e.RowIndex).Cells("strApplicationNumber").Value
-            Panel1.Text = selectedApp & " – " & _
-                dgvApplicationLog.Rows(e.RowIndex).Cells("strFacilityName").Value
+            'Panel1.Text = selectedApp & " – " & _
+            '    dgvApplicationLog.Rows(e.RowIndex).Cells("strFacilityName").Value
             btnOpen.Enabled = True
             mmiOpen.Enabled = True
         End If

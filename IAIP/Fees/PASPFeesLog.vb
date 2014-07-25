@@ -274,47 +274,13 @@ Public Class PASPFeesLog
 
     End Sub
     Private Sub btnOpenFeeWorkTool_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFeeWorkTool.Click
-        Try
+        Dim parameters As New Generic.Dictionary(Of String, String)
+        If Apb.Facility.IsAirsNumberValid(mtbSelectedAIRSNumber.Text) Then
+            parameters("airsnumber") = mtbSelectedAIRSNumber.Text
+        End If
+        parameters("feeyear") = mtbSelectedFeeYear.Text
 
-            If FeeStats Is Nothing Then
-                If FeeStats Is Nothing Then FeeStats = New PASPFeeAuditLog
-            Else
-                FeeStats.Dispose()
-                FeeStats = New PASPFeeAuditLog
-            End If
-            FeeStats.Show()
-
-            FeeStats.mtbFeeAdminAIRSNumber.Text = mtbSelectedAIRSNumber.Text
-            FeeStats.txtFeeAdminFacilityName.Text = txtSelectedFacilityName.Text
-            FeeStats.mtbFeeAdminExistingYear.Text = mtbSelectedFeeYear.Text
-
-            If FeeStats.mtbFeeAdminAIRSNumber.Text <> "" Then
-                FeeStats.LoadAdminData()
-                FeeStats.LoadAuditedData()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub mmiOpenBlankForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOpenBlankForm.Click
-        Try
-
-            If FeeStats Is Nothing Then
-                If FeeStats Is Nothing Then FeeStats = New PASPFeeAuditLog
-            Else
-                FeeStats.Dispose()
-                FeeStats = New PASPFeeAuditLog
-            End If
-            FeeStats.Show()
-
-            FeeStats.mtbFeeAdminAIRSNumber.Text = mtbSelectedAIRSNumber.Text
-            FeeStats.txtFeeAdminFacilityName.Text = txtSelectedFacilityName.Text
-            FeeStats.mtbFeeAdminExistingYear.Text = mtbSelectedFeeYear.Text
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenSingleForm("PASPFeeAuditLog", parameters:=parameters, closeFirst:=True)
     End Sub
     Private Sub btnExportToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportToExcel.Click
         Try
@@ -348,14 +314,6 @@ Public Class PASPFeesLog
                 End If
             End If
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub Back_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Back.Click
-        Try
-
-            Me.Hide()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

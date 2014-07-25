@@ -14,7 +14,7 @@ Namespace Apb
             Me.AirsNumber = airsNumber
         End Sub
 
-#Region "Properties"
+#Region " Properties "
 
         Public Property AirsNumber() As String
             Get
@@ -36,15 +36,15 @@ Namespace Apb
             End Get
         End Property
 
-        Public Property Name() As String
+        Public Property FacilityName() As String
             Get
-                Return _name
+                Return _facilityName
             End Get
             Set(ByVal value As String)
-                _name = value
+                _facilityName = value
             End Set
         End Property
-        Private _name As String
+        Private _facilityName As String
 
         ''' <summary>
         ''' Facility Location is where the facility is actually located, distinct 
@@ -81,35 +81,63 @@ Namespace Apb
         End Property
         Private _headerData As FacilityHeaderData
 
+
+
+
+
+
+
+
+
+
+
+        Private _subjectToNsps As Boolean?
+        Public Property SubjectToNsps() As Boolean?
+            Get
+                Return _subjectToNsps
+            End Get
+            Set(ByVal value As Boolean?)
+                _subjectToNsps = value
+            End Set
+        End Property
+
+        Private _subjectToPart70 As Boolean?
+        Public Property SubjectToPart70() As Boolean?
+            Get
+                Return _subjectToPart70
+            End Get
+            Set(ByVal value As Boolean?)
+                _subjectToPart70 = value
+            End Set
+        End Property
+
+        Private _comment As String
+        Public Property Comment() As String
+            Get
+                Return _comment
+            End Get
+            Set(ByVal value As String)
+                _comment = value
+            End Set
+        End Property
+
 #End Region
 
 #Region "Shared Functions"
 
         ''' <summary>
-        ''' Tests whether a given string represents a valid AIRS number in format
-        ''' (not whether the AIRS number is actually in use).
+        ''' Determines whether a string is in the format of a valid AIRS number.
         ''' </summary>
         ''' <param name="airsNumber">The string to test</param>
-        ''' <returns>True if test string is in the format of a valid AIRS number. Otherwise, false.</returns>
+        ''' <returns>True if airsNumber is valid; otherwise, false.</returns>
+        ''' <remarks>Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000 (with or without the dashes)</remarks>
         Public Shared Function IsValidAirsNumber(ByVal airsNumber As String) As Boolean
             If airsNumber Is Nothing Then Return False
             ' Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000
             ' (with or without the dashes)
-
-            ' Remove dashes and spaces (the only non-numeral characters allowed)
-            Dim a As String = airsNumber.Replace("-", "").Replace(" ", "")
-
-            ' Test to see if remaining string can be parsed as an integer
-            ' (i.e., only numerals remain)
-            If Not (Int64.TryParse(a, Nothing)) Then _
-                Return False
-            If Not (a.Length = 8 Or a.Length = 12) Then _
-                Return False
-            If (a.Length = 12 And Mid(a, 1, 4) <> "0413") Then _
-                Return False
-
-            ' No red flags? Give a green light (to mix metaphors)
-            Return True
+            If airsNumber Is Nothing Then Return False
+            Dim rgx As New System.Text.RegularExpressions.Regex("^(04-?13-?)?\d{3}-?\d{5}$")
+            Return rgx.IsMatch(airsNumber)
         End Function
 
         ''' <summary>
@@ -130,10 +158,29 @@ Namespace Apb
             '
             ' Return value indicates whether the conversion succeeded.
 
-            ' First, validate the raw AIRS number
-            If Not IsValidAirsNumber(airsNumber) Then Return False
+            ' First, validate the raw AIRS number.
+            If airsNumber Is Nothing OrElse Not (IsValidAirsNumber(airsNumber)) Then Return False
 
-            ' If okay, then remove spaces and dashes
+            ' If okay, then convert.
+            airsNumber = GetNormalizedAirsNumber(airsNumber, expand)
+            Return True
+        End Function
+
+        ''' <summary>
+        ''' Converts a string representation of an AIRS number to the "00000000" form. If 'expand' is True, then 
+        ''' the AIRS number is expanded to the "041300000000" form.
+        ''' </summary>
+        ''' <param name="airsNumber">The AIRS number to convert.</param>
+        ''' <param name="expand">Whether to expand to the 12-digit form.</param>
+        ''' <returns>A string representation of an AIRS number in the "00000000" or "041300000000" form.</returns>
+        Public Shared Function GetNormalizedAirsNumber(ByVal airsNumber As String, Optional ByVal expand As Boolean = False) As String
+            ' Converts a string representation of an AIRS number to the "00000000" form 
+            ' (eight numerals, no dashes).
+            '
+            ' If 'expand' is True, then the AIRS number is expanded to the "041300000000"
+            ' form (12 numerals, no dashes, beginning with "0413").
+
+            ' Remove spaces and dashes.
             airsNumber = airsNumber.Replace("-", "").Replace(" ", "")
 
             If expand Then
@@ -144,7 +191,7 @@ Namespace Apb
                 If airsNumber.Length = 12 Then airsNumber = airsNumber.Remove(0, 4)
             End If
 
-            Return True
+            Return airsNumber
         End Function
 
         ''' <summary>
