@@ -1,6 +1,6 @@
 % IAIP Change Log
 
-## Version 3.5.2 <span>(2014-07-30)</span>
+## Version 3.5.3 <span>(2014-07-30)</span>
 
 - FIX: *Fees* -- Unable to save admin data on Fee Audit Log (#250); thx Debbie
 
