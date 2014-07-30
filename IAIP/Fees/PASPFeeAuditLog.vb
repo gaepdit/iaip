@@ -2664,10 +2664,10 @@ Public Class PASPFeeAuditLog
         End If
 
         Dim parameters As New Generic.Dictionary(Of String, String)
-        parameters("airsnumber") = Me.AirsNumber
+        parameters("airsnumber") = AirsNumber
         parameters("facilityname") = txtFeeAdminFacilityName.Text
         parameters("key") = DAL.ContactKey.Fees.ToString
-        OpenMultiForm("IAIPEditContacts", Me.AirsNumber, parameters)
+        OpenMultiForm("IAIPEditContacts", AirsNumber, parameters)
     End Sub
 
     Private Sub ReloadButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ReloadButton.Click
@@ -2806,31 +2806,24 @@ Public Class PASPFeeAuditLog
             Dim ResultDoc As DialogResult
 
             If rdbInactiveStatus.Checked = True Then
-                ResultDoc = MessageBox.Show("If there are any transactions associated with this fee year they will ""effectively"" be deleted." & vbCrLf & _
-                         "Do you want to continue with an inactive status for this fee year data?", Me.Text, _
-                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
+                ResultDoc = MessageBox.Show("If there are any transactions associated with this fee year they will ""effectively"" be deleted." & _
+                                            "Do you want to continue with an inactive status for this fee year data?", Me.Text, _
+                                            MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
 
                 Select Case ResultDoc
-                    Case Windows.Forms.DialogResult.Yes
-
-                    Case Else
+                    Case Windows.Forms.DialogResult.No
                         MsgBox("NO DATA SAVED.", MsgBoxStyle.Exclamation, Me.Text)
                         Exit Sub
                 End Select
             End If
 
-            If FeeYearsComboBox.SelectedIndex = 0 _
-            OrElse (mtbAirsNumber.Text <> txtAIRSNumber.Text) _
-            OrElse (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) _
-            OrElse Not IsAirsNumberValid(txtAIRSNumber.Text) _
-            Then
-                MsgBox("The currently selected AIRS # does not match the selecting AIRS #." & _
-                       vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
+            If (mtbAirsNumber.Text <> AirsNumber) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
+                MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " & _
+                                "Please double-check and try again." & _
+                                vbNewLine & vbNewLine & "NO DATA SAVED.", _
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
-
-            Me.AirsNumber = mtbAirsNumber.Text
-            Me.FeeYear = FeeYearsComboBox.SelectedItem.ToString
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
                 " FROM " & DBNameSpace & ".FS_ADMIN " & _
@@ -2838,7 +2831,7 @@ Public Class PASPFeeAuditLog
                 " AND strAIRSnumber = :pAirsNumber " & _
                 " AND numFeeYear = :pFeeYear "
             Dim parameters As OracleParameter() = { _
-                New OracleParameter("pAirsNumber", Me.AirsNumber), _
+                New OracleParameter("pAirsNumber", Me.ExpandedAirsNumber), _
                 New OracleParameter("pFeeYear", Me.FeeYear) _
             }
             Dim result As Boolean = DB.GetBoolean(query, parameters)
@@ -2883,12 +2876,11 @@ Public Class PASPFeeAuditLog
     End Sub
     Private Sub btnAddFSAdmin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddFSAdmin.Click
         Try
-            If (mtbAirsNumber.Text <> txtAIRSNumber.Text) _
-             Or (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) _
-             Or txtAIRSNumber.Text = "" Or FeeYearsComboBox.SelectedItem = 0 _
-             Or txtYear.Text = "" Then
-                MsgBox("The currently selected AIRS # does not match the selecting AIRS #." & _
-                       vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
+            If (mtbAirsNumber.Text <> AirsNumber) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
+                MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " & _
+                                "Please double-check and try again." & _
+                                vbNewLine & vbNewLine & "NO DATA SAVED.", _
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -4517,12 +4509,11 @@ Public Class PASPFeeAuditLog
             Dim TransactionID As String = ""
             Dim Payment As String = "0"
 
-            If (mtbAirsNumber.Text <> Me.AirsNumber) _
-            Or (FeeYearsComboBox.SelectedItem.ToString <> Me.FeeYear) _
-            Or txtAIRSNumber.Text = "" Or FeeYearsComboBox.SelectedIndex = 0 _
-            Or txtYear.Text = "" Then
-                MsgBox("The currently selected AIRS # does not match the selecting AIRS #." & _
-                       vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
+            If (mtbAirsNumber.Text <> AirsNumber) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
+                MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " & _
+                                "Please double-check and try again." & _
+                                vbNewLine & vbNewLine & "NO DATA SAVED.", _
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -4579,12 +4570,11 @@ Public Class PASPFeeAuditLog
         Try
             Dim InvoiceID As String = ""
 
-            If (mtbAirsNumber.Text <> Me.AirsNumber) _
-            Or (FeeYearsComboBox.SelectedItem.ToString <> Me.FeeYear) _
-            Or txtAIRSNumber.Text = "" Or FeeYearsComboBox.SelectedIndex = 0 _
-            Or txtYear.Text = "" Then
-                MsgBox("The currently selected AIRS # does not match the selecting AIRS #." & _
-                       vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
+            If (mtbAirsNumber.Text <> AirsNumber) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
+                MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " & _
+                                "Please double-check and try again." & _
+                                vbNewLine & vbNewLine & "NO DATA SAVED.", _
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -4632,12 +4622,11 @@ Public Class PASPFeeAuditLog
     End Sub
     Private Sub btnRemoveVOID_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRemoveVOID.Click
         Try
-            If (mtbAirsNumber.Text <> Me.AirsNumber) _
-            Or (FeeYearsComboBox.SelectedItem.ToString <> Me.FeeYear) _
-            Or txtAIRSNumber.Text = "" Or FeeYearsComboBox.SelectedIndex = 0 _
-            Or txtYear.Text = "" Then
-                MsgBox("The currently selected AIRS # does not match the selecting AIRS #." & _
-                       vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
+            If (mtbAirsNumber.Text <> AirsNumber) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
+                MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " & _
+                                "Please double-check and try again." & _
+                                vbNewLine & vbNewLine & "NO DATA SAVED.", _
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -4708,12 +4697,11 @@ Public Class PASPFeeAuditLog
             Dim CollectionsDate As String = ""
             Dim x As Integer = 0
 
-            If (mtbAirsNumber.Text <> Me.AirsNumber) _
-            Or (FeeYearsComboBox.SelectedItem.ToString <> Me.FeeYear) _
-            Or txtAIRSNumber.Text = "" Or FeeYearsComboBox.SelectedIndex = 0 _
-            Or txtYear.Text = "" Then
-                MsgBox("The currently selected AIRS # does not match the selecting AIRS #." & _
-                       vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
+            If (mtbAirsNumber.Text <> AirsNumber) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
+                MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " & _
+                                "Please double-check and try again." & _
+                                vbNewLine & vbNewLine & "NO DATA SAVED.", _
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
