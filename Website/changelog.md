@@ -1,5 +1,9 @@
 % IAIP Change Log
 
+## Version 3.5.2 <span>(2014-07-30)</span>
+
+- FIX: *Fees* -- Unable to save admin data on Fee Audit Log (#250); thx Debbie
+
 ## Version 3.5.1 <span>(2014-07-25)</span>
 
 - FIX: *Fees* -- Fee Management Tools button to open Fee Audit Log does not populate fee year
