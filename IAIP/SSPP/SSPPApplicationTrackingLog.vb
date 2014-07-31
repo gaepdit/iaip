@@ -7412,7 +7412,7 @@ Public Class SSPPApplicationTrackingLog
                         GenerateAFSEntry()
                     End If
 
-                    If Mid(txtAIRSNumber.Text, 1, 2) <> "AP" And Apb.Facility.IsValidAirsNumber(txtAIRSNumber.Text) Then
+                    If Mid(txtAIRSNumber.Text, 1, 2) <> "AP" And Apb.Facility.ValidAirsNumber(txtAIRSNumber.Text) Then
                         Dim dresult As DialogResult = MessageBox.Show("Do you want to update Facility Information with this Application?", _
                            "Permit Tracking Log", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                         If dresult = Windows.Forms.DialogResult.Yes Then

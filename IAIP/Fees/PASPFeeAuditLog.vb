@@ -71,20 +71,29 @@ Public Class PASPFeeAuditLog
 #Region "Subs and Functions"
 
     Private Sub PopulateComboBoxes()
-        cboInitialOpStatus.Items.Add("")
-        cboInitialOpStatus.Items.Add("O - Operational")
-        cboInitialOpStatus.Items.Add("P - Planned")
-        cboInitialOpStatus.Items.Add("C - Under Construction")
-        cboInitialOpStatus.Items.Add("T - Temporarily Closed")
-        cboInitialOpStatus.Items.Add("X - Closed/Dismantled")
-        cboInitialOpStatus.Items.Add("I - Seasonal Operation")
 
-        cboInitialClassification.Items.Add("")
-        cboInitialClassification.Items.Add("A")
-        cboInitialClassification.Items.Add("B")
-        cboInitialClassification.Items.Add("SM")
-        cboInitialClassification.Items.Add("PR")
-        cboInitialClassification.Items.Add("C")
+        ' Operational Status
+        Dim operationalStatusDictionary As New Generic.Dictionary(Of OperationalStatus, String)
+        operationalStatusDictionary.Add(OperationalStatus.Unspecified, "Select…")
+        operationalStatusDictionary.Add(OperationalStatus.O, "Operational")
+        operationalStatusDictionary.Add(OperationalStatus.P, "Planned")
+        operationalStatusDictionary.Add(OperationalStatus.C, "Under Construction")
+        operationalStatusDictionary.Add(OperationalStatus.T, "Temporarily Closed")
+        operationalStatusDictionary.Add(OperationalStatus.X, "Closed/Dismantled")
+        operationalStatusDictionary.Add(OperationalStatus.I, "Seasonal Operation")
+
+        cboInitialOpStatus.BindToDictionary(Of OperationalStatus)(operationalStatusDictionary)
+
+        ' Classification
+        Dim classificationDictionary As New Generic.Dictionary(Of Classification, String)
+        classificationDictionary.Add(Classification.Unspecified, "Select…")
+        classificationDictionary.Add(Classification.A, "A")
+        classificationDictionary.Add(Classification.B, "B")
+        classificationDictionary.Add(Classification.SM, "SM")
+        classificationDictionary.Add(Classification.PR, "PR")
+        classificationDictionary.Add(Classification.C, "C")
+
+        cboInitialClassification.BindToDictionary(Of Classification)(classificationDictionary)
 
         cboEditClassification.Items.Add("")
         cboEditClassification.Items.Add("A")
@@ -92,10 +101,12 @@ Public Class PASPFeeAuditLog
         cboEditClassification.Items.Add("B")
         cboEditClassification.Items.Add("PR")
 
+        ' Payment Type
         cboEditPaymentType.Items.Add("")
         cboEditPaymentType.Items.Add("Entire Annual Year")
         cboEditPaymentType.Items.Add("Four Quarterly Payments")
 
+        ' Audit Type
         cboAuditType.Items.Add("")
         cboAuditType.Items.Add("Facility Self Amendment")
         cboAuditType.Items.Add("Level 1 Audit")
@@ -301,8 +312,8 @@ Public Class PASPFeeAuditLog
             txtInitialAddressLine2.Clear()
             txtInitialCity.Clear()
             mtbInitialZipCode.Clear()
-            cboInitialOpStatus.Text = ""
-            cboInitialClassification.Text = ""
+            cboInitialOpStatus.SelectedValue = OperationalStatus.Unspecified
+            cboInitialClassification.SelectedValue = Classification.Unspecified
             rdbInitialNSPSTrue.Checked = False
             rdbInitialNSPSFalse.Checked = False
             rdbInitialPart70True.Checked = False
@@ -320,14 +331,14 @@ Public Class PASPFeeAuditLog
 
         Try
             Dim OpStatus As String = ""
-            Dim Classification As String = ""
+            Dim itemClassification As String = ""
 
             ClearAdminData()
 
             txtAIRSNumber.Text = Me.AirsNumber
             txtYear.Text = Me.FeeYear
 
-            txtFeeAdminFacilityName.Text = DAL.GetFacilityNameByAirs(Me.AirsNumber)
+            txtFeeAdminFacilityName.Text = DAL.GetFacilityName(Me.AirsNumber)
 
             Dim enable As Boolean = True
             If txtFeeAdminFacilityName.Text Is Nothing OrElse txtFeeAdminFacilityName.Text = "" Then
@@ -569,43 +580,43 @@ Public Class PASPFeeAuditLog
                     txtContactEmail.Text = dr.Item("strGECOUserEmail")
                 End If
                 If IsDBNull(dr.Item("strOperationalStatus")) Then
-                    cboInitialOpStatus.Text = ""
+                    cboInitialOpStatus.SelectedValue = OperationalStatus.Unspecified
                 Else
                     OpStatus = dr.Item("strOperationalStatus")
                     Select Case OpStatus
                         Case "O"
-                            cboInitialOpStatus.Text = "O - Operational"
+                            cboInitialOpStatus.SelectedValue = OperationalStatus.O
                         Case "P"
-                            cboInitialOpStatus.Text = "P - Planned"
+                            cboInitialOpStatus.SelectedValue = OperationalStatus.P
                         Case "C"
-                            cboInitialOpStatus.Text = "C - Under Construction"
+                            cboInitialOpStatus.SelectedValue = OperationalStatus.C
                         Case "T"
-                            cboInitialOpStatus.Text = "T - Temporarily Closed"
+                            cboInitialOpStatus.SelectedValue = OperationalStatus.T
                         Case "X"
-                            cboInitialOpStatus.Text = "X - Closed/Dismantled"
+                            cboInitialOpStatus.SelectedValue = OperationalStatus.X
                         Case "I"
-                            cboInitialOpStatus.Text = "I - Seasonal Operation"
+                            cboInitialOpStatus.SelectedValue = OperationalStatus.I
                         Case Else
-                            cboInitialOpStatus.Text = ""
+                            cboInitialOpStatus.SelectedValue = OperationalStatus.Unspecified
                     End Select
                 End If
                 If IsDBNull(dr.Item("strClass")) Then
-                    cboInitialClassification.Text = ""
+                    cboInitialClassification.SelectedValue = Classification.Unspecified
                 Else
-                    Classification = dr.Item("strClass")
-                    Select Case Classification
+                    itemClassification = dr.Item("strClass")
+                    Select Case itemClassification
                         Case "A"
-                            cboInitialClassification.Text = "A"
+                            cboInitialClassification.SelectedValue = Classification.A
                         Case "B"
-                            cboInitialClassification.Text = "B"
+                            cboInitialClassification.SelectedValue = Classification.B
                         Case "SM"
-                            cboInitialClassification.Text = "SM"
+                            cboInitialClassification.SelectedValue = Classification.SM
                         Case "PR"
-                            cboInitialClassification.Text = "PR"
+                            cboInitialClassification.SelectedValue = Classification.PR
                         Case "C"
-                            cboInitialClassification.Text = "C"
+                            cboInitialClassification.SelectedValue = Classification.C
                         Case Else
-                            cboInitialClassification.Text = ""
+                            cboInitialClassification.SelectedValue = Classification.Unspecified
                     End Select
                 End If
                 If IsDBNull(dr.Item("strNSPS")) Then
@@ -2409,20 +2420,29 @@ Public Class PASPFeeAuditLog
 
     Private Function MailoutGetFacilityFromForm() As Apb.Facility
         Dim facility As New Apb.Facility
+
         With facility
             .FacilityName = txtInitialFacilityName.Text
             .MailingAddress = New Address
-            .MailingAddress.Street = txtInitailFacilityAddress.Text
-            .MailingAddress.Street2 = txtInitialAddressLine2.Text
-            .MailingAddress.City = txtInitialCity.Text
-            .MailingAddress.PostalCode = mtbInitialZipCode.Text
+            With .MailingAddress
+                .Street = txtInitailFacilityAddress.Text
+                .Street2 = txtInitialAddressLine2.Text
+                .City = txtInitialCity.Text
+                .PostalCode = mtbInitialZipCode.Text
+            End With
             .Comment = txtInitialFacilityComment.Text
-            .OperationalStatus = cboInitialOpStatus.Text
-            .Classification = cboInitialClassification.Text
-            .SubjectToNsps = rdbInitialNSPSTrue.Checked
-            .SubjectToPart70 = rdbInitialPart70True.Checked
-            .ShutdownDate = If(dtpInitialShutDownDate.Checked, dtpInitialShutDownDate.Value, CType(Nothing, DateTime?))
+            .HeaderData = New Apb.FacilityHeaderData
+            With .HeaderData
+                .OperationalStatus = cboInitialOpStatus.SelectedValue
+                .Classification = cboInitialClassification.SelectedValue
+                .ShutdownDate = If(dtpInitialShutDownDate.Checked, dtpInitialShutDownDate.Value, CType(Nothing, DateTime?))
+            End With
+            If rdbInitialNSPSTrue.Checked Then .HeaderData.AirPrograms = .HeaderData.AirPrograms Or AirPrograms.NSPS
+            .SubjectToNsps = rdbInitialNSPSTrue.Checked ' TODO: remove
+            If rdbInitialPart70True.Checked Then .HeaderData.AirPrograms = AirPrograms.TitleV Or .HeaderData.AirPrograms
+            .SubjectToPart70 = rdbInitialPart70True.Checked ' TODO: remove
         End With
+
         Return facility
     End Function
 
@@ -2516,17 +2536,17 @@ Public Class PASPFeeAuditLog
             txtInitialCity.Text = .MailingAddress.City
             mtbInitialZipCode.Text = .MailingAddress.PostalCode
             txtInitialFacilityComment.Text = .Comment
-            cboInitialOpStatus.Text = .OperationalStatus
-            cboInitialClassification.Text = .Classification
+            cboInitialOpStatus.SelectedValue = .HeaderData.OperationalStatus
+            cboInitialClassification.SelectedValue = .HeaderData.Classification
             rdbInitialNSPSTrue.Checked = .SubjectToNsps
             rdbInitialNSPSFalse.Checked = Not (.SubjectToNsps)
             rdbInitialPart70True.Checked = .SubjectToPart70
             rdbInitialPart70False.Checked = Not (.SubjectToPart70)
-            If .ShutdownDate Is Nothing Then
+            If .HeaderData.ShutdownDate Is Nothing Then
                 dtpInitialShutDownDate.Checked = False
             Else
                 dtpInitialShutDownDate.Checked = True
-                dtpInitialShutDownDate.Value = .ShutdownDate
+                dtpInitialShutDownDate.Value = .HeaderData.ShutdownDate
             End If
         End With
     End Sub
@@ -2543,7 +2563,7 @@ Public Class PASPFeeAuditLog
             MailoutEditingToggle(True, False)
             Dim facility As New Apb.Facility
             facility.MailingAddress = New Address
-
+            facility.HeaderData = New Apb.FacilityHeaderData
 
             'TODO DWW: When permit revocation branch lands, this can be rewritten using new facility and facility header classes
             Dim query As String = "select " & _
@@ -2581,11 +2601,11 @@ Public Class PASPFeeAuditLog
                             .MailingAddress.City = DB.GetNullable(Of String)(dr.Item("strFacilityCity"))
                             .MailingAddress.PostalCode = DB.GetNullable(Of String)(dr.Item("strFacilityZipCode"))
                             .Comment = ""
-                            .Classification = DB.GetNullable(Of String)(dr.Item("strClass"))
-                            .OperationalStatus = DB.GetNullable(Of String)(dr.Item("strOperationalStatus"))
+                            .HeaderData.ClassificationCode = DB.GetNullable(Of String)(dr.Item("strClass"))
+                            .HeaderData.OperationalStatusCode = DB.GetNullable(Of String)(dr.Item("strOperationalStatus"))
                             .SubjectToNsps = Convert.ToBoolean(dr.Item("strNSPS"))
                             .SubjectToPart70 = Convert.ToBoolean(dr.Item("strPart70"))
-                            .ShutdownDate = DB.GetNullable(Of Date?)(dr.Item("datShutdownDate"))
+                            .HeaderData.ShutdownDate = DB.GetNullable(Of Date?)(dr.Item("datShutdownDate"))
                         End With
                     End While
                     dr.Close()
@@ -2657,7 +2677,7 @@ Public Class PASPFeeAuditLog
 #End Region
 
     Private Sub EditContactsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditContactsButton.Click
-        If Not Apb.Facility.IsAirsNumberValid(AirsNumber) OrElse (mtbAirsNumber.Text <> AirsNumber) Then
+        If Not Apb.Facility.ValidAirsNumber(AirsNumber) OrElse (mtbAirsNumber.Text <> AirsNumber) Then
             MessageBox.Show("Please select a valid AIRS number first.", _
                             "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
@@ -2676,7 +2696,7 @@ Public Class PASPFeeAuditLog
                 MessageBox.Show("Please select a Fee Year", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
-            If Not IsAirsNumberValid(mtbAirsNumber.Text) Then
+            If Not ValidAirsNumber(mtbAirsNumber.Text) Then
                 MessageBox.Show("AIRS number is not valid", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If

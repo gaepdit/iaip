@@ -102,11 +102,11 @@ Namespace DAL
                     " AND NUMFEEYEAR        = :feeyear "
 
                 Dim parameters As OracleParameter() = { _
-                    New OracleParameter("v13", Left(facility.OperationalStatus, 1)), _
-                    New OracleParameter("v14", facility.Classification), _
+                    New OracleParameter("v13", facility.HeaderData.OperationalStatusCode), _
+                    New OracleParameter("v14", facility.HeaderData.ClassificationCode), _
                     New OracleParameter("v15", If(facility.SubjectToNsps, "1", "0")), _
                     New OracleParameter("v16", If(facility.SubjectToPart70, "1", "0")), _
-                    New OracleParameter("v17", facility.ShutdownDate), _
+                    New OracleParameter("v17", facility.HeaderData.ShutdownDate), _
                     New OracleParameter("v18", facility.FacilityName), _
                     New OracleParameter("v19", facility.MailingAddress.Street), _
                     New OracleParameter("v20", facility.MailingAddress.Street2), _

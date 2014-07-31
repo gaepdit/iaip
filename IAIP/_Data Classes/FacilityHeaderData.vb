@@ -8,11 +8,11 @@ Namespace Apb
     ''' operating status, and air program codes. 
     ''' </summary>
     ''' <remarks></remarks>
-    Public Structure FacilityHeaderData
+    Public Class FacilityHeaderData
 
 #Region " Constructors "
 
-        Shared Sub New()
+        Public Sub New()
         End Sub
 
         Public Sub New(ByVal airsNumber As String)
@@ -90,7 +90,7 @@ Namespace Apb
                 Return _rmpId
             End Get
             Set(ByVal value As String)
-                If IsValidRmpId(value) Then
+                If ValidRmpId(value) Then
                     _rmpId = value
                 Else
                     _rmpId = Nothing
@@ -165,7 +165,7 @@ Namespace Apb
 
         Public Property OperationalStatusCode() As String
             Get
-                Return _operationalStatus.ToString
+                Return _operationalStatus.ToString()
             End Get
             Set(ByVal value As String)
                 _operationalStatus = [Enum].Parse(GetType(OperationalStatus), value)
@@ -377,7 +377,7 @@ Namespace Apb
         ''' </summary>
         ''' <param name="rmpID">The string to test</param>
         ''' <returns>True if test string is in the format of a valid RMP ID. Otherwise, false.</returns>
-        Public Shared Function IsValidRmpId(ByVal rmpID As String) As Boolean
+        Public Shared Function ValidRmpId(ByVal rmpID As String) As Boolean
             If rmpID Is Nothing Then Return False
 
             ' Valid RMP IDs are in the form 0000-0000-0000 (with the dashes)
@@ -387,6 +387,6 @@ Namespace Apb
 
 #End Region
 
-    End Structure
+    End Class
 
 End Namespace

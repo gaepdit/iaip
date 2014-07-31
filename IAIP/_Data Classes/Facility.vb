@@ -5,9 +5,9 @@ Namespace Apb
     ''' <summary>
     ''' Basic information about a stationary source.
     ''' </summary>
-    Public Structure Facility
+    Public Class Facility
 
-        Shared Sub New()
+        Public Sub New()
         End Sub
 
         Public Sub New(ByVal airsNumber As String)
@@ -81,16 +81,6 @@ Namespace Apb
         End Property
         Private _headerData As FacilityHeaderData
 
-
-
-
-
-
-
-
-
-
-
         Private _subjectToNsps As Boolean?
         Public Property SubjectToNsps() As Boolean?
             Get
@@ -131,7 +121,7 @@ Namespace Apb
         ''' <param name="airsNumber">The string to test</param>
         ''' <returns>True if airsNumber is valid; otherwise, false.</returns>
         ''' <remarks>Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000 (with or without the dashes)</remarks>
-        Public Shared Function IsValidAirsNumber(ByVal airsNumber As String) As Boolean
+        Public Shared Function ValidAirsNumber(ByVal airsNumber As String) As Boolean
             If airsNumber Is Nothing Then Return False
             ' Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000
             ' (with or without the dashes)
@@ -159,7 +149,7 @@ Namespace Apb
             ' Return value indicates whether the conversion succeeded.
 
             ' First, validate the raw AIRS number.
-            If airsNumber Is Nothing OrElse Not (IsValidAirsNumber(airsNumber)) Then Return False
+            If airsNumber Is Nothing OrElse Not (ValidAirsNumber(airsNumber)) Then Return False
 
             ' If okay, then convert.
             airsNumber = GetNormalizedAirsNumber(airsNumber, expand)
@@ -331,6 +321,6 @@ Namespace Apb
 
 #End Region
 
-    End Structure
+    End Class
 
 End Namespace

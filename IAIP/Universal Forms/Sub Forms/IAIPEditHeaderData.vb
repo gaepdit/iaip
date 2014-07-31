@@ -375,7 +375,7 @@ Public Class IAIPEditHeaderData
             invalidControls.Add(FacilityDescriptionLabel)
         End If
 
-        If Not (String.IsNullOrEmpty(RmpId.Text) OrElse FacilityHeaderData.IsValidRmpId(RmpId.Text)) Then
+        If Not (String.IsNullOrEmpty(RmpId.Text) OrElse FacilityHeaderData.ValidRmpId(RmpId.Text)) Then
             valid = False
             invalidControls.Add(RmpIdLabel)
         End If
@@ -406,14 +406,14 @@ Public Class IAIPEditHeaderData
     End Sub
 
     Private Function ComparableHeaderData(ByVal headerdata As FacilityHeaderData) As FacilityHeaderData
-        Dim comparableHeaderData As FacilityHeaderData = headerdata
-        With comparableHeaderData
+        Dim comparableHeaderDataReturn As FacilityHeaderData = headerdata
+        With comparableHeaderDataReturn
             .HeaderUpdateComment = Nothing
             .DateDataModified = Nothing
             .WhoModified = Nothing
             .WhereModified = Nothing
         End With
-        Return comparableHeaderData
+        Return comparableHeaderDataReturn
     End Function
 
     Private Sub SaveEditedData()

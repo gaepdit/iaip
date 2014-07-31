@@ -4288,7 +4288,7 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub btnEditHeaderData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditHeaderData.Click
-        If Apb.Facility.IsValidAirsNumber(mtbAIRSNumber.Text) Then
+        If Apb.Facility.ValidAirsNumber(mtbAIRSNumber.Text) Then
 
             Dim editHeaderDataDialog As New IAIPEditHeaderData
             editHeaderDataDialog.AirsNumber = mtbAIRSNumber.Text

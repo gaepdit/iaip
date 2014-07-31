@@ -1536,6 +1536,7 @@
     <Compile Include="SSPP\Sub Forms\SsppPermitRevocationDialog.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="_Data Classes\Contact.vb" />
     <Compile Include="_Data Classes\FacilityHeaderData.vb" />
     <Compile Include="_Data Classes\SSPP.Permit.vb" />
     <Compile Include="_DB\DAL.AppData.vb" />

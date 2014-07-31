@@ -314,6 +314,15 @@ Public Sub MakeCellNotLookLikeHoveredLink(ByVal dgv As DataGridView, ByVal row A
         End With
     End Sub
 
+    <Extension()> _
+    Public Sub BindToDictionary(Of T)(ByVal c As ComboBox, ByVal d As Dictionary(Of T, String))
+        With c
+            .DataSource = New BindingSource(d, Nothing)
+            .DisplayMember = "Value"
+            .ValueMember = "Key"
+        End With
+    End Sub
+
     ''' <summary>
     ''' Populates the combobox with the values and text descriptions of an Enum.
     ''' </summary>
