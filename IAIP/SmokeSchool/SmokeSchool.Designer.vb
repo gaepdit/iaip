@@ -22,33 +22,18 @@ Partial Class SmokeSchool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
-        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiClear = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiBack = New System.Windows.Forms.ToolStripMenuItem
-        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiCut = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiCopy = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiPaste = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiRefreshDropDowns = New System.Windows.Forms.ToolStripMenuItem
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.pnl1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.pnl2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.pnl3 = New System.Windows.Forms.ToolStripStatusLabel
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.Panel1 = New System.Windows.Forms.Panel
         Me.tcSmokeSchool = New System.Windows.Forms.TabControl
         Me.TabReservation = New System.Windows.Forms.TabPage
@@ -227,8 +212,6 @@ Partial Class SmokeSchool
         Me.txtSchedule = New System.Windows.Forms.TextBox
         Me.dgvSchedule = New System.Windows.Forms.DataGridView
         Me.TabActivate = New System.Windows.Forms.TabPage
-        Me.Label40 = New System.Windows.Forms.Label
-        Me.Label39 = New System.Windows.Forms.Label
         Me.txtEmailAddress = New System.Windows.Forms.TextBox
         Me.Label38 = New System.Windows.Forms.Label
         Me.btnActivate = New System.Windows.Forms.Button
@@ -274,8 +257,10 @@ Partial Class SmokeSchool
         Me.txtSortItem = New System.Windows.Forms.TextBox
         Me.txtsortnbr = New System.Windows.Forms.TextBox
         Me.Label1 = New System.Windows.Forms.Label
-        Me.MenuStrip1.SuspendLayout()
-        Me.StatusStrip1.SuspendLayout()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel
+        Me.Panel4 = New System.Windows.Forms.Panel
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel
+        Me.Panel5 = New System.Windows.Forms.Panel
         Me.Panel1.SuspendLayout()
         Me.tcSmokeSchool.SuspendLayout()
         Me.TabReservation.SuspendLayout()
@@ -295,129 +280,19 @@ Partial Class SmokeSchool
         Me.TabActivate.SuspendLayout()
         Me.TabCache.SuspendLayout()
         Me.Panel2.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
+        Me.Panel4.SuspendLayout()
+        Me.TableLayoutPanel2.SuspendLayout()
+        Me.Panel5.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem, Me.ToolToolStripMenuItem, Me.HelpToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(794, 24)
-        Me.MenuStrip1.TabIndex = 5
-        Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'FileToolStripMenuItem
-        '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiClear, Me.mmiBack})
-        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.FileToolStripMenuItem.Text = "File"
-        '
-        'mmiClear
-        '
-        Me.mmiClear.Name = "mmiClear"
-        Me.mmiClear.Size = New System.Drawing.Size(101, 22)
-        Me.mmiClear.Text = "Clear"
-        '
-        'mmiBack
-        '
-        Me.mmiBack.Name = "mmiBack"
-        Me.mmiBack.Size = New System.Drawing.Size(101, 22)
-        Me.mmiBack.Text = "Back"
-        '
-        'EditToolStripMenuItem
-        '
-        Me.EditToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiCut, Me.mmiCopy, Me.mmiPaste})
-        Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
-        Me.EditToolStripMenuItem.Text = "Edit"
-        '
-        'mmiCut
-        '
-        Me.mmiCut.Name = "mmiCut"
-        Me.mmiCut.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.X), System.Windows.Forms.Keys)
-        Me.mmiCut.Size = New System.Drawing.Size(144, 22)
-        Me.mmiCut.Text = "Cut"
-        '
-        'mmiCopy
-        '
-        Me.mmiCopy.Name = "mmiCopy"
-        Me.mmiCopy.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.C), System.Windows.Forms.Keys)
-        Me.mmiCopy.Size = New System.Drawing.Size(144, 22)
-        Me.mmiCopy.Text = "Copy"
-        '
-        'mmiPaste
-        '
-        Me.mmiPaste.Name = "mmiPaste"
-        Me.mmiPaste.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.V), System.Windows.Forms.Keys)
-        Me.mmiPaste.Size = New System.Drawing.Size(144, 22)
-        Me.mmiPaste.Text = "Paste"
-        '
-        'ToolToolStripMenuItem
-        '
-        Me.ToolToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiRefreshDropDowns})
-        Me.ToolToolStripMenuItem.Name = "ToolToolStripMenuItem"
-        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(43, 20)
-        Me.ToolToolStripMenuItem.Text = "Tool"
-        '
-        'mmiRefreshDropDowns
-        '
-        Me.mmiRefreshDropDowns.Name = "mmiRefreshDropDowns"
-        Me.mmiRefreshDropDowns.Size = New System.Drawing.Size(183, 22)
-        Me.mmiRefreshDropDowns.Text = "Refresh Drop-Downs"
-        '
-        'HelpToolStripMenuItem
-        '
-        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
-        Me.HelpToolStripMenuItem.Text = "Help"
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.pnl1, Me.pnl2, Me.pnl3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 622)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(794, 22)
-        Me.StatusStrip1.TabIndex = 6
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'pnl1
-        '
-        Me.pnl1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.pnl1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.pnl1.Name = "pnl1"
-        Me.pnl1.Size = New System.Drawing.Size(771, 17)
-        Me.pnl1.Spring = True
-        Me.pnl1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'pnl2
-        '
-        Me.pnl2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.pnl2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.pnl2.Name = "pnl2"
-        Me.pnl2.Size = New System.Drawing.Size(4, 17)
-        '
-        'pnl3
-        '
-        Me.pnl3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.pnl3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.pnl3.Name = "pnl3"
-        Me.pnl3.Size = New System.Drawing.Size(4, 17)
         '
         'Panel1
         '
         Me.Panel1.Controls.Add(Me.tcSmokeSchool)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(0, 68)
+        Me.Panel1.Location = New System.Drawing.Point(0, 44)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(794, 554)
+        Me.Panel1.Size = New System.Drawing.Size(712, 548)
         Me.Panel1.TabIndex = 7
         '
         'tcSmokeSchool
@@ -433,7 +308,7 @@ Partial Class SmokeSchool
         Me.tcSmokeSchool.Location = New System.Drawing.Point(0, 0)
         Me.tcSmokeSchool.Name = "tcSmokeSchool"
         Me.tcSmokeSchool.SelectedIndex = 0
-        Me.tcSmokeSchool.Size = New System.Drawing.Size(794, 554)
+        Me.tcSmokeSchool.Size = New System.Drawing.Size(712, 548)
         Me.tcSmokeSchool.TabIndex = 1
         '
         'TabReservation
@@ -495,43 +370,48 @@ Partial Class SmokeSchool
         Me.TabReservation.Location = New System.Drawing.Point(4, 22)
         Me.TabReservation.Name = "TabReservation"
         Me.TabReservation.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabReservation.Size = New System.Drawing.Size(786, 528)
+        Me.TabReservation.Size = New System.Drawing.Size(704, 522)
         Me.TabReservation.TabIndex = 0
         Me.TabReservation.Text = "Reservation"
         Me.TabReservation.UseVisualStyleBackColor = True
         '
         'txtFirstName1X
         '
-        Me.txtFirstName1X.Location = New System.Drawing.Point(262, 463)
+        Me.txtFirstName1X.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txtFirstName1X.Location = New System.Drawing.Point(257, 465)
         Me.txtFirstName1X.Name = "txtFirstName1X"
         Me.txtFirstName1X.Size = New System.Drawing.Size(100, 20)
         Me.txtFirstName1X.TabIndex = 55
         '
         'txtLastName1X
         '
-        Me.txtLastName1X.Location = New System.Drawing.Point(262, 437)
+        Me.txtLastName1X.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txtLastName1X.Location = New System.Drawing.Point(257, 439)
         Me.txtLastName1X.Name = "txtLastName1X"
         Me.txtLastName1X.Size = New System.Drawing.Size(100, 20)
         Me.txtLastName1X.TabIndex = 54
         '
         'txtID1X
         '
-        Me.txtID1X.Location = New System.Drawing.Point(262, 411)
+        Me.txtID1X.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txtID1X.Location = New System.Drawing.Point(257, 413)
         Me.txtID1X.Name = "txtID1X"
         Me.txtID1X.Size = New System.Drawing.Size(100, 20)
         Me.txtID1X.TabIndex = 53
         '
         'txtLectureCnt
         '
-        Me.txtLectureCnt.Location = New System.Drawing.Point(250, 377)
+        Me.txtLectureCnt.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txtLectureCnt.Location = New System.Drawing.Point(245, 379)
         Me.txtLectureCnt.Name = "txtLectureCnt"
         Me.txtLectureCnt.Size = New System.Drawing.Size(58, 20)
         Me.txtLectureCnt.TabIndex = 52
         '
         'Label35
         '
+        Me.Label35.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label35.AutoSize = True
-        Me.Label35.Location = New System.Drawing.Point(198, 380)
+        Me.Label35.Location = New System.Drawing.Point(193, 382)
         Me.Label35.Name = "Label35"
         Me.Label35.Size = New System.Drawing.Size(46, 13)
         Me.Label35.TabIndex = 51
@@ -539,7 +419,8 @@ Partial Class SmokeSchool
         '
         'btnUpdateIDs
         '
-        Me.btnUpdateIDs.Location = New System.Drawing.Point(61, 449)
+        Me.btnUpdateIDs.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnUpdateIDs.Location = New System.Drawing.Point(56, 451)
         Me.btnUpdateIDs.Name = "btnUpdateIDs"
         Me.btnUpdateIDs.Size = New System.Drawing.Size(162, 23)
         Me.btnUpdateIDs.TabIndex = 50
@@ -548,17 +429,19 @@ Partial Class SmokeSchool
         '
         'cboSalutation
         '
+        Me.cboSalutation.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cboSalutation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSalutation.FormattingEnabled = True
-        Me.cboSalutation.Location = New System.Drawing.Point(406, 102)
+        Me.cboSalutation.Location = New System.Drawing.Point(447, 111)
         Me.cboSalutation.Name = "cboSalutation"
         Me.cboSalutation.Size = New System.Drawing.Size(249, 21)
         Me.cboSalutation.TabIndex = 47
         '
         'Label82
         '
+        Me.Label82.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label82.AutoSize = True
-        Me.Label82.Location = New System.Drawing.Point(342, 109)
+        Me.Label82.Location = New System.Drawing.Point(383, 118)
         Me.Label82.Name = "Label82"
         Me.Label82.Size = New System.Drawing.Size(54, 13)
         Me.Label82.TabIndex = 46
@@ -566,7 +449,8 @@ Partial Class SmokeSchool
         '
         'btnExport
         '
-        Me.btnExport.Location = New System.Drawing.Point(61, 489)
+        Me.btnExport.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnExport.Location = New System.Drawing.Point(56, 491)
         Me.btnExport.Name = "btnExport"
         Me.btnExport.Size = New System.Drawing.Size(162, 23)
         Me.btnExport.TabIndex = 45
@@ -583,8 +467,9 @@ Partial Class SmokeSchool
         '
         'Label33
         '
+        Me.Label33.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(483, 31)
+        Me.Label33.Location = New System.Drawing.Point(524, 40)
         Me.Label33.Name = "Label33"
         Me.Label33.Size = New System.Drawing.Size(105, 13)
         Me.Label33.TabIndex = 43
@@ -592,7 +477,8 @@ Partial Class SmokeSchool
         '
         'btnMoveResStudent2Scores
         '
-        Me.btnMoveResStudent2Scores.Location = New System.Drawing.Point(406, 411)
+        Me.btnMoveResStudent2Scores.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnMoveResStudent2Scores.Location = New System.Drawing.Point(447, 420)
         Me.btnMoveResStudent2Scores.Name = "btnMoveResStudent2Scores"
         Me.btnMoveResStudent2Scores.Size = New System.Drawing.Size(249, 23)
         Me.btnMoveResStudent2Scores.TabIndex = 42
@@ -601,7 +487,8 @@ Partial Class SmokeSchool
         '
         'btnMove2Cache
         '
-        Me.btnMove2Cache.Location = New System.Drawing.Point(406, 449)
+        Me.btnMove2Cache.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnMove2Cache.Location = New System.Drawing.Point(447, 458)
         Me.btnMove2Cache.Name = "btnMove2Cache"
         Me.btnMove2Cache.Size = New System.Drawing.Size(247, 23)
         Me.btnMove2Cache.TabIndex = 41
@@ -610,8 +497,9 @@ Partial Class SmokeSchool
         '
         'Label32
         '
+        Me.Label32.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(319, 347)
+        Me.Label32.Location = New System.Drawing.Point(360, 356)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(77, 13)
         Me.Label32.TabIndex = 40
@@ -619,23 +507,26 @@ Partial Class SmokeSchool
         '
         'cboLecture
         '
+        Me.cboLecture.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cboLecture.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboLecture.FormattingEnabled = True
-        Me.cboLecture.Location = New System.Drawing.Point(408, 344)
+        Me.cboLecture.Location = New System.Drawing.Point(449, 353)
         Me.cboLecture.Name = "cboLecture"
         Me.cboLecture.Size = New System.Drawing.Size(69, 21)
         Me.cboLecture.TabIndex = 35
         '
         'txtFirstName1
         '
-        Me.txtFirstName1.Location = New System.Drawing.Point(536, 77)
+        Me.txtFirstName1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtFirstName1.Location = New System.Drawing.Point(577, 86)
         Me.txtFirstName1.Name = "txtFirstName1"
         Me.txtFirstName1.Size = New System.Drawing.Size(119, 20)
         Me.txtFirstName1.TabIndex = 19
         '
         'btnClearRes
         '
-        Me.btnClearRes.Location = New System.Drawing.Point(583, 372)
+        Me.btnClearRes.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnClearRes.Location = New System.Drawing.Point(624, 381)
         Me.btnClearRes.Name = "btnClearRes"
         Me.btnClearRes.Size = New System.Drawing.Size(72, 23)
         Me.btnClearRes.TabIndex = 37
@@ -644,7 +535,8 @@ Partial Class SmokeSchool
         '
         'btnDeleteRes
         '
-        Me.btnDeleteRes.Location = New System.Drawing.Point(494, 372)
+        Me.btnDeleteRes.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnDeleteRes.Location = New System.Drawing.Point(535, 381)
         Me.btnDeleteRes.Name = "btnDeleteRes"
         Me.btnDeleteRes.Size = New System.Drawing.Size(72, 23)
         Me.btnDeleteRes.TabIndex = 36
@@ -653,7 +545,8 @@ Partial Class SmokeSchool
         '
         'btnSaveRes
         '
-        Me.btnSaveRes.Location = New System.Drawing.Point(408, 372)
+        Me.btnSaveRes.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnSaveRes.Location = New System.Drawing.Point(449, 381)
         Me.btnSaveRes.Name = "btnSaveRes"
         Me.btnSaveRes.Size = New System.Drawing.Size(72, 23)
         Me.btnSaveRes.TabIndex = 35
@@ -662,43 +555,49 @@ Partial Class SmokeSchool
         '
         'txtEmail1
         '
-        Me.txtEmail1.Location = New System.Drawing.Point(406, 317)
+        Me.txtEmail1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtEmail1.Location = New System.Drawing.Point(447, 326)
         Me.txtEmail1.Name = "txtEmail1"
         Me.txtEmail1.Size = New System.Drawing.Size(249, 20)
         Me.txtEmail1.TabIndex = 34
         '
         'txtFaxNBR1
         '
-        Me.txtFaxNBR1.Location = New System.Drawing.Point(494, 291)
+        Me.txtFaxNBR1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtFaxNBR1.Location = New System.Drawing.Point(535, 300)
         Me.txtFaxNBR1.Name = "txtFaxNBR1"
         Me.txtFaxNBR1.Size = New System.Drawing.Size(60, 20)
         Me.txtFaxNBR1.TabIndex = 33
         '
         'txtFaxEXC1
         '
-        Me.txtFaxEXC1.Location = New System.Drawing.Point(450, 291)
+        Me.txtFaxEXC1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtFaxEXC1.Location = New System.Drawing.Point(491, 300)
         Me.txtFaxEXC1.Name = "txtFaxEXC1"
         Me.txtFaxEXC1.Size = New System.Drawing.Size(38, 20)
         Me.txtFaxEXC1.TabIndex = 32
         '
         'txtFaxAC1
         '
-        Me.txtFaxAC1.Location = New System.Drawing.Point(406, 291)
+        Me.txtFaxAC1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtFaxAC1.Location = New System.Drawing.Point(447, 300)
         Me.txtFaxAC1.Name = "txtFaxAC1"
         Me.txtFaxAC1.Size = New System.Drawing.Size(38, 20)
         Me.txtFaxAC1.TabIndex = 31
         '
         'txtPhoneExt1
         '
-        Me.txtPhoneExt1.Location = New System.Drawing.Point(592, 265)
+        Me.txtPhoneExt1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtPhoneExt1.Location = New System.Drawing.Point(633, 274)
         Me.txtPhoneExt1.Name = "txtPhoneExt1"
         Me.txtPhoneExt1.Size = New System.Drawing.Size(63, 20)
         Me.txtPhoneExt1.TabIndex = 30
         '
         'Label24
         '
+        Me.Label24.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(564, 268)
+        Me.Label24.Location = New System.Drawing.Point(605, 277)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(22, 13)
         Me.Label24.TabIndex = 29
@@ -706,35 +605,40 @@ Partial Class SmokeSchool
         '
         'txtPhoneNBR1
         '
-        Me.txtPhoneNBR1.Location = New System.Drawing.Point(494, 265)
+        Me.txtPhoneNBR1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtPhoneNBR1.Location = New System.Drawing.Point(535, 274)
         Me.txtPhoneNBR1.Name = "txtPhoneNBR1"
         Me.txtPhoneNBR1.Size = New System.Drawing.Size(60, 20)
         Me.txtPhoneNBR1.TabIndex = 29
         '
         'txtPhoneEXC1
         '
-        Me.txtPhoneEXC1.Location = New System.Drawing.Point(450, 265)
+        Me.txtPhoneEXC1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtPhoneEXC1.Location = New System.Drawing.Point(491, 274)
         Me.txtPhoneEXC1.Name = "txtPhoneEXC1"
         Me.txtPhoneEXC1.Size = New System.Drawing.Size(38, 20)
         Me.txtPhoneEXC1.TabIndex = 28
         '
         'txtPhoneAC1
         '
-        Me.txtPhoneAC1.Location = New System.Drawing.Point(406, 265)
+        Me.txtPhoneAC1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtPhoneAC1.Location = New System.Drawing.Point(447, 274)
         Me.txtPhoneAC1.Name = "txtPhoneAC1"
         Me.txtPhoneAC1.Size = New System.Drawing.Size(38, 20)
         Me.txtPhoneAC1.TabIndex = 27
         '
         'txtZip1
         '
-        Me.txtZip1.Location = New System.Drawing.Point(592, 239)
+        Me.txtZip1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtZip1.Location = New System.Drawing.Point(633, 248)
         Me.txtZip1.Name = "txtZip1"
         Me.txtZip1.Size = New System.Drawing.Size(63, 20)
         Me.txtZip1.TabIndex = 26
         '
         'txtState1
         '
-        Me.txtState1.Location = New System.Drawing.Point(560, 239)
+        Me.txtState1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtState1.Location = New System.Drawing.Point(601, 248)
         Me.txtState1.MaxLength = 2
         Me.txtState1.Name = "txtState1"
         Me.txtState1.Size = New System.Drawing.Size(26, 20)
@@ -743,49 +647,56 @@ Partial Class SmokeSchool
         '
         'txtCity1
         '
-        Me.txtCity1.Location = New System.Drawing.Point(406, 239)
+        Me.txtCity1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtCity1.Location = New System.Drawing.Point(447, 248)
         Me.txtCity1.Name = "txtCity1"
         Me.txtCity1.Size = New System.Drawing.Size(148, 20)
         Me.txtCity1.TabIndex = 24
         '
         'txtAddress12
         '
-        Me.txtAddress12.Location = New System.Drawing.Point(406, 210)
+        Me.txtAddress12.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtAddress12.Location = New System.Drawing.Point(447, 219)
         Me.txtAddress12.Name = "txtAddress12"
         Me.txtAddress12.Size = New System.Drawing.Size(249, 20)
         Me.txtAddress12.TabIndex = 23
         '
         'txtAddress11
         '
-        Me.txtAddress11.Location = New System.Drawing.Point(406, 184)
+        Me.txtAddress11.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtAddress11.Location = New System.Drawing.Point(447, 193)
         Me.txtAddress11.Name = "txtAddress11"
         Me.txtAddress11.Size = New System.Drawing.Size(249, 20)
         Me.txtAddress11.TabIndex = 22
         '
         'txtCompanyName1
         '
-        Me.txtCompanyName1.Location = New System.Drawing.Point(406, 158)
+        Me.txtCompanyName1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtCompanyName1.Location = New System.Drawing.Point(447, 167)
         Me.txtCompanyName1.Name = "txtCompanyName1"
         Me.txtCompanyName1.Size = New System.Drawing.Size(249, 20)
         Me.txtCompanyName1.TabIndex = 21
         '
         'txtTitle1
         '
-        Me.txtTitle1.Location = New System.Drawing.Point(406, 132)
+        Me.txtTitle1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtTitle1.Location = New System.Drawing.Point(447, 141)
         Me.txtTitle1.Name = "txtTitle1"
         Me.txtTitle1.Size = New System.Drawing.Size(249, 20)
         Me.txtTitle1.TabIndex = 20
         '
         'txtLastName1
         '
-        Me.txtLastName1.Location = New System.Drawing.Point(406, 77)
+        Me.txtLastName1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtLastName1.Location = New System.Drawing.Point(447, 86)
         Me.txtLastName1.Name = "txtLastName1"
         Me.txtLastName1.Size = New System.Drawing.Size(113, 20)
         Me.txtLastName1.TabIndex = 18
         '
         'txtConfirmation
         '
-        Me.txtConfirmation.Location = New System.Drawing.Point(486, 51)
+        Me.txtConfirmation.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtConfirmation.Location = New System.Drawing.Point(527, 60)
         Me.txtConfirmation.Name = "txtConfirmation"
         Me.txtConfirmation.ReadOnly = True
         Me.txtConfirmation.Size = New System.Drawing.Size(169, 20)
@@ -793,7 +704,8 @@ Partial Class SmokeSchool
         '
         'txtID1
         '
-        Me.txtID1.Location = New System.Drawing.Point(406, 51)
+        Me.txtID1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtID1.Location = New System.Drawing.Point(447, 60)
         Me.txtID1.Name = "txtID1"
         Me.txtID1.ReadOnly = True
         Me.txtID1.Size = New System.Drawing.Size(71, 20)
@@ -801,8 +713,9 @@ Partial Class SmokeSchool
         '
         'Label12
         '
+        Me.Label12.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(364, 320)
+        Me.Label12.Location = New System.Drawing.Point(405, 329)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(32, 13)
         Me.Label12.TabIndex = 15
@@ -810,8 +723,9 @@ Partial Class SmokeSchool
         '
         'Label11
         '
+        Me.Label11.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(372, 294)
+        Me.Label11.Location = New System.Drawing.Point(413, 303)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(24, 13)
         Me.Label11.TabIndex = 14
@@ -819,8 +733,9 @@ Partial Class SmokeSchool
         '
         'Label10
         '
+        Me.Label10.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(360, 268)
+        Me.Label10.Location = New System.Drawing.Point(401, 277)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(38, 13)
         Me.Label10.TabIndex = 13
@@ -828,8 +743,9 @@ Partial Class SmokeSchool
         '
         'Label9
         '
+        Me.Label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(326, 242)
+        Me.Label9.Location = New System.Drawing.Point(367, 251)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(74, 13)
         Me.Label9.TabIndex = 12
@@ -837,8 +753,9 @@ Partial Class SmokeSchool
         '
         'Label8
         '
+        Me.Label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(345, 213)
+        Me.Label8.Location = New System.Drawing.Point(386, 222)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(54, 13)
         Me.Label8.TabIndex = 11
@@ -846,8 +763,9 @@ Partial Class SmokeSchool
         '
         'Label7
         '
+        Me.Label7.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(346, 187)
+        Me.Label7.Location = New System.Drawing.Point(387, 196)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(54, 13)
         Me.Label7.TabIndex = 10
@@ -855,8 +773,9 @@ Partial Class SmokeSchool
         '
         'Label6
         '
+        Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(318, 158)
+        Me.Label6.Location = New System.Drawing.Point(359, 167)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(82, 13)
         Me.Label6.TabIndex = 9
@@ -864,8 +783,9 @@ Partial Class SmokeSchool
         '
         'Label5
         '
+        Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(372, 132)
+        Me.Label5.Location = New System.Drawing.Point(413, 141)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(27, 13)
         Me.Label5.TabIndex = 8
@@ -873,8 +793,9 @@ Partial Class SmokeSchool
         '
         'Label4
         '
+        Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(317, 80)
+        Me.Label4.Location = New System.Drawing.Point(358, 89)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(82, 13)
         Me.Label4.TabIndex = 7
@@ -882,8 +803,9 @@ Partial Class SmokeSchool
         '
         'Label3
         '
+        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(382, 54)
+        Me.Label3.Location = New System.Drawing.Point(423, 63)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(18, 13)
         Me.Label3.TabIndex = 6
@@ -891,7 +813,8 @@ Partial Class SmokeSchool
         '
         'btnPrintRoster
         '
-        Me.btnPrintRoster.Location = New System.Drawing.Point(61, 411)
+        Me.btnPrintRoster.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnPrintRoster.Location = New System.Drawing.Point(56, 413)
         Me.btnPrintRoster.Name = "btnPrintRoster"
         Me.btnPrintRoster.Size = New System.Drawing.Size(162, 23)
         Me.btnPrintRoster.TabIndex = 5
@@ -900,8 +823,9 @@ Partial Class SmokeSchool
         '
         'Label2
         '
+        Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(14, 378)
+        Me.Label2.Location = New System.Drawing.Point(9, 380)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(101, 13)
         Me.Label2.TabIndex = 4
@@ -909,35 +833,39 @@ Partial Class SmokeSchool
         '
         'txtNumberOfStudents1
         '
-        Me.txtNumberOfStudents1.Location = New System.Drawing.Point(119, 373)
+        Me.txtNumberOfStudents1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txtNumberOfStudents1.Location = New System.Drawing.Point(114, 375)
         Me.txtNumberOfStudents1.Name = "txtNumberOfStudents1"
         Me.txtNumberOfStudents1.Size = New System.Drawing.Size(58, 20)
         Me.txtNumberOfStudents1.TabIndex = 3
         '
         'dgvRes
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvRes.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvRes.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle13.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvRes.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle13
         Me.dgvRes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvRes.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle14.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvRes.DefaultCellStyle = DataGridViewCellStyle14
         Me.dgvRes.Location = New System.Drawing.Point(17, 76)
         Me.dgvRes.Name = "dgvRes"
         Me.dgvRes.ReadOnly = True
         Me.dgvRes.RowTemplate.Height = 24
-        Me.dgvRes.Size = New System.Drawing.Size(291, 285)
+        Me.dgvRes.Size = New System.Drawing.Size(327, 293)
         Me.dgvRes.TabIndex = 2
         '
         'btnSelectClass1
@@ -955,31 +883,23 @@ Partial Class SmokeSchool
         Me.cboSchedule1.FormattingEnabled = True
         Me.cboSchedule1.Location = New System.Drawing.Point(17, 50)
         Me.cboSchedule1.Name = "cboSchedule1"
-        Me.cboSchedule1.Size = New System.Drawing.Size(291, 21)
+        Me.cboSchedule1.Size = New System.Drawing.Size(327, 21)
         Me.cboSchedule1.TabIndex = 0
         '
         'TabMoveRes2Scores
         '
-        Me.TabMoveRes2Scores.Controls.Add(Me.Button1)
-        Me.TabMoveRes2Scores.Controls.Add(Me.btnRemoveRes2Scores)
-        Me.TabMoveRes2Scores.Controls.Add(Me.btnMoveRes2Scores)
-        Me.TabMoveRes2Scores.Controls.Add(Me.Label34)
-        Me.TabMoveRes2Scores.Controls.Add(Me.txtNumberOfStudents3)
-        Me.TabMoveRes2Scores.Controls.Add(Me.dgvScores)
-        Me.TabMoveRes2Scores.Controls.Add(Me.dgvRes2)
-        Me.TabMoveRes2Scores.Controls.Add(Me.txtSchedule2)
-        Me.TabMoveRes2Scores.Controls.Add(Me.dgvSchedule2)
+        Me.TabMoveRes2Scores.Controls.Add(Me.TableLayoutPanel1)
         Me.TabMoveRes2Scores.Location = New System.Drawing.Point(4, 22)
         Me.TabMoveRes2Scores.Name = "TabMoveRes2Scores"
         Me.TabMoveRes2Scores.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabMoveRes2Scores.Size = New System.Drawing.Size(786, 528)
+        Me.TabMoveRes2Scores.Size = New System.Drawing.Size(704, 522)
         Me.TabMoveRes2Scores.TabIndex = 1
         Me.TabMoveRes2Scores.Text = "Move Res to Scores"
         Me.TabMoveRes2Scores.UseVisualStyleBackColor = True
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(280, 25)
+        Me.Button1.Location = New System.Drawing.Point(10, 3)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(75, 23)
         Me.Button1.TabIndex = 8
@@ -988,7 +908,7 @@ Partial Class SmokeSchool
         '
         'btnRemoveRes2Scores
         '
-        Me.btnRemoveRes2Scores.Location = New System.Drawing.Point(280, 157)
+        Me.btnRemoveRes2Scores.Location = New System.Drawing.Point(10, 111)
         Me.btnRemoveRes2Scores.Name = "btnRemoveRes2Scores"
         Me.btnRemoveRes2Scores.Size = New System.Drawing.Size(75, 73)
         Me.btnRemoveRes2Scores.TabIndex = 7
@@ -997,7 +917,7 @@ Partial Class SmokeSchool
         '
         'btnMoveRes2Scores
         '
-        Me.btnMoveRes2Scores.Location = New System.Drawing.Point(280, 65)
+        Me.btnMoveRes2Scores.Location = New System.Drawing.Point(10, 32)
         Me.btnMoveRes2Scores.Name = "btnMoveRes2Scores"
         Me.btnMoveRes2Scores.Size = New System.Drawing.Size(75, 73)
         Me.btnMoveRes2Scores.TabIndex = 6
@@ -1007,7 +927,7 @@ Partial Class SmokeSchool
         'Label34
         '
         Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(34, 255)
+        Me.Label34.Location = New System.Drawing.Point(57, 8)
         Me.Label34.Name = "Label34"
         Me.Label34.Size = New System.Drawing.Size(101, 13)
         Me.Label34.TabIndex = 5
@@ -1015,91 +935,96 @@ Partial Class SmokeSchool
         '
         'txtNumberOfStudents3
         '
-        Me.txtNumberOfStudents3.Location = New System.Drawing.Point(141, 252)
+        Me.txtNumberOfStudents3.Location = New System.Drawing.Point(164, 5)
         Me.txtNumberOfStudents3.Name = "txtNumberOfStudents3"
         Me.txtNumberOfStudents3.Size = New System.Drawing.Size(100, 20)
         Me.txtNumberOfStudents3.TabIndex = 4
         '
         'dgvScores
         '
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvScores.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle15.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvScores.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle15
         Me.dgvScores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvScores.DefaultCellStyle = DataGridViewCellStyle4
-        Me.dgvScores.Location = New System.Drawing.Point(371, 54)
+        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle16.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvScores.DefaultCellStyle = DataGridViewCellStyle16
+        Me.dgvScores.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvScores.Location = New System.Drawing.Point(395, 3)
         Me.dgvScores.Name = "dgvScores"
         Me.dgvScores.ReadOnly = True
-        Me.dgvScores.Size = New System.Drawing.Size(277, 384)
+        Me.dgvScores.Size = New System.Drawing.Size(287, 493)
         Me.dgvScores.TabIndex = 3
         '
         'dgvRes2
         '
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvRes2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle17.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvRes2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle17
         Me.dgvRes2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvRes2.DefaultCellStyle = DataGridViewCellStyle6
-        Me.dgvRes2.Location = New System.Drawing.Point(23, 288)
+        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle18.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvRes2.DefaultCellStyle = DataGridViewCellStyle18
+        Me.dgvRes2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvRes2.Location = New System.Drawing.Point(3, 284)
         Me.dgvRes2.Name = "dgvRes2"
         Me.dgvRes2.ReadOnly = True
-        Me.dgvRes2.Size = New System.Drawing.Size(240, 150)
+        Me.dgvRes2.Size = New System.Drawing.Size(280, 206)
         Me.dgvRes2.TabIndex = 2
         '
         'txtSchedule2
         '
-        Me.txtSchedule2.Location = New System.Drawing.Point(23, 28)
+        Me.txtSchedule2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtSchedule2.Location = New System.Drawing.Point(3, 3)
         Me.txtSchedule2.Name = "txtSchedule2"
-        Me.txtSchedule2.Size = New System.Drawing.Size(240, 20)
+        Me.txtSchedule2.Size = New System.Drawing.Size(280, 20)
         Me.txtSchedule2.TabIndex = 1
         '
         'dgvSchedule2
         '
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvSchedule2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle19.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvSchedule2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle19
         Me.dgvSchedule2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvSchedule2.DefaultCellStyle = DataGridViewCellStyle8
-        Me.dgvSchedule2.Location = New System.Drawing.Point(23, 54)
+        DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle20.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvSchedule2.DefaultCellStyle = DataGridViewCellStyle20
+        Me.dgvSchedule2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvSchedule2.Location = New System.Drawing.Point(3, 38)
         Me.dgvSchedule2.Name = "dgvSchedule2"
         Me.dgvSchedule2.ReadOnly = True
-        Me.dgvSchedule2.Size = New System.Drawing.Size(240, 192)
+        Me.dgvSchedule2.Size = New System.Drawing.Size(280, 205)
         Me.dgvSchedule2.TabIndex = 0
         '
         'TabScores
@@ -1175,14 +1100,15 @@ Partial Class SmokeSchool
         Me.TabScores.Controls.Add(Me.dgvScore3)
         Me.TabScores.Location = New System.Drawing.Point(4, 22)
         Me.TabScores.Name = "TabScores"
-        Me.TabScores.Size = New System.Drawing.Size(786, 528)
+        Me.TabScores.Size = New System.Drawing.Size(704, 522)
         Me.TabScores.TabIndex = 3
         Me.TabScores.Text = "Scores"
         Me.TabScores.UseVisualStyleBackColor = True
         '
         'txtScoreKey
         '
-        Me.txtScoreKey.Location = New System.Drawing.Point(692, 236)
+        Me.txtScoreKey.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtScoreKey.Location = New System.Drawing.Point(662, 263)
         Me.txtScoreKey.Name = "txtScoreKey"
         Me.txtScoreKey.Size = New System.Drawing.Size(24, 20)
         Me.txtScoreKey.TabIndex = 68
@@ -1201,6 +1127,7 @@ Partial Class SmokeSchool
         '
         'txtLastName3
         '
+        Me.txtLastName3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtLastName3.Location = New System.Drawing.Point(584, 209)
         Me.txtLastName3.Name = "txtLastName3"
         Me.txtLastName3.Size = New System.Drawing.Size(102, 20)
@@ -1208,6 +1135,7 @@ Partial Class SmokeSchool
         '
         'txtFirstName3
         '
+        Me.txtFirstName3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtFirstName3.Location = New System.Drawing.Point(472, 209)
         Me.txtFirstName3.Name = "txtFirstName3"
         Me.txtFirstName3.Size = New System.Drawing.Size(106, 20)
@@ -1215,6 +1143,7 @@ Partial Class SmokeSchool
         '
         'Label36
         '
+        Me.Label36.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label36.AutoSize = True
         Me.Label36.Location = New System.Drawing.Point(376, 212)
         Me.Label36.Name = "Label36"
@@ -1224,6 +1153,7 @@ Partial Class SmokeSchool
         '
         'btnDelete
         '
+        Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnDelete.AutoSize = True
         Me.btnDelete.Location = New System.Drawing.Point(379, 237)
         Me.btnDelete.Name = "btnDelete"
@@ -1234,9 +1164,10 @@ Partial Class SmokeSchool
         '
         'Label67
         '
+        Me.Label67.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label67.AutoSize = True
         Me.Label67.ForeColor = System.Drawing.Color.Tomato
-        Me.Label67.Location = New System.Drawing.Point(301, 381)
+        Me.Label67.Location = New System.Drawing.Point(296, 431)
         Me.Label67.Name = "Label67"
         Me.Label67.Size = New System.Drawing.Size(142, 13)
         Me.Label67.TabIndex = 62
@@ -1252,7 +1183,8 @@ Partial Class SmokeSchool
         '
         'btnSave3
         '
-        Me.btnSave3.Location = New System.Drawing.Point(201, 441)
+        Me.btnSave3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnSave3.Location = New System.Drawing.Point(196, 491)
         Me.btnSave3.Name = "btnSave3"
         Me.btnSave3.Size = New System.Drawing.Size(421, 23)
         Me.btnSave3.TabIndex = 60
@@ -1261,42 +1193,47 @@ Partial Class SmokeSchool
         '
         'cboVisionCorrection
         '
+        Me.cboVisionCorrection.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cboVisionCorrection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboVisionCorrection.FormattingEnabled = True
-        Me.cboVisionCorrection.Location = New System.Drawing.Point(571, 412)
+        Me.cboVisionCorrection.Location = New System.Drawing.Point(566, 462)
         Me.cboVisionCorrection.Name = "cboVisionCorrection"
         Me.cboVisionCorrection.Size = New System.Drawing.Size(86, 21)
         Me.cboVisionCorrection.TabIndex = 59
         '
         'cboPassFail
         '
+        Me.cboPassFail.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cboPassFail.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboPassFail.FormattingEnabled = True
-        Me.cboPassFail.Location = New System.Drawing.Point(431, 414)
+        Me.cboPassFail.Location = New System.Drawing.Point(426, 464)
         Me.cboPassFail.Name = "cboPassFail"
         Me.cboPassFail.Size = New System.Drawing.Size(97, 21)
         Me.cboPassFail.TabIndex = 58
         '
         'dtpDatePassed
         '
+        Me.dtpDatePassed.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.dtpDatePassed.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDatePassed.Location = New System.Drawing.Point(301, 413)
+        Me.dtpDatePassed.Location = New System.Drawing.Point(296, 463)
         Me.dtpDatePassed.Name = "dtpDatePassed"
         Me.dtpDatePassed.Size = New System.Drawing.Size(95, 20)
         Me.dtpDatePassed.TabIndex = 57
         '
         'txtQuizGrade
         '
-        Me.txtQuizGrade.Location = New System.Drawing.Point(201, 413)
+        Me.txtQuizGrade.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txtQuizGrade.Location = New System.Drawing.Point(196, 463)
         Me.txtQuizGrade.Name = "txtQuizGrade"
         Me.txtQuizGrade.Size = New System.Drawing.Size(57, 20)
         Me.txtQuizGrade.TabIndex = 56
         '
         'Label66
         '
+        Me.Label66.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label66.AutoSize = True
         Me.Label66.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label66.Location = New System.Drawing.Point(570, 397)
+        Me.Label66.Location = New System.Drawing.Point(565, 447)
         Me.Label66.Name = "Label66"
         Me.Label66.Size = New System.Drawing.Size(89, 13)
         Me.Label66.TabIndex = 55
@@ -1304,9 +1241,10 @@ Partial Class SmokeSchool
         '
         'Label65
         '
+        Me.Label65.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label65.AutoSize = True
         Me.Label65.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label65.Location = New System.Drawing.Point(428, 397)
+        Me.Label65.Location = New System.Drawing.Point(423, 447)
         Me.Label65.Name = "Label65"
         Me.Label65.Size = New System.Drawing.Size(100, 13)
         Me.Label65.TabIndex = 54
@@ -1314,9 +1252,10 @@ Partial Class SmokeSchool
         '
         'Label64
         '
+        Me.Label64.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label64.AutoSize = True
         Me.Label64.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label64.Location = New System.Drawing.Point(298, 397)
+        Me.Label64.Location = New System.Drawing.Point(293, 447)
         Me.Label64.Name = "Label64"
         Me.Label64.Size = New System.Drawing.Size(68, 13)
         Me.Label64.TabIndex = 53
@@ -1324,9 +1263,10 @@ Partial Class SmokeSchool
         '
         'Label63
         '
+        Me.Label63.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label63.AutoSize = True
         Me.Label63.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label63.Location = New System.Drawing.Point(198, 397)
+        Me.Label63.Location = New System.Drawing.Point(193, 447)
         Me.Label63.Name = "Label63"
         Me.Label63.Size = New System.Drawing.Size(60, 13)
         Me.Label63.TabIndex = 52
@@ -1334,9 +1274,10 @@ Partial Class SmokeSchool
         '
         'Label62
         '
+        Me.Label62.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label62.AutoSize = True
         Me.Label62.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label62.Location = New System.Drawing.Point(21, 397)
+        Me.Label62.Location = New System.Drawing.Point(16, 447)
         Me.Label62.Name = "Label62"
         Me.Label62.Size = New System.Drawing.Size(56, 13)
         Me.Label62.TabIndex = 51
@@ -1344,7 +1285,8 @@ Partial Class SmokeSchool
         '
         'txtComments
         '
-        Me.txtComments.Location = New System.Drawing.Point(24, 413)
+        Me.txtComments.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txtComments.Location = New System.Drawing.Point(19, 463)
         Me.txtComments.Multiline = True
         Me.txtComments.Name = "txtComments"
         Me.txtComments.Size = New System.Drawing.Size(157, 51)
@@ -1352,6 +1294,7 @@ Partial Class SmokeSchool
         '
         'txtCompanyName3
         '
+        Me.txtCompanyName3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtCompanyName3.Location = New System.Drawing.Point(524, 237)
         Me.txtCompanyName3.Name = "txtCompanyName3"
         Me.txtCompanyName3.Size = New System.Drawing.Size(162, 20)
@@ -1359,6 +1302,7 @@ Partial Class SmokeSchool
         '
         'txtStudentName3
         '
+        Me.txtStudentName3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtStudentName3.Location = New System.Drawing.Point(521, 179)
         Me.txtStudentName3.Name = "txtStudentName3"
         Me.txtStudentName3.Size = New System.Drawing.Size(165, 20)
@@ -1366,6 +1310,7 @@ Partial Class SmokeSchool
         '
         'txtStudentID3
         '
+        Me.txtStudentID3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtStudentID3.Location = New System.Drawing.Point(400, 176)
         Me.txtStudentID3.Name = "txtStudentID3"
         Me.txtStudentID3.Size = New System.Drawing.Size(51, 20)
@@ -1373,6 +1318,7 @@ Partial Class SmokeSchool
         '
         'Label61
         '
+        Me.Label61.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label61.AutoSize = True
         Me.Label61.Location = New System.Drawing.Point(467, 179)
         Me.Label61.Name = "Label61"
@@ -1382,6 +1328,7 @@ Partial Class SmokeSchool
         '
         'Label60
         '
+        Me.Label60.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label60.AutoSize = True
         Me.Label60.Location = New System.Drawing.Point(467, 240)
         Me.Label60.Name = "Label60"
@@ -1391,6 +1338,7 @@ Partial Class SmokeSchool
         '
         'Label59
         '
+        Me.Label59.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label59.AutoSize = True
         Me.Label59.Location = New System.Drawing.Point(376, 179)
         Me.Label59.Name = "Label59"
@@ -1400,9 +1348,10 @@ Partial Class SmokeSchool
         '
         'chbRun10B
         '
+        Me.chbRun10B.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun10B.AutoSize = True
         Me.chbRun10B.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun10B.Location = New System.Drawing.Point(600, 335)
+        Me.chbRun10B.Location = New System.Drawing.Point(595, 385)
         Me.chbRun10B.Name = "chbRun10B"
         Me.chbRun10B.Size = New System.Drawing.Size(42, 17)
         Me.chbRun10B.TabIndex = 43
@@ -1411,9 +1360,10 @@ Partial Class SmokeSchool
         '
         'chbRun9B
         '
+        Me.chbRun9B.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun9B.AutoSize = True
         Me.chbRun9B.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun9B.Location = New System.Drawing.Point(536, 335)
+        Me.chbRun9B.Location = New System.Drawing.Point(531, 385)
         Me.chbRun9B.Name = "chbRun9B"
         Me.chbRun9B.Size = New System.Drawing.Size(42, 17)
         Me.chbRun9B.TabIndex = 42
@@ -1422,9 +1372,10 @@ Partial Class SmokeSchool
         '
         'chbRun8B
         '
+        Me.chbRun8B.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun8B.AutoSize = True
         Me.chbRun8B.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun8B.Location = New System.Drawing.Point(472, 335)
+        Me.chbRun8B.Location = New System.Drawing.Point(467, 385)
         Me.chbRun8B.Name = "chbRun8B"
         Me.chbRun8B.Size = New System.Drawing.Size(42, 17)
         Me.chbRun8B.TabIndex = 41
@@ -1433,9 +1384,10 @@ Partial Class SmokeSchool
         '
         'chbRun7B
         '
+        Me.chbRun7B.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun7B.AutoSize = True
         Me.chbRun7B.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun7B.Location = New System.Drawing.Point(408, 335)
+        Me.chbRun7B.Location = New System.Drawing.Point(403, 385)
         Me.chbRun7B.Name = "chbRun7B"
         Me.chbRun7B.Size = New System.Drawing.Size(42, 17)
         Me.chbRun7B.TabIndex = 40
@@ -1444,9 +1396,10 @@ Partial Class SmokeSchool
         '
         'chbRun6B
         '
+        Me.chbRun6B.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun6B.AutoSize = True
         Me.chbRun6B.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun6B.Location = New System.Drawing.Point(344, 335)
+        Me.chbRun6B.Location = New System.Drawing.Point(339, 385)
         Me.chbRun6B.Name = "chbRun6B"
         Me.chbRun6B.Size = New System.Drawing.Size(42, 17)
         Me.chbRun6B.TabIndex = 39
@@ -1455,9 +1408,10 @@ Partial Class SmokeSchool
         '
         'chbRun5B
         '
+        Me.chbRun5B.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun5B.AutoSize = True
         Me.chbRun5B.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun5B.Location = New System.Drawing.Point(280, 335)
+        Me.chbRun5B.Location = New System.Drawing.Point(275, 385)
         Me.chbRun5B.Name = "chbRun5B"
         Me.chbRun5B.Size = New System.Drawing.Size(42, 17)
         Me.chbRun5B.TabIndex = 38
@@ -1466,9 +1420,10 @@ Partial Class SmokeSchool
         '
         'chbRun4B
         '
+        Me.chbRun4B.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun4B.AutoSize = True
         Me.chbRun4B.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun4B.Location = New System.Drawing.Point(216, 335)
+        Me.chbRun4B.Location = New System.Drawing.Point(211, 385)
         Me.chbRun4B.Name = "chbRun4B"
         Me.chbRun4B.Size = New System.Drawing.Size(42, 17)
         Me.chbRun4B.TabIndex = 37
@@ -1477,9 +1432,10 @@ Partial Class SmokeSchool
         '
         'chbRun3B
         '
+        Me.chbRun3B.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun3B.AutoSize = True
         Me.chbRun3B.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun3B.Location = New System.Drawing.Point(152, 335)
+        Me.chbRun3B.Location = New System.Drawing.Point(147, 385)
         Me.chbRun3B.Name = "chbRun3B"
         Me.chbRun3B.Size = New System.Drawing.Size(42, 17)
         Me.chbRun3B.TabIndex = 36
@@ -1488,9 +1444,10 @@ Partial Class SmokeSchool
         '
         'chbRun2B
         '
+        Me.chbRun2B.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun2B.AutoSize = True
         Me.chbRun2B.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun2B.Location = New System.Drawing.Point(88, 335)
+        Me.chbRun2B.Location = New System.Drawing.Point(83, 385)
         Me.chbRun2B.Name = "chbRun2B"
         Me.chbRun2B.Size = New System.Drawing.Size(42, 17)
         Me.chbRun2B.TabIndex = 35
@@ -1499,9 +1456,10 @@ Partial Class SmokeSchool
         '
         'chbRun10C
         '
+        Me.chbRun10C.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun10C.AutoSize = True
         Me.chbRun10C.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun10C.Location = New System.Drawing.Point(600, 358)
+        Me.chbRun10C.Location = New System.Drawing.Point(595, 408)
         Me.chbRun10C.Name = "chbRun10C"
         Me.chbRun10C.Size = New System.Drawing.Size(64, 17)
         Me.chbRun10C.TabIndex = 34
@@ -1510,9 +1468,10 @@ Partial Class SmokeSchool
         '
         'chbRun9C
         '
+        Me.chbRun9C.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun9C.AutoSize = True
         Me.chbRun9C.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun9C.Location = New System.Drawing.Point(536, 358)
+        Me.chbRun9C.Location = New System.Drawing.Point(531, 408)
         Me.chbRun9C.Name = "chbRun9C"
         Me.chbRun9C.Size = New System.Drawing.Size(64, 17)
         Me.chbRun9C.TabIndex = 33
@@ -1521,9 +1480,10 @@ Partial Class SmokeSchool
         '
         'chbRun8C
         '
+        Me.chbRun8C.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun8C.AutoSize = True
         Me.chbRun8C.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun8C.Location = New System.Drawing.Point(472, 358)
+        Me.chbRun8C.Location = New System.Drawing.Point(467, 408)
         Me.chbRun8C.Name = "chbRun8C"
         Me.chbRun8C.Size = New System.Drawing.Size(64, 17)
         Me.chbRun8C.TabIndex = 32
@@ -1532,9 +1492,10 @@ Partial Class SmokeSchool
         '
         'chbRun7C
         '
+        Me.chbRun7C.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun7C.AutoSize = True
         Me.chbRun7C.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun7C.Location = New System.Drawing.Point(408, 358)
+        Me.chbRun7C.Location = New System.Drawing.Point(403, 408)
         Me.chbRun7C.Name = "chbRun7C"
         Me.chbRun7C.Size = New System.Drawing.Size(64, 17)
         Me.chbRun7C.TabIndex = 31
@@ -1543,9 +1504,10 @@ Partial Class SmokeSchool
         '
         'chbRun6C
         '
+        Me.chbRun6C.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun6C.AutoSize = True
         Me.chbRun6C.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun6C.Location = New System.Drawing.Point(344, 358)
+        Me.chbRun6C.Location = New System.Drawing.Point(339, 408)
         Me.chbRun6C.Name = "chbRun6C"
         Me.chbRun6C.Size = New System.Drawing.Size(64, 17)
         Me.chbRun6C.TabIndex = 30
@@ -1554,9 +1516,10 @@ Partial Class SmokeSchool
         '
         'chbRun5C
         '
+        Me.chbRun5C.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun5C.AutoSize = True
         Me.chbRun5C.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun5C.Location = New System.Drawing.Point(280, 358)
+        Me.chbRun5C.Location = New System.Drawing.Point(275, 408)
         Me.chbRun5C.Name = "chbRun5C"
         Me.chbRun5C.Size = New System.Drawing.Size(64, 17)
         Me.chbRun5C.TabIndex = 29
@@ -1565,9 +1528,10 @@ Partial Class SmokeSchool
         '
         'chbRun4C
         '
+        Me.chbRun4C.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun4C.AutoSize = True
         Me.chbRun4C.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun4C.Location = New System.Drawing.Point(216, 358)
+        Me.chbRun4C.Location = New System.Drawing.Point(211, 408)
         Me.chbRun4C.Name = "chbRun4C"
         Me.chbRun4C.Size = New System.Drawing.Size(64, 17)
         Me.chbRun4C.TabIndex = 28
@@ -1576,9 +1540,10 @@ Partial Class SmokeSchool
         '
         'chbRun3C
         '
+        Me.chbRun3C.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun3C.AutoSize = True
         Me.chbRun3C.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun3C.Location = New System.Drawing.Point(152, 358)
+        Me.chbRun3C.Location = New System.Drawing.Point(147, 408)
         Me.chbRun3C.Name = "chbRun3C"
         Me.chbRun3C.Size = New System.Drawing.Size(64, 17)
         Me.chbRun3C.TabIndex = 27
@@ -1587,9 +1552,10 @@ Partial Class SmokeSchool
         '
         'chbRun2C
         '
+        Me.chbRun2C.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun2C.AutoSize = True
         Me.chbRun2C.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun2C.Location = New System.Drawing.Point(88, 358)
+        Me.chbRun2C.Location = New System.Drawing.Point(83, 408)
         Me.chbRun2C.Name = "chbRun2C"
         Me.chbRun2C.Size = New System.Drawing.Size(64, 17)
         Me.chbRun2C.TabIndex = 26
@@ -1598,9 +1564,10 @@ Partial Class SmokeSchool
         '
         'chbRun1C
         '
+        Me.chbRun1C.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun1C.AutoSize = True
         Me.chbRun1C.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun1C.Location = New System.Drawing.Point(24, 358)
+        Me.chbRun1C.Location = New System.Drawing.Point(19, 408)
         Me.chbRun1C.Name = "chbRun1C"
         Me.chbRun1C.Size = New System.Drawing.Size(64, 17)
         Me.chbRun1C.TabIndex = 25
@@ -1609,9 +1576,10 @@ Partial Class SmokeSchool
         '
         'chbRun1B
         '
+        Me.chbRun1B.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun1B.AutoSize = True
         Me.chbRun1B.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun1B.Location = New System.Drawing.Point(24, 335)
+        Me.chbRun1B.Location = New System.Drawing.Point(19, 385)
         Me.chbRun1B.Name = "chbRun1B"
         Me.chbRun1B.Size = New System.Drawing.Size(42, 17)
         Me.chbRun1B.TabIndex = 24
@@ -1620,9 +1588,10 @@ Partial Class SmokeSchool
         '
         'chbRun10A
         '
+        Me.chbRun10A.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun10A.AutoSize = True
         Me.chbRun10A.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun10A.Location = New System.Drawing.Point(600, 312)
+        Me.chbRun10A.Location = New System.Drawing.Point(595, 362)
         Me.chbRun10A.Name = "chbRun10A"
         Me.chbRun10A.Size = New System.Drawing.Size(49, 17)
         Me.chbRun10A.TabIndex = 23
@@ -1631,9 +1600,10 @@ Partial Class SmokeSchool
         '
         'chbRun9A
         '
+        Me.chbRun9A.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun9A.AutoSize = True
         Me.chbRun9A.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun9A.Location = New System.Drawing.Point(536, 312)
+        Me.chbRun9A.Location = New System.Drawing.Point(531, 362)
         Me.chbRun9A.Name = "chbRun9A"
         Me.chbRun9A.Size = New System.Drawing.Size(49, 17)
         Me.chbRun9A.TabIndex = 22
@@ -1642,9 +1612,10 @@ Partial Class SmokeSchool
         '
         'chbRun8A
         '
+        Me.chbRun8A.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun8A.AutoSize = True
         Me.chbRun8A.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun8A.Location = New System.Drawing.Point(472, 312)
+        Me.chbRun8A.Location = New System.Drawing.Point(467, 362)
         Me.chbRun8A.Name = "chbRun8A"
         Me.chbRun8A.Size = New System.Drawing.Size(49, 17)
         Me.chbRun8A.TabIndex = 21
@@ -1653,9 +1624,10 @@ Partial Class SmokeSchool
         '
         'chbRun7A
         '
+        Me.chbRun7A.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun7A.AutoSize = True
         Me.chbRun7A.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun7A.Location = New System.Drawing.Point(408, 312)
+        Me.chbRun7A.Location = New System.Drawing.Point(403, 362)
         Me.chbRun7A.Name = "chbRun7A"
         Me.chbRun7A.Size = New System.Drawing.Size(49, 17)
         Me.chbRun7A.TabIndex = 20
@@ -1664,9 +1636,10 @@ Partial Class SmokeSchool
         '
         'chbRun6A
         '
+        Me.chbRun6A.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun6A.AutoSize = True
         Me.chbRun6A.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun6A.Location = New System.Drawing.Point(344, 312)
+        Me.chbRun6A.Location = New System.Drawing.Point(339, 362)
         Me.chbRun6A.Name = "chbRun6A"
         Me.chbRun6A.Size = New System.Drawing.Size(49, 17)
         Me.chbRun6A.TabIndex = 19
@@ -1675,9 +1648,10 @@ Partial Class SmokeSchool
         '
         'chbRun5A
         '
+        Me.chbRun5A.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun5A.AutoSize = True
         Me.chbRun5A.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun5A.Location = New System.Drawing.Point(280, 312)
+        Me.chbRun5A.Location = New System.Drawing.Point(275, 362)
         Me.chbRun5A.Name = "chbRun5A"
         Me.chbRun5A.Size = New System.Drawing.Size(49, 17)
         Me.chbRun5A.TabIndex = 18
@@ -1686,9 +1660,10 @@ Partial Class SmokeSchool
         '
         'chbRun4A
         '
+        Me.chbRun4A.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun4A.AutoSize = True
         Me.chbRun4A.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun4A.Location = New System.Drawing.Point(216, 312)
+        Me.chbRun4A.Location = New System.Drawing.Point(211, 362)
         Me.chbRun4A.Name = "chbRun4A"
         Me.chbRun4A.Size = New System.Drawing.Size(49, 17)
         Me.chbRun4A.TabIndex = 17
@@ -1697,9 +1672,10 @@ Partial Class SmokeSchool
         '
         'chbRun3A
         '
+        Me.chbRun3A.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun3A.AutoSize = True
         Me.chbRun3A.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun3A.Location = New System.Drawing.Point(152, 312)
+        Me.chbRun3A.Location = New System.Drawing.Point(147, 362)
         Me.chbRun3A.Name = "chbRun3A"
         Me.chbRun3A.Size = New System.Drawing.Size(49, 17)
         Me.chbRun3A.TabIndex = 16
@@ -1708,9 +1684,10 @@ Partial Class SmokeSchool
         '
         'chbRun2A
         '
+        Me.chbRun2A.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun2A.AutoSize = True
         Me.chbRun2A.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun2A.Location = New System.Drawing.Point(88, 312)
+        Me.chbRun2A.Location = New System.Drawing.Point(83, 362)
         Me.chbRun2A.Name = "chbRun2A"
         Me.chbRun2A.Size = New System.Drawing.Size(49, 17)
         Me.chbRun2A.TabIndex = 15
@@ -1719,9 +1696,10 @@ Partial Class SmokeSchool
         '
         'chbRun1A
         '
+        Me.chbRun1A.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chbRun1A.AutoSize = True
         Me.chbRun1A.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbRun1A.Location = New System.Drawing.Point(24, 312)
+        Me.chbRun1A.Location = New System.Drawing.Point(19, 362)
         Me.chbRun1A.Name = "chbRun1A"
         Me.chbRun1A.Size = New System.Drawing.Size(49, 17)
         Me.chbRun1A.TabIndex = 14
@@ -1730,9 +1708,10 @@ Partial Class SmokeSchool
         '
         'Label58
         '
+        Me.Label58.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label58.AutoSize = True
         Me.Label58.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label58.Location = New System.Drawing.Point(213, 285)
+        Me.Label58.Location = New System.Drawing.Point(208, 335)
         Me.Label58.Name = "Label58"
         Me.Label58.Size = New System.Drawing.Size(45, 13)
         Me.Label58.TabIndex = 13
@@ -1740,9 +1719,10 @@ Partial Class SmokeSchool
         '
         'Label57
         '
+        Me.Label57.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label57.AutoSize = True
         Me.Label57.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label57.Location = New System.Drawing.Point(277, 285)
+        Me.Label57.Location = New System.Drawing.Point(272, 335)
         Me.Label57.Name = "Label57"
         Me.Label57.Size = New System.Drawing.Size(45, 13)
         Me.Label57.TabIndex = 12
@@ -1750,9 +1730,10 @@ Partial Class SmokeSchool
         '
         'Label56
         '
+        Me.Label56.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label56.AutoSize = True
         Me.Label56.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label56.Location = New System.Drawing.Point(597, 285)
+        Me.Label56.Location = New System.Drawing.Point(592, 335)
         Me.Label56.Name = "Label56"
         Me.Label56.Size = New System.Drawing.Size(52, 13)
         Me.Label56.TabIndex = 11
@@ -1760,9 +1741,10 @@ Partial Class SmokeSchool
         '
         'Label55
         '
+        Me.Label55.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label55.AutoSize = True
         Me.Label55.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label55.Location = New System.Drawing.Point(533, 285)
+        Me.Label55.Location = New System.Drawing.Point(528, 335)
         Me.Label55.Name = "Label55"
         Me.Label55.Size = New System.Drawing.Size(45, 13)
         Me.Label55.TabIndex = 10
@@ -1770,9 +1752,10 @@ Partial Class SmokeSchool
         '
         'Label54
         '
+        Me.Label54.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label54.AutoSize = True
         Me.Label54.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label54.Location = New System.Drawing.Point(469, 286)
+        Me.Label54.Location = New System.Drawing.Point(464, 336)
         Me.Label54.Name = "Label54"
         Me.Label54.Size = New System.Drawing.Size(45, 13)
         Me.Label54.TabIndex = 9
@@ -1780,9 +1763,10 @@ Partial Class SmokeSchool
         '
         'Label53
         '
+        Me.Label53.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label53.AutoSize = True
         Me.Label53.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label53.Location = New System.Drawing.Point(405, 286)
+        Me.Label53.Location = New System.Drawing.Point(400, 336)
         Me.Label53.Name = "Label53"
         Me.Label53.Size = New System.Drawing.Size(45, 13)
         Me.Label53.TabIndex = 8
@@ -1790,9 +1774,10 @@ Partial Class SmokeSchool
         '
         'Label52
         '
+        Me.Label52.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label52.AutoSize = True
         Me.Label52.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label52.Location = New System.Drawing.Point(341, 286)
+        Me.Label52.Location = New System.Drawing.Point(336, 336)
         Me.Label52.Name = "Label52"
         Me.Label52.Size = New System.Drawing.Size(45, 13)
         Me.Label52.TabIndex = 7
@@ -1800,9 +1785,10 @@ Partial Class SmokeSchool
         '
         'Label51
         '
+        Me.Label51.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label51.AutoSize = True
         Me.Label51.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label51.Location = New System.Drawing.Point(149, 285)
+        Me.Label51.Location = New System.Drawing.Point(144, 335)
         Me.Label51.Name = "Label51"
         Me.Label51.Size = New System.Drawing.Size(45, 13)
         Me.Label51.TabIndex = 6
@@ -1810,9 +1796,10 @@ Partial Class SmokeSchool
         '
         'Label50
         '
+        Me.Label50.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label50.AutoSize = True
         Me.Label50.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label50.Location = New System.Drawing.Point(85, 285)
+        Me.Label50.Location = New System.Drawing.Point(80, 335)
         Me.Label50.Name = "Label50"
         Me.Label50.Size = New System.Drawing.Size(45, 13)
         Me.Label50.TabIndex = 5
@@ -1820,9 +1807,10 @@ Partial Class SmokeSchool
         '
         'Label49
         '
+        Me.Label49.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label49.AutoSize = True
         Me.Label49.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label49.Location = New System.Drawing.Point(21, 285)
+        Me.Label49.Location = New System.Drawing.Point(16, 335)
         Me.Label49.Name = "Label49"
         Me.Label49.Size = New System.Drawing.Size(45, 13)
         Me.Label49.TabIndex = 4
@@ -1830,6 +1818,7 @@ Partial Class SmokeSchool
         '
         'PanelStats
         '
+        Me.PanelStats.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PanelStats.Controls.Add(Me.btnPrintThisOne)
         Me.PanelStats.Controls.Add(Me.btnExportPassToExcel)
         Me.PanelStats.Controls.Add(Me.txtTotal)
@@ -1961,27 +1950,30 @@ Partial Class SmokeSchool
         '
         'dgvScore3
         '
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvScore3.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle9
+        Me.dgvScore3.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle21.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvScore3.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle21
         Me.dgvScore3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvScore3.DefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle22.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvScore3.DefaultCellStyle = DataGridViewCellStyle22
         Me.dgvScore3.Location = New System.Drawing.Point(19, 64)
         Me.dgvScore3.Name = "dgvScore3"
         Me.dgvScore3.ReadOnly = True
-        Me.dgvScore3.Size = New System.Drawing.Size(345, 192)
+        Me.dgvScore3.Size = New System.Drawing.Size(345, 250)
         Me.dgvScore3.TabIndex = 0
         '
         'TPDiplomas
@@ -1990,7 +1982,7 @@ Partial Class SmokeSchool
         Me.TPDiplomas.Controls.Add(Me.Panel3)
         Me.TPDiplomas.Location = New System.Drawing.Point(4, 22)
         Me.TPDiplomas.Name = "TPDiplomas"
-        Me.TPDiplomas.Size = New System.Drawing.Size(786, 528)
+        Me.TPDiplomas.Size = New System.Drawing.Size(704, 522)
         Me.TPDiplomas.TabIndex = 8
         Me.TPDiplomas.Text = "Diplomas"
         Me.TPDiplomas.UseVisualStyleBackColor = True
@@ -2005,7 +1997,7 @@ Partial Class SmokeSchool
         Me.dgvDiplomas.Location = New System.Drawing.Point(0, 55)
         Me.dgvDiplomas.Name = "dgvDiplomas"
         Me.dgvDiplomas.ReadOnly = True
-        Me.dgvDiplomas.Size = New System.Drawing.Size(786, 473)
+        Me.dgvDiplomas.Size = New System.Drawing.Size(704, 467)
         Me.dgvDiplomas.TabIndex = 1
         '
         'Panel3
@@ -2021,13 +2013,14 @@ Partial Class SmokeSchool
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(786, 55)
+        Me.Panel3.Size = New System.Drawing.Size(704, 55)
         Me.Panel3.TabIndex = 0
         '
         'Label16
         '
+        Me.Label16.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(548, 21)
+        Me.Label16.Location = New System.Drawing.Point(606, 20)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(35, 13)
         Me.Label16.TabIndex = 10
@@ -2035,16 +2028,18 @@ Partial Class SmokeSchool
         '
         'txtDiplomaCount
         '
-        Me.txtDiplomaCount.Location = New System.Drawing.Point(589, 18)
+        Me.txtDiplomaCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtDiplomaCount.Location = New System.Drawing.Point(647, 17)
         Me.txtDiplomaCount.Name = "txtDiplomaCount"
         Me.txtDiplomaCount.Size = New System.Drawing.Size(49, 20)
         Me.txtDiplomaCount.TabIndex = 9
         '
         'btnExportDiplomas
         '
+        Me.btnExportDiplomas.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnExportDiplomas.AutoSize = True
         Me.btnExportDiplomas.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnExportDiplomas.Location = New System.Drawing.Point(644, 16)
+        Me.btnExportDiplomas.Location = New System.Drawing.Point(466, 15)
         Me.btnExportDiplomas.Name = "btnExportDiplomas"
         Me.btnExportDiplomas.Size = New System.Drawing.Size(134, 23)
         Me.btnExportDiplomas.TabIndex = 4
@@ -2055,7 +2050,7 @@ Partial Class SmokeSchool
         '
         Me.btnRunDiplomaReport.AutoSize = True
         Me.btnRunDiplomaReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRunDiplomaReport.Location = New System.Drawing.Point(332, 16)
+        Me.btnRunDiplomaReport.Location = New System.Drawing.Point(332, 15)
         Me.btnRunDiplomaReport.Name = "btnRunDiplomaReport"
         Me.btnRunDiplomaReport.Size = New System.Drawing.Size(113, 23)
         Me.btnRunDiplomaReport.TabIndex = 3
@@ -2065,7 +2060,7 @@ Partial Class SmokeSchool
         'rdbSpringTerm
         '
         Me.rdbSpringTerm.AutoSize = True
-        Me.rdbSpringTerm.Location = New System.Drawing.Point(244, 19)
+        Me.rdbSpringTerm.Location = New System.Drawing.Point(244, 18)
         Me.rdbSpringTerm.Name = "rdbSpringTerm"
         Me.rdbSpringTerm.Size = New System.Drawing.Size(82, 17)
         Me.rdbSpringTerm.TabIndex = 2
@@ -2076,7 +2071,7 @@ Partial Class SmokeSchool
         'rdbFallTerm
         '
         Me.rdbFallTerm.AutoSize = True
-        Me.rdbFallTerm.Location = New System.Drawing.Point(170, 19)
+        Me.rdbFallTerm.Location = New System.Drawing.Point(170, 18)
         Me.rdbFallTerm.Name = "rdbFallTerm"
         Me.rdbFallTerm.Size = New System.Drawing.Size(68, 17)
         Me.rdbFallTerm.TabIndex = 1
@@ -2087,7 +2082,7 @@ Partial Class SmokeSchool
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(8, 21)
+        Me.Label13.Location = New System.Drawing.Point(8, 20)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(29, 13)
         Me.Label13.TabIndex = 1
@@ -2097,7 +2092,7 @@ Partial Class SmokeSchool
         '
         Me.cboTermYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboTermYear.FormattingEnabled = True
-        Me.cboTermYear.Location = New System.Drawing.Point(43, 18)
+        Me.cboTermYear.Location = New System.Drawing.Point(43, 17)
         Me.cboTermYear.Name = "cboTermYear"
         Me.cboTermYear.Size = New System.Drawing.Size(121, 21)
         Me.cboTermYear.TabIndex = 0
@@ -2123,15 +2118,16 @@ Partial Class SmokeSchool
         Me.TabSetup.Controls.Add(Me.dgvSchedule)
         Me.TabSetup.Location = New System.Drawing.Point(4, 22)
         Me.TabSetup.Name = "TabSetup"
-        Me.TabSetup.Size = New System.Drawing.Size(786, 528)
+        Me.TabSetup.Size = New System.Drawing.Size(704, 522)
         Me.TabSetup.TabIndex = 5
         Me.TabSetup.Text = "Set Up Schedule"
         Me.TabSetup.UseVisualStyleBackColor = True
         '
         'Label31
         '
+        Me.Label31.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(385, 306)
+        Me.Label31.Location = New System.Drawing.Point(297, 418)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(92, 13)
         Me.Label31.TabIndex = 24
@@ -2140,17 +2136,19 @@ Partial Class SmokeSchool
         '
         'cboDisplay
         '
+        Me.cboDisplay.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cboDisplay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboDisplay.FormattingEnabled = True
-        Me.cboDisplay.Location = New System.Drawing.Point(388, 320)
+        Me.cboDisplay.Location = New System.Drawing.Point(300, 432)
         Me.cboDisplay.Name = "cboDisplay"
         Me.cboDisplay.Size = New System.Drawing.Size(121, 21)
         Me.cboDisplay.TabIndex = 23
         '
         'Label30
         '
+        Me.Label30.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label30.AutoSize = True
-        Me.Label30.Location = New System.Drawing.Point(233, 306)
+        Me.Label30.Location = New System.Drawing.Point(153, 417)
         Me.Label30.Name = "Label30"
         Me.Label30.Size = New System.Drawing.Size(52, 13)
         Me.Label30.TabIndex = 22
@@ -2159,8 +2157,9 @@ Partial Class SmokeSchool
         '
         'Label29
         '
+        Me.Label29.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(113, 306)
+        Me.Label29.Location = New System.Drawing.Point(26, 417)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(55, 13)
         Me.Label29.TabIndex = 21
@@ -2169,8 +2168,9 @@ Partial Class SmokeSchool
         '
         'Label28
         '
+        Me.Label28.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(385, 253)
+        Me.Label28.Location = New System.Drawing.Point(297, 365)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(24, 13)
         Me.Label28.TabIndex = 20
@@ -2179,8 +2179,9 @@ Partial Class SmokeSchool
         '
         'Label27
         '
+        Me.Label27.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(233, 256)
+        Me.Label27.Location = New System.Drawing.Point(153, 367)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(43, 13)
         Me.Label27.TabIndex = 19
@@ -2189,8 +2190,9 @@ Partial Class SmokeSchool
         '
         'Label26
         '
+        Me.Label26.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(113, 256)
+        Me.Label26.Location = New System.Drawing.Point(26, 367)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(29, 13)
         Me.Label26.TabIndex = 18
@@ -2199,23 +2201,26 @@ Partial Class SmokeSchool
         '
         'dtpEndDate
         '
+        Me.dtpEndDate.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.dtpEndDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpEndDate.Location = New System.Drawing.Point(236, 322)
+        Me.dtpEndDate.Location = New System.Drawing.Point(156, 433)
         Me.dtpEndDate.Name = "dtpEndDate"
-        Me.dtpEndDate.Size = New System.Drawing.Size(95, 20)
+        Me.dtpEndDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpEndDate.TabIndex = 17
         '
         'dtpStartDate
         '
+        Me.dtpStartDate.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.dtpStartDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpStartDate.Location = New System.Drawing.Point(116, 322)
+        Me.dtpStartDate.Location = New System.Drawing.Point(29, 433)
         Me.dtpStartDate.Name = "dtpStartDate"
-        Me.dtpStartDate.Size = New System.Drawing.Size(95, 20)
+        Me.dtpStartDate.Size = New System.Drawing.Size(99, 20)
         Me.dtpStartDate.TabIndex = 16
         '
         'btnScheduleClear
         '
-        Me.btnScheduleClear.Location = New System.Drawing.Point(388, 360)
+        Me.btnScheduleClear.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnScheduleClear.Location = New System.Drawing.Point(279, 472)
         Me.btnScheduleClear.Name = "btnScheduleClear"
         Me.btnScheduleClear.Size = New System.Drawing.Size(75, 23)
         Me.btnScheduleClear.TabIndex = 14
@@ -2224,7 +2229,8 @@ Partial Class SmokeSchool
         '
         'btnDeleteSchedule
         '
-        Me.btnDeleteSchedule.Location = New System.Drawing.Point(282, 361)
+        Me.btnDeleteSchedule.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnDeleteSchedule.Location = New System.Drawing.Point(173, 473)
         Me.btnDeleteSchedule.Name = "btnDeleteSchedule"
         Me.btnDeleteSchedule.Size = New System.Drawing.Size(75, 23)
         Me.btnDeleteSchedule.TabIndex = 13
@@ -2233,7 +2239,8 @@ Partial Class SmokeSchool
         '
         'btnSaveSchedule
         '
-        Me.btnSaveSchedule.Location = New System.Drawing.Point(176, 361)
+        Me.btnSaveSchedule.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnSaveSchedule.Location = New System.Drawing.Point(67, 473)
         Me.btnSaveSchedule.Name = "btnSaveSchedule"
         Me.btnSaveSchedule.Size = New System.Drawing.Size(75, 23)
         Me.btnSaveSchedule.TabIndex = 12
@@ -2242,67 +2249,70 @@ Partial Class SmokeSchool
         '
         'cboCity
         '
+        Me.cboCity.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cboCity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboCity.FormattingEnabled = True
-        Me.cboCity.Location = New System.Drawing.Point(388, 272)
+        Me.cboCity.Location = New System.Drawing.Point(300, 384)
         Me.cboCity.Name = "cboCity"
         Me.cboCity.Size = New System.Drawing.Size(121, 21)
         Me.cboCity.TabIndex = 11
         '
         'cboSeason
         '
+        Me.cboSeason.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cboSeason.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSeason.FormattingEnabled = True
-        Me.cboSeason.Location = New System.Drawing.Point(236, 272)
+        Me.cboSeason.Location = New System.Drawing.Point(156, 383)
         Me.cboSeason.Name = "cboSeason"
         Me.cboSeason.Size = New System.Drawing.Size(121, 21)
         Me.cboSeason.TabIndex = 10
         '
         'cboYear
         '
+        Me.cboYear.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cboYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboYear.FormattingEnabled = True
-        Me.cboYear.Location = New System.Drawing.Point(116, 272)
+        Me.cboYear.Location = New System.Drawing.Point(29, 383)
         Me.cboYear.Name = "cboYear"
         Me.cboYear.Size = New System.Drawing.Size(99, 21)
         Me.cboYear.TabIndex = 9
         '
         'txtSchedule
         '
-        Me.txtSchedule.Location = New System.Drawing.Point(116, 43)
+        Me.txtSchedule.Location = New System.Drawing.Point(29, 29)
         Me.txtSchedule.Name = "txtSchedule"
         Me.txtSchedule.Size = New System.Drawing.Size(392, 20)
         Me.txtSchedule.TabIndex = 6
         '
         'dgvSchedule
         '
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvSchedule.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle11
+        Me.dgvSchedule.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle23.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvSchedule.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle23
         Me.dgvSchedule.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvSchedule.DefaultCellStyle = DataGridViewCellStyle12
-        Me.dgvSchedule.Location = New System.Drawing.Point(116, 69)
+        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle24.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvSchedule.DefaultCellStyle = DataGridViewCellStyle24
+        Me.dgvSchedule.Location = New System.Drawing.Point(29, 55)
         Me.dgvSchedule.Name = "dgvSchedule"
         Me.dgvSchedule.ReadOnly = True
-        Me.dgvSchedule.Size = New System.Drawing.Size(392, 150)
+        Me.dgvSchedule.Size = New System.Drawing.Size(392, 289)
         Me.dgvSchedule.TabIndex = 5
         '
         'TabActivate
         '
-        Me.TabActivate.Controls.Add(Me.Label40)
-        Me.TabActivate.Controls.Add(Me.Label39)
         Me.TabActivate.Controls.Add(Me.txtEmailAddress)
         Me.TabActivate.Controls.Add(Me.Label38)
         Me.TabActivate.Controls.Add(Me.btnActivate)
@@ -2310,57 +2320,36 @@ Partial Class SmokeSchool
         Me.TabActivate.Location = New System.Drawing.Point(4, 22)
         Me.TabActivate.Name = "TabActivate"
         Me.TabActivate.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabActivate.Size = New System.Drawing.Size(786, 528)
+        Me.TabActivate.Size = New System.Drawing.Size(704, 522)
         Me.TabActivate.TabIndex = 6
         Me.TabActivate.Text = "Activate GECO"
         Me.TabActivate.UseVisualStyleBackColor = True
         '
-        'Label40
-        '
-        Me.Label40.AutoSize = True
-        Me.Label40.Font = New System.Drawing.Font("Times New Roman", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label40.ForeColor = System.Drawing.Color.Blue
-        Me.Label40.Location = New System.Drawing.Point(88, 66)
-        Me.Label40.Name = "Label40"
-        Me.Label40.Size = New System.Drawing.Size(484, 24)
-        Me.Label40.TabIndex = 4
-        Me.Label40.Text = "Enter the User's Email Address in the Text Box Below"
-        '
-        'Label39
-        '
-        Me.Label39.AutoSize = True
-        Me.Label39.Font = New System.Drawing.Font("Times New Roman", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label39.ForeColor = System.Drawing.Color.Blue
-        Me.Label39.Location = New System.Drawing.Point(171, 20)
-        Me.Label39.Name = "Label39"
-        Me.Label39.Size = New System.Drawing.Size(319, 36)
-        Me.Label39.TabIndex = 3
-        Me.Label39.Text = "Activate User Account"
-        '
         'txtEmailAddress
         '
-        Me.txtEmailAddress.Location = New System.Drawing.Point(327, 123)
+        Me.txtEmailAddress.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtEmailAddress.Location = New System.Drawing.Point(258, 38)
         Me.txtEmailAddress.Name = "txtEmailAddress"
-        Me.txtEmailAddress.Size = New System.Drawing.Size(248, 32)
+        Me.txtEmailAddress.Size = New System.Drawing.Size(248, 26)
         Me.txtEmailAddress.TabIndex = 2
         '
         'Label38
         '
         Me.Label38.AutoSize = True
-        Me.Label38.Font = New System.Drawing.Font("Times New Roman", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label38.ForeColor = System.Drawing.Color.Blue
-        Me.Label38.Location = New System.Drawing.Point(88, 126)
+        Me.Label38.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label38.Location = New System.Drawing.Point(25, 40)
         Me.Label38.Name = "Label38"
-        Me.Label38.Size = New System.Drawing.Size(232, 24)
+        Me.Label38.Size = New System.Drawing.Size(227, 20)
         Me.Label38.TabIndex = 1
-        Me.Label38.Text = "Enter the Email Address:"
+        Me.Label38.Text = "Enter the user's email address:"
         '
         'btnActivate
         '
-        Me.btnActivate.ForeColor = System.Drawing.Color.Blue
-        Me.btnActivate.Location = New System.Drawing.Point(200, 178)
+        Me.btnActivate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnActivate.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnActivate.Location = New System.Drawing.Point(258, 70)
         Me.btnActivate.Name = "btnActivate"
-        Me.btnActivate.Size = New System.Drawing.Size(357, 39)
+        Me.btnActivate.Size = New System.Drawing.Size(248, 30)
         Me.btnActivate.TabIndex = 0
         Me.btnActivate.Text = "Activate User Account"
         Me.btnActivate.UseVisualStyleBackColor = True
@@ -2406,7 +2395,7 @@ Partial Class SmokeSchool
         Me.TabCache.Controls.Add(Me.Label87)
         Me.TabCache.Location = New System.Drawing.Point(4, 22)
         Me.TabCache.Name = "TabCache"
-        Me.TabCache.Size = New System.Drawing.Size(786, 528)
+        Me.TabCache.Size = New System.Drawing.Size(704, 522)
         Me.TabCache.TabIndex = 7
         Me.TabCache.Text = "Cache"
         Me.TabCache.UseVisualStyleBackColor = True
@@ -2428,11 +2417,10 @@ Partial Class SmokeSchool
         'Label88
         '
         Me.Label88.AutoSize = True
-        Me.Label88.Font = New System.Drawing.Font("Times New Roman", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label88.ForeColor = System.Drawing.Color.Blue
+        Me.Label88.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label88.Location = New System.Drawing.Point(158, 18)
         Me.Label88.Name = "Label88"
-        Me.Label88.Size = New System.Drawing.Size(258, 24)
+        Me.Label88.Size = New System.Drawing.Size(233, 20)
         Me.Label88.TabIndex = 86
         Me.Label88.Text = "This Cache is a Holding Pen"
         '
@@ -2712,9 +2700,9 @@ Partial Class SmokeSchool
         Me.Panel2.Controls.Add(Me.txtsortnbr)
         Me.Panel2.Controls.Add(Me.Label1)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel2.Location = New System.Drawing.Point(0, 24)
+        Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(794, 44)
+        Me.Panel2.Size = New System.Drawing.Size(712, 44)
         Me.Panel2.TabIndex = 8
         '
         'txtSortItem
@@ -2744,28 +2732,81 @@ Partial Class SmokeSchool
         Me.Label1.TabIndex = 4
         Me.Label1.Text = "Georgia Visible Emissions Evaluation Certification Training Program"
         '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TableLayoutPanel1.ColumnCount = 3
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.dgvScores, 2, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.Panel4, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel2, 0, 0)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(11, 15)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 1
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(685, 499)
+        Me.TableLayoutPanel1.TabIndex = 10
+        '
+        'Panel4
+        '
+        Me.Panel4.Controls.Add(Me.Button1)
+        Me.Panel4.Controls.Add(Me.btnMoveRes2Scores)
+        Me.Panel4.Controls.Add(Me.btnRemoveRes2Scores)
+        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel4.Location = New System.Drawing.Point(295, 3)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(94, 493)
+        Me.Panel4.TabIndex = 11
+        '
+        'TableLayoutPanel2
+        '
+        Me.TableLayoutPanel2.ColumnCount = 1
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.dgvSchedule2, 0, 1)
+        Me.TableLayoutPanel2.Controls.Add(Me.dgvRes2, 0, 3)
+        Me.TableLayoutPanel2.Controls.Add(Me.txtSchedule2, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.Panel5, 0, 2)
+        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 3)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        Me.TableLayoutPanel2.RowCount = 4
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(286, 493)
+        Me.TableLayoutPanel2.TabIndex = 12
+        '
+        'Panel5
+        '
+        Me.Panel5.Controls.Add(Me.txtNumberOfStudents3)
+        Me.Panel5.Controls.Add(Me.Label34)
+        Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel5.Location = New System.Drawing.Point(3, 249)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Size = New System.Drawing.Size(280, 29)
+        Me.Panel5.TabIndex = 2
+        '
         'SmokeSchool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(794, 644)
+        Me.ClientSize = New System.Drawing.Size(712, 592)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Panel2)
-        Me.Controls.Add(Me.MenuStrip1)
-        Me.Controls.Add(Me.StatusStrip1)
+        Me.MinimumSize = New System.Drawing.Size(728, 630)
         Me.Name = "SmokeSchool"
         Me.Text = "ISMP Smoke School"
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.tcSmokeSchool.ResumeLayout(False)
         Me.TabReservation.ResumeLayout(False)
         Me.TabReservation.PerformLayout()
         CType(Me.dgvRes, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabMoveRes2Scores.ResumeLayout(False)
-        Me.TabMoveRes2Scores.PerformLayout()
         CType(Me.dgvScores, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvRes2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvSchedule2, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2787,25 +2828,15 @@ Partial Class SmokeSchool
         Me.TabCache.PerformLayout()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
+        Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.Panel4.ResumeLayout(False)
+        Me.TableLayoutPanel2.ResumeLayout(False)
+        Me.TableLayoutPanel2.PerformLayout()
+        Me.Panel5.ResumeLayout(False)
+        Me.Panel5.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
-    Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
-    Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiClear As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiBack As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents EditToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiCut As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiCopy As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiPaste As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiRefreshDropDowns As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents pnl1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents pnl2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents pnl3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents Panel2 As System.Windows.Forms.Panel
     Friend WithEvents tcSmokeSchool As System.Windows.Forms.TabControl
@@ -2971,8 +3002,6 @@ Partial Class SmokeSchool
     Friend WithEvents txtSchedule As System.Windows.Forms.TextBox
     Friend WithEvents dgvSchedule As System.Windows.Forms.DataGridView
     Friend WithEvents TabActivate As System.Windows.Forms.TabPage
-    Friend WithEvents Label40 As System.Windows.Forms.Label
-    Friend WithEvents Label39 As System.Windows.Forms.Label
     Friend WithEvents txtEmailAddress As System.Windows.Forms.TextBox
     Friend WithEvents Label38 As System.Windows.Forms.Label
     Friend WithEvents btnActivate As System.Windows.Forms.Button
@@ -3031,4 +3060,8 @@ Partial Class SmokeSchool
     Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents txtDiplomaCount As System.Windows.Forms.TextBox
     Friend WithEvents btnRunDiplomaReport As System.Windows.Forms.Button
+    Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents Panel4 As System.Windows.Forms.Panel
+    Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents Panel5 As System.Windows.Forms.Panel
 End Class

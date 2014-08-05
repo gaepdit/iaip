@@ -27,9 +27,6 @@ Public Class SmokeSchool
     Private Sub ISMPSmokeSchool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Try
-            pnl1.Text = " "
-            pnl2.Text = UserName
-            pnl3.Text = OracleDate
 
             setPassedDate()
             txtsortnbr.Text = "1"
@@ -3896,4 +3893,5 @@ Public Class SmokeSchool
     Private Sub btnExportDiplomas_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportDiplomas.Click
         If dgvDiplomas.RowCount > 0 Then dgvDiplomas.ExportToExcel(Me)
     End Sub
+
 End Class
