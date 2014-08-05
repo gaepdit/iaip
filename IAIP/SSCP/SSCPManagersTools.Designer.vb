@@ -301,9 +301,6 @@ Partial Class SSCPManagersTools
         Me.TPTitleVRenewals = New System.Windows.Forms.TabPage
         Me.Label66 = New System.Windows.Forms.Label
         Me.btnRunTitleVSearch = New System.Windows.Forms.Button
-        Me.llbTitleVRenewal = New System.Windows.Forms.LinkLabel
-        Me.txtTitleVRenewals = New System.Windows.Forms.TextBox
-        Me.Label65 = New System.Windows.Forms.Label
         Me.llbViewRecord = New System.Windows.Forms.LinkLabel
         Me.lblStatisticalRecords = New System.Windows.Forms.Label
         Me.txtStatisticalCount = New System.Windows.Forms.TextBox
@@ -3249,9 +3246,6 @@ Partial Class SSCPManagersTools
         '
         Me.TPTitleVRenewals.Controls.Add(Me.Label66)
         Me.TPTitleVRenewals.Controls.Add(Me.btnRunTitleVSearch)
-        Me.TPTitleVRenewals.Controls.Add(Me.llbTitleVRenewal)
-        Me.TPTitleVRenewals.Controls.Add(Me.txtTitleVRenewals)
-        Me.TPTitleVRenewals.Controls.Add(Me.Label65)
         Me.TPTitleVRenewals.Location = New System.Drawing.Point(4, 22)
         Me.TPTitleVRenewals.Name = "TPTitleVRenewals"
         Me.TPTitleVRenewals.Size = New System.Drawing.Size(607, 355)
@@ -3261,7 +3255,7 @@ Partial Class SSCPManagersTools
         '
         'Label66
         '
-        Me.Label66.Location = New System.Drawing.Point(233, 33)
+        Me.Label66.Location = New System.Drawing.Point(107, 23)
         Me.Label66.Name = "Label66"
         Me.Label66.Size = New System.Drawing.Size(350, 97)
         Me.Label66.TabIndex = 42
@@ -3273,39 +3267,12 @@ Partial Class SSCPManagersTools
         '
         Me.btnRunTitleVSearch.AutoSize = True
         Me.btnRunTitleVSearch.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRunTitleVSearch.Location = New System.Drawing.Point(7, 6)
+        Me.btnRunTitleVSearch.Location = New System.Drawing.Point(15, 23)
         Me.btnRunTitleVSearch.Name = "btnRunTitleVSearch"
         Me.btnRunTitleVSearch.Size = New System.Drawing.Size(74, 23)
         Me.btnRunTitleVSearch.TabIndex = 41
         Me.btnRunTitleVSearch.Text = "Run Search"
         Me.btnRunTitleVSearch.UseVisualStyleBackColor = True
-        '
-        'llbTitleVRenewal
-        '
-        Me.llbTitleVRenewal.AutoSize = True
-        Me.llbTitleVRenewal.Location = New System.Drawing.Point(186, 37)
-        Me.llbTitleVRenewal.Name = "llbTitleVRenewal"
-        Me.llbTitleVRenewal.Size = New System.Drawing.Size(30, 13)
-        Me.llbTitleVRenewal.TabIndex = 40
-        Me.llbTitleVRenewal.TabStop = True
-        Me.llbTitleVRenewal.Text = "View"
-        '
-        'txtTitleVRenewals
-        '
-        Me.txtTitleVRenewals.Location = New System.Drawing.Point(111, 33)
-        Me.txtTitleVRenewals.Name = "txtTitleVRenewals"
-        Me.txtTitleVRenewals.ReadOnly = True
-        Me.txtTitleVRenewals.Size = New System.Drawing.Size(59, 20)
-        Me.txtTitleVRenewals.TabIndex = 39
-        '
-        'Label65
-        '
-        Me.Label65.AutoSize = True
-        Me.Label65.Location = New System.Drawing.Point(20, 37)
-        Me.Label65.Name = "Label65"
-        Me.Label65.Size = New System.Drawing.Size(90, 13)
-        Me.Label65.TabIndex = 38
-        Me.Label65.Text = "Title V Renewals "
         '
         'llbViewRecord
         '
@@ -4386,9 +4353,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents btnCopyYear As System.Windows.Forms.Button
     Friend WithEvents chbClearExistingData As System.Windows.Forms.CheckBox
     Friend WithEvents dgvCMSWarning As System.Windows.Forms.DataGridView
-    Friend WithEvents llbTitleVRenewal As System.Windows.Forms.LinkLabel
-    Friend WithEvents txtTitleVRenewals As System.Windows.Forms.TextBox
-    Friend WithEvents Label65 As System.Windows.Forms.Label
     Friend WithEvents TPTitleVRenewals As System.Windows.Forms.TabPage
     Friend WithEvents btnRunTitleVSearch As System.Windows.Forms.Button
     Friend WithEvents Label66 As System.Windows.Forms.Label

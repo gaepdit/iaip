@@ -552,16 +552,6 @@ Public Class SSCPFacAssignment
 
         Try
 
-            'SQL = "select (strLastName||', '||strFirstName) as SSCPEngineer, " & _
-            '"strUnitDesc as Unit, " & _
-            '"numUnit " & _
-            '"From " & DBNameSpace & ".EPDUSerProfiles, " & DBNameSpace & ".LookUpEPDUnits, " & _
-            '"" & DBNameSpace & ".SSCPFacilityAssignment " & _
-            '"where " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode " & _
-            '"and " & DBNameSpace & ".SSCPFacilityAssignment.strSSCPEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-            '"and " & DBNameSpace & ".SSCPFacilityAssignment.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-
-
             SQL = "select " & _
             "ENGINEER as SSCPEngineer,  " & _
             "case " & _
