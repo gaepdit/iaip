@@ -245,7 +245,6 @@ Public Class SmokeSchool
             cboSchedule1.Items.Add("- Select a Location/Term -")
             cboSchedule1.Items.Add("- All Terms -")
 
-            dr.Read()
             While (dr.Read)
                 locTerm = dr("strSchedule")
                 cboSchedule1.Items.Add(locTerm)
@@ -427,7 +426,7 @@ Public Class SmokeSchool
             Dim SQL As String = ""
             Dim dr As OracleDataReader
 
-            If cboSchedule1.SelectedIndex <> 0 Or cboSchedule1.SelectedIndex <> 1 Then
+            If cboSchedule1.SelectedIndex <> 0 Then
 
                 dsRes = New DataSet
 
@@ -451,28 +450,27 @@ Public Class SmokeSchool
                                  "strLectureYesNo " & _
                           "from airbranch.smokeSchoolReservation " & _
                           "order by strLocationDate, strLastName, strFirstName"
-                End If
-                If txtsortnbr.Text = "2" Then
+                Else
                     SQL = "SELECT numUserID, " & _
-                                 "strLastName, " & _
-                                 "strFirstName, " & _
-                                 "strSalutation, " & _
-                                 "strTitle, " & _
-                                 "strCompanyName, " & _
-                                 "strAddress1, " & _
-                                 "strAddress2, " & _
-                                 "strCity, " & _
-                                 "strState, " & _
-                                 "strZip, " & _
-                                 "strPhoneNumber, " & _
-                                 "strFax, " & _
-                                 "strEmail, " & _
-                                 "strConfirmationNbr, " & _
-                                 "strLocationDate, " & _
-                                 "strLectureYesNo " & _
-                             "from airbranch.smokeSchoolReservation " & _
-                             "where strLocationDate = '" & locationTerm & "' " & _
-                             "order by strLastName, strFirstName"
+                                                     "strLastName, " & _
+                                                     "strFirstName, " & _
+                                                     "strSalutation, " & _
+                                                     "strTitle, " & _
+                                                     "strCompanyName, " & _
+                                                     "strAddress1, " & _
+                                                     "strAddress2, " & _
+                                                     "strCity, " & _
+                                                     "strState, " & _
+                                                     "strZip, " & _
+                                                     "strPhoneNumber, " & _
+                                                     "strFax, " & _
+                                                     "strEmail, " & _
+                                                     "strConfirmationNbr, " & _
+                                                     "strLocationDate, " & _
+                                                     "strLectureYesNo " & _
+                                                 "from airbranch.smokeSchoolReservation " & _
+                                                 "where strLocationDate = '" & locationTerm & "' " & _
+                                                 "order by strLastName, strFirstName"
                 End If
 
                 Dim cmd As New OracleCommand(SQL, CurrentConnection)
@@ -3514,8 +3512,13 @@ Public Class SmokeSchool
         Try
             Dim cnt As Decimal
 
-            If cboSchedule1.SelectedIndex = 0 Or cboSchedule1.SelectedIndex = 1 Then
+            If cboSchedule1.SelectedIndex = 0 Then
                 MsgBox("You must select a Location/Term")
+                Exit Sub
+            End If
+
+            If txtsortnbr.Text = "1" Then
+                SQL = "select count(*) as numberOfStudents from airbranch.SmokeSchoolReservation "
             Else
                 SQL = "select count(*) as numberOfStudents from airbranch.SmokeSchoolReservation " & _
                 "where strLocationDate = '" & cboSchedule1.SelectedItem & "'"
@@ -3593,7 +3596,12 @@ Public Class SmokeSchool
     End Sub
     Private Sub btnSelectClass1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSelectClass1.Click
         Try
-            If cboSchedule1.SelectedIndex <> 0 Or cboSchedule1.SelectedIndex <> 1 Then
+            If cboSchedule1.SelectedIndex = 0 Then
+                MsgBox("You must select a Term and Location")
+                Exit Sub
+            End If
+
+            If cboSchedule1.SelectedIndex <> 0 AndAlso cboSchedule1.SelectedIndex <> 1 Then
                 txtsortnbr.Text = "2"
                 txtSortItem.Text = cboSchedule1.SelectedItem
             End If
