@@ -576,12 +576,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="SSCP\SSCPAdministrator.Designer.vb">
-      <DependentUpon>SSCPAdministrator.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SSCP\SSCPAdministrator.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="SSCP\SSCPComplianceLog.Designer.vb">
       <DependentUpon>SSCPComplianceLog.vb</DependentUpon>
     </Compile>
@@ -1230,9 +1224,6 @@
     <EmbeddedResource Include="SmokeSchool\PassFailNoShow.resx">
       <DependentUpon>PassFailNoShow.vb</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SSCP\SSCPAdministrator.resx">
-      <DependentUpon>SSCPAdministrator.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SSCPComplianceLog.resx">
       <DependentUpon>SSCPComplianceLog.vb</DependentUpon>
