@@ -5842,164 +5842,61 @@ Public Class SSCPManagersTools
 
     Private Sub btnRunTitleVSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunTitleVSearch.Click
         Try
-            'Dim StartDate As String = OracleDate
-            'Dim EndDate As String = OracleDate
-
-            'StartDate = Format(Date.Today, "dd-MMM-yyyy")
-
-            'StartDate = Format(CDate(StartDate).AddMonths(-51), "dd-MMM-yyyy")
-            'EndDate = Format(CDate(EndDate).AddMonths(-50), "dd-MMM-yyyy")
-
-
-            SQL = "select " & _
-"substr(airbranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " & _
-"airbranch.APBFacilityInformation.strFacilityname,  strOperationalStatus " & _
-"from AIRBranch.APBFacilityinformation, AIRBranch.APBHeaderdata , " & _
-"(select distinct substr(AIRBranch.APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber " & _
-"from AIRBranch.APBHeaderData, AIRBranch.APBFacilityInformation, " & _
-"AIRBranch.SSPPApplicationMaster,  AIRBranch.SSPPApplicationData, " & _
-"AIRBranch.SSPPApplicationTracking " & _
-"where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber   " & _
-"and AIRBranch.SSPPApplicationMaster.strAIRSNumber = AIRBranch.APBHeaderData.strAIRSNumber  " & _
-"and AIRBranch.SSPPApplicationMaster.strAIRSnumber = AIRBranch.APBFacilityInformation.strAIRSNumber  " & _
-"and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber  " & _
-"and strPermitNumber Like '%V__0'  and AIRBranch.APBHeaderData.strOperationalStatus <> 'X'  " & _
-"and substr(AIRBranch.apbheaderdata.strairprogramcodes, 13, 1) = '1' " & _
-"and ((DatPermitissued is not null and DatPermitissued < add_months(sysdate, -51) ) " & _
-"or (DATEFFECTIVE is not null and  DATEFFECTIVE < add_months(sysdate, -51))) " & _
-"minus " & _
-"(select distinct substr(airbranch.SSPPApplicationmaster.strairsnumber, 5) as AIRSNumber " & _
-"from AIRBranch.SSPPApplicationMaster,  AIRBranch.SSPPApplicationData, AIRBranch.SSPPApplicationTracking, " & _
-"AIRBranch.APBHeaderData " & _
-"where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber  " & _
-"and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber  " & _
-"and AIRBranch.SSPPApplicationMaster.strAIRSNumber = AIRBranch.APBHeaderData.strAIRSNumber  " & _
-"and ((strApplicationType =  '14' or strApplicationType = '16' or strApplicationType = '27' ) " & _
-"or (strPermitNumber Like '%V__0'  )) " & _
-"and ((datPermitIssued between  add_months(sysdate, -60) and sysdate  " & _
-"and datEffective between  add_months(sysdate, -60) and sysdate ) " & _
-"or (datREceiveddate between  add_months(sysdate, -60) and sysdate  ) ) )) TVFacilities " & _
-"where AIRbranch.APBFacilityInformation.strAIRSNumber = '0413'||TVFacilities.AIRSNumber " & _
-"and AIRbranch.APBFacilityInformation.strAIRSNumber = AIRbranch.APBHeaderdata.strairsnumber "
-
-
-            SQL = "select " & _
-            " count(*) as LateTV " & _
-            "from AIRBranch.APBFacilityinformation, AIRBranch.APBHeaderdata , " & _
-            "(select distinct substr(AIRBranch.APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber " & _
-            "from AIRBranch.APBHeaderData, AIRBranch.APBFacilityInformation, " & _
-            "AIRBranch.SSPPApplicationMaster,  AIRBranch.SSPPApplicationData, " & _
-            "AIRBranch.SSPPApplicationTracking " & _
-            "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber   " & _
-            "and AIRBranch.SSPPApplicationMaster.strAIRSNumber = AIRBranch.APBHeaderData.strAIRSNumber  " & _
-            "and AIRBranch.SSPPApplicationMaster.strAIRSnumber = AIRBranch.APBFacilityInformation.strAIRSNumber  " & _
-            "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber  " & _
-            "and strPermitNumber Like '%V__0'  and AIRBranch.APBHeaderData.strOperationalStatus <> 'X'  " & _
-            "and substr(AIRBranch.apbheaderdata.strairprogramcodes, 13, 1) = '1' " & _
-            "and ((DatPermitissued is not null and DatPermitissued < add_months(sysdate, -51) ) " & _
-            "or (DATEFFECTIVE is not null and  DATEFFECTIVE < add_months(sysdate, -51))) " & _
-            "minus " & _
-            "(select distinct substr(airbranch.SSPPApplicationmaster.strairsnumber, 5) as AIRSNumber " & _
-            "from AIRBranch.SSPPApplicationMaster,  AIRBranch.SSPPApplicationData, AIRBranch.SSPPApplicationTracking, " & _
-            "AIRBranch.APBHeaderData " & _
-            "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber  " & _
-            "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber  " & _
-            "and AIRBranch.SSPPApplicationMaster.strAIRSNumber = AIRBranch.APBHeaderData.strAIRSNumber  " & _
-            "and ((strApplicationType =  '14' or strApplicationType = '16' or strApplicationType = '27' ) " & _
-            "or (strPermitNumber Like '%V__0'  )) " & _
-            "and ((datPermitIssued between  add_months(sysdate, -51) and sysdate  " & _
-            "and datEffective between  add_months(sysdate, -51) and sysdate ) " & _
-            "or (datREceiveddate between  add_months(sysdate, -51) and sysdate  ) ) )) TVFacilities " & _
-            "where AIRbranch.APBFacilityInformation.strAIRSNumber = '0413'||TVFacilities.AIRSNumber " & _
-            "and AIRbranch.APBFacilityInformation.strAIRSNumber = AIRbranch.APBHeaderdata.strairsnumber "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("LateTV")) Then
-                    txtTitleVRenewals.Text = "0"
-                Else
-                    txtTitleVRenewals.Text = dr.Item("lateTV")
-                End If
-            End While
-            dr.Close()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub llbTitleVRenewal_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbTitleVRenewal.LinkClicked
-        Try
-            SQL = "select distinct " & _
-            "substr(airbranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " & _
-            "airbranch.APBFacilityInformation.strFacilityname,  strOperationalStatus " & _
-            "from AIRBranch.APBFacilityinformation, AIRBranch.APBHeaderdata , " & _
-            "(select distinct substr(AIRBranch.APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber " & _
-            "from AIRBranch.APBHeaderData, AIRBranch.APBFacilityInformation, " & _
-            "AIRBranch.SSPPApplicationMaster,  AIRBranch.SSPPApplicationData, " & _
-            "AIRBranch.SSPPApplicationTracking " & _
-            "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber   " & _
-            "and AIRBranch.SSPPApplicationMaster.strAIRSNumber = AIRBranch.APBHeaderData.strAIRSNumber  " & _
-            "and AIRBranch.SSPPApplicationMaster.strAIRSnumber = AIRBranch.APBFacilityInformation.strAIRSNumber  " & _
-            "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber  " & _
-            "and strPermitNumber Like '%V__0'  and AIRBranch.APBHeaderData.strOperationalStatus <> 'X'  " & _
-            "and substr(AIRBranch.apbheaderdata.strairprogramcodes, 13, 1) = '1' " & _
-            "and ((DatPermitissued is not null and DatPermitissued < add_months(sysdate, -51) ) " & _
-            "or (DATEFFECTIVE is not null and  DATEFFECTIVE < add_months(sysdate, -51))) " & _
-            "minus " & _
-            "(select distinct substr(airbranch.SSPPApplicationmaster.strairsnumber, 5) as AIRSNumber " & _
-            "from AIRBranch.SSPPApplicationMaster,  AIRBranch.SSPPApplicationData, AIRBranch.SSPPApplicationTracking, " & _
-            "AIRBranch.APBHeaderData " & _
-            "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber  " & _
-            "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber  " & _
-            "and AIRBranch.SSPPApplicationMaster.strAIRSNumber = AIRBranch.APBHeaderData.strAIRSNumber  " & _
-            "and ((strApplicationType =  '14' or strApplicationType = '16' or strApplicationType = '27' ) " & _
-            "or (strPermitNumber Like '%V__0'  )) " & _
-            "and ((datPermitIssued between  add_months(sysdate, -51) and sysdate  " & _
-            "and datEffective between  add_months(sysdate, -51) and sysdate ) " & _
-            "or (datREceiveddate between  add_months(sysdate, -51) and sysdate  ) ) )) TVFacilities " & _
-            "where AIRbranch.APBFacilityInformation.strAIRSNumber = '0413'||TVFacilities.AIRSNumber " & _
-            "and AIRbranch.APBFacilityInformation.strAIRSNumber = AIRbranch.APBHeaderdata.strairsnumber "
-
-            SQL = "select distinct " & _
-            "substr(airbranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " & _
-            "airbranch.APBFacilityInformation.strFacilityname,  strOperationalStatus, " & _
-            "(strLastName||', '||strFirstName) as StaffResponsible " & _
-            "from AIRBranch.APBFacilityinformation, AIRBranch.APBHeaderdata , " & _
-            "AIRBranch.EPDUserProfiles, AIRBranch.SSCPFacilityAssignment ,  " & _
-            "(select distinct substr(AIRBranch.APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber " & _
-            "from AIRBranch.APBHeaderData, AIRBranch.APBFacilityInformation, " & _
-            "AIRBranch.SSPPApplicationMaster,  AIRBranch.SSPPApplicationData, " & _
-            "AIRBranch.SSPPApplicationTracking " & _
-            "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber   " & _
-            "and AIRBranch.SSPPApplicationMaster.strAIRSNumber = AIRBranch.APBHeaderData.strAIRSNumber  " & _
-            "and AIRBranch.SSPPApplicationMaster.strAIRSnumber = AIRBranch.APBFacilityInformation.strAIRSNumber  " & _
-            "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber  " & _
-            "and strPermitNumber Like '%V__0'  and AIRBranch.APBHeaderData.strOperationalStatus <> 'X'  " & _
-            "and substr(AIRBranch.apbheaderdata.strairprogramcodes, 13, 1) = '1' " & _
-            "and ((DatPermitissued is not null and DatPermitissued < add_months(sysdate, -51) ) " & _
-            "or (DATEFFECTIVE is not null and  DATEFFECTIVE < add_months(sysdate, -51))) " & _
-            "minus " & _
-            "(select distinct substr(airbranch.SSPPApplicationmaster.strairsnumber, 5) as AIRSNumber " & _
-            "from AIRBranch.SSPPApplicationMaster,  AIRBranch.SSPPApplicationData, AIRBranch.SSPPApplicationTracking, " & _
-            "AIRBranch.APBHeaderData " & _
-            "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber  " & _
-            "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber  " & _
-            "and AIRBranch.SSPPApplicationMaster.strAIRSNumber = AIRBranch.APBHeaderData.strAIRSNumber  " & _
-            "and ((strApplicationType =  '14' or strApplicationType = '16' or strApplicationType = '27' ) " & _
-            "or (strPermitNumber Like '%V__0'  )) " & _
-            "and ((datPermitIssued between  add_months(sysdate, -51) and sysdate  " & _
-            "and datEffective between  add_months(sysdate, -51) and sysdate ) " & _
-            "or (datREceiveddate between  add_months(sysdate, -51) and sysdate  ) ) )) TVFacilities " & _
-            "where AIRbranch.APBFacilityInformation.strAIRSNumber = '0413'||TVFacilities.AIRSNumber " & _
-            "and AIRbranch.APBFacilityInformation.strAIRSNumber = AIRbranch.APBHeaderdata.strairsnumber " & _
-            "and airbranch.SSCPFacilityAssignment.strSSCPEngineer = AIRBranch.EPDUserProfiles.numUserID " & _
-            "and AIRbranch.APBFacilityInformation.strAIRSNumber = Airbranch.SSCPFacilityAssignment.strairsnumber " & _
-            "order by AIRSNumber "
+            SQL = "SELECT DISTINCT SUBSTR(FI.STRAIRSNUMBER, 5) AS AIRSNumber, " & _
+            "  FI.STRFACILITYNAME, " & _
+            "  HD.STROPERATIONALSTATUS, " & _
+            "  (UP.STRLASTNAME " & _
+            "  || ', ' " & _
+            "  || UP.STRFIRSTNAME) AS StaffResponsible " & _
+            "FROM APBFacilityinformation FI, " & _
+            "  APBHeaderdata HD, " & _
+            "  EPDUserProfiles UP, " & _
+            "  SSCPINSPECTIONSREQUIRED IR, " & _
+            "  (SELECT DISTINCT SUBSTR(tFI.STRAIRSNUMBER, 5) AS AIRSNumber " & _
+            "  FROM APBHeaderData tHD, " & _
+            "    APBFacilityInformation tFI, " & _
+            "    SSPPApplicationMaster tAM, " & _
+            "    SSPPApplicationData tAD, " & _
+            "    SSPPApplicationTracking tAT " & _
+            "  WHERE tAM.STRAPPLICATIONNUMBER = tAD.STRAPPLICATIONNUMBER " & _
+            "  AND tAM.STRAIRSNUMBER          = tHD.STRAIRSNUMBER " & _
+            "  AND tAM.STRAIRSNUMBER          = tFI.STRAIRSNUMBER " & _
+            "  AND tAM.STRAPPLICATIONNUMBER   = tAT.STRAPPLICATIONNUMBER " & _
+            "  AND tAD.STRPERMITNUMBER LIKE '%V__0' " & _
+            "  AND tHD.STROPERATIONALSTATUS             <> 'X' " & _
+            "  AND SUBSTR(tHD.STRAIRPROGRAMCODES, 13, 1) = '1' " & _
+            "  AND ((tAT.DATPERMITISSUED                IS NOT NULL " & _
+            "  AND tAT.DATPERMITISSUED                   < add_months(SysDate, -51)) " & _
+            "  OR (tAT.DATEFFECTIVE                     IS NOT NULL " & _
+            "  AND tAT.DATEFFECTIVE                      < add_months(SysDate, -51))) " & _
+            "  MINUS " & _
+            "    (SELECT DISTINCT SUBSTR(tAM.STRAIRSNUMBER, 5) AS AIRSNumber " & _
+            "    FROM SSPPApplicationMaster tAM, " & _
+            "      SSPPApplicationData tAD, " & _
+            "      SSPPApplicationTracking tAT, " & _
+            "      APBHeaderData tHD " & _
+            "    WHERE tAM.STRAPPLICATIONNUMBER = tAD.STRAPPLICATIONNUMBER " & _
+            "    AND tAM.STRAPPLICATIONNUMBER   = tAT.STRAPPLICATIONNUMBER " & _
+            "    AND tAM.STRAIRSNUMBER          = tHD.STRAIRSNUMBER " & _
+            "    AND ((tAM.STRAPPLICATIONTYPE   = '14' " & _
+            "    OR tAM.STRAPPLICATIONTYPE      = '16' " & _
+            "    OR tAM.STRAPPLICATIONTYPE      = '27') " & _
+            "    OR (tAD.STRPERMITNUMBER LIKE '%V__0')) " & _
+            "    AND ((tAT.DATPERMITISSUED BETWEEN add_months(SysDate, -51) AND SysDate " & _
+            "    AND tAT.DATEFFECTIVE BETWEEN add_months(SysDate,      -51) AND SysDate) " & _
+            "    OR (tAT.DATRECEIVEDDATE BETWEEN add_months(SysDate,   -51) AND SysDate)) " & _
+            "    ) " & _
+            "  ) TVFacilities, " & _
+            "  (SELECT MAX(SSCPINSPECTIONSREQUIRED.INTYEAR) AS maxyear " & _
+            "  FROM SSCPINSPECTIONSREQUIRED " & _
+            "  ) maxyear " & _
+            "WHERE FI.STRAIRSNUMBER = '0413' " & _
+            "  || TVFacilities.AIRSNumber " & _
+            "AND FI.STRAIRSNUMBER   = HD.STRAIRSNUMBER " & _
+            "AND IR.NUMSSCPENGINEER = UP.NUMUSERID " & _
+            "AND FI.STRAIRSNUMBER   = IR.STRAIRSNUMBER " & _
+            "AND IR.INTYEAR         = maxyear.maxyear " & _
+            "ORDER BY AIRSNumber"
 
             dsStatisticalReport = New DataSet
             daStatisticalReport = New OracleDataAdapter(SQL, CurrentConnection)
@@ -6009,9 +5906,6 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True

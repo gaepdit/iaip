@@ -9883,10 +9883,6 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             Dim ComplianceManager As String = ""
             Dim DistrictManager As String = ""
 
-            'SQL = "Select strSSCPAssigningManager " & _
-            '"from " & DBNameSpace & ".SSCPFacilityAssignment " & _
-            '"where strAIRSnumber = '0413" & txtAirsNumber.Text & "' "
-
             SQL = "select max(INTYEAR), strAssigningManager " & _
                   "from " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED, " & _
                    "(select max(intyear) as MaxYear, " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER  " & _

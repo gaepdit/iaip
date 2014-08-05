@@ -137,23 +137,17 @@ Public Class IAIPFacilitySummary
                             mmiSSCP.Visible = True
 
                             If UserUnit = "---" Then 'Program Manager 
-                                'mmiSSCPAssignEngineer.Visible = True
-                                mmiSSCPAssignEngineer.Visible = False
                                 mmiSSCPNewWork.Visible = True
                                 mmiSSCPFCE.Visible = True
                             Else
                                 If AccountFormAccess(22, 3) = "1" Then 'Unit Manager 
-                                    'mmiSSCPAssignEngineer.Visible = True
-                                    mmiSSCPAssignEngineer.Visible = False
                                     mmiSSCPNewWork.Visible = True
                                     mmiSSCPFCE.Visible = True
                                 Else
                                     If AccountFormAccess(10, 3) = "1" Then 'District Liason 
-                                        mmiSSCPAssignEngineer.Visible = False
                                         mmiSSCPNewWork.Visible = True
                                         mmiSSCPFCE.Visible = True
                                     Else
-                                        mmiSSCPAssignEngineer.Visible = False
                                         mmiSSCPNewWork.Visible = True
                                         mmiSSCPFCE.Visible = True
                                     End If
@@ -1353,13 +1347,6 @@ Public Class IAIPFacilitySummary
                 CurrentConnection.Open()
             End If
             daFacilityWideData.Fill(dsFacilityWideData, "WebContacts")
-
-            'SQL = "Select (strLastName||', '||strFirstName) as SSCPEngineer, strUnitDesc " & _
-            '"from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".SSCPFacilityAssignment,  " & _
-            '"" & DBNameSpace & ".LookUpEPDUnits  " & _
-            '"where " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
-            '"and numUserID = strSSCPEngineer   " & _
-            '"and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  "
 
             SQL = "select " & _
 "SSCPENGINEER, " & _
@@ -4309,26 +4296,6 @@ Public Class IAIPFacilitySummary
     End Sub
 
 #Region "SSCP Menu"
-
-    Private Sub mmiSSCPAssignEngineer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSSCPAssignEngineer.Click
-        Try
-            If mtbAIRSNumber.Text.Length <> 8 Then
-                MsgBox("Please Enter a valid AIRS Number.", MsgBoxStyle.Information, "Facility Summary Warning")
-            Else
-                If txtFacilityName.Text = "" Then
-                    MsgBox("Please verify that the AIRS Number is correct", MsgBoxStyle.Information, "Facility Summary")
-                Else
-                    SSCPFacAssign = Nothing
-                    If SSCPFacAssign Is Nothing Then SSCPFacAssign = New SSCPFacAssignment
-                    SSCPFacAssign.txtFacilityName.Text = Me.txtFacilityName.Text
-                    SSCPFacAssign.txtAIRSNumber.Text = Me.mtbAIRSNumber.Text
-                    SSCPFacAssign.Show()
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
 
     Private Sub mmiSSCPNewWork_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSSCPNewWork.Click
         Try
