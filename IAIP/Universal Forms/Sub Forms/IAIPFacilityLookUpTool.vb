@@ -177,14 +177,6 @@ Public Class IAIPFacilityLookUpTool
                 Case "Address"
 
                 Case "Compliance"
-                    ' SQL = "Select  " & _
-                    '"strFacilityName, substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,   " & _
-                    '"strFacilityCity,   " & _
-                    '"strFacilityStreet1, (strLastName||', '||strFirstname) as Engineer    " & _
-                    '"from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".SSCPFacilityAssignment, " & DBNameSpace & ".EPDUserProfiles   " & _
-                    '"where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".SSCPFacilityAssignment.strAIRSNumber   " & _
-                    '"and " & DBNameSpace & ".SSCPFacilityAssignment.strSSCPEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID   " & _
-                    '"and Upper(strLastName||', '||strFirstName) like Upper('%" & Replace(txtComplianceEngineer.Text, "'", "''") & "%')  "
 
                     SQL = "Select  " & _
                     " " & DBNameSpace & ".APBFacilityInformation.strFacilityName, " & _

@@ -4829,10 +4829,6 @@ Public Class DMUDeveloperTools
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        ' SQL = "insert into AIRBranch.SSCPFacilityAssignment " & _
-                        '"values " & _
-                        '"('" & AIRSNumber & "', '', '', '', '') "
-
                         SQL = "Insert into AIRBranch.SSCPInspectionsRequired " & _
                         "(numKey, strAIRSnumber, intyear) " & _
                         "values " & _
@@ -5710,8 +5706,6 @@ Public Class DMUDeveloperTools
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
-
-                'SQL = "Delete " & DBNameSpace & ".SSCPFacilityAssignment where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
 
                 SQL = "Delete " & DBNameSpace & ".SSCPInspectionsRequired where strAIRSnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
 

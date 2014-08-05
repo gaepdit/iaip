@@ -421,10 +421,6 @@ Public Class DMUTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                'SQL = "Select strAIRSNumber " & _
-                '"from " & DBNameSpace & ".SSCPFacilityAssignment " & _
-                '"where strAIRSNumber = '0413" & NewAIRS & "' "
-
                 SQL = "Select " & _
                 "strAIRSnumber " & _
                 "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
@@ -438,9 +434,6 @@ Public Class DMUTool
                 RecExist = dr.Read
                 dr.Close()
                 If RecExist = False Then
-                    'SQL = "Update " & DBNameSpace & ".SSCPFacilityAssignment set " & _
-                    '"strAIRSNumber = '0413" & NewAIRS & "' " & _
-                    '"where strAIRSNumber = '0413" & OldAIRS & "' "
 
                     SQL = "Update " & DBNameSpace & ".SSCPInspectionsRequired set " & _
                     "strAIRSnumber = '0413" & NewAIRS & "' " & _
@@ -453,9 +446,6 @@ Public Class DMUTool
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Else
-                    'SQL = "Delete " & DBNameSpace & ".SSCPFacilityAssignment " & _
-                    '"where strAIRSNumber = '0413" & OldAIRS & "' "
-
                     SQL = "Delete " & DBNameSpace & ".SSCPInspectionsRequired " & _
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 

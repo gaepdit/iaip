@@ -52,7 +52,6 @@ Partial Class IAIPFacilitySummary
         Me.mmiISMPNewLogEnTry = New System.Windows.Forms.MenuItem
         Me.mmiISMPAddMemo = New System.Windows.Forms.MenuItem
         Me.mmiSSCP = New System.Windows.Forms.MenuItem
-        Me.mmiSSCPAssignEngineer = New System.Windows.Forms.MenuItem
         Me.mmiSSCPNewWork = New System.Windows.Forms.MenuItem
         Me.mmiSSCPFCE = New System.Windows.Forms.MenuItem
         Me.mmiHelp = New System.Windows.Forms.MenuItem
@@ -501,22 +500,17 @@ Partial Class IAIPFacilitySummary
         'mmiSSCP
         '
         Me.mmiSSCP.Index = 3
-        Me.mmiSSCP.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiSSCPAssignEngineer, Me.mmiSSCPNewWork, Me.mmiSSCPFCE})
+        Me.mmiSSCP.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiSSCPNewWork, Me.mmiSSCPFCE})
         Me.mmiSSCP.Text = "SS&CP"
-        '
-        'mmiSSCPAssignEngineer
-        '
-        Me.mmiSSCPAssignEngineer.Index = 0
-        Me.mmiSSCPAssignEngineer.Text = "Reassign Compliance Engineer"
         '
         'mmiSSCPNewWork
         '
-        Me.mmiSSCPNewWork.Index = 1
+        Me.mmiSSCPNewWork.Index = 0
         Me.mmiSSCPNewWork.Text = "New Compliance Event(s)"
         '
         'mmiSSCPFCE
         '
-        Me.mmiSSCPFCE.Index = 2
+        Me.mmiSSCPFCE.Index = 1
         Me.mmiSSCPFCE.Text = "View FCE"
         '
         'mmiHelp
@@ -3784,7 +3778,6 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents mmiISMPNewLogEnTry As System.Windows.Forms.MenuItem
     Friend WithEvents mmiISMPAddMemo As System.Windows.Forms.MenuItem
     Friend WithEvents mmiSSCP As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiSSCPAssignEngineer As System.Windows.Forms.MenuItem
     Friend WithEvents mmiSSCPNewWork As System.Windows.Forms.MenuItem
     Friend WithEvents mmiSSCPFCE As System.Windows.Forms.MenuItem
     Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
