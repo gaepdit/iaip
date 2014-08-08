@@ -19,7 +19,7 @@ Support
 For support, please contact the Data Management Unit:
 
 + Doug Waldron: <douglas.waldron@dnr.state.ga.us>, [(404) 656-3928](tel:404-656-3928)
-+ Brian Gregory: <brian.gregory@dnr.state.ga.us>, [(404) 651-8484](tel:404-651-8484)
++ Brian Gregory: <brian.gregory@dnr.state.ga.us>, [(404) 656-5182](tel:404-656-5182)
 
 Please submit bug reports to Doug Waldron.
 
