@@ -55,8 +55,8 @@
     <MinimumRequiredVersion>3.4.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>IAIP-install.html</WebPage>
-    <ApplicationRevision>37</ApplicationRevision>
-    <ApplicationVersion>3.5.3.%2a</ApplicationVersion>
+    <ApplicationRevision>39</ApplicationRevision>
+    <ApplicationVersion>3.5.5.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -576,12 +576,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="SSCP\SSCPAdministrator.Designer.vb">
-      <DependentUpon>SSCPAdministrator.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SSCP\SSCPAdministrator.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="SSCP\SSCPComplianceLog.Designer.vb">
       <DependentUpon>SSCPComplianceLog.vb</DependentUpon>
     </Compile>
@@ -787,9 +781,6 @@
       <DependentUpon>SSCPEnforcementSelector.vb</DependentUpon>
     </Compile>
     <Compile Include="SSCP\SubPages\SSCPEnforcementSelector.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SSCP\SubPages\SSCPFacAssignment.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SSCP\SubPages\SSCPInformationRequest.vb">
@@ -1231,9 +1222,6 @@
       <DependentUpon>PassFailNoShow.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SSCP\SSCPAdministrator.resx">
-      <DependentUpon>SSCPAdministrator.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SSCPComplianceLog.resx">
       <DependentUpon>SSCPComplianceLog.vb</DependentUpon>
     </EmbeddedResource>
@@ -1394,10 +1382,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SubPages\SSCPEnforcementSelector.resx">
       <DependentUpon>SSCPEnforcementSelector.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SSCP\SubPages\SSCPFacAssignment.resx">
-      <DependentUpon>SSCPFacAssignment.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SubPages\SSCPInformationRequest.resx">

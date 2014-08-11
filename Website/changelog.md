@@ -1,5 +1,18 @@
 % IAIP Change Log
 
+## Version 3.5.4 <span>(2014-08-05)</span>
+
++ NEW: *Smoke School* -- Improved Smoke School layout
++ NEW: Updated DMU contact phone numbers
+
+- FIX: *SSCP* -- Upcoming Title V Renewals search shows incorrect SSCP contact (#243); thx Sean
+- FIX: *Smoke School* -- Not all upcoming Smoke School events displayed (#251); thx Jeff
+
+## Version 3.5.4 <span>(2014-08-04)</span>
+
+- FIX: *Fees* -- Fix tab orderin Fee Audit Log (#253)
+- FIX: Unable to install update (#254); thx Karen and Jimmy
+
 ## Version 3.5.3 <span>(2014-07-30)</span>
 
 - FIX: *Fees* -- Unable to save admin data on Fee Audit Log (#250); thx Debbie

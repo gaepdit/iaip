@@ -73,7 +73,6 @@ Module subMain
     Public SSCP_Work As SSCPComplianceLog ' TODO DWW: Remove
     Public SSCPReports As SSCPEvents
     Public SSCPFCE As SSCPFCEWork
-    Public SSCPFacAssign As SSCPFacAssignment ' TODO DWW: Remove
     Public SSCPEngWork As SSCPWorkEnTry ' TODO DWW: Remove
     Public SSCPRequest As SSCPInformationRequest ' TODO DWW: Remove
     Public SSCPInspectionscheduleTool As SSCPInspectionscheduleLink ' TODO DWW: Remove

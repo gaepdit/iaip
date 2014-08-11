@@ -1001,23 +1001,6 @@ Public Class IAIPFacilityCreator
             dr = cmd.ExecuteReader
             dr.Close()
 
-            ' SQL = "insert into " & DBNameSpace & ".SSCPFacilityAssignment " & _
-            '"values " & _
-            '"('" & AIRSNumber & "', '', '', '', '') "
-
-            'SQL = "Insert into " & DBNameSpace & ".SSCPInspectionsRequired " & _
-            '"values " & _
-            '"((select max(numKey) + 1 from " & DBNameSpace & ".SSCPInspectionsRequired), " & _
-            '"'" & AIRSNumber & "', (Select extract(year from sysdate) from dual), " & _
-            '"'', '', '', '', '', '') "
-
-            'cmd = New OracleCommand(SQL, conn)
-            'If conn.State = ConnectionState.Closed Then
-            '    conn.Open()
-            'End If
-            'dr = cmd.ExecuteReader
-            'dr.Close()
-
             MsgBox("Facility Added to Integrated Air Information Platform", MsgBoxStyle.Information, Me.Text)
 
             If TCFacilityTools.TabPages.Contains(TPApproveNewFacility) Then
@@ -1759,9 +1742,6 @@ Public Class IAIPFacilityCreator
                 Case Else
                     Exit Sub
             End Select
-
-            'SQL = "delete " & DBNameSpace & ".SSCPFacilityAssignment " & _
-            '"where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
 
             SQL = "Delete " & DBNameSpace & ".SSCPInspectionsRequired " & _
             "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
