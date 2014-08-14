@@ -23,20 +23,8 @@ Partial Class SBEAPReports
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SBEAPReports))
         Me.SBEAPCLIENTDATABindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.SBEAPCLIENTSBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
-        Me.tsbSave = New System.Windows.Forms.ToolStripButton
-        Me.tsbClientSearch = New System.Windows.Forms.ToolStripButton
-        Me.tsbBack = New System.Windows.Forms.ToolStripButton
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.Label1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Label2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Label3 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
-        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.btnRunSBEAPReport = New System.Windows.Forms.Button
         Me.DTPReportStartDate = New System.Windows.Forms.DateTimePicker
         Me.Label18 = New System.Windows.Forms.Label
@@ -84,19 +72,12 @@ Partial Class SBEAPReports
         Me.Label14 = New System.Windows.Forms.Label
         Me.txtCaseID = New System.Windows.Forms.TextBox
         Me.btnViewCase = New System.Windows.Forms.Button
-        Me.TabControl1 = New System.Windows.Forms.TabControl
-        Me.TabPage1 = New System.Windows.Forms.TabPage
         CType(Me.SBEAPCLIENTDATABindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SBEAPCLIENTSBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.ToolStrip1.SuspendLayout()
-        Me.StatusStrip1.SuspendLayout()
-        Me.MenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.dgvCaseWork, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
-        Me.TabControl1.SuspendLayout()
-        Me.TabPage1.SuspendLayout()
         Me.SuspendLayout()
         '
         'SBEAPCLIENTDATABindingSource
@@ -106,100 +87,6 @@ Partial Class SBEAPReports
         'SBEAPCLIENTSBindingSource
         '
         Me.SBEAPCLIENTSBindingSource.DataMember = "SBEAPCLIENTS"
-        '
-        'ToolStrip1
-        '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbSave, Me.tsbClientSearch, Me.tsbBack})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
-        Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(893, 25)
-        Me.ToolStrip1.TabIndex = 8
-        Me.ToolStrip1.Text = "ToolStrip1"
-        '
-        'tsbSave
-        '
-        Me.tsbSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbSave.Image = CType(resources.GetObject("tsbSave.Image"), System.Drawing.Image)
-        Me.tsbSave.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbSave.Name = "tsbSave"
-        Me.tsbSave.Size = New System.Drawing.Size(23, 22)
-        Me.tsbSave.Text = "Save"
-        '
-        'tsbClientSearch
-        '
-        Me.tsbClientSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbClientSearch.Image = CType(resources.GetObject("tsbClientSearch.Image"), System.Drawing.Image)
-        Me.tsbClientSearch.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbClientSearch.Name = "tsbClientSearch"
-        Me.tsbClientSearch.Size = New System.Drawing.Size(23, 22)
-        Me.tsbClientSearch.Text = "Client Search"
-        '
-        'tsbBack
-        '
-        Me.tsbBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbBack.Image = CType(resources.GetObject("tsbBack.Image"), System.Drawing.Image)
-        Me.tsbBack.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbBack.Name = "tsbBack"
-        Me.tsbBack.Size = New System.Drawing.Size(23, 22)
-        Me.tsbBack.Text = "Back"
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Label1, Me.Label2, Me.Label3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 544)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(893, 22)
-        Me.StatusStrip1.TabIndex = 7
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'Label1
-        '
-        Me.Label1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Label1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(870, 17)
-        Me.Label1.Spring = True
-        '
-        'Label2
-        '
-        Me.Label2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Label2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(4, 17)
-        '
-        'Label3
-        '
-        Me.Label3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Label3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(4, 17)
-        '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.HelpToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(893, 24)
-        Me.MenuStrip1.TabIndex = 6
-        Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'FileToolStripMenuItem
-        '
-        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.FileToolStripMenuItem.Text = "File"
-        '
-        'HelpToolStripMenuItem
-        '
-        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
-        Me.HelpToolStripMenuItem.Text = "Help"
         '
         'btnRunSBEAPReport
         '
@@ -289,9 +176,9 @@ Partial Class SBEAPReports
         Me.Panel1.Controls.Add(Me.Label19)
         Me.Panel1.Controls.Add(Me.Label13)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Panel1.Location = New System.Drawing.Point(3, 3)
+        Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(352, 463)
+        Me.Panel1.Size = New System.Drawing.Size(352, 566)
         Me.Panel1.TabIndex = 34
         '
         'llbFrontDestCalls
@@ -333,7 +220,7 @@ Partial Class SBEAPReports
         '
         Me.Button1.AutoSize = True
         Me.Button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Button1.Location = New System.Drawing.Point(8, 425)
+        Me.Button1.Location = New System.Drawing.Point(11, 424)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(162, 23)
         Me.Button1.TabIndex = 74
@@ -602,9 +489,9 @@ Partial Class SBEAPReports
         Me.GroupBox1.Controls.Add(Me.dgvCaseWork)
         Me.GroupBox1.Controls.Add(Me.Panel2)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox1.Location = New System.Drawing.Point(355, 3)
+        Me.GroupBox1.Location = New System.Drawing.Point(352, 0)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(527, 463)
+        Me.GroupBox1.Size = New System.Drawing.Size(541, 566)
         Me.GroupBox1.TabIndex = 35
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "View Case(s)"
@@ -615,7 +502,7 @@ Partial Class SBEAPReports
         Me.dgvCaseWork.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvCaseWork.Location = New System.Drawing.Point(3, 59)
         Me.dgvCaseWork.Name = "dgvCaseWork"
-        Me.dgvCaseWork.Size = New System.Drawing.Size(521, 401)
+        Me.dgvCaseWork.Size = New System.Drawing.Size(535, 504)
         Me.dgvCaseWork.TabIndex = 1
         '
         'Panel2
@@ -628,7 +515,7 @@ Partial Class SBEAPReports
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel2.Location = New System.Drawing.Point(3, 16)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(521, 43)
+        Me.Panel2.Size = New System.Drawing.Size(535, 43)
         Me.Panel2.TabIndex = 0
         '
         'btnExportToExcel
@@ -675,69 +562,26 @@ Partial Class SBEAPReports
         Me.btnViewCase.Text = "View Case"
         Me.btnViewCase.UseVisualStyleBackColor = True
         '
-        'TabControl1
-        '
-        Me.TabControl1.Controls.Add(Me.TabPage1)
-        Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TabControl1.Location = New System.Drawing.Point(0, 49)
-        Me.TabControl1.Name = "TabControl1"
-        Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(893, 495)
-        Me.TabControl1.TabIndex = 36
-        '
-        'TabPage1
-        '
-        Me.TabPage1.Controls.Add(Me.GroupBox1)
-        Me.TabPage1.Controls.Add(Me.Panel1)
-        Me.TabPage1.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage1.Name = "TabPage1"
-        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(885, 469)
-        Me.TabPage1.TabIndex = 0
-        Me.TabPage1.UseVisualStyleBackColor = True
-        '
         'SBEAPReports
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(893, 566)
-        Me.Controls.Add(Me.TabControl1)
-        Me.Controls.Add(Me.ToolStrip1)
-        Me.Controls.Add(Me.StatusStrip1)
-        Me.Controls.Add(Me.MenuStrip1)
+        Me.Controls.Add(Me.GroupBox1)
+        Me.Controls.Add(Me.Panel1)
         Me.Name = "SBEAPReports"
         Me.Text = "SBEAP Reports"
         CType(Me.SBEAPCLIENTDATABindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.SBEAPCLIENTSBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.ToolStrip1.ResumeLayout(False)
-        Me.ToolStrip1.PerformLayout()
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         CType(Me.dgvCaseWork, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
-        Me.TabControl1.ResumeLayout(False)
-        Me.TabPage1.ResumeLayout(False)
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
-    Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
-    Friend WithEvents tsbSave As System.Windows.Forms.ToolStripButton
-    Friend WithEvents tsbClientSearch As System.Windows.Forms.ToolStripButton
-    Friend WithEvents tsbBack As System.Windows.Forms.ToolStripButton
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents Label1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Label2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Label3 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
-    Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents btnRunSBEAPReport As System.Windows.Forms.Button
     Friend WithEvents DTPReportStartDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label18 As System.Windows.Forms.Label
@@ -775,8 +619,6 @@ Partial Class SBEAPReports
     Friend WithEvents btnExportToExcel As System.Windows.Forms.Button
     Friend WithEvents dgvCaseWork As System.Windows.Forms.DataGridView
     Friend WithEvents txtTotalActionCount As System.Windows.Forms.TextBox
-    Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
-    Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
     Friend WithEvents SBEAPCLIENTDATABindingSource As System.Windows.Forms.BindingSource
     'Friend WithEvents dsSBEAP As SBEAP2.dsSBEAP
     Friend WithEvents SBEAPCLIENTSBindingSource As System.Windows.Forms.BindingSource
