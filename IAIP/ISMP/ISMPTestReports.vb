@@ -61,10 +61,6 @@ Public Class ISMPTestReports
 
             SCTestReports.SanelySetSplitterDistance(190)
 
-            Panel1.Text = "Select a Function..."
-            Panel2.Text = UserName
-            Panel3.Text = OracleDate
-
             LoadDataSets()
             LoadCombos()
 
