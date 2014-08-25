@@ -19,10 +19,6 @@ Public Class IAIPEditSubParts
         monitor.TrackFeature("Forms." & Me.Name)
         Try
 
-            Panel1.Text = "Edit Air Program SubParts..."
-            Panel2.Text = UserName
-            Panel3.Text = OracleDate
-
             LoadSubPartData()
             SetPermissions()
 
@@ -238,8 +234,6 @@ Public Class IAIPEditSubParts
                 UserAccounts.Contains("(114)") Or UserAccounts.Contains("(141)") _
             Then
             Else
-                TbbSave.Visible = False
-                mmiSave.Visible = False
                 btnSaveSIPSubpart.Enabled = False
                 btnRemoveSIPSubpart.Enabled = False
                 btnSaveNSPSSubpart.Enabled = False
@@ -1516,7 +1510,7 @@ Public Class IAIPEditSubParts
 
         End Try
     End Sub
-    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
+    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         OpenDocumentationUrl(Me)
     End Sub
 End Class
