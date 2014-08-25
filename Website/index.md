@@ -2,8 +2,8 @@
 
 <div class="highlight intro">
 
-The IAIP was developed by the Data Management Unit in the Georgia Air Protection Branch 
-to collect and organize all the data required to operate an efficient air quality program. 
+The IAIP was developed by the Georgia EPD Data Management Unit (then part of the Air Protection 
+Branch) to collect and organize data required to operate an efficient air quality program. 
 IAIP development began in 2004 and is ongoing.
 
 + Ready to install it? Go to the [IAIP installation page](install/).

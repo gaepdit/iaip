@@ -2098,13 +2098,30 @@ Public Class SscpEnforcement
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub SaveEnforcement()
-        Try
-            If SingleFormIsOpen(SSCPEnforcementChecklist) Then
-                MsgBox("Please close the linking tool before saving.", MsgBoxStyle.Exclamation, "SSCP Enforcement")
-                Exit Sub
-            End If
+    Private Function PresaveCheck() As Boolean
 
+        If SingleFormIsOpen(SSCPEnforcementChecklist) Then
+            MessageBox.Show("Please close the linking tool before saving.", _
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End If
+
+        If chbHPV.Checked AndAlso cboHPVType.SelectedIndex = 0 Then
+            MessageBox.Show("Enforcement is labeled an HPV, but no HPV type is selected. Please uncheck HPV or choose an HPV type before proceeding.", _
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End If
+
+        Return True
+    End Function
+    Sub SaveEnforcement()
+        If Not PresaveCheck() Then
+            MessageBox.Show("No data saved.", _
+                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
+
+        Try
             Dim TrackingNumber As String = ""
             Dim AIRSNumber As String = ""
             Dim EnforcementFinalizedCheck As String = ""
@@ -2681,6 +2698,12 @@ Public Class SscpEnforcement
 
     End Sub
     Sub SaveStipulatedPenalties()
+        If Not PresaveCheck() Then
+            MessageBox.Show("No data saved.", _
+                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
+
         Try
             Dim stipulatedKey As String = ""
             Dim AFSNumber As String = ""
@@ -3700,6 +3723,11 @@ Public Class SscpEnforcement
         ClearStipulatedPenaltyForm()
     End Sub
     Private Sub DeletePenalty(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DeletePenaltyButton.Click
+        If Not PresaveCheck() Then
+            MessageBox.Show("No data saved.", _
+                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
 
         Dim query As String = "Delete from " & DBNameSpace & ".SSCPENforcementStipulated " & _
         "where strEnforcementNumber = :enfNumber and strEnforcementKey = :enfKey"
@@ -3837,8 +3865,9 @@ Public Class SscpEnforcement
     End Sub
     Private Sub btnSubmitToUC_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSubmitToUC.Click
         Try
-            If SingleFormIsOpen(SSCPEnforcementChecklist.Name) Then
-                MsgBox("Please close the linking tool before saving.", MsgBoxStyle.Exclamation, "SSCP Enforcement")
+            If Not PresaveCheck() Then
+                MessageBox.Show("No data saved.", _
+                        "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
@@ -3852,8 +3881,9 @@ Public Class SscpEnforcement
     End Sub
     Private Sub btnSubmitEnforcementToEPA_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSubmitEnforcementToEPA.Click
         Try
-            If SingleFormIsOpen(SSCPEnforcementChecklist.Name) Then
-                MsgBox("Please close the linking tool before saving.", MsgBoxStyle.Exclamation, "SSCP Enforcement")
+            If Not PresaveCheck() Then
+                MessageBox.Show("No data saved.", _
+                        "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
@@ -3967,8 +3997,9 @@ Public Class SscpEnforcement
     End Sub
     Private Sub SaveClick()
         Try
-            If SingleFormIsOpen(SSCPEnforcementChecklist) Then
-                MsgBox("Please close the linking tool before saving.", MsgBoxStyle.Exclamation, "SSCP Enforcement")
+            If Not PresaveCheck() Then
+                MessageBox.Show("No data saved.", _
+                        "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
@@ -4375,6 +4406,12 @@ Public Class SscpEnforcement
 
         If String.IsNullOrEmpty(txtStipulatedPenalty.Text) Then
             MsgBox("Enter a stipulated penalty amount first.")
+            Exit Sub
+        End If
+
+        If Not PresaveCheck() Then
+            MessageBox.Show("No data saved.", _
+                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 

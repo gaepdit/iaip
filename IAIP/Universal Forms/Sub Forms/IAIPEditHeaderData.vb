@@ -15,16 +15,16 @@ Public Class IAIPEditHeaderData
         monitor.TrackFeature("Forms." & Me.Name)
         Try
 
-            Panel1.Text = "Select a Function..."
-            Panel2.Text = UserName
-            Panel3.Text = OracleDate
-
             LoadComboBoxes()
             DTPStartUpDate.Text = OracleDate
             DTPShutdown.Text = OracleDate
 
             If txtAirsNumber.Text <> "" Then
                 LoadFacilityHeaderData()
+            End If
+
+            If AccountFormAccess(29, 2) = "1" Or AccountFormAccess(29, 3) = "1" Or AccountFormAccess(29, 4) = "1" Then
+                tbbSave.Enabled = True
             End If
 
         Catch ex As Exception
@@ -489,7 +489,9 @@ Public Class IAIPEditHeaderData
 
     End Sub
 #End Region
+
 #Region "Subs and Functions"
+
     Sub Save()
         Dim ErrorCheck As Boolean = False
         Dim Classification As String = ""
@@ -516,9 +518,6 @@ Public Class IAIPEditHeaderData
             txtNAICSCode.BackColor = Color.White
 
             If AccountFormAccess(29, 2) = "1" Or AccountFormAccess(29, 3) = "1" Or AccountFormAccess(29, 4) = "1" Then
-                'End If
-                'If UserProgram = "5" Or (UserBranch = "1" And UserUnit = "---") _
-                '    Or (UserProgram = "3" And AccountArray(68, 3) = "1") Then
                 If cboClassification.Text <> "" And cboClassification.Text <> " " Then
                     If cboClassification.Text <> dsHeaderData.Tables("Current").Rows(0).Item(2).ToString Then
                         Classification = cboClassification.Text
@@ -1805,112 +1804,23 @@ Public Class IAIPEditHeaderData
         End Try
 
     End Sub
-    Sub Back()
-        Try
 
-            EditHeaderData = Nothing
-            Me.Close()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
 #End Region
+
 #Region "Declarations"
     Private Sub TBEditHeaderData_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBEditHeaderData.ButtonClick
-        Try
-
-            Select Case TBEditHeaderData.Buttons.IndexOf(e.Button)
-                Case 0
-                    Save()
-                Case 1
-                    Back()
-            End Select
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        Select Case TBEditHeaderData.Buttons.IndexOf(e.Button)
+            Case 0
+                Save()
+        End Select
     End Sub
+
     Private Sub IAIPEditHeaderData_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-
-
-            EditHeaderData = Nothing
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        EditHeaderData = Nothing
     End Sub
-#Region "Main Menu"
-    Private Sub mmiSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSave.Click
-        Try
 
-            Save()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiBack.Click
-        Try
-
-            Back()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiCut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCut.Click
-        Try
-
-            SendKeys.Send("(^X)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCopy.Click
-        Try
-
-            SendKeys.Send("(^C)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiPaste_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPaste.Click
-        Try
-
-            SendKeys.Send("(^V)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
-        OpenDocumentationUrl(Me)
-    End Sub
-#End Region
     Private Sub llbCurrentData_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbCurrentData.LinkClicked
         Try
-
 
             If txtAirsNumber.Text <> "" Then
                 txtKey.Text = ""

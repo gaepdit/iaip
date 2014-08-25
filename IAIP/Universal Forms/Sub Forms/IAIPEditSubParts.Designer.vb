@@ -21,24 +21,7 @@ Partial Class IAIPEditSubParts
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPEditSubParts))
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem
-        Me.mmiSave = New System.Windows.Forms.MenuItem
-        Me.mmiBack = New System.Windows.Forms.MenuItem
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem
-        Me.mmiCut = New System.Windows.Forms.MenuItem
-        Me.mmiCopy = New System.Windows.Forms.MenuItem
-        Me.mmiPaste = New System.Windows.Forms.MenuItem
-        Me.mmiHelp = New System.Windows.Forms.MenuItem
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.TBEditFacilityLocation = New System.Windows.Forms.ToolBar
-        Me.TbbSave = New System.Windows.Forms.ToolBarButton
-        Me.TbbBack = New System.Windows.Forms.ToolBarButton
         Me.txtFacilityName = New System.Windows.Forms.TextBox
         Me.Label1 = New System.Windows.Forms.Label
         Me.Label2 = New System.Windows.Forms.Label
@@ -111,7 +94,6 @@ Partial Class IAIPEditSubParts
         Me.btnEditMACT = New System.Windows.Forms.Button
         Me.txtMACTCode = New System.Windows.Forms.TextBox
         Me.Label8 = New System.Windows.Forms.Label
-        Me.StatusStrip1.SuspendLayout()
         Me.GBNSPS.SuspendLayout()
         Me.GBNESHAP.SuspendLayout()
         Me.GBMACT.SuspendLayout()
@@ -137,52 +119,6 @@ Partial Class IAIPEditSubParts
         CType(Me.dgvMACT, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel8.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'MainMenu1
-        '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.MenuItem2, Me.mmiHelp})
-        '
-        'MenuItem1
-        '
-        Me.MenuItem1.Index = 0
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiSave, Me.mmiBack})
-        Me.MenuItem1.Text = "File"
-        '
-        'mmiSave
-        '
-        Me.mmiSave.Index = 0
-        Me.mmiSave.Text = "Save"
-        '
-        'mmiBack
-        '
-        Me.mmiBack.Index = 1
-        Me.mmiBack.Text = "Back"
-        '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 1
-        Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiCut, Me.mmiCopy, Me.mmiPaste})
-        Me.MenuItem2.Text = "Edit"
-        '
-        'mmiCut
-        '
-        Me.mmiCut.Index = 0
-        Me.mmiCut.Text = "Cut"
-        '
-        'mmiCopy
-        '
-        Me.mmiCopy.Index = 1
-        Me.mmiCopy.Text = "Copy"
-        '
-        'mmiPaste
-        '
-        Me.mmiPaste.Index = 2
-        Me.mmiPaste.Text = "Paste"
-        '
-        'mmiHelp
-        '
-        Me.mmiHelp.Index = 2
-        Me.mmiHelp.Text = "Help"
         '
         'Image_List_All
         '
@@ -274,74 +210,6 @@ Partial Class IAIPEditSubParts
         Me.Image_List_All.Images.SetKeyName(83, "")
         Me.Image_List_All.Images.SetKeyName(84, "")
         '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.Panel1, Me.Panel2, Me.Panel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 366)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(707, 22)
-        Me.StatusStrip1.TabIndex = 201
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'ToolStripProgressBar1
-        '
-        Me.ToolStripProgressBar1.Name = "ToolStripProgressBar1"
-        Me.ToolStripProgressBar1.Size = New System.Drawing.Size(100, 16)
-        '
-        'Panel1
-        '
-        Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(582, 17)
-        Me.Panel1.Spring = True
-        Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Panel2
-        '
-        Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(4, 17)
-        '
-        'Panel3
-        '
-        Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(4, 17)
-        '
-        'TBEditFacilityLocation
-        '
-        Me.TBEditFacilityLocation.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TbbSave, Me.TbbBack})
-        Me.TBEditFacilityLocation.ButtonSize = New System.Drawing.Size(23, 22)
-        Me.TBEditFacilityLocation.DropDownArrows = True
-        Me.TBEditFacilityLocation.ImageList = Me.Image_List_All
-        Me.TBEditFacilityLocation.Location = New System.Drawing.Point(0, 0)
-        Me.TBEditFacilityLocation.Name = "TBEditFacilityLocation"
-        Me.TBEditFacilityLocation.ShowToolTips = True
-        Me.TBEditFacilityLocation.Size = New System.Drawing.Size(707, 28)
-        Me.TBEditFacilityLocation.TabIndex = 202
-        '
-        'TbbSave
-        '
-        Me.TbbSave.ImageIndex = 65
-        Me.TbbSave.Name = "TbbSave"
-        Me.TbbSave.ToolTipText = "Save"
-        '
-        'TbbBack
-        '
-        Me.TbbBack.ImageIndex = 2
-        Me.TbbBack.Name = "TbbBack"
-        Me.TbbBack.ToolTipText = "Back"
-        '
         'txtFacilityName
         '
         Me.txtFacilityName.Location = New System.Drawing.Point(91, 28)
@@ -385,7 +253,7 @@ Partial Class IAIPEditSubParts
         Me.GBNSPS.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GBNSPS.Location = New System.Drawing.Point(3, 3)
         Me.GBNSPS.Name = "GBNSPS"
-        Me.GBNSPS.Size = New System.Drawing.Size(693, 241)
+        Me.GBNSPS.Size = New System.Drawing.Size(693, 254)
         Me.GBNSPS.TabIndex = 207
         Me.GBNSPS.TabStop = False
         Me.GBNSPS.Text = "9 - NSPS (Part 60)"
@@ -443,7 +311,7 @@ Partial Class IAIPEditSubParts
         Me.GBNESHAP.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GBNESHAP.Location = New System.Drawing.Point(3, 3)
         Me.GBNESHAP.Name = "GBNESHAP"
-        Me.GBNESHAP.Size = New System.Drawing.Size(693, 241)
+        Me.GBNESHAP.Size = New System.Drawing.Size(693, 254)
         Me.GBNESHAP.TabIndex = 208
         Me.GBNESHAP.TabStop = False
         Me.GBNESHAP.Text = "8 - NESHAP (Part 61)"
@@ -501,7 +369,7 @@ Partial Class IAIPEditSubParts
         Me.GBMACT.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GBMACT.Location = New System.Drawing.Point(0, 0)
         Me.GBMACT.Name = "GBMACT"
-        Me.GBMACT.Size = New System.Drawing.Size(699, 247)
+        Me.GBMACT.Size = New System.Drawing.Size(699, 260)
         Me.GBMACT.TabIndex = 209
         Me.GBMACT.TabStop = False
         Me.GBMACT.Text = "M - MACT (Part 63) "
@@ -563,7 +431,7 @@ Partial Class IAIPEditSubParts
         Me.TCSupParts.Location = New System.Drawing.Point(0, 90)
         Me.TCSupParts.Name = "TCSupParts"
         Me.TCSupParts.SelectedIndex = 0
-        Me.TCSupParts.Size = New System.Drawing.Size(707, 273)
+        Me.TCSupParts.Size = New System.Drawing.Size(707, 312)
         Me.TCSupParts.TabIndex = 210
         '
         'TPSIP
@@ -640,7 +508,7 @@ Partial Class IAIPEditSubParts
         Me.TPPart60.Location = New System.Drawing.Point(4, 22)
         Me.TPPart60.Name = "TPPart60"
         Me.TPPart60.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPPart60.Size = New System.Drawing.Size(699, 247)
+        Me.TPPart60.Size = New System.Drawing.Size(699, 260)
         Me.TPPart60.TabIndex = 0
         Me.TPPart60.Text = "9 - NSPS (Part 60)"
         Me.TPPart60.UseVisualStyleBackColor = True
@@ -651,7 +519,7 @@ Partial Class IAIPEditSubParts
         Me.TPPart61.Location = New System.Drawing.Point(4, 22)
         Me.TPPart61.Name = "TPPart61"
         Me.TPPart61.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPPart61.Size = New System.Drawing.Size(699, 247)
+        Me.TPPart61.Size = New System.Drawing.Size(699, 260)
         Me.TPPart61.TabIndex = 1
         Me.TPPart61.Text = "8 - NESHAP (Part 61) "
         Me.TPPart61.UseVisualStyleBackColor = True
@@ -661,7 +529,7 @@ Partial Class IAIPEditSubParts
         Me.TPPart63.Controls.Add(Me.GBMACT)
         Me.TPPart63.Location = New System.Drawing.Point(4, 22)
         Me.TPPart63.Name = "TPPart63"
-        Me.TPPart63.Size = New System.Drawing.Size(699, 247)
+        Me.TPPart63.Size = New System.Drawing.Size(699, 260)
         Me.TPPart63.TabIndex = 2
         Me.TPPart63.Text = "M - MACT (Part 63)"
         Me.TPPart63.UseVisualStyleBackColor = True
@@ -671,7 +539,7 @@ Partial Class IAIPEditSubParts
         Me.TPEditSubParts.Controls.Add(Me.TCMiscTools)
         Me.TPEditSubParts.Location = New System.Drawing.Point(4, 22)
         Me.TPEditSubParts.Name = "TPEditSubParts"
-        Me.TPEditSubParts.Size = New System.Drawing.Size(699, 247)
+        Me.TPEditSubParts.Size = New System.Drawing.Size(699, 286)
         Me.TPEditSubParts.TabIndex = 3
         Me.TPEditSubParts.Text = "Edit Sub Parts"
         Me.TPEditSubParts.UseVisualStyleBackColor = True
@@ -686,7 +554,7 @@ Partial Class IAIPEditSubParts
         Me.TCMiscTools.Location = New System.Drawing.Point(0, 0)
         Me.TCMiscTools.Name = "TCMiscTools"
         Me.TCMiscTools.SelectedIndex = 0
-        Me.TCMiscTools.Size = New System.Drawing.Size(699, 247)
+        Me.TCMiscTools.Size = New System.Drawing.Size(699, 286)
         Me.TCMiscTools.TabIndex = 1
         '
         'TPEditSIP
@@ -696,7 +564,7 @@ Partial Class IAIPEditSubParts
         Me.TPEditSIP.Location = New System.Drawing.Point(4, 22)
         Me.TPEditSIP.Name = "TPEditSIP"
         Me.TPEditSIP.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPEditSIP.Size = New System.Drawing.Size(691, 221)
+        Me.TPEditSIP.Size = New System.Drawing.Size(691, 260)
         Me.TPEditSIP.TabIndex = 0
         Me.TPEditSIP.Text = "Edit SIP Subparts"
         Me.TPEditSIP.UseVisualStyleBackColor = True
@@ -707,7 +575,7 @@ Partial Class IAIPEditSubParts
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel6.Location = New System.Drawing.Point(3, 126)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(685, 92)
+        Me.Panel6.Size = New System.Drawing.Size(685, 131)
         Me.Panel6.TabIndex = 1
         '
         'dgvSIP
@@ -717,7 +585,7 @@ Partial Class IAIPEditSubParts
         Me.dgvSIP.Location = New System.Drawing.Point(0, 0)
         Me.dgvSIP.Name = "dgvSIP"
         Me.dgvSIP.ReadOnly = True
-        Me.dgvSIP.Size = New System.Drawing.Size(685, 92)
+        Me.dgvSIP.Size = New System.Drawing.Size(685, 131)
         Me.dgvSIP.TabIndex = 0
         '
         'Panel5
@@ -1112,20 +980,15 @@ Partial Class IAIPEditSubParts
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
-        Me.ClientSize = New System.Drawing.Size(707, 388)
+        Me.ClientSize = New System.Drawing.Size(707, 401)
         Me.Controls.Add(Me.TCSupParts)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.txtAIRSNumber)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.txtFacilityName)
-        Me.Controls.Add(Me.TBEditFacilityLocation)
-        Me.Controls.Add(Me.StatusStrip1)
-        Me.Menu = Me.MainMenu1
         Me.Name = "IAIPEditSubParts"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Edit Sub Parts"
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         Me.GBNSPS.ResumeLayout(False)
         Me.GBNSPS.PerformLayout()
         Me.GBNESHAP.ResumeLayout(False)
@@ -1162,24 +1025,7 @@ Partial Class IAIPEditSubParts
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiSave As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiBack As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiCut As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiCopy As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiPaste As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents ToolStripProgressBar1 As System.Windows.Forms.ToolStripProgressBar
-    Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents TBEditFacilityLocation As System.Windows.Forms.ToolBar
-    Friend WithEvents TbbSave As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbBack As System.Windows.Forms.ToolBarButton
     Friend WithEvents txtFacilityName As System.Windows.Forms.TextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label

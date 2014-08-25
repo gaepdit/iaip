@@ -21,24 +21,9 @@ Partial Class IAIPEditHeaderData
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPEditHeaderData))
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem
-        Me.mmiSave = New System.Windows.Forms.MenuItem
-        Me.mmiBack = New System.Windows.Forms.MenuItem
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem
-        Me.mmiCut = New System.Windows.Forms.MenuItem
-        Me.mmiCopy = New System.Windows.Forms.MenuItem
-        Me.mmiPaste = New System.Windows.Forms.MenuItem
-        Me.mmiHelp = New System.Windows.Forms.MenuItem
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
         Me.TBEditHeaderData = New System.Windows.Forms.ToolBar
-        Me.TbbSave = New System.Windows.Forms.ToolBarButton
-        Me.TbbBack = New System.Windows.Forms.ToolBarButton
+        Me.tbbSave = New System.Windows.Forms.ToolBarButton
         Me.txtPlantDescription = New System.Windows.Forms.TextBox
         Me.Label7 = New System.Windows.Forms.Label
         Me.txtKey = New System.Windows.Forms.TextBox
@@ -90,57 +75,10 @@ Partial Class IAIPEditHeaderData
         Me.Label94 = New System.Windows.Forms.Label
         Me.Label9 = New System.Windows.Forms.Label
         Me.txtNAICSCode = New System.Windows.Forms.TextBox
-        Me.StatusStrip1.SuspendLayout()
         CType(Me.dgvHeaderDataHistory, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'MainMenu1
-        '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.MenuItem2, Me.mmiHelp})
-        '
-        'MenuItem1
-        '
-        Me.MenuItem1.Index = 0
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiSave, Me.mmiBack})
-        Me.MenuItem1.Text = "File"
-        '
-        'mmiSave
-        '
-        Me.mmiSave.Index = 0
-        Me.mmiSave.Text = "Save"
-        '
-        'mmiBack
-        '
-        Me.mmiBack.Index = 1
-        Me.mmiBack.Text = "Back"
-        '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 1
-        Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiCut, Me.mmiCopy, Me.mmiPaste})
-        Me.MenuItem2.Text = "Edit"
-        '
-        'mmiCut
-        '
-        Me.mmiCut.Index = 0
-        Me.mmiCut.Text = "Cut"
-        '
-        'mmiCopy
-        '
-        Me.mmiCopy.Index = 1
-        Me.mmiCopy.Text = "Copy"
-        '
-        'mmiPaste
-        '
-        Me.mmiPaste.Index = 2
-        Me.mmiPaste.Text = "Paste"
-        '
-        'mmiHelp
-        '
-        Me.mmiHelp.Index = 2
-        Me.mmiHelp.Text = "Help"
         '
         'Image_List_All
         '
@@ -232,79 +170,32 @@ Partial Class IAIPEditHeaderData
         Me.Image_List_All.Images.SetKeyName(83, "")
         Me.Image_List_All.Images.SetKeyName(84, "")
         '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.Panel1, Me.Panel2, Me.Panel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 523)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(612, 22)
-        Me.StatusStrip1.TabIndex = 201
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'ToolStripProgressBar1
-        '
-        Me.ToolStripProgressBar1.Name = "ToolStripProgressBar1"
-        Me.ToolStripProgressBar1.Size = New System.Drawing.Size(100, 16)
-        '
-        'Panel1
-        '
-        Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(487, 17)
-        Me.Panel1.Spring = True
-        '
-        'Panel2
-        '
-        Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(4, 17)
-        '
-        'Panel3
-        '
-        Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(4, 17)
-        '
         'TBEditHeaderData
         '
-        Me.TBEditHeaderData.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TbbSave, Me.TbbBack})
+        Me.TBEditHeaderData.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.tbbSave})
         Me.TBEditHeaderData.ButtonSize = New System.Drawing.Size(23, 22)
-        Me.TBEditHeaderData.DropDownArrows = True
         Me.TBEditHeaderData.ImageList = Me.Image_List_All
         Me.TBEditHeaderData.Location = New System.Drawing.Point(0, 0)
         Me.TBEditHeaderData.Name = "TBEditHeaderData"
         Me.TBEditHeaderData.ShowToolTips = True
         Me.TBEditHeaderData.Size = New System.Drawing.Size(612, 28)
         Me.TBEditHeaderData.TabIndex = 202
+        Me.TBEditHeaderData.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
-        'TbbSave
+        'tbbSave
         '
-        Me.TbbSave.ImageIndex = 65
-        Me.TbbSave.Name = "TbbSave"
-        Me.TbbSave.ToolTipText = "Save"
-        '
-        'TbbBack
-        '
-        Me.TbbBack.ImageIndex = 2
-        Me.TbbBack.Name = "TbbBack"
-        Me.TbbBack.ToolTipText = "Back"
+        Me.tbbSave.Enabled = False
+        Me.tbbSave.ImageIndex = 65
+        Me.tbbSave.Name = "TbbSave"
+        Me.tbbSave.Text = "Save"
+        Me.tbbSave.ToolTipText = "Save"
         '
         'txtPlantDescription
         '
         Me.txtPlantDescription.AcceptsReturn = True
         Me.txtPlantDescription.BackColor = System.Drawing.Color.White
         Me.txtPlantDescription.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPlantDescription.Location = New System.Drawing.Point(95, 249)
+        Me.txtPlantDescription.Location = New System.Drawing.Point(101, 265)
         Me.txtPlantDescription.MaxLength = 4000
         Me.txtPlantDescription.Multiline = True
         Me.txtPlantDescription.Name = "txtPlantDescription"
@@ -315,7 +206,7 @@ Partial Class IAIPEditHeaderData
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(3, 253)
+        Me.Label7.Location = New System.Drawing.Point(5, 268)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(90, 13)
         Me.Label7.TabIndex = 376
@@ -324,7 +215,7 @@ Partial Class IAIPEditHeaderData
         '
         'txtKey
         '
-        Me.txtKey.Location = New System.Drawing.Point(353, 25)
+        Me.txtKey.Location = New System.Drawing.Point(360, 33)
         Me.txtKey.Name = "txtKey"
         Me.txtKey.Size = New System.Drawing.Size(10, 20)
         Me.txtKey.TabIndex = 375
@@ -337,10 +228,10 @@ Partial Class IAIPEditHeaderData
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvHeaderDataHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvHeaderDataHistory.Location = New System.Drawing.Point(0, 366)
+        Me.dgvHeaderDataHistory.Location = New System.Drawing.Point(0, 382)
         Me.dgvHeaderDataHistory.Name = "dgvHeaderDataHistory"
         Me.dgvHeaderDataHistory.ReadOnly = True
-        Me.dgvHeaderDataHistory.Size = New System.Drawing.Size(612, 153)
+        Me.dgvHeaderDataHistory.Size = New System.Drawing.Size(612, 140)
         Me.dgvHeaderDataHistory.TabIndex = 374
         '
         'txtComments
@@ -348,18 +239,18 @@ Partial Class IAIPEditHeaderData
         Me.txtComments.AcceptsReturn = True
         Me.txtComments.BackColor = System.Drawing.Color.White
         Me.txtComments.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtComments.Location = New System.Drawing.Point(77, 275)
+        Me.txtComments.Location = New System.Drawing.Point(101, 291)
         Me.txtComments.MaxLength = 4000
         Me.txtComments.Multiline = True
         Me.txtComments.Name = "txtComments"
-        Me.txtComments.Size = New System.Drawing.Size(517, 59)
+        Me.txtComments.Size = New System.Drawing.Size(499, 59)
         Me.txtComments.TabIndex = 373
         '
         'Label6
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(5, 275)
+        Me.Label6.Location = New System.Drawing.Point(5, 297)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(59, 13)
         Me.Label6.TabIndex = 372
@@ -370,7 +261,7 @@ Partial Class IAIPEditHeaderData
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(238, 103)
+        Me.Label5.Location = New System.Drawing.Point(227, 115)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(120, 13)
         Me.Label5.TabIndex = 371
@@ -381,11 +272,11 @@ Partial Class IAIPEditHeaderData
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(19, 103)
+        Me.Label1.Location = New System.Drawing.Point(5, 115)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(72, 13)
+        Me.Label1.Size = New System.Drawing.Size(65, 13)
         Me.Label1.TabIndex = 370
-        Me.Label1.Text = "Date Start Up"
+        Me.Label1.Text = "Startup date"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.BottomLeft
         '
         'DTPStartUpDate
@@ -393,7 +284,7 @@ Partial Class IAIPEditHeaderData
         Me.DTPStartUpDate.CustomFormat = "dd-MMM-yyyy"
         Me.DTPStartUpDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPStartUpDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPStartUpDate.Location = New System.Drawing.Point(97, 98)
+        Me.DTPStartUpDate.Location = New System.Drawing.Point(86, 112)
         Me.DTPStartUpDate.Name = "DTPStartUpDate"
         Me.DTPStartUpDate.ShowCheckBox = True
         Me.DTPStartUpDate.Size = New System.Drawing.Size(135, 22)
@@ -405,7 +296,7 @@ Partial Class IAIPEditHeaderData
         Me.DTPShutdown.CustomFormat = "dd-MMM-yyyy"
         Me.DTPShutdown.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPShutdown.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPShutdown.Location = New System.Drawing.Point(364, 98)
+        Me.DTPShutdown.Location = New System.Drawing.Point(353, 112)
         Me.DTPShutdown.Name = "DTPShutdown"
         Me.DTPShutdown.ShowCheckBox = True
         Me.DTPShutdown.Size = New System.Drawing.Size(135, 22)
@@ -416,7 +307,7 @@ Partial Class IAIPEditHeaderData
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(5, 77)
+        Me.Label3.Location = New System.Drawing.Point(5, 88)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(71, 13)
         Me.Label3.TabIndex = 356
@@ -426,7 +317,7 @@ Partial Class IAIPEditHeaderData
         'cboClassification
         '
         Me.cboClassification.BackColor = System.Drawing.Color.White
-        Me.cboClassification.Location = New System.Drawing.Point(79, 73)
+        Me.cboClassification.Location = New System.Drawing.Point(86, 85)
         Me.cboClassification.Name = "cboClassification"
         Me.cboClassification.Size = New System.Drawing.Size(101, 21)
         Me.cboClassification.TabIndex = 363
@@ -435,7 +326,7 @@ Partial Class IAIPEditHeaderData
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(186, 77)
+        Me.Label10.Location = New System.Drawing.Point(193, 88)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(89, 13)
         Me.Label10.TabIndex = 359
@@ -445,16 +336,16 @@ Partial Class IAIPEditHeaderData
         'cboOperationalStatus
         '
         Me.cboOperationalStatus.BackColor = System.Drawing.Color.White
-        Me.cboOperationalStatus.Location = New System.Drawing.Point(279, 73)
+        Me.cboOperationalStatus.Location = New System.Drawing.Point(288, 85)
         Me.cboOperationalStatus.Name = "cboOperationalStatus"
-        Me.cboOperationalStatus.Size = New System.Drawing.Size(156, 21)
+        Me.cboOperationalStatus.Size = New System.Drawing.Size(147, 21)
         Me.cboOperationalStatus.TabIndex = 364
         '
         'Label8
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(459, 53)
+        Me.Label8.Location = New System.Drawing.Point(456, 62)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(55, 13)
         Me.Label8.TabIndex = 357
@@ -465,7 +356,7 @@ Partial Class IAIPEditHeaderData
         '
         Me.txtSICCode.BackColor = System.Drawing.Color.White
         Me.txtSICCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSICCode.Location = New System.Drawing.Point(517, 50)
+        Me.txtSICCode.Location = New System.Drawing.Point(517, 59)
         Me.txtSICCode.Name = "txtSICCode"
         Me.txtSICCode.Size = New System.Drawing.Size(71, 20)
         Me.txtSICCode.TabIndex = 360
@@ -491,7 +382,7 @@ Partial Class IAIPEditHeaderData
         Me.GroupBox2.Controls.Add(Me.chbAPC1)
         Me.GroupBox2.Controls.Add(Me.chbAPC0)
         Me.GroupBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox2.Location = New System.Drawing.Point(8, 122)
+        Me.GroupBox2.Location = New System.Drawing.Point(8, 140)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(404, 119)
         Me.GroupBox2.TabIndex = 362
@@ -668,16 +559,16 @@ Partial Class IAIPEditHeaderData
         '
         'txtModifingComments
         '
-        Me.txtModifingComments.Location = New System.Drawing.Point(75, 340)
+        Me.txtModifingComments.Location = New System.Drawing.Point(101, 356)
         Me.txtModifingComments.Name = "txtModifingComments"
         Me.txtModifingComments.ReadOnly = True
-        Me.txtModifingComments.Size = New System.Drawing.Size(519, 20)
+        Me.txtModifingComments.Size = New System.Drawing.Size(499, 20)
         Me.txtModifingComments.TabIndex = 365
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(3, 343)
+        Me.Label4.Location = New System.Drawing.Point(5, 359)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(73, 13)
         Me.Label4.TabIndex = 366
@@ -687,7 +578,7 @@ Partial Class IAIPEditHeaderData
         '
         Me.labReferenceNumber.AutoSize = True
         Me.labReferenceNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labReferenceNumber.Location = New System.Drawing.Point(5, 29)
+        Me.labReferenceNumber.Location = New System.Drawing.Point(5, 36)
         Me.labReferenceNumber.Name = "labReferenceNumber"
         Me.labReferenceNumber.Size = New System.Drawing.Size(73, 13)
         Me.labReferenceNumber.TabIndex = 351
@@ -698,7 +589,7 @@ Partial Class IAIPEditHeaderData
         '
         Me.txtAirsNumber.BackColor = System.Drawing.SystemColors.Control
         Me.txtAirsNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtAirsNumber.Location = New System.Drawing.Point(79, 46)
+        Me.txtAirsNumber.Location = New System.Drawing.Point(86, 59)
         Me.txtAirsNumber.MaxLength = 8
         Me.txtAirsNumber.Name = "txtAirsNumber"
         Me.txtAirsNumber.ReadOnly = True
@@ -709,7 +600,7 @@ Partial Class IAIPEditHeaderData
         '
         Me.txtFacilityName.BackColor = System.Drawing.SystemColors.Control
         Me.txtFacilityName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtFacilityName.Location = New System.Drawing.Point(79, 25)
+        Me.txtFacilityName.Location = New System.Drawing.Point(86, 33)
         Me.txtFacilityName.Name = "txtFacilityName"
         Me.txtFacilityName.ReadOnly = True
         Me.txtFacilityName.Size = New System.Drawing.Size(271, 20)
@@ -718,7 +609,7 @@ Partial Class IAIPEditHeaderData
         'llbCurrentData
         '
         Me.llbCurrentData.AutoSize = True
-        Me.llbCurrentData.Location = New System.Drawing.Point(369, 25)
+        Me.llbCurrentData.Location = New System.Drawing.Point(376, 36)
         Me.llbCurrentData.Name = "llbCurrentData"
         Me.llbCurrentData.Size = New System.Drawing.Size(93, 13)
         Me.llbCurrentData.TabIndex = 355
@@ -729,7 +620,7 @@ Partial Class IAIPEditHeaderData
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(5, 50)
+        Me.Label2.Location = New System.Drawing.Point(5, 62)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(75, 13)
         Me.Label2.TabIndex = 352
@@ -743,7 +634,7 @@ Partial Class IAIPEditHeaderData
         Me.GroupBox5.Controls.Add(Me.Label97)
         Me.GroupBox5.Controls.Add(Me.Label96)
         Me.GroupBox5.Controls.Add(Me.Label94)
-        Me.GroupBox5.Location = New System.Drawing.Point(418, 122)
+        Me.GroupBox5.Location = New System.Drawing.Point(418, 140)
         Me.GroupBox5.Name = "GroupBox5"
         Me.GroupBox5.Size = New System.Drawing.Size(182, 119)
         Me.GroupBox5.TabIndex = 378
@@ -756,9 +647,9 @@ Partial Class IAIPEditHeaderData
         Me.cboPMFine.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboPMFine.BackColor = System.Drawing.Color.White
         Me.cboPMFine.FormattingEnabled = True
-        Me.cboPMFine.Location = New System.Drawing.Point(68, 68)
+        Me.cboPMFine.Location = New System.Drawing.Point(72, 74)
         Me.cboPMFine.Name = "cboPMFine"
-        Me.cboPMFine.Size = New System.Drawing.Size(108, 21)
+        Me.cboPMFine.Size = New System.Drawing.Size(104, 21)
         Me.cboPMFine.TabIndex = 8
         '
         'cboEightHour
@@ -767,9 +658,9 @@ Partial Class IAIPEditHeaderData
         Me.cboEightHour.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboEightHour.BackColor = System.Drawing.Color.White
         Me.cboEightHour.FormattingEnabled = True
-        Me.cboEightHour.Location = New System.Drawing.Point(68, 43)
+        Me.cboEightHour.Location = New System.Drawing.Point(72, 47)
         Me.cboEightHour.Name = "cboEightHour"
-        Me.cboEightHour.Size = New System.Drawing.Size(108, 21)
+        Me.cboEightHour.Size = New System.Drawing.Size(104, 21)
         Me.cboEightHour.TabIndex = 7
         '
         'cboOneHour
@@ -778,16 +669,16 @@ Partial Class IAIPEditHeaderData
         Me.cboOneHour.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboOneHour.BackColor = System.Drawing.Color.White
         Me.cboOneHour.FormattingEnabled = True
-        Me.cboOneHour.Location = New System.Drawing.Point(68, 20)
+        Me.cboOneHour.Location = New System.Drawing.Point(72, 20)
         Me.cboOneHour.Name = "cboOneHour"
-        Me.cboOneHour.Size = New System.Drawing.Size(108, 21)
+        Me.cboOneHour.Size = New System.Drawing.Size(104, 21)
         Me.cboOneHour.TabIndex = 6
         '
         'Label97
         '
         Me.Label97.AutoSize = True
         Me.Label97.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label97.Location = New System.Drawing.Point(2, 71)
+        Me.Label97.Location = New System.Drawing.Point(6, 77)
         Me.Label97.Name = "Label97"
         Me.Label97.Size = New System.Drawing.Size(44, 13)
         Me.Label97.TabIndex = 2
@@ -797,7 +688,7 @@ Partial Class IAIPEditHeaderData
         '
         Me.Label96.AutoSize = True
         Me.Label96.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label96.Location = New System.Drawing.Point(2, 47)
+        Me.Label96.Location = New System.Drawing.Point(6, 50)
         Me.Label96.Name = "Label96"
         Me.Label96.Size = New System.Drawing.Size(60, 13)
         Me.Label96.TabIndex = 1
@@ -807,7 +698,7 @@ Partial Class IAIPEditHeaderData
         '
         Me.Label94.AutoSize = True
         Me.Label94.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label94.Location = New System.Drawing.Point(2, 23)
+        Me.Label94.Location = New System.Drawing.Point(6, 23)
         Me.Label94.Name = "Label94"
         Me.Label94.Size = New System.Drawing.Size(60, 13)
         Me.Label94.TabIndex = 0
@@ -817,7 +708,7 @@ Partial Class IAIPEditHeaderData
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(444, 76)
+        Me.Label9.Location = New System.Drawing.Point(441, 88)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(70, 13)
         Me.Label9.TabIndex = 379
@@ -828,7 +719,7 @@ Partial Class IAIPEditHeaderData
         '
         Me.txtNAICSCode.BackColor = System.Drawing.Color.White
         Me.txtNAICSCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtNAICSCode.Location = New System.Drawing.Point(517, 73)
+        Me.txtNAICSCode.Location = New System.Drawing.Point(517, 85)
         Me.txtNAICSCode.Name = "txtNAICSCode"
         Me.txtNAICSCode.Size = New System.Drawing.Size(71, 20)
         Me.txtNAICSCode.TabIndex = 380
@@ -837,7 +728,7 @@ Partial Class IAIPEditHeaderData
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(612, 545)
+        Me.ClientSize = New System.Drawing.Size(612, 524)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.txtNAICSCode)
         Me.Controls.Add(Me.GroupBox5)
@@ -866,12 +757,10 @@ Partial Class IAIPEditHeaderData
         Me.Controls.Add(Me.llbCurrentData)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.TBEditHeaderData)
-        Me.Controls.Add(Me.StatusStrip1)
-        Me.Menu = Me.MainMenu1
+        Me.MaximizeBox = False
+        Me.MinimumSize = New System.Drawing.Size(628, 500)
         Me.Name = "IAIPEditHeaderData"
         Me.Text = "Edit Header Data"
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         CType(Me.dgvHeaderDataHistory, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
@@ -881,24 +770,9 @@ Partial Class IAIPEditHeaderData
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiSave As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiBack As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiCut As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiCopy As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiPaste As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents ToolStripProgressBar1 As System.Windows.Forms.ToolStripProgressBar
-    Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents TBEditHeaderData As System.Windows.Forms.ToolBar
-    Friend WithEvents TbbSave As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbBack As System.Windows.Forms.ToolBarButton
+    Friend WithEvents tbbSave As System.Windows.Forms.ToolBarButton
     Friend WithEvents txtPlantDescription As System.Windows.Forms.TextBox
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents txtKey As System.Windows.Forms.TextBox

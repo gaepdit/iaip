@@ -19,8 +19,6 @@ Public Class SBEAPReports
             DTPReportStartDate.Text = Format(Date.Today.AddMonths(-3), "dd-MMM-yyyy")
             DTPReportEndDate.Text = OracleDate
 
-            Label2.Text = UserName
-            Label3.Text = OracleDate
             LoadComboBoxes()
 
         Catch ex As Exception
@@ -980,12 +978,9 @@ Public Class SBEAPReports
                 txtActionTypeCount.Text = " "
             End If
 
-
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-
-
 
 End Class

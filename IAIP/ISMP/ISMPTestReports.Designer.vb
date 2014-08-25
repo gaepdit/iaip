@@ -52,10 +52,6 @@ Me.tsbTestLogLink = New System.Windows.Forms.ToolStripButton
 Me.tsbDelete = New System.Windows.Forms.ToolStripButton
 Me.tsbBack = New System.Windows.Forms.ToolStripButton
 Me.tsbConfidentialData = New System.Windows.Forms.ToolStripButton
-Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
-Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel
-Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
 Me.SCTestReports = New System.Windows.Forms.SplitContainer
 Me.GroupBox1 = New System.Windows.Forms.GroupBox
 Me.lblMemoEntered = New System.Windows.Forms.Label
@@ -922,7 +918,6 @@ Me.Label326 = New System.Windows.Forms.Label
 Me.txtTestReportDueDate = New System.Windows.Forms.TextBox
 Me.MenuStrip1.SuspendLayout
 Me.ToolStrip1.SuspendLayout
-Me.StatusStrip1.SuspendLayout
 Me.SCTestReports.Panel1.SuspendLayout
 Me.SCTestReports.Panel2.SuspendLayout
 Me.SCTestReports.SuspendLayout
@@ -1177,44 +1172,6 @@ Me.tsbConfidentialData.Name = "tsbConfidentialData"
 Me.tsbConfidentialData.Size = New System.Drawing.Size(23, 22)
 Me.tsbConfidentialData.ToolTipText = "Confidential Data"
 '
-'StatusStrip1
-'
-Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Panel1, Me.Panel2, Me.Panel3})
-Me.StatusStrip1.Location = New System.Drawing.Point(0, 742)
-Me.StatusStrip1.Name = "StatusStrip1"
-Me.StatusStrip1.Size = New System.Drawing.Size(790, 22)
-Me.StatusStrip1.TabIndex = 2
-Me.StatusStrip1.Text = "StatusStrip1"
-'
-'Panel1
-'
-Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)  _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)  _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom),System.Windows.Forms.ToolStripStatusLabelBorderSides)
-Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-Me.Panel1.Name = "Panel1"
-Me.Panel1.Size = New System.Drawing.Size(767, 17)
-Me.Panel1.Spring = true
-Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-'
-'Panel2
-'
-Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)  _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)  _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom),System.Windows.Forms.ToolStripStatusLabelBorderSides)
-Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-Me.Panel2.Name = "Panel2"
-Me.Panel2.Size = New System.Drawing.Size(4, 17)
-'
-'Panel3
-'
-Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)  _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)  _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom),System.Windows.Forms.ToolStripStatusLabelBorderSides)
-Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-Me.Panel3.Name = "Panel3"
-Me.Panel3.Size = New System.Drawing.Size(4, 17)
-'
 'SCTestReports
 '
 Me.SCTestReports.BackColor = System.Drawing.SystemColors.ActiveCaption
@@ -1233,8 +1190,8 @@ Me.SCTestReports.Panel1.Controls.Add(Me.GroupBox1)
 Me.SCTestReports.Panel2.AutoScroll = true
 Me.SCTestReports.Panel2.BackColor = System.Drawing.SystemColors.ControlLight
 Me.SCTestReports.Panel2.Controls.Add(Me.TCDocumentTypes)
-Me.SCTestReports.Size = New System.Drawing.Size(790, 693)
-Me.SCTestReports.SplitterDistance = 267
+Me.SCTestReports.Size = New System.Drawing.Size(790, 715)
+Me.SCTestReports.SplitterDistance = 275
 Me.SCTestReports.TabIndex = 1
 '
 'GroupBox1
@@ -1298,7 +1255,7 @@ Me.GroupBox1.Controls.Add(Me.labReferenceNumber)
 Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
 Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
 Me.GroupBox1.Name = "GroupBox1"
-Me.GroupBox1.Size = New System.Drawing.Size(790, 267)
+Me.GroupBox1.Size = New System.Drawing.Size(790, 275)
 Me.GroupBox1.TabIndex = 0
 Me.GroupBox1.TabStop = false
 Me.GroupBox1.Text = "Report Information "
@@ -1866,7 +1823,7 @@ Me.TCDocumentTypes.Dock = System.Windows.Forms.DockStyle.Fill
 Me.TCDocumentTypes.Location = New System.Drawing.Point(0, 0)
 Me.TCDocumentTypes.Name = "TCDocumentTypes"
 Me.TCDocumentTypes.SelectedIndex = 0
-Me.TCDocumentTypes.Size = New System.Drawing.Size(790, 422)
+Me.TCDocumentTypes.Size = New System.Drawing.Size(790, 436)
 Me.TCDocumentTypes.TabIndex = 1
 '
 'TPOneStack
@@ -1902,7 +1859,7 @@ Me.TPOneStack.Controls.Add(Me.Label199)
 Me.TPOneStack.Location = New System.Drawing.Point(4, 22)
 Me.TPOneStack.Name = "TPOneStack"
 Me.TPOneStack.Padding = New System.Windows.Forms.Padding(3)
-Me.TPOneStack.Size = New System.Drawing.Size(782, 396)
+Me.TPOneStack.Size = New System.Drawing.Size(782, 410)
 Me.TPOneStack.TabIndex = 0
 Me.TPOneStack.Text = "One Stack"
 Me.TPOneStack.UseVisualStyleBackColor = true
@@ -10159,7 +10116,6 @@ Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
 Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 Me.ClientSize = New System.Drawing.Size(790, 764)
 Me.Controls.Add(Me.SCTestReports)
-Me.Controls.Add(Me.StatusStrip1)
 Me.Controls.Add(Me.ToolStrip1)
 Me.Controls.Add(Me.MenuStrip1)
 Me.Location = New System.Drawing.Point(25, 0)
@@ -10171,8 +10127,6 @@ Me.MenuStrip1.ResumeLayout(false)
 Me.MenuStrip1.PerformLayout
 Me.ToolStrip1.ResumeLayout(false)
 Me.ToolStrip1.PerformLayout
-Me.StatusStrip1.ResumeLayout(false)
-Me.StatusStrip1.PerformLayout
 Me.SCTestReports.Panel1.ResumeLayout(false)
 Me.SCTestReports.Panel2.ResumeLayout(false)
 Me.SCTestReports.ResumeLayout(false)
@@ -10260,10 +10214,6 @@ End Sub
     Friend WithEvents tsbTestLogLink As System.Windows.Forms.ToolStripButton
     Friend WithEvents tsbDelete As System.Windows.Forms.ToolStripButton
     Friend WithEvents tsbBack As System.Windows.Forms.ToolStripButton
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents SCTestReports As System.Windows.Forms.SplitContainer
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents cboComplianceStatus As System.Windows.Forms.ComboBox

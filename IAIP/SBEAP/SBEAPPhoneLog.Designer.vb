@@ -26,14 +26,8 @@ Partial Class SBEAPPhoneLog
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
         Me.tsbSave = New System.Windows.Forms.ToolStripButton
         Me.tsbClientSearch = New System.Windows.Forms.ToolStripButton
-        Me.tsbBack = New System.Windows.Forms.ToolStripButton
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.lbl1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.lbl2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.lbl3 = New System.Windows.Forms.ToolStripStatusLabel
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
-        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.FileMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.mmiClearCaseID = New System.Windows.Forms.ToolStripMenuItem
         Me.txtCaseSummary = New System.Windows.Forms.TextBox
         Me.Label11 = New System.Windows.Forms.Label
@@ -75,7 +69,6 @@ Partial Class SBEAPPhoneLog
         Me.btnNewCall = New System.Windows.Forms.Button
         Me.pnlClientInfo = New System.Windows.Forms.Panel
         Me.ToolStrip1.SuspendLayout()
-        Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.pnlExistingClient.SuspendLayout()
@@ -87,7 +80,7 @@ Partial Class SBEAPPhoneLog
         '
         'ToolStrip1
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbSave, Me.tsbClientSearch, Me.tsbBack})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbSave, Me.tsbClientSearch})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(834, 25)
@@ -112,84 +105,31 @@ Partial Class SBEAPPhoneLog
         Me.tsbClientSearch.Size = New System.Drawing.Size(23, 22)
         Me.tsbClientSearch.Text = "Client Search"
         '
-        'tsbBack
-        '
-        Me.tsbBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbBack.Image = CType(resources.GetObject("tsbBack.Image"), System.Drawing.Image)
-        Me.tsbBack.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbBack.Name = "tsbBack"
-        Me.tsbBack.Size = New System.Drawing.Size(23, 22)
-        Me.tsbBack.Text = "Back"
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lbl1, Me.lbl2, Me.lbl3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 591)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(834, 22)
-        Me.StatusStrip1.TabIndex = 7
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'lbl1
-        '
-        Me.lbl1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.lbl1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.lbl1.Name = "lbl1"
-        Me.lbl1.Size = New System.Drawing.Size(811, 17)
-        Me.lbl1.Spring = True
-        Me.lbl1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'lbl2
-        '
-        Me.lbl2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.lbl2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.lbl2.Name = "lbl2"
-        Me.lbl2.Size = New System.Drawing.Size(4, 17)
-        '
-        'lbl3
-        '
-        Me.lbl3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.lbl3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.lbl3.Name = "lbl3"
-        Me.lbl3.Size = New System.Drawing.Size(4, 17)
-        '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.HelpToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(834, 24)
         Me.MenuStrip1.TabIndex = 6
         Me.MenuStrip1.Text = "MenuStrip1"
         '
-        'FileToolStripMenuItem
+        'FileMenuItem
         '
-        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.FileToolStripMenuItem.Text = "File"
-        '
-        'HelpToolStripMenuItem
-        '
-        Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiClearCaseID})
-        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
-        Me.HelpToolStripMenuItem.Text = "Help"
+        Me.FileMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiClearCaseID})
+        Me.FileMenuItem.Name = "FileMenuItem"
+        Me.FileMenuItem.Size = New System.Drawing.Size(37, 20)
+        Me.FileMenuItem.Text = "&File"
         '
         'mmiClearCaseID
         '
         Me.mmiClearCaseID.Name = "mmiClearCaseID"
         Me.mmiClearCaseID.Size = New System.Drawing.Size(143, 22)
-        Me.mmiClearCaseID.Text = "Clear Case ID"
+        Me.mmiClearCaseID.Text = "&Clear Case ID"
         '
         'txtCaseSummary
         '
-        Me.txtCaseSummary.Location = New System.Drawing.Point(109, 87)
+        Me.txtCaseSummary.Location = New System.Drawing.Point(111, 87)
         Me.txtCaseSummary.Multiline = True
         Me.txtCaseSummary.Name = "txtCaseSummary"
         Me.txtCaseSummary.Size = New System.Drawing.Size(442, 56)
@@ -198,7 +138,7 @@ Partial Class SBEAPPhoneLog
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(13, 87)
+        Me.Label11.Location = New System.Drawing.Point(3, 90)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(90, 13)
         Me.Label11.TabIndex = 51
@@ -242,7 +182,7 @@ Partial Class SBEAPPhoneLog
         Me.cboStaffResponsible.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cboStaffResponsible.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboStaffResponsible.FormattingEnabled = True
-        Me.cboStaffResponsible.Location = New System.Drawing.Point(109, 41)
+        Me.cboStaffResponsible.Location = New System.Drawing.Point(111, 41)
         Me.cboStaffResponsible.Name = "cboStaffResponsible"
         Me.cboStaffResponsible.Size = New System.Drawing.Size(258, 21)
         Me.cboStaffResponsible.TabIndex = 2
@@ -250,7 +190,7 @@ Partial Class SBEAPPhoneLog
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(10, 45)
+        Me.Label4.Location = New System.Drawing.Point(3, 44)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(93, 13)
         Me.Label4.TabIndex = 39
@@ -258,12 +198,12 @@ Partial Class SBEAPPhoneLog
         '
         'txtClientInformation
         '
-        Me.txtClientInformation.Location = New System.Drawing.Point(8, 40)
+        Me.txtClientInformation.Location = New System.Drawing.Point(6, 39)
         Me.txtClientInformation.Multiline = True
         Me.txtClientInformation.Name = "txtClientInformation"
         Me.txtClientInformation.ReadOnly = True
         Me.txtClientInformation.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtClientInformation.Size = New System.Drawing.Size(331, 109)
+        Me.txtClientInformation.Size = New System.Drawing.Size(333, 109)
         Me.txtClientInformation.TabIndex = 47
         '
         'txtOutstandingCases
@@ -276,19 +216,18 @@ Partial Class SBEAPPhoneLog
         '
         'btnRefreshClient
         '
-        Me.btnRefreshClient.AutoSize = True
         Me.btnRefreshClient.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnRefreshClient.Image = CType(resources.GetObject("btnRefreshClient.Image"), System.Drawing.Image)
-        Me.btnRefreshClient.Location = New System.Drawing.Point(161, 12)
+        Me.btnRefreshClient.Location = New System.Drawing.Point(161, 11)
         Me.btnRefreshClient.Name = "btnRefreshClient"
-        Me.btnRefreshClient.Size = New System.Drawing.Size(22, 22)
+        Me.btnRefreshClient.Size = New System.Drawing.Size(22, 24)
         Me.btnRefreshClient.TabIndex = 50
         Me.btnRefreshClient.UseVisualStyleBackColor = True
         '
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(5, 17)
+        Me.Label10.Location = New System.Drawing.Point(3, 18)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(68, 13)
         Me.Label10.TabIndex = 46
@@ -298,7 +237,7 @@ Partial Class SBEAPPhoneLog
         '
         Me.DTPCaseOpened.CustomFormat = "dd-MMM-yyyy"
         Me.DTPCaseOpened.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPCaseOpened.Location = New System.Drawing.Point(109, 6)
+        Me.DTPCaseOpened.Location = New System.Drawing.Point(111, 6)
         Me.DTPCaseOpened.Name = "DTPCaseOpened"
         Me.DTPCaseOpened.Size = New System.Drawing.Size(107, 20)
         Me.DTPCaseOpened.TabIndex = 0
@@ -306,7 +245,7 @@ Partial Class SBEAPPhoneLog
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(225, 10)
+        Me.Label7.Location = New System.Drawing.Point(224, 10)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(92, 13)
         Me.Label7.TabIndex = 44
@@ -315,7 +254,7 @@ Partial Class SBEAPPhoneLog
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(5, 10)
+        Me.Label5.Location = New System.Drawing.Point(3, 10)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(98, 13)
         Me.Label5.TabIndex = 42
@@ -326,7 +265,7 @@ Partial Class SBEAPPhoneLog
         Me.DTPCaseClosed.Checked = False
         Me.DTPCaseClosed.CustomFormat = "dd-MMM-yyyy"
         Me.DTPCaseClosed.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPCaseClosed.Location = New System.Drawing.Point(330, 6)
+        Me.DTPCaseClosed.Location = New System.Drawing.Point(322, 6)
         Me.DTPCaseClosed.Name = "DTPCaseClosed"
         Me.DTPCaseClosed.ShowCheckBox = True
         Me.DTPCaseClosed.Size = New System.Drawing.Size(107, 20)
@@ -397,7 +336,7 @@ Partial Class SBEAPPhoneLog
         '
         'mtbPhoneNumber
         '
-        Me.mtbPhoneNumber.Location = New System.Drawing.Point(70, 66)
+        Me.mtbPhoneNumber.Location = New System.Drawing.Point(74, 66)
         Me.mtbPhoneNumber.Mask = "(999) 000-0000 ext:00000"
         Me.mtbPhoneNumber.Name = "mtbPhoneNumber"
         Me.mtbPhoneNumber.Size = New System.Drawing.Size(135, 20)
@@ -407,7 +346,7 @@ Partial Class SBEAPPhoneLog
         'Label26
         '
         Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(13, 70)
+        Me.Label26.Location = New System.Drawing.Point(5, 69)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(51, 13)
         Me.Label26.TabIndex = 15
@@ -417,7 +356,7 @@ Partial Class SBEAPPhoneLog
         '
         Me.btnCreateNewClient.AutoSize = True
         Me.btnCreateNewClient.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnCreateNewClient.Location = New System.Drawing.Point(201, 121)
+        Me.btnCreateNewClient.Location = New System.Drawing.Point(183, 121)
         Me.btnCreateNewClient.Name = "btnCreateNewClient"
         Me.btnCreateNewClient.Size = New System.Drawing.Size(115, 23)
         Me.btnCreateNewClient.TabIndex = 14
@@ -428,7 +367,7 @@ Partial Class SBEAPPhoneLog
         'chbOnetimeAssist
         '
         Me.chbOnetimeAssist.AutoSize = True
-        Me.chbOnetimeAssist.Location = New System.Drawing.Point(174, 98)
+        Me.chbOnetimeAssist.Location = New System.Drawing.Point(178, 92)
         Me.chbOnetimeAssist.Name = "chbOnetimeAssist"
         Me.chbOnetimeAssist.Size = New System.Drawing.Size(98, 17)
         Me.chbOnetimeAssist.TabIndex = 4
@@ -438,7 +377,7 @@ Partial Class SBEAPPhoneLog
         'chbFrontDeskCall
         '
         Me.chbFrontDeskCall.AutoSize = True
-        Me.chbFrontDeskCall.Location = New System.Drawing.Point(70, 98)
+        Me.chbFrontDeskCall.Location = New System.Drawing.Point(74, 92)
         Me.chbFrontDeskCall.Name = "chbFrontDeskCall"
         Me.chbFrontDeskCall.Size = New System.Drawing.Size(98, 17)
         Me.chbFrontDeskCall.TabIndex = 3
@@ -447,15 +386,15 @@ Partial Class SBEAPPhoneLog
         '
         'txtDescription
         '
-        Me.txtDescription.Location = New System.Drawing.Point(70, 40)
+        Me.txtDescription.Location = New System.Drawing.Point(74, 40)
         Me.txtDescription.Name = "txtDescription"
-        Me.txtDescription.Size = New System.Drawing.Size(228, 20)
+        Me.txtDescription.Size = New System.Drawing.Size(224, 20)
         Me.txtDescription.TabIndex = 1
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(5, 44)
+        Me.Label6.Location = New System.Drawing.Point(5, 43)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(63, 13)
         Me.Label6.TabIndex = 4
@@ -463,15 +402,15 @@ Partial Class SBEAPPhoneLog
         '
         'txtCallName
         '
-        Me.txtCallName.Location = New System.Drawing.Point(51, 14)
+        Me.txtCallName.Location = New System.Drawing.Point(74, 14)
         Me.txtCallName.Name = "txtCallName"
-        Me.txtCallName.Size = New System.Drawing.Size(247, 20)
+        Me.txtCallName.Size = New System.Drawing.Size(224, 20)
         Me.txtCallName.TabIndex = 0
         '
         'Label19
         '
         Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(9, 18)
+        Me.Label19.Location = New System.Drawing.Point(5, 18)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(36, 13)
         Me.Label19.TabIndex = 2
@@ -480,7 +419,7 @@ Partial Class SBEAPPhoneLog
         'txtReferralInformation
         '
         Me.txtReferralInformation.AcceptsReturn = True
-        Me.txtReferralInformation.Location = New System.Drawing.Point(109, 162)
+        Me.txtReferralInformation.Location = New System.Drawing.Point(111, 162)
         Me.txtReferralInformation.Multiline = True
         Me.txtReferralInformation.Name = "txtReferralInformation"
         Me.txtReferralInformation.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -490,7 +429,7 @@ Partial Class SBEAPPhoneLog
         'Label28
         '
         Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(1, 165)
+        Me.Label28.Location = New System.Drawing.Point(3, 165)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(102, 13)
         Me.Label28.TabIndex = 56
@@ -514,13 +453,13 @@ Partial Class SBEAPPhoneLog
         Me.pnlDetails.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlDetails.Location = New System.Drawing.Point(0, 244)
         Me.pnlDetails.Name = "pnlDetails"
-        Me.pnlDetails.Size = New System.Drawing.Size(834, 347)
+        Me.pnlDetails.Size = New System.Drawing.Size(834, 369)
         Me.pnlDetails.TabIndex = 58
         Me.pnlDetails.Visible = False
         '
         'txtActionID
         '
-        Me.txtActionID.Location = New System.Drawing.Point(443, 6)
+        Me.txtActionID.Location = New System.Drawing.Point(445, 6)
         Me.txtActionID.Name = "txtActionID"
         Me.txtActionID.ReadOnly = True
         Me.txtActionID.Size = New System.Drawing.Size(46, 20)
@@ -530,7 +469,7 @@ Partial Class SBEAPPhoneLog
         'txtPhoneCallNotes
         '
         Me.txtPhoneCallNotes.AcceptsReturn = True
-        Me.txtPhoneCallNotes.Location = New System.Drawing.Point(109, 260)
+        Me.txtPhoneCallNotes.Location = New System.Drawing.Point(111, 260)
         Me.txtPhoneCallNotes.Multiline = True
         Me.txtPhoneCallNotes.Name = "txtPhoneCallNotes"
         Me.txtPhoneCallNotes.Size = New System.Drawing.Size(442, 72)
@@ -539,7 +478,7 @@ Partial Class SBEAPPhoneLog
         'Label38
         '
         Me.Label38.AutoSize = True
-        Me.Label38.Location = New System.Drawing.Point(65, 249)
+        Me.Label38.Location = New System.Drawing.Point(3, 263)
         Me.Label38.Name = "Label38"
         Me.Label38.Size = New System.Drawing.Size(38, 13)
         Me.Label38.TabIndex = 59
@@ -561,7 +500,7 @@ Partial Class SBEAPPhoneLog
         '
         Me.btnNewCall.AutoSize = True
         Me.btnNewCall.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnNewCall.Location = New System.Drawing.Point(614, 13)
+        Me.btnNewCall.Location = New System.Drawing.Point(595, 7)
         Me.btnNewCall.Name = "btnNewCall"
         Me.btnNewCall.Size = New System.Drawing.Size(59, 23)
         Me.btnNewCall.TabIndex = 54
@@ -588,14 +527,11 @@ Partial Class SBEAPPhoneLog
         Me.Controls.Add(Me.pnlClientInfo)
         Me.Controls.Add(Me.Panel5)
         Me.Controls.Add(Me.ToolStrip1)
-        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Name = "SBEAPPhoneLog"
         Me.Text = "SBEAP Phone Log"
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.Panel1.ResumeLayout(False)
@@ -616,14 +552,8 @@ Partial Class SBEAPPhoneLog
     Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents tsbSave As System.Windows.Forms.ToolStripButton
     Friend WithEvents tsbClientSearch As System.Windows.Forms.ToolStripButton
-    Friend WithEvents tsbBack As System.Windows.Forms.ToolStripButton
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents lbl1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents lbl2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents lbl3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
-    Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents FileMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents txtCaseSummary As System.Windows.Forms.TextBox
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents Label199 As System.Windows.Forms.Label
