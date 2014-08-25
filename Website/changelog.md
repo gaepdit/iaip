@@ -1,6 +1,13 @@
 % IAIP Change Log
 
-## Version 3.5.4 <span>(2014-08-05)</span>
+## Version 3.5.6 <span>(2014-08-25)</span>
+
+- FIX: *SSCP* -- Check for HPV type before saving enforcement, if marked as HPV (#63); thx Karen
+- FIX: *SBEAP* -- UI fixes on some screens (#230); thx Teresa
+- FIX: Disable Save button in Edit Header Data screen if user doesn't have permission to save data (#256)
+- FIX: Some other UI fixes
+
+## Version 3.5.5 <span>(2014-08-05)</span>
 
 + NEW: *Smoke School* -- Improved Smoke School layout
 + NEW: Updated DMU contact phone numbers
