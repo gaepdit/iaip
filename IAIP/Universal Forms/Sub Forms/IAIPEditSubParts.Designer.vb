@@ -253,7 +253,7 @@ Partial Class IAIPEditSubParts
         Me.GBNSPS.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GBNSPS.Location = New System.Drawing.Point(3, 3)
         Me.GBNSPS.Name = "GBNSPS"
-        Me.GBNSPS.Size = New System.Drawing.Size(693, 254)
+        Me.GBNSPS.Size = New System.Drawing.Size(693, 280)
         Me.GBNSPS.TabIndex = 207
         Me.GBNSPS.TabStop = False
         Me.GBNSPS.Text = "9 - NSPS (Part 60)"
@@ -284,6 +284,7 @@ Partial Class IAIPEditSubParts
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cboNSPSSubpart.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboNSPSSubpart.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboNSPSSubpart.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboNSPSSubpart.FormattingEnabled = True
         Me.cboNSPSSubpart.Location = New System.Drawing.Point(6, 133)
         Me.cboNSPSSubpart.Name = "cboNSPSSubpart"
@@ -311,7 +312,7 @@ Partial Class IAIPEditSubParts
         Me.GBNESHAP.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GBNESHAP.Location = New System.Drawing.Point(3, 3)
         Me.GBNESHAP.Name = "GBNESHAP"
-        Me.GBNESHAP.Size = New System.Drawing.Size(693, 254)
+        Me.GBNESHAP.Size = New System.Drawing.Size(693, 280)
         Me.GBNESHAP.TabIndex = 208
         Me.GBNESHAP.TabStop = False
         Me.GBNESHAP.Text = "8 - NESHAP (Part 61)"
@@ -342,6 +343,7 @@ Partial Class IAIPEditSubParts
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cboNESHAPSubpart.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboNESHAPSubpart.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboNESHAPSubpart.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboNESHAPSubpart.FormattingEnabled = True
         Me.cboNESHAPSubpart.Location = New System.Drawing.Point(6, 133)
         Me.cboNESHAPSubpart.Name = "cboNESHAPSubpart"
@@ -369,7 +371,7 @@ Partial Class IAIPEditSubParts
         Me.GBMACT.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GBMACT.Location = New System.Drawing.Point(0, 0)
         Me.GBMACT.Name = "GBMACT"
-        Me.GBMACT.Size = New System.Drawing.Size(699, 260)
+        Me.GBMACT.Size = New System.Drawing.Size(699, 286)
         Me.GBMACT.TabIndex = 209
         Me.GBMACT.TabStop = False
         Me.GBMACT.Text = "M - MACT (Part 63) "
@@ -400,6 +402,7 @@ Partial Class IAIPEditSubParts
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cboMACTSubPart.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboMACTSubPart.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboMACTSubPart.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboMACTSubPart.FormattingEnabled = True
         Me.cboMACTSubPart.Location = New System.Drawing.Point(6, 133)
         Me.cboMACTSubPart.Name = "cboMACTSubPart"
@@ -439,7 +442,7 @@ Partial Class IAIPEditSubParts
         Me.TPSIP.Controls.Add(Me.GroupBox1)
         Me.TPSIP.Location = New System.Drawing.Point(4, 22)
         Me.TPSIP.Name = "TPSIP"
-        Me.TPSIP.Size = New System.Drawing.Size(699, 247)
+        Me.TPSIP.Size = New System.Drawing.Size(699, 286)
         Me.TPSIP.TabIndex = 4
         Me.TPSIP.Text = "0 - SIP"
         Me.TPSIP.UseVisualStyleBackColor = True
@@ -453,7 +456,7 @@ Partial Class IAIPEditSubParts
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(699, 247)
+        Me.GroupBox1.Size = New System.Drawing.Size(699, 286)
         Me.GroupBox1.TabIndex = 208
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "0 - SIP"
@@ -484,6 +487,7 @@ Partial Class IAIPEditSubParts
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cboSIPSubpart.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboSIPSubpart.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSIPSubpart.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSIPSubpart.FormattingEnabled = True
         Me.cboSIPSubpart.Location = New System.Drawing.Point(6, 133)
         Me.cboSIPSubpart.Name = "cboSIPSubpart"
@@ -508,7 +512,7 @@ Partial Class IAIPEditSubParts
         Me.TPPart60.Location = New System.Drawing.Point(4, 22)
         Me.TPPart60.Name = "TPPart60"
         Me.TPPart60.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPPart60.Size = New System.Drawing.Size(699, 260)
+        Me.TPPart60.Size = New System.Drawing.Size(699, 286)
         Me.TPPart60.TabIndex = 0
         Me.TPPart60.Text = "9 - NSPS (Part 60)"
         Me.TPPart60.UseVisualStyleBackColor = True
@@ -519,7 +523,7 @@ Partial Class IAIPEditSubParts
         Me.TPPart61.Location = New System.Drawing.Point(4, 22)
         Me.TPPart61.Name = "TPPart61"
         Me.TPPart61.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPPart61.Size = New System.Drawing.Size(699, 260)
+        Me.TPPart61.Size = New System.Drawing.Size(699, 286)
         Me.TPPart61.TabIndex = 1
         Me.TPPart61.Text = "8 - NESHAP (Part 61) "
         Me.TPPart61.UseVisualStyleBackColor = True
@@ -529,7 +533,7 @@ Partial Class IAIPEditSubParts
         Me.TPPart63.Controls.Add(Me.GBMACT)
         Me.TPPart63.Location = New System.Drawing.Point(4, 22)
         Me.TPPart63.Name = "TPPart63"
-        Me.TPPart63.Size = New System.Drawing.Size(699, 260)
+        Me.TPPart63.Size = New System.Drawing.Size(699, 286)
         Me.TPPart63.TabIndex = 2
         Me.TPPart63.Text = "M - MACT (Part 63)"
         Me.TPPart63.UseVisualStyleBackColor = True
@@ -675,7 +679,7 @@ Partial Class IAIPEditSubParts
         Me.TPEditNSPS.Controls.Add(Me.Panel4)
         Me.TPEditNSPS.Location = New System.Drawing.Point(4, 22)
         Me.TPEditNSPS.Name = "TPEditNSPS"
-        Me.TPEditNSPS.Size = New System.Drawing.Size(691, 221)
+        Me.TPEditNSPS.Size = New System.Drawing.Size(691, 260)
         Me.TPEditNSPS.TabIndex = 1
         Me.TPEditNSPS.Text = "Edit NSPS"
         Me.TPEditNSPS.UseVisualStyleBackColor = True
@@ -687,7 +691,7 @@ Partial Class IAIPEditSubParts
         Me.dgvNSPS.Location = New System.Drawing.Point(0, 123)
         Me.dgvNSPS.Name = "dgvNSPS"
         Me.dgvNSPS.ReadOnly = True
-        Me.dgvNSPS.Size = New System.Drawing.Size(691, 98)
+        Me.dgvNSPS.Size = New System.Drawing.Size(691, 137)
         Me.dgvNSPS.TabIndex = 2
         '
         'Panel4
@@ -777,7 +781,7 @@ Partial Class IAIPEditSubParts
         Me.TPEditNESHAP.Controls.Add(Me.Panel7)
         Me.TPEditNESHAP.Location = New System.Drawing.Point(4, 22)
         Me.TPEditNESHAP.Name = "TPEditNESHAP"
-        Me.TPEditNESHAP.Size = New System.Drawing.Size(691, 221)
+        Me.TPEditNESHAP.Size = New System.Drawing.Size(691, 260)
         Me.TPEditNESHAP.TabIndex = 2
         Me.TPEditNESHAP.Text = "Edit NESHAP"
         Me.TPEditNESHAP.UseVisualStyleBackColor = True
@@ -789,7 +793,7 @@ Partial Class IAIPEditSubParts
         Me.dgvNESHAP.Location = New System.Drawing.Point(0, 123)
         Me.dgvNESHAP.Name = "dgvNESHAP"
         Me.dgvNESHAP.ReadOnly = True
-        Me.dgvNESHAP.Size = New System.Drawing.Size(691, 98)
+        Me.dgvNESHAP.Size = New System.Drawing.Size(691, 137)
         Me.dgvNESHAP.TabIndex = 2
         '
         'Panel7
@@ -879,7 +883,7 @@ Partial Class IAIPEditSubParts
         Me.TPEditMACT.Controls.Add(Me.Panel8)
         Me.TPEditMACT.Location = New System.Drawing.Point(4, 22)
         Me.TPEditMACT.Name = "TPEditMACT"
-        Me.TPEditMACT.Size = New System.Drawing.Size(691, 221)
+        Me.TPEditMACT.Size = New System.Drawing.Size(691, 260)
         Me.TPEditMACT.TabIndex = 3
         Me.TPEditMACT.Text = "Edit MACT"
         Me.TPEditMACT.UseVisualStyleBackColor = True
@@ -891,7 +895,7 @@ Partial Class IAIPEditSubParts
         Me.dgvMACT.Location = New System.Drawing.Point(0, 123)
         Me.dgvMACT.Name = "dgvMACT"
         Me.dgvMACT.ReadOnly = True
-        Me.dgvMACT.Size = New System.Drawing.Size(691, 98)
+        Me.dgvMACT.Size = New System.Drawing.Size(691, 137)
         Me.dgvMACT.TabIndex = 2
         '
         'Panel8
