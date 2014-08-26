@@ -165,7 +165,7 @@ Partial Class IaipAbout
         Me.Name = "IaipAbout"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "IAIP — About"
+        Me.Text = "About IAIP"
         CType(Me.LogoBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
