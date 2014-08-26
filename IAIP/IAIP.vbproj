@@ -49,7 +49,7 @@
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://dmu.georgiaair.org/iaip/install/</InstallUrl>
-    <SupportUrl>http://airpermit.dnr.state.ga.us/iaip/</SupportUrl>
+    <SupportUrl>http://dmu.georgiaair.org/iaip/</SupportUrl>
     <ProductName>Integrated Air Information Platform</ProductName>
     <PublisherName>State of Georgia</PublisherName>
     <MinimumRequiredVersion>3.4.0.0</MinimumRequiredVersion>
