@@ -104,12 +104,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\fonts\icomoon.eot" />
-    <Content Include="assets\fonts\icomoon.ttf" />
-    <Content Include="assets\fonts\icomoon.woff" />
-    <None Include="changelog.md" />
-    <None Include="generate.bat" />
-    <None Include="index.md" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -119,27 +113,11 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="install\index.md" />
-    <None Include="Build Events.txt" />
-    <None Include="assets\body-footer.html" />
-    <None Include="assets\body-header.html" />
-    <Content Include="assets\changelog-style.css" />
-    <Content Include="assets\fonts\icomoon.svg" />
-    <None Include="assets\head.html" />
-    <Content Include="assets\installer-style.css" />
     <Content Include="changelog.html" />
     <Content Include="favicon.ico" />
     <Content Include="index.html" />
-    <Content Include="assets\dmu-logo.png" />
-    <Content Include="assets\style.css" />
-    <Content Include="install\index.html" />
-    <Content Include="install\screenshots\details-CR-license.png" />
-    <Content Include="install\screenshots\details-IAIP-final-circled.png" />
-    <Content Include="install\screenshots\details-IAIP-final.png" />
-    <Content Include="install\screenshots\details-IAIP-userid.png" />
-    <Content Include="install\screenshots\details-install.png" />
-    <Content Include="install\screenshots\details-warning.png" />
-    <Content Include="install\screenshots\install-page.png" />
+    <Content Include="install\index.html">
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -173,8 +151,7 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PreBuildEvent>C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown+startnum -t html5 --toc --toc-depth=2 --smart --email-obfuscation=references -c "http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" -c "assets/style.css" -B "$(ProjectDir)assets/body-header.html" -A "$(ProjectDir)assets/body-footer.html" -H "$(ProjectDir)assets/head.html" -o "$(ProjectDir)index.html" "$(ProjectDir)index.md"
-C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown+startnum -t html5 --smart --email-obfuscation=references -c "http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" -c "../assets/style.css" -c "../assets/installer-style.css" -B "$(ProjectDir)assets/body-header.html" -A "$(ProjectDir)assets/body-footer.html" -H "$(ProjectDir)assets/head.html" -o "$(ProjectDir)install/index.html" "$(ProjectDir)install/index.md"
-C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown+startnum -t html5 --smart --email-obfuscation=references -c "http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" -c "assets/style.css" -c "assets/changelog-style.css" -B "$(ProjectDir)assets/body-header.html" -A "$(ProjectDir)assets/body-footer.html" -H "$(ProjectDir)assets/head.html" -o "$(ProjectDir)changelog.html" "$(ProjectDir)changelog.md"</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
 </Project>
