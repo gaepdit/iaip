@@ -1,5 +1,9 @@
 % IAIP Change Log
 
+## Update 2014-08-25
+
+Moved website to new URL
+
 ## Version 3.5.6 <span>(2014-08-25)</span>
 
 - FIX: *SSCP* -- Check for HPV type before saving enforcement, if marked as HPV (#63); thx Karen
