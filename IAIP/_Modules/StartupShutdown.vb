@@ -12,19 +12,30 @@
         Console.WriteLine("Environment.UserName: " & Environment.UserName)
 #End If
 
-        ' Upgrade Settings
+        ' Upgrades
         ' Should run each time program is upgraded
-        ' Upgrade() folds in settings from previous version
         If My.Settings.CallUpgrade Then
+            ' Put items to run before settings are migrated here
+            ' [None currently]
+
+            ' Upgrade() folds in settings from previous version
             My.Settings.Upgrade()
+
+            ' Put items to run after settings are migrated here
+            ' [None currently]
+
+            ' Prevents this from running until next upgrade
             My.Settings.CallUpgrade = False
         End If
 
         ' First Run
         ' Should only run the first time a new installation is run
-        ' A False setting should be migrated by My.Settings.Upgrade() above
+        ' A 'False' setting should be migrated by My.Settings.Upgrade() above
         If My.Settings.FirstRun Then
+            ' Put items to run on first installation here
             DeleteOldShortcuts()
+
+            ' Prevents this from running in the future
             My.Settings.FirstRun = False
         End If
 

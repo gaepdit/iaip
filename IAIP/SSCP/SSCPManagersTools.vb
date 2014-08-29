@@ -5848,16 +5848,16 @@ Public Class SSCPManagersTools
             "  (UP.STRLASTNAME " & _
             "  || ', ' " & _
             "  || UP.STRFIRSTNAME) AS StaffResponsible " & _
-            "FROM APBFacilityinformation FI, " & _
-            "  APBHeaderdata HD, " & _
-            "  EPDUserProfiles UP, " & _
-            "  SSCPINSPECTIONSREQUIRED IR, " & _
+            "FROM " & DBNameSpace & ".APBFacilityinformation FI, " & _
+            "  " & DBNameSpace & ".APBHeaderdata HD, " & _
+            "  " & DBNameSpace & ".EPDUserProfiles UP, " & _
+            "  " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED IR, " & _
             "  (SELECT DISTINCT SUBSTR(tFI.STRAIRSNUMBER, 5) AS AIRSNumber " & _
-            "  FROM APBHeaderData tHD, " & _
-            "    APBFacilityInformation tFI, " & _
-            "    SSPPApplicationMaster tAM, " & _
-            "    SSPPApplicationData tAD, " & _
-            "    SSPPApplicationTracking tAT " & _
+            "  FROM " & DBNameSpace & ".APBHeaderData tHD, " & _
+            "    " & DBNameSpace & ".APBFacilityInformation tFI, " & _
+            "    " & DBNameSpace & ".SSPPApplicationMaster tAM, " & _
+            "    " & DBNameSpace & ".SSPPApplicationData tAD, " & _
+            "    " & DBNameSpace & ".SSPPApplicationTracking tAT " & _
             "  WHERE tAM.STRAPPLICATIONNUMBER = tAD.STRAPPLICATIONNUMBER " & _
             "  AND tAM.STRAIRSNUMBER          = tHD.STRAIRSNUMBER " & _
             "  AND tAM.STRAIRSNUMBER          = tFI.STRAIRSNUMBER " & _
@@ -5871,10 +5871,10 @@ Public Class SSCPManagersTools
             "  AND tAT.DATEFFECTIVE                      < add_months(SysDate, -51))) " & _
             "  MINUS " & _
             "    (SELECT DISTINCT SUBSTR(tAM.STRAIRSNUMBER, 5) AS AIRSNumber " & _
-            "    FROM SSPPApplicationMaster tAM, " & _
-            "      SSPPApplicationData tAD, " & _
-            "      SSPPApplicationTracking tAT, " & _
-            "      APBHeaderData tHD " & _
+            "    FROM " & DBNameSpace & ".SSPPApplicationMaster tAM, " & _
+            "      " & DBNameSpace & ".SSPPApplicationData tAD, " & _
+            "      " & DBNameSpace & ".SSPPApplicationTracking tAT, " & _
+            "      " & DBNameSpace & ".APBHeaderData tHD " & _
             "    WHERE tAM.STRAPPLICATIONNUMBER = tAD.STRAPPLICATIONNUMBER " & _
             "    AND tAM.STRAPPLICATIONNUMBER   = tAT.STRAPPLICATIONNUMBER " & _
             "    AND tAM.STRAIRSNUMBER          = tHD.STRAIRSNUMBER " & _
@@ -5888,7 +5888,7 @@ Public Class SSCPManagersTools
             "    ) " & _
             "  ) TVFacilities, " & _
             "  (SELECT MAX(SSCPINSPECTIONSREQUIRED.INTYEAR) AS maxyear " & _
-            "  FROM SSCPINSPECTIONSREQUIRED " & _
+            "  FROM " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
             "  ) maxyear " & _
             "WHERE FI.STRAIRSNUMBER = '0413' " & _
             "  || TVFacilities.AIRSNumber " & _
