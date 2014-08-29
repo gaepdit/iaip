@@ -1,5 +1,9 @@
 % IAIP Change Log
 
+## Version 3.5.7 <span>(2014-08-29)</span>
+
+- FIX: *SSCP* -- Title V Renewals search broken since version 3.5.5 (#263); thx Sean
+
 ## Update 2014-08-25
 
 Moved website to new URL
