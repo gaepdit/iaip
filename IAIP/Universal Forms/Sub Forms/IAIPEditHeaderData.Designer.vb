@@ -22,7 +22,7 @@ Partial Class IAIPEditHeaderData
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.FacilityDescription = New System.Windows.Forms.TextBox
         Me.FacilityDescriptionLabel = New System.Windows.Forms.Label
-        Me.FacilityHistoryDisplay = New System.Windows.Forms.DataGridView
+        Me.FacilityHistoryDataGridView = New System.Windows.Forms.DataGridView
         Me.Comments = New System.Windows.Forms.TextBox
         Me.CommentsLabel = New System.Windows.Forms.Label
         Me.PermitRevocationDateLabel = New System.Windows.Forms.Label
@@ -30,9 +30,9 @@ Partial Class IAIPEditHeaderData
         Me.StartUpDate = New System.Windows.Forms.DateTimePicker
         Me.ShutdownDate = New System.Windows.Forms.DateTimePicker
         Me.ClassificationLabel = New System.Windows.Forms.Label
-        Me.Classification = New System.Windows.Forms.ComboBox
+        Me.ClassificationDropDown = New System.Windows.Forms.ComboBox
         Me.OperationalStatusLabel = New System.Windows.Forms.Label
-        Me.OperationalStatus = New System.Windows.Forms.ComboBox
+        Me.OperationalDropDown = New System.Windows.Forms.ComboBox
         Me.SicCodeLabel = New System.Windows.Forms.Label
         Me.SicCode = New System.Windows.Forms.TextBox
         Me.AirProgramCodes = New System.Windows.Forms.GroupBox
@@ -58,9 +58,9 @@ Partial Class IAIPEditHeaderData
         Me.FacilityNameDisplay = New System.Windows.Forms.Label
         Me.AirsNumberDisplay = New System.Windows.Forms.Label
         Me.NonattainmentStatuses = New System.Windows.Forms.GroupBox
-        Me.PmFine = New System.Windows.Forms.ComboBox
-        Me.EightHourOzone = New System.Windows.Forms.ComboBox
-        Me.OneHourOzone = New System.Windows.Forms.ComboBox
+        Me.PmFineDropDown = New System.Windows.Forms.ComboBox
+        Me.EightHourOzoneDropDown = New System.Windows.Forms.ComboBox
+        Me.OneHourOzoneDropDown = New System.Windows.Forms.ComboBox
         Me.Label97 = New System.Windows.Forms.Label
         Me.Label96 = New System.Windows.Forms.Label
         Me.Label94 = New System.Windows.Forms.Label
@@ -69,7 +69,7 @@ Partial Class IAIPEditHeaderData
         Me.SaveChangesButton = New System.Windows.Forms.Button
         Me.CancelEditButton = New System.Windows.Forms.Button
         Me.EditableButton = New System.Windows.Forms.CheckBox
-        CType(Me.FacilityHistoryDisplay, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.FacilityHistoryDataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.AirProgramCodes.SuspendLayout()
         Me.NonattainmentStatuses.SuspendLayout()
         Me.SuspendLayout()
@@ -82,7 +82,7 @@ Partial Class IAIPEditHeaderData
         Me.FacilityDescription.Multiline = True
         Me.FacilityDescription.Name = "FacilityDescription"
         Me.FacilityDescription.Size = New System.Drawing.Size(333, 20)
-        Me.FacilityDescription.TabIndex = 8
+        Me.FacilityDescription.TabIndex = 10
         '
         'FacilityDescriptionLabel
         '
@@ -95,27 +95,27 @@ Partial Class IAIPEditHeaderData
         Me.FacilityDescriptionLabel.Text = "Facility Description:"
         Me.FacilityDescriptionLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         '
-        'FacilityHistoryDisplay
+        'FacilityHistoryDataGridView
         '
-        Me.FacilityHistoryDisplay.AllowUserToAddRows = False
-        Me.FacilityHistoryDisplay.AllowUserToDeleteRows = False
-        Me.FacilityHistoryDisplay.AllowUserToOrderColumns = True
-        Me.FacilityHistoryDisplay.AllowUserToResizeRows = False
+        Me.FacilityHistoryDataGridView.AllowUserToAddRows = False
+        Me.FacilityHistoryDataGridView.AllowUserToDeleteRows = False
+        Me.FacilityHistoryDataGridView.AllowUserToOrderColumns = True
+        Me.FacilityHistoryDataGridView.AllowUserToResizeRows = False
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.FacilityHistoryDisplay.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
-        Me.FacilityHistoryDisplay.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.FacilityHistoryDataGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.FacilityHistoryDataGridView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.FacilityHistoryDisplay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.FacilityHistoryDisplay.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.FacilityHistoryDisplay.Location = New System.Drawing.Point(0, 372)
-        Me.FacilityHistoryDisplay.MultiSelect = False
-        Me.FacilityHistoryDisplay.Name = "FacilityHistoryDisplay"
-        Me.FacilityHistoryDisplay.ReadOnly = True
-        Me.FacilityHistoryDisplay.RowHeadersVisible = False
-        Me.FacilityHistoryDisplay.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.FacilityHistoryDisplay.Size = New System.Drawing.Size(612, 188)
-        Me.FacilityHistoryDisplay.TabIndex = 14
+        Me.FacilityHistoryDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.FacilityHistoryDataGridView.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.FacilityHistoryDataGridView.Location = New System.Drawing.Point(0, 372)
+        Me.FacilityHistoryDataGridView.MultiSelect = False
+        Me.FacilityHistoryDataGridView.Name = "FacilityHistoryDataGridView"
+        Me.FacilityHistoryDataGridView.ReadOnly = True
+        Me.FacilityHistoryDataGridView.RowHeadersVisible = False
+        Me.FacilityHistoryDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.FacilityHistoryDataGridView.Size = New System.Drawing.Size(612, 188)
+        Me.FacilityHistoryDataGridView.TabIndex = 16
         '
         'Comments
         '
@@ -125,7 +125,7 @@ Partial Class IAIPEditHeaderData
         Me.Comments.Multiline = True
         Me.Comments.Name = "Comments"
         Me.Comments.Size = New System.Drawing.Size(478, 40)
-        Me.Comments.TabIndex = 10
+        Me.Comments.TabIndex = 12
         '
         'CommentsLabel
         '
@@ -167,7 +167,7 @@ Partial Class IAIPEditHeaderData
         Me.StartUpDate.Name = "StartUpDate"
         Me.StartUpDate.ShowCheckBox = True
         Me.StartUpDate.Size = New System.Drawing.Size(121, 20)
-        Me.StartUpDate.TabIndex = 3
+        Me.StartUpDate.TabIndex = 4
         Me.StartUpDate.Value = New Date(2006, 11, 3, 0, 0, 0, 0)
         '
         'ShutdownDate
@@ -178,7 +178,7 @@ Partial Class IAIPEditHeaderData
         Me.ShutdownDate.Name = "ShutdownDate"
         Me.ShutdownDate.ShowCheckBox = True
         Me.ShutdownDate.Size = New System.Drawing.Size(121, 20)
-        Me.ShutdownDate.TabIndex = 4
+        Me.ShutdownDate.TabIndex = 5
         Me.ShutdownDate.Value = New Date(2006, 11, 3, 0, 0, 0, 0)
         '
         'ClassificationLabel
@@ -192,15 +192,15 @@ Partial Class IAIPEditHeaderData
         Me.ClassificationLabel.Text = "Classification:"
         Me.ClassificationLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft
         '
-        'Classification
+        'ClassificationDropDown
         '
-        Me.Classification.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.Classification.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.Classification.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.Classification.Location = New System.Drawing.Point(89, 57)
-        Me.Classification.Name = "Classification"
-        Me.Classification.Size = New System.Drawing.Size(121, 21)
-        Me.Classification.TabIndex = 0
+        Me.ClassificationDropDown.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ClassificationDropDown.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ClassificationDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ClassificationDropDown.Location = New System.Drawing.Point(89, 57)
+        Me.ClassificationDropDown.Name = "ClassificationDropDown"
+        Me.ClassificationDropDown.Size = New System.Drawing.Size(121, 21)
+        Me.ClassificationDropDown.TabIndex = 2
         '
         'OperationalStatusLabel
         '
@@ -213,15 +213,15 @@ Partial Class IAIPEditHeaderData
         Me.OperationalStatusLabel.Text = "Operating Status:"
         Me.OperationalStatusLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft
         '
-        'OperationalStatus
+        'OperationalDropDown
         '
-        Me.OperationalStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.OperationalStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.OperationalStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.OperationalStatus.Location = New System.Drawing.Point(320, 56)
-        Me.OperationalStatus.Name = "OperationalStatus"
-        Me.OperationalStatus.Size = New System.Drawing.Size(121, 21)
-        Me.OperationalStatus.TabIndex = 1
+        Me.OperationalDropDown.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.OperationalDropDown.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.OperationalDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.OperationalDropDown.Location = New System.Drawing.Point(320, 56)
+        Me.OperationalDropDown.Name = "OperationalDropDown"
+        Me.OperationalDropDown.Size = New System.Drawing.Size(121, 21)
+        Me.OperationalDropDown.TabIndex = 3
         '
         'SicCodeLabel
         '
@@ -239,7 +239,7 @@ Partial Class IAIPEditHeaderData
         Me.SicCode.Location = New System.Drawing.Point(523, 56)
         Me.SicCode.Name = "SicCode"
         Me.SicCode.Size = New System.Drawing.Size(71, 20)
-        Me.SicCode.TabIndex = 2
+        Me.SicCode.TabIndex = 6
         '
         'AirProgramCodes
         '
@@ -263,7 +263,7 @@ Partial Class IAIPEditHeaderData
         Me.AirProgramCodes.Location = New System.Drawing.Point(12, 119)
         Me.AirProgramCodes.Name = "AirProgramCodes"
         Me.AirProgramCodes.Size = New System.Drawing.Size(396, 126)
-        Me.AirProgramCodes.TabIndex = 6
+        Me.AirProgramCodes.TabIndex = 8
         Me.AirProgramCodes.TabStop = False
         Me.AirProgramCodes.Text = "Air Program Codes "
         '
@@ -301,19 +301,19 @@ Partial Class IAIPEditHeaderData
         'ApcAcid
         '
         Me.ApcAcid.AutoSize = True
-        Me.ApcAcid.Location = New System.Drawing.Point(131, 53)
+        Me.ApcAcid.Location = New System.Drawing.Point(131, 70)
         Me.ApcAcid.Name = "ApcAcid"
         Me.ApcAcid.Size = New System.Drawing.Size(108, 17)
-        Me.ApcAcid.TabIndex = 8
+        Me.ApcAcid.TabIndex = 9
         Me.ApcAcid.Text = "Acid Precipitation"
         '
         'ApcFesop
         '
         Me.ApcFesop.AutoSize = True
-        Me.ApcFesop.Location = New System.Drawing.Point(131, 70)
+        Me.ApcFesop.Location = New System.Drawing.Point(131, 87)
         Me.ApcFesop.Name = "ApcFesop"
         Me.ApcFesop.Size = New System.Drawing.Size(61, 17)
-        Me.ApcFesop.TabIndex = 9
+        Me.ApcFesop.TabIndex = 10
         Me.ApcFesop.Text = "FESOP"
         '
         'ApcTitleV
@@ -328,37 +328,37 @@ Partial Class IAIPEditHeaderData
         'ApcMact
         '
         Me.ApcMact.AutoSize = True
-        Me.ApcMact.Location = New System.Drawing.Point(131, 104)
+        Me.ApcMact.Location = New System.Drawing.Point(131, 19)
         Me.ApcMact.Name = "ApcMact"
         Me.ApcMact.Size = New System.Drawing.Size(99, 17)
-        Me.ApcMact.TabIndex = 11
+        Me.ApcMact.TabIndex = 6
         Me.ApcMact.Text = "MACT (Part 63)"
         '
         'ApcNativeAmerican
         '
         Me.ApcNativeAmerican.AutoSize = True
-        Me.ApcNativeAmerican.Location = New System.Drawing.Point(131, 87)
+        Me.ApcNativeAmerican.Location = New System.Drawing.Point(131, 104)
         Me.ApcNativeAmerican.Name = "ApcNativeAmerican"
         Me.ApcNativeAmerican.Size = New System.Drawing.Size(104, 17)
-        Me.ApcNativeAmerican.TabIndex = 10
+        Me.ApcNativeAmerican.TabIndex = 11
         Me.ApcNativeAmerican.Text = "Native American"
         '
         'ApcNsps
         '
         Me.ApcNsps.AutoSize = True
-        Me.ApcNsps.Location = New System.Drawing.Point(131, 36)
+        Me.ApcNsps.Location = New System.Drawing.Point(131, 53)
         Me.ApcNsps.Name = "ApcNsps"
         Me.ApcNsps.Size = New System.Drawing.Size(55, 17)
-        Me.ApcNsps.TabIndex = 7
+        Me.ApcNsps.TabIndex = 8
         Me.ApcNsps.Text = "NSPS"
         '
         'ApcNeshap
         '
         Me.ApcNeshap.AutoSize = True
-        Me.ApcNeshap.Location = New System.Drawing.Point(131, 19)
+        Me.ApcNeshap.Location = New System.Drawing.Point(131, 36)
         Me.ApcNeshap.Name = "ApcNeshap"
         Me.ApcNeshap.Size = New System.Drawing.Size(113, 17)
-        Me.ApcNeshap.TabIndex = 6
+        Me.ApcNeshap.TabIndex = 7
         Me.ApcNeshap.Text = "NESHAP (Part 61)"
         '
         'ApcNsr
@@ -426,17 +426,18 @@ Partial Class IAIPEditHeaderData
         '
         'RmpId
         '
+        Me.RmpId.HidePromptOnLeave = True
         Me.RmpId.Location = New System.Drawing.Point(509, 259)
         Me.RmpId.Mask = "0000-0000-0000"
         Me.RmpId.Name = "RmpId"
         Me.RmpId.Size = New System.Drawing.Size(85, 20)
-        Me.RmpId.TabIndex = 9
+        Me.RmpId.TabIndex = 11
         '
         'ModifiedDescDisplay
         '
         Me.ModifiedDescDisplay.Location = New System.Drawing.Point(12, 338)
         Me.ModifiedDescDisplay.Name = "ModifiedDescDisplay"
-        Me.ModifiedDescDisplay.Size = New System.Drawing.Size(267, 31)
+        Me.ModifiedDescDisplay.Size = New System.Drawing.Size(264, 31)
         Me.ModifiedDescDisplay.TabIndex = 366
         Me.ModifiedDescDisplay.Text = "Modified:"
         '
@@ -447,7 +448,7 @@ Partial Class IAIPEditHeaderData
         Me.FacilityNameDisplay.Location = New System.Drawing.Point(92, 20)
         Me.FacilityNameDisplay.Name = "FacilityNameDisplay"
         Me.FacilityNameDisplay.Size = New System.Drawing.Size(92, 17)
-        Me.FacilityNameDisplay.TabIndex = 351
+        Me.FacilityNameDisplay.TabIndex = 1
         Me.FacilityNameDisplay.Text = "Facility Name"
         '
         'AirsNumberDisplay
@@ -457,66 +458,66 @@ Partial Class IAIPEditHeaderData
         Me.AirsNumberDisplay.Location = New System.Drawing.Point(12, 20)
         Me.AirsNumberDisplay.Name = "AirsNumberDisplay"
         Me.AirsNumberDisplay.Size = New System.Drawing.Size(77, 17)
-        Me.AirsNumberDisplay.TabIndex = 352
+        Me.AirsNumberDisplay.TabIndex = 0
         Me.AirsNumberDisplay.Text = "000-00000"
         '
         'NonattainmentStatuses
         '
-        Me.NonattainmentStatuses.Controls.Add(Me.PmFine)
-        Me.NonattainmentStatuses.Controls.Add(Me.EightHourOzone)
-        Me.NonattainmentStatuses.Controls.Add(Me.OneHourOzone)
+        Me.NonattainmentStatuses.Controls.Add(Me.PmFineDropDown)
+        Me.NonattainmentStatuses.Controls.Add(Me.EightHourOzoneDropDown)
+        Me.NonattainmentStatuses.Controls.Add(Me.OneHourOzoneDropDown)
         Me.NonattainmentStatuses.Controls.Add(Me.Label97)
         Me.NonattainmentStatuses.Controls.Add(Me.Label96)
         Me.NonattainmentStatuses.Controls.Add(Me.Label94)
         Me.NonattainmentStatuses.Location = New System.Drawing.Point(414, 119)
         Me.NonattainmentStatuses.Name = "NonattainmentStatuses"
         Me.NonattainmentStatuses.Size = New System.Drawing.Size(186, 126)
-        Me.NonattainmentStatuses.TabIndex = 7
+        Me.NonattainmentStatuses.TabIndex = 9
         Me.NonattainmentStatuses.TabStop = False
         Me.NonattainmentStatuses.Text = "Nonattainment Statuses"
         '
-        'PmFine
+        'PmFineDropDown
         '
-        Me.PmFine.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PmFine.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.PmFine.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.PmFine.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.PmFine.FormattingEnabled = True
-        Me.PmFine.Location = New System.Drawing.Point(72, 67)
-        Me.PmFine.Name = "PmFine"
-        Me.PmFine.Size = New System.Drawing.Size(108, 21)
-        Me.PmFine.TabIndex = 2
+        Me.PmFineDropDown.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PmFineDropDown.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.PmFineDropDown.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.PmFineDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.PmFineDropDown.FormattingEnabled = True
+        Me.PmFineDropDown.Location = New System.Drawing.Point(72, 73)
+        Me.PmFineDropDown.Name = "PmFineDropDown"
+        Me.PmFineDropDown.Size = New System.Drawing.Size(108, 21)
+        Me.PmFineDropDown.TabIndex = 2
         '
-        'EightHourOzone
+        'EightHourOzoneDropDown
         '
-        Me.EightHourOzone.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.EightHourOzone.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.EightHourOzone.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.EightHourOzone.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.EightHourOzone.FormattingEnabled = True
-        Me.EightHourOzone.Location = New System.Drawing.Point(72, 43)
-        Me.EightHourOzone.Name = "EightHourOzone"
-        Me.EightHourOzone.Size = New System.Drawing.Size(108, 21)
-        Me.EightHourOzone.TabIndex = 1
+        Me.EightHourOzoneDropDown.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.EightHourOzoneDropDown.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.EightHourOzoneDropDown.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.EightHourOzoneDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.EightHourOzoneDropDown.FormattingEnabled = True
+        Me.EightHourOzoneDropDown.Location = New System.Drawing.Point(72, 46)
+        Me.EightHourOzoneDropDown.Name = "EightHourOzoneDropDown"
+        Me.EightHourOzoneDropDown.Size = New System.Drawing.Size(108, 21)
+        Me.EightHourOzoneDropDown.TabIndex = 1
         '
-        'OneHourOzone
+        'OneHourOzoneDropDown
         '
-        Me.OneHourOzone.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.OneHourOzone.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.OneHourOzone.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.OneHourOzone.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.OneHourOzone.FormattingEnabled = True
-        Me.OneHourOzone.Location = New System.Drawing.Point(72, 19)
-        Me.OneHourOzone.Name = "OneHourOzone"
-        Me.OneHourOzone.Size = New System.Drawing.Size(108, 21)
-        Me.OneHourOzone.TabIndex = 0
+        Me.OneHourOzoneDropDown.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.OneHourOzoneDropDown.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.OneHourOzoneDropDown.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.OneHourOzoneDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.OneHourOzoneDropDown.FormattingEnabled = True
+        Me.OneHourOzoneDropDown.Location = New System.Drawing.Point(72, 19)
+        Me.OneHourOzoneDropDown.Name = "OneHourOzoneDropDown"
+        Me.OneHourOzoneDropDown.Size = New System.Drawing.Size(108, 21)
+        Me.OneHourOzoneDropDown.TabIndex = 0
         '
         'Label97
         '
         Me.Label97.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label97.AutoSize = True
         Me.Label97.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label97.Location = New System.Drawing.Point(22, 70)
+        Me.Label97.Location = New System.Drawing.Point(6, 76)
         Me.Label97.Name = "Label97"
         Me.Label97.Size = New System.Drawing.Size(44, 13)
         Me.Label97.TabIndex = 2
@@ -527,7 +528,7 @@ Partial Class IAIPEditHeaderData
         Me.Label96.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label96.AutoSize = True
         Me.Label96.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label96.Location = New System.Drawing.Point(6, 46)
+        Me.Label96.Location = New System.Drawing.Point(6, 49)
         Me.Label96.Name = "Label96"
         Me.Label96.Size = New System.Drawing.Size(60, 13)
         Me.Label96.TabIndex = 1
@@ -560,37 +561,42 @@ Partial Class IAIPEditHeaderData
         Me.NaicsCode.Location = New System.Drawing.Point(523, 83)
         Me.NaicsCode.Name = "NaicsCode"
         Me.NaicsCode.Size = New System.Drawing.Size(71, 20)
-        Me.NaicsCode.TabIndex = 5
+        Me.NaicsCode.TabIndex = 7
         '
         'SaveChangesButton
         '
+        Me.SaveChangesButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.SaveChangesButton.Enabled = False
-        Me.SaveChangesButton.Location = New System.Drawing.Point(285, 338)
+        Me.SaveChangesButton.Image = Global.Iaip.My.Resources.Resources.SaveButtonImage
+        Me.SaveChangesButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.SaveChangesButton.Location = New System.Drawing.Point(486, 338)
         Me.SaveChangesButton.Name = "SaveChangesButton"
-        Me.SaveChangesButton.Size = New System.Drawing.Size(100, 23)
-        Me.SaveChangesButton.TabIndex = 12
-        Me.SaveChangesButton.Text = "Save Changes"
+        Me.SaveChangesButton.Padding = New System.Windows.Forms.Padding(3, 0, 0, 0)
+        Me.SaveChangesButton.Size = New System.Drawing.Size(108, 23)
+        Me.SaveChangesButton.TabIndex = 13
+        Me.SaveChangesButton.Text = "     Save Changes"
+        Me.SaveChangesButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.SaveChangesButton.UseVisualStyleBackColor = True
         '
         'CancelEditButton
         '
         Me.CancelEditButton.Enabled = False
-        Me.CancelEditButton.Location = New System.Drawing.Point(390, 338)
+        Me.CancelEditButton.Location = New System.Drawing.Point(404, 338)
         Me.CancelEditButton.Name = "CancelEditButton"
-        Me.CancelEditButton.Size = New System.Drawing.Size(100, 23)
-        Me.CancelEditButton.TabIndex = 13
+        Me.CancelEditButton.Size = New System.Drawing.Size(76, 23)
+        Me.CancelEditButton.TabIndex = 14
         Me.CancelEditButton.Text = "Cancel"
         Me.CancelEditButton.UseVisualStyleBackColor = True
         '
         'EditableButton
         '
         Me.EditableButton.Appearance = System.Windows.Forms.Appearance.Button
-        Me.EditableButton.AutoSize = True
-        Me.EditableButton.Location = New System.Drawing.Point(496, 338)
+        Me.EditableButton.Location = New System.Drawing.Point(486, 17)
         Me.EditableButton.Name = "EditableButton"
-        Me.EditableButton.Size = New System.Drawing.Size(98, 23)
-        Me.EditableButton.TabIndex = 380
+        Me.EditableButton.Size = New System.Drawing.Size(108, 23)
+        Me.EditableButton.TabIndex = 15
         Me.EditableButton.Text = "Edit Current Data"
+        Me.EditableButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.EditableButton.UseVisualStyleBackColor = True
         '
         'IAIPEditHeaderData
@@ -607,7 +613,7 @@ Partial Class IAIPEditHeaderData
         Me.Controls.Add(Me.NonattainmentStatuses)
         Me.Controls.Add(Me.FacilityDescription)
         Me.Controls.Add(Me.FacilityDescriptionLabel)
-        Me.Controls.Add(Me.FacilityHistoryDisplay)
+        Me.Controls.Add(Me.FacilityHistoryDataGridView)
         Me.Controls.Add(Me.Comments)
         Me.Controls.Add(Me.CommentsLabel)
         Me.Controls.Add(Me.PermitRevocationDateLabel)
@@ -615,9 +621,9 @@ Partial Class IAIPEditHeaderData
         Me.Controls.Add(Me.StartUpDate)
         Me.Controls.Add(Me.ShutdownDate)
         Me.Controls.Add(Me.ClassificationLabel)
-        Me.Controls.Add(Me.Classification)
+        Me.Controls.Add(Me.ClassificationDropDown)
         Me.Controls.Add(Me.OperationalStatusLabel)
-        Me.Controls.Add(Me.OperationalStatus)
+        Me.Controls.Add(Me.OperationalDropDown)
         Me.Controls.Add(Me.SicCodeLabel)
         Me.Controls.Add(Me.SicCode)
         Me.Controls.Add(Me.AirProgramCodes)
@@ -628,9 +634,10 @@ Partial Class IAIPEditHeaderData
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow
         Me.MaximizeBox = False
         Me.MinimizeBox = False
+        Me.MinimumSize = New System.Drawing.Size(628, 500)
         Me.Name = "IAIPEditHeaderData"
         Me.Text = "Edit Header Data"
-        CType(Me.FacilityHistoryDisplay, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.FacilityHistoryDataGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.AirProgramCodes.ResumeLayout(False)
         Me.AirProgramCodes.PerformLayout()
         Me.NonattainmentStatuses.ResumeLayout(False)
@@ -641,7 +648,7 @@ Partial Class IAIPEditHeaderData
     End Sub
     Friend WithEvents FacilityDescription As System.Windows.Forms.TextBox
     Friend WithEvents FacilityDescriptionLabel As System.Windows.Forms.Label
-    Friend WithEvents FacilityHistoryDisplay As System.Windows.Forms.DataGridView
+    Friend WithEvents FacilityHistoryDataGridView As System.Windows.Forms.DataGridView
     Friend WithEvents Comments As System.Windows.Forms.TextBox
     Friend WithEvents CommentsLabel As System.Windows.Forms.Label
     Friend WithEvents PermitRevocationDateLabel As System.Windows.Forms.Label
@@ -649,9 +656,9 @@ Partial Class IAIPEditHeaderData
     Friend WithEvents StartUpDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents ShutdownDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents ClassificationLabel As System.Windows.Forms.Label
-    Friend WithEvents Classification As System.Windows.Forms.ComboBox
+    Friend WithEvents ClassificationDropDown As System.Windows.Forms.ComboBox
     Friend WithEvents OperationalStatusLabel As System.Windows.Forms.Label
-    Friend WithEvents OperationalStatus As System.Windows.Forms.ComboBox
+    Friend WithEvents OperationalDropDown As System.Windows.Forms.ComboBox
     Friend WithEvents SicCodeLabel As System.Windows.Forms.Label
     Friend WithEvents SicCode As System.Windows.Forms.TextBox
     Friend WithEvents AirProgramCodes As System.Windows.Forms.GroupBox
@@ -677,9 +684,9 @@ Partial Class IAIPEditHeaderData
     Friend WithEvents Label97 As System.Windows.Forms.Label
     Friend WithEvents Label96 As System.Windows.Forms.Label
     Friend WithEvents Label94 As System.Windows.Forms.Label
-    Friend WithEvents OneHourOzone As System.Windows.Forms.ComboBox
-    Friend WithEvents PmFine As System.Windows.Forms.ComboBox
-    Friend WithEvents EightHourOzone As System.Windows.Forms.ComboBox
+    Friend WithEvents OneHourOzoneDropDown As System.Windows.Forms.ComboBox
+    Friend WithEvents PmFineDropDown As System.Windows.Forms.ComboBox
+    Friend WithEvents EightHourOzoneDropDown As System.Windows.Forms.ComboBox
     Friend WithEvents ApcRmp As System.Windows.Forms.CheckBox
     Friend WithEvents NaicsCodeLabel As System.Windows.Forms.Label
     Friend WithEvents NaicsCode As System.Windows.Forms.TextBox

@@ -1,3 +1,8 @@
+' TODO:
+' Fix Modified by statement when editing/canceling
+' Fix RMP (don't require)
+' Test 001-00001
+
 Imports Iaip.Apb
 Imports System.Collections.Generic
 
@@ -5,29 +10,29 @@ Public Class IAIPEditHeaderData
 
 #Region " Form properties and variables "
 
-    Private _AirsNumber As String
+    Private _airsNumber As String
     Public Property AirsNumber() As String
         Get
-            Return _AirsNumber
+            Return _airsNumber
         End Get
         Set(ByVal value As String)
-            _AirsNumber = value
+            _airsNumber = value
         End Set
     End Property
 
-    Private _FacilityName As String
+    Private _facilityName As String
     Public Property FacilityName() As String
         Get
-            Return _FacilityName
+            Return _facilityName
         End Get
         Set(ByVal value As String)
-            _FacilityName = value
+            _facilityName = value
         End Set
     End Property
 
-    Private FacilityHistory As DataTable
+    Private FacilityHeaderDataHistory As DataTable
 
-    Private CurrentFacility As FacilityHeaderData
+    Private CurrentFacilityHeaderData As FacilityHeaderData
 
     Private _somethingSaved As Boolean = False
     Public Property SomethingWasSaved() As Boolean
@@ -46,6 +51,12 @@ Public Class IAIPEditHeaderData
     Private Sub IAIPEditHeaderData_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         monitor.TrackFeature("Forms." & Me.Name)
 
+        If Not Facility.ValidAirsNumber(Me.AirsNumber) Then
+            MessageBox.Show("AIRS number is not valid. Try again.", _
+                            "No AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Me.Close()
+        End If
+
         AirsNumberDisplay.Text = Facility.FormatAirsNumber(Me.AirsNumber)
         FacilityNameDisplay.Text = Me.FacilityName
 
@@ -57,55 +68,55 @@ Public Class IAIPEditHeaderData
     End Sub
 
     Private Sub PreloadComboBoxes()
-        Classification.BindToEnum(Of Facility.Classification)()
-        OperationalStatus.BindToEnum(Of Facility.OperationalStatus)()
-        EightHourOzone.BindToEnum(Of Facility.EightHourNonattainmentStatus)()
-        OneHourOzone.BindToEnum(Of Facility.OneHourNonattainmentStatus)()
-        PmFine.BindToEnum(Of Facility.PMFineNonattainmentStatus)()
+        ClassificationDropDown.BindToEnum(Of Facility.Classification)()
+        OperationalDropDown.BindToEnum(Of Facility.OperationalStatus)()
+        EightHourOzoneDropDown.BindToEnum(Of Facility.EightHourNonattainmentStatus)()
+        OneHourOzoneDropDown.BindToEnum(Of Facility.OneHourNonattainmentStatus)()
+        PmFineDropDown.BindToEnum(Of Facility.PMFineNonattainmentStatus)()
     End Sub
 
     Private Sub LoadFacilityData()
-        FacilityHistory = DAL.FacilityHeaderData.GetFacilityHeaderDataHistoryAsDataTable(AirsNumber)
+        FacilityHeaderDataHistory = DAL.FacilityHeaderData.GetFacilityHeaderDataHistoryAsDataTable(AirsNumber)
 
         Dim currentData As DataRow = DAL.FacilityHeaderData.GetFacilityHeaderDataAsDataRow(AirsNumber)
-        currentData(0) = FacilityHistory.Compute("Max(STRKEY)", String.Empty) + 1
-        FacilityHistory.ImportRow(currentData)
+        currentData(0) = FacilityHeaderDataHistory.Compute("Max(STRKEY)", String.Empty) + 1
+        FacilityHeaderDataHistory.ImportRow(currentData)
 
-        BindFacilityHistoryDisplay(FacilityHistory)
+        BindFacilityHistoryDisplay(FacilityHeaderDataHistory)
 
-        CurrentFacility = New FacilityHeaderData(AirsNumber)
-        DAL.FillFacilityHeaderDataFromDataRow(currentData, CurrentFacility)
-        DisplayFacilityData(CurrentFacility)
+        CurrentFacilityHeaderData = New FacilityHeaderData(AirsNumber)
+        DAL.FillFacilityHeaderDataFromDataRow(currentData, CurrentFacilityHeaderData)
+        DisplayFacilityData(CurrentFacilityHeaderData)
 
-        FacilityHistoryDisplay.Rows(0).Selected = True
+        FacilityHistoryDataGridView.Rows(0).Selected = True
     End Sub
 
     Private Sub BindFacilityHistoryDisplay(ByVal dt As DataTable)
-        FacilityHistoryDisplay.DataSource = dt
+        FacilityHistoryDataGridView.DataSource = dt
 
-        FacilityHistoryDisplay.Columns("STRKEY").Visible = False
+        FacilityHistoryDataGridView.Columns("STRKEY").Visible = False
 
-        FacilityHistoryDisplay.Columns("USERNAME").HeaderText = "Modified By"
-        FacilityHistoryDisplay.Columns("MODIFINGDATE").HeaderText = "Date Modified"
-        FacilityHistoryDisplay.Columns("STRMODIFINGLOCATION").HeaderText = "Modified From"
-        FacilityHistoryDisplay.Columns("STROPERATIONALSTATUS").HeaderText = "Operating Status"
-        FacilityHistoryDisplay.Columns("STRCLASS").HeaderText = "Classification"
-        FacilityHistoryDisplay.Columns("STRCOMMENTS").HeaderText = "Comments"
-        FacilityHistoryDisplay.Columns("DATSTARTUPDATE").HeaderText = "Start Up Date"
-        FacilityHistoryDisplay.Columns("DATSHUTDOWNDATE").HeaderText = "Shut Down Date"
-        FacilityHistoryDisplay.Columns("STRPLANTDESCRIPTION").HeaderText = "Plant Description"
-        FacilityHistoryDisplay.Columns("STRSICCODE").HeaderText = "SIC Code"
-        FacilityHistoryDisplay.Columns("STRNAICSCODE").HeaderText = "NAICS Code"
-        FacilityHistoryDisplay.Columns("STRRMPID").HeaderText = "RMP ID"
+        FacilityHistoryDataGridView.Columns("USERNAME").HeaderText = "Modified By"
+        FacilityHistoryDataGridView.Columns("MODIFINGDATE").HeaderText = "Date Modified"
+        FacilityHistoryDataGridView.Columns("STRMODIFINGLOCATION").HeaderText = "Modified From"
+        FacilityHistoryDataGridView.Columns("STROPERATIONALSTATUS").HeaderText = "Operating Status"
+        FacilityHistoryDataGridView.Columns("STRCLASS").HeaderText = "Classification"
+        FacilityHistoryDataGridView.Columns("STRCOMMENTS").HeaderText = "Comments"
+        FacilityHistoryDataGridView.Columns("DATSTARTUPDATE").HeaderText = "Start Up Date"
+        FacilityHistoryDataGridView.Columns("DATSHUTDOWNDATE").HeaderText = "Shut Down Date"
+        FacilityHistoryDataGridView.Columns("STRPLANTDESCRIPTION").HeaderText = "Plant Description"
+        FacilityHistoryDataGridView.Columns("STRSICCODE").HeaderText = "SIC Code"
+        FacilityHistoryDataGridView.Columns("STRNAICSCODE").HeaderText = "NAICS Code"
+        FacilityHistoryDataGridView.Columns("STRRMPID").HeaderText = "RMP ID"
 
-        FacilityHistoryDisplay.Columns("STRAIRPROGRAMCODES").Visible = False
-        FacilityHistoryDisplay.Columns("STRSTATEPROGRAMCODES").Visible = False
-        FacilityHistoryDisplay.Columns("STRATTAINMENTSTATUS").Visible = False
+        FacilityHistoryDataGridView.Columns("STRAIRPROGRAMCODES").Visible = False
+        FacilityHistoryDataGridView.Columns("STRSTATEPROGRAMCODES").Visible = False
+        FacilityHistoryDataGridView.Columns("STRATTAINMENTSTATUS").Visible = False
 
-        FacilityHistoryDisplay.Sort(FacilityHistoryDisplay.Columns(0), System.ComponentModel.ListSortDirection.Descending)
-        FacilityHistoryDisplay.SanelyResizeColumns()
+        FacilityHistoryDataGridView.Sort(FacilityHistoryDataGridView.Columns(0), System.ComponentModel.ListSortDirection.Descending)
+        FacilityHistoryDataGridView.SanelyResizeColumns()
 
-        AddHandler FacilityHistoryDisplay.CurrentCellChanged, AddressOf HeaderDataHistory_CurrentCellChanged
+        AddHandler FacilityHistoryDataGridView.CurrentCellChanged, AddressOf FacilityHistoryDisplay_CurrentCellChanged
     End Sub
 
     Private Function EditingIsAllowed() As Boolean
@@ -129,13 +140,15 @@ Public Class IAIPEditHeaderData
 #Region " Editing Buttons "
 
     Private Sub EnableEditing()
+        FacilityHistoryDataGridView.Enabled = False
+        FacilityHistoryDataGridView.ClearSelection()
+
+        DisplayFacilityData(CurrentFacilityHeaderData)
         Comments.Clear()
 
-        FacilityHistoryDisplay.Enabled = False
-
         Dim EditableControls As Control() = { _
-            Classification, _
-            OperationalStatus, _
+            ClassificationDropDown, _
+            OperationalDropDown, _
             SicCode, _
             StartUpDate, _
             ShutdownDate, _
@@ -149,14 +162,21 @@ Public Class IAIPEditHeaderData
             CancelEditButton _
         }
         EnableControls(EditableControls)
+
+        Comments.Focus()
     End Sub
 
     Private Sub DisableEditing()
-        FacilityHistoryDisplay.Enabled = True
+        ResetHighlight()
+
+        FacilityHistoryDataGridView.Enabled = True
+        If FacilityHistoryDataGridView.RowCount > 0 Then
+            FacilityHistoryDataGridView.Rows(0).Selected = True
+        End If
 
         Dim EditableControls As Control() = { _
-            Classification, _
-            OperationalStatus, _
+            ClassificationDropDown, _
+            OperationalDropDown, _
             SicCode, _
             StartUpDate, _
             ShutdownDate, _
@@ -174,9 +194,7 @@ Public Class IAIPEditHeaderData
 
     Private Sub EditableButton_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditableButton.CheckedChanged
         If EditableButton.Checked Then
-            DisplayFacilityData(CurrentFacility)
             EnableEditing()
-            Comments.Focus()
         Else
             DisableEditing()
         End If
@@ -184,7 +202,6 @@ Public Class IAIPEditHeaderData
 
     Private Sub CancelEditButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CancelEditButton.Click
         If EditableButton.Checked Then
-            ResetHighlight()
             EditableButton.Checked = False
         End If
     End Sub
@@ -197,9 +214,10 @@ Public Class IAIPEditHeaderData
 
 #Region " Item selection and display "
 
-    Private Sub HeaderDataHistory_CurrentCellChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        If FacilityHistoryDisplay.CurrentRow IsNot Nothing Then
-            Dim currentDataRowView As DataRowView = CType(FacilityHistoryDisplay.CurrentRow.DataBoundItem, DataRowView)
+    Private Sub FacilityHistoryDisplay_CurrentCellChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        ' Handler added after initial load of data
+        If FacilityHistoryDataGridView.CurrentRow IsNot Nothing Then
+            Dim currentDataRowView As DataRowView = CType(FacilityHistoryDataGridView.CurrentRow.DataBoundItem, DataRowView)
             Dim row As DataRow = currentDataRowView.Row
             DisplayFacilityData(row)
         End If
@@ -215,8 +233,8 @@ Public Class IAIPEditHeaderData
     Private Sub DisplayFacilityData(ByVal displayedFacility As FacilityHeaderData)
         With displayedFacility
 
-            Classification.SelectedValue = .Classification
-            OperationalStatus.SelectedValue = .OperationalStatus
+            ClassificationDropDown.SelectedValue = .Classification
+            OperationalDropDown.SelectedValue = .OperationalStatus
             SicCode.Text = .SicCode
             If .StartupDate Is Nothing Then
                 StartUpDate.Checked = False
@@ -250,9 +268,9 @@ Public Class IAIPEditHeaderData
             NsrMajor.Checked = .AirProgramClassifications And Facility.AirProgramClassifications.NsrMajor
             HapMajor.Checked = .AirProgramClassifications And Facility.AirProgramClassifications.HapMajor
 
-            OneHourOzone.SelectedValue = .OneHourNonAttainmentState
-            EightHourOzone.SelectedValue = .EightHourNonAttainmentState
-            PmFine.SelectedValue = .PMFineNonAttainmentState
+            OneHourOzoneDropDown.SelectedValue = .OneHourNonAttainmentState
+            EightHourOzoneDropDown.SelectedValue = .EightHourNonAttainmentState
+            PmFineDropDown.SelectedValue = .PMFineNonAttainmentState
 
             FacilityDescription.Text = .FacilityDescription
             RmpId.Text = .RmpId
@@ -275,8 +293,8 @@ Public Class IAIPEditHeaderData
         Dim facilityHeaderData As New FacilityHeaderData(AirsNumber)
 
         With facilityHeaderData
-            .Classification = Classification.SelectedValue
-            .OperationalStatus = OperationalStatus.SelectedValue
+            .Classification = ClassificationDropDown.SelectedValue
+            .OperationalStatus = OperationalDropDown.SelectedValue
             .SicCode = SicCode.Text
             If StartUpDate.Checked Then
                 .StartupDate = StartUpDate.Value
@@ -310,9 +328,9 @@ Public Class IAIPEditHeaderData
             If NsrMajor.Checked Then .AirProgramClassifications = .AirProgramClassifications Or Facility.AirProgramClassifications.NsrMajor
             If HapMajor.Checked Then .AirProgramClassifications = .AirProgramClassifications Or Facility.AirProgramClassifications.HapMajor
 
-            .OneHourNonAttainmentState = OneHourOzone.SelectedValue
-            .EightHourNonAttainmentState = EightHourOzone.SelectedValue
-            .PMFineNonAttainmentState = PmFine.SelectedValue
+            .OneHourNonAttainmentState = OneHourOzoneDropDown.SelectedValue
+            .EightHourNonAttainmentState = EightHourOzoneDropDown.SelectedValue
+            .PMFineNonAttainmentState = PmFineDropDown.SelectedValue
 
             .FacilityDescription = FacilityDescription.Text
             .RmpId = RmpId.Text
@@ -324,8 +342,9 @@ Public Class IAIPEditHeaderData
 
     Private Function PreSaveCheck(ByVal editedFacility As FacilityHeaderData) As Boolean
         ' Compare edited data to current data
-        If ComparableHeaderData(editedFacility).Equals(ComparableHeaderData(CurrentFacility)) Then
-            MessageBox.Show("No data has been changed. Nothing saved.", "Nothing Changed", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        If ComparableHeaderData(editedFacility).Equals(ComparableHeaderData(CurrentFacilityHeaderData)) Then
+            MessageBox.Show("No data has been changed. Nothing saved.", _
+                            "Nothing Changed", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return False
         End If
 
@@ -333,23 +352,24 @@ Public Class IAIPEditHeaderData
         Dim invalidControls As New List(Of Control)
         If Not ValidateAllFields(invalidControls) Then
             HighlightInvalidControls(invalidControls)
-            MessageBox.Show("Some data is not valid. Please double-check your entries." & vbNewLine & vbNewLine & "Nothing saved.", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("Some data is not valid. Double-check your entries." & vbNewLine & vbNewLine & "Nothing saved.", _
+                            "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return False
         End If
 
         Return True
     End Function
 
-    Private Function ValidateAllFields(<Runtime.InteropServices.Out()> ByVal invalidControls As List(Of Control)) As Boolean
+    Private Function ValidateAllFields(<Runtime.InteropServices.Out()> ByRef invalidControls As List(Of Control)) As Boolean
         Dim valid As Boolean = True
         invalidControls = New List(Of Control)
 
-        If Classification.SelectedValue = Facility.Classification.Unspecified Then
+        If ClassificationDropDown.SelectedValue = Facility.Classification.Unspecified Then
             valid = False
             invalidControls.Add(ClassificationLabel)
         End If
 
-        If OperationalStatus.SelectedValue = Facility.OperationalStatus.Unspecified Then
+        If OperationalDropDown.SelectedValue = Facility.OperationalStatus.Unspecified Then
             valid = False
             invalidControls.Add(OperationalStatusLabel)
         End If
@@ -365,7 +385,9 @@ Public Class IAIPEditHeaderData
         End If
 
         If String.IsNullOrEmpty(Comments.Text) Then
-            MessageBox.Show("Since this is a direct change to the data, please add a useful comment so future users will know the reason for the change." & vbNewLine & vbNewLine & "Nothing saved.", "Missing Comment", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("Since this is a direct change to the data, please add a useful comment so future users " & _
+                            "will know the reason for the change." & vbNewLine & vbNewLine & "Nothing saved.", _
+                            "Missing Comment", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             valid = False
             invalidControls.Add(CommentsLabel)
         End If
@@ -375,7 +397,7 @@ Public Class IAIPEditHeaderData
             invalidControls.Add(FacilityDescriptionLabel)
         End If
 
-        If Not (String.IsNullOrEmpty(RmpId.Text) OrElse FacilityHeaderData.ValidRmpId(RmpId.Text)) Then
+        If Not (RmpId.Text = RmpId.Mask) AndAlso Not FacilityHeaderData.ValidRmpId(RmpId.Text) Then
             valid = False
             invalidControls.Add(RmpIdLabel)
         End If
@@ -424,17 +446,26 @@ Public Class IAIPEditHeaderData
         If PreSaveCheck(editedFacility) Then
 
             ' Save edited data
-            'Dim result As Boolean = 
+            Dim result As Boolean = DAL.FacilityHeaderData.SaveFacilityHeaderData(editedFacility)
 
-            ' If successful, report back to Facility Summary and close
-            'If result Then
-            '    Me.SomethingWasSaved = True
-            '    Me.Close()
-            'Else
-            '    MessageBox.Show("There was an error saving the new data. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            'End If
+            If result Then
+                ' If successful, report back to Facility Summary 
+                Me.SomethingWasSaved = True
 
+                ' + replace local variable with current facility data
+                CurrentFacilityHeaderData = editedFacility
+
+                ' + Add to datagridview
+                Dim currentData As DataRow = DAL.FacilityHeaderData.GetFacilityHeaderDataAsDataRow(AirsNumber)
+                currentData(0) = FacilityHeaderDataHistory.Compute("Max(STRKEY)", String.Empty) + 1
+                FacilityHeaderDataHistory.ImportRow(currentData)
+
+            Else
+                MessageBox.Show("There was an error saving the new data. Please try again.", _
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
         End If
+
     End Sub
 
 #End Region
