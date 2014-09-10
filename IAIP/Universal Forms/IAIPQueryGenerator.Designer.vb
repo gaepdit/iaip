@@ -424,6 +424,7 @@ Partial Class IAIPQueryGenerator
         Me.GBBasic = New System.Windows.Forms.GroupBox
         Me.lblQueryCount = New System.Windows.Forms.Label
         Me.bgwQueryGenerator = New System.ComponentModel.BackgroundWorker
+        Me.LoggingBackgroundWorker = New System.ComponentModel.BackgroundWorker
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.Panel6.SuspendLayout()
@@ -4475,6 +4476,9 @@ Partial Class IAIPQueryGenerator
         'bgwQueryGenerator
         '
         '
+        'LoggingBackgroundWorker
+        '
+        '
         'IAIPQueryGenerator
         '
         Me.AcceptButton = Me.btnRunSearch
@@ -5059,4 +5063,5 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents OpenSavedSearchToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents SaveSearchQueryToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
+    Private WithEvents LoggingBackgroundWorker As System.ComponentModel.BackgroundWorker
 End Class

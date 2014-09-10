@@ -1514,6 +1514,7 @@
     <Compile Include="_DB\DAL.AppData.vb" />
     <Compile Include="_DB\DAL.Contacts.vb" />
     <Compile Include="_DB\DAL.Fees.vb" />
+    <Compile Include="_DB\DAL.QueryGenerator.vb" />
     <Compile Include="_DB\DAL.SBEAP.vb" />
     <Compile Include="_DB\DAL.SSPP.Applications.vb">
       <SubType>Code</SubType>

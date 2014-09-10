@@ -165,13 +165,21 @@ Namespace DB
 
 #Region " Write (ExecuteNonQuery) "
 
-        Public Function RunCommand(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing, Optional ByRef count As Integer = 0) As Boolean
+        Public Function RunCommand(ByVal query As String, _
+                                   Optional ByVal parameter As OracleParameter = Nothing, _
+                                   Optional ByRef count As Integer = 0, _
+                                   Optional ByVal failSilently As Boolean = False _
+                                   ) As Boolean
             count = 0
             Dim parameterArray As OracleParameter() = {parameter}
-            Return RunCommand(query, parameterArray, count)
+            Return RunCommand(query, parameterArray, count, failSilently)
         End Function
 
-        Public Function RunCommand(ByVal query As String, ByVal parameters As OracleParameter(), Optional ByRef count As Integer = 0) As Boolean
+        Public Function RunCommand(ByVal query As String, _
+                                   ByVal parameters As OracleParameter(), _
+                                   Optional ByRef count As Integer = 0, _
+                                   Optional ByVal failSilently As Boolean = False _
+                                   ) As Boolean
             count = 0
             Dim queryList As New List(Of String)
             queryList.Add(query)
@@ -181,14 +189,18 @@ Namespace DB
 
             Dim countList As New List(Of Integer)
 
-            Dim result As Boolean = RunCommand(queryList, parametersList, countList)
+            Dim result As Boolean = RunCommand(queryList, parametersList, countList, failSilently)
 
             If result AndAlso countList.Count > 0 Then count = countList(0)
 
             Return result
         End Function
 
-        Public Function RunCommand(ByVal queryList As List(Of String), ByVal parametersList As List(Of OracleParameter()), Optional ByRef countList As List(Of Integer) = Nothing) As Boolean
+        Public Function RunCommand(ByVal queryList As List(Of String), _
+                                   ByVal parametersList As List(Of OracleParameter()), _
+                                   Optional ByRef countList As List(Of Integer) = Nothing, _
+                                   Optional ByVal failSilently As Boolean = False _
+                                   ) As Boolean
             If countList Is Nothing Then countList = New List(Of Integer)
             countList.Clear()
             If queryList.Count <> parametersList.Count Then Return False
@@ -216,13 +228,17 @@ Namespace DB
                         Catch ee As OracleException
                             countList.Clear()
                             transaction.Rollback()
-                            MessageBox.Show("There was an error updating the database.")
+                            If Not failSilently Then
+                                MessageBox.Show("There was an error updating the database.")
+                            End If
                             Return False
                         End Try
 
                         command.Connection.Close()
                     Catch ee As OracleException
-                        MessageBox.Show("There was an error connecting to the database.")
+                        If Not failSilently Then
+                            MessageBox.Show("There was an error connecting to the database.")
+                        End If
                         Return False
                     Finally
                         If transaction IsNot Nothing Then transaction.Dispose()
