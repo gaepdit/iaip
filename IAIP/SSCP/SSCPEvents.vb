@@ -2071,10 +2071,12 @@ Public Class SSCPEvents
         'lblNotificationOther
         '
         Me.lblNotificationOther.AutoSize = True
-        Me.lblNotificationOther.Location = New System.Drawing.Point(10, 88)
+        Me.lblNotificationOther.Location = New System.Drawing.Point(8, 90)
         Me.lblNotificationOther.Name = "lblNotificationOther"
-        Me.lblNotificationOther.Size = New System.Drawing.Size(0, 13)
+        Me.lblNotificationOther.Size = New System.Drawing.Size(575, 13)
         Me.lblNotificationOther.TabIndex = 169
+        Me.lblNotificationOther.Text = "NOTE: This will NOT change the facility operating status or CMS status. Your mana" & _
+            "ger will need to make those changes."
         '
         'DTPNotificationReceived
         '
@@ -4970,48 +4972,48 @@ Public Class SSCPEvents
                 End If
 
                 'If cboNotificationType.Text = "Shutdown" And chbEventComplete.Checked = True Then
-                If cboNotificationType.Text = "Permit Revocation" And chbEventComplete.Checked = True Then
-                    SQL = "update AIRBranch.APBHeaderData set " & _
-                    "strOperationalStatus = 'X',  " & _
-                    "datShutDownDate = '" & dtpNotificationDate.Text & "', " & _
-                    "strComments = 'SSCP Shut Down Notification', " & _
-                    "strModifingLocation = '3', " & _
-                    "strModifingPerson = '" & UserGCode & "', " & _
-                    "datModifingDate = '" & OracleDate & "' " & _
-                    "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "'"
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
+                'If cboNotificationType.Text = "Permit Revocation" And chbEventComplete.Checked = True Then
+                '    SQL = "update AIRBranch.APBHeaderData set " & _
+                '    "strOperationalStatus = 'X',  " & _
+                '    "datShutDownDate = '" & dtpNotificationDate.Text & "', " & _
+                '    "strComments = 'SSCP Shut Down Notification', " & _
+                '    "strModifingLocation = '3', " & _
+                '    "strModifingPerson = '" & UserGCode & "', " & _
+                '    "datModifingDate = '" & OracleDate & "' " & _
+                '    "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "'"
+                '    cmd = New OracleCommand(SQL, CurrentConnection)
+                '    If CurrentConnection.State = ConnectionState.Closed Then
+                '        CurrentConnection.Open()
+                '    End If
+                '    dr = cmd.ExecuteReader
+                '    dr.Close()
 
-                    SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
-                    "strOperationalStatus = 'X', " & _
-                    "strModifingPerson = '" & UserGCode & "', " & _
-                    "datModifingDate = '" & OracleDate & "' " & _
-                    "where strAirPollutantKey like '0413" & txtAIRSNumber.Text & "_'"
+                '    SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
+                '    "strOperationalStatus = 'X', " & _
+                '    "strModifingPerson = '" & UserGCode & "', " & _
+                '    "datModifingDate = '" & OracleDate & "' " & _
+                '    "where strAirPollutantKey like '0413" & txtAIRSNumber.Text & "_'"
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
+                '    cmd = New OracleCommand(SQL, CurrentConnection)
+                '    If CurrentConnection.State = ConnectionState.Closed Then
+                '        CurrentConnection.Open()
+                '    End If
+                '    dr = cmd.ExecuteReader
+                '    dr.Close()
 
-                    SQL = "Update airbranch.EIS_FacilitySite set " & _
-                    "strFacilitySiteStatusCode = 'PS', " & _
-                    "strFacilitySiteComment = 'Facility Shutdown by permitting action.', " & _
-                    "UpdateUSer = '" & UserName & "', " & _
-                    "updateDateTime = sysdate " & _
-                    "where facilitySiteID = '" & txtAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    cmd.ExecuteReader()
+                '    SQL = "Update airbranch.EIS_FacilitySite set " & _
+                '    "strFacilitySiteStatusCode = 'PS', " & _
+                '    "strFacilitySiteComment = 'Facility shut down by permitting action.', " & _
+                '    "UpdateUSer = '" & UserName & "', " & _
+                '    "updateDateTime = sysdate " & _
+                '    "where facilitySiteID = '" & txtAIRSNumber.Text & "' "
+                '    cmd = New OracleCommand(SQL, CurrentConnection)
+                '    If CurrentConnection.State = ConnectionState.Closed Then
+                '        CurrentConnection.Open()
+                '    End If
+                '    cmd.ExecuteReader()
 
-                End If
+                'End If
 
                 If TPReport.Focus = True Then
                     SQL = "Select strUpDateStatus " & _
@@ -7078,49 +7080,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub cboNotificationType_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboNotificationType.TextChanged
-        Try
-            Select Case cboNotificationType.Text
-                Case "Other"
-                    txtNotificationTypeOther.Visible = True
-                    lblNotificationDate.Text = "Notification Due Date:"
-                    lblNotificationDate2.Text = "Date Sent by Facility:"
-                    lblNotificationOther.Text = ""
-                    lblNotificationOther.Visible = False
-                    chbEventComplete.Text = "Complete"
-                    dtpNotificationDate.ShowCheckBox = True
-                    lblNotificationDue.Text = "(Do not check if no due date)"
-                    lblDateSent.Text = "(Do not check if date is unknown)"
-                    'Case "Shutdown"
-                Case "Permit Revocation"
-                    txtNotificationTypeOther.Visible = False
-                    lblNotificationDate.Text = "Permit Revocation Date:"
-                    lblNotificationDate2.Text = "Physical Shutdown:"
-                    lblNotificationOther.Text = "*When this Notification is Completed the facility Operating Status will become Shutdown. CMS status will not be affected."
-                    lblNotificationOther.Visible = True
-                    chbEventComplete.Text = "Complete*"
-                    dtpNotificationDate.ShowCheckBox = False
-                    lblNotificationDue.Text = "(Manditory Date Field)"
-                    lblDateSent.Text = "(Optional Date Field)"
-                Case Else
-                    txtNotificationTypeOther.Visible = False
-                    lblNotificationDate.Text = "Notification Due Date:"
-                    lblNotificationDate2.Text = "Date Sent by Facility:"
-                    lblNotificationOther.Text = ""
-                    lblNotificationOther.Visible = False
-                    chbEventComplete.Text = "Complete"
-                    dtpNotificationDate.ShowCheckBox = True
-                    lblNotificationDue.Text = "(Do not check if no due date)"
-                    lblDateSent.Text = "(Do not check if date is unknown)"
-            End Select
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
     Private Sub cboNotificationType_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboNotificationType.SelectedIndexChanged
         Try
 
@@ -7140,11 +7100,11 @@ Public Class SSCPEvents
                     txtNotificationTypeOther.Visible = False
                     lblNotificationDate.Text = "Permit Revocation Date:"
                     lblNotificationDate2.Text = "Physical Shutdown:"
-                    lblNotificationOther.Text = "*When this Notification is Completed the facility Operating Status will become Shutdown. CMS status will not be affected."
+                    lblNotificationOther.Text = "NOTE: This will NOT change the facility operating status or CMS status. Your manager will need to make those changes."
                     lblNotificationOther.Visible = True
                     chbEventComplete.Text = "Complete*"
                     dtpNotificationDate.ShowCheckBox = False
-                    lblNotificationDue.Text = "(Manditory Date Field)"
+                    lblNotificationDue.Text = "(Mandatory Date Field)"
                     lblDateSent.Text = "(Optional Date Field)"
                 Case Else
                     txtNotificationTypeOther.Visible = False
