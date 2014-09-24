@@ -7,12 +7,14 @@ Namespace Apb
     ''' </summary>
     Public Class Facility
 
+#Region " Constructors "
         Public Sub New()
         End Sub
 
         Public Sub New(ByVal airsNumber As String)
             Me.AirsNumber = airsNumber
         End Sub
+#End Region
 
 #Region " Properties "
 
@@ -113,7 +115,7 @@ Namespace Apb
 
 #End Region
 
-#Region "Shared Functions"
+#Region " Shared Functions "
 
         ''' <summary>
         ''' Determines whether a string is in the format of a valid AIRS number.
@@ -121,6 +123,7 @@ Namespace Apb
         ''' <param name="airsNumber">The string to test</param>
         ''' <returns>True if airsNumber is valid; otherwise, false.</returns>
         ''' <remarks>Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000 (with or without the dashes)</remarks>
+        <DebuggerStepThrough()> _
         Public Shared Function ValidAirsNumber(ByVal airsNumber As String) As Boolean
             If airsNumber Is Nothing Then Return False
             ' Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000
@@ -139,6 +142,7 @@ Namespace Apb
         ''' </param>
         ''' <param name="expand">Whether the string should be expanded to 12 characters or not. Default is false (8 characters).</param>
         ''' <returns>True if airsNumber was converted successfully; otherwise, false.</returns>
+        <DebuggerStepThrough()> _
         Public Shared Function NormalizeAirsNumber(ByRef airsNumber As String, Optional ByVal expand As Boolean = False) As Boolean
             ' Converts a string representation of an AIRS number to the "00000000" form 
             ' (eight numerals, no dashes).
@@ -163,6 +167,7 @@ Namespace Apb
         ''' <param name="airsNumber">The AIRS number to convert.</param>
         ''' <param name="expand">Whether to expand to the 12-digit form.</param>
         ''' <returns>A string representation of an AIRS number in the "00000000" or "041300000000" form.</returns>
+        <DebuggerStepThrough()> _
         Public Shared Function GetNormalizedAirsNumber(ByVal airsNumber As String, Optional ByVal expand As Boolean = False) As String
             ' Converts a string representation of an AIRS number to the "00000000" form 
             ' (eight numerals, no dashes).
@@ -192,6 +197,7 @@ Namespace Apb
         ''' <param name="expand">Whether the string should be expanded to 12 digits or not. Default is false (8 digits).</param>
         ''' <returns>A formatted string representation of an AIRS number.</returns>
         ''' <remarks></remarks>
+        <DebuggerStepThrough()> _
         Public Shared Function FormatAirsNumber(ByVal airsNumber As String, Optional ByVal expand As Boolean = False) As String
             If Not NormalizeAirsNumber(airsNumber, expand) Then Return Nothing
             If expand Then
