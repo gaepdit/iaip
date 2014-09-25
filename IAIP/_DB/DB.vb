@@ -17,6 +17,9 @@ Namespace DB
         ''' This is useful only because the IAIP uses a single OracleConnection that it assumes 
         ''' to always be open (and fails miserably if it is not). Hence, there is no conn.Close() 
         ''' statement after the cmd.ExecuteScalar() statement.
+        ''' 
+        ''' One day I will fix all database calls to work correctly and add a conn.Close to this 
+        ''' function...
         ''' </remarks>
         Public Function PingDBConnection(ByVal conn As OracleConnection) As Boolean
             Dim sql As String = "SELECT 1 FROM DUAL"
@@ -216,7 +219,7 @@ Namespace DB
                         Catch ee As OracleException
                             countList.Clear()
                             transaction.Rollback()
-                            MessageBox.Show("There was an error updating the database.")
+                            MessageBox.Show("There was an error updating the database. No data saved.")
                             Return False
                         End Try
 

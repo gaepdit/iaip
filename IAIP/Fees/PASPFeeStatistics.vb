@@ -3078,7 +3078,7 @@ Public Class PASPFeeStatistics
     Private Sub btnFeeFacilitySummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFeeFacilitySummary.Click
         Try
             If txtFeeAIRSNumber.Text <> "" Then
-                If Not DAL.Facilities.AirsNumberExists(txtFeeAIRSNumber.Text) Then
+                If Not DAL.Facility.AirsNumberExists(txtFeeAIRSNumber.Text) Then
                     MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
                     Exit Sub
                 End If

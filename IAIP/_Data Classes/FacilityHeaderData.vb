@@ -333,40 +333,6 @@ Namespace Apb
 
 #End Region
 
-#Region " Unused properties that can be added in for future use "
-
-        'Public Property Fein() As String
-        '    Get
-        '        Return _fein
-        '    End Get
-        '    Set(ByVal value As String)
-        '        _fein = NothingifyEmptyString(value)
-        '    End Set
-        'End Property
-        'Private _fein As String
-
-        'Public Property DistrictOffice() As String
-        '    Get
-        '        Return _districtOffice
-        '    End Get
-        '    Set(ByVal value As String)
-        '        _districtOffice = NothingifyEmptyString(value)
-        '    End Set
-        'End Property
-        'Private _districtOffice As String
-
-        'Public Property CmsStatus() As String
-        '    Get
-        '        Return _cmsStatus
-        '    End Get
-        '    Set(ByVal value As String)
-        '        _cmsStatus = NothingifyEmptyString(value)
-        '    End Set
-        'End Property
-        'Private _cmsStatus As String
-
-#End Region
-
 #End Region ' End Properties
 
 #Region " Shared Functions "
@@ -384,6 +350,42 @@ Namespace Apb
             Dim rgx As New System.Text.RegularExpressions.Regex("^\d{4}-\d{4}-\d{4}$")
             Return rgx.IsMatch(rmpID)
         End Function
+
+#End Region
+
+#Region " Enums "
+
+        ''' <summary>
+        ''' The action or user interface that initiates a change in facility header data
+        ''' </summary>
+        ''' <remarks>Stored in database as a numeric key.</remarks>
+        Public Enum ModificationLocation
+            Unspecified
+            <Description("Permitting Action")> PermittingAction = 1
+            <Description("Facility Header Editor")> HeaderDataEditor = 2
+            <Description("SSCP Shutdown Notification")> SscpNotification = 3
+            <Description("IAIP Facility Creation Tool")> FacilityCreationTool = 4
+        End Enum
+
+        ''' <summary>
+        ''' Compliance Status codes
+        ''' </summary>
+        ''' <remarks></remarks>
+        Public Enum PollutantComplianceStatus
+            <Description("Unknown compliance status")> UnknownComplianceStatus = 0
+            <Description("Violation, Procedural and emissions")> ViolationProceduralAndEmissions
+            <Description("Violation, No schedule")> ViolationNoSchedule
+            <Description("Violation, Not meeting schedule")> ViolationNotMeetingSchedule
+            <Description("Violation, Procedural")> ViolationProcedural
+            <Description("Violation, Meeting compliance schedule")> ViolationMeetingComplianceSchedule
+            <Description("Violation, No applicable State reg")> ViolationNoStateReg
+            <Description("In Compliance, Source test")> ComplianceSourceTest
+            <Description("In Compliance, Inspection")> ComplianceInspection
+            <Description("In Compliance, Certification")> ComplianceCertification
+            <Description("In Compliance, Shut down")> ComplianceShutDown
+            <Description("In Compliance, Procedural")> ComplianceProcedural
+            <Description("In Compliance, CEMS data")> ComplianceCems
+        End Enum
 
 #End Region
 

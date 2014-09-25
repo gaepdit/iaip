@@ -1635,7 +1635,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_Data Classes\SSCP.Acc.vb" />
-    <Compile Include="_DB\DAL.Facilities.vb" />
+    <Compile Include="_DB\DAL.Facility.vb" />
     <Compile Include="_DB\DAL.Staff.vb" />
     <Compile Include="SSCP\SscpDocuments.Designer.vb">
       <DependentUpon>SscpDocuments.vb</DependentUpon>

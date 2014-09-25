@@ -1,5 +1,6 @@
 ﻿Imports Oracle.DataAccess.Client
 Imports Iaip.Apb
+Imports Iaip.Apb.Facility
 
 Namespace DAL
     Module FacilityHeaderData
@@ -56,8 +57,14 @@ Namespace DAL
 
 #Region " Read "
 
+        ''' <summary>
+        ''' Returns header data for a specified facility as a DataRow object
+        ''' </summary>
+        ''' <param name="airsNumber">The AIRS number of the specified facility</param>
+        ''' <returns>DataRow containing header data for the specified facility</returns>
+        ''' <remarks></remarks>
         Public Function GetFacilityHeaderDataAsDataRow(ByVal airsNumber As String) As DataRow
-            If Not Facility.NormalizeAirsNumber(airsNumber, True) Then Return Nothing
+            If Not NormalizeAirsNumber(airsNumber, True) Then Return Nothing
 
             Dim query As String = " SELECT " & _
                 "  Null AS STRKEY, " & _
@@ -87,6 +94,12 @@ Namespace DAL
             Return dataTable.Rows(0)
         End Function
 
+        ''' <summary>
+        ''' Returns header data for a specified facility as a FacilityHeaderData object
+        ''' </summary>
+        ''' <param name="airsNumber">The AIRS number of the specified facility</param>
+        ''' <returns>A FacilityHeaderData object containing header data for the specified facility</returns>
+        ''' <remarks></remarks>
         Public Function GetFacilityHeaderData(ByVal airsNumber As String) As Apb.FacilityHeaderData
             Dim row As DataRow = GetFacilityHeaderDataAsDataRow(airsNumber)
             Dim facilityHeaderData As New Apb.FacilityHeaderData(airsNumber)
@@ -95,6 +108,12 @@ Namespace DAL
             Return facilityHeaderData
         End Function
 
+        ''' <summary>
+        ''' Fill out the header data properties of a FacilityHeaderData object from a DataRow containing data from the database
+        ''' </summary>
+        ''' <param name="row">A DataRow containing data from the database</param>
+        ''' <param name="facilityHeaderData">A FacilityHeaderData object to complete</param>
+        ''' <remarks></remarks>
         Public Sub FillFacilityHeaderDataFromDataRow(ByVal row As DataRow, ByRef facilityHeaderData As Apb.FacilityHeaderData)
             With facilityHeaderData
                 .OperationalStatusCode = DB.GetNullable(Of String)(row("STROPERATIONALSTATUS"))
@@ -115,8 +134,14 @@ Namespace DAL
             End With
         End Sub
 
+        ''' <summary>
+        ''' Returns a DataTable of historical header data for a specified facility
+        ''' </summary>
+        ''' <param name="airsNumber">The AIRS number of the specified facility</param>
+        ''' <returns>A DataTable of historical header data for the specified facility</returns>
+        ''' <remarks></remarks>
         Public Function GetFacilityHeaderDataHistoryAsDataTable(ByVal airsNumber As String) As DataTable
-            If Not Facility.NormalizeAirsNumber(airsNumber, True) Then Return Nothing
+            If Not NormalizeAirsNumber(airsNumber, True) Then Return Nothing
 
             Dim query As String = " SELECT " & _
                 "  STRKEY, " & _
@@ -148,9 +173,33 @@ Namespace DAL
 
 #Region " Write "
 
-        Public Function SaveFacilityHeaderData(ByVal headerData As Apb.FacilityHeaderData) As Boolean
+        ''' <summary>
+        ''' Saves header data for a facility to the database
+        ''' </summary>
+        ''' <param name="headerData">A FacilityHeaderData object containing the data to save to the database</param>
+        ''' <param name="fromLocation">A ModificationLocation Enum representing the user interface location where a change in facility header data was initiated</param>
+        ''' <returns>True if the data was successfully saved to the database; otherwise, False</returns>
+        ''' <remarks></remarks>
+        Public Function SaveFacilityHeaderData(ByVal headerData As Apb.FacilityHeaderData, ByVal fromLocation As Apb.FacilityHeaderData.ModificationLocation) As Boolean
+            Dim success As Boolean = False
 
-            Return False
+            ' 1. Update ApbHeaderData
+
+            ' 2. Update ApbSupplamentalData (sic)
+
+            ' 3. Update EIS_FacilitySite
+
+            ' 4. Any active APC must have at least one key in ApbAirProgramPollutants:
+            '    * Update all existing keys with new operating status
+            '    * If none exist, add one with the new operating status, pollutant = OT & compliance status = C
+
+            ' 5. For any inactive APC, change any existing subparts in ApbSubpartData to inactive
+
+            ' 6. Change update status in AfsAirPollutantData to 'C' where currently 'N'
+
+
+
+            Return success
         End Function
 
 #End Region

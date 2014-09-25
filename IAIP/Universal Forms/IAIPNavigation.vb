@@ -320,7 +320,7 @@ Public Class IAIPNavigation
             Exit Sub
         End If
 
-        If Not DAL.Facilities.AirsNumberExists(txtOpenFacilitySummary.Text) Then
+        If Not DAL.Facility.AirsNumberExists(txtOpenFacilitySummary.Text) Then
             MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
             Exit Sub
         End If
