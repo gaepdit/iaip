@@ -163,6 +163,13 @@ Namespace Apb
         End Property
         Private _operationalStatus As OperationalStatus
 
+        ''' <summary>
+        ''' A single-character string representing the operational status. 
+        ''' Used for storage and retrieval from database.
+        ''' </summary>
+        ''' <value>A one-character encoded string.</value>
+        ''' <returns>A one-character encoded string.</returns>
+        ''' <remarks>Used to encode operational status. Stored in database as a single-character string.</remarks>
         Public Property OperationalStatusCode() As String
             Get
                 Return _operationalStatus.ToString()
@@ -192,6 +199,13 @@ Namespace Apb
         End Property
         Private _classification As Classification
 
+        ''' <summary>
+        ''' A single-character string representing the facility classification. 
+        ''' Used for storage and retrieval from database.
+        ''' </summary>
+        ''' <value>A one-character encoded string.</value>
+        ''' <returns>A one-character encoded string.</returns>
+        ''' <remarks>Used to encode facility classification. Stored in database as a single-character string.</remarks>
         Public Property ClassificationCode() As String
             Get
                 Return _classification.ToString()
@@ -275,12 +289,12 @@ Namespace Apb
 
 #Region " Program Codes "
 
-        Private _airPrograms As AirPrograms
-        Public Property AirPrograms() As AirPrograms
+        Private _airPrograms As AirProgram
+        Public Property AirPrograms() As AirProgram
             Get
                 Return _airPrograms
             End Get
-            Set(ByVal value As AirPrograms)
+            Set(ByVal value As AirProgram)
                 _airPrograms = value
             End Set
         End Property
@@ -295,10 +309,10 @@ Namespace Apb
         ''' Stored in database as a 15-character coded string, but only the first 14 are used.</remarks>
         Public Property AirProgramsCode() As String
             Get
-                Return ConvertEnumToBitFlags(Of AirPrograms)(Me.AirPrograms, AirProgramsCodeLength)
+                Return ConvertEnumToBitFlags(Of AirProgram)(Me.AirPrograms, AirProgramsCodeLength)
             End Get
             Set(ByVal value As String)
-                _airPrograms = ConvertBitFieldToEnum(Of AirPrograms)(value)
+                _airPrograms = ConvertBitFieldToEnum(Of AirProgram)(value)
             End Set
         End Property
         Private Shared AirProgramsCodeLength As Integer = 15

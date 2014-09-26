@@ -160,7 +160,7 @@ Public Class IAIPEditHeaderData
     End Sub
 
     Private Sub DisableEditing()
-        ResetHighlight()
+        ResetControlHighlights()
 
         Dim EditableControls As Control() = { _
             ClassificationDropDown, _
@@ -213,7 +213,7 @@ Public Class IAIPEditHeaderData
     End Sub
 
     Private Sub OperationalDropDown_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OperationalDropDown.SelectedIndexChanged
-        ResetHighlight()
+        ResetControlHighlights()
         If EditData.Checked Then
             Dim NonShutdownControls As Control() = { _
                 ClassificationDropDown, _
@@ -291,20 +291,20 @@ Public Class IAIPEditHeaderData
             End If
             NaicsCode.Text = .Naics
 
-            ApcAcid.Checked = Convert.ToBoolean(.AirPrograms And Facility.AirPrograms.AcidPrecipitation)
-            ApcCfc.Checked = (.AirPrograms And Facility.AirPrograms.CfcTracking)
-            ApcFederalSip.Checked = (.AirPrograms And Facility.AirPrograms.FederalSIP)
-            ApcFesop.Checked = (.AirPrograms And Facility.AirPrograms.FESOP)
-            ApcMact.Checked = (.AirPrograms And Facility.AirPrograms.MACT)
-            ApcNativeAmerican.Checked = (.AirPrograms And Facility.AirPrograms.NativeAmerican)
-            ApcNeshap.Checked = (.AirPrograms And Facility.AirPrograms.NESHAP)
-            ApcNonfederalSip.Checked = (.AirPrograms And Facility.AirPrograms.NonFederalSIP)
-            ApcNsps.Checked = (.AirPrograms And Facility.AirPrograms.NSPS)
-            ApcNsr.Checked = (.AirPrograms And Facility.AirPrograms.NSR)
-            ApcPsd.Checked = (.AirPrograms And Facility.AirPrograms.PSD)
-            ApcRmp.Checked = (.AirPrograms And Facility.AirPrograms.RMP)
-            ApcSip.Checked = (.AirPrograms And Facility.AirPrograms.SIP)
-            ApcTitleV.Checked = (.AirPrograms And Facility.AirPrograms.TitleV)
+            ApcAcid.Checked = Convert.ToBoolean(.AirPrograms And Facility.AirProgram.AcidPrecipitation)
+            ApcCfc.Checked = (.AirPrograms And Facility.AirProgram.CfcTracking)
+            ApcFederalSip.Checked = (.AirPrograms And Facility.AirProgram.FederalSIP)
+            ApcFesop.Checked = (.AirPrograms And Facility.AirProgram.FESOP)
+            ApcMact.Checked = (.AirPrograms And Facility.AirProgram.MACT)
+            ApcNativeAmerican.Checked = (.AirPrograms And Facility.AirProgram.NativeAmerican)
+            ApcNeshap.Checked = (.AirPrograms And Facility.AirProgram.NESHAP)
+            ApcNonfederalSip.Checked = (.AirPrograms And Facility.AirProgram.NonFederalSIP)
+            ApcNsps.Checked = (.AirPrograms And Facility.AirProgram.NSPS)
+            ApcNsr.Checked = (.AirPrograms And Facility.AirProgram.NSR)
+            ApcPsd.Checked = (.AirPrograms And Facility.AirProgram.PSD)
+            ApcRmp.Checked = (.AirPrograms And Facility.AirProgram.RMP)
+            ApcSip.Checked = (.AirPrograms And Facility.AirProgram.SIP)
+            ApcTitleV.Checked = (.AirPrograms And Facility.AirProgram.TitleV)
 
             NsrMajor.Checked = .AirProgramClassifications And Facility.AirProgramClassifications.NsrMajor
             HapMajor.Checked = .AirProgramClassifications And Facility.AirProgramClassifications.HapMajor
@@ -322,7 +322,8 @@ Public Class IAIPEditHeaderData
             Else
                 ModifiedDescDisplay.Text = "Modification by " & .WhoModified & _
                     " on " & .DateDataModified & _
-                    If(String.IsNullOrEmpty(.WhereModified), "", " from " & .WhereModified & ".")
+                    If(String.IsNullOrEmpty(.WhereModified), "", " from " & .WhereModified) & _
+                    "."
             End If
 
         End With
@@ -351,21 +352,21 @@ Public Class IAIPEditHeaderData
             End If
             .Naics = NaicsCode.Text
 
-            .AirPrograms = Facility.AirPrograms.None
-            If ApcAcid.Checked Then .AirPrograms = .AirPrograms Or Facility.AirPrograms.AcidPrecipitation
-            If ApcCfc.Checked Then .AirPrograms = .AirPrograms Or Facility.AirPrograms.CfcTracking
-            If ApcFederalSip.Checked Then .AirPrograms = .AirPrograms Or Facility.AirPrograms.FederalSIP
-            If ApcFesop.Checked Then .AirPrograms = .AirPrograms Or Facility.AirPrograms.FESOP
-            If ApcMact.Checked Then .AirPrograms = .AirPrograms Or Facility.AirPrograms.MACT
-            If ApcNativeAmerican.Checked Then .AirPrograms = .AirPrograms Or Facility.AirPrograms.NativeAmerican
-            If ApcNeshap.Checked Then .AirPrograms = .AirPrograms Or Facility.AirPrograms.NESHAP
-            If ApcNonfederalSip.Checked Then .AirPrograms = .AirPrograms Or Facility.AirPrograms.NonFederalSIP
-            If ApcNsps.Checked Then .AirPrograms = .AirPrograms Or Facility.AirPrograms.NSPS
-            If ApcNsr.Checked Then .AirPrograms = .AirPrograms Or Facility.AirPrograms.NSR
-            If ApcPsd.Checked Then .AirPrograms = .AirPrograms Or Facility.AirPrograms.PSD
-            If ApcRmp.Checked Then .AirPrograms = .AirPrograms Or Facility.AirPrograms.RMP
-            If ApcSip.Checked Then .AirPrograms = .AirPrograms Or Facility.AirPrograms.SIP
-            If ApcTitleV.Checked Then .AirPrograms = .AirPrograms Or Facility.AirPrograms.TitleV
+            .AirPrograms = Facility.AirProgram.None
+            If ApcAcid.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.AcidPrecipitation
+            If ApcCfc.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.CfcTracking
+            If ApcFederalSip.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.FederalSIP
+            If ApcFesop.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.FESOP
+            If ApcMact.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.MACT
+            If ApcNativeAmerican.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.NativeAmerican
+            If ApcNeshap.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.NESHAP
+            If ApcNonfederalSip.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.NonFederalSIP
+            If ApcNsps.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.NSPS
+            If ApcNsr.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.NSR
+            If ApcPsd.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.PSD
+            If ApcRmp.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.RMP
+            If ApcSip.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.SIP
+            If ApcTitleV.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.TitleV
 
             .AirProgramClassifications = Facility.AirProgramClassifications.None
             If NsrMajor.Checked Then .AirProgramClassifications = .AirProgramClassifications Or Facility.AirProgramClassifications.NsrMajor
@@ -400,6 +401,9 @@ Public Class IAIPEditHeaderData
 
         ' Confirm facility shutdown
 
+        Dim compEditedFacility As FacilityHeaderData = ComparableHeaderData(editedFacility)
+        Dim compCurrFacility As FacilityHeaderData = ComparableHeaderData(CurrentFacilityHeaderData)
+
         ' Compare edited data to current data
         If ComparableHeaderData(editedFacility).Equals(ComparableHeaderData(CurrentFacilityHeaderData)) Then
             MessageBox.Show("No data has been changed. Nothing saved.", _
@@ -410,7 +414,7 @@ Public Class IAIPEditHeaderData
         ' Validate fields 
         Dim invalidControls As New List(Of Control)
         If Not ValidateAllFields(editedFacility, invalidControls) Then
-            HighlightInvalidControls(invalidControls)
+            HighlightControls(invalidControls)
             MessageBox.Show("Some data is not valid. Double-check your entries." & vbNewLine & vbNewLine & "Nothing saved.", _
                             "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return False
@@ -489,13 +493,13 @@ Public Class IAIPEditHeaderData
         Return valid
     End Function
 
-    Private Sub HighlightInvalidControls(ByVal invalidControls As List(Of Control))
-        For Each c As Control In invalidControls
+    Private Sub HighlightControls(ByVal controls As List(Of Control))
+        For Each c As Control In controls
             c.BackColor = Color.Yellow
         Next
     End Sub
 
-    Private Sub ResetHighlight()
+    Private Sub ResetControlHighlights()
         Dim resetableControls As New List(Of Control)(New Control() { _
           ClassificationLabel, _
           OperationalStatusLabel, _
@@ -524,7 +528,7 @@ Public Class IAIPEditHeaderData
     End Function
 
     Private Sub SaveEditedData()
-        ResetHighlight()
+        ResetControlHighlights()
 
         Dim editedFacility As FacilityHeaderData = BoxUpFacilityFromForm()
 

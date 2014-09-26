@@ -2437,9 +2437,9 @@ Public Class PASPFeeAuditLog
                 .Classification = cboInitialClassification.SelectedValue
                 .ShutdownDate = If(dtpInitialShutDownDate.Checked, dtpInitialShutDownDate.Value, CType(Nothing, DateTime?))
             End With
-            If rdbInitialNSPSTrue.Checked Then .HeaderData.AirPrograms = .HeaderData.AirPrograms Or AirPrograms.NSPS
+            If rdbInitialNSPSTrue.Checked Then .HeaderData.AirPrograms = .HeaderData.AirPrograms Or AirProgram.NSPS
             .SubjectToNsps = rdbInitialNSPSTrue.Checked ' TODO: remove
-            If rdbInitialPart70True.Checked Then .HeaderData.AirPrograms = AirPrograms.TitleV Or .HeaderData.AirPrograms
+            If rdbInitialPart70True.Checked Then .HeaderData.AirPrograms = AirProgram.TitleV Or .HeaderData.AirPrograms
             .SubjectToPart70 = rdbInitialPart70True.Checked ' TODO: remove
         End With
 

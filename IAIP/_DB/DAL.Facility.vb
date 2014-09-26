@@ -36,7 +36,7 @@ Namespace DAL
             If Not NormalizeAirsNumber(airsNumber, True) Then Return Nothing
 
             Dim query As String = "SELECT STRFACILITYNAME " & _
-                " FROM AIRBRANCH.APBFACILITYINFORMATION " & _
+                " FROM " & DBNameSpace & ".APBFACILITYINFORMATION " & _
                 " WHERE STRAIRSNUMBER = :pId"
             Dim parameter As New OracleParameter("pId", airsNumber)
             Return DB.GetSingleValue(Of String)(query, parameter)
@@ -156,7 +156,7 @@ Namespace DAL
 
             ' 2. Update APBAirProgramPollutants
             queryList.Add( _
-                " UPDATE APBAIRPROGRAMPOLLUTANTS " & _
+                " UPDATE " & DBNameSpace & ".APBAIRPROGRAMPOLLUTANTS " & _
                 " SET STRCOMPLIANCESTATUS = :complianceStatus, " & _
                 "  STRMODIFINGPERSON     = :modifiedBy, " & _
                 "  DATMODIFINGDATE       = SYSDATE, " & _
@@ -172,7 +172,7 @@ Namespace DAL
 
             ' 3. Update EIS_FacilitySite
             queryList.Add( _
-                " UPDATE EIS_FACILITYSITE " & _
+                " UPDATE " & DBNameSpace & ".EIS_FACILITYSITE " & _
                 " SET STRFACILITYSITESTATUSCODE = :statusCode, " & _
                 "  STRFACILITYSITECOMMENT      = :comment, " & _
                 "  UPDATEUSER                  = :modifiedBy, " & _
@@ -187,12 +187,12 @@ Namespace DAL
             })
 
             ' 4. Revoke all open permits
-            queryList.Add( _
-                " " _
-            )
-            parametersList.Add(New OracleParameter() { _
-                New OracleParameter("airsNumber", airsNumber) _
-            })
+            'queryList.Add( _
+            '    " " _
+            ')
+            'parametersList.Add(New OracleParameter() { _
+            '    New OracleParameter("airsNumber", airsNumber) _
+            '})
 
 
             Return DB.RunCommand(queryList, parametersList)

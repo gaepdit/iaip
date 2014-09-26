@@ -293,7 +293,7 @@ Namespace Apb
         ''' <remarks>The enum value of the flags is significant because the flags are stored 
         ''' in the database as a (reversed) bitwise string. The string is 15 characters, but 
         ''' only the first 14 are used.</remarks>
-        <Flags()> Public Enum AirPrograms
+        <Flags()> Public Enum AirProgram
             None = 0
             <Description("SIP")> SIP = 1
             <Description("Federal SIP")> FederalSIP = 2
@@ -310,6 +310,41 @@ Namespace Apb
             <Description("Title V")> TitleV = 4096
             <Description("Risk Management Plan")> RMP = 8192
         End Enum
+
+        Public Shared Function GetAirProgramDbKey(ByVal airProgram As AirProgram) As String
+            Select Case airProgram
+                Case Facility.AirProgram.AcidPrecipitation
+                    Return "A"
+                Case Facility.AirProgram.CfcTracking
+                    Return "4"
+                Case Facility.AirProgram.FederalSIP
+                    Return "1"
+                Case Facility.AirProgram.FESOP
+                    Return "F"
+                Case Facility.AirProgram.MACT
+                    Return "M"
+                Case Facility.AirProgram.NativeAmerican
+                    Return "I"
+                Case Facility.AirProgram.NESHAP
+                    Return "8"
+                Case Facility.AirProgram.NonFederalSIP
+                    Return "3"
+                Case Facility.AirProgram.NSPS
+                    Return "9"
+                Case Facility.AirProgram.NSR
+                    Return "7"
+                Case Facility.AirProgram.PSD
+                    Return "6"
+                Case Facility.AirProgram.RMP
+                    Return "R"
+                Case Facility.AirProgram.SIP
+                    Return "0"
+                Case Facility.AirProgram.TitleV
+                    Return "V"
+                Case Else
+                    Return ""
+            End Select
+        End Function
 
         ''' <summary>
         ''' Bitwise flag for enumerating which air program classifications apply to a facility.
