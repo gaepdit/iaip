@@ -19,7 +19,7 @@ Partial Class IAIPEditHeaderData
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.FacilityDescription = New System.Windows.Forms.TextBox
         Me.FacilityDescriptionLabel = New System.Windows.Forms.Label
         Me.FacilityHistoryDataGridView = New System.Windows.Forms.DataGridView
@@ -103,8 +103,8 @@ Partial Class IAIPEditHeaderData
         Me.FacilityHistoryDataGridView.AllowUserToDeleteRows = False
         Me.FacilityHistoryDataGridView.AllowUserToOrderColumns = True
         Me.FacilityHistoryDataGridView.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.FacilityHistoryDataGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.FacilityHistoryDataGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.FacilityHistoryDataGridView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -176,6 +176,7 @@ Partial Class IAIPEditHeaderData
         '
         Me.ShutdownDate.Checked = False
         Me.ShutdownDate.CustomFormat = "dd-MMM-yyyy"
+        Me.ShutdownDate.Enabled = False
         Me.ShutdownDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.ShutdownDate.Location = New System.Drawing.Point(320, 83)
         Me.ShutdownDate.Name = "ShutdownDate"
@@ -437,9 +438,11 @@ Partial Class IAIPEditHeaderData
         '
         'ModifiedDescDisplay
         '
+        Me.ModifiedDescDisplay.AutoSize = True
         Me.ModifiedDescDisplay.Location = New System.Drawing.Point(12, 353)
+        Me.ModifiedDescDisplay.MaximumSize = New System.Drawing.Size(386, 0)
         Me.ModifiedDescDisplay.Name = "ModifiedDescDisplay"
-        Me.ModifiedDescDisplay.Size = New System.Drawing.Size(386, 31)
+        Me.ModifiedDescDisplay.Size = New System.Drawing.Size(50, 13)
         Me.ModifiedDescDisplay.TabIndex = 366
         Me.ModifiedDescDisplay.Text = "Modified:"
         '

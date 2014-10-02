@@ -123,12 +123,13 @@ Namespace DAL
                                          ) As Boolean
             If Not NormalizeAirsNumber(airsNumber, True) Then Return False
             If Not AirsNumberExists(airsNumber) Then Return False
+            Dim shortAirsNumber As String = GetNormalizedAirsNumber(airsNumber)
 
-            ' -- Transaction
-            ' 1. Update APBHeaderData
-            ' 2. Update APBAirProgramPollutants
-            ' 3. Update EIS_FacilitySite
-            ' 4. Revoke all open permits
+            ' -- Transaction:
+            '    1. Update APBHeaderData
+            '    2. Update APBAirProgramPollutants
+            '    3. Update EIS_FacilitySite
+            '    4. Revoke all open permits
             ' -- Commit transaction
 
             Dim queryList As New List(Of String)
@@ -149,7 +150,7 @@ Namespace DAL
                 New OracleParameter("operationalStatus", "X"), _
                 New OracleParameter("shutdownDate", shutdownDate), _
                 New OracleParameter("comments", comments), _
-                New OracleParameter("fromLocation", fromLocation.ToString), _
+                New OracleParameter("fromLocation", Convert.ToInt32(fromLocation)), _
                 New OracleParameter("modifiedBy", UserGCode), _
                 New OracleParameter("airsNumber", airsNumber) _
             })
@@ -174,26 +175,35 @@ Namespace DAL
             queryList.Add( _
                 " UPDATE " & DBNameSpace & ".EIS_FACILITYSITE " & _
                 " SET STRFACILITYSITESTATUSCODE = :statusCode, " & _
-                "  STRFACILITYSITECOMMENT      = :comment, " & _
+                "  STRFACILITYSITECOMMENT      = :comments, " & _
                 "  UPDATEUSER                  = :modifiedBy, " & _
                 "  UPDATEDATETIME              = SYSDATE " & _
                 " WHERE FACILITYSITEID          = :airsNumber " _
             )
             parametersList.Add(New OracleParameter() { _
                 New OracleParameter("statusCode", "PS"), _
-                New OracleParameter("comment", "Facility shut down by permitting action."), _
+                New OracleParameter("comments", "Facility shut down by permitting action."), _
                 New OracleParameter("modifiedBy", UserGCode), _
                 New OracleParameter("airsNumber", airsNumber) _
             })
 
             ' 4. Revoke all open permits
-            'queryList.Add( _
-            '    " " _
-            ')
-            'parametersList.Add(New OracleParameter() { _
-            '    New OracleParameter("airsNumber", airsNumber) _
-            '})
+            queryList.Add( _
+                " UPDATE " & DBNameSpace & ".APBISSUEDPERMIT " & _
+                " SET DATREVOKED         = :shutdownDate, " & _
+                "   UPDATEDATE         = SYSDATE, " & _
+                "   UPDATEDBY          = :modifiedBy, " & _
+                "   ACTIVE             = :active " & _
+                " WHERE STRAIRSNUMBER = :airsnumber " & _
+                " AND ACTIVE = 1 " _
+            )
 
+            parametersList.Add(New OracleParameter() { _
+                New OracleParameter("shutdownDate", shutdownDate), _
+                New OracleParameter("modifiedBy", UserGCode), _
+                New OracleParameter("active", 0), _
+                New OracleParameter("airsnumber", shortAirsNumber) _
+            })
 
             Return DB.RunCommand(queryList, parametersList)
         End Function

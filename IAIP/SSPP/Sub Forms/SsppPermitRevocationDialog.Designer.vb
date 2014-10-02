@@ -43,9 +43,9 @@ Partial Class SsppPermitRevocationDialog
         Me.Intro.AutoSize = True
         Me.Intro.Location = New System.Drawing.Point(9, 18)
         Me.Intro.Name = "Intro"
-        Me.Intro.Size = New System.Drawing.Size(203, 13)
+        Me.Intro.Size = New System.Drawing.Size(196, 13)
         Me.Intro.TabIndex = 1
-        Me.Intro.Text = "Select any permits revoked by this action:"
+        Me.Intro.Text = "Select all permits revoked by this action:"
         '
         'NoneCheckbox
         '

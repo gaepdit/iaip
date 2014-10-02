@@ -1,7 +1,9 @@
 ' TODO:
 ' [X] Fix Modified by statement when editing/canceling
-' [ ] Fix RMP (don't require)
+' [X] Fix RMP (don't require)
 ' [ ] Test 001-00001
+' [X] Replace ComparableHeaderData(editedFacility).Equals(ComparableHeaderData(CurrentFacilityHeaderData)
+'     with function that just compares the relevant fields
 
 Imports Iaip.Apb
 Imports System.Collections.Generic
@@ -143,7 +145,6 @@ Public Class IAIPEditHeaderData
             OperationalDropDown, _
             SicCode, _
             StartUpDate, _
-            ShutdownDate, _
             NaicsCode, _
             AirProgramCodes, _
             AirProgramClassifications, _
@@ -213,7 +214,6 @@ Public Class IAIPEditHeaderData
     End Sub
 
     Private Sub OperationalDropDown_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OperationalDropDown.SelectedIndexChanged
-        ResetControlHighlights()
         If EditData.Checked Then
             Dim NonShutdownControls As Control() = { _
                 ClassificationDropDown, _
@@ -228,11 +228,17 @@ Public Class IAIPEditHeaderData
             }
             If UserIsTryingToCloseFacility() Then
                 DisableControls(NonShutdownControls)
+                ShutdownDate.Checked = True
+                ShutdownDate.Enabled = True
                 ModifiedDescDisplay.Text = "When changing operating status to Closed/Dismantled, no other data can be modified. " & _
                 "Save any other required changes first. Please enter a final permit revocation date."
                 PermitRevocationDateLabel.BackColor = Color.Yellow
+                ModifiedDescDisplay.BackColor = Color.Yellow
             Else
+                ResetControlHighlights()
                 EnableControls(NonShutdownControls)
+                ShutdownDate.Checked = False
+                ShutdownDate.Enabled = False
                 ModifiedDescDisplay.Text = "Editing current facility data."
             End If
         End If
@@ -399,15 +405,10 @@ Public Class IAIPEditHeaderData
             End If
         End If
 
-        ' Confirm facility shutdown
-
-        Dim compEditedFacility As FacilityHeaderData = ComparableHeaderData(editedFacility)
-        Dim compCurrFacility As FacilityHeaderData = ComparableHeaderData(CurrentFacilityHeaderData)
-
         ' Compare edited data to current data
-        If ComparableHeaderData(editedFacility).Equals(ComparableHeaderData(CurrentFacilityHeaderData)) Then
+        If Not FacilityHeaderDataDiffers(editedFacility, CurrentFacilityHeaderData) Then
             MessageBox.Show("No data has been changed. Nothing saved.", _
-                            "Nothing Changed", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                                "Nothing Changed", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return False
         End If
 
@@ -421,6 +422,22 @@ Public Class IAIPEditHeaderData
         End If
 
         Return True
+    End Function
+
+    Private Function FacilityHeaderDataDiffers(ByVal facility1 As FacilityHeaderData, ByVal facility2 As FacilityHeaderData) As Boolean
+        If facility1.AirProgramClassificationsCode <> facility2.AirProgramClassificationsCode Then Return True
+        If facility1.AirProgramsCode <> facility1.AirProgramsCode Then Return True
+        If facility1.ClassificationCode <> facility2.ClassificationCode Then Return True
+        If facility1.FacilityDescription <> facility2.FacilityDescription Then Return True
+        If facility1.Naics <> facility2.Naics Then Return True
+        If facility1.NonattainmentStatusesCode <> facility2.NonattainmentStatusesCode Then Return True
+        If facility1.OperationalStatusCode <> facility2.OperationalStatusCode Then Return True
+        If facility1.RmpId <> facility2.RmpId Then Return True
+        If facility1.ShutdownDate <> facility2.ShutdownDate Then Return True
+        If facility1.SicCode <> facility2.SicCode Then Return True
+        If facility1.StartupDate <> facility2.StartupDate Then Return True
+
+        Return False
     End Function
 
     Private Function ConfirmFacilityShutdown(ByVal editedFacility As FacilityHeaderData) As Boolean
@@ -508,6 +525,7 @@ Public Class IAIPEditHeaderData
           CommentsLabel, _
           FacilityDescriptionLabel, _
           PermitRevocationDateLabel, _
+          ModifiedDescDisplay, _
           RmpIdLabel _
         })
 
@@ -515,17 +533,6 @@ Public Class IAIPEditHeaderData
             c.BackColor = System.Drawing.SystemColors.Control
         Next
     End Sub
-
-    Private Function ComparableHeaderData(ByVal headerdata As FacilityHeaderData) As FacilityHeaderData
-        Dim comparableHeaderDataReturn As FacilityHeaderData = headerdata
-        With comparableHeaderDataReturn
-            .HeaderUpdateComment = Nothing
-            .DateDataModified = Nothing
-            .WhoModified = Nothing
-            .WhereModified = Nothing
-        End With
-        Return comparableHeaderDataReturn
-    End Function
 
     Private Sub SaveEditedData()
         ResetControlHighlights()
@@ -558,6 +565,9 @@ Public Class IAIPEditHeaderData
                 Dim currentData As DataRow = DAL.FacilityHeaderData.GetFacilityHeaderDataAsDataRow(AirsNumber)
                 currentData(0) = FacilityHeaderDataHistory.Compute("Max(STRKEY)", String.Empty) + 1
                 FacilityHeaderDataHistory.ImportRow(currentData)
+                FacilityHistoryDataGridView.Rows(0).Selected = True
+
+                EditData.Checked = False
             Else
                 MessageBox.Show("There was an error saving the new data. Please try again.", _
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -591,8 +601,8 @@ Public Class IAIPEditHeaderData
     End Function
 
     Private Function UserCanShutDownFacility() As Boolean
-        ' SSCP Unit Manager, SSCP Program Manager, Branch Chief, & District Liasion
-        If UserHasPermission(New String() {"(114)", "(19)", "(102)", "(27)"}) Then
+        ' SSCP Unit Manager, SSCP Program Manager, Branch Chief, District Liasion, DMU 
+        If UserHasPermission(New String() {"(114)", "(19)", "(102)", "(27)", "(118)"}) Then
             Return True
         Else
             Return False

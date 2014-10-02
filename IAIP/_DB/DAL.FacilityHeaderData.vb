@@ -120,8 +120,8 @@ Namespace DAL
                 .OperationalStatusCode = DB.GetNullable(Of String)(row("STROPERATIONALSTATUS"))
                 .ClassificationCode = DB.GetNullable(Of String)(row("STRCLASS"))
                 .SicCode = DB.GetNullable(Of String)(row("STRSICCODE"))
-                .ShutdownDate = DB.GetNullableDateTimeFromString(row("DATSTARTUPDATE"))
-                .StartupDate = DB.GetNullableDateTimeFromString(row("DATSHUTDOWNDATE"))
+                .ShutdownDate = DB.GetNullableDateTimeFromString(row("DATSHUTDOWNDATE"))
+                .StartupDate = DB.GetNullableDateTimeFromString(row("DATSTARTUPDATE"))
                 .Naics = DB.GetNullable(Of String)(row("STRNAICSCODE"))
                 .RmpId = DB.GetNullable(Of String)(row("STRRMPID"))
                 .FacilityDescription = DB.GetNullable(Of String)(row("STRPLANTDESCRIPTION"))
@@ -188,12 +188,11 @@ Namespace DAL
             ' -- Transaction
             ' 1. Update ApbHeaderData
             ' 2. Update ApbSupplamentalData (sic)
-            ' 3. Update EIS_FacilitySite
-            ' 4. Any active APC must have at least one key in ApbAirProgramPollutants:
+            ' 3. Any active APC must have at least one key in ApbAirProgramPollutants:
             '    * Update all existing keys with new operating status
             '    * If none exist, add one with the new operating status, pollutant = OT & compliance status = C
-            ' 5. For any inactive APC, change any existing subparts in ApbSubpartData to inactive
-            ' 6. Change update status in AfsAirPollutantData to 'C' where currently 'N'
+            ' 4. For any inactive APC, change any existing subparts in ApbSubpartData to inactive
+            ' 5. Change update status in AfsAirPollutantData to 'C' where currently 'N'
             ' -- Commit transaction
 
             Dim queryList As New List(Of String)
@@ -230,7 +229,7 @@ Namespace DAL
                 New OracleParameter("FacilityDescription", headerData.FacilityDescription), _
                 New OracleParameter("NonattainmentStatusesCode", headerData.NonattainmentStatusesCode), _
                 New OracleParameter("AirProgramClassifications", headerData.AirProgramClassificationsCode), _
-                New OracleParameter("fromLocation", fromLocation.ToString), _
+                New OracleParameter("fromLocation", Convert.ToInt32(fromLocation)), _
                 New OracleParameter("Naics", headerData.Naics), _
                 New OracleParameter("modifiedby", UserGCode), _
                 New OracleParameter("airsnumber", ExpandedAirsNumber) _
@@ -250,22 +249,6 @@ Namespace DAL
                 New OracleParameter("airsnumber", ExpandedAirsNumber) _
             })
 
-            ' 3. Update EIS_FacilitySite
-            queryList.Add( _
-                " UPDATE " & DBNameSpace & ".EIS_FACILITYSITE " & _
-                "  SET STRFACILITYSITESTATUSCODE = :statuscode, " & _
-                "    STRFACILITYSITECOMMENT      = :comment, " & _
-                "    UPDATEUSER                  = :modifiedby, " & _
-                "    UPDATEDATETIME              = sysdate " & _
-                "  WHERE FACILITYSITEID          = :airs " _
-            )
-            parametersList.Add(New OracleParameter() { _
-                New OracleParameter("statuscode", "PS"), _
-                New OracleParameter("comment", "Facility shut down by permitting action."), _
-                New OracleParameter("modifiedby", UserGCode), _
-                New OracleParameter("airs", headerData.AirsNumber) _
-            })
-
             ' Check for existance of each possible AirProgram
             Dim apcArray As Array = System.[Enum].GetValues(GetType(AirProgram))
             For Each apc As AirProgram In apcArray
@@ -276,7 +259,7 @@ Namespace DAL
                 ' TODO: Change to HasFlag after converting to .NET 4.0
                 If (headerData.AirPrograms And apc) <> 0 Then
 
-                    ' 4a. For each active APC, update all existing keys in 
+                    ' 3a. For each active APC, update all existing keys in 
                     '     ApbAirProgramPollutants with new operating status
                     queryList.Add( _
                         " UPDATE " & DBNameSpace & ".APBAIRPROGRAMPOLLUTANTS " & _
@@ -288,7 +271,7 @@ Namespace DAL
                         New OracleParameter("airsnumber", ExpandedAirsNumber) _
                     })
 
-                    ' 4b. Any active APC must have at least one key in ApbAirProgramPollutants;
+                    ' 3b. Any active APC must have at least one key in ApbAirProgramPollutants;
                     '     if none exist, add one with the new operating status, pollutant = OT 
                     '     & compliance status = C
                     queryList.Add( _
@@ -326,7 +309,7 @@ Namespace DAL
 
                 Else
 
-                    ' 5. For any inactive APC, change any existing subparts in ApbSubpartData to inactive
+                    ' 4. For any inactive APC, change any existing subparts in ApbSubpartData to inactive
                     queryList.Add( _
                         " UPDATE " & DBNameSpace & ".APBSUBPARTDATA " & _
                         "  SET ACTIVE          = :active, " & _
@@ -343,7 +326,7 @@ Namespace DAL
                 End If
             Next
 
-            ' 6. Change update status in AfsAirPollutantData to 'C' where currently 'N'
+            ' 5. Change update status in AfsAirPollutantData to 'C' where currently 'N'
             queryList.Add( _
                 " UPDATE " & DBNameSpace & ".AFSAIRPOLLUTANTDATA " & _
                 "  SET STRUPDATESTATUS   = 'C', " & _

@@ -20,7 +20,7 @@ Public Class SsppPermitRevocationDialog
 
     ' List of checked permits (available to Application Tracking Log after closed)
     Private _SelectedPermits As List(Of Permit)
-    Public Property SelectedPermits() As List(Of Permit)
+    Public Property PermitsToRevoke() As List(Of Permit)
         Get
             Return _SelectedPermits
         End Get
@@ -49,10 +49,10 @@ Public Class SsppPermitRevocationDialog
         End If
 
         If NoneCheckbox.Checked Then
-            SelectedPermits = Nothing
+            PermitsToRevoke = Nothing
         Else
-            SelectedPermits = New List(Of Permit)
-            SelectedPermits.AddRange(ActivePermitsCheckedListBox.CheckedItems.OfType(Of Permit))
+            PermitsToRevoke = New List(Of Permit)
+            PermitsToRevoke.AddRange(ActivePermitsCheckedListBox.CheckedItems.OfType(Of Permit))
         End If
 
         Me.DialogResult = System.Windows.Forms.DialogResult.OK

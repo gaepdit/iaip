@@ -11,8 +11,8 @@ Namespace DAL.SSPP
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
                 " FROM " & DBNameSpace & ".APBISSUEDPERMIT " & _
                 " WHERE RowNum = 1 " & _
-                " AND STRPERMITNUMBER = :ID "
-            Dim parameter As New OracleParameter("ID", permitNumber)
+                " AND STRPERMITNUMBER = :permitnumber "
+            Dim parameter As New OracleParameter("permitnumber", permitNumber)
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
             Return Convert.ToBoolean(result)
@@ -28,9 +28,9 @@ Namespace DAL.SSPP
                 "   ACTIVE, " & _
                 "   PERMITTYPECODE " & _
                 " FROM " & DBNameSpace & ".APBISSUEDPERMIT " & _
-                " WHERE STRPERMITNUMBER = :ID "
+                " WHERE STRPERMITNUMBER = :permitnumber "
 
-            Dim parameter As New OracleParameter("ID", permitNumber)
+            Dim parameter As New OracleParameter("permitnumber", permitNumber)
             Dim dt As DataTable = DB.GetDataTable(query, parameter)
 
             Return GetPermitFromDataRow(dt.Rows(0))
@@ -76,10 +76,10 @@ Namespace DAL.SSPP
                 "   ACTIVE, " & _
                 "   PERMITTYPECODE " & _
                 " FROM " & DBNameSpace & ".APBISSUEDPERMIT " & _
-                " WHERE STRAIRSNUMBER = :ID " & _
+                " WHERE STRAIRSNUMBER = :airsnumber " & _
                 " ORDER BY DATISSUED Nulls FIRST "
 
-            Dim parameter As New OracleParameter("ID", airsNumber)
+            Dim parameter As New OracleParameter("airsnumber", airsNumber)
             Return DB.GetDataTable(query, parameter)
         End Function
 
@@ -94,11 +94,11 @@ Namespace DAL.SSPP
                 "   ACTIVE, " & _
                 "   PERMITTYPECODE " & _
                 " FROM " & DBNameSpace & ".APBISSUEDPERMIT " & _
-                " WHERE STRAIRSNUMBER = :ID " & _
+                " WHERE STRAIRSNUMBER = :airsnumber " & _
                 " AND ACTIVE = '1' " & _
                 " ORDER BY DATISSUED Nulls FIRST "
 
-            Dim parameter As New OracleParameter("ID", airsNumber)
+            Dim parameter As New OracleParameter("airsnumber", airsNumber)
             Return DB.GetDataTable(query, parameter)
         End Function
 
@@ -157,7 +157,6 @@ Namespace DAL.SSPP
 
             Return DB.RunCommand(queryList, parametersList)
         End Function
-
 
         Public Function UpdatePermit(ByVal permit As Permit) As Boolean
             If permit Is Nothing Then Return False

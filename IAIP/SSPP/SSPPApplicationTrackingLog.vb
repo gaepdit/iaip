@@ -7421,8 +7421,11 @@ Public Class SSPPApplicationTrackingLog
 
                         PermitRevocationQuery()
 
-                        If Apb.SSPP.Permit.IsValidPermitNumber(txtPermitNumber.Text) Then
+                        If Apb.SSPP.Permit.ValidPermitNumber(txtPermitNumber.Text) Then
                             SaveIssuedPermit()
+                        Else
+                            MessageBox.Show("The permit number entered is not a valid format. Please fix it and try saving again.", _
+                                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         End If
 
                     End If
@@ -7447,11 +7450,12 @@ Public Class SSPPApplicationTrackingLog
             Dim permitRevocationDialog As New SsppPermitRevocationDialog
             permitRevocationDialog.ActivePermits = activePermits ' Send list of existing permits to dialog
             permitRevocationDialog.ShowDialog()
-            Dim revokedPermits As List(Of Apb.SSPP.Permit) = permitRevocationDialog.SelectedPermits
+            Dim revokedPermits As List(Of Apb.SSPP.Permit) = permitRevocationDialog.PermitsToRevoke
 
             If revokedPermits IsNot Nothing AndAlso revokedPermits.Count > 0 Then
                 For Each p As Apb.SSPP.Permit In revokedPermits
                     p.RevokedDate = DTPFinalAction.Value
+                    p.Active = False
                 Next
 
                 Dim result As Boolean = DAL.SSPP.UpdatePermits(revokedPermits)
