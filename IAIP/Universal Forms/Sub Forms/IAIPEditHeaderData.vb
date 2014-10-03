@@ -157,6 +157,10 @@ Public Class IAIPEditHeaderData
         }
         EnableControls(EditableControls)
 
+        If CurrentFacilityHeaderData.OperationalStatus = Facility.OperationalStatus.X Then
+            OperationalDropDown.Enabled = False
+        End If
+
         Comments.Focus()
     End Sub
 

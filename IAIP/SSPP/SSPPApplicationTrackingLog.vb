@@ -7382,7 +7382,7 @@ Public Class SSPPApplicationTrackingLog
                     Next
                 End If
 
-                If DTPFinalAction.Checked = True And chbClosedOut.Checked = True And txtAIRSNumber.Text.Length = 8 Then
+                If DTPFinalAction.Checked And chbClosedOut.Checked And txtAIRSNumber.Text.Length = 8 Then
 
                     SQL = "Select strSICCode " & _
                     "from " & DBNameSpace & ".LookUPSICCodes " & _
@@ -7409,12 +7409,26 @@ Public Class SSPPApplicationTrackingLog
                               Or cboPermitAction.SelectedValue = "5" Or cboPermitAction.SelectedValue = "7" _
                               Or cboPermitAction.SelectedValue = "10" Or cboPermitAction.SelectedValue = "12" _
                               Or cboPermitAction.SelectedValue = "13" Then
+                        ' Note that of these, only 5, 7, & 10 are currently active types - DW
+                        ' 
+                        ' Selected here:
+                        '  5    NPR
+                        '  7    Permit
+                        ' 10    Revoked
+                        '
+                        ' Not selected here:
+                        '  0    N/A
+                        '  2    Denied
+                        '  6    PBR
+                        '  9    Returned
+                        ' 11    Withdrawn
+                        '
                         GenerateAFSEntry()
                     End If
 
-                    If Mid(txtAIRSNumber.Text, 1, 2) <> "AP" And Apb.Facility.ValidAirsNumber(txtAIRSNumber.Text) Then
+                    If Apb.Facility.ValidAirsNumber(txtAIRSNumber.Text) Then
                         Dim dresult As DialogResult = MessageBox.Show("Do you want to update Facility Information with this Application?", _
-                           "Permit Tracking Log", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
+                               "Permit Tracking Log", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                         If dresult = Windows.Forms.DialogResult.Yes Then
                             UpdateAPBTables()
                         End If
@@ -7423,11 +7437,7 @@ Public Class SSPPApplicationTrackingLog
 
                         If Apb.SSPP.Permit.ValidPermitNumber(txtPermitNumber.Text) Then
                             SaveIssuedPermit()
-                        Else
-                            MessageBox.Show("The permit number entered is not a valid format. Please fix it and try saving again.", _
-                                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         End If
-
                     End If
 
                 End If

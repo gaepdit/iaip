@@ -24,10 +24,9 @@ Namespace DB
         Public Function PingDBConnection(ByVal conn As OracleConnection) As Boolean
             Dim sql As String = "SELECT 1 FROM DUAL"
             Using cmd As New OracleCommand(sql, conn)
-                Dim result As Object = Nothing
                 Try
                     If conn.State = ConnectionState.Closed Then conn.Open()
-                    result = cmd.ExecuteScalar()
+                    cmd.ExecuteScalar()
                     Return True
                 Catch ex As Exception
                     Return False
@@ -211,8 +210,8 @@ Namespace DB
                                 command.Parameters.Clear()
                                 command.CommandText = queryList(index)
                                 command.Parameters.AddRange(parametersList(index))
-                                Dim result As Object = command.ExecuteNonQuery()
-                                countList.Insert(index, CInt(result))
+                                Dim result As Integer = command.ExecuteNonQuery()
+                                countList.Insert(index, result)
                             Next
                             transaction.Commit()
                             Return True
