@@ -350,7 +350,7 @@ Public Class IAIPLogIn
     End Sub
 
     Private Sub mmiTestingEnvironment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiTestingEnvironment.Click
-        ToggleServerEnvironment()
+        'ToggleServerEnvironment()
     End Sub
 
     Private Sub mmiCheckForUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCheckForUpdate.Click
