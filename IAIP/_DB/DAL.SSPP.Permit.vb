@@ -28,7 +28,8 @@ Namespace DAL.SSPP
                 "   ACTIVE, " & _
                 "   PERMITTYPECODE " & _
                 " FROM " & DBNameSpace & ".APBISSUEDPERMIT " & _
-                " WHERE STRPERMITNUMBER = :permitnumber "
+                " WHERE STRPERMITNUMBER = :permitnumber " & _
+                " ORDER BY DATISSUED DESC"
 
             Dim parameter As New OracleParameter("permitnumber", permitNumber)
             Dim dt As DataTable = DB.GetDataTable(query, parameter)
@@ -77,7 +78,7 @@ Namespace DAL.SSPP
                 "   PERMITTYPECODE " & _
                 " FROM " & DBNameSpace & ".APBISSUEDPERMIT " & _
                 " WHERE STRAIRSNUMBER = :airsnumber " & _
-                " ORDER BY DATISSUED Nulls FIRST "
+                " ORDER BY DATISSUED DESC Nulls FIRST "
 
             Dim parameter As New OracleParameter("airsnumber", airsNumber)
             Return DB.GetDataTable(query, parameter)
@@ -172,6 +173,7 @@ Namespace DAL.SSPP
                 " INSERT " & _
                 " INTO " & DBNameSpace & ".APBISSUEDPERMIT " & _
                 "   ( " & _
+                "     ISSUEDPERMITID, " & _
                 "     STRAIRSNUMBER, " & _
                 "     STRPERMITNUMBER, " & _
                 "     DATISSUED, " & _
@@ -185,6 +187,7 @@ Namespace DAL.SSPP
                 "   ) " & _
                 "   VALUES " & _
                 "   ( " & _
+                "     PERMITID_SEQ.NEXTVAL, " & _
                 "     :AirsNumber, " & _
                 "     :PermitNumber, " & _
                 "     :IssuedDate, " & _

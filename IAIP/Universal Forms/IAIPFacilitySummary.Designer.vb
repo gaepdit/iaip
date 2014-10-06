@@ -34,6 +34,7 @@ Partial Class IAIPFacilitySummary
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.mmiFile = New System.Windows.Forms.MenuItem
         Me.mmiFacilityLookup = New System.Windows.Forms.MenuItem
@@ -301,7 +302,7 @@ Partial Class IAIPFacilitySummary
         Me.Label375 = New System.Windows.Forms.Label
         Me.TPPermittingData = New System.Windows.Forms.TabPage
         Me.TCPermittingData = New System.Windows.Forms.TabControl
-        Me.TPPermitLog = New System.Windows.Forms.TabPage
+        Me.TPAppLog = New System.Windows.Forms.TabPage
         Me.dgvApplicationLog = New System.Windows.Forms.DataGridView
         Me.Panel12 = New System.Windows.Forms.Panel
         Me.llbViewApplication = New System.Windows.Forms.LinkLabel
@@ -311,6 +312,8 @@ Partial Class IAIPFacilitySummary
         Me.dgvActiveRules = New System.Windows.Forms.DataGridView
         Me.TPRuleHistory = New System.Windows.Forms.TabPage
         Me.dgvRuleHistory = New System.Windows.Forms.DataGridView
+        Me.TPPermits = New System.Windows.Forms.TabPage
+        Me.dgvPermits = New System.Windows.Forms.DataGridView
         Me.TPPlanningSupportData = New System.Windows.Forms.TabPage
         Me.TabControl2 = New System.Windows.Forms.TabControl
         Me.TPFeeData = New System.Windows.Forms.TabPage
@@ -388,13 +391,15 @@ Partial Class IAIPFacilitySummary
         Me.PanelSSCPEnforcement.SuspendLayout()
         Me.TPPermittingData.SuspendLayout()
         Me.TCPermittingData.SuspendLayout()
-        Me.TPPermitLog.SuspendLayout()
+        Me.TPAppLog.SuspendLayout()
         CType(Me.dgvApplicationLog, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel12.SuspendLayout()
         Me.TPActiveRules.SuspendLayout()
         CType(Me.dgvActiveRules, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPRuleHistory.SuspendLayout()
         CType(Me.dgvRuleHistory, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TPPermits.SuspendLayout()
+        CType(Me.dgvPermits, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPPlanningSupportData.SuspendLayout()
         Me.TabControl2.SuspendLayout()
         Me.TPFeeData.SuspendLayout()
@@ -557,10 +562,10 @@ Partial Class IAIPFacilitySummary
         Me.llbContactInformation.Location = New System.Drawing.Point(14, 35)
         Me.llbContactInformation.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.llbContactInformation.Name = "llbContactInformation"
-        Me.llbContactInformation.Size = New System.Drawing.Size(99, 13)
+        Me.llbContactInformation.Size = New System.Drawing.Size(49, 13)
         Me.llbContactInformation.TabIndex = 275
         Me.llbContactInformation.TabStop = True
-        Me.llbContactInformation.Text = "Contact Information"
+        Me.llbContactInformation.Text = "Contacts"
         Me.TTFacilitySummary.SetToolTip(Me.llbContactInformation, "Click to display Information")
         '
         'llbPermittingData
@@ -570,10 +575,10 @@ Partial Class IAIPFacilitySummary
         Me.llbPermittingData.Location = New System.Drawing.Point(14, 165)
         Me.llbPermittingData.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.llbPermittingData.Name = "llbPermittingData"
-        Me.llbPermittingData.Size = New System.Drawing.Size(79, 13)
+        Me.llbPermittingData.Size = New System.Drawing.Size(41, 13)
         Me.llbPermittingData.TabIndex = 278
         Me.llbPermittingData.TabStop = True
-        Me.llbPermittingData.Text = "Permitting Data"
+        Me.llbPermittingData.Text = "Permits"
         Me.TTFacilitySummary.SetToolTip(Me.llbPermittingData, "Click to display Information")
         '
         'llbComplianceWork
@@ -583,10 +588,10 @@ Partial Class IAIPFacilitySummary
         Me.llbComplianceWork.Location = New System.Drawing.Point(14, 132)
         Me.llbComplianceWork.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.llbComplianceWork.Name = "llbComplianceWork"
-        Me.llbComplianceWork.Size = New System.Drawing.Size(91, 13)
+        Me.llbComplianceWork.Size = New System.Drawing.Size(62, 13)
         Me.llbComplianceWork.TabIndex = 279
         Me.llbComplianceWork.TabStop = True
-        Me.llbComplianceWork.Text = "Compliance Work"
+        Me.llbComplianceWork.Text = "Compliance"
         Me.TTFacilitySummary.SetToolTip(Me.llbComplianceWork, "Click to display Information")
         '
         'llbISMPTestingWork
@@ -596,10 +601,10 @@ Partial Class IAIPFacilitySummary
         Me.llbISMPTestingWork.Location = New System.Drawing.Point(14, 99)
         Me.llbISMPTestingWork.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.llbISMPTestingWork.Name = "llbISMPTestingWork"
-        Me.llbISMPTestingWork.Size = New System.Drawing.Size(100, 13)
+        Me.llbISMPTestingWork.Size = New System.Drawing.Size(64, 13)
         Me.llbISMPTestingWork.TabIndex = 280
         Me.llbISMPTestingWork.TabStop = True
-        Me.llbISMPTestingWork.Text = "ISMP Testing Work"
+        Me.llbISMPTestingWork.Text = "Stack Tests"
         Me.TTFacilitySummary.SetToolTip(Me.llbISMPTestingWork, "Click to display Information")
         '
         'llbEmissionInventory
@@ -3441,9 +3446,10 @@ Partial Class IAIPFacilitySummary
         '
         'TCPermittingData
         '
-        Me.TCPermittingData.Controls.Add(Me.TPPermitLog)
+        Me.TCPermittingData.Controls.Add(Me.TPAppLog)
         Me.TCPermittingData.Controls.Add(Me.TPActiveRules)
         Me.TCPermittingData.Controls.Add(Me.TPRuleHistory)
+        Me.TCPermittingData.Controls.Add(Me.TPPermits)
         Me.TCPermittingData.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCPermittingData.Location = New System.Drawing.Point(0, 0)
         Me.TCPermittingData.Margin = New System.Windows.Forms.Padding(2)
@@ -3452,17 +3458,17 @@ Partial Class IAIPFacilitySummary
         Me.TCPermittingData.Size = New System.Drawing.Size(666, 435)
         Me.TCPermittingData.TabIndex = 1
         '
-        'TPPermitLog
+        'TPAppLog
         '
-        Me.TPPermitLog.Controls.Add(Me.dgvApplicationLog)
-        Me.TPPermitLog.Controls.Add(Me.Panel12)
-        Me.TPPermitLog.Location = New System.Drawing.Point(4, 22)
-        Me.TPPermitLog.Margin = New System.Windows.Forms.Padding(2)
-        Me.TPPermitLog.Name = "TPPermitLog"
-        Me.TPPermitLog.Size = New System.Drawing.Size(658, 409)
-        Me.TPPermitLog.TabIndex = 0
-        Me.TPPermitLog.Text = "Permit Tracking Log"
-        Me.TPPermitLog.UseVisualStyleBackColor = True
+        Me.TPAppLog.Controls.Add(Me.dgvApplicationLog)
+        Me.TPAppLog.Controls.Add(Me.Panel12)
+        Me.TPAppLog.Location = New System.Drawing.Point(4, 22)
+        Me.TPAppLog.Margin = New System.Windows.Forms.Padding(2)
+        Me.TPAppLog.Name = "TPAppLog"
+        Me.TPAppLog.Size = New System.Drawing.Size(658, 409)
+        Me.TPAppLog.TabIndex = 0
+        Me.TPAppLog.Text = "Application Tracking Log"
+        Me.TPAppLog.UseVisualStyleBackColor = True
         '
         'dgvApplicationLog
         '
@@ -3542,7 +3548,7 @@ Partial Class IAIPFacilitySummary
         Me.TPRuleHistory.Name = "TPRuleHistory"
         Me.TPRuleHistory.Size = New System.Drawing.Size(658, 409)
         Me.TPRuleHistory.TabIndex = 2
-        Me.TPRuleHistory.Text = "Rule Applicabilty History"
+        Me.TPRuleHistory.Text = "Rule Applicability History"
         Me.TPRuleHistory.UseVisualStyleBackColor = True
         '
         'dgvRuleHistory
@@ -3554,6 +3560,37 @@ Partial Class IAIPFacilitySummary
         Me.dgvRuleHistory.ReadOnly = True
         Me.dgvRuleHistory.Size = New System.Drawing.Size(658, 409)
         Me.dgvRuleHistory.TabIndex = 5
+        '
+        'TPPermits
+        '
+        Me.TPPermits.Controls.Add(Me.dgvPermits)
+        Me.TPPermits.Location = New System.Drawing.Point(4, 22)
+        Me.TPPermits.Name = "TPPermits"
+        Me.TPPermits.Size = New System.Drawing.Size(658, 409)
+        Me.TPPermits.TabIndex = 3
+        Me.TPPermits.Text = "Permits"
+        Me.TPPermits.UseVisualStyleBackColor = True
+        '
+        'dgvPermits
+        '
+        Me.dgvPermits.AllowUserToAddRows = False
+        Me.dgvPermits.AllowUserToDeleteRows = False
+        Me.dgvPermits.AllowUserToOrderColumns = True
+        DataGridViewCellStyle11.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvPermits.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle11
+        Me.dgvPermits.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.dgvPermits.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText
+        Me.dgvPermits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvPermits.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvPermits.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.dgvPermits.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.dgvPermits.Location = New System.Drawing.Point(0, 0)
+        Me.dgvPermits.Name = "dgvPermits"
+        Me.dgvPermits.ReadOnly = True
+        Me.dgvPermits.RowHeadersVisible = False
+        Me.dgvPermits.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvPermits.Size = New System.Drawing.Size(658, 409)
+        Me.dgvPermits.TabIndex = 0
         '
         'TPPlanningSupportData
         '
@@ -3746,7 +3783,7 @@ Partial Class IAIPFacilitySummary
         Me.PanelSSCPEnforcement.PerformLayout()
         Me.TPPermittingData.ResumeLayout(False)
         Me.TCPermittingData.ResumeLayout(False)
-        Me.TPPermitLog.ResumeLayout(False)
+        Me.TPAppLog.ResumeLayout(False)
         CType(Me.dgvApplicationLog, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel12.ResumeLayout(False)
         Me.Panel12.PerformLayout()
@@ -3754,6 +3791,8 @@ Partial Class IAIPFacilitySummary
         CType(Me.dgvActiveRules, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPRuleHistory.ResumeLayout(False)
         CType(Me.dgvRuleHistory, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TPPermits.ResumeLayout(False)
+        CType(Me.dgvPermits, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPPlanningSupportData.ResumeLayout(False)
         Me.TabControl2.ResumeLayout(False)
         Me.TPFeeData.ResumeLayout(False)
@@ -3999,7 +4038,7 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents txtEnforcementNumber As System.Windows.Forms.TextBox
     Friend WithEvents Label375 As System.Windows.Forms.Label
     Friend WithEvents TCPermittingData As System.Windows.Forms.TabControl
-    Friend WithEvents TPPermitLog As System.Windows.Forms.TabPage
+    Friend WithEvents TPAppLog As System.Windows.Forms.TabPage
     Friend WithEvents dgvApplicationLog As System.Windows.Forms.DataGridView
     Friend WithEvents Panel12 As System.Windows.Forms.Panel
     Friend WithEvents llbViewApplication As System.Windows.Forms.LinkLabel
@@ -4053,4 +4092,6 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents mmiClose As System.Windows.Forms.MenuItem
     Friend WithEvents tbbFind As System.Windows.Forms.ToolBarButton
     Friend WithEvents tbbClear As System.Windows.Forms.ToolBarButton
+    Friend WithEvents TPPermits As System.Windows.Forms.TabPage
+    Friend WithEvents dgvPermits As System.Windows.Forms.DataGridView
 End Class

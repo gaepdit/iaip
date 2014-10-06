@@ -3897,6 +3897,8 @@ Public Class IAIPFacilitySummary
             dgvRuleHistory.Columns("CreateDateTime").DisplayIndex = 5
             dgvRuleHistory.Columns("CreateDateTime").DefaultCellStyle.Format = "dd-MMM-yyyy"
 
+            LoadPermitsData()
+
             If TCFacilitySummary.TabPages.Contains(TPPermittingData) Then
                 If TCFacilitySummary.TabPages.IndexOf(TPPermittingData) <> -1 Then
                     TCFacilitySummary.SelectedIndex = TCFacilitySummary.TabPages.IndexOf(TPPermittingData)
@@ -3907,6 +3909,40 @@ Public Class IAIPFacilitySummary
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
+    Private Sub LoadPermitsData()
+        Dim allPermits As DataTable = DAL.SSPP.GetPermitsAsTable(mtbAIRSNumber.Text)
+
+        dgvPermits.DataSource = allPermits
+
+        dgvPermits.Columns("ISSUEDPERMITID").Visible = False
+        dgvPermits.Columns("STRAIRSNUMBER").Visible = False
+        dgvPermits.Columns("STRPERMITNUMBER").HeaderText = "Permit Number"
+        dgvPermits.Columns("DATISSUED").HeaderText = "Date Issued"
+        dgvPermits.Columns("DATISSUED").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        dgvPermits.Columns("DATREVOKED").HeaderText = "Date Revoked"
+        dgvPermits.Columns("DATREVOKED").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        dgvPermits.Columns("ACTIVE").HeaderText = "Active"
+        dgvPermits.Columns("ACTIVE").DefaultCellStyle.FormatProvider = New BooleanFormatProvider
+        dgvPermits.Columns("ACTIVE").DefaultCellStyle.Format = BooleanFormatProvider.BooleanFormatProviderFormat.YesNo.ToString
+        dgvPermits.Columns("PERMITTYPECODE").Visible = False
+
+        dgvPermits.SanelyResizeColumns()
+    End Sub
+
+    Private Sub dgvPermits_CellFormatting(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) _
+    Handles dgvPermits.CellFormatting
+        If TypeOf e.CellStyle.FormatProvider Is ICustomFormatter Then
+            e.Value = TryCast(e.CellStyle.FormatProvider.GetFormat(GetType(ICustomFormatter)), ICustomFormatter).Format(e.CellStyle.Format, e.Value, e.CellStyle.FormatProvider)
+            e.FormattingApplied = True
+        End If
+
+        'If dgvPermits.Rows(e.RowIndex).Cells("ACTIVE").Value = 0 Then
+        '    e.CellStyle.BackColor = System.Drawing.SystemColors.ControlLight
+        'End If
+
+    End Sub
+
 #Region "SSPP Permitting Work"
     Private Sub dgvApplicationLog_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvApplicationLog.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvApplicationLog.HitTest(e.X, e.Y)
