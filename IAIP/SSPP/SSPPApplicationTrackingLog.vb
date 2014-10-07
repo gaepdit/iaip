@@ -7382,25 +7382,11 @@ Public Class SSPPApplicationTrackingLog
                     Next
                 End If
 
-                If DTPFinalAction.Checked And chbClosedOut.Checked And txtAIRSNumber.Text.Length = 8 Then
+                If DTPFinalAction.Checked And chbClosedOut.Checked And Apb.Facility.ValidAirsNumber(txtAIRSNumber.Text) Then
 
-                    SQL = "Select strSICCode " & _
-                    "from " & DBNameSpace & ".LookUPSICCodes " & _
-                    "where strSICCode = '" & txtSICCode.Text & "' " & _
-                    "and length(strSICCode) = 4 "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    dr.Close()
-                    If recExist = True Then
-                    Else
-                        MsgBox("ERROR" & vbCrLf & "The SIC Code is not a valid 4 digit code." & vbCrLf & _
-                               "This application cannot be closed out until a valid 4 digit code is entered." & vbCrLf & _
-                               "THE DATA HAS BEEN SAVED BUT THIS RECORD HAS NOT BEEN CLOSED OUT.", MsgBoxStyle.Exclamation, Me.Text)
+                    If Not DAL.FacilityHeaderData.SicCodeExists(txtSICCode.Text) Then
+                        MessageBox.Show("The SIC code entered is not valid. The application cannot be closed out without a valid SIC code.", _
+                                        "Invalid SIC code", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                         chbClosedOut.Checked = False
                         Exit Sub
                     End If
@@ -7411,12 +7397,12 @@ Public Class SSPPApplicationTrackingLog
                               Or cboPermitAction.SelectedValue = "13" Then
                         ' Note that of these, only 5, 7, & 10 are currently active types - DW
                         ' 
-                        ' Selected here:
+                        ' Active types selected here:
                         '  5    NPR
                         '  7    Permit
                         ' 10    Revoked
                         '
-                        ' Not selected here:
+                        ' Active types not selected here:
                         '  0    N/A
                         '  2    Denied
                         '  6    PBR
@@ -7426,21 +7412,19 @@ Public Class SSPPApplicationTrackingLog
                         GenerateAFSEntry()
                     End If
 
-                    If Apb.Facility.ValidAirsNumber(txtAIRSNumber.Text) Then
-                        Dim dresult As DialogResult = MessageBox.Show("Do you want to update Facility Information with this Application?", _
-                               "Permit Tracking Log", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                        If dresult = Windows.Forms.DialogResult.Yes Then
-                            UpdateAPBTables()
-                        End If
+                    Dim dresult As DialogResult = MessageBox.Show("Do you want to update Facility Information with this Application?", _
+                                                  "Permit Tracking Log", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
+                    If dresult = Windows.Forms.DialogResult.Yes Then
+                        UpdateAPBTables()
+                    End If
 
+                    If Apb.SSPP.Permit.ValidPermitNumber(txtPermitNumber.Text) Then
                         PermitRevocationQuery()
-
-                        If Apb.SSPP.Permit.ValidPermitNumber(txtPermitNumber.Text) Then
-                            SaveIssuedPermit()
-                        End If
+                        SaveIssuedPermit()
                     End If
 
                 End If
+
                 FormStatus = "Loading"
                 LoadBasicFacilityInfo()
                 FormStatus = ""

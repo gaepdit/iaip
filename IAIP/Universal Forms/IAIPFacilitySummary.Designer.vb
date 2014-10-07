@@ -3576,6 +3576,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvPermits.AllowUserToAddRows = False
         Me.dgvPermits.AllowUserToDeleteRows = False
         Me.dgvPermits.AllowUserToOrderColumns = True
+        Me.dgvPermits.AllowUserToResizeRows = False
         DataGridViewCellStyle11.BackColor = System.Drawing.Color.WhiteSmoke
         Me.dgvPermits.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle11
         Me.dgvPermits.BorderStyle = System.Windows.Forms.BorderStyle.None

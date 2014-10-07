@@ -27,12 +27,13 @@ Partial Class SsppPermitRevocationDialog
         Me.NoneCheckbox = New System.Windows.Forms.CheckBox
         Me.ActivePermitsCheckedListBox = New System.Windows.Forms.CheckedListBox
         Me.Warning = New System.Windows.Forms.Label
+        Me.Label1 = New System.Windows.Forms.Label
         Me.SuspendLayout()
         '
         'OkButton
         '
         Me.OkButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.OkButton.Location = New System.Drawing.Point(211, 298)
+        Me.OkButton.Location = New System.Drawing.Point(221, 298)
         Me.OkButton.Name = "OkButton"
         Me.OkButton.Size = New System.Drawing.Size(67, 23)
         Me.OkButton.TabIndex = 0
@@ -43,9 +44,9 @@ Partial Class SsppPermitRevocationDialog
         Me.Intro.AutoSize = True
         Me.Intro.Location = New System.Drawing.Point(9, 18)
         Me.Intro.Name = "Intro"
-        Me.Intro.Size = New System.Drawing.Size(196, 13)
+        Me.Intro.Size = New System.Drawing.Size(274, 13)
         Me.Intro.TabIndex = 1
-        Me.Intro.Text = "Select all permits revoked by this action:"
+        Me.Intro.Text = "Select all permits revoked by this action (or select None):"
         '
         'NoneCheckbox
         '
@@ -64,9 +65,9 @@ Partial Class SsppPermitRevocationDialog
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ActivePermitsCheckedListBox.CheckOnClick = True
         Me.ActivePermitsCheckedListBox.FormattingEnabled = True
-        Me.ActivePermitsCheckedListBox.Location = New System.Drawing.Point(12, 71)
+        Me.ActivePermitsCheckedListBox.Location = New System.Drawing.Point(12, 101)
         Me.ActivePermitsCheckedListBox.Name = "ActivePermitsCheckedListBox"
-        Me.ActivePermitsCheckedListBox.Size = New System.Drawing.Size(266, 214)
+        Me.ActivePermitsCheckedListBox.Size = New System.Drawing.Size(276, 184)
         Me.ActivePermitsCheckedListBox.TabIndex = 3
         '
         'Warning
@@ -81,6 +82,16 @@ Partial Class SsppPermitRevocationDialog
         Me.Warning.Text = "You must make a selection first."
         Me.Warning.Visible = False
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(12, 74)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(34, 13)
+        Me.Label1.TabIndex = 4
+        Me.Label1.Text = "— or —"
+        '
         'SsppPermitRevocationDialog
         '
         Me.AcceptButton = Me.OkButton
@@ -88,8 +99,9 @@ Partial Class SsppPermitRevocationDialog
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSize = True
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ClientSize = New System.Drawing.Size(290, 333)
+        Me.ClientSize = New System.Drawing.Size(300, 333)
         Me.ControlBox = False
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ActivePermitsCheckedListBox)
         Me.Controls.Add(Me.NoneCheckbox)
         Me.Controls.Add(Me.Warning)
@@ -110,5 +122,6 @@ Partial Class SsppPermitRevocationDialog
     Friend WithEvents NoneCheckbox As System.Windows.Forms.CheckBox
     Friend WithEvents ActivePermitsCheckedListBox As System.Windows.Forms.CheckedListBox
     Friend WithEvents Warning As System.Windows.Forms.Label
+    Friend WithEvents Label1 As System.Windows.Forms.Label
 
 End Class
