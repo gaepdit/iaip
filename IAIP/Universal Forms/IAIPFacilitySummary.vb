@@ -3918,6 +3918,7 @@ Public Class IAIPFacilitySummary
         dgvPermits.Columns("ISSUEDPERMITID").Visible = False
         dgvPermits.Columns("STRAIRSNUMBER").Visible = False
         dgvPermits.Columns("STRPERMITNUMBER").HeaderText = "Permit Number"
+        dgvPermits.Columns("STRPERMITNUMBER").Width = 150
         dgvPermits.Columns("DATISSUED").HeaderText = "Date Issued"
         dgvPermits.Columns("DATISSUED").DefaultCellStyle.Format = "dd-MMM-yyyy"
         dgvPermits.Columns("DATREVOKED").HeaderText = "Date Revoked"
