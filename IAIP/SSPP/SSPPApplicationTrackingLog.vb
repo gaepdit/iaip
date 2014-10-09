@@ -7439,6 +7439,8 @@ Public Class SSPPApplicationTrackingLog
         ' Check for existing permits first
         Dim activePermits As List(Of Apb.SSPP.Permit) = DAL.SSPP.GetActivePermitsAsList(txtAIRSNumber.Text)
 
+        activePermits.RemoveAll(Function(permit As Apb.SSPP.Permit) permit.Equals(New Apb.SSPP.Permit(txtPermitNumber.Text)))
+
         If activePermits IsNot Nothing AndAlso activePermits.Count > 0 Then
 
             Dim permitRevocationDialog As New SsppPermitRevocationDialog
@@ -9149,7 +9151,7 @@ Public Class SSPPApplicationTrackingLog
                             "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "0', " & _
                             "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
-                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')))"
+                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS'))), NULL"
                         End If
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9630,7 +9632,7 @@ Public Class SSPPApplicationTrackingLog
                             "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "8', " & _
                             "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
-                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')))"
+                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS'))), NULL"
                         End If
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9766,7 +9768,7 @@ Public Class SSPPApplicationTrackingLog
                             "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " & _
                             "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
-                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')))"
+                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS'))), NULL"
                         End If
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -10109,7 +10111,7 @@ Public Class SSPPApplicationTrackingLog
                             "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "M', " & _
                             "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
-                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')))"
+                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS'))), NULL"
                         End If
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -10204,7 +10206,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(temp & vbCrLf & txtAIRSNumber.Text & vbCrLf & txtApplicationNumber.Text & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(SQL & vbCrLf & temp & vbCrLf & txtAIRSNumber.Text & vbCrLf & txtApplicationNumber.Text & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -17066,7 +17068,7 @@ Public Class SSPPApplicationTrackingLog
                     "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " & _
                     "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
                     "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
-                    "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')))"
+                    "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS'))), NULL"
                     AFSStatus = "Add"
                     AppStatus = "Add"
                 End If

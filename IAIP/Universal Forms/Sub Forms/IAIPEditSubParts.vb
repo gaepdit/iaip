@@ -515,7 +515,7 @@ Public Class IAIPEditSubParts
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "0', " & _
                 "'" & cboSIPSubpart.SelectedValue & "', '" & UserGCode & "', " & _
                 "'" & OracleDate & "', '1', " & _
-                "'" & OracleDate & "') "
+                "'" & OracleDate & "'), NULL "
             End If
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -572,7 +572,7 @@ Public Class IAIPEditSubParts
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " & _
                 "'" & cboNSPSSubpart.SelectedValue & "', '" & UserGCode & "', " & _
                 "'" & OracleDate & "', '1', " & _
-                "'" & OracleDate & "') "
+                "'" & OracleDate & "'), NULL "
             End If
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -629,7 +629,7 @@ Public Class IAIPEditSubParts
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "8', " & _
                 "'" & cboNESHAPSubpart.SelectedValue & "', '" & UserGCode & "', " & _
                 "'" & OracleDate & "', '1', " & _
-                "'" & OracleDate & "') "
+                "'" & OracleDate & "'), NULL "
             End If
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -686,7 +686,7 @@ Public Class IAIPEditSubParts
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "M', " & _
                 "'" & cboMACTSubPart.SelectedValue & "', '" & UserGCode & "', " & _
                 "'" & OracleDate & "', '1', " & _
-                "'" & OracleDate & "') "
+                "'" & OracleDate & "'), NULL "
             End If
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
