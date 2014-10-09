@@ -1,8 +1,13 @@
 ﻿Namespace Apb.SSPP
 
     Public Class Permit
+        Implements IEquatable(Of Permit)
 
         Public Sub New()
+        End Sub
+
+        Public Sub New(ByVal permitNumber As String)
+            Me.PermitNumber = permitNumber
         End Sub
 
         Public Sub New(ByVal airsNumber As String, _
@@ -90,6 +95,27 @@
         Public Overrides Function ToString() As String
             Return PermitNumber
         End Function
+
+
+#Region " IEquatable Interface implementation "
+
+        Public Overloads Function Equals(ByVal other As Permit) As Boolean _
+        Implements IEquatable(Of Permit).Equals
+            If other Is Nothing Then Return False
+            Return Me.PermitNumber.Equals(other.PermitNumber)
+        End Function
+
+        Public Overrides Function Equals(ByVal obj As Object) As Boolean
+            If obj Is Nothing Then Return MyBase.Equals(obj)
+            If TypeOf obj Is Permit Then Return Equals(DirectCast(obj, Permit))
+            Return False
+        End Function
+
+        Public Overrides Function GetHashCode() As Integer
+            Return Me.PermitNumber.GetHashCode()
+        End Function
+
+#End Region
 
 
 #Region " Shared functions "

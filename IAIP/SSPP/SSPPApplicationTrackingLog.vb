@@ -7439,6 +7439,8 @@ Public Class SSPPApplicationTrackingLog
         ' Check for existing permits first
         Dim activePermits As List(Of Apb.SSPP.Permit) = DAL.SSPP.GetActivePermitsAsList(txtAIRSNumber.Text)
 
+        activePermits.RemoveAll(Function(permit As Apb.SSPP.Permit) permit.Equals(New Apb.SSPP.Permit(txtPermitNumber.Text)))
+
         If activePermits IsNot Nothing AndAlso activePermits.Count > 0 Then
 
             Dim permitRevocationDialog As New SsppPermitRevocationDialog
