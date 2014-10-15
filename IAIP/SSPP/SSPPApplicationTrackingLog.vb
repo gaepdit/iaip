@@ -5481,6 +5481,8 @@ Public Class SSPPApplicationTrackingLog
                                         cboPermitAction.Text = "New Permit"
                                     Case 8
                                         cboPermitAction.Text = "PRMT-DNL"
+                                    Case 10
+                                        cboPermitAction.Text = "Revoked"
                                     Case 12
                                         cboPermitAction.Text = "Initial Title V Permit"
                                     Case 13
@@ -6834,6 +6836,8 @@ Public Class SSPPApplicationTrackingLog
                                 PermitType = "4"
                             Case "PRMT-DNL"
                                 PermitType = "8"
+                            Case "Revoked"
+                                PermitType = "10"
                             Case "Initial Title V Permit"
                                 PermitType = "12"
                             Case "Renewal Title V Permit"
