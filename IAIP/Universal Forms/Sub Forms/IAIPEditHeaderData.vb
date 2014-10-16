@@ -1,10 +1,3 @@
-' TODO:
-' [X] Fix Modified by statement when editing/canceling
-' [X] Fix RMP (don't require)
-' [ ] Test 001-00001
-' [X] Replace ComparableHeaderData(editedFacility).Equals(ComparableHeaderData(CurrentFacilityHeaderData)
-'     with function that just compares the relevant fields
-
 Imports Iaip.Apb
 Imports System.Collections.Generic
 
