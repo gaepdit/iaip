@@ -43,7 +43,7 @@
     ''' <param name="reverse">Whether the output string should be reversed (i.e., read left-to-right).</param>
     ''' <returns>A bit field string.</returns>
     Public Function ConvertEnumToBitFlags(Of TEnum)(ByVal enumeration As TEnum, ByVal totalWidth As Integer, Optional ByVal reverse As Boolean = True) As String
-        Return ConvertIntegerToBitFlags(Convert.ToInt32(enumeration), totalWidth)
+        Return ConvertIntegerToBitFlags(Convert.ToInt32(enumeration), totalWidth, reverse)
     End Function
 
     Private Function ConvertIntegerToBitFlags(ByVal i As Int32, ByVal totalWidth As Integer, Optional ByVal reverse As Boolean = True) As String
