@@ -52,11 +52,11 @@
     <SupportUrl>http://dmu.georgiaair.org/iaip/</SupportUrl>
     <ProductName>Integrated Air Information Platform</ProductName>
     <PublisherName>State of Georgia</PublisherName>
-    <MinimumRequiredVersion>3.4.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>3.6.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>IAIP-install.html</WebPage>
-    <ApplicationRevision>49</ApplicationRevision>
-    <ApplicationVersion>3.5.7.%2a</ApplicationVersion>
+    <ApplicationRevision>53</ApplicationRevision>
+    <ApplicationVersion>3.6.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
