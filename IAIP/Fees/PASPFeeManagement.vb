@@ -2600,7 +2600,7 @@ Public Class PASPFeeManagement
 
     Private Sub btnOpenFeesLog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFeesLog.Click
         Dim parameters As New Generic.Dictionary(Of String, String)
-        If Apb.Facility.IsAirsNumberValid(mtbCheckAIRSNumber.Text) Then
+        If Apb.Facility.ValidAirsNumber(mtbCheckAIRSNumber.Text) Then
             parameters("airsnumber") = mtbCheckAIRSNumber.Text
         End If
         parameters("feeyear") = cboAvailableFeeYears.Text

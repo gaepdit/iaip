@@ -397,12 +397,12 @@ Public Class IAIPFacilityCreator
                 "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Exit Sub
             End If
-            If ValidateNAICS(mtbCDSNAICSCode.Text) = False Then
+            If DAL.FacilityHeaderData.NaicsCodeExists(mtbCDSNAICSCode.Text) = False Then
                 MsgBox("The NACIS Code is not valid." & _
                   "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Exit Sub
             End If
-            If ValidateSIC(mtbCDSSICCode.Text) = False Then
+            If DAL.FacilityHeaderData.SicCodeExists(mtbCDSSICCode.Text) = False Then
                 MsgBox("The SIC Code is not a valid 4 digit code." & _
                 "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Exit Sub
@@ -2123,7 +2123,7 @@ Public Class IAIPFacilityCreator
                        MsgBoxStyle.Information, Me.Text)
                 Exit Sub
             End If
-            If ValidateNAICS(mtbCDSNAICSCode.Text) = False Then
+            If DAL.FacilityHeaderData.NaicsCodeExists(mtbCDSNAICSCode.Text) = False Then
                 MsgBox("The NACIS Code is not valid." & _
                   "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Exit Sub

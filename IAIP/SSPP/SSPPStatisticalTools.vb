@@ -2200,7 +2200,7 @@ Public Class SSPPStatisticalTools
 
             If txtRecordNumber.Text <> "" Then
                 If txtRecordNumber.Text.Length = 8 Then
-                    If DAL.FacilityInfo.AirsNumberExists(txtRecordNumber.Text) Then
+                    If DAL.Facility.AirsNumberExists(txtRecordNumber.Text) Then
                         Dim parameters As New Generic.Dictionary(Of String, String)
                         parameters("airsnumber") = txtRecordNumber.Text
                         OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)

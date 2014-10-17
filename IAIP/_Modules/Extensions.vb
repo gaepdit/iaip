@@ -2,6 +2,8 @@
 Imports System.Runtime.InteropServices
 Imports System.IO
 Imports System.Collections.Generic
+Imports System.Reflection
+Imports System.ComponentModel
 
 Module Extensions
 
@@ -176,6 +178,12 @@ Public Sub MakeCellNotLookLikeHoveredLink(ByVal dgv As DataGridView, ByVal row A
         Return True
     End Function
 
+    <Extension()> _
+    Public Sub AddBlankRow(ByRef d As Dictionary(Of Integer, String), Optional ByVal blankPrompt As String = "")
+        d.Add(0, blankPrompt)
+    End Sub
+
+
 #End Region
 
 #Region "SplitContainer"
@@ -238,6 +246,108 @@ Public Sub MakeCellNotLookLikeHoveredLink(ByVal dgv As DataGridView, ByVal row A
         Else
             sc.SanelySetSplitterDistance(Math.Min(a, b))
         End If
+    End Sub
+
+#End Region
+
+#Region " Enum "
+
+    Private _EnumDescriptions As New Dictionary(Of String, String)
+
+    ''' <summary>
+    ''' If a Description attribute is present for an enum value, returns the description.
+    ''' Otherwise, returns the normal ToString() representation of the enum value.
+    ''' </summary>
+    ''' <returns>The value of the Description attribute if present, else
+    ''' the normal ToString() representation of the enum value.</returns>
+    ''' <remarks>http://stackoverflow.com/a/14772005/212978</remarks>
+    <Extension()> _
+    Public Function GetDescription(ByVal e As [Enum]) As String
+        Dim enumType As Type = e.GetType()
+        Dim name As String = e.ToString()
+
+        ' Construct a full name for this enum value
+        Dim fullName As String = enumType.FullName + "." + name
+
+        ' See if we have looked it up earlier
+        Dim enumDescription As String = Nothing
+        If _EnumDescriptions.TryGetValue(fullName, enumDescription) Then
+            ' Yes we have - return previous value
+            Return enumDescription
+        End If
+
+        ' Find the value of the Description attribute on this enum value
+        Dim members As MemberInfo() = enumType.GetMember(name)
+        If members IsNot Nothing AndAlso members.Length > 0 Then
+            Dim descriptions() As Object = members(0).GetCustomAttributes(GetType(DescriptionAttribute), False)
+            If descriptions IsNot Nothing AndAlso descriptions.Length > 0 Then
+                ' Set name to description found
+                name = DirectCast(descriptions(0), DescriptionAttribute).Description
+            End If
+        End If
+
+        ' Save the name in the dictionary:
+        _EnumDescriptions.Add(fullName, name)
+
+        Return name
+    End Function
+
+#End Region
+
+#Region " Combobox "
+
+    <Extension()> _
+    Public Sub BindToDictionary(ByVal c As ComboBox, ByVal d As Dictionary(Of Integer, String))
+        With c
+            .DataSource = New BindingSource(d, Nothing)
+            .DisplayMember = "Value"
+            .ValueMember = "Key"
+        End With
+    End Sub
+
+    <Extension()> _
+    Public Sub BindToSortedDictionary(ByVal c As ComboBox, ByVal d As SortedDictionary(Of Integer, String))
+        With c
+            .DataSource = New BindingSource(d, Nothing)
+            .DisplayMember = "Value"
+            .ValueMember = "Key"
+        End With
+    End Sub
+
+    <Extension()> _
+    Public Sub BindToDictionary(Of T)(ByVal c As ComboBox, ByVal d As Dictionary(Of T, String))
+        With c
+            .DataSource = New BindingSource(d, Nothing)
+            .DisplayMember = "Value"
+            .ValueMember = "Key"
+        End With
+    End Sub
+
+    ''' <summary>
+    ''' Populates the combobox with the values and text descriptions of an Enum.
+    ''' </summary>
+    ''' <typeparam name="TEnum">The Enum to bind to.</typeparam>
+    ''' <param name="c">The Combobox to bind.</param>
+    <Extension()> _
+    Public Sub BindToEnum(Of TEnum)(ByVal c As ComboBox)
+        Dim enumType As Type = GetType(TEnum)
+
+        If enumType.BaseType IsNot GetType([Enum]) Then
+            Throw New ArgumentException("TEnum must be of type System.Enum")
+        End If
+
+        Dim enumItems As Array = [Enum].GetValues(enumType)
+        Dim enumDict As New Generic.Dictionary(Of [Enum], String)
+
+        For Each enumItem As [Enum] In enumItems
+            enumDict(enumItem) = enumItem.GetDescription
+        Next
+
+        With c
+            .DataSource = New BindingSource(enumDict, Nothing)
+            .DisplayMember = "Value"
+            .ValueMember = "Key"
+        End With
     End Sub
 
 #End Region

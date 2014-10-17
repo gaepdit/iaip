@@ -50,7 +50,6 @@ Module subMain
 #Region " Universal Screens "
     Public PrintOut As IAIPPrintOut
     Public EditFacilityLocation As IAIPEditFacilityLocation ' TODO DWW: Remove
-    Public EditHeaderData As IAIPEditHeaderData ' TODO DWW: Remove
     Public EditAirProgramPollutants As IAIPEditAirProgramPollutants
     Public EditSubParts As IAIPEditSubParts ' TODO DWW: Remove
     Public ListTool As IAIPListTool ' TODO DWW: Remove

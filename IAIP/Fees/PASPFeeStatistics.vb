@@ -3078,7 +3078,7 @@ Public Class PASPFeeStatistics
     Private Sub btnFeeFacilitySummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFeeFacilitySummary.Click
         Try
             If txtFeeAIRSNumber.Text <> "" Then
-                If Not DAL.FacilityInfo.AirsNumberExists(txtFeeAIRSNumber.Text) Then
+                If Not DAL.Facility.AirsNumberExists(txtFeeAIRSNumber.Text) Then
                     MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
                     Exit Sub
                 End If
@@ -9774,7 +9774,7 @@ Public Class PASPFeeStatistics
 
     Private Sub btnOpenFeesLog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFeesLog.Click
         Dim parameters As New Generic.Dictionary(Of String, String)
-        If Apb.Facility.IsAirsNumberValid(txtFeeStatAirsNumber.Text) Then
+        If Apb.Facility.ValidAirsNumber(txtFeeStatAirsNumber.Text) Then
             parameters("airsnumber") = txtFeeStatAirsNumber.Text
         End If
         parameters("feeyear") = cboFeeStatYear.Text

@@ -871,7 +871,7 @@ Partial Class SSPPApplicationTrackingLog
         'txtAIRSNumber
         '
         Me.txtAIRSNumber.Location = New System.Drawing.Point(88, 32)
-        Me.txtAIRSNumber.MaxLength = 12
+        Me.txtAIRSNumber.MaxLength = 8
         Me.txtAIRSNumber.Name = "txtAIRSNumber"
         Me.txtAIRSNumber.ReadOnly = True
         Me.txtAIRSNumber.Size = New System.Drawing.Size(67, 20)
@@ -1005,7 +1005,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtOutstandingApplication
         '
-        Me.txtOutstandingApplication.Location = New System.Drawing.Point(96, 56)
+        Me.txtOutstandingApplication.Location = New System.Drawing.Point(96, 57)
         Me.txtOutstandingApplication.Name = "txtOutstandingApplication"
         Me.txtOutstandingApplication.ReadOnly = True
         Me.txtOutstandingApplication.Size = New System.Drawing.Size(24, 20)
