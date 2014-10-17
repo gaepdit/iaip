@@ -2,6 +2,7 @@ Imports System.DateTime
 Imports Oracle.DataAccess.Client
 Imports System.IO
 Imports System.Net.Mail
+Imports System.Collections.Generic
 
 Public Class SSPPApplicationTrackingLog
     Dim SQL, SQL2, SQL3 As String
@@ -5480,6 +5481,8 @@ Public Class SSPPApplicationTrackingLog
                                         cboPermitAction.Text = "New Permit"
                                     Case 8
                                         cboPermitAction.Text = "PRMT-DNL"
+                                    Case 10
+                                        cboPermitAction.Text = "Revoked"
                                     Case 12
                                         cboPermitAction.Text = "Initial Title V Permit"
                                     Case 13
@@ -6722,7 +6725,7 @@ Public Class SSPPApplicationTrackingLog
                 End If
 
                 If txtNAICSCode.Text <> "" And txtNAICSCode.Text <> "N/A" Then
-                    If ValidateNAICS(txtNAICSCode.Text) = False Then
+                    If DAL.FacilityHeaderData.NaicsCodeExists(txtNAICSCode.Text) = False Then
                         MsgBox("ERROR" & vbCrLf & "The NAICS Code is not valid and will be excluded from this record.", MsgBoxStyle.Exclamation, Me.Text)
                         txtNAICSCode.Text = ""
                         Exit Sub
@@ -6833,6 +6836,8 @@ Public Class SSPPApplicationTrackingLog
                                 PermitType = "4"
                             Case "PRMT-DNL"
                                 PermitType = "8"
+                            Case "Revoked"
+                                PermitType = "10"
                             Case "Initial Title V Permit"
                                 PermitType = "12"
                             Case "Renewal Title V Permit"
@@ -7381,26 +7386,11 @@ Public Class SSPPApplicationTrackingLog
                     Next
                 End If
 
-                If DTPFinalAction.Checked = True And Me.chbClosedOut.Checked = True And txtAIRSNumber.Text.Length = 8 _
-                   And IsNumeric(txtAIRSNumber.Text) = True Then
+                If DTPFinalAction.Checked And chbClosedOut.Checked And Apb.Facility.ValidAirsNumber(txtAIRSNumber.Text) Then
 
-                    SQL = "Select strSICCode " & _
-                    "from " & DBNameSpace & ".LookUPSICCodes " & _
-                    "where strSICCode = '" & txtSICCode.Text & "' " & _
-                    "and length(strSICCode) = 4 "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    dr.Close()
-                    If recExist = True Then
-                    Else
-                        MsgBox("ERROR" & vbCrLf & "The SIC Code is not a valid 4 digit code." & vbCrLf & _
-                               "This application cannot be closed out until a valid 4 digit code is entered." & vbCrLf & _
-                               "THE DATA HAS BEEN SAVED BUT THIS RECORD HAS NOT BEEN CLOSED OUT.", MsgBoxStyle.Exclamation, Me.Text)
+                    If Not DAL.FacilityHeaderData.SicCodeExists(txtSICCode.Text) Then
+                        MessageBox.Show("The SIC code entered is not valid. The application cannot be closed out without a valid SIC code.", _
+                                        "Invalid SIC code", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                         chbClosedOut.Checked = False
                         Exit Sub
                     End If
@@ -7409,41 +7399,98 @@ Public Class SSPPApplicationTrackingLog
                               Or cboPermitAction.SelectedValue = "5" Or cboPermitAction.SelectedValue = "7" _
                               Or cboPermitAction.SelectedValue = "10" Or cboPermitAction.SelectedValue = "12" _
                               Or cboPermitAction.SelectedValue = "13" Then
+                        ' Note that of these, only 5, 7, & 10 are currently active types - DW
+                        ' 
+                        ' Active types selected here:
+                        '  5    NPR
+                        '  7    Permit
+                        ' 10    Revoked
+                        '
+                        ' Active types not selected here:
+                        '  0    N/A
+                        '  2    Denied
+                        '  6    PBR
+                        '  9    Returned
+                        ' 11    Withdrawn
+                        '
                         GenerateAFSEntry()
                     End If
 
-                    Dim temp As String
+                    Dim dresult As DialogResult = MessageBox.Show("Do you want to update Facility Information with this Application?", _
+                                                  "Permit Tracking Log", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
+                    If dresult = Windows.Forms.DialogResult.Yes Then
+                        UpdateAPBTables()
+                    End If
 
-                    If Mid(txtAIRSNumber.Text, 1, 2) <> "AP" Then
-                        temp = MessageBox.Show("Do you want to update Faciltiy Information with this Application?", _
-                           "Permit Tracking Log", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                        Select Case temp
-                            Case Windows.Forms.DialogResult.Yes
-                                UpdateAPBTables()
-                            Case Windows.Forms.DialogResult.No
-
-                            Case Windows.Forms.DialogResult.Cancel
-
-                            Case Else
-
-                        End Select
+                    If Apb.SSPP.Permit.ValidPermitNumber(txtPermitNumber.Text) Then
+                        PermitRevocationQuery()
+                        SaveIssuedPermit()
                     End If
 
                 End If
+
                 FormStatus = "Loading"
                 LoadBasicFacilityInfo()
                 FormStatus = ""
-                'MsgBox("Application Information Saved.", MsgBoxStyle.Information, "Application Tracking Log")
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
-    Sub SaveInformationRequest()
+
+    Private Sub PermitRevocationQuery()
+        ' Check for existing permits first
+        Dim activePermits As List(Of Apb.SSPP.Permit) = DAL.SSPP.GetActivePermitsAsList(txtAIRSNumber.Text)
+
+        activePermits.RemoveAll(Function(permit As Apb.SSPP.Permit) permit.Equals(New Apb.SSPP.Permit(txtPermitNumber.Text)))
+
+        If activePermits IsNot Nothing AndAlso activePermits.Count > 0 Then
+
+            Dim permitRevocationDialog As New SsppPermitRevocationDialog
+            permitRevocationDialog.ActivePermits = activePermits ' Send list of existing permits to dialog
+            permitRevocationDialog.ShowDialog()
+            Dim revokedPermits As List(Of Apb.SSPP.Permit) = permitRevocationDialog.PermitsToRevoke
+
+            If revokedPermits IsNot Nothing AndAlso revokedPermits.Count > 0 Then
+                For Each p As Apb.SSPP.Permit In revokedPermits
+                    p.RevokedDate = DTPFinalAction.Value
+                    p.Active = False
+                Next
+
+                Dim result As Boolean = DAL.SSPP.UpdatePermits(revokedPermits)
+                If Not result Then
+                    MessageBox.Show("There was an error revoking permits." & vbNewLine & _
+                                    "Please contact the Data Management Unit.", "Error", _
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
+            End If
+        End If
+    End Sub
+
+    Private Sub SaveIssuedPermit()
+        Dim result As Boolean = False
+        Dim permit As Apb.SSPP.Permit
+
+        If Not DAL.SSPP.PermitExists(txtPermitNumber.Text) Then
+            permit = New Apb.SSPP.Permit(txtAIRSNumber.Text, txtPermitNumber.Text, _
+                                         DTPFinalAction.Value, True, cboApplicationType.SelectedValue)
+            result = DAL.SSPP.AddPermit(permit)
+        Else
+            permit = DAL.SSPP.GetPermit(txtPermitNumber.Text)
+            permit.IssuedDate = DTPFinalAction.Value
+            permit.PermitTypeCode = cboApplicationType.SelectedValue
+            result = DAL.SSPP.UpdatePermit(permit)
+        End If
+
+        If Not result Then
+            MessageBox.Show("There was an error saving the permit." & vbNewLine & _
+                            "Please contact the Data Management Unit.", "Error", _
+                            MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
+    End Sub
+
+    Private Sub SaveInformationRequest()
         Dim InformationRequestKey As String = ""
         Dim InformationRequested As String = ""
         Dim InformationReceived As String = ""
@@ -9108,7 +9155,7 @@ Public Class SSPPApplicationTrackingLog
                             "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "0', " & _
                             "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
-                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')))"
+                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS'))), NULL"
                         End If
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9589,7 +9636,7 @@ Public Class SSPPApplicationTrackingLog
                             "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "8', " & _
                             "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
-                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')))"
+                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS'))), NULL"
                         End If
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9725,7 +9772,7 @@ Public Class SSPPApplicationTrackingLog
                             "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " & _
                             "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
-                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')))"
+                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS'))), NULL"
                         End If
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -10068,7 +10115,7 @@ Public Class SSPPApplicationTrackingLog
                             "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "M', " & _
                             "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
-                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')))"
+                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS'))), NULL"
                         End If
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -10163,7 +10210,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(temp & vbCrLf & txtAIRSNumber.Text & vbCrLf & txtApplicationNumber.Text & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(SQL & vbCrLf & temp & vbCrLf & txtAIRSNumber.Text & vbCrLf & txtApplicationNumber.Text & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -17025,7 +17072,7 @@ Public Class SSPPApplicationTrackingLog
                     "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " & _
                     "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
                     "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
-                    "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')))"
+                    "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS'))), NULL"
                     AFSStatus = "Add"
                     AppStatus = "Add"
                 End If

@@ -44,9 +44,9 @@ There are two main branches in the repository: `default` and `stable`
 + The `stable` branch is for releases
 + The `default` branch is for development of future releases
 
-To get the latest release version, run `hg update stable`.
+To get the latest release version, run `hg update stable`. To get the latest development version, run `hg update default`.
 
-Other branches may be created for work on new features that are experimental or will take a long time to complete so that these don't intefere with regular releases. These branch names should be prefixed with `feature-`.
+Other branches may be created for work on bugs or new features that are experimental or will take a long time to complete so that these don't intefere with regular releases. Feature branch names should be prefixed with `feat/` followed by a short descriptive name, e.g., `feat/new-permit-search`. Bug fix branches should be prefixed `bug/` followed by the issue number and an optional brief description, e.g., `bug/299-permit-search-error`.
 
 Tips
 ----

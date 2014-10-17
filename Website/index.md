@@ -16,12 +16,7 @@ IAIP development began in 2004 and is ongoing.
 Support
 -------
 
-For support, please contact the Data Management Unit:
-
-+ Doug Waldron: <douglas.waldron@dnr.state.ga.us>, [(404) 656-3928](tel:404-656-3928)
-+ Brian Gregory: <brian.gregory@dnr.state.ga.us>, [(404) 656-5182](tel:404-656-5182)
-
-Please submit bug reports to Doug Waldron.
+For support, please contact the Data Management Unit. See our [Application Support](/support/) page.
 
 
 Change Log

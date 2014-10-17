@@ -1225,6 +1225,9 @@
     <EmbeddedResource Include="SSCP\SSCPComplianceLog.resx">
       <DependentUpon>SSCPComplianceLog.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SSPP\Sub Forms\SsppPermitRevocationDialog.resx">
+      <DependentUpon>SsppPermitRevocationDialog.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SSPP\Sub Forms\SSPP_FeeContact.resx">
       <DependentUpon>SSPP_FeeContact.vb</DependentUpon>
     </EmbeddedResource>
@@ -1507,17 +1510,30 @@
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </Content>
+    <None Include="Resources\saveHS.png" />
     <None Include="Resources\Seal_of_Georgia_gold.ico" />
     <None Include="Resources\Seal_of_Georgia_red_small.ico" />
     <None Include="Resources\Seal_of_Georgia_gold_256x256x32.png" />
+    <Compile Include="SSPP\Sub Forms\SsppPermitRevocationDialog.Designer.vb">
+      <DependentUpon>SsppPermitRevocationDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SSPP\Sub Forms\SsppPermitRevocationDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="_Classes\BooleanFormatProvider.vb" />
     <Compile Include="_Data Classes\Contact.vb" />
+    <Compile Include="_Data Classes\FacilityHeaderData.vb" />
+    <Compile Include="_Data Classes\SSPP.Permit.vb" />
     <Compile Include="_DB\DAL.AppData.vb" />
+    <Compile Include="_DB\DAL.FacilityHeaderData.vb" />
     <Compile Include="_DB\DAL.Contacts.vb" />
     <Compile Include="_DB\DAL.Fees.vb" />
+    <Compile Include="_DB\DAL.QueryGenerator.vb" />
     <Compile Include="_DB\DAL.SBEAP.vb" />
     <Compile Include="_DB\DAL.SSPP.Applications.vb">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="_DB\DAL.SSPP.Permit.vb" />
     <Compile Include="_DB\DB.Connections.vb" />
     <Compile Include="Crystal Reports\CRViewerForm.Designer.vb">
       <DependentUpon>CRViewerForm.vb</DependentUpon>
@@ -1654,6 +1670,7 @@
     <Compile Include="_DB\DAL.EventRegistration.vb" />
     <Compile Include="_DB\DB.Utilities.vb" />
     <Compile Include="_Modules\Analytics.vb" />
+    <Compile Include="_Modules\BitFields.vb" />
     <Compile Include="_Modules\CrystalReports.vb" />
     <Compile Include="_Modules\CueTextBox.vb">
       <SubType>Component</SubType>
@@ -1662,6 +1679,7 @@
     <Compile Include="_Modules\FileSystem.vb" />
     <Compile Include="_Modules\FormHandler.vb" />
     <Compile Include="_Modules\FormSettings.vb" />
+    <Compile Include="_Modules\General.vb" />
     <Compile Include="_Modules\MD5.vb" />
     <Compile Include="_Modules\Messages.vb" />
     <Compile Include="_Modules\Email.Outlook.vb" />

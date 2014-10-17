@@ -26,6 +26,8 @@ Public Class IAIPQueryGenerator
     Dim dsSQLQuery As DataSet
     Dim daSQLQuery As OracleDataAdapter
 
+    Private SubmittedQuery As Generic.KeyValuePair(Of String, Integer)
+
     Private Sub QueryGenerator_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         lblQueryCount.Text = ""
@@ -4275,6 +4277,8 @@ Public Class IAIPQueryGenerator
             dgvQueryGenerator.DataSource = dsSQLQuery
             dgvQueryGenerator.DataMember = "SQLQuery"
 
+            Me.SubmittedQuery = New Generic.KeyValuePair(Of String, Integer)(MasterSQL, dsSQLQuery.Tables("SQLQuery").Rows.Count)
+
             i = 0
             dgvQueryGenerator.RowHeadersVisible = False
             dgvQueryGenerator.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -5942,6 +5946,8 @@ Public Class IAIPQueryGenerator
 
             dgvQueryGenerator.SanelyResizeColumns()
 
+            LoggingBackgroundWorker.RunWorkerAsync()
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & ".btnRunSearch_Click")
         Finally
@@ -6141,5 +6147,13 @@ Public Class IAIPQueryGenerator
 
     Private Sub mmiExport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExport.Click
         ExportToExcel()
+    End Sub
+
+    Private Sub LoggingBackgroundWorker_DoWork(ByVal sender As System.Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles LoggingBackgroundWorker.DoWork
+        If Me.SubmittedQuery.Key.Length > 4000 Then
+            Me.SubmittedQuery = New Generic.KeyValuePair(Of String, Integer)("-- Truncated: " & Me.SubmittedQuery.Key.Substring(0, 3985), Me.SubmittedQuery.Value)
+        End If
+
+        DAL.QueryGenerator.LogQuery(Me.SubmittedQuery)
     End Sub
 End Class

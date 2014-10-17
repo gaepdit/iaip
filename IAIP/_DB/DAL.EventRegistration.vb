@@ -14,7 +14,9 @@ Namespace DAL
                 " WHERE ACTIVE = '1' " & _
                 " ORDER BY STREVENTSTATUS "
             Dim d As Dictionary(Of Integer, String) = DB.GetLookupDictionary(query)
-            If addBlank Then DB.AddBlankRowToDictionary(d, blankPrompt)
+            If addBlank Then
+                d.AddBlankRow(blankPrompt)
+            End If
             Return New SortedDictionary(Of Integer, String)(d)
         End Function
 
@@ -25,7 +27,9 @@ Namespace DAL
                 " WHERE ACTIVE = '1' " & _
                 " ORDER BY STRREGISTRATIONSTATUS "
             Dim d As Dictionary(Of Integer, String) = DB.GetLookupDictionary(query)
-            If addBlank Then DB.AddBlankRowToDictionary(d, blankPrompt)
+            If addBlank Then
+                d.AddBlankRow(blankPrompt)
+            End If
             Return New SortedDictionary(Of Integer, String)(d)
         End Function
 

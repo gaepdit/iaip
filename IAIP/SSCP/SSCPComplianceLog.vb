@@ -2280,7 +2280,7 @@ Public Class SSCPComplianceLog
     End Sub
     Private Sub btnOpenSummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenSummary.Click
         Try
-            If Not DAL.FacilityInfo.AirsNumberExists(txtAIRSNumber.Text) Then
+            If Not DAL.Facility.AirsNumberExists(txtAIRSNumber.Text) Then
                 MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
                 Exit Sub
             End If

@@ -3,6 +3,8 @@
 [Download the 
 IAIP Installer](setup.exe)
 
+<small><em>Please note: if you are using the IAIP outside of the office, you will need to [connect through the VPN](#vpn-access).</em></small>
+
 ## Installation Instructions
 
 These instructions are only for installing the [Integrated Air Information Platform](../) for the first time. If you already have the IAIP installed, updates are handled from within the application (see [How to Update](#how-to-update)).
@@ -44,3 +46,11 @@ Sometimes, an update is mandatory. If so, you will be notified, then the program
 If you want to manually check for an update, simply choose `Help → Check for Update` from the menu on the Login Screen.
 
 Keep in mind, updates are only applied from the Login Screen. So if you are logged in, you will not be interrupted.
+
+## VPN Access
+
+If you need to use the IAIP at home (or anywhere outside of DNR offices) you must connect to the VPN first. All Air Protection Branch employees have a VPN account. Your username and password are the same as the ones you use to log in to your computer at work.
+	
+[Instructions for accessing the VPN](http://dnrnet.dnr.state.ga.us/it/SSLvpn) are available on the DNR Intranet. 
+
+**The EPD Data Management Unit does not operate or provide support for the VPN.** If you need assistance with the VPN, please contact DNR IT.
