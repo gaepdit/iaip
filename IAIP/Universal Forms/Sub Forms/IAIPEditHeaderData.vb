@@ -423,7 +423,7 @@ Public Class IAIPEditHeaderData
 
     Private Function FacilityHeaderDataDiffers(ByVal facility1 As FacilityHeaderData, ByVal facility2 As FacilityHeaderData) As Boolean
         If facility1.AirProgramClassificationsCode <> facility2.AirProgramClassificationsCode Then Return True
-        If facility1.AirProgramsCode <> facility1.AirProgramsCode Then Return True
+        If facility1.AirProgramsCode <> facility2.AirProgramsCode Then Return True
         If facility1.ClassificationCode <> facility2.ClassificationCode Then Return True
         If facility1.FacilityDescription <> facility2.FacilityDescription Then Return True
         If facility1.Naics <> facility2.Naics Then Return True
@@ -490,6 +490,8 @@ Public Class IAIPEditHeaderData
         End If
 
         If Not DAL.FacilityHeaderData.NaicsCodeExists(NaicsCode.Text) Then
+            MessageBox.Show("Please enter a valid NAICS code.", _
+                            "Invalid NAICS", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             valid = False
             invalidControls.Add(NaicsCodeLabel)
         End If

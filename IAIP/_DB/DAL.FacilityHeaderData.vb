@@ -301,7 +301,7 @@ Namespace DAL
                     parametersList.Add(New OracleParameter() { _
                         New OracleParameter("airsnumber", ExpandedAirsNumber), _
                         New OracleParameter("airpollkey", ExpandedAirsNumber & GetAirProgramDbKey(apc)), _
-                        New OracleParameter("pollkey", GetAirProgramDbKey(apc)), _
+                        New OracleParameter("pollkey", "OT"), _
                         New OracleParameter("compliancestatus", "C"), _
                         New OracleParameter("modifiedby", UserGCode), _
                         New OracleParameter("operatingstatus", headerData.OperationalStatus.ToString) _
