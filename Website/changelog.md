@@ -1,5 +1,14 @@
 % IAIP Change Log
 
+## Version 3.6 <span>(2014-10-17)</span>
+
++ NEW: List of all active and inactive permits in Facility Summary
++ NEW: *SSPP* -- Procedure for revoking old permits when issuing new permit (#196)
++ NEW: *SSCP* -- All active permits get marked as inactive when changing facility operating status to Closed (#242)
++ NEW: Improved Facility Header Data editor 
+
+Note: Permits will be automatically added or marked as inactive as described above, but there is not yet a way to manually edit the list of permits. This is planned for a future release. In the meantime, please [contact the DMU](http://dmu.georgiaair.org/support) if you find any errors so we can fix them. Thanks!
+
 ## Version 3.5.7 <span>(2014-08-29)</span>
 
 - FIX: *SSCP* -- Title V Renewals search broken since version 3.5.5 (#263); thx Sean
