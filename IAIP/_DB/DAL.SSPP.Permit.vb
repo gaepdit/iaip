@@ -187,7 +187,7 @@ Namespace DAL.SSPP
                 "   ) " & _
                 "   VALUES " & _
                 "   ( " & _
-                "     PERMITID_SEQ.NEXTVAL, " & _
+                "     " & DBNameSpace & ".PERMITID_SEQ.NEXTVAL, " & _
                 "     :AirsNumber, " & _
                 "     :PermitNumber, " & _
                 "     :IssuedDate, " & _
