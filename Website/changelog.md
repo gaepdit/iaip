@@ -1,5 +1,9 @@
 % IAIP Change Log
 
+## Version 3.6.1 <span>(2014-10-20)</span>
+
++ FIX: *SSPP* -- Errors when saving a new permit (#270); thx Manny
+
 ## Version 3.6 <span>(2014-10-17)</span>
 
 + NEW: List of all active and inactive permits in Facility Summary
