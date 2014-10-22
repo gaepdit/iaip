@@ -64,9 +64,7 @@ Namespace DAL
         ''' <param name="airsNumber">The AIRS number of the specified facility</param>
         ''' <returns>DataRow containing header data for the specified facility</returns>
         ''' <remarks></remarks>
-        Public Function GetFacilityHeaderDataAsDataRow(ByVal airsNumber As String) As DataRow
-            If Not NormalizeAirsNumber(airsNumber, True) Then Return Nothing
-
+        Public Function GetFacilityHeaderDataAsDataRow(ByVal airsNumber As Apb.ApbFacilityId) As DataRow
             Dim query As String = " SELECT " & _
                 "  Null AS STRKEY, " & _
                 "  USERNAME, " & _
@@ -87,7 +85,7 @@ Namespace DAL
                 " FROM " & DBNameSpace & ".VW_APBFACILITYHEADER " & _
                 " WHERE STRAIRSNUMBER = :pId "
 
-            Dim parameter As New OracleParameter("pId", airsNumber)
+            Dim parameter As New OracleParameter("pId", airsNumber.DbFormattedString)
 
             Dim dataTable As DataTable = DB.GetDataTable(query, parameter)
             If dataTable Is Nothing Then Return Nothing
@@ -101,7 +99,7 @@ Namespace DAL
         ''' <param name="airsNumber">The AIRS number of the specified facility</param>
         ''' <returns>A FacilityHeaderData object containing header data for the specified facility</returns>
         ''' <remarks></remarks>
-        Public Function GetFacilityHeaderData(ByVal airsNumber As String) As Apb.FacilityHeaderData
+        Public Function GetFacilityHeaderData(ByVal airsNumber As Apb.ApbFacilityId) As Apb.FacilityHeaderData
             Dim row As DataRow = GetFacilityHeaderDataAsDataRow(airsNumber)
             Dim facilityHeaderData As New Apb.FacilityHeaderData(airsNumber)
 
@@ -141,9 +139,7 @@ Namespace DAL
         ''' <param name="airsNumber">The AIRS number of the specified facility</param>
         ''' <returns>A DataTable of historical header data for the specified facility</returns>
         ''' <remarks></remarks>
-        Public Function GetFacilityHeaderDataHistoryAsDataTable(ByVal airsNumber As String) As DataTable
-            If Not NormalizeAirsNumber(airsNumber, True) Then Return Nothing
-
+        Public Function GetFacilityHeaderDataHistoryAsDataTable(ByVal airsNumber As Apb.ApbFacilityId) As DataTable
             Dim query As String = " SELECT " & _
                 "  STRKEY, " & _
                 "  USERNAME, " & _
@@ -165,7 +161,7 @@ Namespace DAL
                 " WHERE STRAIRSNUMBER = :pId " & _
                 " ORDER BY STRKEY DESC "
 
-            Dim parameter As New OracleParameter("pId", airsNumber)
+            Dim parameter As New OracleParameter("pId", airsNumber.DbFormattedString)
 
             Return DB.GetDataTable(query, parameter)
         End Function
@@ -183,7 +179,6 @@ Namespace DAL
         ''' <remarks></remarks>
         Public Function SaveFacilityHeaderData(ByVal headerData As Apb.FacilityHeaderData, ByVal fromLocation As Apb.FacilityHeaderData.ModificationLocation) As Boolean
             If Not AirsNumberExists(headerData.AirsNumber) Then Return False
-            Dim ExpandedAirsNumber As String = GetNormalizedAirsNumber(headerData.AirsNumber, True)
 
             ' -- Transaction
             ' 1. Update ApbHeaderData
@@ -232,7 +227,7 @@ Namespace DAL
                 New OracleParameter("fromLocation", Convert.ToInt32(fromLocation)), _
                 New OracleParameter("Naics", headerData.Naics), _
                 New OracleParameter("modifiedby", UserGCode), _
-                New OracleParameter("airsnumber", ExpandedAirsNumber) _
+                New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString) _
             })
 
             ' 2. Update ApbSupplamentalData (sic)
@@ -246,7 +241,7 @@ Namespace DAL
             parametersList.Add(New OracleParameter() { _
                 New OracleParameter("modifiedby", UserGCode), _
                 New OracleParameter("rmp", headerData.RmpId), _
-                New OracleParameter("airsnumber", ExpandedAirsNumber) _
+                New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString) _
             })
 
             ' Check for existance of each possible AirProgram
@@ -268,7 +263,7 @@ Namespace DAL
                     )
                     parametersList.Add(New OracleParameter() { _
                         New OracleParameter("operatingstatus", headerData.OperationalStatus.ToString), _
-                        New OracleParameter("airsnumber", ExpandedAirsNumber) _
+                        New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString) _
                     })
 
                     ' 3b. Any active APC must have at least one key in ApbAirProgramPollutants;
@@ -299,8 +294,8 @@ Namespace DAL
                         "  ) " _
                     )
                     parametersList.Add(New OracleParameter() { _
-                        New OracleParameter("airsnumber", ExpandedAirsNumber), _
-                        New OracleParameter("airpollkey", ExpandedAirsNumber & GetAirProgramDbKey(apc)), _
+                        New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString), _
+                        New OracleParameter("airpollkey", headerData.AirsNumber.DbFormattedString & GetAirProgramDbKey(apc)), _
                         New OracleParameter("pollkey", "OT"), _
                         New OracleParameter("compliancestatus", "C"), _
                         New OracleParameter("modifiedby", UserGCode), _
@@ -320,7 +315,7 @@ Namespace DAL
                     parametersList.Add(New OracleParameter() { _
                         New OracleParameter("active", "0"), _
                         New OracleParameter("modifiedby", UserGCode), _
-                        New OracleParameter("airpollkey", ExpandedAirsNumber & GetAirProgramDbKey(apc)) _
+                        New OracleParameter("airpollkey", headerData.AirsNumber.DbFormattedString & GetAirProgramDbKey(apc)) _
                     })
 
                 End If
@@ -337,7 +332,7 @@ Namespace DAL
             )
             parametersList.Add(New OracleParameter() { _
                 New OracleParameter("modifiedby", UserGCode), _
-                New OracleParameter("airsnumber", ExpandedAirsNumber) _
+                New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString) _
             })
 
             Return DB.RunCommand(queryList, parametersList)

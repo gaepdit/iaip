@@ -5,12 +5,12 @@ Public Class IAIPEditHeaderData
 
 #Region " Form properties and variables "
 
-    Private _airsNumber As String
-    Public Property AirsNumber() As String
+    Private _airsNumber As ApbFacilityId
+    Public Property AirsNumber() As ApbFacilityId
         Get
             Return _airsNumber
         End Get
-        Set(ByVal value As String)
+        Set(ByVal value As ApbFacilityId)
             _airsNumber = value
         End Set
     End Property
@@ -46,13 +46,7 @@ Public Class IAIPEditHeaderData
     Private Sub IAIPEditHeaderData_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         monitor.TrackFeature("Forms." & Me.Name)
 
-        If Not Facility.ValidAirsNumber(Me.AirsNumber) Then
-            MessageBox.Show("AIRS number is not valid. Try again.", _
-                            "No AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Me.Close()
-        End If
-
-        AirsNumberDisplay.Text = Facility.FormatAirsNumber(Me.AirsNumber)
+        AirsNumberDisplay.Text = Me.AirsNumber.FormattedString
         FacilityNameDisplay.Text = Me.FacilityName
 
         DisableEditing()

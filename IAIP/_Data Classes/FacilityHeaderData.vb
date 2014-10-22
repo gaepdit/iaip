@@ -19,31 +19,25 @@ Namespace Apb
             Me.AirsNumber = airsNumber
         End Sub
 
+        Public Sub New(ByVal airsNumber As Apb.ApbFacilityId)
+            Me.AirsNumber = airsNumber
+        End Sub
+
 #End Region
 
 #Region " Properties "
 
 #Region " Standard "
 
-        Public Property AirsNumber() As String
+        Public Property AirsNumber() As ApbFacilityId
             Get
                 Return _airsNumber
             End Get
-            Set(ByVal value As String)
-                If NormalizeAirsNumber(value) Then
-                    _airsNumber = value
-                Else
-                    _airsNumber = Nothing
-                End If
+            Set(ByVal value As ApbFacilityId)
+                _airsNumber = value
             End Set
         End Property
-        Private _airsNumber As String
-
-        Public ReadOnly Property AirsNumberFormatted() As String
-            Get
-                Return FormatAirsNumber(AirsNumber)
-            End Get
-        End Property
+        Private _airsNumber As ApbFacilityId
 
         Public Property SicCode() As String
             Get

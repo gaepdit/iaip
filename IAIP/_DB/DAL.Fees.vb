@@ -20,9 +20,7 @@ Namespace DAL
             Return DB.GetDataTable(query)
         End Function
 
-        Public Function FeeMailoutEntryExists(ByVal airsNumber As String, ByVal feeYear As String) As Boolean
-            If Not Apb.Facility.NormalizeAirsNumber(airsNumber, True) Then Return False
-
+        Public Function FeeMailoutEntryExists(ByVal airsNumber As Apb.ApbFacilityId, ByVal feeYear As String) As Boolean
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
                 " FROM " & DBNameSpace & ".FS_Mailout " & _
                 " WHERE RowNum = 1 " & _
@@ -30,7 +28,7 @@ Namespace DAL
                 " AND numFeeYear = :feeyear "
 
             Dim parameters As OracleParameter() = New OracleParameter() { _
-                New OracleParameter("airsnumber", airsNumber), _
+                New OracleParameter("airsnumber", airsNumber.DbFormattedString), _
                 New OracleParameter("feeyear", feeYear) _
             }
 

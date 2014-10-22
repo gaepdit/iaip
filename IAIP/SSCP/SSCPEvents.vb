@@ -7318,7 +7318,7 @@ Public Class SSCPEvents
 
             Dim dataTable As DataTable = CollectionHelper.ConvertToDataTable(Of CR.Data.CrAcc)(accList)
             Dim crv As New CRViewerForm(New CR.Reports.AccMemo, dataTable)
-            crv.Title = acc.AccReportingYear & " ACC for " & acc.Facility.AirsNumberFormatted
+            crv.Title = acc.AccReportingYear & " ACC for " & acc.Facility.AirsNumber.FormattedString
             crv.Show()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
