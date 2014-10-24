@@ -1373,6 +1373,7 @@ Me.Label17.Text = "Completed by ISMP:"
 '
 Me.cboComplianceStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboComplianceStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboComplianceStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboComplianceStatus.Location = New System.Drawing.Point(590, 113)
 Me.cboComplianceStatus.Name = "cboComplianceStatus"
 Me.cboComplianceStatus.Size = New System.Drawing.Size(168, 21)
@@ -1413,6 +1414,7 @@ Me.txtDaysInAPB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
 '
 Me.cboccBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboccBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboccBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboccBox.Location = New System.Drawing.Point(639, 286)
 Me.cboccBox.Name = "cboccBox"
 Me.cboccBox.Size = New System.Drawing.Size(119, 21)
@@ -1442,6 +1444,7 @@ Me.Label297.TextAlign = System.Drawing.ContentAlignment.BottomLeft
 '
 Me.cboTestingFirm.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboTestingFirm.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboTestingFirm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboTestingFirm.Location = New System.Drawing.Point(414, 88)
 Me.cboTestingFirm.Name = "cboTestingFirm"
 Me.cboTestingFirm.Size = New System.Drawing.Size(344, 21)
@@ -1460,6 +1463,7 @@ Me.Label19.Text = "Testing Firm:"
 '
 Me.cboPollutantDetermined.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboPollutantDetermined.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboPollutantDetermined.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboPollutantDetermined.Location = New System.Drawing.Point(456, 40)
 Me.cboPollutantDetermined.Name = "cboPollutantDetermined"
 Me.cboPollutantDetermined.Size = New System.Drawing.Size(302, 21)
@@ -1469,6 +1473,7 @@ Me.cboPollutantDetermined.TabIndex = 6
 '
 Me.cboReportType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboReportType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboReportType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboReportType.Location = New System.Drawing.Point(115, 113)
 Me.cboReportType.Name = "cboReportType"
 Me.cboReportType.Size = New System.Drawing.Size(136, 21)
@@ -1487,6 +1492,7 @@ Me.Label18.Text = "Report Type:"
 '
 Me.cboComplianceManager.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboComplianceManager.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboComplianceManager.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboComplianceManager.Location = New System.Drawing.Point(639, 261)
 Me.cboComplianceManager.Name = "cboComplianceManager"
 Me.cboComplianceManager.Size = New System.Drawing.Size(119, 21)
@@ -1520,6 +1526,7 @@ Me.DTPTestDateStart.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
 '
 Me.cboReviewingEngineer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboReviewingEngineer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboReviewingEngineer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboReviewingEngineer.Location = New System.Drawing.Point(114, 139)
 Me.cboReviewingEngineer.Name = "cboReviewingEngineer"
 Me.cboReviewingEngineer.Size = New System.Drawing.Size(186, 21)
@@ -1529,6 +1536,7 @@ Me.cboReviewingEngineer.TabIndex = 1
 '
 Me.cboISMPUnit.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboISMPUnit.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboISMPUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboISMPUnit.Location = New System.Drawing.Point(115, 165)
 Me.cboISMPUnit.Name = "cboISMPUnit"
 Me.cboISMPUnit.Size = New System.Drawing.Size(185, 21)
@@ -1595,6 +1603,7 @@ Me.Label13.Text = "ISMP Program Manager:"
 '
 Me.cboMethodDetermined.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboMethodDetermined.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboMethodDetermined.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboMethodDetermined.Location = New System.Drawing.Point(482, 64)
 Me.cboMethodDetermined.Name = "cboMethodDetermined"
 Me.cboMethodDetermined.Size = New System.Drawing.Size(276, 21)
@@ -1644,6 +1653,7 @@ Me.txtReceivedByAPB.TabStop = false
 '
 Me.cboWitnessingEngineer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboWitnessingEngineer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboWitnessingEngineer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboWitnessingEngineer.Location = New System.Drawing.Point(135, 263)
 Me.cboWitnessingEngineer.Name = "cboWitnessingEngineer"
 Me.cboWitnessingEngineer.Size = New System.Drawing.Size(167, 21)
@@ -2036,21 +2046,21 @@ Me.txtPollConcAvgOneStackTwoRun.TabStop = false
 '
 Me.cboEmissRateUnitOneStackTwoRun.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboEmissRateUnitOneStackTwoRun.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboEmissRateUnitOneStackTwoRun.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEmissRateUnitOneStackTwoRun.Location = New System.Drawing.Point(348, 142)
 Me.cboEmissRateUnitOneStackTwoRun.Name = "cboEmissRateUnitOneStackTwoRun"
 Me.cboEmissRateUnitOneStackTwoRun.Size = New System.Drawing.Size(136, 21)
 Me.cboEmissRateUnitOneStackTwoRun.TabIndex = 48
-Me.cboEmissRateUnitOneStackTwoRun.Text = "UNITS"
 '
 'cboPollConUnitOneStackTwoRun
 '
 Me.cboPollConUnitOneStackTwoRun.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboPollConUnitOneStackTwoRun.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboPollConUnitOneStackTwoRun.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboPollConUnitOneStackTwoRun.Location = New System.Drawing.Point(348, 120)
 Me.cboPollConUnitOneStackTwoRun.Name = "cboPollConUnitOneStackTwoRun"
 Me.cboPollConUnitOneStackTwoRun.Size = New System.Drawing.Size(136, 21)
 Me.cboPollConUnitOneStackTwoRun.TabIndex = 44
-Me.cboPollConUnitOneStackTwoRun.Text = "UNITS"
 '
 'txtEmissRateOneStackTwoRun1B
 '
@@ -3277,51 +3287,51 @@ Me.Label52.TextAlign = System.Drawing.ContentAlignment.BottomLeft
 '
 Me.cboOperatingCapacityUnitsOneStack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboOperatingCapacityUnitsOneStack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboOperatingCapacityUnitsOneStack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboOperatingCapacityUnitsOneStack.Location = New System.Drawing.Point(586, 6)
 Me.cboOperatingCapacityUnitsOneStack.Name = "cboOperatingCapacityUnitsOneStack"
 Me.cboOperatingCapacityUnitsOneStack.Size = New System.Drawing.Size(112, 21)
 Me.cboOperatingCapacityUnitsOneStack.TabIndex = 23
-Me.cboOperatingCapacityUnitsOneStack.Text = "UNITS"
 '
 'cboAllowableEmissionRateUnits2OneStack
 '
 Me.cboAllowableEmissionRateUnits2OneStack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboAllowableEmissionRateUnits2OneStack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboAllowableEmissionRateUnits2OneStack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboAllowableEmissionRateUnits2OneStack.Location = New System.Drawing.Point(434, 28)
 Me.cboAllowableEmissionRateUnits2OneStack.Name = "cboAllowableEmissionRateUnits2OneStack"
 Me.cboAllowableEmissionRateUnits2OneStack.Size = New System.Drawing.Size(112, 21)
 Me.cboAllowableEmissionRateUnits2OneStack.TabIndex = 27
-Me.cboAllowableEmissionRateUnits2OneStack.Text = "N/A"
 '
 'cboAllowableEmissionRateUnits3OneStack
 '
 Me.cboAllowableEmissionRateUnits3OneStack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboAllowableEmissionRateUnits3OneStack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboAllowableEmissionRateUnits3OneStack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboAllowableEmissionRateUnits3OneStack.Location = New System.Drawing.Point(642, 28)
 Me.cboAllowableEmissionRateUnits3OneStack.Name = "cboAllowableEmissionRateUnits3OneStack"
 Me.cboAllowableEmissionRateUnits3OneStack.Size = New System.Drawing.Size(112, 21)
 Me.cboAllowableEmissionRateUnits3OneStack.TabIndex = 29
-Me.cboAllowableEmissionRateUnits3OneStack.Text = "N/A"
 '
 'cboAllowableEmissionRateUnits1OneStack
 '
 Me.cboAllowableEmissionRateUnits1OneStack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboAllowableEmissionRateUnits1OneStack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboAllowableEmissionRateUnits1OneStack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboAllowableEmissionRateUnits1OneStack.Location = New System.Drawing.Point(226, 28)
 Me.cboAllowableEmissionRateUnits1OneStack.Name = "cboAllowableEmissionRateUnits1OneStack"
 Me.cboAllowableEmissionRateUnits1OneStack.Size = New System.Drawing.Size(112, 21)
 Me.cboAllowableEmissionRateUnits1OneStack.TabIndex = 25
-Me.cboAllowableEmissionRateUnits1OneStack.Text = "N/A"
 '
 'cboMaximumExpectedOperatingCapacityUnitsOneStack
 '
 Me.cboMaximumExpectedOperatingCapacityUnitsOneStack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboMaximumExpectedOperatingCapacityUnitsOneStack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboMaximumExpectedOperatingCapacityUnitsOneStack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboMaximumExpectedOperatingCapacityUnitsOneStack.Location = New System.Drawing.Point(226, 6)
 Me.cboMaximumExpectedOperatingCapacityUnitsOneStack.Name = "cboMaximumExpectedOperatingCapacityUnitsOneStack"
 Me.cboMaximumExpectedOperatingCapacityUnitsOneStack.Size = New System.Drawing.Size(112, 21)
 Me.cboMaximumExpectedOperatingCapacityUnitsOneStack.TabIndex = 21
-Me.cboMaximumExpectedOperatingCapacityUnitsOneStack.Text = "UNITS"
 '
 'Label53
 '
@@ -3436,7 +3446,7 @@ Me.TPLoadingRack.Controls.Add(Me.Label170)
 Me.TPLoadingRack.Location = New System.Drawing.Point(4, 22)
 Me.TPLoadingRack.Name = "TPLoadingRack"
 Me.TPLoadingRack.Padding = New System.Windows.Forms.Padding(3)
-Me.TPLoadingRack.Size = New System.Drawing.Size(782, 396)
+Me.TPLoadingRack.Size = New System.Drawing.Size(782, 410)
 Me.TPLoadingRack.TabIndex = 1
 Me.TPLoadingRack.Text = "Loading Rack"
 Me.TPLoadingRack.UseVisualStyleBackColor = true
@@ -3539,21 +3549,21 @@ Me.Label154.TextAlign = System.Drawing.ContentAlignment.BottomRight
 '
 Me.cboEmissRateUnitLoadingRack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboEmissRateUnitLoadingRack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboEmissRateUnitLoadingRack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEmissRateUnitLoadingRack.Location = New System.Drawing.Point(583, 197)
 Me.cboEmissRateUnitLoadingRack.Name = "cboEmissRateUnitLoadingRack"
 Me.cboEmissRateUnitLoadingRack.Size = New System.Drawing.Size(112, 21)
 Me.cboEmissRateUnitLoadingRack.TabIndex = 150
-Me.cboEmissRateUnitLoadingRack.Text = "UNITS"
 '
 'cboPollConUnitOUTLoadingRack
 '
 Me.cboPollConUnitOUTLoadingRack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboPollConUnitOUTLoadingRack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboPollConUnitOUTLoadingRack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboPollConUnitOUTLoadingRack.Location = New System.Drawing.Point(231, 173)
 Me.cboPollConUnitOUTLoadingRack.Name = "cboPollConUnitOUTLoadingRack"
 Me.cboPollConUnitOUTLoadingRack.Size = New System.Drawing.Size(128, 21)
 Me.cboPollConUnitOUTLoadingRack.TabIndex = 147
-Me.cboPollConUnitOUTLoadingRack.Text = "UNITS"
 '
 'txtOtherInformationLoadingRack
 '
@@ -3651,21 +3661,21 @@ Me.Label164.TextAlign = System.Drawing.ContentAlignment.BottomLeft
 '
 Me.cboPollConUnitINLoadingRack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboPollConUnitINLoadingRack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboPollConUnitINLoadingRack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboPollConUnitINLoadingRack.Location = New System.Drawing.Point(231, 151)
 Me.cboPollConUnitINLoadingRack.Name = "cboPollConUnitINLoadingRack"
 Me.cboPollConUnitINLoadingRack.Size = New System.Drawing.Size(128, 21)
 Me.cboPollConUnitINLoadingRack.TabIndex = 145
-Me.cboPollConUnitINLoadingRack.Text = "UNITS"
 '
 'cboTestDurationUnitsLoadingRack
 '
 Me.cboTestDurationUnitsLoadingRack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboTestDurationUnitsLoadingRack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboTestDurationUnitsLoadingRack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboTestDurationUnitsLoadingRack.Location = New System.Drawing.Point(231, 129)
 Me.cboTestDurationUnitsLoadingRack.Name = "cboTestDurationUnitsLoadingRack"
 Me.cboTestDurationUnitsLoadingRack.Size = New System.Drawing.Size(128, 21)
 Me.cboTestDurationUnitsLoadingRack.TabIndex = 143
-Me.cboTestDurationUnitsLoadingRack.Text = "UNITS"
 '
 'txtControlEquipmentOperatingDataLoadingRack
 '
@@ -3762,51 +3772,51 @@ Me.Label168.TextAlign = System.Drawing.ContentAlignment.BottomLeft
 '
 Me.cboOperatingCapacityUnitsLoadingRack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboOperatingCapacityUnitsLoadingRack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboOperatingCapacityUnitsLoadingRack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboOperatingCapacityUnitsLoadingRack.Location = New System.Drawing.Point(583, 7)
 Me.cboOperatingCapacityUnitsLoadingRack.Name = "cboOperatingCapacityUnitsLoadingRack"
 Me.cboOperatingCapacityUnitsLoadingRack.Size = New System.Drawing.Size(112, 21)
 Me.cboOperatingCapacityUnitsLoadingRack.TabIndex = 133
-Me.cboOperatingCapacityUnitsLoadingRack.Text = "UNITS"
 '
 'cboAllowableEmissionRateUnits2LoadingRack
 '
 Me.cboAllowableEmissionRateUnits2LoadingRack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboAllowableEmissionRateUnits2LoadingRack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboAllowableEmissionRateUnits2LoadingRack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboAllowableEmissionRateUnits2LoadingRack.Location = New System.Drawing.Point(431, 29)
 Me.cboAllowableEmissionRateUnits2LoadingRack.Name = "cboAllowableEmissionRateUnits2LoadingRack"
 Me.cboAllowableEmissionRateUnits2LoadingRack.Size = New System.Drawing.Size(112, 21)
 Me.cboAllowableEmissionRateUnits2LoadingRack.TabIndex = 137
-Me.cboAllowableEmissionRateUnits2LoadingRack.Text = "N/A"
 '
 'cboAllowableEmissionRateUnits3LoadingRack
 '
 Me.cboAllowableEmissionRateUnits3LoadingRack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboAllowableEmissionRateUnits3LoadingRack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboAllowableEmissionRateUnits3LoadingRack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboAllowableEmissionRateUnits3LoadingRack.Location = New System.Drawing.Point(639, 29)
 Me.cboAllowableEmissionRateUnits3LoadingRack.Name = "cboAllowableEmissionRateUnits3LoadingRack"
 Me.cboAllowableEmissionRateUnits3LoadingRack.Size = New System.Drawing.Size(112, 21)
 Me.cboAllowableEmissionRateUnits3LoadingRack.TabIndex = 139
-Me.cboAllowableEmissionRateUnits3LoadingRack.Text = "N/A"
 '
 'cboAllowableEmissionRateUnits1LoadingRack
 '
 Me.cboAllowableEmissionRateUnits1LoadingRack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboAllowableEmissionRateUnits1LoadingRack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboAllowableEmissionRateUnits1LoadingRack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboAllowableEmissionRateUnits1LoadingRack.Location = New System.Drawing.Point(223, 29)
 Me.cboAllowableEmissionRateUnits1LoadingRack.Name = "cboAllowableEmissionRateUnits1LoadingRack"
 Me.cboAllowableEmissionRateUnits1LoadingRack.Size = New System.Drawing.Size(112, 21)
 Me.cboAllowableEmissionRateUnits1LoadingRack.TabIndex = 135
-Me.cboAllowableEmissionRateUnits1LoadingRack.Text = "N/A"
 '
 'cboMaximumExpectedOperatingCapacityUnitsLoadingRack
 '
 Me.cboMaximumExpectedOperatingCapacityUnitsLoadingRack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboMaximumExpectedOperatingCapacityUnitsLoadingRack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboMaximumExpectedOperatingCapacityUnitsLoadingRack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboMaximumExpectedOperatingCapacityUnitsLoadingRack.Location = New System.Drawing.Point(223, 7)
 Me.cboMaximumExpectedOperatingCapacityUnitsLoadingRack.Name = "cboMaximumExpectedOperatingCapacityUnitsLoadingRack"
 Me.cboMaximumExpectedOperatingCapacityUnitsLoadingRack.Size = New System.Drawing.Size(112, 21)
 Me.cboMaximumExpectedOperatingCapacityUnitsLoadingRack.TabIndex = 131
-Me.cboMaximumExpectedOperatingCapacityUnitsLoadingRack.Text = "UNITS"
 '
 'Label169
 '
@@ -3880,7 +3890,7 @@ Me.TPPondTreatment.Controls.Add(Me.cboMaximumExpectedOperatingCapacityUnitsPond)
 Me.TPPondTreatment.Controls.Add(Me.Label151)
 Me.TPPondTreatment.Location = New System.Drawing.Point(4, 22)
 Me.TPPondTreatment.Name = "TPPondTreatment"
-Me.TPPondTreatment.Size = New System.Drawing.Size(782, 396)
+Me.TPPondTreatment.Size = New System.Drawing.Size(782, 410)
 Me.TPPondTreatment.TabIndex = 2
 Me.TPPondTreatment.Text = "Pulping Process Condensate"
 Me.TPPondTreatment.UseVisualStyleBackColor = true
@@ -4146,21 +4156,21 @@ Me.Label145.TextAlign = System.Drawing.ContentAlignment.BottomLeft
 '
 Me.cboTreatmentRateUnitPond.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboTreatmentRateUnitPond.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboTreatmentRateUnitPond.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboTreatmentRateUnitPond.Location = New System.Drawing.Point(453, 174)
 Me.cboTreatmentRateUnitPond.Name = "cboTreatmentRateUnitPond"
 Me.cboTreatmentRateUnitPond.Size = New System.Drawing.Size(136, 21)
 Me.cboTreatmentRateUnitPond.TabIndex = 183
-Me.cboTreatmentRateUnitPond.Text = "UNITS"
 '
 'cboPollConUnitPond
 '
 Me.cboPollConUnitPond.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboPollConUnitPond.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboPollConUnitPond.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboPollConUnitPond.Location = New System.Drawing.Point(453, 152)
 Me.cboPollConUnitPond.Name = "cboPollConUnitPond"
 Me.cboPollConUnitPond.Size = New System.Drawing.Size(136, 21)
 Me.cboPollConUnitPond.TabIndex = 178
-Me.cboPollConUnitPond.Text = "UNITS"
 '
 'btnClearPondTreatment3
 '
@@ -4284,51 +4294,51 @@ Me.Label149.TextAlign = System.Drawing.ContentAlignment.BottomLeft
 '
 Me.cboOperatingCapacityUnitsPond.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboOperatingCapacityUnitsPond.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboOperatingCapacityUnitsPond.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboOperatingCapacityUnitsPond.Location = New System.Drawing.Point(583, 8)
 Me.cboOperatingCapacityUnitsPond.Name = "cboOperatingCapacityUnitsPond"
 Me.cboOperatingCapacityUnitsPond.Size = New System.Drawing.Size(112, 21)
 Me.cboOperatingCapacityUnitsPond.TabIndex = 163
-Me.cboOperatingCapacityUnitsPond.Text = "UNITS"
 '
 'cboAllowableEmissionRateUnits2Pond
 '
 Me.cboAllowableEmissionRateUnits2Pond.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboAllowableEmissionRateUnits2Pond.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboAllowableEmissionRateUnits2Pond.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboAllowableEmissionRateUnits2Pond.Location = New System.Drawing.Point(431, 30)
 Me.cboAllowableEmissionRateUnits2Pond.Name = "cboAllowableEmissionRateUnits2Pond"
 Me.cboAllowableEmissionRateUnits2Pond.Size = New System.Drawing.Size(112, 21)
 Me.cboAllowableEmissionRateUnits2Pond.TabIndex = 167
-Me.cboAllowableEmissionRateUnits2Pond.Text = "N/A"
 '
 'cboAllowableEmissionRateUnits3Pond
 '
 Me.cboAllowableEmissionRateUnits3Pond.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboAllowableEmissionRateUnits3Pond.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboAllowableEmissionRateUnits3Pond.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboAllowableEmissionRateUnits3Pond.Location = New System.Drawing.Point(639, 30)
 Me.cboAllowableEmissionRateUnits3Pond.Name = "cboAllowableEmissionRateUnits3Pond"
 Me.cboAllowableEmissionRateUnits3Pond.Size = New System.Drawing.Size(112, 21)
 Me.cboAllowableEmissionRateUnits3Pond.TabIndex = 169
-Me.cboAllowableEmissionRateUnits3Pond.Text = "N/A"
 '
 'cboAllowableEmissionRateUnits1Pond
 '
 Me.cboAllowableEmissionRateUnits1Pond.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboAllowableEmissionRateUnits1Pond.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboAllowableEmissionRateUnits1Pond.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboAllowableEmissionRateUnits1Pond.Location = New System.Drawing.Point(223, 30)
 Me.cboAllowableEmissionRateUnits1Pond.Name = "cboAllowableEmissionRateUnits1Pond"
 Me.cboAllowableEmissionRateUnits1Pond.Size = New System.Drawing.Size(112, 21)
 Me.cboAllowableEmissionRateUnits1Pond.TabIndex = 165
-Me.cboAllowableEmissionRateUnits1Pond.Text = "N/A"
 '
 'cboMaximumExpectedOperatingCapacityUnitsPond
 '
 Me.cboMaximumExpectedOperatingCapacityUnitsPond.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboMaximumExpectedOperatingCapacityUnitsPond.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboMaximumExpectedOperatingCapacityUnitsPond.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboMaximumExpectedOperatingCapacityUnitsPond.Location = New System.Drawing.Point(223, 8)
 Me.cboMaximumExpectedOperatingCapacityUnitsPond.Name = "cboMaximumExpectedOperatingCapacityUnitsPond"
 Me.cboMaximumExpectedOperatingCapacityUnitsPond.Size = New System.Drawing.Size(112, 21)
 Me.cboMaximumExpectedOperatingCapacityUnitsPond.TabIndex = 161
-Me.cboMaximumExpectedOperatingCapacityUnitsPond.Text = "UNITS"
 '
 'Label151
 '
@@ -4393,7 +4403,7 @@ Me.TPGasConcentration.Controls.Add(Me.Label132)
 Me.TPGasConcentration.Controls.Add(Me.Label133)
 Me.TPGasConcentration.Location = New System.Drawing.Point(4, 22)
 Me.TPGasConcentration.Name = "TPGasConcentration"
-Me.TPGasConcentration.Size = New System.Drawing.Size(782, 396)
+Me.TPGasConcentration.Size = New System.Drawing.Size(782, 410)
 Me.TPGasConcentration.TabIndex = 3
 Me.TPGasConcentration.Text = "Gas Concentration"
 Me.TPGasConcentration.UseVisualStyleBackColor = true
@@ -4641,21 +4651,21 @@ Me.Label141.TextAlign = System.Drawing.ContentAlignment.BottomLeft
 '
 Me.cboEmissRateUnitGas.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboEmissRateUnitGas.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboEmissRateUnitGas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEmissRateUnitGas.Location = New System.Drawing.Point(453, 174)
 Me.cboEmissRateUnitGas.Name = "cboEmissRateUnitGas"
 Me.cboEmissRateUnitGas.Size = New System.Drawing.Size(136, 21)
 Me.cboEmissRateUnitGas.TabIndex = 213
-Me.cboEmissRateUnitGas.Text = "UNITS"
 '
 'cboPollConUnitGas
 '
 Me.cboPollConUnitGas.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboPollConUnitGas.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboPollConUnitGas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboPollConUnitGas.Location = New System.Drawing.Point(453, 152)
 Me.cboPollConUnitGas.Name = "cboPollConUnitGas"
 Me.cboPollConUnitGas.Size = New System.Drawing.Size(136, 21)
 Me.cboPollConUnitGas.TabIndex = 208
-Me.cboPollConUnitGas.Text = "UNITS"
 '
 'btnClearGasConcentration3
 '
@@ -4788,51 +4798,51 @@ Me.Label131.TextAlign = System.Drawing.ContentAlignment.BottomLeft
 '
 Me.cboOperatingCapacityUnitsGas.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboOperatingCapacityUnitsGas.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboOperatingCapacityUnitsGas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboOperatingCapacityUnitsGas.Location = New System.Drawing.Point(583, 8)
 Me.cboOperatingCapacityUnitsGas.Name = "cboOperatingCapacityUnitsGas"
 Me.cboOperatingCapacityUnitsGas.Size = New System.Drawing.Size(112, 21)
 Me.cboOperatingCapacityUnitsGas.TabIndex = 193
-Me.cboOperatingCapacityUnitsGas.Text = "UNITS"
 '
 'cboAllowableEmissionRateUnits2Gas
 '
 Me.cboAllowableEmissionRateUnits2Gas.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboAllowableEmissionRateUnits2Gas.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboAllowableEmissionRateUnits2Gas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboAllowableEmissionRateUnits2Gas.Location = New System.Drawing.Point(431, 30)
 Me.cboAllowableEmissionRateUnits2Gas.Name = "cboAllowableEmissionRateUnits2Gas"
 Me.cboAllowableEmissionRateUnits2Gas.Size = New System.Drawing.Size(112, 21)
 Me.cboAllowableEmissionRateUnits2Gas.TabIndex = 197
-Me.cboAllowableEmissionRateUnits2Gas.Text = "N/A"
 '
 'cboAllowableEmissionRateUnits3Gas
 '
 Me.cboAllowableEmissionRateUnits3Gas.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboAllowableEmissionRateUnits3Gas.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboAllowableEmissionRateUnits3Gas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboAllowableEmissionRateUnits3Gas.Location = New System.Drawing.Point(639, 30)
 Me.cboAllowableEmissionRateUnits3Gas.Name = "cboAllowableEmissionRateUnits3Gas"
 Me.cboAllowableEmissionRateUnits3Gas.Size = New System.Drawing.Size(112, 21)
 Me.cboAllowableEmissionRateUnits3Gas.TabIndex = 199
-Me.cboAllowableEmissionRateUnits3Gas.Text = "N/A"
 '
 'cboAllowableEmissionRateUnits1Gas
 '
 Me.cboAllowableEmissionRateUnits1Gas.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboAllowableEmissionRateUnits1Gas.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboAllowableEmissionRateUnits1Gas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboAllowableEmissionRateUnits1Gas.Location = New System.Drawing.Point(223, 30)
 Me.cboAllowableEmissionRateUnits1Gas.Name = "cboAllowableEmissionRateUnits1Gas"
 Me.cboAllowableEmissionRateUnits1Gas.Size = New System.Drawing.Size(112, 21)
 Me.cboAllowableEmissionRateUnits1Gas.TabIndex = 195
-Me.cboAllowableEmissionRateUnits1Gas.Text = "N/A"
 '
 'cboMaximumExpectedOperatingCapacityUnitsGas
 '
 Me.cboMaximumExpectedOperatingCapacityUnitsGas.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboMaximumExpectedOperatingCapacityUnitsGas.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboMaximumExpectedOperatingCapacityUnitsGas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboMaximumExpectedOperatingCapacityUnitsGas.Location = New System.Drawing.Point(223, 8)
 Me.cboMaximumExpectedOperatingCapacityUnitsGas.Name = "cboMaximumExpectedOperatingCapacityUnitsGas"
 Me.cboMaximumExpectedOperatingCapacityUnitsGas.Size = New System.Drawing.Size(112, 21)
 Me.cboMaximumExpectedOperatingCapacityUnitsGas.TabIndex = 191
-Me.cboMaximumExpectedOperatingCapacityUnitsGas.Text = "UNITS"
 '
 'Label132
 '
@@ -4901,7 +4911,7 @@ Me.TPFlare.Controls.Add(Me.Label107)
 Me.TPFlare.Controls.Add(Me.Label108)
 Me.TPFlare.Location = New System.Drawing.Point(4, 22)
 Me.TPFlare.Name = "TPFlare"
-Me.TPFlare.Size = New System.Drawing.Size(782, 396)
+Me.TPFlare.Size = New System.Drawing.Size(782, 410)
 Me.TPFlare.TabIndex = 4
 Me.TPFlare.Text = "Flare"
 Me.TPFlare.UseVisualStyleBackColor = true
@@ -5023,21 +5033,21 @@ Me.txtVelocity1BFlare.TabIndex = 234
 '
 Me.cboHeatingValueUnits.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboHeatingValueUnits.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboHeatingValueUnits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboHeatingValueUnits.Location = New System.Drawing.Point(423, 147)
 Me.cboHeatingValueUnits.Name = "cboHeatingValueUnits"
 Me.cboHeatingValueUnits.Size = New System.Drawing.Size(112, 21)
 Me.cboHeatingValueUnits.TabIndex = 231
-Me.cboHeatingValueUnits.Text = "UNITS"
 '
 'cboVelocityUnitsFlare
 '
 Me.cboVelocityUnitsFlare.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboVelocityUnitsFlare.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboVelocityUnitsFlare.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboVelocityUnitsFlare.Location = New System.Drawing.Point(423, 169)
 Me.cboVelocityUnitsFlare.Name = "cboVelocityUnitsFlare"
 Me.cboVelocityUnitsFlare.Size = New System.Drawing.Size(112, 21)
 Me.cboVelocityUnitsFlare.TabIndex = 236
-Me.cboVelocityUnitsFlare.Text = "UNITS"
 '
 'txtHeatingValue1AFlare
 '
@@ -5282,6 +5292,7 @@ Me.Label106.TextAlign = System.Drawing.ContentAlignment.BottomLeft
 '
 Me.cboOperatingCapacityUnitsFlare.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboOperatingCapacityUnitsFlare.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboOperatingCapacityUnitsFlare.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboOperatingCapacityUnitsFlare.Location = New System.Drawing.Point(583, 8)
 Me.cboOperatingCapacityUnitsFlare.Name = "cboOperatingCapacityUnitsFlare"
 Me.cboOperatingCapacityUnitsFlare.Size = New System.Drawing.Size(112, 21)
@@ -5291,11 +5302,11 @@ Me.cboOperatingCapacityUnitsFlare.TabIndex = 223
 '
 Me.cboMaximumExpectedOperatingCapacityUnitsFlare.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboMaximumExpectedOperatingCapacityUnitsFlare.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboMaximumExpectedOperatingCapacityUnitsFlare.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboMaximumExpectedOperatingCapacityUnitsFlare.Location = New System.Drawing.Point(223, 8)
 Me.cboMaximumExpectedOperatingCapacityUnitsFlare.Name = "cboMaximumExpectedOperatingCapacityUnitsFlare"
 Me.cboMaximumExpectedOperatingCapacityUnitsFlare.Size = New System.Drawing.Size(112, 21)
 Me.cboMaximumExpectedOperatingCapacityUnitsFlare.TabIndex = 221
-Me.cboMaximumExpectedOperatingCapacityUnitsFlare.Text = "UNITS"
 '
 'Label107
 '
@@ -5321,7 +5332,7 @@ Me.Label108.TextAlign = System.Drawing.ContentAlignment.BottomLeft
 Me.TPPEMS.AutoScroll = true
 Me.TPPEMS.Location = New System.Drawing.Point(4, 22)
 Me.TPPEMS.Name = "TPPEMS"
-Me.TPPEMS.Size = New System.Drawing.Size(782, 396)
+Me.TPPEMS.Size = New System.Drawing.Size(782, 410)
 Me.TPPEMS.TabIndex = 5
 Me.TPPEMS.Text = "PEM"
 Me.TPPEMS.UseVisualStyleBackColor = true
@@ -5334,7 +5345,7 @@ Me.TPMethodNine.Controls.Add(Me.Label79)
 Me.TPMethodNine.Controls.Add(Me.TCMethodNine)
 Me.TPMethodNine.Location = New System.Drawing.Point(4, 22)
 Me.TPMethodNine.Name = "TPMethodNine"
-Me.TPMethodNine.Size = New System.Drawing.Size(782, 396)
+Me.TPMethodNine.Size = New System.Drawing.Size(782, 410)
 Me.TPMethodNine.TabIndex = 6
 Me.TPMethodNine.Text = "Method 9"
 Me.TPMethodNine.UseVisualStyleBackColor = true
@@ -5530,21 +5541,21 @@ Me.Label80.TextAlign = System.Drawing.ContentAlignment.BottomLeft
 '
 Me.cboMaximumExpectedOperatingCapacityUnitsMethod9Single.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboMaximumExpectedOperatingCapacityUnitsMethod9Single.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboMaximumExpectedOperatingCapacityUnitsMethod9Single.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboMaximumExpectedOperatingCapacityUnitsMethod9Single.Location = New System.Drawing.Point(224, 8)
 Me.cboMaximumExpectedOperatingCapacityUnitsMethod9Single.Name = "cboMaximumExpectedOperatingCapacityUnitsMethod9Single"
 Me.cboMaximumExpectedOperatingCapacityUnitsMethod9Single.Size = New System.Drawing.Size(112, 21)
 Me.cboMaximumExpectedOperatingCapacityUnitsMethod9Single.TabIndex = 241
-Me.cboMaximumExpectedOperatingCapacityUnitsMethod9Single.Text = "UNITS"
 '
 'cboOperatingCapacityUnitsMethod9Single
 '
 Me.cboOperatingCapacityUnitsMethod9Single.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboOperatingCapacityUnitsMethod9Single.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboOperatingCapacityUnitsMethod9Single.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboOperatingCapacityUnitsMethod9Single.Location = New System.Drawing.Point(584, 8)
 Me.cboOperatingCapacityUnitsMethod9Single.Name = "cboOperatingCapacityUnitsMethod9Single"
 Me.cboOperatingCapacityUnitsMethod9Single.Size = New System.Drawing.Size(112, 21)
 Me.cboOperatingCapacityUnitsMethod9Single.TabIndex = 243
-Me.cboOperatingCapacityUnitsMethod9Single.Text = "UNITS"
 '
 'Label76
 '
@@ -5653,11 +5664,11 @@ Me.Label68.TextAlign = System.Drawing.ContentAlignment.BottomLeft
 '
 Me.cboAllowableEmissionRateUnits1Method9Single.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboAllowableEmissionRateUnits1Method9Single.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboAllowableEmissionRateUnits1Method9Single.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboAllowableEmissionRateUnits1Method9Single.Location = New System.Drawing.Point(224, 30)
 Me.cboAllowableEmissionRateUnits1Method9Single.Name = "cboAllowableEmissionRateUnits1Method9Single"
 Me.cboAllowableEmissionRateUnits1Method9Single.Size = New System.Drawing.Size(112, 21)
 Me.cboAllowableEmissionRateUnits1Method9Single.TabIndex = 245
-Me.cboAllowableEmissionRateUnits1Method9Single.Text = "N/A"
 '
 'TPMethodNineMultiple
 '
@@ -6000,21 +6011,21 @@ Me.txtOperatingCapacityMethod9Multi1.TabIndex = 256
 '
 Me.cboOperatingCapacityUnitsMethod9Multi.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboOperatingCapacityUnitsMethod9Multi.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboOperatingCapacityUnitsMethod9Multi.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboOperatingCapacityUnitsMethod9Multi.Location = New System.Drawing.Point(626, 30)
 Me.cboOperatingCapacityUnitsMethod9Multi.Name = "cboOperatingCapacityUnitsMethod9Multi"
 Me.cboOperatingCapacityUnitsMethod9Multi.Size = New System.Drawing.Size(112, 21)
 Me.cboOperatingCapacityUnitsMethod9Multi.TabIndex = 261
-Me.cboOperatingCapacityUnitsMethod9Multi.Text = "UNITS"
 '
 'cboMaximumExpectedOperatingCapacityUnitsMethod9Multi
 '
 Me.cboMaximumExpectedOperatingCapacityUnitsMethod9Multi.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboMaximumExpectedOperatingCapacityUnitsMethod9Multi.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboMaximumExpectedOperatingCapacityUnitsMethod9Multi.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboMaximumExpectedOperatingCapacityUnitsMethod9Multi.Location = New System.Drawing.Point(626, 8)
 Me.cboMaximumExpectedOperatingCapacityUnitsMethod9Multi.Name = "cboMaximumExpectedOperatingCapacityUnitsMethod9Multi"
 Me.cboMaximumExpectedOperatingCapacityUnitsMethod9Multi.Size = New System.Drawing.Size(112, 21)
 Me.cboMaximumExpectedOperatingCapacityUnitsMethod9Multi.TabIndex = 255
-Me.cboMaximumExpectedOperatingCapacityUnitsMethod9Multi.Text = "UNITS"
 '
 'Label81
 '
@@ -6113,11 +6124,11 @@ Me.Label88.TextAlign = System.Drawing.ContentAlignment.BottomLeft
 '
 Me.cboAllowableEmissionRateUnitsMethod9Multi.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboAllowableEmissionRateUnitsMethod9Multi.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboAllowableEmissionRateUnitsMethod9Multi.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboAllowableEmissionRateUnitsMethod9Multi.Location = New System.Drawing.Point(626, 52)
 Me.cboAllowableEmissionRateUnitsMethod9Multi.Name = "cboAllowableEmissionRateUnitsMethod9Multi"
 Me.cboAllowableEmissionRateUnitsMethod9Multi.Size = New System.Drawing.Size(112, 21)
 Me.cboAllowableEmissionRateUnitsMethod9Multi.TabIndex = 267
-Me.cboAllowableEmissionRateUnitsMethod9Multi.Text = "N/A"
 '
 'TPMethodNineMultiple2
 '
@@ -6302,7 +6313,7 @@ Me.TPMemorandum.Controls.Add(Me.Label117)
 Me.TPMemorandum.Controls.Add(Me.TCMemorandum)
 Me.TPMemorandum.Location = New System.Drawing.Point(4, 22)
 Me.TPMemorandum.Name = "TPMemorandum"
-Me.TPMemorandum.Size = New System.Drawing.Size(782, 396)
+Me.TPMemorandum.Size = New System.Drawing.Size(782, 410)
 Me.TPMemorandum.TabIndex = 7
 Me.TPMemorandum.Text = "Memorandum"
 Me.TPMemorandum.UseVisualStyleBackColor = true
@@ -6629,51 +6640,51 @@ Me.Label194.TextAlign = System.Drawing.ContentAlignment.BottomLeft
 '
 Me.cboOperatingCapacityUnitsMemorandumPTE.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboOperatingCapacityUnitsMemorandumPTE.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboOperatingCapacityUnitsMemorandumPTE.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboOperatingCapacityUnitsMemorandumPTE.Location = New System.Drawing.Point(584, 8)
 Me.cboOperatingCapacityUnitsMemorandumPTE.Name = "cboOperatingCapacityUnitsMemorandumPTE"
 Me.cboOperatingCapacityUnitsMemorandumPTE.Size = New System.Drawing.Size(112, 21)
 Me.cboOperatingCapacityUnitsMemorandumPTE.TabIndex = 303
-Me.cboOperatingCapacityUnitsMemorandumPTE.Text = "UNITS"
 '
 'cboAllowableEmissionRateUnits2MemorandumPTE
 '
 Me.cboAllowableEmissionRateUnits2MemorandumPTE.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboAllowableEmissionRateUnits2MemorandumPTE.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboAllowableEmissionRateUnits2MemorandumPTE.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboAllowableEmissionRateUnits2MemorandumPTE.Location = New System.Drawing.Point(432, 30)
 Me.cboAllowableEmissionRateUnits2MemorandumPTE.Name = "cboAllowableEmissionRateUnits2MemorandumPTE"
 Me.cboAllowableEmissionRateUnits2MemorandumPTE.Size = New System.Drawing.Size(112, 21)
 Me.cboAllowableEmissionRateUnits2MemorandumPTE.TabIndex = 307
-Me.cboAllowableEmissionRateUnits2MemorandumPTE.Text = "N/A"
 '
 'cboAllowableEmissionRateUnits3MemorandumPTE
 '
 Me.cboAllowableEmissionRateUnits3MemorandumPTE.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboAllowableEmissionRateUnits3MemorandumPTE.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboAllowableEmissionRateUnits3MemorandumPTE.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboAllowableEmissionRateUnits3MemorandumPTE.Location = New System.Drawing.Point(640, 30)
 Me.cboAllowableEmissionRateUnits3MemorandumPTE.Name = "cboAllowableEmissionRateUnits3MemorandumPTE"
 Me.cboAllowableEmissionRateUnits3MemorandumPTE.Size = New System.Drawing.Size(112, 21)
 Me.cboAllowableEmissionRateUnits3MemorandumPTE.TabIndex = 309
-Me.cboAllowableEmissionRateUnits3MemorandumPTE.Text = "N/A"
 '
 'cboAllowableEmissionRateUnits1MemorandumPTE
 '
 Me.cboAllowableEmissionRateUnits1MemorandumPTE.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboAllowableEmissionRateUnits1MemorandumPTE.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboAllowableEmissionRateUnits1MemorandumPTE.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboAllowableEmissionRateUnits1MemorandumPTE.Location = New System.Drawing.Point(224, 30)
 Me.cboAllowableEmissionRateUnits1MemorandumPTE.Name = "cboAllowableEmissionRateUnits1MemorandumPTE"
 Me.cboAllowableEmissionRateUnits1MemorandumPTE.Size = New System.Drawing.Size(112, 21)
 Me.cboAllowableEmissionRateUnits1MemorandumPTE.TabIndex = 305
-Me.cboAllowableEmissionRateUnits1MemorandumPTE.Text = "N/A"
 '
 'cboMaximumExpectedOperatingCapacityUnitsMemorandumPTE
 '
 Me.cboMaximumExpectedOperatingCapacityUnitsMemorandumPTE.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboMaximumExpectedOperatingCapacityUnitsMemorandumPTE.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboMaximumExpectedOperatingCapacityUnitsMemorandumPTE.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboMaximumExpectedOperatingCapacityUnitsMemorandumPTE.Location = New System.Drawing.Point(224, 8)
 Me.cboMaximumExpectedOperatingCapacityUnitsMemorandumPTE.Name = "cboMaximumExpectedOperatingCapacityUnitsMemorandumPTE"
 Me.cboMaximumExpectedOperatingCapacityUnitsMemorandumPTE.Size = New System.Drawing.Size(112, 21)
 Me.cboMaximumExpectedOperatingCapacityUnitsMemorandumPTE.TabIndex = 301
-Me.cboMaximumExpectedOperatingCapacityUnitsMemorandumPTE.Text = "UNITS"
 '
 'Label195
 '
@@ -6778,7 +6789,7 @@ Me.TPRata.Controls.Add(Me.txtApplicableStandardRata)
 Me.TPRata.Controls.Add(Me.Label173)
 Me.TPRata.Location = New System.Drawing.Point(4, 22)
 Me.TPRata.Name = "TPRata"
-Me.TPRata.Size = New System.Drawing.Size(782, 396)
+Me.TPRata.Size = New System.Drawing.Size(782, 410)
 Me.TPRata.TabIndex = 8
 Me.TPRata.Text = "RATA"
 Me.TPRata.UseVisualStyleBackColor = true
@@ -7542,6 +7553,7 @@ Me.cboUnitsRata.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
 Me.cboUnitsRata.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
 Me.cboUnitsRata.BackColor = System.Drawing.SystemColors.Window
 Me.cboUnitsRata.Cursor = System.Windows.Forms.Cursors.Default
+Me.cboUnitsRata.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboUnitsRata.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
 Me.cboUnitsRata.ForeColor = System.Drawing.SystemColors.WindowText
 Me.cboUnitsRata.Location = New System.Drawing.Point(327, 107)
@@ -7710,6 +7722,7 @@ Me.Label183.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 '
 Me.cboDilutentMonitoredRata.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboDilutentMonitoredRata.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboDilutentMonitoredRata.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboDilutentMonitoredRata.Location = New System.Drawing.Point(487, 6)
 Me.cboDilutentMonitoredRata.Name = "cboDilutentMonitoredRata"
 Me.cboDilutentMonitoredRata.Size = New System.Drawing.Size(176, 21)
@@ -7788,7 +7801,7 @@ Me.TPTwoStack.Controls.Add(Me.cboAllowableEmissionRateUnits1TwoStack)
 Me.TPTwoStack.Controls.Add(Me.cboMaximumExpectedOperatingCapacityUnitsTwoStack)
 Me.TPTwoStack.Location = New System.Drawing.Point(4, 22)
 Me.TPTwoStack.Name = "TPTwoStack"
-Me.TPTwoStack.Size = New System.Drawing.Size(782, 396)
+Me.TPTwoStack.Size = New System.Drawing.Size(782, 410)
 Me.TPTwoStack.TabIndex = 9
 Me.TPTwoStack.Text = "Two Stack"
 Me.TPTwoStack.UseVisualStyleBackColor = true
@@ -8473,21 +8486,21 @@ Me.txtPollConcAvgTwoStackStandard2.TabStop = false
 '
 Me.cboEmissRateUnitTwoStackStandard.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboEmissRateUnitTwoStackStandard.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboEmissRateUnitTwoStackStandard.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEmissRateUnitTwoStackStandard.Location = New System.Drawing.Point(574, 165)
 Me.cboEmissRateUnitTwoStackStandard.Name = "cboEmissRateUnitTwoStackStandard"
 Me.cboEmissRateUnitTwoStackStandard.Size = New System.Drawing.Size(120, 21)
 Me.cboEmissRateUnitTwoStackStandard.TabIndex = 429
-Me.cboEmissRateUnitTwoStackStandard.Text = "UNITS"
 '
 'cboPollConUnitTwoStackStandard
 '
 Me.cboPollConUnitTwoStackStandard.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboPollConUnitTwoStackStandard.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboPollConUnitTwoStackStandard.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboPollConUnitTwoStackStandard.Location = New System.Drawing.Point(574, 143)
 Me.cboPollConUnitTwoStackStandard.Name = "cboPollConUnitTwoStackStandard"
 Me.cboPollConUnitTwoStackStandard.Size = New System.Drawing.Size(120, 21)
 Me.cboPollConUnitTwoStackStandard.TabIndex = 420
-Me.cboPollConUnitTwoStackStandard.Text = "UNITS"
 '
 'txtEmissRateTwoStackStandard1B
 '
@@ -9531,51 +9544,51 @@ Me.txtMaximumExpectedOperatingCapacityTwoStack.TabIndex = 370
 '
 Me.cboOperatingCapacityUnitsTwoStack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboOperatingCapacityUnitsTwoStack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboOperatingCapacityUnitsTwoStack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboOperatingCapacityUnitsTwoStack.Location = New System.Drawing.Point(585, 5)
 Me.cboOperatingCapacityUnitsTwoStack.Name = "cboOperatingCapacityUnitsTwoStack"
 Me.cboOperatingCapacityUnitsTwoStack.Size = New System.Drawing.Size(112, 21)
 Me.cboOperatingCapacityUnitsTwoStack.TabIndex = 373
-Me.cboOperatingCapacityUnitsTwoStack.Text = "UNITS"
 '
 'cboAllowableEmissionRateUnits2TwoStack
 '
 Me.cboAllowableEmissionRateUnits2TwoStack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboAllowableEmissionRateUnits2TwoStack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboAllowableEmissionRateUnits2TwoStack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboAllowableEmissionRateUnits2TwoStack.Location = New System.Drawing.Point(433, 27)
 Me.cboAllowableEmissionRateUnits2TwoStack.Name = "cboAllowableEmissionRateUnits2TwoStack"
 Me.cboAllowableEmissionRateUnits2TwoStack.Size = New System.Drawing.Size(112, 21)
 Me.cboAllowableEmissionRateUnits2TwoStack.TabIndex = 377
-Me.cboAllowableEmissionRateUnits2TwoStack.Text = "N/A"
 '
 'cboAllowableEmissionRateUnits3TwoStack
 '
 Me.cboAllowableEmissionRateUnits3TwoStack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboAllowableEmissionRateUnits3TwoStack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboAllowableEmissionRateUnits3TwoStack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboAllowableEmissionRateUnits3TwoStack.Location = New System.Drawing.Point(641, 27)
 Me.cboAllowableEmissionRateUnits3TwoStack.Name = "cboAllowableEmissionRateUnits3TwoStack"
 Me.cboAllowableEmissionRateUnits3TwoStack.Size = New System.Drawing.Size(112, 21)
 Me.cboAllowableEmissionRateUnits3TwoStack.TabIndex = 379
-Me.cboAllowableEmissionRateUnits3TwoStack.Text = "N/A"
 '
 'cboAllowableEmissionRateUnits1TwoStack
 '
 Me.cboAllowableEmissionRateUnits1TwoStack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboAllowableEmissionRateUnits1TwoStack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboAllowableEmissionRateUnits1TwoStack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboAllowableEmissionRateUnits1TwoStack.Location = New System.Drawing.Point(225, 27)
 Me.cboAllowableEmissionRateUnits1TwoStack.Name = "cboAllowableEmissionRateUnits1TwoStack"
 Me.cboAllowableEmissionRateUnits1TwoStack.Size = New System.Drawing.Size(112, 21)
 Me.cboAllowableEmissionRateUnits1TwoStack.TabIndex = 375
-Me.cboAllowableEmissionRateUnits1TwoStack.Text = "N/A"
 '
 'cboMaximumExpectedOperatingCapacityUnitsTwoStack
 '
 Me.cboMaximumExpectedOperatingCapacityUnitsTwoStack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboMaximumExpectedOperatingCapacityUnitsTwoStack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboMaximumExpectedOperatingCapacityUnitsTwoStack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboMaximumExpectedOperatingCapacityUnitsTwoStack.Location = New System.Drawing.Point(225, 5)
 Me.cboMaximumExpectedOperatingCapacityUnitsTwoStack.Name = "cboMaximumExpectedOperatingCapacityUnitsTwoStack"
 Me.cboMaximumExpectedOperatingCapacityUnitsTwoStack.Size = New System.Drawing.Size(112, 21)
 Me.cboMaximumExpectedOperatingCapacityUnitsTwoStack.TabIndex = 371
-Me.cboMaximumExpectedOperatingCapacityUnitsTwoStack.Text = "UNITS"
 '
 'TPMethodTwentyTwo
 '
@@ -9604,7 +9617,7 @@ Me.TPMethodTwentyTwo.Controls.Add(Me.cboMaximumExpectedOperatingCapacityUnitsMet
 Me.TPMethodTwentyTwo.Controls.Add(Me.Label222)
 Me.TPMethodTwentyTwo.Location = New System.Drawing.Point(4, 22)
 Me.TPMethodTwentyTwo.Name = "TPMethodTwentyTwo"
-Me.TPMethodTwentyTwo.Size = New System.Drawing.Size(782, 396)
+Me.TPMethodTwentyTwo.Size = New System.Drawing.Size(782, 410)
 Me.TPMethodTwentyTwo.TabIndex = 10
 Me.TPMethodTwentyTwo.Text = "Method 22"
 Me.TPMethodTwentyTwo.UseVisualStyleBackColor = true
@@ -9789,21 +9802,21 @@ Me.Label221.TextAlign = System.Drawing.ContentAlignment.BottomLeft
 '
 Me.cboOperatingCapacityUnitsMethod22.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboOperatingCapacityUnitsMethod22.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboOperatingCapacityUnitsMethod22.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboOperatingCapacityUnitsMethod22.Location = New System.Drawing.Point(585, 8)
 Me.cboOperatingCapacityUnitsMethod22.Name = "cboOperatingCapacityUnitsMethod22"
 Me.cboOperatingCapacityUnitsMethod22.Size = New System.Drawing.Size(112, 21)
 Me.cboOperatingCapacityUnitsMethod22.TabIndex = 493
-Me.cboOperatingCapacityUnitsMethod22.Text = "UNITS"
 '
 'cboMaximumExpectedOperatingCapacityUnitsMethod22
 '
 Me.cboMaximumExpectedOperatingCapacityUnitsMethod22.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboMaximumExpectedOperatingCapacityUnitsMethod22.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboMaximumExpectedOperatingCapacityUnitsMethod22.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboMaximumExpectedOperatingCapacityUnitsMethod22.Location = New System.Drawing.Point(225, 8)
 Me.cboMaximumExpectedOperatingCapacityUnitsMethod22.Name = "cboMaximumExpectedOperatingCapacityUnitsMethod22"
 Me.cboMaximumExpectedOperatingCapacityUnitsMethod22.Size = New System.Drawing.Size(112, 21)
 Me.cboMaximumExpectedOperatingCapacityUnitsMethod22.TabIndex = 491
-Me.cboMaximumExpectedOperatingCapacityUnitsMethod22.Text = "UNITS"
 '
 'Label222
 '
@@ -9846,7 +9859,7 @@ Me.TPSSCPWork.Controls.Add(Me.Label326)
 Me.TPSSCPWork.Controls.Add(Me.txtTestReportDueDate)
 Me.TPSSCPWork.Location = New System.Drawing.Point(4, 22)
 Me.TPSSCPWork.Name = "TPSSCPWork"
-Me.TPSSCPWork.Size = New System.Drawing.Size(782, 396)
+Me.TPSSCPWork.Size = New System.Drawing.Size(782, 410)
 Me.TPSSCPWork.TabIndex = 11
 Me.TPSSCPWork.Text = "Compliance Work"
 Me.TPSSCPWork.UseVisualStyleBackColor = true
