@@ -1,5 +1,9 @@
 % IAIP Change Log
 
+## Version 3.6.2 <span>(2014-10-24)</span>
+
++ FIX: *ISMP* -- Allow district manager to be selected for compliance assignment in stack test form. But don't allow free-form text entry; it won't get saved! (#273); thx Josh
+
 ## Version 3.6.1 <span>(2014-10-20)</span>
 
 + FIX: *SSPP* -- Errors when saving a new permit (#270); thx Manny
