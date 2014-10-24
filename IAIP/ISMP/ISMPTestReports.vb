@@ -263,6 +263,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
   OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(84)%'
   OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(85)%'
   OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(86)%'
+  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(133)%'
   OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(114)%'))
   UNION
   SELECT 'None', 0 FROM DUAL 
@@ -23152,8 +23153,6 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
         End Try
     End Sub
 
-
-
     Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
@@ -23167,8 +23166,4 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
         End Try
     End Sub
 
-
-    Private Sub DTPEventCompleteDate_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DTPEventCompleteDate.ValueChanged
-
-    End Sub
 End Class
