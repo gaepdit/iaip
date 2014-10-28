@@ -24,6 +24,7 @@ Module subMain
     Friend ChangelogUrl As New Uri("http://dmu.georgiaair.org/iaip/changelog.html")
     Friend DateFormat As String = "dd-MMM-yyyy"
     Friend CurrentUser As IaipUser
+    Friend AppFirstRun As Boolean = False
 
 #End Region
 
