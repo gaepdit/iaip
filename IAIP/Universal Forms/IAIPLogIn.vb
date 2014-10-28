@@ -9,6 +9,9 @@ Public Class IAIPLogIn
         FocusLogin()
         DisplayVersion()
         monitor.TrackFeatureStop("Startup.Loading")
+        If AppFirstRun Then
+            App.TestCrystalReportsInstallation()
+        End If
     End Sub
 
     Private Sub IAIPLogIn_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load

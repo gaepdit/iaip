@@ -33,6 +33,7 @@
         ' A 'False' setting should be migrated by My.Settings.Upgrade() above
         If My.Settings.FirstRun Then
             ' Put items to run on first installation here
+            AppFirstRun = True
             DeleteOldShortcuts()
 
             ' Prevents this from running in the future
@@ -68,7 +69,7 @@
     ''' Deletes old IAIP shortcuts from user's Desktop and Start Menu
     ''' </summary>
     ''' <remarks>Actually moves them to Recycle Bin</remarks>
-    Friend Sub DeleteOldShortcuts()
+    Private Sub DeleteOldShortcuts()
         Dim shortcutName As String = "\IAIP.lnk"
 
         DeleteFileIfPossible(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) & shortcutName)

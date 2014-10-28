@@ -44,11 +44,9 @@ Module ErrorReporting
             MsgBoxStyle.Information, "Integrated Air Information Platform - ERROR MESSAGE")
             Exit Sub
         End If
-        If ErrorMessage.Contains("Could not load file or assembly 'CrystalDecisions.") Or _
-                      ErrorMessage.Contains("Integrated Air Information Platf") Then
-            MsgBox("This machine needs to run the Crystal Report Patch." & vbCrLf & _
-                   "Please contact the Data Management Unit for assistance.", _
-                    MsgBoxStyle.Information, "Integrated Air Information Platform - ERROR MESSAGE")
+        If ErrorMessage.Contains("Could not load file or assembly 'CrystalDecisions.") _
+        Or ErrorMessage.Contains("Integrated Air Information Platf") Then
+            App.ShowCrystalReportsSupportMessage()
             Exit Sub
         End If
         If ErrorMessage.Contains("This BackgroundWorker is currently busy and cannot run multiple tasks concurrently") Then

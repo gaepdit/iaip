@@ -145,4 +145,28 @@ Module App
 
 #End Region
 
+#Region " Crystal Reports "
+
+    Public Sub TestCrystalReportsInstallation()
+        Try
+            Dim crViewer As CrystalDecisions.Windows.Forms.CrystalReportViewer = New CrystalDecisions.Windows.Forms.CrystalReportViewer
+            crViewer.Dispose()
+        Catch ex As Exception
+            ShowCrystalReportsSupportMessage()
+        End Try
+    End Sub
+
+    Public Sub ShowCrystalReportsSupportMessage()
+        MessageBox.Show("You must install Crystal Reports in order to print reports. " & _
+                        "Click the Help button to download the installer.", _
+                        "Missing Crystal Reports Runtime", _
+                        MessageBoxButtons.OK, _
+                        MessageBoxIcon.Exclamation, _
+                        MessageBoxDefaultButton.Button2, _
+                        0, _
+                        "http://dmu.georgiaair.org/support/crystal-reports.html")
+    End Sub
+
+#End Region
+
 End Module

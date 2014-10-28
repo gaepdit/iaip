@@ -55,7 +55,7 @@
     <MinimumRequiredVersion>3.6.1.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>IAIP-install.html</WebPage>
-    <ApplicationRevision>55</ApplicationRevision>
+    <ApplicationRevision>57</ApplicationRevision>
     <ApplicationVersion>3.6.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -216,7 +216,6 @@
     <Compile Include="Universal Forms\BaseForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="_MFCode\CodeFile.vb" />
     <Compile Include="_Classes\ListViewItemComparer.vb">
       <SubType>Code</SubType>
     </Compile>
@@ -1697,6 +1696,11 @@
     <Compile Include="_Modules\Win32ApiCalls.vb" />
   </ItemGroup>
   <ItemGroup>
+    <BootstrapperPackage Include="BusinessObjects.CrystalReports.10.5">
+      <Visible>False</Visible>
+      <ProductName>Crystal Reports Basic for Visual Studio 2008 %28x86, x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework Client Profile</ProductName>
