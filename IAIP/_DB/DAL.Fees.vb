@@ -4,6 +4,27 @@ Imports Oracle.DataAccess.Client
 Namespace DAL
     Module Fees
 
+        Public Function Update_FS_Admin_Status(ByVal feeYear As String, ByVal airsNumber As String) As Boolean
+            If Not Apb.Facility.NormalizeAirsNumber(airsNumber, True) Then Return False
+
+            Dim feeYearDecimal As Decimal
+            If Not Decimal.TryParse(feeYear, feeYearDecimal) Then Return False
+
+            Dim sp As String = "AIRBRANCH.PD_FEE_STATUS"
+
+            Dim parameters As OracleParameter() = New OracleParameter() { _
+                New OracleParameter("FEEYEAR", OracleDbType.Decimal, feeYear, ParameterDirection.Input), _
+                New OracleParameter("AIRSNUMBER", airsNumber) _
+            }
+
+            Try
+                DB.ExecuteStoredProcedure(sp, parameters)
+                Return True
+            Catch ex As Exception
+                Return False
+            End Try
+        End Function
+
         Public Function GetAllFeeYears() As List(Of String)
             Dim list As New List(Of String)
             Dim dataTable As DataTable = GetAllFeeYearsAsDataTable()

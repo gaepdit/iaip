@@ -3058,7 +3058,9 @@ Public Class PASPDepositsAmendments
                     Exit Sub
                 End If
 
-                Update_FS_Admin_Status(mtbFeeYear2.Text, mtbAIRSNumber.Text)
+                If Not DAL.Update_FS_Admin_Status(mtbFeeYear2.Text, mtbAIRSNumber.Text) Then
+                    MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
 
                 btnSearchDeposits.Enabled = False
 
@@ -3168,7 +3170,10 @@ Public Class PASPDepositsAmendments
                             Exit Sub
                         End If
 
-                        Update_FS_Admin_Status(mtbFeeYear2.Text, mtbAIRSNumber.Text)
+                        If Not DAL.Update_FS_Admin_Status(mtbFeeYear2.Text, mtbAIRSNumber.Text) Then
+                            MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        End If
+
                         InvoiceStatusCheck(txtInvoiceForDeposit.Text)
 
                         btnSearchDeposits.Enabled = False

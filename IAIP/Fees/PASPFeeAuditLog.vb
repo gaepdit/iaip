@@ -3201,7 +3201,10 @@ Public Class PASPFeeAuditLog
             dr.Close()
 
             InvoiceStatusCheck(txtInvoiceID.Text)
-            Update_FS_Admin_Status(Me.FeeYear, Me.AirsNumber)
+            If Not DAL.Update_FS_Admin_Status(Me.FeeYear, Me.AirsNumber) Then
+                MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+
             RefreshAdminStatus()
 
             LoadTransactionData()
@@ -3387,7 +3390,9 @@ Public Class PASPFeeAuditLog
             dr.Close()
 
             InvoiceStatusCheck(txtInvoiceID.Text)
-            Update_FS_Admin_Status(Me.FeeYear, Me.AirsNumber)
+            If Not DAL.Update_FS_Admin_Status(Me.FeeYear, Me.AirsNumber) Then
+                MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
             RefreshAdminStatus()
 
             LoadTransactionData()
@@ -3432,7 +3437,9 @@ Public Class PASPFeeAuditLog
             dr.Close()
 
             InvoiceStatusCheck(txtInvoiceID.Text)
-            Update_FS_Admin_Status(Me.FeeYear, Me.AirsNumber)
+            If Not DAL.Update_FS_Admin_Status(Me.FeeYear, Me.AirsNumber) Then
+                MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
             RefreshAdminStatus()
 
             LoadTransactionData()
@@ -5792,7 +5799,9 @@ Public Class PASPFeeAuditLog
 
             cmd.ExecuteNonQuery()
 
-            Update_FS_Admin_Status(FeeYear, AIRSNumber)
+            If Not DAL.Update_FS_Admin_Status(FeeYear, AIRSNumber) Then
+                MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
 
             Return True
 
@@ -5945,7 +5954,10 @@ Public Class PASPFeeAuditLog
 
             cmd.ExecuteNonQuery()
 
-            Update_FS_Admin_Status(FeeYear, AIRSNumber)
+            If Not DAL.Update_FS_Admin_Status(FeeYear, AIRSNumber) Then
+                MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+
             Return True
 
         Catch ex As Exception

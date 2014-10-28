@@ -216,7 +216,6 @@
     <Compile Include="Universal Forms\BaseForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="_MFCode\CodeFile.vb" />
     <Compile Include="_Classes\ListViewItemComparer.vb">
       <SubType>Code</SubType>
     </Compile>

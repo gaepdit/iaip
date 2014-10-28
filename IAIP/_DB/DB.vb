@@ -252,5 +252,25 @@ Namespace DB
 
 #End Region
 
+#Region " Stored Procedure (no output) "
+
+        Public Sub ExecuteStoredProcedure(ByVal name As String, ByVal parameterArray As OracleParameter())
+            Using connection As New OracleConnection(CurrentConnectionString)
+                Using command As New OracleCommand(name, connection)
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.AddRange(parameterArray)
+                    Try
+                        command.Connection.Open()
+                        command.ExecuteScalar()
+                        command.Connection.Close()
+                    Catch ee As OracleException
+                        MessageBox.Show("Database error: " & ee.ToString)
+                    End Try
+                End Using
+            End Using
+        End Sub
+
+#End Region
+
     End Module
 End Namespace
