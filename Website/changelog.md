@@ -1,12 +1,18 @@
 % IAIP Change Log
 
+## Version 3.6.3 <span>(2014-10-28)</span>
+
++ NEW: *SSPP* -- Updated the Title V renewal reminder letter template (#267)
+
+- FIX: Made it easier to identify and fix problems related to a missing Crystal Reports runtime (#266)
+
 ## Version 3.6.2 <span>(2014-10-24)</span>
 
-+ FIX: *ISMP* -- Allow district manager to be selected for compliance assignment in stack test form. But don't allow free-form text entry; it won't get saved! (#273); thx Josh
+- FIX: *ISMP* -- Allow district manager to be selected for compliance assignment in stack test form. But don't allow free-form text entry; it won't get saved! (#273); thx Josh
 
 ## Version 3.6.1 <span>(2014-10-20)</span>
 
-+ FIX: *SSPP* -- Errors when saving a new permit (#270); thx Manny
+- FIX: *SSPP* -- Errors when saving a new permit (#270); thx Manny
 
 ## Version 3.6 <span>(2014-10-17)</span>
 
