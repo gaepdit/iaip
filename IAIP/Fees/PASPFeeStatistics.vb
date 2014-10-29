@@ -9774,7 +9774,7 @@ Public Class PASPFeeStatistics
 
     Private Sub btnOpenFeesLog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFeesLog.Click
         Dim parameters As New Generic.Dictionary(Of String, String)
-        If Apb.Facility.ValidAirsNumber(txtFeeStatAirsNumber.Text) Then
+        If Apb.ApbFacilityId.ValidAirsNumber(txtFeeStatAirsNumber.Text) Then
             parameters("airsnumber") = txtFeeStatAirsNumber.Text
         End If
         parameters("feeyear") = cboFeeStatYear.Text

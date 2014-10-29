@@ -63,10 +63,13 @@ Public Class IAIPFacilitySummary
 
     Private Sub ParseParameters()
         If Parameters IsNot Nothing AndAlso Parameters.ContainsKey("airsnumber") Then
-            If (Apb.Facility.NormalizeAirsNumber(Parameters("airsnumber"))) Then
-                mtbAIRSNumber.Text = Parameters("airsnumber")
+            Try
+                Dim airs As Apb.ApbFacilityId = New Apb.ApbFacilityId(Parameters("airsnumber"))
+                mtbAIRSNumber.Text = airs.ShortString
                 LoadInitialData()
-            End If
+            Catch ex As Apb.InvalidAirsNumberException
+                mtbAIRSNumber.Text = ""
+            End Try
         End If
     End Sub
 
@@ -4312,7 +4315,7 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub btnEditHeaderData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditHeaderData.Click
-        If Apb.Facility.ValidAirsNumber(mtbAIRSNumber.Text) Then
+        If Apb.ApbFacilityId.ValidAirsNumber(mtbAIRSNumber.Text) Then
 
             Dim editHeaderDataDialog As New IAIPEditHeaderData
             editHeaderDataDialog.AirsNumber = mtbAIRSNumber.Text
@@ -4325,6 +4328,9 @@ Public Class IAIPFacilitySummary
             End If
 
             editHeaderDataDialog.Dispose()
+        Else
+            MessageBox.Show("AIRS number is not valid.", _
+                "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End If
     End Sub
 

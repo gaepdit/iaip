@@ -38,7 +38,7 @@
 
         Public ReadOnly Property FacilityAirsNumber() As String
             Get
-                Return Me.Facility.AirsNumberFormatted
+                Return Me.Facility.AirsNumber.FormattedString
             End Get
         End Property
 

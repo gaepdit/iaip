@@ -14,29 +14,23 @@ Namespace Apb
         Public Sub New(ByVal airsNumber As String)
             Me.AirsNumber = airsNumber
         End Sub
+
+        Public Sub New(ByVal airsNumber As ApbFacilityId)
+            Me.AirsNumber = airsNumber
+        End Sub
 #End Region
 
 #Region " Properties "
 
-        Public Property AirsNumber() As String
+        Public Property AirsNumber() As ApbFacilityId
             Get
                 Return _airsNumber
             End Get
-            Set(ByVal value As String)
-                If NormalizeAirsNumber(value) Then
-                    _airsNumber = value
-                Else
-                    _airsNumber = Nothing
-                End If
+            Set(ByVal value As ApbFacilityId)
+                _airsNumber = value
             End Set
         End Property
-        Private _airsNumber As String
-
-        Public ReadOnly Property AirsNumberFormatted() As String
-            Get
-                Return FormatAirsNumber(AirsNumber)
-            End Get
-        End Property
+        Private _airsNumber As ApbFacilityId
 
         Public Property FacilityName() As String
             Get
@@ -112,101 +106,6 @@ Namespace Apb
                 _comment = value
             End Set
         End Property
-
-#End Region
-
-#Region " Shared Functions "
-
-        ''' <summary>
-        ''' Determines whether a string is in the format of a valid AIRS number.
-        ''' </summary>
-        ''' <param name="airsNumber">The string to test</param>
-        ''' <returns>True if airsNumber is valid; otherwise, false.</returns>
-        ''' <remarks>Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000 (with or without the dashes)</remarks>
-        <DebuggerStepThrough()> _
-        Public Shared Function ValidAirsNumber(ByVal airsNumber As String) As Boolean
-            If airsNumber Is Nothing Then Return False
-            ' Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000
-            ' (with or without the dashes)
-            If airsNumber Is Nothing Then Return False
-            Dim rgx As New System.Text.RegularExpressions.Regex("^(04-?13-?)?\d{3}-?\d{5}$")
-            Return rgx.IsMatch(airsNumber)
-        End Function
-
-        ''' <summary>
-        ''' Converts an AIRS number to an 8 or 12-character string with no dashes. A return value indicates whether the conversion succeeded.
-        ''' </summary>
-        ''' <param name="airsNumber">A string containing an AIRS number to convert.
-        ''' When this method returns, contains the converted AIRS number, or the original string if the conversion failed. 
-        ''' The conversion fails if the original string is not of the correct format for an AIRS number.
-        ''' </param>
-        ''' <param name="expand">Whether the string should be expanded to 12 characters or not. Default is false (8 characters).</param>
-        ''' <returns>True if airsNumber was converted successfully; otherwise, false.</returns>
-        <DebuggerStepThrough()> _
-        Public Shared Function NormalizeAirsNumber(ByRef airsNumber As String, Optional ByVal expand As Boolean = False) As Boolean
-            ' Converts a string representation of an AIRS number to the "00000000" form 
-            ' (eight numerals, no dashes).
-            '
-            ' If 'expand' is True, then the AIRS number is expanded to the "041300000000"
-            ' form (12 numerals, no dashes, beginning with "0413").
-            '
-            ' Return value indicates whether the conversion succeeded.
-
-            ' First, validate the raw AIRS number.
-            If airsNumber Is Nothing OrElse Not (ValidAirsNumber(airsNumber)) Then Return False
-
-            ' If okay, then convert.
-            airsNumber = GetNormalizedAirsNumber(airsNumber, expand)
-            Return True
-        End Function
-
-        ''' <summary>
-        ''' Converts a string representation of an AIRS number to the "00000000" form. If 'expand' is True, then 
-        ''' the AIRS number is expanded to the "041300000000" form.
-        ''' </summary>
-        ''' <param name="airsNumber">The AIRS number to convert.</param>
-        ''' <param name="expand">Whether to expand to the 12-digit form.</param>
-        ''' <returns>A string representation of an AIRS number in the "00000000" or "041300000000" form.</returns>
-        <DebuggerStepThrough()> _
-        Public Shared Function GetNormalizedAirsNumber(ByVal airsNumber As String, Optional ByVal expand As Boolean = False) As String
-            ' Converts a string representation of an AIRS number to the "00000000" form 
-            ' (eight numerals, no dashes).
-            '
-            ' If 'expand' is True, then the AIRS number is expanded to the "041300000000"
-            ' form (12 numerals, no dashes, beginning with "0413").
-
-            ' Remove spaces and dashes.
-            airsNumber = airsNumber.Replace("-", "").Replace(" ", "")
-
-            If expand Then
-                ' Expand the short form to the long form
-                If airsNumber.Length = 8 Then airsNumber = "0413" & airsNumber
-            Else
-                ' Contract the long form to the short form
-                If airsNumber.Length = 12 Then airsNumber = airsNumber.Remove(0, 4)
-            End If
-
-            Return airsNumber
-        End Function
-
-        ''' <summary>
-        ''' Converts an AIRS number to its standard string representation, either "000-00000" (eight numerals, one dash), 
-        ''' or "04-13-000-00000" (12 numerals, dashes added, beginning with "04-13").
-        ''' </summary>
-        ''' <param name="airsNumber">A string containing an AIRS number to convert.</param>
-        ''' <param name="expand">Whether the string should be expanded to 12 digits or not. Default is false (8 digits).</param>
-        ''' <returns>A formatted string representation of an AIRS number.</returns>
-        ''' <remarks></remarks>
-        <DebuggerStepThrough()> _
-        Public Shared Function FormatAirsNumber(ByVal airsNumber As String, Optional ByVal expand As Boolean = False) As String
-            If Not NormalizeAirsNumber(airsNumber, expand) Then Return Nothing
-            If expand Then
-                Return Mid(airsNumber, 1, 2) & "-" & Mid(airsNumber, 3, 2) & "-" & _
-                    Mid(airsNumber, 5, 3) & "-" & Mid(airsNumber, 8, 5)
-            Else
-                Return Mid(airsNumber, 1, 3) & "-" & Mid(airsNumber, 4, 5)
-            End If
-        End Function
 
 #End Region
 

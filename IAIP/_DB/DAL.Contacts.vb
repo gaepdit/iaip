@@ -16,8 +16,7 @@ Namespace DAL
             DistrictOffices = 70
         End Enum
 
-        Public Function GetCurrentContact(ByVal airsNumber As String, ByVal key As ContactKey) As Contact
-            If Not Apb.Facility.NormalizeAirsNumber(airsNumber, True) Then Return Nothing
+        Public Function GetCurrentContact(ByVal airsNumber As Apb.ApbFacilityId, ByVal key As ContactKey) As Contact
             If key = ContactKey.None OrElse Not [Enum].IsDefined(GetType(ContactKey), key) Then Return Nothing
 
             Dim contact As New Contact
@@ -40,7 +39,7 @@ Namespace DAL
                 " AND strKey          = :key "
 
             Dim parameters As OracleParameter() = New OracleParameter() { _
-                New OracleParameter("airsnumber", airsNumber), _
+                New OracleParameter("airsnumber", airsNumber.DbFormattedString), _
                 New OracleParameter("key", key.ToString("D")) _
             }
 
