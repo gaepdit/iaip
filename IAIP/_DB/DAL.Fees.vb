@@ -5,7 +5,8 @@ Namespace DAL
     Module Fees
 
         Public Function Update_FS_Admin_Status(ByVal feeYear As String, ByVal airsNumber As String) As Boolean
-            If Not Apb.Facility.NormalizeAirsNumber(airsNumber, True) Then Return False
+            If Not Apb.ApbFacilityId.ValidAirsNumber(airsNumber) Then Return False
+            Dim aN As Apb.ApbFacilityId = airsNumber
 
             Dim feeYearDecimal As Decimal
             If Not Decimal.TryParse(feeYear, feeYearDecimal) Then Return False
@@ -14,7 +15,7 @@ Namespace DAL
 
             Dim parameters As OracleParameter() = New OracleParameter() { _
                 New OracleParameter("FEEYEAR", OracleDbType.Decimal, feeYear, ParameterDirection.Input), _
-                New OracleParameter("AIRSNUMBER", airsNumber) _
+                New OracleParameter("AIRSNUMBER", aN.DbFormattedString) _
             }
 
             Try
