@@ -86,8 +86,8 @@ Module subMain
 #End Region
 
 #Region " SBEAP Screens "
-    Public ClientSummary As SBEAPClientSummary
-    Public CaseWork As SBEAPCaseWork
+    Public ClientSummary As SBEAPClientSummary ' TODO DWW: Remove
+    Public CaseWork As SBEAPCaseWork ' TODO DWW: Remove
 #End Region
 
 #End Region

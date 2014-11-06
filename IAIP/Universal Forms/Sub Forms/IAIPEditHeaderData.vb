@@ -70,7 +70,13 @@ Public Class IAIPEditHeaderData
         FacilityHeaderDataHistory = DAL.FacilityHeaderData.GetFacilityHeaderDataHistoryAsDataTable(AirsNumber)
 
         Dim currentData As DataRow = DAL.FacilityHeaderData.GetFacilityHeaderDataAsDataRow(AirsNumber)
-        currentData(0) = FacilityHeaderDataHistory.Compute("Max(STRKEY)", String.Empty) + 1
+
+        If FacilityHeaderDataHistory IsNot Nothing AndAlso FacilityHeaderDataHistory.Rows.Count > 0 Then
+            currentData(0) = FacilityHeaderDataHistory.Compute("Max(STRKEY)", String.Empty) + 1
+        Else
+            currentData(0) = 1
+        End If
+
         FacilityHeaderDataHistory.ImportRow(currentData)
 
         BindFacilityHistoryDisplay(FacilityHeaderDataHistory)
