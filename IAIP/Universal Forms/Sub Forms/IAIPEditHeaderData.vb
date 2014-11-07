@@ -484,12 +484,14 @@ Public Class IAIPEditHeaderData
             invalidControls.Add(OperationalStatusLabel)
         End If
 
-        If Not DAL.FacilityHeaderData.SicCodeExists(SicCode.Text) Then
+        If Not DAL.FacilityHeaderData.SicCodeIsValid(SicCode.Text) Then
+            MessageBox.Show("Please enter a valid SIC code.", _
+                            "Invalid SIC", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             valid = False
             invalidControls.Add(SicCodeLabel)
         End If
 
-        If Not DAL.FacilityHeaderData.NaicsCodeExists(NaicsCode.Text) Then
+        If Not DAL.FacilityHeaderData.NaicsCodeIsValid(NaicsCode.Text) Then
             MessageBox.Show("Please enter a valid NAICS code.", _
                             "Invalid NAICS", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             valid = False

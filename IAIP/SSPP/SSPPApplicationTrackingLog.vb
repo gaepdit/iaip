@@ -6704,32 +6704,14 @@ Public Class SSPPApplicationTrackingLog
 
         Try
             If txtApplicationNumber.Text <> "" Then
-                If txtSICCode.Text <> "" And txtSICCode.Text <> "N/A" Then
-                    SQL = "Select strSICCode " & _
-                    "from " & DBNameSpace & ".LookUPSICCodes " & _
-                    "where strSICCode = '" & txtSICCode.Text & "' " & _
-                    "and length(strSICCode) = 4 "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    dr.Close()
-                    If recExist = True Then
-                    Else
-                        MsgBox("ERROR" & vbCrLf & "The SIC Code is not a valid 4 digit code and will be excluded from this record.", MsgBoxStyle.Exclamation, Me.Text)
-                        txtSICCode.Text = ""
-                    End If
+                If Not DAL.FacilityHeaderData.SicCodeIsValid(txtSICCode.Text) Then
+                    MsgBox("ERROR" & vbCrLf & "The SIC Code is not valid and must be fixed before proceeding.", MsgBoxStyle.Exclamation, Me.Text)
+                    Exit Sub
                 End If
 
-                If txtNAICSCode.Text <> "" And txtNAICSCode.Text <> "N/A" Then
-                    If DAL.FacilityHeaderData.NaicsCodeExists(txtNAICSCode.Text) = False Then
-                        MsgBox("ERROR" & vbCrLf & "The NAICS Code is not valid and will be excluded from this record.", MsgBoxStyle.Exclamation, Me.Text)
-                        txtNAICSCode.Text = ""
-                        Exit Sub
-                    End If
+                If DAL.FacilityHeaderData.NaicsCodeIsValid(txtNAICSCode.Text) = False Then
+                    MsgBox("ERROR" & vbCrLf & "The NAICS Code is not valid and must be fixed before proceeding.", MsgBoxStyle.Exclamation, Me.Text)
+                    Exit Sub
                 End If
 
                 SQL = "Select strApplicationNumber " & _
@@ -7388,7 +7370,7 @@ Public Class SSPPApplicationTrackingLog
 
                 If DTPFinalAction.Checked And chbClosedOut.Checked And Apb.ApbFacilityId.ValidAirsNumber(txtAIRSNumber.Text) Then
 
-                    If Not DAL.FacilityHeaderData.SicCodeExists(txtSICCode.Text) Then
+                    If Not DAL.FacilityHeaderData.SicCodeIsValid(txtSICCode.Text) Then
                         MessageBox.Show("The SIC code entered is not valid. The application cannot be closed out without a valid SIC code.", _
                                         "Invalid SIC code", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                         chbClosedOut.Checked = False

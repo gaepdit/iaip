@@ -14,7 +14,7 @@ Namespace DAL
         ''' <param name="sicCode">The SIC Code to test.</param>
         ''' <returns>True if the SIC Code exists; otherwise false.</returns>
         ''' <remarks>Does not make any judgements about appropriateness of SIC Code otherwise.</remarks>
-        Public Function SicCodeExists(ByVal sicCode As String) As Boolean
+        Public Function SicCodeIsValid(ByVal sicCode As String) As Boolean
             If sicCode Is Nothing OrElse String.IsNullOrEmpty(sicCode) Then Return False
 
             ' Valid SIC Codes are one to four digits
@@ -22,9 +22,10 @@ Namespace DAL
             If Not rgx.IsMatch(sicCode) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM " & DBNameSpace & ".LOOKUPSICCODES " & _
+                " FROM " & DBNameSpace & ".LK_SIC " & _
                 " WHERE RowNum = 1 " & _
-                " AND STRSICCODE = :pId "
+                " AND ACTIVE = 1 " & _
+                " AND SIC_CODE = :pId "
             Dim parameter As New OracleParameter("pId", sicCode)
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
@@ -37,7 +38,7 @@ Namespace DAL
         ''' <param name="naicsCode">The NAICS Code to test.</param>
         ''' <returns>True if the NAICS Code exists; otherwise false.</returns>
         ''' <remarks>Does not make any judgements about appropriateness of NAICS Code otherwise.</remarks>
-        Public Function NaicsCodeExists(ByVal naicsCode As String) As Boolean
+        Public Function NaicsCodeIsValid(ByVal naicsCode As String) As Boolean
             If naicsCode Is Nothing OrElse String.IsNullOrEmpty(naicsCode) Then Return False
 
             ' Valid NAICS Codes are two to six digits
@@ -45,9 +46,10 @@ Namespace DAL
             If Not rgx.IsMatch(naicsCode) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM " & DBNameSpace & ".EILOOKUPNAICS " & _
+                " FROM " & DBNameSpace & ".LK_NAICS " & _
                 " WHERE RowNum = 1 " & _
-                " AND STRNAICSCODE = :pId "
+                " AND ACTIVE = 1 " & _
+                " AND NAICS_CODE = :pId "
             Dim parameter As New OracleParameter("pId", naicsCode)
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameter)

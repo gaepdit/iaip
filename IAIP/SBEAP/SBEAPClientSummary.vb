@@ -288,8 +288,8 @@ Public Class SBEAPClientSummary
                 "strSSCPUnit, strSSPPEngineer, " & _
                 "strSSPPUnit, strISMPEngineer, " & _
                 "strISMPUnit, strAirDescription " & _
-                "from " & DBNameSpace & ".SBEAPClientData, " & DBNameSpace & ".LookUpSICCodes " & _
-                "where " & DBNameSpace & ".SBEAPClientData.strClientSIC = " & DBNameSpace & ".LookUpSICCodes.strSICCode (+) " & _
+                "from " & DBNameSpace & ".SBEAPClientData, " & DBNameSpace & ".LK_SIC " & _
+                "where " & DBNameSpace & ".SBEAPClientData.strClientSIC = " & DBNameSpace & ".LK_SIC.strSICCode (+) " & _
                 "and ClientID = '" & txtClientID.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)

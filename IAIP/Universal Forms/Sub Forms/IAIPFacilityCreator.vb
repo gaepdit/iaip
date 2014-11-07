@@ -397,13 +397,13 @@ Public Class IAIPFacilityCreator
                 "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Exit Sub
             End If
-            If DAL.FacilityHeaderData.NaicsCodeExists(mtbCDSNAICSCode.Text) = False Then
-                MsgBox("The NACIS Code is not valid." & _
+            If Not DAL.FacilityHeaderData.NaicsCodeIsValid(mtbCDSNAICSCode.Text) Then
+                MsgBox("The NAICS Code is not valid and must be fixed before proceeding." & _
                   "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Exit Sub
             End If
-            If DAL.FacilityHeaderData.SicCodeExists(mtbCDSSICCode.Text) = False Then
-                MsgBox("The SIC Code is not a valid 4 digit code." & _
+            If Not DAL.FacilityHeaderData.SicCodeIsValid(mtbCDSSICCode.Text) Then
+                MsgBox("The SIC Code is not valid and must be fixed before proceeding." & _
                 "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Exit Sub
             End If
@@ -537,19 +537,8 @@ Public Class IAIPFacilityCreator
             Else
                 AirProgramCode = AirProgramCode
             End If
-            If mtbCDSSICCode.Text = "" Or mtbCDSSICCode.Text.Length < 4 Then
-                SICCode = "9999"
-                MsgBox("The Standard Industrial Classification (SIC) Code must be a valid 4 digit entry." & vbCrLf & _
-                       "It has been set to 9999 - unknown so that the data can be saved." & _
-                       vbCrLf, MsgBoxStyle.Information, Me.Text)
-            Else
-                SICCode = mtbCDSSICCode.Text
-            End If
-            If mtbCDSNAICSCode.Text = "" Then
-                NAICSCode = ""
-            Else
-                NAICSCode = mtbCDSNAICSCode.Text
-            End If
+            SICCode = mtbCDSSICCode.Text
+            NAICSCode = mtbCDSNAICSCode.Text
             If txtCDSRegionCode.Text <> "" Then
                 DistrictOffice = Mid(txtCDSRegionCode.Text, 1, 1)
             Else
@@ -2123,7 +2112,7 @@ Public Class IAIPFacilityCreator
                        MsgBoxStyle.Information, Me.Text)
                 Exit Sub
             End If
-            If DAL.FacilityHeaderData.NaicsCodeExists(mtbCDSNAICSCode.Text) = False Then
+            If DAL.FacilityHeaderData.NaicsCodeIsValid(mtbCDSNAICSCode.Text) = False Then
                 MsgBox("The NACIS Code is not valid." & _
                   "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Exit Sub
