@@ -4370,7 +4370,6 @@ Partial Class PASPFeeAuditLog
         Me.mtbAirsNumber.Size = New System.Drawing.Size(58, 20)
         Me.mtbAirsNumber.TabIndex = 1
         Me.mtbAirsNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.mtbAirsNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
         'btnCheckInvoices
         '

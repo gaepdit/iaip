@@ -1279,6 +1279,7 @@ Partial Class PASPFeeStatistics
         '
         'cboStatYear
         '
+        Me.cboStatYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStatYear.FormattingEnabled = True
         Me.cboStatYear.Location = New System.Drawing.Point(13, 20)
         Me.cboStatYear.Name = "cboStatYear"
@@ -1298,6 +1299,7 @@ Partial Class PASPFeeStatistics
         '
         'cboStatPayType
         '
+        Me.cboStatPayType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStatPayType.FormattingEnabled = True
         Me.cboStatPayType.Location = New System.Drawing.Point(148, 20)
         Me.cboStatPayType.Name = "cboStatPayType"
@@ -1318,7 +1320,7 @@ Partial Class PASPFeeStatistics
         Me.TPFeeStatistics2.Controls.Add(Me.Panel10)
         Me.TPFeeStatistics2.Location = New System.Drawing.Point(4, 22)
         Me.TPFeeStatistics2.Name = "TPFeeStatistics2"
-        Me.TPFeeStatistics2.Size = New System.Drawing.Size(936, 668)
+        Me.TPFeeStatistics2.Size = New System.Drawing.Size(936, 692)
         Me.TPFeeStatistics2.TabIndex = 7
         Me.TPFeeStatistics2.Text = "Fee Statistics"
         Me.TPFeeStatistics2.UseVisualStyleBackColor = True
@@ -1330,7 +1332,7 @@ Partial Class PASPFeeStatistics
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox1.Location = New System.Drawing.Point(478, 0)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(458, 668)
+        Me.GroupBox1.Size = New System.Drawing.Size(458, 692)
         Me.GroupBox1.TabIndex = 2
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "View Data"
@@ -1341,7 +1343,7 @@ Partial Class PASPFeeStatistics
         Me.dgvFeeStats.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvFeeStats.Location = New System.Drawing.Point(3, 57)
         Me.dgvFeeStats.Name = "dgvFeeStats"
-        Me.dgvFeeStats.Size = New System.Drawing.Size(452, 608)
+        Me.dgvFeeStats.Size = New System.Drawing.Size(452, 632)
         Me.dgvFeeStats.TabIndex = 1
         '
         'Panel11
@@ -1499,7 +1501,7 @@ Partial Class PASPFeeStatistics
         Me.Panel10.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel10.Location = New System.Drawing.Point(0, 0)
         Me.Panel10.Name = "Panel10"
-        Me.Panel10.Size = New System.Drawing.Size(478, 668)
+        Me.Panel10.Size = New System.Drawing.Size(478, 692)
         Me.Panel10.TabIndex = 0
         '
         'btnCheckInvoices
@@ -2377,6 +2379,7 @@ Partial Class PASPFeeStatistics
         '
         'cboFeeStatYear
         '
+        Me.cboFeeStatYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboFeeStatYear.FormattingEnabled = True
         Me.cboFeeStatYear.Location = New System.Drawing.Point(87, 55)
         Me.cboFeeStatYear.Name = "cboFeeStatYear"
@@ -2389,7 +2392,7 @@ Partial Class PASPFeeStatistics
         Me.TPNonRespondersReport.Controls.Add(Me.Panel2)
         Me.TPNonRespondersReport.Location = New System.Drawing.Point(4, 22)
         Me.TPNonRespondersReport.Name = "TPNonRespondersReport"
-        Me.TPNonRespondersReport.Size = New System.Drawing.Size(936, 668)
+        Me.TPNonRespondersReport.Size = New System.Drawing.Size(936, 692)
         Me.TPNonRespondersReport.TabIndex = 5
         Me.TPNonRespondersReport.Text = "Non Responders Report"
         Me.TPNonRespondersReport.UseVisualStyleBackColor = True
@@ -2402,7 +2405,7 @@ Partial Class PASPFeeStatistics
         Me.TCLateFeeReports.Location = New System.Drawing.Point(0, 50)
         Me.TCLateFeeReports.Name = "TCLateFeeReports"
         Me.TCLateFeeReports.SelectedIndex = 0
-        Me.TCLateFeeReports.Size = New System.Drawing.Size(936, 618)
+        Me.TCLateFeeReports.Size = New System.Drawing.Size(936, 642)
         Me.TCLateFeeReports.TabIndex = 3
         '
         'TPQuickFeeReport
@@ -2412,7 +2415,7 @@ Partial Class PASPFeeStatistics
         Me.TPQuickFeeReport.Location = New System.Drawing.Point(4, 22)
         Me.TPQuickFeeReport.Name = "TPQuickFeeReport"
         Me.TPQuickFeeReport.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPQuickFeeReport.Size = New System.Drawing.Size(928, 592)
+        Me.TPQuickFeeReport.Size = New System.Drawing.Size(928, 616)
         Me.TPQuickFeeReport.TabIndex = 1
         Me.TPQuickFeeReport.Text = "Fee Report"
         Me.TPQuickFeeReport.UseVisualStyleBackColor = True
@@ -2424,7 +2427,7 @@ Partial Class PASPFeeStatistics
         Me.dgvLateFeeReport.Location = New System.Drawing.Point(3, 183)
         Me.dgvLateFeeReport.Name = "dgvLateFeeReport"
         Me.dgvLateFeeReport.ReadOnly = True
-        Me.dgvLateFeeReport.Size = New System.Drawing.Size(922, 406)
+        Me.dgvLateFeeReport.Size = New System.Drawing.Size(922, 430)
         Me.dgvLateFeeReport.TabIndex = 1
         '
         'Panel3
@@ -2782,7 +2785,7 @@ Partial Class PASPFeeStatistics
         Me.TPFullReport.Location = New System.Drawing.Point(4, 22)
         Me.TPFullReport.Name = "TPFullReport"
         Me.TPFullReport.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPFullReport.Size = New System.Drawing.Size(928, 592)
+        Me.TPFullReport.Size = New System.Drawing.Size(928, 616)
         Me.TPFullReport.TabIndex = 0
         Me.TPFullReport.Text = "Full Report (Slow)"
         Me.TPFullReport.UseVisualStyleBackColor = True
@@ -2794,7 +2797,7 @@ Partial Class PASPFeeStatistics
         Me.dgvLateFeePayerReport.Location = New System.Drawing.Point(3, 3)
         Me.dgvLateFeePayerReport.Name = "dgvLateFeePayerReport"
         Me.dgvLateFeePayerReport.ReadOnly = True
-        Me.dgvLateFeePayerReport.Size = New System.Drawing.Size(922, 586)
+        Me.dgvLateFeePayerReport.Size = New System.Drawing.Size(922, 610)
         Me.dgvLateFeePayerReport.TabIndex = 2
         '
         'Panel2
@@ -2864,6 +2867,7 @@ Partial Class PASPFeeStatistics
         '
         'cboFeeYear
         '
+        Me.cboFeeYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboFeeYear.FormattingEnabled = True
         Me.cboFeeYear.Location = New System.Drawing.Point(81, 8)
         Me.cboFeeYear.Name = "cboFeeYear"
@@ -2885,7 +2889,7 @@ Partial Class PASPFeeStatistics
         Me.TPReports.Controls.Add(Me.tabReport)
         Me.TPReports.Location = New System.Drawing.Point(4, 22)
         Me.TPReports.Name = "TPReports"
-        Me.TPReports.Size = New System.Drawing.Size(936, 668)
+        Me.TPReports.Size = New System.Drawing.Size(936, 692)
         Me.TPReports.TabIndex = 6
         Me.TPReports.Text = "Fee Reports"
         Me.TPReports.UseVisualStyleBackColor = True
@@ -2901,7 +2905,7 @@ Partial Class PASPFeeStatistics
         Me.CRFeesReports.Margin = New System.Windows.Forms.Padding(2)
         Me.CRFeesReports.Name = "CRFeesReports"
         Me.CRFeesReports.SelectionFormula = ""
-        Me.CRFeesReports.Size = New System.Drawing.Size(936, 554)
+        Me.CRFeesReports.Size = New System.Drawing.Size(936, 578)
         Me.CRFeesReports.TabIndex = 270
         Me.CRFeesReports.ViewTimeSelectionFormula = ""
         '

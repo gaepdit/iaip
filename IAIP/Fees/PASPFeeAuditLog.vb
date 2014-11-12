@@ -120,7 +120,7 @@ Public Class PASPFeeAuditLog
             If Parameters.ContainsKey("airsnumber") Then
                 Try
                     Me.AirsNumber = Parameters("airsnumber")
-                    mtbAirsNumber.Text = Me.AirsNumber.ToString
+                    mtbAirsNumber.Text = Me.AirsNumber.FormattedString
                 Catch ex As Apb.InvalidAirsNumberException
                     Me.AirsNumber = Nothing
                     mtbAirsNumber.Clear()
@@ -2621,7 +2621,7 @@ Public Class PASPFeeAuditLog
     End Sub
 
     Private Sub MailoutSaveContactButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutSaveContactButton.Click
-        If (mtbAirsNumber.Text <> AirsNumber.ToString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
+        If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
             MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " & _
                             "Please double-check and try again." & _
                             vbNewLine & vbNewLine & "NO DATA SAVED.", _
@@ -2648,7 +2648,7 @@ Public Class PASPFeeAuditLog
     End Sub
 
     Private Sub MailoutSaveFacilityButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutSaveFacilityButton.Click
-        If (mtbAirsNumber.Text <> AirsNumber.ToString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
+        If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
             MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " & _
                             "Please double-check and try again." & _
                             vbNewLine & vbNewLine & "NO DATA SAVED.", _
@@ -2677,7 +2677,7 @@ Public Class PASPFeeAuditLog
 #End Region
 
     Private Sub EditContactsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditContactsButton.Click
-        If AirsNumber.ToString Is Nothing OrElse (mtbAirsNumber.Text <> AirsNumber.ToString) Then
+        If AirsNumber.ToString Is Nothing OrElse (mtbAirsNumber.Text <> AirsNumber.FormattedString) Then
             MessageBox.Show("Please select a valid AIRS number first.", _
                             "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
@@ -2837,7 +2837,7 @@ Public Class PASPFeeAuditLog
                 End Select
             End If
 
-            If (mtbAirsNumber.Text <> AirsNumber.ToString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
+            If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
                 MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " & _
                                 "Please double-check and try again." & _
                                 vbNewLine & vbNewLine & "NO DATA SAVED.", _
@@ -2896,7 +2896,7 @@ Public Class PASPFeeAuditLog
     End Sub
     Private Sub btnAddFSAdmin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddFSAdmin.Click
         Try
-            If (mtbAirsNumber.Text <> AirsNumber.ToString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
+            If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
                 MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " & _
                                 "Please double-check and try again." & _
                                 vbNewLine & vbNewLine & "NO DATA SAVED.", _
@@ -3085,7 +3085,7 @@ Public Class PASPFeeAuditLog
                 "InvoiceID " & _
                 "from AIRBranch.FS_FeeInvoice " & _
                 "where invoiceID = '" & txtInvoiceID.Text & "' " & _
-                "and strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
+                "and strAIRSNumber = '" & Me.AirsNumber.DbFormattedString & "' " & _
                 "and numFeeyear = '" & txtYear.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3114,7 +3114,7 @@ Public Class PASPFeeAuditLog
         Try
             Dim InvoiceStatus As String = ""
 
-            If (mtbAirsNumber.Text <> txtAIRSNumber.Text) _
+            If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) _
                 Or (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) _
                 Or txtAIRSNumber.Text = "" Or FeeYearsComboBox.SelectedIndex = 0 _
                 Or txtYear.Text = "" Then
@@ -3344,7 +3344,7 @@ Public Class PASPFeeAuditLog
         Try
             Dim InvoiceStatus As String = ""
 
-            If (mtbAirsNumber.Text <> txtAIRSNumber.Text) _
+            If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) _
                 Or (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) _
                 Or txtAIRSNumber.Text = "" Or FeeYearsComboBox.SelectedIndex = 0 _
                 Or txtYear.Text = "" Then
@@ -3405,7 +3405,7 @@ Public Class PASPFeeAuditLog
         Try
             Dim InvoiceStatus As String = ""
 
-            If (mtbAirsNumber.Text <> txtAIRSNumber.Text) _
+            If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) _
                 Or (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) _
                 Or txtAIRSNumber.Text = "" Or FeeYearsComboBox.SelectedIndex = 0 _
                 Or txtYear.Text = "" Then
@@ -3539,7 +3539,7 @@ Public Class PASPFeeAuditLog
             Dim CollectionsDate As String = ""
             Dim x As Integer = 0
 
-            If (mtbAirsNumber.Text <> txtAIRSNumber.Text) _
+            If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) _
                 Or (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) _
                 Or txtAIRSNumber.Text = "" Or FeeYearsComboBox.SelectedIndex = 0 _
                 Or txtYear.Text = "" Then
@@ -3846,7 +3846,8 @@ Public Class PASPFeeAuditLog
                 cmd = New OracleCommand("AIRBranch.PD_FeeAmendment", CurrentConnection)
                 cmd.CommandType = CommandType.StoredProcedure
 
-                cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = "0413" & mtbAirsNumber.Text
+                Dim aN As Apb.ApbFacilityId = mtbAirsNumber.Text
+                cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = aN.DbFormattedString
                 cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = FeeYear
 
                 cmd.ExecuteNonQuery()
@@ -4237,7 +4238,7 @@ Public Class PASPFeeAuditLog
             spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
 
             ParameterField.ParameterFieldName = "AIRSNumber"
-            spValue.Value = Mid(mtbAirsNumber.Text, 1, 3) & "-" & Mid(mtbAirsNumber.Text, 4)
+            spValue.Value = mtbAirsNumber.Text
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
 
@@ -4471,7 +4472,7 @@ Public Class PASPFeeAuditLog
         Try
             Dim InvoiceStatus As String = "0"
 
-            If (mtbAirsNumber.Text <> txtAIRSNumber.Text) _
+            If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) _
                 Or (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) _
                 Or txtAIRSNumber.Text = "" Or FeeYearsComboBox.SelectedIndex = 0 _
                 Or txtYear.Text = "" Then
@@ -4536,7 +4537,7 @@ Public Class PASPFeeAuditLog
             Dim TransactionID As String = ""
             Dim Payment As String = "0"
 
-            If (mtbAirsNumber.Text <> AirsNumber.ToString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
+            If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
                 MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " & _
                                 "Please double-check and try again." & _
                                 vbNewLine & vbNewLine & "NO DATA SAVED.", _
@@ -4597,7 +4598,7 @@ Public Class PASPFeeAuditLog
         Try
             Dim InvoiceID As String = ""
 
-            If (mtbAirsNumber.Text <> AirsNumber.ToString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
+            If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
                 MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " & _
                                 "Please double-check and try again." & _
                                 vbNewLine & vbNewLine & "NO DATA SAVED.", _
@@ -4649,7 +4650,7 @@ Public Class PASPFeeAuditLog
     End Sub
     Private Sub btnRemoveVOID_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRemoveVOID.Click
         Try
-            If (mtbAirsNumber.Text <> AirsNumber.ToString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
+            If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
                 MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " & _
                                 "Please double-check and try again." & _
                                 vbNewLine & vbNewLine & "NO DATA SAVED.", _
@@ -4724,7 +4725,7 @@ Public Class PASPFeeAuditLog
             Dim CollectionsDate As String = ""
             Dim x As Integer = 0
 
-            If (mtbAirsNumber.Text <> AirsNumber.ToString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
+            If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
                 MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " & _
                                 "Please double-check and try again." & _
                                 vbNewLine & vbNewLine & "NO DATA SAVED.", _
