@@ -9137,7 +9137,7 @@ Public Class SSPPApplicationTrackingLog
                             "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "0', " & _
                             "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
-                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS'))), NULL"
+                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), NULL) "
                         End If
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9618,7 +9618,7 @@ Public Class SSPPApplicationTrackingLog
                             "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "8', " & _
                             "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
-                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS'))), NULL"
+                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), NULL) "
                         End If
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9754,7 +9754,7 @@ Public Class SSPPApplicationTrackingLog
                             "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " & _
                             "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
-                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS'))), NULL"
+                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), NULL)"
                         End If
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -10097,7 +10097,7 @@ Public Class SSPPApplicationTrackingLog
                             "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "M', " & _
                             "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
-                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS'))), NULL"
+                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), NULL)"
                         End If
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -17054,7 +17054,7 @@ Public Class SSPPApplicationTrackingLog
                     "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " & _
                     "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
                     "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
-                    "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS'))), NULL"
+                    "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), NULL)"
                     AFSStatus = "Add"
                     AppStatus = "Add"
                 End If
