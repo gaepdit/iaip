@@ -5,12 +5,12 @@ Public Class IAIPEditHeaderData
 
 #Region " Form properties and variables "
 
-    Private _airsNumber As String
-    Public Property AirsNumber() As String
+    Private _airsNumber As ApbFacilityId
+    Public Property AirsNumber() As ApbFacilityId
         Get
             Return _airsNumber
         End Get
-        Set(ByVal value As String)
+        Set(ByVal value As ApbFacilityId)
             _airsNumber = value
         End Set
     End Property
@@ -46,13 +46,7 @@ Public Class IAIPEditHeaderData
     Private Sub IAIPEditHeaderData_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         monitor.TrackFeature("Forms." & Me.Name)
 
-        If Not Facility.ValidAirsNumber(Me.AirsNumber) Then
-            MessageBox.Show("AIRS number is not valid. Try again.", _
-                            "No AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Me.Close()
-        End If
-
-        AirsNumberDisplay.Text = Facility.FormatAirsNumber(Me.AirsNumber)
+        AirsNumberDisplay.Text = Me.AirsNumber.FormattedString
         FacilityNameDisplay.Text = Me.FacilityName
 
         DisableEditing()
@@ -76,7 +70,13 @@ Public Class IAIPEditHeaderData
         FacilityHeaderDataHistory = DAL.FacilityHeaderData.GetFacilityHeaderDataHistoryAsDataTable(AirsNumber)
 
         Dim currentData As DataRow = DAL.FacilityHeaderData.GetFacilityHeaderDataAsDataRow(AirsNumber)
-        currentData(0) = FacilityHeaderDataHistory.Compute("Max(STRKEY)", String.Empty) + 1
+
+        If FacilityHeaderDataHistory IsNot Nothing AndAlso FacilityHeaderDataHistory.Rows.Count > 0 Then
+            currentData(0) = FacilityHeaderDataHistory.Compute("Max(STRKEY)", String.Empty) + 1
+        Else
+            currentData(0) = 1
+        End If
+
         FacilityHeaderDataHistory.ImportRow(currentData)
 
         BindFacilityHistoryDisplay(FacilityHeaderDataHistory)
@@ -484,12 +484,14 @@ Public Class IAIPEditHeaderData
             invalidControls.Add(OperationalStatusLabel)
         End If
 
-        If Not DAL.FacilityHeaderData.SicCodeExists(SicCode.Text) Then
+        If Not DAL.FacilityHeaderData.SicCodeIsValid(SicCode.Text) Then
+            MessageBox.Show("Please enter a valid SIC code.", _
+                            "Invalid SIC", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             valid = False
             invalidControls.Add(SicCodeLabel)
         End If
 
-        If Not DAL.FacilityHeaderData.NaicsCodeExists(NaicsCode.Text) Then
+        If Not DAL.FacilityHeaderData.NaicsCodeIsValid(NaicsCode.Text) Then
             MessageBox.Show("Please enter a valid NAICS code.", _
                             "Invalid NAICS", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             valid = False

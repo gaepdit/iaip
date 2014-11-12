@@ -5,7 +5,8 @@ Namespace DAL
     Module Fees
 
         Public Function Update_FS_Admin_Status(ByVal feeYear As String, ByVal airsNumber As String) As Boolean
-            If Not Apb.Facility.NormalizeAirsNumber(airsNumber, True) Then Return False
+            If Not Apb.ApbFacilityId.ValidAirsNumber(airsNumber) Then Return False
+            Dim aN As Apb.ApbFacilityId = airsNumber
 
             Dim feeYearDecimal As Decimal
             If Not Decimal.TryParse(feeYear, feeYearDecimal) Then Return False
@@ -14,7 +15,7 @@ Namespace DAL
 
             Dim parameters As OracleParameter() = New OracleParameter() { _
                 New OracleParameter("FEEYEAR", OracleDbType.Decimal, feeYear, ParameterDirection.Input), _
-                New OracleParameter("AIRSNUMBER", airsNumber) _
+                New OracleParameter("AIRSNUMBER", aN.DbFormattedString) _
             }
 
             Try
@@ -41,9 +42,7 @@ Namespace DAL
             Return DB.GetDataTable(query)
         End Function
 
-        Public Function FeeMailoutEntryExists(ByVal airsNumber As String, ByVal feeYear As String) As Boolean
-            If Not Apb.Facility.NormalizeAirsNumber(airsNumber, True) Then Return False
-
+        Public Function FeeMailoutEntryExists(ByVal airsNumber As Apb.ApbFacilityId, ByVal feeYear As String) As Boolean
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
                 " FROM " & DBNameSpace & ".FS_Mailout " & _
                 " WHERE RowNum = 1 " & _
@@ -51,7 +50,7 @@ Namespace DAL
                 " AND numFeeYear = :feeyear "
 
             Dim parameters As OracleParameter() = New OracleParameter() { _
-                New OracleParameter("airsnumber", airsNumber), _
+                New OracleParameter("airsnumber", airsNumber.DbFormattedString), _
                 New OracleParameter("feeyear", feeYear) _
             }
 

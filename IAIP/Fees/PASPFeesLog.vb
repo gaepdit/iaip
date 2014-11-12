@@ -275,7 +275,7 @@ Public Class PASPFeesLog
     End Sub
     Private Sub btnOpenFeeWorkTool_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFeeWorkTool.Click
         Dim parameters As New Generic.Dictionary(Of String, String)
-        If Apb.Facility.ValidAirsNumber(mtbSelectedAIRSNumber.Text) Then
+        If Apb.ApbFacilityId.ValidAirsNumber(mtbSelectedAIRSNumber.Text) Then
             parameters("airsnumber") = mtbSelectedAIRSNumber.Text
         End If
         parameters("feeyear") = mtbSelectedFeeYear.Text
