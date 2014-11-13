@@ -30,8 +30,8 @@
     </UpgradeBackupLocation>
     <TargetZone>LocalIntranet</TargetZone>
     <GenerateManifests>true</GenerateManifests>
-    <ManifestCertificateThumbprint>084E709DD77D5FB55A35452778609760E809B03F</ManifestCertificateThumbprint>
-    <ManifestKeyFile>IAIP_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestCertificateThumbprint>D1015B3FFCAA08C33A50ABF7604A4488A73397CA</ManifestCertificateThumbprint>
+    <ManifestKeyFile>IAIP_New_TemporaryKey.pfx</ManifestKeyFile>
     <SignManifests>true</SignManifests>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OldToolsVersion>2.0</OldToolsVersion>
@@ -1488,7 +1488,7 @@
     <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="IAIP_TemporaryKey.pfx" />
+    <None Include="IAIP_New_TemporaryKey.pfx" />
     <Content Include="..\..\common-libraries\Oracle\x86\instantclient\oci.dll">
       <Link>oci.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
