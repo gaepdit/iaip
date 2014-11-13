@@ -1,5 +1,14 @@
 % IAIP Change Log
 
+## Version 3.6.4 <span>(2014-11-12)</span>
+
++ NEW: Use updated SIC and NAICS tables (#277)
+
+- FIX: Error when editing header data for facilities with no history (#276)
+- FIX: Error when adding program subparts to facilities (#278); thx Eric
+- FIX: *Fees* -- Incorrect check for valid AIRS number when updating some data (#275)
+- FIX: *Fees* -- Incorrect payment amount when listing sources that have not paid (#275)
+
 ## Version 3.6.3 <span>(2014-10-28)</span>
 
 + NEW: *SSPP* -- Updated the Title V renewal reminder letter template (#267)
