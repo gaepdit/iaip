@@ -8043,64 +8043,84 @@ Public Class PASPFeeStatistics
                 Exit Sub
             End If
 
-            SQL = "Select  " & _
-            "substr(AIRBranch.FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, airbranch.FS_Admin.strComment,  " & _
-            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
-            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
-            "" & DBNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
-            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
-            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
-            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
-            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
-            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
-            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
-            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
-            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
-            "" & DBNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
-            "datShutDown, strClass, " & _
-            "case " & _
-            "when strOperate = '1' then 'Operating' " & _
-            "else 'Not Operating' " & _
-            "end Operating, " & _
-            "case " & _
-            "when strPart70 = '1' then 'True' " & _
-            "else 'False' " & _
-            "end Part70, " & _
-            "case " & _
-            "when strNSPS = '1' then 'True' " & _
-            "else 'False' " & _
-            "end NSPS, " & _
-            "numTotalFee, sum(numPayment) as TotalPaid " & _
-            "from airbranch.FS_Admin, AIRBranch.APBFacilityInformation, " & _
-            "AIRBranch.FSLK_Admin_Status,  " & _
-            "AIRBranch.FS_ContactInfo, AIRBranch.FS_FeeAuditedData, " & _
-            "AIRBranch.FS_Transactions " & _
-            "where AIRBranch.FS_Admin.strAIRSNumber = AIRbranch.APBFacilityInformation.strAIRSNumber " & _
-            "and AIRBranch.FS_Admin.strAIRSNumber = AIRBranch.FS_FeeAuditedData.strAIRSNumber (+) " & _
-            "and AIRBranch.FS_Admin.strAIRSNumber = AIRBranch.FS_ContactInfo.strAIRSNumber (+) " & _
-            "and AIRBranch.FS_Admin.strAIRSNumber = AIRBranch.FS_Transactions.strAIRSNumber (+) " & _
-            "and AIRBranch.FS_Admin.numFeeYear = AIRBranch.FS_FeeAuditedData.numFeeYear (+) " & _
-            "and AIRBranch.FS_Admin.numFeeYear = AIRBranch.FS_ContactInfo.numFeeYear (+) " & _
-            "and AIRBranch.FS_Admin.numFeeYear = AIRBranch.FS_Transactions.numFeeYear (+) " & _
-            "and AIRBranch.FS_Admin.numcurrentstatus = airbranch.FSLK_Admin_Status.id " & _
-            "and AIRBranch.FS_Admin.numFeeyear = '" & cboFeeStatYear.Text & "'  " & _
-               "and (strEnrolled = '1' or strEnrolled is null)  " & _
-           "and numcurrentstatus <= '8' " & _
-            "and AIRBranch.FS_Admin.Active = '1' " & _
-            "group by AIRBranch.FS_Admin.strAIRSNumber , strFacilityName, " & _
-            "strIAIPDesc, AIRBranch.FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
-            "AIRBranch.FS_ContactInfo.STRCONTACTLASTNAME, AIRBranch.FS_ContactInfo.STRContactCOMPANYNAME, " & _
-            "AIRBranch.FS_ContactInfo.STRCONTACTADDRESS, AIRBranch.FS_ContactInfo.STRCONTACTCITY, " & _
-            "AIRBranch.FS_ContactInfo.STRCONTACTSTATE, AIRBranch.FS_ContactInfo.STRCONTACTZIPCODE, " & _
-            "AIRBranch.APBFACILITYINFORMATION.STRFACILITYSTREET1, AIRBranch.APBFACILITYINFORMATION.STRFACILITYCITY, " & _
-            "AIRBranch.APBFACILITYINFORMATION.STRFACILITYZIPCODE, AIRBranch.FS_ContactInfo.STRCONTACTEMAIL, " & _
-            "AIRBranch.FS_ContactInfo.strContactPhoneNumber, datShutDown, strClass, " & _
-            "StrOperate, " & _
-            "strPart70," & _
-            "strNSPS, " & _
-            "numTotalFee, airbranch.FS_Admin.strComment " & _
-            "order by strAIRSNumber "
-
+            SQL = "SELECT   SUBSTR(AD.STRAIRSNUMBER, 5) AS strAIRSNumber, " & _
+            "    FI.STRFACILITYNAME, " & _
+            "    LK_AS.STRIAIPDESC, " & _
+            "    AD.STRCOMMENT, " & _
+            "    CI.STRCONTACTFIRSTNAME, " & _
+            "    CI.STRCONTACTLASTNAME, " & _
+            "    CI.STRCONTACTCOMPANYNAME, " & _
+            "    CI.STRCONTACTADDRESS, " & _
+            "    CI.STRCONTACTCITY, " & _
+            "    CI.STRCONTACTSTATE, " & _
+            "    CI.STRCONTACTZIPCODE, " & _
+            "    FI.STRFACILITYSTREET1, " & _
+            "    FI.STRFACILITYCITY, " & _
+            "    FI.STRFACILITYZIPCODE, " & _
+            "    CI.STRCONTACTEMAIL, " & _
+            "    CI.STRCONTACTPHONENUMBER, " & _
+            "    FAD.DATSHUTDOWN, " & _
+            "    FAD.STRCLASS, " & _
+            "    CASE " & _
+            "      WHEN FAD.STROPERATE = '1' " & _
+            "      THEN 'Operating' " & _
+            "      ELSE 'Not Operating' " & _
+            "    END Operating, " & _
+            "    CASE " & _
+            "      WHEN FAD.STRPART70 = '1' " & _
+            "      THEN 'True' " & _
+            "      ELSE 'False' " & _
+            "    END Part70, " & _
+            "    CASE " & _
+            "      WHEN FAD.STRNSPS = '1' " & _
+            "      THEN 'True' " & _
+            "      ELSE 'False' " & _
+            "    END NSPS, " & _
+            "    FAD.NUMTOTALFEE, " & _
+            "    SUM(TRX.NUMPAYMENT) AS TotalPaid " & _
+            "  FROM airbranch.FS_Admin AD, " & _
+            "    " & DBNameSpace & ".APBFacilityInformation FI, " & _
+            "    " & DBNameSpace & ".FSLK_Admin_Status LK_AS, " & _
+            "    " & DBNameSpace & ".FS_ContactInfo CI, " & _
+            "    " & DBNameSpace & ".FS_FeeAuditedData FAD, " & _
+            "    (SELECT * FROM " & DBNameSpace & ".FS_Transactions TR WHERE TR.ACTIVE = '1' " & _
+            "    ) TRX " & _
+            "  WHERE AD.STRAIRSNUMBER     = FI.STRAIRSNUMBER " & _
+            "    AND AD.STRAIRSNUMBER     = FAD.STRAIRSNUMBER(+) " & _
+            "    AND AD.STRAIRSNUMBER     = CI.STRAIRSNUMBER(+) " & _
+            "    AND AD.STRAIRSNUMBER     = TRX.STRAIRSNUMBER(+) " & _
+            "    AND AD.NUMFEEYEAR        = FAD.NUMFEEYEAR(+) " & _
+            "    AND AD.NUMFEEYEAR        = CI.NUMFEEYEAR(+) " & _
+            "    AND AD.NUMFEEYEAR        = TRX.NUMFEEYEAR(+) " & _
+            "    AND AD.NUMCURRENTSTATUS  = LK_AS.ID " & _
+            "    AND AD.NUMFEEYEAR        = '2013' " & _
+            "    AND (AD.STRENROLLED      = '1' " & _
+            "    OR AD.STRENROLLED       IS NULL) " & _
+            "    AND AD.NUMCURRENTSTATUS <= '8' " & _
+            "    AND AD.ACTIVE            = '1' " & _
+            "  GROUP BY FI.STRFACILITYNAME, " & _
+            "    LK_AS.STRIAIPDESC, " & _
+            "    AD.STRCOMMENT, " & _
+            "    CI.STRCONTACTFIRSTNAME, " & _
+            "    CI.STRCONTACTLASTNAME, " & _
+            "    CI.STRCONTACTCOMPANYNAME, " & _
+            "    CI.STRCONTACTADDRESS, " & _
+            "    CI.STRCONTACTCITY, " & _
+            "    CI.STRCONTACTSTATE, " & _
+            "    CI.STRCONTACTZIPCODE, " & _
+            "    FI.STRFACILITYSTREET1, " & _
+            "    FI.STRFACILITYCITY, " & _
+            "    FI.STRFACILITYZIPCODE, " & _
+            "    CI.STRCONTACTEMAIL, " & _
+            "    CI.STRCONTACTPHONENUMBER, " & _
+            "    FAD.DATSHUTDOWN, " & _
+            "    FAD.STRCLASS, " & _
+            "    FAD.NUMTOTALFEE, " & _
+            "    AD.STRAIRSNUMBER, " & _
+            "    FAD.STROPERATE, " & _
+            "    FAD.STRPART70, " & _
+            "    FAD.STRNSPS " & _
+            "  ORDER BY strAIRSNumber"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
