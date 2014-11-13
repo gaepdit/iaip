@@ -30,7 +30,7 @@
     </UpgradeBackupLocation>
     <TargetZone>LocalIntranet</TargetZone>
     <GenerateManifests>true</GenerateManifests>
-    <ManifestCertificateThumbprint>084E709DD77D5FB55A35452778609760E809B03F</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>C3CACCFFA23F544771E96A4ED3481EDB8E1D29E1</ManifestCertificateThumbprint>
     <ManifestKeyFile>IAIP_TemporaryKey.pfx</ManifestKeyFile>
     <SignManifests>true</SignManifests>
     <IsWebBootstrapper>true</IsWebBootstrapper>
@@ -1488,7 +1488,6 @@
     <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="IAIP_TemporaryKey.pfx" />
     <Content Include="..\..\common-libraries\Oracle\x86\instantclient\oci.dll">
       <Link>oci.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1509,6 +1508,7 @@
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </Content>
+    <None Include="IAIP_TemporaryKey.pfx" />
     <None Include="Resources\saveHS.png" />
     <None Include="Resources\Seal_of_Georgia_gold.ico" />
     <None Include="Resources\Seal_of_Georgia_red_small.ico" />
