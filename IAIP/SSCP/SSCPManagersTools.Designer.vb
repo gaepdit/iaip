@@ -21,9 +21,9 @@ Partial Class SSCPManagersTools
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPManagersTools))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.chbALLDates = New System.Windows.Forms.CheckBox
         Me.txtUserSSCPUnit = New System.Windows.Forms.TextBox
         Me.DTPEndDate = New System.Windows.Forms.DateTimePicker
@@ -705,6 +705,7 @@ Partial Class SSCPManagersTools
         '
         'cboCMSFrequency
         '
+        Me.cboCMSFrequency.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboCMSFrequency.Location = New System.Drawing.Point(232, 8)
         Me.cboCMSFrequency.Name = "cboCMSFrequency"
         Me.cboCMSFrequency.Size = New System.Drawing.Size(80, 21)
@@ -715,9 +716,9 @@ Partial Class SSCPManagersTools
         Me.Label5.AutoSize = True
         Me.Label5.Location = New System.Drawing.Point(168, 10)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(60, 13)
+        Me.Label5.Size = New System.Drawing.Size(61, 13)
         Me.Label5.TabIndex = 9
-        Me.Label5.Text = "Frequency:"
+        Me.Label5.Text = "CMS Class:"
         '
         'txtCMSFacilityName
         '
@@ -806,6 +807,7 @@ Partial Class SSCPManagersTools
         '
         'cboComplianceUnits
         '
+        Me.cboComplianceUnits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboComplianceUnits.Location = New System.Drawing.Point(152, 8)
         Me.cboComplianceUnits.Name = "cboComplianceUnits"
         Me.cboComplianceUnits.Size = New System.Drawing.Size(240, 21)
@@ -997,6 +999,7 @@ Partial Class SSCPManagersTools
         '
         'cboCMSWarningFrequency
         '
+        Me.cboCMSWarningFrequency.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboCMSWarningFrequency.Location = New System.Drawing.Point(100, 42)
         Me.cboCMSWarningFrequency.Name = "cboCMSWarningFrequency"
         Me.cboCMSWarningFrequency.Size = New System.Drawing.Size(80, 21)
@@ -1494,6 +1497,7 @@ Partial Class SSCPManagersTools
         '
         'cboSSCPEngineer
         '
+        Me.cboSSCPEngineer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSSCPEngineer.Location = New System.Drawing.Point(85, 22)
         Me.cboSSCPEngineer.Name = "cboSSCPEngineer"
         Me.cboSSCPEngineer.Size = New System.Drawing.Size(172, 21)
@@ -1510,6 +1514,7 @@ Partial Class SSCPManagersTools
         '
         'cboSSCPUnit2
         '
+        Me.cboSSCPUnit2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSSCPUnit2.Location = New System.Drawing.Point(85, 71)
         Me.cboSSCPUnit2.Name = "cboSSCPUnit2"
         Me.cboSSCPUnit2.Size = New System.Drawing.Size(172, 21)
@@ -1601,6 +1606,7 @@ Partial Class SSCPManagersTools
         '
         'cboDistrictFilter2
         '
+        Me.cboDistrictFilter2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboDistrictFilter2.FormattingEnabled = True
         Me.cboDistrictFilter2.Location = New System.Drawing.Point(154, 83)
         Me.cboDistrictFilter2.Name = "cboDistrictFilter2"
@@ -1609,6 +1615,7 @@ Partial Class SSCPManagersTools
         '
         'cboDistrictFilter1
         '
+        Me.cboDistrictFilter1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboDistrictFilter1.FormattingEnabled = True
         Me.cboDistrictFilter1.Location = New System.Drawing.Point(154, 62)
         Me.cboDistrictFilter1.Name = "cboDistrictFilter1"
@@ -1617,6 +1624,7 @@ Partial Class SSCPManagersTools
         '
         'cboCountyFilter2
         '
+        Me.cboCountyFilter2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboCountyFilter2.FormattingEnabled = True
         Me.cboCountyFilter2.Location = New System.Drawing.Point(154, 83)
         Me.cboCountyFilter2.Name = "cboCountyFilter2"
@@ -1625,6 +1633,7 @@ Partial Class SSCPManagersTools
         '
         'cboCountyFilter1
         '
+        Me.cboCountyFilter1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboCountyFilter1.FormattingEnabled = True
         Me.cboCountyFilter1.Location = New System.Drawing.Point(154, 62)
         Me.cboCountyFilter1.Name = "cboCountyFilter1"
@@ -1633,6 +1642,7 @@ Partial Class SSCPManagersTools
         '
         'cboCMSMemberFilter2
         '
+        Me.cboCMSMemberFilter2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboCMSMemberFilter2.FormattingEnabled = True
         Me.cboCMSMemberFilter2.Location = New System.Drawing.Point(154, 83)
         Me.cboCMSMemberFilter2.Name = "cboCMSMemberFilter2"
@@ -1641,6 +1651,7 @@ Partial Class SSCPManagersTools
         '
         'cboCMSMemberFilter1
         '
+        Me.cboCMSMemberFilter1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboCMSMemberFilter1.FormattingEnabled = True
         Me.cboCMSMemberFilter1.Location = New System.Drawing.Point(154, 62)
         Me.cboCMSMemberFilter1.Name = "cboCMSMemberFilter1"
@@ -1649,6 +1660,7 @@ Partial Class SSCPManagersTools
         '
         'cboClassFilter2
         '
+        Me.cboClassFilter2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboClassFilter2.FormattingEnabled = True
         Me.cboClassFilter2.Location = New System.Drawing.Point(154, 83)
         Me.cboClassFilter2.Name = "cboClassFilter2"
@@ -1657,6 +1669,7 @@ Partial Class SSCPManagersTools
         '
         'cboClassFilter1
         '
+        Me.cboClassFilter1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboClassFilter1.FormattingEnabled = True
         Me.cboClassFilter1.Location = New System.Drawing.Point(154, 62)
         Me.cboClassFilter1.Name = "cboClassFilter1"
@@ -1665,6 +1678,7 @@ Partial Class SSCPManagersTools
         '
         'cboSSCPUnitFilter
         '
+        Me.cboSSCPUnitFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSSCPUnitFilter.Location = New System.Drawing.Point(154, 62)
         Me.cboSSCPUnitFilter.Name = "cboSSCPUnitFilter"
         Me.cboSSCPUnitFilter.Size = New System.Drawing.Size(154, 21)
@@ -1673,6 +1687,7 @@ Partial Class SSCPManagersTools
         '
         'cboSSCPUnitFilter2
         '
+        Me.cboSSCPUnitFilter2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSSCPUnitFilter2.Location = New System.Drawing.Point(154, 82)
         Me.cboSSCPUnitFilter2.Name = "cboSSCPUnitFilter2"
         Me.cboSSCPUnitFilter2.Size = New System.Drawing.Size(154, 21)
@@ -1688,6 +1703,7 @@ Partial Class SSCPManagersTools
         '
         'cboFilterEngineer1
         '
+        Me.cboFilterEngineer1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboFilterEngineer1.Location = New System.Drawing.Point(154, 62)
         Me.cboFilterEngineer1.Name = "cboFilterEngineer1"
         Me.cboFilterEngineer1.Size = New System.Drawing.Size(154, 21)
@@ -1695,6 +1711,7 @@ Partial Class SSCPManagersTools
         '
         'cboOpStatus2
         '
+        Me.cboOpStatus2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboOpStatus2.FormattingEnabled = True
         Me.cboOpStatus2.Location = New System.Drawing.Point(154, 82)
         Me.cboOpStatus2.Name = "cboOpStatus2"
@@ -1703,6 +1720,7 @@ Partial Class SSCPManagersTools
         '
         'cboOpStatus1
         '
+        Me.cboOpStatus1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboOpStatus1.FormattingEnabled = True
         Me.cboOpStatus1.Location = New System.Drawing.Point(154, 62)
         Me.cboOpStatus1.Name = "cboOpStatus1"
@@ -1744,6 +1762,7 @@ Partial Class SSCPManagersTools
         '
         'cboFilterEngineer2
         '
+        Me.cboFilterEngineer2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboFilterEngineer2.Location = New System.Drawing.Point(154, 82)
         Me.cboFilterEngineer2.Name = "cboFilterEngineer2"
         Me.cboFilterEngineer2.Size = New System.Drawing.Size(154, 21)
@@ -1770,6 +1789,7 @@ Partial Class SSCPManagersTools
         '
         'cboFacSearch1
         '
+        Me.cboFacSearch1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboFacSearch1.Location = New System.Drawing.Point(14, 62)
         Me.cboFacSearch1.Name = "cboFacSearch1"
         Me.cboFacSearch1.Size = New System.Drawing.Size(134, 21)
@@ -1822,6 +1842,7 @@ Partial Class SSCPManagersTools
         '
         Me.cboSortOrder2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboSortOrder2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSortOrder2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSortOrder2.Location = New System.Drawing.Point(187, 151)
         Me.cboSortOrder2.Name = "cboSortOrder2"
         Me.cboSortOrder2.Size = New System.Drawing.Size(121, 21)
@@ -1840,6 +1861,7 @@ Partial Class SSCPManagersTools
         '
         Me.cboSort2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboSort2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSort2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSort2.Location = New System.Drawing.Point(46, 151)
         Me.cboSort2.Name = "cboSort2"
         Me.cboSort2.Size = New System.Drawing.Size(135, 21)
@@ -1847,6 +1869,7 @@ Partial Class SSCPManagersTools
         '
         'cboFacSearch2
         '
+        Me.cboFacSearch2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboFacSearch2.Location = New System.Drawing.Point(14, 83)
         Me.cboFacSearch2.Name = "cboFacSearch2"
         Me.cboFacSearch2.Size = New System.Drawing.Size(134, 21)
@@ -1856,6 +1879,7 @@ Partial Class SSCPManagersTools
         '
         Me.cboSortOrder1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboSortOrder1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSortOrder1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSortOrder1.Location = New System.Drawing.Point(187, 127)
         Me.cboSortOrder1.Name = "cboSortOrder1"
         Me.cboSortOrder1.Size = New System.Drawing.Size(121, 21)
@@ -1865,6 +1889,7 @@ Partial Class SSCPManagersTools
         '
         Me.cboSort1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboSort1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSort1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSort1.Location = New System.Drawing.Point(46, 127)
         Me.cboSort1.Name = "cboSort1"
         Me.cboSort1.Size = New System.Drawing.Size(135, 21)
@@ -2053,6 +2078,7 @@ Partial Class SSCPManagersTools
         '
         'cboExistingYears
         '
+        Me.cboExistingYears.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboExistingYears.Location = New System.Drawing.Point(93, 31)
         Me.cboExistingYears.Name = "cboExistingYears"
         Me.cboExistingYears.Size = New System.Drawing.Size(88, 21)
@@ -2286,6 +2312,7 @@ Partial Class SSCPManagersTools
         '
         'cboFiscalYear
         '
+        Me.cboFiscalYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboFiscalYear.Location = New System.Drawing.Point(115, 5)
         Me.cboFiscalYear.Name = "cboFiscalYear"
         Me.cboFiscalYear.Size = New System.Drawing.Size(88, 21)
@@ -2313,35 +2340,35 @@ Partial Class SSCPManagersTools
         '
         'dgvPollutantFacilities
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvPollutantFacilities.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle22.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvPollutantFacilities.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle22
         Me.dgvPollutantFacilities.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvPollutantFacilities.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle23.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvPollutantFacilities.DefaultCellStyle = DataGridViewCellStyle23
         Me.dgvPollutantFacilities.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvPollutantFacilities.Location = New System.Drawing.Point(0, 220)
         Me.dgvPollutantFacilities.Name = "dgvPollutantFacilities"
         Me.dgvPollutantFacilities.ReadOnly = True
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvPollutantFacilities.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle24.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvPollutantFacilities.RowHeadersDefaultCellStyle = DataGridViewCellStyle24
         Me.dgvPollutantFacilities.Size = New System.Drawing.Size(1184, 479)
         Me.dgvPollutantFacilities.TabIndex = 1
         '

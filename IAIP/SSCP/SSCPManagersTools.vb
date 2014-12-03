@@ -519,6 +519,20 @@ Public Class SSCPManagersTools
                 .SelectedIndex = 0
             End With
 
+            With cboCMSFrequency
+                .DataSource = dtCMSMemberFilter
+                .DisplayMember = "strCMSMember"
+                .ValueMember = "strCMSMember"
+                .SelectedIndex = 0
+            End With
+
+            With cboCMSWarningFrequency
+                .DataSource = dtCMSMemberFilter
+                .DisplayMember = "strCMSMember"
+                .ValueMember = "strCMSMember"
+                .SelectedIndex = 0
+            End With
+
 
             dtCountyFilter.Columns.Add("strCountyName", GetType(System.String))
             dtCountyFilter.Columns.Add("strCountyCode", GetType(System.String))
