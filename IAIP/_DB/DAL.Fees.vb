@@ -5,7 +5,7 @@ Namespace DAL
     Module Fees
 
         Public Function Update_FS_Admin_Status(ByVal feeYear As String, ByVal airsNumber As String) As Boolean
-            If Not Apb.ApbFacilityId.ValidAirsNumber(airsNumber) Then Return False
+            If Not Apb.ApbFacilityId.ValidAirsNumberFormat(airsNumber) Then Return False
             Dim aN As Apb.ApbFacilityId = airsNumber
 
             Dim feeYearDecimal As Decimal

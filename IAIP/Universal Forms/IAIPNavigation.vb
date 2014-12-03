@@ -320,8 +320,13 @@ Public Class IAIPNavigation
             Exit Sub
         End If
 
+        If Not Apb.ApbFacilityId.ValidAirsNumberFormat(txtOpenFacilitySummary.Text) Then
+            MsgBox("AIRS number is not valid.", MsgBoxStyle.Information, "Navigation Screen")
+            Exit Sub
+        End If
+
         If Not DAL.Facility.AirsNumberExists(txtOpenFacilitySummary.Text) Then
-            MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
+            MsgBox("AIRS number does not exist.", MsgBoxStyle.Information, "Navigation Screen")
             Exit Sub
         End If
 

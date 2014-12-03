@@ -25,6 +25,14 @@ Namespace DAL
             Return Convert.ToBoolean(result)
         End Function
 
+        Public Function AirsNumberExists(ByVal airsNumber As String) As Boolean
+            If Not ApbFacilityId.ValidAirsNumberFormat(airsNumber) Then
+                Return False
+            Else
+                Return AirsNumberExists(CType(airsNumber, ApbFacilityId))
+            End If
+        End Function
+
         ''' <summary>
         ''' Returns the facility name for a given AIRS number.
         ''' </summary>
