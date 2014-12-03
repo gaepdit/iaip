@@ -280,7 +280,7 @@ Public Class SBEAPClientSummary
 
                 SQL = "Select " & _
                 "strClientDescription, strClientWEbSite, " & _
-                "strClientSIC, strSICDesc, " & _
+                "strClientSIC, SIC_DESC as strSICDesc, " & _
                 "strClientNAICS, " & _
                 "strClientEmployees, strAIRSNumber, " & _
                 "strAIRProgramCodes, strStateProgramCodes, " & _
@@ -289,7 +289,7 @@ Public Class SBEAPClientSummary
                 "strSSPPUnit, strISMPEngineer, " & _
                 "strISMPUnit, strAirDescription " & _
                 "from " & DBNameSpace & ".SBEAPClientData, " & DBNameSpace & ".LK_SIC " & _
-                "where " & DBNameSpace & ".SBEAPClientData.strClientSIC = " & DBNameSpace & ".LK_SIC.strSICCode (+) " & _
+                "where " & DBNameSpace & ".SBEAPClientData.strClientSIC = " & DBNameSpace & ".LK_SIC.SIC_CODE (+) " & _
                 "and ClientID = '" & txtClientID.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
