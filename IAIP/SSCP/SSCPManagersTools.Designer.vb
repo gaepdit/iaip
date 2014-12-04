@@ -21,9 +21,9 @@ Partial Class SSCPManagersTools
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPManagersTools))
-        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.chbALLDates = New System.Windows.Forms.CheckBox
         Me.txtUserSSCPUnit = New System.Windows.Forms.TextBox
         Me.DTPEndDate = New System.Windows.Forms.DateTimePicker
@@ -2041,57 +2041,57 @@ Partial Class SSCPManagersTools
         'chbClearExistingData
         '
         Me.chbClearExistingData.AutoSize = True
-        Me.chbClearExistingData.Location = New System.Drawing.Point(11, 134)
+        Me.chbClearExistingData.Location = New System.Drawing.Point(93, 107)
         Me.chbClearExistingData.Name = "chbClearExistingData"
-        Me.chbClearExistingData.Size = New System.Drawing.Size(136, 17)
+        Me.chbClearExistingData.Size = New System.Drawing.Size(131, 17)
         Me.chbClearExistingData.TabIndex = 423
-        Me.chbClearExistingData.Text = "Clear Any Existing Data"
+        Me.chbClearExistingData.Text = "Clear existing data first"
         Me.chbClearExistingData.UseVisualStyleBackColor = True
         '
         'btnCopyYear
         '
-        Me.btnCopyYear.AutoSize = True
         Me.btnCopyYear.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnCopyYear.Location = New System.Drawing.Point(212, 57)
+        Me.btnCopyYear.Location = New System.Drawing.Point(93, 67)
         Me.btnCopyYear.Name = "btnCopyYear"
-        Me.btnCopyYear.Size = New System.Drawing.Size(66, 23)
+        Me.btnCopyYear.Size = New System.Drawing.Size(74, 23)
         Me.btnCopyYear.TabIndex = 421
         Me.btnCopyYear.Text = "Copy Year"
         Me.btnCopyYear.UseVisualStyleBackColor = True
         '
         'mtbNewYear
         '
-        Me.mtbNewYear.Location = New System.Drawing.Point(240, 31)
+        Me.mtbNewYear.Location = New System.Drawing.Point(223, 31)
         Me.mtbNewYear.Mask = "0000"
         Me.mtbNewYear.Name = "mtbNewYear"
         Me.mtbNewYear.Size = New System.Drawing.Size(38, 20)
         Me.mtbNewYear.TabIndex = 153
+        Me.mtbNewYear.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label64
         '
         Me.Label64.AutoSize = True
-        Me.Label64.Location = New System.Drawing.Point(187, 34)
+        Me.Label64.Location = New System.Drawing.Point(173, 34)
         Me.Label64.Name = "Label64"
-        Me.Label64.Size = New System.Drawing.Size(47, 13)
+        Me.Label64.Size = New System.Drawing.Size(44, 13)
         Me.Label64.TabIndex = 152
-        Me.Label64.Text = "-->  Year"
+        Me.Label64.Text = "→ Year"
         '
         'cboExistingYears
         '
         Me.cboExistingYears.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboExistingYears.Location = New System.Drawing.Point(93, 31)
+        Me.cboExistingYears.Location = New System.Drawing.Point(93, 30)
         Me.cboExistingYears.Name = "cboExistingYears"
-        Me.cboExistingYears.Size = New System.Drawing.Size(88, 21)
+        Me.cboExistingYears.Size = New System.Drawing.Size(74, 21)
         Me.cboExistingYears.TabIndex = 150
         '
         'Label63
         '
         Me.Label63.AutoSize = True
-        Me.Label63.Location = New System.Drawing.Point(8, 34)
+        Me.Label63.Location = New System.Drawing.Point(21, 34)
         Me.Label63.Name = "Label63"
-        Me.Label63.Size = New System.Drawing.Size(79, 13)
+        Me.Label63.Size = New System.Drawing.Size(66, 13)
         Me.Label63.TabIndex = 151
-        Me.Label63.Text = "Existing Year(s)"
+        Me.Label63.Text = "Existing year"
         '
         'pnlFacilityAssignments
         '
@@ -2340,35 +2340,35 @@ Partial Class SSCPManagersTools
         '
         'dgvPollutantFacilities
         '
-        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle22.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvPollutantFacilities.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle22
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvPollutantFacilities.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvPollutantFacilities.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle23.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvPollutantFacilities.DefaultCellStyle = DataGridViewCellStyle23
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvPollutantFacilities.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvPollutantFacilities.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvPollutantFacilities.Location = New System.Drawing.Point(0, 220)
         Me.dgvPollutantFacilities.Name = "dgvPollutantFacilities"
         Me.dgvPollutantFacilities.ReadOnly = True
-        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle24.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvPollutantFacilities.RowHeadersDefaultCellStyle = DataGridViewCellStyle24
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvPollutantFacilities.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvPollutantFacilities.Size = New System.Drawing.Size(1184, 479)
         Me.dgvPollutantFacilities.TabIndex = 1
         '
@@ -4372,13 +4372,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents cboFiscalYear As System.Windows.Forms.ComboBox
     Friend WithEvents Label62 As System.Windows.Forms.Label
     Friend WithEvents chbIgnoreFiscalYear As System.Windows.Forms.CheckBox
-    Friend WithEvents TPCopyYear As System.Windows.Forms.TabPage
-    Friend WithEvents cboExistingYears As System.Windows.Forms.ComboBox
-    Friend WithEvents Label63 As System.Windows.Forms.Label
-    Friend WithEvents mtbNewYear As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents Label64 As System.Windows.Forms.Label
-    Friend WithEvents btnCopyYear As System.Windows.Forms.Button
-    Friend WithEvents chbClearExistingData As System.Windows.Forms.CheckBox
     Friend WithEvents dgvCMSWarning As System.Windows.Forms.DataGridView
     Friend WithEvents TPTitleVRenewals As System.Windows.Forms.TabPage
     Friend WithEvents btnRunTitleVSearch As System.Windows.Forms.Button
@@ -4413,4 +4406,11 @@ Partial Class SSCPManagersTools
     Friend WithEvents pnlUpdateDocumentType As System.Windows.Forms.Panel
     Friend WithEvents lblAddNewEnfDocType As System.Windows.Forms.Label
     Friend WithEvents lblUpdateEnfDocType As System.Windows.Forms.Label
+    Friend WithEvents TPCopyYear As System.Windows.Forms.TabPage
+    Friend WithEvents chbClearExistingData As System.Windows.Forms.CheckBox
+    Friend WithEvents btnCopyYear As System.Windows.Forms.Button
+    Friend WithEvents mtbNewYear As System.Windows.Forms.MaskedTextBox
+    Friend WithEvents Label64 As System.Windows.Forms.Label
+    Friend WithEvents cboExistingYears As System.Windows.Forms.ComboBox
+    Friend WithEvents Label63 As System.Windows.Forms.Label
 End Class
