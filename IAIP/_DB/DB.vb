@@ -169,20 +169,20 @@ Namespace DB
 
         Public Function RunCommand(ByVal query As String, _
                                    Optional ByVal parameter As OracleParameter = Nothing, _
-                                   Optional ByRef count As Integer = 0, _
+                                   Optional ByRef rowsAffected As Integer = 0, _
                                    Optional ByVal failSilently As Boolean = False _
                                    ) As Boolean
-            count = 0
+            rowsAffected = 0
             Dim parameterArray As OracleParameter() = {parameter}
-            Return RunCommand(query, parameterArray, count, failSilently)
+            Return RunCommand(query, parameterArray, rowsAffected, failSilently)
         End Function
 
         Public Function RunCommand(ByVal query As String, _
                                    ByVal parameters As OracleParameter(), _
-                                   Optional ByRef count As Integer = 0, _
+                                   Optional ByRef rowsAffected As Integer = 0, _
                                    Optional ByVal failSilently As Boolean = False _
                                    ) As Boolean
-            count = 0
+            rowsAffected = 0
             Dim queryList As New List(Of String)
             queryList.Add(query)
 
@@ -193,7 +193,7 @@ Namespace DB
 
             Dim result As Boolean = RunCommand(queryList, parametersList, countList, failSilently)
 
-            If result AndAlso countList.Count > 0 Then count = countList(0)
+            If result AndAlso countList.Count > 0 Then rowsAffected = countList(0)
 
             Return result
         End Function
@@ -222,8 +222,8 @@ Namespace DB
                                 command.Parameters.Clear()
                                 command.CommandText = queryList(index)
                                 command.Parameters.AddRange(parametersList(index))
-                                Dim result As Integer = command.ExecuteNonQuery()
-                                countList.Insert(index, result)
+                                Dim rowsAffected As Integer = command.ExecuteNonQuery()
+                                countList.Insert(index, rowsAffected)
                             Next
                             transaction.Commit()
                             Return True
@@ -252,23 +252,69 @@ Namespace DB
 
 #End Region
 
-#Region " Stored Procedure (no output) "
+#Region " Stored Procedures "
 
-        Public Sub ExecuteStoredProcedure(ByVal name As String, ByVal parameterArray As OracleParameter())
+#Region " SP Read (Scalar) "
+
+        Public Function SPGetBoolean(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing, Optional ByVal failSilently As Boolean = False) As Boolean
+            Return Convert.ToBoolean(SPGetSingleValue(Of Boolean)(spName, parameter, failSilently))
+        End Function
+
+        Public Function SPGetBoolean(ByVal spName As String, ByVal parameterArray As OracleParameter(), Optional ByVal failSilently As Boolean = False) As Boolean
+            Return Convert.ToBoolean(SPGetSingleValue(Of Boolean)(spName, parameterArray, failSilently))
+        End Function
+
+        Public Function SPGetSingleValue(Of T)(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing, Optional ByVal failSilently As Boolean = False) As T
+            Dim parameterArray As OracleParameter() = {parameter}
+            Return SPGetSingleValue(Of T)(spName, parameterArray, failSilently)
+        End Function
+
+        Public Function SPGetSingleValue(Of T)(ByVal spName As String, ByVal parameterArray As OracleParameter(), Optional ByVal failSilently As Boolean = False) As T
+            Dim result As Object = Nothing
             Using connection As New OracleConnection(CurrentConnectionString)
-                Using command As New OracleCommand(name, connection)
+                Using command As New OracleCommand(spName, connection)
+                    command.CommandType = CommandType.StoredProcedure
+                    command.BindByName = True
+                    command.Parameters.AddRange(parameterArray)
+                    Try
+                        command.Connection.Open()
+                        result = command.ExecuteScalar()
+                        command.Connection.Close()
+                    Catch ee As OracleException
+                        If Not failSilently Then
+                            MessageBox.Show("Database error: " & ee.ToString)
+                        End If
+                    End Try
+
+                    Return GetNullable(Of T)(result)
+                End Using
+            End Using
+        End Function
+
+#End Region
+
+#Region " SP Write (ExecuteNonQuery) "
+
+        Public Function SPRunCommand(ByVal spName As String, ByVal parameterArray As OracleParameter()) As Integer
+            Dim rowsAffected As Integer = 0
+            Using connection As New OracleConnection(CurrentConnectionString)
+                Using command As New OracleCommand(spName, connection)
                     command.CommandType = CommandType.StoredProcedure
                     command.Parameters.AddRange(parameterArray)
                     Try
                         command.Connection.Open()
-                        command.ExecuteScalar()
+                        rowsAffected = command.ExecuteNonQuery()
                         command.Connection.Close()
                     Catch ee As OracleException
                         MessageBox.Show("Database error: " & ee.ToString)
                     End Try
+
+                    Return rowsAffected
                 End Using
             End Using
-        End Sub
+        End Function
+
+#End Region
 
 #End Region
 

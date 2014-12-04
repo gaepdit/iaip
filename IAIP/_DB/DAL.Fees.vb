@@ -19,7 +19,7 @@ Namespace DAL
             }
 
             Try
-                DB.ExecuteStoredProcedure(sp, parameters)
+                DB.SPRunCommand(sp, parameters)
                 Return True
             Catch ex As Exception
                 Return False
