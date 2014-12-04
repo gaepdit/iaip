@@ -7368,7 +7368,7 @@ Public Class SSPPApplicationTrackingLog
                     Next
                 End If
 
-                If DTPFinalAction.Checked And chbClosedOut.Checked And Apb.ApbFacilityId.ValidAirsNumber(txtAIRSNumber.Text) Then
+                If DTPFinalAction.Checked And chbClosedOut.Checked And Apb.ApbFacilityId.ValidAirsNumberFormat(txtAIRSNumber.Text) Then
 
                     If Not DAL.FacilityHeaderData.SicCodeIsValid(txtSICCode.Text) Then
                         MessageBox.Show("The SIC code entered is not valid. The application cannot be closed out without a valid SIC code.", _

@@ -519,6 +519,20 @@ Public Class SSCPManagersTools
                 .SelectedIndex = 0
             End With
 
+            With cboCMSFrequency
+                .DataSource = dtCMSMemberFilter
+                .DisplayMember = "strCMSMember"
+                .ValueMember = "strCMSMember"
+                .SelectedIndex = 0
+            End With
+
+            With cboCMSWarningFrequency
+                .DataSource = dtCMSMemberFilter
+                .DisplayMember = "strCMSMember"
+                .ValueMember = "strCMSMember"
+                .SelectedIndex = 0
+            End With
+
 
             dtCountyFilter.Columns.Add("strCountyName", GetType(System.String))
             dtCountyFilter.Columns.Add("strCountyCode", GetType(System.String))
@@ -2466,7 +2480,7 @@ Public Class SSCPManagersTools
         End Try
 
     End Sub
-    Private Sub cboComplianceUnits_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboComplianceUnits.TextChanged
+    Private Sub cboComplianceUnits_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboComplianceUnits.SelectedIndexChanged
         Dim dtEngineers As New DataTable
         Dim drEngineers As DataRow()
         Dim row As DataRow
@@ -5696,7 +5710,7 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub cboFiscalYear_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboFiscalYear.TextChanged
+    Private Sub cboFiscalYear_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboFiscalYear.SelectedIndexChanged
         Try
             If cboFiscalYear.Items.Contains(cboFiscalYear.Text) Then
                 Panel10.Enabled = True
@@ -5713,125 +5727,74 @@ Public Class SSCPManagersTools
         End Try
     End Sub
     Private Sub btnCopyYear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCopyYear.Click
+        Dim targetYear As Integer
+        Dim oldYear As Integer
+
         Try
-            Dim AIRSNumber As String = ""
-            Dim SSCPEngineer As String = ""
-            Dim SSCPUnit As String = ""
-            Dim InspectionRequired As String = ""
-            Dim FCERequired As String = ""
-            Dim AssigningManager As String = ""
 
-            If cboExistingYears.Text = "" Then '  cboExistingYears.Items.Contains(cboExistingYears.Text) = True Then
-                MsgBox("Select an existing year from the dropdown." & vbCrLf & "No Data altered", MsgBoxStyle.Exclamation, Me.Text)
+            If cboExistingYears.Text = "" Then
+                MsgBox("Select an existing year from the dropdown." & vbCrLf & "No data altered", MsgBoxStyle.Information, Me.Text)
                 Exit Sub
-            End If
-            If cboExistingYears.Items.Contains(cboExistingYears.Text) Then
             Else
-                MsgBox("Select an existing year from the dropdown." & vbCrLf & "No Data altered", MsgBoxStyle.Exclamation, Me.Text)
+                oldYear = CType(cboExistingYears.Text, Integer)
+            End If
+
+            If mtbNewYear.Text = "" OrElse mtbNewYear.Text.Length <> "4" OrElse Not IsNumeric(mtbNewYear.Text) Then
+                MsgBox("Please enter a complete 4-digit year" & vbCrLf & "No data altered", MsgBoxStyle.Information, Me.Text)
+                Exit Sub
+            Else
+                targetYear = CType(mtbNewYear.Text, Integer)
+            End If
+
+            Dim confirmResult As DialogResult = _
+                MessageBox.Show("Warning: This may take a VERY, VERY long time. The IAIP will be unresponsive until finished. " & _
+                                "Are you sure you want to proceed?", "Confirm Patience", _
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
+            If DialogResult = Windows.Forms.DialogResult.Cancel Then
                 Exit Sub
             End If
-            If mtbNewYear.Text = "" Or mtbNewYear.Text.Length <> "4" Then
-                MsgBox("Please enter a complete 4-digit Year" & vbCrLf & "No Data altered", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
-            End If
 
-            If chbClearExistingData.Checked = True Then
-                SQL = "Delete " & DBNameSpace & ".sscpinspectionsrequired " & _
-                "where intYear = '" & mtbNewYear.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
-            End If
-
-            SQL = "select * " & _
-            "from " & DBNameSpace & ".sscpinspectionsrequired " & _
-            "where intYear = '" & cboExistingYears.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strAIRSNumber")) Then
-                    AIRSNumber = ""
-                Else
-                    AIRSNumber = dr.Item("strAIRSnumber")
-                End If
-                If IsDBNull(dr.Item("strInspectionRequired")) Then
-                    InspectionRequired = ""
-                Else
-                    InspectionRequired = dr.Item("strInspectionRequired")
-                End If
-                If IsDBNull(dr.Item("numSSCPEngineer")) Then
-                    SSCPEngineer = ""
-                Else
-                    SSCPEngineer = dr.Item("numSSCPEngineer")
-                End If
-                If IsDBNull(dr.Item("numSSCPUnit")) Then
-                    SSCPUnit = ""
-                Else
-                    SSCPUnit = dr.Item("numSSCPUnit")
-                End If
-                If IsDBNull(dr.Item("strFCERequired")) Then
-                    FCERequired = ""
-                Else
-                    FCERequired = dr.Item("strFCERequired")
-                End If
-                If IsDBNull(dr.Item("strAssigningManager")) Then
-                    AssigningManager = UserGCode
-                Else
-                    AssigningManager = dr.Item("strAssigningManager")
-                End If
-
-                SQL = "Select count(*) as ckCount " & _
-                "from " & DBNameSpace & ".sscpinspectionsrequired " & _
-                "where strAIRSNumber = '" & AIRSNumber & "' " & _
-                "and intYear = '" & mtbNewYear.Text & "' "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr2 = cmd.ExecuteReader
-                While dr2.Read
-                    If IsDBNull(dr2.Item("CkCount")) Then
-                        temp = "0"
-                    Else
-                        temp = dr2.Item("ckCount")
+            If DAL.SSCP.AssignmentYearExists(targetYear) Then
+                If chbClearExistingData.Checked = True Then
+                    Dim dialogResult As DialogResult = _
+                        MessageBox.Show("Warning: This will delete all facility assignments for " & mtbNewYear.Text & _
+                                        ". Are you sure you want to proceed?", "Confirm Delete", _
+                                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
+                    If dialogResult = Windows.Forms.DialogResult.Yes Then
+                        Dim deleteResult As Boolean = DAL.SSCP.DeleteAssignmentYear(targetYear)
+                        If Not deleteResult Then
+                            MsgBox("There was an error when attempting to clear data from target year. " & _
+                                   "Please check the value and try again." & vbCrLf & "No data altered.", _
+                                   MsgBoxStyle.Exclamation, Me.Text)
+                            Exit Sub
+                        End If
                     End If
-                End While
-                dr2.Close()
-                If temp = "0" Then
-                    SQL = "Insert into " & DBNameSpace & ".sscpinspectionsrequired " & _
-                    "values " & _
-                    "((select max(numKey) + 1 from " & DBNameSpace & ".SSCPinspectionsRequired), " & _
-                    "'" & AIRSNumber & "', '" & mtbNewYear.Text & "', " & _
-                    "'" & SSCPEngineer & "', '" & SSCPUnit & "', " & _
-                    "'" & InspectionRequired & "', '" & FCERequired & "', " & _
-                    "'" & AssigningManager & "', '" & OracleDate & "' ) "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr2 = cmd.ExecuteReader
-                    dr2.Close()
                 Else
+                    Dim dialogResult As DialogResult = _
+                        MessageBox.Show("Warning: This will merge data from " & oldYear & " into " & targetYear & _
+                                        ". Are you sure you want to proceed?", "Confirm Merge", _
+                                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
+                    If dialogResult = Windows.Forms.DialogResult.No Then
+                        Exit Sub
+                    End If
                 End If
-            End While
-            dr.Close()
-            If cboExistingYears.Items.Contains(mtbNewYear.Text) Then
-            Else
-                cboExistingYears.Items.Add(mtbNewYear.Text)
-            End If
-            If cboFiscalYear.Items.Contains(mtbNewYear.Text) Then
-            Else
-                cboFiscalYear.Items.Add(mtbNewYear.Text)
             End If
 
-            MsgBox("New data entered into desired year.", MsgBoxStyle.Information, Me.Text)
+            Dim recordsAdded As Integer = DAL.SSCP.CopyAssignmentYear(oldYear, targetYear)
+            If recordsAdded > 0 Then
+                If Not cboExistingYears.Items.Contains(targetYear) Then
+                    cboExistingYears.Items.Add(targetYear)
+                End If
+
+                If Not cboFiscalYear.Items.Contains(targetYear) Then
+                    cboFiscalYear.Items.Add(mtbNewYear.Text)
+                End If
+
+                MsgBox(recordsAdded & " new records entered into " & targetYear, MsgBoxStyle.Information, Me.Text)
+            Else
+                MsgBox("There was an error adding the data to the target year. " & _
+                       "Please check the value and try again.", MsgBoxStyle.Information, Me.Text)
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

@@ -2696,7 +2696,7 @@ Public Class PASPFeeAuditLog
                 MessageBox.Show("Please select a Fee Year", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
-            If Not Apb.ApbFacilityId.ValidAirsNumber(mtbAirsNumber.Text) Then
+            If Not Apb.ApbFacilityId.ValidAirsNumberFormat(mtbAirsNumber.Text) Then
                 MessageBox.Show("AIRS number is not valid", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If

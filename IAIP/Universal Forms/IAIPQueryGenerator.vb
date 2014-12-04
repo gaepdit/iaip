@@ -3322,25 +3322,31 @@ Public Class IAIPQueryGenerator
                         SQLWhereCase1 = txtFacilityLatitudeSearch1.Text
                         SQLWhereCase2 = txtFacilityLatitudeSearch2.Text
                     End If
-                    SQLWhere = SQLWhere & " and numFacilityLatitude between " & SQLWhereCase1 & " and " & SQLWhereCase2 & ""
+                    SQLWhere = SQLWhere & " and (numFacilityLatitude between " & SQLWhereCase1 & " and " & SQLWhereCase2 & " or " & _
+                        " numFacilityLatitude between " & SQLWhereCase2 & " and " & SQLWhereCase1 & " ) "
                 End If
             End If
 
             If chbFacilityLongitude.Checked = True Then
-                If txtFacilityLongitudeSearch1.Text <> "" Or txtFacilityLongitudeSearch2.Text <> "" Then
-                    If txtFacilityLongitudeSearch1.Text <> "" And txtFacilityLongitudeSearch2.Text = "" Then
-                        SQLWhereCase1 = txtFacilityLongitudeSearch1.Text
-                        SQLWhereCase2 = txtFacilityLongitudeSearch1.Text
+                If (txtFacilityLongitudeSearch1.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch1.Text)) _
+                OrElse (txtFacilityLongitudeSearch2.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch2.Text)) Then
+
+                    If (txtFacilityLongitudeSearch1.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch1.Text)) Then
+                        SQLWhereCase1 = -Math.Abs(CType(txtFacilityLongitudeSearch1.Text, Decimal))
                     End If
-                    If txtFacilityLongitudeSearch1.Text = "" And txtFacilityLongitudeSearch2.Text <> "" Then
-                        SQLWhereCase1 = txtFacilityLongitudeSearch2.Text
-                        SQLWhereCase2 = txtFacilityLongitudeSearch2.Text
+
+                    If (txtFacilityLongitudeSearch2.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch2.Text)) Then
+                        SQLWhereCase2 = -Math.Abs(CType(txtFacilityLongitudeSearch2.Text, Decimal))
+                    Else
+                        SQLWhereCase2 = SQLWhereCase1
                     End If
-                    If txtFacilityLongitudeSearch1.Text <> "" And txtFacilityLongitudeSearch2.Text <> "" Then
-                        SQLWhereCase1 = txtFacilityLongitudeSearch1.Text
-                        SQLWhereCase2 = txtFacilityLongitudeSearch2.Text
+
+                    If Not (txtFacilityLongitudeSearch1.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch1.Text)) Then
+                        SQLWhereCase1 = SQLWhereCase2
                     End If
-                    SQLWhere = SQLWhere & " and numFacilityLongitude between " & SQLWhereCase1 & " and " & SQLWhereCase2 & ""
+
+                    SQLWhere = SQLWhere & " and (numFacilityLongitude between " & SQLWhereCase1 & " and " & SQLWhereCase2 & " or " & _
+                        " numFacilityLongitude between " & SQLWhereCase2 & " and " & SQLWhereCase1 & " ) "
                 End If
             End If
 

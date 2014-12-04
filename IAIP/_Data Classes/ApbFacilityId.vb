@@ -8,11 +8,11 @@
 
         Public Sub New(ByVal input As String)
             ' Parse and save or throw exception
-            If ValidAirsNumber(input) Then
+            If ValidAirsNumberFormat(input) Then
                 _value = GetNormalizedAirsNumber(input)
             Else
                 _value = Nothing
-                Throw New InvalidAirsNumberException(String.Format("The argument {0} is not a valid AIRS number.", input))
+                Throw New InvalidAirsNumberException(String.Format("{0} is not a valid AIRS number.", input))
             End If
         End Sub
 
@@ -65,7 +65,7 @@
         ''' <returns>True if airsNumber is valid; otherwise, false.</returns>
         ''' <remarks>Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000 (with or without the dashes)</remarks>
         <DebuggerStepThrough()> _
-        Public Shared Function ValidAirsNumber(ByVal airsNumber As String) As Boolean
+        Public Shared Function ValidAirsNumberFormat(ByVal airsNumber As String) As Boolean
             If airsNumber Is Nothing Then Return False
             ' Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000
             ' (with or without the dashes)
