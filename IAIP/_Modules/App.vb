@@ -158,7 +158,7 @@ Module App
 
     Public Sub ShowCrystalReportsSupportMessage()
         MessageBox.Show("You must install Crystal Reports in order to print reports. " & _
-                        "Click the Help button to download the installer.", _
+                        "Click the Help button to download the installer, or contact the Data Management Unit for assistance.", _
                         "Missing Crystal Reports Runtime", _
                         MessageBoxButtons.OK, _
                         MessageBoxIcon.Exclamation, _
