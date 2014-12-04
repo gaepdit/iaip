@@ -9,7 +9,7 @@ Public Class IAIPLogIn
         FocusLogin()
         DisplayVersion()
         monitor.TrackFeatureStop("Startup.Loading")
-        If AppFirstRun Then
+        If AppFirstRun Or AppUpgraded Then
             App.TestCrystalReportsInstallation()
         End If
     End Sub

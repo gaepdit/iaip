@@ -25,6 +25,7 @@ Module subMain
     Friend DateFormat As String = "dd-MMM-yyyy"
     Friend CurrentUser As IaipUser
     Friend AppFirstRun As Boolean = False
+    Friend AppUpgraded As Boolean = False
 
 #End Region
 

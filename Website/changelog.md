@@ -1,6 +1,14 @@
 % IAIP Change Log
 
-## Version 3.6.4 <span>(2014-11-12)</span>
+## Version 3.6.6 <span>(2014-12-04)</span>
+
+- FIX: *SBEAP* -- Unable to access customer summaries (#279); thx John Y.
+- FIX: Error message when entering an invalid AIRS # in the Navigation Screen Quick Access
+- FIX: Longitude search broken in Query Generator (#191); thx Elisabeth
+- FIX: *SSCP* -- Improve UI in the SSCP Managers Tools
+- FIX: *SSCP* -- Improve data quality when copying source assignments to a new year in the SSCP Managers Tools (#271)
+
+## Version 3.6.5 <span>(2014-11-13)</span>
 
 + NEW: Use updated SIC and NAICS tables (#277)
 
