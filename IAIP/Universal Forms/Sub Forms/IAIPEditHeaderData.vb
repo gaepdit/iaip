@@ -602,8 +602,8 @@ Public Class IAIPEditHeaderData
     End Function
 
     Private Function UserCanShutDownFacility() As Boolean
-        ' SSCP Unit Manager, SSCP Program Manager, Branch Chief, District Liasion, DMU 
-        If UserHasPermission(New String() {"(114)", "(19)", "(102)", "(27)", "(118)"}) Then
+        ' SSCP Unit Manager, SSCP Program Manager, Branch Chief, District Liasion, DMU, SSPP Program Manager
+        If UserHasPermission(New String() {"(114)", "(19)", "(102)", "(27)", "(118)", "(28)"}) Then
             Return True
         Else
             Return False
