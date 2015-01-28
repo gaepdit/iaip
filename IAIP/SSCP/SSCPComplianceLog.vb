@@ -52,6 +52,7 @@ Public Class SSCPComplianceLog
             And Not UserAccounts.Contains("(113)") _
             And Not UserAccounts.Contains("(114)") _
             And Not UserAccounts.Contains("(141)") _
+            And Not UserAccounts.Contains("(118)") _
             Then
                 btnAddNewEntry.Visible = False
                 btnDeleteWork.Visible = False
@@ -349,147 +350,6 @@ Public Class SSCPComplianceLog
         Dim NotificationData As String = ""
 
         Try
-            'SQL = "select " & _
-            '"ALLDATA.AIRSNUMBER, STRFACILITYNAME, " & _
-            '"STRCLASS, WORKEVENT, " & _
-            '"StaffResponsible, UniqueNumber, " & _
-            '"TO_DATE(RECEIVEDDATE, 'dd-Mon-YY') as RECEIVEDDATE, " & _
-            '"TO_DATE(INSPECTIONDATE, 'dd-Mon-YY') as INSPECTIONDATE, " & _
-            '"TO_DATE(FCEDATE, 'dd-Mon-YY') as FCEDATE, " & _
-            '"TO_DATE(DISCOVERYDATE, 'dd-Mon-YY') as DISCOVERYDATE, " & _
-            '"NUMUSERID, FLAG, COMPLETESTATUS, " & _
-            '"CURRENTSTATUS, " & _
-            '"to_date(INSDATE, 'dd-Mon-YY') as InsDate, " & _
-            '"strNotificationType, " & _
-            '"TO_DATE(LASTMODIFIED) as LASTMODIFIED " & _
-            '"from " & _
-            '"(select " & _
-            '"SUBSTR(" & DBNameSpace & ".SSCPITEMMASTER.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
-            '"STRFACILITYNAME, STRCLASS, " & _
-            '"case " & _
-            '"when STREVENTTYPE = '05' then (strActivityName||'-'||strNotificationDesc) " & _
-            '"else STRACTIVITYNAME " & _
-            '"end WorkEvent, " & _
-            '"(STRLASTNAME||', '||STRFIRSTNAME) as STAFFRESPONSIBLE, " & _
-            '"" & DBNameSpace & ".SSCPITEMMASTER.STRTRACKINGNUMBER as UNIQUENUMBER, " & _
-            '"to_char(" & DBNameSpace & ".SSCPITEMMASTER.DATRECEIVEDDATE) as RECEIVEDDATE, " & _
-            '"case " & _
-            '"when TO_CHAR(DATINSPECTIONDATESTART) is null then '' " & _
-            '"else TO_CHAR(DATINSPECTIONDATESTART) " & _
-            '"end INSPECTIONDATE, " & _
-            '"'' as FCEDATE, " & _
-            '"'' as DISCOVERYDATE, " & _
-            '"to_char(" & DBNameSpace & ".SSCPITEMMASTER.STRRESPONSIBLESTAFF) as NUMUSERID, " & _
-            '"case " & _
-            '"when STREVENTTYPE = '01' then 'IT' " & _
-            '"when STREVENTTYPE = '02' then 'IT' " & _
-            '"when STREVENTTYPE = '03' then 'IT' " & _
-            '"when STREVENTTYPE = '04' then 'IT' " & _
-            '"when STREVENTTYPE = '05' then 'IT' " & _
-            '"when strEventType = '07' then 'IT' " & _
-            '"end FLAG, " & _
-            '"to_char(datCompleteDate) as CompleteStatus, " & _
-            '"case " & _
-            '"when STRDELETE is not null then 'Deleted' " & _
-            '"when DATCOMPLETEDATE is not null then 'Closed' " & _
-            '"else 'Open' " & _
-            '"end CURRENTSTATUS, " & _
-            '"case " & _
-            '"when TO_CHAR(DATINSPECTIONDATESTART) is null then '' " & _
-            '"else TO_CHAR(DATINSPECTIONDATESTART) " & _
-            '"end INSDate, " & _
-            '"strNotificationType, " & _
-            '"case " & _
-            '"when STREVENTTYPE = '01' then " & DBNameSpace & ".SSCPREPORTS.DATMODIFINGDATE " & _
-            '"when STREVENTTYPE = '02' then " & DBNameSpace & ".SSCPINSPECTIONS.DATMODIFINGDATE " & _
-            '"when STREVENTTYPE = '03' then " & DBNameSpace & ".sscptestreports.datmodifingdate " & _
-            '"when STREVENTTYPE = '04' then " & DBNameSpace & ".SSCPACCS.DATMODIFINGDATE  " & _
-            '"when STREVENTTYPE = '05' then " & DBNameSpace & ".SSCPNOTIFICATIONS.DATMODIFINGDATE " & _
-            '"when strEventType = '07' then " & DBNameSpace & ".SSCPINSPECTIONS.DATMODIFINGDATE " & _
-            '"end LASTMODIFIED " & _
-            '"from " & DBNameSpace & ".SSCPITEMMASTER, " & DBNameSpace & ".APBFACILITYINFORMATION, " & _
-            '"" & DBNameSpace & ".LOOKUPCOMPLIANCEACTIVITIES, " & DBNameSpace & ".EPDUSERPROFILES, " & _
-            '"" & DBNameSpace & ".APBHEADERDATA, " & DBNameSpace & ".SSCPINSPECTIONS, " & _
-            '"" & DBNameSpace & ".SSCPNOTIFICATIONS, " & DBNameSpace & ".LOOKUPSSCPNOTIFICATIONS, " & _
-            '"" & DBNameSpace & ".SSCPREPORTS, " & DBNameSpace & ".SSCPACCS, " & _
-            '"" & DBNameSpace & ".sscptestreports " & _
-            '"where " & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER = " & DBNameSpace & ".SSCPITEMMASTER.STRAIRSNUMBER   " & _
-            '"and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
-            '"and " & DBNameSpace & ".SSCPITEMMASTER.STREVENTTYPE = " & DBNameSpace & ".LOOKUPCOMPLIANCEACTIVITIES.STRACTIVITYTYPE " & _
-            '"and " & DBNameSpace & ".SSCPITEMMASTER.STRRESPONSIBLESTAFF = " & DBNameSpace & ".EPDUSERPROFILES.NUMUSERID  " & _
-            '"and " & DBNameSpace & ".SSCPITEMMASTER.STRTRACKINGNUMBER = " & DBNameSpace & ".SSCPINSPECTIONS.STRTRACKINGNUMBER (+) " & _
-            '"and " & DBNameSpace & ".SSCPITEMMASTER.STRTRACKINGNUMBER = " & DBNameSpace & ".SSCPNOTIFICATIONS.STRTRACKINGNUMBER (+) " & _
-            '"and " & DBNameSpace & ".SSCPNOTIFICATIONS.STRNOTIFICATIONTYPE = " & DBNameSpace & ".LOOKUPSSCPNOTIFICATIONS.STRNOTIFICATIONKEY  (+) " & _
-            '"and " & DBNameSpace & ".SSCPITEMMASTER.STRTRACKINGNUMBER = " & DBNameSpace & ".SSCPREPORTS.STRTRACKINGNUMBER (+) " & _
-            '"and " & DBNameSpace & ".SSCPITEMMASTER.STRTRACKINGNUMBER = " & DBNameSpace & ".SSCPACCS.STRTRACKINGNUMBER (+) " & _
-            '"and " & DBNameSpace & ".SSCPITEMMASTER.STRTRACKINGNUMBER = " & DBNameSpace & ".SSCPTESTREPORTS.STRTRACKINGNUMBER (+) " & _
-            '"union " & _
-            '"select " & _
-            '"SUBSTR(" & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
-            '"strFacilityName, strClass, " & _
-            '"'Full Compliance Evaluation' as WorkEvent, " & _
-            '"(strLastName|| ', ' ||strFirstName) as StaffResponsible, " & _
-            '"" & DBNameSpace & ".SSCPFCEMaster.strFCENumber as UniqueNumber, " & _
-            '"'' as ReceivedDate, '' as INSPECTIONDATE, " & _
-            '"to_char(datFCECompleted) as FCEDate, " & _
-            '"'' as DISCOVERYDATE, " & _
-            '"to_char(numUserID) as numUserID, " & _
-            '"'FC' as FLAG, " & _
-            '"to_char(datFCECompleted) as CompleteStatus, " & _
-            '"case " & _
-            '"when datFCECompleted is Not Null then 'Closed' " & _
-            '"else 'Open' " & _
-            '"End CurrentStatus, " & _
-            '"'' AS INSDate, " & _
-            '"'' as strNotificationType, " & _
-            '"" & DBNameSpace & ".SSCPFCE.datModifingDate as LastModified " & _
-            '"from " & _
-            '"" & DBNameSpace & ".APBFACILITYINFORMATION, " & DBNameSpace & ".SSCPFCEMASTER, " & _
-            '"" & DBNameSpace & ".SSCPFCE, " & DBNameSpace & ".EPDUSERPROFILES, " & _
-            '"" & DBNameSpace & ".APBHeaderData " & _
-            '"where " & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER = " & DBNameSpace & ".SSCPFCEMASTER.STRAIRSNUMBER " & _
-            '"and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber  " & _
-            '"and " & DBNameSpace & ".EPDUSERPROFILES.NUMUSERID = " & DBNameSpace & ".SSCPFCE.STRREVIEWER  " & _
-            '"and " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = " & DBNameSpace & ".SSCPFCE.strFCENumber  " & _
-            '"union " & _
-            '"select " & _
-            '"SUBSTR(" & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
-            '"STRFACILITYNAME, STRCLASS, " & _
-            '"'Enforcement-'||stractiontype as WorkEvent, " & _
-            '"(strLastName|| ', ' ||strFirstName) as StaffResponsible, " & _
-            '"" & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber as UniqueNumber, " & _
-            '"'' as ReceivedDate, '' as InspectionDate, '' as FCEDate, " & _
-            '"TO_CHAR(DATDISCOVERYDATE) as DISCOVERYDATE, " & _
-            '"to_char(numUserID) as numuserID, " & _
-            '"'EN' as FLAG, " & _
-            '"to_char(datEnforcementFinalized) as CompleteStatus, " & _
-            '"case " & _
-            '  "when datEnforcementFinalized is Not Null then 'Closed' " & _
-            '"else 'Open' " & _
-            '"End CurrentStatus, " & _
-            '"'' AS INSDate,  " & _
-            '"'' as strNotificationType, " & _
-            '"" & DBNameSpace & ".SSCPENFORCEMENTITEMS.datModifingDate as LASTMODIFIED " & _
-            '"from " & _
-            '"" & DBNameSpace & ".APBFACILITYINFORMATION, " & DBNameSpace & ".SSCPENFORCEMENTITEMS, " & _
-            '"" & DBNameSpace & ".SSCPENFORCEMENT, " & DBNameSpace & ".EPDUSERPROFILES, " & _
-            '"" & DBNameSpace & ".APBHEADERDATA " & _
-            '"where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber " & _
-            '"and " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCPEnforcementItems.strStaffResponsible " & _
-            '"and " & DBNameSpace & ".SSCPENFORCEMENTITEMS.STRENFORCEMENTNUMBER = " & DBNameSpace & ".SSCPENFORCEMENT.STRENFORCEMENTNUMBER " & _
-            '"and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber) AllData, " & _
-            '"(select " & _
-            '"SUBSTR(" & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
-            '"NUMSSCPENGINEER " & _
-            '"from " & DBNameSpace & ".SSCPINSPECTIONSREQUIREd, " & _
-            '"(select " & _
-            '"max(INTYEAR) MAXYEAR,  " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER " & _
-            '"from " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
-            '"group by " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER) MAXRESULTS " & _
-            '"where " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = MAXRESULTS.STRAIRSNUMBER " & _
-            '"and " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.INTYEAR = MAXRESULTS.MAXYEAR ) RESPONSIBLESTAFF " & _
-            '"where Alldata.AIRSNumber = REsponsibleStaff.AIRSNumber "
-
 
             SQL = "select " & _
             "ALLDATA.AIRSNUMBER, STRFACILITYNAME, " & _
@@ -617,8 +477,8 @@ Public Class SSCPComplianceLog
             "" & DBNameSpace & ".EPDUSERPROFILES, " & DBNameSpace & ".APBHEADERDATA " & _
             "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber " & _
             "and " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCP_AuditedEnforcement.numStaffResponsible " & _
-            "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber) AllData, " & _
-            "(select " & _
+            "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber) AllData " & _
+            "left join (select " & _
             "SUBSTR(" & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
             "NUMSSCPENGINEER " & _
             "from " & DBNameSpace & ".SSCPINSPECTIONSREQUIREd, " & _
@@ -628,7 +488,8 @@ Public Class SSCPComplianceLog
             "group by " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER) MAXRESULTS " & _
             "where " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = MAXRESULTS.STRAIRSNUMBER " & _
             "and " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.INTYEAR = MAXRESULTS.MAXYEAR ) RESPONSIBLESTAFF " & _
-            "where Alldata.AIRSNumber = REsponsibleStaff.AIRSNumber "
+            "on Alldata.AIRSNumber = REsponsibleStaff.AIRSNumber " & _
+            " where 1 = 1 "
 
             If chbAllWork.Checked <> True Then
                 If chbACCs.Checked = True Then
