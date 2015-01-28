@@ -541,7 +541,7 @@ Public Class SscpEnforcement
                 DTPCOReceivedfromCompany.Enabled = True
                 DTPCOReceivedfromDirector.Enabled = True
                 DTPCOExecuted.Enabled = True
-                txtCONumber.ReadOnly = False
+                nudCoNumber.ReadOnly = False
                 DTPCOResolved.Enabled = True
                 txtCOPenaltyAmount.ReadOnly = False
                 txtPenaltyComments.ReadOnly = False
@@ -593,7 +593,7 @@ Public Class SscpEnforcement
                 DTPCOReceivedfromCompany.Enabled = False
                 DTPCOReceivedfromDirector.Enabled = False
                 DTPCOExecuted.Enabled = False
-                txtCONumber.ReadOnly = True
+                nudCoNumber.ReadOnly = True
                 DTPCOResolved.Enabled = False
                 txtCOPenaltyAmount.ReadOnly = True
                 txtPenaltyComments.ReadOnly = True
@@ -656,7 +656,7 @@ Public Class SscpEnforcement
                 DTPCOReceivedfromCompany.Enabled = False
                 DTPCOReceivedfromDirector.Enabled = False
                 DTPCOExecuted.Enabled = False
-                txtCONumber.ReadOnly = True
+                nudCoNumber.ReadOnly = True
                 DTPCOResolved.Enabled = False
                 txtCOPenaltyAmount.ReadOnly = True
                 txtPenaltyComments.ReadOnly = True
@@ -726,7 +726,7 @@ Public Class SscpEnforcement
                     DTPCOReceivedfromCompany.Enabled = False
                     DTPCOReceivedfromDirector.Enabled = False
                     DTPCOExecuted.Enabled = False
-                    txtCONumber.ReadOnly = True
+                    nudCoNumber.ReadOnly = True
                     DTPCOResolved.Enabled = False
                     txtCOPenaltyAmount.ReadOnly = True
                     txtPenaltyComments.ReadOnly = True
@@ -781,7 +781,7 @@ Public Class SscpEnforcement
                         DTPCOReceivedfromCompany.Enabled = True
                         DTPCOReceivedfromDirector.Enabled = True
                         DTPCOExecuted.Enabled = True
-                        txtCONumber.ReadOnly = False
+                        nudCoNumber.ReadOnly = False
                         DTPCOResolved.Enabled = True
                         txtCOPenaltyAmount.ReadOnly = False
                         txtPenaltyComments.ReadOnly = False
@@ -846,7 +846,7 @@ Public Class SscpEnforcement
             Dim COReceivedFromCompany As String = ""
             Dim COReceivedFromDirector As String = ""
             Dim COExecuted As String = ""
-            Dim CONumber As String = ""
+            Dim CONumberString As String = ""
             Dim COResolved As String = ""
             Dim COPenaltyAmount As String = ""
             Dim COPenaltyComments As String = ""
@@ -1128,9 +1128,9 @@ Public Class SscpEnforcement
                         End If
                     End If
                     If IsDBNull(dr.Item("strCONumber")) Then
-                        CONumber = ""
+                        CONumberString = ""
                     Else
-                        CONumber = dr.Item("strCONumber")
+                        CONumberString = dr.Item("strCONumber")
                     End If
                     If IsDBNull(dr.Item("strCOResolved")) Then
                         COResolved = ""
@@ -1499,10 +1499,11 @@ Public Class SscpEnforcement
                 DTPCOExecuted.Text = OracleDate
                 DTPCOExecuted.Checked = False
             End If
-            If CONumber <> "" Then
-                txtCONumber.Text = CONumber
+            If CONumberString <> "" Then
+                Dim parts As String() = CONumberString.Split("-"c)
+                nudCoNumber.Value = Math.Min(Convert.ToInt32(parts(parts.Length - 1)), 999999)
             Else
-                txtCONumber.Clear()
+                nudCoNumber.Value = 0
             End If
             If COResolved <> "" Then
                 DTPCOResolved.Text = COResolved
@@ -2421,10 +2422,10 @@ Public Class SscpEnforcement
                     COExecuted = ""
                     COExecutedCheck = "False"
                 End If
-                If txtCONumber.Text <> "" Then
-                    CONumber = txtCONumber.Text
-                Else
+                If nudCoNumber.Value = 0 Then
                     CONumber = ""
+                Else
+                    CONumber = "EPD-AQC-" & nudCoNumber.Value.ToString
                 End If
                 If DTPCOResolved.Checked = True Then
                     COResolved = Format(DTPCOResolved.Value, "dd-MMM-yyyy")
@@ -3230,7 +3231,7 @@ Public Class SscpEnforcement
             txtCOPenaltyAmount.Clear()
             DTPCOResolved.Text = OracleDate
             DTPCOResolved.Checked = False
-            txtCONumber.Clear()
+            nudCoNumber.Value = 0
             DTPCOExecuted.Text = OracleDate
             DTPCOExecuted.Checked = False
             DTPCOReceivedfromDirector.Text = OracleDate
