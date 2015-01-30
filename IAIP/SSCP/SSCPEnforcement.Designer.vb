@@ -24,9 +24,9 @@ Partial Class SscpEnforcement
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SscpEnforcement))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
         Me.tsbSave = New System.Windows.Forms.ToolStripButton
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
@@ -127,6 +127,7 @@ Partial Class SscpEnforcement
         Me.TPCO = New System.Windows.Forms.TabPage
         Me.txtCOComments = New System.Windows.Forms.TextBox
         Me.Panel10 = New System.Windows.Forms.Panel
+        Me.nudCoNumber = New System.Windows.Forms.NumericUpDown
         Me.DTPCOToUC = New System.Windows.Forms.DateTimePicker
         Me.txtPenaltyComments = New System.Windows.Forms.TextBox
         Me.txtStipulatedKey = New System.Windows.Forms.TextBox
@@ -251,6 +252,7 @@ Partial Class SscpEnforcement
         Me.Panel9.SuspendLayout()
         Me.TPCO.SuspendLayout()
         Me.Panel10.SuspendLayout()
+        CType(Me.nudCoNumber, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StipulatedPenalties.SuspendLayout()
         CType(Me.dgvStipulatedPenalties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPAO.SuspendLayout()
@@ -1278,6 +1280,7 @@ Partial Class SscpEnforcement
         '
         'Panel10
         '
+        Me.Panel10.Controls.Add(Me.nudCoNumber)
         Me.Panel10.Controls.Add(Me.DTPCOToUC)
         Me.Panel10.Controls.Add(Me.txtPenaltyComments)
         Me.Panel10.Controls.Add(Me.txtStipulatedKey)
@@ -1306,6 +1309,14 @@ Partial Class SscpEnforcement
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Size = New System.Drawing.Size(884, 294)
         Me.Panel10.TabIndex = 393
+        '
+        'nudCoNumber
+        '
+        Me.nudCoNumber.Location = New System.Drawing.Point(135, 186)
+        Me.nudCoNumber.Maximum = New Decimal(New Integer() {999999, 0, 0, 0})
+        Me.nudCoNumber.Name = "nudCoNumber"
+        Me.nudCoNumber.Size = New System.Drawing.Size(66, 20)
+        Me.nudCoNumber.TabIndex = 399
         '
         'DTPCOToUC
         '
@@ -1360,8 +1371,8 @@ Partial Class SscpEnforcement
         '
         'txtCONumber
         '
-        Me.txtCONumber.Location = New System.Drawing.Point(135, 186)
-        Me.txtCONumber.MaxLength = 20
+        Me.txtCONumber.Location = New System.Drawing.Point(310, 140)
+        Me.txtCONumber.MaxLength = 6
         Me.txtCONumber.Name = "txtCONumber"
         Me.txtCONumber.Size = New System.Drawing.Size(100, 20)
         Me.txtCONumber.TabIndex = 390
@@ -1377,11 +1388,11 @@ Partial Class SscpEnforcement
         'Label49
         '
         Me.Label49.AutoSize = True
-        Me.Label49.Location = New System.Drawing.Point(98, 189)
+        Me.Label49.Location = New System.Drawing.Point(44, 188)
         Me.Label49.Name = "Label49"
-        Me.Label49.Size = New System.Drawing.Size(32, 13)
+        Me.Label49.Size = New System.Drawing.Size(85, 13)
         Me.Label49.TabIndex = 389
-        Me.Label49.Text = "CO #"
+        Me.Label49.Text = "CO # EPD-AQC-"
         '
         'Label28
         '
@@ -1565,34 +1576,34 @@ Partial Class SscpEnforcement
         '
         'dgvStipulatedPenalties
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvStipulatedPenalties.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvStipulatedPenalties.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvStipulatedPenalties.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvStipulatedPenalties.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvStipulatedPenalties.DefaultCellStyle = DataGridViewCellStyle5
         Me.dgvStipulatedPenalties.Location = New System.Drawing.Point(9, 100)
         Me.dgvStipulatedPenalties.Name = "dgvStipulatedPenalties"
         Me.dgvStipulatedPenalties.ReadOnly = True
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvStipulatedPenalties.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvStipulatedPenalties.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.dgvStipulatedPenalties.Size = New System.Drawing.Size(358, 106)
         Me.dgvStipulatedPenalties.TabIndex = 382
         '
@@ -2611,6 +2622,7 @@ Partial Class SscpEnforcement
         Me.TPCO.PerformLayout()
         Me.Panel10.ResumeLayout(False)
         Me.Panel10.PerformLayout()
+        CType(Me.nudCoNumber, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StipulatedPenalties.ResumeLayout(False)
         Me.StipulatedPenalties.PerformLayout()
         CType(Me.dgvStipulatedPenalties, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2851,4 +2863,5 @@ Partial Class SscpEnforcement
     Friend WithEvents Label56 As System.Windows.Forms.Label
     Friend WithEvents Label57 As System.Windows.Forms.Label
     Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
+    Friend WithEvents nudCoNumber As System.Windows.Forms.NumericUpDown
 End Class

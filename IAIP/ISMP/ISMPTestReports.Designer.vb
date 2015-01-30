@@ -2648,21 +2648,21 @@ Me.Label33.TextAlign = System.Drawing.ContentAlignment.BottomLeft
 '
 Me.cboEmissRateUnitOneStackThreeRun.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboEmissRateUnitOneStackThreeRun.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboEmissRateUnitOneStackThreeRun.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEmissRateUnitOneStackThreeRun.Location = New System.Drawing.Point(454, 142)
 Me.cboEmissRateUnitOneStackThreeRun.Name = "cboEmissRateUnitOneStackThreeRun"
 Me.cboEmissRateUnitOneStackThreeRun.Size = New System.Drawing.Size(136, 21)
 Me.cboEmissRateUnitOneStackThreeRun.TabIndex = 73
-Me.cboEmissRateUnitOneStackThreeRun.Text = "UNITS"
 '
 'cboPollConUnitOneStackThreeRun
 '
 Me.cboPollConUnitOneStackThreeRun.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboPollConUnitOneStackThreeRun.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboPollConUnitOneStackThreeRun.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboPollConUnitOneStackThreeRun.Location = New System.Drawing.Point(454, 120)
 Me.cboPollConUnitOneStackThreeRun.Name = "cboPollConUnitOneStackThreeRun"
 Me.cboPollConUnitOneStackThreeRun.Size = New System.Drawing.Size(136, 21)
 Me.cboPollConUnitOneStackThreeRun.TabIndex = 68
-Me.cboPollConUnitOneStackThreeRun.Text = "UNITS"
 '
 'btnClearOneStackThreeRun3
 '
@@ -3149,21 +3149,21 @@ Me.Label49.TextAlign = System.Drawing.ContentAlignment.BottomLeft
 '
 Me.cboEmissRateUnitOneStackFourRun.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboEmissRateUnitOneStackFourRun.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboEmissRateUnitOneStackFourRun.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEmissRateUnitOneStackFourRun.Location = New System.Drawing.Point(560, 142)
 Me.cboEmissRateUnitOneStackFourRun.Name = "cboEmissRateUnitOneStackFourRun"
 Me.cboEmissRateUnitOneStackFourRun.Size = New System.Drawing.Size(136, 21)
 Me.cboEmissRateUnitOneStackFourRun.TabIndex = 110
-Me.cboEmissRateUnitOneStackFourRun.Text = "UNITS"
 '
 'cboPollConUnitOneStackFourRun
 '
 Me.cboPollConUnitOneStackFourRun.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboPollConUnitOneStackFourRun.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboPollConUnitOneStackFourRun.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboPollConUnitOneStackFourRun.Location = New System.Drawing.Point(560, 120)
 Me.cboPollConUnitOneStackFourRun.Name = "cboPollConUnitOneStackFourRun"
 Me.cboPollConUnitOneStackFourRun.Size = New System.Drawing.Size(136, 21)
 Me.cboPollConUnitOneStackFourRun.TabIndex = 104
-Me.cboPollConUnitOneStackFourRun.Text = "UNITS"
 '
 'btnClearOneStackFourRun3
 '

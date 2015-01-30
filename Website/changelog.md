@@ -1,5 +1,13 @@
 % IAIP Change Log
 
+## Version 3.6.7 <span>(2015-01-30)</span>
+
++ NEW: SSPP Program Manager can shut down a facility (#288); thx Eric
++ NEW: *SSCP* -- Ensure consistent formatting for CO numbers (#294)
+
+- FIX: *ISMP* -- Improve UI in the Test Report form
+- FIX: *SSCP* -- Not all items displayed in Compliance Log (#295); thx John Harrison
+
 ## Version 3.6.6 <span>(2014-12-04)</span>
 
 - FIX: *SBEAP* -- Unable to access customer summaries (#279); thx John Y.
