@@ -9,7 +9,7 @@ Once you're sure a new version is ready for general release, follow these instru
 
 1. Close the project in Visual Studio.
 
-1. Merge all changes into the *stable* branch.
+1. Merge all *default* branch into the *stable* branch.
 
     1. Ensure there are no uncommitted changes in the *default* branch.
 	
@@ -24,8 +24,6 @@ Once you're sure a new version is ready for general release, follow these instru
 		```
 
 1. Reopen the project in Visual Studio and build it in Debug mode to check for errors.
-
-1. Merge all changes into the *stable* branch (see above).
 
 1. Change to Release mode. (Build → Configuration Manager… → Active solution configuration (dropdown) → Release)
 
