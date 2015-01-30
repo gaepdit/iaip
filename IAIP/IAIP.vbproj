@@ -433,16 +433,16 @@
       <DependentUpon>Letterhead.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DMU\DMUDeveloperTools.Designer.vb">
-      <DependentUpon>DMUDeveloperTools.vb</DependentUpon>
+    <Compile Include="DMU\DMUDeveloperTool.Designer.vb">
+      <DependentUpon>DMUDeveloperTool.vb</DependentUpon>
     </Compile>
-    <Compile Include="DMU\DMUDeveloperTools.vb">
+    <Compile Include="DMU\DMUDeveloperTool.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DMU\DMUStaffTools.Designer.vb">
-      <DependentUpon>DMUStaffTools.vb</DependentUpon>
+    <Compile Include="DMU\DMUEisGecoTool.Designer.vb">
+      <DependentUpon>DMUEisGecoTool.vb</DependentUpon>
     </Compile>
-    <Compile Include="DMU\DMUStaffTools.vb">
+    <Compile Include="DMU\DMUEisGecoTool.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SSPP\SSPPTitleVTools.Designer.vb">
@@ -675,10 +675,10 @@
       <DependentUpon>SSPPPublicNotice.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DMU\DMUTool.Designer.vb">
-      <DependentUpon>DMUTool.vb</DependentUpon>
+    <Compile Include="DMU\DMUDangerousTool.Designer.vb">
+      <DependentUpon>DMUDangerousTool.vb</DependentUpon>
     </Compile>
-    <Compile Include="DMU\DMUTool.vb">
+    <Compile Include="DMU\DMUDangerousTool.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ISMP\ISMPTestReportAdministrative.Designer.vb">
@@ -1123,12 +1123,12 @@
       <LastGenOutput>Letterhead.vb</LastGenOutput>
       <CustomToolNamespace>CR.Reports</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="DMU\DMUDeveloperTools.resx">
-      <DependentUpon>DMUDeveloperTools.vb</DependentUpon>
+    <EmbeddedResource Include="DMU\DMUDeveloperTool.resx">
+      <DependentUpon>DMUDeveloperTool.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="DMU\DMUStaffTools.resx">
-      <DependentUpon>DMUStaffTools.vb</DependentUpon>
+    <EmbeddedResource Include="DMU\DMUEisGecoTool.resx">
+      <DependentUpon>DMUEisGecoTool.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SSPP\SSPPTitleVTools.resx">
@@ -1283,9 +1283,9 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>SSPPPublicNotice.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="DMU\DMUTool.resx">
+    <EmbeddedResource Include="DMU\DMUDangerousTool.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>DMUTool.vb</DependentUpon>
+      <DependentUpon>DMUDangerousTool.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ISMP\ISMPTestReportAdministrative.resx">
       <SubType>Designer</SubType>

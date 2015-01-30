@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class DMUStaffTools
+Partial Class DMUEisGecoTool
     Inherits BaseForm
 
     'Form overrides dispose to clean up the component list.
@@ -23,7 +23,7 @@ Partial Class DMUStaffTools
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
 Me.components = New System.ComponentModel.Container
-Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DMUStaffTools))
+Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DMUEisGecoTool))
 Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
 Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
 Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
@@ -4267,7 +4267,7 @@ Me.TPEISStatMailout.Controls.Add(Me.Label266)
 Me.TPEISStatMailout.Location = New System.Drawing.Point(4, 22)
 Me.TPEISStatMailout.Name = "TPEISStatMailout"
 Me.TPEISStatMailout.Padding = New System.Windows.Forms.Padding(3)
-Me.TPEISStatMailout.Size = New System.Drawing.Size(438, 570)
+Me.TPEISStatMailout.Size = New System.Drawing.Size(438, 617)
 Me.TPEISStatMailout.TabIndex = 1
 Me.TPEISStatMailout.Text = "Mailout"
 Me.TPEISStatMailout.UseVisualStyleBackColor = true
@@ -4635,7 +4635,7 @@ Me.TPEISEnrollment.Controls.Add(Me.btnEISStatsRemoveEnrollment)
 Me.TPEISEnrollment.Controls.Add(Me.btnEISStatsEnrollment)
 Me.TPEISEnrollment.Location = New System.Drawing.Point(4, 22)
 Me.TPEISEnrollment.Name = "TPEISEnrollment"
-Me.TPEISEnrollment.Size = New System.Drawing.Size(438, 570)
+Me.TPEISEnrollment.Size = New System.Drawing.Size(438, 617)
 Me.TPEISEnrollment.TabIndex = 4
 Me.TPEISEnrollment.Text = "Enrollment"
 Me.TPEISEnrollment.UseVisualStyleBackColor = true
@@ -4730,7 +4730,7 @@ Me.TabPage4.Controls.Add(Me.Panel25)
 Me.TabPage4.Controls.Add(Me.Panel26)
 Me.TabPage4.Location = New System.Drawing.Point(4, 22)
 Me.TabPage4.Name = "TabPage4"
-Me.TabPage4.Size = New System.Drawing.Size(438, 570)
+Me.TabPage4.Size = New System.Drawing.Size(438, 617)
 Me.TabPage4.TabIndex = 6
 Me.TabPage4.Text = "EI Thresholds"
 Me.TabPage4.UseVisualStyleBackColor = true
@@ -4743,7 +4743,7 @@ Me.Panel23.Controls.Add(Me.GroupBox3)
 Me.Panel23.Dock = System.Windows.Forms.DockStyle.Fill
 Me.Panel23.Location = New System.Drawing.Point(0, 252)
 Me.Panel23.Name = "Panel23"
-Me.Panel23.Size = New System.Drawing.Size(438, 318)
+Me.Panel23.Size = New System.Drawing.Size(438, 365)
 Me.Panel23.TabIndex = 36
 '
 'dgvThresholdPollutants
@@ -4752,7 +4752,7 @@ Me.dgvThresholdPollutants.ColumnHeadersHeightSizeMode = System.Windows.Forms.Dat
 Me.dgvThresholdPollutants.Dock = System.Windows.Forms.DockStyle.Fill
 Me.dgvThresholdPollutants.Location = New System.Drawing.Point(0, 117)
 Me.dgvThresholdPollutants.Name = "dgvThresholdPollutants"
-Me.dgvThresholdPollutants.Size = New System.Drawing.Size(438, 201)
+Me.dgvThresholdPollutants.Size = New System.Drawing.Size(438, 248)
 Me.dgvThresholdPollutants.TabIndex = 33
 '
 'Panel24
@@ -5039,9 +5039,9 @@ Me.Label292.Text = "EIS Year"
 '
 Me.TabPage12.Location = New System.Drawing.Point(4, 22)
 Me.TabPage12.Name = "TabPage12"
-Me.TabPage12.Size = New System.Drawing.Size(438, 570)
+Me.TabPage12.Size = New System.Drawing.Size(438, 617)
 Me.TabPage12.TabIndex = 5
-Me.TabPage12.Text = "Add/Remove ES Facility"
+Me.TabPage12.Text = "Add/Remove EIS Facility"
 Me.TabPage12.UseVisualStyleBackColor = true
 '
 'Panel21
@@ -5775,7 +5775,7 @@ Me.tabMailOut.Controls.Add(Me.btnExporttoExcel)
 Me.tabMailOut.Location = New System.Drawing.Point(4, 22)
 Me.tabMailOut.Name = "tabMailOut"
 Me.tabMailOut.Padding = New System.Windows.Forms.Padding(3)
-Me.tabMailOut.Size = New System.Drawing.Size(548, 525)
+Me.tabMailOut.Size = New System.Drawing.Size(548, 572)
 Me.tabMailOut.TabIndex = 1
 Me.tabMailOut.Text = "MailOut"
 Me.tabMailOut.UseVisualStyleBackColor = true
@@ -6082,7 +6082,7 @@ Me.TabDetails.Controls.Add(Me.Label144)
 Me.TabDetails.Controls.Add(Me.Label145)
 Me.TabDetails.Location = New System.Drawing.Point(4, 22)
 Me.TabDetails.Name = "TabDetails"
-Me.TabDetails.Size = New System.Drawing.Size(548, 525)
+Me.TabDetails.Size = New System.Drawing.Size(548, 572)
 Me.TabDetails.TabIndex = 2
 Me.TabDetails.Text = "Details"
 Me.TabDetails.UseVisualStyleBackColor = true
@@ -6695,7 +6695,7 @@ Me.tabgenerateESmailout.Controls.Add(Me.cboMailoutYear)
 Me.tabgenerateESmailout.Controls.Add(Me.btnGenMailOut)
 Me.tabgenerateESmailout.Location = New System.Drawing.Point(4, 22)
 Me.tabgenerateESmailout.Name = "tabgenerateESmailout"
-Me.tabgenerateESmailout.Size = New System.Drawing.Size(548, 525)
+Me.tabgenerateESmailout.Size = New System.Drawing.Size(548, 572)
 Me.tabgenerateESmailout.TabIndex = 3
 Me.tabgenerateESmailout.Text = "Generate Mailout"
 Me.tabgenerateESmailout.UseVisualStyleBackColor = true
@@ -6755,7 +6755,7 @@ Me.tabenroll.Controls.Add(Me.btnESdeenrollment)
 Me.tabenroll.Controls.Add(Me.btnESenrollment)
 Me.tabenroll.Location = New System.Drawing.Point(4, 22)
 Me.tabenroll.Name = "tabenroll"
-Me.tabenroll.Size = New System.Drawing.Size(548, 525)
+Me.tabenroll.Size = New System.Drawing.Size(548, 572)
 Me.tabenroll.TabIndex = 4
 Me.tabenroll.Text = "Enrollment"
 Me.tabenroll.UseVisualStyleBackColor = true
@@ -6820,7 +6820,7 @@ Me.tabaddRemovefacility.Controls.Add(Me.Label193)
 Me.tabaddRemovefacility.Controls.Add(Me.txtESairNumber)
 Me.tabaddRemovefacility.Location = New System.Drawing.Point(4, 22)
 Me.tabaddRemovefacility.Name = "tabaddRemovefacility"
-Me.tabaddRemovefacility.Size = New System.Drawing.Size(548, 525)
+Me.tabaddRemovefacility.Size = New System.Drawing.Size(548, 572)
 Me.tabaddRemovefacility.TabIndex = 5
 Me.tabaddRemovefacility.Text = "Add/Remove ES Facility"
 Me.tabaddRemovefacility.UseVisualStyleBackColor = true
@@ -7126,7 +7126,7 @@ Me.TPWebUsers1.Controls.Add(Me.pnlUserFacility)
 Me.TPWebUsers1.Controls.Add(Me.pnlUserEmail)
 Me.TPWebUsers1.Location = New System.Drawing.Point(4, 22)
 Me.TPWebUsers1.Name = "TPWebUsers1"
-Me.TPWebUsers1.Size = New System.Drawing.Size(1000, 614)
+Me.TPWebUsers1.Size = New System.Drawing.Size(1000, 661)
 Me.TPWebUsers1.TabIndex = 2
 Me.TPWebUsers1.Text = "Web App Users - Email"
 Me.TPWebUsers1.UseVisualStyleBackColor = true
@@ -7138,7 +7138,7 @@ Me.pnlUserFacility.Controls.Add(Me.pnlUserInfo)
 Me.pnlUserFacility.Dock = System.Windows.Forms.DockStyle.Fill
 Me.pnlUserFacility.Location = New System.Drawing.Point(0, 45)
 Me.pnlUserFacility.Name = "pnlUserFacility"
-Me.pnlUserFacility.Size = New System.Drawing.Size(1000, 569)
+Me.pnlUserFacility.Size = New System.Drawing.Size(1000, 616)
 Me.pnlUserFacility.TabIndex = 153
 '
 'dgvUserFacilities
@@ -7147,7 +7147,7 @@ Me.dgvUserFacilities.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGrid
 Me.dgvUserFacilities.Dock = System.Windows.Forms.DockStyle.Fill
 Me.dgvUserFacilities.Location = New System.Drawing.Point(0, 366)
 Me.dgvUserFacilities.Name = "dgvUserFacilities"
-Me.dgvUserFacilities.Size = New System.Drawing.Size(1000, 203)
+Me.dgvUserFacilities.Size = New System.Drawing.Size(1000, 250)
 Me.dgvUserFacilities.TabIndex = 152
 '
 'pnlUserInfo
@@ -7951,7 +7951,7 @@ Me.TabFacilitySite.Controls.Add(Me.txtFacilitySiteID)
 Me.TabFacilitySite.Controls.Add(Me.Label57)
 Me.TabFacilitySite.Location = New System.Drawing.Point(4, 22)
 Me.TabFacilitySite.Name = "TabFacilitySite"
-Me.TabFacilitySite.Size = New System.Drawing.Size(474, 614)
+Me.TabFacilitySite.Size = New System.Drawing.Size(474, 661)
 Me.TabFacilitySite.TabIndex = 3
 Me.TabFacilitySite.Text = "Facility Site"
 Me.TabFacilitySite.UseVisualStyleBackColor = true
@@ -8110,7 +8110,7 @@ Me.TabEISAdmin.Controls.Add(Me.TabControl5)
 Me.TabEISAdmin.Location = New System.Drawing.Point(4, 22)
 Me.TabEISAdmin.Name = "TabEISAdmin"
 Me.TabEISAdmin.Padding = New System.Windows.Forms.Padding(3)
-Me.TabEISAdmin.Size = New System.Drawing.Size(474, 614)
+Me.TabEISAdmin.Size = New System.Drawing.Size(474, 661)
 Me.TabEISAdmin.TabIndex = 1
 Me.TabEISAdmin.Text = "EIS Admin"
 Me.TabEISAdmin.UseVisualStyleBackColor = true
@@ -8126,7 +8126,7 @@ Me.TabControl5.Dock = System.Windows.Forms.DockStyle.Fill
 Me.TabControl5.Location = New System.Drawing.Point(3, 3)
 Me.TabControl5.Name = "TabControl5"
 Me.TabControl5.SelectedIndex = 0
-Me.TabControl5.Size = New System.Drawing.Size(468, 608)
+Me.TabControl5.Size = New System.Drawing.Size(468, 655)
 Me.TabControl5.TabIndex = 0
 '
 'TabEISGenerateMailout
@@ -8144,7 +8144,7 @@ Me.TabEISGenerateMailout.Controls.Add(Me.btnGenerateEISMailout)
 Me.TabEISGenerateMailout.Location = New System.Drawing.Point(4, 22)
 Me.TabEISGenerateMailout.Name = "TabEISGenerateMailout"
 Me.TabEISGenerateMailout.Padding = New System.Windows.Forms.Padding(3)
-Me.TabEISGenerateMailout.Size = New System.Drawing.Size(460, 582)
+Me.TabEISGenerateMailout.Size = New System.Drawing.Size(460, 629)
 Me.TabEISGenerateMailout.TabIndex = 0
 Me.TabEISGenerateMailout.Text = "Generate Mailout"
 Me.TabEISGenerateMailout.UseVisualStyleBackColor = true
@@ -8257,7 +8257,7 @@ Me.TabEISEnrollment.Controls.Add(Me.btnEISBulkEnrollment)
 Me.TabEISEnrollment.Location = New System.Drawing.Point(4, 22)
 Me.TabEISEnrollment.Name = "TabEISEnrollment"
 Me.TabEISEnrollment.Padding = New System.Windows.Forms.Padding(3)
-Me.TabEISEnrollment.Size = New System.Drawing.Size(460, 582)
+Me.TabEISEnrollment.Size = New System.Drawing.Size(460, 629)
 Me.TabEISEnrollment.TabIndex = 1
 Me.TabEISEnrollment.Text = "Bulk Enrollment"
 Me.TabEISEnrollment.UseVisualStyleBackColor = true
@@ -8379,7 +8379,7 @@ Me.TabAddEISfacility.Controls.Add(Me.Label11)
 Me.TabAddEISfacility.Controls.Add(Me.txtaddEISAirsno)
 Me.TabAddEISfacility.Location = New System.Drawing.Point(4, 22)
 Me.TabAddEISfacility.Name = "TabAddEISfacility"
-Me.TabAddEISfacility.Size = New System.Drawing.Size(460, 582)
+Me.TabAddEISfacility.Size = New System.Drawing.Size(460, 629)
 Me.TabAddEISfacility.TabIndex = 2
 Me.TabAddEISfacility.Text = "Enroll a Facility"
 Me.TabAddEISfacility.UseVisualStyleBackColor = true
@@ -8503,7 +8503,7 @@ Me.tabEIS_ThresholdYear.Controls.Add(Me.cboEISType)
 Me.tabEIS_ThresholdYear.Controls.Add(Me.Label14)
 Me.tabEIS_ThresholdYear.Location = New System.Drawing.Point(4, 22)
 Me.tabEIS_ThresholdYear.Name = "tabEIS_ThresholdYear"
-Me.tabEIS_ThresholdYear.Size = New System.Drawing.Size(460, 582)
+Me.tabEIS_ThresholdYear.Size = New System.Drawing.Size(460, 629)
 Me.tabEIS_ThresholdYear.TabIndex = 3
 Me.tabEIS_ThresholdYear.Text = "EIS_ThresholdYear"
 Me.tabEIS_ThresholdYear.UseVisualStyleBackColor = true
@@ -8589,7 +8589,7 @@ Me.TabAddEISThresholds.Controls.Add(Me.Label16)
 Me.TabAddEISThresholds.Controls.Add(Me.cboEISType2)
 Me.TabAddEISThresholds.Location = New System.Drawing.Point(4, 22)
 Me.TabAddEISThresholds.Name = "TabAddEISThresholds"
-Me.TabAddEISThresholds.Size = New System.Drawing.Size(460, 582)
+Me.TabAddEISThresholds.Size = New System.Drawing.Size(460, 629)
 Me.TabAddEISThresholds.TabIndex = 4
 Me.TabAddEISThresholds.Text = "Add EIS Thresholds"
 Me.TabAddEISThresholds.UseVisualStyleBackColor = true
@@ -8807,7 +8807,7 @@ Me.cboEISType2.TabIndex = 47
 Me.TabEISSummary.Location = New System.Drawing.Point(4, 22)
 Me.TabEISSummary.Name = "TabEISSummary"
 Me.TabEISSummary.Padding = New System.Windows.Forms.Padding(3)
-Me.TabEISSummary.Size = New System.Drawing.Size(474, 614)
+Me.TabEISSummary.Size = New System.Drawing.Size(474, 661)
 Me.TabEISSummary.TabIndex = 0
 Me.TabEISSummary.Text = "EIS Summary"
 Me.TabEISSummary.UseVisualStyleBackColor = true
@@ -9487,7 +9487,7 @@ Me.TabPage6.Controls.Add(Me.Label172)
 Me.TabPage6.Location = New System.Drawing.Point(4, 22)
 Me.TabPage6.Name = "TabPage6"
 Me.TabPage6.Padding = New System.Windows.Forms.Padding(3)
-Me.TabPage6.Size = New System.Drawing.Size(499, 531)
+Me.TabPage6.Size = New System.Drawing.Size(499, 578)
 Me.TabPage6.TabIndex = 1
 Me.TabPage6.Text = "MailOut"
 Me.TabPage6.UseVisualStyleBackColor = true
@@ -9738,7 +9738,7 @@ Me.TabPage7.Controls.Add(Me.cboEIMailoutYear)
 Me.TabPage7.Controls.Add(Me.btnGenerateEIMailOut)
 Me.TabPage7.Location = New System.Drawing.Point(4, 22)
 Me.TabPage7.Name = "TabPage7"
-Me.TabPage7.Size = New System.Drawing.Size(499, 531)
+Me.TabPage7.Size = New System.Drawing.Size(499, 578)
 Me.TabPage7.TabIndex = 2
 Me.TabPage7.Text = "Generate MailOut"
 Me.TabPage7.UseVisualStyleBackColor = true
@@ -9879,7 +9879,7 @@ Me.TabPage1.Controls.Add(Me.btnEnroll)
 Me.TabPage1.Location = New System.Drawing.Point(4, 22)
 Me.TabPage1.Name = "TabPage1"
 Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-Me.TabPage1.Size = New System.Drawing.Size(499, 531)
+Me.TabPage1.Size = New System.Drawing.Size(499, 578)
 Me.TabPage1.TabIndex = 3
 Me.TabPage1.Text = "Enrollment"
 Me.TabPage1.UseVisualStyleBackColor = true
@@ -9944,7 +9944,7 @@ Me.TabPage2.Controls.Add(Me.Label181)
 Me.TabPage2.Controls.Add(Me.txtEIairsNumber)
 Me.TabPage2.Location = New System.Drawing.Point(4, 22)
 Me.TabPage2.Name = "TabPage2"
-Me.TabPage2.Size = New System.Drawing.Size(499, 531)
+Me.TabPage2.Size = New System.Drawing.Size(499, 578)
 Me.TabPage2.TabIndex = 4
 Me.TabPage2.Text = "Add/Remove EI Facility"
 Me.TabPage2.UseVisualStyleBackColor = true
@@ -10044,7 +10044,7 @@ Me.TabEIThresholds.Controls.Add(Me.Label199)
 Me.TabEIThresholds.Controls.Add(Me.cboEIType2)
 Me.TabEIThresholds.Location = New System.Drawing.Point(4, 22)
 Me.TabEIThresholds.Name = "TabEIThresholds"
-Me.TabEIThresholds.Size = New System.Drawing.Size(499, 531)
+Me.TabEIThresholds.Size = New System.Drawing.Size(499, 578)
 Me.TabEIThresholds.TabIndex = 5
 Me.TabEIThresholds.Text = "EI Thresholds"
 Me.TabEIThresholds.UseVisualStyleBackColor = true
@@ -10188,7 +10188,7 @@ Me.tabeifacilitysummary.Controls.Add(Me.Label100)
 Me.tabeifacilitysummary.Location = New System.Drawing.Point(4, 22)
 Me.tabeifacilitysummary.Name = "tabeifacilitysummary"
 Me.tabeifacilitysummary.Padding = New System.Windows.Forms.Padding(3)
-Me.tabeifacilitysummary.Size = New System.Drawing.Size(1000, 614)
+Me.tabeifacilitysummary.Size = New System.Drawing.Size(1000, 661)
 Me.tabeifacilitysummary.TabIndex = 1
 Me.tabeifacilitysummary.Text = "EI Summary"
 Me.tabeifacilitysummary.UseVisualStyleBackColor = true
@@ -10443,14 +10443,14 @@ Me.Label1.Name = "Label1"
 Me.Label1.Size = New System.Drawing.Size(0, 13)
 Me.Label1.TabIndex = 258
 '
-'DMUStaffTools
+'DMUEisGecoTool
 '
 Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
 Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 Me.ClientSize = New System.Drawing.Size(1016, 713)
 Me.Controls.Add(Me.TCDMUTools)
 Me.Controls.Add(Me.Label1)
-Me.Name = "DMUStaffTools"
+Me.Name = "DMUEisGecoTool"
 Me.Text = "EIS & GECO Tools"
 Me.TCDMUTools.ResumeLayout(false)
 Me.TPEISLog.ResumeLayout(false)

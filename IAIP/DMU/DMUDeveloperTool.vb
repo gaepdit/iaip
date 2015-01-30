@@ -4,7 +4,7 @@ Imports System.IO
 Imports System.Data.OleDb
 Imports System.Text.RegularExpressions
 
-Public Class DMUDeveloperTools
+Public Class DMUDeveloperTool
     Dim SQL, SQL2 As String
     Dim ds As DataSet
     Dim da As OracleDataAdapter
@@ -20,7 +20,7 @@ Public Class DMUDeveloperTools
         Try
 
             LoadPermissions()
-            
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -33,7 +33,7 @@ Public Class DMUDeveloperTools
             TCDMUTools.TabPages.Remove(TPAddNewFacility)
             TCDMUTools.TabPages.Remove(TPErrorLog)
             TCDMUTools.TabPages.Remove(TPWebErrorLog)
-            
+
             LoadOtherComboBoxes()
 
             If AccountFormAccess(129, 3) = "1" Or AccountFormAccess(129, 4) = "1" Then
@@ -5064,11 +5064,11 @@ Public Class DMUDeveloperTools
         Finally
 
         End Try
-         
+
     End Sub
     Private Sub llbFacilityInformation_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFacilityInformation.LinkClicked
         Try
-            
+
             GBFacilityInformation.Visible = True
             GBFacilityInformation.Location = New Point(224, 0)
             GBFacilityInformation.Size = New System.Drawing.Size(560, 280)
@@ -5079,13 +5079,13 @@ Public Class DMUDeveloperTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-         
+
         End Try
-         
+
     End Sub
     Private Sub llbMailingLocation_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbMailingLocation.LinkClicked
         Try
-            
+
             GBMailingLocation.Visible = True
             GBMailingLocation.Location = New Point(224, 0)
             GBMailingLocation.Size = New System.Drawing.Size(560, 120)
@@ -5096,13 +5096,13 @@ Public Class DMUDeveloperTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-          
+
         End Try
-         
+
     End Sub
     Private Sub llbHeaderData_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbHeaderData.LinkClicked
         Try
-            
+
             GBHeaderData.Visible = True
             GBHeaderData.Location = New Point(224, 0)
             GBHeaderData.Size = New System.Drawing.Size(560, 152)
@@ -5113,13 +5113,13 @@ Public Class DMUDeveloperTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            
+
         End Try
-         
+
     End Sub
     Private Sub llbAirProgramCodes_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbAirProgramCodes.LinkClicked
         Try
-            
+
             GBAirProgramCodes.Visible = True
             GBAirProgramCodes.Location = New Point(224, 0)
             GBAirProgramCodes.Size = New System.Drawing.Size(560, 120)
@@ -5130,13 +5130,13 @@ Public Class DMUDeveloperTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-           
+
         End Try
-         
+
     End Sub
     Private Sub llbContactInformation_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbContactInformation.LinkClicked
         Try
-            
+
             GBContactInformation.Visible = True
             GBContactInformation.Location = New Point(224, 0)
             GBContactInformation.Size = New System.Drawing.Size(560, 157)
@@ -5147,13 +5147,13 @@ Public Class DMUDeveloperTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-          
+
         End Try
-         
+
     End Sub
     Private Sub txtCDSAIRSNumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtCDSAIRSNumber.TextChanged
         Try
-            
+
             If txtCDSAIRSNumber.Text.Length = 12 Then
                 btnNewFacility.Enabled = True
                 txtCDSAIRSNumber.BackColor = Color.White
@@ -5185,31 +5185,31 @@ Public Class DMUDeveloperTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-         
+
         End Try
-         
+
     End Sub
     Private Sub txtCDSStreetAddress_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtCDSStreetAddress.TextChanged
         Try
-            
+
             txtMailingAddress.Text = txtCDSStreetAddress.Text
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-         
+
         End Try
-         
+
     End Sub
     Private Sub txtCDSCity_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtCDSCity.TextChanged
         Try
-            
+
             txtMailingCity.Text = txtCDSCity.Text
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-           
+
         End Try
-         
+
     End Sub
     Private Sub btnGenerateBatchFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGenerateBatchFile.Click
         Try
@@ -5240,18 +5240,18 @@ Public Class DMUDeveloperTools
         Finally
 
         End Try
-         
+
     End Sub
     Private Sub btnClearAddNewFacility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearAddNewFacility.Click
         Try
-            
+
             ClearCreateFacility()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-           
+
         End Try
-         
+
     End Sub
 
     Private Sub btnFilterErrors_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFilterErrors.Click
@@ -5299,19 +5299,19 @@ Public Class DMUDeveloperTools
     End Sub
     Private Sub btnFilterWebErrors_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFilterWebErrors.Click
         Try
-            
+
             LoadWegErrorLog()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-         
+
         End Try
-         
+
     End Sub
     Private Sub dgrWebErrorList_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgrWebErrorList.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrWebErrorList.HitTest(e.X, e.Y)
         Try
-            
+
             If hti.Type = DataGrid.HitTestType.Cell Then
                 If IsDBNull(dgrWebErrorList(hti.Row, 0)) Then
                     txtWebErrorNumber.Text = ""
@@ -5377,9 +5377,9 @@ Public Class DMUDeveloperTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-           
+
         End Try
-         
+
     End Sub
     Private Sub btnSaveWebErrorSolution_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveWebErrorSolution.Click
         Try
@@ -5408,9 +5408,9 @@ Public Class DMUDeveloperTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-          
+
         End Try
-         
+
     End Sub
     Private Sub mtbCDSZipCode_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles mtbCDSZipCode.TextChanged
         Try
@@ -5854,7 +5854,7 @@ Public Class DMUDeveloperTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-          
+
         End Try
     End Sub
     Private Sub btnPreLoadNewFacility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPreLoadNewFacility.Click
@@ -6466,7 +6466,7 @@ Public Class DMUDeveloperTools
 
     Private Sub btnExporttoExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExporttoExcel.Click
         Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-         Dim i, j As Integer
+        Dim i, j As Integer
 
         Try
             If ExcelApp.Visible = False Then

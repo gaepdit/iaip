@@ -2,7 +2,7 @@ Imports Oracle.DataAccess.Client
 Imports System.Data.OleDb
 'Imports System.Data.Odbc
 
-Public Class DMUTool
+Public Class DMUDangerousTool
     Dim SQL, SQL2 As String
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader
@@ -1568,7 +1568,7 @@ Public Class DMUTool
             End While
             dr.Close()
 
- 
+
 
         Catch ex As Exception
 
@@ -2098,7 +2098,7 @@ Public Class DMUTool
             'Dim PayId As String = ""
             Dim InvoiceNo As String = ""
             Dim InvoiceIDCounter As Integer = 19999
-            
+
 
             SQL = "Select * " & _
             "from " & DBNameSpace & ".FSAddPaid " & _
@@ -2210,7 +2210,7 @@ Public Class DMUTool
                 End If
                 dr2 = cmd.ExecuteReader
                 dr2.Close()
- 
+
                 SQL = "Insert into " & DBNameSpace & ".FS_Transactions " & _
                 "values " & _
                 "((" & DBNameSpace & ".seq_fs_transactions.nextVal), '" & InvoiceNo & "', " & _
@@ -4921,7 +4921,7 @@ Public Class DMUTool
             "from airbranch.FS_Transactions " & _
             "where strDepositNo is null " & _
             "and strCheckNo is null and numPayment = '0' " & _
-            "and strentryperson is null "  
+            "and strentryperson is null "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -5008,7 +5008,7 @@ Public Class DMUTool
             "where not exists (select * from AIRBranch.FEEmailOut " & _
             "where airbranch.FeeMailout.strAIRSNumber = AIRbranch.Fs_admin.strAIRSNumber " & _
             "and airbranch.FeeMailout.intyear = AIRbranch.FS_Admin.nuMFeeyear ) " & _
-            "and numFeeYear = '2009' " & _ 
+            "and numFeeYear = '2009' " & _
             "order by numfeeyear "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5597,7 +5597,7 @@ Public Class DMUTool
                 Else
                     FacilityID = dr.Item("FacilitySiteID")
                 End If
-               
+
                 InventoryYear = "2008"
                 If IsDBNull(dr.Item("strFinalize")) Then
                     Finalized = "14-Jun-11"
@@ -5659,7 +5659,7 @@ Public Class DMUTool
                 End If
 
                 InventoryYear = "2008"
-                 
+
                 If IsDBNull(dr.Item("strFinalize")) Then
                     Finalized = "14-Jun-11"
                 Else
@@ -6490,7 +6490,7 @@ Public Class DMUTool
             End While
             dr.Close()
 
-       
+
 
         Catch ex As Exception
 
