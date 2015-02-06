@@ -49,6 +49,23 @@ Namespace DAL.SSCP
             End If
         End Function
 
+        ''' <summary>
+        ''' Returns the GEOS ID for an inspection if one exists; otherwise, returns an empty string
+        ''' </summary>
+        ''' <param name="id">The IAIP tracking number for the inspection</param>
+        ''' <returns>GEOS Inspection ID</returns>
+        Public Function GetGeosInspectionId(ByVal id As String) As String
+            If id = "" OrElse Not Integer.TryParse(id, Nothing) Then Return ""
+
+            Dim query As String = "SELECT INSPECTION_ID " & _
+            "  FROM AIRBRANCH.GEOS_INSPECTIONS_XREF " & _
+            "  WHERE STRTRACKINGNUMBER = :Id "
+            Dim parameter As New OracleParameter("Id", id)
+
+            Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
+            Return result
+        End Function
+
     End Module
 
 End Namespace

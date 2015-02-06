@@ -1594,7 +1594,7 @@
     </Compile>
     <Compile Include="_DB\DAL.SmokeSchoolRoster.vb" />
     <Compile Include="_Classes\CollectionHelper.vb" />
-    <Compile Include="_Data Classes\WorkItem.vb" />
+    <Compile Include="_Data Classes\SSCP.WorkItem.vb" />
     <Compile Include="_Data Classes\Person.vb" />
     <Compile Include="_Data Classes\Res.ResEvent.vb">
       <SubType>Code</SubType>

@@ -3074,6 +3074,12 @@ Public Class SSCPEvents
 
 #End Region
 
+#Region " Properties "
+
+    Private eventType As Apb.SSCP.WorkItem.WorkItemEventType
+
+#End Region
+
     Private Sub SSCP_Reports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Dim temp As String = ""
@@ -3110,7 +3116,8 @@ Public Class SSCPEvents
     End Sub
 
 #Region "Page Load Functions"
-    Sub Loadcombos()
+
+    Private Sub Loadcombos()
         Dim dtStaff As New DataTable
 
         Dim drNewRow As DataRow
@@ -3163,7 +3170,7 @@ Public Class SSCPEvents
 
     End Sub
     Sub ShowCorrectTab()
-        Dim EventType As String = ""
+        Dim EventTypeDbString As String = ""
         Dim ReceivedDate As String = ""
 
         SQL = "Select * from " & DBNameSpace & ".SSCPItemMaster " & _
@@ -3178,9 +3185,9 @@ Public Class SSCPEvents
 
         While dr.Read
             If IsDBNull(dr("strEventType")) Then
-                EventType = ""
+                EventTypeDbString = ""
             Else
-                EventType = dr.Item("strEventType")
+                EventTypeDbString = dr.Item("strEventType")
             End If
             If IsDBNull(dr.Item("DatReceivedDate")) Then
                 ReceivedDate = OracleDate
@@ -3213,9 +3220,10 @@ Public Class SSCPEvents
 
         End While
 
-        Select Case EventType
+        Select Case EventTypeDbString
 
             Case "01" ' Report
+                Me.eventType = Apb.SSCP.WorkItem.WorkItemEventType.Report
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPReport)
                 DTPReportReceivedDate.Text = ReceivedDate
@@ -3226,6 +3234,7 @@ Public Class SSCPEvents
                 FormatReportsDGR()
 
             Case "02" ' Inspection
+                Me.eventType = Apb.SSCP.WorkItem.WorkItemEventType.Inspection
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPInspection)
                 DTPInspectionDateStart.Text = ReceivedDate
@@ -3235,22 +3244,15 @@ Public Class SSCPEvents
                 LoadInspection()
 
             Case "03" ' Test report
+                Me.eventType = Apb.SSCP.WorkItem.WorkItemEventType.StackTest
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPTestReports)
                 txtTestReportReceivedbySSCPDate.Text = ReceivedDate
                 LoadHeader()
                 LoadTestReport()
 
-            Case "05" ' Notification
-                TCItems.TabPages.Clear()
-                TCItems.TabPages.Add(TPNotifications)
-                DTPNotificationReceived.Text = ReceivedDate
-                LoadHeader()
-                FillNotificationCombos()
-                LoadNotification()
-                btnEnforcementProcess.Visible = False
-
             Case "04" ' ACC
+                Me.eventType = Apb.SSCP.WorkItem.WorkItemEventType.TvAcc
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPACC)
                 DTPACCReceivedDate.Text = ReceivedDate
@@ -3264,7 +3266,18 @@ Public Class SSCPEvents
                 tbbPrint.Enabled = True
                 tbbPrint.Visible = True
 
+            Case "05" ' Notification
+                Me.eventType = Apb.SSCP.WorkItem.WorkItemEventType.Notification
+                TCItems.TabPages.Clear()
+                TCItems.TabPages.Add(TPNotifications)
+                DTPNotificationReceived.Text = ReceivedDate
+                LoadHeader()
+                FillNotificationCombos()
+                LoadNotification()
+                btnEnforcementProcess.Visible = False
+
             Case "07" ' Risk Management Plan Inspection
+                Me.eventType = Apb.SSCP.WorkItem.WorkItemEventType.RmpInspection
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPInspection)
                 TPInspection.Text = "Risk Mgmt. Plan Inspection"
@@ -3412,6 +3425,13 @@ Public Class SSCPEvents
                 "Staff Responsible - " & dr.Item("strFirstName") & " " & dr.Item("strLastName") & vbCrLf & _
                 "Classification - " & dr.Item("strClass") & vbCrLf & _
                 "Air Program Code(s) - " & vbCrLf
+
+                If Me.eventType = Apb.SSCP.WorkItem.WorkItemEventType.Inspection Then
+                    Dim geosInspectionId As String = DAL.SSCP.GetGeosInspectionId(txtTrackingNumber.Text)
+                    If geosInspectionId <> "" Then
+                        txtEventInformation.Text = "GEOS Inspection ID " & geosInspectionId & vbNewLine & txtEventInformation.Text
+                    End If
+                End If
 
                 AddAirProgramCodes(dr.Item("StrAirProgramCodes"))
 
