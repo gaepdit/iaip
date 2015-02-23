@@ -180,6 +180,8 @@ Public Class SSPPApplicationTrackingLog
             chbPal.Enabled = False
             chbExpedited.Checked = False
             chbExpedited.Enabled = False
+            chbConfidential.Checked = False
+            chbConfidential.Enabled = False
 
             'ISMP and SSCP Reviews Tab
             txtISMPComments.Clear()
@@ -1822,6 +1824,12 @@ Public Class SSPPApplicationTrackingLog
                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
                 chbExpedited.Enabled = True
             End If
+            'chbConfidential
+            If AccountFormAccess(129, 3) = "1" Or _
+                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or _
+                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+                chbConfidential.Enabled = True
+            End If
             'chbPAReady
             If AccountFormAccess(129, 3) = "1" Or _
                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or _
@@ -3319,6 +3327,7 @@ Public Class SSPPApplicationTrackingLog
                 chbRuleyy.Enabled = True
                 chbPal.Enabled = True
                 chbExpedited.Enabled = True
+                chbConfidential.Enabled = True
                 txtSignificantComments.ReadOnly = False
                 DTPReviewSubmitted.Enabled = True
                 DTPReviewSubmitted.Enabled = True
@@ -3466,6 +3475,7 @@ Public Class SSPPApplicationTrackingLog
                     chbRuleyy.Enabled = True
                     chbPal.Enabled = True
                     chbExpedited.Enabled = True
+                    chbConfidential.Enabled = True
                     txtSignificantComments.ReadOnly = False
 
                     DTPReviewSubmitted.Enabled = True
@@ -3608,6 +3618,7 @@ Public Class SSPPApplicationTrackingLog
                         chbRuleyy.Enabled = True
                         chbPal.Enabled = True
                         chbExpedited.Enabled = True
+                        chbConfidential.Enabled = True
                         txtSignificantComments.ReadOnly = False
                         btnLoadFacilityApplicationHistory.Enabled = True
                         btnAddApplicationToList.Enabled = True
@@ -5397,6 +5408,7 @@ Public Class SSPPApplicationTrackingLog
                             chbRuleyy.Checked = False
                             chbPal.Checked = False
                             chbExpedited.Checked = False
+                            chbConfidential.Checked = False
                         Else
                             If Mid(dr.Item("strTrackedRules"), 1, 1) = "0" Then
                                 chbPSD.Checked = False
@@ -5432,6 +5444,11 @@ Public Class SSPPApplicationTrackingLog
                                 chbExpedited.Checked = False
                             Else
                                 chbExpedited.Checked = True
+                            End If
+                            If Mid(dr.Item("strTrackedRules"), 8, 1) = "0" Then
+                                chbConfidential.Checked = False
+                            Else
+                                chbConfidential.Checked = True
                             End If
                         End If
                         If IsDBNull(dr.Item("strApplicationType")) Then
@@ -7018,39 +7035,29 @@ Public Class SSPPApplicationTrackingLog
                 TrackedRules = "0000000000"
                 If chbPSD.Checked = True Then
                     TrackedRules = "1" & Mid(TrackedRules, 2)
-                Else
-                    TrackedRules = TrackedRules
                 End If
                 If chbNAANSR.Checked = True Then
                     TrackedRules = Mid(TrackedRules, 1, 1) & "1" & Mid(TrackedRules, 3)
-                Else
-                    TrackedRules = TrackedRules
                 End If
                 If chb112g.Checked = True Then
                     TrackedRules = Mid(TrackedRules, 1, 2) & "1" & Mid(TrackedRules, 4)
-                Else
-                    TrackedRules = TrackedRules
                 End If
                 If chbRulett.Checked = True Then
                     TrackedRules = Mid(TrackedRules, 1, 3) & "1" & Mid(TrackedRules, 5)
-                Else
-                    TrackedRules = TrackedRules
                 End If
                 If chbRuleyy.Checked = True Then
                     TrackedRules = Mid(TrackedRules, 1, 4) & "1" & Mid(TrackedRules, 6)
-                Else
-                    TrackedRules = TrackedRules
                 End If
                 If chbPal.Checked = True Then
                     TrackedRules = Mid(TrackedRules, 1, 5) & "1" & Mid(TrackedRules, 7)
-                Else
-                    TrackedRules = TrackedRules
                 End If
                 If chbExpedited.Checked = True Then
                     TrackedRules = Mid(TrackedRules, 1, 6) & "1" & Mid(TrackedRules, 8)
-                Else
-                    TrackedRules = TrackedRules
                 End If
+                If chbConfidential.Checked = True Then
+                    TrackedRules = Mid(TrackedRules, 1, 7) & "1" & Mid(TrackedRules, 9)
+                End If
+
                 If chbPAReady.Checked = True Then
                     PAReady = "True"
                 Else
@@ -8325,6 +8332,7 @@ Public Class SSPPApplicationTrackingLog
                     chbRuleyy.Enabled = False
                     chbPal.Enabled = False
                     chbExpedited.Enabled = False
+                    chbConfidential.Enabled = False
                     txtSignificantComments.ReadOnly = True
 
                     'Facility Application History 
