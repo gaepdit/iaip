@@ -2,7 +2,7 @@
 Imports System.IO
 Imports Oracle.DataAccess.Client
 
-Public Class DMUStaffTools
+Public Class DMUEisGecoTool
     Dim daStaff As OracleDataAdapter
     Dim dsStaff As DataSet
     Dim SQL, SQL2, SQL3 As String

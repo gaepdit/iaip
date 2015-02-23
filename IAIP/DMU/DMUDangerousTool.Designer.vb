@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class DMUTool
+Partial Class DMUDangerousTool
     Inherits BaseForm
 
     'Form overrides dispose to clean up the component list.
@@ -546,14 +546,14 @@ Partial Class DMUTool
         Me.btnRunSQL.Text = "Run SQL "
         Me.btnRunSQL.UseVisualStyleBackColor = True
         '
-        'DMUTool
+        'DMUDangerousTool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(715, 485)
         Me.Controls.Add(Me.SCDMUTool)
-        Me.Name = "DMUTool"
-        Me.Text = "DMU Tool"
+        Me.Name = "DMUDangerousTool"
+        Me.Text = "DANGER! DANGER! DANGER!"
         Me.SCDMUTool.Panel1.ResumeLayout(False)
         Me.SCDMUTool.Panel1.PerformLayout()
         Me.SCDMUTool.Panel2.ResumeLayout(False)

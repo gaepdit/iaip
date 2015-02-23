@@ -557,6 +557,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Label7 = New System.Windows.Forms.Label
         Me.txtDistrict = New System.Windows.Forms.TextBox
         Me.TCApplicationTrackingLog = New System.Windows.Forms.TabControl
+        Me.chbConfidential = New System.Windows.Forms.CheckBox
         Me.GroupBox2.SuspendLayout()
         Me.TPSubPartEditor.SuspendLayout()
         Me.TCSupParts.SuspendLayout()
@@ -5335,9 +5336,9 @@ Partial Class SSPPApplicationTrackingLog
         'GBSignificationComments
         '
         Me.GBSignificationComments.Controls.Add(Me.txtSignificantComments)
-        Me.GBSignificationComments.Location = New System.Drawing.Point(140, 3)
+        Me.GBSignificationComments.Location = New System.Drawing.Point(198, 3)
         Me.GBSignificationComments.Name = "GBSignificationComments"
-        Me.GBSignificationComments.Size = New System.Drawing.Size(640, 141)
+        Me.GBSignificationComments.Size = New System.Drawing.Size(582, 178)
         Me.GBSignificationComments.TabIndex = 1
         Me.GBSignificationComments.TabStop = False
         Me.GBSignificationComments.Text = "Significant Modifications Emission Increase/Decrease for Public Notice"
@@ -5350,11 +5351,12 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtSignificantComments.Name = "txtSignificantComments"
         Me.txtSignificantComments.ReadOnly = True
         Me.txtSignificantComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtSignificantComments.Size = New System.Drawing.Size(628, 108)
+        Me.txtSignificantComments.Size = New System.Drawing.Size(570, 146)
         Me.txtSignificantComments.TabIndex = 43
         '
         'ApplicableRulesGroup
         '
+        Me.ApplicableRulesGroup.Controls.Add(Me.chbConfidential)
         Me.ApplicableRulesGroup.Controls.Add(Me.chbExpedited)
         Me.ApplicableRulesGroup.Controls.Add(Me.chbPal)
         Me.ApplicableRulesGroup.Controls.Add(Me.chbRuleyy)
@@ -5364,7 +5366,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.ApplicableRulesGroup.Controls.Add(Me.chbPSD)
         Me.ApplicableRulesGroup.Location = New System.Drawing.Point(3, 3)
         Me.ApplicableRulesGroup.Name = "ApplicableRulesGroup"
-        Me.ApplicableRulesGroup.Size = New System.Drawing.Size(131, 162)
+        Me.ApplicableRulesGroup.Size = New System.Drawing.Size(189, 178)
         Me.ApplicableRulesGroup.TabIndex = 0
         Me.ApplicableRulesGroup.TabStop = False
         Me.ApplicableRulesGroup.Text = "Applicable Rule(s)"
@@ -6456,6 +6458,16 @@ Partial Class SSPPApplicationTrackingLog
         Me.TCApplicationTrackingLog.Size = New System.Drawing.Size(792, 562)
         Me.TCApplicationTrackingLog.TabIndex = 255
         '
+        'chbConfidential
+        '
+        Me.chbConfidential.AutoSize = True
+        Me.chbConfidential.Location = New System.Drawing.Point(6, 148)
+        Me.chbConfidential.Name = "chbConfidential"
+        Me.chbConfidential.Size = New System.Drawing.Size(183, 17)
+        Me.chbConfidential.TabIndex = 44
+        Me.chbConfidential.Text = "Confidential information submitted"
+        Me.chbConfidential.UseVisualStyleBackColor = True
+        '
         'SSPPApplicationTrackingLog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -7126,4 +7138,5 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents chbCDS_RMP As System.Windows.Forms.CheckBox
     Friend WithEvents chbExpedited As System.Windows.Forms.CheckBox
     Friend WithEvents TBBSave As System.Windows.Forms.ToolBarButton
+    Friend WithEvents chbConfidential As System.Windows.Forms.CheckBox
 End Class

@@ -6,16 +6,12 @@ Namespace Apb.SSCP
     Public Class Acc
         Inherits WorkItem
 
-        Public Overrides ReadOnly Property EventType() As String
+        Public Overrides Property EventType() As WorkItemEventType
             Get
-                Return "Annual Compliance Certification"
+                Return WorkItemEventType.TvAcc
             End Get
-        End Property
-
-        Public Overrides ReadOnly Property EventTypeCode() As String
-            Get
-                Return "04"
-            End Get
+            Set(ByVal value As WorkItemEventType)
+            End Set
         End Property
 
         Public Property AccReportingYear() As Integer

@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class DMUDeveloperTools
+Partial Class DMUDeveloperTool
     Inherits BaseForm
 
     'Form overrides dispose to clean up the component list.
@@ -23,7 +23,7 @@ Partial Class DMUDeveloperTools
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DMUDeveloperTools))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DMUDeveloperTool))
         Me.bgwTransfer = New System.ComponentModel.BackgroundWorker
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.TCDMUTools = New System.Windows.Forms.TabControl
@@ -1933,14 +1933,14 @@ Partial Class DMUDeveloperTools
         Me.txtCDSAIRSNumber.TabIndex = 52
         Me.txtCDSAIRSNumber.Text = "0413"
         '
-        'DMUDeveloperTools
+        'DMUDeveloperTool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(792, 687)
         Me.Controls.Add(Me.TCDMUTools)
-        Me.Name = "DMUDeveloperTools"
-        Me.Text = "AFS Tools"
+        Me.Name = "DMUDeveloperTool"
+        Me.Text = "DMU Developer Tools"
         Me.TCDMUTools.ResumeLayout(False)
         Me.TPAFSFileGenerator.ResumeLayout(False)
         Me.TPAFSFileGenerator.PerformLayout()

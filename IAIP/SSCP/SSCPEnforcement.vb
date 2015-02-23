@@ -361,7 +361,7 @@ Public Class SscpEnforcement
             DTPAOResolved.Checked = False
 
             DTPDayZero.Visible = False
-            btn45DayZero.Visible = False
+            btnDayZero.Visible = False
             lblDayZero.Visible = False
             lblPollutants.Visible = False
             lblPollutantStatus.Visible = False
@@ -700,7 +700,7 @@ Public Class SscpEnforcement
                     DTPDayZero.Enabled = True
                     cboStaffResponsible.Enabled = True
                     txtGeneralComments.ReadOnly = False
-                    btn45DayZero.Visible = False
+                    btnDayZero.Visible = False
                     SaveStipulatedPenaltyButton.Visible = False
                     UpdateStipulatedPenaltyButton.Visible = False
                     ClearStipulatedPenaltyFormButton.Visible = False
@@ -3479,7 +3479,7 @@ Public Class SscpEnforcement
                 TCEnforcement.TabPages.Add(TPNOV)
                 If chbCO.Checked <> True And chbAO.Checked <> True Then
                     DTPDayZero.Visible = True
-                    btn45DayZero.Visible = True
+                    btnDayZero.Visible = True
                     lblDayZero.Visible = True
                     lblPollutants.Visible = True
                     lblPollutantStatus.Visible = True
@@ -3511,7 +3511,7 @@ Public Class SscpEnforcement
                 TCEnforcement.TabPages.Remove(TPNOV)
                 If chbCO.Checked <> True And chbAO.Checked <> True Then
                     DTPDayZero.Visible = False
-                    btn45DayZero.Visible = False
+                    btnDayZero.Visible = False
                     lblDayZero.Visible = False
                     lblPollutants.Visible = False
                     lblPollutantStatus.Visible = False
@@ -3536,7 +3536,7 @@ Public Class SscpEnforcement
                 TCEnforcement.TabPages.Add(TPCO)
                 If chbNOV.Checked <> True And chbAO.Checked <> True Then
                     DTPDayZero.Visible = True
-                    btn45DayZero.Visible = True
+                    btnDayZero.Visible = True
                     lblDayZero.Visible = True
                     lblPollutants.Visible = True
                     lblPollutantStatus.Visible = True
@@ -3571,7 +3571,7 @@ Public Class SscpEnforcement
                 TCEnforcement.TabPages.Remove(TPCO)
                 If chbNOV.Checked <> True And chbAO.Checked <> True Then
                     DTPDayZero.Visible = False
-                    btn45DayZero.Visible = False
+                    btnDayZero.Visible = False
                     lblDayZero.Visible = False
                     lblPollutants.Visible = False
                     lblPollutantStatus.Visible = False
@@ -3596,7 +3596,7 @@ Public Class SscpEnforcement
                 TCEnforcement.TabPages.Add(TPAO)
                 If chbNOV.Checked <> True And chbCO.Checked <> True Then
                     DTPDayZero.Visible = True
-                    btn45DayZero.Visible = True
+                    btnDayZero.Visible = True
                     lblDayZero.Visible = True
                     lblPollutants.Visible = True
                     lblPollutantStatus.Visible = True
@@ -3629,7 +3629,7 @@ Public Class SscpEnforcement
                 TCEnforcement.TabPages.Remove(TPAO)
                 If chbNOV.Checked <> True And chbCO.Checked <> True Then
                     DTPDayZero.Visible = False
-                    btn45DayZero.Visible = False
+                    btnDayZero.Visible = False
                     lblDayZero.Visible = False
                     lblPollutants.Visible = False
                     lblPollutantStatus.Visible = False
@@ -3929,7 +3929,7 @@ Public Class SscpEnforcement
         End Try
 
     End Sub
-    Private Sub btn45DayZero_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn45DayZero.Click
+    Private Sub btnDayZero_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDayZero.Click
         Try
             Dim ViolationDate As String = ""
             Dim DayZero As String = ""
@@ -3940,7 +3940,7 @@ Public Class SscpEnforcement
                 ViolationDate = OracleDate
             End If
 
-            DayZero = CStr(Format(CDate(ViolationDate).AddDays(45), "dd-MMM-yyyy"))
+            DayZero = CStr(Format(CDate(ViolationDate).AddDays(90), "dd-MMM-yyyy"))
 
             DTPDayZero.Checked = True
             DTPDayZero.Text = DayZero
