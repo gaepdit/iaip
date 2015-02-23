@@ -24,9 +24,9 @@ Partial Class SscpEnforcement
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SscpEnforcement))
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
         Me.tsbSave = New System.Windows.Forms.ToolStripButton
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
@@ -66,7 +66,7 @@ Partial Class SscpEnforcement
         Me.txtAFSCOResolvedActionNumber = New System.Windows.Forms.TextBox
         Me.Label35 = New System.Windows.Forms.Label
         Me.btnLinkEnforcement = New System.Windows.Forms.Button
-        Me.btn45DayZero = New System.Windows.Forms.Button
+        Me.btnDayZero = New System.Windows.Forms.Button
         Me.DTPEnforcementResolved = New System.Windows.Forms.DateTimePicker
         Me.chbHPV = New System.Windows.Forms.CheckBox
         Me.Label1 = New System.Windows.Forms.Label
@@ -398,7 +398,7 @@ Partial Class SscpEnforcement
         Me.Panel6.Controls.Add(Me.txtSubmitToUC)
         Me.Panel6.Controls.Add(Me.Panel7)
         Me.Panel6.Controls.Add(Me.btnLinkEnforcement)
-        Me.Panel6.Controls.Add(Me.btn45DayZero)
+        Me.Panel6.Controls.Add(Me.btnDayZero)
         Me.Panel6.Controls.Add(Me.DTPEnforcementResolved)
         Me.Panel6.Controls.Add(Me.chbHPV)
         Me.Panel6.Controls.Add(Me.Label1)
@@ -644,16 +644,16 @@ Partial Class SscpEnforcement
         Me.btnLinkEnforcement.TabIndex = 337
         Me.btnLinkEnforcement.Text = "Link to Event"
         '
-        'btn45DayZero
+        'btnDayZero
         '
-        Me.btn45DayZero.AutoSize = True
-        Me.btn45DayZero.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btn45DayZero.Location = New System.Drawing.Point(731, 34)
-        Me.btn45DayZero.Name = "btn45DayZero"
-        Me.btn45DayZero.Size = New System.Drawing.Size(49, 23)
-        Me.btn45DayZero.TabIndex = 368
-        Me.btn45DayZero.Text = "45-day"
-        Me.btn45DayZero.UseVisualStyleBackColor = True
+        Me.btnDayZero.AutoSize = True
+        Me.btnDayZero.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnDayZero.Location = New System.Drawing.Point(731, 34)
+        Me.btnDayZero.Name = "btnDayZero"
+        Me.btnDayZero.Size = New System.Drawing.Size(49, 23)
+        Me.btnDayZero.TabIndex = 368
+        Me.btnDayZero.Text = "90-day"
+        Me.btnDayZero.UseVisualStyleBackColor = True
         '
         'DTPEnforcementResolved
         '
@@ -1576,34 +1576,34 @@ Partial Class SscpEnforcement
         '
         'dgvStipulatedPenalties
         '
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvStipulatedPenalties.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvStipulatedPenalties.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvStipulatedPenalties.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvStipulatedPenalties.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvStipulatedPenalties.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvStipulatedPenalties.Location = New System.Drawing.Point(9, 100)
         Me.dgvStipulatedPenalties.Name = "dgvStipulatedPenalties"
         Me.dgvStipulatedPenalties.ReadOnly = True
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvStipulatedPenalties.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvStipulatedPenalties.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvStipulatedPenalties.Size = New System.Drawing.Size(358, 106)
         Me.dgvStipulatedPenalties.TabIndex = 382
         '
@@ -2688,7 +2688,7 @@ Partial Class SscpEnforcement
     Friend WithEvents txtAFSCOResolvedActionNumber As System.Windows.Forms.TextBox
     Friend WithEvents Label35 As System.Windows.Forms.Label
     Friend WithEvents btnLinkEnforcement As System.Windows.Forms.Button
-    Friend WithEvents btn45DayZero As System.Windows.Forms.Button
+    Friend WithEvents btnDayZero As System.Windows.Forms.Button
     Friend WithEvents DTPEnforcementResolved As System.Windows.Forms.DateTimePicker
     Friend WithEvents chbHPV As System.Windows.Forms.CheckBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
