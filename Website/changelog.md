@@ -1,5 +1,13 @@
 % IAIP Change Log
 
+## Version 3.6.8 <span>(2015-02-23)</span>
+
++ NEW: *SSCP* -- Display GEOS inspection ID on inspection form (#300)
++ NEW: *SSPP* -- Add confidential information flag to permit (#296)
++ NEW: *SSCP* -- Change day zero default to 90 days (#301)
+
+- FIX: Crystal Reports plugin no longer available online (#304); thx SAP
+
 ## Version 3.6.7 <span>(2015-01-30)</span>
 
 + NEW: SSPP Program Manager can shut down a facility (#288); thx Eric
