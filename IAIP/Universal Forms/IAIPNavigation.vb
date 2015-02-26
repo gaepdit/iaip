@@ -1350,18 +1350,17 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(137, "Registration Tool", "MASPRegistrationTool", NavButtonCategories.MASP)
 
         ' DMU
-        AddNavButtonIfAccountHasFormAccess(129, "AFS Tools", "DMUDeveloperTools", NavButtonCategories.DMU)
+        AddNavButtonIfAccountHasFormAccess(129, "AFS Tools", "DMUDeveloperTool", NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(10, "District Tools", "IAIPDistrictSourceTool", NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(133, "Look Up Tables", "IAIPLookUpTables", NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(11, "AFS Validator", "AFSValidator", NavButtonCategories.DMU)
-        'AddNavButtonIfAccountHasFormAccess(132, "AFS Compare Tool", "IAIPAFSCompare", NavButtonCategories.DMU)
         If (UserGCode = "345") Then
-            AddNavButtonIfAccountHasFormAccess(63, "Scary DMU-Only Tool", "DMUTool", NavButtonCategories.DMU)
+            AddNavButtonIfAccountHasFormAccess(63, "Scary DMU-Only Tool", "DMUDangerousTool", NavButtonCategories.DMU)
         End If
 
         ' EIS
         AddNavButtonIfAccountHasFormAccess(20, "Emissions Summary Tool", "SSCPEmissionSummaryTool", NavButtonCategories.EIS)
-        AddNavButtonIfAccountHasFormAccess(130, "EIS && GECO Tools", "DMUStaffTools", NavButtonCategories.EIS)
+        AddNavButtonIfAccountHasFormAccess(130, "EIS && GECO Tools", "DMUEisGecoTool", NavButtonCategories.EIS)
 
         'SBEAP
         AddNavButtonIfUserHasPermission(New String() {"(142)", "(143)", "(118)"}, _
