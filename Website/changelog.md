@@ -1,5 +1,9 @@
 % IAIP Change Log
 
+## Version 3.6.9 <span>(2015-02-26)</span>
+
++ FIX: Some Nav screen buttons not working (#308); thx Jing
+
 ## Version 3.6.8 <span>(2015-02-23)</span>
 
 + NEW: *SSCP* -- Display GEOS inspection ID on inspection form (#300)
