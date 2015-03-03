@@ -10865,7 +10865,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
         Try
 
             Result = MessageBox.Show("THIS WILL DELETE THIS TEST REPORT DATA." & vbCrLf & _
-                               "If you absolutly sure you want to delete this data.", "Warning for Delete.", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1)
+                               "Are you absolutely sure you want to delete this data?", "Warning for Delete", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1)
             Select Case Result
                 Case Windows.Forms.DialogResult.Yes
                     temp = InputBox("Retype the following word exactly as you see it" + vbCrLf + "EXPUNGE", "Delete Verification", "IGNORE")
@@ -10894,7 +10894,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                             cmd = New OracleCommand(SQL, CurrentConnection)
                             dr = cmd.ExecuteReader
 
-                            MsgBox("The Test Report Data has been delete from the Report type." & vbCrLf & _
+                            MsgBox("The Test Report Data has been deleted from the Report type." & vbCrLf & _
                             "A new type of document type can now be selected or request that the Test Report be deleted by an Administator.")
                             temp = txtReferenceNumber.Text
 
