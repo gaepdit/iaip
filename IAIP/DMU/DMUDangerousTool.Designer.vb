@@ -27,8 +27,8 @@ Partial Class DMUDangerousTool
         Me.lblEisAirs = New System.Windows.Forms.Label
         Me.txtEISAIRSNumber = New System.Windows.Forms.TextBox
         Me.PD_EIS_QASTART = New System.Windows.Forms.Button
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label1 = New System.Windows.Forms.Label
+        Me.lblNewAirs = New System.Windows.Forms.Label
+        Me.lblOldAirs = New System.Windows.Forms.Label
         Me.txtNewAIRS = New System.Windows.Forms.TextBox
         Me.txtOldAIRS = New System.Windows.Forms.TextBox
         Me.btnMoveAIRSData = New System.Windows.Forms.Button
@@ -76,29 +76,29 @@ Partial Class DMUDangerousTool
         '
         Me.PD_EIS_QASTART.Location = New System.Drawing.Point(301, 80)
         Me.PD_EIS_QASTART.Name = "PD_EIS_QASTART"
-        Me.PD_EIS_QASTART.Size = New System.Drawing.Size(75, 23)
+        Me.PD_EIS_QASTART.Size = New System.Drawing.Size(148, 23)
         Me.PD_EIS_QASTART.TabIndex = 46
-        Me.PD_EIS_QASTART.Text = "PD_EIS_QASTART"
+        Me.PD_EIS_QASTART.Text = "Run PD_EIS_QASTART"
         Me.PD_EIS_QASTART.UseVisualStyleBackColor = True
         Me.PD_EIS_QASTART.Visible = False
         '
-        'Label2
+        'lblNewAirs
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(289, 127)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(67, 13)
-        Me.Label2.TabIndex = 19
-        Me.Label2.Text = "New AIRS #"
+        Me.lblNewAirs.AutoSize = True
+        Me.lblNewAirs.Location = New System.Drawing.Point(289, 127)
+        Me.lblNewAirs.Name = "lblNewAirs"
+        Me.lblNewAirs.Size = New System.Drawing.Size(67, 13)
+        Me.lblNewAirs.TabIndex = 19
+        Me.lblNewAirs.Text = "New AIRS #"
         '
-        'Label1
+        'lblOldAirs
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(170, 128)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(61, 13)
-        Me.Label1.TabIndex = 18
-        Me.Label1.Text = "Old AIRS #"
+        Me.lblOldAirs.AutoSize = True
+        Me.lblOldAirs.Location = New System.Drawing.Point(170, 128)
+        Me.lblOldAirs.Name = "lblOldAirs"
+        Me.lblOldAirs.Size = New System.Drawing.Size(61, 13)
+        Me.lblOldAirs.TabIndex = 18
+        Me.lblOldAirs.Text = "Old AIRS #"
         '
         'txtNewAIRS
         '
@@ -158,8 +158,8 @@ Partial Class DMUDangerousTool
         Me.Controls.Add(Me.btnMoveAIRSData)
         Me.Controls.Add(Me.txtOldAIRS)
         Me.Controls.Add(Me.txtNewAIRS)
-        Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.lblOldAirs)
+        Me.Controls.Add(Me.lblNewAirs)
         Me.Name = "DMUDangerousTool"
         Me.Text = "DANGER! DANGER! DANGER!"
         Me.ResumeLayout(False)
@@ -171,8 +171,8 @@ Partial Class DMUDangerousTool
     Friend WithEvents txtNewAIRS As System.Windows.Forms.TextBox
     Friend WithEvents txtOldAIRS As System.Windows.Forms.TextBox
     Friend WithEvents btnMoveAIRSData As System.Windows.Forms.Button
-    Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents lblNewAirs As System.Windows.Forms.Label
+    Friend WithEvents lblOldAirs As System.Windows.Forms.Label
     Friend WithEvents PD_EIS_QASTART As System.Windows.Forms.Button
     Friend WithEvents lblEisYear As System.Windows.Forms.Label
     Friend WithEvents txtEISYear As System.Windows.Forms.TextBox
