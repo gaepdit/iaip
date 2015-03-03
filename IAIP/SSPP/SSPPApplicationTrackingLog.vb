@@ -1827,7 +1827,8 @@ Public Class SSPPApplicationTrackingLog
             'chbConfidential
             If AccountFormAccess(129, 3) = "1" Or _
                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or _
-                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or _
+                UserAccounts.Contains("(29)") Then
                 chbConfidential.Enabled = True
             End If
             'chbPAReady
