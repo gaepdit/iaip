@@ -261,7 +261,8 @@ Namespace DAL
                     queryList.Add( _
                         " UPDATE " & DBNameSpace & ".APBAIRPROGRAMPOLLUTANTS " & _
                         "  SET STROPERATIONALSTATUS = :operatingstatus " & _
-                        "  WHERE STRAIRSNUMBER      = :airsnumber " _
+                        "  WHERE STRAIRSNUMBER      = :airsnumber " & _
+                        "  AND STROPERATIONALSTATUS <> 'X' " _
                     )
                     parametersList.Add(New OracleParameter() { _
                         New OracleParameter("operatingstatus", headerData.OperationalStatus.ToString), _
