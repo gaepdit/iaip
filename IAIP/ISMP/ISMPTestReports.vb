@@ -6612,7 +6612,6 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 mmiOpenTestLogNotification.Visible = False
                 mmiOpenExcelFile.Visible = False
                 tsbDelete.Visible = False
-                btnRequestInformation.Visible = False
                 If txtEnforcementNumber.Text = "" Or txtEnforcementNumber.Text = "N/A" Then
                     btnEnforcementProcess.Visible = False
                 End If
@@ -9539,7 +9538,6 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             Else
                 chbEventComplete.Enabled = False
                 DTPEventCompleteDate.Enabled = False
-                txtRequestInformationDate.ReadOnly = True
                 txtTrackingNumber.ReadOnly = True
                 txtEnforcementNumber.ReadOnly = True
                 cboStaffResponsible.Enabled = False
@@ -9598,7 +9596,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 "datTestReportDue, strTestReportComments, " & _
                 "strTestReportFollowUp, datREceivedDate, " & _
                 "strResponsibleStaff, datCompleteDate, " & _
-                "datAcknoledgmentLetterSent, datInformationRequestDate " & _
+                "datAcknoledgmentLetterSent " & _
                 "from " & DBNameSpace & ".SSCPTestReports, " & _
                 "" & DBNameSpace & ".SSCPItemMaster  " & _
                 "where " & DBNameSpace & ".SSCPTestReports.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
@@ -9646,15 +9644,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                         DTPEventCompleteDate.Text = Format(dr.Item("datCompleteDate"), "dd-MMM-yyyy")
                         chbEventComplete.Checked = True
                     End If
-                    If IsDBNull(dr.Item("datInformationRequestDate")) Then
-                        txtRequestInformationDate.Text = ""
-                        txtRequestInformationDate.Visible = False
-                        lblRequestInfoDueDate.Visible = False
-                    Else
-                        txtRequestInformationDate.Text = Format(dr.Item("datInformationRequestDate"), "dd-MMM-yyyy")
-                        txtRequestInformationDate.Visible = True
-                        lblRequestInfoDueDate.Visible = True
-                    End If
+
                     If IsDBNull(dr.Item("datAcknoledgmentLetterSent")) Then
                         DTPAcknoledgmentLetterSent.Text = ""
                         chbAcknoledgmentLetterSent.Checked = False
@@ -10449,7 +10439,6 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             txtMemorandumPTE.Clear()
 
             DTPEventCompleteDate.Text = OracleDate
-            txtRequestInformationDate.Clear()
             txtTrackingNumber.Clear()
             txtEnforcementNumber.Clear()
             cboStaffResponsible.SelectedValue = 0
@@ -23055,20 +23044,6 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-    End Sub
-    Private Sub btnRequestInformation_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRequestInformation.Click
-        Try
-
-            SSCPRequest = Nothing
-            If SSCPRequest Is Nothing Then SSCPRequest = New SSCPInformationRequest
-            SSCPRequest.txtAIRSNumber.Text = Me.txtAirsNumber.Text
-            SSCPRequest.txtTrackingNumber.Text = Me.txtTrackingNumber.Text
-            SSCPRequest.Show()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-
     End Sub
     Private Sub btnEnforcementProcess_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEnforcementProcess.Click
         Try

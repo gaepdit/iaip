@@ -268,11 +268,9 @@ Public Class SSCPEvents
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents txtTrackingNumber As System.Windows.Forms.TextBox
     Friend WithEvents btnEnforcementProcess As System.Windows.Forms.Button
-    Friend WithEvents btnRequestInformation As System.Windows.Forms.Button
     Friend WithEvents btnReportMoreOptions As System.Windows.Forms.Button
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents DTPAcknowledgmentLetterSent As System.Windows.Forms.DateTimePicker
-    Friend WithEvents txtRequestInformationDate As System.Windows.Forms.TextBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents txtTestReportISMPCompleteDate As System.Windows.Forms.TextBox
     Friend WithEvents txtTestReportReceivedbySSCPDate As System.Windows.Forms.TextBox
@@ -280,7 +278,6 @@ Public Class SSCPEvents
     Friend WithEvents btnViewTestReport As System.Windows.Forms.Button
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents btnACCSubmittals As System.Windows.Forms.Button
-    Friend WithEvents lblRequestInfoDueDate As System.Windows.Forms.Label
     Friend WithEvents Label19 As System.Windows.Forms.Label
     Friend WithEvents Label23 As System.Windows.Forms.Label
     Friend WithEvents txtUnitTested As System.Windows.Forms.TextBox
@@ -309,11 +306,8 @@ Public Class SSCPEvents
         Me.cboStaffResponsible = New System.Windows.Forms.ComboBox
         Me.DTPAcknowledgmentLetterSent = New System.Windows.Forms.DateTimePicker
         Me.Label2 = New System.Windows.Forms.Label
-        Me.btnRequestInformation = New System.Windows.Forms.Button
         Me.Label1 = New System.Windows.Forms.Label
         Me.txtAIRSNumber = New System.Windows.Forms.TextBox
-        Me.lblRequestInfoDueDate = New System.Windows.Forms.Label
-        Me.txtRequestInformationDate = New System.Windows.Forms.TextBox
         Me.txtEnforcementNumber = New System.Windows.Forms.TextBox
         Me.chbEventComplete = New System.Windows.Forms.CheckBox
         Me.DTPEventCompleteDate = New System.Windows.Forms.DateTimePicker
@@ -743,11 +737,8 @@ Public Class SSCPEvents
         Me.GroupBox1.Controls.Add(Me.cboStaffResponsible)
         Me.GroupBox1.Controls.Add(Me.DTPAcknowledgmentLetterSent)
         Me.GroupBox1.Controls.Add(Me.Label2)
-        Me.GroupBox1.Controls.Add(Me.btnRequestInformation)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.txtAIRSNumber)
-        Me.GroupBox1.Controls.Add(Me.lblRequestInfoDueDate)
-        Me.GroupBox1.Controls.Add(Me.txtRequestInformationDate)
         Me.GroupBox1.Controls.Add(Me.txtEnforcementNumber)
         Me.GroupBox1.Controls.Add(Me.chbEventComplete)
         Me.GroupBox1.Controls.Add(Me.DTPEventCompleteDate)
@@ -821,17 +812,6 @@ Public Class SSCPEvents
         Me.Label2.TabIndex = 117
         Me.Label2.Text = "Acknowledgment Sent:"
         '
-        'btnRequestInformation
-        '
-        Me.btnRequestInformation.AutoSize = True
-        Me.btnRequestInformation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRequestInformation.Location = New System.Drawing.Point(8, 119)
-        Me.btnRequestInformation.Name = "btnRequestInformation"
-        Me.btnRequestInformation.Size = New System.Drawing.Size(139, 23)
-        Me.btnRequestInformation.TabIndex = 116
-        Me.btnRequestInformation.Text = "Request More Information"
-        Me.btnRequestInformation.Visible = False
-        '
         'Label1
         '
         Me.Label1.AutoSize = True
@@ -850,25 +830,6 @@ Public Class SSCPEvents
         Me.txtAIRSNumber.Size = New System.Drawing.Size(16, 20)
         Me.txtAIRSNumber.TabIndex = 114
         Me.txtAIRSNumber.Visible = False
-        '
-        'lblRequestInfoDueDate
-        '
-        Me.lblRequestInfoDueDate.AutoSize = True
-        Me.lblRequestInfoDueDate.Location = New System.Drawing.Point(264, 122)
-        Me.lblRequestInfoDueDate.Name = "lblRequestInfoDueDate"
-        Me.lblRequestInfoDueDate.Size = New System.Drawing.Size(119, 13)
-        Me.lblRequestInfoDueDate.TabIndex = 113
-        Me.lblRequestInfoDueDate.Text = "Due Date (if Applicable)"
-        Me.lblRequestInfoDueDate.Visible = False
-        '
-        'txtRequestInformationDate
-        '
-        Me.txtRequestInformationDate.Location = New System.Drawing.Point(160, 120)
-        Me.txtRequestInformationDate.Name = "txtRequestInformationDate"
-        Me.txtRequestInformationDate.ReadOnly = True
-        Me.txtRequestInformationDate.Size = New System.Drawing.Size(100, 20)
-        Me.txtRequestInformationDate.TabIndex = 112
-        Me.txtRequestInformationDate.Visible = False
         '
         'txtEnforcementNumber
         '
@@ -3101,7 +3062,6 @@ Public Class SSCPEvents
             Else
                 tbToolbar.Visible = False
                 mmiSave.Visible = False
-                btnRequestInformation.Visible = False
                 If txtEnforcementNumber.Text = "" Or txtEnforcementNumber.Text = "N/A" Then
                     btnEnforcementProcess.Visible = False
                 End If
@@ -3207,15 +3167,6 @@ Public Class SSCPEvents
             Else
                 DTPAcknowledgmentLetterSent.Text = Format(dr.Item("datAcknoledgmentlettersent"), "dd-MMM-yyyy")
                 DTPAcknowledgmentLetterSent.Checked = True
-            End If
-            If IsDBNull(dr.Item("datInformationRequestDate")) Then
-                txtRequestInformationDate.Text = "N/A"
-                txtRequestInformationDate.Visible = False
-                lblRequestInfoDueDate.Visible = False
-            Else
-                txtRequestInformationDate.Text = Format(dr.Item("datInformationRequestDate"), "dd-MMM-yyyy")
-                txtRequestInformationDate.Visible = True
-                lblRequestInfoDueDate.Visible = False
             End If
 
         End While
@@ -7183,21 +7134,6 @@ Public Class SSCPEvents
                 chbEventComplete.Enabled = False
             End If
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub btnRequestInformation_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRequestInformation.Click
-        Try
-
-            SSCPRequest = Nothing
-            If SSCPRequest Is Nothing Then SSCPRequest = New SSCPInformationRequest
-            SSCPRequest.txtAIRSNumber.Text = Me.txtAIRSNumber.Text
-            SSCPRequest.txtTrackingNumber.Text = Me.txtTrackingNumber.Text
-            SSCPRequest.Show()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally

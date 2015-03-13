@@ -76,7 +76,6 @@ Module subMain
     Public SSCPReports As SSCPEvents
     Public SSCPFCE As SSCPFCEWork
     Public SSCPEngWork As SSCPWorkEnTry ' TODO DWW: Remove
-    Public SSCPRequest As SSCPInformationRequest ' TODO DWW: Remove
     Public SSCPInspectionscheduleTool As SSCPInspectionscheduleLink ' TODO DWW: Remove
 #End Region
 

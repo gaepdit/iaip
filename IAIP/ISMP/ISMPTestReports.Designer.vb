@@ -893,9 +893,6 @@ Me.txtTrackingNumber = New System.Windows.Forms.TextBox
 Me.Label315 = New System.Windows.Forms.Label
 Me.chbAcknoledgmentLetterSent = New System.Windows.Forms.CheckBox
 Me.DTPAcknoledgmentLetterSent = New System.Windows.Forms.DateTimePicker
-Me.btnRequestInformation = New System.Windows.Forms.Button
-Me.lblRequestInfoDueDate = New System.Windows.Forms.Label
-Me.txtRequestInformationDate = New System.Windows.Forms.TextBox
 Me.txtEnforcementNumber = New System.Windows.Forms.TextBox
 Me.chbEventComplete = New System.Windows.Forms.CheckBox
 Me.DTPEventCompleteDate = New System.Windows.Forms.DateTimePicker
@@ -9836,9 +9833,6 @@ Me.TPSSCPWork.Controls.Add(Me.txtTrackingNumber)
 Me.TPSSCPWork.Controls.Add(Me.Label315)
 Me.TPSSCPWork.Controls.Add(Me.chbAcknoledgmentLetterSent)
 Me.TPSSCPWork.Controls.Add(Me.DTPAcknoledgmentLetterSent)
-Me.TPSSCPWork.Controls.Add(Me.btnRequestInformation)
-Me.TPSSCPWork.Controls.Add(Me.lblRequestInfoDueDate)
-Me.TPSSCPWork.Controls.Add(Me.txtRequestInformationDate)
 Me.TPSSCPWork.Controls.Add(Me.txtEnforcementNumber)
 Me.TPSSCPWork.Controls.Add(Me.chbEventComplete)
 Me.TPSSCPWork.Controls.Add(Me.DTPEventCompleteDate)
@@ -9920,31 +9914,6 @@ Me.DTPAcknoledgmentLetterSent.Name = "DTPAcknoledgmentLetterSent"
 Me.DTPAcknoledgmentLetterSent.Size = New System.Drawing.Size(100, 20)
 Me.DTPAcknoledgmentLetterSent.TabIndex = 506
 Me.DTPAcknoledgmentLetterSent.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
-'
-'btnRequestInformation
-'
-Me.btnRequestInformation.Location = New System.Drawing.Point(386, 7)
-Me.btnRequestInformation.Name = "btnRequestInformation"
-Me.btnRequestInformation.Size = New System.Drawing.Size(144, 23)
-Me.btnRequestInformation.TabIndex = 416
-Me.btnRequestInformation.Text = "Request More Information"
-'
-'lblRequestInfoDueDate
-'
-Me.lblRequestInfoDueDate.AutoSize = true
-Me.lblRequestInfoDueDate.Location = New System.Drawing.Point(645, 12)
-Me.lblRequestInfoDueDate.Name = "lblRequestInfoDueDate"
-Me.lblRequestInfoDueDate.Size = New System.Drawing.Size(119, 13)
-Me.lblRequestInfoDueDate.TabIndex = 415
-Me.lblRequestInfoDueDate.Text = "Due Date (if Applicable)"
-'
-'txtRequestInformationDate
-'
-Me.txtRequestInformationDate.Location = New System.Drawing.Point(541, 8)
-Me.txtRequestInformationDate.Name = "txtRequestInformationDate"
-Me.txtRequestInformationDate.ReadOnly = true
-Me.txtRequestInformationDate.Size = New System.Drawing.Size(100, 20)
-Me.txtRequestInformationDate.TabIndex = 414
 '
 'txtEnforcementNumber
 '
@@ -11052,9 +11021,6 @@ End Sub
     Friend WithEvents Label315 As System.Windows.Forms.Label
     Friend WithEvents chbAcknoledgmentLetterSent As System.Windows.Forms.CheckBox
     Friend WithEvents DTPAcknoledgmentLetterSent As System.Windows.Forms.DateTimePicker
-    Friend WithEvents btnRequestInformation As System.Windows.Forms.Button
-    Friend WithEvents lblRequestInfoDueDate As System.Windows.Forms.Label
-    Friend WithEvents txtRequestInformationDate As System.Windows.Forms.TextBox
     Friend WithEvents txtEnforcementNumber As System.Windows.Forms.TextBox
     Friend WithEvents chbEventComplete As System.Windows.Forms.CheckBox
     Friend WithEvents DTPEventCompleteDate As System.Windows.Forms.DateTimePicker
