@@ -5764,35 +5764,6 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & DBNameSpace & ".sscpfacilityassignment where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
-
-                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
-                         "values " & _
-                         "(" & _
-                         "(select " & _
-                         "case when max(numCounter) is null then 1 " & _
-                         "else max(numCounter) + 1 " & _
-                         "end numCounter " & _
-                         "from " & DBNameSpace & ".AFSDeletions), " & _
-                         "'0413" & txtDeleteAIRSNumber.Text & "', " & _
-                         "'" & Replace(SQL, "'", "''") & "', 'True', " & _
-                         "'" & OracleDate & "', '', " & _
-                         "'') "
-
-                cmd = New OracleCommand(SQL2, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
-
-
                 SQL = "delete " & DBNameSpace & ".sscpInspectionsRequired where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then

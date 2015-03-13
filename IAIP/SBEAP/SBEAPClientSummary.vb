@@ -1999,37 +1999,6 @@ Public Class SBEAPClientSummary
                 dr.Close()
             End If
 
-            SQL = "Select (strLastName||', '||strFirstName) as SSCPEngineer, strUnitDesc " & _
-            "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".SSCPFacilityAssignment,  " & _
-            "" & DBNameSpace & ".LookUpEPDUnits  " & _
-            "where " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
-            "and numUserID = strSSCPEngineer   " & _
-            "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  "
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            If recExist = True Then
-                If IsDBNull(dr.Item("SSCPEngineer")) Then
-                    txtSSCPContact.Clear()
-                Else
-                    txtSSCPContact.Text = dr.Item("SSCPEngineer")
-                End If
-                If IsDBNull(dr.Item("strUnitDesc")) Then
-                    txtSSCPUnit.Clear()
-                Else
-                    txtSSCPUnit.Text = dr.Item("strUnitDesc")
-                End If
-            Else
-                txtSSCPContact.Clear()
-                txtSSCPUnit.Clear()
-            End If
-            dr.Close()
-
             SQL = "Select " & _
             "Distinct((strLastName||', '||strFirstName)) as ISMPEngineer, strUnitDesc   " & _
             "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation,   " & _
