@@ -1411,7 +1411,7 @@ Public Class SSCPComplianceLog
                         End Select
                     End If
                 Case "Performance Tests"
-                    MsgBox("Performance Test must be deleted through the Monitoring Program.", MsgBoxStyle.Information, "Compliance Log")
+                    MessageBox.Show("Performance tests must be deleted by ISMP.", "Can't Delete", MessageBoxButtons.OK, MessageBoxIcon.Stop)
 
                     'SQL = "Select strTrackingNumber " & _
                     '"from " & DBNameSpace & ".SSCPItemMaster " & _

@@ -1085,82 +1085,6 @@ Public Class ISMPTestReportAdministrative
         End Try
 
     End Sub
-    Private Sub Delete()
-        Dim temp As String = ""
-        Dim SQL As String = ""
-
-        Try
-
-            If txtReferenceNumber.Text <> "" Then
-                temp = InputBox("If you want to Delete this record, type the following word exactly as you see it." + vbCrLf + "Delete", "Facility Information Delete")
-
-                If temp = "Delete" Then
-
-                    SQL = "Select " & DBNameSpace & ".ISMPDocumentType.strTableName " & _
-                    "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
-                    "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKEy " & _
-                    "and strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-
-                    Dim cmd As New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-
-                    Dim dr As OracleDataReader = cmd.ExecuteReader
-
-                    Dim recExist As Boolean = dr.Read
-                    If recExist Then
-                        temp = dr.Item("strTableName")
-                    End If
-                    If CurrentConnection.State = ConnectionState.Open Then
-                        'conn.close()
-                    End If
-                    If temp <> "DeLeTe" Then
-                        SQL = "Delete " & temp & " where strREferenceNumber = '" & txtReferenceNumber.Text & "'"
-                        cmd = New OracleCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        If CurrentConnection.State = ConnectionState.Open Then
-                            'conn.close()
-                        End If
-                        SQL = "Update " & DBNameSpace & ".ISMPReportInformation set " & _
-                        "strDelete = 'DELETE' where strREferenceNumber = '" & txtReferenceNumber.Text & "'"
-
-                        cmd = New OracleCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        Try
-
-                            dr = cmd.ExecuteReader
-                        Catch ex As Exception
-                            ErrorReport(ex, "ISMPFacilityAndTestReportInfo.Delete2")
-                        End Try
-
-
-                        If CurrentConnection.State = ConnectionState.Open Then
-                            'conn.close()
-                        End If
-
-                        bgw1.WorkerReportsProgress = True
-                        bgw1.WorkerSupportsCancellation = True
-                        bgw1.RunWorkerAsync()
-
-                        MsgBox("Deleted", MsgBoxStyle.Information, "ISMP Facility/Test Report Information")
-                    End If
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(txtReferenceNumber.Text & vbCrLf & SQL & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
-    End Sub
     Sub MoveOn()
         Try
             Dim id As String = txtReferenceNumber.Text
@@ -1192,7 +1116,11 @@ Public Class ISMPTestReportAdministrative
     Sub DeleteTestReport()
         Try
 
-
+            If MessageBox.Show("Are you sure you want to delete this test report?", "Confirm Delete", _
+                               MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) _
+                               = Windows.Forms.DialogResult.No Then
+                Exit Sub
+            End If
 
             For Each RefNum As String In Me.clbReferenceNumbers.CheckedItems
                 RefNum = Mid(RefNum, 1, (RefNum.IndexOf(" -")))
@@ -1218,6 +1146,15 @@ Public Class ISMPTestReportAdministrative
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
+
+                    Dim parameter As OracleParameter = New OracleParameter("ref", RefNum)
+                    SQL = "SELECT STRTRACKINGNUMBER FROM " & DBNameSpace & ".SSCPTESTREPORTS WHERE STRREFERENCENUMBER = :ref"
+                    Dim trackingNumber As String = DB.GetSingleValue(Of String)(SQL, parameter)
+                    If trackingNumber IsNot Nothing Then
+                        SQL = " UPDATE " & DBNameSpace & ".SSCPITEMMASTER SET STRDELETE = '" & Boolean.TrueString & "' " & _
+                        " WHERE STRTRACKINGNUMBER = :pId "
+                        DB.RunCommand(SQL, parameter)
+                    End If
                 End If
 
             Next
@@ -1473,17 +1410,7 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
     Private Sub MmiDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiDelete.Click
-        Try
-
-            Delete()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
+        DeleteTestReport()
     End Sub
     Private Sub MmiShowDeletedRecords_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiShowDeletedRecords.Click
         Dim SQL As String

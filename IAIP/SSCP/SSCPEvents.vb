@@ -6159,6 +6159,12 @@ Public Class SSCPEvents
 
     Sub DeleteSSCPData()
         Try
+
+            If TPTestReports.Focus = True Then
+                MessageBox.Show("Performance tests must be deleted by ISMP.", "Can't Delete", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                Exit Sub
+            End If
+
             If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
                 MsgBox("This Compliance Action is currently linked to an Enforcement Action." & vbCrLf & _
                       "Disassociate this action from any enforcement before deleting.", MsgBoxStyle.Exclamation, "SSCP Events")
