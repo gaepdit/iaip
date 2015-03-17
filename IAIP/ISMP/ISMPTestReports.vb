@@ -10844,77 +10844,46 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
 
     End Sub
     Sub DeleteTestReport()
-        Dim Result As DialogResult
-        Dim temp As String
-        Dim SQL As String
-        Dim cmd As OracleCommand
-        Dim dr As OracleDataReader
-        Dim recExist As Boolean
-
         Try
+            Dim RefNum As String = txtReferenceNumber.Text
+            Dim temp As String = ""
+            
+            If MessageBox.Show("Are you sure you want to delete test report no. " & RefNum & "?", "Confirm Delete", _
+                               MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) _
+                               = Windows.Forms.DialogResult.No Then
+                Exit Sub
+            End If
 
-            Result = MessageBox.Show("THIS WILL DELETE THIS TEST REPORT DATA." & vbCrLf & _
-                               "Are you absolutely sure you want to delete this data?", "Warning for Delete", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1)
-            Select Case Result
-                Case Windows.Forms.DialogResult.Yes
-                    temp = InputBox("Retype the following word exactly as you see it" + vbCrLf + "EXPUNGE", "Delete Verification", "IGNORE")
-                    If temp = "EXPUNGE" Then
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        'Delete
-                        SQL = "Select strTableName " & _
-                        "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
-                        "where " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
-                        "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                        cmd = New OracleCommand(SQL, CurrentConnection)
-                        dr = cmd.ExecuteReader
-                        recExist = dr.Read
-                        If recExist = True Then
-                            If dr.Item("StrTableName") <> "UNASSIGNED" Then
-                                SQL = "Delete from " & DBNameSpace & "." & dr.Item("strTableName") & " " & _
-                                "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-                                cmd = New OracleCommand(SQL, CurrentConnection)
-                                dr = cmd.ExecuteReader
-                            End If
-                            SQL = "Update " & DBNameSpace & ".ISMPReportInformation set " & _
-                            "strDocumentType = '001' " & _
-                            "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                            cmd = New OracleCommand(SQL, CurrentConnection)
-                            dr = cmd.ExecuteReader
+            If DAL.ISMP.StackTestExists(RefNum) Then
+                Dim parameter As New OracleParameter("ref", RefNum)
 
-                            MsgBox("The Test Report Data has been deleted from the Report type." & vbCrLf & _
-                            "A new type of document type can now be selected or request that the Test Report be deleted by an Administator.")
-                            temp = txtReferenceNumber.Text
+                SQL = "Update " & DBNameSpace & ".ISMPReportInformation set " & _
+                    " strDelete = 'DELETE' where strReferenceNumber = :ref"
+                DB.RunCommand(SQL, parameter)
 
-                            ClearAll()
-                            txtReferenceNumber.Text = temp
-                            LoadData(txtReferenceNumber.Text)
-                        Else
-                            MsgBox("There is no Test Report Data that you have permission to Delete." & vbCrLf & _
-                            "Contact an Administator to delete this Test Report.", "Test Report")
-                        End If
+                SQL = "SELECT STRTRACKINGNUMBER FROM " & DBNameSpace & ".SSCPTESTREPORTS WHERE STRREFERENCENUMBER = :ref"
+                Dim trackingNumber As String = DB.GetSingleValue(Of String)(SQL, parameter)
 
-                        If CurrentConnection.State = ConnectionState.Open Then
-                            'conn.close()
-                        End If
+                If trackingNumber IsNot Nothing Then
+                    parameter = New OracleParameter("trackingnum", trackingNumber)
+                    SQL = " UPDATE " & DBNameSpace & ".SSCPITEMMASTER SET STRDELETE = '" & Boolean.TrueString & "' " & _
+                    " WHERE STRTRACKINGNUMBER = :trackingnum "
+                    DB.RunCommand(SQL, parameter)
+                End If
 
-                    Else
-                        MsgBox("Delete Ignored")
-                    End If
-                Case Windows.Forms.DialogResult.No
-                    MsgBox("Delete Ignored")
-                Case windows.Forms.DialogResult.Cancel
-                    MsgBox("Delete Ignored")
-                Case Else
-                    MsgBox("Delete Ignored")
-            End Select
+                MessageBox.Show("Test no. " & RefNum & " deleted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.None)
+            Else
+                MessageBox.Show("Stack test " & RefNum & " does not exist.", "No such thing", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
 
+            temp = txtReferenceNumber.Text
+
+            ClearAll()
+            txtReferenceNumber.Text = temp
+            LoadData(txtReferenceNumber.Text)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
-
     End Sub
     Sub SaveStackTest()
         Try
@@ -17956,43 +17925,8 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
         Finally
         End Try
     End Sub
-    Private Sub mmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiBack.Click
-        Try
-            Me.Dispose()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
-    Private Sub mmiCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCopy.Click
-        Try
-
-            SendKeys.Send("^(c)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-
-    End Sub
-    Private Sub mmiCut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCut.Click
-        Try
-
-            SendKeys.Send("^(x)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-
-    End Sub
-    Private Sub mmiPaste_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPaste.Click
-        Try
-
-            SendKeys.Send("^(v)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-
+    Private Sub mmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClose.Click
+        Me.Dispose()
     End Sub
     Private Sub mmiOpenTestLogNotification_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOpenTestLogNotification.Click
         Try

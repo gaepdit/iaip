@@ -1115,8 +1115,7 @@ Public Class ISMPTestReportAdministrative
     End Sub
     Sub DeleteTestReport()
         Try
-
-            If MessageBox.Show("Are you sure you want to delete this test report?", "Confirm Delete", _
+            If MessageBox.Show("Are you sure you want to delete these test reports?", "Confirm Delete", _
                                MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) _
                                = Windows.Forms.DialogResult.No Then
                 Exit Sub
@@ -1125,36 +1124,26 @@ Public Class ISMPTestReportAdministrative
             For Each RefNum As String In Me.clbReferenceNumbers.CheckedItems
                 RefNum = Mid(RefNum, 1, (RefNum.IndexOf(" -")))
 
-                SQL = "Select strReferenceNumber " & _
-                "from " & DBNameSpace & ".ISMPReportInformation " & _
-                "where strReferenceNumber = '" & RefNum & "' "
+                If DAL.ISMP.StackTestExists(RefNum) Then
+                    Dim parameter As New OracleParameter("ref", RefNum)
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
                     SQL = "Update " & DBNameSpace & ".ISMPReportInformation set " & _
-                    "strDelete = 'DELETE' " & _
-                    "where strReferenceNumber = '" & RefNum & "'  "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
+                        " strDelete = 'DELETE' where strReferenceNumber = :ref"
+                    DB.RunCommand(SQL, parameter)
 
-                    Dim parameter As OracleParameter = New OracleParameter("ref", RefNum)
                     SQL = "SELECT STRTRACKINGNUMBER FROM " & DBNameSpace & ".SSCPTESTREPORTS WHERE STRREFERENCENUMBER = :ref"
                     Dim trackingNumber As String = DB.GetSingleValue(Of String)(SQL, parameter)
+
                     If trackingNumber IsNot Nothing Then
+                        parameter = New OracleParameter("trackingnum", trackingNumber)
                         SQL = " UPDATE " & DBNameSpace & ".SSCPITEMMASTER SET STRDELETE = '" & Boolean.TrueString & "' " & _
-                        " WHERE STRTRACKINGNUMBER = :pId "
+                        " WHERE STRTRACKINGNUMBER = :trackingnum "
                         DB.RunCommand(SQL, parameter)
                     End If
+
+                    MessageBox.Show("Test no. " & RefNum & " deleted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.None)
+                Else
+                    MessageBox.Show("Stack test " & RefNum & " does not exist.", "No such thing", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
 
             Next
@@ -1163,19 +1152,10 @@ Public Class ISMPTestReportAdministrative
             bgw1.WorkerSupportsCancellation = True
             bgw1.RunWorkerAsync()
 
-            MsgBox("Delete Done", MsgBoxStyle.Information, "ISMP Test Report Administration")
-
             Clear()
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
-
-
     End Sub
     Sub StartComplianceWork(ByVal RefNum As String)
         Try
