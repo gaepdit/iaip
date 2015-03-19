@@ -842,7 +842,7 @@ Public Class PASPFeeDeposits
             cboAirsNo.Items.Add("")
             cboFeeYear.Items.Add("")
 
-            SQL = "Select distinct strdepositno from " & DBNameSpace & ".FSAddPaid " _
+            SQL = "Select distinct strdepositno from AIRBRANCH.FSAddPaid " _
            + "order by strdepositno"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -862,7 +862,7 @@ Public Class PASPFeeDeposits
             dr.Close()
 
             SQL2 = "Select distinct substr(strairsnumber, 5) as strairsnumber " _
-           + "from " & DBNameSpace & ".FSAddPaid order by strairsnumber"
+           + "from AIRBRANCH.FSAddPaid order by strairsnumber"
 
             cmd2 = New OracleCommand(SQL2, CurrentConnection)
 
@@ -881,7 +881,7 @@ Public Class PASPFeeDeposits
             dr2.Close()
 
             SQL3 = "Select paytype " & _
-            "from " & DBNameSpace & ".FSPayType " & _
+            "from AIRBRANCH.FSPayType " & _
             "order by paytype"
 
             cmd3 = New OracleCommand(SQL3, CurrentConnection)
@@ -902,7 +902,7 @@ Public Class PASPFeeDeposits
 
             SQL = "Select " & _
             "distinct(intYear) as intYear " & _
-            "from " & DBNameSpace & ".FSAddPaid " & _
+            "from AIRBRANCH.FSAddPaid " & _
             "order by intyear desc "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -951,7 +951,7 @@ Public Class PASPFeeDeposits
                 "strCheckNo, strBatchNo, " & _
                 "strPayType, intPayId, " & _
                 "strComments, strInvoiceNo " & _
-                "from " & DBNameSpace & ".FSAddPaid " & _
+                "from AIRBRANCH.FSAddPaid " & _
                 "where strDepositNo = '" & cboDepositNo.Text & "' " & _
                 "order by strBatchNo "
 
@@ -964,7 +964,7 @@ Public Class PASPFeeDeposits
                    "strCheckNo, strBatchNo, " & _
                    "strPayType, intPayId, " & _
                    "strComments, strInvoiceNo " & _
-                   "from " & DBNameSpace & ".FSAddPaid " & _
+                   "from AIRBRANCH.FSAddPaid " & _
                    "where strairsnumber = '0413" & cboAirsNo.Text & "' " & _
                    "order by strBatchNo "
                 Else
@@ -977,7 +977,7 @@ Public Class PASPFeeDeposits
                            "strCheckNo, strBatchNo, " & _
                            "strPayType, intPayId, " & _
                            "strComments, strInvoiceNo " & _
-                           "from " & DBNameSpace & ".FSAddPaid " & _
+                           "from AIRBRANCH.FSAddPaid " & _
                            "where intYear = '" & cboFeeYear.Text & "' " & _
                            "and strDepositNo is Not Null " & _
                            "order by strBatchNo "
@@ -989,7 +989,7 @@ Public Class PASPFeeDeposits
                            "strCheckNo, strBatchNo, " & _
                            "strPayType, intPayId, " & _
                            "strComments, strInvoiceNo " & _
-                           "from " & DBNameSpace & ".FSAddPaid " & _
+                           "from AIRBRANCH.FSAddPaid " & _
                            "where intYear = '" & cboFeeYear.Text & "' " & _
                            "order by strBatchNo "
                         End If
@@ -1167,13 +1167,13 @@ Public Class PASPFeeDeposits
 
             ValidateEntry()
 
-            SQL = "Insert into " & DBNameSpace & ".FSAddPaid (strairsnumber, intyear, numpayment, " _
+            SQL = "Insert into AIRBRANCH.FSAddPaid (strairsnumber, intyear, numpayment, " _
              + "datpaydate, strcheckno, strdepositno, strpaytype, strbatchno, " _
              + "strentryperson, strcomments, intpayid) values('0413" & mtbAirsNo.Text & "', " _
              + " " & CInt(txtYear.Text) & " ,  " & CDec(txtPayment.Text) & " , '" & txtDepositdate.Text & "', " _
              + "'" & txtCheckNo.Text & "', '" & txtDepositNo.Text & "', " _
              + "'" & cboPayType.Text & "', '" & txtbatchNo.Text & "', " _
-             + "'" & UserGCode & "', '" & Replace(txtComments.Text, "'", "''") & "', " & DBNameSpace & ".seqfsdeposit.nextval)"
+             + "'" & UserGCode & "', '" & Replace(txtComments.Text, "'", "''") & "', AIRBRANCH.seqfsdeposit.nextval)"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
@@ -1253,7 +1253,7 @@ Public Class PASPFeeDeposits
 
         Try
 
-            SQL = "Update " & DBNameSpace & ".FSAddPaid set strairsnumber = '0413" & mtbAirsNo.Text & "', " _
+            SQL = "Update AIRBRANCH.FSAddPaid set strairsnumber = '0413" & mtbAirsNo.Text & "', " _
             + "datpaydate = '" & txtDepositdate.Text & "', " _
             + "numpayment = '" & CDec(txtPayment.Text) & "', " _
             + "strcheckno = '" & txtCheckNo.Text & "', " _
@@ -1291,7 +1291,7 @@ Public Class PASPFeeDeposits
 
         Try
 
-            SQL = "Delete from " & DBNameSpace & ".FSAddPaid " _
+            SQL = "Delete from AIRBRANCH.FSAddPaid " _
             + "where intpayid = '" & txtPayId.Text & "'"
 
             cmd = New OracleCommand(SQL, CurrentConnection)

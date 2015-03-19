@@ -71,15 +71,15 @@ Public Class SBEAPCaseLog
             SQL = "select " & _
             "distinct(strLastName||', '||strFirstName) as Staff, " & _
             "numUserID " & _
-            "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".SBEAPCaseLog " & _
-            "where " & DBNameSpace & ".epduserprofiles.numUserID = " & DBNameSpace & ".SBEAPCaseLog.numStaffResponsible " & _
+            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.SBEAPCaseLog " & _
+            "where AIRBRANCH.epduserprofiles.numUserID = AIRBRANCH.SBEAPCaseLog.numStaffResponsible " & _
             "or (numBranch = '5' and numProgram = '35') "
 
             daStaff = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "Select " & _
             "strWorkDescription, numActionType " & _
-            "from " & DBNameSpace & ".LookUpSBEAPCaseWork " & _
+            "from AIRBRANCH.LookUpSBEAPCaseWork " & _
             "order by strWorkDescription "
 
             daCaseWork = New OracleDataAdapter(SQL, CurrentConnection)
@@ -258,7 +258,7 @@ Public Class SBEAPCaseLog
 
             Select Case cboSortType1.Text
                 Case "Case ID"
-                    SQLOrder1 = " " & DBNameSpace & ".VW_SBEAP_CaseLog.numCaseID "
+                    SQLOrder1 = " AIRBRANCH.VW_SBEAP_CaseLog.numCaseID "
                 Case "Customer ID"
                     SQLOrder1 = " ClientID "
                 Case "Date Case Opened"
@@ -286,7 +286,7 @@ Public Class SBEAPCaseLog
 
             Select Case cboSortType2.Text
                 Case "Case ID"
-                    SQLOrder2 = " " & DBNameSpace & ".VW_SBEAP_CaseLog.numCaseID "
+                    SQLOrder2 = " AIRBRANCH.VW_SBEAP_CaseLog.numCaseID "
                 Case "Customer ID"
                     SQLOrder2 = " ClientID "
                 Case "Date Case Opened"
@@ -507,24 +507,24 @@ Public Class SBEAPCaseLog
             'If NavScreen.label1.Text = "TESTING ENVIRONMENT" Then
             SQL = "select * from " & _
             "((select " & _
-            "" & DBNameSpace & ".VW_SBEAP_Caselog.*, 'Action' as ActionType " & _
-            "from " & DBNameSpace & ".VW_SBEAP_Caselog " & _
+            "AIRBRANCH.VW_SBEAP_Caselog.*, 'Action' as ActionType " & _
+            "from AIRBRANCH.VW_SBEAP_Caselog " & _
             "where " & SQLSearch3 & " " & _
             "and Exists " & _
             "(select * " & _
-            "from " & DBNameSpace & ".SBEAPActionLog " & _
-            "where " & DBNameSpace & ".VW_SBEAP_Caselog.numCaseID = " & DBNameSpace & ".SBEAPActionLog.numCaseID " & _
+            "from AIRBRANCH.SBEAPActionLog " & _
+            "where AIRBRANCH.VW_SBEAP_Caselog.numCaseID = AIRBRANCH.SBEAPActionLog.numCaseID " & _
             " " & SQLAction & ")) " & _
             "union " & _
             "select * from " & _
             "(select " & _
-            "" & DBNameSpace & ".VW_SBEAP_Caselog.*, 'No Action' as ActionType " & _
-            "from " & DBNameSpace & ".VW_SBEAP_Caselog " & _
+            "AIRBRANCH.VW_SBEAP_Caselog.*, 'No Action' as ActionType " & _
+            "from AIRBRANCH.VW_SBEAP_Caselog " & _
             "where " & SQLSearch3 & " " & _
             "and Not Exists " & _
             "(select * " & _
-            "from " & DBNameSpace & ".SBEAPActionLog " & _
-            "where " & DBNameSpace & ".VW_SBEAP_Caselog.numCaseID = " & DBNameSpace & ".SBEAPActionLog.numCaseID))) " & _
+            "from AIRBRANCH.SBEAPActionLog " & _
+            "where AIRBRANCH.VW_SBEAP_Caselog.numCaseID = AIRBRANCH.SBEAPActionLog.numCaseID))) " & _
             SQLSearch1 & SQLSearch2
             'End If
 

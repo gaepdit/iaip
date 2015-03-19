@@ -9,14 +9,14 @@ Namespace DAL
         ''' <param name="id">The ID of the Program to describe</param>
         ''' <returns>A text description of the Branch Program</returns>
         Public Function GetProgramDescription(ByVal id As Integer) As String
-            Dim query As String = "SELECT STRPROGRAMDESC FROM " & DBNameSpace & ".LOOKUPEPDPROGRAMS WHERE NUMPROGRAMCODE = :pId"
+            Dim query As String = "SELECT STRPROGRAMDESC FROM AIRBRANCH.LOOKUPEPDPROGRAMS WHERE NUMPROGRAMCODE = :pId"
             Dim parameter As New OracleParameter("pId", id)
             Return DB.GetSingleValue(Of String)(query, parameter)
         End Function
 
         Public Function GetStaffInfoById(ByVal id As String) As Staff
             Dim query As String = "SELECT NUMUSERID, STRLASTNAME, STRFIRSTNAME, STREMAILADDRESS, STRPHONE, NUMEMPLOYEESTATUS " & _
-                " FROM " & DBNameSpace & ".EPDUSERPROFILES WHERE NUMUSERID = :pId "
+                " FROM AIRBRANCH.EPDUSERPROFILES WHERE NUMUSERID = :pId "
 
             Dim parameter As New OracleParameter("pId", id)
 
@@ -46,7 +46,7 @@ Namespace DAL
             Dim query As String = _
                 " SELECT NUMUSERID, STRLASTNAME, STRFIRSTNAME, STREMAILADDRESS, STRPHONE, NUMEMPLOYEESTATUS, " & _
                 "     (STRLASTNAME || ', ' || STRFIRSTNAME) AS AlphaName " & _
-                " FROM " & DBNameSpace & ".EPDUSERPROFILES " & _
+                " FROM AIRBRANCH.EPDUSERPROFILES " & _
                 " WHERE NUMEMPLOYEESTATUS = 1 " & _
                 " AND NUMBRANCH           = :pBranch " & _
                 " ORDER BY STRLASTNAME, STRFIRSTNAME "

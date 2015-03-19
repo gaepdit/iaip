@@ -36,7 +36,7 @@ Public Class SSPP_FeeContact
             "strContactAddress1, strContactCity, " & _
             "strContactState, strContactZipCode, " & _
             "strContactDescription " & _
-            "from " & DBNameSpace & ".APBContactInformation " & _
+            "from AIRBRANCH.APBContactInformation " & _
             "where strContactKey = '0413" & txtAIRSNumber.Text & "40' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -176,7 +176,7 @@ Public Class SSPP_FeeContact
             If txtAIRSNumber.Text <> "" Then
                 SQL = "Select " & _
                 "strContactKey " & _
-                "from " & DBNameSpace & ".APBContactInformation " & _
+                "from AIRBRANCH.APBContactInformation " & _
                 "where strContactKey = '0413" & txtAIRSNumber.Text & "40' " & _
                 "and strContactDescription = '" & txtDescription.Text & "' "
 
@@ -208,7 +208,7 @@ Public Class SSPP_FeeContact
                     End If
                 End If
 
-                SQL = "Update " & DBNameSpace & ".APBContactInformation set " & _
+                SQL = "Update AIRBRANCH.APBContactInformation set " & _
                 "strContactFirstName = '" & Replace(txtFirstName.Text, "'", "''") & "', " & _
                 "strContactLastName = '" & Replace(txtLastName.Text, "'", "''") & "', " & _
                 "strContactPrefix = '" & Replace(txtSocialTitle.Text, "'", "''") & "', " & _

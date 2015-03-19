@@ -160,7 +160,7 @@ Public Class PASPFeeAuditLog
 
             SQL = "select " & _
             "numPayTypeID, strPayTypeDesc " & _
-            "from " & DBNameSpace & ".FSLK_PayType " & _
+            "from AIRBRANCH.FSLK_PayType " & _
             "order by numPayTypeID "
 
             ds = New DataSet
@@ -206,7 +206,7 @@ Public Class PASPFeeAuditLog
 
             SQL = "Select " & _
             "transactionTypeCode, Description " & _
-            "from " & DBNameSpace & ".FSLK_TransactionType " & _
+            "from AIRBRANCH.FSLK_TransactionType " & _
             "order by description "
             ds = New DataSet
             da = New OracleDataAdapter(SQL, CurrentConnection)
@@ -371,12 +371,12 @@ Public Class PASPFeeAuditLog
             "strIAIPDesc, strGECODesc, " & _
             "datStatusDate, " & _
             "strComment, " & _
-            "" & DBNameSpace & ".FS_Admin.active, " & _
-            "" & DBNameSpace & ".FS_Admin.updateUser, " & _
-            "" & DBNameSpace & ".FS_Admin.updateDateTime, " & _
-            "" & DBNameSpace & ".FS_Admin.CreateDateTime " & _
-            "From " & DBNameSpace & ".FS_Admin, " & DBNameSpace & ".FSLK_ADMIN_Status  " & _
-            "where " & DBNameSpace & ".FS_Admin.numCurrentStatus = " & DBNameSpace & ".FSLK_Admin_Status.ID (+) " & _
+            "AIRBRANCH.FS_Admin.active, " & _
+            "AIRBRANCH.FS_Admin.updateUser, " & _
+            "AIRBRANCH.FS_Admin.updateDateTime, " & _
+            "AIRBRANCH.FS_Admin.CreateDateTime " & _
+            "From AIRBRANCH.FS_Admin, AIRBRANCH.FSLK_ADMIN_Status  " & _
+            "where AIRBRANCH.FS_Admin.numCurrentStatus = AIRBRANCH.FSLK_Admin_Status.ID (+) " & _
             "and numFeeYear = '" & Me.FeeYear & "' " & _
             "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' "
 
@@ -508,7 +508,7 @@ Public Class PASPFeeAuditLog
             "strComment, " & _
             "datShutDownDate, " & _
             "Active " & _
-            "from " & DBNameSpace & ".FS_MailOut " & _
+            "from AIRBRANCH.FS_MailOut " & _
             "where numFeeYear = '" & Me.FeeYear & "' " & _
             "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' "
 
@@ -708,7 +708,7 @@ Public Class PASPFeeAuditLog
             "strContactZipCode, strContactPhoneNumber, " & _
             "strContactFaxNumber, strContactEmail, " & _
             "strComment " & _
-            "from " & DBNameSpace & ".FS_ContactInfo " & _
+            "from AIRBRANCH.FS_ContactInfo " & _
             "where numfeeyear = '" & Me.FeeYear & "' " & _
             "and strAIRSnumber = '" & Me.ExpandedAirsNumber & "' "
 
@@ -799,8 +799,8 @@ Public Class PASPFeeAuditLog
     Sub LoadFeeInvoiceData()
         Try
             SQL = "select " & _
-            "" & DBNameSpace & ".FS_FEEDATA.NUMFEEYEAR, " & _
-            "" & DBNameSpace & ".FS_FEEDATA.STRAIRSNUMBER, " & _
+            "AIRBRANCH.FS_FEEDATA.NUMFEEYEAR, " & _
+            "AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER, " & _
             "STRSYNTHETICMINOR, NUMSMFEE, " & _
             "STRPART70, NUMPART70FEE, " & _
             "INTVOCTONS, INTPMTONS, " & _
@@ -813,10 +813,10 @@ Public Class PASPFeeAuditLog
             "DATSHUTDOWN, STROFFICIALNAME, " & _
             "strOfficialTitle, " & _
             "strPaymentPlan, STRCONFIRMATIONNUMBER, " & _
-            "" & DBNameSpace & ".FS_FEEDATA.strComment, " & _
+            "AIRBRANCH.FS_FEEDATA.strComment, " & _
             "updateUser, " & _
             "UpdateDateTime, CreateDateTime " & _
-            "from " & DBNameSpace & ".FS_FEEDATA " & _
+            "from AIRBRANCH.FS_FEEDATA " & _
             "where STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " & _
             "and NUMFEEYEAR = '" & Me.FeeYear & "' "
 
@@ -1051,7 +1051,7 @@ Public Class PASPFeeAuditLog
                 End If
 
                 SQL = "Select Description " & _
-                "from " & DBNameSpace & ".FSLK_NSPSReason " & _
+                "from AIRBRANCH.FSLK_NSPSReason " & _
                 "where " & _
                 SQLLine
 
@@ -1074,7 +1074,7 @@ Public Class PASPFeeAuditLog
 
             SQL = "Select " & _
             "strNonAttainment " & _
-            "from " & DBNameSpace & ".LookUpCountyInformation " & _
+            "from AIRBRANCH.LookUpCountyInformation " & _
             "where strCountyCode = '" & Mid(Me.AirsNumber.ToString, 1, 3) & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1118,7 +1118,7 @@ Public Class PASPFeeAuditLog
                 End If
 
                 SQL = "Select Description " & _
-                "from " & DBNameSpace & ".FSLK_NSPSReason " & _
+                "from AIRBRANCH.FSLK_NSPSReason " & _
                 "where " & _
                 SQLLine
 
@@ -1154,11 +1154,11 @@ Public Class PASPFeeAuditLog
             "when strInvoiceStatus = '1' then 'Paid' " & _
             "else 'Unpaid' " & _
             "end InvoiceStatus " & _
-            "from " & DBNameSpace & ".FS_FeeInvoice, " & DBNameSpace & ".FSLK_PayType " & _
-            "where " & DBNameSpace & ".FS_FeeInvoice.strPaytype = " & DBNameSpace & ".FSLK_PayType.numpaytypeid " & _
+            "from AIRBRANCH.FS_FeeInvoice, AIRBRANCH.FSLK_PayType " & _
+            "where AIRBRANCH.FS_FeeInvoice.strPaytype = AIRBRANCH.FSLK_PayType.numpaytypeid " & _
             "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " & _
             "and numFeeYear = '" & Me.FeeYear & "' " & _
-            "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' "
+            "and AIRBRANCH.FS_FeeInvoice.Active = '1' "
 
             ds = New DataSet
             da = New OracleDataAdapter(SQL, CurrentConnection)
@@ -1239,27 +1239,27 @@ Public Class PASPFeeAuditLog
             "transactiontypecode, " & _
             "UPDATEUSER, UPDATEDATETIME, " & _
             "createDateTime, strairsnumber, numfeeyear, ''  " & _
-            "from " & DBNameSpace & ".FS_TRANSACTIONS, " & DBNameSpace & ".EPDUSERPROFILES " & _
-            "where " & DBNameSpace & ".FS_TRANSACTIONS.STRENTRYPERSON = " & DBNameSpace & ".EPDUSERPROFILES.NUMUSERID (+) " & _
-            "and " & DBNameSpace & ".FS_TRANSACTIONS.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " & _
-            "and " & DBNameSpace & ".FS_TRANSACTIONS.NUMFEEYEAR = '" & Me.FeeYear & "' " & _
+            "from AIRBRANCH.FS_TRANSACTIONS, AIRBRANCH.EPDUSERPROFILES " & _
+            "where AIRBRANCH.FS_TRANSACTIONS.STRENTRYPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID (+) " & _
+            "and AIRBRANCH.FS_TRANSACTIONS.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " & _
+            "and AIRBRANCH.FS_TRANSACTIONS.NUMFEEYEAR = '" & Me.FeeYear & "' " & _
             "and active = 1) TRANSACTIONS,  " & _
             "(select " & _
             "0, INVOICEID, " & _
             "sysdate, 1, '', '', " & _
             "'', '', '', '', 2, " & _
-            "" & DBNameSpace & ".FS_feeINVOICE.UPDATEUSER, " & DBNameSpace & ".FS_feeINVOICE.UPDATEDATETIME, " & _
-            "" & DBNameSpace & ".FS_feeINVOICE.CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, strpaytypedesc " & _
-            "from " & DBNameSpace & ".FS_feeINVOICE, " & DBNameSpace & ".FSLK_PayType " & _
-            "where " & DBNameSpace & ".FS_FeeInvoice.strPayType = " & DBNameSpace & ".FSLK_PayType.numPayTypeID " & _
+            "AIRBRANCH.FS_feeINVOICE.UPDATEUSER, AIRBRANCH.FS_feeINVOICE.UPDATEDATETIME, " & _
+            "AIRBRANCH.FS_feeINVOICE.CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, strpaytypedesc " & _
+            "from AIRBRANCH.FS_feeINVOICE, AIRBRANCH.FSLK_PayType " & _
+            "where AIRBRANCH.FS_FeeInvoice.strPayType = AIRBRANCH.FSLK_PayType.numPayTypeID " & _
             "and STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " & _
             "and NUMFEEYEAR = '" & Me.FeeYear & "' " & _
-            "and " & DBNameSpace & ".FS_feeINVOICE.Active = '1' ) INVOICES, " & _
-            "" & DBNameSpace & ".EPDUSERPROFILES " & _
+            "and AIRBRANCH.FS_feeINVOICE.Active = '1' ) INVOICES, " & _
+            "AIRBRANCH.EPDUSERPROFILES " & _
             "where TRANSACTIONS.STRAIRSNUMBER  =  INVOICES.STRAIRSNUMBER (+) " & _
             "and TRANSACTIONS.NUMFEEYEAR  =  INVOICES.NUMFEEYEAR  (+) " & _
             "and TRANSACTIONS.INVOICEID  =  INVOICES.INVOICEID (+) " & _
-            "and TRANSACTIONS.UPDATEUSER  = " & DBNameSpace & ".epduserProfiles.numUserID   (+) " & _
+            "and TRANSACTIONS.UPDATEUSER  = AIRBRANCH.epduserProfiles.numUserID   (+) " & _
             " union " & _
             "select " & _
             "TRANSACTIONID,  INVOICES.INVOICEID, DATTRANSACTIONDATE, " & _
@@ -1281,27 +1281,27 @@ Public Class PASPFeeAuditLog
             "transactiontypecode, " & _
             "UPDATEUSER, UPDATEDATETIME, " & _
             "createDateTime, strairsnumber, numfeeyear, ''  " & _
-            "from " & DBNameSpace & ".FS_TRANSACTIONS, " & DBNameSpace & ".EPDUSERPROFILES " & _
-            "where " & DBNameSpace & ".FS_TRANSACTIONS.STRENTRYPERSON = " & DBNameSpace & ".EPDUSERPROFILES.NUMUSERID (+) " & _
-            "and " & DBNameSpace & ".FS_TRANSACTIONS.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " & _
-            "and " & DBNameSpace & ".FS_TRANSACTIONS.NUMFEEYEAR = '" & Me.FeeYear & "' " & _
+            "from AIRBRANCH.FS_TRANSACTIONS, AIRBRANCH.EPDUSERPROFILES " & _
+            "where AIRBRANCH.FS_TRANSACTIONS.STRENTRYPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID (+) " & _
+            "and AIRBRANCH.FS_TRANSACTIONS.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " & _
+            "and AIRBRANCH.FS_TRANSACTIONS.NUMFEEYEAR = '" & Me.FeeYear & "' " & _
             "and active = 1) TRANSACTIONS,  " & _
             "(select " & _
             "0, INVOICEID, " & _
             "sysdate, 1, '', '', " & _
             "'', '', '', '', 2, " & _
-            "" & DBNameSpace & ".FS_feeINVOICE.UPDATEUSER, " & DBNameSpace & ".FS_feeINVOICE.UPDATEDATETIME, " & _
-            "" & DBNameSpace & ".FS_feeINVOICE.CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, strPayTypeDesc " & _
-            "from " & DBNameSpace & ".FS_feeINVOICE, " & DBNameSpace & ".fsLK_Paytype " & _
-            "where " & DBNameSpace & ".FS_feeINVOICE.strPayType = " & DBNameSpace & ".fsLK_Paytype.numPayTypeID " & _
+            "AIRBRANCH.FS_feeINVOICE.UPDATEUSER, AIRBRANCH.FS_feeINVOICE.UPDATEDATETIME, " & _
+            "AIRBRANCH.FS_feeINVOICE.CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, strPayTypeDesc " & _
+            "from AIRBRANCH.FS_feeINVOICE, AIRBRANCH.fsLK_Paytype " & _
+            "where AIRBRANCH.FS_feeINVOICE.strPayType = AIRBRANCH.fsLK_Paytype.numPayTypeID " & _
             "and STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " & _
             "and NUMFEEYEAR = '" & Me.FeeYear & "' " & _
-            "and " & DBNameSpace & ".FS_feeINVOICE.Active = '1') INVOICES, " & _
-            "" & DBNameSpace & ".EPDUSERPROFILES " & _
+            "and AIRBRANCH.FS_feeINVOICE.Active = '1') INVOICES, " & _
+            "AIRBRANCH.EPDUSERPROFILES " & _
             "where  INVOICES.STRAIRSNUMBER  = TRANSACTIONS.STRAIRSNUMBER (+) " & _
             "and INVOICES.NUMFEEYEAR  =  TRANSACTIONS.NUMFEEYEAR  (+) " & _
             "and INVOICES.INVOICEID  =  TRANSACTIONS.INVOICEID (+) " & _
-            "and TRANSACTIONS.UPDATEUSER  = " & DBNameSpace & ".epduserProfiles.numUserID (+) "
+            "and TRANSACTIONS.UPDATEUSER  = AIRBRANCH.epduserProfiles.numUserID (+) "
 
             ds = New DataSet
             da = New OracleDataAdapter(SQL, CurrentConnection)
@@ -2110,7 +2110,7 @@ Public Class PASPFeeAuditLog
                 End If
 
                 SQL = "Select Description " & _
-                "from " & DBNameSpace & ".FSLK_NSPSReason " & _
+                "from AIRBRANCH.FSLK_NSPSReason " & _
                 "where " & _
                 SQLLine
 
@@ -2132,7 +2132,7 @@ Public Class PASPFeeAuditLog
             SQLLine = ""
 
             SQL = "Select " & _
-            "" & DBNameSpace & ".FS_FeeAudit.AuditID, " & _
+            "AIRBRANCH.FS_FeeAudit.AuditID, " & _
             "case when strSyntheticMinor = '1' then 'True' " & _
             "when strSYntheticMinor is null then '' " & _
             "else 'False' " & _
@@ -2157,14 +2157,14 @@ Public Class PASPFeeAuditLog
             "datShutdown, strOfficialname, " & _
             "strOfficialTitle, strPaymentPlan, " & _
             "(strLastName||', '||strFirstName) as IAIPUpdate, " & _
-            "" & DBNameSpace & ".FS_FeeAudit.UpdateDateTime, " & DBNameSpace & ".FS_FeeAudit.CreateDateTime " & _
-            "from " & DBNameSpace & ".FS_FeeAmendment, " & DBNameSpace & ".EPDUserProfiles, " & _
-            "" & DBNameSpace & ".FS_FeeAudit " & _
-            "where " & DBNameSpace & ".FS_FeeAudit.UpdateUser = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-            "and " & DBNameSpace & ".FS_FeeAudit.AuditID = " & DBNameSpace & ".FS_FeeAmendment.AuditID (+) " & _
-            "and " & DBNameSpace & ".FS_FeeAudit.strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " & _
-            "and " & DBNameSpace & ".FS_FeeAudit.numFeeyear  = '" & Me.FeeYear & "' " & _
-            "and " & DBNameSpace & ".FS_FeeAudit.Active = '1' "
+            "AIRBRANCH.FS_FeeAudit.UpdateDateTime, AIRBRANCH.FS_FeeAudit.CreateDateTime " & _
+            "from AIRBRANCH.FS_FeeAmendment, AIRBRANCH.EPDUserProfiles, " & _
+            "AIRBRANCH.FS_FeeAudit " & _
+            "where AIRBRANCH.FS_FeeAudit.UpdateUser = AIRBRANCH.EPDUserProfiles.numUserID " & _
+            "and AIRBRANCH.FS_FeeAudit.AuditID = AIRBRANCH.FS_FeeAmendment.AuditID (+) " & _
+            "and AIRBRANCH.FS_FeeAudit.strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " & _
+            "and AIRBRANCH.FS_FeeAudit.numFeeyear  = '" & Me.FeeYear & "' " & _
+            "and AIRBRANCH.FS_FeeAudit.Active = '1' "
 
             ds = New DataSet
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -2283,8 +2283,8 @@ Public Class PASPFeeAuditLog
             If Me.AirsNumber.ToString IsNot Nothing AndAlso Me.FeeYear IsNot Nothing Then
                 SQL = "select " & _
                 "strIAIPDesc " & _
-                "From " & DBNameSpace & ".FS_Admin, " & DBNameSpace & ".FSLK_ADMIN_Status " & _
-                "where " & DBNameSpace & ".FS_Admin.numCurrentStatus = " & DBNameSpace & ".FSLK_Admin_Status.ID (+) " & _
+                "From AIRBRANCH.FS_Admin, AIRBRANCH.FSLK_ADMIN_Status " & _
+                "where AIRBRANCH.FS_Admin.numCurrentStatus = AIRBRANCH.FSLK_Admin_Status.ID (+) " & _
                 "and numFeeYear = '" & Me.FeeYear & "' " & _
                 "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "'  "
 
@@ -2317,7 +2317,7 @@ Public Class PASPFeeAuditLog
             SQL = "Select " & _
             "numUserID, " & _
             "(strLastName||', '||strFirstName) as Staff " & _
-            "from " & DBNameSpace & ".EPDUserProfiles " & _
+            "from AIRBRANCH.EPDUserProfiles " & _
             "where numBranch = '1' " & _
             "and numProgram = '2' " & _
             "and numUnit = '9' " & _
@@ -2579,7 +2579,7 @@ Public Class PASPFeeAuditLog
             "strFacilityName, strFacilityStreet1, " & _
             "strFacilityStreet2, strFacilityCity, datShutdownDate, " & _
             "strFacilityZipCode " & _
-            "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".APBHeaderData  " & _
+            "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBHeaderData  " & _
             "where APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber " & _
             "and APBFacilityInformation.strAIRSnumber = :airsnumber "
 
@@ -2846,7 +2846,7 @@ Public Class PASPFeeAuditLog
             End If
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM " & DBNameSpace & ".FS_ADMIN " & _
+                " FROM AIRBRANCH.FS_ADMIN " & _
                 " WHERE RowNum = 1 " & _
                 " AND strAIRSnumber = :pAirsNumber " & _
                 " AND numFeeYear = :pFeeYear "
@@ -2925,7 +2925,7 @@ Public Class PASPFeeAuditLog
     Private Sub btnGECOViewPastContacts_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGECOViewPastContacts.Click
         Try
             SQL = "Select * " & _
-            "from " & DBNameSpace & ".FS_ContactInfo " & _
+            "from AIRBRANCH.FS_ContactInfo " & _
             "where strAIRSnumber = '" & Me.ExpandedAirsNumber & "' " & _
             "order by numFeeYear desc "
 
@@ -3147,9 +3147,9 @@ Public Class PASPFeeAuditLog
             End If
 
             If txtInvoiceID.Text <> "" Then
-                SQL = "Insert into " & DBNameSpace & ".FS_Transactions " & _
+                SQL = "Insert into AIRBRANCH.FS_Transactions " & _
                 "values " & _
-                "((" & DBNameSpace & ".seq_fs_transactions.nextVal), " & _
+                "((AIRBRANCH.seq_fs_transactions.nextVal), " & _
                 "'" & Replace(txtInvoiceID.Text, "'", "''") & "', " & _
                 "'" & Replace(cboTransactionType.SelectedValue, "'", "''") & "', '" & dtpTransactionDate.Text & "', " & _
                 "'" & Replace(Replace(Replace(txtTransactionAmount.Text, "'", "''"), ",", ""), "$", "") & "', " & _
@@ -3161,9 +3161,9 @@ Public Class PASPFeeAuditLog
                 "'" & Me.ExpandedAirsNumber & "', " & _
                 "'" & Me.FeeYear & "', '" & Replace(txtTransactionCreditCardNo.Text, "'", "''") & "') "
             Else
-                SQL = "Insert into " & DBNameSpace & ".FS_Transactions " & _
+                SQL = "Insert into AIRBRANCH.FS_Transactions " & _
                "values " & _
-               "((" & DBNameSpace & ".seq_fs_transactions.nextVal), " & _
+               "((AIRBRANCH.seq_fs_transactions.nextVal), " & _
                "'', " & _
                "'" & Replace(cboTransactionType.SelectedValue, "'", "''") & "', '" & dtpTransactionDate.Text & "', " & _
                "'" & Replace(Replace(Replace(txtTransactionAmount.Text, "'", "''"), ",", ""), "$", "") & "', " & _
@@ -3184,7 +3184,7 @@ Public Class PASPFeeAuditLog
             dr.Close()
 
             SQL = "Select max(TransactionID) " & _
-            "from " & DBNameSpace & ".FS_TRANSACTIONS "
+            "from AIRBRANCH.FS_TRANSACTIONS "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -3367,7 +3367,7 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            SQL = "Update " & DBNameSpace & ".FS_Transactions set " & _
+            SQL = "Update AIRBRANCH.FS_Transactions set " & _
             "invoiceid = '" & txtInvoiceID.Text & "', " & _
             "TransactionTypecode = '" & cboTransactionType.SelectedValue & "', " & _
             "datTransactionDate = '" & dtpTransactionDate.Text & "', " & _
@@ -3423,7 +3423,7 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            SQL = "Update " & DBNameSpace & ".FS_Transactions set " & _
+            SQL = "Update AIRBRANCH.FS_Transactions set " & _
             "active = '0', " & _
             "updateUser = '" & UserGCode & "', " & _
             "updateDateTime = sysdate " & _
@@ -3483,12 +3483,12 @@ Public Class PASPFeeAuditLog
 
             If temp <> "0" Then
                 'Not Paid in full
-                SQL = "Update " & DBNameSpace & ".FS_FeeInvoice set " & _
+                SQL = "Update AIRBRANCH.FS_FeeInvoice set " & _
                 "strInvoicestatus = '0' " & _
                 "where invoiceId = '" & invoiceID & "' "
             Else
                 'Paid in Full 
-                SQL = "Update " & DBNameSpace & ".FS_FeeInvoice set " & _
+                SQL = "Update AIRBRANCH.FS_FeeInvoice set " & _
                 "strInvoicestatus = '1' " & _
                 "where invoiceId = '" & invoiceID & "' "
             End If
@@ -3690,7 +3690,7 @@ Public Class PASPFeeAuditLog
             End If
 
             SQL = "select count(*) as DataCheck " & _
-            "From " & DBNameSpace & ".FS_FeeData " & _
+            "From AIRBRANCH.FS_FeeData " & _
             "where strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " & _
             "and numFeeYear = '" & Me.FeeYear & "' "
 
@@ -3709,7 +3709,7 @@ Public Class PASPFeeAuditLog
             dr.Close()
 
             If temp = "0" Then
-                SQL = "insert into " & DBNameSpace & ".FS_FeeData " & _
+                SQL = "insert into AIRBRANCH.FS_FeeData " & _
                 "(numfeeyear, strairsnumber, " & _
                 "strComment, Active, " & _
                 "UpdateUser, UpdateDateTime, " & _
@@ -3769,7 +3769,7 @@ Public Class PASPFeeAuditLog
                 EndCollections = "False"
             End If
 
-            SQL = "Insert into " & DBNameSpace & ".FS_FeeAudit " & _
+            SQL = "Insert into AIRBRANCH.FS_FeeAudit " & _
             "values " & _
             "((select " & _
             "case " & _
@@ -3777,7 +3777,7 @@ Public Class PASPFeeAuditLog
             "when Max(AuditID) is not null then max(AuditID) + 1 " & _
             "else 1 " & _
             "end AuditID " & _
-            "from " & DBNameSpace & ".FS_FeeAudit), " & _
+            "from AIRBRANCH.FS_FeeAudit), " & _
             "'" & StaffResponsible & "', " & _
             "'" & AuditLevel & "', '" & AuditEnforcement & "', " & _
             "'" & Replace(AuditComments, "'", "''") & "', " & _
@@ -3795,7 +3795,7 @@ Public Class PASPFeeAuditLog
             dr.Close()
 
             SQL = "select max(AuditID) as AuditID " & _
-            "from " & DBNameSpace & ". FS_FeeAudit " '& _
+            "from AIRBRANCH. FS_FeeAudit " '& _
             ' "where strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
             ' "and numFeeYear = '" & Me.FeeYear & "' "
 
@@ -3815,7 +3815,7 @@ Public Class PASPFeeAuditLog
             dr.Close()
 
             If chbMakeEdits.Checked = True Then
-                SQL = "Insert into " & DBNameSpace & ".FS_FeeAmendment " & _
+                SQL = "Insert into AIRBRANCH.FS_FeeAmendment " & _
                 "values " & _
                 "('" & txtAuditID.Text & "',  " & _
                 "'" & Me.ExpandedAirsNumber & "', '" & Me.FeeYear & "', " & _
@@ -3923,9 +3923,9 @@ Public Class PASPFeeAuditLog
             End If
 
             SQL = "select " & _
-            "" & DBNameSpace & ".FSLK_NspsReason.NSPSREasonCode , Description " & _
-            "from " & DBNameSpace & ".FSLK_NSPSReason, " & DBNameSpace & ".fslk_NSPSReasonYear " & _
-            "where " & DBNameSpace & ".FSLK_NspsReason.NSPSREasonCode = " & DBNameSpace & ".FSLK_NSPSREasonYear.nspsreasoncode  " & _
+            "AIRBRANCH.FSLK_NspsReason.NSPSREasonCode , Description " & _
+            "from AIRBRANCH.FSLK_NSPSReason, AIRBRANCH.fslk_NSPSReasonYear " & _
+            "where AIRBRANCH.FSLK_NspsReason.NSPSREasonCode = AIRBRANCH.FSLK_NSPSREasonYear.nspsreasoncode  " & _
             "and numFeeYear = 2009 " & _
             "order by displayorder "
 
@@ -3951,7 +3951,7 @@ Public Class PASPFeeAuditLog
 
             SQL = "Select " & _
             "NSPSReasonCode, DisplayOrder " & _
-            "from " & DBNameSpace & ".FSLK_NSPSReasonYear " & _
+            "from AIRBRANCH.FSLK_NSPSReasonYear " & _
             "where numFeeYear = '" & Me.FeeYear & "' " & _
             "order by NSPSReasonCode "
 
@@ -4065,7 +4065,7 @@ Public Class PASPFeeAuditLog
             End If
             SQL = "Select " & _
              "strManagementName from " & _
-             "" & DBNameSpace & ".LookUpAPBManagementType " & _
+             "AIRBRANCH.LookUpAPBManagementType " & _
              "where strCurrentContact = '1' " & _
              "and strKey = '1' "
 
@@ -4085,7 +4085,7 @@ Public Class PASPFeeAuditLog
 
             SQL = "Select " & _
             "strManagementName from " & _
-            "" & DBNameSpace & ".LookUpAPBManagementType " & _
+            "AIRBRANCH.LookUpAPBManagementType " & _
             "where strCurrentContact = '1' " & _
             "and strKey = '2' "
 
@@ -4106,12 +4106,12 @@ Public Class PASPFeeAuditLog
             SQL = "Select " & _
             "numAmount, datInvoiceDate, " & _
             "strPayType, strPayTypeDesc, " & _
-            "" & DBNameSpace & ".FS_FeeInvoice.CreateDateTime, " & _
-            "" & DBNameSpace & ".FS_FeeInvoice.Active " & _
-            "from " & DBNameSpace & ".FS_FeeInvoice, " & _
-            "" & DBNameSpace & ".FSLK_PayType " & _
-            "where " & DBNameSpace & ".FS_FeeInvoice.strPayType = " & _
-               "" & DBNameSpace & ".FSLK_PayType.numPayTypeID " & _
+            "AIRBRANCH.FS_FeeInvoice.CreateDateTime, " & _
+            "AIRBRANCH.FS_FeeInvoice.Active " & _
+            "from AIRBRANCH.FS_FeeInvoice, " & _
+            "AIRBRANCH.FSLK_PayType " & _
+            "where AIRBRANCH.FS_FeeInvoice.strPayType = " & _
+               "AIRBRANCH.FSLK_PayType.numPayTypeID " & _
                "and InvoiceID = '" & txtInvoice.Text & "' " & _
                "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " & _
                "and numFeeYear = '" & Me.FeeYear & "' "
@@ -4158,7 +4158,7 @@ Public Class PASPFeeAuditLog
             SQL = "Select " & _
             "numTotalFee, numAdminFee, " & _
             "(numTotalFee - numAdminFee) as TotalEmissionFees " & _
-            "from " & DBNameSpace & ".FS_FeeAuditedData " & _
+            "from AIRBRANCH.FS_FeeAuditedData " & _
             "where numFeeYear = '" & Me.FeeYear & "' " & _
             "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' "
 
@@ -4194,7 +4194,7 @@ Public Class PASPFeeAuditLog
             "datTransactionDate, numPayment, " & _
             "strCheckNo, strCreditCardNo, " & _
             "strDepositNo " & _
-            "From " & DBNameSpace & ".FS_Transactions " & _
+            "From AIRBRANCH.FS_Transactions " & _
             "where strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " & _
             "and numFeeYear = '" & Me.FeeYear & "' " & _
             "and Active = '1' "
@@ -4350,26 +4350,26 @@ Public Class PASPFeeAuditLog
     Sub ViewAllInvoices()
         Try
             SQL = "select distinct " & _
-            "" & DBNameSpace & ".FS_FeeInvoice.InvoiceID, " & _
-            "" & DBNameSpace & ".FS_FeeInvoice.numAmount, " & _
+            "AIRBRANCH.FS_FeeInvoice.InvoiceID, " & _
+            "AIRBRANCH.FS_FeeInvoice.numAmount, " & _
             "datInvoiceDate, " & _
             "case " & _
-            "when " & DBNameSpace & ".FS_FeeInvoice.active = '1' then 'Active' " & _
-            "when " & DBNameSpace & ".FS_FeeInvoice.active = '0' then 'VOID' " & _
+            "when AIRBRANCH.FS_FeeInvoice.active = '1' then 'Active' " & _
+            "when AIRBRANCH.FS_FeeInvoice.active = '0' then 'VOID' " & _
             "end InvoiceStatus, strPayTypeDesc, " & _
             "case " & _
             "when strInvoiceStatus = '1' then 'Paid in Full' " & _
             "when strInvoiceStatus = '0' and " & _
-            "(numPayment <> '0' and numPayment is not null and " & DBNameSpace & ".FS_Transactions.active = '1') then 'Partial Payment' " & _
+            "(numPayment <> '0' and numPayment is not null and AIRBRANCH.FS_Transactions.active = '1') then 'Partial Payment' " & _
             "when strInvoicestatus = '0' then 'Unpaid' " & _
             "end PayStatus, " & _
-            "" & DBNameSpace & ".FS_FeeInvoice.strComment " & _
-            "from " & DBNameSpace & ".FS_FeeInvoice, " & DBNameSpace & ".FSLK_PayType, " & _
-            "" & DBNameSpace & ".FS_Transactions " & _
-            "where " & DBNameSpace & ".FS_FeeInvoice.strPayType = " & DBNameSpace & ".FSLK_PayType.nuMPayTypeID " & _
-            "and " & DBNameSpace & ".FS_FeeInvoice.InvoiceID = " & DBNameSpace & ".FS_Transactions.InvoiceID (+) " & _
-            "and " & DBNameSpace & ".FS_FeeInvoice.strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " & _
-            "and " & DBNameSpace & ".FS_FeeInvoice.numFeeYear = '" & Me.FeeYear & "' "
+            "AIRBRANCH.FS_FeeInvoice.strComment " & _
+            "from AIRBRANCH.FS_FeeInvoice, AIRBRANCH.FSLK_PayType, " & _
+            "AIRBRANCH.FS_Transactions " & _
+            "where AIRBRANCH.FS_FeeInvoice.strPayType = AIRBRANCH.FSLK_PayType.nuMPayTypeID " & _
+            "and AIRBRANCH.FS_FeeInvoice.InvoiceID = AIRBRANCH.FS_Transactions.InvoiceID (+) " & _
+            "and AIRBRANCH.FS_FeeInvoice.strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " & _
+            "and AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & Me.FeeYear & "' "
 
             ds = New DataSet
 
@@ -4492,9 +4492,9 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            SQL = "Insert into " & DBNameSpace & ".FS_FeeINvoice " & _
+            SQL = "Insert into AIRBRANCH.FS_FeeINvoice " & _
             "values " & _
-            "(" & DBNameSpace & ".FeeInvoice_ID.nextVal, " & _
+            "(AIRBRANCH.FeeInvoice_ID.nextVal, " & _
             "'" & Me.ExpandedAirsNumber & "', '" & Me.FeeYear & "', " & _
             "'" & Replace(Replace(txtAmount.Text, "$", ""), ",", "") & "', '" & Format(DTPInvoiceDate.Value, "dd-MMM-yyyy") & "', " & _
             "'" & Replace(txtInvoiceComments.Text, "'", "''") & "', " & _
@@ -4547,7 +4547,7 @@ Public Class PASPFeeAuditLog
 
             SQL = "Select " & _
             "TransactionID, numPayment " & _
-            "from " & DBNameSpace & ".FS_Transactions " & _
+            "from AIRBRANCH.FS_Transactions " & _
             "where invoiceID = '" & txtInvoice.Text & "' " & _
             "and Active <> '0' "
 
@@ -4576,7 +4576,7 @@ Public Class PASPFeeAuditLog
                          MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
-            SQL = "Update " & DBNameSpace & ".FS_FeeInvoice set " & _
+            SQL = "Update AIRBRANCH.FS_FeeInvoice set " & _
             "Active = '0' " & _
             "where InvoiceID = '" & txtInvoice.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4607,12 +4607,12 @@ Public Class PASPFeeAuditLog
             End If
 
             SQL = "Select distinct " & _
-            "" & DBNameSpace & ".FS_FeeInvoice.InvoiceID " & _
-            "from " & DBNameSpace & ".FS_FeeInvoice, " & DBNameSpace & ".FS_Transactions " & _
-            "where " & DBNameSpace & ".FS_FeeInvoice.invoiceid = " & DBNameSpace & ".FS_Transactions.InvoiceID (+) " & _
-            "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
-            "and " & DBNameSpace & ".FS_FeeInvoice.strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " & _
-            "and " & DBNameSpace & ".FS_FeeInvoice.numFeeYear = '" & Me.FeeYear & "' " & _
+            "AIRBRANCH.FS_FeeInvoice.InvoiceID " & _
+            "from AIRBRANCH.FS_FeeInvoice, AIRBRANCH.FS_Transactions " & _
+            "where AIRBRANCH.FS_FeeInvoice.invoiceid = AIRBRANCH.FS_Transactions.InvoiceID (+) " & _
+            "and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
+            "and AIRBRANCH.FS_FeeInvoice.strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " & _
+            "and AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & Me.FeeYear & "' " & _
             "and (numPayment is null or numPayment = '0' ) "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4628,7 +4628,7 @@ Public Class PASPFeeAuditLog
                 End If
 
                 If InvoiceID <> "" Then
-                    SQL = "Update " & DBNameSpace & ".FS_FeeInvoice set " & _
+                    SQL = "Update AIRBRANCH.FS_FeeInvoice set " & _
                     "Active = '0' " & _
                     "where invoiceID = '" & InvoiceID & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4659,7 +4659,7 @@ Public Class PASPFeeAuditLog
             End If
 
             If txtInvoice.Text <> "" Then
-                SQL = "Update " & DBNameSpace & ".FS_FeeInvoice set " & _
+                SQL = "Update AIRBRANCH.FS_FeeInvoice set " & _
                 "Active = '1' " & _
                 "where invoiceID = '" & txtInvoice.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4882,7 +4882,7 @@ Public Class PASPFeeAuditLog
 
             If chbMakeEdits.Checked = True Then
                 SQL = "select updateuser " & _
-                "from " & DBNameSpace & ".FS_FeeAmendment " & _
+                "from AIRBRANCH.FS_FeeAmendment " & _
                 "where numfeeyear = '" & FeeYear & "' " & _
                 "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " & _
                 "and auditID = '" & txtAuditID.Text & "' "
@@ -4896,7 +4896,7 @@ Public Class PASPFeeAuditLog
                 dr.Close()
 
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".FS_FeeAmendment set " & _
+                    SQL = "Update AIRBRANCH.FS_FeeAmendment set " & _
                     "strSyntheticMinor = '" & SM & "', " & _
                     "numSMFee = '" & SMFee & "',  " & _
                     "strPart70 = '" & Part70 & "', " & _
@@ -4923,7 +4923,7 @@ Public Class PASPFeeAuditLog
                     "updateDateTime = sysdate " & _
                     "where AuditID = '" & txtAuditID.Text & "' "
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".FS_FeeAmendment " & _
+                    SQL = "Insert into AIRBRANCH.FS_FeeAmendment " & _
                     "values " & _
                     "('" & txtAuditID.Text & "',  " & _
                     "'" & Me.ExpandedAirsNumber & "', '" & Me.FeeYear & "', " & _
@@ -5005,7 +5005,7 @@ Public Class PASPFeeAuditLog
                 EndCollections = "False"
             End If
 
-            SQL = "Update " & DBNameSpace & ".FS_FeeAudit set " & _
+            SQL = "Update AIRBRANCH.FS_FeeAudit set " & _
             "numStaffResponsible = '" & StaffResponsible & "', " & _
             "strAuditLevel = '" & AuditLevel & "', " & _
             "numENFORCEMENT = '" & AuditENFORCEMENT & "', " & _
@@ -5019,7 +5019,7 @@ Public Class PASPFeeAuditLog
             "where AuditID = '" & txtAuditID.Text & "' "
 
 
-            'SQL = "Insert into " & DBNameSpace & ".FS_FeeAudit " & _
+            'SQL = "Insert into AIRBRANCH.FS_FeeAudit " & _
             '"values " & _
             '"('" & txtAuditID.Text & "', '" & StaffResponsible & "', " & _
             '"'" & AuditLevel & "', '" & AuditNOV & "', " & _
@@ -5076,7 +5076,7 @@ Public Class PASPFeeAuditLog
             txtAuditID.Text = dgvAuditHistory(0, dgvAuditHistory.CurrentRow.Index).Value
 
             SQL = "Select * " & _
-            "From " & DBNameSpace & ".FS_FeeAudit " & _
+            "From AIRBRANCH.FS_FeeAudit " & _
             "where AuditID = '" & txtAuditID.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5148,7 +5148,7 @@ Public Class PASPFeeAuditLog
             End Select
 
             SQL = "select * " & _
-            "from " & DBNameSpace & ".FS_FeeAmendment " & _
+            "from AIRBRANCH.FS_FeeAmendment " & _
             "where auditID = '" & txtAuditID.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5466,9 +5466,9 @@ Public Class PASPFeeAuditLog
          "transactiontypecode, " & _
          "UPDATEUSER, UPDATEDATETIME, " & _
          "createDateTime, strairsnumber, numfeeyear  " & _
-         "from " & DBNameSpace & ".FS_TRANSACTIONS, " & DBNameSpace & ".EPDUSERPROFILES " & _
-         "where " & DBNameSpace & ".FS_TRANSACTIONS.STRENTRYPERSON = " & DBNameSpace & ".EPDUSERPROFILES.NUMUSERID " & _
-         "and " & DBNameSpace & ".FS_TRANSACTIONS.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " & _
+         "from AIRBRANCH.FS_TRANSACTIONS, AIRBRANCH.EPDUSERPROFILES " & _
+         "where AIRBRANCH.FS_TRANSACTIONS.STRENTRYPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID " & _
+         "and AIRBRANCH.FS_TRANSACTIONS.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " & _
          "and active = 1) TRANSACTIONS,  " & _
          "(select " & _
          "0, INVOICEID, " & _
@@ -5476,14 +5476,14 @@ Public Class PASPFeeAuditLog
          "'', '', '', '', 2, " & _
          "UPDATEUSER, UPDATEDATETIME, " & _
          "CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR   " & _
-         "from " & DBNameSpace & ".FS_feeINVOICE " & _
+         "from AIRBRANCH.FS_feeINVOICE " & _
          "where STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " & _
-         "and " & DBNameSpace & ".FS_feeINVOICE.Active = '1' ) INVOICES, " & _
-         "" & DBNameSpace & ".EPDUSERPROFILES " & _
+         "and AIRBRANCH.FS_feeINVOICE.Active = '1' ) INVOICES, " & _
+         "AIRBRANCH.EPDUSERPROFILES " & _
          "where TRANSACTIONS.STRAIRSNUMBER  =  INVOICES.STRAIRSNUMBER (+) " & _
          "and TRANSACTIONS.NUMFEEYEAR  =  INVOICES.NUMFEEYEAR  (+) " & _
          "and TRANSACTIONS.INVOICEID  =  INVOICES.INVOICEID (+) " & _
-         "and TRANSACTIONS.UPDATEUSER  = " & DBNameSpace & ".epduserProfiles.numUserID   (+) " & _
+         "and TRANSACTIONS.UPDATEUSER  = AIRBRANCH.epduserProfiles.numUserID   (+) " & _
          " union " & _
          "select " & _
          "TRANSACTIONID,  INVOICES.INVOICEID, DATTRANSACTIONDATE, " & _
@@ -5505,9 +5505,9 @@ Public Class PASPFeeAuditLog
          "transactiontypecode, " & _
          "UPDATEUSER, UPDATEDATETIME, " & _
          "createDateTime, strairsnumber, numfeeyear  " & _
-         "from " & DBNameSpace & ".FS_TRANSACTIONS, " & DBNameSpace & ".EPDUSERPROFILES " & _
-         "where " & DBNameSpace & ".FS_TRANSACTIONS.STRENTRYPERSON = " & DBNameSpace & ".EPDUSERPROFILES.NUMUSERID " & _
-         "and " & DBNameSpace & ".FS_TRANSACTIONS.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " & _
+         "from AIRBRANCH.FS_TRANSACTIONS, AIRBRANCH.EPDUSERPROFILES " & _
+         "where AIRBRANCH.FS_TRANSACTIONS.STRENTRYPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID " & _
+         "and AIRBRANCH.FS_TRANSACTIONS.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " & _
          "and active = 1) TRANSACTIONS,  " & _
          "(select " & _
          "0, INVOICEID, " & _
@@ -5515,14 +5515,14 @@ Public Class PASPFeeAuditLog
          "'', '', '', '', 2, " & _
          "UPDATEUSER, UPDATEDATETIME, " & _
          "CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR   " & _
-         "from " & DBNameSpace & ".FS_feeINVOICE " & _
+         "from AIRBRANCH.FS_feeINVOICE " & _
          "where STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " & _
-         "and " & DBNameSpace & ".FS_feeINVOICE.Active = '1') INVOICES, " & _
-         "" & DBNameSpace & ".EPDUSERPROFILES " & _
+         "and AIRBRANCH.FS_feeINVOICE.Active = '1') INVOICES, " & _
+         "AIRBRANCH.EPDUSERPROFILES " & _
          "where  INVOICES.STRAIRSNUMBER  = TRANSACTIONS.STRAIRSNUMBER (+) " & _
          "and INVOICES.NUMFEEYEAR  =  TRANSACTIONS.NUMFEEYEAR  (+) " & _
          "and INVOICES.INVOICEID  =  TRANSACTIONS.INVOICEID (+) " & _
-         "and TRANSACTIONS.UPDATEUSER  = " & DBNameSpace & ".epduserProfiles.numUserID (+) "
+         "and TRANSACTIONS.UPDATEUSER  = AIRBRANCH.epduserProfiles.numUserID (+) "
 
                 ds = New DataSet
                 da = New OracleDataAdapter(SQL, CurrentConnection)
@@ -5688,7 +5688,7 @@ Public Class PASPFeeAuditLog
 
             Dim SQL As String = "Select " & _
             "count(*) as AdminCount " & _
-            "from " & DBNameSpace & ".FS_Admin " & _
+            "from AIRBRANCH.FS_Admin " & _
             "where numFeeYear = '" & FeeYear & "' " & _
             "and strAIRSNumber = '0413" & AIRSNumber & "' "
 
@@ -5747,7 +5747,7 @@ Public Class PASPFeeAuditLog
                 End If
             End If
 
-            SQL = "Insert into " & DBNameSpace & ".FS_Admin " & _
+            SQL = "Insert into AIRBRANCH.FS_Admin " & _
             "values " & _
             "(" & FeeYear & ", '0413" & AIRSNumber & "', " & _
             "'" & Enrolled & "', '', " & _
@@ -5766,7 +5766,7 @@ Public Class PASPFeeAuditLog
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Update " & DBNameSpace & ".FS_Admin set " & _
+            SQL = "Update AIRBRANCH.FS_Admin set " & _
            "datInitialEnrollment = datEnrollment " & _
            "where numFeeYear = '" & FeeYear & "' " & _
            "and strAIRSnumber = '0413" & AIRSNumber & "' " & _
@@ -5894,7 +5894,7 @@ Public Class PASPFeeAuditLog
                 "updateDateTime = '" & OracleDate & "' "
             End If
 
-            SQL = "Update " & DBNameSpace & ".FS_Admin set " & SQL & _
+            SQL = "Update AIRBRANCH.FS_Admin set " & SQL & _
             "where numFeeYear = '" & FeeYear & "' " & _
             "and strAIRSNumber = '0413" & AIRSNumber & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5920,7 +5920,7 @@ Public Class PASPFeeAuditLog
                 End If
             End If
 
-            SQL = "Update " & DBNameSpace & ".FS_Admin set " & _
+            SQL = "Update AIRBRANCH.FS_Admin set " & _
             "datInitialEnrollment = datEnrollment " & _
             "where numFeeYear = '" & FeeYear & "' " & _
             "and strAIRSnumber = '0413" & AIRSNumber & "' " & _

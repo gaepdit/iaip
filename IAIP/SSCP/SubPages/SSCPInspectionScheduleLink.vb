@@ -448,7 +448,7 @@ Public Class SSCPInspectionscheduleLink
 
             SQL = "Select InspectionKey, " & _
                "datScheduleDateStart, datScheduleDateEnd " & _
-               "from " & DBNameSpace & ".SSCPInspectionTracking " & _
+               "from AIRBRANCH.SSCPInspectionTracking " & _
                "where SSCPTrackingNumber = '" & txtInspectionTrackingNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -481,7 +481,7 @@ Public Class SSCPInspectionscheduleLink
 
             SQL = "Select InspectionKey, SSCPTrackingNumber, " & _
             "datScheduleDateStart, datScheduleDateEnd " & _
-            "from " & DBNameSpace & ".SSCPInspectionTracking " & _
+            "from AIRBRANCH.SSCPInspectionTracking " & _
             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
             Select Case Source
@@ -588,7 +588,7 @@ Public Class SSCPInspectionscheduleLink
 
             If txtInspectionTrackingNumber.Text <> "" And txtInspectionNumber.Text <> "" Then
                 SQL = "select Inspectionkey " & _
-                "from " & DBNameSpace & ".SSCPInspectionTracking " & _
+                "from AIRBRANCH.SSCPInspectionTracking " & _
                 "where SSCPTrackingNumber = '" & txtInspectionTrackingNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -601,7 +601,7 @@ Public Class SSCPInspectionscheduleLink
                 If recExist = True Then
                     temp = dr.Item("inspectionKey")
 
-                    SQL = "Update " & DBNameSpace & ".SSCPInspectionTracking set " & _
+                    SQL = "Update AIRBRANCH.SSCPInspectionTracking set " & _
                     "SSCPTrackingNumber = '' " & _
                     "where InspectionKey = '" & temp & "' "
 
@@ -617,7 +617,7 @@ Public Class SSCPInspectionscheduleLink
 
                 End If
 
-                SQL = "Update " & DBNameSpace & ".SSCPInspectionTracking set " & _
+                SQL = "Update AIRBRANCH.SSCPInspectionTracking set " & _
                 "SSCPTrackingNumber = '" & txtInspectionTrackingNumber.Text & "' " & _
                 "where InspectionKey = '" & txtInspectionNumber.Text & "' "
 
@@ -634,11 +634,11 @@ Public Class SSCPInspectionscheduleLink
                 End Try
                 ' 
 
-                SQL = "Update " & DBNameSpace & ".SSCPInspectionTracking set " & _
+                SQL = "Update AIRBRANCH.SSCPInspectionTracking set " & _
                 "datActualDateStart = (Select datInspectionDateStart " & _
-                "from " & DBNameSpace & ".SSCPInspections where strTrackingNumber = '" & txtInspectionTrackingNumber.Text & "'), " & _
+                "from AIRBRANCH.SSCPInspections where strTrackingNumber = '" & txtInspectionTrackingNumber.Text & "'), " & _
                 "datActualDateEnd = " & _
-                "(Select datInspectionDateEnd from " & DBNameSpace & ".SSCPInspections " & _
+                "(Select datInspectionDateEnd from AIRBRANCH.SSCPInspections " & _
                 "where strTrackingNumber = '" & txtInspectionTrackingNumber.Text & "') " & _
                 "where InspectionKey = '" & txtInspectionNumber.Text & "' "
 

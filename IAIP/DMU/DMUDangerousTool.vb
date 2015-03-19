@@ -21,7 +21,7 @@ Public Class DMUDangerousTool
                 Select Case result
                     Case "True"
                         SQL = "Select strAIRSNumber " & _
-                        "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
+                        "from AIRBRANCH.SSCP_AuditedEnforcement " & _
                         "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -38,7 +38,7 @@ Public Class DMUDangerousTool
                         End While
                         dr.Close()
 
-                        SQL = "delete " & DBNameSpace & ".sscpenforcementStipulated " & _
+                        SQL = "delete AIRBRANCH.sscpenforcementStipulated " & _
                         "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -47,14 +47,14 @@ Public Class DMUDangerousTool
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
+                        SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
                             "values " & _
                             "(" & _
                             "(select " & _
                             "case when max(numCounter) is null then 1 " & _
                             "else max(numCounter) + 1 " & _
                             "end numCounter " & _
-                            "from " & DBNameSpace & ".AFSDeletions), " & _
+                            "from AIRBRANCH.AFSDeletions), " & _
                             "'" & tempAIRS & "', " & _
                             "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                             "'" & OracleDate & "', '', " & _
@@ -67,7 +67,7 @@ Public Class DMUDangerousTool
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "delete " & DBNameSpace & ".sscp_Auditedenforcement  " & _
+                        SQL = "delete AIRBRANCH.sscp_Auditedenforcement  " & _
                         "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -77,20 +77,20 @@ Public Class DMUDangerousTool
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
+                        SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
                            "values " & _
                            "(" & _
                            "(select " & _
                            "case when max(numCounter) is null then 1 " & _
                            "else max(numCounter) + 1 " & _
                            "end numCounter " & _
-                           "from " & DBNameSpace & ".AFSDeletions), " & _
+                           "from AIRBRANCH.AFSDeletions), " & _
                            "'" & tempAIRS & "', " & _
                            "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                            "'" & OracleDate & "', '', " & _
                            "'') "
 
-                        SQL = "delete " & DBNameSpace & ".AFSSSCPEnforcementRecords " & _
+                        SQL = "delete AIRBRANCH.AFSSSCPEnforcementRecords " & _
                         "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -99,14 +99,14 @@ Public Class DMUDangerousTool
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
+                        SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
                            "values " & _
                            "(" & _
                            "(select " & _
                            "case when max(numCounter) is null then 1 " & _
                            "else max(numCounter) + 1 " & _
                            "end numCounter " & _
-                           "from " & DBNameSpace & ".AFSDeletions), " & _
+                           "from AIRBRANCH.AFSDeletions), " & _
                            "'" & tempAIRS & "', " & _
                            "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                            "'" & OracleDate & "', '', " & _
@@ -144,7 +144,7 @@ Public Class DMUDangerousTool
 
             If OldAIRS <> "" And NewAIRS <> "" Then
                 'Permitting 
-                SQL = "Update " & DBNameSpace & ".SSPPApplicationMaster set " & _
+                SQL = "Update AIRBRANCH.SSPPApplicationMaster set " & _
                 "strAIRSNumber = '0413" & NewAIRS & "' " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
@@ -156,7 +156,7 @@ Public Class DMUDangerousTool
                 dr.Close()
 
                 'Compliance
-                SQL = "Update " & DBNameSpace & ".SSCPItemMaster set " & _
+                SQL = "Update AIRBRANCH.SSCPItemMaster set " & _
                 "strAIRSNumber = '0413" & NewAIRS & "' " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
@@ -167,7 +167,7 @@ Public Class DMUDangerousTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Update " & DBNameSpace & ".SSCPFCEMaster set " & _
+                SQL = "Update AIRBRANCH.SSCPFCEMaster set " & _
                 "strAIRSNumber = '0413" & NewAIRS & "' " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
@@ -180,7 +180,7 @@ Public Class DMUDangerousTool
 
                 SQL = "Select " & _
                 "strAIRSnumber " & _
-                "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
+                "from AIRBRANCH.SSCPInspectionsRequired " & _
                 "where strAIRSNumber = '0413" & NewAIRS & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -192,7 +192,7 @@ Public Class DMUDangerousTool
                 dr.Close()
                 If RecExist = False Then
 
-                    SQL = "Update " & DBNameSpace & ".SSCPInspectionsRequired set " & _
+                    SQL = "Update AIRBRANCH.SSCPInspectionsRequired set " & _
                     "strAIRSnumber = '0413" & NewAIRS & "' " & _
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
@@ -203,7 +203,7 @@ Public Class DMUDangerousTool
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Else
-                    SQL = "Delete " & DBNameSpace & ".SSCPInspectionsRequired " & _
+                    SQL = "Delete AIRBRANCH.SSCPInspectionsRequired " & _
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -214,7 +214,7 @@ Public Class DMUDangerousTool
                     dr.Close()
                 End If
 
-                SQL = "Update " & DBNameSpace & ".SSCP_Enforcement set " & _
+                SQL = "Update AIRBRANCH.SSCP_Enforcement set " & _
                 "strAIRSNumber = '0413" & NewAIRS & "' " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
@@ -226,7 +226,7 @@ Public Class DMUDangerousTool
                 dr.Close()
 
                 SQL = "Select strAIRSNumber " & _
-                "from " & DBNameSpace & ".SSCPDistrictResponsible " & _
+                "from AIRBRANCH.SSCPDistrictResponsible " & _
                 "where strAIRSNumber = '0413" & NewAIRS & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -237,7 +237,7 @@ Public Class DMUDangerousTool
                 RecExist = dr.Read
                 dr.Close()
                 If RecExist = False Then
-                    SQL = "Update " & DBNameSpace & ".SSCPDistrictResponsible set " & _
+                    SQL = "Update AIRBRANCH.SSCPDistrictResponsible set " & _
                     "strAIRSNumber = '0413" & NewAIRS & "' " & _
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
@@ -248,7 +248,7 @@ Public Class DMUDangerousTool
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Else
-                    SQL = "Delete " & DBNameSpace & ".SSCPDistrictResponsible " & _
+                    SQL = "Delete AIRBRANCH.SSCPDistrictResponsible " & _
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -260,7 +260,7 @@ Public Class DMUDangerousTool
                 End If
 
                 SQL = "Select strAIRSNumber " & _
-                "from " & DBNameSpace & ".SSCPDistrictAssignment " & _
+                "from AIRBRANCH.SSCPDistrictAssignment " & _
                 "where strAIRSNumber = '0413" & NewAIRS & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -271,7 +271,7 @@ Public Class DMUDangerousTool
                 RecExist = dr.Read
                 dr.Close()
                 If RecExist = False Then
-                    SQL = "Update " & DBNameSpace & ".SSCPDistrictAssignment set " & _
+                    SQL = "Update AIRBRANCH.SSCPDistrictAssignment set " & _
                     "strAIRSNumber = '0413" & NewAIRS & "' " & _
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
@@ -282,7 +282,7 @@ Public Class DMUDangerousTool
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Else
-                    SQL = "Delete " & DBNameSpace & ".SSCPDistrictAssignment " & _
+                    SQL = "Delete AIRBRANCH.SSCPDistrictAssignment " & _
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -295,7 +295,7 @@ Public Class DMUDangerousTool
 
 
                 SQL = "Select strAIRSNumber " & _
-                              "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
+                              "from AIRBRANCH.SSCPInspectionsRequired " & _
                               "where strAIRSNumber = '0413" & NewAIRS & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -306,7 +306,7 @@ Public Class DMUDangerousTool
                 RecExist = dr.Read
                 dr.Close()
                 If RecExist = False Then
-                    SQL = "Update " & DBNameSpace & ".SSCPInspectionsRequired set " & _
+                    SQL = "Update AIRBRANCH.SSCPInspectionsRequired set " & _
                     "strAIRSNumber = '0413" & NewAIRS & "' " & _
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
@@ -317,7 +317,7 @@ Public Class DMUDangerousTool
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Else
-                    SQL = "Delete " & DBNameSpace & ".SSCPInspectionsRequired " & _
+                    SQL = "Delete AIRBRANCH.SSCPInspectionsRequired " & _
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -328,7 +328,7 @@ Public Class DMUDangerousTool
                     dr.Close()
                 End If
 
-                SQL = "Delete " & DBNameSpace & ".OLAPUserAccess " & _
+                SQL = "Delete AIRBRANCH.OLAPUserAccess " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -338,7 +338,7 @@ Public Class DMUDangerousTool
                 dr.Close()
 
                 'Monitoring
-                SQL = "Update " & DBNameSpace & ".ISMPMaster set " & _
+                SQL = "Update AIRBRANCH.ISMPMaster set " & _
                 "strAIRSNumber = '0413" & NewAIRS & "' " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
@@ -349,7 +349,7 @@ Public Class DMUDangerousTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Delete " & DBNameSpace & ".ISMPFacilityAssignment " & _
+                SQL = "Delete AIRBRANCH.ISMPFacilityAssignment " & _
                "where strAIRSNumber = '0413" & OldAIRS & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -359,7 +359,7 @@ Public Class DMUDangerousTool
                 dr.Close()
 
                 'Historical Tables
-                SQL = "Update " & DBNameSpace & ".HB_APBHeaderData set " & _
+                SQL = "Update AIRBRANCH.HB_APBHeaderData set " & _
                 "strAIRSNumber = '0413" & NewAIRS & "', " & _
                 "strComments = 'Data Merged from old AIRS # " & OldAIRS & "' " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
@@ -371,7 +371,7 @@ Public Class DMUDangerousTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Update " & DBNameSpace & ".HB_APBFacilityInformation set " & _
+                SQL = "Update AIRBRANCH.HB_APBFacilityInformation set " & _
                 "strAIRSNumber = '0413" & NewAIRS & "', " & _
                 "strComments = 'Data Merged from old AIRS # " & OldAIRS & "' " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
@@ -383,7 +383,7 @@ Public Class DMUDangerousTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Delete " & DBNameSpace & ".HB_APBAirProgramPollutants " & _
+                SQL = "Delete AIRBRANCH.HB_APBAirProgramPollutants " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -394,7 +394,7 @@ Public Class DMUDangerousTool
                 dr.Close()
 
                 'Header Data
-                SQL = "Delete " & DBNameSpace & ".APBSupplamentalData " & _
+                SQL = "Delete AIRBRANCH.APBSupplamentalData " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -404,7 +404,7 @@ Public Class DMUDangerousTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Delete " & DBNameSpace & ".APBSubpartData " & _
+                SQL = "Delete AIRBRANCH.APBSubpartData " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -414,7 +414,7 @@ Public Class DMUDangerousTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Delete " & DBNameSpace & ".AFSAIRPollutantData " & _
+                SQL = "Delete AIRBRANCH.AFSAIRPollutantData " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -424,7 +424,7 @@ Public Class DMUDangerousTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Delete " & DBNameSpace & ".AFSFacilityData " & _
+                SQL = "Delete AIRBRANCH.AFSFacilityData " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -434,7 +434,7 @@ Public Class DMUDangerousTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Delete " & DBNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Delete AIRBRANCH.APBAirProgramPollutants " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -444,7 +444,7 @@ Public Class DMUDangerousTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Delete " & DBNameSpace & ".APBContactInformation " & _
+                SQL = "Delete AIRBRANCH.APBContactInformation " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -454,7 +454,7 @@ Public Class DMUDangerousTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Delete " & DBNameSpace & ".APBHeaderData " & _
+                SQL = "Delete AIRBRANCH.APBHeaderData " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -464,7 +464,7 @@ Public Class DMUDangerousTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Delete " & DBNameSpace & ".APBFacilityInformation " & _
+                SQL = "Delete AIRBRANCH.APBFacilityInformation " & _
                "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -474,7 +474,7 @@ Public Class DMUDangerousTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Delete " & DBNameSpace & ".APBMasterAIRS " & _
+                SQL = "Delete AIRBRANCH.APBMasterAIRS " & _
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)

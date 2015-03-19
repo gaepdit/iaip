@@ -45,7 +45,7 @@ Public Class ISMPConfidentialData
     Sub LoadData()
         Try
             SQL = "Select strConfidentialData, strDocumentType  " & _
-            "from " & DBNameSpace & ".ISMPReportInformation " & _
+            "from AIRBRANCH.ISMPReportInformation " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -4597,7 +4597,7 @@ Public Class ISMPConfidentialData
                 Else
                     'ConfidentialData = ConfidentialData
                 End If
-                SQL = "Update " & DBNameSpace & ".ISMPReportInformation set " & _
+                SQL = "Update AIRBRANCH.ISMPReportInformation set " & _
                 "strConfidentialData = '" & Replace(ConfidentialData, "'", "''") & "' " & _
                 "where strReferencenumber = '" & txtReferenceNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)

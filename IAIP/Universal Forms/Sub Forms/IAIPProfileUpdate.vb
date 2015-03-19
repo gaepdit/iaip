@@ -18,7 +18,7 @@ Public Class IAIPProfileUpdate
             If myRegEx.IsMatch(myInput) Then
                 ' MessageBox.Show("E-Mail is valid")
 
-                SQL = "Update " & DBNameSpace & ".EPDUserProfiles set " & _
+                SQL = "Update AIRBRANCH.EPDUserProfiles set " & _
                 "strEmailAddress = '" & txtEmailAddress.Text & "' " & _
                 "where numUserID = '" & UserGCode & "' "
 
@@ -46,7 +46,7 @@ Public Class IAIPProfileUpdate
             Dim pattern As String = "^1?\s*-?\s*(\d{3}|\(\s*\d{3}\s*\))\s*-?\s*\d{3}\s*-?\s*\d{4}$"
             Dim myRegEx As New System.Text.RegularExpressions.Regex(pattern)
             If myRegEx.IsMatch(myInput) Then
-                Dim SQL As String = "Update " & DBNameSpace & ".EPDUserProfiles set " & _
+                Dim SQL As String = "Update AIRBRANCH.EPDUserProfiles set " & _
                 "strPhone = '" & mtbPhoneNumber.Text & "' " & _
                 "where numuserID = '" & UserGCode & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -69,7 +69,7 @@ Public Class IAIPProfileUpdate
         Try
             If txtUserPassword.Text <> "" And txtConfirmPassword.Text <> "" Then
                 If txtUserPassword.Text = txtConfirmPassword.Text Then
-                    Dim SQL As String = "Update " & DBNameSpace & ".EPDUsers set " & _
+                    Dim SQL As String = "Update AIRBRANCH.EPDUsers set " & _
                     "strPassword = '" & Replace(EncryptDecrypt.EncryptText(txtUserPassword.Text), "'", "''") & "' " & _
                     "where numUserId = '" & UserGCode & "' "
 
@@ -102,7 +102,7 @@ Public Class IAIPProfileUpdate
             If myRegEx.IsMatch(myInput) Then
                 ' MessageBox.Show("E-Mail is valid")
 
-                SQL = "Update " & DBNameSpace & ".EPDUserProfiles set " & _
+                SQL = "Update AIRBRANCH.EPDUserProfiles set " & _
                 "strEmailAddress = '" & txtEmailAddress.Text & "' " & _
                 "where numUserID = '" & UserGCode & "' "
 
@@ -124,7 +124,7 @@ Public Class IAIPProfileUpdate
             Dim pattern2 As String = "^1?\s*-?\s*(\d{3}|\(\s*\d{3}\s*\))\s*-?\s*\d{3}\s*-?\s*\d{4}$"
             Dim myRegEx2 As New System.Text.RegularExpressions.Regex(pattern)
             If myRegEx2.IsMatch(myInput) Then
-                SQL = "Update " & DBNameSpace & ".EPDUserProfiles set " & _
+                SQL = "Update AIRBRANCH.EPDUserProfiles set " & _
                 "strPhone = '" & mtbPhoneNumber.Text & "' " & _
                 "where numuserID = '" & UserGCode & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -143,7 +143,7 @@ Public Class IAIPProfileUpdate
 
             If txtUserPassword.Text <> "" And txtConfirmPassword.Text <> "" Then
                 If txtUserPassword.Text = txtConfirmPassword.Text Then
-                    SQL = "Update " & DBNameSpace & ".EPDUsers set " & _
+                    SQL = "Update AIRBRANCH.EPDUsers set " & _
                     "strPassword = '" & Replace(EncryptDecrypt.EncryptText(txtUserPassword.Text), "'", "''") & "' " & _
                     "where numUserId = '" & UserGCode & "' "
 

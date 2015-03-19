@@ -37,14 +37,14 @@ Namespace DAL
 
         Private Function GetAllFeeYearsAsDataTable() As DataTable
             Dim query As String = "SELECT DISTINCT(NUMFEEYEAR) AS FEEYEAR " & _
-                "FROM " & DBNameSpace & ".FSLK_NSPSREASONYEAR " & _
+                "FROM AIRBRANCH.FSLK_NSPSREASONYEAR " & _
                 "ORDER BY FEEYEAR DESC"
             Return DB.GetDataTable(query)
         End Function
 
         Public Function FeeMailoutEntryExists(ByVal airsNumber As Apb.ApbFacilityId, ByVal feeYear As String) As Boolean
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM " & DBNameSpace & ".FS_Mailout " & _
+                " FROM AIRBRANCH.FS_Mailout " & _
                 " WHERE RowNum = 1 " & _
                 " AND strAIRSnumber = :airsnumber " & _
                 " AND numFeeYear = :feeyear "
@@ -60,7 +60,7 @@ Namespace DAL
 
         Public Function UpdateFeeMailoutContact(ByVal contact As Contact, ByVal airsNumber As String, ByVal feeYear As String) As Boolean
 
-            Dim query As String = "UPDATE " & DBNameSpace & ".FS_MAILOUT " & _
+            Dim query As String = "UPDATE AIRBRANCH.FS_MAILOUT " & _
                 " SET STRFIRSTNAME       = :v2, " & _
                 "  STRLASTNAME          = :v3, " & _
                 "  STRPREFIX            = :v4, " & _
@@ -104,7 +104,7 @@ Namespace DAL
         Public Function UpdateFeeMailoutFacility(ByVal facility As Apb.Facility, ByVal airsNumber As String, ByVal feeYear As String) As Boolean
             Try
 
-                Dim query As String = "UPDATE " & DBNameSpace & ".FS_MAILOUT " & _
+                Dim query As String = "UPDATE AIRBRANCH.FS_MAILOUT " & _
                     " SET STROPERATIONALSTATUS = :v13, " & _
                     "  STRCLASS             = :v14, " & _
                     "  STRNSPS              = :v15, " & _

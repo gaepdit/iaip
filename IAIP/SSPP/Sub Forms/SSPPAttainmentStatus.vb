@@ -76,7 +76,7 @@ Public Class SSPPAttainmentStatus
             Dim drDSRow As DataRow
 
             SQL = "select strCountyCode, strCountyname " & _
-            "from " & DBNameSpace & ".LookUpCountyInformation " & _
+            "from AIRBRANCH.LookUpCountyInformation " & _
             "order by strcountyName"
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -166,7 +166,7 @@ Public Class SSPPAttainmentStatus
 
         SQL = "Select " & _
         "strCountyName, strCountyCode, strNonAttainment  " & _
-        "from " & DBNameSpace & ".LookUpCountyInformation  " & _
+        "from AIRBRANCH.LookUpCountyInformation  " & _
         SQLClause
 
         dsAttainment = New DataSet
@@ -213,7 +213,7 @@ Public Class SSPPAttainmentStatus
 
             SQL = "select " & _
             "strNonAttainment " & _
-            "from " & DBNameSpace & ".LookUpCountyInformation " & _
+            "from AIRBRANCH.LookUpCountyInformation " & _
             "where strCountyCode = '" & cboCounty.SelectedValue & "'"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -304,7 +304,7 @@ Public Class SSPPAttainmentStatus
             Dim AttainmentStatus As String = "00000"
 
             SQL = "select strNonAttainment " & _
-            "from " & DBNameSpace & ".LookUpCountyInformation " & _
+            "from AIRBRANCH.LookUpCountyInformation " & _
             "where strCountyCode = '" & cboCounty.SelectedValue & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -330,7 +330,7 @@ Public Class SSPPAttainmentStatus
                 AttainmentStatus = Mid(AttainmentStatus, 1, 1) & "2" & Mid(AttainmentStatus, 3)
             End If
 
-            SQL = "Update " & DBNameSpace & ".LookUpCountyInformation set " & _
+            SQL = "Update AIRBRANCH.LookUpCountyInformation set " & _
             "strNonAttainment = '" & AttainmentStatus & "' " & _
             "where strCountyCode = '" & cboCounty.SelectedValue & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -341,7 +341,7 @@ Public Class SSPPAttainmentStatus
             dr.Close()
 
             SQL = "Select strAttainmentStatus, strAIRSNumber " & _
-            "from " & DBNameSpace & ".APBHeaderData " & _
+            "from AIRBRANCH.APBHeaderData " & _
             "where substr(strAIRSNumber, 5, 3) = '" & cboCounty.SelectedValue & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -375,7 +375,7 @@ Public Class SSPPAttainmentStatus
                     End If
                 End If
 
-                SQL2 = "Update " & DBNameSpace & ".APBHeaderData set " & _
+                SQL2 = "Update AIRBRANCH.APBHeaderData set " & _
                 "strAttainmentStatus = '" & AttainmentStatus & "' " & _
                 "where strAIRSNumber = '" & dr.Item("strAirsNumber") & "' "
 
@@ -404,7 +404,7 @@ Public Class SSPPAttainmentStatus
             Dim AttainmentStatus As String = "00000"
 
             SQL = "select strNonAttainment " & _
-            "from " & DBNameSpace & ".LookUpCountyInformation " & _
+            "from AIRBRANCH.LookUpCountyInformation " & _
             "where strCountyCode = '" & cboCounty.SelectedValue & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -430,7 +430,7 @@ Public Class SSPPAttainmentStatus
                 AttainmentStatus = Mid(AttainmentStatus, 1, 2) & "2" & Mid(AttainmentStatus, 4)
             End If
 
-            SQL = "Update " & DBNameSpace & ".LookUpCountyInformation set " & _
+            SQL = "Update AIRBRANCH.LookUpCountyInformation set " & _
             "strNonAttainment = '" & AttainmentStatus & "' " & _
             "where strCountyCode = '" & cboCounty.SelectedValue & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -441,7 +441,7 @@ Public Class SSPPAttainmentStatus
             dr.Close()
 
             SQL = "Select strAttainmentStatus, strAIRSNumber " & _
-            "from " & DBNameSpace & ".APBHeaderData " & _
+            "from AIRBRANCH.APBHeaderData " & _
             "where substr(strAIRSNumber, 5, 3) = '" & cboCounty.SelectedValue & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -475,7 +475,7 @@ Public Class SSPPAttainmentStatus
                     End If
                 End If
 
-                SQL2 = "Update " & DBNameSpace & ".APBHeaderData set " & _
+                SQL2 = "Update AIRBRANCH.APBHeaderData set " & _
                 "strAttainmentStatus = '" & AttainmentStatus & "' " & _
                 "where strAIRSNumber = '" & dr.Item("strAirsNumber") & "' "
 
@@ -503,7 +503,7 @@ Public Class SSPPAttainmentStatus
             Dim AttainmentStatus As String = "00000"
 
             SQL = "select strNonAttainment " & _
-            "from " & DBNameSpace & ".LookUpCountyInformation " & _
+            "from AIRBRANCH.LookUpCountyInformation " & _
             "where strCountyCode = '" & cboCounty.SelectedValue & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -535,7 +535,7 @@ Public Class SSPPAttainmentStatus
                 AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "4" & Mid(AttainmentStatus, 5)
             End If
 
-            SQL = "Update " & DBNameSpace & ".LookUpCountyInformation set " & _
+            SQL = "Update AIRBRANCH.LookUpCountyInformation set " & _
             "strNonAttainment = '" & AttainmentStatus & "' " & _
             "where strCountyCode = '" & cboCounty.SelectedValue & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -546,7 +546,7 @@ Public Class SSPPAttainmentStatus
             dr.Close()
 
             SQL = "Select strAttainmentStatus, strAIRSNumber " & _
-            "from " & DBNameSpace & ".APBHeaderData " & _
+            "from AIRBRANCH.APBHeaderData " & _
             "where substr(strAIRSNumber, 5, 3) = '" & cboCounty.SelectedValue & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -596,7 +596,7 @@ Public Class SSPPAttainmentStatus
                     End If
                 End If
 
-                SQL2 = "Update " & DBNameSpace & ".APBHeaderData set " & _
+                SQL2 = "Update AIRBRANCH.APBHeaderData set " & _
                 "strAttainmentStatus = '" & AttainmentStatus & "' " & _
                 "where strAIRSNumber = '" & dr.Item("strAirsNumber") & "' "
 

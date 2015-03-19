@@ -9,7 +9,7 @@ Namespace DAL.SSPP
             If appNumber = "" OrElse Not Integer.TryParse(appNumber, Nothing) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM " & DBNameSpace & ".SSPPAPPLICATIONMASTER " & _
+                " FROM AIRBRANCH.SSPPAPPLICATIONMASTER " & _
                 " WHERE ROWNUM = 1 " & _
                 " AND SSPPAPPLICATIONMASTER.STRAPPLICATIONNUMBER = :pId "
             Dim parameter As New OracleParameter("pId", appNumber)

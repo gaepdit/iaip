@@ -307,61 +307,61 @@ Public Class SSPPApplicationTrackingLog
             SQL11 = "Select " & _
             "distinct(strLastName||', ' ||strFirstName) as EngineerName, " & _
             "numUserID " & _
-            "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".SSPPApplicationMaster  " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.SSPPApplicationMaster  " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and numProgram <> '5' "
 
             SQL2 = "Select " & _
             "strCountyCode, strCountyName, " & _
             "strAttainmentStatus " & _
-            "from " & DBNameSpace & ".LookUpCountyInformation " & _
+            "from AIRBRANCH.LookUpCountyInformation " & _
             "order by strCountyName "
 
             SQL3 = "Select " & _
             "strApplicationTypeCode, strApplicationTypeDesc " & _
-            "from " & DBNameSpace & ".LookUpApplicationTypes " & _
+            "from AIRBRANCH.LookUpApplicationTypes " & _
             "where strAPplicationTypeUsed <> 'False' " & _
             "or strApplicationTypeUsed is NULL " & _
             "order by strApplicationTypeDesc "
 
             SQL4 = "Select " & _
             "strPermitTypeCode, strPermitTypeDescription " & _
-            "from " & DBNameSpace & ".LookUPPermitTypes  " & _
+            "from AIRBRANCH.LookUPPermitTypes  " & _
             "where strTypeUsed <> 'False' " & _
             "or strTypeUsed is NULL " & _
             "order by strPermitTypeDescription "
 
             SQL5 = "Select " & _
             "City " & _
-            "from " & DBNameSpace & ".VW_Cities " & _
+            "from AIRBRANCH.VW_Cities " & _
             "order by City"
 
             SQL6 = "Select " & _
             "(strLastName|| ', ' ||strFirstName) as EngineerName, " & _
             "numUserID " & _
-            "from " & DBNameSpace & ".EPDUserProfiles  " & _
+            "from AIRBRANCH.EPDUserProfiles  " & _
             "where numProgram = '4' " & _
             "order by strLastName "
 
             SQL7 = "Select " & _
             "(strLastName|| ', ' ||strFirstName) as EngineerName, " & _
             "numUserID " & _
-            "from " & DBNameSpace & ".EPDUserProfiles  " & _
+            "from AIRBRANCH.EPDUserProfiles  " & _
             "where numProgram = '3' " & _
             "order by strLastName "
 
             SQL8 = "Select strUnitDesc, numUnitCode " & _
-            "from " & DBNameSpace & ".LookUpEPDUnits  " & _
+            "from AIRBRANCH.LookUpEPDUnits  " & _
             "where numProgramCode = '5' " & _
             "order by strUnitDesc "
 
             SQL9 = "Select strUnitDesc, numUnitCode " & _
-            "from " & DBNameSpace & ".LookUpEPDUnits  " & _
+            "from AIRBRANCH.LookUpEPDUnits  " & _
             "where numProgramCode = '4' " & _
             "order by strUnitDesc "
 
             SQL10 = "Select strUnitDesc, numUnitCode " & _
-            "from " & DBNameSpace & ".LookUpEPDUnits  " & _
+            "from AIRBRANCH.LookUpEPDUnits  " & _
             "where numProgramCode = '3' " & _
             "order by strUnitDesc "
 
@@ -4036,7 +4036,7 @@ Public Class SSPPApplicationTrackingLog
         Try
              
             SQL = "Select strAIRSNumber " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster " & _
+            "from AIRBRANCH.SSPPApplicationMaster " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -4054,43 +4054,43 @@ Public Class SSPPApplicationTrackingLog
                 AIRSNumber = txtAIRSNumber.Text
             End If
 
-            SQL = "Select to_Number(" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber, " & _
+            SQL = "Select to_Number(AIRBRANCH.SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber, " & _
             "case " & _
             "    when strApplicationTypeDesc is Null then ' ' " & _
             "Else strApplicationTypeDesc " & _
             "End strApplicationTypeDesc, " & _
             "case " & _
-            "    when " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible is Null then ' ' " & _
+            "    when AIRBRANCH.SSPPApplicationMaster.strStaffResponsible is Null then ' ' " & _
             "else (strLastName||', '||strFirstName) " & _
             "end staffResponsible, " & _
             "case " & _
-            "    when " & DBNameSpace & ".SSPPApplicationMaster.datFinalizedDate is Null then ' ' " & _
-            "else to_char(" & DBNameSpace & ".SSPPApplicationMaster.datFinalizedDate, 'FMMonth DD, YYYY') " & _
+            "    when AIRBRANCH.SSPPApplicationMaster.datFinalizedDate is Null then ' ' " & _
+            "else to_char(AIRBRANCH.SSPPApplicationMaster.datFinalizedDate, 'FMMonth DD, YYYY') " & _
             "end FinalizedDate, " & _
             "case " & _
-            "    when " & DBNameSpace & ".SSPPApplicationTracking.datSentByFacility is Null then ' ' " & _
-            "else to_char(" & DBNameSpace & ".SSPPApplicationTracking.datSentByFacility, 'FMMonth DD, YYYY') " & _
+            "    when AIRBRANCH.SSPPApplicationTracking.datSentByFacility is Null then ' ' " & _
+            "else to_char(AIRBRANCH.SSPPApplicationTracking.datSentByFacility, 'FMMonth DD, YYYY') " & _
             "end DateSent, " & _
             "case " & _
-            "    when " & DBNameSpace & ".LookUpEPDUnits.strUnitDesc is Null then ' ' " & _
-            "Else " & DBNameSpace & ".LookUpEPDUnits.strUnitDesc " & _
+            "    when AIRBRANCH.LookUpEPDUnits.strUnitDesc is Null then ' ' " & _
+            "Else AIRBRANCH.LookUpEPDUnits.strUnitDesc " & _
             "End strUnitTitle, " & _
             "case " & _
-            "    when " & DBNameSpace & ".SSPPApplicationData.strComments is Null then ' ' " & _
-            "else " & DBNameSpace & ".SSPPApplicationData.strComments " & _
+            "    when AIRBRANCH.SSPPApplicationData.strComments is Null then ' ' " & _
+            "else AIRBRANCH.SSPPApplicationData.strComments " & _
             "end strComments, " & _
             "case " & _
-            "    when " & DBNameSpace & ".SSPPApplicationData.strApplicationNotes is Null then ' ' " & _
-            "else " & DBNameSpace & ".SSPPApplicationData.strApplicationNotes " & _
+            "    when AIRBRANCH.SSPPApplicationData.strApplicationNotes is Null then ' ' " & _
+            "else AIRBRANCH.SSPPApplicationData.strApplicationNotes " & _
             "end strApplicationNotes " & _
-            "from " & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking, " & _
-            "" & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".LookUpEPDUnits, " & DBNameSpace & ".LookUpApplicationTypes  " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "and " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.APBUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = '" & AIRSNumber & "' "
+            "from AIRBRANCH.SSPPApplicationData, AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking, " & _
+            "AIRBRANCH.EPDUserProfiles, AIRBRANCH.LookUpEPDUnits, AIRBRANCH.LookUpApplicationTypes  " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " & _
+            "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSPPApplicationMaster.strStaffResponsible " & _
+            "and AIRBRANCH.SSPPApplicationMaster.APBUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = '" & AIRSNumber & "' "
 
             dsFacAppHistory = New DataSet
             daFacAppHistory = New OracleDataAdapter(SQL, CurrentConnection)
@@ -4164,7 +4164,7 @@ Public Class SSPPApplicationTrackingLog
                "when strInformationReceived is Null then ' ' " & _
                "else strInformationReceived " & _
                "end strInformationReceived " & _
-               "from " & DBNameSpace & ".SSPPApplicationInformation " & _
+               "from AIRBRANCH.SSPPApplicationInformation " & _
                "where strApplicationNumber = '" & txtApplicationNumber.Text & "' " & _
                "order by strRequestKey "
 
@@ -4227,10 +4227,10 @@ Public Class SSPPApplicationTrackingLog
             Dim drDSRow4 As DataRow
             Dim drNewRow As DataRow
 
-            SQL = "Select * from " & DBNameSpace & ".LookupSubPart60 order by strSubpart "
-            SQL2 = "Select * from " & DBNameSpace & ".LookupSubPart61 order by strSubpart "
-            SQL3 = "Select * from " & DBNameSpace & ".LookupSubPart63 order by strSubpart "
-            SQL4 = "Select * from " & DBNameSpace & ".LookUpSubPartSIP order by strSubPart "
+            SQL = "Select * from AIRBRANCH.LookupSubPart60 order by strSubpart "
+            SQL2 = "Select * from AIRBRANCH.LookupSubPart61 order by strSubpart "
+            SQL3 = "Select * from AIRBRANCH.LookupSubPart63 order by strSubpart "
+            SQL4 = "Select * from AIRBRANCH.LookUpSubPartSIP order by strSubPart "
 
             dsPart60 = New DataSet
             dsPart61 = New DataSet
@@ -4451,20 +4451,20 @@ Public Class SSPPApplicationTrackingLog
             "strCountyName, strOfficeName, " & _
             "strDistrictName, " & _
             "strPlantDescription, " & _
-            "" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, " & _
+            "AIRBRANCH.APBHeaderData.strAttainmentStatus, " & _
             "strStateProgramCodes, strDistrictResponsible " & _
-            "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".APBHeaderData, " & _
-            "" & DBNameSpace & ".LookUpCountyInformation, " & DBNameSpace & ".LooKUPDistrictOffice, " & _
-            "" & DBNameSpace & ".LookUpDistrictInformation, " & DBNameSpace & ".LookUPDistricts, " & _
-            "" & DBNameSpace & ".APBSupplamentalData, " & DBNameSpace & ".SSCPDistrictResponsible " & _
-            "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
-            "and substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5, 3) = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode " & _
-            "and substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5, 3) = " & DBNameSpace & ".LookUpDistrictInformation.strDistrictCounty " & _
-            "and " & DBNameSpace & ".LookUpDistrictinformation.strDistrictCode = " & DBNameSpace & ".LooKUPDistrictOffice.strDistrictCode " & _
-            "and " & DBNameSpace & ".LookUpDistrictInformation.strDistrictCode = " & DBNameSpace & ".LookUPDistricts.strDistrictCode " & _
-            "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
-            "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".SSCPDistrictResponsible.strAIRSnumber (+) " & _
-            "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
+            "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBHeaderData, " & _
+            "AIRBRANCH.LookUpCountyInformation, AIRBRANCH.LooKUPDistrictOffice, " & _
+            "AIRBRANCH.LookUpDistrictInformation, AIRBRANCH.LookUPDistricts, " & _
+            "AIRBRANCH.APBSupplamentalData, AIRBRANCH.SSCPDistrictResponsible " & _
+            "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber " & _
+            "and substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode " & _
+            "and substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpDistrictInformation.strDistrictCounty " & _
+            "and AIRBRANCH.LookUpDistrictinformation.strDistrictCode = AIRBRANCH.LooKUPDistrictOffice.strDistrictCode " & _
+            "and AIRBRANCH.LookUpDistrictInformation.strDistrictCode = AIRBRANCH.LookUPDistricts.strDistrictCode " & _
+            "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber " & _
+            "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCPDistrictResponsible.strAIRSnumber (+) " & _
+            "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -5075,7 +5075,7 @@ Public Class SSPPApplicationTrackingLog
             If txtAIRSNumber.Text <> "" Then
                 SQL = "Select " & _
                 "strAttainmentStatus, strStateProgramCodes " & _
-                "from " & DBNameSpace & ".APBHeaderData " & _
+                "from AIRBRANCH.APBHeaderData " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5165,7 +5165,7 @@ Public Class SSPPApplicationTrackingLog
         Try
             Dim temp As String = ""
             SQL = "Select strApplicationNumber " & _
-            "From " & DBNameSpace & ".SSPPApplicationContact " & _
+            "From AIRBRANCH.SSPPApplicationContact " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -5191,7 +5191,7 @@ Public Class SSPPApplicationTrackingLog
                 "strContactState, " & _
                 "strContactZipCode, " & _
                 "strContactDescription " & _
-                "from " & DBNameSpace & ".SSPPApplicationContact " & _
+                "from AIRBRANCH.SSPPApplicationContact " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5290,7 +5290,7 @@ Public Class SSPPApplicationTrackingLog
                 "strContactState, " & _
                 "strContactZipCode, " & _
                 "strContactDescription " & _
-                "from " & DBNameSpace & ".APBContactInformation " & _
+                "from AIRBRANCH.APBContactInformation " & _
                 "where strContactKey = '0413" & txtAIRSNumber.Text & "30' "
             End If
 
@@ -5313,7 +5313,7 @@ Public Class SSPPApplicationTrackingLog
 
             SQL = "Select " & _
             "strApplicationNumber " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster " & _
+            "from AIRBRANCH.SSPPApplicationMaster " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
             temp = txtApplicationNumber.Text
@@ -5329,7 +5329,7 @@ Public Class SSPPApplicationTrackingLog
             If recExist = True Then
                 SQL = "Select " & _
                 "datModifingdate " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster " & _
+                "from AIRBRANCH.SSPPApplicationMaster " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5357,7 +5357,7 @@ Public Class SSPPApplicationTrackingLog
                     "strAirProgramCodes, strSICCode,  " & _
                     "strNAICSCode, " & _
                     "strPermitNumber, strPlantDescription,  " & _
-                    "" & DBNameSpace & ".SSPPApplicationData.strComments as DataComments,  " & _
+                    "AIRBRANCH.SSPPApplicationData.strComments as DataComments,  " & _
                     "strApplicationNotes, " & _
                     "datFinalizedDate, " & _
                     "strStateProgramCodes,  " & _
@@ -5376,13 +5376,13 @@ Public Class SSPPApplicationTrackingLog
                     "strTrackedRules, STRSIGNIFICANTCOMMENTS, " & _
                     "strPAPosted, strPNPosted " & _
                     "from  " & _
-                    "" & DBNameSpace & ".SSPPApplicationMaster,  " & _
-                    "" & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                    "" & DBNameSpace & ".SSPPApplicationData " & _
+                    "AIRBRANCH.SSPPApplicationMaster,  " & _
+                    "AIRBRANCH.SSPPApplicationTracking,  " & _
+                    "AIRBRANCH.SSPPApplicationData " & _
                     "where " & _
-                    "    " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber (+)  " & _
-                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber (+)  " & _
-                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
+                    "    AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber (+)  " & _
+                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber (+)  " & _
+                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -5900,10 +5900,10 @@ Public Class SSPPApplicationTrackingLog
                     "strSSCPComments, strISMPUnit, " & _
                     "strISMPReviewer, datISMPReviewDate, " & _
                     "strISMPComments " & _
-                    "from " & DBNameSpace & ".SSPPApplicationData, " & _
-                    "" & DBNameSpace & ".SSPPApplicationTracking " & _
-                    "where " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-                    "and " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
+                    "from AIRBRANCH.SSPPApplicationData, " & _
+                    "AIRBRANCH.SSPPApplicationTracking " & _
+                    "where AIRBRANCH.SSPPApplicationData.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " & _
+                    "and AIRBRANCH.SSPPApplicationData.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -6000,13 +6000,13 @@ Public Class SSPPApplicationTrackingLog
                     "datExperationDate, strTargeted, " & _
                     "datPNExpires " & _
                     "from  " & _
-                    "" & DBNameSpace & ".SSPPApplicationMaster,  " & _
-                    "" & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                    "" & DBNameSpace & ".SSPPApplicationData " & _
+                    "AIRBRANCH.SSPPApplicationMaster,  " & _
+                    "AIRBRANCH.SSPPApplicationTracking,  " & _
+                    "AIRBRANCH.SSPPApplicationData " & _
                     "where " & _
-                    "    " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber (+)  " & _
-                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber (+)  " & _
-                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
+                    "    AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber (+)  " & _
+                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber (+)  " & _
+                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -6134,22 +6134,22 @@ Public Class SSPPApplicationTrackingLog
             "strNAICSCode, " & _
             "strOperationalStatus, strAirProgramCodes,  " & _
             "strPlantDescription,  " & _
-            "" & DBNameSpace & ".APBHeaderData.strAttainmentStatus,  " & _
+            "AIRBRANCH.APBHeaderData.strAttainmentStatus,  " & _
             "strStateProgramCodes,  " & _
             "strcountyName,  " & _
             "strOfficeName,  " & _
             "strDistrictName  " & _
-            "from " & DBNameSpace & ".APBFacilityInformation,  " & _
-            "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".LookUpCountyInformation,  " & _
-            "" & DBNameSpace & ".LookUpDistrictOffice, " & DBNameSpace & ".LookUpDistricts,  " & _
-            "" & DBNameSpace & ".LookUpDistrictInformation  " & _
-            "where " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber = " & DBNameSpace & ".APBHeaderData.strAIRSnumber " & _
-            "and substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5, 3) = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode  " & _
-            "and substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5, 3) = " & DBNameSpace & ".LookUpDistrictInformation.strDistrictCounty  " & _
-            "and " & DBNameSpace & ".LookUpDistrictInformation.strDistrictCode = " & DBNameSpace & ".LookUpDistrictOffice.strDistrictCode  " & _
-            "and " & DBNameSpace & ".LookUpDistrictInformation.strDistrictCode = " & DBNameSpace & ".LookUpDistrictOffice.strDistrictCode  " & _
-            "and " & DBNameSpace & ".LookUpDistrictInformation.strDistrictCode = " & DBNameSpace & ".LookUpDistricts.strDistrictCode  " & _
-            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
+            "from AIRBRANCH.APBFacilityInformation,  " & _
+            "AIRBRANCH.APBHeaderData, AIRBRANCH.LookUpCountyInformation,  " & _
+            "AIRBRANCH.LookUpDistrictOffice, AIRBRANCH.LookUpDistricts,  " & _
+            "AIRBRANCH.LookUpDistrictInformation  " & _
+            "where AIRBRANCH.APBFacilityInformation.strAIRSnumber = AIRBRANCH.APBHeaderData.strAIRSnumber " & _
+            "and substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode  " & _
+            "and substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpDistrictInformation.strDistrictCounty  " & _
+            "and AIRBRANCH.LookUpDistrictInformation.strDistrictCode = AIRBRANCH.LookUpDistrictOffice.strDistrictCode  " & _
+            "and AIRBRANCH.LookUpDistrictInformation.strDistrictCode = AIRBRANCH.LookUpDistrictOffice.strDistrictCode  " & _
+            "and AIRBRANCH.LookUpDistrictInformation.strDistrictCode = AIRBRANCH.LookUpDistricts.strDistrictCode  " & _
+            "and AIRBRANCH.APBHeaderData.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -6570,7 +6570,7 @@ Public Class SSPPApplicationTrackingLog
         Try
 
             SQL = "select count(*) as ApplicationCount " & _
-               "from " & DBNameSpace & ".SSPPApplicationMaster " & _
+               "from AIRBRANCH.SSPPApplicationMaster " & _
                "where datFinalizedDate Is Null " & _
                "and strAirsNumber = '0413" & txtAIRSNumber.Text & "' "
 
@@ -6613,7 +6613,7 @@ Public Class SSPPApplicationTrackingLog
             If txtApplicationNumber.Text <> "" Then
                 SQL = "Select " & _
                 "strMasterApplication, strApplicationNumber " & _
-                "from " & DBNameSpace & ".SSPPApplicationLinking " & _
+                "from AIRBRANCH.SSPPApplicationLinking " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -6638,7 +6638,7 @@ Public Class SSPPApplicationTrackingLog
                 If MasterApplication <> "" Then
                     SQL = "Select " & _
                     "strMasterApplication, strApplicationNumber " & _
-                    "from " & DBNameSpace & ".SSPPApplicationLinking " & _
+                    "from AIRBRANCH.SSPPApplicationLinking " & _
                     "where strMasterApplication = '" & MasterApplication & "' " & _
                     "order by strApplicationNumber "
 
@@ -6733,7 +6733,7 @@ Public Class SSPPApplicationTrackingLog
                 End If
 
                 SQL = "Select strApplicationNumber " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster " & _
+                "from AIRBRANCH.SSPPApplicationMaster " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -6744,7 +6744,7 @@ Public Class SSPPApplicationTrackingLog
                 recExist = dr.Read
                 dr.Close()
                 If recExist = False Then
-                    SQL = "Insert into " & DBNameSpace & ".SSPPApplicationMaster " & _
+                    SQL = "Insert into AIRBRANCH.SSPPApplicationMaster " & _
                     "(strApplicationNumber, strAIRSNumber, " & _
                     "strModifingPerson, datModifingDate) " & _
                     "values " & _
@@ -6758,7 +6758,7 @@ Public Class SSPPApplicationTrackingLog
                     dr.Read()
                     dr.Close()
 
-                    SQL = "Insert into " & DBNameSpace & ".SSPPApplicationData " & _
+                    SQL = "Insert into AIRBRANCH.SSPPApplicationData " & _
                     "(strApplicationNumber, strModifingPerson, " & _
                     "datModifingDate) " & _
                     "values " & _
@@ -6772,7 +6772,7 @@ Public Class SSPPApplicationTrackingLog
                     dr.Read()
                     dr.Close()
 
-                    SQL = "Insert into " & DBNameSpace & ".SSPPApplicationTracking " & _
+                    SQL = "Insert into AIRBRANCH.SSPPApplicationTracking " & _
                     "(strApplicationNumber, strSubmittalNumber, " & _
                     "datApplicationStarted, strModifingPerson, " & _
                     "datModifingDate) " & _
@@ -6854,7 +6854,7 @@ Public Class SSPPApplicationTrackingLog
                     DateFinalized = ""
                 End If
 
-                SQL = "Update " & DBNameSpace & ".SSPPApplicationMaster set " & _
+                SQL = "Update AIRBRANCH.SSPPApplicationMaster set " & _
                "strAIRSNumber = '0413" & txtAIRSNumber.Text & "', " & _
                "strStaffResponsible = '" & Replace(StaffResponsible, "'", "''") & "', " & _
                "strApplicationType = '" & Replace(ApplicationType, "'", "''") & "', " & _
@@ -6874,7 +6874,7 @@ Public Class SSPPApplicationTrackingLog
 
                 SQL = "Select " & _
                 "datModifingdate " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster " & _
+                "from AIRBRANCH.SSPPApplicationMaster " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -7081,7 +7081,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 End If
 
-                SQL = "Update " & DBNameSpace & ".SSPPApplicationData set " & _
+                SQL = "Update AIRBRANCH.SSPPApplicationData set " & _
                 "strFacilityName = '" & Replace(FacilityName, "'", "''") & "', " & _
                 "strFacilityStreet1 = '" & Replace(FacilityAddress, "'", "''") & "', " & _
                 "strFacilityStreet2 = 'N/A', " & _
@@ -7201,7 +7201,7 @@ Public Class SSPPApplicationTrackingLog
                     PNExpires = ""
                 End If
 
-                SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
+                SQL = "Update AIRBRANCH.SSPPApplicationTracking set " & _
                 "datReceivedDate = '" & ReceivedDate & "', " & _
                 "datSentByFacility = '" & SentByDate & "', " & _
                 "datAssignedToEngineer = '" & AssignedToEngineer & "', " & _
@@ -7245,7 +7245,7 @@ Public Class SSPPApplicationTrackingLog
                             LinkedApplication = ""
                         End If
                         If LinkedApplication <> "" Then
-                            SQL = "Update " & DBNameSpace & ".SSPPApplicationMaster set " & _
+                            SQL = "Update AIRBRANCH.SSPPApplicationMaster set " & _
                             "datFinalizedDate = '" & DateFinalized & "', " & _
                             "strPermitType = '" & Replace(PermitType, "'", "''") & "', " & _
                             "strModifingperson = '" & UserGCode & "', " & _
@@ -7260,7 +7260,7 @@ Public Class SSPPApplicationTrackingLog
                             dr.Read()
                             dr.Close()
 
-                            SQL = "Update " & DBNameSpace & ".SSPPApplicationData set " & _
+                            SQL = "Update AIRBRANCH.SSPPApplicationData set " & _
                            "strOperationalStatus = '" & Replace(OperationalStatus, "'", "''") & "', " & _
                            "strClass = '" & Classification & "', " & _
                            "strAirProgramCodes = '" & AirProgramCodes & "', " & _
@@ -7285,7 +7285,7 @@ Public Class SSPPApplicationTrackingLog
                             dr.Read()
                             dr.Close()
 
-                            SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
+                            SQL = "Update AIRBRANCH.SSPPApplicationTracking set " & _
                             "datPermitIssued = '" & PermitIssued & "', " & _
                             "datDraftIssued = '" & DraftIssued & "', " & _
                             "datEPAWaived = '" & EPAWaived & "', " & _
@@ -7309,7 +7309,7 @@ Public Class SSPPApplicationTrackingLog
 
                             SQL = "Select " & _
                             "datToPMI, datToPMII " & _
-                            "from " & DBNameSpace & ".SSPPApplicationTracking " & _
+                            "from AIRBRANCH.SSPPApplicationTracking " & _
                             "where strApplicationNumber = '" & LinkedApplication & "' "
                             cmd = New OracleCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
@@ -7319,7 +7319,7 @@ Public Class SSPPApplicationTrackingLog
                             While dr.Read
                                 SQL = ""
                                 If IsDBNull(dr.Item("datToPMI")) Then
-                                    SQL = SQL & "Update " & DBNameSpace & ".SSPPApplicationTracking set datToPMI = '" & ToPMI & "'"
+                                    SQL = SQL & "Update AIRBRANCH.SSPPApplicationTracking set datToPMI = '" & ToPMI & "'"
                                     If IsDBNull(dr.Item("datToPMII")) Then
                                         SQL = SQL & ", datToPMII = '" & ToPMII & "' where strApplicationNumber = '" & LinkedApplication & "' "
                                     Else
@@ -7327,7 +7327,7 @@ Public Class SSPPApplicationTrackingLog
                                     End If
                                 Else
                                     If IsDBNull(dr.Item("datToPMII")) Then
-                                        SQL = SQL & "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
+                                        SQL = SQL & "Update AIRBRANCH.SSPPApplicationTracking set " & _
                                         "datToPMII = '" & ToPMII & "' where strApplicationNumber = '" & LinkedApplication & "' "
                                     End If
                                 End If
@@ -7462,7 +7462,7 @@ Public Class SSPPApplicationTrackingLog
 
             If txtApplicationNumber.Text <> "" Then
                 SQL = "Select strApplicationNumber " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster " & _
+                "from AIRBRANCH.SSPPApplicationMaster " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
 
@@ -7475,7 +7475,7 @@ Public Class SSPPApplicationTrackingLog
                 If recExist = True Then
                     If txtInformationRequestedKey.Text = "" Then
                         SQL = "Select max(strRequestKey) as RequestKey " & _
-                        "from " & DBNameSpace & ".SSPPApplicationInformation " & _
+                        "from AIRBRANCH.SSPPApplicationInformation " & _
                         "where strApplicationNumber = '" & txtApplicationNumber.Text & "'"
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -7505,7 +7505,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
 
                     SQL = "Select strApplicationNumber " & _
-                    "from " & DBNameSpace & ".SSPPApplicationInformation " & _
+                    "from AIRBRANCH.SSPPApplicationInformation " & _
                     "where strApplicationNumber = '" & txtApplicationNumber.Text & "' " & _
                     "and strRequestKey = '" & InformationRequestKey & "' "
 
@@ -7534,7 +7534,7 @@ Public Class SSPPApplicationTrackingLog
 
                     If recExist = True Then
                         'Update
-                        SQL = "Update " & DBNameSpace & ".SSPPApplicationInformation set " & _
+                        SQL = "Update AIRBRANCH.SSPPApplicationInformation set " & _
                         "datInformationRequested = '" & DateInfoRequested & "', " & _
                         "strInformationRequested = '" & InformationRequested & "', " & _
                         "datInformationReceived = '" & DateInfoReceived & "', " & _
@@ -7545,7 +7545,7 @@ Public Class SSPPApplicationTrackingLog
                         "and strRequestKey = '" & InformationRequestKey & "' "
                     Else
                         'Insert 
-                        SQL = "Insert into " & DBNameSpace & ".SSPPApplicationInformation " & _
+                        SQL = "Insert into AIRBRANCH.SSPPApplicationInformation " & _
                         "(strApplicationNumber, strRequestKey, " & _
                         "datInformationRequested, strInformationRequested, " & _
                         "datInformationReceived, strInformationReceived, " & _
@@ -7587,7 +7587,7 @@ Public Class SSPPApplicationTrackingLog
 
             If txtInformationRequestedKey.Text <> "" Then
                 InformationRequestKey = txtInformationRequestedKey.Text
-                SQL = "Delete " & DBNameSpace & ".SSPPApplicationInformation " & _
+                SQL = "Delete AIRBRANCH.SSPPApplicationInformation " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' " & _
                 "and strRequestKey = '" & InformationRequestKey & "' "
 
@@ -7629,7 +7629,7 @@ Public Class SSPPApplicationTrackingLog
 
 
                 SQL = "Select strApplicationNumber " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster " & _
+                "from AIRBRANCH.SSPPApplicationMaster " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
 
@@ -7641,7 +7641,7 @@ Public Class SSPPApplicationTrackingLog
                 dr.Close()
                 If recExist = True Then
                     SQL = "Select strApplicationNumber " & _
-                    "from " & DBNameSpace & ".SSPPApplicationTracking " & _
+                    "from AIRBRANCH.SSPPApplicationTracking " & _
                     "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -7653,7 +7653,7 @@ Public Class SSPPApplicationTrackingLog
                     dr.Close()
 
                     If recExist = True Then
-                        SQL = "Update " & DBNameSpace & ".SSPPApplicationData set " & _
+                        SQL = "Update AIRBRANCH.SSPPApplicationData set " & _
                         "strSSCPUnit = '" & cboSSCPUnits.SelectedValue & "', " & _
                         "strISMPUnit = '" & cboISMPUnits.SelectedValue & "' " & _
                         "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
@@ -7664,7 +7664,7 @@ Public Class SSPPApplicationTrackingLog
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
+                        SQL = "Update AIRBRANCH.SSPPApplicationTracking set " & _
                         "datReviewSubmitted = '" & DateReviewSubmitted & "' " & _
                         "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -7699,7 +7699,7 @@ Public Class SSPPApplicationTrackingLog
 
             If txtApplicationNumber.Text <> "" Then
                 SQL = "Select strApplicationNumber " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster " & _
+                "from AIRBRANCH.SSPPApplicationMaster " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
 
@@ -7717,7 +7717,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
 
                     SQL = "Select StrApplicationNumber " & _
-                    "from " & DBNameSpace & ".SSPPApplicationMaster " & _
+                    "from AIRBRANCH.SSPPApplicationMaster " & _
                     "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -7728,7 +7728,7 @@ Public Class SSPPApplicationTrackingLog
                     recExist = dr.Read
                     dr.Close()
                     If recExist = True Then
-                        SQL = "Update " & DBNameSpace & ".SSPPApplicationData set " & _
+                        SQL = "Update AIRBRANCH.SSPPApplicationData set " & _
                         "strSSCPReviewer = '" & cboSSCPStaff.SelectedValue & "', " & _
                         "strSSCPComments = '" & Replace(SSCPComments, "'", "''") & "' " & _
                         "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
@@ -7739,7 +7739,7 @@ Public Class SSPPApplicationTrackingLog
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
+                        SQL = "Update AIRBRANCH.SSPPApplicationTracking set " & _
                         "datSSCPReviewDate = '" & DTPSSCPReview.Text & "' " & _
                         "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
@@ -7776,7 +7776,7 @@ Public Class SSPPApplicationTrackingLog
 
             If txtApplicationNumber.Text <> "" Then
                 SQL = "Select strApplicationNumber " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster " & _
+                "from AIRBRANCH.SSPPApplicationMaster " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
 
@@ -7795,7 +7795,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
 
                     SQL = "select StrApplicationNumber " & _
-                    "from " & DBNameSpace & ".SSPPApplicationMaster " & _
+                    "from AIRBRANCH.SSPPApplicationMaster " & _
                     "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -7806,7 +7806,7 @@ Public Class SSPPApplicationTrackingLog
                     recExist = dr.Read
                     dr.Close()
                     If recExist = True Then
-                        SQL = "Update " & DBNameSpace & ".SSPPApplicationData set " & _
+                        SQL = "Update AIRBRANCH.SSPPApplicationData set " & _
                         "strISMPReviewer = '" & cboISMPStaff.SelectedValue & "', " & _
                         "strISMPComments = '" & Replace(ISMPComments, "'", "''") & "' " & _
                         "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
@@ -7817,7 +7817,7 @@ Public Class SSPPApplicationTrackingLog
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
+                        SQL = "Update AIRBRANCH.SSPPApplicationTracking set " & _
                         "datISMPReviewDate = '" & DTPISMPReview.Text & "' " & _
                         "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -7939,7 +7939,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             SQL = "Select strApplicationNumber " & _
-            "from " & DBNameSpace & ".SSPPApplicationContact " & _
+            "from AIRBRANCH.SSPPApplicationContact " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -7950,7 +7950,7 @@ Public Class SSPPApplicationTrackingLog
             dr.Close()
             If recExist = True Then
                 'update
-                SQL = "Update " & DBNameSpace & ".SSPPApplicationContact set " & _
+                SQL = "Update AIRBRANCH.SSPPApplicationContact set " & _
                 "strContactFirstName = '" & Replace(ContactFirstName, "'", "''") & "', " & _
                 "strContactLastName = '" & Replace(ContactLastname, "'", "''") & "', " & _
                 "strContactPrefix = '" & Replace(ContactPrefix, "'", "''") & "', " & _
@@ -7968,7 +7968,7 @@ Public Class SSPPApplicationTrackingLog
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
             Else
                 'insert 
-                SQL = "Insert into " & DBNameSpace & ".SSPPApplicationContact " & _
+                SQL = "Insert into AIRBRANCH.SSPPApplicationContact " & _
                 "values " & _
                 "('" & txtApplicationNumber.Text & "', " & _
                 "'" & Replace(ContactFirstName, "'", "''") & "', " & _
@@ -7999,23 +7999,23 @@ Public Class SSPPApplicationTrackingLog
             'If DTPFinalAction.Checked = True And chbClosedOut.Checked = True And txtAIRSNumber.Text.Length = 8 Then
             If chbClosedOut.Checked = True And txtAIRSNumber.Text.Length = 8 And IsNumeric(txtAIRSNumber.Text) Then
                 SQL = "select strKey " & _
-                "from " & DBNameSpace & ".APBContactInformation, " & DBNameSpace & ".SSPPApplicationContact  " & _
-                "where " & DBNameSpace & ".APBContactInformation.strContactKey = '0413" & txtAIRSNumber.Text & "30'  " & _
-                "and " & DBNameSpace & ".SSPPApplicationContact.strApplicationNumber = '" & txtApplicationNumber.Text & "'  " & _
-                "and Upper(" & DBNameSpace & ".APBContactInformation.strContactFirstName) = Upper(" & DBNameSpace & ".SSPPApplicationContact.strContactFirstName) " & _
-                "and upper(" & DBNameSpace & ".APBContactInformation.strContactLastName) = Upper(" & DBNameSpace & ".SSPPApplicationContact.strContactLastName)  " & _
-                "and Upper(" & DBNameSpace & ".APBContactInformation.strContactPrefix) = Upper(" & DBNameSpace & ".SSPPApplicationContact.strContactPrefix) " & _
-                "and Upper(" & DBNameSpace & ".APBContactInformation.strContactSuffix) = Upper(" & DBNameSpace & ".SSPPApplicationContact.strContactSuffix)  " & _
-                "and Upper(" & DBNameSpace & ".APBContactInformation.strContactTitle) = Upper(" & DBNameSpace & ".SSPPApplicationContact.strContactTitle)  " & _
-                "and Upper(" & DBNameSpace & ".APBContactInformation.strContactCompanyName) = Upper(" & DBNameSpace & ".SSPPApplicationContact.strContactCompanyName)  " & _
-                "and Upper(" & DBNameSpace & ".APBContactInformation.strContactPhoneNumber1) = " & _
-                "Upper(" & DBNameSpace & ".SSPPApplicationContact.strContactPhoneNumber1)  " & _
-                "and Upper(" & DBNameSpace & ".APBContactInformation.strContactFaxNumber) = Upper(" & DBNameSpace & ".SSPPApplicationContact.strContactFaxNumber)  " & _
-                "and Upper(" & DBNameSpace & ".APBContactInformation.strContactEmail) = Upper(" & DBNameSpace & ".SSPPApplicationContact.strContactEmail)  " & _
-                "and Upper(" & DBNameSpace & ".APBContactInformation.strCOntactAddress1) = Upper(" & DBNameSpace & ".SSPPApplicationContact.strContactAddress1)  " & _
-                "and Upper(" & DBNameSpace & ".APBContactInformation.strCOntactCity) = Upper(" & DBNameSpace & ".SSPPApplicationContact.strContactCity)  " & _
-                "and Upper(" & DBNameSpace & ".APBContactInformation.strContactZipCode) = Upper(" & DBNameSpace & ".SSPPApplicationcontact.strContactZipCode)  " & _
-                "and Upper(" & DBNameSpace & ".APBContactInformation.strContactDescription) = Upper(" & DBNameSpace & ".SSPPApplicationContact.strContactDescription)  "
+                "from AIRBRANCH.APBContactInformation, AIRBRANCH.SSPPApplicationContact  " & _
+                "where AIRBRANCH.APBContactInformation.strContactKey = '0413" & txtAIRSNumber.Text & "30'  " & _
+                "and AIRBRANCH.SSPPApplicationContact.strApplicationNumber = '" & txtApplicationNumber.Text & "'  " & _
+                "and Upper(AIRBRANCH.APBContactInformation.strContactFirstName) = Upper(AIRBRANCH.SSPPApplicationContact.strContactFirstName) " & _
+                "and upper(AIRBRANCH.APBContactInformation.strContactLastName) = Upper(AIRBRANCH.SSPPApplicationContact.strContactLastName)  " & _
+                "and Upper(AIRBRANCH.APBContactInformation.strContactPrefix) = Upper(AIRBRANCH.SSPPApplicationContact.strContactPrefix) " & _
+                "and Upper(AIRBRANCH.APBContactInformation.strContactSuffix) = Upper(AIRBRANCH.SSPPApplicationContact.strContactSuffix)  " & _
+                "and Upper(AIRBRANCH.APBContactInformation.strContactTitle) = Upper(AIRBRANCH.SSPPApplicationContact.strContactTitle)  " & _
+                "and Upper(AIRBRANCH.APBContactInformation.strContactCompanyName) = Upper(AIRBRANCH.SSPPApplicationContact.strContactCompanyName)  " & _
+                "and Upper(AIRBRANCH.APBContactInformation.strContactPhoneNumber1) = " & _
+                "Upper(AIRBRANCH.SSPPApplicationContact.strContactPhoneNumber1)  " & _
+                "and Upper(AIRBRANCH.APBContactInformation.strContactFaxNumber) = Upper(AIRBRANCH.SSPPApplicationContact.strContactFaxNumber)  " & _
+                "and Upper(AIRBRANCH.APBContactInformation.strContactEmail) = Upper(AIRBRANCH.SSPPApplicationContact.strContactEmail)  " & _
+                "and Upper(AIRBRANCH.APBContactInformation.strCOntactAddress1) = Upper(AIRBRANCH.SSPPApplicationContact.strContactAddress1)  " & _
+                "and Upper(AIRBRANCH.APBContactInformation.strCOntactCity) = Upper(AIRBRANCH.SSPPApplicationContact.strContactCity)  " & _
+                "and Upper(AIRBRANCH.APBContactInformation.strContactZipCode) = Upper(AIRBRANCH.SSPPApplicationcontact.strContactZipCode)  " & _
+                "and Upper(AIRBRANCH.APBContactInformation.strContactDescription) = Upper(AIRBRANCH.SSPPApplicationContact.strContactDescription)  "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -8026,7 +8026,7 @@ Public Class SSPPApplicationTrackingLog
                 dr.Close()
                 If recExist = False Then
                     SQL = "select Max(strKey) as MaxKey " & _
-                    "from " & DBNameSpace & ".APBContactInformation " & _
+                    "from AIRBRANCH.APBContactInformation " & _
                     "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
                     "and substr(strkey, 1, 1) = '3' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -8041,7 +8041,7 @@ Public Class SSPPApplicationTrackingLog
 
                     i = CInt(Mid(MaxKey, 2))
 
-                    SQL = "Insert into " & DBNameSpace & ".APBContactInformation " & _
+                    SQL = "Insert into AIRBRANCH.APBContactInformation " & _
                     "(strContactKey, strAIRSnumber, strKey, " & _
                     "strContactFirstName, strContactLastName,  " & _
                     "strContactPrefix, strContactSuffix,  " & _
@@ -8065,7 +8065,7 @@ Public Class SSPPApplicationTrackingLog
                     "strContactCity, strContactState,  " & _
                     "strContactZipCode, strModifingPerson,  " & _
                     "datModifingDate, strContactDescription " & _
-                    "from " & DBNameSpace & ".APBContactInformation  " & _
+                    "from AIRBRANCH.APBContactInformation  " & _
                     "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "'  " & _
                     "and strKey = '3" & i & "'  "
 
@@ -8082,7 +8082,7 @@ Public Class SSPPApplicationTrackingLog
 
                     Do While i <> 0
                         SQL = "Select strKey " & _
-                        "from " & DBNameSpace & ".APBContactInformation " & _
+                        "from AIRBRANCH.APBContactInformation " & _
                         "where strAirsnumber = '0413" & txtAIRSNumber.Text & "' " & _
                         "and strKey = '3" & i & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -8095,46 +8095,46 @@ Public Class SSPPApplicationTrackingLog
                         i -= 1
 
                         If recExist = True Then
-                            SQL = "Update " & DBNameSpace & ".APBContactInformation set " & _
-                            "strContactFirstName = (select strContactFirstName from " & DBNameSpace & ".APBContactInformation " & _
+                            SQL = "Update AIRBRANCH.APBContactInformation set " & _
+                            "strContactFirstName = (select strContactFirstName from AIRBRANCH.APBContactInformation " & _
                             "where strContactKey = '0413" & txtAIRSNumber.Text & "3" & i & "'),  " & _
-                            "strContactLastname = (select strContactLastname from " & DBNameSpace & ".APBContactInformation " & _
+                            "strContactLastname = (select strContactLastname from AIRBRANCH.APBContactInformation " & _
                             "Where strCOntactKey = '0413" & txtAIRSNumber.Text & "3" & i & "'),  " & _
-                            "strContactPrefix = (select strContactPrefix from " & DBNameSpace & ".APBContactInformation " & _
+                            "strContactPrefix = (select strContactPrefix from AIRBRANCH.APBContactInformation " & _
                             "Where strCOntactKey = '0413" & txtAIRSNumber.Text & "3" & i & "'),  " & _
-                            "strContactSuffix = (select strContactSuffix from " & DBNameSpace & ".APBContactInformation " & _
+                            "strContactSuffix = (select strContactSuffix from AIRBRANCH.APBContactInformation " & _
                             "Where strCOntactKey = '0413" & txtAIRSNumber.Text & "3" & i & "'),  " & _
-                            "strContactTitle = (select strContactTitle from " & DBNameSpace & ".APBContactInformation " & _
+                            "strContactTitle = (select strContactTitle from AIRBRANCH.APBContactInformation " & _
                             "Where strCOntactKey = '0413" & txtAIRSNumber.Text & "3" & i & "'),  " & _
-                            "strContactCompanyName = (select strContactCompanyName from " & DBNameSpace & ".APBContactInformation " & _
+                            "strContactCompanyName = (select strContactCompanyName from AIRBRANCH.APBContactInformation " & _
                             "Where strCOntactKey = '0413" & txtAIRSNumber.Text & "3" & i & "'),  " & _
-                            "strContactPhoneNumber1 = (select strContactPhoneNumber1 from " & DBNameSpace & ".APBContactInformation " & _
+                            "strContactPhoneNumber1 = (select strContactPhoneNumber1 from AIRBRANCH.APBContactInformation " & _
                             "Where strCOntactKey = '0413" & txtAIRSNumber.Text & "3" & i & "'),  " & _
-                            "strContactPhoneNumber2 = (select strContactPhoneNumber2 from " & DBNameSpace & ".APBContactInformation " & _
+                            "strContactPhoneNumber2 = (select strContactPhoneNumber2 from AIRBRANCH.APBContactInformation " & _
                             "Where strCOntactKey = '0413" & txtAIRSNumber.Text & "3" & i & "'),  " & _
-                            "strContactFaxNumber = (select strContactFaxNumber from " & DBNameSpace & ".APBContactInformation " & _
+                            "strContactFaxNumber = (select strContactFaxNumber from AIRBRANCH.APBContactInformation " & _
                             "Where strCOntactKey = '0413" & txtAIRSNumber.Text & "3" & i & "'),  " & _
-                            "strContactEmail = (select strContactEmail from " & DBNameSpace & ".APBContactInformation " & _
+                            "strContactEmail = (select strContactEmail from AIRBRANCH.APBContactInformation " & _
                             "Where strCOntactKey = '0413" & txtAIRSNumber.Text & "3" & i & "'),  " & _
-                            "strContactAddress1 = (select strContactAddress1 from " & DBNameSpace & ".APBContactInformation " & _
+                            "strContactAddress1 = (select strContactAddress1 from AIRBRANCH.APBContactInformation " & _
                             "Where strCOntactKey = '0413" & txtAIRSNumber.Text & "3" & i & "'),  " & _
-                            "strContactAddress2 = (select strContactAddress2 from " & DBNameSpace & ".APBContactInformation " & _
+                            "strContactAddress2 = (select strContactAddress2 from AIRBRANCH.APBContactInformation " & _
                             "Where strCOntactKey = '0413" & txtAIRSNumber.Text & "3" & i & "'),  " & _
-                            "strContactCity = (select strContactCity from " & DBNameSpace & ".APBContactInformation " & _
+                            "strContactCity = (select strContactCity from AIRBRANCH.APBContactInformation " & _
                             "Where strCOntactKey = '0413" & txtAIRSNumber.Text & "3" & i & "'),  " & _
-                            "strContactState = (select strContactState from " & DBNameSpace & ".APBContactInformation " & _
+                            "strContactState = (select strContactState from AIRBRANCH.APBContactInformation " & _
                             "Where strCOntactKey = '0413" & txtAIRSNumber.Text & "3" & i & "'),  " & _
-                            "strContactZipCode = (select strContactZipCode from " & DBNameSpace & ".APBContactInformation " & _
+                            "strContactZipCode = (select strContactZipCode from AIRBRANCH.APBContactInformation " & _
                             "Where strCOntactKey = '0413" & txtAIRSNumber.Text & "3" & i & "'),  " & _
-                            "strModifingPerson = (select strModifingPerson from " & DBNameSpace & ".APBContactInformation " & _
+                            "strModifingPerson = (select strModifingPerson from AIRBRANCH.APBContactInformation " & _
                             "Where strCOntactKey = '0413" & txtAIRSNumber.Text & "3" & i & "'),  " & _
-                            "datModifingDate = (select datModifingDate from " & DBNameSpace & ".APBContactInformation " & _
+                            "datModifingDate = (select datModifingDate from AIRBRANCH.APBContactInformation " & _
                             "Where strCOntactKey = '0413" & txtAIRSNumber.Text & "3" & i & "'),  " & _
-                            "strContactDescription = (select strContactDescription from " & DBNameSpace & ".APBContactInformation " & _
+                            "strContactDescription = (select strContactDescription from AIRBRANCH.APBContactInformation " & _
                             "Where strCOntactKey = '0413" & txtAIRSNumber.Text & "3" & i & "') " & _
                             "where strContactKey = '0413" & txtAIRSNumber.Text & "3" & i + 1 & "' "
                         Else
-                            SQL = "Insert into " & DBNameSpace & ".APBContactInformation " & _
+                            SQL = "Insert into AIRBRANCH.APBContactInformation " & _
                             "(strContactKey, strAIRSnumber, strKey, " & _
                             "strContactFirstName, strContactLastName,  " & _
                             "strContactPrefix, strContactSuffix,  " & _
@@ -8158,7 +8158,7 @@ Public Class SSPPApplicationTrackingLog
                             "strContactCity, strContactState,  " & _
                             "strContactZipCode, strModifingPerson,  " & _
                             "datModifingDate, strContactDescription " & _
-                            "from " & DBNameSpace & ".APBContactInformation  " & _
+                            "from AIRBRANCH.APBContactInformation  " & _
                             "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "'  " & _
                             "and strKey = '3" & i + 1 & "'  "
                         End If
@@ -8171,42 +8171,42 @@ Public Class SSPPApplicationTrackingLog
 
                     Loop
 
-                    SQL = "Update " & DBNameSpace & ".APBContactInformation set " & _
-                           "strContactFirstName = (select strContactFirstName from " & DBNameSpace & ".SSPPApplicationContact " & _
+                    SQL = "Update AIRBRANCH.APBContactInformation set " & _
+                           "strContactFirstName = (select strContactFirstName from AIRBRANCH.SSPPApplicationContact " & _
                            "where strApplicationNumber = '" & txtApplicationNumber.Text & "'),  " & _
-                           "strContactLastname = (select strContactLastname from " & DBNameSpace & ".SSPPApplicationContact " & _
+                           "strContactLastname = (select strContactLastname from AIRBRANCH.SSPPApplicationContact " & _
                            "where strApplicationNumber = '" & txtApplicationNumber.Text & "'),  " & _
-                           "strContactPrefix = (select strContactPrefix from " & DBNameSpace & ".SSPPApplicationContact " & _
+                           "strContactPrefix = (select strContactPrefix from AIRBRANCH.SSPPApplicationContact " & _
                            "where strApplicationNumber = '" & txtApplicationNumber.Text & "'),  " & _
-                           "strContactSuffix = (select strContactSuffix from " & DBNameSpace & ".SSPPApplicationContact " & _
+                           "strContactSuffix = (select strContactSuffix from AIRBRANCH.SSPPApplicationContact " & _
                             "where strApplicationNumber = '" & txtApplicationNumber.Text & "'),  " & _
-                           "strContactTitle = (select strContactTitle from " & DBNameSpace & ".SSPPApplicationContact " & _
+                           "strContactTitle = (select strContactTitle from AIRBRANCH.SSPPApplicationContact " & _
                             "where strApplicationNumber = '" & txtApplicationNumber.Text & "'),  " & _
-                           "strContactCompanyName = (select strContactCompanyName from " & DBNameSpace & ".SSPPApplicationContact " & _
+                           "strContactCompanyName = (select strContactCompanyName from AIRBRANCH.SSPPApplicationContact " & _
                             "where strApplicationNumber = '" & txtApplicationNumber.Text & "'),  " & _
-                           "strContactPhoneNumber1 = (select strContactPhoneNumber1 from " & DBNameSpace & ".SSPPApplicationContact " & _
+                           "strContactPhoneNumber1 = (select strContactPhoneNumber1 from AIRBRANCH.SSPPApplicationContact " & _
                             "where strApplicationNumber = '" & txtApplicationNumber.Text & "'),  " & _
-                           "strContactPhoneNumber2 = (select strContactPhoneNumber2 from " & DBNameSpace & ".SSPPApplicationContact " & _
+                           "strContactPhoneNumber2 = (select strContactPhoneNumber2 from AIRBRANCH.SSPPApplicationContact " & _
                             "where strApplicationNumber = '" & txtApplicationNumber.Text & "'),  " & _
-                           "strContactFaxNumber = (select strContactFaxNumber from " & DBNameSpace & ".SSPPApplicationContact " & _
+                           "strContactFaxNumber = (select strContactFaxNumber from AIRBRANCH.SSPPApplicationContact " & _
                             "where strApplicationNumber = '" & txtApplicationNumber.Text & "'),  " & _
-                           "strContactEmail = (select strContactEmail from " & DBNameSpace & ".SSPPApplicationContact " & _
+                           "strContactEmail = (select strContactEmail from AIRBRANCH.SSPPApplicationContact " & _
                             "where strApplicationNumber = '" & txtApplicationNumber.Text & "'),  " & _
-                           "strContactAddress1 = (select strContactAddress1 from " & DBNameSpace & ".SSPPApplicationContact " & _
+                           "strContactAddress1 = (select strContactAddress1 from AIRBRANCH.SSPPApplicationContact " & _
                             "where strApplicationNumber = '" & txtApplicationNumber.Text & "'),  " & _
-                           "strContactAddress2 = (select strContactAddress2 from " & DBNameSpace & ".SSPPApplicationContact " & _
+                           "strContactAddress2 = (select strContactAddress2 from AIRBRANCH.SSPPApplicationContact " & _
                             "where strApplicationNumber = '" & txtApplicationNumber.Text & "'),  " & _
-                           "strContactCity = (select strContactCity from " & DBNameSpace & ".SSPPApplicationContact " & _
+                           "strContactCity = (select strContactCity from AIRBRANCH.SSPPApplicationContact " & _
                             "where strApplicationNumber = '" & txtApplicationNumber.Text & "'),  " & _
-                           "strContactState = (select strContactState from " & DBNameSpace & ".SSPPApplicationContact " & _
+                           "strContactState = (select strContactState from AIRBRANCH.SSPPApplicationContact " & _
                             "where strApplicationNumber = '" & txtApplicationNumber.Text & "'),  " & _
-                           "strContactZipCode = (select strContactZipCode from " & DBNameSpace & ".SSPPApplicationContact " & _
+                           "strContactZipCode = (select strContactZipCode from AIRBRANCH.SSPPApplicationContact " & _
                             "where strApplicationNumber = '" & txtApplicationNumber.Text & "'),  " & _
-                           "strModifingPerson = (select strModifingPerson from " & DBNameSpace & ".SSPPApplicationContact " & _
+                           "strModifingPerson = (select strModifingPerson from AIRBRANCH.SSPPApplicationContact " & _
                             "where strApplicationNumber = '" & txtApplicationNumber.Text & "'),  " & _
-                           "datModifingDate = (select datModifingDate from " & DBNameSpace & ".SSPPApplicationContact " & _
+                           "datModifingDate = (select datModifingDate from AIRBRANCH.SSPPApplicationContact " & _
                             "where strApplicationNumber = '" & txtApplicationNumber.Text & "'),  " & _
-                           "strContactDescription = (select strContactDescription from " & DBNameSpace & ".SSPPApplicationContact " & _
+                           "strContactDescription = (select strContactDescription from AIRBRANCH.SSPPApplicationContact " & _
                             "where strApplicationNumber = '" & txtApplicationNumber.Text & "')  " & _
                            "where strContactKey = '0413" & txtAIRSNumber.Text & "3" & i & "' "
 
@@ -8412,7 +8412,7 @@ Public Class SSPPApplicationTrackingLog
                     If lbLinkApplications.Items.Item(i) <> txtApplicationNumber.Text Then
                         SQL = "select " & _
                         "strApplicationType " & _
-                        "from " & DBNameSpace & ".SSPPApplicationMaster " & _
+                        "from AIRBRANCH.SSPPApplicationMaster " & _
                         "where strApplicationnumber = '" & lbLinkApplications.Items.Item(i) & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -8457,7 +8457,7 @@ Public Class SSPPApplicationTrackingLog
                 End If
 
                 SQL = "Select distinct(strMasterApplication) as MasterApp " & _
-                "from " & DBNameSpace & ".SSPPApplicationLinking " & _
+                "from AIRBRANCH.SSPPApplicationLinking " & _
                 "where " & temp
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -8470,7 +8470,7 @@ Public Class SSPPApplicationTrackingLog
                 If recExist = True Then
                     For i = 0 To lbLinkApplications.Items.Count - 1
                         SQL = "Select strApplicationNumber " & _
-                        "from " & DBNameSpace & ".SSPPApplicationLinking " & _
+                        "from AIRBRANCH.SSPPApplicationLinking " & _
                         "where strApplicationNumber = '" & lbLinkApplications.Items.Item(i) & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -8480,12 +8480,12 @@ Public Class SSPPApplicationTrackingLog
                         recExist = dr.Read
                         dr.Close()
                         If recExist = True Then
-                            SQL = "Update " & DBNameSpace & ".SSPPApplicationLinking set " & _
+                            SQL = "Update AIRBRANCH.SSPPApplicationLinking set " & _
                             "strMasterApplication = '" & MasterApplication & "', " & _
                             "strApplicationNumber = '" & lbLinkApplications.Items.Item(i) & "' " & _
                             "where strApplicationnumber = '" & lbLinkApplications.Items.Item(i) & "' "
                         Else
-                            SQL = "Insert into " & DBNameSpace & ".SSPPApplicationLinking " & _
+                            SQL = "Insert into AIRBRANCH.SSPPApplicationLinking " & _
                             "values " & _
                             "('" & MasterApplication & "', '" & lbLinkApplications.Items.Item(i) & "') "
                         End If
@@ -8498,7 +8498,7 @@ Public Class SSPPApplicationTrackingLog
                     Next
                 Else
                     For i = 0 To lbLinkApplications.Items.Count - 1
-                        SQL = "Insert into " & DBNameSpace & ".SSPPApplicationLinking " & _
+                        SQL = "Insert into AIRBRANCH.SSPPApplicationLinking " & _
                         "values " & _
                         "('" & MasterApplication & "', '" & lbLinkApplications.Items.Item(i) & "') "
 
@@ -8531,7 +8531,7 @@ Public Class SSPPApplicationTrackingLog
 
             If txtMasterApp.Text <> "" Then
                 SQL = "Select strMasterApplication " & _
-                "from " & DBNameSpace & ".SSPPApplicationLinking " & _
+                "from AIRBRANCH.SSPPApplicationLinking " & _
                 "where strApplicationNumber = '" & txtMasterApp.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -8546,7 +8546,7 @@ Public Class SSPPApplicationTrackingLog
                 End If
                 dr.Close()
                 If MasterLink <> "" Then
-                    SQL = "Delete " & DBNameSpace & ".SSPPApplicationLinking " & _
+                    SQL = "Delete AIRBRANCH.SSPPApplicationLinking " & _
                     "where strMasterApplication = '" & MasterLink & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -8635,7 +8635,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             If txtApplicationNumber.Text <> "" Then
-                SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
+                SQL = "Update AIRBRANCH.SSPPApplicationTracking set " & _
                 "datDraftOnWeb = '" & DraftOnWeb & "', " & _
                 "datEPAStatesNotified = '" & EPAStatesNotified & "', " & _
                 "datFinalOnWeb = '" & FinalOnWeb & "', " & _
@@ -8652,7 +8652,7 @@ Public Class SSPPApplicationTrackingLog
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Update " & DBNameSpace & ".SSPPApplicationData set " & _
+                SQL = "Update AIRBRANCH.SSPPApplicationData set " & _
                 "strTargeted = '" & TargetedComments & "' " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -8673,7 +8673,7 @@ Public Class SSPPApplicationTrackingLog
                             LinkedApplication = ""
                         End If
                         If LinkedApplication <> "" Then
-                            SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
+                            SQL = "Update AIRBRANCH.SSPPApplicationTracking set " & _
                             "datDraftOnWeb = '" & DraftOnWeb & "', " & _
                             "datEPAStatesNotified = '" & EPAStatesNotified & "', " & _
                             "datFinalOnWeb = '" & FinalOnWeb & "', " & _
@@ -8692,7 +8692,7 @@ Public Class SSPPApplicationTrackingLog
                             dr.Read()
                             dr.Close()
 
-                            SQL = "Update " & DBNameSpace & ".SSPPApplicationData set " & _
+                            SQL = "Update AIRBRANCH.SSPPApplicationData set " & _
                             "strTargeted = '" & TargetedComments & "' " & _
                             "where strApplicationNumber = '" & LinkedApplication & "' "
 
@@ -8726,7 +8726,7 @@ Public Class SSPPApplicationTrackingLog
 
             SQL = "Select " & _
             "strUpdateStatus " & _
-            "from " & DBNameSpace & ".AFSSSPPRecords " & _
+            "from AIRBRANCH.AFSSSPPRecords " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -8750,7 +8750,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             If recExist = True Then
-                SQL = "Update " & DBNameSpace & ".AFSSSPPRecords set " & _
+                SQL = "Update AIRBRANCH.AFSSSPPRecords set " & _
                 "strUpdateStatus = '" & UpdateStatus & "' " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
@@ -8763,7 +8763,7 @@ Public Class SSPPApplicationTrackingLog
                 dr.Close()
             Else
                 SQL = "Select strAFSActionNumber " & _
-                "from " & DBNameSpace & ".APBSupplamentalData " & _
+                "from AIRBRANCH.APBSupplamentalData " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
 
@@ -8790,7 +8790,7 @@ Public Class SSPPApplicationTrackingLog
                 '        ActionNumber = ActionNumber
                 'End Select
 
-                SQL = "Insert into " & DBNameSpace & ".AFSSSPPRecords " & _
+                SQL = "Insert into AIRBRANCH.AFSSSPPRecords " & _
                 "(strApplicationNumber, strAFSActionNumber, " & _
                 "strUpDateStatus, strModifingPerson, " & _
                 "datModifingDate) " & _
@@ -8821,7 +8821,7 @@ Public Class SSPPApplicationTrackingLog
                 '        ActionNumber = ActionNumber
                 'End Select
 
-                SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+                SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                 "strAFSActionNumber = '" & ActionNumber & "' " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
@@ -8870,7 +8870,7 @@ Public Class SSPPApplicationTrackingLog
             "strNAICSCode, " & _
             "strPermitNumber, strPlantDescription, " & _
             "strStateProgramCodes " & _
-            "from " & DBNameSpace & ".SSPPApplicationData " & _
+            "from AIRBRANCH.SSPPApplicationData " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -8949,7 +8949,7 @@ Public Class SSPPApplicationTrackingLog
 
             temp = "1"
 
-            SQL = "Update " & DBNameSpace & ".APBFacilityInformation set " & _
+            SQL = "Update AIRBRANCH.APBFacilityInformation set " & _
             "strFacilityName = '" & Replace(FacilityName, "'", "''") & "', " & _
             "strFacilityStreet1 = '" & Replace(FacilityStreet1, "'", "''") & "', " & _
             "strFacilityStreet2 = '" & Replace(FacilityStreet2, "'", "''") & "', " & _
@@ -8968,7 +8968,7 @@ Public Class SSPPApplicationTrackingLog
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Update " & DBNameSpace & ".OLAPUserAccess set " & _
+            SQL = "Update AIRBRANCH.OLAPUserAccess set " & _
             "strFacilityName = '" & Replace(FacilityName, "'", "''") & "' " & _
             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
@@ -8981,7 +8981,7 @@ Public Class SSPPApplicationTrackingLog
 
             temp = "2"
 
-            SQL = "Update " & DBNameSpace & ".APBHeaderData set " & _
+            SQL = "Update AIRBRANCH.APBHeaderData set " & _
             "strOperationalStatus = '" & OpStatus & "', " & _
             "strClass = '" & Classification & "', " & _
             "strAIRProgramCodes = '" & AirProgramCodes & "', " & _
@@ -9006,7 +9006,7 @@ Public Class SSPPApplicationTrackingLog
                 If Mid(AirProgramCodes, 1, 1) = "1" Then
                     temp = "3"
                     SQL = "Select strPollutantKey " & _
-                    "from " & DBNameSpace & ".APBAirProgramPollutants " & _
+                    "from AIRBRANCH.APBAirProgramPollutants " & _
                     "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "0' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -9017,7 +9017,7 @@ Public Class SSPPApplicationTrackingLog
                     dr.Close()
                     If recExist = False Then
                         temp = "4"
-                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -9035,7 +9035,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Read()
                         dr.Close()
                     Else
-                        SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
+                        SQL = "Update AIRBRANCH.APBAirProgramPollutants set " & _
                         "strOperationalStatus = '" & OpStatus & "' " & _
                         "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "0' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9047,7 +9047,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Close()
 
                         SQL = "Select strUpdateStatus " & _
-                        "from " & DBNameSpace & ".AFSAirPollutantData " & _
+                        "from AIRBRANCH.AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "0' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9059,7 +9059,7 @@ Public Class SSPPApplicationTrackingLog
                         End While
                         dr.Close()
                         If temp = "N" Then
-                            SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
+                            SQL = "update AIRBRANCH.AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "0'"
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9074,7 +9074,7 @@ Public Class SSPPApplicationTrackingLog
                     For i As Integer = 0 To dgvSIPSubPartDelete.Rows.Count - 1
                         Subpart = dgvSIPSubPartDelete(0, i).Value
 
-                        SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
+                        SQL = "Update AIRBRANCH.APBSubpartData set " & _
                         "Active = '0', " & _
                         "updateUser = '" & UserGCode & "', " & _
                         "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
@@ -9094,7 +9094,7 @@ Public Class SSPPApplicationTrackingLog
 
                         SQL = "Select " & _
                         "Active " & _
-                        "from " & DBNameSpace & ".APBSubpartData " & _
+                        "from AIRBRANCH.APBSubpartData " & _
                         "where strSubpartKey = '0413" & txtAIRSNumber.Text & "0' " & _
                         "and strSubpart = '" & Subpart & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9105,14 +9105,14 @@ Public Class SSPPApplicationTrackingLog
                         recExist = dr.Read
                         dr.Close()
                         If recExist = True Then
-                            SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
+                            SQL = "Update AIRBRANCH.APBSubpartData set " & _
                             "Active = '1', " & _
                             "updateUser = '" & UserGCode & "', " & _
                             "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
                             "where strSubpartKey = '0413" & txtAIRSNumber.Text & "0' " & _
                             "and strSubpart = '" & Subpart & "' "
                         Else
-                            SQL = "Insert into " & DBNameSpace & ".APBSubpartData " & _
+                            SQL = "Insert into AIRBRANCH.APBSubpartData " & _
                             "values " & _
                             "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "0', " & _
                             "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
@@ -9127,7 +9127,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Close()
                     Next
                 Else
-                    SQL = "Update " & DBNameSpace & ".APBSubPartData set " & _
+                    SQL = "Update AIRBRANCH.APBSubPartData set " & _
                     "updateUser = '" & UserGCode & "', " & _
                     "UpdateDateTime = '" & OracleDate & "', " & _
                     "Active = '0' " & _
@@ -9142,7 +9142,7 @@ Public Class SSPPApplicationTrackingLog
                 If Mid(AirProgramCodes, 2, 1) = "1" Then
                     temp = "5"
                     SQL = "Select strPollutantKey " & _
-                    "from " & DBNameSpace & ".APBAirProgramPollutants " & _
+                    "from AIRBRANCH.APBAirProgramPollutants " & _
                     "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "1' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -9153,7 +9153,7 @@ Public Class SSPPApplicationTrackingLog
                     dr.Close()
                     If recExist = False Then
                         temp = "6"
-                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -9171,7 +9171,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Read()
                         dr.Close()
                     Else
-                        SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
+                        SQL = "Update AIRBRANCH.APBAirProgramPollutants set " & _
                        "strOperationalStatus = '" & OpStatus & "' " & _
                        "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "1' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9183,7 +9183,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Close()
 
                         SQL = "Select strUpdateStatus " & _
-                        "from " & DBNameSpace & ".AFSAirPollutantData " & _
+                        "from AIRBRANCH.AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "1' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9195,7 +9195,7 @@ Public Class SSPPApplicationTrackingLog
                         End While
                         dr.Close()
                         If temp = "N" Then
-                            SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
+                            SQL = "update AIRBRANCH.AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "1'"
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9211,7 +9211,7 @@ Public Class SSPPApplicationTrackingLog
                 If Mid(AirProgramCodes, 3, 1) = "1" Then
                     temp = "7"
                     SQL = "Select strPollutantKey " & _
-                     "from " & DBNameSpace & ".APBAirProgramPollutants " & _
+                     "from AIRBRANCH.APBAirProgramPollutants " & _
                      "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "3' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -9222,7 +9222,7 @@ Public Class SSPPApplicationTrackingLog
                     dr.Close()
                     If recExist = False Then
                         temp = "8 "
-                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -9240,7 +9240,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Read()
                         dr.Close()
                     Else
-                        SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
+                        SQL = "Update AIRBRANCH.APBAirProgramPollutants set " & _
                        "strOperationalStatus = '" & OpStatus & "' " & _
                        "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "3' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9252,7 +9252,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Close()
 
                         SQL = "Select strUpdateStatus " & _
-                        "from " & DBNameSpace & ".AFSAirPollutantData " & _
+                        "from AIRBRANCH.AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "3' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9264,7 +9264,7 @@ Public Class SSPPApplicationTrackingLog
                         End While
                         dr.Close()
                         If temp = "N" Then
-                            SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
+                            SQL = "update AIRBRANCH.AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "3'"
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9280,7 +9280,7 @@ Public Class SSPPApplicationTrackingLog
                 If Mid(AirProgramCodes, 4, 1) = "1" Then
                     temp = "9"
                     SQL = "Select strPollutantKey " & _
-                     "from " & DBNameSpace & ".APBAirProgramPollutants " & _
+                     "from AIRBRANCH.APBAirProgramPollutants " & _
                      "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "4' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -9291,7 +9291,7 @@ Public Class SSPPApplicationTrackingLog
                     dr.Close()
                     If recExist = False Then
                         temp = "10"
-                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -9309,7 +9309,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Read()
                         dr.Close()
                     Else
-                        SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
+                        SQL = "Update AIRBRANCH.APBAirProgramPollutants set " & _
                        "strOperationalStatus = '" & OpStatus & "' " & _
                        "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "4' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9321,7 +9321,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Close()
 
                         SQL = "Select strUpdateStatus " & _
-                        "from " & DBNameSpace & ".AFSAirPollutantData " & _
+                        "from AIRBRANCH.AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "4' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9333,7 +9333,7 @@ Public Class SSPPApplicationTrackingLog
                         End While
                         dr.Close()
                         If temp = "N" Then
-                            SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
+                            SQL = "update AIRBRANCH.AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "4'"
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9349,7 +9349,7 @@ Public Class SSPPApplicationTrackingLog
                 If Mid(AirProgramCodes, 5, 1) = "1" Then
                     temp = "11"
                     SQL = "Select strPollutantKey " & _
-                    "from " & DBNameSpace & ".APBAirProgramPollutants " & _
+                    "from AIRBRANCH.APBAirProgramPollutants " & _
                     "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "6' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -9360,7 +9360,7 @@ Public Class SSPPApplicationTrackingLog
                     dr.Close()
                     If recExist = False Then
                         temp = "12"
-                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -9378,7 +9378,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Read()
                         dr.Close()
                     Else
-                        SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
+                        SQL = "Update AIRBRANCH.APBAirProgramPollutants set " & _
                        "strOperationalStatus = '" & OpStatus & "' " & _
                        "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "6' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9390,7 +9390,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Close()
 
                         SQL = "Select strUpdateStatus " & _
-                        "from " & DBNameSpace & ".AFSAirPollutantData " & _
+                        "from AIRBRANCH.AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "6' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9402,7 +9402,7 @@ Public Class SSPPApplicationTrackingLog
                         End While
                         dr.Close()
                         If temp = "N" Then
-                            SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
+                            SQL = "update AIRBRANCH.AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "6'"
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9418,7 +9418,7 @@ Public Class SSPPApplicationTrackingLog
                 If Mid(AirProgramCodes, 6, 1) = "1" Then
                     temp = "13"
                     SQL = "Select strPollutantKey " & _
-                  "from " & DBNameSpace & ".APBAirProgramPollutants " & _
+                  "from AIRBRANCH.APBAirProgramPollutants " & _
                   "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "7' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -9429,7 +9429,7 @@ Public Class SSPPApplicationTrackingLog
                     dr.Close()
                     If recExist = False Then
                         temp = "14"
-                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -9447,7 +9447,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Read()
                         dr.Close()
                     Else
-                        SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
+                        SQL = "Update AIRBRANCH.APBAirProgramPollutants set " & _
                        "strOperationalStatus = '" & OpStatus & "' " & _
                        "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "7' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9459,7 +9459,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Close()
 
                         SQL = "Select strUpdateStatus " & _
-                        "from " & DBNameSpace & ".AFSAirPollutantData " & _
+                        "from AIRBRANCH.AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "7' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9471,7 +9471,7 @@ Public Class SSPPApplicationTrackingLog
                         End While
                         dr.Close()
                         If temp = "N" Then
-                            SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
+                            SQL = "update AIRBRANCH.AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "7'"
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9487,7 +9487,7 @@ Public Class SSPPApplicationTrackingLog
                 If Mid(AirProgramCodes, 7, 1) = "1" Then
                     temp = "15"
                     SQL = "Select strPollutantKey " & _
-                     "from " & DBNameSpace & ".APBAirProgramPollutants " & _
+                     "from AIRBRANCH.APBAirProgramPollutants " & _
                      "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "8' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -9498,7 +9498,7 @@ Public Class SSPPApplicationTrackingLog
                     dr.Close()
                     If recExist = False Then
                         temp = "16"
-                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -9516,7 +9516,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Read()
                         dr.Close()
                     Else
-                        SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
+                        SQL = "Update AIRBRANCH.APBAirProgramPollutants set " & _
                        "strOperationalStatus = '" & OpStatus & "' " & _
                        "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "8' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9528,7 +9528,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Close()
 
                         SQL = "Select strUpdateStatus " & _
-                        "from " & DBNameSpace & ".AFSAirPollutantData " & _
+                        "from AIRBRANCH.AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "8' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9540,7 +9540,7 @@ Public Class SSPPApplicationTrackingLog
                         End While
                         dr.Close()
                         If temp = "N" Then
-                            SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
+                            SQL = "update AIRBRANCH.AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "8'"
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9555,7 +9555,7 @@ Public Class SSPPApplicationTrackingLog
                     For i As Integer = 0 To dgvNESHAPSubPartDelete.Rows.Count - 1
                         Subpart = dgvNESHAPSubPartDelete(0, i).Value
 
-                        SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
+                        SQL = "Update AIRBRANCH.APBSubpartData set " & _
                         "Active = '0', " & _
                         "updateUser = '" & UserGCode & "', " & _
                         "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
@@ -9575,7 +9575,7 @@ Public Class SSPPApplicationTrackingLog
 
                         SQL = "Select " & _
                         "Active " & _
-                        "from " & DBNameSpace & ".APBSubpartData " & _
+                        "from AIRBRANCH.APBSubpartData " & _
                         "where strSubpartKey = '0413" & txtAIRSNumber.Text & "8' " & _
                         "and strSubpart = '" & Subpart & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9586,14 +9586,14 @@ Public Class SSPPApplicationTrackingLog
                         recExist = dr.Read
                         dr.Close()
                         If recExist = True Then
-                            SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
+                            SQL = "Update AIRBRANCH.APBSubpartData set " & _
                             "Active = '1', " & _
                             "updateUser = '" & UserGCode & "', " & _
                             "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
                             "where strSubpartKey = '0413" & txtAIRSNumber.Text & "8' " & _
                             "and strSubpart = '" & Subpart & "' "
                         Else
-                            SQL = "Insert into " & DBNameSpace & ".APBSubpartData " & _
+                            SQL = "Insert into AIRBRANCH.APBSubpartData " & _
                             "values " & _
                             "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "8', " & _
                             "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
@@ -9608,7 +9608,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Close()
                     Next
                 Else
-                    SQL = "Update " & DBNameSpace & ".APBSubPartData set " & _
+                    SQL = "Update AIRBRANCH.APBSubPartData set " & _
                     "updateUser = '" & UserGCode & "', " & _
                     "UpdateDateTime = '" & OracleDate & "', " & _
                     "Active = '0' " & _
@@ -9623,7 +9623,7 @@ Public Class SSPPApplicationTrackingLog
                 If Mid(AirProgramCodes, 8, 1) = "1" Then
                     temp = "17"
                     SQL = "Select strPollutantKey " & _
-                    "from " & DBNameSpace & ".APBAirProgramPollutants " & _
+                    "from AIRBRANCH.APBAirProgramPollutants " & _
                     "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "9' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -9634,7 +9634,7 @@ Public Class SSPPApplicationTrackingLog
                     dr.Close()
                     If recExist = False Then
                         temp = "18"
-                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -9652,7 +9652,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Read()
                         dr.Close()
                     Else
-                        SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
+                        SQL = "Update AIRBRANCH.APBAirProgramPollutants set " & _
                        "strOperationalStatus = '" & OpStatus & "' " & _
                        "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "9' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9664,7 +9664,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Close()
 
                         SQL = "Select strUpdateStatus " & _
-                        "from " & DBNameSpace & ".AFSAirPollutantData " & _
+                        "from AIRBRANCH.AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "9' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9676,7 +9676,7 @@ Public Class SSPPApplicationTrackingLog
                         End While
                         dr.Close()
                         If temp = "N" Then
-                            SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
+                            SQL = "update AIRBRANCH.AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "9'"
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9691,7 +9691,7 @@ Public Class SSPPApplicationTrackingLog
                     For i As Integer = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
                         Subpart = dgvNSPSSubPartDelete(0, i).Value
 
-                        SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
+                        SQL = "Update AIRBRANCH.APBSubpartData set " & _
                         "Active = '0', " & _
                         "updateUser = '" & UserGCode & "', " & _
                         "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
@@ -9711,7 +9711,7 @@ Public Class SSPPApplicationTrackingLog
 
                         SQL = "Select " & _
                         "Active " & _
-                        "from " & DBNameSpace & ".APBSubpartData " & _
+                        "from AIRBRANCH.APBSubpartData " & _
                         "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " & _
                         "and strSubpart = '" & Subpart & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9722,14 +9722,14 @@ Public Class SSPPApplicationTrackingLog
                         recExist = dr.Read
                         dr.Close()
                         If recExist = True Then
-                            SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
+                            SQL = "Update AIRBRANCH.APBSubpartData set " & _
                             "Active = '1', " & _
                             "updateUser = '" & UserGCode & "', " & _
                             "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
                             "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " & _
                             "and strSubpart = '" & Subpart & "' "
                         Else
-                            SQL = "Insert into " & DBNameSpace & ".APBSubpartData " & _
+                            SQL = "Insert into AIRBRANCH.APBSubpartData " & _
                             "values " & _
                             "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " & _
                             "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
@@ -9744,7 +9744,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Close()
                     Next
                 Else
-                    SQL = "Update " & DBNameSpace & ".APBSubPartData set " & _
+                    SQL = "Update AIRBRANCH.APBSubPartData set " & _
                     "updateUser = '" & UserGCode & "', " & _
                     "UpdateDateTime = '" & OracleDate & "', " & _
                     "Active = '0' " & _
@@ -9759,7 +9759,7 @@ Public Class SSPPApplicationTrackingLog
                 If Mid(AirProgramCodes, 9, 1) = "1" Then
                     temp = "19"
                     SQL = "Select strPollutantKey " & _
-                     "from " & DBNameSpace & ".APBAirProgramPollutants " & _
+                     "from AIRBRANCH.APBAirProgramPollutants " & _
                      "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "F' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -9770,7 +9770,7 @@ Public Class SSPPApplicationTrackingLog
                     dr.Close()
                     If recExist = False Then
                         temp = "20"
-                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -9788,7 +9788,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Read()
                         dr.Close()
                     Else
-                        SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
+                        SQL = "Update AIRBRANCH.APBAirProgramPollutants set " & _
                        "strOperationalStatus = '" & OpStatus & "' " & _
                        "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "F' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9800,7 +9800,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Close()
 
                         SQL = "Select strUpdateStatus " & _
-                        "from " & DBNameSpace & ".AFSAirPollutantData " & _
+                        "from AIRBRANCH.AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "F' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9812,7 +9812,7 @@ Public Class SSPPApplicationTrackingLog
                         End While
                         dr.Close()
                         If temp = "N" Then
-                            SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
+                            SQL = "update AIRBRANCH.AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "F'"
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9828,7 +9828,7 @@ Public Class SSPPApplicationTrackingLog
                 If Mid(AirProgramCodes, 10, 1) = "1" Then
                     temp = "21"
                     SQL = "Select strPollutantKey " & _
-                   "from " & DBNameSpace & ".APBAirProgramPollutants " & _
+                   "from AIRBRANCH.APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "A' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -9839,7 +9839,7 @@ Public Class SSPPApplicationTrackingLog
                     dr.Close()
                     If recExist = False Then
                         temp = "22"
-                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -9857,7 +9857,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Read()
                         dr.Close()
                     Else
-                        SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
+                        SQL = "Update AIRBRANCH.APBAirProgramPollutants set " & _
                        "strOperationalStatus = '" & OpStatus & "' " & _
                        "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "A' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9869,7 +9869,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Close()
 
                         SQL = "Select strUpdateStatus " & _
-                        "from " & DBNameSpace & ".AFSAirPollutantData " & _
+                        "from AIRBRANCH.AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "A' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9881,7 +9881,7 @@ Public Class SSPPApplicationTrackingLog
                         End While
                         dr.Close()
                         If temp = "N" Then
-                            SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
+                            SQL = "update AIRBRANCH.AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "A'"
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9897,7 +9897,7 @@ Public Class SSPPApplicationTrackingLog
                 If Mid(AirProgramCodes, 11, 1) = "1" Then
                     temp = "23"
                     SQL = "Select strPollutantKey " & _
-                   "from " & DBNameSpace & ".APBAirProgramPollutants " & _
+                   "from AIRBRANCH.APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "I' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -9908,7 +9908,7 @@ Public Class SSPPApplicationTrackingLog
                     dr.Close()
                     If recExist = False Then
                         temp = "24"
-                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -9926,7 +9926,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Read()
                         dr.Close()
                     Else
-                        SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
+                        SQL = "Update AIRBRANCH.APBAirProgramPollutants set " & _
                        "strOperationalStatus = '" & OpStatus & "' " & _
                        "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "I' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9938,7 +9938,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Close()
 
                         SQL = "Select strUpdateStatus " & _
-                        "from " & DBNameSpace & ".AFSAirPollutantData " & _
+                        "from AIRBRANCH.AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "I' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9950,7 +9950,7 @@ Public Class SSPPApplicationTrackingLog
                         End While
                         dr.Close()
                         If temp = "N" Then
-                            SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
+                            SQL = "update AIRBRANCH.AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "I'"
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9966,7 +9966,7 @@ Public Class SSPPApplicationTrackingLog
                 If Mid(AirProgramCodes, 12, 1) = "1" Then
                     temp = "25"
                     SQL = "Select strPollutantKey " & _
-                    "from " & DBNameSpace & ".APBAirProgramPollutants " & _
+                    "from AIRBRANCH.APBAirProgramPollutants " & _
                     "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "M' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -9977,7 +9977,7 @@ Public Class SSPPApplicationTrackingLog
                     dr.Close()
                     If recExist = False Then
                         temp = "26"
-                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -9995,7 +9995,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Read()
                         dr.Close()
                     Else
-                        SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
+                        SQL = "Update AIRBRANCH.APBAirProgramPollutants set " & _
                        "strOperationalStatus = '" & OpStatus & "' " & _
                        "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "M' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -10007,7 +10007,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Close()
 
                         SQL = "Select strUpdateStatus " & _
-                        "from " & DBNameSpace & ".AFSAirPollutantData " & _
+                        "from AIRBRANCH.AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "M' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -10019,7 +10019,7 @@ Public Class SSPPApplicationTrackingLog
                         End While
                         dr.Close()
                         If temp = "N" Then
-                            SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
+                            SQL = "update AIRBRANCH.AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "M' "
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -10034,7 +10034,7 @@ Public Class SSPPApplicationTrackingLog
                     For i As Integer = 0 To dgvMACTSubPartDelete.Rows.Count - 1
                         Subpart = dgvMACTSubPartDelete(0, i).Value
 
-                        SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
+                        SQL = "Update AIRBRANCH.APBSubpartData set " & _
                         "Active = '0', " & _
                         "updateUser = '" & UserGCode & "', " & _
                         "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
@@ -10054,7 +10054,7 @@ Public Class SSPPApplicationTrackingLog
 
                         SQL = "Select " & _
                         "Active " & _
-                        "from " & DBNameSpace & ".APBSubpartData " & _
+                        "from AIRBRANCH.APBSubpartData " & _
                         "where strSubpartKey = '0413" & txtAIRSNumber.Text & "M' " & _
                         "and strSubpart = '" & Subpart & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -10065,14 +10065,14 @@ Public Class SSPPApplicationTrackingLog
                         recExist = dr.Read
                         dr.Close()
                         If recExist = True Then
-                            SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
+                            SQL = "Update AIRBRANCH.APBSubpartData set " & _
                             "Active = '1', " & _
                             "updateUser = '" & UserGCode & "', " & _
                             "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
                             "where strSubpartKey = '0413" & txtAIRSNumber.Text & "M' " & _
                             "and strSubpart = '" & Subpart & "' "
                         Else
-                            SQL = "Insert into " & DBNameSpace & ".APBSubpartData " & _
+                            SQL = "Insert into AIRBRANCH.APBSubpartData " & _
                             "values " & _
                             "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "M', " & _
                             "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
@@ -10087,7 +10087,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Close()
                     Next
                 Else
-                    SQL = "Update " & DBNameSpace & ".APBSubPartData set " & _
+                    SQL = "Update AIRBRANCH.APBSubPartData set " & _
                     "updateUser = '" & UserGCode & "', " & _
                     "UpdateDateTime = '" & OracleDate & "', " & _
                     "Active = '0' " & _
@@ -10102,7 +10102,7 @@ Public Class SSPPApplicationTrackingLog
                 If Mid(AirProgramCodes, 13, 1) = "1" Then
                     temp = "27"
                     SQL = "Select strPollutantKey " & _
-                    "from " & DBNameSpace & ".APBAirProgramPollutants " & _
+                    "from AIRBRANCH.APBAirProgramPollutants " & _
                     "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "V' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -10113,7 +10113,7 @@ Public Class SSPPApplicationTrackingLog
                     dr.Close()
                     If recExist = False Then
                         temp = "28"
-                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -10131,7 +10131,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Read()
                         dr.Close()
                     Else
-                        SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
+                        SQL = "Update AIRBRANCH.APBAirProgramPollutants set " & _
                        "strOperationalStatus = '" & OpStatus & "' " & _
                        "where strAirPOllutantKey = '0413" & txtAIRSNumber.Text & "V' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -10143,7 +10143,7 @@ Public Class SSPPApplicationTrackingLog
                         dr.Close()
 
                         SQL = "Select strUpdateStatus " & _
-                        "from " & DBNameSpace & ".AFSAirPollutantData " & _
+                        "from AIRBRANCH.AFSAirPollutantData " & _
                         "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "V' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -10155,7 +10155,7 @@ Public Class SSPPApplicationTrackingLog
                         End While
                         dr.Close()
                         If temp = "N" Then
-                            SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
+                            SQL = "update AIRBRANCH.AFSAirPollutantData set " & _
                             "strUpdateStatus = 'C' " & _
                             "where strAIRPollutantKey = '0413" & txtAIRSNumber.Text & "V'"
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -10229,7 +10229,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             SQL = "select strMasterApplication " & _
-              "from " & DBNameSpace & ".SSPPApplicationLinking " & _
+              "from AIRBRANCH.SSPPApplicationLinking " & _
               "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -10250,11 +10250,11 @@ Public Class SSPPApplicationTrackingLog
             rdbOtherPermit.Checked = False
 
             SQL = "select " & _
-            "distinct(" & DBNameSpace & ".APBPermits.strFileName)  " & _
-            "from " & DBNameSpace & ".APBpermits, " & DBNameSpace & ".SSPPApplicationLinking " & _
-            "where substr(" & DBNameSpace & ".APBpermits.strFileName, 4) = " & DBNameSpace & ".SSPPAPPlicationLinking.strmasterapplication (+) " & _
-            "and (" & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber = '" & MasterApp & "' " & _
-            "or " & DBNameSpace & ".APBPermits.strFileName like '%-" & MasterApp & "') "
+            "distinct(AIRBRANCH.APBPermits.strFileName)  " & _
+            "from AIRBRANCH.APBpermits, AIRBRANCH.SSPPApplicationLinking " & _
+            "where substr(AIRBRANCH.APBpermits.strFileName, 4) = AIRBRANCH.SSPPAPPlicationLinking.strmasterapplication (+) " & _
+            "and (AIRBRANCH.SSPPApplicationLinking.strApplicationNumber = '" & MasterApp & "' " & _
+            "or AIRBRANCH.APBPermits.strFileName like '%-" & MasterApp & "') "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -10313,7 +10313,7 @@ Public Class SSPPApplicationTrackingLog
 
             SQL = "Select " & _
             "strDOCFileSize, strPDFFileSize " & _
-            "From " & DBNameSpace & ".ApbPermits " & _
+            "From AIRBRANCH.ApbPermits " & _
             "where strFileName = '" & FileName & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -10418,7 +10418,7 @@ Public Class SSPPApplicationTrackingLog
                 End If
             End If
             If (PDFFile <> "" And Mid(Flag, 1, 1) = "1") Or DocOnFile = "On File" Then
-                SQL = "update " & DBNameSpace & ".APBPermits set " & _
+                SQL = "update AIRBRANCH.APBPermits set " & _
                 "PDFPermitData = '', " & _
                 "strPDFFileSize = '', " & _
                 "strPDFModifingPerson = '', " & _
@@ -10519,7 +10519,7 @@ Public Class SSPPApplicationTrackingLog
                 Dim cmdCB As OracleCommandBuilder
                 Dim ds As DataSet
 
-                SQL = "Delete " & DBNameSpace & ".APBPermits " & _
+                SQL = "Delete AIRBRANCH.APBPermits " & _
                    "where strFileName = '" & FileName & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -10530,7 +10530,7 @@ Public Class SSPPApplicationTrackingLog
 
                 SQL = "select " & _
                 "rowCount " & _
-                "from " & DBNameSpace & ".APBPermits " & _
+                "from AIRBRANCH.APBPermits " & _
                 "where strFileName = '" & FileName & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -10549,7 +10549,7 @@ Public Class SSPPApplicationTrackingLog
                 If rowCount = "" Then
                     SQL = "select " & _
                     "(max(rowCount) + 1) as RowCount " & _
-                    "from " & DBNameSpace & ".APBPermits "
+                    "from AIRBRANCH.APBPermits "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
@@ -10576,7 +10576,7 @@ Public Class SSPPApplicationTrackingLog
                 fs.Read(rawData, 0, System.Convert.ToInt32(fs.Length))
                 fs.Close()
 
-                SQL = "Select * from " & DBNameSpace & ".APBPermits " & _
+                SQL = "Select * from AIRBRANCH.APBPermits " & _
                 "where strFileName = '" & FileName & "' "
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -10626,7 +10626,7 @@ Public Class SSPPApplicationTrackingLog
                 "(substr(strPermitNumber,1, 4) ||'-'||substr(strPermitNumber, 5,3) " & _
                 "   ||'-'||substr(strPermitNumber, 8,4)||'-'||substr(strPermitNumber, 12, 1)  " & _
                 "   ||'-'||substr(strPermitNumber, 13, 2) ||'-'||substr(strPermitNumber, 15,1)) as PermitNumber " & _
-                "from " & DBNameSpace & ".SSPPApplicationData  " & _
+                "from AIRBRANCH.SSPPApplicationData  " & _
                 "where strApplicationNumber like '" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -10663,7 +10663,7 @@ Public Class SSPPApplicationTrackingLog
 
                             SQL = "select " & _
                             "DocPermitData " & _
-                            "from " & DBNameSpace & ".APBPermits " & _
+                            "from AIRBRANCH.APBPermits " & _
                             "where strFileName = '" & FileName & "' "
 
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -10699,7 +10699,7 @@ Public Class SSPPApplicationTrackingLog
 
                             SQL = "select " & _
                             "pdfPermitData " & _
-                            "from " & DBNameSpace & ".APBPermits " & _
+                            "from AIRBRANCH.APBPermits " & _
                             "where strFileName = '" & FileName & "' "
 
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -10734,7 +10734,7 @@ Public Class SSPPApplicationTrackingLog
 
                             SQL = "select " & _
                             "DocPermitData " & _
-                            "from " & DBNameSpace & ".APBPermits " & _
+                            "from AIRBRANCH.APBPermits " & _
                             "where strFileName = '" & FileName & "' "
 
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -10769,7 +10769,7 @@ Public Class SSPPApplicationTrackingLog
 
                             SQL = "select " & _
                             "pdfPermitData " & _
-                            "from " & DBNameSpace & ".APBPermits " & _
+                            "from AIRBRANCH.APBPermits " & _
                             "where strFileName = '" & FileName & "' "
 
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -10804,7 +10804,7 @@ Public Class SSPPApplicationTrackingLog
             Dim CloseStatus As String = ""
 
             SQL = "Select datFinalizedDate " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster " & _
+            "from AIRBRANCH.SSPPApplicationMaster " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -11326,7 +11326,7 @@ Public Class SSPPApplicationTrackingLog
             'If Mid(Permissions, 26, 5) <> "00000" Or Mid(Permissions, 41, 1) = "1" Or Mid(Permissions, 42, 1) = "1" Then
 
             SQL = "Select datModifingDate " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster " & _
+            "from AIRBRANCH.SSPPApplicationMaster " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -11514,7 +11514,7 @@ Public Class SSPPApplicationTrackingLog
 
         Try
              
-            SQL = "Select " & DBNameSpace & ".SSPPApplicationKey.nextval from dual "
+            SQL = "Select AIRBRANCH.SSPPApplicationKey.nextval from dual "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -12077,7 +12077,7 @@ Public Class SSPPApplicationTrackingLog
             If rdbTitleVPermit.Checked = True Then
                 SQL = "select " & _
                 "strFileName " & _
-                "from " & DBNameSpace & ".APBPermits " & _
+                "from AIRBRANCH.APBPermits " & _
                 "where strFileName like 'V_-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -12147,7 +12147,7 @@ Public Class SSPPApplicationTrackingLog
             If rdbPSDPermit.Checked = True And MasterApp <> "" Then
                 SQL = "select " & _
                 "strFileName " & _
-                "from " & DBNameSpace & ".APBPermits " & _
+                "from AIRBRANCH.APBPermits " & _
                 "where strFileName like 'P_-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -12225,7 +12225,7 @@ Public Class SSPPApplicationTrackingLog
             If rdbOtherPermit.Checked = True Then
                 SQL = "select " & _
                 "strFileName " & _
-                "from " & DBNameSpace & ".APBPermits " & _
+                "from AIRBRANCH.APBPermits " & _
                 "where strFileName like 'O_-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -12278,8 +12278,8 @@ Public Class SSPPApplicationTrackingLog
                 "case " & _
                 "when strDocModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                 "and numUserID = strDocModifingPerson " & _
                 "and strFileName = 'VN-" & MasterApp & "') " & _
                 "end DocStaffResponsible, " & _
@@ -12294,8 +12294,8 @@ Public Class SSPPApplicationTrackingLog
                 "case " & _
                 "when strPDFModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                 "and numUserID = strPDFModifingPerson " & _
                 "and strFileName = 'VN-" & MasterApp & "') " & _
                 "end PDFStaffResponsible, " & _
@@ -12303,7 +12303,7 @@ Public Class SSPPApplicationTrackingLog
                 "when datPDFModifingDate is Null then '' " & _
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                 "End datPDFModifingDate " & _
-                "from " & DBNameSpace & ".APBPermits " & _
+                "from AIRBRANCH.APBPermits " & _
                 "where strFileName = 'VN-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -12392,8 +12392,8 @@ Public Class SSPPApplicationTrackingLog
                 "case " & _
                 "when strDocModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                 "and numUserID = strDocModifingPerson " & _
                 "and strFileName = 'VD-" & MasterApp & "') " & _
                 "end DocStaffResponsible, " & _
@@ -12408,8 +12408,8 @@ Public Class SSPPApplicationTrackingLog
                 "case " & _
                 "when strPDFModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                 "and numuserID = strPDFModifingPerson " & _
                 "and strFileName = 'VD-" & MasterApp & "') " & _
                 "end PDFStaffResponsible, " & _
@@ -12417,7 +12417,7 @@ Public Class SSPPApplicationTrackingLog
                 "when datPDFModifingDate is Null then '' " & _
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                 "End datPDFModifingDate " & _
-                "from " & DBNameSpace & ".APBPermits " & _
+                "from AIRBRANCH.APBPermits " & _
                 "where strFileName = 'VD-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -12505,8 +12505,8 @@ Public Class SSPPApplicationTrackingLog
                 "case " & _
                 "when strDocModifingPerson is Null then '' " & _
                 "else (select (strLastName|| ' '||strFirstName) as StaffName " & _
-                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                 "and numUserID = strDocModifingPerson " & _
                 "and strFileName = 'VP-" & MasterApp & "') " & _
                 "end DocStaffResponsible, " & _
@@ -12521,8 +12521,8 @@ Public Class SSPPApplicationTrackingLog
                 "case " & _
                 "when strPDFModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                 "and numUserID = strPDFModifingPerson " & _
                 "and strFileName = 'VP-" & MasterApp & "') " & _
                 "end PDFStaffResponsible, " & _
@@ -12530,7 +12530,7 @@ Public Class SSPPApplicationTrackingLog
                 "when datPDFModifingDate is Null then '' " & _
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                 "End datPDFModifingDate " & _
-                "from " & DBNameSpace & ".APBPermits " & _
+                "from AIRBRANCH.APBPermits " & _
                 "where strFileName = 'VP-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -12619,8 +12619,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " & _
                  "when strDocModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                  "and numUserID = strDocModifingPerson " & _
                  "and strFileName = 'VF-" & MasterApp & "') " & _
                  "end DocStaffResponsible, " & _
@@ -12635,8 +12635,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " & _
                  "when strPDFModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                  "and numUserID = strPDFModifingPerson " & _
                  "and strFileName = 'VF-" & MasterApp & "') " & _
                  "end PDFStaffResponsible, " & _
@@ -12644,7 +12644,7 @@ Public Class SSPPApplicationTrackingLog
                  "when datPDFModifingDate is Null then '' " & _
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                  "End datPDFModifingDate " & _
-                 "from " & DBNameSpace & ".APBPermits " & _
+                 "from AIRBRANCH.APBPermits " & _
                  "where strFileName = 'VF-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -12732,8 +12732,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " & _
                  "when strDocModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                  "and numUserID = strDocModifingPerson " & _
                  "and strFileName = 'PA-" & MasterApp & "') " & _
                  "end DocStaffResponsible, " & _
@@ -12748,8 +12748,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " & _
                  "when strPDFModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                  "and numUserID = strPDFModifingPerson " & _
                  "and strFileName = 'PA-" & MasterApp & "') " & _
                  "end PDFStaffResponsible, " & _
@@ -12757,7 +12757,7 @@ Public Class SSPPApplicationTrackingLog
                  "when datPDFModifingDate is Null then '' " & _
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                  "End datPDFModifingDate " & _
-                 "from " & DBNameSpace & ".APBPermits " & _
+                 "from AIRBRANCH.APBPermits " & _
                  "where strFileName = 'PA-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -12844,8 +12844,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " & _
                  "when strDocModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                  "and numUserID = strDocModifingPerson " & _
                  "and strFileName = 'PP-" & MasterApp & "') " & _
                  "end DocStaffResponsible, " & _
@@ -12860,8 +12860,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " & _
                  "when strPDFModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                  "and numUserID = strPDFModifingPerson " & _
                  "and strFileName = 'PP-" & MasterApp & "') " & _
                  "end PDFStaffResponsible, " & _
@@ -12869,7 +12869,7 @@ Public Class SSPPApplicationTrackingLog
                  "when datPDFModifingDate is Null then '' " & _
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                  "End datPDFModifingDate " & _
-                 "from " & DBNameSpace & ".APBPermits " & _
+                 "from AIRBRANCH.APBPermits " & _
                  "where strFileName = 'PP-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -12956,8 +12956,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " & _
                  "when strDocModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                  "and numUserID = strDocModifingPerson " & _
                  "and strFileName = 'PT-" & MasterApp & "') " & _
                  "end DocStaffResponsible, " & _
@@ -12972,8 +12972,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " & _
                  "when strPDFModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                  "and numUserID = strPDFModifingPerson " & _
                  "and strFileName = 'PT-" & MasterApp & "') " & _
                  "end PDFStaffResponsible, " & _
@@ -12981,7 +12981,7 @@ Public Class SSPPApplicationTrackingLog
                  "when datPDFModifingDate is Null then '' " & _
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                  "End datPDFModifingDate " & _
-                 "from " & DBNameSpace & ".APBPermits " & _
+                 "from AIRBRANCH.APBPermits " & _
                  "where strFileName = 'PT-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -13068,8 +13068,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " & _
                  "when strDocModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                  "and numUserID = strDocModifingPerson " & _
                  "and strFileName = 'PD-" & MasterApp & "') " & _
                  "end DocStaffResponsible, " & _
@@ -13084,8 +13084,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " & _
                  "when strPDFModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                  "and numUserID = strPDFModifingPerson " & _
                  "and strFileName = 'PD-" & MasterApp & "') " & _
                  "end PDFStaffResponsible, " & _
@@ -13093,7 +13093,7 @@ Public Class SSPPApplicationTrackingLog
                  "when datPDFModifingDate is Null then '' " & _
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                  "End datPDFModifingDate " & _
-                 "from " & DBNameSpace & ".APBPermits " & _
+                 "from AIRBRANCH.APBPermits " & _
                  "where strFileName = 'PD-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -13180,8 +13180,8 @@ Public Class SSPPApplicationTrackingLog
                 "case " & _
                 "when strDocModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                 "and numUserID = strDocModifingPerson " & _
                 "and strFileName = 'PN-" & MasterApp & "') " & _
                 "end DocStaffResponsible, " & _
@@ -13196,8 +13196,8 @@ Public Class SSPPApplicationTrackingLog
                 "case " & _
                 "when strPDFModifingPerson is Null then '' " & _
                 "else (select (strLastname||', '||strFirstName) as StaffName " & _
-                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                 "and numUserID = strPDFModifingPerson " & _
                 "and strFileName = 'PN-" & MasterApp & "') " & _
                 "end PDFStaffResponsible, " & _
@@ -13205,7 +13205,7 @@ Public Class SSPPApplicationTrackingLog
                 "when datPDFModifingDate is Null then '' " & _
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                 "End datPDFModifingDate " & _
-                "from " & DBNameSpace & ".APBPermits " & _
+                "from AIRBRANCH.APBPermits " & _
                 "where strFileName = 'PN-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -13292,8 +13292,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " & _
                  "when strDocModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numuserID " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numuserID " & _
                  "and numUserID = strDocModifingPerson " & _
                  "and strFileName = 'PH-" & MasterApp & "') " & _
                  "end DocStaffResponsible, " & _
@@ -13308,8 +13308,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " & _
                  "when strPDFModifingPerson is Null then '' " & _
                  "else (select (strLastname||', '||strFirstname) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                  "and numUserID = strPDFModifingPerson " & _
                  "and strFileName = 'PH-" & MasterApp & "') " & _
                  "end PDFStaffResponsible, " & _
@@ -13317,7 +13317,7 @@ Public Class SSPPApplicationTrackingLog
                  "when datPDFModifingDate is Null then '' " & _
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                  "End datPDFModifingDate " & _
-                 "from " & DBNameSpace & ".APBPermits " & _
+                 "from AIRBRANCH.APBPermits " & _
                  "where strFileName = 'PH-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -13404,8 +13404,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " & _
                  "when strDocModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                  "and numUserID = strDocModifingPerson " & _
                  "and strFileName = 'PF-" & MasterApp & "') " & _
                  "end DocStaffResponsible, " & _
@@ -13420,8 +13420,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " & _
                  "when strPDFModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                  "and numUserID = strPDFModifingPerson " & _
                  "and strFileName = 'PF-" & MasterApp & "') " & _
                  "end PDFStaffResponsible, " & _
@@ -13429,7 +13429,7 @@ Public Class SSPPApplicationTrackingLog
                  "when datPDFModifingDate is Null then '' " & _
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                  "End datPDFModifingDate " & _
-                 "from " & DBNameSpace & ".APBPermits " & _
+                 "from AIRBRANCH.APBPermits " & _
                  "where strFileName = 'PF-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -13516,8 +13516,8 @@ Public Class SSPPApplicationTrackingLog
                 "case " & _
                 "when strDocModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                 "and numUserID = strDocModifingPerson " & _
                 "and strFileName = 'PI-" & MasterApp & "') " & _
                 "end DocStaffResponsible, " & _
@@ -13532,8 +13532,8 @@ Public Class SSPPApplicationTrackingLog
                 "case " & _
                 "when strPDFModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                 "and numUserID = strPDFModifingPerson " & _
                 "and strFileName = 'PI-" & MasterApp & "') " & _
                 "end PDFStaffResponsible, " & _
@@ -13541,7 +13541,7 @@ Public Class SSPPApplicationTrackingLog
                 "when datPDFModifingDate is Null then '' " & _
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                 "End datPDFModifingDate " & _
-                "from " & DBNameSpace & ".APBPermits " & _
+                "from AIRBRANCH.APBPermits " & _
                 "where strFileName = 'PI-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -13627,8 +13627,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " & _
                  "when strDocModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                  "and numUserID = strDocModifingPerson " & _
                  "and strFileName = 'ON-" & MasterApp & "') " & _
                  "end DocStaffResponsible, " & _
@@ -13643,8 +13643,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " & _
                  "when strPDFModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUSerProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUSerProfiles.numUserID  " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUSerProfiles " & _
+                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUSerProfiles.numUserID  " & _
                  "and numUserID = strPDFModifingPerson " & _
                  "and strFileName = 'ON-" & MasterApp & "') " & _
                  "end PDFStaffResponsible, " & _
@@ -13652,7 +13652,7 @@ Public Class SSPPApplicationTrackingLog
                  "when datPDFModifingDate is Null then '' " & _
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                  "End datPDFModifingDate " & _
-                 "from " & DBNameSpace & ".APBPermits " & _
+                 "from AIRBRANCH.APBPermits " & _
                  "where strFileName = 'ON-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -13740,8 +13740,8 @@ Public Class SSPPApplicationTrackingLog
                   "case " & _
                   "when strDocModifingPerson is Null then '' " & _
                   "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                  "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                  "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                  "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                  "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                   "and numUserID = strDocModifingPerson " & _
                   "and strFileName = 'OP-" & MasterApp & "') " & _
                   "end DocStaffResponsible, " & _
@@ -13756,8 +13756,8 @@ Public Class SSPPApplicationTrackingLog
                   "case " & _
                   "when strPDFModifingPerson is Null then '' " & _
                   "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                  "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".epduserprofiles " & _
-                  "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                  "from AIRBRANCH.APBPermits, AIRBRANCH.epduserprofiles " & _
+                  "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                   "and numUserID = strPDFModifingPerson " & _
                   "and strFileName = 'OP-" & MasterApp & "') " & _
                   "end PDFStaffResponsible, " & _
@@ -13765,7 +13765,7 @@ Public Class SSPPApplicationTrackingLog
                   "when datPDFModifingDate is Null then '' " & _
                   "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                   "End datPDFModifingDate " & _
-                  "from " & DBNameSpace & ".APBPermits " & _
+                  "from AIRBRANCH.APBPermits " & _
                   "where strFileName = 'OP-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -14321,13 +14321,13 @@ Public Class SSPPApplicationTrackingLog
             Dim PDFFile As String = ""
 
             SQL = "select " & _
-            "distinct(" & DBNameSpace & ".APBPermits.strFileName),  " & _
+            "distinct(AIRBRANCH.APBPermits.strFileName),  " & _
             "strDocFileSize, strPDFFileSize " & _
-            "from " & DBNameSpace & ".APBpermits, " & DBNameSpace & ".SSPPApplicationLinking " & _
-            "where substr(" & DBNameSpace & ".APBpermits.strFileName, 4) = " & _
-            "" & DBNameSpace & ".SSPPAPPlicationLinking.strmasterapplication (+) " & _
-            "and (" & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber = '" & MasterApp & "' " & _
-            "or " & DBNameSpace & ".APBPermits.strFileName like '%-" & MasterApp & "') "
+            "from AIRBRANCH.APBpermits, AIRBRANCH.SSPPApplicationLinking " & _
+            "where substr(AIRBRANCH.APBpermits.strFileName, 4) = " & _
+            "AIRBRANCH.SSPPAPPlicationLinking.strmasterapplication (+) " & _
+            "and (AIRBRANCH.SSPPApplicationLinking.strApplicationNumber = '" & MasterApp & "' " & _
+            "or AIRBRANCH.APBPermits.strFileName like '%-" & MasterApp & "') "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -14397,7 +14397,7 @@ Public Class SSPPApplicationTrackingLog
              "strContactState, " & _
              "strContactZipCode, " & _
              "strContactDescription " & _
-             "from " & DBNameSpace & ".APBContactInformation " & _
+             "from AIRBRANCH.APBContactInformation " & _
              "where strContactKey = '0413" & txtAIRSNumber.Text & "30' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -14494,7 +14494,7 @@ Public Class SSPPApplicationTrackingLog
                 txtSIPDescription.BackColor = Color.White
 
                 SQL = "Select strSubPart " & _
-                "From " & DBNameSpace & ".LookUpSubpartSIP " & _
+                "From AIRBRANCH.LookUpSubpartSIP " & _
                 "where strSubPart = '" & txtSIPCode.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -14504,11 +14504,11 @@ Public Class SSPPApplicationTrackingLog
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".LookUpSubpartSIP set " & _
+                    SQL = "Update AIRBRANCH.LookUpSubpartSIP set " & _
                     "strDescription = '" & Replace(txtSIPDescription.Text, "'", "''") & "' " & _
                     "where strSubpart = '" & txtSIPCode.Text & "' "
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".LookUpSubpartSIP " & _
+                    SQL = "Insert into AIRBRANCH.LookUpSubpartSIP " & _
                     "values " & _
                     "('" & Replace(txtSIPCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtSIPDescription.Text, "'", "''") & "') "
@@ -14547,7 +14547,7 @@ Public Class SSPPApplicationTrackingLog
                 txtNSPSDescription.BackColor = Color.White
 
                 SQL = "Select strSubPart " & _
-                "From " & DBNameSpace & ".LookUpSubpart60 " & _
+                "From AIRBRANCH.LookUpSubpart60 " & _
                 "where strSubPart = '" & txtNSPSCode.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -14557,11 +14557,11 @@ Public Class SSPPApplicationTrackingLog
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".LookUpSubpart60 set " & _
+                    SQL = "Update AIRBRANCH.LookUpSubpart60 set " & _
                     "strDescription = '" & Replace(txtNSPSDescription.Text, "'", "''") & "' " & _
                     "where strSubpart = '" & txtNSPSCode.Text & "' "
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".LookUpSubpart60 " & _
+                    SQL = "Insert into AIRBRANCH.LookUpSubpart60 " & _
                     "values " & _
                     "('" & Replace(txtNSPSCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtNSPSDescription.Text, "'", "''") & "') "
@@ -14599,7 +14599,7 @@ Public Class SSPPApplicationTrackingLog
                 txtNESHAPDescription.BackColor = Color.White
 
                 SQL = "Select strSubPart " & _
-                "From " & DBNameSpace & ".LookUpSubpart61 " & _
+                "From AIRBRANCH.LookUpSubpart61 " & _
                 "where strSubPart = '" & txtNESHAPCode.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -14609,11 +14609,11 @@ Public Class SSPPApplicationTrackingLog
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".LookUpSubpart61 set " & _
+                    SQL = "Update AIRBRANCH.LookUpSubpart61 set " & _
                     "strDescription = '" & Replace(txtNESHAPDescription.Text, "'", "''") & "' " & _
                     "where strSubpart = '" & txtNESHAPCode.Text & "' "
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".LookUpSubpart61 " & _
+                    SQL = "Insert into AIRBRANCH.LookUpSubpart61 " & _
                     "values " & _
                     "('" & Replace(txtNESHAPCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtNESHAPDescription.Text, "'", "''") & "') "
@@ -14652,7 +14652,7 @@ Public Class SSPPApplicationTrackingLog
                 txtMACTDescription.BackColor = Color.White
 
                 SQL = "Select strSubPart " & _
-                "From " & DBNameSpace & ".LookUpSubpart63 " & _
+                "From AIRBRANCH.LookUpSubpart63 " & _
                 "where strSubPart = '" & txtMACTCode.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -14662,11 +14662,11 @@ Public Class SSPPApplicationTrackingLog
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".LookUpSubpart63 set " & _
+                    SQL = "Update AIRBRANCH.LookUpSubpart63 set " & _
                     "strDescription = '" & Replace(txtMACTDescription.Text, "'", "''") & "' " & _
                     "where strSubpart = '" & txtMACTCode.Text & "' "
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".LookUpSubpart63 " & _
+                    SQL = "Insert into AIRBRANCH.LookUpSubpart63 " & _
                     "values " & _
                     "('" & Replace(txtMACTCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtMACTDescription.Text, "'", "''") & "') "
@@ -14700,7 +14700,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnDeleteSIPSubpart_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteSIPSubpart.Click
         Try
-            SQL = "Delete " & DBNameSpace & ".LookUpSubpartSIP " & _
+            SQL = "Delete AIRBRANCH.LookUpSubpartSIP " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -14718,7 +14718,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnDeleteNSPSSubpart_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteNSPSSubpart.Click
         Try
-            SQL = "Delete " & DBNameSpace & ".LookUpSubpart60 " & _
+            SQL = "Delete AIRBRANCH.LookUpSubpart60 " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -14736,7 +14736,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnDeleteNESHAPSubpart_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteNESHAPSubpart.Click
         Try
-            SQL = "Delete " & DBNameSpace & ".LookUpSubpart61 " & _
+            SQL = "Delete AIRBRANCH.LookUpSubpart61 " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -14754,7 +14754,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnDeleteMACTSubpart_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteMACTSubpart.Click
         Try
-            SQL = "Delete " & DBNameSpace & ".LookUpSubpart63 " & _
+            SQL = "Delete AIRBRANCH.LookUpSubpart63 " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -15010,11 +15010,11 @@ Public Class SSPPApplicationTrackingLog
             SQL = "select distinct   " & _
             "strAIRSnumber, " & _
             "'' as AppNum, " & _
-            "" & DBNameSpace & ".apbsubpartdata.strSubpart, " & _
+            "AIRBRANCH.apbsubpartdata.strSubpart, " & _
             "strDescription, CreateDateTime " & _
-            "from " & DBNameSpace & ".APBsubpartdata, " & DBNameSpace & ".LookUpSubPartSIP   " & _
-            "where " & DBNameSpace & ".APBSubpartData.strSubPart = " & DBNameSpace & ".LookUpSubpartSIP.strSubpart   " & _
-            "and " & DBNameSpace & ".APBSubPartData.strSubpartKey = '0413" & txtAIRSNumber.Text & "0' " & _
+            "from AIRBRANCH.APBsubpartdata, AIRBRANCH.LookUpSubPartSIP   " & _
+            "where AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubpartSIP.strSubpart   " & _
+            "and AIRBRANCH.APBSubPartData.strSubpartKey = '0413" & txtAIRSNumber.Text & "0' " & _
             "and Active = '1' "
 
             dgvSIPSubParts.RowHeadersVisible = False
@@ -15089,15 +15089,15 @@ Public Class SSPPApplicationTrackingLog
                 For i = 0 To dgvSIPSubParts.RowCount - 1
                     SubPart = dgvSIPSubParts.Item(1, i).Value
                     SQL = "select " & _
-                    "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                    "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                     "strSubpart, strApplicationActivity,   " & _
                     "CreateDateTime " & _
-                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPSubpartData   " & _
-                    "where " & DBNameSpace & ".SSPPSubpartData.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber  " & _
+                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPSubpartData   " & _
+                    "where AIRBRANCH.SSPPSubpartData.strApplicationNumber = AIRBRANCH.SSPPApplicationMaster.strApplicationNumber  " & _
                     "and strAIRSnumber = '0413" & txtAIRSNumber.Text & "'  " & _
                     "and substr(strSubpartkey, 6,1) = '0'  " & _
                     "and strSubpart = '" & SubPart & "'  " & _
-                    "and " & DBNameSpace & ".SSPPSubpartData.strApplicationNumber  = '" & txtApplicationNumber.Text & "'  " & _
+                    "and AIRBRANCH.SSPPSubpartData.strApplicationNumber  = '" & txtApplicationNumber.Text & "'  " & _
                     "order by createdatetime "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -15184,20 +15184,20 @@ Public Class SSPPApplicationTrackingLog
 
             SQL = "select  " & _
             "strAIRSNumber, " & _
-            "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
-            "" & DBNameSpace & ".SSPPSubPartData.strSubpart, strDescription,  " & _
+            "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
+            "AIRBRANCH.SSPPSubPartData.strSubpart, strDescription,  " & _
             "case when strApplicationActivity = '0' then 'Removed'  " & _
             "when strApplicationActivity ='1' then 'Added'  " & _
             "when strApplicationActivity = '2' then 'Modified'  " & _
             "else strApplicationActivity  " & _
             "end Action,  " & _
             "CreatedateTime  " & _
-            "from " & DBNameSpace & ".SSPPSubpartData, " & DBNameSpace & ".SSPPApplicationMaster,   " & _
-            "" & DBNameSpace & ".LookUpSubPartSIP   " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & _
-            DBNameSpace & ".SSPPSubpartData.strApplicationNumber   " & _
-            "and " & DBNameSpace & ".SSPPSubPartData.strSubPart = " & DBNameSpace & ".LookUpSubPartSIP.strSubPart  " & _
-            "and " & DBNameSpace & ".SSPPSubpartData.strSubpartKey  = '" & txtApplicationNumber.Text & "0'"
+            "from AIRBRANCH.SSPPSubpartData, AIRBRANCH.SSPPApplicationMaster,   " & _
+            "AIRBRANCH.LookUpSubPartSIP   " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = " & _
+            "AIRBRANCH.SSPPSubpartData.strApplicationNumber   " & _
+            "and AIRBRANCH.SSPPSubPartData.strSubPart = AIRBRANCH.LookUpSubPartSIP.strSubPart  " & _
+            "and AIRBRANCH.SSPPSubpartData.strSubpartKey  = '" & txtApplicationNumber.Text & "0'"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -15868,11 +15868,11 @@ Public Class SSPPApplicationTrackingLog
             Dim Action As String = ""
             Dim i As Integer = 0
 
-            SQL = "Delete " & DBNameSpace & ".SSPPSubpartData " & _
+            SQL = "Delete AIRBRANCH.SSPPSubpartData " & _
             "where strSubpartKey = '" & txtApplicationNumber.Text & "0' " & _
             "and strApplicationActivity <> '1' "
 
-            SQL = "Delete " & DBNameSpace & ".SSPPSubpartData " & _
+            SQL = "Delete AIRBRANCH.SSPPSubpartData " & _
             "where strSubpartKey = '" & txtApplicationNumber.Text & "0' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -15884,7 +15884,7 @@ Public Class SSPPApplicationTrackingLog
 
             For i = 0 To dgvSIPSubPartDelete.Rows.Count - 1
                 Subpart = dgvSIPSubPartDelete(0, i).Value
-                SQL = "Insert into " & DBNameSpace & ".SSPPSubpartData " & _
+                SQL = "Insert into AIRBRANCH.SSPPSubpartData " & _
                 "values " & _
                 "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "0', " & _
                 "'" & Subpart & "', '0', " & _
@@ -15905,7 +15905,7 @@ Public Class SSPPApplicationTrackingLog
 
                 SQL = "Select " & _
                 "strSubpart " & _
-                "from " & DBNameSpace & ".SSPPSubpartData " & _
+                "from AIRBRANCH.SSPPSubpartData " & _
                 "where strSubpartKey = '" & txtApplicationNumber.Text & "0'  " & _
                 "and strSubpart = '" & Replace(Subpart, "'", "''") & "' "
 
@@ -15919,14 +15919,14 @@ Public Class SSPPApplicationTrackingLog
 
                 Select Case Action
                     Case "Added"
-                        SQL = "Insert into " & DBNameSpace & ".SSPPSubpartData " & _
+                        SQL = "Insert into AIRBRANCH.SSPPSubpartData " & _
                         "values " & _
                         "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "0', " & _
                         "'" & Subpart & "', '1', " & _
                         "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
                         "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
                     Case "Modify"
-                        SQL = "Insert into " & DBNameSpace & ".SSPPSubpartData " & _
+                        SQL = "Insert into AIRBRANCH.SSPPSubpartData " & _
                         "values " & _
                         "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "0', " & _
                         "'" & Subpart & "', '2', " & _
@@ -15995,11 +15995,11 @@ Public Class SSPPApplicationTrackingLog
             SQL = "select distinct   " & _
             "strAIRSnumber, " & _
             "'' as AppNum, " & _
-            "" & DBNameSpace & ".apbsubpartdata.strSubpart, " & _
+            "AIRBRANCH.apbsubpartdata.strSubpart, " & _
             "strDescription, CreateDateTime " & _
-            "from " & DBNameSpace & ".APBsubpartdata, " & DBNameSpace & ".LookUpSubPart60  " & _
-            "where " & DBNameSpace & ".APBSubpartData.strSubPart = " & DBNameSpace & ".LookUpSubpart60.strSubpart   " & _
-            "and " & DBNameSpace & ".APBSubPartData.strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " & _
+            "from AIRBRANCH.APBsubpartdata, AIRBRANCH.LookUpSubPart60  " & _
+            "where AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubpart60.strSubpart   " & _
+            "and AIRBRANCH.APBSubPartData.strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " & _
             "and Active = '1' "
 
             dgvNSPSSubParts.RowHeadersVisible = False
@@ -16074,15 +16074,15 @@ Public Class SSPPApplicationTrackingLog
                 For i = 0 To dgvNSPSSubParts.RowCount - 1
                     SubPart = dgvNSPSSubParts.Item(1, i).Value
                     SQL = "select " & _
-                    "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                    "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                     "strSubpart, strApplicationActivity,   " & _
                     "CreateDateTime " & _
-                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPSubpartData   " & _
-                    "where " & DBNameSpace & ".SSPPSubpartData.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber  " & _
+                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPSubpartData   " & _
+                    "where AIRBRANCH.SSPPSubpartData.strApplicationNumber = AIRBRANCH.SSPPApplicationMaster.strApplicationNumber  " & _
                     "and strAIRSnumber = '0413" & txtAIRSNumber.Text & "'  " & _
                     "and substr(strSubpartkey, 6,1) = '9'  " & _
                     "and strSubpart = '" & SubPart & "'  " & _
-                    "and " & DBNameSpace & ".SSPPSubpartData.strApplicationNumber  = '" & txtApplicationNumber.Text & "'  " & _
+                    "and AIRBRANCH.SSPPSubpartData.strApplicationNumber  = '" & txtApplicationNumber.Text & "'  " & _
                     "order by createdatetime "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -16169,20 +16169,20 @@ Public Class SSPPApplicationTrackingLog
 
             SQL = "select  " & _
             "strAIRSNumber, " & _
-            "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
-            "" & DBNameSpace & ".SSPPSubPartData.strSubpart, strDescription,  " & _
+            "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
+            "AIRBRANCH.SSPPSubPartData.strSubpart, strDescription,  " & _
             "case when strApplicationActivity = '0' then 'Removed'  " & _
             "when strApplicationActivity ='1' then 'Added'  " & _
             "when strApplicationActivity = '2' then 'Modified'  " & _
             "else strApplicationActivity  " & _
             "end Action,  " & _
             "CreatedateTime  " & _
-            "from " & DBNameSpace & ".SSPPSubpartData, " & DBNameSpace & ".SSPPApplicationMaster,   " & _
-            "" & DBNameSpace & ".LookUpSubPart60   " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & _
-            DBNameSpace & ".SSPPSubpartData.strApplicationNumber   " & _
-            "and " & DBNameSpace & ".SSPPSubPartData.strSubPart = " & DBNameSpace & ".LookUpSubPart60.strSubPart  " & _
-            "and " & DBNameSpace & ".SSPPSubpartData.strSubPartKey  = '" & txtApplicationNumber.Text & "9'"
+            "from AIRBRANCH.SSPPSubpartData, AIRBRANCH.SSPPApplicationMaster,   " & _
+            "AIRBRANCH.LookUpSubPart60   " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = " & _
+            "AIRBRANCH.SSPPSubpartData.strApplicationNumber   " & _
+            "and AIRBRANCH.SSPPSubPartData.strSubPart = AIRBRANCH.LookUpSubPart60.strSubPart  " & _
+            "and AIRBRANCH.SSPPSubpartData.strSubPartKey  = '" & txtApplicationNumber.Text & "9'"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -16860,11 +16860,11 @@ Public Class SSPPApplicationTrackingLog
             Dim Action As String = ""
             Dim i As Integer = 0
 
-            SQL = "Delete " & DBNameSpace & ".SSPPSubpartData " & _
+            SQL = "Delete AIRBRANCH.SSPPSubpartData " & _
           "where strSubpartKey = '" & txtApplicationNumber.Text & "9' " & _
           "and strApplicationActivity <> '1' "
 
-            SQL = "Delete " & DBNameSpace & ".SSPPSubpartData " & _
+            SQL = "Delete AIRBRANCH.SSPPSubpartData " & _
             "where strSubpartKey = '" & txtApplicationNumber.Text & "9' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -16876,7 +16876,7 @@ Public Class SSPPApplicationTrackingLog
 
             For i = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
                 Subpart = dgvNSPSSubPartDelete(0, i).Value
-                SQL = "Insert into " & DBNameSpace & ".SSPPSubpartData " & _
+                SQL = "Insert into AIRBRANCH.SSPPSubpartData " & _
                 "values " & _
                 "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "9', " & _
                 "'" & Subpart & "', '0', " & _
@@ -16897,7 +16897,7 @@ Public Class SSPPApplicationTrackingLog
 
                 SQL = "Select " & _
                 "strSubpart " & _
-                "from " & DBNameSpace & ".SSPPSubpartData " & _
+                "from AIRBRANCH.SSPPSubpartData " & _
                 "where strSubpartKey = '" & txtApplicationNumber.Text & "9'  " & _
                 "and strSubpart = '" & Replace(Subpart, "'", "''") & "' "
 
@@ -16911,14 +16911,14 @@ Public Class SSPPApplicationTrackingLog
 
                 Select Case Action
                     Case "Added"
-                        SQL = "Insert into " & DBNameSpace & ".SSPPSubpartData " & _
+                        SQL = "Insert into AIRBRANCH.SSPPSubpartData " & _
                         "values " & _
                         "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "9', " & _
                         "'" & Subpart & "', '1', " & _
                         "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
                         "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
                     Case "Modify"
-                        SQL = "Insert into " & DBNameSpace & ".SSPPSubpartData " & _
+                        SQL = "Insert into AIRBRANCH.SSPPSubpartData " & _
                         "values " & _
                         "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "9', " & _
                         "'" & Subpart & "', '2', " & _
@@ -16953,7 +16953,7 @@ Public Class SSPPApplicationTrackingLog
 
             SQL = "Select " & _
             "strSubpart " & _
-            "from " & DBNameSpace & ".SSPPSubpartData " & _
+            "from AIRBRANCH.SSPPSubpartData " & _
             "where strSubpartKey = '" & txtApplicationNumber.Text & "9' " & _
             "and strApplicationActivity = '1' "
 
@@ -16977,7 +16977,7 @@ Public Class SSPPApplicationTrackingLog
                         End If
                     Next
                     If temp <> "Ignore" Then
-                        SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
+                        SQL = "Update AIRBRANCH.APBSubpartData set " & _
                         "Active = '9', " & _
                         "updateUser = '" & UserGCode & "', " & _
                         "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
@@ -16990,7 +16990,7 @@ Public Class SSPPApplicationTrackingLog
                         dr2 = cmd.ExecuteReader
                         dr2.Close()
 
-                        SQL = "Delete " & DBNameSpace & ".SSPPSubpartData " & _
+                        SQL = "Delete AIRBRANCH.SSPPSubpartData " & _
                         "where strSubpartKey = '" & txtApplicationNumber.Text & "9' " & _
                         "and strApplicationActivity = '1' " & _
                         "and strSubpart = '" & Subpart & "' "
@@ -17011,7 +17011,7 @@ Public Class SSPPApplicationTrackingLog
                 AppStatus = ""
 
                 SQL = "Select strSubPart " & _
-                "from " & DBNameSpace & ".APBSubpartData " & _
+                "from AIRBRANCH.APBSubpartData " & _
                 "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " & _
                 "and strSubpart = '" & Replace(Subpart, "'", "''") & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -17022,14 +17022,14 @@ Public Class SSPPApplicationTrackingLog
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
+                    SQL = "Update AIRBRANCH.APBSubpartData set " & _
                     "Active = '1', " & _
                     "updateUser = '" & UserGCode & "', " & _
                     "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
                     "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " & _
                     "and strSubpart = '" & Subpart & "' "
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".APBSubpartData " & _
+                    SQL = "Insert into AIRBRANCH.APBSubpartData " & _
                     "values " & _
                     "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " & _
                     "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
@@ -17043,7 +17043,7 @@ Public Class SSPPApplicationTrackingLog
                 dr.Close()
 
                 SQL = "Select strApplicationNumber " & _
-                "from " & DBNameSpace & ".SSPPSubpartData " & _
+                "from AIRBRANCH.SSPPSubpartData " & _
                 "where strSubpartKey = '" & txtApplicationNumber.Text & "9' " & _
                 "and strSubpart = '" & Subpart & "' " & _
                 "and strApplicationActivity = '1' "
@@ -17060,11 +17060,11 @@ Public Class SSPPApplicationTrackingLog
                 End If
             Next
 
-            SQL = "Delete " & DBNameSpace & ".SSPPSubpartData " & _
+            SQL = "Delete AIRBRANCH.SSPPSubpartData " & _
             "where strSubpartKey = '" & txtApplicationNumber.Text & "9' " & _
             "and strApplicationActivity <> '1' "
 
-            'SQL = "Delete " & DBNameSpace & ".SSPPSubpartData " & _
+            'SQL = "Delete AIRBRANCH.SSPPSubpartData " & _
             '"where strSubpartKey = '" & txtApplicationNumber.Text & "9' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -17078,7 +17078,7 @@ Public Class SSPPApplicationTrackingLog
             For i = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
                 Subpart = dgvNSPSSubPartDelete(0, i).Value
 
-                SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
+                SQL = "Update AIRBRANCH.APBSubpartData set " & _
                 "Active = '9', " & _
                 "updateUser = '" & UserGCode & "', " & _
                 "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
@@ -17094,7 +17094,7 @@ Public Class SSPPApplicationTrackingLog
 
                 SQL = "Select " & _
                 "strSubpart " & _
-                "from " & DBNameSpace & ".SSPPSubpartData " & _
+                "from AIRBRANCH.SSPPSubpartData " & _
                 "where strSubpartKey = '" & txtApplicationNumber.Text & "9' " & _
                 "and strSubpart = '" & Replace(Subpart, "'", "''") & "' "
 
@@ -17107,7 +17107,7 @@ Public Class SSPPApplicationTrackingLog
                 dr.Close()
 
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".SSPPSubpartData set " & _
+                    SQL = "Update AIRBRANCH.SSPPSubpartData set " & _
                     "strApplicationActivity = '9', " & _
                     "updateUser = '" & UserGCode & "', " & _
                     "updateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
@@ -17115,7 +17115,7 @@ Public Class SSPPApplicationTrackingLog
                     "and strSubPart = '" & Subpart & "' " & _
                     "and strSubPartKey = '" & txtApplicationNumber.Text & "9' "
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".SSPPSubpartData " & _
+                    SQL = "Insert into AIRBRANCH.SSPPSubpartData " & _
                     "values " & _
                     "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "9', " & _
                     "'" & Subpart & "', '9', " & _
@@ -17138,7 +17138,7 @@ Public Class SSPPApplicationTrackingLog
 
                 SQL = "Select " & _
                 "strSubpart " & _
-                "from " & DBNameSpace & ".SSPPSubpartData " & _
+                "from AIRBRANCH.SSPPSubpartData " & _
                 "where strSubpartKey = '" & txtApplicationNumber.Text & "9'  " & _
                 "and strSubpart = '" & Replace(Subpart, "'", "''") & "' "
 
@@ -17153,7 +17153,7 @@ Public Class SSPPApplicationTrackingLog
                 Select Case Action
                     Case "Added"
                         If recExist = True Then
-                            SQL = "Update " & DBNameSpace & ".SSPPSubpartData set " & _
+                            SQL = "Update AIRBRANCH.SSPPSubpartData set " & _
                             "strApplicationActivity = '1', " & _
                             "updateUser = '" & UserGCode & "', " & _
                             "updateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
@@ -17161,7 +17161,7 @@ Public Class SSPPApplicationTrackingLog
                             "and strSubPart = '" & Subpart & "' " & _
                             "and strSubPartKey = '" & txtApplicationNumber.Text & "9' "
                         Else
-                            SQL = "Insert into " & DBNameSpace & ".SSPPSubpartData " & _
+                            SQL = "Insert into AIRBRANCH.SSPPSubpartData " & _
                             "values " & _
                             "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "9', " & _
                             "'" & Subpart & "', '1', " & _
@@ -17170,7 +17170,7 @@ Public Class SSPPApplicationTrackingLog
                         End If
                     Case "Modify"
                         If recExist = True Then
-                            SQL = "Update " & DBNameSpace & ".SSPPSubpartData set " & _
+                            SQL = "Update AIRBRANCH.SSPPSubpartData set " & _
                             "strApplicationActivity = '2', " & _
                             "updateUser = '" & UserGCode & "', " & _
                             "updateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
@@ -17178,7 +17178,7 @@ Public Class SSPPApplicationTrackingLog
                             "and strSubPart = '" & Subpart & "' " & _
                             "and strSubPartKey = '" & txtApplicationNumber.Text & "9' "
                         Else
-                            SQL = "Insert into " & DBNameSpace & ".SSPPSubpartData " & _
+                            SQL = "Insert into AIRBRANCH.SSPPSubpartData " & _
                             "values " & _
                             "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "9', " & _
                             "'" & Subpart & "', '2', " & _
@@ -17201,7 +17201,7 @@ Public Class SSPPApplicationTrackingLog
 
             SQL = "Select " & _
             "strPollutantKey " & _
-            "from " & DBNameSpace & ".AFSAirPollutantData " & _
+            "from AIRBRANCH.AFSAirPollutantData " & _
             "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "9' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -17213,7 +17213,7 @@ Public Class SSPPApplicationTrackingLog
             dr.Close()
 
             If recExist = True Then
-                SQL = "Update " & DBNameSpace & ".AFSAirPollutantData set " & _
+                SQL = "Update AIRBRANCH.AFSAirPollutantData set " & _
                 "strUpdateStatus = 'C' " & _
                 "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "9' " & _
                 "and strUpdateStatus <> 'A' "
@@ -17224,7 +17224,7 @@ Public Class SSPPApplicationTrackingLog
                 dr = cmd.ExecuteReader
                 dr.Close()
             Else
-                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                 "values " & _
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " & _
                 "'OT', '3', " & _
@@ -17237,7 +17237,7 @@ Public Class SSPPApplicationTrackingLog
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Insert into " & DBNameSpace & ".AFSAirPollutantData " & _
+                SQL = "Insert into AIRBRANCH.AFSAirPollutantData " & _
                 "values " & _
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " & _
                 "'OT', 'A', " & _
@@ -17296,11 +17296,11 @@ Public Class SSPPApplicationTrackingLog
             SQL = "select distinct   " & _
             "strAIRSnumber, " & _
             "'' as AppNum, " & _
-            "" & DBNameSpace & ".apbsubpartdata.strSubpart, " & _
+            "AIRBRANCH.apbsubpartdata.strSubpart, " & _
             "strDescription, CreateDateTime " & _
-            "from " & DBNameSpace & ".APBsubpartdata, " & DBNameSpace & ".LookUpSubPart61   " & _
-            "where " & DBNameSpace & ".APBSubpartData.strSubPart = " & DBNameSpace & ".LookUpSubPart61.strSubpart   " & _
-            "and " & DBNameSpace & ".APBSubPartData.strSubpartKey = '0413" & txtAIRSNumber.Text & "8' " & _
+            "from AIRBRANCH.APBsubpartdata, AIRBRANCH.LookUpSubPart61   " & _
+            "where AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubPart61.strSubpart   " & _
+            "and AIRBRANCH.APBSubPartData.strSubpartKey = '0413" & txtAIRSNumber.Text & "8' " & _
             "and Active = '1' "
 
             dgvNESHAPSubParts.RowHeadersVisible = False
@@ -17375,15 +17375,15 @@ Public Class SSPPApplicationTrackingLog
                 For i = 0 To dgvNESHAPSubParts.RowCount - 1
                     SubPart = dgvNESHAPSubParts.Item(1, i).Value
                     SQL = "select " & _
-                    "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                    "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                     "strSubpart, strApplicationActivity,   " & _
                     "CreateDateTime " & _
-                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPSubpartData   " & _
-                    "where " & DBNameSpace & ".SSPPSubpartData.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber  " & _
+                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPSubpartData   " & _
+                    "where AIRBRANCH.SSPPSubpartData.strApplicationNumber = AIRBRANCH.SSPPApplicationMaster.strApplicationNumber  " & _
                     "and strAIRSnumber = '0413" & txtAIRSNumber.Text & "'  " & _
                     "and substr(strSubpartkey, 6,1) = '8'  " & _
                     "and strSubpart = '" & SubPart & "'  " & _
-                        "and " & DBNameSpace & ".SSPPSubpartData.strApplicationNumber  = '" & txtApplicationNumber.Text & "'  " & _
+                        "and AIRBRANCH.SSPPSubpartData.strApplicationNumber  = '" & txtApplicationNumber.Text & "'  " & _
                     "order by createdatetime "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -17470,20 +17470,20 @@ Public Class SSPPApplicationTrackingLog
 
             SQL = "select  " & _
             "strAIRSNumber, " & _
-            "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
-            "" & DBNameSpace & ".SSPPSubPartData.strSubpart, strDescription,  " & _
+            "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
+            "AIRBRANCH.SSPPSubPartData.strSubpart, strDescription,  " & _
             "case when strApplicationActivity = '0' then 'Removed'  " & _
             "when strApplicationActivity ='1' then 'Added'  " & _
             "when strApplicationActivity = '2' then 'Modified'  " & _
             "else strApplicationActivity  " & _
             "end Action,  " & _
             "CreatedateTime  " & _
-            "from " & DBNameSpace & ".SSPPSubpartData, " & DBNameSpace & ".SSPPApplicationMaster,   " & _
-            "" & DBNameSpace & ".LookUpSubPart61   " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & _
-            DBNameSpace & ".SSPPSubpartData.strApplicationNumber   " & _
-            "and " & DBNameSpace & ".SSPPSubPartData.strSubPart = " & DBNameSpace & ".LookUpSubPart61.strSubPart  " & _
-            "and " & DBNameSpace & ".SSPPSubpartData.strSubpartKey  = '" & txtApplicationNumber.Text & "8'"
+            "from AIRBRANCH.SSPPSubpartData, AIRBRANCH.SSPPApplicationMaster,   " & _
+            "AIRBRANCH.LookUpSubPart61   " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = " & _
+            "AIRBRANCH.SSPPSubpartData.strApplicationNumber   " & _
+            "and AIRBRANCH.SSPPSubPartData.strSubPart = AIRBRANCH.LookUpSubPart61.strSubPart  " & _
+            "and AIRBRANCH.SSPPSubpartData.strSubpartKey  = '" & txtApplicationNumber.Text & "8'"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -18166,7 +18166,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Action As String = ""
             Dim i As Integer = 0
 
-            SQL = "Delete " & DBNameSpace & ".SSPPSubpartData " & _
+            SQL = "Delete AIRBRANCH.SSPPSubpartData " & _
             "where strSubpartKey = '" & txtApplicationNumber.Text & "8' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -18178,7 +18178,7 @@ Public Class SSPPApplicationTrackingLog
 
             For i = 0 To dgvNESHAPSubPartDelete.Rows.Count - 1
                 Subpart = dgvNESHAPSubPartDelete(0, i).Value
-                SQL = "Insert into " & DBNameSpace & ".SSPPSubpartData " & _
+                SQL = "Insert into AIRBRANCH.SSPPSubpartData " & _
                 "values " & _
                 "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "8', " & _
                 "'" & Subpart & "', '0', " & _
@@ -18199,7 +18199,7 @@ Public Class SSPPApplicationTrackingLog
 
                 SQL = "Select " & _
                 "strSubpart " & _
-                "from " & DBNameSpace & ".SSPPSubpartData " & _
+                "from AIRBRANCH.SSPPSubpartData " & _
                 "where strSubpartKey = '" & txtApplicationNumber.Text & "8'  " & _
                 "and strSubpart = '" & Replace(Subpart, "'", "''") & "' "
 
@@ -18213,14 +18213,14 @@ Public Class SSPPApplicationTrackingLog
 
                 Select Case Action
                     Case "Added"
-                        SQL = "Insert into " & DBNameSpace & ".SSPPSubpartData " & _
+                        SQL = "Insert into AIRBRANCH.SSPPSubpartData " & _
                         "values " & _
                         "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "8', " & _
                         "'" & Subpart & "', '1', " & _
                         "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
                         "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
                     Case "Modify"
-                        SQL = "Insert into " & DBNameSpace & ".SSPPSubpartData " & _
+                        SQL = "Insert into AIRBRANCH.SSPPSubpartData " & _
                         "values " & _
                         "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "8', " & _
                         "'" & Subpart & "', '2', " & _
@@ -18284,11 +18284,11 @@ Public Class SSPPApplicationTrackingLog
             SQL = "select distinct   " & _
             "strAIRSnumber, " & _
             "'' as AppNum, " & _
-            "" & DBNameSpace & ".apbsubpartdata.strSubpart, " & _
+            "AIRBRANCH.apbsubpartdata.strSubpart, " & _
             "strDescription, CreateDateTime " & _
-            "from " & DBNameSpace & ".APBsubpartdata, " & DBNameSpace & ".LookUpSubPart63   " & _
-            "where " & DBNameSpace & ".APBSubpartData.strSubPart = " & DBNameSpace & ".LookUpSubPart63.strSubpart   " & _
-            "and " & DBNameSpace & ".APBSubPartData.strSubpartKey = '0413" & txtAIRSNumber.Text & "M' " & _
+            "from AIRBRANCH.APBsubpartdata, AIRBRANCH.LookUpSubPart63   " & _
+            "where AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubPart63.strSubpart   " & _
+            "and AIRBRANCH.APBSubPartData.strSubpartKey = '0413" & txtAIRSNumber.Text & "M' " & _
             "and Active = '1' "
 
 
@@ -18364,15 +18364,15 @@ Public Class SSPPApplicationTrackingLog
                 For i = 0 To dgvMACTSubParts.RowCount - 1
                     SubPart = dgvMACTSubParts.Item(1, i).Value
                     SQL = "select " & _
-                    "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                    "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                     "strSubpart, strApplicationActivity,   " & _
                     "CreateDateTime " & _
-                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPSubpartData   " & _
-                    "where " & DBNameSpace & ".SSPPSubpartData.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber  " & _
+                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPSubpartData   " & _
+                    "where AIRBRANCH.SSPPSubpartData.strApplicationNumber = AIRBRANCH.SSPPApplicationMaster.strApplicationNumber  " & _
                     "and strAIRSnumber = '0413" & txtAIRSNumber.Text & "'  " & _
                     "and substr(strSubpartkey, 6,1) = 'M'  " & _
                     "and strSubpart = '" & SubPart & "'  " & _
-                    "and " & DBNameSpace & ".SSPPSubpartData.strApplicationNumber  = '" & txtApplicationNumber.Text & "'  " & _
+                    "and AIRBRANCH.SSPPSubpartData.strApplicationNumber  = '" & txtApplicationNumber.Text & "'  " & _
                     "order by createdatetime "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -18459,20 +18459,20 @@ Public Class SSPPApplicationTrackingLog
 
             SQL = "select  " & _
             "strAIRSNumber, " & _
-            "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
-            "" & DBNameSpace & ".SSPPSubPartData.strSubpart, strDescription,  " & _
+            "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
+            "AIRBRANCH.SSPPSubPartData.strSubpart, strDescription,  " & _
             "case when strApplicationActivity = '0' then 'Removed'  " & _
             "when strApplicationActivity ='1' then 'Added'  " & _
             "when strApplicationActivity = '2' then 'Modified'  " & _
             "else strApplicationActivity  " & _
             "end Action,  " & _
             "CreatedateTime  " & _
-            "from " & DBNameSpace & ".SSPPSubpartData, " & DBNameSpace & ".SSPPApplicationMaster,   " & _
-            "" & DBNameSpace & ".LookUpSubPart63   " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & _
-            DBNameSpace & ".SSPPSubpartData.strApplicationNumber   " & _
-            "and " & DBNameSpace & ".SSPPSubPartData.strSubPart = " & DBNameSpace & ".LookUpSubPart63.strSubPart  " & _
-            "and " & DBNameSpace & ".SSPPSubpartData.strSubpartKey  = '" & txtApplicationNumber.Text & "M'"
+            "from AIRBRANCH.SSPPSubpartData, AIRBRANCH.SSPPApplicationMaster,   " & _
+            "AIRBRANCH.LookUpSubPart63   " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = " & _
+            "AIRBRANCH.SSPPSubpartData.strApplicationNumber   " & _
+            "and AIRBRANCH.SSPPSubPartData.strSubPart = AIRBRANCH.LookUpSubPart63.strSubPart  " & _
+            "and AIRBRANCH.SSPPSubpartData.strSubpartKey  = '" & txtApplicationNumber.Text & "M'"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -19153,7 +19153,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Action As String = ""
             Dim i As Integer = 0
 
-            SQL = "Delete " & DBNameSpace & ".SSPPSubpartData " & _
+            SQL = "Delete AIRBRANCH.SSPPSubpartData " & _
             "where strSubpartKey = '" & txtApplicationNumber.Text & "M' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -19165,7 +19165,7 @@ Public Class SSPPApplicationTrackingLog
 
             For i = 0 To dgvMACTSubPartDelete.Rows.Count - 1
                 Subpart = dgvMACTSubPartDelete(0, i).Value
-                SQL = "Insert into " & DBNameSpace & ".SSPPSubpartData " & _
+                SQL = "Insert into AIRBRANCH.SSPPSubpartData " & _
                 "values " & _
                 "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "M', " & _
                 "'" & Subpart & "', '0', " & _
@@ -19186,7 +19186,7 @@ Public Class SSPPApplicationTrackingLog
 
                 SQL = "Select " & _
                 "strSubpart " & _
-                "from " & DBNameSpace & ".SSPPSubpartData " & _
+                "from AIRBRANCH.SSPPSubpartData " & _
                 "where strSubpartKey = '" & txtApplicationNumber.Text & "M'  " & _
                 "and strSubpart = '" & Replace(Subpart, "'", "''") & "' "
 
@@ -19200,14 +19200,14 @@ Public Class SSPPApplicationTrackingLog
 
                 Select Case Action
                     Case "Added"
-                        SQL = "Insert into " & DBNameSpace & ".SSPPSubpartData " & _
+                        SQL = "Insert into AIRBRANCH.SSPPSubpartData " & _
                         "values " & _
                         "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "M', " & _
                         "'" & Subpart & "', '1', " & _
                         "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
                         "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
                     Case "Modify"
-                        SQL = "Insert into " & DBNameSpace & ".SSPPSubpartData " & _
+                        SQL = "Insert into AIRBRANCH.SSPPSubpartData " & _
                         "values " & _
                         "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "M', " & _
                         "'" & Subpart & "', '2', " & _

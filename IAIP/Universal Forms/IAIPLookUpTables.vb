@@ -17,7 +17,7 @@ Public Class IAIPLookUpTables
             "to_number(strApplicationTypeCode) as strApplicationTypeCode, " & _
             "strApplicationTypeDesc, " & _
             "strApplicationTypeUsed " & _
-            "From " & DBNameSpace & ".LookUpApplicationTypes " & _
+            "From AIRBRANCH.LookUpApplicationTypes " & _
             "order by strApplicationTypeDesc "
 
             ds = New DataSet
@@ -114,10 +114,10 @@ Public Class IAIPLookUpTables
                     AppStatus = False
                 End If
 
-                SQL = "Insert into " & DBNameSpace & ".LookUpApplicationTypes " & _
+                SQL = "Insert into AIRBRANCH.LookUpApplicationTypes " & _
                 "values " & _
                 "((Select max(to_Number(strApplicationTypeCode)) + 1 as MaxID " & _
-                "from " & DBNameSpace & ".LookUpApplicationTypes), " & _
+                "from AIRBRANCH.LookUpApplicationTypes), " & _
                 "'" & txtApplicationDesc.Text & "', '" & AppStatus & "') "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -127,7 +127,7 @@ Public Class IAIPLookUpTables
                 dr.Close()
 
                 SQL = "Select max(to_Number(strApplicationTypeCode)) + 1 as MaxID " & _
-                "from " & DBNameSpace & ".LookUpApplicationTypes "
+                "from AIRBRANCH.LookUpApplicationTypes "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -160,7 +160,7 @@ Public Class IAIPLookUpTables
             End If
 
             If txtApplicationID.Text <> "" Then
-                SQL = "Update " & DBNameSpace & ".LookUpApplicationTypes set " & _
+                SQL = "Update AIRBRANCH.LookUpApplicationTypes set " & _
                 "strApplicationTypeDesc = '" & Replace(txtApplicationDesc.Text, "'", "''") & "', " & _
                 "strApplicationTypeUsed = '" & temp & "' " & _
                 "where strApplicationTypeCode = '" & txtApplicationID.Text & "' "
@@ -186,7 +186,7 @@ Public Class IAIPLookUpTables
         Try
             If txtApplicationID.Text <> "" Then
                 SQL = "Select Count(*) as IDUsed " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster " & _
+                "from AIRBRANCH.SSPPApplicationMaster " & _
                 "where strApplicationType = '" & txtApplicationID.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -209,7 +209,7 @@ Public Class IAIPLookUpTables
                 dr.Close()
 
                 If temp <> "Keep" Then
-                    SQL = "delete " & DBNameSpace & ".LookUpApplicationTypes " & _
+                    SQL = "delete AIRBRANCH.LookUpApplicationTypes " & _
                     "where strApplicationTypeCode = '" & txtApplicationID.Text & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -393,7 +393,7 @@ Public Class IAIPLookUpTables
             "end MangerType, " & _
             "strManagementName, datStartDate, " & _
             "datEndDate, strCurrentContact " & _
-            "from " & DBNameSpace & ".LookUpAPBManagementType " & _
+            "from AIRBRANCH.LookUpAPBManagementType " & _
             "where strCurrentContact = '1' " & _
             "order by to_number(strKey) "
 
@@ -467,7 +467,7 @@ Public Class IAIPLookUpTables
                 "strKey, " & _
                 "strManagementName, datStartDate, " & _
                 "datEndDate, strCurrentContact " & _
-                "from " & DBNameSpace & ".LookUpAPBManagementType " & _
+                "from AIRBRANCH.LookUpAPBManagementType " & _
                 "where numId = '" & txtAPBManagemetnID.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -665,7 +665,7 @@ Public Class IAIPLookUpTables
             End Select
 
             SQL = "Select numId " & _
-            "from " & DBNameSpace & ".LookUpAPBManagementType " & _
+            "from AIRBRANCH.LookUpAPBManagementType " & _
             "where strCurrentContact = '1' " & _
             "and strKey = '" & ManagementType & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -676,7 +676,7 @@ Public Class IAIPLookUpTables
             While dr.Read
                 If IsDBNull(dr.Item("numID")) Then
                 Else
-                    SQL = "Update " & DBNameSpace & ".LookUpAPBManagementType set " & _
+                    SQL = "Update AIRBRANCH.LookUpAPBManagementType set " & _
                     "strCurrentContact = '0', " & _
                     "datEndDate = '" & OracleDate & "' " & _
                     "where numId = '" & dr.Item("numID") & "' "
@@ -690,7 +690,7 @@ Public Class IAIPLookUpTables
             End While
             dr.Close()
 
-            SQL = "Insert into " & DBNameSpace & ".LookUpAPBManagementType " & _
+            SQL = "Insert into AIRBRANCH.LookUpAPBManagementType " & _
             "values " & _
             "((select max(numId) + 1 from AIRBRANCH.LookUpAPBManagementType), '" & ManagementType & "', " & _
             "'" & Replace(ManagementName, "'", "''") & "', '" & OracleDate & "', " & _
@@ -882,7 +882,7 @@ Public Class IAIPLookUpTables
             "end MangerType, " & _
             "strManagementName, datStartDate, " & _
             "datEndDate, strCurrentContact " & _
-            "from " & DBNameSpace & ".LookUpAPBManagementType " & _
+            "from AIRBRANCH.LookUpAPBManagementType " & _
             "where strKey = '" & ManagementType & "' " & _
             "order by numID "
 

@@ -9,7 +9,7 @@ Namespace DAL.ISMP
             If id = "" OrElse Not Integer.TryParse(id, Nothing) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM " & DBNameSpace & ".ISMPREPORTINFORMATION " & _
+                " FROM AIRBRANCH.ISMPREPORTINFORMATION " & _
                 " WHERE RowNum = 1 " & _
                 " AND STRREFERENCENUMBER = :pId "
             Dim parameter As New OracleParameter("pId", id)
@@ -22,7 +22,7 @@ Namespace DAL.ISMP
             If id = "" OrElse Not Integer.TryParse(id, Nothing) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM " & DBNameSpace & ".ISMPTESTNOTIFICATION " & _
+                " FROM AIRBRANCH.ISMPTESTNOTIFICATION " & _
                 " WHERE RowNum = 1 " & _
                 " AND STRTESTLOGNUMBER = :pId "
             Dim parameter As New OracleParameter("pId", id)
@@ -35,7 +35,7 @@ Namespace DAL.ISMP
             If id = "" OrElse Not Integer.TryParse(id, Nothing) Then Return False
 
             Dim query As String = "SELECT STRCLOSED " & _
-                " FROM " & DBNameSpace & ".ISMPREPORTINFORMATION " & _
+                " FROM AIRBRANCH.ISMPREPORTINFORMATION " & _
                 " WHERE STRREFERENCENUMBER = :pId "
             Dim parameter As New OracleParameter("pId", id)
 

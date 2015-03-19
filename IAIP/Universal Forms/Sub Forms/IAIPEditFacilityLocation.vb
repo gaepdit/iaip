@@ -38,11 +38,11 @@ Public Class IAIPEditFacilityLocation
         Try
 
             SQL = "Select * " & _
-            "from " & DBNameSpace & ".VW_APBFacilityLocation " & _
+            "from AIRBRANCH.VW_APBFacilityLocation " & _
             "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
             SQL2 = "Select * " & _
-            "from " & DBNameSpace & ".VW_HB_APBFacilityLocation " & _
+            "from AIRBRANCH.VW_HB_APBFacilityLocation " & _
             "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' " & _
             "Order by strKey DESC "
 
@@ -301,7 +301,7 @@ Public Class IAIPEditFacilityLocation
                           Longitude <> "" Or Latitude <> "" Or _
                           Comments <> "" Then
 
-                            SQL = "Update " & DBNameSpace & ".APBFacilityInformation set "
+                            SQL = "Update AIRBRANCH.APBFacilityInformation set "
                             If FacilityName <> "" Then
                                 SQL = SQL & "strFacilityName = '" & FacilityName & "', "
                             End If
@@ -349,7 +349,7 @@ Public Class IAIPEditFacilityLocation
                             dr.Close()
 
                             If FacilityName <> "" Then
-                                SQL = "Update " & DBNameSpace & ".OLAPUserAccess set " & _
+                                SQL = "Update AIRBRANCH.OLAPUserAccess set " & _
                                 "strFacilityName = '" & FacilityName & "' " & _
                                 "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
@@ -435,7 +435,7 @@ Public Class IAIPEditFacilityLocation
 
             If txtKey.Text <> "" Then
                 SQL = "Select * " & _
-                "from " & DBNameSpace & ".VW_HB_APBFacilityLocation " & _
+                "from AIRBRANCH.VW_HB_APBFacilityLocation " & _
                 "where strKey = '" & txtKey.Text & "' " & _
                 "Order by strKey DESC "
 

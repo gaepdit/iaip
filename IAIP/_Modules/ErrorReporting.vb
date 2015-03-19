@@ -96,9 +96,9 @@ Module ErrorReporting
             ErrorMessage = GetCurrentVersion.ToString & vbCrLf & ErrorMessage
             Dim AbbrevErrorMess As String = Mid(ErrorMessage, 1, 4000)
 
-            Dim query As String = "INSERT INTO " & DBNameSpace & ".IAIPERRORLOG " & _
+            Dim query As String = "INSERT INTO AIRBRANCH.IAIPERRORLOG " & _
                 " (STRERRORNUMBER,STRUSER,STRERRORLOCATION,STRERRORMESSAGE,DATERRORDATE) " & _
-                " values (" & DBNameSpace & ".IAIPERRORNUMBER.NEXTVAL, :pGCode, :pErrorLoc, :pErrorMess, SYSDATE) "
+                " values (AIRBRANCH.IAIPERRORNUMBER.NEXTVAL, :pGCode, :pErrorLoc, :pErrorMess, SYSDATE) "
             Dim parameters As OracleParameter() = New OracleParameter() { _
                 New OracleParameter("pGCode", UserGCode), _
                 New OracleParameter("pErrorLoc", ErrorLocation), _

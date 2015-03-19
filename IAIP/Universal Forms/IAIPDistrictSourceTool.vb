@@ -51,7 +51,7 @@ Public Class IAIPDistrictSourceTool
             Select Case LoadSource
                 Case "PageLoad"
                     SQL = "Select strCountyName, strCountyCode " & _
-                    "from " & DBNameSpace & ".LookUpCountyInformation " & _
+                    "from AIRBRANCH.LookUpCountyInformation " & _
                     "Order by strCountyName"
                 Case "District"
                     For x As Integer = 0 To clbDistricts.Items.Count - 1
@@ -68,7 +68,7 @@ Public Class IAIPDistrictSourceTool
                     End Select
 
                     SQL = "Select strCountyName, strCountyCode " & _
-                    "from " & DBNameSpace & ".LookUpCountyInformation, " & DBNameSpace & ".LookUpDistrictInformation " & _
+                    "from AIRBRANCH.LookUpCountyInformation, AIRBRANCH.LookUpDistrictInformation " & _
                     "Where strCountyCode = strDistrictCounty " & _
                     " " & SQLLine & " Order by strCountyName "
 
@@ -115,7 +115,7 @@ Public Class IAIPDistrictSourceTool
         Try
 
             SQL = "Select strDistrictName, strDistrictCode " & _
-                   "from " & DBNameSpace & ".LookUPDistricts " & _
+                   "from AIRBRANCH.LookUPDistricts " & _
                    "order by StrDistrictName"
 
             dsDistrict = New DataSet
@@ -218,10 +218,10 @@ Public Class IAIPDistrictSourceTool
 
             SQL = "Select  " & _
             "(strFirstName||' '||strLastName) as Username,   " & _
-            "" & DBNameSpace & ".EPDUserProfiles.numUserID,  " & _
+            "AIRBRANCH.EPDUserProfiles.numUserID,  " & _
             "striaipPermissions  " & _
-            "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".IAIPPermissions     " & _
-            "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".IAIPPermissions.numUserID  " & _
+            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.IAIPPermissions     " & _
+            "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.IAIPPermissions.numUserID  " & _
             "and ((numProgram = '4' and numUnit is null)  " & _
             "or strIAIPPermissions like '%(21)%'  " & _
             "or strIAIPPermissions like '%(23)%' " & _
@@ -277,10 +277,10 @@ Public Class IAIPDistrictSourceTool
 
             If cboDistricts.SelectedIndex > 0 Then
                 For Each strObject In clbCounties.CheckedItems
-                    SQL = "Update " & DBNameSpace & ".LookupDistrictInformation set " & _
+                    SQL = "Update AIRBRANCH.LookupDistrictInformation set " & _
                     "strDistrictCode = '" & cboDistricts.SelectedValue & "' " & _
                     "where strDistrictCounty = (select strCountyCode " & _
-                    "from " & DBNameSpace & ".LookUpCountyInformation where " & _
+                    "from AIRBRANCH.LookUpCountyInformation where " & _
                     "strCountyName = '" & strObject & "') "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -303,7 +303,7 @@ Public Class IAIPDistrictSourceTool
         Try
 
             If txtNewDistrict.Text <> "" And txtNewDistrictCode.Text <> "" Then
-                SQL = "Select strDistrictCode from " & DBNameSpace & ".LookUPDistricts " & _
+                SQL = "Select strDistrictCode from AIRBRANCH.LookUPDistricts " & _
                 "where strDistrictCode = '" & txtNewDistrictCode.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -313,12 +313,12 @@ Public Class IAIPDistrictSourceTool
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".LookUPDistricts set " & _
+                    SQL = "Update AIRBRANCH.LookUPDistricts set " & _
                     "strDistrictName = '" & txtNewDistrict.Text & "', " & _
                     "strDistrictManager = '" & cboDistrictManager.SelectedValue & "' " & _
                     "where strDistrictCode = '" & txtNewDistrictCode.Text & "' "
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".LookUPDistricts " & _
+                    SQL = "Insert into AIRBRANCH.LookUPDistricts " & _
                     "(strDistrictCode, strDistrictName, " & _
                     "strDistrictManager) " & _
                     "values " & _
@@ -340,7 +340,7 @@ Public Class IAIPDistrictSourceTool
             End If
 
             If chbRemoveDistrict.Checked = True Then
-                SQL = "Delete " & DBNameSpace & ".LookUPDistricts " & _
+                SQL = "Delete AIRBRANCH.LookUPDistricts " & _
                 "where strDistrictCode = '" & Me.cboDistrictToRemove.SelectedValue & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -583,7 +583,7 @@ Public Class IAIPDistrictSourceTool
             If txtNewDistrictCode.Text <> "" Then
                 SQL = "Select " & _
                 "strDistrictName, strDistrictManager " & _
-                "from " & DBNameSpace & ".LookUPDistricts " & _
+                "from AIRBRANCH.LookUPDistricts " & _
                 "where strDistrictCode = '" & txtNewDistrictCode.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -643,7 +643,7 @@ Public Class IAIPDistrictSourceTool
             clbCounties.Items.Clear()
 
             SQL = "Select strCountyName, strCountyCode " & _
-            "from " & DBNameSpace & ".LookUpCountyInformation " & _
+            "from AIRBRANCH.LookUpCountyInformation " & _
             "Order by strCountyName"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -659,7 +659,7 @@ Public Class IAIPDistrictSourceTool
 
                 SQL2 = "Select " & _
                 "strCountyName " & _
-                "from " & DBNameSpace & ".LookUpCountyInformation, " & DBNameSpace & ".LookUpDistrictInformation " & _
+                "from AIRBRANCH.LookUpCountyInformation, AIRBRANCH.LookUpDistrictInformation " & _
                 "Where strCountyCode = strDistrictCounty " & _
                 "and strDistrictCode = '" & clbDistricts.SelectedValue & "' " & _
                 "and strCountyName = '" & CountyName & "' "

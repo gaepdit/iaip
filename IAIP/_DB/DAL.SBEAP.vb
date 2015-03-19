@@ -8,7 +8,7 @@ Namespace DAL.SBEAP
             If clientID = "" OrElse Not Integer.TryParse(clientID, Nothing) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM " & DBNameSpace & ".SBEAPCLIENTS " & _
+                " FROM AIRBRANCH.SBEAPCLIENTS " & _
                 " WHERE RowNum = 1 " & _
                 " AND CLIENTID = :pId "
 
@@ -22,7 +22,7 @@ Namespace DAL.SBEAP
             If caseNumber = "" OrElse Not Integer.TryParse(caseNumber, Nothing) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM " & DBNameSpace & ".SBEAPCASELOG " & _
+                " FROM AIRBRANCH.SBEAPCASELOG " & _
                 " WHERE RowNum = 1 " & _
                 " AND NUMCASEID = :pId "
 

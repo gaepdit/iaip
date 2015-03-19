@@ -5,7 +5,7 @@ Namespace DAL
 
         Public Function AppIsEnabled() As Boolean
             Dim query As String = " SELECT FENABLED " & _
-                " FROM " & DBNameSpace & ".APBMASTERAPP " & _
+                " FROM AIRBRANCH.APBMASTERAPP " & _
                 " WHERE STRAPPLICATIONNAME = :pAppName "
             Dim parameter As OracleParameter = New OracleParameter("pAppName", APP_NAME)
 
