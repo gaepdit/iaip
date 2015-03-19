@@ -449,6 +449,7 @@ Public Class IAIPFacilityCreator
             If txtCDSFacilityName.Text = "" Then
                 facilityname = "N/A"
             Else
+                txtCDSFacilityName.Text = Apb.Facility.SanitizeFacilityNameForDb(txtCDSFacilityName.Text)
                 FacilityName = txtCDSFacilityName.Text
             End If
             If txtCDSStreetAddress.Text <> "" Then
@@ -1901,8 +1902,6 @@ Public Class IAIPFacilityCreator
     Private Sub btnValidateFacility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnValidateFacility.Click
         Try
             Dim FacilityName As String
-            Dim FirstWord As String
-            Dim LastWord As String
             Dim FacilityAddress As String
 
             If txtNewAIRSNumber.Text <> "" Then
@@ -1910,24 +1909,11 @@ Public Class IAIPFacilityCreator
             Else
                 Exit Sub
             End If
-            If FacilityName.Contains(" ") Then
-                FirstWord = Mid(FacilityName, 1, FacilityName.IndexOf(" "))
-                LastWord = Mid(FacilityName, FacilityName.IndexOf(" "))
-            End If
             If txtStreetAddress.Text <> "" Then
                 FacilityAddress = txtStreetAddress.Text
             Else
                 FacilityAddress = ""
             End If
-
-            SQL = "Select " & _
-            "substr(strAIRSNumber, 5) as AIRSNumber, strFacilityName, " & _
-            "strFacilityStreet1, strFacilityCity, " & _
-            "strFacilityZipCode " & _
-            "from " & DBNameSpace & ".APBFacilityInformation " & _
-            "where upper(strFacilityName) like '%" & FacilityName.ToUpper & "%' " & _
-            "or upper(strFacilityStreet1) like '%" & FacilityAddress.ToUpper & "%' "
-
 
             SQL = "Select " & _
             "strFacilityName, " & _
@@ -2123,6 +2109,7 @@ Public Class IAIPFacilityCreator
             If txtCDSFacilityName.Text = "" Then
                 FacilityName = "N/A"
             Else
+                txtCDSFacilityName.Text = Apb.Facility.SanitizeFacilityNameForDb(txtCDSFacilityName.Text)
                 FacilityName = txtCDSFacilityName.Text
             End If
 

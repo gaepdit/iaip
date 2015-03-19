@@ -6891,6 +6891,7 @@ Public Class SSPPApplicationTrackingLog
                 End While
                 dr.Close()
 
+                txtFacilityName.Text = Apb.Facility.SanitizeFacilityNameForDb(txtFacilityName.Text)
                 FacilityName = txtFacilityName.Text
                 FacilityAddress = Me.txtFacilityStreetAddress.Text
                 If cboFacilityCity.Text <> "" Then
@@ -7258,23 +7259,6 @@ Public Class SSPPApplicationTrackingLog
                             dr = cmd.ExecuteReader
                             dr.Read()
                             dr.Close()
-
-                            'SQL = "Update " & DBNameSpace & ".SSPPApplicationData set " & _
-                            '"strOperationalStatus = '" & Replace(OperationalStatus, "'", "''") & "', " & _
-                            '"strClass = '" & Classification & "', " & _
-                            '"strAirProgramCodes = '" & AirProgramCodes & "', " & _
-                            '"strSICCode = '" & SIC & "', " & _
-                            '"strPermitNumber = '" & Replace(PermitNumber, "'", "''") & "', " & _
-                            '"strPlantDescription = '" & Replace(PlantDesc, "'", "''") & "', " & _
-                            '"strStateProgramCodes = '" & StateProgramCodes & "', " & _
-                            '"strPAReady = '" & PAReady & "', " & _
-                            '"strPNReady = '" & PNReady & "', " & _
-                            '"strApplicationNotes = '" & Replace(ApplicationNotes, "'", "''") & "', " & _
-                            '"strSignificantComments = '" & Replace(SignificantComments, "'", "''") & "', " & _
-                            '"strPublicInvolvement = '" & Replace(PublicInvolved, "'", "''") & "', " & _
-                            '"strModifingperson = '" & UserGCode & "', " & _
-                            '"datModifingdate = '" & OracleDate & "' " & _
-                            '"where strApplicationNumber = '" & LinkedApplication & "' "
 
                             SQL = "Update " & DBNameSpace & ".SSPPApplicationData set " & _
                            "strOperationalStatus = '" & Replace(OperationalStatus, "'", "''") & "', " & _
@@ -8898,7 +8882,7 @@ Public Class SSPPApplicationTrackingLog
                 If IsDBNull(dr.Item("strFacilityName")) Then
                     FacilityName = "N/A"
                 Else
-                    FacilityName = dr.Item("strFacilityName")
+                    FacilityName = Apb.Facility.SanitizeFacilityNameForDb(dr.Item("strFacilityName"))
                 End If
                 If IsDBNull(dr.Item("strFacilityStreet1")) Then
                     FacilityStreet1 = "N/A"

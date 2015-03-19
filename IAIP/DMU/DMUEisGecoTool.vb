@@ -8035,8 +8035,7 @@ Public Class DMUEisGecoTool
                 End If
                 dr = cmd.ExecuteReader
                 dr.Read()
-                facilityName = dr("STRFACILITYNAME")
-
+                facilityName = Apb.Facility.SanitizeFacilityNameForDb(dr("STRFACILITYNAME"))
                 facilityLocationCity = dr("STRFACILITYCITY")
                 facilityLocastionZipcode = dr("STRFACILITYZIPCODE")
                 faciltyMailingAddress = dr("STRFACILITYSTREET1")
@@ -10021,6 +10020,7 @@ Public Class DMUEisGecoTool
     End Sub
 
     Private Sub btnSaveFacilitySiteInfo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveFacilitySiteInfo.Click
+        txtEISFacilityName.Text = Apb.Facility.SanitizeFacilityNameForDb(txtEISFacilityName.Text)
         Dim facilityName As String = txtEISFacilityName.Text
         Dim FacilityAddress As String = txtLocalAddress.Text
         Dim facilityCity As String = txtLocalCity.Text
@@ -10066,7 +10066,7 @@ Public Class DMUEisGecoTool
             txtLocation_APB.Text = ""
             txtLocationCity_APB.Text = ""
             txtLocationZip_APB.Text = ""
-           
+
             MsgBox("Your change is saved", MsgBoxStyle.Information, "Facility Site")
 
         Catch ex As Exception
@@ -10102,7 +10102,7 @@ Public Class DMUEisGecoTool
                     If IsDBNull(dr.Item("strFacilityName")) Then
                         lblFaciltyName.Text = " - "
                     Else
-                        lblFaciltyName.Text = dr.Item("strFacilityName")
+                        lblFaciltyName.Text = Apb.Facility.SanitizeFacilityNameForDb(dr.Item("strFacilityName"))
                     End If
                 End While
                 dr.Close()
@@ -15384,6 +15384,7 @@ Public Class DMUEisGecoTool
             Dim PostalCode As String = ""
 
             If txtEIModifyFacilityName.Text <> "" Then
+                txtEIModifyFacilityName.Text = Apb.Facility.SanitizeFacilityNameForDb(txtEIModifyFacilityName.Text)
                 FacilityName = txtEIModifyFacilityName.Text
             Else
                 FacilityName = ""

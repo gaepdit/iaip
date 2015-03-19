@@ -186,6 +186,7 @@ Public Class IAIPEditFacilityLocation
                 'If UserProgram = "5" Or (UserBranch = "1" And UserUnit = "---") _
                 '  Or (UserProgram = "3" And AccountArray(68, 3) = "1") Then
                 If txtFacilityName.Text <> "" Then
+                    txtFacilityName.Text = Apb.Facility.SanitizeFacilityNameForDb(txtFacilityName.Text)
                     If txtFacilityName.Text <> dsFacilityInformation.Tables("Current").Rows(0).Item(1).ToString() Then
                         FacilityName = Replace(txtFacilityName.Text, "'", "''")
                     Else
@@ -349,7 +350,7 @@ Public Class IAIPEditFacilityLocation
 
                             If FacilityName <> "" Then
                                 SQL = "Update " & DBNameSpace & ".OLAPUserAccess set " & _
-                                "strFacilityName = '" & Replace(FacilityName, "'", "''") & "' " & _
+                                "strFacilityName = '" & FacilityName & "' " & _
                                 "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
                                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -361,7 +362,7 @@ Public Class IAIPEditFacilityLocation
                             End If
 
                             SQL = "Update airbranch.EIS_FacilitySite set " & _
-                            "strFacilitySiteName = '" & Replace(txtFacilityName.Text, "'", "''") & "', " & _
+                            "strFacilitySiteName = '" & FacilityName & "', " & _
                             "strFacilitySiteComment = 'Facility Name updated.', " & _
                             "UpdateUSer = '" & UserName & "', " & _
                             "updateDateTime = sysdate " & _

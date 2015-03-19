@@ -20,13 +20,8 @@ Partial Class IAIPFacilityCreator
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPFacilityCreator))
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
-        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.CloseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
         Me.tspClear = New System.Windows.Forms.ToolStripButton
-        Me.tsbBack = New System.Windows.Forms.ToolStripButton
         Me.GBFacilityInformation = New System.Windows.Forms.GroupBox
         Me.llbOpenWebpage = New System.Windows.Forms.LinkLabel
         Me.mtbFacilityLongitude = New System.Windows.Forms.MaskedTextBox
@@ -153,7 +148,6 @@ Partial Class IAIPFacilityCreator
         Me.Label12 = New System.Windows.Forms.Label
         Me.txtNewAIRSNumber = New System.Windows.Forms.TextBox
         Me.TPCreateNewFacility = New System.Windows.Forms.TabPage
-        Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.GBFacilityInformation.SuspendLayout()
         Me.Panel4.SuspendLayout()
@@ -170,38 +164,10 @@ Partial Class IAIPFacilityCreator
         Me.TPCreateNewFacility.SuspendLayout()
         Me.SuspendLayout()
         '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.HelpToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(792, 24)
-        Me.MenuStrip1.TabIndex = 0
-        Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'FileToolStripMenuItem
-        '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CloseToolStripMenuItem})
-        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.FileToolStripMenuItem.Text = "File"
-        '
-        'CloseToolStripMenuItem
-        '
-        Me.CloseToolStripMenuItem.Name = "CloseToolStripMenuItem"
-        Me.CloseToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.CloseToolStripMenuItem.Text = "Close"
-        '
-        'HelpToolStripMenuItem
-        '
-        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
-        Me.HelpToolStripMenuItem.Text = "Help"
-        '
         'ToolStrip1
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tspClear, Me.tsbBack})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tspClear})
+        Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(792, 25)
         Me.ToolStrip1.TabIndex = 2
@@ -214,15 +180,6 @@ Partial Class IAIPFacilityCreator
         Me.tspClear.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tspClear.Name = "tspClear"
         Me.tspClear.Size = New System.Drawing.Size(23, 22)
-        '
-        'tsbBack
-        '
-        Me.tsbBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbBack.Image = CType(resources.GetObject("tsbBack.Image"), System.Drawing.Image)
-        Me.tsbBack.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbBack.Name = "tsbBack"
-        Me.tsbBack.Size = New System.Drawing.Size(23, 22)
-        Me.tsbBack.Text = "Back"
         '
         'GBFacilityInformation
         '
@@ -519,7 +476,7 @@ Partial Class IAIPFacilityCreator
         Me.Label34.AutoSize = True
         Me.Label34.Location = New System.Drawing.Point(580, 21)
         Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(49, 13)
+        Me.Label34.Size = New System.Drawing.Size(33, 13)
         Me.Label34.TabIndex = 370
         Me.Label34.Text = "Suffix"
         '
@@ -1073,10 +1030,10 @@ Partial Class IAIPFacilityCreator
         Me.TCFacilityTools.Controls.Add(Me.TPApproveNewFacility)
         Me.TCFacilityTools.Controls.Add(Me.TPCreateNewFacility)
         Me.TCFacilityTools.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCFacilityTools.Location = New System.Drawing.Point(0, 49)
+        Me.TCFacilityTools.Location = New System.Drawing.Point(0, 25)
         Me.TCFacilityTools.Name = "TCFacilityTools"
         Me.TCFacilityTools.SelectedIndex = 0
-        Me.TCFacilityTools.Size = New System.Drawing.Size(792, 517)
+        Me.TCFacilityTools.Size = New System.Drawing.Size(792, 541)
         Me.TCFacilityTools.TabIndex = 374
         '
         'TPApproveNewFacility
@@ -1086,7 +1043,7 @@ Partial Class IAIPFacilityCreator
         Me.TPApproveNewFacility.Location = New System.Drawing.Point(4, 22)
         Me.TPApproveNewFacility.Name = "TPApproveNewFacility"
         Me.TPApproveNewFacility.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPApproveNewFacility.Size = New System.Drawing.Size(784, 491)
+        Me.TPApproveNewFacility.Size = New System.Drawing.Size(784, 515)
         Me.TPApproveNewFacility.TabIndex = 1
         Me.TPApproveNewFacility.Text = "Approve New Facilities"
         Me.TPApproveNewFacility.UseVisualStyleBackColor = True
@@ -1097,7 +1054,7 @@ Partial Class IAIPFacilityCreator
         Me.dgvVerifyNewFacilities.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvVerifyNewFacilities.Location = New System.Drawing.Point(3, 3)
         Me.dgvVerifyNewFacilities.Name = "dgvVerifyNewFacilities"
-        Me.dgvVerifyNewFacilities.Size = New System.Drawing.Size(778, 198)
+        Me.dgvVerifyNewFacilities.Size = New System.Drawing.Size(778, 222)
         Me.dgvVerifyNewFacilities.TabIndex = 0
         '
         'Panel5
@@ -1138,7 +1095,7 @@ Partial Class IAIPFacilityCreator
         Me.Panel5.Controls.Add(Me.Label12)
         Me.Panel5.Controls.Add(Me.txtNewAIRSNumber)
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel5.Location = New System.Drawing.Point(3, 201)
+        Me.Panel5.Location = New System.Drawing.Point(3, 225)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(778, 287)
         Me.Panel5.TabIndex = 1
@@ -1492,12 +1449,8 @@ Partial Class IAIPFacilityCreator
         Me.ClientSize = New System.Drawing.Size(792, 566)
         Me.Controls.Add(Me.TCFacilityTools)
         Me.Controls.Add(Me.ToolStrip1)
-        Me.Controls.Add(Me.MenuStrip1)
-        Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "IAIPFacilityCreator"
         Me.Text = "Facility Creator Tools"
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
         Me.GBFacilityInformation.ResumeLayout(False)
@@ -1593,13 +1546,8 @@ Partial Class IAIPFacilityCreator
     Friend WithEvents tbbPaste As System.Windows.Forms.ToolBarButton
     Friend WithEvents MenuItem3 As System.Windows.Forms.MenuItem
     Friend WithEvents mmiClear As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
-    Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents CloseToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents tspClear As System.Windows.Forms.ToolStripButton
-    Friend WithEvents tsbBack As System.Windows.Forms.ToolStripButton
     Friend WithEvents GBFacilityInformation As System.Windows.Forms.GroupBox
     Friend WithEvents mtbCDSZipCode As System.Windows.Forms.MaskedTextBox
     Friend WithEvents Label103 As System.Windows.Forms.Label

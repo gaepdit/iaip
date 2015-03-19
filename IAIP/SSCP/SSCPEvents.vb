@@ -4942,50 +4942,6 @@ Public Class SSCPEvents
                     End If
                 End If
 
-                'If cboNotificationType.Text = "Shutdown" And chbEventComplete.Checked = True Then
-                'If cboNotificationType.Text = "Permit Revocation" And chbEventComplete.Checked = True Then
-                '    SQL = "update AIRBranch.APBHeaderData set " & _
-                '    "strOperationalStatus = 'X',  " & _
-                '    "datShutDownDate = '" & dtpNotificationDate.Text & "', " & _
-                '    "strComments = 'SSCP Shut Down Notification', " & _
-                '    "strModifingLocation = '3', " & _
-                '    "strModifingPerson = '" & UserGCode & "', " & _
-                '    "datModifingDate = '" & OracleDate & "' " & _
-                '    "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "'"
-                '    cmd = New OracleCommand(SQL, CurrentConnection)
-                '    If CurrentConnection.State = ConnectionState.Closed Then
-                '        CurrentConnection.Open()
-                '    End If
-                '    dr = cmd.ExecuteReader
-                '    dr.Close()
-
-                '    SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
-                '    "strOperationalStatus = 'X', " & _
-                '    "strModifingPerson = '" & UserGCode & "', " & _
-                '    "datModifingDate = '" & OracleDate & "' " & _
-                '    "where strAirPollutantKey like '0413" & txtAIRSNumber.Text & "_'"
-
-                '    cmd = New OracleCommand(SQL, CurrentConnection)
-                '    If CurrentConnection.State = ConnectionState.Closed Then
-                '        CurrentConnection.Open()
-                '    End If
-                '    dr = cmd.ExecuteReader
-                '    dr.Close()
-
-                '    SQL = "Update airbranch.EIS_FacilitySite set " & _
-                '    "strFacilitySiteStatusCode = 'PS', " & _
-                '    "strFacilitySiteComment = 'Facility shut down by permitting action.', " & _
-                '    "UpdateUSer = '" & UserName & "', " & _
-                '    "updateDateTime = sysdate " & _
-                '    "where facilitySiteID = '" & txtAIRSNumber.Text & "' "
-                '    cmd = New OracleCommand(SQL, CurrentConnection)
-                '    If CurrentConnection.State = ConnectionState.Closed Then
-                '        CurrentConnection.Open()
-                '    End If
-                '    cmd.ExecuteReader()
-
-                'End If
-
                 If TPReport.Focus = True Then
                     SQL = "Select strUpDateStatus " & _
                     "from " & DBNameSpace & ".AFSSSCPRecords " & _

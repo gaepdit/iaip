@@ -4296,6 +4296,7 @@ Public Class DMUDeveloperTool
 
                 If recExist = False Then
                     If txtCDSFacilityName.Text <> "" Then
+                        txtCDSFacilityName.Text = Apb.Facility.SanitizeFacilityNameForDb(txtCDSFacilityName.Text)
                         FacilityName = txtCDSFacilityName.Text
                         If txtCDSStreetAddress.Text <> "" Then
                             FacilityStreet = txtCDSStreetAddress.Text
