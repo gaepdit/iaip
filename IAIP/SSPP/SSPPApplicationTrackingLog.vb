@@ -6854,19 +6854,6 @@ Public Class SSPPApplicationTrackingLog
                     DateFinalized = ""
                 End If
 
-                'This SQL statement was removed when datModifingDate was changed from a date to a timestamp.
-                'SQL = "Update " & DBNameSpace & ".SSPPApplicationMaster set " & _
-                '"strAIRSNumber = '0413" & txtAIRSNumber.Text & "', " & _
-                '"strStaffResponsible = '" & Replace(StaffResponsible, "'", "''") & "', " & _
-                '"strApplicationType = '" & Replace(ApplicationType, "'", "''") & "', " & _
-                '"strPermitType = '" & Replace(PermitType, "'", "''") & "', " & _
-                '"APBUnit = '" & Replace(Unit, "'", "''") & "', " & _
-                '"datFinalizedDate = '" & DateFinalized & "', " & _
-                '"strModifingperson = '" & UserGCode & "', " & _
-                '"datModifingdate = '" & OracleDate & "' " & _
-                '"where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-
-
                 SQL = "Update " & DBNameSpace & ".SSPPApplicationMaster set " & _
                "strAIRSNumber = '0413" & txtAIRSNumber.Text & "', " & _
                "strStaffResponsible = '" & Replace(StaffResponsible, "'", "''") & "', " & _
@@ -7376,7 +7363,7 @@ Public Class SSPPApplicationTrackingLog
                     Next
                 End If
 
-                If DTPFinalAction.Checked And chbClosedOut.Checked And Apb.ApbFacilityId.ValidAirsNumberFormat(txtAIRSNumber.Text) Then
+                If DTPFinalAction.Checked And chbClosedOut.Checked And Apb.ApbFacilityId.IsValidAirsNumberFormat(txtAIRSNumber.Text) Then
 
                     If Not DAL.FacilityHeaderData.SicCodeIsValid(txtSICCode.Text) Then
                         MessageBox.Show("The SIC code entered is not valid. The application cannot be closed out without a valid SIC code.", _
@@ -7412,7 +7399,7 @@ Public Class SSPPApplicationTrackingLog
                         UpdateAPBTables()
                     End If
 
-                    If Apb.SSPP.Permit.ValidPermitNumber(txtPermitNumber.Text) Then
+                    If Apb.SSPP.Permit.IsValidPermitNumber(txtPermitNumber.Text) Then
                         PermitRevocationQuery()
                         SaveIssuedPermit()
                     End If

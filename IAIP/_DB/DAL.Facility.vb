@@ -26,7 +26,7 @@ Namespace DAL
         End Function
 
         Public Function AirsNumberExists(ByVal airsNumber As String) As Boolean
-            If Not ApbFacilityId.ValidAirsNumberFormat(airsNumber) Then
+            If Not ApbFacilityId.IsValidAirsNumberFormat(airsNumber) Then
                 Return False
             Else
                 Return AirsNumberExists(CType(airsNumber, ApbFacilityId))

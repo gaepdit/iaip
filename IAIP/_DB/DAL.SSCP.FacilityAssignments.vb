@@ -6,7 +6,7 @@ Namespace DAL.SSCP
     Module FacilityAssignments
 
         Public Function FacilityAssignmentExists(ByVal airsNumber As String, ByVal targetYear As Integer) As Boolean
-            If Not Apb.ApbFacilityId.ValidAirsNumberFormat(airsNumber) Then
+            If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(airsNumber) Then
                 Return False
             Else
                 Return FacilityAssignmentExists(CType(airsNumber, Apb.ApbFacilityId), targetYear)
@@ -67,7 +67,7 @@ Namespace DAL.SSCP
             If dataTable IsNot Nothing AndAlso dataTable.Rows.Count > 0 Then
                 For Each row As DataRow In dataTable.Rows
                     Dim airsNumberString As String = DB.GetNullable(Of String)(row("STRAIRSNUMBER"))
-                    If Apb.ApbFacilityId.ValidAirsNumberFormat(airsNumberString) AndAlso _
+                    If Apb.ApbFacilityId.IsValidAirsNumberFormat(airsNumberString) AndAlso _
                     Not FacilityAssignmentExists(airsNumberString, targetYear) Then
 
                         Dim query2 As String = "INSERT " & _
