@@ -398,7 +398,7 @@ Me.Label275 = New System.Windows.Forms.Label
 Me.llbEISStatsViewEnrollment = New System.Windows.Forms.LinkLabel
 Me.btnEISStatsRemoveEnrollment = New System.Windows.Forms.Button
 Me.btnEISStatsEnrollment = New System.Windows.Forms.Button
-Me.TabPage4 = New System.Windows.Forms.TabPage
+Me.TPEISThresholds = New System.Windows.Forms.TabPage
 Me.Panel23 = New System.Windows.Forms.Panel
 Me.dgvThresholdPollutants = New System.Windows.Forms.DataGridView
 Me.Panel24 = New System.Windows.Forms.Panel
@@ -428,7 +428,6 @@ Me.rdbEISThreeYear = New System.Windows.Forms.RadioButton
 Me.rdbEISAnnual = New System.Windows.Forms.RadioButton
 Me.dgvEISYear = New System.Windows.Forms.DataGridView
 Me.Label292 = New System.Windows.Forms.Label
-Me.TabPage12 = New System.Windows.Forms.TabPage
 Me.Panel21 = New System.Windows.Forms.Panel
 Me.btnViewEISStats = New System.Windows.Forms.Button
 Me.Label74 = New System.Windows.Forms.Label
@@ -994,7 +993,7 @@ Me.TPEISStatSummary.SuspendLayout
 Me.Panel22.SuspendLayout
 Me.TPEISStatMailout.SuspendLayout
 Me.TPEISEnrollment.SuspendLayout
-Me.TabPage4.SuspendLayout
+Me.TPEISThresholds.SuspendLayout
 Me.Panel23.SuspendLayout
 CType(Me.dgvThresholdPollutants,System.ComponentModel.ISupportInitialize).BeginInit
 Me.Panel24.SuspendLayout
@@ -3504,8 +3503,7 @@ Me.Panel19.TabIndex = 2
 Me.TCEISStats.Controls.Add(Me.TPEISStatSummary)
 Me.TCEISStats.Controls.Add(Me.TPEISStatMailout)
 Me.TCEISStats.Controls.Add(Me.TPEISEnrollment)
-Me.TCEISStats.Controls.Add(Me.TabPage4)
-Me.TCEISStats.Controls.Add(Me.TabPage12)
+Me.TCEISStats.Controls.Add(Me.TPEISThresholds)
 Me.TCEISStats.Dock = System.Windows.Forms.DockStyle.Fill
 Me.TCEISStats.Location = New System.Drawing.Point(0, 44)
 Me.TCEISStats.Name = "TCEISStats"
@@ -4723,17 +4721,17 @@ Me.btnEISStatsEnrollment.TabIndex = 20
 Me.btnEISStatsEnrollment.Text = "Enroll Mailout List"
 Me.btnEISStatsEnrollment.UseVisualStyleBackColor = true
 '
-'TabPage4
+'TPEISThresholds
 '
-Me.TabPage4.Controls.Add(Me.Panel23)
-Me.TabPage4.Controls.Add(Me.Panel25)
-Me.TabPage4.Controls.Add(Me.Panel26)
-Me.TabPage4.Location = New System.Drawing.Point(4, 22)
-Me.TabPage4.Name = "TabPage4"
-Me.TabPage4.Size = New System.Drawing.Size(438, 617)
-Me.TabPage4.TabIndex = 6
-Me.TabPage4.Text = "EI Thresholds"
-Me.TabPage4.UseVisualStyleBackColor = true
+Me.TPEISThresholds.Controls.Add(Me.Panel23)
+Me.TPEISThresholds.Controls.Add(Me.Panel25)
+Me.TPEISThresholds.Controls.Add(Me.Panel26)
+Me.TPEISThresholds.Location = New System.Drawing.Point(4, 22)
+Me.TPEISThresholds.Name = "TPEISThresholds"
+Me.TPEISThresholds.Size = New System.Drawing.Size(438, 617)
+Me.TPEISThresholds.TabIndex = 6
+Me.TPEISThresholds.Text = "EI Thresholds"
+Me.TPEISThresholds.UseVisualStyleBackColor = true
 '
 'Panel23
 '
@@ -5034,15 +5032,6 @@ Me.Label292.Name = "Label292"
 Me.Label292.Size = New System.Drawing.Size(49, 13)
 Me.Label292.TabIndex = 32
 Me.Label292.Text = "EIS Year"
-'
-'TabPage12
-'
-Me.TabPage12.Location = New System.Drawing.Point(4, 22)
-Me.TabPage12.Name = "TabPage12"
-Me.TabPage12.Size = New System.Drawing.Size(438, 617)
-Me.TabPage12.TabIndex = 5
-Me.TabPage12.Text = "Add/Remove EIS Facility"
-Me.TabPage12.UseVisualStyleBackColor = true
 '
 'Panel21
 '
@@ -10496,7 +10485,7 @@ Me.TPEISStatMailout.ResumeLayout(false)
 Me.TPEISStatMailout.PerformLayout
 Me.TPEISEnrollment.ResumeLayout(false)
 Me.TPEISEnrollment.PerformLayout
-Me.TabPage4.ResumeLayout(false)
+Me.TPEISThresholds.ResumeLayout(false)
 Me.Panel23.ResumeLayout(false)
 CType(Me.dgvThresholdPollutants,System.ComponentModel.ISupportInitialize).EndInit
 Me.Panel24.ResumeLayout(false)
@@ -11335,7 +11324,6 @@ End Sub
     Friend WithEvents Panel19 As System.Windows.Forms.Panel
     Friend WithEvents Panel21 As System.Windows.Forms.Panel
     Friend WithEvents TPEISEnrollment As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage12 As System.Windows.Forms.TabPage
     Friend WithEvents btnViewEISStats As System.Windows.Forms.Button
     Friend WithEvents Label74 As System.Windows.Forms.Label
     Friend WithEvents cboEISStatisticsYear As System.Windows.Forms.ComboBox
@@ -11419,7 +11407,7 @@ End Sub
     Friend WithEvents llbEISStatsViewEnrollment As System.Windows.Forms.LinkLabel
     Friend WithEvents btnEISStatsRemoveEnrollment As System.Windows.Forms.Button
     Friend WithEvents btnEISStatsEnrollment As System.Windows.Forms.Button
-    Friend WithEvents TabPage4 As System.Windows.Forms.TabPage
+    Friend WithEvents TPEISThresholds As System.Windows.Forms.TabPage
     Friend WithEvents txtEISStatsEnrollmentYear As System.Windows.Forms.TextBox
     Friend WithEvents Label275 As System.Windows.Forms.Label
     Friend WithEvents btnCloseOutEIS As System.Windows.Forms.Button
