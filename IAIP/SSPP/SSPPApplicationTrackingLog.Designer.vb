@@ -460,6 +460,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.GBSignificationComments = New System.Windows.Forms.GroupBox
         Me.txtSignificantComments = New System.Windows.Forms.TextBox
         Me.ApplicableRulesGroup = New System.Windows.Forms.GroupBox
+        Me.chbConfidential = New System.Windows.Forms.CheckBox
         Me.chbExpedited = New System.Windows.Forms.CheckBox
         Me.chbPal = New System.Windows.Forms.CheckBox
         Me.chbRuleyy = New System.Windows.Forms.CheckBox
@@ -557,7 +558,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.Label7 = New System.Windows.Forms.Label
         Me.txtDistrict = New System.Windows.Forms.TextBox
         Me.TCApplicationTrackingLog = New System.Windows.Forms.TabControl
-        Me.chbConfidential = New System.Windows.Forms.CheckBox
         Me.GroupBox2.SuspendLayout()
         Me.TPSubPartEditor.SuspendLayout()
         Me.TCSupParts.SuspendLayout()
@@ -5371,6 +5371,16 @@ Partial Class SSPPApplicationTrackingLog
         Me.ApplicableRulesGroup.TabStop = False
         Me.ApplicableRulesGroup.Text = "Applicable Rule(s)"
         '
+        'chbConfidential
+        '
+        Me.chbConfidential.AutoSize = True
+        Me.chbConfidential.Location = New System.Drawing.Point(6, 148)
+        Me.chbConfidential.Name = "chbConfidential"
+        Me.chbConfidential.Size = New System.Drawing.Size(183, 17)
+        Me.chbConfidential.TabIndex = 44
+        Me.chbConfidential.Text = "Confidential information submitted"
+        Me.chbConfidential.UseVisualStyleBackColor = True
+        '
         'chbExpedited
         '
         Me.chbExpedited.AutoSize = True
@@ -6457,16 +6467,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.TCApplicationTrackingLog.SelectedIndex = 0
         Me.TCApplicationTrackingLog.Size = New System.Drawing.Size(792, 562)
         Me.TCApplicationTrackingLog.TabIndex = 255
-        '
-        'chbConfidential
-        '
-        Me.chbConfidential.AutoSize = True
-        Me.chbConfidential.Location = New System.Drawing.Point(6, 148)
-        Me.chbConfidential.Name = "chbConfidential"
-        Me.chbConfidential.Size = New System.Drawing.Size(183, 17)
-        Me.chbConfidential.TabIndex = 44
-        Me.chbConfidential.Text = "Confidential information submitted"
-        Me.chbConfidential.UseVisualStyleBackColor = True
         '
         'SSPPApplicationTrackingLog
         '

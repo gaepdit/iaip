@@ -120,7 +120,7 @@
 
 #Region " Shared functions "
 
-        Public Shared Function ValidPermitNumber(ByVal permitNumber As String) As Boolean
+        Public Shared Function IsValidPermitNumber(ByVal permitNumber As String) As Boolean
             ' Valid permit numbers are in the form 0000-000-0000-A-00-?
             ' (with the dashes)
             If permitNumber Is Nothing Then Return False

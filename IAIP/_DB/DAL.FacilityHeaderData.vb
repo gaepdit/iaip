@@ -22,7 +22,7 @@ Namespace DAL
             If Not rgx.IsMatch(sicCode) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM " & DBNameSpace & ".LK_SIC " & _
+                " FROM AIRBRANCH.LK_SIC " & _
                 " WHERE RowNum = 1 " & _
                 " AND ACTIVE = 1 " & _
                 " AND SIC_CODE = :pId "
@@ -46,7 +46,7 @@ Namespace DAL
             If Not rgx.IsMatch(naicsCode) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM " & DBNameSpace & ".LK_NAICS " & _
+                " FROM AIRBRANCH.LK_NAICS " & _
                 " WHERE RowNum = 1 " & _
                 " AND ACTIVE = 1 " & _
                 " AND NAICS_CODE = :pId "
@@ -84,7 +84,7 @@ Namespace DAL
                 "  STRAIRPROGRAMCODES, " & _
                 "  STRSTATEPROGRAMCODES, " & _
                 "  STRATTAINMENTSTATUS " & _
-                " FROM " & DBNameSpace & ".VW_APBFACILITYHEADER " & _
+                " FROM AIRBRANCH.VW_APBFACILITYHEADER " & _
                 " WHERE STRAIRSNUMBER = :pId "
 
             Dim parameter As New OracleParameter("pId", airsNumber.DbFormattedString)
@@ -159,7 +159,7 @@ Namespace DAL
                 "  STRAIRPROGRAMCODES, " & _
                 "  STRSTATEPROGRAMCODES, " & _
                 "  STRATTAINMENTSTATUS " & _
-                " FROM " & DBNameSpace & ".VW_HB_APBHEADERDATA " & _
+                " FROM AIRBRANCH.VW_HB_APBHEADERDATA " & _
                 " WHERE STRAIRSNUMBER = :pId " & _
                 " ORDER BY STRKEY DESC "
 
@@ -198,7 +198,7 @@ Namespace DAL
 
             ' 1. Update ApbHeaderData
             queryList.Add( _
-                "UPDATE " & DBNameSpace & ".APBHEADERDATA " & _
+                "UPDATE AIRBRANCH.APBHEADERDATA " & _
                 "  SET STROPERATIONALSTATUS = :OperationalStatusCode, " & _
                 "    STRCLASS               = :Classification, " & _
                 "    STRAIRPROGRAMCODES     = :AirProgramsCode, " & _
@@ -234,7 +234,7 @@ Namespace DAL
 
             ' 2. Update ApbSupplamentalData (sic)
             queryList.Add( _
-                " UPDATE " & DBNameSpace & ".APBSUPPLAMENTALDATA " & _
+                " UPDATE AIRBRANCH.APBSUPPLAMENTALDATA " & _
                 "  SET STRMODIFINGPERSON = :modifiedby, " & _
                 "    DATMODIFINGDATE     = sysdate, " & _
                 "    STRRMPID            = :rmp " & _
@@ -259,9 +259,10 @@ Namespace DAL
                     ' 3a. For each active APC, update all existing keys in 
                     '     ApbAirProgramPollutants with new operating status
                     queryList.Add( _
-                        " UPDATE " & DBNameSpace & ".APBAIRPROGRAMPOLLUTANTS " & _
+                        " UPDATE AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " & _
                         "  SET STROPERATIONALSTATUS = :operatingstatus " & _
-                        "  WHERE STRAIRSNUMBER      = :airsnumber " _
+                        "  WHERE STRAIRSNUMBER      = :airsnumber " & _
+                        "  AND STROPERATIONALSTATUS <> 'X' " _
                     )
                     parametersList.Add(New OracleParameter() { _
                         New OracleParameter("operatingstatus", headerData.OperationalStatus.ToString), _
@@ -273,7 +274,7 @@ Namespace DAL
                     '     & compliance status = C
                     queryList.Add( _
                         " INSERT " & _
-                        " INTO " & DBNameSpace & ".APBAIRPROGRAMPOLLUTANTS " & _
+                        " INTO AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " & _
                         "  ( STRAIRSNUMBER, " & _
                         "    STRAIRPOLLUTANTKEY, " & _
                         "    STRPOLLUTANTKEY, " & _
@@ -291,7 +292,7 @@ Namespace DAL
                         " FROM DUAL " & _
                         " WHERE NOT EXISTS " & _
                         "  (SELECT NULL " & _
-                        "  FROM " & DBNameSpace & ".APBAIRPROGRAMPOLLUTANTS " & _
+                        "  FROM AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " & _
                         "  WHERE STRAIRPOLLUTANTKEY = :airpollkey " & _
                         "  ) " _
                     )
@@ -308,7 +309,7 @@ Namespace DAL
 
                     ' 4. For any inactive APC, change any existing subparts in ApbSubpartData to inactive
                     queryList.Add( _
-                        " UPDATE " & DBNameSpace & ".APBSUBPARTDATA " & _
+                        " UPDATE AIRBRANCH.APBSUBPARTDATA " & _
                         "  SET ACTIVE          = :active, " & _
                         "    UPDATEUSER        = :modifiedby, " & _
                         "    UPDATEDATETIME    = sysdate " & _
@@ -325,7 +326,7 @@ Namespace DAL
 
             ' 5. Change update status in AfsAirPollutantData to 'C' where currently 'N'
             queryList.Add( _
-                " UPDATE " & DBNameSpace & ".AFSAIRPOLLUTANTDATA " & _
+                " UPDATE AIRBRANCH.AFSAIRPOLLUTANTDATA " & _
                 "  SET STRUPDATESTATUS   = 'C', " & _
                 "    STRMODIFINGPERSON   = :modifiedby, " & _
                 "    DATMODIFINGDATE     = sysdate " & _

@@ -10,7 +10,7 @@ Namespace DAL
 
         Public Function GetResEventStatusesAsDictionary(Optional ByVal addBlank As Boolean = False, Optional ByVal blankPrompt As String = "") As SortedDictionary(Of Integer, String)
             Dim query As String = " SELECT NUMRESLK_EVENTSTATUSID, STREVENTSTATUS " & _
-                " FROM " & DBNameSpace & ".RESLK_EVENTSTATUS " & _
+                " FROM AIRBRANCH.RESLK_EVENTSTATUS " & _
                 " WHERE ACTIVE = '1' " & _
                 " ORDER BY STREVENTSTATUS "
             Dim d As Dictionary(Of Integer, String) = DB.GetLookupDictionary(query)
@@ -23,7 +23,7 @@ Namespace DAL
         Public Function GetRegistrationStatusesAsDictionary(Optional ByVal addBlank As Boolean = False, Optional ByVal blankPrompt As String = "") As SortedDictionary(Of Integer, String)
             Dim query As String = " SELECT NUMRESLK_REGISTRATIONSTATUSID, " & _
                 " STRREGISTRATIONSTATUS " & _
-                " FROM " & DBNameSpace & ".RESLK_REGISTRATIONSTATUS " & _
+                " FROM AIRBRANCH.RESLK_REGISTRATIONSTATUS " & _
                 " WHERE ACTIVE = '1' " & _
                 " ORDER BY STRREGISTRATIONSTATUS "
             Dim d As Dictionary(Of Integer, String) = DB.GetLookupDictionary(query)
@@ -47,14 +47,14 @@ Namespace DAL
                     "     RES_EVENT.STREVENTSTARTTIME, " & _
                     "     RES_EVENT.STRVENUE, " & _
                     "     RES_EVENT.STRNOTES " & _
-                    " FROM " & DBNameSpace & ".RES_EVENT " & _
-                    " WHERE " & DBNameSpace & ".RES_EVENT.DATSTARTDATE       IS NOT NULL " & _
-                    " AND (TRUNC(" & DBNameSpace & ".RES_EVENT.DATSTARTDATE) >= TRUNC(:pFromDate) " & _
+                    " FROM AIRBRANCH.RES_EVENT " & _
+                    " WHERE AIRBRANCH.RES_EVENT.DATSTARTDATE       IS NOT NULL " & _
+                    " AND (TRUNC(AIRBRANCH.RES_EVENT.DATSTARTDATE) >= TRUNC(:pFromDate) " & _
                     " OR :pFromDate                                IS NULL) " & _
-                    " AND (TRUNC(" & DBNameSpace & ".RES_EVENT.DATSTARTDATE) <= TRUNC(:pToDate) " & _
+                    " AND (TRUNC(AIRBRANCH.RES_EVENT.DATSTARTDATE) <= TRUNC(:pToDate) " & _
                     " OR :pToDate                                  IS NULL) " & _
-                    " AND " & DBNameSpace & ".RES_EVENT.ACTIVE                = '1' " & _
-                    " ORDER BY " & DBNameSpace & ".RES_EVENT.DATSTARTDATE "
+                    " AND AIRBRANCH.RES_EVENT.ACTIVE                = '1' " & _
+                    " ORDER BY AIRBRANCH.RES_EVENT.DATSTARTDATE "
 
                 Dim parameters As OracleParameter() = { _
                     New OracleParameter("pFromDate", OracleDbType.Date, fromDate, ParameterDirection.Input), _
@@ -103,14 +103,14 @@ Namespace DAL
                 "   EP2.STRFIRSTNAME    AS STRFIRSTNAME2, " & _
                 "   EP2.STREMAILADDRESS AS STREMAILADDRESS2, " & _
                 "   EP2.STRPHONE        AS STRPHONE2 " & _
-                " FROM " & DBNameSpace & ".RES_EVENT, " & _
-                "   " & DBNameSpace & ".RESLK_EVENTSTATUS, " & _
-                "   " & DBNameSpace & ".EPDUSERPROFILES EP2, " & _
-                "   " & DBNameSpace & ".EPDUSERPROFILES EP1 " & _
-                " WHERE " & DBNameSpace & ".RES_EVENT.NUMEVENTSTATUSCODE = " & DBNameSpace & ".RESLK_EVENTSTATUS.NUMRESLK_EVENTSTATUSID(+) " & _
-                " AND " & DBNameSpace & ".RES_EVENT.STRUSERGCODE         = EP2.NUMUSERID(+) " & _
-                " AND " & DBNameSpace & ".RES_EVENT.NUMAPBCONTACT        = EP1.NUMUSERID(+) " & _
-                " AND " & DBNameSpace & ".RES_EVENT.NUMRES_EVENTID      = :pId "
+                " FROM AIRBRANCH.RES_EVENT, " & _
+                "   AIRBRANCH.RESLK_EVENTSTATUS, " & _
+                "   AIRBRANCH.EPDUSERPROFILES EP2, " & _
+                "   AIRBRANCH.EPDUSERPROFILES EP1 " & _
+                " WHERE AIRBRANCH.RES_EVENT.NUMEVENTSTATUSCODE = AIRBRANCH.RESLK_EVENTSTATUS.NUMRESLK_EVENTSTATUSID(+) " & _
+                " AND AIRBRANCH.RES_EVENT.STRUSERGCODE         = EP2.NUMUSERID(+) " & _
+                " AND AIRBRANCH.RES_EVENT.NUMAPBCONTACT        = EP1.NUMUSERID(+) " & _
+                " AND AIRBRANCH.RES_EVENT.NUMRES_EVENTID      = :pId "
 
             Dim parameter As New OracleParameter("pId", id)
 
@@ -194,14 +194,14 @@ Namespace DAL
                 "   OLAPUSERPROFILE.STRCOMPANYNAME, " & _
                 "   OLAPUSERPROFILE.STRPHONENUMBER, " & _
                 "   RES_REGISTRATION.NUMREGISTRATIONSTATUSCODE " & _
-                " FROM " & DBNameSpace & ".RES_REGISTRATION, " & _
-                "   " & DBNameSpace & ".OLAPUSERPROFILE, " & _
-                "   " & DBNameSpace & ".OLAPUSERLOGIN, " & _
-                "   " & DBNameSpace & ".RESLK_REGISTRATIONSTATUS " & _
-                " WHERE " & DBNameSpace & ".RES_REGISTRATION.NUMGECOUSERID           = " & DBNameSpace & ".OLAPUSERPROFILE.NUMUSERID " & _
-                " AND " & DBNameSpace & ".RES_REGISTRATION.NUMREGISTRATIONSTATUSCODE = " & DBNameSpace & ".RESLK_REGISTRATIONSTATUS.NUMRESLK_REGISTRATIONSTATUSID " & _
-                " AND " & DBNameSpace & ".RES_REGISTRATION.NUMGECOUSERID             = " & DBNameSpace & ".OLAPUSERLOGIN.NUMUSERID " & _
-                " AND " & DBNameSpace & ".RES_REGISTRATION.NUMRES_EVENTID           = :pId "
+                " FROM AIRBRANCH.RES_REGISTRATION, " & _
+                "   AIRBRANCH.OLAPUSERPROFILE, " & _
+                "   AIRBRANCH.OLAPUSERLOGIN, " & _
+                "   AIRBRANCH.RESLK_REGISTRATIONSTATUS " & _
+                " WHERE AIRBRANCH.RES_REGISTRATION.NUMGECOUSERID           = AIRBRANCH.OLAPUSERPROFILE.NUMUSERID " & _
+                " AND AIRBRANCH.RES_REGISTRATION.NUMREGISTRATIONSTATUSCODE = AIRBRANCH.RESLK_REGISTRATIONSTATUS.NUMRESLK_REGISTRATIONSTATUSID " & _
+                " AND AIRBRANCH.RES_REGISTRATION.NUMGECOUSERID             = AIRBRANCH.OLAPUSERLOGIN.NUMUSERID " & _
+                " AND AIRBRANCH.RES_REGISTRATION.NUMRES_EVENTID           = :pId "
 
             Dim parameter As New OracleParameter("pId", id)
 

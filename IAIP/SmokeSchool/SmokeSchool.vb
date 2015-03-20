@@ -84,7 +84,7 @@ Public Class SmokeSchool
         Try
             SQL = "Select " & _
             "distinct(strYear) as TermYear " & _
-            "from " & DBNameSpace & ".SmokeSchoolSchedule " & _
+            "from AIRBRANCH.SmokeSchoolSchedule " & _
             "order by TermYear desc "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -820,7 +820,7 @@ Public Class SmokeSchool
             schedule = scheduleShort & ": " & startDate & " thru " & endDate
 
             SQL = "Select strSchedule " & _
-            "from " & DBNameSpace & ".SmokeSchoolSchedule " & _
+            "from AIRBRANCH.SmokeSchoolSchedule " & _
             "where strSchedule = '" & schedule & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1067,7 +1067,7 @@ Public Class SmokeSchool
                 End If
 
                 SQL = "select * " & _
-                "from " & DBNameSpace & ".SmokeSchoolReservation " & _
+                "from AIRBRANCH.SmokeSchoolReservation " & _
                 "where upper(strLastName) = upper('" & Replace(txtLastName1X.Text, "'", "''") & "') " & _
                 "and upper(strFirstName) = upper('" & Replace(txtFirstName1X.Text, "'", "''") & "') " & _
                 "and upper(strLocationDate) = upper('" & Replace(txtSchedule.Text, "'", "''") & "') "
@@ -1936,7 +1936,7 @@ Public Class SmokeSchool
 
                     If txtScoreKey.Text <> "" Then
                         SQL = "Select strScoreKey " & _
-                        "From " & DBNameSpace & ".SmokeSchoolScores " & _
+                        "From AIRBRANCH.SmokeSchoolScores " & _
                         "where strScoreKey =  '" & Replace(txtScoreKey.Text, "'", "''") & "' "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2057,7 +2057,7 @@ Public Class SmokeSchool
 
             If txtScoreKey.Text <> "" Then
                 SQL = "Select strScoreKey " & _
-                "From " & DBNameSpace & ".SmokeSchoolScores " & _
+                "From AIRBRANCH.SmokeSchoolScores " & _
                 "where strScoreKey =  '" & Replace(txtScoreKey.Text, "'", "''") & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2078,7 +2078,7 @@ Public Class SmokeSchool
 
                         Exit Sub
                     Case 1
-                        SQL = "Delete " & DBNameSpace & ".SmokeSchoolScores " & _
+                        SQL = "Delete AIRBRANCH.SmokeSchoolScores " & _
                         "where strScoreKey = '" & Replace(txtScoreKey.Text, "'", "''") & "' "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2096,7 +2096,7 @@ Public Class SmokeSchool
                             MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                         Select Case Result
                             Case Windows.Forms.DialogResult.Yes
-                                SQL = "Delete " & DBNameSpace & ".SmokeSchoolScores " & _
+                                SQL = "Delete AIRBRANCH.SmokeSchoolScores " & _
                                 "where strScoreKey = '" & Replace(txtScoreKey.Text, "'", "''") & "' "
 
                                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3735,7 +3735,7 @@ Public Class SmokeSchool
     Private Sub btnActivate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnActivate.Click
         Try
             SQL = "Select strUserEmail " & _
-            "from " & DBNameSpace & ".OlapUserLogIn " & _
+            "from AIRBRANCH.OlapUserLogIn " & _
             "where strUserEmail = '" & Replace(UCase(txtEmailAddress.Text), "'", "''") & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3746,7 +3746,7 @@ Public Class SmokeSchool
             recExist = dr.Read
             dr.Close()
             If recExist = True Then
-                Dim updateString As String = "UPDATE " & DBNameSpace & ".OlapUserLogin " & _
+                Dim updateString As String = "UPDATE AIRBRANCH.OlapUserLogin " & _
                           "SET strconfirm = to_char(sysdate, 'yyyy/mm/dd hh:mi:ss') " & _
                           "WHERE struseremail = '" & Replace(UCase(txtEmailAddress.Text), "'", "''") & "' "
                 cmd = New OracleCommand(updateString, CurrentConnection)

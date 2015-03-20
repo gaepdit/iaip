@@ -456,7 +456,7 @@ Public Class SSCPWorkEnTry
             dsCompliance = New DataSet
 
             SQL = "select strActivityType, strActivityName, strActivityDescription " & _
-            "from " & DBNameSpace & ".LookUPComplianceActivities " & _
+            "from AIRBRANCH.LookUPComplianceActivities " & _
             "order by strActivityName"
 
             daCompliance = New OracleDataAdapter
@@ -533,14 +533,14 @@ Public Class SSCPWorkEnTry
 
                 panel1.Text = "Saving New Compliance Event."
 
-                SQL = "Insert into " & DBNameSpace & ".SSCPItemMaster " & _
+                SQL = "Insert into AIRBRANCH.SSCPItemMaster " & _
                 "(strTrackingNumber, strAIRSnumber, DatReceivedDate, strEventType, " & _
                 "strModifingPerson, datModifingDate) values " & _
-                "(" & DBNameSpace & ".SSCPTrackingNumber.nextval, '0413" & txtAIRSNumber.Text & "', '" & DateReceived & "', " & _
-                "(Select strActivityType from " & DBNameSpace & ".LookUPComplianceActivities where strActivityName = '" & cboEvent.Text & "'), " & _
+                "(AIRBRANCH.SSCPTrackingNumber.nextval, '0413" & txtAIRSNumber.Text & "', '" & DateReceived & "', " & _
+                "(Select strActivityType from AIRBRANCH.LookUPComplianceActivities where strActivityName = '" & cboEvent.Text & "'), " & _
                 "'" & UserGCode & "', '" & OracleDate & "')"
 
-                SQL2 = "Select " & DBNameSpace & ".SSCPTrackingNumber.Currval from Dual"
+                SQL2 = "Select AIRBRANCH.SSCPTrackingNumber.Currval from Dual"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 cmd2 = New OracleCommand(SQL2, CurrentConnection)

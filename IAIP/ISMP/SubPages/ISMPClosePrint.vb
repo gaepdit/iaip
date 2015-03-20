@@ -903,16 +903,16 @@ Public Class ISMPClosePrint
             "     When DatREviewedByUnitManager = '04-Jul-1776' Then 'False' " & _
             "     Else to_char(DatReviewedByUnitManager, 'dd-Mon-yyyy') " & _
             "END as UnitManagerReviewed, " & _
-            "(select strReportType from " & DBNameSpace & ".ISMPReportType " & _
-            "where " & DBNameSpace & ".ISMPReportType.strKey = " & DBNameSpace & ".ISMPReportInformation.strReportType) As ReportType, " & _
+            "(select strReportType from AIRBRANCH.ISMPReportType " & _
+            "where AIRBRANCH.ISMPReportType.strKey = AIRBRANCH.ISMPReportInformation.strReportType) As ReportType, " & _
             "strEmissionSource, " & _
-            "(Select strPollutantDescription From " & DBNameSpace & ".LookUPPollutants " & _
-            "where " & DBNameSpace & ".LookUPPollutants.strPollutantCode = " & DBNameSpace & ".ISMPReportInformation.strPollutant) as Pollutant, " & _
+            "(Select strPollutantDescription From AIRBRANCH.LookUPPollutants " & _
+            "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPollutant) as Pollutant, " & _
             "to_Char(DatTestDateStart, 'dd-Mon-yyyy') as TestDateStart, " & _
             "to_char(DatTestDateEnd, 'dd-Mon-yyyy') as TestDateEnd, " & _
-            "(select strComplianceStatus From " & DBNameSpace & ".LookUPISMPComplianceStatus " & _
-            "where " & DBNameSpace & ".LookUPISMPComplianceStatus.strComplianceKey = " & DBNameSpace & ".ISMPReportInformation.strComplianceStatus) as ComplianceStatus " & _
-            "from " & DBNameSpace & ".ISMPReportInformation " & _
+            "(select strComplianceStatus From AIRBRANCH.LookUPISMPComplianceStatus " & _
+            "where AIRBRANCH.LookUPISMPComplianceStatus.strComplianceKey = AIRBRANCH.ISMPReportInformation.strComplianceStatus) as ComplianceStatus " & _
+            "from AIRBRANCH.ISMPReportInformation " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -966,7 +966,7 @@ Public Class ISMPClosePrint
             End If
 
             SQL = "Select strTestLogNumber " & _
-            "from " & DBNameSpace & ".ISMPTestLogLink " & _
+            "from AIRBRANCH.ISMPTestLogLink " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
@@ -977,7 +977,7 @@ Public Class ISMPClosePrint
                 txtEmissionLog.Text = dr.Item("strTestLogNumber")
 
                 SQL = "select strReferenceNumber " & _
-                "from " & DBNameSpace & ".ISMPTestLogLink " & _
+                "from AIRBRANCH.ISMPTestLogLink " & _
                 "where strTestLogNumber = '" & dr.Item("strTestLogNumber") & "' " & _
                 "order by strReferenceNumber "
 
@@ -1039,7 +1039,7 @@ Public Class ISMPClosePrint
                 CloseState = False
             End If
 
-            SQL = "Update " & DBNameSpace & ".ISMPReportInformation set " & _
+            SQL = "Update AIRBRANCH.ISMPReportInformation set " & _
             "strClosed = '" & CloseState & "', " & _
             "datCompleteDate = '" & DTPDateClosed.Text & "', " & _
             "strModifingPerson = '" & UserGCode & "', " & _

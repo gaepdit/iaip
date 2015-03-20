@@ -22,440 +22,94 @@ Partial Class DMUDangerousTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.SCDMUTool = New System.Windows.Forms.SplitContainer
-        Me.txtSQL = New System.Windows.Forms.TextBox
-        Me.Label4 = New System.Windows.Forms.Label
+        Me.lblEisYear = New System.Windows.Forms.Label
         Me.txtEISYear = New System.Windows.Forms.TextBox
-        Me.Label3 = New System.Windows.Forms.Label
+        Me.lblEisAirs = New System.Windows.Forms.Label
         Me.txtEISAIRSNumber = New System.Windows.Forms.TextBox
-        Me.Button24 = New System.Windows.Forms.Button
-        Me.btnOpenTitleV = New System.Windows.Forms.Button
-        Me.Button23 = New System.Windows.Forms.Button
-        Me.Button22 = New System.Windows.Forms.Button
-        Me.Button21 = New System.Windows.Forms.Button
-        Me.Button20 = New System.Windows.Forms.Button
-        Me.Button19 = New System.Windows.Forms.Button
-        Me.Button18 = New System.Windows.Forms.Button
-        Me.Button17 = New System.Windows.Forms.Button
-        Me.Button16 = New System.Windows.Forms.Button
-        Me.Button15 = New System.Windows.Forms.Button
-        Me.Button14 = New System.Windows.Forms.Button
-        Me.Button13 = New System.Windows.Forms.Button
-        Me.Button12 = New System.Windows.Forms.Button
-        Me.Button11 = New System.Windows.Forms.Button
-        Me.Button10 = New System.Windows.Forms.Button
-        Me.Button9 = New System.Windows.Forms.Button
-        Me.Button8 = New System.Windows.Forms.Button
-        Me.Button7 = New System.Windows.Forms.Button
-        Me.Button6 = New System.Windows.Forms.Button
-        Me.Button5 = New System.Windows.Forms.Button
-        Me.Button4 = New System.Windows.Forms.Button
-        Me.Button3 = New System.Windows.Forms.Button
-        Me.btnFixStacks = New System.Windows.Forms.Button
-        Me.btnFixInvoice = New System.Windows.Forms.Button
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label1 = New System.Windows.Forms.Label
+        Me.PD_EIS_QASTART = New System.Windows.Forms.Button
+        Me.lblNewAirs = New System.Windows.Forms.Label
+        Me.lblOldAirs = New System.Windows.Forms.Label
         Me.txtNewAIRS = New System.Windows.Forms.TextBox
         Me.txtOldAIRS = New System.Windows.Forms.TextBox
         Me.btnMoveAIRSData = New System.Windows.Forms.Button
-        Me.Button1 = New System.Windows.Forms.Button
-        Me.txtVersionNumber = New System.Windows.Forms.TextBox
-        Me.txtACCNumber = New System.Windows.Forms.TextBox
-        Me.btnDeleteACC = New System.Windows.Forms.Button
         Me.txtEnforcementNumber = New System.Windows.Forms.TextBox
         Me.btnDeleteEnforcement = New System.Windows.Forms.Button
-        Me.btnClearSQL = New System.Windows.Forms.Button
-        Me.btnRunSQL = New System.Windows.Forms.Button
-        Me.SCDMUTool.Panel1.SuspendLayout()
-        Me.SCDMUTool.Panel2.SuspendLayout()
-        Me.SCDMUTool.SuspendLayout()
         Me.SuspendLayout()
         '
-        'SCDMUTool
+        'lblEisYear
         '
-        Me.SCDMUTool.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SCDMUTool.Location = New System.Drawing.Point(0, 0)
-        Me.SCDMUTool.Name = "SCDMUTool"
-        Me.SCDMUTool.Orientation = System.Windows.Forms.Orientation.Horizontal
-        '
-        'SCDMUTool.Panel1
-        '
-        Me.SCDMUTool.Panel1.Controls.Add(Me.txtSQL)
-        '
-        'SCDMUTool.Panel2
-        '
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Label4)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.txtEISYear)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Label3)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.txtEISAIRSNumber)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Button24)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.btnOpenTitleV)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Button23)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Button22)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Button21)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Button20)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Button19)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Button18)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Button17)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Button16)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Button15)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Button14)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Button13)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Button12)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Button11)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Button10)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Button9)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Button8)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Button7)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Button6)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Button5)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Button4)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Button3)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.btnFixStacks)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.btnFixInvoice)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Label2)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Label1)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.txtNewAIRS)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.txtOldAIRS)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.btnMoveAIRSData)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.Button1)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.txtVersionNumber)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.txtACCNumber)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.btnDeleteACC)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.txtEnforcementNumber)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.btnDeleteEnforcement)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.btnClearSQL)
-        Me.SCDMUTool.Panel2.Controls.Add(Me.btnRunSQL)
-        Me.SCDMUTool.Size = New System.Drawing.Size(715, 485)
-        Me.SCDMUTool.SplitterDistance = 303
-        Me.SCDMUTool.TabIndex = 2
-        '
-        'txtSQL
-        '
-        Me.txtSQL.AcceptsReturn = True
-        Me.txtSQL.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtSQL.Location = New System.Drawing.Point(0, 0)
-        Me.txtSQL.Multiline = True
-        Me.txtSQL.Name = "txtSQL"
-        Me.txtSQL.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtSQL.Size = New System.Drawing.Size(715, 303)
-        Me.txtSQL.TabIndex = 0
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(381, 16)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(49, 13)
-        Me.Label4.TabIndex = 50
-        Me.Label4.Text = "EIS Year"
-        Me.Label4.Visible = False
+        Me.lblEisYear.AutoSize = True
+        Me.lblEisYear.Location = New System.Drawing.Point(185, 85)
+        Me.lblEisYear.Name = "lblEisYear"
+        Me.lblEisYear.Size = New System.Drawing.Size(49, 13)
+        Me.lblEisYear.TabIndex = 50
+        Me.lblEisYear.Text = "EIS Year"
+        Me.lblEisYear.Visible = False
         '
         'txtEISYear
         '
-        Me.txtEISYear.Location = New System.Drawing.Point(436, 12)
+        Me.txtEISYear.Location = New System.Drawing.Point(240, 81)
         Me.txtEISYear.Name = "txtEISYear"
         Me.txtEISYear.Size = New System.Drawing.Size(55, 20)
         Me.txtEISYear.TabIndex = 49
         Me.txtEISYear.Visible = False
         '
-        'Label3
+        'lblEisAirs
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(208, 16)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(62, 13)
-        Me.Label3.TabIndex = 48
-        Me.Label3.Text = "EIS AIRS #"
-        Me.Label3.Visible = False
+        Me.lblEisAirs.AutoSize = True
+        Me.lblEisAirs.Location = New System.Drawing.Point(12, 85)
+        Me.lblEisAirs.Name = "lblEisAirs"
+        Me.lblEisAirs.Size = New System.Drawing.Size(62, 13)
+        Me.lblEisAirs.TabIndex = 48
+        Me.lblEisAirs.Text = "EIS AIRS #"
+        Me.lblEisAirs.Visible = False
         '
         'txtEISAIRSNumber
         '
-        Me.txtEISAIRSNumber.Location = New System.Drawing.Point(275, 12)
+        Me.txtEISAIRSNumber.Location = New System.Drawing.Point(79, 81)
         Me.txtEISAIRSNumber.Name = "txtEISAIRSNumber"
         Me.txtEISAIRSNumber.Size = New System.Drawing.Size(100, 20)
         Me.txtEISAIRSNumber.TabIndex = 47
         Me.txtEISAIRSNumber.Visible = False
         '
-        'Button24
+        'PD_EIS_QASTART
         '
-        Me.Button24.Location = New System.Drawing.Point(497, 11)
-        Me.Button24.Name = "Button24"
-        Me.Button24.Size = New System.Drawing.Size(75, 23)
-        Me.Button24.TabIndex = 46
-        Me.Button24.Text = "Button24"
-        Me.Button24.UseVisualStyleBackColor = True
-        Me.Button24.Visible = False
+        Me.PD_EIS_QASTART.Location = New System.Drawing.Point(301, 80)
+        Me.PD_EIS_QASTART.Name = "PD_EIS_QASTART"
+        Me.PD_EIS_QASTART.Size = New System.Drawing.Size(148, 23)
+        Me.PD_EIS_QASTART.TabIndex = 46
+        Me.PD_EIS_QASTART.Text = "Run PD_EIS_QASTART"
+        Me.PD_EIS_QASTART.UseVisualStyleBackColor = True
+        Me.PD_EIS_QASTART.Visible = False
         '
-        'btnOpenTitleV
+        'lblNewAirs
         '
-        Me.btnOpenTitleV.Location = New System.Drawing.Point(12, 57)
-        Me.btnOpenTitleV.Name = "btnOpenTitleV"
-        Me.btnOpenTitleV.Size = New System.Drawing.Size(75, 23)
-        Me.btnOpenTitleV.TabIndex = 45
-        Me.btnOpenTitleV.Text = "Open Title V"
-        Me.btnOpenTitleV.UseVisualStyleBackColor = True
+        Me.lblNewAirs.AutoSize = True
+        Me.lblNewAirs.Location = New System.Drawing.Point(289, 127)
+        Me.lblNewAirs.Name = "lblNewAirs"
+        Me.lblNewAirs.Size = New System.Drawing.Size(67, 13)
+        Me.lblNewAirs.TabIndex = 19
+        Me.lblNewAirs.Text = "New AIRS #"
         '
-        'Button23
+        'lblOldAirs
         '
-        Me.Button23.Location = New System.Drawing.Point(578, 102)
-        Me.Button23.Name = "Button23"
-        Me.Button23.Size = New System.Drawing.Size(14, 23)
-        Me.Button23.TabIndex = 44
-        Me.Button23.Text = "Button23"
-        Me.Button23.UseVisualStyleBackColor = True
-        Me.Button23.Visible = False
-        '
-        'Button22
-        '
-        Me.Button22.Location = New System.Drawing.Point(578, 125)
-        Me.Button22.Name = "Button22"
-        Me.Button22.Size = New System.Drawing.Size(14, 23)
-        Me.Button22.TabIndex = 43
-        Me.Button22.Text = "Button22"
-        Me.Button22.UseVisualStyleBackColor = True
-        Me.Button22.Visible = False
-        '
-        'Button21
-        '
-        Me.Button21.Location = New System.Drawing.Point(594, 57)
-        Me.Button21.Name = "Button21"
-        Me.Button21.Size = New System.Drawing.Size(15, 22)
-        Me.Button21.TabIndex = 42
-        Me.Button21.Text = "Button21"
-        Me.Button21.UseVisualStyleBackColor = True
-        Me.Button21.Visible = False
-        '
-        'Button20
-        '
-        Me.Button20.Location = New System.Drawing.Point(612, 57)
-        Me.Button20.Name = "Button20"
-        Me.Button20.Size = New System.Drawing.Size(17, 23)
-        Me.Button20.TabIndex = 41
-        Me.Button20.Text = "Button20"
-        Me.Button20.UseVisualStyleBackColor = True
-        Me.Button20.Visible = False
-        '
-        'Button19
-        '
-        Me.Button19.Location = New System.Drawing.Point(594, 80)
-        Me.Button19.Name = "Button19"
-        Me.Button19.Size = New System.Drawing.Size(17, 23)
-        Me.Button19.TabIndex = 40
-        Me.Button19.Text = "Button19"
-        Me.Button19.UseVisualStyleBackColor = True
-        Me.Button19.Visible = False
-        '
-        'Button18
-        '
-        Me.Button18.Location = New System.Drawing.Point(612, 80)
-        Me.Button18.Name = "Button18"
-        Me.Button18.Size = New System.Drawing.Size(17, 23)
-        Me.Button18.TabIndex = 39
-        Me.Button18.Text = "Button18"
-        Me.Button18.UseVisualStyleBackColor = True
-        Me.Button18.Visible = False
-        '
-        'Button17
-        '
-        Me.Button17.Location = New System.Drawing.Point(631, 57)
-        Me.Button17.Name = "Button17"
-        Me.Button17.Size = New System.Drawing.Size(17, 23)
-        Me.Button17.TabIndex = 38
-        Me.Button17.Text = "Button17"
-        Me.Button17.UseVisualStyleBackColor = True
-        Me.Button17.Visible = False
-        '
-        'Button16
-        '
-        Me.Button16.Location = New System.Drawing.Point(594, 102)
-        Me.Button16.Name = "Button16"
-        Me.Button16.Size = New System.Drawing.Size(17, 23)
-        Me.Button16.TabIndex = 37
-        Me.Button16.Text = "Button16"
-        Me.Button16.UseVisualStyleBackColor = True
-        Me.Button16.Visible = False
-        '
-        'Button15
-        '
-        Me.Button15.Location = New System.Drawing.Point(594, 125)
-        Me.Button15.Name = "Button15"
-        Me.Button15.Size = New System.Drawing.Size(17, 23)
-        Me.Button15.TabIndex = 36
-        Me.Button15.Text = "Button15"
-        Me.Button15.UseVisualStyleBackColor = True
-        Me.Button15.Visible = False
-        '
-        'Button14
-        '
-        Me.Button14.Location = New System.Drawing.Point(612, 102)
-        Me.Button14.Name = "Button14"
-        Me.Button14.Size = New System.Drawing.Size(17, 23)
-        Me.Button14.TabIndex = 35
-        Me.Button14.Text = "Button14"
-        Me.Button14.UseVisualStyleBackColor = True
-        Me.Button14.Visible = False
-        '
-        'Button13
-        '
-        Me.Button13.Location = New System.Drawing.Point(612, 125)
-        Me.Button13.Name = "Button13"
-        Me.Button13.Size = New System.Drawing.Size(17, 23)
-        Me.Button13.TabIndex = 34
-        Me.Button13.Text = "Button13"
-        Me.Button13.UseVisualStyleBackColor = True
-        Me.Button13.Visible = False
-        '
-        'Button12
-        '
-        Me.Button12.Location = New System.Drawing.Point(648, 102)
-        Me.Button12.Name = "Button12"
-        Me.Button12.Size = New System.Drawing.Size(17, 23)
-        Me.Button12.TabIndex = 33
-        Me.Button12.Text = "Button12"
-        Me.Button12.UseVisualStyleBackColor = True
-        Me.Button12.Visible = False
-        '
-        'Button11
-        '
-        Me.Button11.Location = New System.Drawing.Point(648, 57)
-        Me.Button11.Name = "Button11"
-        Me.Button11.Size = New System.Drawing.Size(17, 23)
-        Me.Button11.TabIndex = 32
-        Me.Button11.Text = "Button11"
-        Me.Button11.UseVisualStyleBackColor = True
-        Me.Button11.Visible = False
-        '
-        'Button10
-        '
-        Me.Button10.Location = New System.Drawing.Point(631, 102)
-        Me.Button10.Name = "Button10"
-        Me.Button10.Size = New System.Drawing.Size(17, 23)
-        Me.Button10.TabIndex = 31
-        Me.Button10.Text = "fee stat"
-        Me.Button10.UseVisualStyleBackColor = True
-        Me.Button10.Visible = False
-        '
-        'Button9
-        '
-        Me.Button9.Location = New System.Drawing.Point(648, 80)
-        Me.Button9.Name = "Button9"
-        Me.Button9.Size = New System.Drawing.Size(17, 23)
-        Me.Button9.TabIndex = 30
-        Me.Button9.Text = "Close Test Reports"
-        Me.Button9.UseVisualStyleBackColor = True
-        Me.Button9.Visible = False
-        '
-        'Button8
-        '
-        Me.Button8.Location = New System.Drawing.Point(631, 125)
-        Me.Button8.Name = "Button8"
-        Me.Button8.Size = New System.Drawing.Size(17, 23)
-        Me.Button8.TabIndex = 29
-        Me.Button8.Text = "PRd- Dev"
-        Me.Button8.UseVisualStyleBackColor = True
-        Me.Button8.Visible = False
-        '
-        'Button7
-        '
-        Me.Button7.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Button7.Location = New System.Drawing.Point(631, 80)
-        Me.Button7.Name = "Button7"
-        Me.Button7.Size = New System.Drawing.Size(17, 23)
-        Me.Button7.TabIndex = 28
-        Me.Button7.Text = "Poplulate Fee System"
-        Me.Button7.UseVisualStyleBackColor = True
-        Me.Button7.Visible = False
-        '
-        'Button6
-        '
-        Me.Button6.Location = New System.Drawing.Point(666, 125)
-        Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(17, 23)
-        Me.Button6.TabIndex = 27
-        Me.Button6.Text = "pop SSCP Comments"
-        Me.Button6.UseVisualStyleBackColor = True
-        Me.Button6.Visible = False
-        '
-        'Button5
-        '
-        Me.Button5.Location = New System.Drawing.Point(666, 57)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(17, 23)
-        Me.Button5.TabIndex = 26
-        Me.Button5.Text = "Pop. SSCP"
-        Me.Button5.UseVisualStyleBackColor = True
-        Me.Button5.Visible = False
-        '
-        'Button4
-        '
-        Me.Button4.Location = New System.Drawing.Point(666, 80)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(17, 23)
-        Me.Button4.TabIndex = 25
-        Me.Button4.Text = "Pop. SSCP"
-        Me.Button4.UseVisualStyleBackColor = True
-        Me.Button4.Visible = False
-        '
-        'Button3
-        '
-        Me.Button3.Location = New System.Drawing.Point(648, 125)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(17, 23)
-        Me.Button3.TabIndex = 24
-        Me.Button3.Text = "PRd- Dev"
-        Me.Button3.UseVisualStyleBackColor = True
-        Me.Button3.Visible = False
-        '
-        'btnFixStacks
-        '
-        Me.btnFixStacks.Location = New System.Drawing.Point(684, 57)
-        Me.btnFixStacks.Name = "btnFixStacks"
-        Me.btnFixStacks.Size = New System.Drawing.Size(17, 23)
-        Me.btnFixStacks.TabIndex = 21
-        Me.btnFixStacks.Text = "Fix Stacks"
-        Me.btnFixStacks.UseVisualStyleBackColor = True
-        Me.btnFixStacks.Visible = False
-        '
-        'btnFixInvoice
-        '
-        Me.btnFixInvoice.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnFixInvoice.Location = New System.Drawing.Point(684, 80)
-        Me.btnFixInvoice.Name = "btnFixInvoice"
-        Me.btnFixInvoice.Size = New System.Drawing.Size(17, 23)
-        Me.btnFixInvoice.TabIndex = 20
-        Me.btnFixInvoice.Text = "Fix Invoice issues"
-        Me.btnFixInvoice.UseVisualStyleBackColor = True
-        Me.btnFixInvoice.Visible = False
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(433, 40)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(67, 13)
-        Me.Label2.TabIndex = 19
-        Me.Label2.Text = "New AIRS #"
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(314, 41)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(61, 13)
-        Me.Label1.TabIndex = 18
-        Me.Label1.Text = "Old AIRS #"
+        Me.lblOldAirs.AutoSize = True
+        Me.lblOldAirs.Location = New System.Drawing.Point(170, 128)
+        Me.lblOldAirs.Name = "lblOldAirs"
+        Me.lblOldAirs.Size = New System.Drawing.Size(61, 13)
+        Me.lblOldAirs.TabIndex = 18
+        Me.lblOldAirs.Text = "Old AIRS #"
         '
         'txtNewAIRS
         '
-        Me.txtNewAIRS.Location = New System.Drawing.Point(436, 56)
+        Me.txtNewAIRS.Location = New System.Drawing.Point(292, 143)
         Me.txtNewAIRS.Name = "txtNewAIRS"
         Me.txtNewAIRS.Size = New System.Drawing.Size(100, 20)
         Me.txtNewAIRS.TabIndex = 17
         '
         'txtOldAIRS
         '
-        Me.txtOldAIRS.Location = New System.Drawing.Point(317, 57)
+        Me.txtOldAIRS.Location = New System.Drawing.Point(173, 144)
         Me.txtOldAIRS.Name = "txtOldAIRS"
         Me.txtOldAIRS.Size = New System.Drawing.Size(100, 20)
         Me.txtOldAIRS.TabIndex = 16
@@ -464,51 +118,16 @@ Partial Class DMUDangerousTool
         '
         Me.btnMoveAIRSData.AutoSize = True
         Me.btnMoveAIRSData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnMoveAIRSData.Location = New System.Drawing.Point(156, 54)
+        Me.btnMoveAIRSData.Location = New System.Drawing.Point(12, 141)
         Me.btnMoveAIRSData.Name = "btnMoveAIRSData"
         Me.btnMoveAIRSData.Size = New System.Drawing.Size(155, 23)
         Me.btnMoveAIRSData.TabIndex = 15
         Me.btnMoveAIRSData.Text = "Move Data between AIRS #:"
         Me.btnMoveAIRSData.UseVisualStyleBackColor = True
         '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(684, 102)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(17, 23)
-        Me.Button1.TabIndex = 14
-        Me.Button1.Text = "Fix Final On Web"
-        Me.Button1.UseVisualStyleBackColor = True
-        Me.Button1.Visible = False
-        '
-        'txtVersionNumber
-        '
-        Me.txtVersionNumber.Location = New System.Drawing.Point(413, 83)
-        Me.txtVersionNumber.Name = "txtVersionNumber"
-        Me.txtVersionNumber.Size = New System.Drawing.Size(100, 20)
-        Me.txtVersionNumber.TabIndex = 12
-        '
-        'txtACCNumber
-        '
-        Me.txtACCNumber.Location = New System.Drawing.Point(95, 132)
-        Me.txtACCNumber.Name = "txtACCNumber"
-        Me.txtACCNumber.Size = New System.Drawing.Size(100, 20)
-        Me.txtACCNumber.TabIndex = 11
-        '
-        'btnDeleteACC
-        '
-        Me.btnDeleteACC.AutoSize = True
-        Me.btnDeleteACC.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnDeleteACC.Location = New System.Drawing.Point(17, 129)
-        Me.btnDeleteACC.Name = "btnDeleteACC"
-        Me.btnDeleteACC.Size = New System.Drawing.Size(72, 23)
-        Me.btnDeleteACC.TabIndex = 10
-        Me.btnDeleteACC.Text = "Delete ACC"
-        Me.btnDeleteACC.UseVisualStyleBackColor = True
-        '
         'txtEnforcementNumber
         '
-        Me.txtEnforcementNumber.Location = New System.Drawing.Point(134, 106)
+        Me.txtEnforcementNumber.Location = New System.Drawing.Point(129, 23)
         Me.txtEnforcementNumber.Name = "txtEnforcementNumber"
         Me.txtEnforcementNumber.Size = New System.Drawing.Size(100, 20)
         Me.txtEnforcementNumber.TabIndex = 9
@@ -517,93 +136,46 @@ Partial Class DMUDangerousTool
         '
         Me.btnDeleteEnforcement.AutoSize = True
         Me.btnDeleteEnforcement.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnDeleteEnforcement.Location = New System.Drawing.Point(17, 104)
+        Me.btnDeleteEnforcement.Location = New System.Drawing.Point(12, 21)
         Me.btnDeleteEnforcement.Name = "btnDeleteEnforcement"
         Me.btnDeleteEnforcement.Size = New System.Drawing.Size(111, 23)
         Me.btnDeleteEnforcement.TabIndex = 8
         Me.btnDeleteEnforcement.Text = "Delete Enforcement"
         Me.btnDeleteEnforcement.UseVisualStyleBackColor = True
         '
-        'btnClearSQL
-        '
-        Me.btnClearSQL.AutoSize = True
-        Me.btnClearSQL.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnClearSQL.Location = New System.Drawing.Point(639, 13)
-        Me.btnClearSQL.Name = "btnClearSQL"
-        Me.btnClearSQL.Size = New System.Drawing.Size(65, 23)
-        Me.btnClearSQL.TabIndex = 1
-        Me.btnClearSQL.Text = "Clear SQL"
-        Me.btnClearSQL.UseVisualStyleBackColor = True
-        '
-        'btnRunSQL
-        '
-        Me.btnRunSQL.AutoSize = True
-        Me.btnRunSQL.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRunSQL.Location = New System.Drawing.Point(12, 13)
-        Me.btnRunSQL.Name = "btnRunSQL"
-        Me.btnRunSQL.Size = New System.Drawing.Size(64, 23)
-        Me.btnRunSQL.TabIndex = 0
-        Me.btnRunSQL.Text = "Run SQL "
-        Me.btnRunSQL.UseVisualStyleBackColor = True
-        '
         'DMUDangerousTool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(715, 485)
-        Me.Controls.Add(Me.SCDMUTool)
+        Me.ClientSize = New System.Drawing.Size(474, 306)
+        Me.Controls.Add(Me.lblEisYear)
+        Me.Controls.Add(Me.txtEISYear)
+        Me.Controls.Add(Me.lblEisAirs)
+        Me.Controls.Add(Me.btnDeleteEnforcement)
+        Me.Controls.Add(Me.txtEISAIRSNumber)
+        Me.Controls.Add(Me.txtEnforcementNumber)
+        Me.Controls.Add(Me.PD_EIS_QASTART)
+        Me.Controls.Add(Me.btnMoveAIRSData)
+        Me.Controls.Add(Me.txtOldAIRS)
+        Me.Controls.Add(Me.txtNewAIRS)
+        Me.Controls.Add(Me.lblOldAirs)
+        Me.Controls.Add(Me.lblNewAirs)
         Me.Name = "DMUDangerousTool"
         Me.Text = "DANGER! DANGER! DANGER!"
-        Me.SCDMUTool.Panel1.ResumeLayout(False)
-        Me.SCDMUTool.Panel1.PerformLayout()
-        Me.SCDMUTool.Panel2.ResumeLayout(False)
-        Me.SCDMUTool.Panel2.PerformLayout()
-        Me.SCDMUTool.ResumeLayout(False)
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
-    Friend WithEvents SCDMUTool As System.Windows.Forms.SplitContainer
-    Friend WithEvents txtSQL As System.Windows.Forms.TextBox
-    Friend WithEvents btnClearSQL As System.Windows.Forms.Button
-    Friend WithEvents btnRunSQL As System.Windows.Forms.Button
     Friend WithEvents txtEnforcementNumber As System.Windows.Forms.TextBox
     Friend WithEvents btnDeleteEnforcement As System.Windows.Forms.Button
-    Friend WithEvents txtACCNumber As System.Windows.Forms.TextBox
-    Friend WithEvents btnDeleteACC As System.Windows.Forms.Button
-    Friend WithEvents txtVersionNumber As System.Windows.Forms.TextBox
-    Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents txtNewAIRS As System.Windows.Forms.TextBox
     Friend WithEvents txtOldAIRS As System.Windows.Forms.TextBox
     Friend WithEvents btnMoveAIRSData As System.Windows.Forms.Button
-    Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents btnFixInvoice As System.Windows.Forms.Button
-    Friend WithEvents btnFixStacks As System.Windows.Forms.Button
-    Friend WithEvents Button3 As System.Windows.Forms.Button
-    Friend WithEvents Button4 As System.Windows.Forms.Button
-    Friend WithEvents Button5 As System.Windows.Forms.Button
-    Friend WithEvents Button6 As System.Windows.Forms.Button
-    Friend WithEvents Button7 As System.Windows.Forms.Button
-    Friend WithEvents Button8 As System.Windows.Forms.Button
-    Friend WithEvents Button9 As System.Windows.Forms.Button
-    Friend WithEvents Button10 As System.Windows.Forms.Button
-    Friend WithEvents Button11 As System.Windows.Forms.Button
-    Friend WithEvents Button12 As System.Windows.Forms.Button
-    Friend WithEvents Button13 As System.Windows.Forms.Button
-    Friend WithEvents Button14 As System.Windows.Forms.Button
-    Friend WithEvents Button15 As System.Windows.Forms.Button
-    Friend WithEvents Button16 As System.Windows.Forms.Button
-    Friend WithEvents Button17 As System.Windows.Forms.Button
-    Friend WithEvents Button18 As System.Windows.Forms.Button
-    Friend WithEvents Button19 As System.Windows.Forms.Button
-    Friend WithEvents Button20 As System.Windows.Forms.Button
-    Friend WithEvents Button21 As System.Windows.Forms.Button
-    Friend WithEvents Button22 As System.Windows.Forms.Button
-    Friend WithEvents Button23 As System.Windows.Forms.Button
-    Friend WithEvents btnOpenTitleV As System.Windows.Forms.Button
-    Friend WithEvents Button24 As System.Windows.Forms.Button
-    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents lblNewAirs As System.Windows.Forms.Label
+    Friend WithEvents lblOldAirs As System.Windows.Forms.Label
+    Friend WithEvents PD_EIS_QASTART As System.Windows.Forms.Button
+    Friend WithEvents lblEisYear As System.Windows.Forms.Label
     Friend WithEvents txtEISYear As System.Windows.Forms.TextBox
-    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents lblEisAirs As System.Windows.Forms.Label
     Friend WithEvents txtEISAIRSNumber As System.Windows.Forms.TextBox
 End Class

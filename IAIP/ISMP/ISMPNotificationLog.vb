@@ -51,15 +51,15 @@ Public Class ISMPNotificationLog
             SQL = "select " & _
             "substr(strAIRSNumber, 5) as AIRSNumber, " & _
             "strFacilityname " & _
-            "from " & DBNameSpace & ".APBFacilityInformation " & _
+            "from AIRBRANCH.APBFacilityInformation " & _
             "order by strFacilityname "
 
             SQL2 = "select " & _
             "distinct(strLastName|| ', ' ||strFirstName) as UserName,  " & _
-            "" & DBNameSpace & ".epduserprofiles.numUserID  " & _
-            "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPTestNotification  " & _
+            "AIRBRANCH.epduserprofiles.numUserID  " & _
+            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPTestNotification  " & _
             "where (numProgram = '3' and numunit <> '14')  " & _
-            "or " & DBNameSpace & ".ISMPTestNotification.strStaffResponsible = to_char(" & DBNameSpace & ".EPDUSerProfiles.numUserID) " & _
+            "or AIRBRANCH.ISMPTestNotification.strStaffResponsible = to_char(AIRBRANCH.EPDUSerProfiles.numUserID) " & _
             "order by UserName "
 
             dsFacilityData = New DataSet
@@ -156,9 +156,9 @@ Public Class ISMPNotificationLog
                 "strTelePhone, strFax, " & _
                 "datTestPlanReceived, datTestNotification, " & _
                 "strPollutants " & _
-                "from " & DBNameSpace & ".ISMPTestNotification, " & DBNameSpace & ".APBFacilityInformation  " & _
-                "where " & DBNameSpace & ".ISMPTestNotification.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber (+)  " & _
-                "and " & DBNameSpace & ".ISMPTestNotification.strTestLogNumber = '" & txtTestNotificationNumber.Text & "'  "
+                "from AIRBRANCH.ISMPTestNotification, AIRBRANCH.APBFacilityInformation  " & _
+                "where AIRBRANCH.ISMPTestNotification.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber (+)  " & _
+                "and AIRBRANCH.ISMPTestNotification.strTestLogNumber = '" & txtTestNotificationNumber.Text & "'  "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -331,7 +331,7 @@ Public Class ISMPNotificationLog
             txtReferenceNumber.Clear()
             SQL = "Select " & _
             "strReferenceNumber " & _
-            "from " & DBNameSpace & ".ISMPTestLogLink " & _
+            "from AIRBRANCH.ISMPTestLogLink " & _
             "where strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -362,7 +362,7 @@ Public Class ISMPNotificationLog
                 Dim TestNotificationDate As String = ""
 
                 SQL = "select strTestLogNumber " & _
-                "from " & DBNameSpace & ".ISMPTestNotification " & _
+                "from AIRBRANCH.ISMPTestNotification " & _
                 "where strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -404,7 +404,7 @@ Public Class ISMPNotificationLog
 
                 If recExist = True Then
                     'Update 
-                    SQL = "Update " & DBNameSpace & ".ISMPTestNotification set " & _
+                    SQL = "Update AIRBRANCH.ISMPTestNotification set " & _
                     "strEmissionUnit = '" & Replace(txtEmissionUnit.Text, "'", "''") & "', " & _
                     "datProposedStartDate = '" & Me.DTPTestDateStart.Text & "', " & _
                     "datProposedEndDate = '" & DTPTestDateEnd.Text & "', " & _
@@ -433,7 +433,7 @@ Public Class ISMPNotificationLog
 
                     SQL = "Select " & _
                     "strTestLogNumber, datProposedStartDate " & _
-                    "from " & DBNameSpace & ".ISMPTestNotification " & _
+                    "from AIRBRANCH.ISMPTestNotification " & _
                     "where datProposedStartDate between " & _
                     "'" & Format(DTPTestDateStart.Value.AddDays(-15), "dd-MMM-yyyy") & "' " & _
                     "and '" & Format(DTPTestDateStart.Value.AddDays(15), "dd-MMM-yyyy") & "' " & _
@@ -474,7 +474,7 @@ Public Class ISMPNotificationLog
                     End If
 
                     'Insert 
-                    SQL = "Insert into " & DBNameSpace & ".ISMPTestNotification " & _
+                    SQL = "Insert into AIRBRANCH.ISMPTestNotification " & _
                     "(strTestLogNumber, " & _
                     "strEmissionUnit, " & _
                     "datProposedStartDate, datProposedEndDate, " & _
@@ -523,7 +523,7 @@ Public Class ISMPNotificationLog
     Sub SelectNewTestNotifcationNumber()
         Try
             SQL = "Select max(to_number(strTestLogNumber)) + 1 as TestNum " & _
-            "From " & DBNameSpace & ".ISMPTestnotification "
+            "From AIRBRANCH.ISMPTestnotification "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()

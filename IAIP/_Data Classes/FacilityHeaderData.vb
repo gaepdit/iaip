@@ -84,7 +84,7 @@ Namespace Apb
                 Return _rmpId
             End Get
             Set(ByVal value As String)
-                If ValidRmpId(value) Then
+                If IsValidRmpId(value) Then
                     _rmpId = value
                 Else
                     _rmpId = Nothing
@@ -351,7 +351,7 @@ Namespace Apb
         ''' </summary>
         ''' <param name="rmpID">The string to test</param>
         ''' <returns>True if test string is in the format of a valid RMP ID. Otherwise, false.</returns>
-        Public Shared Function ValidRmpId(ByVal rmpID As String) As Boolean
+        Public Shared Function IsValidRmpId(ByVal rmpID As String) As Boolean
             If rmpID Is Nothing Then Return False
 
             ' Valid RMP IDs are in the form 0000-0000-0000 (with the dashes)

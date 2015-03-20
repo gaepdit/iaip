@@ -6,7 +6,7 @@ Namespace DAL.SSCP
     Module FacilityAssignments
 
         Public Function FacilityAssignmentExists(ByVal airsNumber As String, ByVal targetYear As Integer) As Boolean
-            If Not Apb.ApbFacilityId.ValidAirsNumberFormat(airsNumber) Then
+            If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(airsNumber) Then
                 Return False
             Else
                 Return FacilityAssignmentExists(CType(airsNumber, Apb.ApbFacilityId), targetYear)
@@ -15,7 +15,7 @@ Namespace DAL.SSCP
 
         Public Function FacilityAssignmentExists(ByVal airsNumber As Apb.ApbFacilityId, ByVal targetYear As Integer) As Boolean
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
+                " FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " & _
                 " WHERE RowNum = 1 " & _
                 " AND INTYEAR = :year " & _
                 " AND STRAIRSNUMBER = :airs "
@@ -31,7 +31,7 @@ Namespace DAL.SSCP
 
         Public Function AssignmentYearExists(ByVal targetYear As Integer) As Boolean
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
+                " FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " & _
                 " WHERE RowNum = 1 " & _
                 " AND INTYEAR = :year "
             Dim parameter As New OracleParameter("year", targetYear)
@@ -41,7 +41,7 @@ Namespace DAL.SSCP
         End Function
 
         Public Function DeleteAssignmentYear(ByVal targetYear As Integer) As Boolean
-            Dim query As String = " DELETE FROM " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
+            Dim query As String = " DELETE FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " & _
                 " WHERE INTYEAR = :year "
             Dim parameter As New OracleParameter("year", targetYear)
 
@@ -67,11 +67,11 @@ Namespace DAL.SSCP
             If dataTable IsNot Nothing AndAlso dataTable.Rows.Count > 0 Then
                 For Each row As DataRow In dataTable.Rows
                     Dim airsNumberString As String = DB.GetNullable(Of String)(row("STRAIRSNUMBER"))
-                    If Apb.ApbFacilityId.ValidAirsNumberFormat(airsNumberString) AndAlso _
+                    If Apb.ApbFacilityId.IsValidAirsNumberFormat(airsNumberString) AndAlso _
                     Not FacilityAssignmentExists(airsNumberString, targetYear) Then
 
                         Dim query2 As String = "INSERT " & _
-                            "  INTO " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
+                            "  INTO AIRBRANCH.SSCPINSPECTIONSREQUIRED " & _
                             "    ( " & _
                             "      NUMKEY " & _
                             "    , STRAIRSNUMBER " & _
@@ -84,7 +84,7 @@ Namespace DAL.SSCP
                             "    , DATASSIGNINGDATE " & _
                             "    ) " & _
                             " SELECT " & _
-                            "    (SELECT MAX(NUMKEY) + 1 FROM " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
+                            "    (SELECT MAX(NUMKEY) + 1 FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " & _
                             "    ) AS NEWKEY " & _
                             "  , STRAIRSNUMBER " & _
                             "  , :targetyear " & _
@@ -94,7 +94,7 @@ Namespace DAL.SSCP
                             "  , STRFCEREQUIRED " & _
                             "  , STRASSIGNINGMANAGER " & _
                             "  , DATASSIGNINGDATE " & _
-                            "  FROM " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
+                            "  FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " & _
                             "  WHERE INTYEAR       = :oldyear " & _
                             "    AND STRAIRSNUMBER = :airsnumber "
 

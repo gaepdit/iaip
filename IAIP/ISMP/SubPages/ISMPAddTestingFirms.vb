@@ -648,7 +648,7 @@ Public Class ISMPAddTestingFirms
                  "strFirmCity, strFirmState, " & _
                  "strFirmZipCode, strFirmPhoneNumber1, " & _
                  "strFirmPhoneNumber2, strFirmFax, strFirmEmail " & _
-                 "from " & DBNameSpace & ".LookUPTestingFirms " & _
+                 "from AIRBRANCH.LookUPTestingFirms " & _
                  "Order by strTestingFirm "
 
             dsTestingFirms = New DataSet
@@ -884,7 +884,7 @@ Public Class ISMPAddTestingFirms
                 End Select
 
                 SQL = "Select strTestingfirmKey " & _
-                "from " & DBNameSpace & ".LookUPTestingFirms " & _
+                "from AIRBRANCH.LookUPTestingFirms " & _
                 "where strTestingFirmKey = '" & TestingFirmKey & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
@@ -1028,17 +1028,17 @@ Public Class ISMPAddTestingFirms
                     CurrentConnection.Open()
                 End If
                 If chbDeleteTestingFirm.Checked = True Then
-                    SQL = "Delete " & DBNameSpace & ".LookUPTestingFirms " & _
+                    SQL = "Delete AIRBRANCH.LookUPTestingFirms " & _
                     "where strTestingFirmKey = '" & txtTestingFirmKey.Text & "'"
                 Else
                     SQL = "Select strTestingFirmKey " & _
-                    "from " & DBNameSpace & ".LookUPTestingFirms " & _
+                    "from AIRBRANCH.LookUPTestingFirms " & _
                     "where strTestingFirmKey = '" & txtTestingFirmKey.Text & "'"
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     If recExist = True Then
-                        SQL = "Update " & DBNameSpace & ".LookUPTestingFirms set " & _
+                        SQL = "Update AIRBRANCH.LookUPTestingFirms set " & _
                         "strTestingFirm = '" & TestingFirm & "', " & _
                         "strFirmAddress1 = '" & TestingFirmAddress1 & "', " & _
                         "strFirmAddress2 = '" & TestingFirmAddress2 & "', " & _
@@ -1051,7 +1051,7 @@ Public Class ISMPAddTestingFirms
                         "strFirmEmail = '" & TestingFirmEmail & "' " & _
                         "where strTestingFirmKey = '" & txtTestingFirmKey.Text & "' "
                     Else
-                        SQL = "Insert into " & DBNameSpace & ".LookUPTestingFirms " & _
+                        SQL = "Insert into AIRBRANCH.LookUPTestingFirms " & _
                         "(strTestingFirmKey, strTestingFirm, " & _
                         "strFirmAddress1, strFirmAddress2, " & _
                         "strFirmCity, strFirmState, " & _

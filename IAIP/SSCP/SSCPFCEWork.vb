@@ -75,7 +75,7 @@ Public Class SSCPFCEWork
             "strFacilityStreet1, strFacilityStreet2, " & _
             "strFacilityCity, strFacilityZipCode, " & _
             "strCountyName " & _
-            "from " & DBNameSpace & ".VW_APBFacilityLocation " & _
+            "from AIRBRANCH.VW_APBFacilityLocation " & _
             "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -111,7 +111,7 @@ Public Class SSCPFCEWork
 
             SQL = "Select " & _
             "strClass, strAIRProgramCodes " & _
-            "from " & DBNameSpace & ".APBHeaderData " & _
+            "from AIRBRANCH.APBHeaderData " & _
             "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -141,17 +141,17 @@ Public Class SSCPFCEWork
 
 
             SQL = "select " & _
-            "" & DBNameSpace & ".SSCPFCE.strFCENumber, " & _
+            "AIRBRANCH.SSCPFCE.strFCENumber, " & _
             "strFCEYear as FCEYear " & _
-            "from " & DBNameSpace & ".SSCPFCE, " & DBNameSpace & ".SSCPFCEMaster " & _
-            "Where " & DBNameSpace & ".SSCPFCE.strFCENumber = " & DBNameSpace & ".SSCPFCEMaster.strFCENumber " & _
-            "and " & DBNameSpace & ".SSCPFCEMaster.strairsnumber = '0413" & txtAirsNumber.Text & "' " & _
+            "from AIRBRANCH.SSCPFCE, AIRBRANCH.SSCPFCEMaster " & _
+            "Where AIRBRANCH.SSCPFCE.strFCENumber = AIRBRANCH.SSCPFCEMaster.strFCENumber " & _
+            "and AIRBRANCH.SSCPFCEMaster.strairsnumber = '0413" & txtAirsNumber.Text & "' " & _
             "order by datFCECompleted DESC "
 
             'SQL2 = "Select distinct(numUserID), " & _
             '"(strLastName||', '||strFirstName) as StaffName, " & _
             '"strLastName " & _
-            '"from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
+            '"from AIRBRANCH.EPDUserProfiles, AIRBRANCH.SSCP_AuditedEnforcement " & _
             '"where numProgram = '4' " & _
             '"or numUserID = numStaffResponsible " & _
             '"or (numBranch = '5' " & _
@@ -350,7 +350,7 @@ Public Class SSCPFCEWork
     Sub LoadFCEInspectionData()
         Try
 
-            SQL = "select " & DBNameSpace & ".SSCPInspections.strTrackingNumber, " & _
+            SQL = "select AIRBRANCH.SSCPInspections.strTrackingNumber, " & _
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as ReceivedDate,  " & _
             "(strLastName|| ', ' ||strFirstName) as ReviewingEngineer, " & _
             "to_char(datInspectionDateStart, 'dd-Mon-yyyy') as InspectionDateStart,  " & _
@@ -362,15 +362,15 @@ Public Class SSCPFCEWork
             "to_char(datCompleteDate, 'dd-Mon-yyyy') as InspectionReportComplete,  " & _
             "to_char(datAcknoledgmentLetterSent, 'dd-Mon-yyyy') as AcknowledgmentLetterSent,  " & _
             "strInspectionComments  " & _
-            "from " & DBNameSpace & ".SSCPInspections, " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".SSCPItemMaster  " & _
+            "from AIRBRANCH.SSCPInspections, AIRBRANCH.EPDUserProfiles, AIRBRANCH.SSCPItemMaster  " & _
             "where  " & _
-            "" & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
-            "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".SSCPInspections.strTrackingNumber  " & _
-            "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & txtAirsNumber.Text & "'  " & _
+            "AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCPItemMaster.strResponsibleStaff  " & _
+            "and AIRBRANCH.SSCPItemMaster.strTrackingNumber = AIRBRANCH.SSCPInspections.strTrackingNumber  " & _
+            "and AIRBRANCH.SSCPItemMaster.strAIRSNumber = '0413" & txtAirsNumber.Text & "'  " & _
             "and ((datCompleteDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "') " & _
             "or (datReceivedDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "')) " & _
             "and (strDelete is Null or strDelete <> 'True') " & _
-            "Order by " & DBNameSpace & ".SSCPInspections.strTrackingNumber DESC  "
+            "Order by AIRBRANCH.SSCPInspections.strTrackingNumber DESC  "
 
             dsInspections = New DataSet
 
@@ -395,7 +395,7 @@ Public Class SSCPFCEWork
     Sub LoadFCEACCData()
         Try
 
-            SQL = "select " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber, " & _
+            SQL = "select AIRBRANCH.SSCPItemMaster.strTrackingNumber, " & _
                 "to_char(datReceivedDate, 'dd-Mon-yyyy') as ReceivedDate, " & _
                 "(strLastName|| ', ' ||strFirstName) as ReviewingEngineer, " & _
                 "strPostMarkedOnTime, " & _
@@ -404,14 +404,14 @@ Public Class SSCPFCEWork
                 "strACCCorrectlyFilledOut, strReportedDeviations, " & _
                 "strDeviationsUnreported, strComments, strEnforcementNeeded, " & _
                 "to_char(datCompleteDate, 'dd-Mon-yyyy') as CompleteDate " & _
-                "from " & DBNameSpace & ".SSCPACCS, " & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".EPDUSerProfiles " & _
+                "from AIRBRANCH.SSCPACCS, AIRBRANCH.SSCPItemMaster, AIRBRANCH.EPDUSerProfiles " & _
                 "where " & _
-                "" & DBNameSpace & ".EPDUSerProfiles.numUserID = " & DBNameSpace & ".SSCPItemMaster.strModifingperson " & _
-                "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".SSCPACCS.strTrackingNumber " & _
+                "AIRBRANCH.EPDUSerProfiles.numUserID = AIRBRANCH.SSCPItemMaster.strModifingperson " & _
+                "and AIRBRANCH.SSCPItemMaster.strTrackingNumber = AIRBRANCH.SSCPACCS.strTrackingNumber " & _
                 "and ((datCompleteDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "') " & _
                 " or " & _
                 "(datReceivedDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "')) " & _
-                "and " & DBNameSpace & ".SSCPItemMaster.strAIrsnumber = '0413" & txtAirsNumber.Text & "' " & _
+                "and AIRBRANCH.SSCPItemMaster.strAIrsnumber = '0413" & txtAirsNumber.Text & "' " & _
                 "and (strDelete is Null or strDelete <> 'True') "
 
             dsACC = New DataSet
@@ -436,7 +436,7 @@ Public Class SSCPFCEWork
     Sub LoadFCEReports()
         Try
 
-            SQL = "select " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber, " & _
+            SQL = "select AIRBRANCH.SSCPItemMaster.strTrackingNumber, " & _
                  "to_char(datReceivedDate, 'dd-Mon-yyyy') as ReceivedDate, " & _
                  "strReportPeriod, " & _
                  "to_char(DatReportingPeriodStart, 'dd-Mon-yyyy') as ReportingStartDate, " & _
@@ -446,13 +446,13 @@ Public Class SSCPFCEWork
                  "to_char(datSentByFacilityDate, 'dd-Mon-yyyy') as DateSentByFacility, " & _
                  "strCompleteStatus, strEnforcementNeeded, strShowDeviation, " & _
                  "strGeneralComments " & _
-                 "from " & DBNameSpace & ".SSCPREports, " & DBNameSpace & ".SSCPItemMaster " & _
-                 "where " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".SSCPREports.strTrackingNumber " & _
+                 "from AIRBRANCH.SSCPREports, AIRBRANCH.SSCPItemMaster " & _
+                 "where AIRBRANCH.SSCPItemMaster.strTrackingNumber = AIRBRANCH.SSCPREports.strTrackingNumber " & _
                  "and ((datCompleteDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "') " & _
                  "or " & _
                  "(datReceivedDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "')) " & _
                   "and (strDelete is Null or strDelete <> 'True') " & _
-                 "and " & DBNameSpace & ".SSCPItemMaster.strAIrsnumber = '0413" & txtAirsNumber.Text & "' "
+                 "and AIRBRANCH.SSCPItemMaster.strAIrsnumber = '0413" & txtAirsNumber.Text & "' "
 
             dsReport = New DataSet
 
@@ -477,7 +477,7 @@ Public Class SSCPFCEWork
     Sub LoadFCECorrespondance()
         Try
 
-            SQL = "select " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber, " & _
+            SQL = "select AIRBRANCH.SSCPItemMaster.strTrackingNumber, " & _
                  "to_char(datReceivedDate, 'dd-Mon-yyyy') as ReceivedDate, " & _
                  "CASE " & _
                  "    when strNotificationDue = 'True' then to_char(datNotificationDue, 'dd-Mon-yyyy') " & _
@@ -490,18 +490,18 @@ Public Class SSCPFCEWork
                  "CASE " & _
                  "    when strNotificationType = '01' then strNotificationTypeOther " & _
                  "    ELSE (select strNotificationDesc " & _
-                 "     from " & DBNameSpace & ".LookUPSSCPNotifications, " & DBNameSpace & ".SSCPNotifications " & _
-                 "     where " & DBNameSpace & ".LookUPSSCPNotifications.strNotificationKey = " & DBNameSpace & ".sscpNotifications.strnotificationType " & _
-                 "     and " & DBNameSpace & ".sscpNotifications.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber) " & _
+                 "     from AIRBRANCH.LookUPSSCPNotifications, AIRBRANCH.SSCPNotifications " & _
+                 "     where AIRBRANCH.LookUPSSCPNotifications.strNotificationKey = AIRBRANCH.sscpNotifications.strnotificationType " & _
+                 "     and AIRBRANCH.sscpNotifications.strTrackingNumber = AIRBRANCH.SSCPItemMaster.strTrackingNumber) " & _
                  "END as Notification, " & _
                  "strNotificationComment " & _
-                 "from " & DBNameSpace & ".SSCPNotifications, " & DBNameSpace & ".SSCPItemMaster " & _
-                 "where " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".SSCPNotifications.strTrackingNumber " & _
+                 "from AIRBRANCH.SSCPNotifications, AIRBRANCH.SSCPItemMaster " & _
+                 "where AIRBRANCH.SSCPItemMaster.strTrackingNumber = AIRBRANCH.SSCPNotifications.strTrackingNumber " & _
                  "and ((datCompleteDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "') " & _
                  "or " & _
                  "(datReceivedDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "')) " & _
                   "and (strDelete is Null or strDelete <> 'True') " & _
-                 "and " & DBNameSpace & ".SSCPItemMaster.strAIrsnumber = '0413" & txtAirsNumber.Text & "' "
+                 "and AIRBRANCH.SSCPItemMaster.strAIrsnumber = '0413" & txtAirsNumber.Text & "' "
 
             dsNotifications = New DataSet
 
@@ -526,9 +526,9 @@ Public Class SSCPFCEWork
     Sub LoadFCESummaryReports()
         Try
 
-            SQL = "Select " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber,  " & _
-             "strEmissionSource, " & DBNameSpace & ".LookUPPollutants.strPollutantDescription,  " & _
-             "" & DBNameSpace & ".ISMPReportType.strReportType,  " & _
+            SQL = "Select AIRBRANCH.ISMPReportInformation.strReferenceNumber,  " & _
+             "strEmissionSource, AIRBRANCH.LookUPPollutants.strPollutantDescription,  " & _
+             "AIRBRANCH.ISMPReportType.strReportType,  " & _
              "(strLastName|| ', ' ||strFirstName) as ReviewingEngineer,  " & _
              "to_char(datTestDateStart, 'dd-Mon-yyyy') as TestDateStart,  " & _
              "to_char(datReceivedDate, 'dd-Mon-yyyy') as REceivedDate,  " & _
@@ -536,32 +536,32 @@ Public Class SSCPFCEWork
              "  when datCompleteDate = '04-Jul-1776' Then 'Open'  " & _
              "  when datCompleteDate <> '04-Jul-1776' Then to_char(datCompleteDate, 'dd-Mon-yyyy')  " & _
              "END as CompleteDate,  " & _
-             "" & DBNameSpace & ".LookUPISMPComplianceStatus.strComplianceStatus,  " & _
+             "AIRBRANCH.LookUPISMPComplianceStatus.strComplianceStatus,  " & _
              "Case  " & _
              "  when strClosed = 'False' then 'Open'   " & _
              "  when strClosed = 'True' then 'Closed'  " & _
              "END as Status,  " & _
-             "mmoCommentArea, " & DBNameSpace & ".ISMPDocumentType.strDocumentType,   " & _
+             "mmoCommentArea, AIRBRANCH.ISMPDocumentType.strDocumentType,   " & _
              "strApplicableRequirement,  " & _
-             "" & DBNameSpace & ".LookUpEPDUnits.strUnitDesc  " & _
-             "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".ISMPReportInformation,  " & _
-             "" & DBNameSpace & ".LookUPPollutants, " & DBNameSpace & ".ISMPReportType, " & DBNameSpace & ".EPDUserProfiles,  " & _
-             "" & DBNameSpace & ".LookUPISMPComplianceStatus, " & DBNameSpace & ".ISMPDocumentType,  " & _
-             "" & DBNameSpace & ".LookUpEPDUnits    " & _
+             "AIRBRANCH.LookUpEPDUnits.strUnitDesc  " & _
+             "from AIRBRANCH.ISMPMaster, AIRBRANCH.ISMPReportInformation,  " & _
+             "AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportType, AIRBRANCH.EPDUserProfiles,  " & _
+             "AIRBRANCH.LookUPISMPComplianceStatus, AIRBRANCH.ISMPDocumentType,  " & _
+             "AIRBRANCH.LookUpEPDUnits    " & _
              "where  " & _
-             "" & DBNameSpace & ".ISMPReportInformation.strREferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber  " & _
-             "and " & DBNameSpace & ".LookUPPollutants.strPOllutantCode = " & DBNameSpace & ".ISMPReportInformation.strPOllutant  " & _
-             "and " & DBNameSpace & ".ISMPReportType.strKey = " & DBNameSpace & ".ISMPReportInformation.strReportType  " & _
-             "and " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-             "and " & DBNameSpace & ".LookUPISMPComplianceStatus.strComplianceKey = " & DBNameSpace & ".ISMPReportInformation.strComplianceStatus  " & _
-             "and " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType  " & _
+             "AIRBRANCH.ISMPReportInformation.strREferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber  " & _
+             "and AIRBRANCH.LookUPPollutants.strPOllutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " & _
+             "and AIRBRANCH.ISMPReportType.strKey = AIRBRANCH.ISMPReportInformation.strReportType  " & _
+             "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " & _
+             "and AIRBRANCH.LookUPISMPComplianceStatus.strComplianceKey = AIRBRANCH.ISMPReportInformation.strComplianceStatus  " & _
+             "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType  " & _
              "and strDelete is Null  " & _
-             "and " & DBNameSpace & ".ISMPReportInformation.strReviewingUnit = to_char(" & DBNameSpace & ".LookUpEPDUnits.numUnitCode)   " & _
+             "and AIRBRANCH.ISMPReportInformation.strReviewingUnit = to_char(AIRBRANCH.LookUpEPDUnits.numUnitCode)   " & _
              "and strAIRSNumber = '0413" & txtAirsNumber.Text & "'   " & _
              "and ((datCompleteDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "')   " & _
               "or  (datReceivedDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "'))   " & _
              "and (strDelete is Null or strDelete <> 'True')   " & _
-             "order by " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber DESC  "
+             "order by AIRBRANCH.ISMPReportInformation.strReferenceNumber DESC  "
 
             dsISMP = New DataSet
 
@@ -585,22 +585,22 @@ Public Class SSCPFCEWork
         Try
 
             SQL = "Select " & _
-                 "" & DBNameSpace & ".SSCPTestReports.strTrackingNumber, " & _
+                 "AIRBRANCH.SSCPTestReports.strTrackingNumber, " & _
                  "to_char(datReceivedDate, 'dd-Mon-yyyy') as ReceivedDate, " & _
                  "(strLastName|| ', ' ||strFirstName) as ReviewingEngineer, " & _
                  "strReferenceNumber, strTestReportComments, " & _
                  "to_Char(datCompleteDate, 'dd-Mon-yyyy') as CompleteDate, " & _
                  "strTestReportFollowUp " & _
-                 "from " & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".SSCPTestReports, " & _
-                 "" & DBNameSpace & ".EPDUserProfiles  " & _
+                 "from AIRBRANCH.SSCPItemMaster, AIRBRANCH.SSCPTestReports, " & _
+                 "AIRBRANCH.EPDUserProfiles  " & _
                  "where " & _
-                 "" & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff (+) " & _
-                 "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".SSCPTestReports.strTrackingNumber " & _
+                 "AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCPItemMaster.strResponsibleStaff (+) " & _
+                 "and AIRBRANCH.SSCPItemMaster.strTrackingNumber = AIRBRANCH.SSCPTestReports.strTrackingNumber " & _
                  "and ((datCompleteDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "') " & _
                  " or " & _
                  "(datReceivedDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "')) " & _
                   "and (strDelete is Null or strDelete <> 'True') " & _
-                 "and " & DBNameSpace & ".SSCPItemMaster.strAIrsnumber = '0413" & txtAirsNumber.Text & "' "
+                 "and AIRBRANCH.SSCPItemMaster.strAIrsnumber = '0413" & txtAirsNumber.Text & "' "
 
             dsPerformanceTest = New DataSet
 
@@ -622,15 +622,15 @@ Public Class SSCPFCEWork
         Try
 
             SQL = "Select " & _
-                 "" & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber, " & _
+                 "AIRBRANCH.SSCP_AuditedEnforcement.strEnforcementNumber, " & _
                  "case " & _
                  "when datEnforcementFinalized IS null then 'Open' " & _
                  "else to_char(datEnforcementFinalized, 'dd-Mon-yyyy') " & _
                  "ENd as EnforcementFinalized, " & _
                  "(strLastName|| ', ' ||strFirstName) as StaffResponsible, " & _
                  "strActionType  " & _
-                 "from " & DBNameSpace & ".SSCP_AuditedEnforcement, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCP_AuditedEnforcement.numStaffResponsible " & _
+                 "from AIRBRANCH.SSCP_AuditedEnforcement, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCP_AuditedEnforcement.numStaffResponsible " & _
                   "and datDiscoveryDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "' " & _
                   "and (strStatus is Null or strStatus <> 'True') " & _
                  "and strAIRSnumber = '0413" & txtAirsNumber.Text & "' "
@@ -1416,7 +1416,7 @@ Public Class SSCPFCEWork
                 "End strSiteInspection,  " & _
                 "strReviewer,  " & _
                 "strFCEYear " & _
-                "from " & DBNameSpace & ".SSCPFCE  " & _
+                "from AIRBRANCH.SSCPFCE  " & _
                 "where strFCENumber = '" & txtFCENumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1827,7 +1827,7 @@ Public Class SSCPFCEWork
                 Dim Classification As String = ""
 
                 SQL = "Select strClass " & _
-                "from " & DBNameSpace & ".APBHeaderData " & _
+                "from AIRBRANCH.APBHeaderData " & _
                 "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1869,7 +1869,7 @@ Public Class SSCPFCEWork
 
                 If txtFCENumber.Text = "" Then
                     SQL = "Select Max(strFCENumber) as FCENumber " & _
-                    "from " & DBNameSpace & ".SSCPFCEMaster "
+                    "from AIRBRANCH.SSCPFCEMaster "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
 
@@ -1883,7 +1883,7 @@ Public Class SSCPFCEWork
                     End While
                     FCENumber += 1
 
-                    SQL = "Insert into " & DBNameSpace & ".SSCPFCEMaster " & _
+                    SQL = "Insert into AIRBRANCH.SSCPFCEMaster " & _
                     "(strFCENumber, strAIRSNumber, " & _
                     "strModifingPerson, datModifingDate) " & _
                     "values " & _
@@ -1893,7 +1893,7 @@ Public Class SSCPFCEWork
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     dr = cmd.ExecuteReader
 
-                    SQL = "Insert into " & DBNameSpace & ".SSCPFCE " & _
+                    SQL = "Insert into AIRBRANCH.SSCPFCE " & _
                     "(strFCENumber, strFCEStatus, strReviewer, " & _
                     "datFCECompleted, strFCEComments, strModifingPerson, " & _
                     "datModifingDate, strSiteInspection, strFCEYear) " & _
@@ -1907,7 +1907,7 @@ Public Class SSCPFCEWork
 
                     If Classification = "A" Or Classification = "SM" Then
                         SQL = "Select strAFSActionNumber " & _
-                        "from " & DBNameSpace & ".APBSupplamentalData " & _
+                        "from AIRBRANCH.APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1934,7 +1934,7 @@ Public Class SSCPFCEWork
                         '        ActionNumber = ActionNumber
                         'End Select
 
-                        SQL = "Insert into " & DBNameSpace & ".AFSSSCPFCERecords " & _
+                        SQL = "Insert into AIRBRANCH.AFSSSCPFCERecords " & _
                         "(strFCENumber, strAFSActionNumber, " & _
                         "strUpDateStatus, strModifingPerson, " & _
                         "datModifingDate) " & _
@@ -1965,7 +1965,7 @@ Public Class SSCPFCEWork
                         '        ActionNumber = ActionNumber
                         'End Select
 
-                        SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+                        SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                         "strAFSActionNUmber = '" & ActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1979,7 +1979,7 @@ Public Class SSCPFCEWork
                     FCENumber = txtFCENumber.Text
 
                     SQL = "select strFCENumber " & _
-                    "from " & DBNameSpace & ".SSCPFCE " & _
+                    "from AIRBRANCH.SSCPFCE " & _
                     "where strFCENumber = '" & FCENumber & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1990,7 +1990,7 @@ Public Class SSCPFCEWork
                     recExist = dr.Read
                     dr.Close()
                     If recExist = True Then
-                        SQL = "Update " & DBNameSpace & ".SSCPFCEMaster set " & _
+                        SQL = "Update AIRBRANCH.SSCPFCEMaster set " & _
                         "strModifingPerson = '" & UserGCode & "', " & _
                         "datModifingDate = '" & OracleDate & "' " & _
                         "where strFCENumber = '" & FCENumber & "' "
@@ -1998,7 +1998,7 @@ Public Class SSCPFCEWork
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         dr = cmd.ExecuteReader
 
-                        SQL = "Update " & DBNameSpace & ".SSCPFCE Set " & _
+                        SQL = "Update AIRBRANCH.SSCPFCE Set " & _
                         "strFCEStatus = '" & FCEStatus & "', " & _
                         "strReviewer = '" & StaffResponsible & "', " & _
                         "DatFCECompleted = '" & FCECompleteDate & "', " & _
@@ -2146,7 +2146,7 @@ Public Class SSCPFCEWork
 
             If txtISMPReferenceNumber.Text <> "" Then
                 SQL = "Select strClosed " & _
-                "from " & DBNameSpace & ".ISMPReportInformation " & _
+                "from AIRBRANCH.ISMPReportInformation " & _
                 "where strReferenceNumber = '" & txtISMPReferenceNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2247,22 +2247,22 @@ Public Class SSCPFCEWork
 
             SQL = "Select " & _
             "strCommissioner, strDirector, " & _
-            "STRSSCPPROGRAMMANG, " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, " & _
+            "STRSSCPPROGRAMMANG, AIRBRANCH.APBFacilityInformation.strAIRSNumber, " & _
             "strFacilitYname, strFacilityStreet1, strFirstName, " & _
             "strLastName, strUnitDesc, " & _
             "'G36' as strAFSGCode, " & _
             "strAirProgramCodes, strFCEYear, datFCECompleted, " & _
             "strFCEComments " & _
-            "from " & DBNameSpace & ".SSCPFCE, " & DBNameSpace & ".SSCPFCEMaster, " & _
-            "" & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".APBHeaderData, " & _
-            "" & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".LookUpEPDUnits, " & _
-            "" & DBNameSpace & ".LookUpAPBManagement " & _
-            "Where " & DBNameSpace & ".SSCPFCE.strFCENumber = " & DBNameSpace & ".SSCPFCEMaster.strFCENumber " & _
-            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-            "and " & DBNameSpace & ".SSCPFCEMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
-            "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
+            "from AIRBRANCH.SSCPFCE, AIRBRANCH.SSCPFCEMaster, " & _
+            "AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBHeaderData, " & _
+            "AIRBRANCH.EPDUserProfiles, AIRBRANCH.LookUpEPDUnits, " & _
+            "AIRBRANCH.LookUpAPBManagement " & _
+            "Where AIRBRANCH.SSCPFCE.strFCENumber = AIRBRANCH.SSCPFCEMaster.strFCENumber " & _
+            "and AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " & _
+            "and AIRBRANCH.SSCPFCEMaster.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber " & _
+            "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " & _
             "and strReviewer = numUserID  " & _
-            "and " & DBNameSpace & ".SSCPFCE.strFCENumber = '" & txtFCENumber.Text & "' "
+            "and AIRBRANCH.SSCPFCE.strFCENumber = '" & txtFCENumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
 

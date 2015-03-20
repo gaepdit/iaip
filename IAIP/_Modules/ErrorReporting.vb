@@ -44,8 +44,7 @@ Module ErrorReporting
             MsgBoxStyle.Information, "Integrated Air Information Platform - ERROR MESSAGE")
             Exit Sub
         End If
-        If ErrorMessage.Contains("Could not load file or assembly 'CrystalDecisions.") _
-        Or ErrorMessage.Contains("Integrated Air Information Platf") Then
+        If ErrorMessage.Contains("Could not load file or assembly 'CrystalDecisions.") Then
             App.ShowCrystalReportsSupportMessage()
             Exit Sub
         End If
@@ -97,9 +96,9 @@ Module ErrorReporting
             ErrorMessage = GetCurrentVersion.ToString & vbCrLf & ErrorMessage
             Dim AbbrevErrorMess As String = Mid(ErrorMessage, 1, 4000)
 
-            Dim query As String = "INSERT INTO " & DBNameSpace & ".IAIPERRORLOG " & _
+            Dim query As String = "INSERT INTO AIRBRANCH.IAIPERRORLOG " & _
                 " (STRERRORNUMBER,STRUSER,STRERRORLOCATION,STRERRORMESSAGE,DATERRORDATE) " & _
-                " values (" & DBNameSpace & ".IAIPERRORNUMBER.NEXTVAL, :pGCode, :pErrorLoc, :pErrorMess, SYSDATE) "
+                " values (AIRBRANCH.IAIPERRORNUMBER.NEXTVAL, :pGCode, :pErrorLoc, :pErrorMess, SYSDATE) "
             Dim parameters As OracleParameter() = New OracleParameter() { _
                 New OracleParameter("pGCode", UserGCode), _
                 New OracleParameter("pErrorLoc", ErrorLocation), _
@@ -108,15 +107,15 @@ Module ErrorReporting
             Dim result As Boolean = DB.RunCommand(query, parameters)
 
             If result Then
-                MsgBox("An Error has occurred." & vbCrLf & "The error has been logged and sent to the developers." & vbCrLf & _
+                MsgBox("An Error has occurred." & vbCrLf & "The error has been logged but has NOT been sent to the developers." & vbCrLf & _
                 "Please contact the Data Management Unit if this error is hindering your work." & vbCrLf & "Sorry for the inconvenience.", _
                 MsgBoxStyle.Information, "Integrated Air Information Platform - ERROR MESSAGE")
             Else
-                MsgBox("There was an error in logging this problem." & vbCrLf & "Please contact the Data Management Unit with this problem." & vbCrLf & _
+                MsgBox("An error has occurred but it was not possible to log the error." & vbCrLf & "Please contact the Data Management Unit with this problem." & vbCrLf & _
                        ErrorMessage, MsgBoxStyle.Exclamation, "Integrated Air Information Platform - ERROR MESSAGE")
             End If
         Catch ex As Exception
-            MsgBox("There was an error in logging this problem." & vbCrLf & "Please contact the Data Management Unit with this problem." & vbCrLf & _
+            MsgBox("TAn error has occurred but it was not possible to log the error." & vbCrLf & "Please contact the Data Management Unit with this problem." & vbCrLf & _
                    ErrorMessage, MsgBoxStyle.Exclamation, "Integrated Air Information Platform - ERROR MESSAGE")
         End Try
 

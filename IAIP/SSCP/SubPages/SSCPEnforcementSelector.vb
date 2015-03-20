@@ -264,13 +264,13 @@ Public Class SSCPEnforcementSelector
                        "	when datEnforcementFinalized is NUll then 'Open' " & _
                        "Else 'Open' " & _
                        "End as Status, " & _
-                       "substr(" & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " & _
+                       "substr(AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " & _
                         "(strLastName|| ', ' ||strFirstName) as Staff,  " & _
                        "strFacilityName  " & _
-                       "from " & DBNameSpace & ".SSCP_AuditedEnforcement,  " & _
-                       "" & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles " & _
-                       "Where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber " & _
-                       "and " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCP_AuditedEnforcement.numStaffResponsible  " & _
+                       "from AIRBRANCH.SSCP_AuditedEnforcement,  " & _
+                       "AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles " & _
+                       "Where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber " & _
+                       "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCP_AuditedEnforcement.numStaffResponsible  " & _
                        "order by strENforcementNumber DESC "
                 Case "AllOpen"
                     'txtAIRSNumber.Clear()
@@ -297,13 +297,13 @@ Public Class SSCPEnforcementSelector
                     "	when datEnforcementFinalized is NUll then 'Open' " & _
                     "Else 'Open' " & _
                     "End as Status, " & _
-                    "substr(" & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " & _
+                    "substr(AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " & _
                      "(strLastName|| ', ' ||strFirstName) as Staff,  " & _
                     "strFacilityName  " & _
-                    "from " & DBNameSpace & ".SSCP_AuditedEnforcement,   " & _
-                    "" & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles " & _
-                    "Where  " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber " & _
-                    "and " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCP_AuditedEnforcement.numStaffResponsible  " & _
+                    "from AIRBRANCH.SSCP_AuditedEnforcement,   " & _
+                    "AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles " & _
+                    "Where  AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber " & _
+                    "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCP_AuditedEnforcement.numStaffResponsible  " & _
                     "and datEnforcementFinalized IS Null " & _
                     "order by strENforcementNumber DESC "
                 Case "Single"
@@ -329,19 +329,19 @@ Public Class SSCPEnforcementSelector
                     "	when datEnforcementFinalized is NUll then 'Open' " & _
                     "Else 'Open' " & _
                     "End as Status, " & _
-                    "substr(" & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " & _
+                    "substr(AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " & _
                      "(strLastName|| ', ' ||strFirstName) as Staff,  " & _
                     "strFacilityName " & _
-                    "from " & DBNameSpace & ".SSCP_AuditedEnforcement, " & _
-                    "" & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles " & _
-                    "Where  " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber " & _
-                    "and " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCP_AuditedEnforcement.numStaffResponsible  " & _
-                    "and " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
+                    "from AIRBRANCH.SSCP_AuditedEnforcement, " & _
+                    "AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles " & _
+                    "Where  AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber " & _
+                    "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCP_AuditedEnforcement.numStaffResponsible  " & _
+                    "and AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
                     "order by strENforcementNumber DESC "
                 Case "ByUnit"
                     If cboComplianceUnits.Text = "Unassigned" Then
                         SQL = "Select " & _
-                        "to_number(" & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber, " & _
+                        "to_number(AIRBRANCH.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber, " & _
                         "case  " & _
                         "   when datEnforcementFinalized is Not Null then '4 - Closed Out' " & _
                         "   when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " & _
@@ -363,19 +363,19 @@ Public Class SSCPEnforcementSelector
                         " 	when datEnforcementFinalized is NUll then 'Open'  " & _
                         "Else 'Open'  " & _
                         "End as Status,  " & _
-                         "substr(" & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
+                         "substr(AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
                         "strFacilityName,  " & _
                         "(strLastName|| ', ' ||strFirstName) as Staff  " & _
-                        "from " & DBNameSpace & ".SSCP_AuditedEnforcement,   " & _
-                        "" & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles  " & _
-                        "Where  " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber  " & _
+                        "from AIRBRANCH.SSCP_AuditedEnforcement,   " & _
+                        "AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles  " & _
+                        "Where  AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber  " & _
                         "and (strStatus IS Null or strStatus = 'UC')  " & _
                         "and datEnforcementFinalized is NULL  " & _
-                        "and " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCP_AuditedEnforcement.numStaffResponsible  " & _
-                        "and " & DBNameSpace & ".EPDUserProfiles.numUserID = '0'  " & _
+                        "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCP_AuditedEnforcement.numStaffResponsible  " & _
+                        "and AIRBRANCH.EPDUserProfiles.numUserID = '0'  " & _
                         "order by strENforcementNumber DESC "
                     Else
-                        SQL = "Select to_number(" & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber, " & _
+                        SQL = "Select to_number(AIRBRANCH.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber, " & _
                         "case  " & _
                         "   when datEnforcementFinalized is Not Null then '4 - Closed Out' " & _
                         "   when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " & _
@@ -397,17 +397,17 @@ Public Class SSCPEnforcementSelector
                         " 	when datEnforcementFinalized is NUll then 'Open'  " & _
                         "Else 'Open'  " & _
                         "End as Status,  " & _
-                         "substr(" & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
+                         "substr(AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
                         "strFacilityName,  " & _
                         "(strLastName|| ', ' ||strFirstName) as Staff  " & _
-                        "from " & DBNameSpace & ".SSCP_AuditedEnforcement, " & _
-                        "" & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles  " & _
-                        "Where  " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber  " & _
+                        "from AIRBRANCH.SSCP_AuditedEnforcement, " & _
+                        "AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles  " & _
+                        "Where  AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber  " & _
                         "and (strStatus IS Null or strStatus = 'UC')  " & _
                         "and datEnforcementFinalized is NULL  " & _
-                        "and " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCP_AuditedEnforcement.numStaffResponsible  " & _
-                        "and (" & DBNameSpace & ".EPDUserProfiles.numUnit = '" & cboComplianceUnits.SelectedValue & "'  " & _
-                        "or " & DBNameSpace & ".EPDUserProfiles.numUserID = '0')  " & _
+                        "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCP_AuditedEnforcement.numStaffResponsible  " & _
+                        "and (AIRBRANCH.EPDUserProfiles.numUnit = '" & cboComplianceUnits.SelectedValue & "'  " & _
+                        "or AIRBRANCH.EPDUserProfiles.numUserID = '0')  " & _
                         "order by strENforcementNumber DESC "
                     End If
             End Select

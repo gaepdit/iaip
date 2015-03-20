@@ -671,7 +671,7 @@ Public Class ISMPTestMemoViewer
         Try
 
             If Loading = True Then
-                SQLLine = "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = '" & UserGCode & "' " & _
+                SQLLine = "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '" & UserGCode & "' " & _
                 "and strClosed = 'False' "
             End If
 
@@ -694,19 +694,19 @@ Public Class ISMPTestMemoViewer
             End If
 
             If chbComplianceStatus1.Checked = True Then
-                SQLLine3 = SQLLine3 & "" & DBNameSpace & ".ISMPReportInformation.strCOmplianceStatus = '01' or "
+                SQLLine3 = SQLLine3 & "AIRBRANCH.ISMPReportInformation.strCOmplianceStatus = '01' or "
             End If
             If chbComplianceStatus2.Checked = True Then
-                SQLLine3 = SQLLine3 & "" & DBNameSpace & ".ISMPReportInformation.strCOmplianceStatus = '02' or "
+                SQLLine3 = SQLLine3 & "AIRBRANCH.ISMPReportInformation.strCOmplianceStatus = '02' or "
             End If
             If chbComplianceStatus3.Checked = True Then
-                SQLLine3 = SQLLine3 & "" & DBNameSpace & ".ISMPReportInformation.strCOmplianceStatus = '03' or "
+                SQLLine3 = SQLLine3 & "AIRBRANCH.ISMPReportInformation.strCOmplianceStatus = '03' or "
             End If
             If chbComplianceStatus4.Checked = True Then
-                SQLLine3 = SQLLine3 & "" & DBNameSpace & ".ISMPReportInformation.strCOmplianceStatus = '04' or "
+                SQLLine3 = SQLLine3 & "AIRBRANCH.ISMPReportInformation.strCOmplianceStatus = '04' or "
             End If
             If chbComplianceStatus5.Checked = True Then
-                SQLLine3 = SQLLine3 & "" & DBNameSpace & ".ISMPReportInformation.strCOmplianceStatus = '05' or "
+                SQLLine3 = SQLLine3 & "AIRBRANCH.ISMPReportInformation.strCOmplianceStatus = '05' or "
             End If
             If SQLLine3 = "AND (" Then
                 SQLLine3 = ""
@@ -714,14 +714,14 @@ Public Class ISMPTestMemoViewer
                 SQLLine3 = Mid(SQLLine3, 1, (Len(SQLLine3) - 4)) & ") "
             End If
             If chbDelete.Checked = True Then
-                SQLLine4 = "And " & DBNameSpace & ".ISMPReportInformation.strDelete = 'DELETE' "
+                SQLLine4 = "And AIRBRANCH.ISMPReportInformation.strDelete = 'DELETE' "
             Else
-                SQLLine4 = "And " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL "
+                SQLLine4 = "And AIRBRANCH.ISMPReportInformation.strDelete is NULL "
             End If
 
-            SQL = "select " & DBNameSpace & ".ISMPTestREportMemo.strReferenceNumber, strMemorandumField " & _
-            "from " & DBNameSpace & ".ISMPTestREportMemo, " & DBNameSpace & ".ISMPReportInformation " & _
-            "where " & DBNameSpace & ".ISMPTestREportMemo.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+            SQL = "select AIRBRANCH.ISMPTestREportMemo.strReferenceNumber, strMemorandumField " & _
+            "from AIRBRANCH.ISMPTestREportMemo, AIRBRANCH.ISMPReportInformation " & _
+            "where AIRBRANCH.ISMPTestREportMemo.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " & _
             SQLLine & SQLLine2 & SQLLine3 & SQLLine4
 
             dsMemo = New DataSet

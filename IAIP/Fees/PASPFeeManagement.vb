@@ -53,7 +53,7 @@ Public Class PASPFeeManagement
             "datThirdQrtDue, datFourthQrtDue, " & _
             "strComments, " & _
             "numAAThres, numNAThres " & _
-            "from " & DBNameSpace & ".FS_FeeRate " & _
+            "from AIRBRANCH.FS_FeeRate " & _
             "where Active = '" & ActiveStatus & "' " & _
             "order by numFeeYear desc "
 
@@ -180,8 +180,8 @@ Public Class PASPFeeManagement
             "when Active = '0' then 'Flagged as deleted' " & _
             "else 'Active' " & _
             "end ActiveStatus " & _
-            "from " & DBNameSpace & ".FSLK_NSPSReason, " & DBNameSpace & ".EPDUserProfiles " & _
-            "where " & DBNameSpace & ".FSLK_NSPSReason.UpdateUser = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from AIRBRANCH.FSLK_NSPSReason, AIRBRANCH.EPDUserProfiles " & _
+            "where AIRBRANCH.FSLK_NSPSReason.UpdateUser = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and Active = '" & ActiveStatus & "' " & _
             "order by NSPSReasonCode "
 
@@ -233,8 +233,8 @@ Public Class PASPFeeManagement
             "when Active = '0' then 'Flagged as deleted' " & _
             "else 'Active' " & _
             "end ActiveStatus " & _
-            "from " & DBNameSpace & ".FSLK_NSPSReason, " & DBNameSpace & ".EPDUserProfiles " & _
-            "where " & DBNameSpace & ".FSLK_NSPSReason.UpdateUser = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from AIRBRANCH.FSLK_NSPSReason, AIRBRANCH.EPDUserProfiles " & _
+            "where AIRBRANCH.FSLK_NSPSReason.UpdateUser = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and Active = '" & ActiveStatus & "' " & _
             "order by NSPSReasonCode "
 
@@ -525,7 +525,7 @@ Public Class PASPFeeManagement
 
             SQL = "Select " & _
             "NSPSReasonCode, DisplayOrder " & _
-            "from " & DBNameSpace & ".FSLK_NSPSReasonYear " & _
+            "from AIRBRANCH.FSLK_NSPSReasonYear " & _
             "where numFeeYear = '" & cboNSPSExemptionYear.Text & "' " & _
             " and active = '1' " & _
             "order by NSPSReasonCode "
@@ -671,7 +671,7 @@ Public Class PASPFeeManagement
 
                 SQL = "Select " & _
                 "strNSPSReason " & _
-                "from " & DBNameSpace & ".FSCalculations " & _
+                "from AIRBRANCH.FSCalculations " & _
                 "where intYear = '" & dgvNSPSExemptionsByYear(0, dgvNSPSExemptionsByYear.CurrentRow.Index).Value & "' " & _
                 "and (strNSPSReason like '%" & ReasonID & ",' or strNSPSReason = '" & ReasonID & "' or strNSPSReason like '%," & ReasonID & "') "
 
@@ -712,7 +712,7 @@ Public Class PASPFeeManagement
                     ReasonID = dgvNSPSExemptionsByYear(1, i).Value
                     SQL = "Select " & _
                     "strNSPSReason " & _
-                    "from " & DBNameSpace & ".FSCalculations " & _
+                    "from AIRBRANCH.FSCalculations " & _
                     "where intYear = '" & dgvNSPSExemptionsByYear(0, dgvNSPSExemptionsByYear.CurrentRow.Index).Value & "' " & _
                     "and (strNSPSReason like '%" & ReasonID & ",' or strNSPSReason = '" & ReasonID & "' or strNSPSReason like '%," & ReasonID & "') "
 
@@ -755,7 +755,7 @@ Public Class PASPFeeManagement
 
             SQL = "Select " & _
             "NSPSReasonCode " & _
-            "from " & DBNameSpace & ".FSLK_NSPSReasonYear " & _
+            "from AIRBRANCH.FSLK_NSPSReasonYear " & _
             "where numFeeYear = '" & cboNSPSExemptionYear.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -779,7 +779,7 @@ Public Class PASPFeeManagement
 
                 SQL = "Select " & _
                 "DisplayOrder " & _
-                "from " & DBNameSpace & ".FSLK_NSPSReasonYear " & _
+                "from AIRBRANCH.FSLK_NSPSReasonYear " & _
                 "where numFeeYear = '" & cboNSPSExemptionYear.Text & "' " & _
                 "and NSPSReasonCode = '" & ReasonID & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -953,7 +953,7 @@ Public Class PASPFeeManagement
 
             SQL = "Select " & _
             "count(*) as EnrollCheck " & _
-            "from " & DBNameSpace & ".FS_Admin " & _
+            "from AIRBRANCH.FS_Admin " & _
             "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " & _
             "and strEnrolled = '1' " & _
             "and ACTIVE = '1' "
@@ -977,7 +977,7 @@ Public Class PASPFeeManagement
                 Exit Sub
             End If
 
-            SQL = "Update " & DBNameSpace & ".FS_Admin set " & _
+            SQL = "Update AIRBRANCH.FS_Admin set " & _
             "strEnrolled = '1', " & _
             "datEnrollment = sysdate, " & _
             "updateUser = 'IAIP||" & UserName & "', " & _
@@ -992,7 +992,7 @@ Public Class PASPFeeManagement
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Update " & DBNameSpace & ".FS_Admin set " & _
+            SQL = "Update AIRBRANCH.FS_Admin set " & _
             "datInitialEnrollment = datEnrollment " & _
             "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " & _
             "and datInitialEnrollment is null " & _
@@ -1049,7 +1049,7 @@ Public Class PASPFeeManagement
                     Exit Sub
             End Select
 
-            SQL = "Update " & DBNameSpace & ".FS_Admin set " & _
+            SQL = "Update AIRBRANCH.FS_Admin set " & _
             "strEnrolled = '0', " & _
             "datEnrollment = '', " & _
             "datInitialEnrollment = '', " & _
@@ -1100,12 +1100,12 @@ Public Class PASPFeeManagement
             "else 'No' " & _
             "end strPart70, " & _
             "datShutdowndate  " & _
-            "From " & DBNameSpace & ".FS_Admin, " & DBNameSpace & ".FS_MailOut  " & _
-            "where " & DBNameSpace & ".FS_Admin.strAIRSnumber = " & DBNameSpace & ".FS_MailOut.strAIRSnumber  " & _
-            "and " & DBNameSpace & ".FS_Admin.numFeeYear = " & DBNameSpace & ".FS_MailOut.numFeeYear  " & _
-            "and  " & DBNameSpace & ".FS_Admin.numFeeYear = '" & cboAvailableFeeYears.Text & "'  " & _
+            "From AIRBRANCH.FS_Admin, AIRBRANCH.FS_MailOut  " & _
+            "where AIRBRANCH.FS_Admin.strAIRSnumber = AIRBRANCH.FS_MailOut.strAIRSnumber  " & _
+            "and AIRBRANCH.FS_Admin.numFeeYear = AIRBRANCH.FS_MailOut.numFeeYear  " & _
+            "and  AIRBRANCH.FS_Admin.numFeeYear = '" & cboAvailableFeeYears.Text & "'  " & _
             "and (strEnrolled = '1')  " & _
-            "AND " & DBNameSpace & ".FS_Admin.Active = '1' "
+            "AND AIRBRANCH.FS_Admin.Active = '1' "
 
             ds = New DataSet
             da = New OracleDataAdapter(SQL, CurrentConnection)
@@ -1224,7 +1224,7 @@ Public Class PASPFeeManagement
                 cmd.ExecuteNonQuery()
 
 
-                'SQL = "Update " & DBNameSpace & ".FS_Admin set " & _
+                'SQL = "Update AIRBRANCH.FS_Admin set " & _
                 '"strMailoutSent = '1', " & _
                 '"datMailoutSent = sysdate " & _
                 '"where numFeeYear = '" & cboAvailableFeeYears.Text & "' " & _
@@ -1238,7 +1238,7 @@ Public Class PASPFeeManagement
                 'dr = cmd.ExecuteReader
                 'dr.Close()
 
-                'SQL = "Update " & DBNameSpace & ".FS_Admin set " & _
+                'SQL = "Update AIRBRANCH.FS_Admin set " & _
                 '"strInitialMailout = '1' " & _
                 '"where numFeeYear = '" & cboAvailableFeeYears.Text & "' " & _
                 '"and strEnrolled = '1' " & _
@@ -1251,7 +1251,7 @@ Public Class PASPFeeManagement
                 'dr = cmd.ExecuteReader
                 'dr.Close()
 
-                SQL = "Update " & DBNameSpace & ".FS_Admin set " & _
+                SQL = "Update AIRBRANCH.FS_Admin set " & _
                 "numCurrentStatus = 2, " & _
                 "strInitialMailout = '1'  " & _
                 "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " & _
@@ -1302,11 +1302,11 @@ Public Class PASPFeeManagement
             "else 'No' " & _
             "end strPart70, " & _
             "datShutdowndate  " & _
-            "From " & DBNameSpace & ".FS_Admin, " & DBNameSpace & ".FS_MailOut   " & _
-            "where " & DBNameSpace & ".FS_Admin.strAIRSnumber = " & DBNameSpace & ".FS_MailOut.strAIRSnumber  " & _
-            "and " & DBNameSpace & ".FS_Admin.numFeeYear = " & DBNameSpace & ".FS_MailOut.numFeeYear  " & _
-            "and  " & DBNameSpace & ".FS_Admin.numFeeYear = '" & cboAvailableFeeYears.Text & "'  " & _
-            "AND " & DBNameSpace & ".FS_Admin.Active = '1' " ' & _
+            "From AIRBRANCH.FS_Admin, AIRBRANCH.FS_MailOut   " & _
+            "where AIRBRANCH.FS_Admin.strAIRSnumber = AIRBRANCH.FS_MailOut.strAIRSnumber  " & _
+            "and AIRBRANCH.FS_Admin.numFeeYear = AIRBRANCH.FS_MailOut.numFeeYear  " & _
+            "and  AIRBRANCH.FS_Admin.numFeeYear = '" & cboAvailableFeeYears.Text & "'  " & _
+            "AND AIRBRANCH.FS_Admin.Active = '1' " ' & _
             ' "and (strInitialMailOut = '1' or strMailoutSent = '1' )  " & _
 
             ds = New DataSet
@@ -1403,7 +1403,7 @@ Public Class PASPFeeManagement
 
             SQL = "Select " & _
             "strAIRSNumber " & _
-            "from " & DBNameSpace & ".FS_Admin " & _
+            "from AIRBRANCH.FS_Admin " & _
             "where numFeeYear = '" & cboAvailableFeeYears.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1419,7 +1419,7 @@ Public Class PASPFeeManagement
                 End If
                 If AIRSNumber <> "" Then
                     SQL = "Select * " & _
-                    "from " & DBNameSpace & ".APBContactInformation " & _
+                    "from AIRBRANCH.APBContactInformation " & _
                     "where strAIRSNumber = '" & AIRSNumber & "' " & _
                     "and strKey = '40' "
 
@@ -1502,7 +1502,7 @@ Public Class PASPFeeManagement
                     End While
                     dr2.Close()
 
-                    SQL = "Update " & DBNameSpace & ".FS_MailOut set " & _
+                    SQL = "Update AIRBRANCH.FS_MailOut set " & _
                     "strFirstName = :ContactFirstName, " & _
                     "strLastName = :ContactLastName, " & _
                     "strPrefix = :ContactPrefix,  " & _
@@ -1621,12 +1621,12 @@ Public Class PASPFeeManagement
           "when strMailoutSent = '1' then 'Yes' " & _
           "else 'No' " & _
           "end strMailoutSent " & _
-          "From " & DBNameSpace & ".FS_Admin, " & DBNameSpace & ".APBFacilityInformation,  " & _
-          "" & DBNameSpace & ".APBHeaderData " & _
-          "where " & DBNameSpace & ".FS_Admin.strAIRSnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber  " & _
-          "and " & DBNameSpace & ".FS_admin.strAIRSNumber = " & DBNameSpace & ".APBheaderData.strAIRSNumber " & _
-          "and  " & DBNameSpace & ".FS_Admin.numFeeYear = '" & cboAvailableFeeYears.Text & "'  " & _
-          "AND " & DBNameSpace & ".FS_Admin.Active = '1' "
+          "From AIRBRANCH.FS_Admin, AIRBRANCH.APBFacilityInformation,  " & _
+          "AIRBRANCH.APBHeaderData " & _
+          "where AIRBRANCH.FS_Admin.strAIRSnumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber  " & _
+          "and AIRBRANCH.FS_admin.strAIRSNumber = AIRBRANCH.APBheaderData.strAIRSNumber " & _
+          "and  AIRBRANCH.FS_Admin.numFeeYear = '" & cboAvailableFeeYears.Text & "'  " & _
+          "AND AIRBRANCH.FS_Admin.Active = '1' "
             '"and (strEnrolled = '1' or strInitialMailout = '1' or strMailoutSent = '1')  " & _
 
             ds = New DataSet
@@ -1695,7 +1695,7 @@ Public Class PASPFeeManagement
         End If
 
         Try
-            SQL = "Update " & DBNameSpace & ".FS_Admin set " & _
+            SQL = "Update AIRBRANCH.FS_Admin set " & _
             " datMailoutSent = '" & dtpDateMailoutSent.Text & "', " & _
             " numcurrentstatus = 4, " & _
             " strMailOutSent = '1' " & _
@@ -1813,7 +1813,7 @@ Public Class PASPFeeManagement
                 txtEmail.Clear()
 
                 SQL = "Select strFacilityName " & _
-                "from " & DBNameSpace & ".APBFacilityInformation " & _
+                "from AIRBRANCH.APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1824,14 +1824,14 @@ Public Class PASPFeeManagement
                     If IsDBNull(dr.Item("strFacilityName")) Then
                         lblFaciltyName.Text = " - "
                     Else
-                        lblFaciltyName.Text = dr.Item("strFacilityName")
+                        lblFaciltyName.Text = Apb.Facility.SanitizeFacilityNameForDb(dr.Item("strFacilityName"))
                     End If
                 End While
                 dr.Close()
 
                 SQL = "SELECT " & _
-                "" & DBNameSpace & ".OlapUserAccess.NumUserID as ID, " & DBNameSpace & ".OlapUserLogin.numuserid, " & _
-                "" & DBNameSpace & ".OlapUserLogin.strUserEmail as Email, " & _
+                "AIRBRANCH.OlapUserAccess.NumUserID as ID, AIRBRANCH.OlapUserLogin.numuserid, " & _
+                "AIRBRANCH.OlapUserLogin.strUserEmail as Email, " & _
                 "Case " & _
                 "When intAdminAccess = 0 Then 'False' " & _
                 "When intAdminAccess = 1 Then 'True' " & _
@@ -1848,9 +1848,9 @@ Public Class PASPFeeManagement
                 "When intESAccess = 0 Then 'False' " & _
                 "When intESAccess = 1 Then 'True' " & _
                 "End as intESAccess " & _
-                "FROM " & DBNameSpace & ".OlapUserAccess, " & DBNameSpace & ".OlapUserLogin " & _
-                "WHERE " & DBNameSpace & ".OLAPUserAccess.NumUserId = " & DBNameSpace & ".OlapUserLogin.NumUserID " & _
-                "AND " & DBNameSpace & ".OlapUserAccess.strAirsNumber = '0413" & mtbAIRSNumber.Text & "' order by email"
+                "FROM AIRBRANCH.OlapUserAccess, AIRBRANCH.OlapUserLogin " & _
+                "WHERE AIRBRANCH.OLAPUserAccess.NumUserId = AIRBRANCH.OlapUserLogin.NumUserID " & _
+                "AND AIRBRANCH.OlapUserAccess.strAirsNumber = '0413" & mtbAIRSNumber.Text & "' order by email"
 
                 dgvUsers.Rows.Clear()
                 ds = New DataSet
@@ -1924,7 +1924,7 @@ Public Class PASPFeeManagement
             Dim userID As Integer
 
             SQL = "Select numUserId " & _
-            "from " & DBNameSpace & ".olapuserlogin " & _
+            "from AIRBRANCH.olapuserlogin " & _
             "where struseremail = '" & Replace(UCase(txtEmail.Text), "'", "''") & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1935,7 +1935,7 @@ Public Class PASPFeeManagement
 
             If recExist = True Then 'Email address is registered
                 userID = dr.Item("numUserId")
-                Dim InsertString As String = "Insert into " & DBNameSpace & ".OlapUserAccess " & _
+                Dim InsertString As String = "Insert into AIRBRANCH.OlapUserAccess " & _
                 "(numUserId, strAirsNumber, strFacilityName) values( " & _
                 "'" & userID & "', '0413" & mtbAIRSNumber.Text & "', '" & Replace(lblFaciltyName.Text, "'", "''") & "') "
 
@@ -1960,7 +1960,7 @@ Public Class PASPFeeManagement
     End Sub
     Private Sub btnDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDelete.Click
         Try
-            SQL = "DELETE " & DBNameSpace & ".OlapUserAccess " & _
+            SQL = "DELETE AIRBRANCH.OlapUserAccess " & _
             "WHERE numUserID = '" & cboUsers.SelectedValue & "' " & _
             "and strAirsNumber = '0413" & mtbAIRSNumber.Text & "' "
 
@@ -2006,7 +2006,7 @@ Public Class PASPFeeManagement
                     esaccess = "0"
                 End If
 
-                SQL = "UPDATE " & DBNameSpace & ".OlapUserAccess " & _
+                SQL = "UPDATE AIRBRANCH.OlapUserAccess " & _
                 "SET intadminaccess = '" & adminaccess & "', " & _
                 "intFeeAccess = '" & feeaccess & "', " & _
                 "intEIAccess = '" & eiaccess & "', " & _
@@ -2040,7 +2040,7 @@ Public Class PASPFeeManagement
     Sub LoadUserInfo(ByVal UserData As String)
         Try
             SQL = "Select " & _
-            "" & DBNameSpace & ".OLAPUserProfile.numUserID, " & _
+            "AIRBRANCH.OLAPUserProfile.numUserID, " & _
             "strfirstname, strlastname, " & _
             "strtitle, strcompanyname, " & _
             "straddress, strcity, " & _
@@ -2048,8 +2048,8 @@ Public Class PASPFeeManagement
             "strphonenumber, strfaxnumber, " & _
             "datLastLogIn, strConfirm, " & _
             "strUserEmail " & _
-            "from " & DBNameSpace & ".OlapUserProfile, " & DBNameSpace & ".OLAPUserLogIn " & _
-            "where " & DBNameSpace & ".OLAPUserProfile.numUserID = " & DBNameSpace & ".OLAPUserLogIn.numuserid " & _
+            "from AIRBRANCH.OlapUserProfile, AIRBRANCH.OLAPUserLogIn " & _
+            "where AIRBRANCH.OLAPUserProfile.numUserID = AIRBRANCH.OLAPUserLogIn.numuserid " & _
             "and strUserEmail = upper('" & UserData & "') "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2180,8 +2180,8 @@ Public Class PASPFeeManagement
              "Case When intFeeAccess = 0 Then 'False' When intFeeAccess = 1 Then 'True' End as intFeeAccess, " & _
              "Case When intEIAccess = 0 Then 'False' When intEIAccess = 1 Then 'True' End as intEIAccess, " & _
              "Case When intESAccess = 0 Then 'False' When intESAccess = 1 Then 'True' End as intESAccess " & _
-             "FROM " & DBNameSpace & ".OlapUserAccess, " & DBNameSpace & ".OLAPUserLogIn  " & _
-             "WHERE " & DBNameSpace & ".OlapUserAccess.numUserId = " & DBNameSpace & ".OLAPUserLogIn.numUserId " & _
+             "FROM AIRBRANCH.OlapUserAccess, AIRBRANCH.OLAPUserLogIn  " & _
+             "WHERE AIRBRANCH.OlapUserAccess.numUserId = AIRBRANCH.OLAPUserLogIn.numUserId " & _
              "and  strUserEmail = upper('" & EmailLoc & "') " & _
              "order by strfacilityname"
 
@@ -2315,7 +2315,7 @@ Public Class PASPFeeManagement
                     FaxNumber = " strFaxNumber = '" & Replace(mtbEditFaxNumber.Text, "'", "''") & "', "
                 End If
 
-                SQL = "Update " & DBNameSpace & ".OLAPUserProfile set " & _
+                SQL = "Update AIRBRANCH.OLAPUserProfile set " & _
                 FirstName & LastName & Title & Company & Address & _
                 City & State & Zip & PhoneNumber & FaxNumber & _
                 "numUserID = '" & txtWebUserID.Text & "' " & _
@@ -2364,7 +2364,7 @@ Public Class PASPFeeManagement
         Try
             If txtWebUserID.Text <> "" And txtEditUserPassword.Text <> "" Then
                 'New password change code 6/30/2010
-                SQL = "Update " & DBNameSpace & ".OLAPUserLogIN set " & _
+                SQL = "Update AIRBRANCH.OLAPUserLogIN set " & _
                 "strUserPassword = '" & getMd5Hash(txtEditUserPassword.Text) & "' " & _
                 "where numUserID = '" & txtWebUserID.Text & "' "
 
@@ -2402,7 +2402,7 @@ Public Class PASPFeeManagement
                 If EmailAddressIsValid(txtEditEmail.Text) Then
                     SQL = "Select " & _
                     "numUserID, strUserPassword " & _
-                    "from " & DBNameSpace & ".OLAPUserLogIN " & _
+                    "from AIRBRANCH.OLAPUserLogIN " & _
                     "where upper(strUserEmail) = '" & Replace(txtEditEmail.Text.ToUpper, "'", "''") & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2427,7 +2427,7 @@ Public Class PASPFeeManagement
                         dr.Close()
                     End If
 
-                    SQL = "Update " & DBNameSpace & ".OLAPUserLogIn set " & _
+                    SQL = "Update AIRBRANCH.OLAPUserLogIn set " & _
                     "strUserEmail = '" & Replace(txtEditEmail.Text.ToUpper, "'", "''") & "' " & _
                     "where numUserID = '" & txtWebUserID.Text & "' "
 
@@ -2465,7 +2465,7 @@ Public Class PASPFeeManagement
             If txtWebUserID.Text <> "" And mtbFacilityToAdd.Text <> "" Then
                 SQL = "Select " & _
                 "numUserId " & _
-                "from " & DBNameSpace & ".OlapUserAccess " & _
+                "from AIRBRANCH.OlapUserAccess " & _
                 "where numUserId = '" & txtWebUserID.Text & "' " & _
                 "and strAirsNumber = '0413" & mtbFacilityToAdd.Text & "' "
 
@@ -2478,12 +2478,12 @@ Public Class PASPFeeManagement
                 dr.Close()
 
                 If recExist = False Then
-                    SQL = "Insert into " & DBNameSpace & ".OlapUserAccess " & _
+                    SQL = "Insert into AIRBRANCH.OlapUserAccess " & _
                      "(numUserId, strAirsNumber, strFacilityName) " & _
                      "values " & _
                      "('" & txtWebUserID.Text & "', '0413" & mtbFacilityToAdd.Text & "', " & _
                      "(select strFacilityName " & _
-                     "from " & DBNameSpace & ".APBFacilityInformation " & _
+                     "from AIRBRANCH.APBFacilityInformation " & _
                      "where strAIRSnumber = '0413" & mtbFacilityToAdd.Text & "')) "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2508,7 +2508,7 @@ Public Class PASPFeeManagement
     Private Sub btnDeleteFacilityUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteFacilityUser.Click
         Try
             If txtWebUserID.Text <> "" And cboFacilityToDelete.Text <> "" Then
-                SQL = "DELETE " & DBNameSpace & ".OlapUserAccess " & _
+                SQL = "DELETE AIRBRANCH.OlapUserAccess " & _
                 "WHERE numUserID = '" & txtWebUserID.Text & "' " & _
                 "and strAirsNumber = '0413" & cboFacilityToDelete.SelectedValue & "' "
 
@@ -2557,7 +2557,7 @@ Public Class PASPFeeManagement
                     esaccess = "0"
                 End If
 
-                SQL = "UPDATE " & DBNameSpace & ".OlapUserAccess " & _
+                SQL = "UPDATE AIRBRANCH.OlapUserAccess " & _
                 "SET intadminaccess = '" & adminaccess & "', " & _
                 "intFeeAccess = '" & feeaccess & "', " & _
                 "intEIAccess = '" & eiaccess & "', " & _
@@ -2600,7 +2600,7 @@ Public Class PASPFeeManagement
 
     Private Sub btnOpenFeesLog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFeesLog.Click
         Dim parameters As New Generic.Dictionary(Of String, String)
-        If Apb.ApbFacilityId.ValidAirsNumberFormat(mtbCheckAIRSNumber.Text) Then
+        If Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbCheckAIRSNumber.Text) Then
             parameters("airsnumber") = mtbCheckAIRSNumber.Text
         End If
         parameters("feeyear") = cboAvailableFeeYears.Text
@@ -2693,7 +2693,7 @@ Public Class PASPFeeManagement
 
             Dim SQL As String = "Insert into FS_FeeRate " & _
             "values " & _
-            "((Select max(numFeeRateID) + 1 from " & DBNameSpace & ".FS_FeeRate), " & _
+            "((Select max(numFeeRateID) + 1 from AIRBRANCH.FS_FeeRate), " & _
             "'" & FeeYear & "', '" & PeriodStart & "', " & _
             "'" & PeriodEnd & "', '" & Part70Fee & "', " & _
             "'" & SMFee & "', '" & PerTonRate & "', " & _
@@ -2797,7 +2797,7 @@ Public Class PASPFeeManagement
                 End If
             End If
 
-            Dim SQL As String = "Update " & DBNameSpace & ".FS_FeeRate set " & _
+            Dim SQL As String = "Update AIRBRANCH.FS_FeeRate set " & _
             "numFeeYear = '" & FeeYear & "', " & _
             "datFeePeriodStart = '" & PeriodStart & "', " & _
             "datFeePeriodEnd = '" & PeriodEnd & "', " & _
@@ -2835,9 +2835,9 @@ Public Class PASPFeeManagement
 
     Function Insert_FSLK_NSPSReason(ByVal Description As String) As Boolean
         Try
-            Dim SQL As String = "Insert into " & DBNameSpace & ".FSLK_NSPSReason " & _
+            Dim SQL As String = "Insert into AIRBRANCH.FSLK_NSPSReason " & _
             "Values " & _
-            "((select max(NSPSReasonCode) + 1 from " & DBNameSpace & ".FSLK_NSPSReason), " & _
+            "((select max(NSPSReasonCode) + 1 from AIRBRANCH.FSLK_NSPSReason), " & _
             "'" & Replace(Description, "'", "''") & "', " & _
             "'1', '" & UserGCode & "', " & _
             "'" & OracleDate & "', '" & OracleDate & "') "
@@ -2860,13 +2860,13 @@ Public Class PASPFeeManagement
         Try
             Dim SQL As String
             If Description = "" Then
-                Sql = "Update " & DBNameSpace & ".FSLK_NSPSReason set " & _
+                Sql = "Update AIRBRANCH.FSLK_NSPSReason set " & _
                 "Active = '" & ActiveStatus & "', " & _
                 "updateUser = '" & UserGCode & "', " & _
                 "UpdateDateTime = '" & OracleDate & "' " & _
                 "where NSPSReasonCode = '" & NSPSReasonCode & "' "
             Else
-                Sql = "Update " & DBNameSpace & ".FSLK_NSPSReason set " & _
+                Sql = "Update AIRBRANCH.FSLK_NSPSReason set " & _
                 "Description = '" & Replace(Description, "'", "''") & "', " & _
                 "Active = '" & ActiveStatus & "', " & _
                 "updateUser = '" & UserGCode & "', " & _
@@ -2890,7 +2890,7 @@ Public Class PASPFeeManagement
 
     Function Insert_FSLK_NSPSReasonYear(ByVal numFeeYear As String, ByVal NSPSReasonCode As String, ByVal DisplayOrder As String) As Boolean
         Try
-            Dim SQL As String = "Insert into " & DBNameSpace & ".FSLK_NSPSReasonYear " & _
+            Dim SQL As String = "Insert into AIRBRANCH.FSLK_NSPSReasonYear " & _
             "values " & _
             "('" & numFeeYear & "', '" & NSPSReasonCode & "', " & _
             "'" & DisplayOrder & "', '1', " & _
@@ -2911,7 +2911,7 @@ Public Class PASPFeeManagement
     Function Update_FSLK_NSPSReasonYear(ByVal numFeeYear As String, ByVal NSPSReasonCode As String, ByVal DisplayOrder As String, _
                                        ByVal ActiveStatus As String) As Boolean
         Try
-            Dim SQL As String = "Update " & DBNameSpace & ".FSLK_NSPSReasonYear set " & _
+            Dim SQL As String = "Update AIRBRANCH.FSLK_NSPSReasonYear set " & _
             "NSPSReasonCode = '" & NSPSReasonCode & "', " & _
             "DisplayOrder = '" & DisplayOrder & "', " & _
             "Active = '" & ActiveStatus & "', " & _

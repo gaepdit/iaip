@@ -320,7 +320,7 @@ Public Class IAIPNavigation
             Exit Sub
         End If
 
-        If Not Apb.ApbFacilityId.ValidAirsNumberFormat(txtOpenFacilitySummary.Text) Then
+        If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(txtOpenFacilitySummary.Text) Then
             MsgBox("AIRS number is not valid.", MsgBoxStyle.Information, "Navigation Screen")
             Exit Sub
         End If
@@ -1353,7 +1353,6 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(129, "AFS Tools", "DMUDeveloperTool", NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(10, "District Tools", "IAIPDistrictSourceTool", NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(133, "Look Up Tables", "IAIPLookUpTables", NavButtonCategories.DMU)
-        AddNavButtonIfAccountHasFormAccess(11, "AFS Validator", "AFSValidator", NavButtonCategories.DMU)
         If (UserGCode = "345") Then
             AddNavButtonIfAccountHasFormAccess(63, "Scary DMU-Only Tool", "DMUDangerousTool", NavButtonCategories.DMU)
         End If

@@ -9,7 +9,7 @@ Namespace DAL.SSCP
             If id = "" OrElse Not Integer.TryParse(id, Nothing) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM " & DBNameSpace & ".SSCP_AUDITEDENFORCEMENT " & _
+                " FROM AIRBRANCH.SSCP_AUDITEDENFORCEMENT " & _
                 " WHERE RowNum = 1 " & _
                 " AND STRENFORCEMENTNUMBER = :pId "
             Dim parameter As New OracleParameter("pId", id)
@@ -22,7 +22,7 @@ Namespace DAL.SSCP
             If id = "" OrElse Not Integer.TryParse(id, Nothing) Then Return False
 
             Dim query As String = " SELECT STRENFORCEMENTNUMBER " & _
-                " FROM " & DBNameSpace & ".SSCP_AUDITEDENFORCEMENT " & _
+                " FROM AIRBRANCH.SSCP_AUDITEDENFORCEMENT " & _
                 " WHERE STRTRACKINGNUMBER = :pId "
             Dim parameter As New OracleParameter("pId", id)
 
@@ -85,10 +85,10 @@ Namespace DAL.SSCP
                 "   SSCP_AUDITEDENFORCEMENT.STRENFORCEMENTFINALIZED, " & _
                 "   SSCP_AUDITEDENFORCEMENT.DATENFORCEMENTFINALIZED, " & _
                 "   SSCP_AUDITEDENFORCEMENT.STRACTIONTYPE " & _
-                " FROM " & DBNameSpace & ".SSCP_AUDITEDENFORCEMENT " & _
-                " LEFT JOIN " & DBNameSpace & ".APBFACILITYINFORMATION " & _
+                " FROM AIRBRANCH.SSCP_AUDITEDENFORCEMENT " & _
+                " LEFT JOIN AIRBRANCH.APBFACILITYINFORMATION " & _
                 " ON APBFACILITYINFORMATION.STRAIRSNUMBER = SSCP_AUDITEDENFORCEMENT.STRAIRSNUMBER " & _
-                " LEFT JOIN " & DBNameSpace & ".EPDUSERPROFILES " & _
+                " LEFT JOIN AIRBRANCH.EPDUSERPROFILES " & _
                 " ON EPDUSERPROFILES.NUMUSERID = SSCP_AUDITEDENFORCEMENT.NUMSTAFFRESPONSIBLE " & _
                 " WHERE SSCP_AUDITEDENFORCEMENT.STRENFORCEMENTNUMBER = :pId "
             Dim parameter As New OracleParameter("pId", id)

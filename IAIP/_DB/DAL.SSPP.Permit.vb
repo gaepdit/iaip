@@ -9,7 +9,7 @@ Namespace DAL.SSPP
 
         Public Function PermitExists(ByVal permitNumber As String) As Boolean
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM " & DBNameSpace & ".APBISSUEDPERMIT " & _
+                " FROM AIRBRANCH.APBISSUEDPERMIT " & _
                 " WHERE RowNum = 1 " & _
                 " AND STRPERMITNUMBER = :permitnumber "
             Dim parameter As New OracleParameter("permitnumber", permitNumber)
@@ -27,7 +27,7 @@ Namespace DAL.SSPP
                 "   DATREVOKED, " & _
                 "   ACTIVE, " & _
                 "   PERMITTYPECODE " & _
-                " FROM " & DBNameSpace & ".APBISSUEDPERMIT " & _
+                " FROM AIRBRANCH.APBISSUEDPERMIT " & _
                 " WHERE STRPERMITNUMBER = :permitnumber " & _
                 " ORDER BY DATISSUED DESC"
 
@@ -76,7 +76,7 @@ Namespace DAL.SSPP
                 "   DATREVOKED, " & _
                 "   ACTIVE, " & _
                 "   PERMITTYPECODE " & _
-                " FROM " & DBNameSpace & ".APBISSUEDPERMIT " & _
+                " FROM AIRBRANCH.APBISSUEDPERMIT " & _
                 " WHERE STRAIRSNUMBER = :airsnumber " & _
                 " ORDER BY DATISSUED DESC Nulls FIRST "
 
@@ -94,7 +94,7 @@ Namespace DAL.SSPP
                 "   UPDATEDBY, " & _
                 "   ACTIVE, " & _
                 "   PERMITTYPECODE " & _
-                " FROM " & DBNameSpace & ".APBISSUEDPERMIT " & _
+                " FROM AIRBRANCH.APBISSUEDPERMIT " & _
                 " WHERE STRAIRSNUMBER = :airsnumber " & _
                 " AND ACTIVE = '1' " & _
                 " ORDER BY DATISSUED Nulls FIRST "
@@ -125,7 +125,7 @@ Namespace DAL.SSPP
             If permits Is Nothing OrElse permits.Count = 0 Then Return False
 
             Dim query As String = _
-                " UPDATE " & DBNameSpace & ".APBISSUEDPERMIT " & _
+                " UPDATE AIRBRANCH.APBISSUEDPERMIT " & _
                 " SET STRAIRSNUMBER    = :AirsNumber, " & _
                 "   STRPERMITNUMBER    = :PermitNumber, " & _
                 "   DATISSUED          = :IssuedDate, " & _
@@ -171,7 +171,7 @@ Namespace DAL.SSPP
 
             Dim query As String = _
                 " INSERT " & _
-                " INTO " & DBNameSpace & ".APBISSUEDPERMIT " & _
+                " INTO AIRBRANCH.APBISSUEDPERMIT " & _
                 "   ( " & _
                 "     ISSUEDPERMITID, " & _
                 "     STRAIRSNUMBER, " & _
@@ -187,7 +187,7 @@ Namespace DAL.SSPP
                 "   ) " & _
                 "   VALUES " & _
                 "   ( " & _
-                "     " & DBNameSpace & ".PERMITID_SEQ.NEXTVAL, " & _
+                "     AIRBRANCH.PERMITID_SEQ.NEXTVAL, " & _
                 "     :AirsNumber, " & _
                 "     :PermitNumber, " & _
                 "     :IssuedDate, " & _

@@ -36,7 +36,7 @@ Public Class SSCPEmissionSummaryTool
         Try
             SQL = "Select " & _
             "distinct intESYear " & _
-            "from " & DBNameSpace & ".esschema " & _
+            "from AIRBRANCH.esschema " & _
             "order by intESYear desc "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -57,7 +57,7 @@ Public Class SSCPEmissionSummaryTool
 
             SQL = "Select " & _
             "distinct(strInventoryYear) as EIYear " & _
-            "from " & DBNameSpace & ".EISI " & _
+            "from AIRBRANCH.EISI " & _
             "where strInventoryYear < 2010 " & _
             "order by strInventoryYear desc "
 
@@ -193,9 +193,9 @@ Public Class SSCPEmissionSummaryTool
         Try
             Try
                 SQL = "select count(*) as MailoutCount " & _
-                "from " & DBNameSpace & ".esmailout, " & DBNameSpace & ".ESSCHEMA " & _
-                "where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
-                "and " & DBNameSpace & ".esmailout.STRESYEAR = '" & ESYear & "'"
+                "from AIRBRANCH.esmailout, AIRBRANCH.ESSCHEMA " & _
+                "where AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " & _
+                "and AIRBRANCH.esmailout.STRESYEAR = '" & ESYear & "'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -209,10 +209,10 @@ Public Class SSCPEmissionSummaryTool
                 dr.Close()
 
                 SQL = "select count(*) as ResponseCount " & _
-                "from " & DBNameSpace & ".esmailout, " & DBNameSpace & ".ESSCHEMA " & _
-                "where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
-                "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT is not NULL " & _
-                "and " & DBNameSpace & ".esmailout.STRESYEAR = '" & ESYear & "'"
+                "from AIRBRANCH.esmailout, AIRBRANCH.ESSCHEMA " & _
+                "where AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR " & _
+                "and AIRBRANCH.ESSCHEMA.STROPTOUT is not NULL " & _
+                "and AIRBRANCH.esmailout.STRESYEAR = '" & ESYear & "'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -226,9 +226,9 @@ Public Class SSCPEmissionSummaryTool
                 dr.Close()
 
                 SQL = "select count(*) as TotaloptinCount " & _
-                "from " & DBNameSpace & ".ESSchema " & _
-                "where " & DBNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
-                " and " & DBNameSpace & ".ESSchema.strOptOut = 'NO'"
+                "from AIRBRANCH.ESSchema " & _
+                "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "'" & _
+                " and AIRBRANCH.ESSchema.strOptOut = 'NO'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -242,9 +242,9 @@ Public Class SSCPEmissionSummaryTool
                 dr.Close()
 
                 SQL = "select count(*) as TotaloptOutCount " & _
-                "from " & DBNameSpace & ".ESSchema " & _
-                "where " & DBNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "' " & _
-                "and " & DBNameSpace & ".ESSchema.strOptOut = 'YES'"
+                "from AIRBRANCH.ESSchema " & _
+                "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "' " & _
+                "and AIRBRANCH.ESSchema.strOptOut = 'YES'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
 
@@ -259,9 +259,9 @@ Public Class SSCPEmissionSummaryTool
                 dr.Close()
 
                 SQL = "select count(*) as TotalinincomplianceCount " & _
-                "from " & DBNameSpace & ".ESSchema " & _
-                "where " & DBNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
-                " and to_date(" & DBNameSpace & ".ESSchema.STRDATEFIRSTCONFIRM) < = '" & deadline & "'"
+                "from AIRBRANCH.ESSchema " & _
+                "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "'" & _
+                " and to_date(AIRBRANCH.ESSchema.STRDATEFIRSTCONFIRM) < = '" & deadline & "'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -274,9 +274,9 @@ Public Class SSCPEmissionSummaryTool
                 dr.Close()
 
                 SQL = "select count(*) as TotaloutofcomplianceCount " & _
-                "from " & DBNameSpace & ".ESSchema " & _
-                "where " & DBNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
-                " and to_date(" & DBNameSpace & ".ESSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "'"
+                "from AIRBRANCH.ESSchema " & _
+                "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "'" & _
+                " and to_date(AIRBRANCH.ESSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -289,10 +289,10 @@ Public Class SSCPEmissionSummaryTool
                 dr.Close()
 
                 SQL = "select count(*) as MailOutOptInCount " & _
-                "from " & DBNameSpace & ".ESSchema, " & DBNameSpace & ".ESMailout " & _
-                "where " & DBNameSpace & ".ESMAILOUT.strESYEAR = '" & ESYear & "' " & _
-                " and " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
-                " and " & DBNameSpace & ".ESSchema.strOptOut = 'NO'"
+                "from AIRBRANCH.ESSchema, AIRBRANCH.ESMailout " & _
+                "where AIRBRANCH.ESMAILOUT.strESYEAR = '" & ESYear & "' " & _
+                " and AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " & _
+                " and AIRBRANCH.ESSchema.strOptOut = 'NO'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -306,10 +306,10 @@ Public Class SSCPEmissionSummaryTool
                 dr.Close()
 
                 SQL = "select count(*) as MailOutOptOutCount " & _
-                "from " & DBNameSpace & ".ESSchema, " & DBNameSpace & ".ESMailout " & _
-                "where " & DBNameSpace & ".ESMAILOUT.strESYEAR = '" & ESYear & "'" & _
-                " and " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
-                " and " & DBNameSpace & ".ESSchema.strOptOut = 'YES'"
+                "from AIRBRANCH.ESSchema, AIRBRANCH.ESMailout " & _
+                "where AIRBRANCH.ESMAILOUT.strESYEAR = '" & ESYear & "'" & _
+                " and AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " & _
+                " and AIRBRANCH.ESSchema.strOptOut = 'YES'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -328,9 +328,9 @@ Public Class SSCPEmissionSummaryTool
 
 
             SQL = "select count(*) as Nonresponsecount " & _
-             "from " & DBNameSpace & ".ESSCHEMA " & _
-             "where " & DBNameSpace & ".ESSCHEMA.intESYEAR = '" & ESYear & "'" & _
-             " and " & DBNameSpace & ".ESSchema.strOptOut is NULL"
+             "from AIRBRANCH.ESSCHEMA " & _
+             "where AIRBRANCH.ESSCHEMA.intESYEAR = '" & ESYear & "'" & _
+             " and AIRBRANCH.ESSchema.strOptOut is NULL"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -344,15 +344,15 @@ Public Class SSCPEmissionSummaryTool
             dr.Close()
 
             SQL = "select count(*) as ExtraCount " & _
-            "from (Select " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " & _
-            "" & DBNameSpace & ".ESMAILOUT.STRAIRSYear AS MailoutAIRS " & _
-            "From " & DBNameSpace & ".ESMailout, " & DBNameSpace & ".ESSCHEMA" & _
-            " Where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
-            "AND " & DBNameSpace & ".esschema.INTESYEAR= '" & intESyear & "' " & _
-            "AND " & DBNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
+            "from (Select AIRBRANCH.ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " & _
+            "AIRBRANCH.ESMAILOUT.STRAIRSYear AS MailoutAIRS " & _
+            "From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA" & _
+            " Where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " & _
+            "AND AIRBRANCH.esschema.INTESYEAR= '" & intESyear & "' " & _
+            "AND AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " & _
             "dt_NotInMailout, " & _
-            "" & DBNameSpace & ".ESSCHEMA " & _
-            "Where " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
+            "AIRBRANCH.ESSCHEMA " & _
+            "Where AIRBRANCH.ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
             "AND MailoutAIRS is NULL"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -367,17 +367,17 @@ Public Class SSCPEmissionSummaryTool
             dr.Close()
 
             SQL = "select count(*) as ExtraOptinCount " & _
-            "from (Select " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " & _
-            "" & DBNameSpace & ".ESMAILOUT.STRAIRSYear AS MailoutAIRS " & _
-            "From " & DBNameSpace & ".ESMailout, " & DBNameSpace & ".ESSCHEMA " & _
-            "Where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
-            "AND " & DBNameSpace & ".esschema.INTESYEAR= '" & intESyear & "' " & _
-            "AND " & DBNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
+            "from (Select AIRBRANCH.ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " & _
+            "AIRBRANCH.ESMAILOUT.STRAIRSYear AS MailoutAIRS " & _
+            "From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA " & _
+            "Where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " & _
+            "AND AIRBRANCH.esschema.INTESYEAR= '" & intESyear & "' " & _
+            "AND AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " & _
             "dt_NotInMailout, " & _
-            "" & DBNameSpace & ".ESSCHEMA " & _
-            "Where " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
+            "AIRBRANCH.ESSCHEMA " & _
+            "Where AIRBRANCH.ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
             "AND MailoutAIRS is NULL " & _
-            "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT='NO'"
+            "and AIRBRANCH.ESSCHEMA.STROPTOUT='NO'"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
 
@@ -392,17 +392,17 @@ Public Class SSCPEmissionSummaryTool
             dr.Close()
 
             SQL = "select count(*) as ExtraOptOUTCount " & _
-            "from (Select " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " & _
-            "" & DBNameSpace & ".ESMAILOUT.STRAIRSYear AS MailoutAIRS " & _
-            "From " & DBNameSpace & ".ESMailout, " & DBNameSpace & ".ESSCHEMA " & _
-            "Where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
-            "AND " & DBNameSpace & ".esschema.INTESYEAR= '" & intESyear & "' " & _
-            "AND " & DBNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
+            "from (Select AIRBRANCH.ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " & _
+            "AIRBRANCH.ESMAILOUT.STRAIRSYear AS MailoutAIRS " & _
+            "From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA " & _
+            "Where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " & _
+            "AND AIRBRANCH.esschema.INTESYEAR= '" & intESyear & "' " & _
+            "AND AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " & _
             "dt_NotInMailout, " & _
-            "" & DBNameSpace & ".ESSCHEMA " & _
-            "Where " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
+            "AIRBRANCH.ESSCHEMA " & _
+            "Where AIRBRANCH.ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
             "AND MailoutAIRS is NULL " & _
-            "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT='YES'"
+            "and AIRBRANCH.ESSCHEMA.STROPTOUT='YES'"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
 
@@ -417,9 +417,9 @@ Public Class SSCPEmissionSummaryTool
             dr.Close()
 
             SQL = "select count(*) as TotalResponsecount " & _
-            "from " & DBNameSpace & ".ESSchema " & _
-            "where " & DBNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
-            " and " & DBNameSpace & ".ESSchema.strOptOut is not NULL"
+            "from AIRBRANCH.ESSchema " & _
+            "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "'" & _
+            " and AIRBRANCH.ESSchema.strOptOut is not NULL"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Open Then
@@ -446,7 +446,7 @@ Public Class SSCPEmissionSummaryTool
         Try
 
             SQL = "SELECT * " & _
-            "from " & DBNameSpace & ".esschema " & _
+            "from AIRBRANCH.esschema " & _
             "where STRAIRSNUMBER = '" & AirsNo & "' " & _
             "and INTESYEAR = '" & intESyear & "'"
 
@@ -719,7 +719,7 @@ Public Class SSCPEmissionSummaryTool
             "STRCONTACTSTATE, " & _
             "STRCONTACTZIPCODE, " & _
             "STRCONTACTEMAIL " & _
-            "from " & DBNameSpace & ".esMailOut " & _
+            "from AIRBRANCH.esMailOut " & _
             "where STRESYEAR = '" & year & "' " & _
             "order by STRFACILITYNAME"
 
@@ -777,15 +777,15 @@ Public Class SSCPEmissionSummaryTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
-            "" & DBNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
-            "from " & DBNameSpace & ".esSchema, " & DBNameSpace & ".esmailout " & _
-            "where " & DBNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
-            "and " & DBNameSpace & ".esSchema.STROPTOUT = 'NO'" & _
-            "and " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
-            "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
+            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " & _
+            "AIRBRANCH.esSchema.STRFACILITYNAME, " & _
+            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " & _
+            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR " & _
+            "from AIRBRANCH.esSchema, AIRBRANCH.esmailout " & _
+            "where AIRBRANCH.esSchema.intESyear = '" & intYear & "' " & _
+            "and AIRBRANCH.esSchema.STROPTOUT = 'NO'" & _
+            "and AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " & _
+            "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
@@ -830,15 +830,15 @@ Public Class SSCPEmissionSummaryTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
-            "" & DBNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
-            "from " & DBNameSpace & ".esSchema, " & DBNameSpace & ".esmailout  " & _
-            "where " & DBNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
-            "and " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
-            "and " & DBNameSpace & ".esSchema.STROPTOUT = 'YES'" & _
-            "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
+            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " & _
+            "AIRBRANCH.esSchema.STRFACILITYNAME, " & _
+            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " & _
+            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR " & _
+            "from AIRBRANCH.esSchema, AIRBRANCH.esmailout  " & _
+            "where AIRBRANCH.esSchema.intESyear = '" & intYear & "' " & _
+            "and AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " & _
+            "and AIRBRANCH.esSchema.STROPTOUT = 'YES'" & _
+            "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
@@ -892,23 +892,23 @@ Public Class SSCPEmissionSummaryTool
             End If
 
             SQL = "SELECT airbranch.esSchema.STRAIRSNUMBER, " & _
-            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & DBNameSpace & ".esSchema.STROPTOUT, " & _
-            "" & DBNameSpace & ".esSchema.STRCONFIRMATIONNBR, " & _
-            "" & DBNameSpace & ".esSchema.STRCONTACTFIRSTNAME, " & _
-            "" & DBNameSpace & ".esSchema.STRCONTACTLASTNAME, " & _
-            "" & DBNameSpace & ".esSchema.STRCONTACTCOMPANY, " & _
-            "" & DBNameSpace & ".esSchema.STRCONTACTADDRESS1, " & _
-            "" & DBNameSpace & ".esSchema.STRCONTACTCITY, " & _
-            "" & DBNameSpace & ".esSchema.STRCONTACTSTATE, " & _
-            "" & DBNameSpace & ".esSchema.STRCONTACTZIP, " & _
-            "" & DBNameSpace & ".esSchema.STRCONTACTEMAIL, " & _
-            "" & DBNameSpace & ".esSchema.STRCONTACTPHONENUMBER " & _
-            "from " & DBNameSpace & ".esSchema " & _
+            "AIRBRANCH.esSchema.STRFACILITYNAME, " & _
+            "AIRBRANCH.esSchema.STROPTOUT, " & _
+            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR, " & _
+            "AIRBRANCH.esSchema.STRCONTACTFIRSTNAME, " & _
+            "AIRBRANCH.esSchema.STRCONTACTLASTNAME, " & _
+            "AIRBRANCH.esSchema.STRCONTACTCOMPANY, " & _
+            "AIRBRANCH.esSchema.STRCONTACTADDRESS1, " & _
+            "AIRBRANCH.esSchema.STRCONTACTCITY, " & _
+            "AIRBRANCH.esSchema.STRCONTACTSTATE, " & _
+            "AIRBRANCH.esSchema.STRCONTACTZIP, " & _
+            "AIRBRANCH.esSchema.STRCONTACTEMAIL, " & _
+            "AIRBRANCH.esSchema.STRCONTACTPHONENUMBER " & _
+            "from AIRBRANCH.esSchema " & _
             "where intESyear = '" & intYear & "' " & _
-            "and " & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
-            "and to_date(" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "' " & _
-            "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
+            "and AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
+            "and to_date(AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "' " & _
+            "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
@@ -978,15 +978,15 @@ Public Class SSCPEmissionSummaryTool
                 deadline = "15-Jun-2007"
             End If
 
-            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
-            "" & DBNameSpace & ".esSchema.STRCONTACTPHONENUMBER " & _
-            "from " & DBNameSpace & ".esSchema " & _
-            "where " & DBNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
-             "and " & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
-            "and to_date(" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM) <= '" & deadline & "' " & _
-            "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
+            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " & _
+            "AIRBRANCH.esSchema.STRFACILITYNAME, " & _
+            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " & _
+            "AIRBRANCH.esSchema.STRCONTACTPHONENUMBER " & _
+            "from AIRBRANCH.esSchema " & _
+            "where AIRBRANCH.esSchema.intESyear = '" & intYear & "' " & _
+             "and AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
+            "and to_date(AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM) <= '" & deadline & "' " & _
+            "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
@@ -1038,7 +1038,7 @@ Public Class SSCPEmissionSummaryTool
             "STRCONTACTSTATE, " & _
             "STRCONTACTZIPCODE, " & _
             "STRCONTACTEMAIL " & _
-            "from " & DBNameSpace & ".esMailOut " & _
+            "from AIRBRANCH.esMailOut " & _
             "where STRESYEAR = '" & year & "' " & _
             "order by STRFACILITYNAME"
 
@@ -1099,7 +1099,7 @@ Public Class SSCPEmissionSummaryTool
             "STRCONFIRMATIONNBR, " & _
             "DBLNOXEMISSION, " & _
             "STRDATEFIRSTCONFIRM " & _
-            "from " & DBNameSpace & ".esSchema " & _
+            "from AIRBRANCH.esSchema " & _
             "where intESyear = '" & year & "' " & _
             "order by STRFACILITYNAME"
 
@@ -1147,13 +1147,13 @@ Public Class SSCPEmissionSummaryTool
 
             Dim year As String = cboYear.SelectedItem
 
-            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-          "" & DBNameSpace & ".esSchema.STRFACILITYNAME " & _
-          "from " & DBNameSpace & ".esMailOut, " & DBNameSpace & ".ESSCHEMA " & _
-          "where " & DBNameSpace & ".esSchema.INTESYEAR = '" & year & "'" & _
-          "and " & DBNameSpace & ".esSchema.strOPTOUT is NULL " & _
-          "and " & DBNameSpace & ".esmailout.STRAIRSYEAR = " & DBNameSpace & ".ESSchema.STRAIRSYEAR(+) " & _
-          "order by " & DBNameSpace & ".esMailOut.STRFACILITYNAME"
+            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " & _
+          "AIRBRANCH.esSchema.STRFACILITYNAME " & _
+          "from AIRBRANCH.esMailOut, AIRBRANCH.ESSCHEMA " & _
+          "where AIRBRANCH.esSchema.INTESYEAR = '" & year & "'" & _
+          "and AIRBRANCH.esSchema.strOPTOUT is NULL " & _
+          "and AIRBRANCH.esmailout.STRAIRSYEAR = AIRBRANCH.ESSchema.STRAIRSYEAR(+) " & _
+          "order by AIRBRANCH.esMailOut.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
@@ -1193,22 +1193,22 @@ Public Class SSCPEmissionSummaryTool
             Dim year As String = txtESYear.Text
             Dim intyear As Integer = Int(year)
 
-            SQL = "SELECT dt_NotInMailout.SchemaAIRS, " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & DBNameSpace & ".esSchema.STRCONTACTFIRSTNAME, " & _
-            "" & DBNameSpace & ".esSchema.STRCONTACTLASTNAME, " & _
-            "" & DBNameSpace & ".esSchema.STRCONTACTCOMPANY, " & _
-            "" & DBNameSpace & ".esSchema.STRCONTACTEMAIL, " & _
-            "" & DBNameSpace & ".esSchema.STRCONTACTPHONENUMBER " & _
-            "from (Select " & DBNameSpace & ".ESSCHEMA.STRAIRSNUMBER AS SchemaAIRS, " & _
-            "" & DBNameSpace & ".ESMAILOUT.STRAIRSNUMBER AS MailoutAIRS" & _
-            " From " & DBNameSpace & ".ESMailout, " & DBNameSpace & ".ESSCHEMA" & _
-            " Where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
+            SQL = "SELECT dt_NotInMailout.SchemaAIRS, AIRBRANCH.esSchema.STRAIRSNUMBER, " & _
+            "AIRBRANCH.esSchema.STRFACILITYNAME, " & _
+            "AIRBRANCH.esSchema.STRCONTACTFIRSTNAME, " & _
+            "AIRBRANCH.esSchema.STRCONTACTLASTNAME, " & _
+            "AIRBRANCH.esSchema.STRCONTACTCOMPANY, " & _
+            "AIRBRANCH.esSchema.STRCONTACTEMAIL, " & _
+            "AIRBRANCH.esSchema.STRCONTACTPHONENUMBER " & _
+            "from (Select AIRBRANCH.ESSCHEMA.STRAIRSNUMBER AS SchemaAIRS, " & _
+            "AIRBRANCH.ESMAILOUT.STRAIRSNUMBER AS MailoutAIRS" & _
+            " From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA" & _
+            " Where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " & _
             "AND INTESYEAR=  '" & intyear & "' " & _
-            "AND " & DBNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
+            "AND AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " & _
             "dt_NotInMailout, " & _
-            "" & DBNameSpace & ".ESSCHEMA " & _
-            "Where " & DBNameSpace & ".ESSCHEMA.STRAIRSNUMBER = SchemaAIRS " & _
+            "AIRBRANCH.ESSCHEMA " & _
+            "Where AIRBRANCH.ESSCHEMA.STRAIRSNUMBER = SchemaAIRS " & _
             "AND MailoutAIRS is NULL"
 
             dsViewCount = New DataSet
@@ -1261,16 +1261,16 @@ Public Class SSCPEmissionSummaryTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
-            "" & DBNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
-            "from " & DBNameSpace & ".esSchema, " & DBNameSpace & ".esmailout " & _
-            "where " & DBNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
-            "and " & DBNameSpace & ".esSchema.STROPTOUT = 'NO'" & _
-            "and " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
-            "and " & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
-            "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
+            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " & _
+            "AIRBRANCH.esSchema.STRFACILITYNAME, " & _
+            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " & _
+            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR " & _
+            "from AIRBRANCH.esSchema, AIRBRANCH.esmailout " & _
+            "where AIRBRANCH.esSchema.intESyear = '" & intYear & "' " & _
+            "and AIRBRANCH.esSchema.STROPTOUT = 'NO'" & _
+            "and AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " & _
+            "and AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
+            "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
@@ -1313,16 +1313,16 @@ Public Class SSCPEmissionSummaryTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
-            "" & DBNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
-            "from " & DBNameSpace & ".esSchema, " & DBNameSpace & ".esmailout " & _
-            "where " & DBNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
-            "and " & DBNameSpace & ".esSchema.STROPTOUT = 'YES'" & _
-            " and " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
-            "and " & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
-            "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
+            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " & _
+            "AIRBRANCH.esSchema.STRFACILITYNAME, " & _
+            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " & _
+            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR " & _
+            "from AIRBRANCH.esSchema, AIRBRANCH.esmailout " & _
+            "where AIRBRANCH.esSchema.intESyear = '" & intYear & "' " & _
+            "and AIRBRANCH.esSchema.STROPTOUT = 'YES'" & _
+            " and AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " & _
+            "and AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
+            "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
@@ -1365,20 +1365,20 @@ Public Class SSCPEmissionSummaryTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
-            "" & DBNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
-            "from (select " & DBNameSpace & ".esSchema.strairsyear as SchemaAIRS, " & _
-            "" & DBNameSpace & ".esmailout.strairsyear as MailoutAIRS " & _
-            "From " & DBNameSpace & ".ESMailout, " & DBNameSpace & ".ESSCHEMA " & _
-            "where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
-            "and " & DBNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
-            "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
-            "dt_NotInMailout, " & DBNameSpace & ".ESSCHEMA " & _
-            "Where " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
+            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " & _
+            "AIRBRANCH.esSchema.STRFACILITYNAME, " & _
+            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " & _
+            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR " & _
+            "from (select AIRBRANCH.esSchema.strairsyear as SchemaAIRS, " & _
+            "AIRBRANCH.esmailout.strairsyear as MailoutAIRS " & _
+            "From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA " & _
+            "where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " & _
+            "and AIRBRANCH.esSchema.intESyear = '" & intYear & "' " & _
+            "and AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " & _
+            "dt_NotInMailout, AIRBRANCH.ESSCHEMA " & _
+            "Where AIRBRANCH.ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
             "and MailoutAIRS is NULL " & _
-            "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT='YES'"
+            "and AIRBRANCH.ESSCHEMA.STROPTOUT='YES'"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
@@ -1421,20 +1421,20 @@ Public Class SSCPEmissionSummaryTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
-            "" & DBNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
-            "from (select " & DBNameSpace & ".esSchema.strairsyear as SchemaAIRS, " & _
-            "" & DBNameSpace & ".esmailout.strairsyear as MailoutAIRS " & _
-            "From " & DBNameSpace & ".ESMailout, " & DBNameSpace & ".ESSCHEMA " & _
-            "where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
-            "and " & DBNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
-            "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
-            "dt_NotInMailout, " & DBNameSpace & ".ESSCHEMA " & _
-            "Where " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
+            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " & _
+            "AIRBRANCH.esSchema.STRFACILITYNAME, " & _
+            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " & _
+            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR " & _
+            "from (select AIRBRANCH.esSchema.strairsyear as SchemaAIRS, " & _
+            "AIRBRANCH.esmailout.strairsyear as MailoutAIRS " & _
+            "From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA " & _
+            "where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " & _
+            "and AIRBRANCH.esSchema.intESyear = '" & intYear & "' " & _
+            "and AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " & _
+            "dt_NotInMailout, AIRBRANCH.ESSCHEMA " & _
+            "Where AIRBRANCH.ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
             "and MailoutAIRS is NULL " & _
-            "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT='NO'"
+            "and AIRBRANCH.ESSCHEMA.STROPTOUT='NO'"
 
 
             dsViewCount = New DataSet
@@ -1479,17 +1479,17 @@ Public Class SSCPEmissionSummaryTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & DBNameSpace & ".esSchema.STRCONTACTFIRSTNAME, " & _
-            "" & DBNameSpace & ".esSchema.STRCONTACTLASTNAME, " & _
-            "" & DBNameSpace & ".esSchema.STRCONTACTCOMPANY, " & _
-            "" & DBNameSpace & ".esSchema.STRCONTACTEMAIL, " & _
-            "" & DBNameSpace & ".esSchema.STRCONTACTPHONENUMBER " & _
-            "from " & DBNameSpace & ".esSchema " & _
-            "where " & DBNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
-            "and " & DBNameSpace & ".esSchema.STROPTOUT is not NULL " & _
-            "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
+            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " & _
+            "AIRBRANCH.esSchema.STRFACILITYNAME, " & _
+            "AIRBRANCH.esSchema.STRCONTACTFIRSTNAME, " & _
+            "AIRBRANCH.esSchema.STRCONTACTLASTNAME, " & _
+            "AIRBRANCH.esSchema.STRCONTACTCOMPANY, " & _
+            "AIRBRANCH.esSchema.STRCONTACTEMAIL, " & _
+            "AIRBRANCH.esSchema.STRCONTACTPHONENUMBER " & _
+            "from AIRBRANCH.esSchema " & _
+            "where AIRBRANCH.esSchema.intESyear = '" & intYear & "' " & _
+            "and AIRBRANCH.esSchema.STROPTOUT is not NULL " & _
+            "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
@@ -1539,9 +1539,9 @@ Public Class SSCPEmissionSummaryTool
         Dim ESyear As String = txtESYear.Text
 
         Try
-            SQL = "delete from " & DBNameSpace & ".ESMailOut " & _
-            "where " & DBNameSpace & ".ESMailOut.STRAIRSNUMBER = '" & AirsNo & "' " & _
-            "and " & DBNameSpace & ".ESMailOut.STRESYEAR = '" & ESyear & "'"
+            SQL = "delete from AIRBRANCH.ESMailOut " & _
+            "where AIRBRANCH.ESMailOut.STRAIRSNUMBER = '" & AirsNo & "' " & _
+            "and AIRBRANCH.ESMailOut.STRESYEAR = '" & ESyear & "'"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1679,7 +1679,7 @@ Public Class SSCPEmissionSummaryTool
                     "dtSumPollutant.PollutantTotal, dtSumPollutant.strinventoryyear " & _
                     "from airbranch.eisi, " & _
                     "(select eiem.strairsnumber, eiem.strpollutantcode, sum(eiem.dblemissionnumericvalue) as PollutantTotal, eiem.strinventoryyear " & _
-                    "from " & DBNameSpace & ".eiem " & _
+                    "from AIRBRANCH.eiem " & _
                     "where eiem.strinventoryyear='" & cboEIYear.Text & "' " & _
                     "group by eiem.strairsnumber, eiem.strpollutantcode, eiem.strinventoryyear) dtSumPollutant " & _
                     "where eisi.strairsnumber = dtSumPollutant.strairsnumber and " & _
@@ -1913,10 +1913,10 @@ Public Class SSCPEmissionSummaryTool
                         "substr(dt.strairsnumber, 5) as AIRSNumber, " & _
                         "eisi.strfacilityname as FacilityName, " & _
                         "dt.pollutanttotal as Pollutant " & _
-                        "from " & DBNameSpace & ".eisi," & _
+                        "from AIRBRANCH.eisi," & _
                         "(select strairsnumber, strpollutantcode, " & _
                         "sum(dblemissionnumericvalue) as PollutantTotal, strinventoryyear " & _
-                        "from " & DBNameSpace & ".eiem " & _
+                        "from AIRBRANCH.eiem " & _
                         "where strinventoryyear = '" & cboEIYear.Text & "' and " & _
                         "strpollutantcode = '" & cboEIPollutants.SelectedValue & "' " & _
                         "group by eiem.strairsnumber, eiem.strinventoryyear, strpollutantcode) dt " & _

@@ -531,8 +531,8 @@ Public Class IAIPFacilitySummary
             Dim drDSRow As DataRow
 
             SQL = "select " & _
-            "" & DBNameSpace & ".VW_APBFacilityLocation.strAIRSnumber, " & _
-            "" & DBNameSpace & ".VW_APBFacilityLocation.strFacilityName, " & _
+            "AIRBRANCH.VW_APBFacilityLocation.strAIRSnumber, " & _
+            "AIRBRANCH.VW_APBFacilityLocation.strFacilityName, " & _
             "strFacilityStreet1, strFacilityStreet2, " & _
             "strFacilityCity, strFacilityState, " & _
             "strFacilityZipCode, " & _
@@ -546,10 +546,10 @@ Public Class IAIPFacilitySummary
             "strStateProgramCodes, strNAICSCode, " & _
             "STRRMPID " & _
             "from " & _
-            "" & DBNameSpace & ".VW_APBFacilityLocation, " & _
-            "" & DBNameSpace & ".VW_APBFacilityHeader " & _
-            "where " & DBNameSpace & ".VW_APBFacilityLocation.strAIRSNumber = " & DBNameSpace & ".VW_APBFacilityHeader.strAIRSNumber " & _
-            "and " & DBNameSpace & ".VW_APBFacilityLocation.strAIRSnumber = '0413" & mtbAIRSNumber.Text & "' "
+            "AIRBRANCH.VW_APBFacilityLocation, " & _
+            "AIRBRANCH.VW_APBFacilityHeader " & _
+            "where AIRBRANCH.VW_APBFacilityLocation.strAIRSNumber = AIRBRANCH.VW_APBFacilityHeader.strAIRSNumber " & _
+            "and AIRBRANCH.VW_APBFacilityLocation.strAIRSnumber = '0413" & mtbAIRSNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -891,9 +891,9 @@ Public Class IAIPFacilitySummary
             dsFacilityWideData = New DataSet
 
             SQL = "Select " & _
-            "" & DBNameSpace & ".VW_APBFacilityFees.*, " & _
+            "AIRBRANCH.VW_APBFacilityFees.*, " & _
             "(numTotalFee - TotalPaid) as Balance " & _
-            "from " & DBNameSpace & ".VW_APBFacilityFees " & _
+            "from AIRBRANCH.VW_APBFacilityFees " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  " & _
             "order by intYear DESC "
 
@@ -1082,7 +1082,7 @@ Public Class IAIPFacilitySummary
             End If
 
             SQL = "select strDistrictResponsible " & _
-            "from " & DBNameSpace & ".SSCPDistrictResponsible " & _
+            "from AIRBRANCH.SSCPDistrictResponsible " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1250,18 +1250,18 @@ Public Class IAIPFacilitySummary
             dsFacilityWideData = New DataSet
 
             SQL = "select " & _
-           "distinct(" & DBNameSpace & ".OLAPUserAccess.numUserID), " & _
+           "distinct(AIRBRANCH.OLAPUserAccess.numUserID), " & _
            "strUserType, " & _
            "(strSalutation||' '||strFirstName||' '||strLastName||', '||strTitle) as GECOContact, " & _
-           "" & DBNameSpace & ".OLAPUserLogIN.strUserEmail, " & _
+           "AIRBRANCH.OLAPUserLogIN.strUserEmail, " & _
            "strPhoneNumber, strFaxNumber, " & _
            "strCompanyName, strAddress, " & _
            "strCity, strState,  " & _
            "strZip " & _
-           "from " & DBNameSpace & ".OLAPUserAccess, " & DBNameSpace & ".OLAPUserProfile,  " & _
-           "" & DBNameSpace & ".OLAPUserLogIN  " & _
-           "where " & DBNameSpace & ".OLAPUserAccess.numUserID = " & DBNameSpace & ".OLAPUserProfile.NumUserID  " & _
-           "and " & DBNameSpace & ".OLAPUserAccess.numUserID = " & DBNameSpace & ".OLAPUserLogIN.numUserID (+) " & _
+           "from AIRBRANCH.OLAPUserAccess, AIRBRANCH.OLAPUserProfile,  " & _
+           "AIRBRANCH.OLAPUserLogIN  " & _
+           "where AIRBRANCH.OLAPUserAccess.numUserID = AIRBRANCH.OLAPUserProfile.NumUserID  " & _
+           "and AIRBRANCH.OLAPUserAccess.numUserID = AIRBRANCH.OLAPUserLogIN.numUserID (+) " & _
            "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
             daFacilityWideData = New OracleDataAdapter(SQL, CurrentConnection)
@@ -1279,7 +1279,7 @@ Public Class IAIPFacilitySummary
             "strContactAddress1, strContactAddress2, " & _
             "strContactCity, strContactState, " & _
             "strContactZipCode, strContactDescription " & _
-            "from " & DBNameSpace & ".APBContactInformation " & _
+            "from AIRBRANCH.APBContactInformation " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and strKey like '1%' " & _
             "order by strContactKey "
@@ -1299,7 +1299,7 @@ Public Class IAIPFacilitySummary
             "strContactAddress1, strContactAddress2, " & _
             "strContactCity, strContactState, " & _
             "strContactZipCode, strContactDescription " & _
-            "from " & DBNameSpace & ".APBContactInformation " & _
+            "from AIRBRANCH.APBContactInformation " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and strKey like '2%' " & _
             "order by strContactKey "
@@ -1319,7 +1319,7 @@ Public Class IAIPFacilitySummary
             "strContactAddress1, strContactAddress2, " & _
             "strContactCity, strContactState, " & _
             "strContactZipCode, strContactDescription " & _
-            "from " & DBNameSpace & ".APBContactInformation " & _
+            "from AIRBRANCH.APBContactInformation " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and strKey like '3%' " & _
             "order by strContactKey "
@@ -1339,7 +1339,7 @@ Public Class IAIPFacilitySummary
             "strContactAddress1, strContactAddress2, " & _
             "strContactCity, strContactState, " & _
             "strContactZipCode, strContactDescription " & _
-            "from " & DBNameSpace & ".APBContactInformation " & _
+            "from AIRBRANCH.APBContactInformation " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and strKey like '4%' " & _
             "order by strContactKey "
@@ -1359,16 +1359,16 @@ Public Class IAIPFacilitySummary
 "NUMSSCPENGINEER, " & _
 "(STRLASTNAME||', '||STRFIRSTNAME) as SSCPENGINEER, " & _
 "strUnitDesc " & _
-"from " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED, " & _
-"" & DBNameSpace & ".EPDUSERPROFILES, " & DBNameSpace & ".LookUpEPDUnits,  " & _
-"(select max(intyear) as MaxYear, " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER  " & _
-"from " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
-"where " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = '0413" & mtbAIRSNumber.Text & "' " & _
-"group by " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER ) MaxResults " & _
-"where " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.NUMSSCPENGINEER = " & DBNameSpace & ".EPDUSERPROFILES.NUMUSERID " & _
-"and " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.intyear = maxResults.maxYear  " & _
-"and " & DBNameSpace & ".EPDUSERPROFILES.NUMUNIT = " & DBNameSpace & ".LOOKUPEPDUNITS.NUMUNITCODE (+) " & _
-"and " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  " & _
+"from AIRBRANCH.SSCPINSPECTIONSREQUIRED, " & _
+"AIRBRANCH.EPDUSERPROFILES, AIRBRANCH.LookUpEPDUnits,  " & _
+"(select max(intyear) as MaxYear, AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER  " & _
+"from AIRBRANCH.SSCPINSPECTIONSREQUIRED " & _
+"where AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = '0413" & mtbAIRSNumber.Text & "' " & _
+"group by AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER ) MaxResults " & _
+"where AIRBRANCH.SSCPINSPECTIONSREQUIRED.NUMSSCPENGINEER = AIRBRANCH.EPDUSERPROFILES.NUMUSERID " & _
+"and AIRBRANCH.SSCPINSPECTIONSREQUIRED.intyear = maxResults.maxYear  " & _
+"and AIRBRANCH.EPDUSERPROFILES.NUMUNIT = AIRBRANCH.LOOKUPEPDUNITS.NUMUNITCODE (+) " & _
+"and AIRBRANCH.SSCPINSPECTIONSREQUIRED.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  " & _
 "group by NUMSSCPENGINEER, (STRLASTNAME||', '||STRFIRSTNAME), STRUNITDESC)  "
 
 
@@ -1381,18 +1381,18 @@ Public Class IAIPFacilitySummary
 
             SQL = "Select " & _
             "Distinct((strLastName||', '||strFirstName)) as ISMPEngineer, strUnitDesc   " & _
-            "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation,   " & _
-            "" & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".LookUpEPDUnits    " & _
-            "where " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDunits.numunitCode (+) " & _
+            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation,   " & _
+            "AIRBRANCH.ISMPMaster, AIRBRANCH.LookUpEPDUnits    " & _
+            "where AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDunits.numunitCode (+) " & _
             "and numUserID = strReviewingEngineer   " & _
-            "AND " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber   " & _
+            "AND AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber   " & _
             "and strClosed = 'True'  " & _
             "and datCompleteDate = (Select Distinct(Max(datCompleteDate)) as CompleteDate  " & _
-            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPMaster  " & _
-            "where " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber   " & _
-            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  " & _
+            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster  " & _
+            "where AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber   " & _
+            "and AIRBRANCH.ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  " & _
             "and strClosed = 'True')  " & _
-            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  "
+            "and AIRBRANCH.ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  "
 
             daFacilityWideData = New OracleDataAdapter(SQL, CurrentConnection)
 
@@ -1403,15 +1403,15 @@ Public Class IAIPFacilitySummary
 
             SQL = "select  " & _
             "Distinct((strLastName||', '||strFirstName)) as SSPPStaffResponsible, strUnitDesc   " & _
-            "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".SSPPApplicationMaster, " & _
-            "" & DBNameSpace & ".LookUpEPDUnits " & _
-            "where " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
+            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.SSPPApplicationMaster, " & _
+            "AIRBRANCH.LookUpEPDUnits " & _
+            "where AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " & _
             "and numUserID = strStaffResponsible  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber =  " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber =  " & _
             "(select distinct(max(to_number(strApplicationNumber))) as GreatestApplication  " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster   " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "')  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber = '0413" & mtbAIRSNumber.Text & "'  "
+            "from AIRBRANCH.SSPPApplicationMaster   " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "')  " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strAIRSnumber = '0413" & mtbAIRSNumber.Text & "'  "
 
             daFacilityWideData = New OracleDataAdapter(SQL, CurrentConnection)
 
@@ -1716,7 +1716,7 @@ Public Class IAIPFacilitySummary
             cboEIYear.Items.Clear()
 
             SQL = "select distinct(strInventoryYear)  as EIYear " & _
-            "from " & DBNameSpace & ".EISI " & _
+            "from AIRBRANCH.EISI " & _
             "where strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "' " & _
             "order by EIYear desc "
 
@@ -1748,7 +1748,7 @@ Public Class IAIPFacilitySummary
                 chkNotNonAttain.Checked = False
                 chkLessThan25.Checked = False
 
-                SQL = "Select * from " & DBNameSpace & ".eiSI where strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "' " ' & _ 
+                SQL = "Select * from AIRBRANCH.eiSI where strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "' " ' & _ 
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1801,107 +1801,107 @@ Public Class IAIPFacilitySummary
                     "when PMFILTable.TotalEmissions is Null then 0  " & _
                     "else PMFILTable.TotalEmissions  " & _
                     "end PMFIL " & _
-                    "from " & DBNameSpace & ".EIEM,  " & _
+                    "from AIRBRANCH.EIEM,  " & _
                     "(Select  " & _
-                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "AIRBRANCH.EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & DBNameSpace & ".EIEM   " & _
-                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
+                    "from AIRBRANCH.EIEM   " & _
+                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
                     "and strPollutantCode = 'CO'  " & _
-                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) COTable,  " & _
+                    "group by AIRBRANCH.EIEM.strPollutantCode,  " & _
+                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) COTable,  " & _
                     "(Select  " & _
-                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "AIRBRANCH.EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & DBNameSpace & ".EIEM   " & _
-                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
+                    "from AIRBRANCH.EIEM   " & _
+                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
                     "and strPollutantCode = '7439921'  " & _
-                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) LeadTable,  " & _
+                    "group by AIRBRANCH.EIEM.strPollutantCode,  " & _
+                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) LeadTable,  " & _
                     "(Select  " & _
-                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "AIRBRANCH.EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & DBNameSpace & ".EIEM   " & _
-                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
+                    "from AIRBRANCH.EIEM   " & _
+                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
                     "and strPollutantCode = 'NH3'  " & _
-                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) NH3Table,  " & _
+                    "group by AIRBRANCH.EIEM.strPollutantCode,  " & _
+                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) NH3Table,  " & _
                     "(Select  " & _
-                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "AIRBRANCH.EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & DBNameSpace & ".EIEM   " & _
-                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
+                    "from AIRBRANCH.EIEM   " & _
+                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
                     "and strPollutantCode = 'NOX'  " & _
-                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) NOXTable,  " & _
+                    "group by AIRBRANCH.EIEM.strPollutantCode,  " & _
+                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) NOXTable,  " & _
                     "(Select  " & _
-                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "AIRBRANCH.EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & DBNameSpace & ".EIEM   " & _
-                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
+                    "from AIRBRANCH.EIEM   " & _
+                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
                     "and strPollutantCode = 'PM-PRI'  " & _
-                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PMTable,  " & _
+                    "group by AIRBRANCH.EIEM.strPollutantCode,  " & _
+                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) PMTable,  " & _
                     "(Select  " & _
-                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "AIRBRANCH.EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & DBNameSpace & ".EIEM   " & _
-                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
+                    "from AIRBRANCH.EIEM   " & _
+                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
                     "and strPollutantCode = 'PM10-PMI'  " & _
-                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PM10Table,  " & _
+                    "group by AIRBRANCH.EIEM.strPollutantCode,  " & _
+                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) PM10Table,  " & _
                     "(Select  " & _
-                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "AIRBRANCH.EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & DBNameSpace & ".EIEM   " & _
-                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
+                    "from AIRBRANCH.EIEM   " & _
+                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
                     "and strPollutantCode = 'PM25-PMI'  " & _
-                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PM25Table,  " & _
+                    "group by AIRBRANCH.EIEM.strPollutantCode,  " & _
+                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) PM25Table,  " & _
                     "(Select  " & _
-                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "AIRBRANCH.EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & DBNameSpace & ".EIEM   " & _
-                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
+                    "from AIRBRANCH.EIEM   " & _
+                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
                     "and strPollutantCode = 'SO2'  " & _
-                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) SO2Table,  " & _
+                    "group by AIRBRANCH.EIEM.strPollutantCode,  " & _
+                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) SO2Table,  " & _
                     "(Select  " & _
-                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "AIRBRANCH.EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & DBNameSpace & ".EIEM   " & _
-                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
+                    "from AIRBRANCH.EIEM   " & _
+                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
                     "and strPollutantCode = 'VOC'  " & _
-                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) VOCTable,  " & _
+                    "group by AIRBRANCH.EIEM.strPollutantCode,  " & _
+                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) VOCTable,  " & _
                     "(Select  " & _
-                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "AIRBRANCH.EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & DBNameSpace & ".EIEM   " & _
-                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
+                    "from AIRBRANCH.EIEM   " & _
+                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
                     "and strPollutantCode = 'PM-FIL'  " & _
-                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PMFILTable " & _
+                    "group by AIRBRANCH.EIEM.strPollutantCode,  " & _
+                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) PMFILTable " & _
                     "where EIEM.strInventoryYear = COTable.strInventoryYear (+)   " & _
                     "and EIEM.strInventoryYear = LeadTable.strInventoryYear (+)   " & _
                     "and EIEM.strInventoryYear = NH3Table.strInventoryYear  (+)  " & _
@@ -1975,7 +1975,7 @@ Public Class IAIPFacilitySummary
                 End If
 
                 SQL = "select * " & _
-                "from " & DBNameSpace & ".ESSchema " & _
+                "from AIRBRANCH.ESSchema " & _
                 "where strAirsNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                 "and intESYear = '" & inventoryYear & "' "
 
@@ -1999,7 +1999,7 @@ Public Class IAIPFacilitySummary
                                                 Or county = "097" Or county = "113" Or county = "117" Or county = "121" _
                                                 Or county = "135" Or county = "151" Or county = "223" Or county = "247" Then
                         SQL = "Select dblVOCEmission, dblNOXEmission, strOptOut " & _
-                        "from " & DBNameSpace & ".ESSchema " & _
+                        "from AIRBRANCH.ESSchema " & _
                         "where intESYear = '" & inventoryYear & "' " & _
                         "and strAirsNumber = '0413" & mtbAIRSNumber.Text & "' "
 
@@ -2200,15 +2200,15 @@ Public Class IAIPFacilitySummary
                             "dblYCoordinate, " & _
                             "strHorizontalCollectionCode, " & _
                             "(Select STRHORIZCOLLECTIONMETHODDESC " & _
-                               "from " & DBNameSpace & ".EILOOKUPHORIZCOLMETHOD " & _
-                               "where " & DBNameSpace & ".EISI.STRHORIZONTALCOLLECTIONCODE = " & _
-                               "" & DBNameSpace & ".EILOOKUPHORIZCOLMETHOD.STRHORIZCOLLECTIONMETHODCODE) as HMCdesc, " & _
+                               "from AIRBRANCH.EILOOKUPHORIZCOLMETHOD " & _
+                               "where AIRBRANCH.EISI.STRHORIZONTALCOLLECTIONCODE = " & _
+                               "AIRBRANCH.EILOOKUPHORIZCOLMETHOD.STRHORIZCOLLECTIONMETHODCODE) as HMCdesc, " & _
                             "strHorizontalReferenceCode, " & _
                             "strHorizontalAccuracyMeasure, " & _
                             "(Select STRHORIZONTALREFERENCEDESC " & _
-                               "from " & DBNameSpace & ".EILOOKUPHORIZREFDATUM " & _
-                               "where " & DBNameSpace & ".EISI.STRHORIZONTALREFERENCECODE = " & _
-                               "" & DBNameSpace & ".EILOOKUPHORIZREFDATUM.STRHORIZONTALREFERENCEDATUM) as HDRCdesc, " & _
+                               "from AIRBRANCH.EILOOKUPHORIZREFDATUM " & _
+                               "where AIRBRANCH.EISI.STRHORIZONTALREFERENCECODE = " & _
+                               "AIRBRANCH.EILOOKUPHORIZREFDATUM.STRHORIZONTALREFERENCEDATUM) as HDRCdesc, " & _
                             "strContactPrefix, " & _
                             "strContactFirstName, " & _
                             "strContactLastName, " & _
@@ -2225,7 +2225,7 @@ Public Class IAIPFacilitySummary
                             "strSiteDescription, " & _
                             "strSICPrimary, " & _
                             "strNAICSPrimary " & _
-                     "from " & DBNameSpace & ".eiSI where strAirsYear = '" & airsYear & "'"
+                     "from AIRBRANCH.eiSI where strAirsYear = '" & airsYear & "'"
 
             Dim cmd As New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
@@ -2305,17 +2305,17 @@ Public Class IAIPFacilitySummary
                          "sngDesignCapacity, " & _
                          "strDesignCapUnitNum, " & _
                          "(Select STRUNITDESCRIPTION " & _
-                               "from " & DBNameSpace & ".EILOOKUPUNITCODES " & _
-                               "where " & DBNameSpace & ".EIEU.strDesignCapUnitNum = " & _
-                               "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as numDesc, " & _
+                               "from AIRBRANCH.EILOOKUPUNITCODES " & _
+                               "where AIRBRANCH.EIEU.strDesignCapUnitNum = " & _
+                               "AIRBRANCH.EILOOKUPUNITCODES.STRUNITCODE) as numDesc, " & _
                          "strDesignCapUnitDenom, " & _
                          "(Select STRUNITDESCRIPTION " & _
-                               "from " & DBNameSpace & ".EILOOKUPUNITCODES " & _
-                               "where " & DBNameSpace & ".EIEU.strDesignCapUnitDenom = " & _
-                               "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as denomDesc, " & _
+                               "from AIRBRANCH.EILOOKUPUNITCODES " & _
+                               "where AIRBRANCH.EIEU.strDesignCapUnitDenom = " & _
+                               "AIRBRANCH.EILOOKUPUNITCODES.STRUNITCODE) as denomDesc, " & _
                          "sngMaxNameplateCapacity, " & _
                          "strEmissionUnitDesc " & _
-                    "from " & DBNameSpace & ".eiEU where strAirsYear = '" & airsYear & "'"
+                    "from AIRBRANCH.eiEU where strAirsYear = '" & airsYear & "'"
 
             Dim cmd As New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
@@ -2372,9 +2372,9 @@ Public Class IAIPFacilitySummary
             SQL = "select strEmissionReleasePointID, " & _
             "strEmissionReleaseType, " & _
             "(Select STREMISSIONTYPEDESC " & _
-            "from " & DBNameSpace & ".EILOOKUPEMISSIONTYPES " & _
-            "where " & DBNameSpace & ".EIER.STREMISSIONRELEASETYPE = " & _
-            "" & DBNameSpace & ".EILOOKUPEMISSIONTYPES.STREMISSIONTYPECODE) as stackType, " & _
+            "from AIRBRANCH.EILOOKUPEMISSIONTYPES " & _
+            "where AIRBRANCH.EIER.STREMISSIONRELEASETYPE = " & _
+            "AIRBRANCH.EILOOKUPEMISSIONTYPES.STREMISSIONTYPECODE) as stackType, " & _
             "sngStackHeight, " & _
             "sngStackDiameter, " & _
             "sngExitGasTemperature, " & _
@@ -2385,16 +2385,16 @@ Public Class IAIPFacilitySummary
             "strEmissionReleasePtDesc, " & _
             "strHorizontalCollectionCode, " & _
             "(Select STRHORIZCOLLECTIONMETHODDESC " & _
-            "from " & DBNameSpace & ".EILOOKUPHORIZCOLMETHOD " & _
-            "where " & DBNameSpace & ".EIER.STRHORIZONTALCOLLECTIONCODE = " & _
-            "" & DBNameSpace & ".EILOOKUPHORIZCOLMETHOD.STRHORIZCOLLECTIONMETHODCODE) as HMCdesc, " & _
+            "from AIRBRANCH.EILOOKUPHORIZCOLMETHOD " & _
+            "where AIRBRANCH.EIER.STRHORIZONTALCOLLECTIONCODE = " & _
+            "AIRBRANCH.EILOOKUPHORIZCOLMETHOD.STRHORIZCOLLECTIONMETHODCODE) as HMCdesc, " & _
             "strHorizontalAccuracyMeasure, " & _
             "strHorizontalReferenceCode, " & _
             "(Select STRHORIZONTALREFERENCEDESC " & _
-            "from " & DBNameSpace & ".EILOOKUPHORIZREFDATUM " & _
-            "where " & DBNameSpace & ".EIER.STRHORIZONTALREFERENCECODE = " & _
-            "" & DBNameSpace & ".EILOOKUPHORIZREFDATUM.STRHORIZONTALREFERENCEDATUM) as HDRCdesc " & _
-            "from " & DBNameSpace & ".eiER where strAirsYear = '" & airsYear & "'"
+            "from AIRBRANCH.EILOOKUPHORIZREFDATUM " & _
+            "where AIRBRANCH.EIER.STRHORIZONTALREFERENCECODE = " & _
+            "AIRBRANCH.EILOOKUPHORIZREFDATUM.STRHORIZONTALREFERENCEDATUM) as HDRCdesc " & _
+            "from AIRBRANCH.eiER where strAirsYear = '" & airsYear & "'"
 
             Dim cmd As New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
@@ -2476,17 +2476,17 @@ Public Class IAIPFacilitySummary
                             "sngDailySummerProcessTPut, " & _
                             "strDailySummerProcessTPutNum, " & _
                             "(Select STRUNITDESCRIPTION " & _
-                               "from " & DBNameSpace & ".EILOOKUPUNITCODES " & _
-                               "where " & DBNameSpace & ".EIEP.strDailySummerProcessTPutNum = " & _
-                               "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as DailySummerTputNumDesc, " & _
+                               "from AIRBRANCH.EILOOKUPUNITCODES " & _
+                               "where AIRBRANCH.EIEP.strDailySummerProcessTPutNum = " & _
+                               "AIRBRANCH.EILOOKUPUNITCODES.STRUNITCODE) as DailySummerTputNumDesc, " & _
                             "sngActualThroughput, " & _
                             "strThroughputUnitNumerator, " & _
                             "(Select STRUNITDESCRIPTION " & _
-                               "from " & DBNameSpace & ".EILOOKUPUNITCODES " & _
-                               "where " & DBNameSpace & ".EIEP.strThroughputUnitNumerator = " & _
-                               "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as TputNumDesc, " & _
+                               "from AIRBRANCH.EILOOKUPUNITCODES " & _
+                               "where AIRBRANCH.EIEP.strThroughputUnitNumerator = " & _
+                               "AIRBRANCH.EILOOKUPUNITCODES.STRUNITCODE) as TputNumDesc, " & _
                             "strStartTime " & _
-                       "from " & DBNameSpace & ".eiEP " & _
+                       "from AIRBRANCH.eiEP " & _
                       "where strAirsYear = '" & airsYear & "'"
 
             Dim cmd As New OracleCommand(SQL, CurrentConnection)
@@ -2563,50 +2563,50 @@ Public Class IAIPFacilitySummary
             SQL += "STRPROCESSID, "
             SQL += "strPollutantCode, "
             SQL += "(Select STRPOLLUTANTDESC "
-            SQL += "from " & DBNameSpace & ".EILOOKUPPOLLUTANTCODES "
-            SQL += "where " & DBNameSpace & ".EIEM.STRPOLLUTANTCODE = "
-            SQL += "" & DBNameSpace & ".EILOOKUPPOLLUTANTCODES.STRPOLLUTANTCODE) as pollutantDesc, "
+            SQL += "from AIRBRANCH.EILOOKUPPOLLUTANTCODES "
+            SQL += "where AIRBRANCH.EIEM.STRPOLLUTANTCODE = "
+            SQL += "AIRBRANCH.EILOOKUPPOLLUTANTCODES.STRPOLLUTANTCODE) as pollutantDesc, "
             SQL += "DBLEMISSIONNUMERICVALUE, "
             SQL += "STREMISSIONUNITNUMERATOR, "
             SQL += "(Select STRUNITDESCRIPTION "
-            SQL += "from " & DBNameSpace & ".EILOOKUPUNITCODES "
-            SQL += "where " & DBNameSpace & ".EIEM.STREMISSIONUNITNUMERATOR = "
-            SQL += "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as EMISSIONUNITNUMERATORDesc, "
+            SQL += "from AIRBRANCH.EILOOKUPUNITCODES "
+            SQL += "where AIRBRANCH.EIEM.STREMISSIONUNITNUMERATOR = "
+            SQL += "AIRBRANCH.EILOOKUPUNITCODES.STRUNITCODE) as EMISSIONUNITNUMERATORDesc, "
             SQL += "sngFactorNumericValue, "
             SQL += "strFactorUnitNumerator, "
             SQL += "(Select STRUNITDESCRIPTION "
-            SQL += "from " & DBNameSpace & ".EILOOKUPUNITCODES "
-            SQL += "where " & DBNameSpace & ".EIEM.strFactorUnitNumerator = "
-            SQL += "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as FactorUnitNumeratorDesc, "
+            SQL += "from AIRBRANCH.EILOOKUPUNITCODES "
+            SQL += "where AIRBRANCH.EIEM.strFactorUnitNumerator = "
+            SQL += "AIRBRANCH.EILOOKUPUNITCODES.STRUNITCODE) as FactorUnitNumeratorDesc, "
             SQL += "strFactorUnitDenominator, "
             SQL += "(Select STRUNITDESCRIPTION "
-            SQL += "from " & DBNameSpace & ".EILOOKUPUNITCODES "
-            SQL += "where " & DBNameSpace & ".EIEM.strFactorUnitDenominator = "
-            SQL += "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as FactorUnitDenominatorDesc, "
+            SQL += "from AIRBRANCH.EILOOKUPUNITCODES "
+            SQL += "where AIRBRANCH.EIEM.strFactorUnitDenominator = "
+            SQL += "AIRBRANCH.EILOOKUPUNITCODES.STRUNITCODE) as FactorUnitDenominatorDesc, "
             SQL += "strEmissionCalculationMetCode, "
             SQL += "(Select STREMISSIONCALCMETHODDESC "
-            SQL += "from " & DBNameSpace & ".EILOOKUPEMISSIONCALCMETHOD "
-            SQL += "where " & DBNameSpace & ".EIEM.strEmissionCalculationMetCode = "
-            SQL += "" & DBNameSpace & ".EILOOKUPEMISSIONCALCMETHOD.STREMISSIONCALCMETHODCODE) as EMISSIONCALCMETHODDESC, "
+            SQL += "from AIRBRANCH.EILOOKUPEMISSIONCALCMETHOD "
+            SQL += "where AIRBRANCH.EIEM.strEmissionCalculationMetCode = "
+            SQL += "AIRBRANCH.EILOOKUPEMISSIONCALCMETHOD.STREMISSIONCALCMETHODCODE) as EMISSIONCALCMETHODDESC, "
             SQL += "strControlStatus, "
             SQL += "strControlSystemDescription, "
             SQL += "strPrimaryDeviceTypeCode, "
             SQL += "(Select STRCONTROLDEVICEDesc "
-            SQL += "from " & DBNameSpace & ".EILOOKUPCONTROLDEVICE "
-            SQL += "where " & DBNameSpace & ".EIEM.strPrimaryDeviceTypeCode = "
-            SQL += "" & DBNameSpace & ".EILOOKUPCONTROLDEVICE.STRCONTROLDEVICECODE) as PrimaryDeviceTypeDesc, "
+            SQL += "from AIRBRANCH.EILOOKUPCONTROLDEVICE "
+            SQL += "where AIRBRANCH.EIEM.strPrimaryDeviceTypeCode = "
+            SQL += "AIRBRANCH.EILOOKUPCONTROLDEVICE.STRCONTROLDEVICECODE) as PrimaryDeviceTypeDesc, "
             SQL += "sngPrimaryPCTControlEffic, "
             SQL += "strSecondaryDeviceTypeCode, "
             SQL += "(Select STRCONTROLDEVICEDesc "
-            SQL += "from " & DBNameSpace & ".EILOOKUPCONTROLDEVICE "
-            SQL += "where " & DBNameSpace & ".EIEM.strSecondaryDeviceTypeCode = "
-            SQL += "" & DBNameSpace & ".EILOOKUPCONTROLDEVICE.STRCONTROLDEVICECODE) as SecondaryDeviceTypeDesc, "
+            SQL += "from AIRBRANCH.EILOOKUPCONTROLDEVICE "
+            SQL += "where AIRBRANCH.EIEM.strSecondaryDeviceTypeCode = "
+            SQL += "AIRBRANCH.EILOOKUPCONTROLDEVICE.STRCONTROLDEVICECODE) as SecondaryDeviceTypeDesc, "
             SQL += "sngPCTCaptureEfficiency, "
             SQL += "sngTotalCaptureControlEffic "
-            SQL += "from " & DBNameSpace & ".eiEM "
+            SQL += "from AIRBRANCH.eiEM "
             SQL += "where strAirsYear = '" & airsYear & "'"
 
-            'SQL = "Select * from " & DBNameSpace & ".eiEM where strAirsYear = '" & airsYear & "'"
+            'SQL = "Select * from AIRBRANCH.eiEM where strAirsYear = '" & airsYear & "'"
 
             Dim cmd As New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
@@ -2931,13 +2931,13 @@ Public Class IAIPFacilitySummary
                 TCFacilitySummary.TabPages.Add(TPISMPTestingWork)
             End If
 
-            SQL = "Select " & DBNameSpace & ".VW_ISMPWorkDataGrid.*, strPreComplianceStatus  " & _
-            "from " & DBNameSpace & ".VW_ISMPWorkDataGrid, " & DBNameSpace & ".ISMPReportInformation " & _
-            "where " & DBNameSpace & ".VW_ISMPWorkDataGrid.strReferenceNumber = " & _
-            "" & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+            SQL = "Select AIRBRANCH.VW_ISMPWorkDataGrid.*, strPreComplianceStatus  " & _
+            "from AIRBRANCH.VW_ISMPWorkDataGrid, AIRBRANCH.ISMPReportInformation " & _
+            "where AIRBRANCH.VW_ISMPWorkDataGrid.strReferenceNumber = " & _
+            "AIRBRANCH.ISMPReportInformation.strReferenceNumber " & _
             "and strAIRSNUmber = '0413" & mtbAIRSNumber.Text & "' " & _
             SQLLine '& _
-            ' "order by " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber DESC "
+            ' "order by AIRBRANCH.ISMPReportInformation.strReferenceNumber DESC "
 
             daISMP = New OracleDataAdapter(SQL, CurrentConnection)
 
@@ -2951,10 +2951,10 @@ Public Class IAIPFacilitySummary
             "strEmissionUnit, strUnitDesc, " & _
             "datTestNotification, datProposedstartDate,  " & _
             "datProposedEndDate, strComments  " & _
-            "from " & DBNameSpace & ".ISMPTestNotification, " & DBNameSpace & ".EPDUserProfiles, " & _
-            "" & DBNameSpace & ".LookUpEPDUnits  " & _
-            "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPTestNotification.strStaffResponsible  " & _
-            "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
+            "from AIRBRANCH.ISMPTestNotification, AIRBRANCH.EPDUserProfiles, " & _
+            "AIRBRANCH.LookUpEPDUnits  " & _
+            "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPTestNotification.strStaffResponsible  " & _
+            "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " & _
             "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  " & _
             "order by strTestLogNumber DESC "
 
@@ -2965,13 +2965,13 @@ Public Class IAIPFacilitySummary
             End If
             daISMP.Fill(dsISMP, "ISMPTestLog")
 
-            SQL = "Select " & DBNameSpace & ".ISMPTestREportMemo.strReferenceNumber, " & _
+            SQL = "Select AIRBRANCH.ISMPTestREportMemo.strReferenceNumber, " & _
             "strMemorandumField " & _
-            "from " & DBNameSpace & ".ISMPTestREportMemo, " & DBNameSpace & ".ISMPMaster " & _
-            "where " & DBNameSpace & ".ISMPTestREportMemo.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber " & _
-            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
+            "from AIRBRANCH.ISMPTestREportMemo, AIRBRANCH.ISMPMaster " & _
+            "where AIRBRANCH.ISMPTestREportMemo.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber " & _
+            "and AIRBRANCH.ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
             SQLLine & _
-            "Order by " & DBNameSpace & ".ISMPTestREportMemo.strReferenceNumber DESC "
+            "Order by AIRBRANCH.ISMPTestREportMemo.strReferenceNumber DESC "
 
             daISMP = New OracleDataAdapter(SQL, CurrentConnection)
 
@@ -3191,9 +3191,9 @@ Public Class IAIPFacilitySummary
         Try
 
             If txtReferenceNumber.Text <> "" Then
-                SQL = "Select " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                 "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
-                 "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
+                SQL = "Select AIRBRANCH.ISMPDocumentType.strDocumentType " & _
+                 "from AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPReportInformation " & _
+                 "where AIRBRANCH.ISMPReportInformation.strDocumentType = AIRBRANCH.ISMPDocumentType.strKey and " & _
                  "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
                 Dim cmd As New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -3273,7 +3273,7 @@ Public Class IAIPFacilitySummary
             End If
 
             SQL = "Select * " & _
-            "From " & DBNameSpace & ".VW_SSCPWorkDataGrid " & _
+            "From AIRBRANCH.VW_SSCPWorkDataGrid " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "Order by strTrackingNumber DESC "
 
@@ -3297,7 +3297,7 @@ Public Class IAIPFacilitySummary
            "Else 'Open' " & _
            "End as Status, " & _
            "substr(strAIRSNumber, 5) as AIRSNumber " & _
-           "from " & DBNameSpace & ".SSCP_AuditedEnforcement  " & _
+           "from AIRBRANCH.SSCP_AuditedEnforcement  " & _
            "Where  strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
            "order by strENforcementNumber DESC "
 
@@ -3308,16 +3308,16 @@ Public Class IAIPFacilitySummary
             End If
             daSSCP.Fill(dsSSCP, "SSCPEnforcement")
 
-            SQL = "Select " & DBNameSpace & ".SSCPFCEMaster.strFCENumber, " & _
+            SQL = "Select AIRBRANCH.SSCPFCEMaster.strFCENumber, " & _
             "strFCEStatus, " & _
             "(strLastname||', '||strFirstName) as ReviewingEngineer, " & _
             "to_char(DatFCECompleted, 'dd-Mon-yyyy') as FCECompleted, " & _
             "strFCEYear as FCEYear, " & _
             "strFCEComments " & _
-            "from " & DBNameSpace & ".SSCPFCE, " & DBNameSpace & ".SSCPFCEMaster, " & DBNameSpace & ".EPDuserProfiles " & _
+            "from AIRBRANCH.SSCPFCE, AIRBRANCH.SSCPFCEMaster, AIRBRANCH.EPDuserProfiles " & _
             "where StrAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
-            "and " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = " & DBNameSpace & ".SSCPFCE.strFCENumber " & _
-            "and " & DBNameSpace & ".EPDuserProfiles.numUserID = " & DBNameSpace & ".SSCPFCE.strReviewer  " & _
+            "and AIRBRANCH.SSCPFCEMaster.strFCENumber = AIRBRANCH.SSCPFCE.strFCENumber " & _
+            "and AIRBRANCH.EPDuserProfiles.numUserID = AIRBRANCH.SSCPFCE.strReviewer  " & _
             "order by DatFCECompleted DESC "
 
             daSSCP = New OracleDataAdapter(SQL, CurrentConnection)
@@ -3591,7 +3591,7 @@ Public Class IAIPFacilitySummary
             End If
 
             SQL = "Select  " & _
-           "distinct(to_Number(" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,   " & _
+           "distinct(to_Number(AIRBRANCH.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,   " & _
            "  case   " & _
            "	when strApplicationTypeDesc IS Null then ' '   " & _
            "Else strApplicationTypeDesc   " & _
@@ -3616,13 +3616,13 @@ Public Class IAIPFacilitySummary
    "else (strLastName||', '||strFirstName)   " & _
    "end as StaffResponsible,   " & _
    "case   " & _
-   "	when " & DBNameSpace & ".SSPPApplicationData.strFacilityName is Null then ' '   " & _
-   "else " & DBNameSpace & ".SSPPApplicationData.strFacilityName   " & _
+   "	when AIRBRANCH.SSPPApplicationData.strFacilityName is Null then ' '   " & _
+   "else AIRBRANCH.SSPPApplicationData.strFacilityName   " & _
    "end as strFacilityName,   " & _
    "case   " & _
-   "	when " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber is Null then ' '   " & _
-   "	when " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = '0413' then ' '   " & _
-   "else substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber, 5)   " & _
+   "	when AIRBRANCH.SSPPApplicationMaster.strAIRSNumber is Null then ' '   " & _
+   "	when AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = '0413' then ' '   " & _
+   "else substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5)   " & _
    "end as strAIRSNumber,   " & _
   "case   " & _
   "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out'   " & _
@@ -3657,15 +3657,15 @@ Public Class IAIPFacilitySummary
   "when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown'      " & _
   "else to_char(datAssignedToEngineer, 'RRRR-MM-dd')      " & _
   "end as StatusDate    " & _
-   "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,   " & _
-   "" & DBNameSpace & ".SSPPApplicationData,   " & _
-   "" & DBNameSpace & ".LookUpApplicationTypes, " & DBNameSpace & ".LookUPPermitTypes,   " & _
-   "" & DBNameSpace & ".EPDUserProfiles  " & _
-   "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber (+)    " & _
-   "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber (+)   " & _
+   "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,   " & _
+   "AIRBRANCH.SSPPApplicationData,   " & _
+   "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUPPermitTypes,   " & _
+   "AIRBRANCH.EPDUserProfiles  " & _
+   "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber (+)    " & _
+   "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber (+)   " & _
    "and strApplicationType = strApplicationTypeCode (+)   " & _
    "and strPermitType = strPermitTypeCode (+)   " & _
-   "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID (+)   " & _
+   "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID (+)   " & _
          "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'   "
 
             SQL = SQL & SQLLine & "order by strApplicationNumber DESC "
@@ -3680,11 +3680,11 @@ Public Class IAIPFacilitySummary
             SQL = "select " & _
             "substr(strAIRSNumber, 5) as AIRSNumber,  " & _
             "'0-SIP' as Subpart, " & _
-            "" & DBNameSpace & ".LookUpSUBPartSip.strSubpart, " & _
-            "" & DBNameSpace & ".LookUpSubpartSIP.strDescription, " & _
-            "" & DBNameSpace & ".APBSubpartData.CreateDateTime " & _
-            "from " & DBNameSpace & ".APBSubpartData, " & DBNameSpace & ".LookUpSubPartSIP " & _
-            "where " & DBNameSpace & ".APBSubpartData.strSubpart = " & DBNameSpace & ".LookUpSubpartSIP.strSubpart " & _
+            "AIRBRANCH.LookUpSUBPartSip.strSubpart, " & _
+            "AIRBRANCH.LookUpSubpartSIP.strDescription, " & _
+            "AIRBRANCH.APBSubpartData.CreateDateTime " & _
+            "from AIRBRANCH.APBSubpartData, AIRBRANCH.LookUpSubPartSIP " & _
+            "where AIRBRANCH.APBSubpartData.strSubpart = AIRBRANCH.LookUpSubpartSIP.strSubpart " & _
             "and ACTIVE <> '0' " & _
             "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and substr(strSubpartKey, 13, 1) = '0' " & _
@@ -3692,11 +3692,11 @@ Public Class IAIPFacilitySummary
             "select " & _
             "substr(strAIRSNumber, 5) as AIRSNumber,  " & _
             "'9-NSPS(Part 60)' as Subpart, " & _
-            "" & DBNameSpace & ".LookUpSUBPart60.strSubpart, " & _
-            "" & DBNameSpace & ".LookUpSubpart60.strDescription, " & _
-            "" & DBNameSpace & ".APBSubpartData.CreateDateTime " & _
-            "from " & DBNameSpace & ".APBSubpartData, " & DBNameSpace & ".LookUpSubPart60 " & _
-            "where " & DBNameSpace & ".APBSubpartData.strSubpart = " & DBNameSpace & ".LookUpSubpart60.strSubpart " & _
+            "AIRBRANCH.LookUpSUBPart60.strSubpart, " & _
+            "AIRBRANCH.LookUpSubpart60.strDescription, " & _
+            "AIRBRANCH.APBSubpartData.CreateDateTime " & _
+            "from AIRBRANCH.APBSubpartData, AIRBRANCH.LookUpSubPart60 " & _
+            "where AIRBRANCH.APBSubpartData.strSubpart = AIRBRANCH.LookUpSubpart60.strSubpart " & _
             "and ACTIVE <> '0' " & _
             "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and substr(strSubpartKey, 13, 1) = '9' " & _
@@ -3704,11 +3704,11 @@ Public Class IAIPFacilitySummary
             "select " & _
             "substr(strAIRSNumber, 5) as AIRSNumber,  " & _
             "'8-NESHAP(Part 61)' as Subpart, " & _
-            "" & DBNameSpace & ".LookUpSUBPart61.strSubpart, " & _
-            "" & DBNameSpace & ".LookUpSubpart61.strDescription, " & _
-            "" & DBNameSpace & ".APBSubpartData.CreateDateTime " & _
-            "from " & DBNameSpace & ".APBSubpartData, " & DBNameSpace & ".LookUpSubPart61 " & _
-            "where " & DBNameSpace & ".APBSubpartData.strSubpart = " & DBNameSpace & ".LookUpSubpart61.strSubpart " & _
+            "AIRBRANCH.LookUpSUBPart61.strSubpart, " & _
+            "AIRBRANCH.LookUpSubpart61.strDescription, " & _
+            "AIRBRANCH.APBSubpartData.CreateDateTime " & _
+            "from AIRBRANCH.APBSubpartData, AIRBRANCH.LookUpSubPart61 " & _
+            "where AIRBRANCH.APBSubpartData.strSubpart = AIRBRANCH.LookUpSubpart61.strSubpart " & _
             "and ACTIVE <> '0' " & _
             "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and substr(strSubpartKey, 13, 1) = '8' " & _
@@ -3716,11 +3716,11 @@ Public Class IAIPFacilitySummary
             "select " & _
             "substr(strAIRSNumber, 5) as AIRSNumber,  " & _
             "'M-MACT(Part 63)' as Subpart, " & _
-            "" & DBNameSpace & ".LookUpSUBPart63.strSubpart, " & _
-            "" & DBNameSpace & ".LookUpSubpart63.strDescription, " & _
-            "" & DBNameSpace & ".APBSubpartData.CreateDateTime " & _
-            "from " & DBNameSpace & ".APBSubpartData, " & DBNameSpace & ".LookUpSubPart63 " & _
-            "where " & DBNameSpace & ".APBSubpartData.strSubpart = " & DBNameSpace & ".LookUpSubpart63.strSubpart " & _
+            "AIRBRANCH.LookUpSUBPart63.strSubpart, " & _
+            "AIRBRANCH.LookUpSubpart63.strDescription, " & _
+            "AIRBRANCH.APBSubpartData.CreateDateTime " & _
+            "from AIRBRANCH.APBSubpartData, AIRBRANCH.LookUpSubPart63 " & _
+            "where AIRBRANCH.APBSubpartData.strSubpart = AIRBRANCH.LookUpSubpart63.strSubpart " & _
             "and ACTIVE <> '0' " & _
             "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and substr(strSubpartKey, 13, 1) = 'M' "
@@ -3734,77 +3734,77 @@ Public Class IAIPFacilitySummary
 
             SQL = "select " & _
             "'0-SIP' as Subpart,  " & _
-            "" & DBNameSpace & ".LookUpSubpartSIP.strSubpart,  " & _
-            "" & DBNameSpace & ".LookupSubpartSIP.strDescription,  " & _
-            "" & DBNameSpace & ".SSPPSubpartData.strApplicationNumber,  " & _
-            "" & DBNameSpace & ".SSPPSubpartData.CreateDateTime,  " & _
+            "AIRBRANCH.LookUpSubpartSIP.strSubpart,  " & _
+            "AIRBRANCH.LookupSubpartSIP.strDescription,  " & _
+            "AIRBRANCH.SSPPSubpartData.strApplicationNumber,  " & _
+            "AIRBRANCH.SSPPSubpartData.CreateDateTime,  " & _
             "case  " & _
             "when strApplicationActivity = '0' then 'Removed'  " & _
             "when strApplicationActivity = '1' then 'Added'  " & _
             "when strApplicationActivity = '2' then 'Modified'  " & _
             "End AppActivity  " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPSubpartData,  " & _
-            "" & DBNameSpace & ".LookUpSubpartSIP  " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber =  " & _
-            "   " & DBNameSpace & ".SSPPSubpartData.strApplicationNumber  " & _
-            "and " & DBNameSpace & ".SSPPSubpartData.strSubPart = " & DBNameSpace & ".LookUPSubpartSIP.strSubpart  " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPSubpartData,  " & _
+            "AIRBRANCH.LookUpSubpartSIP  " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber =  " & _
+            "   AIRBRANCH.SSPPSubpartData.strApplicationNumber  " & _
+            "and AIRBRANCH.SSPPSubpartData.strSubPart = AIRBRANCH.LookUPSubpartSIP.strSubpart  " & _
             "and strAIRSnumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and substr(strSubpartKey, 6,1) = '0'  " & _
             "union  " & _
             "select  " & _
             "'9-NSPS(Part 60)' as Subpart,  " & _
-            "" & DBNameSpace & ".LookUpSubpart60.strSubpart,  " & _
-            "" & DBNameSpace & ".LookupSubpart60.strDescription,  " & _
-            "" & DBNameSpace & ".SSPPSubpartData.strApplicationNumber,  " & _
-            "" & DBNameSpace & ".SSPPSubpartData.CreateDateTime,  " & _
+            "AIRBRANCH.LookUpSubpart60.strSubpart,  " & _
+            "AIRBRANCH.LookupSubpart60.strDescription,  " & _
+            "AIRBRANCH.SSPPSubpartData.strApplicationNumber,  " & _
+            "AIRBRANCH.SSPPSubpartData.CreateDateTime,  " & _
             "case  " & _
             "when strApplicationActivity = '0' then 'Removed'  " & _
             "when strApplicationActivity = '1' then 'Added'  " & _
             "when strApplicationActivity = '2' then 'Modified'  " & _
             "End AppActivity  " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPSubpartData,  " & _
-            "" & DBNameSpace & ".LookUpSubpart60  " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber =  " & _
-            "   " & DBNameSpace & ".SSPPSubpartData.strApplicationNumber  " & _
-            "and " & DBNameSpace & ".SSPPSubpartData.strSubPart = " & DBNameSpace & ".LookUPSubpart60.strSubpart  " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPSubpartData,  " & _
+            "AIRBRANCH.LookUpSubpart60  " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber =  " & _
+            "   AIRBRANCH.SSPPSubpartData.strApplicationNumber  " & _
+            "and AIRBRANCH.SSPPSubpartData.strSubPart = AIRBRANCH.LookUPSubpart60.strSubpart  " & _
             "and strAIRSnumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and substr(strSubpartKey, 6,1) = '9' " & _
             "Union  " & _
             "select  " & _
             "'8-NESHAP(Part 61)' as Subpart,  " & _
-            "" & DBNameSpace & ".LookUpSubpart61.strSubpart,  " & _
-            "" & DBNameSpace & ".LookupSubpart61.strDescription,  " & _
-            "" & DBNameSpace & ".SSPPSubpartData.strApplicationNumber,  " & _
-            "" & DBNameSpace & ".SSPPSubpartData.CreateDateTime,  " & _
+            "AIRBRANCH.LookUpSubpart61.strSubpart,  " & _
+            "AIRBRANCH.LookupSubpart61.strDescription,  " & _
+            "AIRBRANCH.SSPPSubpartData.strApplicationNumber,  " & _
+            "AIRBRANCH.SSPPSubpartData.CreateDateTime,  " & _
             "case  " & _
             "when strApplicationActivity = '0' then 'Removed'  " & _
             "when strApplicationActivity = '1' then 'Added'  " & _
             "when strApplicationActivity = '2' then 'Modified'  " & _
             "End AppActivity  " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPSubpartData,  " & _
-            "" & DBNameSpace & ".LookUpSubpart61  " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber =  " & _
-            "   " & DBNameSpace & ".SSPPSubpartData.strApplicationNumber  " & _
-            "and " & DBNameSpace & ".SSPPSubpartData.strSubPart = " & DBNameSpace & ".LookUPSubpart61.strSubpart  " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPSubpartData,  " & _
+            "AIRBRANCH.LookUpSubpart61  " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber =  " & _
+            "   AIRBRANCH.SSPPSubpartData.strApplicationNumber  " & _
+            "and AIRBRANCH.SSPPSubpartData.strSubPart = AIRBRANCH.LookUPSubpart61.strSubpart  " & _
             "and strAIRSnumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and substr(strSubpartKey, 6,1) = '8' " & _
             "Union  " & _
             "select  " & _
             "'M-MACT(Part 63)' as Subpart,  " & _
-            "" & DBNameSpace & ".LookUpSubpart63.strSubpart,  " & _
-            "" & DBNameSpace & ".LookupSubpart63.strDescription,  " & _
-            "" & DBNameSpace & ".SSPPSubpartData.strApplicationNumber,  " & _
-            "" & DBNameSpace & ".SSPPSubpartData.CreateDateTime,  " & _
+            "AIRBRANCH.LookUpSubpart63.strSubpart,  " & _
+            "AIRBRANCH.LookupSubpart63.strDescription,  " & _
+            "AIRBRANCH.SSPPSubpartData.strApplicationNumber,  " & _
+            "AIRBRANCH.SSPPSubpartData.CreateDateTime,  " & _
             "case  " & _
             "when strApplicationActivity = '0' then 'Removed'  " & _
             "when strApplicationActivity = '1' then 'Added'  " & _
             "when strApplicationActivity = '2' then 'Modified'  " & _
             "End AppActivity  " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPSubpartData,  " & _
-            "" & DBNameSpace & ".LookUpSubpart63  " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber =  " & _
-            "   " & DBNameSpace & ".SSPPSubpartData.strApplicationNumber  " & _
-            "and " & DBNameSpace & ".SSPPSubpartData.strSubPart = " & DBNameSpace & ".LookUPSubpart63.strSubpart  " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPSubpartData,  " & _
+            "AIRBRANCH.LookUpSubpart63  " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber =  " & _
+            "   AIRBRANCH.SSPPSubpartData.strApplicationNumber  " & _
+            "and AIRBRANCH.SSPPSubpartData.strSubPart = AIRBRANCH.LookUPSubpart63.strSubpart  " & _
             "and strAIRSnumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and substr(strSubpartKey, 6,1) = 'M'"
 
@@ -4004,57 +4004,57 @@ Public Class IAIPFacilitySummary
                 TCFacilitySummary.TabPages.Add(TPPlanningSupportData)
             End If
 
-            SQL = "select substr(" & DBNameSpace & ".FS_FeeAuditedData.strAIRSNumber, 5) as AIRSNumber, " & _
-            "" & DBNameSpace & ".FS_FeeAuditedData.numFeeYear,  " & _
-            "" & DBNameSpace & ".FS_FeeAuditedData.intVOCTons,  " & _
-            "" & DBNameSpace & ".FS_FeeAuditedData.intPMTons,  " & _
-            "" & DBNameSpace & ".FS_FeeAuditedData.intSO2Tons,  " & _
-            "" & DBNameSpace & ".FS_FeeAuditedData.intNOXTons,  " & _
-            "" & DBNameSpace & ".FS_FeeAuditedData.numPart70Fee,  " & _
-            "" & DBNameSpace & ".FS_FeeAuditedData.numSMFee,  " & _
-            "" & DBNameSpace & ".FS_FeeAuditedData.numTotalFee,  " & _
+            SQL = "select substr(AIRBRANCH.FS_FeeAuditedData.strAIRSNumber, 5) as AIRSNumber, " & _
+            "AIRBRANCH.FS_FeeAuditedData.numFeeYear,  " & _
+            "AIRBRANCH.FS_FeeAuditedData.intVOCTons,  " & _
+            "AIRBRANCH.FS_FeeAuditedData.intPMTons,  " & _
+            "AIRBRANCH.FS_FeeAuditedData.intSO2Tons,  " & _
+            "AIRBRANCH.FS_FeeAuditedData.intNOXTons,  " & _
+            "AIRBRANCH.FS_FeeAuditedData.numPart70Fee,  " & _
+            "AIRBRANCH.FS_FeeAuditedData.numSMFee,  " & _
+            "AIRBRANCH.FS_FeeAuditedData.numTotalFee,  " & _
             "case " & _
-            "when " & DBNameSpace & ".FS_FeeAuditedData.strNSPSExempt = '1' then 'YES' " & _
-            "when " & DBNameSpace & ".FS_FeeAuditedData.strNSPSExempt = '0' then 'NO' " & _
+            "when AIRBRANCH.FS_FeeAuditedData.strNSPSExempt = '1' then 'YES' " & _
+            "when AIRBRANCH.FS_FeeAuditedData.strNSPSExempt = '0' then 'NO' " & _
             "end strNSPSExempt, " & _
             "'' as strNSPSReason,  " & _
             "case " & _
-            "when " & DBNameSpace & ".FS_FeeAuditedData.strOperate = '1' then 'YES' " & _
-            "when " & DBNameSpace & ".FS_FeeAuditedData.strOperate = '0' then 'NO' " & _
+            "when AIRBRANCH.FS_FeeAuditedData.strOperate = '1' then 'YES' " & _
+            "when AIRBRANCH.FS_FeeAuditedData.strOperate = '0' then 'NO' " & _
             "end strOperate, " & _
-            "" & DBNameSpace & ".FS_FeeAuditedData.numFeeRate,  " & _
-            "" & DBNameSpace & ".FS_FeeAuditedData.strNSPSExemptReason,  " & _
+            "AIRBRANCH.FS_FeeAuditedData.numFeeRate,  " & _
+            "AIRBRANCH.FS_FeeAuditedData.strNSPSExemptReason,  " & _
             "case " & _
-            "when " & DBNameSpace & ".FS_FeeAuditedData.strPart70 = '1' then 'YES' " & _
-            "when " & DBNameSpace & ".FS_FeeAuditedData.strPart70 = '0' then 'NO' " & _
+            "when AIRBRANCH.FS_FeeAuditedData.strPart70 = '1' then 'YES' " & _
+            "when AIRBRANCH.FS_FeeAuditedData.strPart70 = '0' then 'NO' " & _
             "end strPart70, " & _
             "case " & _
-            "when " & DBNameSpace & ".FS_FeeAuditedData.strSyntheticMinor = '1' then 'YES' " & _
-            "when " & DBNameSpace & ".FS_FeeAuditedData.strSyntheticMinor = '0' then 'NO' " & _
+            "when AIRBRANCH.FS_FeeAuditedData.strSyntheticMinor = '1' then 'YES' " & _
+            "when AIRBRANCH.FS_FeeAuditedData.strSyntheticMinor = '0' then 'NO' " & _
             "End strSyntheticMinor, " & _
-            "" & DBNameSpace & ".FS_FeeAuditedData.numCalculatedFee,  " & _
-            "" & DBNameSpace & ".FS_FeeAuditedData.strClass,  " & _
+            "AIRBRANCH.FS_FeeAuditedData.numCalculatedFee,  " & _
+            "AIRBRANCH.FS_FeeAuditedData.strClass,  " & _
             "case " & _
-            "when " & DBNameSpace & ".FS_FeeAuditedData.strNSPS = '1' then 'YES' " & _
-            "when " & DBNameSpace & ".FS_FeeAuditedData.strNSPS = '0' then 'NO' " & _
+            "when AIRBRANCH.FS_FeeAuditedData.strNSPS = '1' then 'YES' " & _
+            "when AIRBRANCH.FS_FeeAuditedData.strNSPS = '0' then 'NO' " & _
             "end strNSPS,  " & _
-            "" & DBNameSpace & ".FS_FeeAuditedData.datShutDown,  " & _
-            "" & DBNameSpace & ".FS_FeeAuditedData.strPaymentPlan,  " & _
-            "" & DBNameSpace & ".FS_FeeAuditedData.strOfficialName,  " & _
-            "" & DBNameSpace & ".FS_FeeAuditedData.strOfficialTitle,  " & _
+            "AIRBRANCH.FS_FeeAuditedData.datShutDown,  " & _
+            "AIRBRANCH.FS_FeeAuditedData.strPaymentPlan,  " & _
+            "AIRBRANCH.FS_FeeAuditedData.strOfficialName,  " & _
+            "AIRBRANCH.FS_FeeAuditedData.strOfficialTitle,  " & _
             "case " & _
             "when intSubmittal = '1' then 'YES' " & _
             "when intSubmittal = '0' then 'NO' " & _
             "end intSubmittal, " & _
             "datSubmittal " & _
-            "from " & DBNameSpace & ".FS_FeeAuditedData, " & DBNameSpace & ".FS_Admin " & _
-            "where " & DBNameSpace & ".FS_FeeAuditedData.strAIRSNUmber = '0413" & mtbAIRSNumber.Text & "' " & _
-            "and " & DBNameSpace & ".FS_FeeAuditedData.strAIRSnumber = " & DBNameSpace & ".FS_Admin.strAIRSnumber  " & _
-            "and " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = " & DBNameSpace & ".FS_Admin.numFeeYear " & _
-            "and " & DBNameSpace & ".FS_Admin.active = '1' " & _
+            "from AIRBRANCH.FS_FeeAuditedData, AIRBRANCH.FS_Admin " & _
+            "where AIRBRANCH.FS_FeeAuditedData.strAIRSNUmber = '0413" & mtbAIRSNumber.Text & "' " & _
+            "and AIRBRANCH.FS_FeeAuditedData.strAIRSnumber = AIRBRANCH.FS_Admin.strAIRSnumber  " & _
+            "and AIRBRANCH.FS_FeeAuditedData.numFeeYear = AIRBRANCH.FS_Admin.numFeeYear " & _
+            "and AIRBRANCH.FS_Admin.active = '1' " & _
             "and strEnrolled is not null " & _
             "and strenrolled = '1'" & _
-            "order by " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear desc "
+            "order by AIRBRANCH.FS_FeeAuditedData.numFeeYear desc "
 
             da = New OracleDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -4064,26 +4064,26 @@ Public Class IAIPFacilitySummary
 
 
             SQL = "select distinct " & _
-            "" & DBNameSpace & ".FS_FeeInvoice.numFeeYear, " & _
-           "" & DBNameSpace & ".FS_FeeInvoice.InvoiceID, " & _
-           "" & DBNameSpace & ".FS_FeeInvoice.numAmount, " & _
+            "AIRBRANCH.FS_FeeInvoice.numFeeYear, " & _
+           "AIRBRANCH.FS_FeeInvoice.InvoiceID, " & _
+           "AIRBRANCH.FS_FeeInvoice.numAmount, " & _
            "datInvoiceDate, " & _
            "case " & _
-           "when " & DBNameSpace & ".FS_FeeInvoice.active = '1' then 'Active' " & _
-           "when " & DBNameSpace & ".FS_FeeInvoice.active = '0' then 'VOID' " & _
+           "when AIRBRANCH.FS_FeeInvoice.active = '1' then 'Active' " & _
+           "when AIRBRANCH.FS_FeeInvoice.active = '0' then 'VOID' " & _
            "end InvoiceStatus, strPayTypeDesc, " & _
            "case " & _
            "when strInvoiceStatus = '1' then 'Paid in Full' " & _
            "when strInvoiceStatus = '0' and " & _
-           "(numPayment <> '0' and numPayment is not null and " & DBNameSpace & ".FS_Transactions.active = '1') then 'Partial Payment' " & _
+           "(numPayment <> '0' and numPayment is not null and AIRBRANCH.FS_Transactions.active = '1') then 'Partial Payment' " & _
            "when strInvoicestatus = '0' then 'Unpaid' " & _
            "end PayStatus, " & _
-           "" & DBNameSpace & ".FS_FeeInvoice.strComment " & _
-           "from " & DBNameSpace & ".FS_FeeInvoice, " & DBNameSpace & ".FSLK_PayType, " & _
-           "" & DBNameSpace & ".FS_Transactions " & _
-           "where " & DBNameSpace & ".FS_FeeInvoice.strPayType = " & DBNameSpace & ".FSLK_PayType.nuMPayTypeID " & _
-           "and " & DBNameSpace & ".FS_FeeInvoice.InvoiceID = " & DBNameSpace & ".FS_Transactions.InvoiceID (+) " & _
-           "and " & DBNameSpace & ".FS_FeeInvoice.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
+           "AIRBRANCH.FS_FeeInvoice.strComment " & _
+           "from AIRBRANCH.FS_FeeInvoice, AIRBRANCH.FSLK_PayType, " & _
+           "AIRBRANCH.FS_Transactions " & _
+           "where AIRBRANCH.FS_FeeInvoice.strPayType = AIRBRANCH.FSLK_PayType.nuMPayTypeID " & _
+           "and AIRBRANCH.FS_FeeInvoice.InvoiceID = AIRBRANCH.FS_Transactions.InvoiceID (+) " & _
+           "and AIRBRANCH.FS_FeeInvoice.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
            "order by numFeeyear desc, datInvoiceDate desc  "
 
             da = New OracleDataAdapter(SQL, CurrentConnection)
@@ -4108,8 +4108,8 @@ Public Class IAIPFacilitySummary
             "end strEntryPerson, " & _
             "strComment,  " & _
             "transactionid  " & _
-            "from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".EPDUserProfiles " & _
-            "where " & DBNameSpace & ".FS_Transactions.strEntryPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID (+) " & _
+            "from AIRBRANCH.FS_Transactions, AIRBRANCH.EPDUserProfiles " & _
+            "where AIRBRANCH.FS_Transactions.strEntryPerson = AIRBRANCH.EPDUserProfiles.numUserID (+) " & _
             "and strAIRSnumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and Active = '1' " & _
             "order by numFeeYear desc, dattransactiondate desc "
@@ -4315,7 +4315,7 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub btnEditHeaderData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditHeaderData.Click
-        If Apb.ApbFacilityId.ValidAirsNumberFormat(mtbAIRSNumber.Text) Then
+        If Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbAIRSNumber.Text) Then
 
             Dim editHeaderDataDialog As New IAIPEditHeaderData
             editHeaderDataDialog.AirsNumber = mtbAIRSNumber.Text
@@ -4408,7 +4408,7 @@ Public Class IAIPFacilitySummary
 #Region "AFS Updates"
     Private Sub mmiAddAFS_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiAddAFS.Click
         Try
-            SQL = "Update " & DBNameSpace & ".AFSFacilityData set " & _
+            SQL = "Update AIRBRANCH.AFSFacilityData set " & _
             "strUpdateStatus = 'A' " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
@@ -4419,7 +4419,7 @@ Public Class IAIPFacilitySummary
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Update " & DBNameSpace & ".AFSAirPollutantData set " & _
+            SQL = "Update AIRBRANCH.AFSAirPollutantData set " & _
             "strUpdateStatus = 'A' " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
@@ -4479,7 +4479,7 @@ Public Class IAIPFacilitySummary
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Update " & DBNameSpace & ".AFSSSCPEnforcementRecords set " & _
+            SQL = "Update AIRBRANCH.AFSSSCPEnforcementRecords set " & _
            "strUpdateStatus = 'A' " & _
            "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
@@ -4500,7 +4500,7 @@ Public Class IAIPFacilitySummary
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Update " & DBNameSpace & ".AFSSSCPFCERecords set " & _
+            SQL = "Update AIRBRANCH.AFSSSCPFCERecords set " & _
     "strUpdateStatus = 'A' " & _
     "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
@@ -4528,7 +4528,7 @@ Public Class IAIPFacilitySummary
 
     Private Sub mmiUpdateAFSData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiUpdateAFSData.Click
         Try
-            SQL = "Update " & DBNameSpace & ".AFSFacilityData set " & _
+            SQL = "Update AIRBRANCH.AFSFacilityData set " & _
             "strUpdateStatus = 'C' " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
@@ -4539,7 +4539,7 @@ Public Class IAIPFacilitySummary
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Update " & DBNameSpace & ".AFSAirPollutantData set " & _
+            SQL = "Update AIRBRANCH.AFSAirPollutantData set " & _
             "strUpdateStatus = 'C' " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 

@@ -394,17 +394,17 @@ Public Class SscpEnforcement
             SQL = "Select " & _
             "strComplianceCode, " & _
             "(strComplianceCode || ' - ' || strComplianceDesc) as ComplianceDesc " & _
-            "from " & DBNameSpace & ".LookUpComplianceStatus "
+            "from AIRBRANCH.LookUpComplianceStatus "
 
             SQL2 = "select " & _
             "strHPVCode, " & _
             "(strHPVCode || ' - ' || strHPVViolationDesc) as HPVViolationDesc " & _
-            "from " & DBNameSpace & ".LookUPHPVViolations "
+            "from AIRBRANCH.LookUPHPVViolations "
 
             'SQL3 = "Select distinct(numUserID), " & _
             '"(strLastName|| ', '||strFirstName) as StaffName, " & _
             '"strLastName " & _
-            '"from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".SSCP_Enforcement " & _
+            '"from AIRBRANCH.EPDUserProfiles, AIRBRANCH.SSCP_Enforcement " & _
             '"where numProgram = '4' " & _
             '"or numUserID = numStaffResponsible " & _
             '"or (numBranch = '5' " & _
@@ -871,7 +871,7 @@ Public Class SscpEnforcement
 
             If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
                 SQL = "Select * " & _
-                "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
+                "from AIRBRANCH.SSCP_AuditedEnforcement " & _
                 "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1661,11 +1661,11 @@ Public Class SscpEnforcement
             SQL = "Select strFacilityName, strFacilityStreet1, " & _
             "strFacilityCity, strCountyName, strFacilityState, strFacilityZipCode, " & _
             "strClass, strAIRProgramCodes " & _
-            "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".LookUpCountyInformation, " & _
-            "" & DBNameSpace & ".APBHeaderData " & _
-            "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
+            "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.LookUpCountyInformation, " & _
+            "AIRBRANCH.APBHeaderData " & _
+            "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
             "and strCountyCode = '" & Mid(txtAIRSNumber.Text, 1, 3) & "' " & _
-            "and " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".APBHeaderData.strairsnumber"
+            "and AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.APBHeaderData.strairsnumber"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
 
@@ -1898,7 +1898,7 @@ Public Class SscpEnforcement
                 If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
                     SQL = "Select " & _
                     "strPollutants " & _
-                    "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
+                    "from AIRBRANCH.SSCP_AuditedEnforcement " & _
                     "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1973,7 +1973,7 @@ Public Class SscpEnforcement
                 If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
                     SQL = "Select " & _
                     "strPollutants " & _
-                    "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
+                    "from AIRBRANCH.SSCP_AuditedEnforcement " & _
                     "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2025,7 +2025,7 @@ Public Class SscpEnforcement
                 "End StipulatedPenaltyComments, " & _
                 "strAFSStipulatedPenaltyNumber, " & _
                 "strEnforcementKey " & _
-                "from " & DBNameSpace & ".SSCPENforcementStipulated " & _
+                "from AIRBRANCH.SSCPENforcementStipulated " & _
                 "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' " & _
                 "order by strEnforcementKey "
 
@@ -2536,10 +2536,10 @@ Public Class SscpEnforcement
                 End If
 
                 If txtEnforcementNumber.Text = "" Or txtEnforcementNumber.Text = "N/A" Then
-                    SQL = "Insert into " & DBNameSpace & ".SSCP_Enforcement " & _
+                    SQL = "Insert into AIRBRANCH.SSCP_Enforcement " & _
                     "values " & _
-                    "((select max(ID) + 1 from " & DBNameSpace & ".SSCP_Enforcement), " & _
-                    "" & DBNameSpace & ".SSCPEnforcementNumber.nextval, " & _
+                    "((select max(ID) + 1 from AIRBRANCH.SSCP_Enforcement), " & _
+                    "AIRBRANCH.SSCPEnforcementNumber.nextval, " & _
                     "'" & TrackingNumber & "', '0413" & AIRSNumber & "', " & _
                     "'" & EnforcementFinalizedCheck & "', '" & EnforcementFinalized & "', " & _
                     "'" & StaffResponsible & "', '" & EnforcementStatus & "', " & _
@@ -2589,7 +2589,7 @@ Public Class SscpEnforcement
                     dr = cmd.ExecuteReader
                     dr.Close()
 
-                    SQL = "Select " & DBNameSpace & ".SSCPEnforcementnumber.currval from dual "
+                    SQL = "Select AIRBRANCH.SSCPEnforcementnumber.currval from dual "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
@@ -2605,9 +2605,9 @@ Public Class SscpEnforcement
 
                     dr.Close()
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".SSCP_Enforcement " & _
+                    SQL = "Insert into AIRBRANCH.SSCP_Enforcement " & _
                     "values " & _
-                    "((select max(ID) + 1 from " & DBNameSpace & ".SSCP_Enforcement), " & _
+                    "((select max(ID) + 1 from AIRBRANCH.SSCP_Enforcement), " & _
                     "'" & txtEnforcementNumber.Text & "', " & _
                     "'" & TrackingNumber & "', '0413" & AIRSNumber & "', " & _
                     "'" & EnforcementFinalizedCheck & "', '" & EnforcementFinalized & "', " & _
@@ -2676,7 +2676,7 @@ Public Class SscpEnforcement
                 For i = 0 To lvPollutants.Items.Count - 1
                     If lvPollutants.Items.Item(i).Checked = True Then
 
-                        SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
+                        SQL = "Update AIRBRANCH.APBAirProgramPollutants set " & _
                         "strComplianceStatus = '" & cboPollutantStatus.SelectedValue & "', " & _
                         "strModifingPerson = '" & UserGCode & "', " & _
                         "datModifingDate = '" & OracleDate & "' " & _
@@ -2713,7 +2713,7 @@ Public Class SscpEnforcement
 
             If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
                 query = "SELECT MAX(SSCPENFORCEMENTSTIPULATED.STRENFORCEMENTKEY) AS MaxKey " & _
-                "FROM " & DBNameSpace & ".SSCPENFORCEMENTSTIPULATED " & _
+                "FROM AIRBRANCH.SSCPENFORCEMENTSTIPULATED " & _
                 "WHERE SSCPENFORCEMENTSTIPULATED.STRENFORCEMENTNUMBER = :enfNumber"
                 Using connection As New OracleConnection(DB.CurrentConnectionString)
                     Using command As New OracleCommand(query, connection) With {.CommandType = CommandType.Text}
@@ -2744,7 +2744,7 @@ Public Class SscpEnforcement
 
             If txtAFSKeyActionNumber.Text <> "" Then
                 SQL = "Select strAFSActionNumber " & _
-                "from " & DBNameSpace & ".APBSupplamentalData " & _
+                "from AIRBRANCH.APBSupplamentalData " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2758,7 +2758,7 @@ Public Class SscpEnforcement
 
                 temp = CStr(CInt(AFSNumber) + 1)
 
-                SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+                SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                 "strAFSActionNumber = '" & temp & "' " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2769,7 +2769,7 @@ Public Class SscpEnforcement
                 dr.Close()
             Else
                 SQL = "Select strAFSActionNumber " & _
-                "from " & DBNameSpace & ".APBSupplamentalData " & _
+                "from AIRBRANCH.APBSupplamentalData " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2785,7 +2785,7 @@ Public Class SscpEnforcement
 
                 temp = CStr(CInt(AFSNumber) + 1)
 
-                SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+                SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                 "strAFSActionNumber = '" & temp & "' " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2798,7 +2798,7 @@ Public Class SscpEnforcement
                 AFSNumber = temp
                 temp = CStr(CInt(AFSNumber) + 1)
 
-                SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+                SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                 "strAFSActionNumber = '" & temp & "' " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2811,7 +2811,7 @@ Public Class SscpEnforcement
 
             If txtEnforcementNumber.Text = "" Or txtEnforcementNumber.Text = "N/A" Then SaveEnforcement()
 
-            query = "Insert into " & DBNameSpace & ".SSCPEnforcementStipulated " & _
+            query = "Insert into AIRBRANCH.SSCPEnforcementStipulated " & _
             "values (:enfNumber,:stipKey,:stipPenalty,:stipComments,:afsNumber,:userGCode,:oracleDate)"
             Using connection As New OracleConnection(DB.CurrentConnectionString)
                 Using command As New OracleCommand(query, connection) With {.CommandType = CommandType.Text}
@@ -2857,7 +2857,7 @@ Public Class SscpEnforcement
             If chbHPV.Checked = True Or chbNOV.Checked = True Or chbCO.Checked = True Or chbAO.Checked = True Then
                 If txtAFSKeyActionNumber.Text = "" Then
                     SQL = "Select strAFSActionNumber " & _
-                    "from " & DBNameSpace & ".APBSupplamentalData " & _
+                    "from AIRBRANCH.APBSupplamentalData " & _
                     "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2874,7 +2874,7 @@ Public Class SscpEnforcement
 
                     KeyActionNumber = CStr(CInt(KeyActionNumber) + 1)
 
-                    SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+                    SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                     "strAFSActionNUmber = '" & KeyActionNumber & "' " & _
                     "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2891,7 +2891,7 @@ Public Class SscpEnforcement
                     If txtAFSNOVActionNumber.Text = "" Then
 
                         SQL = "Select strAFSActionNumber " & _
-                        "from " & DBNameSpace & ".APBSupplamentalData " & _
+                        "from AIRBRANCH.APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2908,7 +2908,7 @@ Public Class SscpEnforcement
 
                         NOVActionNumber = CStr(CInt(NOVActionNumber) + 1)
 
-                        SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+                        SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                         "strAFSActionNUmber = '" & NOVActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2927,7 +2927,7 @@ Public Class SscpEnforcement
                 If DTPNFALetterSent.Checked = True Then
                     If txtAFSNOVResolvedNumber.Text = "" Then
                         SQL = "Select strAFSActionNumber " & _
-                        "from " & DBNameSpace & ".APBSupplamentalData " & _
+                        "from AIRBRANCH.APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2944,7 +2944,7 @@ Public Class SscpEnforcement
 
                         NFAActionNumber = CStr(CInt(NFAActionNumber) + 1)
 
-                        SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+                        SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                         "strAFSActionNumber = '" & NFAActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2963,7 +2963,7 @@ Public Class SscpEnforcement
                 If DTPCOProposed.Checked = True Then
                     If txtAFSCOProposedActionNumber.Text = "" Then
                         SQL = "Select strAFSActionNumber " & _
-                        "from " & DBNameSpace & ".APBSupplamentalData " & _
+                        "from AIRBRANCH.APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2980,7 +2980,7 @@ Public Class SscpEnforcement
 
                         COProposedActionNumber = CStr(CInt(COProposedActionNumber) + 1)
 
-                        SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+                        SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                         "strAFSActionNumber = '" & COProposedActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2999,7 +2999,7 @@ Public Class SscpEnforcement
                 If DTPCOExecuted.Checked = True Then
                     If txtAFSCOExecutedActionNumber.Text = "" Then
                         SQL = "Select strAFSActionNumber " & _
-                        "from " & DBNameSpace & ".APBSupplamentalData " & _
+                        "from AIRBRANCH.APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3016,7 +3016,7 @@ Public Class SscpEnforcement
 
                         COExecutedActionNumber = CStr(CInt(COExecutedActionNumber) + 1)
 
-                        SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+                        SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                         "strAFSActionNumber = '" & COExecutedActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3035,7 +3035,7 @@ Public Class SscpEnforcement
                 If DTPCOResolved.Checked = True Then
                     If txtAFSCOResolvedActionNumber.Text = "" Then
                         SQL = "Select strAFSActionNumber " & _
-                        "from " & DBNameSpace & ".APBSupplamentalData " & _
+                        "from AIRBRANCH.APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3052,7 +3052,7 @@ Public Class SscpEnforcement
 
                         COResolvedActionNumber = CStr(CInt(COResolvedActionNumber) + 1)
 
-                        SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+                        SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                         "strAFSActionNumber = '" & COResolvedActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3071,7 +3071,7 @@ Public Class SscpEnforcement
                 If DTPAOExecuted.Checked = True Then
                     If txtAFSAOToAGActionNumber.Text = "" Then
                         SQL = "Select strAFSActionNumber " & _
-                        "from " & DBNameSpace & ".APBSupplamentalData " & _
+                        "from AIRBRANCH.APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3088,7 +3088,7 @@ Public Class SscpEnforcement
 
                         AOtoAGActionNumber = CStr(CInt(AOtoAGActionNumber) + 1)
 
-                        SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+                        SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                         "strAFSActionNumber = '" & AOtoAGActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3107,7 +3107,7 @@ Public Class SscpEnforcement
                 If DTPAOAppealed.Checked = True Then
                     If txtAFSCivilCourtActionNumber.Text = "" Then
                         SQL = "Select strAFSActionNumber " & _
-                        "from " & DBNameSpace & ".APBSupplamentalData " & _
+                        "from AIRBRANCH.APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3124,7 +3124,7 @@ Public Class SscpEnforcement
 
                         AOtoCivilCourtActionNumber = CStr(CInt(AOtoCivilCourtActionNumber) + 1)
 
-                        SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+                        SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                         "strAFSActionNumber = '" & AOtoCivilCourtActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3143,7 +3143,7 @@ Public Class SscpEnforcement
                 If DTPAOResolved.Checked = True Then
                     If txtAFSAOResolvedActionNumber.Text = "" Then
                         SQL = "Select strAFSActionNumber " & _
-                        "from " & DBNameSpace & ".APBSupplamentalData " & _
+                        "from AIRBRANCH.APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3160,7 +3160,7 @@ Public Class SscpEnforcement
 
                         AOResolvedActionNumber = CStr(CInt(AOResolvedActionNumber) + 1)
 
-                        SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+                        SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                         "strAFSActionNumber = '" & AOResolvedActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3307,7 +3307,7 @@ Public Class SscpEnforcement
             Dim tempAIRS As String = ""
 
             SQL = "Select strUpDateStatus " & _
-            "from " & DBNameSpace & ".AFSSSCPEnforcementRecords " & _
+            "from AIRBRANCH.AFSSSCPEnforcementRecords " & _
             "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3337,7 +3337,7 @@ Public Class SscpEnforcement
                 Select Case Result
                     Case Windows.Forms.DialogResult.Yes
                         SQL = "Select strAIRSNumber " & _
-                        "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
+                        "from AIRBRANCH.SSCP_AuditedEnforcement " & _
                         "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3354,7 +3354,7 @@ Public Class SscpEnforcement
                         End While
                         dr.Close()
 
-                        SQL = "Delete " & DBNameSpace & ".AFSSSCPEnforcementRecords " & _
+                        SQL = "Delete AIRBRANCH.AFSSSCPEnforcementRecords " & _
                         "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -3363,14 +3363,14 @@ Public Class SscpEnforcement
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
+                        SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
                                "values " & _
                                "(" & _
                                "(select " & _
                                "case when max(numCounter) is null then 1 " & _
                                "else max(numCounter) + 1 " & _
                                "end numCounter " & _
-                               "from " & DBNameSpace & ".AFSDeletions), " & _
+                               "from AIRBRANCH.AFSDeletions), " & _
                                "'" & tempAIRS & "', " & _
                                "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                                "'" & OracleDate & "', '', " & _
@@ -3383,7 +3383,7 @@ Public Class SscpEnforcement
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "Delete " & DBNameSpace & ".SSCPENforcementStipulated " & _
+                        SQL = "Delete AIRBRANCH.SSCPENforcementStipulated " & _
                         "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -3392,14 +3392,14 @@ Public Class SscpEnforcement
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
+                        SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
                                "values " & _
                                "(" & _
                                "(select " & _
                                "case when max(numCounter) is null then 1 " & _
                                "else max(numCounter) + 1 " & _
                                "end numCounter " & _
-                               "from " & DBNameSpace & ".AFSDeletions), " & _
+                               "from AIRBRANCH.AFSDeletions), " & _
                                "'" & tempAIRS & "', " & _
                                "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                                "'" & OracleDate & "', '', " & _
@@ -3412,7 +3412,7 @@ Public Class SscpEnforcement
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "Delete " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
+                        SQL = "Delete AIRBRANCH.SSCP_AuditedEnforcement " & _
                         "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -3421,14 +3421,14 @@ Public Class SscpEnforcement
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
+                        SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
                                "values " & _
                                "(" & _
                                "(select " & _
                                "case when max(numCounter) is null then 1 " & _
                                "else max(numCounter) + 1 " & _
                                "end numCounter " & _
-                               "from " & DBNameSpace & ".AFSDeletions), " & _
+                               "from AIRBRANCH.AFSDeletions), " & _
                                "'" & tempAIRS & "', " & _
                                "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                                "'" & OracleDate & "', '', " & _
@@ -3730,7 +3730,7 @@ Public Class SscpEnforcement
             Exit Sub
         End If
 
-        Dim query As String = "Delete from " & DBNameSpace & ".SSCPENforcementStipulated " & _
+        Dim query As String = "Delete from AIRBRANCH.SSCPENforcementStipulated " & _
         "where strEnforcementNumber = :enfNumber and strEnforcementKey = :enfKey"
 
         Using connection As New OracleConnection(DB.CurrentConnectionString)
@@ -3773,7 +3773,7 @@ Public Class SscpEnforcement
             Dim success As Boolean = False
 
             Dim query As String = "Select strStipulatedPenalty, strStipulatedPenaltyComments " & _
-            "from " & DBNameSpace & ".SSCPENforcementStipulated " & _
+            "from AIRBRANCH.SSCPENforcementStipulated " & _
             "where strEnforcementNumber = :enfNumber and strEnforcementKey = :enfKey"
 
             Using connection As New OracleConnection(DB.CurrentConnectionString)
@@ -4079,10 +4079,10 @@ Public Class SscpEnforcement
             SQL = "select sb1.ID, sb1.strEnforcementNumber, " & _
        "strTrackingNumber, substr(strAIRSNumber, 5) as strAIRSnumber, " & _
        "strEnforcementFinalized, datEnforcementFinalized, " & _
-       "(select (strLastName||', '||strFirstName) from " & DBNameSpace & ".EPDUserProfiles, " & _
-       "" & DBNameSpace & ".SSCP_Enforcement " & _
-       "where " & DBNameSpace & ".epduserprofiles.numUserID = " & DBNameSpace & ".SSCP_enforcement.numstaffresponsible " & _
-       "and " & DBNameSpace & ".SSCP_Enforcement.id = sb1.id) as StaffResponsible, numStaffResponsible, " & _
+       "(select (strLastName||', '||strFirstName) from AIRBRANCH.EPDUserProfiles, " & _
+       "AIRBRANCH.SSCP_Enforcement " & _
+       "where AIRBRANCH.epduserprofiles.numUserID = AIRBRANCH.SSCP_enforcement.numstaffresponsible " & _
+       "and AIRBRANCH.SSCP_Enforcement.id = sb1.id) as StaffResponsible, numStaffResponsible, " & _
        "strStatus, strActionType, " & _
        "strGeneralCOmments, strDiscoveryDate, " & _
        "strDayZero, datDayZero, " & _
@@ -4116,14 +4116,14 @@ Public Class SscpEnforcement
        "strAOResolved, datAOResolved, " & _
        "strAOComment, " & _
        "(select " & _
-       "(strLastName||', '||strFirstName) from " & DBNameSpace & ".EPDUserProfiles, " & _
-       "" & DBNameSpace & ".SSCP_Enforcement " & _
-       "where " & DBNameSpace & ".epduserprofiles.numUserID = " & DBNameSpace & ".SSCP_enforcement.strModifingPerson " & _
-       "and " & DBNameSpace & ".SSCP_Enforcement.id = sb1.id) as ModifingPerson, strModifingPerson, " & _
+       "(strLastName||', '||strFirstName) from AIRBRANCH.EPDUserProfiles, " & _
+       "AIRBRANCH.SSCP_Enforcement " & _
+       "where AIRBRANCH.epduserprofiles.numUserID = AIRBRANCH.SSCP_enforcement.strModifingPerson " & _
+       "and AIRBRANCH.SSCP_Enforcement.id = sb1.id) as ModifingPerson, strModifingPerson, " & _
        "DatModifingDate " & _
        "from " & _
        "(Select * " & _
-       "From " & DBNameSpace & ".SSCP_Enforcement " & _
+       "From AIRBRANCH.SSCP_Enforcement " & _
        "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' order by ID desc)  sb1 "
 
             ds = New DataSet
@@ -4419,7 +4419,7 @@ Public Class SscpEnforcement
         Try
             SaveEnforcement()
 
-            SQL = "Update " & DBNameSpace & ".SSCPEnforcementStipulated set " & _
+            SQL = "Update AIRBRANCH.SSCPEnforcementStipulated set " & _
             "strStipulatedPenalty = '" & Replace(txtStipulatedPenalty.Text, "'", "''") & "', " & _
             "strStipulatedPenaltyCOmments = '" & Replace(txtStipulatedComments.Text, "'", "''") & "' " & _
             "where strEnforcementNumber = '" & Replace(txtEnforcementNumber.Text, "'", "''") & "' " & _

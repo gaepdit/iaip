@@ -58,7 +58,7 @@ Public Class ISMPTestFirmComments
         Try
             SQL = "Select " & _
             "strTestingFirmKey, strTestingFirm " & _
-            "from " & DBNameSpace & ".LookUpTestingFirms " & _
+            "from AIRBRANCH.LookUpTestingFirms " & _
             "order by strTestingFirm "
 
             dsTestingFirms = New DataSet
@@ -109,8 +109,8 @@ Public Class ISMPTestFirmComments
             "strComment, " & _
             "to_char(datCommentDate, 'dd-Mon-yyyy') as CommentDate, " & _
             "(strLastName|| ', ' ||strFirstName) as StaffResponsible " & _
-            "from " & DBNameSpace & ".ismptestfirmcomments, " & DBNameSpace & ".EPDUSerProfiles " & _
-            "where " & DBNameSpace & ".ismptestfirmcomments.strStaffResponsible = " & DBNameSpace & ".EPDUSerProfiles.numUserID "
+            "from AIRBRANCH.ismptestfirmcomments, AIRBRANCH.EPDUSerProfiles " & _
+            "where AIRBRANCH.ismptestfirmcomments.strStaffResponsible = AIRBRANCH.EPDUSerProfiles.numUserID "
 
             If txtTestNotificationNumber.Text <> "" Then
                 SQL = SQL & " and strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
@@ -172,7 +172,7 @@ Public Class ISMPTestFirmComments
                 SQL = "Select " & _
                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as datTestDateStart, " & _
                 "to_char(datTestDateEnd, 'dd-Mon-yyyy') as datTestDateEnd " & _
-                "from " & DBNameSpace & ".ISMPReportInformation " & _
+                "from AIRBRANCH.ISMPReportInformation " & _
                 "where strReferenceNumber = '" & txtTestReportNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -268,10 +268,10 @@ Public Class ISMPTestFirmComments
                 End If
 
                 If CommentID = "" Then
-                    SQL = "Insert into " & DBNameSpace & ".ISMPTestFirmComments " & _
+                    SQL = "Insert into AIRBRANCH.ISMPTestFirmComments " & _
                     "values " & _
-                    "((select max(" & DBNameSpace & ".ismptestfirmcomments.numcommentsid) + 1 " & _
-                    "from " & DBNameSpace & ".ismptestfirmcomments ),   " & _
+                    "((select max(AIRBRANCH.ismptestfirmcomments.numcommentsid) + 1 " & _
+                    "from AIRBRANCH.ismptestfirmcomments ),   " & _
                     "'" & TestFirmKey & "', " & _
                     "'" & AIRSNum & "', '" & TestLogNum & "', " & _
                     "'" & RefNum & "', '" & SaveType & "', " & _
@@ -279,7 +279,7 @@ Public Class ISMPTestFirmComments
                     "'" & Replace(Comment, "'", "''") & "', '" & UserGCode & "', " & _
                     "sysdate) "
                 Else
-                    SQL = "Update " & DBNameSpace & ".ISMPTestFirmComments set " & _
+                    SQL = "Update AIRBRANCH.ISMPTestFirmComments set " & _
                     "strTestingFirmKey = '" & TestFirmKey & "', " & _
                     "strAIRSNumber = '" & AIRSNum & "', " & _
                     "strTestLogNumber = '" & TestLogNum & "', " & _
@@ -303,8 +303,8 @@ Public Class ISMPTestFirmComments
 
                 If CommentID = "" Then
                     SQL = "Select " & _
-                    "max(" & DBNameSpace & ".ISMPTestFirmComments.numcommentsid) " & _
-                    "from " & DBNameSpace & ".ISMPTestFirmComments "
+                    "max(AIRBRANCH.ISMPTestFirmComments.numcommentsid) " & _
+                    "from AIRBRANCH.ISMPTestFirmComments "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -328,9 +328,9 @@ Public Class ISMPTestFirmComments
             Select Case RefreshType
                 Case "AIRS Number"
                     SQL = "select " & _
-                    "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as strAIRSnumber, " & _
+                    "substr(AIRBRANCH.APBFacilityInformation.strAIRSnumber, 5) as strAIRSnumber, " & _
                     "strFacilityName " & _
-                    "from " & DBNameSpace & ".APBFacilityInformation " & _
+                    "from AIRBRANCH.APBFacilityInformation " & _
                     "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "'"
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -348,12 +348,12 @@ Public Class ISMPTestFirmComments
                     dr.Close()
                 Case "Notification"
                     SQL = "select " & _
-                    "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as strAIRSNumber, " & _
+                    "substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as strAIRSNumber, " & _
                     "strFacilityName, " & _
                     "strTestLogNumber " & _
-                    "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".ISMPTestNotification " & _
-                    "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".ISMPTestNotification.strAIRSNumber (+) " & _
-                    "and " & DBNameSpace & ".ISMPTestNotification.strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
+                    "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPTestNotification " & _
+                    "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.ISMPTestNotification.strAIRSNumber (+) " & _
+                    "and AIRBRANCH.ISMPTestNotification.strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
@@ -374,17 +374,17 @@ Public Class ISMPTestFirmComments
                     dr.Close()
                 Case "Test Report"
                     SQL = "select " & _
-                    "" & DBNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
-                    "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as strAIRSNUmber, " & _
+                    "AIRBRANCH.ISMPMaster.strReferenceNumber,  " & _
+                    "substr(AIRBRANCH.APBFacilityInformation.strAIRSnumber, 5) as strAIRSNUmber, " & _
                     "strFacilityName,  strTestLogNumber,  " & _
                     "to_char(datTestDateStart, 'dd-Mon-yyyy') as datTestDateStart, " & _
                     "to_char(datTestDateEnd, 'dd-Mon-yyyy') as datTestDateEnd " & _
-                    "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation,  " & _
-                    "" & DBNameSpace & ".ISMPTestNotification, " & DBNameSpace & ".ISMPReportInformation " & _
-                    "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber  " & _
-                    "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".ISMpTestNotification.strAIRSNumber (+)  " & _
-                    "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber (+) " & _
-                    "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = '" & txtTestReportNumber.Text & "'  "
+                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation,  " & _
+                    "AIRBRANCH.ISMPTestNotification, AIRBRANCH.ISMPReportInformation " & _
+                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber  " & _
+                    "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.ISMpTestNotification.strAIRSNumber (+)  " & _
+                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber (+) " & _
+                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtTestReportNumber.Text & "'  "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -464,7 +464,7 @@ Public Class ISMPTestFirmComments
                 End If
 
                 If CommentID <> "" Then
-                    SQL = "Update " & DBNameSpace & ".ISMPTestFirmComments set " & _
+                    SQL = "Update AIRBRANCH.ISMPTestFirmComments set " & _
                     "strTestingFirmKey = '" & TestFirmKey & "', " & _
                     "strAIRSNumber = '" & AIRSNum & "', " & _
                     "strTestLogNumber = '" & TestLogNum & "', " & _
@@ -588,7 +588,7 @@ Public Class ISMPTestFirmComments
             If cboCommentNumber.Text <> "" Then
                 SQL = "Select " & _
                 "strComment " & _
-                "from " & DBNameSpace & ".ISMPTestFirmComments " & _
+                "from AIRBRANCH.ISMPTestFirmComments " & _
                 "where numCommentsID = '" & cboCommentNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -643,7 +643,7 @@ Public Class ISMPTestFirmComments
                     RefNum = ""
                 End If
 
-                SQL = "Update " & DBNameSpace & ".ISMPTestFirmComments set " & _
+                SQL = "Update AIRBRANCH.ISMPTestFirmComments set " & _
                 "strTestingFirmKey = '" & TestFirmKey & "', " & _
                 "strAIRSNumber = '" & AIRSNum & "', " & _
                 "strTestLogNumber = '" & TestLogNum & "', " & _
@@ -676,7 +676,7 @@ Public Class ISMPTestFirmComments
     Private Sub btnDeleteComment_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnDeleteComment.Click
         Try
             If cboCommentNumber.Text <> "" Then
-                SQL = "Delete " & DBNameSpace & ".ISMPTestFirmComments " & _
+                SQL = "Delete AIRBRANCH.ISMPTestFirmComments " & _
                 "where numCommentsId = '" & cboCommentNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)

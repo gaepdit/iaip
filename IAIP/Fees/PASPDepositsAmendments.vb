@@ -68,7 +68,7 @@ Public Class PASPDepositsAmendments
 
             SQL = "Select " & _
             "PayID, PayType " & _
-            "from " & DBNameSpace & ".FSPayType " & _
+            "from AIRBRANCH.FSPayType " & _
             "order by paytype"
 
             ds = New DataSet
@@ -117,7 +117,7 @@ Public Class PASPDepositsAmendments
         Dim SQL As String
         Try
             SQL = "Select smfee, pertonrate, nspsfee, part70fee " & _
-            " from " & DBNameSpace & ".FSFeeRates " & _
+            " from AIRBRANCH.FSFeeRates " & _
             " where intyear = '" & feeyear & "' "
 
             Dim cmd As New OracleCommand(SQL, CurrentConnection)
@@ -219,7 +219,7 @@ Public Class PASPDepositsAmendments
                 + "numpart70fee, numsmfee, numnspsfee, numtotalfee, " _
                 + "strnspsexempt, strnspsreason, stroperate, numfeerate, " _
                 + "strclass1, strnsps1, strpart70, strsyntheticminor, numcalculatedfee " _
-                + "from " & DBNameSpace & ".FSCalculations " _
+                + "from AIRBRANCH.FSCalculations " _
                 + "where strairsnumber = '0413" & airsnumber & "' " _
                 + "and intyear = '" & feeyear & "' "
 
@@ -478,7 +478,7 @@ Public Class PASPDepositsAmendments
             "strPaymentType, intSubmittal, " & _
             "strOfficialName, strOfficialTitle, " & _
             "dateSubmit, strComments " & _
-            "from " & DBNameSpace & ".FSPayAndSubmit " & _
+            "from AIRBRANCH.FSPayAndSubmit " & _
             "where strAIRSnumber = '0413" & cboAirsNo2.Text & "' " & _
             "and intYear = '" & cboFeeYear2.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -958,7 +958,7 @@ Public Class PASPDepositsAmendments
 
             SQL = "select " & _
             "intSubmittal " & _
-            "from " & DBNameSpace & ".FSPayAndSubmit " & _
+            "from AIRBRANCH.FSPayAndSubmit " & _
             "where strAIRSNumber = '0413" & cboAirsNo2.Text & "' " & _
             "and intYear = '" & cboFeeYear2.Text & "' "
 
@@ -970,14 +970,14 @@ Public Class PASPDepositsAmendments
             recExist = dr.Read
             dr.Close()
             If recExist = False Then
-                SQL = "Insert into " & DBNameSpace & ".FSPayAndSubmit " & _
+                SQL = "Insert into AIRBRANCH.FSPayAndSubmit " & _
                 "values " & _
                 "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                 "'" & cboAmendmentsPayType.Text & "', '" & txtSubmittal.Text & "', " & _
                 "'" & Replace(txtOfficalName.Text, "'", "''") & "', '" & Replace(txtOfficalTitle.Text, "'", "''") & "', " & _
                 "'" & DTPAmendmentSubmitted.Text & "', '" & Replace(txtAmendmentComments.Text, "'", "''") & "') "
             Else
-                SQL = "Update " & DBNameSpace & ".FSPayAndSubmit set " & _
+                SQL = "Update AIRBRANCH.FSPayAndSubmit set " & _
                 "strPaymentType = '" & cboAmendmentsPayType.Text & "', " & _
                 "intSubmittal = '" & Replace(txtSubmittal.Text, "'", "''") & "', " & _
                 "strOfficialName = '" & Replace(txtOfficalName.Text, "'", "''") & "', " & _
@@ -1003,14 +1003,14 @@ Public Class PASPDepositsAmendments
         Try
 
 
-            SQL = "INSERT INTO " & DBNameSpace & ".FSAmendment " _
+            SQL = "INSERT INTO AIRBRANCH.FSAmendment " _
             + "Select STRAIRSNUMBER, INTYEAR, INTVOCTONS, INTPMTONS, " _
             + "INTSO2TONS, INTNOXTONS, STRNSPSEXEMPT, STRNSPSREASON, " _
             + "STROPERATE, STRNSPSEXEMPTREASON, STRPART70, STRSYNTHETICMINOR, " _
             + "NUMCALCULATEDFEE, STRCLASS1, STRNSPS1, " _
             + "to_date('" & Format$(Now, "dd-MMM-yyyy hh:mm:ss") & "', " _
             + "'dd-mon-yyyy hh:mi:ss'), " _
-            + "'" & UserGCode & "' from " & DBNameSpace & ".FSCalculations " _
+            + "'" & UserGCode & "' from AIRBRANCH.FSCalculations " _
             + "where strairsnumber = '0413" & cboAirsNo2.Text & "' " _
             + "and intyear = '" & cboFeeYear2.Text & "' "
 
@@ -1089,7 +1089,7 @@ Public Class PASPDepositsAmendments
                 didnotoperate = "YES"
             End If
 
-            SQL = "Update " & DBNameSpace & ".FSCalculations set " _
+            SQL = "Update AIRBRANCH.FSCalculations set " _
             + "intvoctons = '" & CInt(txtvoctons.Text) & "', " _
             + "intnoxtons = '" & CInt(txtnoxtons.Text) & "', " _
             + "intpmtons = '" & CInt(txtpmtons.Text) & "', " _
@@ -1157,7 +1157,7 @@ Public Class PASPDepositsAmendments
             Dim SQL As String
 
             SQL = "Select strairsnumber " _
-         + "from " & DBNameSpace & ".FSCalculations " _
+         + "from AIRBRANCH.FSCalculations " _
          + "where strairsnumber = '0413" & cboAirsNo2.Text & "' " _
          + "and intyear = '" & cboFeeYear2.Text & "' "
 
@@ -1179,7 +1179,7 @@ Public Class PASPDepositsAmendments
             End If
 
             SQL = "Select strAIRSNUmber " & _
-            "From " & DBNameSpace & ".FSPayAndSubmit " & _
+            "From AIRBRANCH.FSPayAndSubmit " & _
             "where strAIRSNumber = '0413" & cboAirsNo2.Text & "' " & _
             "and intYear = '" & cboFeeYear2.Text & "'  "
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1191,7 +1191,7 @@ Public Class PASPDepositsAmendments
             dr.Close()
 
             If recExist = False Then
-                SQL = "Insert into " & DBNameSpace & ".FSPayAndSubmit " & _
+                SQL = "Insert into AIRBRANCH.FSPayAndSubmit " & _
                 "values " & _
                 "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                 "'Entire Annual Year', 1, " & _
@@ -1269,7 +1269,7 @@ Public Class PASPDepositsAmendments
                 didnotoperate = "YES"
             End If
 
-            SQL = "Insert into " & DBNameSpace & ".FSCalculations " _
+            SQL = "Insert into AIRBRANCH.FSCalculations " _
             + "(strairsnumber, intyear, " _
             + "intvoctons, intpmtons, intso2tons, intnoxtons, " _
             + "numpart70fee, numsmfee, numnspsfee, " _
@@ -1301,7 +1301,7 @@ Public Class PASPDepositsAmendments
 
             SQL = "Select " & _
             "strInvoiceNo " & _
-            "from " & DBNameSpace & ".FSAddPaid " & _
+            "from AIRBRANCH.FSAddPaid " & _
             "where strAIRSNumber = '0413" & cboAirsNo2.Text & "' " & _
             "and intYear = '" & cboFeeYear2.Text & "' "
 
@@ -1314,13 +1314,13 @@ Public Class PASPDepositsAmendments
             dr.Close()
             If recExist = False Then
                 If cboAmendmentsPayType.Text = "Entire Annual Year" Then
-                    SQL = "Insert into " & DBNameSpace & ".FSAddPaid " & _
+                    SQL = "Insert into AIRBRANCH.FSAddPaid " & _
                     "values " & _
                     "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                     "'0', '', '', '', " & _
                     "'ANNUAL', '', '" & UserGCode & "', " & _
                     "'" & Replace(txtAmendmentComments.Text, "'", "''") & "', '', " & _
-                    "" & DBNameSpace & ".SeqFSDeposit.nextval, " & _
+                    "AIRBRANCH.SeqFSDeposit.nextval, " & _
                     "'" & cboAirsNo2.Text & "-A1-" & cboFeeYear2.Text & "') "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -1329,13 +1329,13 @@ Public Class PASPDepositsAmendments
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".FSAddPaid " & _
+                    SQL = "Insert into AIRBRANCH.FSAddPaid " & _
                     "values " & _
                     "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                     "'0', '', '', '', " & _
                     "'QUARTER ONE', '', '" & UserGCode & "', " & _
                     "'" & Replace(txtAmendmentComments.Text, "'", "''") & "', '', " & _
-                    "" & DBNameSpace & ".SeqFSDeposit.nextval, " & _
+                    "AIRBRANCH.SeqFSDeposit.nextval, " & _
                     "'" & cboAirsNo2.Text & "-Q1-" & cboFeeYear2.Text & "') "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1345,13 +1345,13 @@ Public Class PASPDepositsAmendments
                     dr = cmd.ExecuteReader
                     dr.Close()
 
-                    SQL = "Insert into " & DBNameSpace & ".FSAddPaid " & _
+                    SQL = "Insert into AIRBRANCH.FSAddPaid " & _
                    "values " & _
                    "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                    "'0', '', '', '', " & _
                    "'QUARTER TWO', '', '" & UserGCode & "', " & _
                    "'" & Replace(txtAmendmentComments.Text, "'", "''") & "', '', " & _
-                   "" & DBNameSpace & ".SeqFSDeposit.nextval, " & _
+                   "AIRBRANCH.SeqFSDeposit.nextval, " & _
                    "'" & cboAirsNo2.Text & "-Q2-" & cboFeeYear2.Text & "') "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1361,13 +1361,13 @@ Public Class PASPDepositsAmendments
                     dr = cmd.ExecuteReader
                     dr.Close()
 
-                    SQL = "Insert into " & DBNameSpace & ".FSAddPaid " & _
+                    SQL = "Insert into AIRBRANCH.FSAddPaid " & _
                    "values " & _
                    "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                    "'0', '', '', '', " & _
                    "'QUARTER THREE', '', '" & UserGCode & "', " & _
                    "'" & Replace(txtAmendmentComments.Text, "'", "''") & "', '', " & _
-                   "" & DBNameSpace & ".SeqFSDeposit.nextval, " & _
+                   "AIRBRANCH.SeqFSDeposit.nextval, " & _
                    "'" & cboAirsNo2.Text & "-Q3-" & cboFeeYear2.Text & "') "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1377,13 +1377,13 @@ Public Class PASPDepositsAmendments
                     dr = cmd.ExecuteReader
                     dr.Close()
 
-                    SQL = "Insert into " & DBNameSpace & ".FSAddPaid " & _
+                    SQL = "Insert into AIRBRANCH.FSAddPaid " & _
                    "values " & _
                    "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                    "'0', '', '', '', " & _
                    "'QUARTER FOUR', '', '" & UserGCode & "', " & _
                    "'" & Replace(txtAmendmentComments.Text, "'", "''") & "', '', " & _
-                   "" & DBNameSpace & ".SeqFSDeposit.nextval, " & _
+                   "AIRBRANCH.SeqFSDeposit.nextval, " & _
                    "'" & cboAirsNo2.Text & "-Q4-" & cboFeeYear2.Text & "') "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1480,7 +1480,7 @@ Public Class PASPDepositsAmendments
                 "strCheckNo, strBatchNo, " & _
                 "strPayType, intPayId, " & _
                 "strComments, strInvoiceNo " & _
-                "from " & DBNameSpace & ".FSAddPaid " & _
+                "from AIRBRANCH.FSAddPaid " & _
                 "where strDepositNo = '" & cboDepositNo.Text & "' " & _
                 "order by strBatchNo "
             Else
@@ -1492,7 +1492,7 @@ Public Class PASPDepositsAmendments
                    "strCheckNo, strBatchNo, " & _
                    "strPayType, intPayId, " & _
                    "strComments, strInvoiceNo " & _
-                   "from " & DBNameSpace & ".FSAddPaid " & _
+                   "from AIRBRANCH.FSAddPaid " & _
                    "where strairsnumber = '0413" & cboAirsNo.Text & "' " & _
                    "order by strBatchNo "
                 Else
@@ -1505,7 +1505,7 @@ Public Class PASPDepositsAmendments
                            "strCheckNo, strBatchNo, " & _
                            "strPayType, intPayId, " & _
                            "strComments, strInvoiceNo " & _
-                           "from " & DBNameSpace & ".FSAddPaid " & _
+                           "from AIRBRANCH.FSAddPaid " & _
                            "where intYear = '" & cboFeeYear.Text & "' " & _
                            "and strDepositNo is Not Null " & _
                            "order by strBatchNo "
@@ -1517,7 +1517,7 @@ Public Class PASPDepositsAmendments
                            "strCheckNo, strBatchNo, " & _
                            "strPayType, intPayId, " & _
                            "strComments, strInvoiceNo " & _
-                           "from " & DBNameSpace & ".FSAddPaid " & _
+                           "from AIRBRANCH.FSAddPaid " & _
                            "where intYear = '" & cboFeeYear.Text & "' " & _
                            "order by strBatchNo "
                         End If
@@ -1773,7 +1773,7 @@ Public Class PASPDepositsAmendments
                         InvoiceNumber = ""
                 End Select
 
-                SQL = "Update " & DBNameSpace & ".FSAddPaid set strairsnumber = '0413" & mtbAirsNo.Text & "', " _
+                SQL = "Update AIRBRANCH.FSAddPaid set strairsnumber = '0413" & mtbAirsNo.Text & "', " _
                 + "datPaydate = '" & txtDepositdate.Text & "', " _
                 + "numPayment = '" & CDec(txtPayment.Text) & "', " _
                 + "strCheckno = '" & txtCheckNo.Text & "', " _
@@ -1814,7 +1814,7 @@ Public Class PASPDepositsAmendments
 
         Try
 
-            SQL = "Delete from " & DBNameSpace & ".FSAddPaid " _
+            SQL = "Delete from AIRBRANCH.FSAddPaid " _
             + "where intpayid = '" & txtPayId.Text & "'"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2087,7 +2087,7 @@ Public Class PASPDepositsAmendments
     Private Sub UpdateRecords(ByVal airsno As String, ByVal varcheck As String, ByVal comments As String)
 
         Try
-            SQL = "Update " & DBNameSpace & ".FSCalculations set " _
+            SQL = "Update AIRBRANCH.FSCalculations set " _
             + "variancecheck = '" & UCase(varcheck) & "', " _
             + "variancecomments = '" & Replace(comments, "'", "''") & "' " _
             + "where strairsnumber = '" & airsno & "' and " _
@@ -2157,11 +2157,11 @@ Public Class PASPDepositsAmendments
 
         Try
 
-            SQL = "Select DISTINCT substr(" & DBNameSpace & ".FSAddPaid.strairsnumber, 5) as strairsnumber, " & _
-            "" & DBNameSpace & ".APBFacilityInformation.strfacilityname " & _
-            "from " & DBNameSpace & ".FSAddPaid, " & DBNameSpace & ".APBFacilityInformation " & _
-            "where " & DBNameSpace & ".FSAddPaid.strairsnumber = " & DBNameSpace & ".APBFacilityInformation.strairsnumber " & _
-            "order by " & DBNameSpace & ".APBFacilityInformation.strFacilityName "
+            SQL = "Select DISTINCT substr(AIRBRANCH.FSAddPaid.strairsnumber, 5) as strairsnumber, " & _
+            "AIRBRANCH.APBFacilityInformation.strfacilityname " & _
+            "from AIRBRANCH.FSAddPaid, AIRBRANCH.APBFacilityInformation " & _
+            "where AIRBRANCH.FSAddPaid.strairsnumber = AIRBRANCH.APBFacilityInformation.strairsnumber " & _
+            "order by AIRBRANCH.APBFacilityInformation.strFacilityName "
 
             ds = New DataSet
             da = New OracleDataAdapter(SQL, CurrentConnection)
@@ -2216,7 +2216,7 @@ Public Class PASPDepositsAmendments
         Try
 
 
-            SQL = "Select isbankrupt from " & DBNameSpace & ".APBSupplamentalData " _
+            SQL = "Select isbankrupt from AIRBRANCH.APBSupplamentalData " _
                 + "where strairsnumber = '0413" & cboAirsNo3.Text & "'"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2240,7 +2240,7 @@ Public Class PASPDepositsAmendments
             dr.Close()
 
             SQL = "Select intsubmittal " & _
-            "from " & DBNameSpace & ".FSPayAndSubmit " & _
+            "from AIRBRANCH.FSPayAndSubmit " & _
             "where strairsnumber = '0413" & cboAirsNo3.Text & "' " & _
             "and intyear = '" & CInt(txtYear3.Text) & "'"
 
@@ -2281,7 +2281,7 @@ Public Class PASPDepositsAmendments
                 bankrupt = "NO"
             End If
 
-            SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " _
+            SQL = "Update AIRBRANCH.APBSupplamentalData set " _
                 + "isbankrupt = '" & bankrupt & "' " _
                 + "where strairsnumber = '0413" & cboAirsNo3.Text & "'"
 
@@ -2322,7 +2322,7 @@ Public Class PASPDepositsAmendments
 
             Dim confirmation As String
             confirmation = cboAirsNo3.Text & "-" & Now
-            Dim SQL As String = "Update " & DBNameSpace & ".FSPayAndSubmit set " & _
+            Dim SQL As String = "Update AIRBRANCH.FSPayAndSubmit set " & _
             "intsubmittal = '1' " & _
             "where strairsnumber = '0413" & cboAirsNo3.Text & "' " & _
             "and intyear = '" & CInt(txtYear3.Text) & "'"
@@ -2331,7 +2331,7 @@ Public Class PASPDepositsAmendments
             cmd.CommandType = CommandType.Text
             cmd.ExecuteNonQuery()
 
-            SQL = "Insert into " & DBNameSpace & ".FSConfirmation (" & _
+            SQL = "Insert into AIRBRANCH.FSConfirmation (" & _
             "strairsnumber, intyear, strconfirmation, numuserid, datconfirmation) values(" & _
             "'0413" & cboAirsNo3.Text & "', '" & CInt(txtYear3.Text) & "', " & _
             "'" & confirmation & "', '" & UserGCode & "', " & _
@@ -2352,7 +2352,7 @@ Public Class PASPDepositsAmendments
         Try
 
 
-            SQL = "Update " & DBNameSpace & ".FSPayAndSubmit set " & _
+            SQL = "Update AIRBRANCH.FSPayAndSubmit set " & _
              "intsubmittal = '0' " & _
              "where strairsnumber = '0413" & cboAirsNo3.Text & "' " & _
              "and intyear = '" & CInt(txtYear3.Text) & "'"
@@ -2364,7 +2364,7 @@ Public Class PASPDepositsAmendments
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Delete from " & DBNameSpace & ".FSConfirmation " & _
+            SQL = "Delete from AIRBRANCH.FSConfirmation " & _
             "where strairsnumber = '0413" & cboAirsNo3.Text & "' " & _
              "and intyear = '" & CInt(txtYear3.Text) & "'"
 
@@ -2471,7 +2471,7 @@ Public Class PASPDepositsAmendments
         Try
             SQL = "Select " & _
             "strAIRSNumber, strFacilityName " & _
-            "from " & DBNameSpace & ".APBFacilityInformation " & _
+            "from AIRBRANCH.APBFacilityInformation " & _
             "where strAIRSNumber = '0413" & AIRSNumber & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -2496,7 +2496,7 @@ Public Class PASPDepositsAmendments
             If mtbAIRSNumber.Text <> "" Then
                 SQL = "Select " & _
                 "strAIRSNumber " & _
-                "from " & DBNameSpace & ".APBFacilityInformation " & _
+                "from AIRBRANCH.APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2576,20 +2576,20 @@ Public Class PASPDepositsAmendments
             ds = New DataSet
 
             SQL = "select " & _
-            "substr(" & DBNameSpace & ".FS_Transactions.strAIRSNumber, 5) as strAIRSNumber, " & _
+            "substr(AIRBRANCH.FS_Transactions.strAIRSNumber, 5) as strAIRSNumber, " & _
             "strDepositNO, strBatchNo, " & _
             "transactionID, datTransactionDate, " & _
-            "numPayment, " & DBNameSpace & ".FS_Transactions.numFeeYear, " & _
+            "numPayment, AIRBRANCH.FS_Transactions.numFeeYear, " & _
             "strCheckNo, strCreditCardNo, " & _
-            "" & DBNameSpace & ".FS_Transactions.InvoiceID, strPaytypeDesc as strPayType, " & _
-            "" & DBNameSpace & ".FS_Transactions.strComment " & _
-            "from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice, " & _
-            "" & DBNameSpace & ".FSLK_PayType " & _
-            "where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.INvoiceID " & _
-            "and " & DBNameSpace & ".FS_FeeInvoice.strPayType = " & DBNameSpace & ".FSLK_PayType.numPaytypeID  " & _
+            "AIRBRANCH.FS_Transactions.InvoiceID, strPaytypeDesc as strPayType, " & _
+            "AIRBRANCH.FS_Transactions.strComment " & _
+            "from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice, " & _
+            "AIRBRANCH.FSLK_PayType " & _
+            "where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.INvoiceID " & _
+            "and AIRBRANCH.FS_FeeInvoice.strPayType = AIRBRANCH.FSLK_PayType.numPaytypeID  " & _
             "and strDepositNo = '" & txtDepositNumber.Text & "' " & _
-            "and " & DBNameSpace & ".FS_Transactions.Active = '1' " & _
-            "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
+            "and AIRBRANCH.FS_Transactions.Active = '1' " & _
+            "and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
             "order by strBatchNo "
 
             da = New OracleDataAdapter(SQL, CurrentConnection)
@@ -2618,7 +2618,7 @@ Public Class PASPDepositsAmendments
                     Exit Sub
             End Select
 
-            SQL = "Delete " & DBNameSpace & ".FSAddPaid " & _
+            SQL = "Delete AIRBRANCH.FSAddPaid " & _
             "where intPayID = '" & txtTransactionID.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2661,9 +2661,9 @@ Public Class PASPDepositsAmendments
             If txtCheckNumber.Text <> "" Then
                 'Old code from old fee tables 
                 'SQL = "Select  " & _
-                '  "substr( " & DBNameSpace & ".FSAddPaid.strAIRSNumber, 5) as strAIRSnumber,  " & _
+                '  "substr( AIRBRANCH.FSAddPaid.strAIRSNumber, 5) as strAIRSnumber,  " & _
                 '  "strDepositNo, datPayDate,  " & _
-                '  "numPayment,  " & DBNameSpace & ".FSAddPaid.intYear,  " & _
+                '  "numPayment,  AIRBRANCH.FSAddPaid.intYear,  " & _
                 '  "strCheckNo, strBatchNo,  " & _
                 '  "strPayType, intPayId,  " & _
                 '  "strComments, strInvoiceNo, " & _
@@ -2672,54 +2672,54 @@ Public Class PASPDepositsAmendments
                 '  "when strInvoiceNo like '%Q%' then numtotalfee/4 " & _
                 '  "else numtotalfee " & _
                 '  "end FeeDue " & _
-                '  "from  " & DBNameSpace & ".FSAddPaid, " & DBNameSpace & ".FSCalculations   " & _
-                '  "where  " & DBNameSpace & ".fsaddpaid.strairsnumber = " & DBNameSpace & ".FSCalculations.strairsnumber (+) " & _
-                '  "and " & DBNameSpace & ".fsaddpaid.intyear = " & DBNameSpace & ".FSCalculations.intyear (+) " & _
-                '  "and " & DBNameSpace & ".FSAddPaid.strCheckNo like '%" & Replace(txtCheckNumber.Text, "'", "''") & "%'  " & _
+                '  "from  AIRBRANCH.FSAddPaid, AIRBRANCH.FSCalculations   " & _
+                '  "where  AIRBRANCH.fsaddpaid.strairsnumber = AIRBRANCH.FSCalculations.strairsnumber (+) " & _
+                '  "and AIRBRANCH.fsaddpaid.intyear = AIRBRANCH.FSCalculations.intyear (+) " & _
+                '  "and AIRBRANCH.FSAddPaid.strCheckNo like '%" & Replace(txtCheckNumber.Text, "'", "''") & "%'  " & _
                 '  "order by strBatchNo  "
 
                 SQL = "select " & _
-                "substr(" & DBNameSpace & ".FS_FeeInvoice.strAIRSnumber, 5) as strAIRSNumber, " & _
+                "substr(AIRBRANCH.FS_FeeInvoice.strAIRSnumber, 5) as strAIRSNumber, " & _
                 "strDepositNo, datTransactionDate, " & _
-                "numPayment, " & DBNameSpace & ".FS_FeeInvoice.numFeeYear, " & _
+                "numPayment, AIRBRANCH.FS_FeeInvoice.numFeeYear, " & _
                 "strCheckNo, strBatchNo, " & _
                 "Description, TransactionID, " & _
-                "" & DBNameSpace & ".FS_Transactions.strComment, " & DBNameSpace & ".FS_FeeInvoice.InvoiceID, " & _
+                "AIRBRANCH.FS_Transactions.strComment, AIRBRANCH.FS_FeeInvoice.InvoiceID, " & _
                 "case " & _
-                "when " & DBNameSpace & ".FS_Transactions.transactionTypeCode = '1' then numAmount " & _
-                "when " & DBNameSpace & ".FS_Transactions.TransactionTypeCode = '2' then numAmount/4 " & _
+                "when AIRBRANCH.FS_Transactions.transactionTypeCode = '1' then numAmount " & _
+                "when AIRBRANCH.FS_Transactions.TransactionTypeCode = '2' then numAmount/4 " & _
                 "else numAmount " & _
                 "end FeeDue " & _
-                "from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice, " & _
-                "" & DBNameSpace & ".FSLK_TransactionType  " & _
-                "where " & DBNameSpace & ".FS_FeeInvoice.InvoiceID = " & DBNameSpace & ".FS_Transactions.INvoiceID (+) " & _
-                "and " & DBNameSpace & ".FS_Transactions.transactionTypeCode = " & DBNameSpace & ".FSLK_TransactionType.TransactionTypeCode (+) " & _
+                "from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice, " & _
+                "AIRBRANCH.FSLK_TransactionType  " & _
+                "where AIRBRANCH.FS_FeeInvoice.InvoiceID = AIRBRANCH.FS_Transactions.INvoiceID (+) " & _
+                "and AIRBRANCH.FS_Transactions.transactionTypeCode = AIRBRANCH.FSLK_TransactionType.TransactionTypeCode (+) " & _
                 "and strCheckNo like '%" & Replace(txtCheckNumber.Text, "'", "''") & "%'  " & _
-                "and " & DBNameSpace & ".FS_Transactions.Active = '1' " & _
-                "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
+                "and AIRBRANCH.FS_Transactions.Active = '1' " & _
+                "and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
                 "order by strBatchNo  "
             Else
 
                 'SQL = "select " & _
-                '"substr(" & DBNameSpace & ".FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " & _
+                '"substr(AIRBRANCH.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " & _
                 '"strDepositNo, datTransactionDate, " & _
-                '"numPayment, " & DBNameSpace & ".FS_FeeINvoice.numFeeYear, " & _
+                '"numPayment, AIRBRANCH.FS_FeeINvoice.numFeeYear, " & _
                 '"strCheckNo, strBatchNo, " & _
                 '"Description, TransactionID, " & _
-                '"" & DBNameSpace & ".FS_Transactions.strComment, " & DBNameSpace & ".FS_FeeINvoice.InvoiceID, " & _
+                '"AIRBRANCH.FS_Transactions.strComment, AIRBRANCH.FS_FeeINvoice.InvoiceID, " & _
                 '"case " & _
-                '"when " & DBNameSpace & ".FS_Transactions.transactionTypeCode = '1' then numAmount " & _
-                '"when " & DBNameSpace & ".FS_Transactions.TransactionTypeCode = '2' then numAmount/4 " & _
+                '"when AIRBRANCH.FS_Transactions.transactionTypeCode = '1' then numAmount " & _
+                '"when AIRBRANCH.FS_Transactions.TransactionTypeCode = '2' then numAmount/4 " & _
                 '"else numAmount " & _
                 '"end FeeDue " & _
-                '"from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice, " & _
-                '"" & DBNameSpace & ".FSLK_TransactionType  " & _
-                '"where " & DBNameSpace & ".FS_FeeINvoice.InvoiceID = " & DBNameSpace & ".FS_Transactions.INvoiceID (+) " & _
-                '"and " & DBNameSpace & ".FS_Transactions.transactionTypeCode = " & DBNameSpace & ".FSLK_TransactionType.TransactionTypeCode (+) " & _
-                '"and " & DBNameSpace & ".FS_FeeInvoice.strAIRSnumber like '0413%" & Replace(mtbAIRSNumber.Text, "'", "''") & "%'  " & _
-                '"and " & DBNameSpace & ".FS_FeeInvoice.numFeeYear = '" & mtbFeeYear.Text & "' " & _
-                '"and " & DBNameSpace & ".FS_Transactions.Active = '1' " & _
-                '"and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
+                '"from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice, " & _
+                '"AIRBRANCH.FSLK_TransactionType  " & _
+                '"where AIRBRANCH.FS_FeeINvoice.InvoiceID = AIRBRANCH.FS_Transactions.INvoiceID (+) " & _
+                '"and AIRBRANCH.FS_Transactions.transactionTypeCode = AIRBRANCH.FSLK_TransactionType.TransactionTypeCode (+) " & _
+                '"and AIRBRANCH.FS_FeeInvoice.strAIRSnumber like '0413%" & Replace(mtbAIRSNumber.Text, "'", "''") & "%'  " & _
+                '"and AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & mtbFeeYear.Text & "' " & _
+                '"and AIRBRANCH.FS_Transactions.Active = '1' " & _
+                '"and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
                 '"order by strBatchNo  "
 
                 SQL = "select " & _
@@ -3030,9 +3030,9 @@ Public Class PASPDepositsAmendments
             End If
             If ValidatingState = True Then
                 If txtTransactionID.Text = "" Then
-                    SQL = "Insert into " & DBNameSpace & ".FS_Transactions " & _
+                    SQL = "Insert into AIRBRANCH.FS_Transactions " & _
                     "values " & _
-                    "((" & DBNameSpace & ".seq_fs_transactions.nextVal), " & _
+                    "((AIRBRANCH.seq_fs_transactions.nextVal), " & _
                     "'" & Replace(txtInvoiceForDeposit.Text, "'", "''") & "', " & _
                     "'1', '" & DTPBatchDepositDateField.Text & "', " & _
                     "'" & Replace(Replace(Replace(txtDepositAmount.Text, "'", "''"), ",", ""), "$", "") & "', " & _
@@ -3114,11 +3114,11 @@ Public Class PASPDepositsAmendments
             dr.Close()
 
             If temp <> "0" Then
-                SQL = "Update " & DBNameSpace & ".FS_FeeInvoice set " & _
+                SQL = "Update AIRBRANCH.FS_FeeInvoice set " & _
                 "strInvoicestatus = '0' " & _
                 "where invoiceId = '" & invoiceID & "' "
             Else
-                SQL = "Update " & DBNameSpace & ".FS_FeeInvoice set " & _
+                SQL = "Update AIRBRANCH.FS_FeeInvoice set " & _
                 "strInvoicestatus = '1' " & _
                 "where invoiceId = '" & invoiceID & "' "
             End If
@@ -3144,7 +3144,7 @@ Public Class PASPDepositsAmendments
                     If ValidatingState = True Then
 
                         If txtTransactionID.Text <> "" Then
-                            SQL = "Update " & DBNameSpace & ".FS_Transactions set " & _
+                            SQL = "Update AIRBRANCH.FS_Transactions set " & _
                             "invoiceid = '" & txtInvoiceForDeposit.Text & "', " & _
                             "TransactionTypecode = '1', " & _
                             "datTransactionDate = '" & DTPBatchDepositDateField.Text & "', " & _
@@ -3217,7 +3217,7 @@ Public Class PASPDepositsAmendments
 
             Select Case Result
                 Case Windows.Forms.DialogResult.Yes
-                    SQL = "Update " & DBNameSpace & ".FS_Transactions set " & _
+                    SQL = "Update AIRBRANCH.FS_Transactions set " & _
                     "active = '0' " & _
                     "where TransactionId = '" & txtTransactionID.Text & "' "
 
@@ -3393,7 +3393,7 @@ Public Class PASPDepositsAmendments
             If mtbAIRSNumber.Text <> "" And dgvInvoices.RowCount = 0 Then
                 SQL = "Select " & _
                 "strFacilityName " & _
-                "from " & DBNameSpace & ".APBFacilityInformation " & _
+                "from AIRBRANCH.APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -3530,7 +3530,7 @@ Public Class PASPDepositsAmendments
     Private Sub btnAddInvoice_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddInvoice.Click
         Try
             SQL = "select intPayID " & _
-            "from " & DBNameSpace & ".FSAddPaid " & _
+            "from AIRBRANCH.FSAddPaid " & _
             "where strAIRSNumber = '0413" & cboAirsNo2.Text & "' " & _
             "and intYear = '" & cboFeeYear2.Text & "' "
 
@@ -3545,14 +3545,14 @@ Public Class PASPDepositsAmendments
             If recExist = False Then
                 Select Case cboAmendmentsPayType.Text
                     Case "Entire Annual Year"
-                        SQL = "Insert into " & DBNameSpace & ".FSAddPaid " & _
+                        SQL = "Insert into AIRBRANCH.FSAddPaid " & _
                         "values " & _
                         "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                         "'0', '', " & _
                         "'', '', " & _
                         "'', '', " & _
                         "'', '', " & _
-                        "'', " & DBNameSpace & ".seqFSDeposit.nextval, " & _
+                        "'', AIRBRANCH.seqFSDeposit.nextval, " & _
                         "'" & cboAirsNo2.Text & "-A1-" & cboFeeYear2.Text & "')"
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3562,14 +3562,14 @@ Public Class PASPDepositsAmendments
                         dr = cmd.ExecuteReader
                         dr.Close()
                     Case "Four Quarterly Payments"
-                        SQL = "Insert into " & DBNameSpace & ".FSAddPaid " & _
+                        SQL = "Insert into AIRBRANCH.FSAddPaid " & _
                         "values " & _
                         "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                         "'0', '', " & _
                         "'', '', " & _
                         "'', '', " & _
                         "'', '', " & _
-                        "'', " & DBNameSpace & ".seqFSDeposit.nextval, " & _
+                        "'', AIRBRANCH.seqFSDeposit.nextval, " & _
                         "'" & cboAirsNo2.Text & "-Q1-" & cboFeeYear2.Text & "')"
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3579,14 +3579,14 @@ Public Class PASPDepositsAmendments
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "Insert into " & DBNameSpace & ".FSAddPaid " & _
+                        SQL = "Insert into AIRBRANCH.FSAddPaid " & _
                         "values " & _
                         "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                         "'0', '', " & _
                         "'', '', " & _
                         "'', '', " & _
                         "'', '', " & _
-                        "'', " & DBNameSpace & ".seqFSDeposit.nextval, " & _
+                        "'', AIRBRANCH.seqFSDeposit.nextval, " & _
                         "'" & cboAirsNo2.Text & "-Q2-" & cboFeeYear2.Text & "')"
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3596,14 +3596,14 @@ Public Class PASPDepositsAmendments
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "Insert into " & DBNameSpace & ".FSAddPaid " & _
+                        SQL = "Insert into AIRBRANCH.FSAddPaid " & _
                         "values " & _
                         "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                         "'0', '', " & _
                         "'', '', " & _
                         "'', '', " & _
                         "'', '', " & _
-                        "'', " & DBNameSpace & ".seqFSDeposit.nextval, " & _
+                        "'', AIRBRANCH.seqFSDeposit.nextval, " & _
                         "'" & cboAirsNo2.Text & "-Q3-" & cboFeeYear2.Text & "')"
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3613,14 +3613,14 @@ Public Class PASPDepositsAmendments
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "Insert into " & DBNameSpace & ".FSAddPaid " & _
+                        SQL = "Insert into AIRBRANCH.FSAddPaid " & _
                         "values " & _
                         "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                         "'0', '', " & _
                         "'', '', " & _
                         "'', '', " & _
                         "'', '', " & _
-                        "'', " & DBNameSpace & ".seqFSDeposit.nextval, " & _
+                        "'', AIRBRANCH.seqFSDeposit.nextval, " & _
                         "'" & cboAirsNo2.Text & "-Q4-" & cboFeeYear2.Text & "')"
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3695,24 +3695,24 @@ Public Class PASPDepositsAmendments
                 dsInvoice = New DataSet
                 If txtSearchInvoice.Text <> "" Then
                     'SQL = "select " & _
-                    '"substr(" & DBNameSpace & ".FS_FeeInvoice.strAIRSnumber, 5) as strAIRSNumber, " & _
+                    '"substr(AIRBRANCH.FS_FeeInvoice.strAIRSnumber, 5) as strAIRSNumber, " & _
                     '"strDepositNo, datTransactionDate, " & _
-                    '"numPayment, " & DBNameSpace & ".FS_FeeInvoice.numFeeYear, " & _
+                    '"numPayment, AIRBRANCH.FS_FeeInvoice.numFeeYear, " & _
                     '"strCheckNo, strBatchNo, " & _
                     '"Description, TransactionID, " & _
-                    '"" & DBNameSpace & ".FS_Transactions.strComment, " & DBNameSpace & ".FS_FeeInvoice.InvoiceID, " & _
+                    '"AIRBRANCH.FS_Transactions.strComment, AIRBRANCH.FS_FeeInvoice.InvoiceID, " & _
                     '"case " & _
-                    '"when " & DBNameSpace & ".FS_Transactions.transactionTypeCode = '1' then numAmount " & _
-                    '"when " & DBNameSpace & ".FS_Transactions.TransactionTypeCode = '2' then numAmount/4 " & _
+                    '"when AIRBRANCH.FS_Transactions.transactionTypeCode = '1' then numAmount " & _
+                    '"when AIRBRANCH.FS_Transactions.TransactionTypeCode = '2' then numAmount/4 " & _
                     '"else numAmount " & _
                     '"end FeeDue " & _
-                    '"from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice, " & _
-                    '"" & DBNameSpace & ".FSLK_TransactionType  " & _
-                    '"where " & DBNameSpace & ".FS_FeeInvoice.InvoiceID = " & DBNameSpace & ".FS_Transactions.INvoiceID (+) " & _
-                    '"and " & DBNameSpace & ".FS_Transactions.transactionTypeCode = " & DBNameSpace & ".FSLK_TransactionType.TransactionTypeCode (+) " & _
-                    '"and " & DBNameSpace & ".FS_FeeInvoice.InvoiceID like '%" & Replace(txtSearchInvoice.Text, "'", "''") & "%'  " & _
-                    '"and " & DBNameSpace & ".FS_Transactions.Active = '1'  " & _
-                    '"and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
+                    '"from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice, " & _
+                    '"AIRBRANCH.FSLK_TransactionType  " & _
+                    '"where AIRBRANCH.FS_FeeInvoice.InvoiceID = AIRBRANCH.FS_Transactions.INvoiceID (+) " & _
+                    '"and AIRBRANCH.FS_Transactions.transactionTypeCode = AIRBRANCH.FSLK_TransactionType.TransactionTypeCode (+) " & _
+                    '"and AIRBRANCH.FS_FeeInvoice.InvoiceID like '%" & Replace(txtSearchInvoice.Text, "'", "''") & "%'  " & _
+                    '"and AIRBRANCH.FS_Transactions.Active = '1'  " & _
+                    '"and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
                     '"order by InvoiceID desc   "
 
 
@@ -3725,7 +3725,7 @@ Public Class PASPDepositsAmendments
                     "(select substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " & _
                     "AIRBranch.FS_FeeINvoice.numFeeYear, AIRBranch.FS_FeeINvoice.InvoiceID " & _
                     "from  AIRBranch.FS_FeeInvoice " & _
-                    "where " & DBNameSpace & ".FS_FeeInvoice.InvoiceID like '%" & Replace(txtSearchInvoice.Text, "'", "''") & "%'  " & _
+                    "where AIRBRANCH.FS_FeeInvoice.InvoiceID like '%" & Replace(txtSearchInvoice.Text, "'", "''") & "%'  " & _
                     "and AIRBranch.FS_FeeInvoice.Active = '1' " & _
                     "union " & _
                     "select distinct substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " & _
@@ -3733,7 +3733,7 @@ Public Class PASPDepositsAmendments
                     "from AIRBranch.FS_Transactions, AIRBranch.FS_FeeInvoice, AIRBranch.FSLK_TransactionType  " & _
                     "where AIRBranch.FS_FeeINvoice.InvoiceID = AIRBranch.FS_Transactions.INvoiceID (+) " & _
                     "and AIRBranch.FS_Transactions.transactionTypeCode = AIRBranch.FSLK_TransactionType.TransactionTypeCode (+) " & _
-                    "and " & DBNameSpace & ".FS_FeeInvoice.InvoiceID like '%" & Replace(txtSearchInvoice.Text, "'", "''") & "%'  " & _
+                    "and AIRBRANCH.FS_FeeInvoice.InvoiceID like '%" & Replace(txtSearchInvoice.Text, "'", "''") & "%'  " & _
                     "and AIRBranch.FS_FeeInvoice.Active = '1' " & _
                     "and AIRBranch.FS_Transactions.Active = '1'  ) ALLInvoices,  " & _
                     "(select distinct substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " & _
@@ -3843,7 +3843,7 @@ Public Class PASPDepositsAmendments
                 If mtbAIRSNumber.Text <> "" And dgvInvoices.RowCount = 0 Then
                     SQL = "Select " & _
                     "strFacilityName " & _
-                    "from " & DBNameSpace & ".APBFacilityInformation " & _
+                    "from AIRBRANCH.APBFacilityInformation " & _
                     "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then

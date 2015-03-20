@@ -97,7 +97,7 @@ Public Class SSPPPermitUploader
 
             SQL = "Select " & _
             "strAIRSNumber " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster " & _
+            "from AIRBRANCH.SSPPApplicationMaster " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -109,23 +109,23 @@ Public Class SSPPPermitUploader
             dr.Close()
             If recExist = True Then
                 SQL = "Select " & _
-                "substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber, 5) as strAIRSnumber, " & _
-                "" & DBNameSpace & ".APBFacilityInformation.strFacilityName, " & DBNameSpace & ".APBFacilityInformation.strFacilityStreet1, " & _
-                "" & DBNameSpace & ".APBFacilityInformation.strFacilityCity, " & DBNameSpace & ".APBFacilityInformation.strFacilityZipCode, " & _
+                "substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5) as strAIRSnumber, " & _
+                "AIRBRANCH.APBFacilityInformation.strFacilityName, AIRBRANCH.APBFacilityInformation.strFacilityStreet1, " & _
+                "AIRBRANCH.APBFacilityInformation.strFacilityCity, AIRBRANCH.APBFacilityInformation.strFacilityZipCode, " & _
                 "datFinalizedDate, strCountyName, strApplicationTypeDesc, strPermitTypeDescription, " & _
                 "datPermitIssued, (strLastName||', '||strFirstName) as StaffResponsible, " & _
                 "datFinalOnWeb " & _
-                "from " & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".SSPPApplicationMaster, " & _
-                "" & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".LookUpCountyInformation, " & _
-                "" & DBNameSpace & ".LookUpApplicationTypes, " & DBNameSpace & ".LookUpPermitTypes, " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber  = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber (+) " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
-                "and substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber, 5, 3)  = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode (+) " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strPermitType = " & DBNameSpace & ".LookUpPermitTypes.strPermitTypeCode (+) " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".ssppapplicationtracking.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
+                "from AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.SSPPApplicationMaster, " & _
+                "AIRBRANCH.APBFacilityInformation, AIRBRANCH.LookUpCountyInformation, " & _
+                "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUpPermitTypes, " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber  = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber (+) " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " & _
+                "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSnumber, 5, 3)  = AIRBRANCH.LookUpCountyInformation.strCountyCode (+) " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strPermitType = AIRBRANCH.LookUpPermitTypes.strPermitTypeCode (+) " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.ssppapplicationtracking.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
@@ -211,7 +211,7 @@ Public Class SSPPPermitUploader
             End If
 
             SQL = "select strMasterApplication " & _
-            "from " & DBNameSpace & ".SSPPApplicationLinking " & _
+            "from AIRBRANCH.SSPPApplicationLinking " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -228,7 +228,7 @@ Public Class SSPPPermitUploader
             dr.Close()
             If MasterApp <> "" Then
                 SQL = "Select strApplicationNumber " & _
-                "from " & DBNameSpace & ".SSPPApplicationLinking " & _
+                "from AIRBRANCH.SSPPApplicationLinking " & _
                 "where strMasterApplication = '" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -249,11 +249,11 @@ Public Class SSPPPermitUploader
             rdbOtherPermit.Checked = False
 
             SQL = "select " & _
-            "distinct(" & DBNameSpace & ".APBPermits.strFileName)  " & _
-            "from " & DBNameSpace & ".APBpermits, " & DBNameSpace & ".SSPPApplicationLinking " & _
-            "where substr(" & DBNameSpace & ".APBpermits.strFileName, 4) = " & DBNameSpace & ".SSPPAPPlicationLinking.strmasterapplication (+) " & _
-            "and (" & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber = '" & MasterApp & "' " & _
-            "or " & DBNameSpace & ".APBPermits.strFileName like '%-" & MasterApp & "') "
+            "distinct(AIRBRANCH.APBPermits.strFileName)  " & _
+            "from AIRBRANCH.APBpermits, AIRBRANCH.SSPPApplicationLinking " & _
+            "where substr(AIRBRANCH.APBpermits.strFileName, 4) = AIRBRANCH.SSPPAPPlicationLinking.strmasterapplication (+) " & _
+            "and (AIRBRANCH.SSPPApplicationLinking.strApplicationNumber = '" & MasterApp & "' " & _
+            "or AIRBRANCH.APBPermits.strFileName like '%-" & MasterApp & "') "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -381,7 +381,7 @@ Public Class SSPPPermitUploader
 
             SQL = "Select " & _
             "strDOCFileSize, strPDFFileSize " & _
-            "From " & DBNameSpace & ".ApbPermits " & _
+            "From AIRBRANCH.ApbPermits " & _
             "where strFileName = '" & FileName & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -487,7 +487,7 @@ Public Class SSPPPermitUploader
                 End If
             End If
             If (PDFFile <> "" And Mid(Flag, 1, 1) = "1") Or DocOnFile = "On File" Then
-                SQL = "update " & DBNameSpace & ".APBPermits set " & _
+                SQL = "update AIRBRANCH.APBPermits set " & _
                 "PDFPermitData = '', " & _
                 "strPDFFileSize = '', " & _
                 "strPDFModifingPerson = '', " & _
@@ -590,7 +590,7 @@ Public Class SSPPPermitUploader
                 Dim ds As DataSet
 
                 If Flag <> "00" Then
-                    SQL = "Delete " & DBNameSpace & ".APBPermits " & _
+                    SQL = "Delete AIRBRANCH.APBPermits " & _
                     "where strFileName = '" & FileName & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -601,7 +601,7 @@ Public Class SSPPPermitUploader
 
                     SQL = "select " & _
                     "rowCount " & _
-                    "from " & DBNameSpace & ".APBPermits " & _
+                    "from AIRBRANCH.APBPermits " & _
                     "where strFileName = '" & FileName & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -620,7 +620,7 @@ Public Class SSPPPermitUploader
                     If rowCount = "" Then
                         SQL = "select " & _
                         "(max(rowCount) + 1) as RowCount " & _
-                        "from " & DBNameSpace & ".APBPermits "
+                        "from AIRBRANCH.APBPermits "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
@@ -661,7 +661,7 @@ Public Class SSPPPermitUploader
                     fs.Read(rawData, 0, System.Convert.ToInt32(fs.Length))
                     fs.Close()
 
-                    SQL = "Select * from " & DBNameSpace & ".APBPermits " & _
+                    SQL = "Select * from AIRBRANCH.APBPermits " & _
                     "where strFileName = '" & FileName & "' "
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
@@ -690,7 +690,7 @@ Public Class SSPPPermitUploader
                     da.Update(ds, "PDF")
 
                     If Mid(FileName, 1, 2) = "OP" Then
-                        SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
+                        SQL = "Update AIRBRANCH.SSPPApplicationTracking set " & _
                         "datFinalOnWeb = '" & OracleDate & "' " & _
                         "where strApplicationNumber = '" & MasterApp & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -703,7 +703,7 @@ Public Class SSPPPermitUploader
                 End If
 
                 If Mid(FileName, 1, 2) = "OP" Then
-                    SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
+                    SQL = "Update AIRBRANCH.SSPPApplicationTracking set " & _
                     "datFinalOnWeb = '" & OracleDate & "' " & _
                     "where strApplicationNumber = '" & MasterApp & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -856,7 +856,7 @@ Public Class SSPPPermitUploader
                     End If
 
                     SQL = "Select datFinalOnWeb " & _
-                    "from " & DBNameSpace & ".SSPPApplicationTracking " & _
+                    "from AIRBRANCH.SSPPApplicationTracking " & _
                     "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -866,7 +866,7 @@ Public Class SSPPPermitUploader
                     recExist = dr.Read
                     dr.Close()
                     If recExist = False Then
-                        SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
+                        SQL = "Update AIRBRANCH.SSPPApplicationTracking set " & _
                         "datFinalOnWeb = '" & OracleDate & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -1128,7 +1128,7 @@ Public Class SSPPPermitUploader
                     End If
 
                     SQL = "Select datFinalOnWeb " & _
-                    "from " & DBNameSpace & ".SSPPApplicationTracking " & _
+                    "from AIRBRANCH.SSPPApplicationTracking " & _
                     "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -1138,7 +1138,7 @@ Public Class SSPPPermitUploader
                     recExist = dr.Read
                     dr.Close()
                     If recExist = False Then
-                        SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
+                        SQL = "Update AIRBRANCH.SSPPApplicationTracking set " & _
                         "datFinalOnWeb = '" & OracleDate & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -1213,7 +1213,7 @@ Public Class SSPPPermitUploader
                         UploadFile("OP-" & MasterApp, doc, docx, pdf, docOnFile)
 
                         SQL = "Select datFinalOnWeb " & _
-                        "from " & DBNameSpace & ".SSPPApplicationTracking " & _
+                        "from AIRBRANCH.SSPPApplicationTracking " & _
                         "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -1223,7 +1223,7 @@ Public Class SSPPPermitUploader
                         recExist = dr.Read
                         dr.Close()
                         If recExist = False Then
-                            SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
+                            SQL = "Update AIRBRANCH.SSPPApplicationTracking set " & _
                             "datFinalOnWeb = '" & OracleDate & "' "
                             cmd = New OracleCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1254,7 +1254,7 @@ Public Class SSPPPermitUploader
 
             SQL = "Select " & _
             "strFileName " & _
-            "from " & DBNameSpace & ".APBPermits " & _
+            "from AIRBRANCH.APBPermits " & _
             "where strFileName = '" & FileType & "-" & txtApplicationNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1269,7 +1269,7 @@ Public Class SSPPPermitUploader
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                 Select Case ResultDoc
                     Case Windows.Forms.DialogResult.Yes
-                        SQL = "Delete " & DBNameSpace & ".APBPermits " & _
+                        SQL = "Delete AIRBRANCH.APBPermits " & _
                         "where strFileName = '" & FileType & "-" & txtApplicationNumber.Text & "' "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1349,7 +1349,7 @@ Public Class SSPPPermitUploader
             If rdbTitleVPermit.Checked = True And MasterApp <> "" Then
                 SQL = "select " & _
                 "strFileName " & _
-                "from " & DBNameSpace & ".APBPermits " & _
+                "from AIRBRANCH.APBPermits " & _
                 "where strFileName like 'V_-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1420,7 +1420,7 @@ Public Class SSPPPermitUploader
             If rdbPSDPermit.Checked = True And MasterApp <> "" Then
                 SQL = "select " & _
                 "strFileName " & _
-                "from " & DBNameSpace & ".APBPermits " & _
+                "from AIRBRANCH.APBPermits " & _
                 "where strFileName like 'P_-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1499,7 +1499,7 @@ Public Class SSPPPermitUploader
             If rdbOtherPermit.Checked = True And MasterApp <> "" Then
                 SQL = "select " & _
                 "strFileName " & _
-                "from " & DBNameSpace & ".APBPermits " & _
+                "from AIRBRANCH.APBPermits " & _
                 "where strFileName like 'O_-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1558,8 +1558,8 @@ Public Class SSPPPermitUploader
                 "case " & _
                 "when strDocModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                 "and numUserID = strDocModifingPerson " & _
                 "and strFileName = 'VN-" & MasterApp & "') " & _
                 "end DocStaffResponsible, " & _
@@ -1574,8 +1574,8 @@ Public Class SSPPPermitUploader
                 "case " & _
                 "when strPDFModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUSerProfiles " & _
-                "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUSerProfiles.numUserID  " & _
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUSerProfiles " & _
+                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUSerProfiles.numUserID  " & _
                 "and numUserID = strPDFModifingPerson " & _
                 "and strFileName = 'VN-" & MasterApp & "') " & _
                 "end PDFStaffResponsible, " & _
@@ -1583,7 +1583,7 @@ Public Class SSPPPermitUploader
                 "when datPDFModifingDate is Null then '' " & _
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                 "End datPDFModifingDate " & _
-                "from " & DBNameSpace & ".APBPermits " & _
+                "from AIRBRANCH.APBPermits " & _
                 "where strFileName = 'VN-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1681,8 +1681,8 @@ Public Class SSPPPermitUploader
                 "case " & _
                 "when strDocModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUSerProfiles " & _
-                "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUSerProfiles.numUserID " & _
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUSerProfiles " & _
+                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUSerProfiles.numUserID " & _
                 "and numUserID = strDocModifingPerson " & _
                 "and strFileName = 'VD-" & MasterApp & "') " & _
                 "end DocStaffResponsible, " & _
@@ -1697,8 +1697,8 @@ Public Class SSPPPermitUploader
                 "case " & _
                 "when strPDFModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                 "and numUserID = strPDFModifingPerson " & _
                 "and strFileName = 'VD-" & MasterApp & "') " & _
                 "end PDFStaffResponsible, " & _
@@ -1706,7 +1706,7 @@ Public Class SSPPPermitUploader
                 "when datPDFModifingDate is Null then '' " & _
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                 "End datPDFModifingDate " & _
-                "from " & DBNameSpace & ".APBPermits " & _
+                "from AIRBRANCH.APBPermits " & _
                 "where strFileName = 'VD-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1803,8 +1803,8 @@ Public Class SSPPPermitUploader
                 "case " & _
                 "when strDocModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                 "and numUserID = strDocModifingPerson " & _
                 "and strFileName = 'VP-" & MasterApp & "') " & _
                 "end DocStaffResponsible, " & _
@@ -1819,8 +1819,8 @@ Public Class SSPPPermitUploader
                 "case " & _
                 "when strPDFModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                 "and numUserID = strPDFModifingPerson " & _
                 "and strFileName = 'VP-" & MasterApp & "') " & _
                 "end PDFStaffResponsible, " & _
@@ -1828,7 +1828,7 @@ Public Class SSPPPermitUploader
                 "when datPDFModifingDate is Null then '' " & _
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                 "End datPDFModifingDate " & _
-                "from " & DBNameSpace & ".APBPermits " & _
+                "from AIRBRANCH.APBPermits " & _
                 "where strFileName = 'VP-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1925,8 +1925,8 @@ Public Class SSPPPermitUploader
                  "case " & _
                  "when strDocModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                  "and numUserID = strDocModifingPerson " & _
                  "and strFileName = 'VF-" & MasterApp & "') " & _
                  "end DocStaffResponsible, " & _
@@ -1941,8 +1941,8 @@ Public Class SSPPPermitUploader
                  "case " & _
                  "when strPDFModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                  "and numUserID = strPDFModifingPerson " & _
                  "and strFileName = 'VF-" & MasterApp & "') " & _
                  "end PDFStaffResponsible, " & _
@@ -1950,7 +1950,7 @@ Public Class SSPPPermitUploader
                  "when datPDFModifingDate is Null then '' " & _
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                  "End datPDFModifingDate " & _
-                 "from " & DBNameSpace & ".APBPermits " & _
+                 "from AIRBRANCH.APBPermits " & _
                  "where strFileName = 'VF-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2058,8 +2058,8 @@ Public Class SSPPPermitUploader
                  "case " & _
                  "when strDocModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                  "and numUserID = strDocModifingPerson " & _
                  "and strFileName = 'PA-" & MasterApp & "') " & _
                  "end DocStaffResponsible, " & _
@@ -2074,8 +2074,8 @@ Public Class SSPPPermitUploader
                  "case " & _
                  "when strPDFModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                  "and numUserID = strPDFModifingPerson " & _
                  "and strFileName = 'PA-" & MasterApp & "') " & _
                  "end PDFStaffResponsible, " & _
@@ -2083,7 +2083,7 @@ Public Class SSPPPermitUploader
                  "when datPDFModifingDate is Null then '' " & _
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                  "End datPDFModifingDate " & _
-                 "from " & DBNameSpace & ".APBPermits " & _
+                 "from AIRBRANCH.APBPermits " & _
                  "where strFileName = 'PA-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2191,8 +2191,8 @@ Public Class SSPPPermitUploader
                  "case " & _
                  "when strDocModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                  "and numUserID = strDocModifingPerson " & _
                  "and strFileName = 'PP-" & MasterApp & "') " & _
                  "end DocStaffResponsible, " & _
@@ -2207,8 +2207,8 @@ Public Class SSPPPermitUploader
                  "case " & _
                  "when strPDFModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                  "and numUserID = strPDFModifingPerson " & _
                  "and strFileName = 'PP-" & MasterApp & "') " & _
                  "end PDFStaffResponsible, " & _
@@ -2216,7 +2216,7 @@ Public Class SSPPPermitUploader
                  "when datPDFModifingDate is Null then '' " & _
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                  "End datPDFModifingDate " & _
-                 "from " & DBNameSpace & ".APBPermits " & _
+                 "from AIRBRANCH.APBPermits " & _
                  "where strFileName = 'PP-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2322,8 +2322,8 @@ Public Class SSPPPermitUploader
                  "case " & _
                  "when strDocModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                  "and numUserID = strDocModifingPerson " & _
                  "and strFileName = 'PT-" & MasterApp & "') " & _
                  "end DocStaffResponsible, " & _
@@ -2338,8 +2338,8 @@ Public Class SSPPPermitUploader
                  "case " & _
                  "when strPDFModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                  "and numUserID = strPDFModifingPerson " & _
                  "and strFileName = 'PT-" & MasterApp & "') " & _
                  "end PDFStaffResponsible, " & _
@@ -2347,7 +2347,7 @@ Public Class SSPPPermitUploader
                  "when datPDFModifingDate is Null then '' " & _
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                  "End datPDFModifingDate " & _
-                 "from " & DBNameSpace & ".APBPermits " & _
+                 "from AIRBRANCH.APBPermits " & _
                  "where strFileName = 'PT-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2453,8 +2453,8 @@ Public Class SSPPPermitUploader
                  "case " & _
                  "when strDocModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                  "and numUserID = strDocModifingPerson " & _
                  "and strFileName = 'PD-" & MasterApp & "') " & _
                  "end DocStaffResponsible, " & _
@@ -2469,8 +2469,8 @@ Public Class SSPPPermitUploader
                  "case " & _
                  "when strPDFModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                  "and numUserID = strPDFModifingPerson " & _
                  "and strFileName = 'PD-" & MasterApp & "') " & _
                  "end PDFStaffResponsible, " & _
@@ -2478,7 +2478,7 @@ Public Class SSPPPermitUploader
                  "when datPDFModifingDate is Null then '' " & _
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                  "End datPDFModifingDate " & _
-                 "from " & DBNameSpace & ".APBPermits " & _
+                 "from AIRBRANCH.APBPermits " & _
                  "where strFileName = 'PD-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2584,8 +2584,8 @@ Public Class SSPPPermitUploader
                 "case " & _
                 "when strDocModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                 "and numUserID = strDocModifingPerson " & _
                 "and strFileName = 'PN-" & MasterApp & "') " & _
                 "end DocStaffResponsible, " & _
@@ -2600,8 +2600,8 @@ Public Class SSPPPermitUploader
                 "case " & _
                 "when strPDFModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                 "and numUserID = strPDFModifingPerson " & _
                 "and strFileName = 'PN-" & MasterApp & "') " & _
                 "end PDFStaffResponsible, " & _
@@ -2609,7 +2609,7 @@ Public Class SSPPPermitUploader
                 "when datPDFModifingDate is Null then '' " & _
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                 "End datPDFModifingDate " & _
-                "from " & DBNameSpace & ".APBPermits " & _
+                "from AIRBRANCH.APBPermits " & _
                 "where strFileName = 'PN-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2715,8 +2715,8 @@ Public Class SSPPPermitUploader
                  "case " & _
                  "when strDocModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                  "and numUserID = strDocModifingPerson " & _
                  "and strFileName = 'PH-" & MasterApp & "') " & _
                  "end DocStaffResponsible, " & _
@@ -2731,8 +2731,8 @@ Public Class SSPPPermitUploader
                  "case " & _
                  "when strPDFModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                  "and numUserID = strPDFModifingPerson " & _
                  "and strFileName = 'PH-" & MasterApp & "') " & _
                  "end PDFStaffResponsible, " & _
@@ -2740,7 +2740,7 @@ Public Class SSPPPermitUploader
                  "when datPDFModifingDate is Null then '' " & _
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                  "End datPDFModifingDate " & _
-                 "from " & DBNameSpace & ".APBPermits " & _
+                 "from AIRBRANCH.APBPermits " & _
                  "where strFileName = 'PH-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2846,8 +2846,8 @@ Public Class SSPPPermitUploader
                  "case " & _
                  "when strDocModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                  "and numUserID = strDocModifingPerson " & _
                  "and strFileName = 'PF-" & MasterApp & "') " & _
                  "end DocStaffResponsible, " & _
@@ -2862,8 +2862,8 @@ Public Class SSPPPermitUploader
                  "case " & _
                  "when strPDFModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                  "and numUserID = strPDFModifingPerson " & _
                  "and strFileName = 'PF-" & MasterApp & "') " & _
                  "end PDFStaffResponsible, " & _
@@ -2871,7 +2871,7 @@ Public Class SSPPPermitUploader
                  "when datPDFModifingDate is Null then '' " & _
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                  "End datPDFModifingDate " & _
-                 "from " & DBNameSpace & ".APBPermits " & _
+                 "from AIRBRANCH.APBPermits " & _
                  "where strFileName = 'PF-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2977,8 +2977,8 @@ Public Class SSPPPermitUploader
                 "case " & _
                 "when strDocModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                 "and numUserID = strDocModifingPerson " & _
                 "and strFileName = 'PI-" & MasterApp & "') " & _
                 "end DocStaffResponsible, " & _
@@ -2993,8 +2993,8 @@ Public Class SSPPPermitUploader
                 "case " & _
                 "when strPDFModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                 "and numUserID = strPDFModifingPerson " & _
                 "and strFileName = 'PI-" & MasterApp & "') " & _
                 "end PDFStaffResponsible, " & _
@@ -3002,7 +3002,7 @@ Public Class SSPPPermitUploader
                 "when datPDFModifingDate is Null then '' " & _
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                 "End datPDFModifingDate " & _
-                "from " & DBNameSpace & ".APBPermits " & _
+                "from AIRBRANCH.APBPermits " & _
                 "where strFileName = 'PI-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3097,8 +3097,8 @@ Public Class SSPPPermitUploader
                  "case " & _
                  "when strDocModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                  "and numUserID = strDocModifingPerson " & _
                  "and strFileName = 'ON-" & MasterApp & "') " & _
                  "end DocStaffResponsible, " & _
@@ -3113,8 +3113,8 @@ Public Class SSPPPermitUploader
                  "case " & _
                  "when strPDFModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                 "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                  "and numUserID = strPDFModifingPerson " & _
                  "and strFileName = 'ON-" & MasterApp & "') " & _
                  "end PDFStaffResponsible, " & _
@@ -3122,7 +3122,7 @@ Public Class SSPPPermitUploader
                  "when datPDFModifingDate is Null then '' " & _
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                  "End datPDFModifingDate " & _
-                 "from " & DBNameSpace & ".APBPermits " & _
+                 "from AIRBRANCH.APBPermits " & _
                  "where strFileName = 'ON-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3219,8 +3219,8 @@ Public Class SSPPPermitUploader
                   "case " & _
                   "when strDocModifingPerson is Null then '' " & _
                   "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                  "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                  "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                  "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                  "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                   "and numUserID = strDocModifingPerson " & _
                   "and strFileName = 'OP-" & MasterApp & "') " & _
                   "end DocStaffResponsible, " & _
@@ -3235,8 +3235,8 @@ Public Class SSPPPermitUploader
                   "case " & _
                   "when strPDFModifingPerson is Null then '' " & _
                   "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                  "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
-                  "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                  "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
+                  "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
                   "and numUserID = strPDFModifingPerson " & _
                   "and strFileName = 'OP-" & MasterApp & "') " & _
                   "end PDFStaffResponsible, " & _
@@ -3244,7 +3244,7 @@ Public Class SSPPPermitUploader
                   "when datPDFModifingDate is Null then '' " & _
                   "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                   "End datPDFModifingDate " & _
-                  "from " & DBNameSpace & ".APBPermits " & _
+                  "from AIRBRANCH.APBPermits " & _
                   "where strFileName = 'OP-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3395,7 +3395,7 @@ Public Class SSPPPermitUploader
                 "(substr(strPermitNumber,1, 4) ||'-'||substr(strPermitNumber, 5,3) " & _
                 "   ||'-'||substr(strPermitNumber, 8,4)||'-'||substr(strPermitNumber, 12, 1)  " & _
                 "   ||'-'||substr(strPermitNumber, 13, 2) ||'-'||substr(strPermitNumber, 15,1)) as PermitNumber " & _
-                "from " & DBNameSpace & ".SSPPApplicationData  " & _
+                "from AIRBRANCH.SSPPApplicationData  " & _
                 "where strApplicationNumber like '" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3433,7 +3433,7 @@ Public Class SSPPPermitUploader
 
                             SQL = "select " & _
                             "DocPermitData " & _
-                            "from " & DBNameSpace & ".APBPermits " & _
+                            "from AIRBRANCH.APBPermits " & _
                             "where strFileName = '" & FileName & "' "
 
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3468,7 +3468,7 @@ Public Class SSPPPermitUploader
 
                             SQL = "select " & _
                             "pdfPermitData " & _
-                            "from " & DBNameSpace & ".APBPermits " & _
+                            "from AIRBRANCH.APBPermits " & _
                             "where strFileName = '" & FileName & "' "
 
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3502,7 +3502,7 @@ Public Class SSPPPermitUploader
 
                             SQL = "select " & _
                             "DocPermitData " & _
-                            "from " & DBNameSpace & ".APBPermits " & _
+                            "from AIRBRANCH.APBPermits " & _
                             "where strFileName = '" & FileName & "' "
 
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3536,7 +3536,7 @@ Public Class SSPPPermitUploader
 
                             SQL = "select " & _
                             "pdfPermitData " & _
-                            "from " & DBNameSpace & ".APBPermits " & _
+                            "from AIRBRANCH.APBPermits " & _
                             "where strFileName = '" & FileName & "' "
 
                             cmd = New OracleCommand(SQL, CurrentConnection)

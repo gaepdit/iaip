@@ -14,7 +14,7 @@ Namespace DAL.SSCP
             If id = "" OrElse Not Integer.TryParse(id, Nothing) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM " & DBNameSpace & ".SSCPITEMMASTER " & _
+                " FROM AIRBRANCH.SSCPITEMMASTER " & _
                 " WHERE RowNum = 1 " & _
                 " AND STRTRACKINGNUMBER = :pId "
             Dim parameter As New OracleParameter("pId", id)
@@ -35,7 +35,7 @@ Namespace DAL.SSCP
             If id = "" OrElse Not Integer.TryParse(id, Nothing) Then Return False
 
             Dim query As String = "SELECT STRREFERENCENUMBER " & _
-                " FROM " & DBNameSpace & ".SSCPTESTREPORTS " & _
+                " FROM AIRBRANCH.SSCPTESTREPORTS " & _
                 " WHERE RowNum = 1 " & _
                 " AND STRTRACKINGNUMBER = :pId "
             Dim parameter As New OracleParameter("pId", id)
