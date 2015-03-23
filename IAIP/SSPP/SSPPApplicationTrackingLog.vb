@@ -9112,12 +9112,14 @@ Public Class SSPPApplicationTrackingLog
                             "where strSubpartKey = '0413" & txtAIRSNumber.Text & "0' " & _
                             "and strSubpart = '" & Subpart & "' "
                         Else
-                            SQL = "Insert into AIRBRANCH.APBSubpartData " & _
-                            "values " & _
+                            SQL = "INSERT INTO AIRBRANCH.APBSUBPARTDATA " & _
+                            "  ( STRAIRSNUMBER, STRSUBPARTKEY, STRSUBPART, UPDATEUSER , " & _
+                            "    UPDATEDATETIME, ACTIVE, CREATEDATETIME, " & _
+                            "  ) VALUES " & _
                             "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "0', " & _
                             "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
-                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), NULL) "
+                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
                         End If
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9593,12 +9595,14 @@ Public Class SSPPApplicationTrackingLog
                             "where strSubpartKey = '0413" & txtAIRSNumber.Text & "8' " & _
                             "and strSubpart = '" & Subpart & "' "
                         Else
-                            SQL = "Insert into AIRBRANCH.APBSubpartData " & _
-                            "values " & _
+                            SQL = "INSERT INTO AIRBRANCH.APBSUBPARTDATA " & _
+                            "  ( STRAIRSNUMBER, STRSUBPARTKEY, STRSUBPART, UPDATEUSER , " & _
+                            "    UPDATEDATETIME, ACTIVE, CREATEDATETIME, " & _
+                            "  ) VALUES " & _
                             "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "8', " & _
                             "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
-                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), NULL) "
+                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) ) "
                         End If
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9729,12 +9733,14 @@ Public Class SSPPApplicationTrackingLog
                             "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " & _
                             "and strSubpart = '" & Subpart & "' "
                         Else
-                            SQL = "Insert into AIRBRANCH.APBSubpartData " & _
-                            "values " & _
+                            SQL = "INSERT INTO AIRBRANCH.APBSUBPARTDATA " & _
+                            "  ( STRAIRSNUMBER, STRSUBPARTKEY, STRSUBPART, UPDATEUSER , " & _
+                            "    UPDATEDATETIME, ACTIVE, CREATEDATETIME, " & _
+                            "  ) VALUES " & _
                             "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " & _
                             "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
-                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), NULL)"
+                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) )"
                         End If
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -10072,12 +10078,14 @@ Public Class SSPPApplicationTrackingLog
                             "where strSubpartKey = '0413" & txtAIRSNumber.Text & "M' " & _
                             "and strSubpart = '" & Subpart & "' "
                         Else
-                            SQL = "Insert into AIRBRANCH.APBSubpartData " & _
-                            "values " & _
+                            SQL = "INSERT INTO AIRBRANCH.APBSUBPARTDATA " & _
+                            "  ( STRAIRSNUMBER, STRSUBPARTKEY, STRSUBPART, UPDATEUSER , " & _
+                            "    UPDATEDATETIME, ACTIVE, CREATEDATETIME, " & _
+                            "  ) VALUES " & _
                             "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "M', " & _
                             "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
-                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), NULL)"
+                            "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) )"
                         End If
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -17029,12 +17037,14 @@ Public Class SSPPApplicationTrackingLog
                     "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " & _
                     "and strSubpart = '" & Subpart & "' "
                 Else
-                    SQL = "Insert into AIRBRANCH.APBSubpartData " & _
-                    "values " & _
+                    SQL = "INSERT INTO AIRBRANCH.APBSUBPARTDATA " & _
+                    "  ( STRAIRSNUMBER, STRSUBPARTKEY, STRSUBPART, UPDATEUSER , " & _
+                    "    UPDATEDATETIME, ACTIVE, CREATEDATETIME, " & _
+                    "  ) VALUES " & _
                     "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " & _
                     "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
                     "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
-                    "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), NULL)"
+                    "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')))"
                     AFSStatus = "Add"
                     AppStatus = "Add"
                 End If
@@ -17224,8 +17234,13 @@ Public Class SSPPApplicationTrackingLog
                 dr = cmd.ExecuteReader
                 dr.Close()
             Else
-                SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
-                "values " & _
+                SQL = "INSERT INTO AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " & _
+                "  ( " & _
+                "    STRAIRSNUMBER , STRAIRPOLLUTANTKEY , STRPOLLUTANTKEY , " & _
+                "    STRCOMPLIANCESTATUS , STRMODIFINGPERSON , DATMODIFINGDATE , " & _
+                "    STROPERATIONALSTATUS " & _
+                "  ) " & _
+                "  VALUES" & _
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " & _
                 "'OT', '3', " & _
                 "'" & UserGCode & "', '" & OracleDate & "', " & _
