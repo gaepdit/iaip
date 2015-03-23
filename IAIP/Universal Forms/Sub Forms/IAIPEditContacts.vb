@@ -115,7 +115,7 @@ Public Class IAIPEditContacts
                  "    when strContactDescription is Null then '' " & _
                  "    ELSE strContactDescription " & _
                  "END as ContactDescription " & _
-                 "from " & DBNameSpace & ".APBContactInformation " & _
+                 "from AIRBRANCH.APBContactInformation " & _
                  "where strAIRSnumber = '" & AirsNumber.DbFormattedString & "' " & _
                  "order by substr(strKey, 2), strKey "
 
@@ -202,7 +202,7 @@ Public Class IAIPEditContacts
     Sub NewContactDataLoad()
         Try
             If Me.AirsNumber.ToString IsNot Nothing And Key <> ContactKey.None Then
-                Dim query As String = "Select * from " & DBNameSpace & ".APBContactInformation " & _
+                Dim query As String = "Select * from AIRBRANCH.APBContactInformation " & _
                 "where strAIRSNumber = :airsnumber " & _
                 "and strKey = :key "
 

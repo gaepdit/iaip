@@ -1,5 +1,12 @@
 % IAIP Change Log
 
+## Version 3.6.10 <span>(2015-03-23)</span>
+
+**March Madness edition** 
+
++ FIX: Having trouble with your brackets? So were we! [Square brackets](https://en.wikipedia.org/wiki/Bracket#Square_brackets) in facility names were causing errors in the permit search website. For now, brackets will be replaced with parentheses. (#320); thx Noel 
++ FIX: *SSCP & ISMP* -- Some data was incorrectly updated when a stack test was deleted (#260)
+
 ## Version 3.6.9 <span>(2015-02-26)</span>
 
 + FIX: Some Nav screen buttons not working (#308); thx Jing

@@ -133,18 +133,18 @@ Public Class SSCPManagersTools
             SQL = "Select  " & _
             "(strLastName||', '||strFirstName) as UserName, " & _
             "strUnitDesc, numUserID " & _
-            "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".LookUpEPDUnits  " & _
-            "where " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookupEPDUnits.numUnitCode (+) " & _
+            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.LookUpEPDUnits  " & _
+            "where AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookupEPDUnits.numUnitCode (+) " & _
             "and (numProgram = '4' " & _
             "or strLastname = 'District') " & _
             "UNION " & _
             "Select  " & _
             "(strLastName||', '||strFirstName) as UserName, " & _
             "strUnitDesc, numUserID " & _
-            "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".LookUpEPDUnits, " & _
-            "" & DBNameSpace & ".SSCPInspectionsRequired   " & _
-            "where " & DBNameSpace & ".SSCPInspectionsRequired.numSSCPEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-            "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookupEPDUnits.numUnitCode (+) " & _
+            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.LookUpEPDUnits, " & _
+            "AIRBRANCH.SSCPInspectionsRequired   " & _
+            "where AIRBRANCH.SSCPInspectionsRequired.numSSCPEngineer = AIRBRANCH.EPDUserProfiles.numUserID " & _
+            "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookupEPDUnits.numUnitCode (+) " & _
             "group by strLastName, strFirstName, strUnitDesc, numUserID  " & _
             "order by UserName "
 
@@ -153,7 +153,7 @@ Public Class SSCPManagersTools
             If AccountFormAccess(22, 2) = "1" Then 'District Liason 
                 SQL = "select " & _
                 "strUnitDesc, numUnitCode " & _
-                "from " & DBNameSpace & ".LookUPEPDUnits " & _
+                "from AIRBRANCH.LookUPEPDUnits " & _
                 "where numProgramCode = '4' " & _
                 "or numUnitCode = '44' " & _
                 "or numUnitCode = '43' " & _
@@ -166,7 +166,7 @@ Public Class SSCPManagersTools
                 "or numUnitCode = '36' "
             Else
                 SQL = "select strUnitDesc, numUnitCode " & _
-                "from " & DBNameSpace & ".LookUpEPDUnits   " & _
+                "from AIRBRANCH.LookUpEPDUnits   " & _
                 "where numProgramCode = '4' " & _
                 "order by strUnitDesc  "
             End If
@@ -176,8 +176,8 @@ Public Class SSCPManagersTools
             SQL = "Select " & _
             "(strLastName||', '||strFirstName) as UserName, " & _
             "strUnitDesc, numUserID " & _
-            "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".LookUpEPDUnits  " & _
-            "where " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookupEPDUnits.numUnitCode (+) " & _
+            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.LookUpEPDUnits  " & _
+            "where AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookupEPDUnits.numUnitCode (+) " & _
             "and ((numProgram = '4' " & _
             "or strLastname = 'District') " & _
             "    or numbranch = '5') " & _
@@ -187,7 +187,7 @@ Public Class SSCPManagersTools
 
             SQL = "select " & _
            "strUnitDesc, numUnitCode " & _
-           "from " & DBNameSpace & ".LookUPEPDUnits " & _
+           "from AIRBRANCH.LookUPEPDUnits " & _
            "where numProgramCode = '4' " & _
            "or numUnitCode = '44' " & _
            "or numUnitCode = '43' " & _
@@ -201,27 +201,27 @@ Public Class SSCPManagersTools
             daFilterUnits = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "select distinct(strClass) as strClass " & _
-            "from " & DBNameSpace & ".APBHeaderData  " & _
+            "from AIRBRANCH.APBHeaderData  " & _
             "order by strClass "
 
             daClassFilter = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "Select distinct(strCMSMember) as strCMSMember " & _
-            "from " & DBNameSpace & ".APBSupplamentalData " & _
+            "from AIRBRANCH.APBSupplamentalData " & _
             "order by strCMSMember "
 
             daCMSMemberFilter = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "select " & _
             "strCountyName, strCountyCode " & _
-            "from " & DBNameSpace & ".LookUpCountyInformation " & _
+            "from AIRBRANCH.LookUpCountyInformation " & _
             "order by strCountyName "
 
             daCountyFilter = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = "Select " & _
             "strDistrictName " & _
-            "from " & DBNameSpace & ".LookupDistricts " & _
+            "from AIRBRANCH.LookupDistricts " & _
             "order by strDistrictname "
 
             daDistrictFilter = New OracleDataAdapter(SQL, CurrentConnection)
@@ -229,14 +229,14 @@ Public Class SSCPManagersTools
             'If AccountArray(22, 3) = "1" And UserUnit <> "---" Then  'SSCP Unit Manager 
             '    SQL2 = "SELECT strunitdesc, " & _
             '    "numunitcode " & _
-            '    "FROM " & DBNameSpace & ".lookupepdunits " & _
+            '    "FROM AIRBRANCH.lookupepdunits " & _
             '    "WHERE numprogramCode  = '4' " & _
             '    "ORDER BY strunitdesc "
             'End If
             'If AccountArray(22, 2) = "1" Then 'District Liason 
             '    SQL2 = "select " & _
             '    "strUnitDesc, numUnitCode " & _
-            '    "from " & DBNameSpace & ".LookUPEPDUnits " & _
+            '    "from AIRBRANCH.LookUPEPDUnits " & _
             '    "where numProgramCode = '4' " & _
             '    "or numUnitCode = '44' " & _
             '    "or numUnitCode = '43' " & _
@@ -248,13 +248,13 @@ Public Class SSCPManagersTools
             '    "or numUnitCode = '37'  "
             'Else
             '    SQL2 = "select strUnitDesc, numUnitCode " & _
-            '                   "from " & DBNameSpace & ".LookUpEPDUnits   " & _
+            '                   "from AIRBRANCH.LookUpEPDUnits   " & _
             '                   "where numProgramCode = '4' " & _
             '                   "order by strUnitDesc  "
             'End If
             'If AccountArray(22, 4) = "1" Then
             '    SQL2 = "select strUnitDesc, numUnitCode " & _
-            '                   "from " & DBNameSpace & ".LookUpEPDUnits   " & _
+            '                   "from AIRBRANCH.LookUpEPDUnits   " & _
             '                   "where numProgramCode = '4' " & _
             '                   "order by strUnitDesc  "
             'End If
@@ -275,8 +275,8 @@ Public Class SSCPManagersTools
             If dsStaff.Tables(0).Rows.Count = 0 Then
                 SQL = "Select (strLastName||', '||strFirstName) as UserName,  " & _
                 "strUnitDesc, numUserID    " & _
-                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".LookUpEPDUnits    " & _
-                "where " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+)  " & _
+                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.LookUpEPDUnits    " & _
+                "where AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+)  " & _
                 "and (numProgram = '4' or strLastName = 'District') " & _
                 "order by strLastName "
 
@@ -295,7 +295,7 @@ Public Class SSCPManagersTools
 
             SQL = "select " & _
             "distinct(intYear) as FCEYear " & _
-            "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
+            "from AIRBRANCH.SSCPInspectionsRequired " & _
             "order by intYear desc "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -724,7 +724,7 @@ Public Class SSCPManagersTools
             SQL = "Select " & _
             "(strLastName||', '||strFirstName) as UserName, " & _
             "numUserID " & _
-            "from " & DBNameSpace & ".EPDUserProfiles " & _
+            "from AIRBRANCH.EPDUserProfiles " & _
             "where numProgram = '4' " & _
             "and numUnit is null " & _
             "order by strLastName "
@@ -740,7 +740,7 @@ Public Class SSCPManagersTools
             SQL = "Select " & _
             "(strLastName||', '||strFirstName) as UserName, " & _
             "numUserID " & _
-            "from " & DBNameSpace & ".EPDUserProfiles " & _
+            "from AIRBRANCH.EPDUserProfiles " & _
             "where numProgram = '4' " & _
             "and numUnit = '30' " & _
             "order by strLastName "
@@ -756,7 +756,7 @@ Public Class SSCPManagersTools
             SQL = "Select " & _
             "(strLastName||', '||strFirstName) as UserName, " & _
             "numUserID " & _
-            "from " & DBNameSpace & ".EPDUserProfiles " & _
+            "from AIRBRANCH.EPDUserProfiles " & _
             "where numProgram = '4' " & _
             "and numUnit = '31' " & _
             "order by strLastName "
@@ -772,7 +772,7 @@ Public Class SSCPManagersTools
             SQL = "Select " & _
              "(strLastName||', '||strFirstName) as UserName, " & _
              "numUserID " & _
-             "from " & DBNameSpace & ".EPDUserProfiles " & _
+             "from AIRBRANCH.EPDUserProfiles " & _
              "where numProgram = '4' " & _
              "and numUnit = '32' " & _
              "order by strLastName "
@@ -975,7 +975,7 @@ Public Class SSCPManagersTools
             End Select
 
             SQL = "Select * " & _
-           "from " & DBNameSpace & ".VW_SSCP_CMSWarning " & _
+           "from AIRBRANCH.VW_SSCP_CMSWarning " & _
            "where AIRSNumber is not Null " & _
            CMSStatus
 
@@ -1037,19 +1037,19 @@ Public Class SSCPManagersTools
             'End Select
 
             'SQL = "Select " & _
-            '"substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
+            '"substr(AIRBRANCH.APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
             '"strFacilityName, strFacilityCity,   " & _
             '"strCMSMember, strOperationalStatus,  " & _
             '"strCountyName, strDistrictCounty,  " & _
             '"strDistrictName   " & _
-            '"from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".APBSupplamentalData,   " & _
-            '"" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".LookUpCountyInformation,  " & _
-            '"" & DBNameSpace & ".LookUpDistrictInformation, " & DBNameSpace & ".LookUPDistricts  " & _
-            '"where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber   " & _
-            '"and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
-            '"and substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5, 3) = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode " & _
-            '"and substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5, 3) = " & DBNameSpace & ".LookUpDistrictInformation.strDistrictCounty " & _
-            '"and " & DBNameSpace & ".LookUPDistricts.strDistrictCode = " & DBNameSpace & ".LookUpDistrictInformation.strDistrictCode  " & SQLLine
+            '"from AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBSupplamentalData,   " & _
+            '"AIRBRANCH.APBHeaderData, AIRBRANCH.LookUpCountyInformation,  " & _
+            '"AIRBRANCH.LookUpDistrictInformation, AIRBRANCH.LookUPDistricts  " & _
+            '"where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber   " & _
+            '"and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber " & _
+            '"and substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode " & _
+            '"and substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpDistrictInformation.strDistrictCounty " & _
+            '"and AIRBRANCH.LookUPDistricts.strDistrictCode = AIRBRANCH.LookUpDistrictInformation.strDistrictCode  " & SQLLine
             ''"and StrCMSMember = 'A' "
 
             'dsCMSDataSet = New DataSet
@@ -1110,7 +1110,7 @@ Public Class SSCPManagersTools
                     CMSState = "S"
                 End If
                 SQL = "Select strAIRSNumber " & _
-                "from " & DBNameSpace & ".APBSupplamentalData " & _
+                "from AIRBRANCH.APBSupplamentalData " & _
                 "where strAIRSNumber = '0413" & txtCMSAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1122,7 +1122,7 @@ Public Class SSCPManagersTools
                 dr.Close()
 
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+                    SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                     "strCMSMember = '" & CMSState & "' " & _
                     "where strAIRSNumber = '0413" & txtCMSAIRSNumber.Text & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1147,7 +1147,7 @@ Public Class SSCPManagersTools
         Try
 
             SQL = "Select strAIRSNumber " & _
-                              "from " & DBNameSpace & ".APBSupplamentalData " & _
+                              "from AIRBRANCH.APBSupplamentalData " & _
                               "where strAIRSNumber = '0413" & txtCMSAIRSNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1159,7 +1159,7 @@ Public Class SSCPManagersTools
             dr.Close()
 
             If recExist = True Then
-                SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+                SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                 "strCMSMember = '' " & _
                 "where strAIRSNumber = '0413" & txtCMSAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1298,102 +1298,102 @@ Public Class SSCPManagersTools
                   "     when OpenNotification is NULL then 0  " & _
                   "     Else OpenNotification  " & _
                   "End as OpenNotification  " & _
-                  "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".SSCPItemMaster,  " & _
+                  "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.SSCPItemMaster,  " & _
                   "(Select strResponsibleStaff, count(*) as StartedReport  " & _
-                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
+                  "from AIRBRANCH.SSCPItemMaster   " & _
                   "where strEventType = '01'  " & _
                   DateReceivedBias & "  " & _
                   "group by strResponsibleStaff) StartedReports,  " & _
                   "(Select strResponsibleStaff, count(*) as StartedInspection " & _
-                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
+                  "from AIRBRANCH.SSCPItemMaster   " & _
                   "where strEventType = '02'  " & _
                   DateReceivedBias & " " & _
                   "group by strResponsibleStaff) StartedInspections,  " & _
                   "(Select strResponsibleStaff, count(*) as StartedISMPTest " & _
-                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
+                  "from AIRBRANCH.SSCPItemMaster   " & _
                   "where strEventType = '03'  " & _
                   DateReceivedBias & "  " & _
                   "group by strResponsibleStaff) StartedISMPTEsts,  " & _
                   "(Select strResponsibleStaff, count(*) as StartedAcc " & _
-                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
+                  "from AIRBRANCH.SSCPItemMaster   " & _
                   "where strEventType = '04'  " & _
                   DateReceivedBias & "  " & _
                   "group by strResponsibleStaff) StartedACCs,  " & _
                   "(Select strResponsibleStaff, count(*) as StartedNotification " & _
-                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
+                  "from AIRBRANCH.SSCPItemMaster   " & _
                   "where strEventType = '05'  " & _
                   DateReceivedBias & "  " & _
                   "group by strResponsibleStaff) StartedNotifications,  " & _
                   "(Select strResponsibleStaff, count(*) as ClosedReport  " & _
-                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
+                  "from AIRBRANCH.SSCPItemMaster   " & _
                   "where strEventType = '01'  " & _
                   DateCompletedBias & "  " & _
                   "group by strResponsibleStaff) ClosedReports,  " & _
                   "(Select strResponsibleStaff, count(*) as ClosedInspection " & _
-                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
+                  "from AIRBRANCH.SSCPItemMaster   " & _
                   "where strEventType = '02'  " & _
                   DateCompletedBias & "  " & _
                   "group by strResponsibleStaff) ClosedInspections,  " & _
                   "(Select strResponsibleStaff, count(*) as ClosedISMPTest " & _
-                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
+                  "from AIRBRANCH.SSCPItemMaster   " & _
                   "where strEventType = '03'  " & _
                   DateCompletedBias & "  " & _
                   "group by strResponsibleStaff) ClosedISMPTEsts,  " & _
                   "(Select strResponsibleStaff, count(*) as ClosedAcc " & _
-                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
+                  "from AIRBRANCH.SSCPItemMaster   " & _
                   "where strEventType = '04'  " & _
                   DateCompletedBias & "  " & _
                   "group by strResponsibleStaff) ClosedACCs,  " & _
                   "(Select strResponsibleStaff, count(*) as ClosedNotification " & _
-                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
+                  "from AIRBRANCH.SSCPItemMaster   " & _
                   "where strEventType = '05'  " & _
                   DateCompletedBias & "  " & _
                   "group by strResponsibleStaff) ClosedNotifications, " & _
                   "(Select strResponsibleStaff, count(*) as OpenReport  " & _
-                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
+                  "from AIRBRANCH.SSCPItemMaster   " & _
                   "where strEventType = '01'  " & _
                   "and DatCompleteDate IS NULL  " & _
                   "group by strResponsibleStaff) OpenReports,  " & _
                   "(Select strResponsibleStaff, count(*) as OpenInspection " & _
-                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
+                  "from AIRBRANCH.SSCPItemMaster   " & _
                   "where strEventType = '02'  " & _
                   "and DatCompleteDate IS NULL  " & _
                   "group by strResponsibleStaff) OpenInspections,  " & _
                   "(Select strResponsibleStaff, count(*) as OpenISMPTest " & _
-                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
+                  "from AIRBRANCH.SSCPItemMaster   " & _
                   "where strEventType = '03'  " & _
                   "and DatCompleteDate IS NULL  " & _
                   "group by strResponsibleStaff) OpenISMPTEsts,  " & _
                   "(Select strResponsibleStaff, count(*) as OpenAcc " & _
-                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
+                  "from AIRBRANCH.SSCPItemMaster   " & _
                   "where strEventType = '04'  " & _
                   "and DatCompleteDate IS NULL  " & _
                   "group by strResponsibleStaff) OpenACCs,  " & _
                   "(Select strResponsibleStaff, count(*) as OpenNotification " & _
-                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
+                  "from AIRBRANCH.SSCPItemMaster   " & _
                   "where strEventType = '05'  " & _
                   "and DatCompleteDate IS NULL  " & _
                   "group by strResponsibleStaff) OpenNotifications " & _
-                  "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff " & _
-                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = StartedInspections.strResponsibleStaff (+) " & _
-                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = StartedReports.strResponsibleStaff (+) " & _
-                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = StartedISMPTests.strResponsibleStaff (+) " & _
-                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = StartedACCS.strResponsibleStaff (+) " & _
-                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = StartedNotifications.strResponsibleStaff (+)  " & _
-                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = ClosedInspections.strResponsibleStaff (+) " & _
-                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = ClosedReports.strResponsibleStaff (+) " & _
-                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = ClosedISMPTests.strResponsibleStaff (+) " & _
-                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = ClosedACCS.strResponsibleStaff (+) " & _
-                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = ClosedNotifications.strResponsibleStaff (+)  " & _
-                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = OpenInspections.strResponsibleStaff (+) " & _
-                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = OpenReports.strResponsibleStaff (+) " & _
-                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = OpenISMPTests.strResponsibleStaff (+) " & _
-                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = OpenACCS.strResponsibleStaff (+) " & _
-                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = OpenNotifications.strResponsibleStaff (+) " & _
-                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = '" & Staff & "' " & _
+                  "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCPItemMaster.strResponsibleStaff " & _
+                  "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = StartedInspections.strResponsibleStaff (+) " & _
+                  "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = StartedReports.strResponsibleStaff (+) " & _
+                  "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = StartedISMPTests.strResponsibleStaff (+) " & _
+                  "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = StartedACCS.strResponsibleStaff (+) " & _
+                  "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = StartedNotifications.strResponsibleStaff (+)  " & _
+                  "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = ClosedInspections.strResponsibleStaff (+) " & _
+                  "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = ClosedReports.strResponsibleStaff (+) " & _
+                  "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = ClosedISMPTests.strResponsibleStaff (+) " & _
+                  "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = ClosedACCS.strResponsibleStaff (+) " & _
+                  "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = ClosedNotifications.strResponsibleStaff (+)  " & _
+                  "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = OpenInspections.strResponsibleStaff (+) " & _
+                  "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = OpenReports.strResponsibleStaff (+) " & _
+                  "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = OpenISMPTests.strResponsibleStaff (+) " & _
+                  "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = OpenACCS.strResponsibleStaff (+) " & _
+                  "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = OpenNotifications.strResponsibleStaff (+) " & _
+                  "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = '" & Staff & "' " & _
                   "and strDelete is Null "
 
-                    SQL2 = "Select distinct(" & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff), " & _
+                    SQL2 = "Select distinct(AIRBRANCH.SSCPItemMaster.strResponsibleStaff), " & _
                     "Case " & _
                     "	When ClassA is Null then 0  " & _
                     "	else CLassA " & _
@@ -1406,46 +1406,46 @@ Public Class SSCPManagersTools
                     "	When ClassB is Null then 0  " & _
                     "	else CLassB  " & _
                     "end ClassB  " & _
-                    "from " & DBNameSpace & ".SSCPItemMaster,  " & _
+                    "from AIRBRANCH.SSCPItemMaster,  " & _
                     "(select strResponsibleStaff, count(*) as ClassA  " & _
-                    "from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".SSCPInspections  " & _
-                    "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSCPItemMaster.strAIRSNUmber  " & _
-                    "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".SSCPInspections.strTrackingNumber  " & _
+                    "from AIRBRANCH.APBHeaderData, AIRBRANCH.SSCPItemMaster, AIRBRANCH.SSCPInspections  " & _
+                    "where AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.SSCPItemMaster.strAIRSNUmber  " & _
+                    "and AIRBRANCH.SSCPItemMaster.strTrackingNumber = AIRBRANCH.SSCPInspections.strTrackingNumber  " & _
                     "and strClass = 'A'  " & _
                     DateInspection & _
                     "group by strResponsibleStaff) ClassAs,  " & _
                     "(select strResponsibleStaff, count(*) as ClassSM  " & _
-                    "from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".SSCPInspections  " & _
-                    "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSCPItemMaster.strAIRSNUmber  " & _
-                    "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".SSCPInspections.strTrackingNumber  " & _
+                    "from AIRBRANCH.APBHeaderData, AIRBRANCH.SSCPItemMaster, AIRBRANCH.SSCPInspections  " & _
+                    "where AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.SSCPItemMaster.strAIRSNUmber  " & _
+                    "and AIRBRANCH.SSCPItemMaster.strTrackingNumber = AIRBRANCH.SSCPInspections.strTrackingNumber  " & _
                     "and strClass = 'SM'  " & _
                     DateInspection & _
                     "group by strResponsibleStaff) ClassSMs,  " & _
                     "(select strResponsibleStaff, count(*) as ClassB  " & _
-                    "from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".SSCPInspections  " & _
-                    "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSCPItemMaster.strAIRSNUmber  " & _
-                    "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".SSCPInspections.strTrackingNumber  " & _
+                    "from AIRBRANCH.APBHeaderData, AIRBRANCH.SSCPItemMaster, AIRBRANCH.SSCPInspections  " & _
+                    "where AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.SSCPItemMaster.strAIRSNUmber  " & _
+                    "and AIRBRANCH.SSCPItemMaster.strTrackingNumber = AIRBRANCH.SSCPInspections.strTrackingNumber  " & _
                     "and strClass = 'B'  " & _
                     DateInspection & _
                     "group by strResponsibleStaff) ClassBs " & _
                     "where " & _
-                    "" & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = ClassAs.strResponsibleStaff (+)  " & _
-                    "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = ClassSMs.strResponsibleStaff (+) " & _
-                    "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = ClassBs.strResponsibleStaff (+) " & _
-                    "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = '" & Staff & "' " & _
+                    "AIRBRANCH.SSCPItemMaster.strResponsibleStaff = ClassAs.strResponsibleStaff (+)  " & _
+                    "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = ClassSMs.strResponsibleStaff (+) " & _
+                    "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = ClassBs.strResponsibleStaff (+) " & _
+                    "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = '" & Staff & "' " & _
                     "and strDelete is Null "
 
                     SQL3 = "Select " & _
                     "strFacilityName, strFacilityCity,  " & _
-                    "" & DBNameSpace & ".SSCPItemMaster.strTrackingNumber, datInspectionDateStart,  " & _
+                    "AIRBRANCH.SSCPItemMaster.strTrackingNumber, datInspectionDateStart,  " & _
                     "strClass  " & _
-                    "from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBFacilityInformation,  " & _
-                    "" & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".SSCPInspections  " & _
-                    "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIrSnumber  " & _
-                    "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
-                    "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".SSCPInspections.strTrackingNumber  " & _
+                    "from AIRBRANCH.APBHeaderData, AIRBRANCH.APBFacilityInformation,  " & _
+                    "AIRBRANCH.SSCPItemMaster, AIRBRANCH.SSCPInspections  " & _
+                    "where AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIrSnumber  " & _
+                    "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCPItemMaster.strAIRSNumber  " & _
+                    "and AIRBRANCH.SSCPItemMaster.strTrackingNumber = AIRBRANCH.SSCPInspections.strTrackingNumber  " & _
                     DateInspection & _
-                    "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = '" & Staff & "' " & _
+                    "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = '" & Staff & "' " & _
                     "and strDelete is Null " & _
                     "order by strClass, datInspectionDateStart "
 
@@ -1749,7 +1749,7 @@ Public Class SSCPManagersTools
 
 
             SQL = "Select * " & _
-            "from " & DBNameSpace & ".VW_SSCP_CMSWarning " & _
+            "from AIRBRANCH.VW_SSCP_CMSWarning " & _
             "where AIRSNumber is not Null " & _
             FCEStatus & CMSStatus
 
@@ -1916,15 +1916,15 @@ Public Class SSCPManagersTools
             End If
 
             SQL = "Select " & _
-            "substr(" & DBNameSpace & ".APBAirProgramPollutants.strAIRSnumber, 5) as AIRSNumber, " & _
+            "substr(AIRBRANCH.APBAirProgramPollutants.strAIRSnumber, 5) as AIRSNumber, " & _
             "strFacilityName, " & _
             "(strComplianceStatus|| ' - ' ||strComplianceDesc) as PollutantStatus, " & _
             "strPollutantDescription " & _
-            "from " & DBNameSpace & ".APBAirProgramPollutants, " & DBNameSpace & ".APBFacilityInformation, " & _
-            "" & DBNameSpace & ".LookUpComplianceStatus, " & DBNameSpace & ".LookUPPollutants " & _
-            "where " & DBNameSpace & ".APBAirProgramPollutants.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber " & _
-            "and " & DBNameSpace & ".APBAirProgramPollutants.strComplianceStatus  = " & DBNameSpace & ".LookUpComplianceStatus.strComplianceCode " & _
-            "and " & DBNameSpace & ".LookUPPollutants.strPollutantCode = " & DBNameSpace & ".APBAirProgramPollutants.strPollutantKey " & _
+            "from AIRBRANCH.APBAirProgramPollutants, AIRBRANCH.APBFacilityInformation, " & _
+            "AIRBRANCH.LookUpComplianceStatus, AIRBRANCH.LookUPPollutants " & _
+            "where AIRBRANCH.APBAirProgramPollutants.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber " & _
+            "and AIRBRANCH.APBAirProgramPollutants.strComplianceStatus  = AIRBRANCH.LookUpComplianceStatus.strComplianceCode " & _
+            "and AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.APBAirProgramPollutants.strPollutantKey " & _
             PollutantLine
 
             dsPollutantList = New DataSet
@@ -2011,7 +2011,7 @@ Public Class SSCPManagersTools
             "from " & _
             "(select " & _
             "max(intYear), strAIRSNumber " & _
-            "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
+            "from AIRBRANCH.SSCPInspectionsRequired " & _
             EngineerList & _
             "group by strAIRSNumber) "
 
@@ -2032,7 +2032,7 @@ Public Class SSCPManagersTools
 
             '---Total Facilities reporting ACC's
             SQL = "select count(*) as TotalACCs " & _
-            "from " & DBNameSpace & ".SSCPItemMaster " & _
+            "from AIRBRANCH.SSCPItemMaster " & _
             "where strEventType = '04' " & _
             "and datReceivedDate between '" & Me.DTPSearchDateStart.Text & "' and '" & Me.DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
@@ -2050,8 +2050,8 @@ Public Class SSCPManagersTools
             '---Requiring resubmittals
             SQL = "select " & _
             "count(*) as TotalRequiringResubmittals  " & _
-            "from " & DBNameSpace & ".SSCPACCs, " & DBNameSpace & ".SSCPItemMaster " & _
-            "where " & DBNameSpace & ".SSCPACCs.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+            "from AIRBRANCH.SSCPACCs, AIRBRANCH.SSCPItemMaster " & _
+            "where AIRBRANCH.SSCPACCs.strTrackingNumber = AIRBRANCH.SSCPItemMaster.strTrackingNumber " & _
             "and strEventType = '04' " & _
             "and strSubmittalNumber = '2'  " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
@@ -2070,8 +2070,8 @@ Public Class SSCPManagersTools
             '---Submitted Late
             SQL = "select " & _
             "count(*) as SubmittedLate " & _
-            "from " & DBNameSpace & ".SSCPACCs, " & DBNameSpace & ".SSCPItemMaster " & _
-            "where " & DBNameSpace & ".SSCPACCs.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+            "from AIRBRANCH.SSCPACCs, AIRBRANCH.SSCPItemMaster " & _
+            "where AIRBRANCH.SSCPACCs.strTrackingNumber = AIRBRANCH.SSCPItemMaster.strTrackingNumber " & _
             "and strEventType = '04' " & _
             "and strPostMarkedOnTime = 'False' " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
@@ -2090,8 +2090,8 @@ Public Class SSCPManagersTools
             '---Devations Reported in first Submittal
             SQL = "select " & _
             "count(*) as DeviationsReported " & _
-            "from " & DBNameSpace & ".SSCPACCs, " & DBNameSpace & ".SSCPItemMaster " & _
-            "where " & DBNameSpace & ".SSCPACCs.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+            "from AIRBRANCH.SSCPACCs, AIRBRANCH.SSCPItemMaster " & _
+            "where AIRBRANCH.SSCPACCs.strTrackingNumber = AIRBRANCH.SSCPItemMaster.strTrackingNumber " & _
             "and strEventType = '04' " & _
             "and strSubmittalNumber = '1'  " & _
             "and strReportedDeviations = 'True' " & _
@@ -2112,8 +2112,8 @@ Public Class SSCPManagersTools
             '   ---Correctly 
             SQL = "select  " & _
             "count(*) as DeviationsCorrect " & _
-            "from " & DBNameSpace & ".SSCPACCsHistory, " & DBNameSpace & ".SSCPItemMaster " & _
-            "where " & DBNameSpace & ".SSCPACCsHistory.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+            "from AIRBRANCH.SSCPACCsHistory, AIRBRANCH.SSCPItemMaster " & _
+            "where AIRBRANCH.SSCPACCsHistory.strTrackingNumber = AIRBRANCH.SSCPItemMaster.strTrackingNumber " & _
             "and strEventType = '04' " & _
             "and strSubmittalNumber = '1'  " & _
             "and strReportedDeviations = 'False' " & _
@@ -2134,8 +2134,8 @@ Public Class SSCPManagersTools
             '   ---Incorrectly
             SQL = "select " & _
             "count(*) as DeviationsIncorrect " & _
-            "from " & DBNameSpace & ".SSCPACCsHistory, " & DBNameSpace & ".SSCPItemMaster " & _
-            "where " & DBNameSpace & ".SSCPACCsHistory.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+            "from AIRBRANCH.SSCPACCsHistory, AIRBRANCH.SSCPItemMaster " & _
+            "where AIRBRANCH.SSCPACCsHistory.strTrackingNumber = AIRBRANCH.SSCPItemMaster.strTrackingNumber " & _
             "and strEventType = '04' " & _
             "and strSubmittalNumber = '1'  " & _
             "and strReportedDeviations = 'False' " & _
@@ -2156,8 +2156,8 @@ Public Class SSCPManagersTools
             '---Deviations Reported in Final Report 
             SQL = "select " & _
             "count(*) as DeviationsInFinal " & _
-            "from " & DBNameSpace & ".SSCPACCs, " & DBNameSpace & ".SSCPItemMaster " & _
-            "where " & DBNameSpace & ".SSCPACCs.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+            "from AIRBRANCH.SSCPACCs, AIRBRANCH.SSCPItemMaster " & _
+            "where AIRBRANCH.SSCPACCs.strTrackingNumber = AIRBRANCH.SSCPItemMaster.strTrackingNumber " & _
             "and strEventType = '04' " & _
             "and strReportedDeviations = 'True' " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
@@ -2176,8 +2176,8 @@ Public Class SSCPManagersTools
             '---Deviations Not Previously Report
             SQL = "select  " & _
             "count(*) as DeviationsNotReported " & _
-            "from " & DBNameSpace & ".SSCPACCs, " & DBNameSpace & ".SSCPItemMaster " & _
-            "where " & DBNameSpace & ".SSCPACCs.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+            "from AIRBRANCH.SSCPACCs, AIRBRANCH.SSCPItemMaster " & _
+            "where AIRBRANCH.SSCPACCs.strTrackingNumber = AIRBRANCH.SSCPItemMaster.strTrackingNumber " & _
             "and strEventType = '04' " & _
             "and strDeviationsUnReported = 'True' " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
@@ -2195,8 +2195,8 @@ Public Class SSCPManagersTools
 
             '---Enforcement Action Taken 
             SQL = "select count(*) as EnforcementTaken " & _
-            "from " & DBNameSpace & ".SSCP_AuditedEnforcement, " & DBNameSpace & ".SSCPItemMaster  " & _
-            "where " & DBNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
+            "from AIRBRANCH.SSCP_AuditedEnforcement, AIRBRANCH.SSCPItemMaster  " & _
+            "where AIRBRANCH.SSCP_AuditedEnforcement.strTrackingNumber = AIRBRANCH.SSCPItemMaster.strTrackingNumber  " & _
             "and strEventType = '04'  " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
@@ -2213,8 +2213,8 @@ Public Class SSCPManagersTools
 
             '    ---LON
             SQL = "select count(*) as LONTaken  " & _
-            "from " & DBNameSpace & ".SSCP_AuditedEnforcement, " & DBNameSpace & ".SSCPItemMaster  " & _
-             "where " & DBNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
+            "from AIRBRANCH.SSCP_AuditedEnforcement, AIRBRANCH.SSCPItemMaster  " & _
+             "where AIRBRANCH.SSCP_AuditedEnforcement.strTrackingNumber = AIRBRANCH.SSCPItemMaster.strTrackingNumber  " & _
             "and strEventType = '04'  " & _
             "and datLONSent is Not Null  " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
@@ -2232,8 +2232,8 @@ Public Class SSCPManagersTools
 
             '---NOV 
             SQL = "select count(*) as NOVTaken " & _
-            "from " & DBNameSpace & ".SSCP_AuditedEnforcement, " & DBNameSpace & ".SSCPItemMaster " & _
-             "where " & DBNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
+            "from AIRBRANCH.SSCP_AuditedEnforcement, AIRBRANCH.SSCPItemMaster " & _
+             "where AIRBRANCH.SSCP_AuditedEnforcement.strTrackingNumber = AIRBRANCH.SSCPItemMaster.strTrackingNumber  " & _
            "and strEventType = '04'  " & _
             "and datNFALetterSent is Not Null  " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
@@ -2251,8 +2251,8 @@ Public Class SSCPManagersTools
 
             '---CO 
             SQL = "select count(*) as COTaken " & _
-            "from " & DBNameSpace & ".SSCP_AuditedEnforcement, " & DBNameSpace & ".SSCPItemMaster  " & _
-            "where " & DBNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
+            "from AIRBRANCH.SSCP_AuditedEnforcement, AIRBRANCH.SSCPItemMaster  " & _
+            "where AIRBRANCH.SSCP_AuditedEnforcement.strTrackingNumber = AIRBRANCH.SSCPItemMaster.strTrackingNumber  " & _
             "and strEventType = '04'  " & _
             "and datCOResolved is Not Null  " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
@@ -2363,15 +2363,15 @@ Public Class SSCPManagersTools
                "(strLastName||', '||strFirstName) as AssignedEngineer " & _
                "from " & _
                "(select * " & _
-               "from " & DBNameSpace & ".VW_SSCP_CMSWARNING) TABLE1, " & _
+               "from AIRBRANCH.VW_SSCP_CMSWARNING) TABLE1, " & _
                "(select " & _
                "max(INTYEAR), NUMSSCPENGINEER, " & _
                "strairsnumber " & _
-               "from " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
+               "from AIRBRANCH.SSCPINSPECTIONSREQUIRED " & _
                "group by NUMSSCPENGINEER, STRAIRSNUMBER)TABLE2, " & _
-               "" & DBNameSpace & ".EPDUSERPROFILES " & _
+               "AIRBRANCH.EPDUSERPROFILES " & _
                "where '0413'||TABLE1.AIRSNUMBER = TABLE2.STRAIRSNUMBER (+) " & _
-               "and Table2.numSSCPEngineer = " & DBNameSpace & ".EPDUserProfiles.numuserid (+)  " & _
+               "and Table2.numSSCPEngineer = AIRBRANCH.EPDUserProfiles.numuserid (+)  " & _
                "and AIRSNumber = '" & txtCMSAIRSNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2426,15 +2426,15 @@ Public Class SSCPManagersTools
                 "(strLastName||', '||strFirstName) as AssignedEngineer " & _
                 "from " & _
                 "(select * " & _
-                "from " & DBNameSpace & ".VW_SSCP_CMSWARNING) TABLE1, " & _
+                "from AIRBRANCH.VW_SSCP_CMSWARNING) TABLE1, " & _
                 "(select " & _
                 "max(INTYEAR), NUMSSCPENGINEER, " & _
                 "strairsnumber " & _
-                "from " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
+                "from AIRBRANCH.SSCPINSPECTIONSREQUIRED " & _
                 "group by NUMSSCPENGINEER, STRAIRSNUMBER)TABLE2, " & _
-                "" & DBNameSpace & ".EPDUSERPROFILES " & _
+                "AIRBRANCH.EPDUSERPROFILES " & _
                 "where '0413'||TABLE1.AIRSNUMBER = TABLE2.STRAIRSNUMBER (+) " & _
-                "and Table2.numSSCPEngineer = " & DBNameSpace & ".EPDUserProfiles.numuserid (+)  " & _
+                "and Table2.numSSCPEngineer = AIRBRANCH.EPDUserProfiles.numuserid (+)  " & _
                 "and AIRSNumber = '" & txtCMSAIRSNumber2.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2650,12 +2650,12 @@ Public Class SSCPManagersTools
             "(select " & _
             "max(intYear), strAIRSNumber, " & _
             "numSSCPEngineer " & _
-            "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
+            "from AIRBRANCH.SSCPInspectionsRequired " & _
             EngineerList & _
             "group by strAIRSNumber, numSSCPEngineer) Table1, " & _
-            "" & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles " & _
-            "where Table1.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRsnumber " & _
-            "and Table1.numSSCPEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID "
+            "AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles " & _
+            "where Table1.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRsnumber " & _
+            "and Table1.numSSCPEngineer = AIRBRANCH.EPDUserProfiles.numUserID "
 
             dsStatisticalReport = New DataSet
             daStatisticalReport = New OracleDataAdapter(SQL, CurrentConnection)
@@ -2724,14 +2724,14 @@ Public Class SSCPManagersTools
 
             '---Total Facilities reporting ACC's
             SQL = "select " & _
-                "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,  " & _
+                "substr(AIRBRANCH.APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,  " & _
                 "strFacilityName,  " & _
                 "(strLastname||', '||strFirstName) as UserName,  " & _
                 "strTrackingNumber " & _
-                "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles,  " & _
-                "" & DBNameSpace & ".SSCPItemMaster  " & _
-                "where " & DBNameSpace & ".SSCPItemMaster.strAirsnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber  " & _
-                "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID   " & _
+                "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles,  " & _
+                "AIRBRANCH.SSCPItemMaster  " & _
+                "where AIRBRANCH.SSCPItemMaster.strAirsnumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber  " & _
+                "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = AIRBRANCH.EPDUserProfiles.numUserID   " & _
                 "and strEventType = '04'  " & _
                 "and datReceivedDate between '" & Me.DTPSearchDateStart.Text & "' and '" & Me.DTPSearchDateEnd.Text & "'  " & _
                 ResponsibleStaff & _
@@ -2806,15 +2806,15 @@ Public Class SSCPManagersTools
 
             '---Requiring resubmittals
             SQL = "select " & _
-                "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
+                "substr(AIRBRANCH.APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
                 "strFacilityName,   " & _
                 "(strLastName||', '||strFirstName) as UserName,   " & _
-                "" & DBNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
-                "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles,   " & _
-                "" & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".SSCPACCs    " & _
-                "where " & DBNameSpace & ".SSCPItemMaster.strAirsnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
-                "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID    " & _
-                "and " & DBNameSpace & ".SSCPItemMaster.strTrackingnumber = " & DBNameSpace & ".SSCPACCs.strTrackingNumber  " & _
+                "AIRBRANCH.SSCPItemMaster.strTrackingNumber  " & _
+                "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles,   " & _
+                "AIRBRANCH.SSCPItemMaster, AIRBRANCH.SSCPACCs    " & _
+                "where AIRBRANCH.SSCPItemMaster.strAirsnumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber   " & _
+                "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = AIRBRANCH.EPDUserProfiles.numUserID    " & _
+                "and AIRBRANCH.SSCPItemMaster.strTrackingnumber = AIRBRANCH.SSCPACCs.strTrackingNumber  " & _
                 "and strSubmittalNumber = '2'  " & _
                 "and strEventType = '04'   " & _
                 "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
@@ -2891,15 +2891,15 @@ Public Class SSCPManagersTools
 
             '---Submitted Late
             SQL = "select " & _
-           "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
+           "substr(AIRBRANCH.APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
            "strFacilityName,   " & _
            "(strLastName||', '||strFirstName) as UserName,   " & _
-           "" & DBNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
-           "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles,   " & _
-           "" & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".SSCPACCs    " & _
-           "where " & DBNameSpace & ".SSCPItemMaster.strAirsnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
-           "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID    " & _
-           "and " & DBNameSpace & ".SSCPItemMaster.strTrackingnumber = " & DBNameSpace & ".SSCPACCs.strTrackingNumber  " & _
+           "AIRBRANCH.SSCPItemMaster.strTrackingNumber  " & _
+           "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles,   " & _
+           "AIRBRANCH.SSCPItemMaster, AIRBRANCH.SSCPACCs    " & _
+           "where AIRBRANCH.SSCPItemMaster.strAirsnumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber   " & _
+           "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = AIRBRANCH.EPDUserProfiles.numUserID    " & _
+           "and AIRBRANCH.SSCPItemMaster.strTrackingnumber = AIRBRANCH.SSCPACCs.strTrackingNumber  " & _
            "and strPostMarkedOnTime = 'False' " & _
            "and strEventType = '04'   " & _
            "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
@@ -2977,15 +2977,15 @@ Public Class SSCPManagersTools
 
             '---Devations Reported in first Submittal
             SQL = "select " & _
-                "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
+                "substr(AIRBRANCH.APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
                 "strFacilityName,   " & _
                 "(strLastName||', '||strFirstName) as UserName,   " & _
-                "" & DBNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
-                "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles,   " & _
-                "" & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".SSCPACCs    " & _
-                "where " & DBNameSpace & ".SSCPItemMaster.strAirsnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
-                "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID    " & _
-                "and " & DBNameSpace & ".SSCPItemMaster.strTrackingnumber = " & DBNameSpace & ".SSCPACCs.strTrackingNumber  " & _
+                "AIRBRANCH.SSCPItemMaster.strTrackingNumber  " & _
+                "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles,   " & _
+                "AIRBRANCH.SSCPItemMaster, AIRBRANCH.SSCPACCs    " & _
+                "where AIRBRANCH.SSCPItemMaster.strAirsnumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber   " & _
+                "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = AIRBRANCH.EPDUserProfiles.numUserID    " & _
+                "and AIRBRANCH.SSCPItemMaster.strTrackingnumber = AIRBRANCH.SSCPACCs.strTrackingNumber  " & _
                 "and strSubmittalNumber = '1'  " & _
                 "and strEventType = '04'   " & _
                 "and strReportedDeviations = 'True' " & _
@@ -3065,15 +3065,15 @@ Public Class SSCPManagersTools
             '---No Deviations Reported in first Submittal
             '   ---Correctly 
             SQL = "select " & _
-                "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
+                "substr(AIRBRANCH.APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
                 "strFacilityName,   " & _
                 "(strLastName||', '||strFirstName) as UserName,   " & _
-                "" & DBNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
-                "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles,   " & _
-                "" & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".SSCPACCsHistory    " & _
-                "where " & DBNameSpace & ".SSCPItemMaster.strAirsnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
-                "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID    " & _
-                "and " & DBNameSpace & ".SSCPItemMaster.strTrackingnumber = " & DBNameSpace & ".SSCPACCsHistory.strTrackingNumber  " & _
+                "AIRBRANCH.SSCPItemMaster.strTrackingNumber  " & _
+                "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles,   " & _
+                "AIRBRANCH.SSCPItemMaster, AIRBRANCH.SSCPACCsHistory    " & _
+                "where AIRBRANCH.SSCPItemMaster.strAirsnumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber   " & _
+                "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = AIRBRANCH.EPDUserProfiles.numUserID    " & _
+                "and AIRBRANCH.SSCPItemMaster.strTrackingnumber = AIRBRANCH.SSCPACCsHistory.strTrackingNumber  " & _
                 "and strSubmittalNumber = '1'  " & _
                 "and strEventType = '04'   " & _
                 "and strReportedDeviations = 'False' " & _
@@ -3155,15 +3155,15 @@ Public Class SSCPManagersTools
             '---No Deviations Reported in first Submittal
             '   ---Incorrectly
             SQL = "select " & _
-                "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
+                "substr(AIRBRANCH.APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
                 "strFacilityName,   " & _
                 "(strLastName||', '||strFirstName) as UserName,   " & _
-                "" & DBNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
-                "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles,   " & _
-                "" & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".SSCPACCsHistory    " & _
-                "where " & DBNameSpace & ".SSCPItemMaster.strAirsnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
-                "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID    " & _
-                "and " & DBNameSpace & ".SSCPItemMaster.strTrackingnumber = " & DBNameSpace & ".SSCPACCsHistory.strTrackingNumber  " & _
+                "AIRBRANCH.SSCPItemMaster.strTrackingNumber  " & _
+                "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles,   " & _
+                "AIRBRANCH.SSCPItemMaster, AIRBRANCH.SSCPACCsHistory    " & _
+                "where AIRBRANCH.SSCPItemMaster.strAirsnumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber   " & _
+                "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = AIRBRANCH.EPDUserProfiles.numUserID    " & _
+                "and AIRBRANCH.SSCPItemMaster.strTrackingnumber = AIRBRANCH.SSCPACCsHistory.strTrackingNumber  " & _
                 "and strSubmittalNumber = '1'  " & _
                 "and strEventType = '04'   " & _
                 "and strReportedDeviations = 'False' " & _
@@ -3243,15 +3243,15 @@ Public Class SSCPManagersTools
 
             '---Deviations Reported in Final Report 
             SQL = "select " & _
-            "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
+            "substr(AIRBRANCH.APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
             "strFacilityName,   " & _
             "(strLastname||', '||strFirstName) as UserName,   " & _
-            "" & DBNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
-            "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles,   " & _
-            "" & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".SSCPACCs    " & _
-            "where " & DBNameSpace & ".SSCPItemMaster.strAirsnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
-            "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID    " & _
-            "and " & DBNameSpace & ".SSCPItemMaster.strTrackingnumber = " & DBNameSpace & ".SSCPACCs.strTrackingNumber  " & _
+            "AIRBRANCH.SSCPItemMaster.strTrackingNumber  " & _
+            "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles,   " & _
+            "AIRBRANCH.SSCPItemMaster, AIRBRANCH.SSCPACCs    " & _
+            "where AIRBRANCH.SSCPItemMaster.strAirsnumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber   " & _
+            "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = AIRBRANCH.EPDUserProfiles.numUserID    " & _
+            "and AIRBRANCH.SSCPItemMaster.strTrackingnumber = AIRBRANCH.SSCPACCs.strTrackingNumber  " & _
             "and strEventType = '04' " & _
             "and strReportedDeviations = 'True' " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
@@ -3329,15 +3329,15 @@ Public Class SSCPManagersTools
 
             '---Deviations Not Previously Report
             SQL = "select " & _
-            "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
+            "substr(AIRBRANCH.APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
             "strFacilityName,   " & _
             "(strLastName||', '||strFirstName) as UserName,   " & _
-            "" & DBNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
-            "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles,   " & _
-            "" & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".SSCPACCs    " & _
-            "where " & DBNameSpace & ".SSCPItemMaster.strAirsnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
-            "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID    " & _
-            "and " & DBNameSpace & ".SSCPItemMaster.strTrackingnumber = " & DBNameSpace & ".SSCPACCs.strTrackingNumber  " & _
+            "AIRBRANCH.SSCPItemMaster.strTrackingNumber  " & _
+            "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles,   " & _
+            "AIRBRANCH.SSCPItemMaster, AIRBRANCH.SSCPACCs    " & _
+            "where AIRBRANCH.SSCPItemMaster.strAirsnumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber   " & _
+            "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = AIRBRANCH.EPDUserProfiles.numUserID    " & _
+            "and AIRBRANCH.SSCPItemMaster.strTrackingnumber = AIRBRANCH.SSCPACCs.strTrackingNumber  " & _
             "and strEventType = '04'   " & _
             "and strDeviationsUnReported = 'True' " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
@@ -3414,18 +3414,18 @@ Public Class SSCPManagersTools
 
             '---Enforcement Action Taken 
             SQL = "select " & _
-                "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
+                "substr(AIRBRANCH.APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
                 "strFacilityName,   " & _
                 "(strLastName||', '||strFirstName) as UserName,   " & _
-                "" & DBNameSpace & ".SSCPItemMaster.strTrackingNumber,  " & _
-                "" & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber  " & _
-                "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles,   " & _
-                "" & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".SSCPACCs,  " & _
-                "" & DBNameSpace & ".SSCP_AuditedEnforcement   " & _
-                "where " & DBNameSpace & ".SSCPItemMaster.strAirsnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
-                "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID    " & _
-                "and " & DBNameSpace & ".SSCPItemMaster.strTrackingnumber = " & DBNameSpace & ".SSCPACCs.strTrackingNumber  " & _
-                "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber  " & _
+                "AIRBRANCH.SSCPItemMaster.strTrackingNumber,  " & _
+                "AIRBRANCH.SSCP_AuditedEnforcement.strEnforcementNumber  " & _
+                "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles,   " & _
+                "AIRBRANCH.SSCPItemMaster, AIRBRANCH.SSCPACCs,  " & _
+                "AIRBRANCH.SSCP_AuditedEnforcement   " & _
+                "where AIRBRANCH.SSCPItemMaster.strAirsnumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber   " & _
+                "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = AIRBRANCH.EPDUserProfiles.numUserID    " & _
+                "and AIRBRANCH.SSCPItemMaster.strTrackingnumber = AIRBRANCH.SSCPACCs.strTrackingNumber  " & _
+                "and AIRBRANCH.SSCPItemMaster.strTrackingNumber = AIRBRANCH.SSCP_AuditedEnforcement.strTrackingNumber  " & _
                 "and strEventType = '04'   " & _
                 "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
                 ResponsibleStaff & _
@@ -3503,17 +3503,17 @@ Public Class SSCPManagersTools
 
             '---CO 
             SQL = "select " & _
-            "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
+            "substr(AIRBRANCH.APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
             "strFacilityName,   " & _
             "(strLastName||', '||strFirstName) as UserName,   " & _
-            "" & DBNameSpace & ".SSCPItemMaster.strTrackingNumber,  " & _
-            "" & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber  " & _
-            "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles,   " & _
-            "" & DBNameSpace & ".SSCPItemMaster,  " & _
-            "" & DBNameSpace & ".SSCP_AuditedEnforcement   " & _
-            "where " & DBNameSpace & ".SSCPItemMaster.strAirsnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
-            "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID    " & _
-            "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber  " & _
+            "AIRBRANCH.SSCPItemMaster.strTrackingNumber,  " & _
+            "AIRBRANCH.SSCP_AuditedEnforcement.strEnforcementNumber  " & _
+            "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles,   " & _
+            "AIRBRANCH.SSCPItemMaster,  " & _
+            "AIRBRANCH.SSCP_AuditedEnforcement   " & _
+            "where AIRBRANCH.SSCPItemMaster.strAirsnumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber   " & _
+            "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = AIRBRANCH.EPDUserProfiles.numUserID    " & _
+            "and AIRBRANCH.SSCPItemMaster.strTrackingNumber = AIRBRANCH.SSCP_AuditedEnforcement.strTrackingNumber  " & _
             "and strEventType = '04'   " & _
             "and datCOResolved is Not Null  " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
@@ -3590,17 +3590,17 @@ Public Class SSCPManagersTools
 
             '---NOV 
             SQL = "select " & _
-            "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
+            "substr(AIRBRANCH.APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
             "strFacilityName,   " & _
             "(strLastName||', '||strFirstName) as UserName,   " & _
-            "" & DBNameSpace & ".SSCPItemMaster.strTrackingNumber,  " & _
-            "" & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber  " & _
-            "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles,   " & _
-            "" & DBNameSpace & ".SSCPItemMaster,  " & _
-            "" & DBNameSpace & ".SSCP_AuditedEnforcement   " & _
-            "where " & DBNameSpace & ".SSCPItemMaster.strAirsnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
-            "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID    " & _
-             "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber  " & _
+            "AIRBRANCH.SSCPItemMaster.strTrackingNumber,  " & _
+            "AIRBRANCH.SSCP_AuditedEnforcement.strEnforcementNumber  " & _
+            "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles,   " & _
+            "AIRBRANCH.SSCPItemMaster,  " & _
+            "AIRBRANCH.SSCP_AuditedEnforcement   " & _
+            "where AIRBRANCH.SSCPItemMaster.strAirsnumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber   " & _
+            "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = AIRBRANCH.EPDUserProfiles.numUserID    " & _
+             "and AIRBRANCH.SSCPItemMaster.strTrackingNumber = AIRBRANCH.SSCP_AuditedEnforcement.strTrackingNumber  " & _
              "and strEventType = '04'   " & _
              "and datNFALetterSent is Not Null  " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
@@ -3677,17 +3677,17 @@ Public Class SSCPManagersTools
 
             '    ---LON
             SQL = "select " & _
-            "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
+            "substr(AIRBRANCH.APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
             "strFacilityName,   " & _
             "(strLastName||', '||strFirstName) as UserName,   " & _
-            "" & DBNameSpace & ".SSCPItemMaster.strTrackingNumber,  " & _
-            "" & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber  " & _
-            "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles,   " & _
-            "" & DBNameSpace & ".SSCPItemMaster,   " & _
-            "" & DBNameSpace & ".SSCP_AuditedEnforcement   " & _
-            "where " & DBNameSpace & ".SSCPItemMaster.strAirsnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
-            "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID    " & _
-            "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber  " & _
+            "AIRBRANCH.SSCPItemMaster.strTrackingNumber,  " & _
+            "AIRBRANCH.SSCP_AuditedEnforcement.strEnforcementNumber  " & _
+            "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles,   " & _
+            "AIRBRANCH.SSCPItemMaster,   " & _
+            "AIRBRANCH.SSCP_AuditedEnforcement   " & _
+            "where AIRBRANCH.SSCPItemMaster.strAirsnumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber   " & _
+            "and AIRBRANCH.SSCPItemMaster.strResponsibleStaff = AIRBRANCH.EPDUserProfiles.numUserID    " & _
+            "and AIRBRANCH.SSCPItemMaster.strTrackingNumber = AIRBRANCH.SSCP_AuditedEnforcement.strTrackingNumber  " & _
              "and strEventType = '04'   " & _
             "and datLONSent is Not Null  " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
@@ -3857,29 +3857,29 @@ Public Class SSCPManagersTools
             "'$'||to_number((CoPenalty + Stipulated), '99999999.99') as TotalPen  " & _
             "from  " & _
             "(select  " & _
-            "sum(" & DBNameSpace & ".SSCP_AuditedEnforcement.strCOPenaltyAmount) as COPenalty " & _
-            "from " & DBNameSpace & ".SSCP_AuditedEnforcement  " & _
-            "where " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtEnforcementAIRSNumber.Text & "') COPEn,  " & _
+            "sum(AIRBRANCH.SSCP_AuditedEnforcement.strCOPenaltyAmount) as COPenalty " & _
+            "from AIRBRANCH.SSCP_AuditedEnforcement  " & _
+            "where AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtEnforcementAIRSNumber.Text & "') COPEn,  " & _
             "(select  " & _
-            "sum(" & DBNameSpace & ".SSCPEnforcementStipulated.strStipulatedPenalty) as Stipulated " & _
-            "from " & DBNameSpace & ".SSCPEnforcementStipulated, " & DBNameSpace & ".SSCP_AuditedEnforcement  " & _
-            "where " & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber = " & DBNameSpace & ".SSCPEnforcementStipulated.strEnforcementNumber  " & _
-            "and " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtEnforcementAIRSNumber.Text & "') StipPen "
+            "sum(AIRBRANCH.SSCPEnforcementStipulated.strStipulatedPenalty) as Stipulated " & _
+            "from AIRBRANCH.SSCPEnforcementStipulated, AIRBRANCH.SSCP_AuditedEnforcement  " & _
+            "where AIRBRANCH.SSCP_AuditedEnforcement.strEnforcementNumber = AIRBRANCH.SSCPEnforcementStipulated.strEnforcementNumber  " & _
+            "and AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtEnforcementAIRSNumber.Text & "') StipPen "
 
             If chbUseEnforcementDateRange.Checked = True Then
                 SQL = "select " & _
                 "'$'||to_number((CoPenalty + Stipulated), '99999999.99') as TotalPen  " & _
                 "from  " & _
                 "(select  " & _
-                "sum(" & DBNameSpace & ".SSCP_AuditedEnforcement.strCOPenaltyAmount) as COPenalty " & _
-                "from " & DBNameSpace & ".SSCP_AuditedEnforcement  " & _
-                "where  " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtEnforcementAIRSNumber.Text & "' " & _
+                "sum(AIRBRANCH.SSCP_AuditedEnforcement.strCOPenaltyAmount) as COPenalty " & _
+                "from AIRBRANCH.SSCP_AuditedEnforcement  " & _
+                "where  AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtEnforcementAIRSNumber.Text & "' " & _
                 "and datDiscoveryDate between '" & dtpEnforcementStartDate.Text & "' and '" & dtpEnforcementEndDate.Text & "') COPEn,  " & _
                 "(select  " & _
-                "sum(" & DBNameSpace & ".SSCPEnforcementStipulated.strStipulatedPenalty) as Stipulated " & _
-                "from " & DBNameSpace & ".SSCPEnforcementStipulated, " & DBNameSpace & ".SSCP_AuditedEnforcement  " & _
-                "where " & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber = " & DBNameSpace & ".SSCPEnforcementStipulated.strEnforcementNumber  " & _
-                 "and " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtEnforcementAIRSNumber.Text & "' " & _
+                "sum(AIRBRANCH.SSCPEnforcementStipulated.strStipulatedPenalty) as Stipulated " & _
+                "from AIRBRANCH.SSCPEnforcementStipulated, AIRBRANCH.SSCP_AuditedEnforcement  " & _
+                "where AIRBRANCH.SSCP_AuditedEnforcement.strEnforcementNumber = AIRBRANCH.SSCPEnforcementStipulated.strEnforcementNumber  " & _
+                 "and AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtEnforcementAIRSNumber.Text & "' " & _
                 "and datDiscoveryDate between '" & dtpEnforcementStartDate.Text & "' and '" & dtpEnforcementEndDate.Text & "') StipPen "
             End If
 
@@ -3918,30 +3918,30 @@ Public Class SSCPManagersTools
                 SQL = "select " & _
                 "strFacilityName, " & _
                 "substr(SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " & _
-                "" & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber, " & _
-                "'$'||to_number(" & DBNameSpace & ".SSCP_AuditedEnforcement.strCOPenaltyAmount, '99999999.99') as COPenalty, " & _
-                "'$'||to_number(" & DBNameSpace & ".SSCPEnforcementStipulated.strStipulatedPenalty, '99999999.99') as StipulatedPenalty, " & _
+                "AIRBRANCH.SSCP_AuditedEnforcement.strEnforcementNumber, " & _
+                "'$'||to_number(AIRBRANCH.SSCP_AuditedEnforcement.strCOPenaltyAmount, '99999999.99') as COPenalty, " & _
+                "'$'||to_number(AIRBRANCH.SSCPEnforcementStipulated.strStipulatedPenalty, '99999999.99') as StipulatedPenalty, " & _
                 "to_char(datDiscoveryDate, 'dd-Mon-yyyy') as datDiscoveryDate " & _
-                "from " & DBNameSpace & ".SSCP_AuditedEnforcement, " & _
-                "" & DBNameSpace & ".SSCPEnforcementStipulated, " & DBNameSpace & ".APBFacilityInformation  " & _
-                "where " & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber = " & DBNameSpace & ".SSCPEnforcementStipulated.strEnforcementNumber " & _
-                "and " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                "and " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtEnforcementAIRSNumber.Text & "' "
+                "from AIRBRANCH.SSCP_AuditedEnforcement, " & _
+                "AIRBRANCH.SSCPEnforcementStipulated, AIRBRANCH.APBFacilityInformation  " & _
+                "where AIRBRANCH.SSCP_AuditedEnforcement.strEnforcementNumber = AIRBRANCH.SSCPEnforcementStipulated.strEnforcementNumber " & _
+                "and AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " & _
+                "and AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtEnforcementAIRSNumber.Text & "' "
 
                 If chbUseEnforcementDateRange.Checked = True Then
                     SQL = "select " & _
                     "strFacilityName, " & _
                     "substr(SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " & _
-                    "" & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber, " & _
-                    "'$'||to_number(" & DBNameSpace & ".SSCP_AuditedEnforcement.strCOPenaltyAmount, '99999999.99') as COPenalty, " & _
-                    "'$'||to_number(" & DBNameSpace & ".SSCPEnforcementStipulated.strStipulatedPenalty, '99999999.99') as StipulatedPenalty, " & _
+                    "AIRBRANCH.SSCP_AuditedEnforcement.strEnforcementNumber, " & _
+                    "'$'||to_number(AIRBRANCH.SSCP_AuditedEnforcement.strCOPenaltyAmount, '99999999.99') as COPenalty, " & _
+                    "'$'||to_number(AIRBRANCH.SSCPEnforcementStipulated.strStipulatedPenalty, '99999999.99') as StipulatedPenalty, " & _
                     "to_char(datDiscoveryDate, 'dd-Mon-yyyy') as datDiscoveryDate " & _
-                    "from " & DBNameSpace & ".SSCP_AuditedEnforcement, " & _
-                    "" & DBNameSpace & ".SSCPEnforcementStipulated, " & DBNameSpace & ".APBFacilityInformation " & _
-                    "where  " & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber = " & DBNameSpace & ".SSCPEnforcementStipulated.strEnforcementNumber " & _
-                    "and " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                    "from AIRBRANCH.SSCP_AuditedEnforcement, " & _
+                    "AIRBRANCH.SSCPEnforcementStipulated, AIRBRANCH.APBFacilityInformation " & _
+                    "where  AIRBRANCH.SSCP_AuditedEnforcement.strEnforcementNumber = AIRBRANCH.SSCPEnforcementStipulated.strEnforcementNumber " & _
+                    "and AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " & _
                     "and datDiscoveryDate between '" & dtpEnforcementStartDate.Text & "' and '" & dtpEnforcementEndDate.Text & "' " & _
-                    "and " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtEnforcementAIRSNumber.Text & "' "
+                    "and AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtEnforcementAIRSNumber.Text & "' "
                 End If
 
                 dsEnforcementPenalties = New DataSet
@@ -4098,7 +4098,7 @@ Public Class SSCPManagersTools
             If txtRecordNumber.Text <> "" And IsNumeric(txtRecordNumber.Text) Then
                 SQL = "Select " & _
                 "strTrackingNumber " & _
-                "from " & DBNameSpace & ".SSCPItemMaster " & _
+                "from AIRBRANCH.SSCPItemMaster " & _
                 "where strTrackingNumber = '" & txtRecordNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -4199,14 +4199,14 @@ Public Class SSCPManagersTools
             End If
 
             SQL = "select " & _
-            "distinct(substr(" & DBNameSpace & ".APBAirProgramPollutants.strAIRSNumber, 5)) as AIRSNumber, " & _
+            "distinct(substr(AIRBRANCH.APBAirProgramPollutants.strAIRSNumber, 5)) as AIRSNumber, " & _
             "strFacilityName, strPollutantDescription, " & _
             "(strComplianceStatus||' - '||strComplianceDesc) as ComplianceStatus " & _
-            "from " & DBNameSpace & ".APBAirProgramPollutants, " & DBNameSpace & ".APBFacilityInformation, " & _
-            "" & DBNameSpace & ".LookUpPollutants, " & DBNameSpace & ".LookUpComplianceStatus  " & _
-            "where " & DBNameSpace & ".APBAirProgramPollutants.strAIRSnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
-            "and " & DBNameSpace & ".APBAirProgramPollutants.strPollutantKey = " & DBNameSpace & ".LookUpPollutants.strPollutantCode " & _
-            "and " & DBNameSpace & ".APBAirProgramPollutants.strComplianceStatus = " & DBNameSpace & ".LookupComplianceStatus.strComplianceCode  " & _
+            "from AIRBRANCH.APBAirProgramPollutants, AIRBRANCH.APBFacilityInformation, " & _
+            "AIRBRANCH.LookUpPollutants, AIRBRANCH.LookUpComplianceStatus  " & _
+            "where AIRBRANCH.APBAirProgramPollutants.strAIRSnumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " & _
+            "and AIRBRANCH.APBAirProgramPollutants.strPollutantKey = AIRBRANCH.LookUpPollutants.strPollutantCode " & _
+            "and AIRBRANCH.APBAirProgramPollutants.strComplianceStatus = AIRBRANCH.LookupComplianceStatus.strComplianceCode  " & _
                ComplianceWhere
 
             ds = New DataSet
@@ -4253,7 +4253,7 @@ Public Class SSCPManagersTools
 
             If chbIgnoreFiscalYear.Checked = True Then
                 SQL = "Select " & _
-                "substr(" & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment.strAIRSNumber, 5) as AIRSNumber, strFacilityName, " & _
+                "substr(AIRBRANCH.VW_SSCP_MT_FacilityAssignment.strAIRSNumber, 5) as AIRSNumber, strFacilityName, " & _
                 "strFacilityCity, " & _
                 "strCMSMember, " & _
                 "strClass, strOperationalStatus, " & _
@@ -4263,23 +4263,23 @@ Public Class SSCPManagersTools
                 "strUnitDesc," & _
                 " strDistrictResponsible, " & _
                 "strCountyName " & _
-                "from " & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment, " & _
-                "" & DBNameSpace & ".EPDUserProfiles, " & _
-                " " & DBNameSpace & ".SSCPInspectionsRequired, " & _
-                "" & DBNameSpace & ".LookUpEPDUnits, " & _
+                "from AIRBRANCH.VW_SSCP_MT_FacilityAssignment, " & _
+                "AIRBRANCH.EPDUserProfiles, " & _
+                " AIRBRANCH.SSCPInspectionsRequired, " & _
+                "AIRBRANCH.LookUpEPDUnits, " & _
                 "(select " & _
-                "max(intYear) as MaxYear, " & DBNameSpace & ".SSCPInspectionsRequired.strairsnumber " & _
-                "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
-                "group by " & DBNameSpace & ".SSCPInspectionsRequired.strAIRSNumber) MaxResults " & _
-              " where " & DBNameSpace & ".SSCPInspectionsRequired.numSSCPEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID (+) " & _
-              "and " & DBNameSpace & ".SSCPInspectionsRequired.numSSCPUnit = " & DBNameSpace & ".LookUpEPDunits.numUnitCode (+) " & _
-              " and " & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment.strairsnumber = " & DBNameSpace & ".sscpinspectionsrequired.strairsnumber (+) " & _
-              "and " & DBNameSpace & ".SSCPInspectionsRequired.strAIRSNumber = MaxResults.strAIRSNumber " & _
-              "and " & DBNameSpace & ".SSCPInspectionsRequired.intYear = MaxResults.maxYear "
+                "max(intYear) as MaxYear, AIRBRANCH.SSCPInspectionsRequired.strairsnumber " & _
+                "from AIRBRANCH.SSCPInspectionsRequired " & _
+                "group by AIRBRANCH.SSCPInspectionsRequired.strAIRSNumber) MaxResults " & _
+              " where AIRBRANCH.SSCPInspectionsRequired.numSSCPEngineer = AIRBRANCH.EPDUserProfiles.numUserID (+) " & _
+              "and AIRBRANCH.SSCPInspectionsRequired.numSSCPUnit = AIRBRANCH.LookUpEPDunits.numUnitCode (+) " & _
+              " and AIRBRANCH.VW_SSCP_MT_FacilityAssignment.strairsnumber = AIRBRANCH.sscpinspectionsrequired.strairsnumber (+) " & _
+              "and AIRBRANCH.SSCPInspectionsRequired.strAIRSNumber = MaxResults.strAIRSNumber " & _
+              "and AIRBRANCH.SSCPInspectionsRequired.intYear = MaxResults.maxYear "
 
             Else
                 SQL = "Select " & _
-              "substr(" & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment.strAIRSNumber, 5) as AIRSNumber, strFacilityName, " & _
+              "substr(AIRBRANCH.VW_SSCP_MT_FacilityAssignment.strAIRSNumber, 5) as AIRSNumber, strFacilityName, " & _
               "strFacilityCity, " & _
               "strCMSMember, " & _
               " strClass, strOperationalStatus, " & _
@@ -4299,14 +4299,14 @@ Public Class SSCPManagersTools
               "  strUnitDesc," & _
               "   strDistrictResponsible, " & _
               "  strCountyName " & _
-              " from " & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment, " & _
-              "" & DBNameSpace & ".EPDUserProfiles, " & _
-              " " & DBNameSpace & ".SSCPInspectionsRequired, " & _
-              "" & DBNameSpace & ".LookUpEPDUnits " & _
-              " where " & DBNameSpace & ".SSCPInspectionsRequired.numSSCPEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID (+) " & _
-              "and " & DBNameSpace & ".SSCPInspectionsRequired.numSSCPUnit = " & DBNameSpace & ".LookUpEPDunits.numUnitCode (+) " & _
-              " and " & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment.strairsnumber = " & DBNameSpace & ".sscpinspectionsrequired.strairsnumber (+) " & _
-              " and " & DBNameSpace & ".sscpinspectionsrequired.intYear = '" & cboFiscalYear.Text & "' "
+              " from AIRBRANCH.VW_SSCP_MT_FacilityAssignment, " & _
+              "AIRBRANCH.EPDUserProfiles, " & _
+              " AIRBRANCH.SSCPInspectionsRequired, " & _
+              "AIRBRANCH.LookUpEPDUnits " & _
+              " where AIRBRANCH.SSCPInspectionsRequired.numSSCPEngineer = AIRBRANCH.EPDUserProfiles.numUserID (+) " & _
+              "and AIRBRANCH.SSCPInspectionsRequired.numSSCPUnit = AIRBRANCH.LookUpEPDunits.numUnitCode (+) " & _
+              " and AIRBRANCH.VW_SSCP_MT_FacilityAssignment.strairsnumber = AIRBRANCH.sscpinspectionsrequired.strairsnumber (+) " & _
+              " and AIRBRANCH.sscpinspectionsrequired.intYear = '" & cboFiscalYear.Text & "' "
             End If
 
             SQLLine1 = " "
@@ -4317,7 +4317,7 @@ Public Class SSCPManagersTools
                 If cboFacSearch1.Items.Contains(cboFacSearch1.Text) And cboFilterEngineer1.Text <> "" Then
                     Select Case cboFacSearch1.Text
                         Case "AIRS Number"
-                            SQLLine1 = " upper(" & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment.strAIRSNumber) like '%" & Replace(txtFacSearch1.Text.ToUpper, "'", "''") & "%' "
+                            SQLLine1 = " upper(AIRBRANCH.VW_SSCP_MT_FacilityAssignment.strAIRSNumber) like '%" & Replace(txtFacSearch1.Text.ToUpper, "'", "''") & "%' "
                         Case "City"
                             SQLLine1 = " upper(strFacilityCity) like '%" & Replace(txtFacSearch1.Text.ToUpper, "'", "''") & "%' "
                         Case "Classification"
@@ -4357,7 +4357,7 @@ Public Class SSCPManagersTools
                 If cboFacSearch2.Items.Contains(cboFacSearch2.Text) And cboFilterEngineer2.Text <> "" Then
                     Select Case cboFacSearch2.Text
                         Case "AIRS Number"
-                            SQLLine2 = " upper(" & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment.strAIRSNumber) like '%" & Replace(txtFacSearch2.Text.ToUpper, "'", "''") & "%' "
+                            SQLLine2 = " upper(AIRBRANCH.VW_SSCP_MT_FacilityAssignment.strAIRSNumber) like '%" & Replace(txtFacSearch2.Text.ToUpper, "'", "''") & "%' "
                         Case "City"
                             SQLLine2 = " upper(strFacilityCity) like '%" & Replace(txtFacSearch2.Text.ToUpper, "'", "''") & "%' "
                         Case "Classification"
@@ -4493,7 +4493,7 @@ Public Class SSCPManagersTools
                 SQLLine = ""
 
                 Do While TotalText <> ""
-                    SQLLine = SQLLine & " " & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment.strairsnumber = '0413" & Mid(TotalText, 1, 8) & "' or "
+                    SQLLine = SQLLine & " AIRBRANCH.VW_SSCP_MT_FacilityAssignment.strairsnumber = '0413" & Mid(TotalText, 1, 8) & "' or "
                     If TotalText.Length > 10 Then
                         TotalText = Microsoft.VisualBasic.Right(TotalText, TotalText.Length - 10)
                     Else
@@ -5034,7 +5034,7 @@ Public Class SSCPManagersTools
                 Eng = cboSSCPEngineer.SelectedValue
 
                 SQL = "Select strAIRSNumber " & _
-                "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
+                "from AIRBRANCH.SSCPInspectionsRequired " & _
                 "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                 "and intYear = '" & cboFiscalYear.Text & "' "
 
@@ -5047,18 +5047,18 @@ Public Class SSCPManagersTools
                 dr.Close()
 
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".SSCPInspectionsRequired set " & _
+                    SQL = "Update AIRBRANCH.SSCPInspectionsRequired set " & _
                     "numSSCPEngineer = '" & Eng & "', " & _
                     "strAssigningManager = '" & UserGCode & "', " & _
                     "DATASSIGNINGDATE = '" & OracleDate & "' " & _
                     "where strAIRSNumber = '0413" & AIRSNum & "' " & _
-                    "and " & DBNameSpace & ".sscpinspectionsrequired.intYear = '" & cboFiscalYear.Text & "' "
+                    "and AIRBRANCH.sscpinspectionsrequired.intYear = '" & cboFiscalYear.Text & "' "
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".SSCPInspectionsRequired " & _
+                    SQL = "Insert into AIRBRANCH.SSCPInspectionsRequired " & _
                     "(numKey, strAIRSNumber, intYear, " & _
                     "numSSCPEngineer, strAssigningManager, DATASSIGNINGDATE) " & _
                     "values " & _
-                    "((select max(numKey) + 1 from " & DBNameSpace & ".SSCPInspectionsRequired), " & _
+                    "((select max(numKey) + 1 from AIRBRANCH.SSCPInspectionsRequired), " & _
                     "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " & _
                     "'" & Eng & "', '" & UserGCode & "', " & _
                     "'" & OracleDate & "') "
@@ -5096,7 +5096,7 @@ Public Class SSCPManagersTools
                 AIRSNum = dgvSelectedFacilityList(0, i).Value
 
                 SQL = "select strAIRSNumber " & _
-                "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
+                "from AIRBRANCH.SSCPInspectionsRequired " & _
                 "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                 "and intYear = '" & cboFiscalYear.Text & "' "
 
@@ -5108,18 +5108,18 @@ Public Class SSCPManagersTools
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".SSCPInspectionsRequired set " & _
+                    SQL = "Update AIRBRANCH.SSCPInspectionsRequired set " & _
                     "numSSCPUnit = '" & cboSSCPUnit2.SelectedValue & "' , " & _
                     "strAssigningManager = '" & UserGCode & "', " & _
                     "DATASSIGNINGDATE = '" & OracleDate & "' " & _
                     "where strAIRSNumber = '0413" & AIRSNum & "'" & _
                     "and intYear = '" & cboFiscalYear.Text & "' "
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".SSCPInspectionsRequired " & _
+                    SQL = "Insert into AIRBRANCH.SSCPInspectionsRequired " & _
                     "(numKey, strAIRSNumber, intYear, " & _
                     "numSSCPUnit, strAssigningManager, DATASSIGNINGDATE) " & _
                     "values " & _
-                    "((select max(numKey) + 1 from " & DBNameSpace & ".SSCPInspectionsRequired), " & _
+                    "((select max(numKey) + 1 from AIRBRANCH.SSCPInspectionsRequired), " & _
                     "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " & _
                     "'" & cboSSCPUnit2.SelectedValue & "', " & _
                     "'" & UserGCode & "', " & _
@@ -5164,7 +5164,7 @@ Public Class SSCPManagersTools
                 AIRSNum = dgvSelectedFacilityList(0, i).Value
 
                 SQL = "Select strAIRSNumber " & _
-                "from " & DBNameSpace & ".SSCPDistrictResponsible " & _
+                "from AIRBRANCH.SSCPDistrictResponsible " & _
                 "where strAIRSNumber = '0413" & AIRSNum & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -5175,13 +5175,13 @@ Public Class SSCPManagersTools
                 dr.Close()
 
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".SSCPDistrictResponsible set " & _
+                    SQL = "Update AIRBRANCH.SSCPDistrictResponsible set " & _
                     "strDistrictResponsible = '" & DistResp & "', " & _
                     "strAssigningManager = '" & UserGCode & "', " & _
                     "datAssigningDate = '" & OracleDate & "' " & _
                     "where strAIRSNumber = '0413" & AIRSNum & "' "
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".SSCPDistrictResponsible " & _
+                    SQL = "Insert into AIRBRANCH.SSCPDistrictResponsible " & _
                     "values " & _
                     "('0413" & AIRSNum & ", '" & DistResp & "', " & _
                     "'" & UserGCode & "', '" & OracleDate & "') "
@@ -5226,7 +5226,7 @@ Public Class SSCPManagersTools
                 AIRSNum = dgvSelectedFacilityList(0, i).Value
 
                 SQL = "Select strAIRSNumber " & _
-                "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
+                "from AIRBRANCH.SSCPInspectionsRequired " & _
                 "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                 "and intYear = '" & cboFiscalYear.Text & "' "
 
@@ -5238,18 +5238,18 @@ Public Class SSCPManagersTools
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".SSCPInspectionsRequired set " & _
+                    SQL = "Update AIRBRANCH.SSCPInspectionsRequired set " & _
                     "strInspectionRequired = '" & InspectionRequired & "', " & _
                     "strAssigningManager = '" & UserGCode & "', " & _
                     "datAssigningDate = '" & OracleDate & "' " & _
                     "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                     "and intYear = '" & cboFiscalYear.Text & "' "
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".SSCPInspectionsRequired " & _
+                    SQL = "Insert into AIRBRANCH.SSCPInspectionsRequired " & _
                     "(numKey, strAIRSNumber, intYear, " & _
                     "strInspectionRequired, strAssigningManager, datAssigningDate) " & _
                     "values " & _
-                    "((select max(numKey) + 1 from " & DBNameSpace & ".SSCPInspectionsRequired), " & _
+                    "((select max(numKey) + 1 from AIRBRANCH.SSCPInspectionsRequired), " & _
                     "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " & _
                     "'" & InspectionRequired & "', " & _
                     "'" & UserGCode & "', '" & OracleDate & "') "
@@ -5296,7 +5296,7 @@ Public Class SSCPManagersTools
                 AIRSNum = dgvSelectedFacilityList(0, i).Value
 
                 SQL = "Select strAIRSNumber " & _
-                "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
+                "from AIRBRANCH.SSCPInspectionsRequired " & _
                 "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                 "and intYear = '" & cboFiscalYear.Text & "' "
 
@@ -5308,18 +5308,18 @@ Public Class SSCPManagersTools
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".SSCPInspectionsRequired set " & _
+                    SQL = "Update AIRBRANCH.SSCPInspectionsRequired set " & _
                     "strFCERequired = '" & FCERequired & "', " & _
                     "strAssigningManager = '" & UserGCode & "', " & _
                     "datAssigningDate = '" & OracleDate & "' " & _
                     "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                     "and intYear = '" & cboFiscalYear.Text & "' "
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".SSCPInspectionsRequired " & _
+                    SQL = "Insert into AIRBRANCH.SSCPInspectionsRequired " & _
                     "(numKey, strAIRSNumber, intYear, " & _
                     "strFCERequired, strAssigningManager, datAssigningDate) " & _
                    "values " & _
-                   "((select max(numKey) + 1 from " & DBNameSpace & ".SSCPInspectionsRequired), " & _
+                   "((select max(numKey) + 1 from AIRBRANCH.SSCPInspectionsRequired), " & _
                    "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " & _
                    "'" & FCERequired & "', '" & UserGCode & "', '" & OracleDate & "') "
                 End If
@@ -5378,7 +5378,7 @@ Public Class SSCPManagersTools
                 AIRSNum = dgvSelectedFacilityList(0, i).Value
 
                 SQL = "select strAIRSNumber " & _
-                "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
+                "from AIRBRANCH.SSCPInspectionsRequired " & _
                 "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                 "and intYear = '" & cboFiscalYear.Text & "' "
 
@@ -5390,7 +5390,7 @@ Public Class SSCPManagersTools
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".SSCPInspectionsRequired set " & _
+                    SQL = "Update AIRBRANCH.SSCPInspectionsRequired set " & _
                     "numSSCPEngineer = '" & Eng & "', " & _
                     "numSSCPUnit = '" & cboSSCPUnit2.SelectedValue & "' , " & _
                     "strInspectionRequired = '" & InspectionRequired & "', " & _
@@ -5400,13 +5400,13 @@ Public Class SSCPManagersTools
                     "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                     "and intyear = '" & cboFiscalYear.Text & "' "
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".SSCPInspectionsRequired " & _
+                    SQL = "Insert into AIRBRANCH.SSCPInspectionsRequired " & _
                     "(numKey, strAIRSNumber, intYear, " & _
                     "numSSCPEngineer, numSSCPUnit, " & _
                     "strInspectionRequired, strFCERequired, " & _
                     "STRASSIGNINGMANAGER, DATASSIGNINGDATE) " & _
                     "values " & _
-                    "((select max(numKey) + 1 from " & DBNameSpace & ".SSCPInspectionsRequired), " & _
+                    "((select max(numKey) + 1 from AIRBRANCH.SSCPInspectionsRequired), " & _
                     "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " & _
                     "'" & Eng & "', '" & cboSSCPUnit2.SelectedValue & "', " & _
                     "'" & InspectionRequired & "', '" & FCERequired & "', " & _
@@ -5420,7 +5420,7 @@ Public Class SSCPManagersTools
                 dr.Close()
 
                 SQL = "Select strAIRSNumber " & _
-                "from " & DBNameSpace & ".SSCPDistrictResponsible " & _
+                "from AIRBRANCH.SSCPDistrictResponsible " & _
                 "where strAIRSNumber = '0413" & AIRSNum & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -5431,13 +5431,13 @@ Public Class SSCPManagersTools
                 dr.Close()
 
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".SSCPDistrictResponsible set " & _
+                    SQL = "Update AIRBRANCH.SSCPDistrictResponsible set " & _
                     "strDistrictResponsible = '" & DistResp & "', " & _
                     "strAssigningManager = '" & UserGCode & "', " & _
                     "datAssigningDate = '" & OracleDate & "' " & _
                     "where strAIRSNumber = '0413" & AIRSNum & "' "
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".SSCPDistrictResponsible " & _
+                    SQL = "Insert into AIRBRANCH.SSCPDistrictResponsible " & _
                     "values " & _
                     "('0413" & AIRSNum & ", '" & DistResp & "', " & _
                     "'" & UserGCode & "', '" & OracleDate & "') "
@@ -5473,7 +5473,7 @@ Public Class SSCPManagersTools
             Dim FacilityName As String = ""
 
             SQL = "Select strAIRSNumber " & _
-            "From " & DBNameSpace & ".APBMasterAIRS " & _
+            "From AIRBRANCH.APBMasterAIRS " & _
             "where strAIRSNumber = '0413" & mtbForcedAIRS.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -5486,7 +5486,7 @@ Public Class SSCPManagersTools
             If recExist = True Then
                 SQL = "Select " & _
                 "strFacilityName " & _
-                "from " & DBNameSpace & ".APBFacilityInformation " & _
+                "from AIRBRANCH.APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & mtbForcedAIRS.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -5561,7 +5561,7 @@ Public Class SSCPManagersTools
                 AIRSNum = dgvSelectedFacilityList(0, i).Value
 
                 SQL = "Select strAIRSNumber " & _
-                "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
+                "from AIRBRANCH.SSCPInspectionsRequired " & _
                 "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                 "and intYear = '" & cboFiscalYear.Text & "' "
 
@@ -5574,18 +5574,18 @@ Public Class SSCPManagersTools
                 dr.Close()
 
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".SSCPInspectionsRequired set " & _
+                    SQL = "Update AIRBRANCH.SSCPInspectionsRequired set " & _
                     "numSSCPEngineer = '', " & _
                     "strAssigningManager = '" & UserGCode & "', " & _
                     "DATASSIGNINGDATE = '" & OracleDate & "' " & _
                     "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                     "and intYear = '" & cboFiscalYear.Text & "' "
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".SSCPInspectionsRequired " & _
+                    SQL = "Insert into AIRBRANCH.SSCPInspectionsRequired " & _
                     "(numKey, strAIRSNumber, intYear, " & _
                     "numSSCPEngineer, strAssigningManager, DATASSIGNINGDATE) " & _
                     "values " & _
-                    "((select max(numKey) + 1 from " & DBNameSpace & ".SSCPInspectionsRequired), " & _
+                    "((select max(numKey) + 1 from AIRBRANCH.SSCPInspectionsRequired), " & _
                     "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " & _
                     "'', '" & UserGCode & "', " & _
                     "'" & OracleDate & "') "
@@ -5620,7 +5620,7 @@ Public Class SSCPManagersTools
                 AIRSNum = dgvSelectedFacilityList(0, i).Value
 
                 SQL = "select strAIRSNumber " & _
-                "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
+                "from AIRBRANCH.SSCPInspectionsRequired " & _
                 "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                 "and intYear = '" & cboFiscalYear.Text & "' "
 
@@ -5632,18 +5632,18 @@ Public Class SSCPManagersTools
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".SSCPInspectionsRequired set " & _
+                    SQL = "Update AIRBRANCH.SSCPInspectionsRequired set " & _
                     "numSSCPUnit = '', " & _
                     "strAssigningManager = '" & UserGCode & "', " & _
                   "DATASSIGNINGDATE = '" & OracleDate & "' " & _
                   "where strAIRSNumber = '0413" & AIRSNum & "'" & _
                   "and intYear = '" & cboFiscalYear.Text & "' "
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".SSCPInspectionsRequired " & _
+                    SQL = "Insert into AIRBRANCH.SSCPInspectionsRequired " & _
                  "(numKey, strAIRSNumber, intYear, " & _
                  "numSSCPUnit, strAssigningManager, DATASSIGNINGDATE) " & _
                  "values " & _
-                 "((select max(numKey) + 1 from " & DBNameSpace & ".SSCPInspectionsRequired), " & _
+                 "((select max(numKey) + 1 from AIRBRANCH.SSCPInspectionsRequired), " & _
                  "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " & _
                     "'', " & _
                     "'" & UserGCode & "', " & _
@@ -5687,7 +5687,7 @@ Public Class SSCPManagersTools
             For i As Integer = 0 To dgvSelectedFacilityList.Rows.Count - 1
                 AIRSNum = dgvSelectedFacilityList(0, i).Value
 
-                SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+                SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                 "strCMSMember = '" & CMSStatus & "' " & _
                 "where strAIRSNumber = '0413" & AIRSNum & "' "
 
@@ -5811,16 +5811,16 @@ Public Class SSCPManagersTools
             "  (UP.STRLASTNAME " & _
             "  || ', ' " & _
             "  || UP.STRFIRSTNAME) AS StaffResponsible " & _
-            "FROM " & DBNameSpace & ".APBFacilityinformation FI, " & _
-            "  " & DBNameSpace & ".APBHeaderdata HD, " & _
-            "  " & DBNameSpace & ".EPDUserProfiles UP, " & _
-            "  " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED IR, " & _
+            "FROM AIRBRANCH.APBFacilityinformation FI, " & _
+            "  AIRBRANCH.APBHeaderdata HD, " & _
+            "  AIRBRANCH.EPDUserProfiles UP, " & _
+            "  AIRBRANCH.SSCPINSPECTIONSREQUIRED IR, " & _
             "  (SELECT DISTINCT SUBSTR(tFI.STRAIRSNUMBER, 5) AS AIRSNumber " & _
-            "  FROM " & DBNameSpace & ".APBHeaderData tHD, " & _
-            "    " & DBNameSpace & ".APBFacilityInformation tFI, " & _
-            "    " & DBNameSpace & ".SSPPApplicationMaster tAM, " & _
-            "    " & DBNameSpace & ".SSPPApplicationData tAD, " & _
-            "    " & DBNameSpace & ".SSPPApplicationTracking tAT " & _
+            "  FROM AIRBRANCH.APBHeaderData tHD, " & _
+            "    AIRBRANCH.APBFacilityInformation tFI, " & _
+            "    AIRBRANCH.SSPPApplicationMaster tAM, " & _
+            "    AIRBRANCH.SSPPApplicationData tAD, " & _
+            "    AIRBRANCH.SSPPApplicationTracking tAT " & _
             "  WHERE tAM.STRAPPLICATIONNUMBER = tAD.STRAPPLICATIONNUMBER " & _
             "  AND tAM.STRAIRSNUMBER          = tHD.STRAIRSNUMBER " & _
             "  AND tAM.STRAIRSNUMBER          = tFI.STRAIRSNUMBER " & _
@@ -5834,10 +5834,10 @@ Public Class SSCPManagersTools
             "  AND tAT.DATEFFECTIVE                      < add_months(SysDate, -51))) " & _
             "  MINUS " & _
             "    (SELECT DISTINCT SUBSTR(tAM.STRAIRSNUMBER, 5) AS AIRSNumber " & _
-            "    FROM " & DBNameSpace & ".SSPPApplicationMaster tAM, " & _
-            "      " & DBNameSpace & ".SSPPApplicationData tAD, " & _
-            "      " & DBNameSpace & ".SSPPApplicationTracking tAT, " & _
-            "      " & DBNameSpace & ".APBHeaderData tHD " & _
+            "    FROM AIRBRANCH.SSPPApplicationMaster tAM, " & _
+            "      AIRBRANCH.SSPPApplicationData tAD, " & _
+            "      AIRBRANCH.SSPPApplicationTracking tAT, " & _
+            "      AIRBRANCH.APBHeaderData tHD " & _
             "    WHERE tAM.STRAPPLICATIONNUMBER = tAD.STRAPPLICATIONNUMBER " & _
             "    AND tAM.STRAPPLICATIONNUMBER   = tAT.STRAPPLICATIONNUMBER " & _
             "    AND tAM.STRAIRSNUMBER          = tHD.STRAIRSNUMBER " & _
@@ -5851,7 +5851,7 @@ Public Class SSCPManagersTools
             "    ) " & _
             "  ) TVFacilities, " & _
             "  (SELECT MAX(SSCPINSPECTIONSREQUIRED.INTYEAR) AS maxyear " & _
-            "  FROM " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
+            "  FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " & _
             "  ) maxyear " & _
             "WHERE FI.STRAIRSNUMBER = '0413' " & _
             "  || TVFacilities.AIRSNumber " & _

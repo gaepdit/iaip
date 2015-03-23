@@ -109,6 +109,21 @@ Namespace Apb
 
 #End Region
 
+#Region " Public shared functions "
+
+        Public Shared Function SanitizeFacilityNameForDb(ByVal name As String) As String
+            If String.IsNullOrEmpty(name) Then
+                Return Nothing
+            End If
+
+            Dim sanitizedName As New System.Text.StringBuilder(name)
+            sanitizedName.Replace("[", "(").Replace("]", ")")
+
+            Return sanitizedName.ToString
+        End Function
+
+#End Region
+
 #Region " Enums "
 
 #Region " Operation "

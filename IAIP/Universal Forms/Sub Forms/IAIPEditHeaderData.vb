@@ -503,7 +503,7 @@ Public Class IAIPEditHeaderData
             invalidControls.Add(FacilityDescriptionLabel)
         End If
 
-        If Not (RmpId.Text = "____-____-____") AndAlso Not FacilityHeaderData.ValidRmpId(RmpId.Text) Then
+        If Not (RmpId.Text = "____-____-____") AndAlso Not FacilityHeaderData.IsValidRmpId(RmpId.Text) Then
             valid = False
             invalidControls.Add(RmpIdLabel)
         End If

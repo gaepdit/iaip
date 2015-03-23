@@ -326,7 +326,7 @@ Public Class MASPRegistrationTool
             "numAPBContact, numWebPhoneNumber, " & _
             "strEventStartTime, strEventEndTime, " & _
             "strWebURL " & _
-            "From " & DBNameSpace & ".RES_Event " & _
+            "From AIRBRANCH.RES_Event " & _
             "where nuMRes_EventID = '" & selectedEventId & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -452,27 +452,27 @@ Public Class MASPRegistrationTool
     Sub LoadRegistrationManagement()
         Try
             SQL = "select " & _
-            "" & DBNameSpace & ".Res_Registration.numRes_registrationID, " & _
-            "" & DBNameSpace & ".Res_Event.strTitle as eventTitle,  " & _
+            "AIRBRANCH.Res_Registration.numRes_registrationID, " & _
+            "AIRBRANCH.Res_Event.strTitle as eventTitle,  " & _
             "datRegistrationDateTime, " & _
             "strConfirmationNumber, strComments, " & _
-            "STRREGISTRATIONSTATUS, " & DBNameSpace & ".Res_Registration.numGECouserID, " & _
+            "STRREGISTRATIONSTATUS, AIRBRANCH.Res_Registration.numGECouserID, " & _
             "strSalutation, strFirstName, " & _
             "strLastName, strUserEmail, " & _
-            "" & DBNameSpace & ".OlapUserProfile.strAddress, " & DBNameSpace & ".OlapUserProfile.strCity, " & _
-            "" & DBNameSpace & ".OlapUserProfile.strState, strZip, " & _
+            "AIRBRANCH.OlapUserProfile.strAddress, AIRBRANCH.OlapUserProfile.strCity, " & _
+            "AIRBRANCH.OlapUserProfile.strState, strZip, " & _
             "strCompanyName, strPhonenumber, " & _
             "strUserType, " & _
-            "" & DBNameSpace & ".OLAPUserProfile.strTitle as UserTitle " & _
-            "from " & DBNameSpace & ".Res_Registration, " & DBNameSpace & ".OLAPUSERProfile, " & _
-            "" & DBNameSpace & ".res_event, " & DBNameSpace & ".OLAPUserLogIn,  " & _
-            "" & DBNameSpace & ".RESLK_RegistrationStatus " & _
-            "where " & DBNameSpace & ".Res_Registration.numGECouserID = " & DBNameSpace & ".OlapUserProfile.numUserID " & _
-            "and " & DBNameSpace & ".Res_registration.numRes_eventid = " & DBNameSpace & ".Res_Event.numRes_EventId  " & _
-            "and " & DBNameSpace & ".Res_registration.numRegistrationStatusCode = " & _
-            "" & DBNameSpace & ".RESLK_RegistrationStatus.NUMRESLK_REGISTRATIONSTATUSID " & _
-            "and " & DBNameSpace & ".Res_Registration.numGECouserID = " & DBNameSpace & ".OLAPUserLogIn.numuserid " & _
-            "and " & DBNameSpace & ".Res_registration.numRes_EventID = '" & selectedEventId & "' "
+            "AIRBRANCH.OLAPUserProfile.strTitle as UserTitle " & _
+            "from AIRBRANCH.Res_Registration, AIRBRANCH.OLAPUSERProfile, " & _
+            "AIRBRANCH.res_event, AIRBRANCH.OLAPUserLogIn,  " & _
+            "AIRBRANCH.RESLK_RegistrationStatus " & _
+            "where AIRBRANCH.Res_Registration.numGECouserID = AIRBRANCH.OlapUserProfile.numUserID " & _
+            "and AIRBRANCH.Res_registration.numRes_eventid = AIRBRANCH.Res_Event.numRes_EventId  " & _
+            "and AIRBRANCH.Res_registration.numRegistrationStatusCode = " & _
+            "AIRBRANCH.RESLK_RegistrationStatus.NUMRESLK_REGISTRATIONSTATUSID " & _
+            "and AIRBRANCH.Res_Registration.numGECouserID = AIRBRANCH.OLAPUserLogIn.numuserid " & _
+            "and AIRBRANCH.Res_registration.numRes_EventID = '" & selectedEventId & "' "
 
             ds = New DataSet
             da = New OracleDataAdapter(SQL, CurrentConnection)
@@ -980,7 +980,7 @@ Public Class MASPRegistrationTool
                 LogInRequired = "0"
             End If
 
-            SQL = "Insert into " & DBNameSpace & ".RES_Event " & _
+            SQL = "Insert into AIRBRANCH.RES_Event " & _
                      "(numRes_EventID, numEventStatusCode, " & _
                      "strUserGCode, strTitle, " & _
                      "strDescription, datStartDate, " & _
@@ -998,7 +998,7 @@ Public Class MASPRegistrationTool
                      "((select " & _
                      "case when max(numres_eventID) is null then 1 " & _
                      "else max(numRes_EventID) + 1 End  " & _
-                     "from " & DBNameSpace & ".Res_event), " & _
+                     "from AIRBRANCH.Res_event), " & _
                      "'" & Replace(EventStatusCode, "'", "''") & "',  '" & Replace(WebContact, "'", "''") & "', " & _
                      "'" & Replace(Title, "'", "''") & "', " & _
                      "'" & Replace(Description, "'", "''") & "', '" & Replace(StartDateTime, "'", "''") & "', " & _
@@ -1023,7 +1023,7 @@ Public Class MASPRegistrationTool
 
             SQL = "Select " & _
             "max(numRes_eventID) as EventID " & _
-            "from " & DBNameSpace & ".RES_Event "
+            "from AIRBRANCH.RES_Event "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1194,7 +1194,7 @@ Public Class MASPRegistrationTool
                 SQL = SQL & "active = '" & Active & "', "
             End If
             If SQL <> "" Then
-                SQL = "Update " & DBNameSpace & ".Res_Event set " & _
+                SQL = "Update AIRBRANCH.Res_Event set " & _
                 SQL & "updateUser = '" & UserGCode & "', " & _
                 "updateDateTime = '" & OracleDate & "' " & _
                 "where numRes_EventID = '" & Res_EventID & "' "
@@ -1216,7 +1216,7 @@ Public Class MASPRegistrationTool
                                      ByVal RegStatusCode As String, ByVal RegDate As String) As Boolean
         Try
 
-            SQL = "Update " & DBNameSpace & ".Res_Registration set " & _
+            SQL = "Update AIRBRANCH.Res_Registration set " & _
             "numREgistrationStatusCode = '" & RegStatusCode & "', " & _
             "datRegistrationDateTime = '" & RegDate & "' " & _
             "where numRes_RegistrationID = '" & RegistrationID & "' " & _

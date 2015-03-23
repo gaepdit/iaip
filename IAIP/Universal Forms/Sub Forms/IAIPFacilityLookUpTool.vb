@@ -51,29 +51,29 @@ Public Class IAIPFacilityLookUpTool
                     "strFacilityName, substr(strAIRSNumber, 5) as ShortAIRS, " & _
                     "strFacilityCity, " & _
                     "strFacilityStreet1 " & _
-                    "from " & DBNameSpace & ".APBFacilityInformation " & _
+                    "from AIRBRANCH.APBFacilityInformation " & _
                     "where strAirsNumber Like '%" & txtAIRSNumberSearch.Text & "%'"
                 Case "City"
                     SQL = "Select " & _
                     "strFacilityName, substr(strAIRSNumber, 5) as shortAIRS, " & _
                     "strFacilityCity, " & _
                     "strFacilityStreet1 " & _
-                    "from " & DBNameSpace & ".APBFacilityInformation " & _
+                    "from AIRBRANCH.APBFacilityInformation " & _
                     "where Upper(strFacilityCity) Like Upper('%" & Replace(txtCityNameSearch.Text, "'", "''") & "%')"
                 Case "County"
                     SQL = "Select " & _
                      "strFacilityName, substr(strAIRSNumber, 5) as ShortAIRS, " & _
                      "strFacilityCity, " & _
                      "strFacilityStreet1, strCountyName " & _
-                     "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".LookUpCountyInformation " & _
-                     "where substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5, 3) = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode " & _
+                     "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.LookUpCountyInformation " & _
+                     "where substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode " & _
                      "and upper(strCountyName) like Upper('%" & txtCountyNameSearch.Text & "%') "
                 Case "Facility Name"
                     SQL = "Select " & _
                     "strFacilityName, substr(strAIRSNumber, 5) as shortAIRS, " & _
                     "strFacilityCity, " & _
                     "strFacilityStreet1 " & _
-                    "from " & DBNameSpace & ".APBFacilityInformation " & _
+                    "from AIRBRANCH.APBFacilityInformation " & _
                     "where Upper(strFacilityName) Like Upper('%" & Replace(txtFacilityNameSearch.Text, "'", "''") & "%')"
                 Case "Historical Name"
                     SQL = "Select " & _
@@ -81,113 +81,113 @@ Public Class IAIPFacilityLookUpTool
                     "substr(strAIRSNumber, 5) as shortAIRS, " & _
                     "strFacilityCity, " & _
                     "strFacilityStreet1 " & _
-                    "from " & DBNameSpace & ".APBFacilityInformation " & _
+                    "from AIRBRANCH.APBFacilityInformation " & _
                     "where Upper(strFacilityName) Like Upper('%" & Replace(txtFacilityNameSearch.Text, "'", "''") & "%')" & _
                     "Union " & _
                     "Select " & _
                     "distinct(strFacilityName) as strFacilityName, " & _
                     "substr(strAIRSNumber, 5) as shortAIRS, " & _
                     "strFacilityCity, strFacilityStreet1 " & _
-                    "from " & DBNameSpace & ".HB_APBFacilityInformation " & _
+                    "from AIRBRANCH.HB_APBFacilityInformation " & _
                     "where Upper(strFacilityName) Like Upper('%" & Replace(txtFacilityNameSearch.Text, "'", "''") & "%')" & _
                     "Union " & _
                     "select " & _
                     "Distinct(strFacilityname) as strFacilityname,  " & _
                     "substr(strAIRSNumber, 5) as shortAIRS,  " & _
                     "strFacilityCity, strFacilityStreet1  " & _
-                    "from " & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".SSPPApplicationMaster   " & _
-                    "where " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber " & _
+                    "from AIRBRANCH.SSPPApplicationData, AIRBRANCH.SSPPApplicationMaster   " & _
+                    "where AIRBRANCH.SSPPApplicationData.strApplicationNumber = AIRBRANCH.SSPPApplicationMaster.strApplicationNumber " & _
                     "and upper(strFacilityname) like Upper('%" & Replace(txtFacilityNameSearch.Text, "'", "''") & "%') "
                 Case "SIC Code"
                     SQL = "Select " & _
-                    "strFacilityName, substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as shortAIRS, " & _
+                    "strFacilityName, substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as shortAIRS, " & _
                     "strSICCode, " & _
                     "strFacilityCity, strFacilityStreet1 " & _
-                    "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".APBHeaderData " & _
-                    "where Upper(" & DBNameSpace & ".APBHeaderData.strSICCode) Like Upper('%" & Replace(txtSICCodeSearch.Text, "'", "''") & "%') " & _
-                    "and " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber"
+                    "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBHeaderData " & _
+                    "where Upper(AIRBRANCH.APBHeaderData.strSICCode) Like Upper('%" & Replace(txtSICCodeSearch.Text, "'", "''") & "%') " & _
+                    "and AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.APBHeaderData.strAIRSNumber"
                 Case "Subpart"
                     If rdbPart60.Checked = True Then
                         SQL = "select " & _
-                        "strFacilityName, substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " & _
+                        "strFacilityName, substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " & _
                         "strFacilityCity,  " & _
                         "strFacilityStreet1,  " & _
-                        "(" & DBNameSpace & ".LookUpsubPart60.strSubPart|| ' - '||" & DBNameSpace & ".LookUpSubpart60.strDescription) as SubPartData " & _
+                        "(AIRBRANCH.LookUpsubPart60.strSubPart|| ' - '||AIRBRANCH.LookUpSubpart60.strDescription) as SubPartData " & _
                         "from  " & _
-                        "" & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".APBSubpartData,  " & _
-                        "" & DBNameSpace & ".LookUPSubPart60  " & _
+                        "AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBSubpartData,  " & _
+                        "AIRBRANCH.LookUPSubPart60  " & _
                         "where  " & _
-                        "" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBSubPartData.strAIRSNumber  " & _
-                        "and " & DBNameSpace & ".APBSubpartData.strSubPart = " & DBNameSpace & ".LookUpSubPart60.strSubpart  " & _
+                        "AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBSubPartData.strAIRSNumber  " & _
+                        "and AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubPart60.strSubpart  " & _
                         "and substr(strSubpartKey, 13) = '9'  " & _
-                        "and (" & DBNameSpace & ".APBSubpartData.strSubpart) like '%" & Replace(txtSubpartSearch.Text, "'", "''") & "%'   "
+                        "and (AIRBRANCH.APBSubpartData.strSubpart) like '%" & Replace(txtSubpartSearch.Text, "'", "''") & "%'   "
                     End If
                     If rdbPart61.Checked = True Then
                         SQL = "select " & _
-                        "strFacilityName, substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " & _
+                        "strFacilityName, substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " & _
                         "strFacilityCity,  " & _
                         "strFacilityStreet1,  " & _
-                        "(" & DBNameSpace & ".LookUpsubPart61.strSubPart|| ' - '||" & DBNameSpace & ".LookUpSubpart61.strDescription) as SubPartData " & _
+                        "(AIRBRANCH.LookUpsubPart61.strSubPart|| ' - '||AIRBRANCH.LookUpSubpart61.strDescription) as SubPartData " & _
                         "from  " & _
-                        "" & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".APBSubpartData,  " & _
-                        "" & DBNameSpace & ".LookUPSubPart61  " & _
+                        "AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBSubpartData,  " & _
+                        "AIRBRANCH.LookUPSubPart61  " & _
                         "where  " & _
-                        "" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBSubPartData.strAIRSNumber  " & _
-                        "and " & DBNameSpace & ".APBSubpartData.strSubPart = " & DBNameSpace & ".LookUpSubPart61.strSubpart  " & _
+                        "AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBSubPartData.strAIRSNumber  " & _
+                        "and AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubPart61.strSubpart  " & _
                         "and substr(strSubpartKey, 13) = '8'  " & _
-                        "and (" & DBNameSpace & ".APBSubpartData.strSubpart) like '%" & Replace(txtSubpartSearch.Text, "'", "''") & "%'   "
+                        "and (AIRBRANCH.APBSubpartData.strSubpart) like '%" & Replace(txtSubpartSearch.Text, "'", "''") & "%'   "
                     End If
                     If rdbPart63.Checked = True Then
                         SQL = "select " & _
-                        "strFacilityName, substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " & _
+                        "strFacilityName, substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " & _
                         "strFacilityCity,  " & _
                         "strFacilityStreet1,  " & _
-                        "(" & DBNameSpace & ".LookUpsubPart63.strSubPart|| ' - '||" & DBNameSpace & ".LookUpSubpart63.strDescription) as SubPartData " & _
+                        "(AIRBRANCH.LookUpsubPart63.strSubPart|| ' - '||AIRBRANCH.LookUpSubpart63.strDescription) as SubPartData " & _
                         "from  " & _
-                        "" & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".APBSubpartData,  " & _
-                        "" & DBNameSpace & ".LookUPSubPart63  " & _
+                        "AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBSubpartData,  " & _
+                        "AIRBRANCH.LookUPSubPart63  " & _
                         "where  " & _
-                        "" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBSubPartData.strAIRSNumber  " & _
-                        "and " & DBNameSpace & ".APBSubpartData.strSubPart = " & DBNameSpace & ".LookUpSubPart63.strSubpart  " & _
+                        "AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBSubPartData.strAIRSNumber  " & _
+                        "and AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubPart63.strSubpart  " & _
                         "and substr(strSubpartKey, 13) = 'M'  " & _
-                        "and (" & DBNameSpace & ".APBSubpartData.strSubpart) like '%" & Replace(txtSubpartSearch.Text, "'", "''") & "%'   "
+                        "and (AIRBRANCH.APBSubpartData.strSubpart) like '%" & Replace(txtSubpartSearch.Text, "'", "''") & "%'   "
                     End If
                     If rdbGASIP.Checked = True Then
                         SQL = "select " & _
-                        "strFacilityName, substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " & _
+                        "strFacilityName, substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " & _
                         "strFacilityCity,  " & _
                         "strFacilityStreet1,  " & _
-                        "(" & DBNameSpace & ".LookUpSubPartSIP.strSubPart|| ' - '||" & DBNameSpace & ".LookUpSubpartSIP.strDescription) as SubPartData " & _
+                        "(AIRBRANCH.LookUpSubPartSIP.strSubPart|| ' - '||AIRBRANCH.LookUpSubpartSIP.strDescription) as SubPartData " & _
                         "from  " & _
-                        "" & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".APBSubpartData,  " & _
-                        "" & DBNameSpace & ".LookUPSubPartSIP " & _
+                        "AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBSubpartData,  " & _
+                        "AIRBRANCH.LookUPSubPartSIP " & _
                         "where  " & _
-                        "" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBSubPartData.strAIRSNumber  " & _
-                        "and " & DBNameSpace & ".APBSubpartData.strSubPart = " & DBNameSpace & ".LookUpSubPartSIP.strSubpart  " & _
+                        "AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBSubPartData.strAIRSNumber  " & _
+                        "and AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubPartSIP.strSubpart  " & _
                         "and substr(strSubpartKey, 13) = '0'  " & _
-                        "and (" & DBNameSpace & ".APBSubpartData.strSubpart) like '%" & Replace(txtSubpartSearch.Text, "'", "''") & "%'   "
+                        "and (AIRBRANCH.APBSubpartData.strSubpart) like '%" & Replace(txtSubpartSearch.Text, "'", "''") & "%'   "
                     End If
                 Case "Zip Code"
                     SQL = "Select " & _
                     "strFacilityName, substr(strAIRSNumber, 5) as shortAIRS, " & _
                     "strFacilityCity, " & _
                     "strFacilityStreet1, strFacilityZipCode " & _
-                    "from " & DBNameSpace & ".APBFacilityInformation " & _
+                    "from AIRBRANCH.APBFacilityInformation " & _
                     "where Upper(strFacilityZipCode) Like Upper('%" & Replace(txtZipCodeSearch.Text, "'", "''") & "%')"
                 Case "Address"
 
                 Case "Compliance"
 
                     SQL = "Select  " & _
-                    " " & DBNameSpace & ".APBFacilityInformation.strFacilityName, " & _
-                    "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,   " & _
-                    " " & DBNameSpace & ".APBFacilityInformation.strFacilityCity,   " & _
-                    " " & DBNameSpace & ".APBFacilityInformation.strFacilityStreet1, " & _
+                    " AIRBRANCH.APBFacilityInformation.strFacilityName, " & _
+                    "substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,   " & _
+                    " AIRBRANCH.APBFacilityInformation.strFacilityCity,   " & _
+                    " AIRBRANCH.APBFacilityInformation.strFacilityStreet1, " & _
                     "(strLastName||', '||strFirstname) as Engineer    " & _
-                    "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".VW_SSCPInspection_List, " & _
-                    "" & DBNameSpace & ".EPDUserProfiles   " & _
-                    "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413'||" & DBNameSpace & ".VW_SSCPInspection_List.AIRSNumber   " & _
-                    "and " & DBNameSpace & ".VW_SSCPInspection_List.numSSCPEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID   " & _
+                    "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.VW_SSCPInspection_List, " & _
+                    "AIRBRANCH.EPDUserProfiles   " & _
+                    "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = '0413'||AIRBRANCH.VW_SSCPInspection_List.AIRSNumber   " & _
+                    "and AIRBRANCH.VW_SSCPInspection_List.numSSCPEngineer = AIRBRANCH.EPDUserProfiles.numUserID   " & _
                     "and Upper(strLastName||', '||strFirstName) like Upper('%" & Replace(txtComplianceEngineer.Text, "'", "''") & "%')  "
 
                 Case Else

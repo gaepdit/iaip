@@ -34,7 +34,7 @@ Public Class SBEAPMiscTools
             dsMiscTools = New DataSet
 
             Dim SQL As String = "select " & _
-            "" & DBNameSpace & ".SBEAPClients.ClientID, " & _
+            "AIRBRANCH.SBEAPClients.ClientID, " & _
             "strCompanyName, " & _
             "strClientFirstName, strClientLastName, " & _
             "strClientSalutation, strClientCredentials, " & _
@@ -43,15 +43,15 @@ Public Class SBEAPMiscTools
             "strClientEmail, strCompanyAddress, " & _
             "strCompanyCity, strCompanyState, " & _
             "strCompanyZipCode, strContactNotes  " & _
-            "from " & DBNameSpace & ".SBEAPClientContacts, " & _
-            "" & DBNameSpace & ".SBEAPClientLink, " & _
-            "" & DBNameSpace & ".SBEAPClients  " & _
-            "where " & DBNameSpace & ".SBEAPClientContacts.ClientContactID = " & DBNameSpace & ".SBEAPClientLink.ClientContactID  (+) " & _
-            "and " & DBNameSpace & ".SBEAPClientLink.ClientID = " & DBNameSpace & ".SBEAPClients.ClientID (+) "
+            "from AIRBRANCH.SBEAPClientContacts, " & _
+            "AIRBRANCH.SBEAPClientLink, " & _
+            "AIRBRANCH.SBEAPClients  " & _
+            "where AIRBRANCH.SBEAPClientContacts.ClientContactID = AIRBRANCH.SBEAPClientLink.ClientContactID  (+) " & _
+            "and AIRBRANCH.SBEAPClientLink.ClientID = AIRBRANCH.SBEAPClients.ClientID (+) "
 
 
             SQL = "select " & _
-           "" & DBNameSpace & ".SBEAPClients.ClientID, " & _
+           "AIRBRANCH.SBEAPClients.ClientID, " & _
            "strCompanyName, " & _
            "strClientFirstName, strClientLastName, " & _
            "strClientSalutation, strClientCredentials, " & _
@@ -62,13 +62,13 @@ Public Class SBEAPMiscTools
            "strCompanyZipCode, strContactNotes,  " & _
            "strClientSIC, strClientNAICS, " & _
            "strClientDescription " & _
-           "from " & DBNameSpace & ".SBEAPClientContacts, " & _
-           "" & DBNameSpace & ".SBEAPClientLink, " & _
-           "" & DBNameSpace & ".SBEAPClients, " & _
-           "" & DBNameSpace & ".SBEAPClientData " & _
-           "where " & DBNameSpace & ".SBEAPClientContacts.ClientContactID = " & DBNameSpace & ".SBEAPClientLink.ClientContactID  (+) " & _
-           "and " & DBNameSpace & ".SBEAPClientLink.ClientID = " & DBNameSpace & ".SBEAPClientData.ClientID (+) " & _
-           "and " & DBNameSpace & ".SBEAPClientLink.ClientID = " & DBNameSpace & ".SBEAPClients.ClientID (+) "
+           "from AIRBRANCH.SBEAPClientContacts, " & _
+           "AIRBRANCH.SBEAPClientLink, " & _
+           "AIRBRANCH.SBEAPClients, " & _
+           "AIRBRANCH.SBEAPClientData " & _
+           "where AIRBRANCH.SBEAPClientContacts.ClientContactID = AIRBRANCH.SBEAPClientLink.ClientContactID  (+) " & _
+           "and AIRBRANCH.SBEAPClientLink.ClientID = AIRBRANCH.SBEAPClientData.ClientID (+) " & _
+           "and AIRBRANCH.SBEAPClientLink.ClientID = AIRBRANCH.SBEAPClients.ClientID (+) "
 
             daMiscTools = New OracleDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then

@@ -19,16 +19,16 @@ Namespace DAL
                 "   LOOKUPEPDBRANCHES.STRBRANCHDESC, " & _
                 "   LOOKUPEPDPROGRAMS.STRPROGRAMDESC, " & _
                 "   LOOKUPEPDUNITS.STRUNITDESC " & _
-                " FROM " & DBNameSpace & ".EPDUSERS " & _
-                " INNER JOIN " & DBNameSpace & ".IAIPPERMISSIONS " & _
+                " FROM AIRBRANCH.EPDUSERS " & _
+                " INNER JOIN AIRBRANCH.IAIPPERMISSIONS " & _
                 " ON EPDUSERS.NUMUSERID = IAIPPERMISSIONS.NUMUSERID " & _
-                " INNER JOIN " & DBNameSpace & ".EPDUSERPROFILES " & _
+                " INNER JOIN AIRBRANCH.EPDUSERPROFILES " & _
                 " ON EPDUSERS.NUMUSERID = EPDUSERPROFILES.NUMUSERID " & _
-                " LEFT JOIN " & DBNameSpace & ".LOOKUPEPDBRANCHES " & _
+                " LEFT JOIN AIRBRANCH.LOOKUPEPDBRANCHES " & _
                 " ON EPDUSERPROFILES.NUMBRANCH = LOOKUPEPDBRANCHES.NUMBRANCHCODE " & _
-                " LEFT JOIN " & DBNameSpace & ".LOOKUPEPDPROGRAMS " & _
+                " LEFT JOIN AIRBRANCH.LOOKUPEPDPROGRAMS " & _
                 " ON EPDUSERPROFILES.NUMPROGRAM = LOOKUPEPDPROGRAMS.NUMPROGRAMCODE " & _
-                " LEFT JOIN " & DBNameSpace & ".LOOKUPEPDUNITS " & _
+                " LEFT JOIN AIRBRANCH.LOOKUPEPDUNITS " & _
                 " ON EPDUSERPROFILES.NUMUNIT = LOOKUPEPDUNITS.NUMUNITCODE " & _
                 " WHERE UPPER(EPDUSERS.STRUSERNAME) = :pUsername  " & _
                 " AND EPDUSERS.STRPASSWORD   = :pPassword "

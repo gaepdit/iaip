@@ -180,49 +180,49 @@ Public Class ISMPStaffReports
                 "	When CloseComplianceByDate is NULL then 0  " & _
                 "	Else CloseComplianceByDate " & _
                 "End as CloseComplianceByDate  " & _
-                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation,  " & _
+                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation,  " & _
                 "(Select strReviewingEngineer,  count(*) as ReceivedByDate   " & _
-                "from " & DBNameSpace & ".ISMPReportInformation   " & _
+                "from AIRBRANCH.ISMPReportInformation   " & _
                 "where strDelete is NULL " & _
                 "and " & DateBias & " " & _
                 "Group by strReviewingEngineer) ReceivedByDates,  " & _
                 "(Select strReviewingEngineer,  " & _
                 "count(*) as OpenByDate  " & _
-                "from " & DBNameSpace & ".ISMPReportInformation  " & _
+                "from AIRBRANCH.ISMPReportInformation  " & _
                 "where strClosed = 'False'  " & _
                 "and strDelete is NULL  " & _
                 "and " & DateBias & " " & _
                 "Group by strReviewingEngineer) OpenByDates,  " & _
                 "(Select strReviewingEngineer,  " & _
                 "count(*) as CloseByDate  " & _
-                "from " & DBNameSpace & ".ISMPReportInformation  " & _
+                "from AIRBRANCH.ISMPReportInformation  " & _
                 "where strClosed = 'True'  " & _
                 "and StrDelete is NULL  " & _
                 "and " & DateBias & " " & _
                 "Group by strReviewingEngineer) CloseByDates,  " & _
                 "(Select strWitnessingEngineer,  " & _
                 "count(*) as WitnessedByDate  " & _
-                "from " & DBNameSpace & ".ISMPReportInformation  " & _
+                "from AIRBRANCH.ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "and " & DateBias & " " & _
                 "group by strWitnessingEngineer) WitnessedByDates,  " & _
                 "(Select strWitnessingEngineer,  " & _
                 "count(*) as OpenWitnessedByDate   " & _
-                "from " & DBNameSpace & ".ISMPReportInformation  " & _
+                "from AIRBRANCH.ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "and strClosed = 'False'  " & _
                  "and " & DateBias & " " & _
                 "group by strWitnessingEngineer) OpenWitnessedByDates,  " & _
                 "(select strWitnessingEngineer,  " & _
                 "count(*) as CloseWitnessedByDate   " & _
-                "from " & DBNameSpace & ".ISMPReportInformation  " & _
+                "from AIRBRANCH.ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "and strClosed = 'True' " & _
                 "and " & DateBias & " " & _
                 "group by strwitnessingEngineer) CloseWitnessedByDates,  " & _
                 "(select strReviewingEngineer,  " & _
                 "count(*) as GreaterByDate " & _
-                "from " & DBNameSpace & ".ISMPReportInformation  " & _
+                "from AIRBRANCH.ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "and datReceivedDate < Decode(strClosed, 'False', (trunc(sysdate) - 50), " & _
                 "                                        'True', (-50 + datCompleteDate)) " & _
@@ -230,7 +230,7 @@ Public Class ISMPStaffReports
                 "Group by strReviewingEngineer) GreaterByDates,  " & _
                 "(select strReviewingEngineer,  " & _
                 "count(*) as OpenGreaterByDate " & _
-                "from " & DBNameSpace & ".ISMPReportInformation  " & _
+                "from AIRBRANCH.ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "and strClosed = 'False'  " & _
                 "and datReceivedDate < (trunc(sysdate) - 50)  " & _
@@ -238,7 +238,7 @@ Public Class ISMPStaffReports
                 "Group by strReviewingEngineer) OpenGreaterByDates,  " & _
                 "(select strReviewingEngineer,  " & _
                 "count(*) as CloseGreaterByDate " & _
-                "from " & DBNameSpace & ".ISMPReportInformation  " & _
+                "from AIRBRANCH.ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "and strClosed = 'True'  " & _
                 "and datReceivedDate < (-50 + datCompleteDate) " & _
@@ -246,14 +246,14 @@ Public Class ISMPStaffReports
                 "Group by strReviewingEngineer) CloseGreaterByDates,  " & _
                 "(select strReviewingEngineer, " & _
                 "count(*) as ComplianceByDate " & _
-                "from " & DBNameSpace & ".ISMPReportInformation " & _
+                "from AIRBRANCH.ISMPReportInformation " & _
                 "where strComplianceStatus = '05' " & _
                 "and strDelete is NULL " & _
                 "and " & DateBias & " " & _
                 "group by strReviewingEngineer) ComplianceByDates, " & _
                 "(select strReviewingEngineer,   " & _
                 "count(*) as OpenComplianceByDate  " & _
-                "from " & DBNameSpace & ".ISMPReportInformation   " & _
+                "from AIRBRANCH.ISMPReportInformation   " & _
                 "where strComplianceStatus = '05'  " & _
                 "and strClosed = 'False'  " & _
                 "and strDelete is NULL  " & _
@@ -261,32 +261,32 @@ Public Class ISMPStaffReports
                 "group by strReviewingEngineer) OpenComplianceByDates,   " & _
                 "(Select strReviewingEngineer,  " & _
                 "count(*) as CloseComplianceByDate  " & _
-                "from " & DBNameSpace & ".ISMPReportInformation   " & _
+                "from AIRBRANCH.ISMPReportInformation   " & _
                 "where strComplianceStatus = '05'  " & _
                 "and strClosed = 'True'  " & _
                 "and strDelete is NULL  " & _
                 "and " & DateBias & " " & _
                 "group by strReviewingEngineer) CloseComplianceByDates   " & _
-                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = ReceivedByDates.strReviewingEngineer (+) " & _
-                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenBYDates.strReviewingEngineer (+)  " & _
-                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = CloseByDates.strReviewingEngineer (+)  " & _
-                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = WitnessedByDates.strWitnessingEngineer (+)  " & _
-                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenwitnessedByDates.strWitnessingEngineer (+)  " & _
-                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = CloseWitnessedByDates.strWitnessingEngineer (+)  " & _
-                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = GreaterByDates.strReviewingEngineer (+) " & _
-                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenGreaterByDates.strReviewingEngineer (+)  " & _
-                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = CloseGreaterByDates.strReviewingEngineer (+)  " & _
-                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = ComplianceByDates.strReviewingEngineer (+) " & _
-                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenComplianceByDates.strReviewingEngineer (+)  " & _
-                "and " & DBNameSpace & ".ISMPReportInformation.strREviewingEngineer = CloseComplianceByDates.strReviewingEngineer (+)  " & _
-                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = '" & EngineerGCode & "' "
+                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " & _
+                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = ReceivedByDates.strReviewingEngineer (+) " & _
+                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = OpenBYDates.strReviewingEngineer (+)  " & _
+                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = CloseByDates.strReviewingEngineer (+)  " & _
+                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = WitnessedByDates.strWitnessingEngineer (+)  " & _
+                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = OpenwitnessedByDates.strWitnessingEngineer (+)  " & _
+                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = CloseWitnessedByDates.strWitnessingEngineer (+)  " & _
+                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = GreaterByDates.strReviewingEngineer (+) " & _
+                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = OpenGreaterByDates.strReviewingEngineer (+)  " & _
+                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = CloseGreaterByDates.strReviewingEngineer (+)  " & _
+                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = ComplianceByDates.strReviewingEngineer (+) " & _
+                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = OpenComplianceByDates.strReviewingEngineer (+)  " & _
+                "and AIRBRANCH.ISMPReportInformation.strREviewingEngineer = CloseComplianceByDates.strReviewingEngineer (+)  " & _
+                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '" & EngineerGCode & "' "
 
                 SQL2 = "Select " & _
                 "(strLastName|| ', ' ||strFirstName) as Staff, " & _
                 "(trunc(sysdate) - datReceivedDate) as DaysOpenByDate " & _
-                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation " & _
-                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " & _
+                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " & _
                 "and strClosed = 'False' " & _
                 "and strDelete is NULL " & _
                 "and " & DateBias & " " & _
@@ -296,8 +296,8 @@ Public Class ISMPStaffReports
                 SQL3 = "Select " & _
                 "(strLastName|| ', ' ||strFirstName) as Staff, " & _
                 "(datCompleteDate - datReceivedDate) as DaysCloseByDate " & _
-                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation " & _
-                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " & _
+                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " & _
                 "and strClosed = 'True' " & _
                 "and strDelete is NULL " & _
                 "and " & DateBias & " " & _
@@ -342,79 +342,79 @@ Public Class ISMPStaffReports
                 "when ClosedGreaterTotal is NULL then 0   " & _
                 "Else ClosedGreaterTotal   " & _
                 "End as ClosedGreaterTotal   " & _
-                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation, " & _
+                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation, " & _
                 "(Select strReviewingEngineer,  " & _
                 "count(*) as ReceivedTotal  " & _
-                "from " & DBNameSpace & ".ISMPReportInformation  " & _
+                "from AIRBRANCH.ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "Group by strReviewingEngineer) ReceivedTotals,  " & _
                 "(Select strReviewingEngineer,  " & _
                 "count(*) as OpenTotal " & _
-                "from " & DBNameSpace & ".ISMPReportInformation  " & _
+                "from AIRBRANCH.ISMPReportInformation  " & _
                 "where strClosed = 'False' " & _
                 "and strDelete is NULL  " & _
                 "Group by strReviewingEngineer) OpenTotals,  " & _
                 "(select strWitnessingEngineer,  " & _
                 "count(*) as OpenWitnessedTotal  " & _
-                "from " & DBNameSpace & ".ISMPReportInformation  " & _
+                "from AIRBRANCH.ISMPReportInformation  " & _
                 "where strClosed = 'False' " & _
                 "and strDelete is Null " & _
                 "group by strWitnessingEngineer) OpenWitnessedTotals,  " & _
                 "(select strReviewingEngineer,  " & _
                 "count(*) as OpenComplianceTotal  " & _
-                "from " & DBNameSpace & ".ISMPReportInformation  " & _
+                "from AIRBRANCH.ISMPReportInformation  " & _
                 "where strComplianceStatus = '05' " & _
                 "and strClosed = 'False' " & _
                 "and strDelete is NULL " & _
                 "group by strReviewingEngineer) OpenComplianceTotals,  " & _
                 "(select strReviewingEngineer,  " & _
                 "count(*) as CloseTotal  " & _
-                "from " & DBNameSpace & ".ISMPReportInformation  " & _
+                "from AIRBRANCH.ISMPReportInformation  " & _
                 "where strClosed = 'True'  " & _
                 "and strDelete is NULL " & _
                 "Group by strReviewingEngineer) CloseTotals,  " & _
                 "(select strWitnessingEngineer,  " & _
                 "count(*) as ClosedWitnessedTotal  " & _
-                "from " & DBNameSpace & ".ISMPReportInformation  " & _
+                "from AIRBRANCH.ISMPReportInformation  " & _
                 "where strClosed = 'True' " & _
                 "and strDelete is NULL  " & _
                 "group by strWitnessingEngineer) ClosedWitnessedTotals,  " & _
                 "(select strReviewingEngineer,  " & _
                 "count(*) as ClosedComplianceTotal  " & _
-                "from " & DBNameSpace & ".ISMPReportInformation  " & _
+                "from AIRBRANCH.ISMPReportInformation  " & _
                 "where strComplianceStatus = '05' " & _
                 "and strClosed = 'True' " & _
                 "and strDelete is NULL " & _
                 "group by strReviewingEngineer) ClosedComplianceTotals, " & _
                 "(select strReviewingEngineer, count(*) as OpenGreaterTotal " & _
-                "from " & DBNameSpace & ".ISMPReportInformation  " & _
+                "from AIRBRANCH.ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "and strClosed = 'False'  " & _
                 "and datReceivedDate < (trunc(sysdate) - 50)  " & _
                 "Group by strReviewingEngineer) OpenGreaterTotals, " & _
                 "(select strReviewingEngineer, count(*) as ClosedGreaterTotal " & _
-                "from " & DBNameSpace & ".ISMPReportInformation  " & _
+                "from AIRBRANCH.ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "and strClosed = 'True'  " & _
                 "and datReceivedDate < (-50 + datCompleteDate)  " & _
                 "Group by strReviewingEngineer) ClosedGreaterTotals " & _
-                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = ReceivedTotals.strReviewingEngineer (+) " & _
-                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenTotals.strReviewingEngineer (+) " & _
-                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenWitnessedTotals.strWitnessingEngineer (+) " & _
-                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenComplianceTotals.strReviewingEngineer (+) " & _
-                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = CloseTotals.strReviewingEngineer (+)  " & _
-                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = ClosedWitnessedTotals.strWitnessingEngineer (+)  " & _
-                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = ClosedCompliancetotals.strReviewingEngineer (+) " & _
-                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenGreaterTotals.strReviewingEngineer (+) " & _
-                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = ClosedGreaterTotals.strReviewingEngineer (+)   " & _
-                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = '" & EngineerGCode & "' "
+                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " & _
+                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = ReceivedTotals.strReviewingEngineer (+) " & _
+                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = OpenTotals.strReviewingEngineer (+) " & _
+                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = OpenWitnessedTotals.strWitnessingEngineer (+) " & _
+                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = OpenComplianceTotals.strReviewingEngineer (+) " & _
+                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = CloseTotals.strReviewingEngineer (+)  " & _
+                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = ClosedWitnessedTotals.strWitnessingEngineer (+)  " & _
+                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = ClosedCompliancetotals.strReviewingEngineer (+) " & _
+                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = OpenGreaterTotals.strReviewingEngineer (+) " & _
+                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = ClosedGreaterTotals.strReviewingEngineer (+)   " & _
+                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '" & EngineerGCode & "' "
 
                 SQL5 = "Select " & _
                 "(strLastName|| ', ' ||strFirstName) as Staff, " & _
                 "(trunc(sysdate) - datReceivedDate) as DaysOpen " & _
-                "from " & DBNameSpace & ".EPDUSerProfiles, " & DBNameSpace & ".ISMPReportInformation " & _
-                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                "from AIRBRANCH.EPDUSerProfiles, AIRBRANCH.ISMPReportInformation " & _
+                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " & _
                 "and strClosed = 'False' " & _
                 "and strDelete is NULL " & _
                 "and strReviewingEngineer = '" & EngineerGCode & "' " & _
@@ -423,8 +423,8 @@ Public Class ISMPStaffReports
                 SQL6 = "Select " & _
                 "(strLastName|| ', ' ||strFirstName) as Staff, " & _
                 "(datCompleteDate -datReceivedDate) as DaysClosed " & _
-                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation " & _
-                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " & _
+                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " & _
                 "and strClosed = 'True' " & _
                 "and strDelete is NULL " & _
                 "and strReviewingEngineer = '" & EngineerGCode & "' " & _

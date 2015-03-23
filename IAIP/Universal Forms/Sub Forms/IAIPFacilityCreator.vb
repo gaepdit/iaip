@@ -46,7 +46,7 @@ Public Class IAIPFacilityCreator
 
             SQL = "Select " & _
             "strCountyCode, strCountyName " & _
-            "from " & DBNameSpace & ".lookUpCountyInformation " & _
+            "from AIRBRANCH.lookUpCountyInformation " & _
             "order by strCountyName "
 
             ds = New DataSet
@@ -99,18 +99,18 @@ Public Class IAIPFacilityCreator
     Sub LoadPendingFacilities()
         Try
             'SQL = "select " & _
-            '"substr(" & DBNameSpace & ".APBMasterAIRS.strAIRSNumber, 5) as AIRSNumber, strFacilityName,  " & _
-            '"" & DBNameSpace & ".APBMasterAIRS.datModifingDate as dateCreated, " & _
-            '"" & DBNameSpace & ".APBHeaderData.strComments,  " & _
+            '"substr(AIRBRANCH.APBMasterAIRS.strAIRSNumber, 5) as AIRSNumber, strFacilityName,  " & _
+            '"AIRBRANCH.APBMasterAIRS.datModifingDate as dateCreated, " & _
+            '"AIRBRANCH.APBHeaderData.strComments,  " & _
             '"numApprovingSSCP, datApproveDateSSCP, strCommentSSCP, " & _
             '"numApprovingSSPP, datApproveDateSSPP, strCommentSSPP " & _
-            '"from " & DBNameSpace & ".AFSFacilityData, " & DBNameSpace & ".APBFacilityInformation,  " & _
-            '"" & DBNameSpace & ".APBMasterAIRS, " & DBNameSpace & ".APBHeaderData, " & _
-            '"" & DBNameSpace & ".APBSupplamentalData " & _
-            '"where " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber  " & _
-            '"and " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBMasterAIRS.strAIRSnumber  " & _
-            '"and " & DBNameSpace & ".AFSFacilityData.strAIRSnumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
-            '"and " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
+            '"from AIRBRANCH.AFSFacilityData, AIRBRANCH.APBFacilityInformation,  " & _
+            '"AIRBRANCH.APBMasterAIRS, AIRBRANCH.APBHeaderData, " & _
+            '"AIRBRANCH.APBSupplamentalData " & _
+            '"where AIRBRANCH.AFSFacilityData.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber  " & _
+            '"and AIRBRANCH.AFSFacilityData.strAIRSNumber = AIRBRANCH.APBMasterAIRS.strAIRSnumber  " & _
+            '"and AIRBRANCH.AFSFacilityData.strAIRSnumber = AIRBRANCH.APBHeaderData.strAIRSNumber " & _
+            '"and AIRBRANCH.AFSFacilityData.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber " & _
             '"and strUpdateStatus = 'H' "
 
             If chbIncludeApproved.Checked = True Then
@@ -121,38 +121,38 @@ Public Class IAIPFacilityCreator
          "SSPPApprover, datApproveDateSSPP, strCommentSSPP, " & _
          "strfacilityStreet1 " & _
          "from " & _
-         "(select substr(" & DBNameSpace & ".APBMasterAIRS.strAIRSNumber, 5) as AIRSNumber, " & _
-         "strFacilityName, " & DBNameSpace & ".AFSFacilityData.datModifingDate as dateCreated, " & _
-         "" & DBNameSpace & ".APBHeaderData.strComments,  " & _
+         "(select substr(AIRBRANCH.APBMasterAIRS.strAIRSNumber, 5) as AIRSNumber, " & _
+         "strFacilityName, AIRBRANCH.AFSFacilityData.datModifingDate as dateCreated, " & _
+         "AIRBRANCH.APBHeaderData.strComments,  " & _
          "datApproveDateSSCP, strCommentSSCP, " & _
          "datApproveDateSSPP, strCommentSSPP, " & _
          "strfacilityStreet1 " & _
-         "from " & DBNameSpace & ".AFSFacilityData, " & DBNameSpace & ".APBFacilityInformation,  " & _
-         "" & DBNameSpace & ".APBMasterAIRS, " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBSupplamentalData " & _
-         "where " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber  " & _
-         "and " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBMasterAIRS.strAIRSnumber  " & _
-         "and " & DBNameSpace & ".AFSFacilityData.strAIRSnumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
-         "and " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
+         "from AIRBRANCH.AFSFacilityData, AIRBRANCH.APBFacilityInformation,  " & _
+         "AIRBRANCH.APBMasterAIRS, AIRBRANCH.APBHeaderData, AIRBRANCH.APBSupplamentalData " & _
+         "where AIRBRANCH.AFSFacilityData.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber  " & _
+         "and AIRBRANCH.AFSFacilityData.strAIRSNumber = AIRBRANCH.APBMasterAIRS.strAIRSnumber  " & _
+         "and AIRBRANCH.AFSFacilityData.strAIRSnumber = AIRBRANCH.APBHeaderData.strAIRSNumber " & _
+         "and AIRBRANCH.AFSFacilityData.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber " & _
          " ) FullData,   " & _
-         "(select substr(" & DBNameSpace & ".AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " & _
+         "(select substr(AIRBRANCH.AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " & _
          "case " & _
          "when numApprovingSSCP is not null then (strLastName||', '||strFirstName) " & _
          "else '' " & _
          "end SSCPApprover " & _
-         "from " & DBNameSpace & ".AFSFacilityData, " & DBNameSpace & ".APBSupplamentalData, " & _
-         "" & DBNameSpace & ".EPDUserProfiles " & _
-         "where  " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
-         "and " & DBNameSpace & ".APBSupplamentalData.numApprovingSSCP = " & DBNameSpace & ".EPDUserProfiles.numUserID (+) " & _
+         "from AIRBRANCH.AFSFacilityData, AIRBRANCH.APBSupplamentalData, " & _
+         "AIRBRANCH.EPDUserProfiles " & _
+         "where  AIRBRANCH.AFSFacilityData.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber " & _
+         "and AIRBRANCH.APBSupplamentalData.numApprovingSSCP = AIRBRANCH.EPDUserProfiles.numUserID (+) " & _
          " )SSCPStaff, " & _
-         "(select substr(" & DBNameSpace & ".AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " & _
+         "(select substr(AIRBRANCH.AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " & _
          "case " & _
          "when numApprovingSSPP is not null then (strLastName||', '||strFirstName) " & _
          "else '' " & _
          "end SSPPApprover " & _
-         "from " & DBNameSpace & ".AFSFacilityData, " & DBNameSpace & ".APBSupplamentalData, " & _
-         "" & DBNameSpace & ".EPDUserProfiles " & _
-         "where  " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
-         "and " & DBNameSpace & ".APBSupplamentalData.numApprovingSSPP = " & DBNameSpace & ".EPDUserProfiles.numUserID (+) " & _
+         "from AIRBRANCH.AFSFacilityData, AIRBRANCH.APBSupplamentalData, " & _
+         "AIRBRANCH.EPDUserProfiles " & _
+         "where  AIRBRANCH.AFSFacilityData.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber " & _
+         "and AIRBRANCH.APBSupplamentalData.numApprovingSSPP = AIRBRANCH.EPDUserProfiles.numUserID (+) " & _
          " )SSPPStaff " & _
          "where FullData.AIRSNumber = SSCPStaff.AIRSNumber (+) " & _
          "and FullData.AIRSNumber = SSPPStaff.AIRSNumber (+) "
@@ -165,38 +165,38 @@ Public Class IAIPFacilityCreator
          "SSPPApprover, datApproveDateSSPP, strCommentSSPP, " & _
          "strfacilityStreet1 " & _
          "from " & _
-         "(select substr(" & DBNameSpace & ".APBMasterAIRS.strAIRSNumber, 5) as AIRSNumber, " & _
-         "strFacilityName, " & DBNameSpace & ".AFSFacilityData.datModifingDate as dateCreated, " & _
-         "" & DBNameSpace & ".APBHeaderData.strComments,  " & _
+         "(select substr(AIRBRANCH.APBMasterAIRS.strAIRSNumber, 5) as AIRSNumber, " & _
+         "strFacilityName, AIRBRANCH.AFSFacilityData.datModifingDate as dateCreated, " & _
+         "AIRBRANCH.APBHeaderData.strComments,  " & _
          "datApproveDateSSCP, strCommentSSCP, " & _
          "datApproveDateSSPP, strCommentSSPP, " & _
          "strfacilityStreet1 " & _
-         "from " & DBNameSpace & ".AFSFacilityData, " & DBNameSpace & ".APBFacilityInformation,  " & _
-         "" & DBNameSpace & ".APBMasterAIRS, " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBSupplamentalData " & _
-         "where " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber  " & _
-         "and " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBMasterAIRS.strAIRSnumber  " & _
-         "and " & DBNameSpace & ".AFSFacilityData.strAIRSnumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
-         "and " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
+         "from AIRBRANCH.AFSFacilityData, AIRBRANCH.APBFacilityInformation,  " & _
+         "AIRBRANCH.APBMasterAIRS, AIRBRANCH.APBHeaderData, AIRBRANCH.APBSupplamentalData " & _
+         "where AIRBRANCH.AFSFacilityData.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber  " & _
+         "and AIRBRANCH.AFSFacilityData.strAIRSNumber = AIRBRANCH.APBMasterAIRS.strAIRSnumber  " & _
+         "and AIRBRANCH.AFSFacilityData.strAIRSnumber = AIRBRANCH.APBHeaderData.strAIRSNumber " & _
+         "and AIRBRANCH.AFSFacilityData.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber " & _
          "and strUpdateStatus = 'H') FullData,   " & _
-         "(select substr(" & DBNameSpace & ".AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " & _
+         "(select substr(AIRBRANCH.AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " & _
          "case " & _
          "when numApprovingSSCP is not null then (strLastName||', '||strFirstName) " & _
          "else '' " & _
          "end SSCPApprover " & _
-         "from " & DBNameSpace & ".AFSFacilityData, " & DBNameSpace & ".APBSupplamentalData, " & _
-         "" & DBNameSpace & ".EPDUserProfiles " & _
-         "where  " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
-         "and " & DBNameSpace & ".APBSupplamentalData.numApprovingSSCP = " & DBNameSpace & ".EPDUserProfiles.numUserID (+) " & _
+         "from AIRBRANCH.AFSFacilityData, AIRBRANCH.APBSupplamentalData, " & _
+         "AIRBRANCH.EPDUserProfiles " & _
+         "where  AIRBRANCH.AFSFacilityData.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber " & _
+         "and AIRBRANCH.APBSupplamentalData.numApprovingSSCP = AIRBRANCH.EPDUserProfiles.numUserID (+) " & _
          "and strUpdateStatus = 'H')SSCPStaff, " & _
-         "(select substr(" & DBNameSpace & ".AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " & _
+         "(select substr(AIRBRANCH.AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " & _
          "case " & _
          "when numApprovingSSPP is not null then (strLastName||', '||strFirstName) " & _
          "else '' " & _
          "end SSPPApprover " & _
-         "from " & DBNameSpace & ".AFSFacilityData, " & DBNameSpace & ".APBSupplamentalData, " & _
-         "" & DBNameSpace & ".EPDUserProfiles " & _
-         "where  " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
-         "and " & DBNameSpace & ".APBSupplamentalData.numApprovingSSPP = " & DBNameSpace & ".EPDUserProfiles.numUserID (+) " & _
+         "from AIRBRANCH.AFSFacilityData, AIRBRANCH.APBSupplamentalData, " & _
+         "AIRBRANCH.EPDUserProfiles " & _
+         "where  AIRBRANCH.AFSFacilityData.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber " & _
+         "and AIRBRANCH.APBSupplamentalData.numApprovingSSPP = AIRBRANCH.EPDUserProfiles.numUserID (+) " & _
          "and strUpdateStatus = 'H')SSPPStaff " & _
          "where FullData.AIRSNumber = SSCPStaff.AIRSNumber (+) " & _
          "and FullData.AIRSNumber = SSPPStaff.AIRSNumber (+) "
@@ -209,38 +209,38 @@ Public Class IAIPFacilityCreator
             '"SSPPApprover, datApproveDateSSPP, strCommentSSPP, " & _
             '"strfacilityStreet1 " & _
             '"from " & _
-            '"(select substr(" & DBNameSpace & ".APBMasterAIRS.strAIRSNumber, 5) as AIRSNumber, " & _
-            '"strFacilityName, " & DBNameSpace & ".AFSFacilityData.datModifingDate as dateCreated, " & _
-            '"" & DBNameSpace & ".APBHeaderData.strComments,  " & _
+            '"(select substr(AIRBRANCH.APBMasterAIRS.strAIRSNumber, 5) as AIRSNumber, " & _
+            '"strFacilityName, AIRBRANCH.AFSFacilityData.datModifingDate as dateCreated, " & _
+            '"AIRBRANCH.APBHeaderData.strComments,  " & _
             '"datApproveDateSSCP, strCommentSSCP, " & _
             '"datApproveDateSSPP, strCommentSSPP, " & _
             '"strfacilityStreet1 " & _
-            '"from " & DBNameSpace & ".AFSFacilityData, " & DBNameSpace & ".APBFacilityInformation,  " & _
-            '"" & DBNameSpace & ".APBMasterAIRS, " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBSupplamentalData " & _
-            '"where " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber  " & _
-            '"and " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBMasterAIRS.strAIRSnumber  " & _
-            '"and " & DBNameSpace & ".AFSFacilityData.strAIRSnumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
-            '"and " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
+            '"from AIRBRANCH.AFSFacilityData, AIRBRANCH.APBFacilityInformation,  " & _
+            '"AIRBRANCH.APBMasterAIRS, AIRBRANCH.APBHeaderData, AIRBRANCH.APBSupplamentalData " & _
+            '"where AIRBRANCH.AFSFacilityData.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber  " & _
+            '"and AIRBRANCH.AFSFacilityData.strAIRSNumber = AIRBRANCH.APBMasterAIRS.strAIRSnumber  " & _
+            '"and AIRBRANCH.AFSFacilityData.strAIRSnumber = AIRBRANCH.APBHeaderData.strAIRSNumber " & _
+            '"and AIRBRANCH.AFSFacilityData.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber " & _
             '"and strUpdateStatus = 'H') FullData,   " & _
-            '"(select substr(" & DBNameSpace & ".AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " & _
+            '"(select substr(AIRBRANCH.AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " & _
             '"case " & _
             '"when numApprovingSSCP is not null then (strLastName||', '||strFirstName) " & _
             '"else '' " & _
             '"end SSCPApprover " & _
-            '"from " & DBNameSpace & ".AFSFacilityData, " & DBNameSpace & ".APBSupplamentalData, " & _
-            '"" & DBNameSpace & ".EPDUserProfiles " & _
-            '"where  " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
-            '"and " & DBNameSpace & ".APBSupplamentalData.numApprovingSSCP = " & DBNameSpace & ".EPDUserProfiles.numUserID (+) " & _
+            '"from AIRBRANCH.AFSFacilityData, AIRBRANCH.APBSupplamentalData, " & _
+            '"AIRBRANCH.EPDUserProfiles " & _
+            '"where  AIRBRANCH.AFSFacilityData.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber " & _
+            '"and AIRBRANCH.APBSupplamentalData.numApprovingSSCP = AIRBRANCH.EPDUserProfiles.numUserID (+) " & _
             '"and strUpdateStatus = 'H')SSCPStaff, " & _
-            '"(select substr(" & DBNameSpace & ".AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " & _
+            '"(select substr(AIRBRANCH.AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " & _
             '"case " & _
             '"when numApprovingSSPP is not null then (strLastName||', '||strFirstName) " & _
             '"else '' " & _
             '"end SSPPApprover " & _
-            '"from " & DBNameSpace & ".AFSFacilityData, " & DBNameSpace & ".APBSupplamentalData, " & _
-            '"" & DBNameSpace & ".EPDUserProfiles " & _
-            '"where  " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
-            '"and " & DBNameSpace & ".APBSupplamentalData.numApprovingSSPP = " & DBNameSpace & ".EPDUserProfiles.numUserID (+) " & _
+            '"from AIRBRANCH.AFSFacilityData, AIRBRANCH.APBSupplamentalData, " & _
+            '"AIRBRANCH.EPDUserProfiles " & _
+            '"where  AIRBRANCH.AFSFacilityData.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber " & _
+            '"and AIRBRANCH.APBSupplamentalData.numApprovingSSPP = AIRBRANCH.EPDUserProfiles.numUserID (+) " & _
             '"and strUpdateStatus = 'H')SSPPStaff " & _
             '"where FullData.AIRSNumber = SSCPStaff.AIRSNumber (+) " & _
             '"and FullData.AIRSNumber = SSPPStaff.AIRSNumber (+) "
@@ -315,9 +315,9 @@ Public Class IAIPFacilityCreator
         Try
 
             If Len(AIRSNumber) = 8 And IsNumeric(AIRSNumber) Then
-                SQL = "Select (" & DBNameSpace & ".LookUPDistricts.strDistrictcode|| '-'||strDistrictName) as District " & _
-                "from " & DBNameSpace & ".LookUPDistricts, " & DBNameSpace & ".LookUPDistrictInformation " & _
-                "where " & DBNameSpace & ".LookUPDistricts.strDistrictCode = " & DBNameSpace & ".LookUPDistrictInformation.strDistrictCode " & _
+                SQL = "Select (AIRBRANCH.LookUPDistricts.strDistrictcode|| '-'||strDistrictName) as District " & _
+                "from AIRBRANCH.LookUPDistricts, AIRBRANCH.LookUPDistrictInformation " & _
+                "where AIRBRANCH.LookUPDistricts.strDistrictCode = AIRBRANCH.LookUPDistrictInformation.strDistrictCode " & _
                 "and strDistrictCounty = '" & Mid(AIRSNumber, 1, 3) & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -408,10 +408,10 @@ Public Class IAIPFacilityCreator
                 Exit Sub
             End If
 
-            SQL = "Insert into " & DBNameSpace & ".APBMasterAIRS " & _
+            SQL = "Insert into AIRBRANCH.APBMasterAIRS " & _
             "values " & _
             "((select '0413'||substr((max(strAIRSNumber) + 1), 4) " & _
-            "from " & DBNameSpace & ".APBMasterAIRS " & _
+            "from AIRBRANCH.APBMasterAIRS " & _
             "where substr(strAIRSNumber, 1, 7) = '0413" & cboCounty.SelectedValue & "'), " & _
             "'" & UserGCode & "', '" & OracleDate & "' ) "
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -422,7 +422,7 @@ Public Class IAIPFacilityCreator
             dr.Close()
 
             SQL = "select (substr((max(strAIRSNumber)), 5)) as AIRSNumber " & _
-            "from " & DBNameSpace & ".APBMasterAIRS " & _
+            "from AIRBRANCH.APBMasterAIRS " & _
             "where substr(strAIRSNumber, 1, 7) = '0413" & cboCounty.SelectedValue & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -449,6 +449,7 @@ Public Class IAIPFacilityCreator
             If txtCDSFacilityName.Text = "" Then
                 facilityname = "N/A"
             Else
+                txtCDSFacilityName.Text = Apb.Facility.SanitizeFacilityNameForDb(txtCDSFacilityName.Text)
                 FacilityName = txtCDSFacilityName.Text
             End If
             If txtCDSStreetAddress.Text <> "" Then
@@ -621,7 +622,7 @@ Public Class IAIPFacilityCreator
                 RMPNumber = ""
             End If
 
-            SQL = "Insert into " & DBNameSpace & ".APBFacilityInformation " & _
+            SQL = "Insert into AIRBRANCH.APBFacilityInformation " & _
             "(strAIRSNumber, strFacilityName, " & _
             "strFacilityStreet1, strFacilityStreet2, " & _
             "strFacilityCity, strFacilityState, " & _
@@ -650,7 +651,7 @@ Public Class IAIPFacilityCreator
 
             SQL = "select " & _
             "strNonAttainment " & _
-            "from " & DBNameSpace & ".LookUpCountyInformation " & _
+            "from AIRBRANCH.LookUpCountyInformation " & _
             "where strCountyCode = '" & Mid(AIRSNumber, 5, 3) & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -667,7 +668,7 @@ Public Class IAIPFacilityCreator
             End While
             dr.Close()
 
-            SQL = "Insert into " & DBNameSpace & ".APBHeaderData " & _
+            SQL = "Insert into AIRBRANCH.APBHeaderData " & _
             "(strAIRSNumber, strOperationalStatus, " & _
             "strClass, " & _
             "strAIRProgramCodes, strSICCode, " & _
@@ -694,7 +695,7 @@ Public Class IAIPFacilityCreator
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Insert into " & DBNameSpace & ".APBSupplamentalData " & _
+            SQL = "Insert into AIRBRANCH.APBSupplamentalData " & _
             "(strAIRSNumber, datSSCPTestReportDue, " & _
             "strModifingPerson, DatModifingDate, " & _
             "strDistrictOffice, strCMSMember, " & _
@@ -713,7 +714,7 @@ Public Class IAIPFacilityCreator
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "insert into " & DBNameSpace & ".APBContactInformation " & _
+            SQL = "insert into AIRBRANCH.APBContactInformation " & _
             "(strContactKey, strAIRSNumber, strKey, " & _
             "strContactFirstName, strContactLastName, " & _
             "strContactPrefix, strContactSuffix, " & _
@@ -745,7 +746,7 @@ Public Class IAIPFacilityCreator
             dr.Close()
 
             If chbCDS_1.Checked = True Then
-                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -763,7 +764,7 @@ Public Class IAIPFacilityCreator
                 dr.Close()
             End If
             If chbCDS_2.Checked = True Then
-                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -781,7 +782,7 @@ Public Class IAIPFacilityCreator
                 dr.Close()
             End If
             If chbCDS_3.Checked = True Then
-                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -799,7 +800,7 @@ Public Class IAIPFacilityCreator
                 dr.Close()
             End If
             If chbCDS_4.Checked = True Then
-                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -817,7 +818,7 @@ Public Class IAIPFacilityCreator
                 dr.Close()
             End If
             If chbCDS_5.Checked = True Then
-                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -835,7 +836,7 @@ Public Class IAIPFacilityCreator
                 dr.Close()
             End If
             If chbCDS_6.Checked = True Then
-                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -853,7 +854,7 @@ Public Class IAIPFacilityCreator
                 dr.Close()
             End If
             If chbCDS_7.Checked = True Then
-                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -871,7 +872,7 @@ Public Class IAIPFacilityCreator
                 dr.Close()
             End If
             If chbCDS_8.Checked = True Then
-                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -889,7 +890,7 @@ Public Class IAIPFacilityCreator
                 dr.Close()
             End If
             If chbCDS_9.Checked = True Then
-                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -907,7 +908,7 @@ Public Class IAIPFacilityCreator
                 dr.Close()
             End If
             If chbCDS_10.Checked = True Then
-                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -925,7 +926,7 @@ Public Class IAIPFacilityCreator
                 dr.Close()
             End If
             If chbCDS_11.Checked = True Then
-                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -943,7 +944,7 @@ Public Class IAIPFacilityCreator
                 dr.Close()
             End If
             If chbCDS_12.Checked = True Then
-                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -961,7 +962,7 @@ Public Class IAIPFacilityCreator
                 dr.Close()
             End If
             If chbCDS_13.Checked = True Then
-                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -979,7 +980,7 @@ Public Class IAIPFacilityCreator
                 dr.Close()
             End If
 
-            SQL = "Insert into " & DBNameSpace & ".SSCPDistrictResponsible " & _
+            SQL = "Insert into AIRBRANCH.SSCPDistrictResponsible " & _
             "values " & _
             "('" & AIRSNumber & "', 'False', " & _
             "'1', sysdate) "
@@ -1013,10 +1014,10 @@ Public Class IAIPFacilityCreator
                 "strContactLastName, strContactpreFix, " & _
                 "strContactSuffix, strContactTitle, " & _
                 "strContactPhoneNumber1 " & _
-                "from " & DBNameSpace & ".SSPPApplicationdata, " & _
-                "" & DBNameSpace & ".SSPPApplicationContact " & _
-                "where " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationContact.strApplicationNumber " & _
-                "and " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
+                "from AIRBRANCH.SSPPApplicationdata, " & _
+                "AIRBRANCH.SSPPApplicationContact " & _
+                "where AIRBRANCH.SSPPApplicationData.strApplicationNumber = AIRBRANCH.SSPPApplicationContact.strApplicationNumber " & _
+                "and AIRBRANCH.SSPPApplicationData.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -1354,15 +1355,15 @@ Public Class IAIPFacilityCreator
             "strSICCode, strOperationalStatus, " & _
             "strClass, strAirProgramCodes, " & _
             "strPlantDescription, " & _
-            "" & DBNameSpace & ".APBHeaderData.strComments, " & _
+            "AIRBRANCH.APBHeaderData.strComments, " & _
             "strNAICSCode, strRMPID " & _
-            "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".APBHeaderData, " & _
-            "" & DBNameSpace & ".APBContactInformation, " & DBNameSpace & ".APBSupplamentalData  " & _
-            "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
-            "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
-            "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBContactInformation.strAIRSNumber " & _
+            "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBHeaderData, " & _
+            "AIRBRANCH.APBContactInformation, AIRBRANCH.APBSupplamentalData  " & _
+            "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber " & _
+            "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber " & _
+            "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBContactInformation.strAIRSNumber " & _
             "and strkey = '30' " & _
-            "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "'"
+            "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "'"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1617,7 +1618,7 @@ Public Class IAIPFacilityCreator
             If chbSSCPSignOff.Checked = True And chbSSPPSignOff.Checked = True Then
                 SQL = "Select " & _
                 "numApprovingSSCP, numApprovingSSPP " & _
-                "from " & DBNameSpace & ".APBSupplamentalData " & _
+                "from AIRBRANCH.APBSupplamentalData " & _
                 "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1639,7 +1640,7 @@ Public Class IAIPFacilityCreator
                 dr.Close()
 
                 If SSCPSignOff = "" And SSPPSignOff = "" Then
-                    SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+                    SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                     "numApprovingSSCP = '" & UserGCode & "', " & _
                     "datApproveDateSSCP = '" & DTPSSCPApproveDate.Text & "', " & _
                     "strCommentSSCP = '" & txtSSCPComments.Text & "', " & _
@@ -1657,7 +1658,7 @@ Public Class IAIPFacilityCreator
                     dr.Close()
                 Else
                     If SSCPSignOff = "" Then
-                        SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+                        SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                          "numApprovingSSCP = '" & UserGCode & "', " & _
                          "datApproveDateSSCP = '" & DTPSSCPApproveDate.Text & "', " & _
                          "strCommentSSCP = '" & txtSSCPComments.Text & "' " & _
@@ -1672,7 +1673,7 @@ Public Class IAIPFacilityCreator
                         dr.Close()
                     End If
                     If SSPPSignOff = "" Then
-                        SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+                        SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                         "numApprovingSSPP = '" & UserGCode & "', " & _
                         "datApproveDateSSPP = '" & DTPSSCPApproveDate.Text & "', " & _
                         "strCommentSSPP = '" & txtSSCPComments.Text & "' " & _
@@ -1688,7 +1689,7 @@ Public Class IAIPFacilityCreator
                     End If
                 End If
 
-                SQL = "Update " & DBNameSpace & ".AFSFacilityData set " & _
+                SQL = "Update AIRBRANCH.AFSFacilityData set " & _
                 "strUpdateStatus = 'A' " & _
                 "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' " & _
                 "and strUpdateStatus = 'H' "
@@ -1732,7 +1733,7 @@ Public Class IAIPFacilityCreator
                     Exit Sub
             End Select
 
-            SQL = "Delete " & DBNameSpace & ".SSCPInspectionsRequired " & _
+            SQL = "Delete AIRBRANCH.SSCPInspectionsRequired " & _
             "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1742,7 +1743,7 @@ Public Class IAIPFacilityCreator
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Delete " & DBNameSpace & ".SSCPDistrictResponsible " & _
+            SQL = "Delete AIRBRANCH.SSCPDistrictResponsible " & _
             "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1752,7 +1753,7 @@ Public Class IAIPFacilityCreator
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Delete " & DBNameSpace & ".APBAirProgramPollutants " & _
+            SQL = "Delete AIRBRANCH.APBAirProgramPollutants " & _
             "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1762,7 +1763,7 @@ Public Class IAIPFacilityCreator
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Delete " & DBNameSpace & ".APBContactInformation " & _
+            SQL = "Delete AIRBRANCH.APBContactInformation " & _
            "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1772,7 +1773,7 @@ Public Class IAIPFacilityCreator
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Delete " & DBNameSpace & ".APBSupplamentalData " & _
+            SQL = "Delete AIRBRANCH.APBSupplamentalData " & _
             "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1782,7 +1783,7 @@ Public Class IAIPFacilityCreator
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Delete " & DBNameSpace & ".APBHeaderData " & _
+            SQL = "Delete AIRBRANCH.APBHeaderData " & _
             "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1792,7 +1793,7 @@ Public Class IAIPFacilityCreator
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Delete " & DBNameSpace & ".APBFacilityInformation " & _
+            SQL = "Delete AIRBRANCH.APBFacilityInformation " & _
             "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1802,7 +1803,7 @@ Public Class IAIPFacilityCreator
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Delete " & DBNameSpace & ".AFSFacilityData " & _
+            SQL = "Delete AIRBRANCH.AFSFacilityData " & _
             "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1812,7 +1813,7 @@ Public Class IAIPFacilityCreator
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Delete " & DBNameSpace & ".AFSAIRPollutantData " & _
+            SQL = "Delete AIRBRANCH.AFSAIRPollutantData " & _
             "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1822,7 +1823,7 @@ Public Class IAIPFacilityCreator
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Delete " & DBNameSpace & ".APBMasterAIRS " & _
+            SQL = "Delete AIRBRANCH.APBMasterAIRS " & _
             "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1849,7 +1850,7 @@ Public Class IAIPFacilityCreator
                 Exit Sub
             End If
 
-            SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+            SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
             "numApprovingSSCP = '" & UserGCode & "', " & _
             "datApproveDateSSCP = '" & DTPSSCPApproveDate.Text & "', " & _
             "strCommentSSCP = '" & txtSSCPComments.Text & "' " & _
@@ -1877,7 +1878,7 @@ Public Class IAIPFacilityCreator
                 Exit Sub
             End If
 
-            SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+            SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
             "numApprovingSSpp = '" & UserGCode & "', " & _
             "datApproveDateSSpP = '" & DTPSSPPApproveDate.Text & "', " & _
             "strCommentSSpP = '" & txtSSPPComments.Text & "' " & _
@@ -1901,18 +1902,12 @@ Public Class IAIPFacilityCreator
     Private Sub btnValidateFacility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnValidateFacility.Click
         Try
             Dim FacilityName As String
-            Dim FirstWord As String
-            Dim LastWord As String
             Dim FacilityAddress As String
 
             If txtNewAIRSNumber.Text <> "" Then
                 FacilityName = txtNewFacilityName.Text
             Else
                 Exit Sub
-            End If
-            If FacilityName.Contains(" ") Then
-                FirstWord = Mid(FacilityName, 1, FacilityName.IndexOf(" "))
-                LastWord = Mid(FacilityName, FacilityName.IndexOf(" "))
             End If
             If txtStreetAddress.Text <> "" Then
                 FacilityAddress = txtStreetAddress.Text
@@ -1921,20 +1916,11 @@ Public Class IAIPFacilityCreator
             End If
 
             SQL = "Select " & _
-            "substr(strAIRSNumber, 5) as AIRSNumber, strFacilityName, " & _
-            "strFacilityStreet1, strFacilityCity, " & _
-            "strFacilityZipCode " & _
-            "from " & DBNameSpace & ".APBFacilityInformation " & _
-            "where upper(strFacilityName) like '%" & FacilityName.ToUpper & "%' " & _
-            "or upper(strFacilityStreet1) like '%" & FacilityAddress.ToUpper & "%' "
-
-
-            SQL = "Select " & _
             "strFacilityName, " & _
             "substr(strAIRSNumber, 5) as AIRSNumber, " & _
             "strFacilityStreet1, strFacilityCity, " & _
             "strFacilityZipCode " & _
-            "from " & DBNameSpace & ".APBFacilityInformation " & _
+            "from AIRBRANCH.APBFacilityInformation " & _
             "where Upper(strFacilityName) Like Upper('%" & Replace(FacilityName.ToUpper, "'", "''") & "%')" & _
             "or upper(strFacilityStreet1) like '%" & FacilityAddress.ToUpper & "%' " & _
             "Union " & _
@@ -1942,7 +1928,7 @@ Public Class IAIPFacilityCreator
             "distinct(strFacilityName) as strFacilityName, " & _
             "substr(strAIRSNumber, 5) as shortAIRS, " & _
             "strFacilityStreet1, strFacilityCity,  strFacilityZipCode " & _
-            "from " & DBNameSpace & ".HB_APBFacilityInformation " & _
+            "from AIRBRANCH.HB_APBFacilityInformation " & _
             "where Upper(strFacilityName) Like Upper('%" & Replace(FacilityName.ToUpper, "'", "''") & "%')" & _
             "or upper(strFacilityStreet1) like '%" & FacilityAddress.ToUpper & "%' " & _
             "Union " & _
@@ -1950,8 +1936,8 @@ Public Class IAIPFacilityCreator
             "Distinct(strFacilityname) as strFacilityname,  " & _
             "substr(strAIRSNumber, 5) as shortAIRS,  " & _
             "strFacilityStreet1, strFacilityCity, strFacilityZipCode  " & _
-            "from " & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".SSPPApplicationMaster   " & _
-            "where " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber " & _
+            "from AIRBRANCH.SSPPApplicationData, AIRBRANCH.SSPPApplicationMaster   " & _
+            "where AIRBRANCH.SSPPApplicationData.strApplicationNumber = AIRBRANCH.SSPPApplicationMaster.strApplicationNumber " & _
             "and (upper(strFacilityname) like Upper('%" & Replace(FacilityName.ToUpper, "'", "''") & "%') " & _
             "or upper(strFacilityStreet1) like '%" & FacilityAddress.ToUpper & "%') "
 
@@ -2123,6 +2109,7 @@ Public Class IAIPFacilityCreator
             If txtCDSFacilityName.Text = "" Then
                 FacilityName = "N/A"
             Else
+                txtCDSFacilityName.Text = Apb.Facility.SanitizeFacilityNameForDb(txtCDSFacilityName.Text)
                 FacilityName = txtCDSFacilityName.Text
             End If
 
@@ -2299,7 +2286,7 @@ Public Class IAIPFacilityCreator
                 Comments = Comments & "Pre-loaded with Application " & txtApplicationNumber.Text
             End If
 
-            SQL = "update " & DBNameSpace & ".APBFacilityInformation set " & _
+            SQL = "update AIRBRANCH.APBFacilityInformation set " & _
             "strFacilityName = '" & Replace(FacilityName, "'", "''") & "', " & _
             "strFacilityStreet1 = '" & Replace(FacilityStreet, "'", "''") & "', " & _
             "strFacilityCity = '" & Replace(FacilityCity, "'", "''") & "', " & _
@@ -2317,7 +2304,7 @@ Public Class IAIPFacilityCreator
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Update " & DBNameSpace & ".APBHeaderData set " & _
+            SQL = "Update AIRBRANCH.APBHeaderData set " & _
             "strOperationalStatus = '" & Replace(OperatingStatus, "'", "''") & "', " & _
             "strClass = '" & Replace(Classification, "'", "''") & "', " & _
             "strAIRProgramCodes = '" & Replace(AirProgramCode, "'", "''") & "', " & _
@@ -2336,7 +2323,7 @@ Public Class IAIPFacilityCreator
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+            SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
             "strDistrictOffice = '" & Replace(DistrictOffice, "'", "''") & "', " & _
             "strModifingPerson = '" & UserGCode & "', " & _
             "datModifingDate = '" & OracleDate & "' " & _
@@ -2349,7 +2336,7 @@ Public Class IAIPFacilityCreator
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "update " & DBNameSpace & ".APBContactInformation set " & _
+            SQL = "update AIRBRANCH.APBContactInformation set " & _
             "strContactAddress1 = '" & Replace(MailingStreet, "'", "''") & "', " & _
             "strContactCity = '" & Replace(MailingCity, "'", "''") & "', " & _
             "strContactState = '" & Replace(MailingState, "'", "''") & "', " & _

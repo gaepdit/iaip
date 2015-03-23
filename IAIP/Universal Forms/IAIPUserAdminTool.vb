@@ -88,13 +88,13 @@ Public Class IAIPUserAdminTool
             dsAccounts = New DataSet
 
             SQL = "select " & _
-            "" & DBNameSpace & ".lookupepdbranches.numBranchCode, strBranchDesc,  " & _
-            "" & DBNameSpace & ".lookupepdprograms.numProgramCode, strProgramDesc,  " & _
-            "" & DBNameSpace & ".lookupepdunits.numUnitCode, strUnitdesc " & _
-            "from " & DBNameSpace & ".Lookupepdbranches, " & DBNameSpace & ".lookupepdprograms,  " & _
-            "" & DBNameSpace & ".lookupepdunits " & _
-            "where " & DBNameSpace & ".lookupepdbranches.numbranchcode = " & DBNameSpace & ".lookupepdprograms.numbranchcode (+) " & _
-            "and " & DBNameSpace & ".lookupepdprograms.numprogramcode = " & DBNameSpace & ".lookupepdunits.numprogramcode (+) " & _
+            "AIRBRANCH.lookupepdbranches.numBranchCode, strBranchDesc,  " & _
+            "AIRBRANCH.lookupepdprograms.numProgramCode, strProgramDesc,  " & _
+            "AIRBRANCH.lookupepdunits.numUnitCode, strUnitdesc " & _
+            "from AIRBRANCH.Lookupepdbranches, AIRBRANCH.lookupepdprograms,  " & _
+            "AIRBRANCH.lookupepdunits " & _
+            "where AIRBRANCH.lookupepdbranches.numbranchcode = AIRBRANCH.lookupepdprograms.numbranchcode (+) " & _
+            "and AIRBRANCH.lookupepdprograms.numprogramcode = AIRBRANCH.lookupepdunits.numprogramcode (+) " & _
             "order by strbranchdesc, strProgramDesc, strUnitDesc "
 
             daOrginizations = New OracleDataAdapter(SQL, CurrentConnection)
@@ -103,7 +103,7 @@ Public Class IAIPUserAdminTool
             "numAccountCode, strAccountDesc, " & _
             "numBranchCode, numProgramCode, " & _
             "numUnitCode " & _
-            "from " & DBNameSpace & ".LookUpIAIPAccounts " & _
+            "from AIRBRANCH.LookUpIAIPAccounts " & _
             "order by strAccountDesc "
 
             daAccounts = New OracleDataAdapter(SQL, CurrentConnection)
@@ -798,7 +798,7 @@ Public Class IAIPUserAdminTool
         Try
             SQL = "Select " & _
             "numUserId " & _
-            "from " & DBNameSpace & ".IAIPPermissions " & _
+            "from AIRBRANCH.IAIPPermissions " & _
             "where numUserId = '" & lblUserID.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -814,11 +814,11 @@ Public Class IAIPUserAdminTool
             End If
 
             If recExist = False Then
-                SQL = "Insert into " & DBNameSpace & ".IAIPPermissions " & _
+                SQL = "Insert into AIRBRANCH.IAIPPermissions " & _
                 "values " & _
                 "('" & lblUserID.Text & "', '" & lblPermissions.Text & "') "
             Else
-                SQL = "Update " & DBNameSpace & ".IAIPPermissions set " & _
+                SQL = "Update AIRBRANCH.IAIPPermissions set " & _
                 "strIAIPPermissions = '" & lblPermissions.Text & "' " & _
                 "where numUserID = '" & lblUserID.Text & "' "
             End If
@@ -852,7 +852,7 @@ Public Class IAIPUserAdminTool
 
                     SQL = "Select " & _
                     "strUserName " & _
-                    "from " & DBNameSpace & ".EPDUsers " & _
+                    "from AIRBRANCH.EPDUsers " & _
                     "where strUsername = '" & txtUserName.Text & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -865,11 +865,11 @@ Public Class IAIPUserAdminTool
                     If recExist = True Then
                         MsgBox("The User Name is already in use by another user." & vbCrLf & "Please choose another User Name.", MsgBoxStyle.Exclamation, "IAIP User Admin Tool")
                     Else
-                        SQL = "Insert into " & DBNameSpace & ".EPDUsers " & _
+                        SQL = "Insert into AIRBRANCH.EPDUsers " & _
                         "(numUserID, strUserName, " & _
                         "strPassword) " & _
                         "values " & _
-                        "((select (max(numUserID) + 1) from " & DBNameSpace & ".EPDUsers), " & _
+                        "((select (max(numUserID) + 1) from AIRBRANCH.EPDUsers), " & _
                         "'" & Replace(txtUserName.Text, "'", "''") & "', " & _
                         "'" & Replace(EncryptDecrypt.EncryptText(txtPassword.Text), "'", "''") & "') "
 
@@ -881,10 +881,10 @@ Public Class IAIPUserAdminTool
                         dr.Close()
 
 
-                        'SQL = "select " & DBNameSpace & ".SEQ_EPD_Users.currval " & _
+                        'SQL = "select AIRBRANCH.SEQ_EPD_Users.currval " & _
                         '"from dual "
                         SQL = "select max(numUserID) as maxUser " & _
-                        "from " & DBNameSpace & ".EPDUsers "
+                        "from AIRBRANCH.EPDUsers "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -902,7 +902,7 @@ Public Class IAIPUserAdminTool
                             EmployeeId = "000"
                         End If
 
-                        SQL = "Insert into " & DBNameSpace & ".EPDUSerProfiles " & _
+                        SQL = "Insert into AIRBRANCH.EPDUSerProfiles " & _
                         "(numUserID, strEmployeeID, " & _
                         "strLastName, strFirstName, " & _
                         "strEmailAddress, strPhone, " & _
@@ -980,7 +980,7 @@ Public Class IAIPUserAdminTool
                     End If
                     SQL = "Select " & _
                     "strUserName " & _
-                    "from " & DBNameSpace & ".EPDUsers " & _
+                    "from AIRBRANCH.EPDUsers " & _
                     "where strUserName = '" & txtUserName.Text & "' " & _
                     "and numUserID <> '" & lblUserID.Text & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -993,7 +993,7 @@ Public Class IAIPUserAdminTool
                     If recExist = True Then
                         MsgBox("The User Name is already in use by another user." & vbCrLf & "Please choose another User Name.", MsgBoxStyle.Exclamation, "IAIP User Admin Tool")
                     Else
-                        SQL = "Update " & DBNameSpace & ".EPDUsers set " & _
+                        SQL = "Update AIRBRANCH.EPDUsers set " & _
                         "strUserName = '" & Replace(txtUserName.Text, "'", "''") & "', " & _
                         "strPassword = '" & Replace(EncryptDecrypt.EncryptText(txtPassword.Text), "'", "''") & "' " & _
                         "where numUserId = '" & lblUserID.Text & "' "
@@ -1005,7 +1005,7 @@ Public Class IAIPUserAdminTool
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "Update " & DBNameSpace & ".EPDUserProfiles set " & _
+                        SQL = "Update AIRBRANCH.EPDUserProfiles set " & _
                         "strEmployeeID = '" & Replace(EmployeeID, "'", "''") & "', " & _
                         "strLastName = '" & Replace(txtLastName.Text, "'", "''") & "', " & _
                         "strFirstName = '" & Replace(txtFirstName.Text, "'", "''") & "', " & _
@@ -1050,7 +1050,7 @@ Public Class IAIPUserAdminTool
             Select Case SearchType
                 Case "All"
                     SQL = "select " & _
-                    "" & DBNameSpace & ".EPDUsers.numUserID, " & _
+                    "AIRBRANCH.EPDUsers.numUserID, " & _
                     "strUserName, strPassword,  " & _
                     "strEmployeeId, strLastname,  " & _
                     "strFirstName, strEmailAddress,  " & _
@@ -1064,16 +1064,16 @@ Public Class IAIPUserAdminTool
                     "when numEmployeeStatus = '0' then 'Inactive'  " & _
                     "else 'Inactive' " & _
                     "End EmployeeStatus  " & _
-                    "from " & DBNameSpace & ".EPDUsers, " & DBNameSpace & ".EPDUserProfiles,  " & _
-                    "" & DBNameSpace & ".LookupEPDBranches, " & DBNameSpace & ".LookupEPDPrograms,  " & _
-                    "" & DBNameSpace & ".LookUpEPDUnits  " & _
-                    "where " & DBNameSpace & ".epdusers.numuserID = " & DBNameSpace & ".EPDUserProfiles.numUserId  " & _
-                    "and " & DBNameSpace & ".EPDUserProfiles.numBranch = " & DBNameSpace & ".LookupEPDBranches.numBranchcode (+)  " & _
-                    "and " & DBNameSpace & ".EPDUserProfiles.numProgram = " & DBNameSpace & ".lookupEPDPrograms.numProgramcode (+)  " & _
-                    "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitcode (+) "
+                    "from AIRBRANCH.EPDUsers, AIRBRANCH.EPDUserProfiles,  " & _
+                    "AIRBRANCH.LookupEPDBranches, AIRBRANCH.LookupEPDPrograms,  " & _
+                    "AIRBRANCH.LookUpEPDUnits  " & _
+                    "where AIRBRANCH.epdusers.numuserID = AIRBRANCH.EPDUserProfiles.numUserId  " & _
+                    "and AIRBRANCH.EPDUserProfiles.numBranch = AIRBRANCH.LookupEPDBranches.numBranchcode (+)  " & _
+                    "and AIRBRANCH.EPDUserProfiles.numProgram = AIRBRANCH.lookupEPDPrograms.numProgramcode (+)  " & _
+                    "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitcode (+) "
                 Case "Self"
                     SQL = "select " & _
-                    "" & DBNameSpace & ".EPDUsers.numUserID, " & _
+                    "AIRBRANCH.EPDUsers.numUserID, " & _
                     "strUserName, strPassword,  " & _
                     "strEmployeeId, strLastname,  " & _
                     "strFirstName, strEmailAddress,  " & _
@@ -1087,17 +1087,17 @@ Public Class IAIPUserAdminTool
                     "when numEmployeeStatus = '0' then 'Inactive'  " & _
                     "else 'Inactive' " & _
                     "End EmployeeStatus  " & _
-                    "from " & DBNameSpace & ".EPDUsers, " & DBNameSpace & ".EPDUserProfiles,  " & _
-                    "" & DBNameSpace & ".LookupEPDBranches, " & DBNameSpace & ".LookupEPDPrograms,  " & _
-                    "" & DBNameSpace & ".LookUpEPDUnits  " & _
-                    "where " & DBNameSpace & ".epdusers.numuserID = " & DBNameSpace & ".EPDUserProfiles.numUserId  " & _
-                    "and " & DBNameSpace & ".EPDUserProfiles.numBranch = " & DBNameSpace & ".LookupEPDBranches.numBranchcode (+)  " & _
-                    "and " & DBNameSpace & ".EPDUserProfiles.numProgram = " & DBNameSpace & ".lookupEPDPrograms.numProgramcode (+)  " & _
-                    "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitcode (+) " & _
-                    "and " & DBNameSpace & ".EPDUsers.numUserId = '" & UserGCode & "' "
+                    "from AIRBRANCH.EPDUsers, AIRBRANCH.EPDUserProfiles,  " & _
+                    "AIRBRANCH.LookupEPDBranches, AIRBRANCH.LookupEPDPrograms,  " & _
+                    "AIRBRANCH.LookUpEPDUnits  " & _
+                    "where AIRBRANCH.epdusers.numuserID = AIRBRANCH.EPDUserProfiles.numUserId  " & _
+                    "and AIRBRANCH.EPDUserProfiles.numBranch = AIRBRANCH.LookupEPDBranches.numBranchcode (+)  " & _
+                    "and AIRBRANCH.EPDUserProfiles.numProgram = AIRBRANCH.lookupEPDPrograms.numProgramcode (+)  " & _
+                    "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitcode (+) " & _
+                    "and AIRBRANCH.EPDUsers.numUserId = '" & UserGCode & "' "
                 Case "Search"
                     SQL = "select " & _
-                    "" & DBNameSpace & ".EPDUsers.numUserID, " & _
+                    "AIRBRANCH.EPDUsers.numUserID, " & _
                     "strUserName, strPassword,  " & _
                     "strEmployeeId, strLastname,  " & _
                     "strFirstName, strEmailAddress,  " & _
@@ -1111,13 +1111,13 @@ Public Class IAIPUserAdminTool
                     "when numEmployeeStatus = '0' then 'Inactive'  " & _
                     "else 'Inactive' " & _
                     "End EmployeeStatus  " & _
-                    "from " & DBNameSpace & ".EPDUsers, " & DBNameSpace & ".EPDUserProfiles,  " & _
-                    "" & DBNameSpace & ".LookupEPDBranches, " & DBNameSpace & ".LookupEPDPrograms,  " & _
-                    "" & DBNameSpace & ".LookUpEPDUnits  " & _
-                    "where " & DBNameSpace & ".epdusers.numuserID = " & DBNameSpace & ".EPDUserProfiles.numUserId  " & _
-                    "and " & DBNameSpace & ".EPDUserProfiles.numBranch = " & DBNameSpace & ".LookupEPDBranches.numBranchcode (+)  " & _
-                    "and " & DBNameSpace & ".EPDUserProfiles.numProgram = " & DBNameSpace & ".lookupEPDPrograms.numProgramcode (+)  " & _
-                    "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitcode (+) "
+                    "from AIRBRANCH.EPDUsers, AIRBRANCH.EPDUserProfiles,  " & _
+                    "AIRBRANCH.LookupEPDBranches, AIRBRANCH.LookupEPDPrograms,  " & _
+                    "AIRBRANCH.LookUpEPDUnits  " & _
+                    "where AIRBRANCH.epdusers.numuserID = AIRBRANCH.EPDUserProfiles.numUserId  " & _
+                    "and AIRBRANCH.EPDUserProfiles.numBranch = AIRBRANCH.LookupEPDBranches.numBranchcode (+)  " & _
+                    "and AIRBRANCH.EPDUserProfiles.numProgram = AIRBRANCH.lookupEPDPrograms.numProgramcode (+)  " & _
+                    "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitcode (+) "
 
                     If cboSearchBranch.SelectedIndex > 0 Then
                         SQL = SQL & " and EPDUserProfiles.numbranch = '" & cboSearchBranch.SelectedValue & "' "
@@ -1226,7 +1226,7 @@ Public Class IAIPUserAdminTool
     Sub LoadUserData()
         Try
             SQL = "select " & _
-            "" & DBNameSpace & ".epdusers.numuserID,  " & _
+            "AIRBRANCH.epdusers.numuserID,  " & _
             "strUserName, strPassword,  " & _
             "strEmployeeId, strLastname,  " & _
             "strFirstName, strEmailAddress,  " & _
@@ -1236,9 +1236,9 @@ Public Class IAIPUserAdminTool
             "numUnit,  " & _
             "strOffice,  " & _
             "numEmployeeStatus   " & _
-            "from " & DBNameSpace & ".EPDUsers, " & DBNameSpace & ".EPDUserProfiles  " & _
-            "where " & DBNameSpace & ".epdusers.numuserID = " & DBNameSpace & ".EPDUserProfiles.numUserId " & _
-            "and " & DBNameSpace & ".epdusers.numuserid = '" & lblUserID.Text & "' "
+            "from AIRBRANCH.EPDUsers, AIRBRANCH.EPDUserProfiles  " & _
+            "where AIRBRANCH.epdusers.numuserID = AIRBRANCH.EPDUserProfiles.numUserId " & _
+            "and AIRBRANCH.epdusers.numuserid = '" & lblUserID.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1353,7 +1353,7 @@ Public Class IAIPUserAdminTool
 
             SQL = "Select " & _
             "numUserId, strIAIPPermissions " & _
-            "from " & DBNameSpace & ".IAIPPermissions " & _
+            "from AIRBRANCH.IAIPPermissions " & _
             "where numUserID = '" & lblUserID.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)

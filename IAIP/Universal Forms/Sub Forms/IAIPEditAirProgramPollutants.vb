@@ -71,9 +71,9 @@ Public Class IAIPEditAirProgramPollutants
 
             SQL = "Select " & _
             "strAirProgramCodes, strFacilityName " & _
-            "from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBFacilityInformation " & _
-            "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber " & _
-            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
+            "from AIRBRANCH.APBHeaderData, AIRBRANCH.APBFacilityInformation " & _
+            "where AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber " & _
+            "and AIRBRANCH.APBHeaderData.strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -150,14 +150,14 @@ Public Class IAIPEditAirProgramPollutants
 
             SQL = "Select strPollutantDescription, " & _
             "strPollutantCode " & _
-            "from " & DBNameSpace & ".LookUPPollutants " & _
+            "from AIRBRANCH.LookUPPollutants " & _
             "where strAFSCode = 'True' " & _
             "order by strPollutantDescription "
 
             SQL2 = "Select " & _
             "strComplianceCode, " & _
             "(strComplianceCode || ' - ' || strComplianceDesc) as ComplianceDesc " & _
-            "from " & DBNameSpace & ".LookUpComplianceStatus " & _
+            "from AIRBRANCH.LookUpComplianceStatus " & _
             "order by strComplianceCode "
 
             dsPollutant = New DataSet
@@ -272,11 +272,11 @@ Public Class IAIPEditAirProgramPollutants
             "(strComplianceCode || ' - ' || strComplianceDesc) as ComplianceDesc,  " & _
             "datModifingDate,  " & _
             "(strLastName||', '||strFirstName) as ModifingPerson       " & _
-            "from " & DBNameSpace & ".APBAirProgramPollutants, " & DBNameSpace & ".LookUPPollutants,   " & _
-            "" & DBNameSpace & ".LookUpComplianceStatus, " & DBNameSpace & ".EPDUserProfiles  " & _
-            "where " & DBNameSpace & ".APBAirProgramPollutants.strPollutantKey = " & DBNameSpace & ".LookUPPollutants.strPOllutantCode   " & _
-            "and " & DBNameSpace & ".LookUpComplianceStatus.strComplianceCode = " & DBNameSpace & ".APBAirProgramPollutants.strComplianceStatus " & _
-            "and " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".APBAirProgramPollutants.strModifingPerson  " & _
+            "from AIRBRANCH.APBAirProgramPollutants, AIRBRANCH.LookUPPollutants,   " & _
+            "AIRBRANCH.LookUpComplianceStatus, AIRBRANCH.EPDUserProfiles  " & _
+            "where AIRBRANCH.APBAirProgramPollutants.strPollutantKey = AIRBRANCH.LookUPPollutants.strPOllutantCode   " & _
+            "and AIRBRANCH.LookUpComplianceStatus.strComplianceCode = AIRBRANCH.APBAirProgramPollutants.strComplianceStatus " & _
+            "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.APBAirProgramPollutants.strModifingPerson  " & _
             "and strAIRSNumber = '0413" & txtAirsNumber.Text & "' " & _
             "Order by AirProgram "
 
@@ -336,7 +336,7 @@ Public Class IAIPEditAirProgramPollutants
             Dim temp As String = ""
 
             SQL = "Select strPollutants " & _
-            "from " & DBNameSpace & ".SSCPEnforcement " & _
+            "from AIRBRANCH.SSCPEnforcement " & _
             "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -364,7 +364,7 @@ Public Class IAIPEditAirProgramPollutants
 
                     SQL = "Select " & _
                     "strPollutantDescription, strComplianceStatus " & _
-                    "from " & DBNameSpace & ".LookUPPollutants, " & DBNameSpace & ".APBAirProgramPollutants " & _
+                    "from AIRBRANCH.LookUPPollutants, AIRBRANCH.APBAirProgramPollutants " & _
                     "where strAirPollutantKey = '0413" & txtAirsNumber.Text & AirProgram & "' " & _
                     "and strPollutantKey = strPollutantCode  " & _
                     "and strPollutantKey = '" & Pollutant & "' "
@@ -469,7 +469,7 @@ Public Class IAIPEditAirProgramPollutants
                     End Select
 
                     SQL = "Select strairsnumber " & _
-                    "from " & DBNameSpace & ".APBAirProgramPollutants " & _
+                    "from AIRBRANCH.APBAirProgramPollutants " & _
                     "where strAIRPollutantKey = '" & AIRSPollutantKey & "' " & _
                     "and strPollutantKey = '" & cboPollutants.SelectedValue & "' "
 
@@ -487,7 +487,7 @@ Public Class IAIPEditAirProgramPollutants
                         Dim ProgramStatus As String
 
                         SQL = "select strAirProgramCodes " & _
-                        "from " & DBNameSpace & ".APBHeaderData  " & _
+                        "from AIRBRANCH.APBHeaderData  " & _
                         "where strAIRSnumber = '0413" & txtAirsNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -585,7 +585,7 @@ Public Class IAIPEditAirProgramPollutants
                                 ProgramStatus = "False"
                         End Select
                         If ProgramStatus = "True" Then
-                            SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
+                            SQL = "Update AIRBRANCH.APBAirProgramPollutants set " & _
                             "strComplianceStatus = '" & cboComplianceStatus.SelectedValue & "', " & _
                             "strModifingperson = '" & UserGCode & "', " & _
                             "datModifingdate = '" & OracleDate & "' " & _
@@ -593,7 +593,7 @@ Public Class IAIPEditAirProgramPollutants
                             "and strAIRSnumber = '0413" & txtAirsNumber.Text & "' " & _
                             "and strPOllutantKey = '" & cboPollutants.SelectedValue & "' "
                         Else
-                            SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
+                            SQL = "Update AIRBRANCH.APBAirProgramPollutants set " & _
                             "strComplianceStatus = '9', " & _
                             "strModifingperson = '" & UserGCode & "', " & _
                             "datModifingdate = '" & OracleDate & "', " & _
@@ -603,7 +603,7 @@ Public Class IAIPEditAirProgramPollutants
                             "and strPOllutantKey = '" & cboPollutants.SelectedValue & "' "
                         End If
                     Else
-                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into AIRBRANCH.APBAirProgramPollutants " & _
                         "(strAIRSnumber, strAIRPollutantKey, " & _
                         "strPOllutantKey, strComplianceStatus, " & _
                         "strModifingperson, datModifingdate, " & _
@@ -677,8 +677,8 @@ Public Class IAIPEditAirProgramPollutants
                 Pollutant = Mid(strObject, InStr(strObject, ") - ", CompareMethod.Text) + 4)
 
                 SQL = "Select strPollutantKey " & _
-                "from " & DBNameSpace & ".APBAirProgramPollutants, " & DBNameSpace & ".LookUPPollutants " & _
-                "where " & DBNameSpace & ".APBAirProgramPollutants.strPollutantKey = " & DBNameSpace & ".LookUPPollutants.strPollutantCode " & _
+                "from AIRBRANCH.APBAirProgramPollutants, AIRBRANCH.LookUPPollutants " & _
+                "where AIRBRANCH.APBAirProgramPollutants.strPollutantKey = AIRBRANCH.LookUPPollutants.strPollutantCode " & _
                 "and strAirPollutantKey = '0413" & txtAirsNumber.Text & AirProgram & "' " & _
                 "and strPollutantDescription = '" & Pollutant & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -703,7 +703,7 @@ Public Class IAIPEditAirProgramPollutants
                 End If
             Next
 
-            SQL = "Update " & DBNameSpace & ".SSCPEnforcement set " & _
+            SQL = "Update AIRBRANCH.SSCPEnforcement set " & _
             "strPollutants = '" & PollutantList & "' " & _
             "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 

@@ -68,15 +68,15 @@ Public Class SBEAPPhoneLog
             SQL = "select " & _
             "NumUserID, " & _
             "(strLastName||', '||strFirstName) as UserName " & _
-            "from " & DBNameSpace & ".EPDUserProfiles " & _
+            "from AIRBRANCH.EPDUserProfiles " & _
             "where numBranch = '5' " & _
             "and numProgram = '35' " & _
             "union " & _
             "select " & _
             "distinct(NumUserID) as NumUserID, " & _
             "(strLastName||', '||strFirstName) as UserName " & _
-            "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".SBEAPCaseLog " & _
-            "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SBEAPCaseLog.numStaffResponsible " & _
+            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.SBEAPCaseLog " & _
+            "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SBEAPCaseLog.numStaffResponsible " & _
             "Order by UserName "
 
             daStaff = New OracleDataAdapter(SQL, CurrentConnection)
@@ -127,8 +127,8 @@ Public Class SBEAPPhoneLog
             "strCompanyState, " & _
             "strCompanyZipCode, " & _
             "strCountyName " & _
-            "from " & DBNameSpace & ".SBEAPClients, " & DBNameSpace & ".LookUpCountyInformation " & _
-            "where " & DBNameSpace & ".SBEAPClients.strCompanyCounty = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode (+) " & _
+            "from AIRBRANCH.SBEAPClients, AIRBRANCH.LookUpCountyInformation " & _
+            "where AIRBRANCH.SBEAPClients.strCompanyCounty = AIRBRANCH.LookUpCountyInformation.strCountyCode (+) " & _
             "and ClientId = '" & txtClientID.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -179,7 +179,7 @@ Public Class SBEAPPhoneLog
 
             SQL = "select " & _
             "count(*) as Outstanding " & _
-            "from " & DBNameSpace & ".SBEAPCaseLog " & _
+            "from AIRBRANCH.SBEAPCaseLog " & _
             "where ClientID = '" & txtClientID.Text & "' " & _
             "and datCaseClosed is null"
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -278,12 +278,12 @@ Public Class SBEAPPhoneLog
                 End If
 
                 If txtCaseID.Text = "" Then
-                    SQL = "Insert into " & DBNameSpace & ".SBEAPCaseLog " & _
+                    SQL = "Insert into AIRBRANCH.SBEAPCaseLog " & _
                     "values " & _
                     "((Select " & _
                     "case " & _
-                    "when (select max(numCaseID) from " & DBNameSpace & ".SBEAPCaseLog) is Null then 1 " & _
-                    "else (select max(numCaseID) + 1 from " & DBNameSpace & ".SBEAPCaseLog) " & _
+                    "when (select max(numCaseID) from AIRBRANCH.SBEAPCaseLog) is Null then 1 " & _
+                    "else (select max(numCaseID) + 1 from AIRBRANCH.SBEAPCaseLog) " & _
                     "End CaseID " & _
                     "from dual), " & _
                     "'" & Staff & "', '" & DTPCaseOpened.Text & "', " & _
@@ -292,9 +292,9 @@ Public Class SBEAPPhoneLog
                     "'" & UserGCode & "', '" & OracleDate & "', '', " & _
                     "'" & Replace(ReferralInformation, "'", "''") & "', '', '', '') "
 
-                    SQL2 = "Select max(numCaseID) as CaseID from " & DBNameSpace & ".SBEAPCaseLog "
+                    SQL2 = "Select max(numCaseID) as CaseID from AIRBRANCH.SBEAPCaseLog "
                 Else
-                    SQL = "Update " & DBNameSpace & ".SBEAPCaseLog set " & _
+                    SQL = "Update AIRBRANCH.SBEAPCaseLog set " & _
                     "numStaffResponsible = '" & Staff & "', " & _
                     "datCaseOpened = '" & DTPCaseOpened.Text & "', " & _
                     "strCaseSummary = '" & Replace(txtCaseSummary.Text, "'", "''") & "', " & _
@@ -334,8 +334,8 @@ Public Class SBEAPPhoneLog
                 If txtActionID.Text = "" Then
                     SQL = "select " & _
                     "case " & _
-                    "when (select max(numActionID) from " & DBNameSpace & ".SBEAPActionLog) is Null then 1 " & _
-                    "else (select max(numActionID) + 1 from " & DBNameSpace & ".SBEAPActionLog)   " & _
+                    "when (select max(numActionID) from AIRBRANCH.SBEAPActionLog) is Null then 1 " & _
+                    "else (select max(numActionID) + 1 from AIRBRANCH.SBEAPActionLog)   " & _
                     "end ActionNumber " & _
                     "from dual  "
 
@@ -353,7 +353,7 @@ Public Class SBEAPPhoneLog
                     End While
                     dr.Close()
 
-                    SQL = "Insert into " & DBNameSpace & ".SBEAPActionLog " & _
+                    SQL = "Insert into AIRBRANCH.SBEAPActionLog " & _
                     "values " & _
                     "('" & txtActionID.Text & "', '" & txtCaseID.Text & "', " & _
                     "'6', '" & UserGCode & "', " & _
@@ -366,7 +366,7 @@ Public Class SBEAPPhoneLog
                     dr = cmd.ExecuteReader
                     dr.Close()
 
-                    SQL = "Insert into " & DBNameSpace & ".SBEAPPhoneLog " & _
+                    SQL = "Insert into AIRBRANCH.SBEAPPhoneLog " & _
                     "values " & _
                     "('" & txtActionID.Text & "', '" & Replace(CallerInfo, "'", "''") & "', " & _
                     "'" & Replace(CallerPhone, "'", "''") & "', " & _
@@ -381,7 +381,7 @@ Public Class SBEAPPhoneLog
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Else
-                    SQL = "Update " & DBNameSpace & ".SBEAPPhoneLog set " & _
+                    SQL = "Update AIRBRANCH.SBEAPPhoneLog set " & _
                     "strCallerInformation = '" & Replace(CallerInfo, "'", "''") & "', " & _
                     "numCallerPhoneNumber = '" & CallerPhone & "', " & _
                     "strPhoneLogNotes = '" & Replace(PhoneCallNotes, "'", "''") & "', " & _

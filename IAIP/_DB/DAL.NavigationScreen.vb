@@ -760,13 +760,13 @@ Namespace DAL
                         "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities,   " & _
                         "AIRBranch.VW_SSCPInspection_List " & _
                         "where AIRBranch.EPDUserProfiles.numUserID = " & _
-                        DBNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
+                        "AIRBRANCH.SSCPItemMaster.strResponsibleStaff  " & _
                         "and AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
-                        DBNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
+                        "AIRBRANCH.SSCPItemMaster.strAIRSNumber  " & _
                         "and AIRBranch.LookUPComplianceActivities.strActivityType = " & _
-                        DBNameSpace & ".SSCPItemMaster.strEventType  " & _
+                        "AIRBRANCH.SSCPItemMaster.strEventType  " & _
                         " and AIRBranch.SSCPItemMaster.strAIRSnumber = '0413'||" & _
-                        DBNameSpace & ".VW_SSCPInspection_List.AIRSNumber  " & _
+                        "AIRBRANCH.VW_SSCPInspection_List.AIRSNumber  " & _
                         "and (strResponsibleStaff = :pId or numSSCPEngineer = :pId) " & _
                         "and DatCompleteDate is Null  " & _
                         "and strDelete is Null "
@@ -785,11 +785,11 @@ Namespace DAL
                             "(select numUserID from AIRBranch.EPDUserProfiles where numProgram = :pId)  " & _
                             "UnitStaff    " & _
                             "where AIRBranch.EPDUserProfiles.numUserID = " & _
-                            DBNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
+                            "AIRBRANCH.SSCPItemMaster.strResponsibleStaff  " & _
                             "and AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
-                            DBNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
+                            "AIRBRANCH.SSCPItemMaster.strAIRSNumber  " & _
                             "and AIRBranch.LookUPComplianceActivities.strActivityType = " & _
-                            DBNameSpace & ".SSCPItemMaster.strEventType " & _
+                            "AIRBRANCH.SSCPItemMaster.strEventType " & _
                             "and DatCompleteDate is Null   " & _
                             "and strResponsibleStaff = UnitStaff.numUserID " & _
                             "and strDelete is Null "
@@ -808,11 +808,11 @@ Namespace DAL
                      "(select numUserID from AIRBranch.EPDUserProfiles where numUnit = :pId)  " & _
                      "UnitStaff    " & _
                      "where AIRBranch.EPDUserProfiles.numUserID = " & _
-                     DBNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
+                     "AIRBRANCH.SSCPItemMaster.strResponsibleStaff  " & _
                      "and AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
-                     DBNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
+                     "AIRBRANCH.SSCPItemMaster.strAIRSNumber  " & _
                      "and AIRBranch.LookUPComplianceActivities.strActivityType = " & _
-                     DBNameSpace & ".SSCPItemMaster.strEventType " & _
+                     "AIRBRANCH.SSCPItemMaster.strEventType " & _
                      "and DatCompleteDate is Null   " & _
                      "and strResponsibleStaff = UnitStaff.numUserID " & _
                      "and strDelete is Null "
@@ -830,11 +830,11 @@ Namespace DAL
                        "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
                        "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities " & _
                        "where AIRBranch.EPDUserProfiles.numUserID(+) = " & _
-                                DBNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
+                                "AIRBRANCH.SSCPItemMaster.strResponsibleStaff  " & _
                        "and AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
-                       DBNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
+                       "AIRBRANCH.SSCPItemMaster.strAIRSNumber  " & _
                        "and AIRBranch.LookUPComplianceActivities.strActivityType = " & _
-                       DBNameSpace & ".SSCPItemMaster.strEventType " & _
+                       "AIRBRANCH.SSCPItemMaster.strEventType " & _
                        "and DatCompleteDate is Null   " & _
                        "and strDelete is Null "
 
@@ -880,7 +880,7 @@ Namespace DAL
                       "AIRBranch.APBFacilityInformation, AIRBranch.EPDuserProfiles,  " & _
                       "AIRBranch.VW_SSCPINSPECTION_LIST " & _
                       "Where AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
-                      DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber  " & _
+                      "AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber  " & _
                       "and AIRBranch.SSCP_AuditedEnforcement.strAIRSnumber = " & _
                       "'0413'||AIRBranch.VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
                       "and (strStatus IS Null or strStatus = 'UC')  " & _
@@ -921,7 +921,7 @@ Namespace DAL
                     "AIRBranch.APBFacilityInformation, AIRBranch.EPDuserProfiles,  " & _
                     "AIRBranch.VW_SSCPINSPECTION_LIST " & _
                     "Where AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
-                    DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber  " & _
+                    "AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber  " & _
                     "and AIRBranch.SSCP_AuditedEnforcement.strAIRSnumber = " & _
                     "'0413'||AIRBranch.VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
                     "and (strStatus IS Null or strStatus = 'UC')  " & _
@@ -962,7 +962,7 @@ Namespace DAL
                     "AIRBranch.APBFacilityInformation, AIRBranch.EPDuserProfiles,  " & _
                     "AIRBranch.VW_SSCPINSPECTION_LIST " & _
                     "Where AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
-                    DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber  " & _
+                    "AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber  " & _
                     "and AIRBranch.SSCP_AuditedEnforcement.strAIRSnumber = " & _
                     "'0413'||AIRBranch.VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
                     "and (strStatus IS Null or strStatus = 'UC')  " & _
@@ -1002,7 +1002,7 @@ Namespace DAL
                    "AIRBranch.APBFacilityInformation, AIRBranch.EPDuserProfiles,  " & _
                    "AIRBranch.VW_SSCPINSPECTION_LIST " & _
                    "Where AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
-                   DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber  " & _
+                   "AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber  " & _
                    "and AIRBranch.SSCP_AuditedEnforcement.strAIRSnumber = " & _
                    "'0413'||AIRBranch.VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
                    "and (strStatus IS Null or strStatus = 'UC')  " & _
@@ -1030,7 +1030,7 @@ Namespace DAL
                    "and substr(strSubPartKey, 13, 1) = '8') " & _
                    "and subStr(strAirProgramCodes, 7, 1) = '1' ) " & _
                    "and AIRBranch.APBHeaderData.strAIRSnumber = " & _
-                   DBNameSpace & ".APBFacilityInformation.strAIRsnumber " & _
+                   "AIRBRANCH.APBFacilityInformation.strAIRsnumber " & _
                    "and AIRBranch.APBHeaderData.strOperationalStatus <> 'X' " & _
                    "order by AIRSNumber "
 
@@ -1054,7 +1054,7 @@ Namespace DAL
                     "and substr(strSubPartKey, 13, 1) = '8') " & _
                     "and subStr(strAirProgramCodes, 7, 1) = '1' ) " & _
                     "and AIRBranch.APBHeaderData.strAIRSnumber = " & _
-                    DBNameSpace & ".APBFacilityInformation.strAIRsnumber " & _
+                    "AIRBRANCH.APBFacilityInformation.strAIRsnumber " & _
                     "and AIRBranch.APBHeaderData.strOperationalStatus <> 'X' " & _
                     "order by AIRSNumber "
 
@@ -1105,11 +1105,11 @@ Namespace DAL
                     "from AIRBranch.ismptestnotification, AIRBranch.APBFacilityinformation,  " & _
                     "AIRBranch.EPDUserProfiles, AIRBranch.ISMPTestLogLink  " & _
                     "where AIRBranch.ismptestnotification.strairsnumber = " & _
-                    DBNameSpace & ".apbfacilityinformation.strairsnumber (+)    " & _
+                    "AIRBRANCH.apbfacilityinformation.strairsnumber (+)    " & _
                     "and AIRBranch.ismptestnotification.strstaffresponsible = " & _
-                    DBNameSpace & ".EPDUserProfiles.numUserID (+)  " & _
+                    "AIRBRANCH.EPDUserProfiles.numUserID (+)  " & _
                     "and AIRBranch.ISMPTestnotification.strTestLogNumber = " & _
-                    DBNameSpace & ".ISMPTestLogLink.strTestLogNumber (+)   " & _
+                    "AIRBRANCH.ISMPTestLogLink.strTestLogNumber (+)   " & _
                     "and datProposedStartDate > (sysdate - 180)    " & _
                     "and strReferenceNumber is null    " & _
                     "union    " & _
@@ -1131,13 +1131,13 @@ Namespace DAL
                     "AIRBranch.EPDUserProfiles, AIRBranch.ISMPTestLogLink,    " & _
                     "AIRBranch.ISMPReportInformation    " & _
                     "where AIRBranch.ismptestnotification.strairsnumber = " & _
-                    DBNameSpace & ".apbfacilityinformation.strairsnumber (+)    " & _
+                    "AIRBRANCH.apbfacilityinformation.strairsnumber (+)    " & _
                     "and AIRBranch.ismptestnotification.strstaffresponsible = " & _
-                    DBNameSpace & ".EPDUserProfiles.numUserID (+)  " & _
+                    "AIRBRANCH.EPDUserProfiles.numUserID (+)  " & _
                     "and AIRBranch.ISMPTestNotification.strTestLogNumber = " & _
-                    DBNameSpace & ".ISMPTestLogLink.strTestLogNumber (+)    " & _
+                    "AIRBRANCH.ISMPTestLogLink.strTestLogNumber (+)    " & _
                     "and AIRBranch.ISMPTestLogLink.strReferencenumber = " & _
-                    DBNameSpace & ".ISMPReportInformation.strReferenceNumber (+)    " & _
+                    "AIRBRANCH.ISMPReportInformation.strReferenceNumber (+)    " & _
                     "and datProposedStartDate > (sysdate - 180)    " & _
                     "and AIRBranch.ISMPTestLogLink.strReferenceNumber is not null    " & _
                     "and strClosed = 'False'  "
@@ -1389,14 +1389,14 @@ Namespace DAL
                 Case WorkViewerType.SBEAP_Staff
                     ' Requires :pId = UserGCode
                     SQL = "select * " & _
-                    "from " & DBNameSpace & ".VW_SBEAP_CaseLog " & _
+                    "from AIRBRANCH.VW_SBEAP_CaseLog " & _
                     "where caseclosed is null " & _
                     "and numstaffresponsible = :pId " & _
                     "order by numcaseid "
 
                 Case WorkViewerType.SBEAP_Program
                     SQL = "select * " & _
-                    "from " & DBNameSpace & ".VW_SBEAP_CaseLog " & _
+                    "from AIRBRANCH.VW_SBEAP_CaseLog " & _
                     "where caseclosed is null " & _
                     "order by numcaseid "
 

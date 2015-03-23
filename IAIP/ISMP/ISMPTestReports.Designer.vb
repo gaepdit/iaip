@@ -26,11 +26,7 @@ Dim resources As System.ComponentModel.ComponentResourceManager = New System.Com
 Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
 Me.mmiFile = New System.Windows.Forms.ToolStripMenuItem
 Me.mmiSave = New System.Windows.Forms.ToolStripMenuItem
-Me.mmiBack = New System.Windows.Forms.ToolStripMenuItem
-Me.mmiEdit = New System.Windows.Forms.ToolStripMenuItem
-Me.mmiCopy = New System.Windows.Forms.ToolStripMenuItem
-Me.mmiCut = New System.Windows.Forms.ToolStripMenuItem
-Me.mmiPaste = New System.Windows.Forms.ToolStripMenuItem
+Me.mmiClose = New System.Windows.Forms.ToolStripMenuItem
 Me.mmiView = New System.Windows.Forms.ToolStripMenuItem
 Me.mmiOpenMemo = New System.Windows.Forms.ToolStripMenuItem
 Me.mmiTool = New System.Windows.Forms.ToolStripMenuItem
@@ -953,7 +949,7 @@ Me.SuspendLayout
 '
 'MenuStrip1
 '
-Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiFile, Me.mmiEdit, Me.mmiView, Me.mmiTool, Me.mmiHelp})
+Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiFile, Me.mmiView, Me.mmiTool, Me.mmiHelp})
 Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
 Me.MenuStrip1.Name = "MenuStrip1"
 Me.MenuStrip1.Size = New System.Drawing.Size(790, 24)
@@ -962,7 +958,7 @@ Me.MenuStrip1.Text = "MenuStrip1"
 '
 'mmiFile
 '
-Me.mmiFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiSave, Me.mmiBack})
+Me.mmiFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiSave, Me.mmiClose})
 Me.mmiFile.Name = "mmiFile"
 Me.mmiFile.Size = New System.Drawing.Size(37, 20)
 Me.mmiFile.Text = "File"
@@ -970,39 +966,16 @@ Me.mmiFile.Text = "File"
 'mmiSave
 '
 Me.mmiSave.Name = "mmiSave"
-Me.mmiSave.Size = New System.Drawing.Size(99, 22)
+Me.mmiSave.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.S),System.Windows.Forms.Keys)
+Me.mmiSave.Size = New System.Drawing.Size(152, 22)
 Me.mmiSave.Text = "Save"
 '
-'mmiBack
+'mmiClose
 '
-Me.mmiBack.Name = "mmiBack"
-Me.mmiBack.Size = New System.Drawing.Size(99, 22)
-Me.mmiBack.Text = "Back"
-'
-'mmiEdit
-'
-Me.mmiEdit.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiCopy, Me.mmiCut, Me.mmiPaste})
-Me.mmiEdit.Name = "mmiEdit"
-Me.mmiEdit.Size = New System.Drawing.Size(39, 20)
-Me.mmiEdit.Text = "Edit"
-'
-'mmiCopy
-'
-Me.mmiCopy.Name = "mmiCopy"
-Me.mmiCopy.Size = New System.Drawing.Size(102, 22)
-Me.mmiCopy.Text = "Copy"
-'
-'mmiCut
-'
-Me.mmiCut.Name = "mmiCut"
-Me.mmiCut.Size = New System.Drawing.Size(102, 22)
-Me.mmiCut.Text = "Cut"
-'
-'mmiPaste
-'
-Me.mmiPaste.Name = "mmiPaste"
-Me.mmiPaste.Size = New System.Drawing.Size(102, 22)
-Me.mmiPaste.Text = "Paste"
+Me.mmiClose.Name = "mmiClose"
+Me.mmiClose.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.W),System.Windows.Forms.Keys)
+Me.mmiClose.Size = New System.Drawing.Size(152, 22)
+Me.mmiClose.Text = "Close"
 '
 'mmiView
 '
@@ -1014,7 +987,7 @@ Me.mmiView.Text = "View"
 'mmiOpenMemo
 '
 Me.mmiOpenMemo.Name = "mmiOpenMemo"
-Me.mmiOpenMemo.Size = New System.Drawing.Size(141, 22)
+Me.mmiOpenMemo.Size = New System.Drawing.Size(152, 22)
 Me.mmiOpenMemo.Text = "Open Memo"
 '
 'mmiTool
@@ -10175,11 +10148,7 @@ End Sub
     Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
     Friend WithEvents mmiFile As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mmiSave As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiBack As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiEdit As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiCopy As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiCut As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiPaste As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mmiClose As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mmiView As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mmiOpenMemo As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mmiTool As System.Windows.Forms.ToolStripMenuItem

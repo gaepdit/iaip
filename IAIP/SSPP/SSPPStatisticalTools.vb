@@ -261,10 +261,10 @@ Public Class SSPPStatisticalTools
             LastDay = Format(DTPPermitCountEnd.Value.AddDays(1), "dd-MMM-yyyy")
 
             SQL = "select count(*) as TVInitial " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking, " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking, " & _
+            "AIRBRANCH.EPDUserProfiles " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and strApplicationType = '14' " & _
             "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
             "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '12' " & _
@@ -284,10 +284,10 @@ Public Class SSPPStatisticalTools
 
             If txtTitleVInitialCount.Text <> "0" Then
                 SQL = "select (datPermitIssued - datReceivedDate) as Diff " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
                 "and strApplicationType = '14'  " & _
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
                 "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '12' " & _
@@ -321,10 +321,10 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "select count(*) as TVRenewal " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,   " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,   " & _
+            "AIRBRANCH.EPDUserProfiles " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and strApplicationType = '16' " & _
             "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
             "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '12' " & _
@@ -343,10 +343,10 @@ Public Class SSPPStatisticalTools
 
             If txtTitleVRenewalCount.Text <> "0" Then
                 SQL = "select (datPermitIssued - datReceivedDate) as Diff " & _
-                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                    "" & DBNameSpace & ".EPDUserProfiles " & _
-                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                    "AIRBRANCH.EPDUserProfiles " & _
+                    "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                    "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
                     "and strApplicationType = '16'  " & _
                     "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
                     "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '12' " & _
@@ -381,10 +381,10 @@ Public Class SSPPStatisticalTools
 
             If txtTitleVInitialCount.Text <> "0" And txtTitleVRenewalCount.Text <> "0" Then
                 SQL = "select (datPermitIssued - datReceivedDate) as Diff " & _
-                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                    "" & DBNameSpace & ".EPDUserProfiles " & _
-                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                    "AIRBRANCH.EPDUserProfiles " & _
+                    "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                    "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
                     "and (strApplicationType = '16' or strApplicationType = '14') " & _
                     "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
                     "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '12' " & _
@@ -418,10 +418,10 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "select count(*) as SigMod " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+            "AIRBRANCH.EPDUserProfiles " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and (strApplicationType = '22' or strApplicationType = '21') " & _
             "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
             "and (strPermitType = '4' or strPermitType = '7') " & _
@@ -439,10 +439,10 @@ Public Class SSPPStatisticalTools
 
             If txtSigModCount.Text <> "0" Then
                 SQL = "select (datPermitIssued - datReceivedDate) as Diff " & _
-                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking, " & _
-                    "" & DBNameSpace & ".EPDUserProfiles " & _
-                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking, " & _
+                    "AIRBRANCH.EPDUserProfiles " & _
+                    "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                    "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
                     "and (strApplicationType = '22' or strApplicationType = '21') " & _
                     "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
                     "and (strPermitType = '4' or strPermitType = '7') " & _
@@ -476,10 +476,10 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "select count(*) as MinorMod " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking, " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking, " & _
+            "AIRBRANCH.EPDUserProfiles " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and (strApplicationType = '19' or strApplicationType = '20') " & _
             "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
             "and (strPermitType = '4' or strPermitType = '7') " & _
@@ -497,10 +497,10 @@ Public Class SSPPStatisticalTools
 
             If txtMinorModCount.Text <> "0" Then
                 SQL = "select (datPermitIssued - datReceivedDate) as Diff " & _
-                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                    "" & DBNameSpace & ".EPDUserProfiles " & _
-                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                    "AIRBRANCH.EPDUserProfiles " & _
+                    "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                    "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
                     "and (strApplicationType = '19' or strApplicationType = '20') " & _
                     "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
                     "and (strPermitType = '4' or strPermitType = '7') " & _
@@ -533,10 +533,10 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "select count(*) as Mod502 " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+            "AIRBRANCH.EPDUserProfiles " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and strApplicationType = '15' " & _
             "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
             "and (strPermitType = '4' or strPermitType = '7') " & _
@@ -554,10 +554,10 @@ Public Class SSPPStatisticalTools
 
             If txt502Count.Text <> "0" Then
                 SQL = "select (datPermitIssued - datReceivedDate) as Diff " & _
-                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                    "" & DBNameSpace & ".EPDUserProfiles " & _
-                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                    "AIRBRANCH.EPDUserProfiles " & _
+                    "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                    "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
                     "and strApplicationType = '15' " & _
                     "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
                     "and (strPermitType = '4' or strPermitType = '7') " & _
@@ -590,10 +590,10 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "select count(*) as AA " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+            "AIRBRANCH.EPDUserProfiles " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and strApplicationType = '26' " & _
             "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
             "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '1') " & _
@@ -612,10 +612,10 @@ Public Class SSPPStatisticalTools
 
             If txtAACount.Text <> "0" Then
                 SQL = "select (datPermitIssued - datReceivedDate) as Diff " & _
-                        "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking, " & _
-                        "" & DBNameSpace & ".EPDUserProfiles " & _
-                        "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                        "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                        "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking, " & _
+                        "AIRBRANCH.EPDUserProfiles " & _
+                        "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                        "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
                         "and strApplicationType = '26' " & _
                         "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
                         "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '1') " & _
@@ -648,10 +648,10 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "select count(*) as SM " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking, " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking, " & _
+            "AIRBRANCH.EPDUserProfiles " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and strApplicationType = '12' " & _
             "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
             "and (strPermitType = '4' or strPermitType = '7') " & _
@@ -669,10 +669,10 @@ Public Class SSPPStatisticalTools
 
             If txtSMCount.Text <> "0" Then
                 SQL = "select (datPermitIssued - datReceivedDate) as Diff " & _
-                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                    "" & DBNameSpace & ".EPDUserProfiles " & _
-                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                    "AIRBRANCH.EPDUserProfiles " & _
+                    "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                    "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
                     "and strApplicationType = '12' " & _
                     "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
                     "and (strPermitType = '4' or strPermitType = '7') " & _
@@ -706,10 +706,10 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "select count(*) as PBR " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+            "AIRBRANCH.EPDUserProfiles " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and strApplicationType = '9' " & _
             "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
             "and strPermitType = '6' " & _
@@ -727,10 +727,10 @@ Public Class SSPPStatisticalTools
 
             If txtPBRCount.Text <> "0" Then
                 SQL = "select (datPermitIssued - datReceivedDate) as Diff " & _
-                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking, " & _
-                    "" & DBNameSpace & ".EPDUserProfiles " & _
-                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking, " & _
+                    "AIRBRANCH.EPDUserProfiles " & _
+                    "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                    "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
                     "and strApplicationType = '9' " & _
                     "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
                     "and strPermitType = '6' " & _
@@ -763,10 +763,10 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "select count(*) as Other " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+            "AIRBRANCH.EPDUserProfiles " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and (strApplicationType = '11' OR strApplicationType = '8' " & _
             "OR strApplicationType = '4' OR strapplicationType = '3' " & _
             "OR strApplicationType = '25' OR strApplicationType = '2') " & _
@@ -786,10 +786,10 @@ Public Class SSPPStatisticalTools
 
             If txtOtherCount.Text <> "0" Then
                 SQL = "select (datPermitIssued - datReceivedDate) as Diff " & _
-                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking, " & _
-                    "" & DBNameSpace & ".EPDUserProfiles " & _
-                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking, " & _
+                    "AIRBRANCH.EPDUserProfiles " & _
+                    "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                    "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
                     "and (strApplicationType = '11' OR strApplicationType = '8' " & _
                     "OR strApplicationType = '4' OR strapplicationType = '3' " & _
                     "OR strApplicationType = '25' OR strApplicationType = '2') " & _
@@ -825,10 +825,10 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "select count(*) as Closed " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+            "AIRBRANCH.EPDUserProfiles " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and datPermitIssued IS not Null  " & _
             "and datPermitIssued > '" & FirstDay & "' and datPermitIssued < '" & LastDay & "' " & _
             "and strPermitType <> '4' " & _
@@ -851,10 +851,10 @@ Public Class SSPPStatisticalTools
 
             If txtNonPermitCount.Text <> "0" Then
                 SQL = "select (datPermitIssued - datReceivedDate) as Diff " & _
-                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking, " & _
-                    "" & DBNameSpace & ".EPDUserProfiles " & _
-                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking, " & _
+                    "AIRBRANCH.EPDUserProfiles " & _
+                    "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                    "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
                     "and datPermitIssued IS not Null  " & _
                     "and datPermitIssued > '" & FirstDay & "' and datPermitIssued < '" & LastDay & "' " & _
                     "and strPermitType <> '4' " & _
@@ -891,12 +891,12 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "select count(*) as PSD " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & DBNameSpace & ".SSPPApplicationData,  " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+            "AIRBRANCH.SSPPApplicationData,  " & _
+            "AIRBRANCH.EPDUserProfiles " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strApplicatioNNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
             "and substr(strTrackedRules, 1, 1) = '1'  " & _
             "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " & _
             "and strPermitType <> '9' " & _
@@ -916,12 +916,12 @@ Public Class SSPPStatisticalTools
 
             If txtPSDCount.Text <> "0" Then
                 SQL = "select (datPermitIssued - datReceivedDate) as Diff " & _
-                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                    "" & DBNameSpace & ".SSPPApplicationData,  " & _
-                    "" & DBNameSpace & ".EPDUserProfiles " & _
-                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                    "AIRBRANCH.SSPPApplicationData,  " & _
+                    "AIRBRANCH.EPDUserProfiles " & _
+                    "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                    "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                    "and AIRBRANCH.SSPPApplicationMaster.strApplicatioNNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
                     "and substr(strTrackedRules, 1, 1) = '1'  " & _
                     "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
                     "and strPermitType <> '9' " & _
@@ -1012,10 +1012,10 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "select count(*) as OpenCount " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "from AIRBRANCH.SSPPApplicationMaster,  " & _
+            "AIRBRANCH.EPDUserProfiles " & _
             "where datFinalizedDate is Null " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
                     EngineerLine
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1029,11 +1029,11 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "select count(*) as OpenDOCount " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+            "AIRBRANCH.EPDUserProfiles " & _
             "where datFinalizedDate is Null  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and datToDirector is Not Null  " & _
             "and (datDraftIssued is Null or datDraftIssued < datToDirector) " & _
                     EngineerLine
@@ -1049,11 +1049,11 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "select count(*) as OpenBCCount " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+            "AIRBRANCH.EPDUserProfiles " & _
             "where datFinalizedDate is Null  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and datToBranchCheif is Not Null  " & _
             "and datToDirector is Null  " & _
             "and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) " & _
@@ -1070,11 +1070,11 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "select count(*) as Open45Days " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+            "AIRBRANCH.EPDUserProfiles " & _
             "where datFinalizedDate is Null  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and datEPAEnds is Not Null  " & _
             "and datDraftIssued is Not Null " & _
                     EngineerLine
@@ -1090,11 +1090,11 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "select count(*) as OpenPublicNotice " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+            "AIRBRANCH.EPDUserProfiles " & _
             "where datFinalizedDate is Null  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and datPNExpires is Not Null and datPNExpires < sysdate " & _
             "and datEPAEnds is Null  " & _
                     EngineerLine
@@ -1110,11 +1110,11 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "select count(*) as OpenDraftIssued " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+            "AIRBRANCH.EPDUserProfiles " & _
             "where datFinalizedDate is Null  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and ((datPNExpires is Not Null and datPNExpires >= sysdate)  " & _
             "or (datDraftIssued is not Null and datPNExpires is Null))  " & _
             "and datToBranchCheif is Null  " & _
@@ -1133,11 +1133,11 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "select count(*) as OpenPMIICount " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+            "AIRBRANCH.EPDUserProfiles " & _
             "where datFinalizedDate is Null  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and datToBranchCheif is Null  " & _
             "and datToDirector is Null  " & _
             "and datEPAEnds is Null  " & _
@@ -1157,11 +1157,11 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "select count(*) as OpenPMICount " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+            "AIRBRANCH.EPDUserProfiles " & _
             "where datFinalizedDate is Null  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and datToBranchCheif is Null  " & _
             "and datToDirector is Null  " & _
             "and datEPAEnds is Null  " & _
@@ -1182,11 +1182,11 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "select count(*) as OpenStaffCount " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+            "AIRBRANCH.EPDUserProfiles " & _
             "where datFinalizedDate is Null  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and datToBranchCheif is Null  " & _
             "and datToDirector is Null  " & _
             "and datEPAEnds is Null  " & _
@@ -1263,10 +1263,10 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "Select count(*) as TVTotalOpen " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "from AIRBRANCH.SSPPApplicationMaster,  " & _
+            "AIRBRANCH.EPDUserProfiles " & _
             "where datFinalizedDate is Null " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and (strApplicationType = '14' or strApplicationType = '16' " & _
             "or strApplicationType = '27' or strApplicationType = '17') " & _
                 EngineerLine
@@ -1282,10 +1282,10 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "Select count(*) as TVYearOpen " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+            "AIRBRANCH.EPDUserProfiles " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and (strApplicationType = '14' or strApplicationType = '16'   " & _
             "or strApplicationType = '27' or strApplicationType = '17') " & _
             "and datFinalizedDate is NUll  " & _
@@ -1303,10 +1303,10 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "Select count(*) as TV12MonthsOpen " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numuserID " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+            "AIRBRANCH.EPDUserProfiles " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numuserID " & _
             "and (strApplicationType = '14' or strApplicationType = '16'   " & _
             "or strApplicationType = '27' or strApplicationType = '17') " & _
             "and datFinalizedDate is NUll  " & _
@@ -1325,10 +1325,10 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "Select count(*) as TV18MonthsOpen " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+            "AIRBRANCH.EPDUserProfiles " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and (strApplicationType = '14' or strApplicationType = '16'   " & _
             "or strApplicationType = '27' or strApplicationType = '17') " & _
             "and datFinalizedDate is NUll  " & _
@@ -1403,10 +1403,10 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "Select count(*) as NonTVTotalOpen " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "from AIRBRANCH.SSPPApplicationMaster,  " & _
+            "AIRBRANCH.EPDUserProfiles " & _
             "where datFinalizedDate is Null " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and strApplicationType <> '16' and strApplicationType <> '14' " & _
             "and strApplicationType <> '17' and strApplicationType <> '27' " & _
                 EngineerLine
@@ -1422,10 +1422,10 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "Select count(*) as NonTVThreeMonthOpen " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+            "AIRBRANCH.EPDUserProfiles " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and strApplicationType <> '16' and strApplicationType <> '14' " & _
             "and strApplicationType <> '17' and strApplicationType <> '27' " & _
             "and datFinalizedDate is NUll  " & _
@@ -1443,10 +1443,10 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "Select count(*) as NonTVSixMonthsOpen " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+            "AIRBRANCH.EPDUserProfiles " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and strApplicationType <> '16' and strApplicationType <> '14' " & _
             "and strApplicationType <> '17' and strApplicationType <> '27' " & _
             "and datFinalizedDate is NUll  " & _
@@ -1465,10 +1465,10 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "Select count(*) as NonTVNineMonthsOpen " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,   " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,   " & _
+            "AIRBRANCH.EPDUserProfiles " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and strApplicationType <> '16' and strApplicationType <> '14' " & _
             "and strApplicationType <> '17' and strApplicationType <> '27' " & _
             "and datFinalizedDate is NUll  " & _
@@ -1487,10 +1487,10 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "Select count(*) as NonTVTwelveMonthsOpen " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking, " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking, " & _
+            "AIRBRANCH.EPDUserProfiles " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and strApplicationType <> '16' and strApplicationType <> '14' " & _
             "and strApplicationType <> '17' and strApplicationType <> '27' " & _
             "and datFinalizedDate is NUll  " & _
@@ -1509,10 +1509,10 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "Select count(*) as NonTVGreaterThanOpen " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking, " & _
-            "" & DBNameSpace & ".EPDUserProfiles " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking, " & _
+            "AIRBRANCH.EPDUserProfiles " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "and strApplicationType <> '16' and strApplicationType <> '14' " & _
             "and strApplicationType <> '17' and strApplicationType <> '27' " & _
             "and datFinalizedDate is NUll  " & _
@@ -1564,17 +1564,17 @@ Public Class SSPPStatisticalTools
             SQL = "select (EPA2ab + EPA2aa) as EPA2a " & _
             "from " & _
             "(select count(*) as EPA2aa " & _
-            "from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBSupplamentalData  " & _
-            "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
+            "from AIRBRANCH.APBHeaderData, AIRBRANCH.APBSupplamentalData  " & _
+            "where AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber " & _
             "AND (substr(strAirProgramCodes, 13, 1) = '1'  " & _
             "and (strEPATOPSExcluded is null or strEPATOPSExcluded = 'False')  " & _
             "and strOperationalStatus = 'O')) EPA2a1,  " & _
             "(select count(*) as EPA2ab " & _
-            "from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBSupplamentalData,  " & _
-            "" & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking  " & _
-            "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
-            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber (+)  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strAPplicationNumber  " & _
+            "from AIRBRANCH.APBHeaderData, AIRBRANCH.APBSupplamentalData,  " & _
+            "AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking  " & _
+            "where AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber " & _
+            "and AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.SSPPApplicationMaster.strAIRSNumber (+)  " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strAPplicationNumber  " & _
             "AND (substr(strAirProgramCodes, 13, 1) <> '1'  " & _
             "and datPermitIssued is null  " & _
             "and strApplicationType = '14'  " & _
@@ -1597,14 +1597,14 @@ Public Class SSPPStatisticalTools
             SQL = "select (EPA2db + EPA2da) as EPA2d " & _
             "from " & _
             "(select count(*) as EPA2da " & _
-            "from " & DBNameSpace & ".APBHeaderData  " & _
+            "from AIRBRANCH.APBHeaderData  " & _
             "where (substr(strAirProgramCodes, 13, 1) = '1' " & _
             "and strOperationalStatus = 'O')) EPA2d1,  " & _
             "(select count(*) as EPA2db " & _
-            "from " & DBNameSpace & ".APBHeaderData, " & _
-            "" & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking  " & _
-            "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber (+) " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strAPplicationNumber  " & _
+            "from AIRBRANCH.APBHeaderData, " & _
+            "AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking  " & _
+            "where AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.SSPPApplicationMaster.strAIRSNumber (+) " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strAPplicationNumber  " & _
             "AND (substr(strAirProgramCodes, 13, 1) <> '1'  " & _
             "and datPermitIssued is null  " & _
             "and strApplicationType = '14'  " & _
@@ -1621,7 +1621,7 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "select count(*) as EPA3a " & _
-            "from " & DBNameSpace & ".APBHeaderData " & _
+            "from AIRBRANCH.APBHeaderData " & _
             "where substr(strAirProgramCodes, 13, 1) = '1'  " & _
             "and strOperationalStatus = 'O' "
 
@@ -1637,10 +1637,10 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "SELECT COUNT(*) AS EPA4a " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
-            "" & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".SSPPApplicationData  " & _
-            "WHERE " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "AND " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+            "from AIRBRANCH.SSPPApplicationMaster,  " & _
+            "AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.SSPPApplicationData  " & _
+            "WHERE AIRBRANCH.SSPPApplicationMaster.strApplicatioNnumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+            "AND AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
             "AND datPermitIssued IS NOT NULL " & _
             "AND strApplicationType = '14'  " & _
             "AND strPermitType = '7'  " & _
@@ -1659,10 +1659,10 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "SELECT COUNT(*) AS EPA4b " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
-            "" & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".SSPPApplicationData  " & _
-            "WHERE " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "AND " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+            "from AIRBRANCH.SSPPApplicationMaster,  " & _
+            "AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.SSPPApplicationData  " & _
+            "WHERE AIRBRANCH.SSPPApplicationMaster.strApplicatioNnumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+            "AND AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
             "AND datPermitIssued IS NOT NULL " & _
             "AND strApplicationType = '14'  " & _
             "AND strPermitType = '7'  " & _
@@ -1687,10 +1687,10 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "SELECT COUNT(*) AS EPA5a " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & _
-            "" & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".SSPPApplicationData " & _
-            "WHERE " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "AND " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
+            "from AIRBRANCH.SSPPApplicationMaster, " & _
+            "AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.SSPPApplicationData " & _
+            "WHERE AIRBRANCH.SSPPApplicationMaster.strApplicatioNnumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " & _
+            "AND AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber " & _
             "AND strApplicationType = '14' " & _
             "and datPermitIssued is Null " & _
             "and datReceivedDate < add_months('" & EndDate & "', -18) "
@@ -1709,33 +1709,33 @@ Public Class SSPPStatisticalTools
             SQL = "Select Count(*) as EPA6a " & _
             "From " & _
             "(select " & _
-            "distinct(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber,  " & _
+            "distinct(AIRBRANCH.SSPPApplicationMaster.strAIRSnumber) as AIRSNumber,  " & _
             "MaxDate " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
-            "" & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".APBHeaderData,  " & _
+            "from AIRBRANCH.SSPPApplicationMaster,  " & _
+            "AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.APBHeaderData,  " & _
             "(select  " & _
             "strAIRSNumber,  " & _
             "max(datEffective) as MaxDate  " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking  " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking  " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
             "and datEffective is not null  " & _
             "group by strAIRSnumber) Effect,  " & _
             "(Select  " & _
-            "distinct(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking  " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "distinct(AIRBRANCH.SSPPApplicationMaster.strAIRSnumber) as AIRSNumber " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking  " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
             "and datReceiveddate < add_months('" & EndDate & "', -6)  " & _
             "and datReceivedDate > add_months('" & EndDate & "', -54)  " & _
             "and strApplicationType <> '16'  " & _
             "and strApplicationType <> '12') PermitRequests   " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationnumber " & _
-            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber   " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " & _
-            "and MaxDate = " & DBNameSpace & ".SSPPApplicationTracking.datEffective " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationnumber " & _
+            "and AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.SSPPApplicationMaster.strAIRSNumber   " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " & _
+            "and MaxDate = AIRBRANCH.SSPPApplicationTracking.datEffective " & _
             "and maxDate < add_months('" & EndDate & "', -54) " & _
             "and strOperationalStatus = 'O'  " & _
             "and substr(strAirProgramCodes, 13, 1) = '1'  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber) "
+            "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber) "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1751,35 +1751,35 @@ Public Class SSPPStatisticalTools
             SQL = "Select Count(*) as EPA6b " & _
             "From " & _
             "(select " & _
-            "distinct(substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber, 5) ) as AIRSNumber,  " & _
+            "distinct(substr(AIRBRANCH.SSPPApplicationMaster.strAIRSnumber, 5) ) as AIRSNumber,  " & _
             "strFacilityName, " & _
             "MaxDate " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
-            "" & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".APBHeaderData,  " & _
-            "" & DBNameSpace & ".APBFacilityInformation,   " & _
+            "from AIRBRANCH.SSPPApplicationMaster,  " & _
+            "AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.APBHeaderData,  " & _
+            "AIRBRANCH.APBFacilityInformation,   " & _
             "(select  " & _
             "strAIRSNumber,  " & _
             "max(datEffective) as MaxDate  " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking  " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking  " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
             "and datEffective is not null  " & _
             "group by strAIRSnumber) Effect,  " & _
             "(Select  " & _
-            "distinct(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking  " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "distinct(AIRBRANCH.SSPPApplicationMaster.strAIRSnumber) as AIRSNumber " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking  " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
             "and datReceiveddate < add_months('" & EndDate & "', -6)  " & _
             "and datReceivedDate > add_months('" & EndDate & "', -54)  " & _
             "and (strApplicationType = '16' or strApplicationType = '12')) PermitRequests   " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationnumber " & _
-            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber   " & _
-            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " & _
-            "and MaxDate = " & DBNameSpace & ".SSPPApplicationTracking.datEffective " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationnumber " & _
+            "and AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.SSPPApplicationMaster.strAIRSNumber   " & _
+            "and AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " & _
+            "and MaxDate = AIRBRANCH.SSPPApplicationTracking.datEffective " & _
             "and maxDate < add_months('" & EndDate & "', -54) " & _
             "and strOperationalStatus = 'O'  " & _
             "and substr(strAirProgramCodes, 13, 1) = '1'  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  "
+            "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1796,51 +1796,51 @@ Public Class SSPPStatisticalTools
             SQL = "select count(*) as EPA6C " & _
 "from (Select *  From  " & _
 "(select  " & _
-"distinct(substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber, 5)) as AIRSNumber,   " & _
+"distinct(substr(AIRBRANCH.SSPPApplicationMaster.strAIRSnumber, 5)) as AIRSNumber,   " & _
 "MaxDate  " & _
-"from " & DBNameSpace & ".SSPPApplicationMaster,  " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-"" & DBNameSpace & ".APBHeaderData,   " & _
+"from AIRBRANCH.SSPPApplicationMaster,  AIRBRANCH.SSPPApplicationTracking,  " & _
+"AIRBRANCH.APBHeaderData,   " & _
 "(select  strAIRSNumber,  " & _
 "max(datEffective) as MaxDate   " & _
-"from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking   " & _
-"where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber   " & _
+"from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking   " & _
+"where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber   " & _
 "and datEffective is not null  GROUP BY strAIRSNumber) Effect,   " & _
-"(Select  distinct(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber  " & _
-"from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking   " & _
-"where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+"(Select  distinct(AIRBRANCH.SSPPApplicationMaster.strAIRSnumber) as AIRSNumber  " & _
+"from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking   " & _
+"where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
 "and datReceiveddate < add_months('" & EndDate & "', -6)   " & _
 "and datReceivedDate > add_months('" & EndDate & "', -54)   " & _
 "and strApplicationType <> '16'   " & _
 "and strApplicationType <> '12') PermitRequests    " & _
-"where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationnumber  " & _
-"and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber    " & _
-"and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber   " & _
-"and MaxDate = " & DBNameSpace & ".SSPPApplicationTracking.datEffective  " & _
+"where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationnumber  " & _
+"and AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.SSPPApplicationMaster.strAIRSNumber    " & _
+"and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber   " & _
+"and MaxDate = AIRBRANCH.SSPPApplicationTracking.datEffective  " & _
 "and maxDate < add_months('" & EndDate & "', -54) " & _
 "and strOperationalStatus = 'O'   " & _
 "and substr(strAirProgramCodes, 13, 1) = '1'  " & _
-"and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber))  EPA6A " & _
+"and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber))  EPA6A " & _
 "where not exists  " & _
 "(select * from (Select *   " & _
-"From (select distinct(substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber, 5) ) as AIRSNumber,   " & _
-"strFacilityName, MaxDate from " & DBNameSpace & ".SSPPApplicationMaster,  " & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".APBHeaderData,   " & _
-"" & DBNameSpace & ".APBFacilityInformation,   (select  strAIRSNumber,  max(datEffective) as MaxDate  from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
-"" & DBNameSpace & ".SSPPApplicationTracking   " & _
-"where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber   " & _
+"From (select distinct(substr(AIRBRANCH.SSPPApplicationMaster.strAIRSnumber, 5) ) as AIRSNumber,   " & _
+"strFacilityName, MaxDate from AIRBRANCH.SSPPApplicationMaster,  AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.APBHeaderData,   " & _
+"AIRBRANCH.APBFacilityInformation,   (select  strAIRSNumber,  max(datEffective) as MaxDate  from AIRBRANCH.SSPPApplicationMaster,  " & _
+"AIRBRANCH.SSPPApplicationTracking   " & _
+"where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber   " & _
 "and datEffective is not null  group by strAIRSnumber) Effect,   " & _
-"(Select  distinct(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
-"" & DBNameSpace & ".SSPPApplicationTracking   " & _
-"where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber   " & _
+"(Select  distinct(AIRBRANCH.SSPPApplicationMaster.strAIRSnumber) as AIRSNumber from AIRBRANCH.SSPPApplicationMaster,  " & _
+"AIRBRANCH.SSPPApplicationTracking   " & _
+"where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber   " & _
 "and datReceiveddate < add_months('" & EndDate & "', -6)  and datReceivedDate > add_months('" & EndDate & "', -54)   " & _
 "and (strApplicationType = '16' or strApplicationType = '12')) PermitRequests    " & _
-"where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationnumber  " & _
-"and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber    " & _
-"and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
- "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " & _
- "and MaxDate = " & DBNameSpace & ".SSPPApplicationTracking.datEffective  " & _
+"where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationnumber  " & _
+"and AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.SSPPApplicationMaster.strAIRSNumber    " & _
+"and AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " & _
+ "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " & _
+ "and MaxDate = AIRBRANCH.SSPPApplicationTracking.datEffective  " & _
 "and maxDate < add_months('" & EndDate & "', -54)  " & _
 "and strOperationalStatus = 'O'  and substr(strAirProgramCodes, 13, 1) = '1'   " & _
-"and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  ) EPA6b where  EPA6A.airsnumber = EPA6b.airsNumber) "
+"and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  ) EPA6b where  EPA6A.airsnumber = EPA6b.airsNumber) "
 
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1859,10 +1859,10 @@ Public Class SSPPStatisticalTools
 
 
             SQL = "SELECT COUNT(*) AS EPA7a " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
-            "" & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".SSPPApplicationData  " & _
-            "WHERE " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "AND " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+            "from AIRBRANCH.SSPPApplicationMaster,  " & _
+            "AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.SSPPApplicationData  " & _
+            "WHERE AIRBRANCH.SSPPApplicationMaster.strApplicatioNnumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+            "AND AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
             "AND datPermitIssued IS NOT NULL " & _
             "AND (strApplicationType = '22' or strApplicationType = '21')  " & _
             "AND strPermitType = '7'  " & _
@@ -1881,10 +1881,10 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "SELECT COUNT(*) AS EPA7b " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
-            "" & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".SSPPApplicationData  " & _
-            "WHERE " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "AND " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+            "from AIRBRANCH.SSPPApplicationMaster,  " & _
+            "AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.SSPPApplicationData  " & _
+            "WHERE AIRBRANCH.SSPPApplicationMaster.strApplicatioNnumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+            "AND AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
             "AND datPermitIssued IS NOT NULL " & _
             "AND (strApplicationType = '22' or strApplicationType = '21')  " & _
             "AND strPermitType = '7'  " & _
@@ -1904,10 +1904,10 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "SELECT COUNT(*) AS EPA7c " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
-            "" & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".SSPPApplicationData  " & _
-            "WHERE " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "AND " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+            "from AIRBRANCH.SSPPApplicationMaster,  " & _
+            "AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.SSPPApplicationData  " & _
+            "WHERE AIRBRANCH.SSPPApplicationMaster.strApplicatioNnumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+            "AND AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
             "AND datPermitIssued IS NOT NULL " & _
             "AND (strApplicationType = '22' or strApplicationType = '21')  " & _
             "AND strPermitType = '7'  " & _
@@ -1933,10 +1933,10 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "SELECT COUNT(*) AS EPA8a " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & _
-            "" & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".SSPPApplicationData " & _
-            "WHERE " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "AND " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
+            "from AIRBRANCH.SSPPApplicationMaster, " & _
+            "AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.SSPPApplicationData " & _
+            "WHERE AIRBRANCH.SSPPApplicationMaster.strApplicatioNnumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " & _
+            "AND AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber " & _
             "AND (strApplicationType = '22' or strApplicationType = '21')  " & _
             "and datPermitIssued is Null " & _
             "and datReceivedDate < add_months('" & EndDate & "', -18)"
@@ -2090,7 +2090,7 @@ Public Class SSPPStatisticalTools
                  (txtTitleVRenewalCount.Text <> "0" And txtTitleVRenewalCount.Text <> "") Then
 
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName,  " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " & _
                 "strApplicationTypeDesc, " & _
@@ -2100,15 +2100,15 @@ Public Class SSPPStatisticalTools
                 "end Link, " & _
                 "(datPermitIssued - datReceivedDate) as Diff, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes, " & _
-                "" & DBNameSpace & ".SSPPApplicationLinking, " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
-                "and " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes, " & _
+                "AIRBRANCH.SSPPApplicationLinking, " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicatioNNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicatioNnumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber (+) " & _
+                "and AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
                 "and (strApplicationType = '14' or strApplicationType = '16')  " & _
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " & _
                 "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '12' " & _
@@ -2207,7 +2207,7 @@ Public Class SSPPStatisticalTools
                     End If
                 Else
                     SQL = "select strApplicationNumber " & _
-                    "from " & DBNameSpace & ".SSPPApplicationMaster " & _
+                    "from AIRBRANCH.SSPPApplicationMaster " & _
                     "where strApplicationNumber = '" & txtRecordNumber.Text & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -2302,7 +2302,7 @@ Public Class SSPPStatisticalTools
             If (txtSigModCount.Text <> "0" And txtSigModCount.Text <> "") Then
 
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName,  " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " & _
                 "strApplicationTypeDesc,  " & _
@@ -2312,15 +2312,15 @@ Public Class SSPPStatisticalTools
                 "end Link, " & _
                 "(datPermitIssued - datReceivedDate) as Diff, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,     " & _
-                "" & DBNameSpace & ".SSPPApplicationLinking, " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
-                "and " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,     " & _
+                "AIRBRANCH.SSPPApplicationLinking, " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicatioNNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicatioNnumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber (+) " & _
+                "and AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
                 "and (strApplicationType = '22' or strApplicationType = '21')  " & _
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " & _
                 "and (strPermitType = '4' or strPermitType = '7') " & _
@@ -2427,7 +2427,7 @@ Public Class SSPPStatisticalTools
             If (txtMinorModCount.Text <> "0" And txtMinorModCount.Text <> "") Then
 
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName,  " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " & _
                 "strApplicationTypeDesc,  " & _
@@ -2437,15 +2437,15 @@ Public Class SSPPStatisticalTools
                 "end Link, " & _
                 "(datPermitIssued - datReceivedDate) as Diff, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,     " & _
-                "" & DBNameSpace & ".SSPPApplicationLinking, " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
-                "and " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,     " & _
+                "AIRBRANCH.SSPPApplicationLinking, " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicatioNNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicatioNnumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber (+) " & _
+                "and AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
                 "and (strApplicationType = '20' or strApplicationType = '19')  " & _
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " & _
                 "and (strPermitType = '4' or strPermitType = '7') " & _
@@ -2552,7 +2552,7 @@ Public Class SSPPStatisticalTools
             If (txt502Count.Text <> "0" And txt502Count.Text <> "") Then
 
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName,  " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " & _
                 "strApplicationTypeDesc,  " & _
@@ -2562,15 +2562,15 @@ Public Class SSPPStatisticalTools
                 "end Link, " & _
                 "(datPermitIssued - datReceivedDate) as Diff, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,     " & _
-                "" & DBNameSpace & ".SSPPApplicationLinking, " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
-                "and " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,     " & _
+                "AIRBRANCH.SSPPApplicationLinking, " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicatioNNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicatioNnumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber (+) " & _
+                "and AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
                 "and strApplicationType = '15' " & _
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " & _
                 "and (strPermitType = '4' or strPermitType = '7') " & _
@@ -2677,7 +2677,7 @@ Public Class SSPPStatisticalTools
             If (txtAACount.Text <> "0" And txtAACount.Text <> "") Then
 
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName,  " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " & _
                 "strApplicationTypeDesc,  " & _
@@ -2687,15 +2687,15 @@ Public Class SSPPStatisticalTools
                 "end Link, " & _
                 "(datPermitIssued - datReceivedDate) as Diff, " & _
                 "(strLastName||', '||strFirstname) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,     " & _
-                "" & DBNameSpace & ".SSPPApplicationLinking, " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
-                "and " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,     " & _
+                "AIRBRANCH.SSPPApplicationLinking, " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicatioNNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicatioNnumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber (+) " & _
+                "and AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
                 "and strApplicationType = '26' " & _
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " & _
                 "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '1') " & _
@@ -2802,7 +2802,7 @@ Public Class SSPPStatisticalTools
             If (txtSMCount.Text <> "0" And txtSMCount.Text <> "") Then
 
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName,  " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " & _
                 "strApplicationTypeDesc,  " & _
@@ -2812,15 +2812,15 @@ Public Class SSPPStatisticalTools
                 "end Link, " & _
                 "(datPermitIssued - datReceivedDate) as Diff, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,     " & _
-                "" & DBNameSpace & ".SSPPApplicationLinking, " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
-                "and " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,     " & _
+                "AIRBRANCH.SSPPApplicationLinking, " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicatioNNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicatioNnumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber (+) " & _
+                "and AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
                 "and strApplicationType = '12' " & _
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " & _
                  "and (strPermitType = '4' or strPermitType = '7') " & _
@@ -2927,7 +2927,7 @@ Public Class SSPPStatisticalTools
             If (txtPBRCount.Text <> "0" And txtPBRCount.Text <> "") Then
 
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName,  " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " & _
                 "strApplicationTypeDesc,  " & _
@@ -2937,15 +2937,15 @@ Public Class SSPPStatisticalTools
                 "end Link, " & _
                 "(datPermitIssued - datReceivedDate) as Diff, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,     " & _
-                "" & DBNameSpace & ".SSPPApplicationLinking, " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
-                "and " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,     " & _
+                "AIRBRANCH.SSPPApplicationLinking, " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicatioNNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicatioNnumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber (+) " & _
+                "and AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
                 "and strApplicationType = '9' " & _
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
                 "and strPermitType = '6' " & _
@@ -3052,7 +3052,7 @@ Public Class SSPPStatisticalTools
             If (txtOtherCount.Text <> "0" And txtOtherCount.Text <> "") Then
 
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName,  " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " & _
                 "strApplicationTypeDesc,  " & _
@@ -3062,15 +3062,15 @@ Public Class SSPPStatisticalTools
                 "end Link, " & _
                 "(datPermitIssued - datReceivedDate) as Diff, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,    " & _
-                "" & DBNameSpace & ".SSPPApplicationLinking, " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.nuMUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
-                "and " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,    " & _
+                "AIRBRANCH.SSPPApplicationLinking, " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.nuMUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicatioNNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicatioNnumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber (+) " & _
+                "and AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
                 "and (strApplicationType = '11' OR strApplicationType = '8' " & _
                 "OR strApplicationType = '4' OR strapplicationType = '3' " & _
                 "OR strApplicationType = '25' OR strApplicationType = '2') " & _
@@ -3179,7 +3179,7 @@ Public Class SSPPStatisticalTools
             If (txtNonPermitCount.Text <> "0" And txtNonPermitCount.Text <> "") Then
 
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName,  " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " & _
                 "case " & _
@@ -3192,15 +3192,15 @@ Public Class SSPPStatisticalTools
                 "end Link, " & _
                 "(datPermitIssued - datReceivedDate) as Diff, " & _
                 "(strLastname||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & DBNameSpace & ".SSPPApplicationLinking, " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
-                "and strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,  " & _
+                "AIRBRANCH.SSPPApplicationLinking, " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicatioNNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicatioNnumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber (+) " & _
+                "and strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "and datPermitIssued IS not Null  " & _
                 "and datPermitIssued > '" & FirstDay & "' and datPermitIssued < '" & LastDay & "'  " & _
                 "and strPermitType <> '4' " & _
@@ -3311,7 +3311,7 @@ Public Class SSPPStatisticalTools
             If (txtPSDCount.Text <> "0" And txtPSDCount.Text <> "") Then
 
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName,  " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " & _
                 "strApplicationTypeDesc,  " & _
@@ -3321,15 +3321,15 @@ Public Class SSPPStatisticalTools
                 "end Link, " & _
                 "(datPermitIssued - datReceivedDate) as Diff, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes, " & _
-                "" & DBNameSpace & ".SSPPApplicationLinking, " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
-                "and " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes, " & _
+                "AIRBRANCH.SSPPApplicationLinking, " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicatioNNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicatioNnumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber (+) " & _
+                "and AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
                 "and substr(strTrackedRules, 1, 1) = '1'  " & _
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " & _
                 "and strPermitType <> '9' " & _
@@ -3447,7 +3447,7 @@ Public Class SSPPStatisticalTools
 
             If txtAllOpenCount.Text <> "" Then
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc,  " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -3464,13 +3464,13 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " & _
                 "end as AppStatus,     " & _
                 "(strLastname||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,  " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode  " & _
                 "and datFinalizedDate is Null " & _
                 EngineerLine
 
@@ -3565,7 +3565,7 @@ Public Class SSPPStatisticalTools
 
             If txtToDOCount.Text <> "" Or txtToBCCount.Text <> "" Then
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc,  " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -3582,13 +3582,13 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " & _
                 "end as AppStatus,     " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,  " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode  " & _
                 "and datFinalizedDate is Null " & _
                 "and ((datToBranchCheif is Not Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif)) " & _
                 "or (datToDirector is Not Null and (datDraftIssued is Null or datDraftIssued < datToDirector))) " & _
@@ -3685,7 +3685,7 @@ Public Class SSPPStatisticalTools
 
             If txtOpen45DayCount.Text <> "" Then
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc,  " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -3702,13 +3702,13 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " & _
                 "end as AppStatus,    " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,  " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode  " & _
                 "and datFinalizedDate is Null " & _
                 "and datEPAEnds is Not Null " & _
                 "and datDraftIssued is Not Null " & _
@@ -3805,7 +3805,7 @@ Public Class SSPPStatisticalTools
 
             If txtPublicNoticeCount.Text <> "" Then
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc,  " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -3822,13 +3822,13 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " & _
                 "end as AppStatus,     " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,  " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode  " & _
                 "and datFinalizedDate is Null " & _
                 "and datPNExpires is Not Null and datPNExpires < sysdate " & _
                 "and datEPAEnds is Null " & _
@@ -3925,7 +3925,7 @@ Public Class SSPPStatisticalTools
 
             If txtDraftIssuedCount.Text <> "" Then
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc,  " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -3942,13 +3942,13 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " & _
                 "end as AppStatus,    " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,  " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode  " & _
                 "and datFinalizedDate is Null " & _
                 "and ((datPNExpires is Not Null and datPNExpires >= sysdate)  " & _
                 "or (datDraftIssued is not Null and datPNExpires is Null))  " & _
@@ -4049,7 +4049,7 @@ Public Class SSPPStatisticalTools
 
             If txtToPMCount.Text <> "" Then
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc,  " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -4066,13 +4066,13 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " & _
                 "end as AppStatus,     " & _
                 "(strLastname||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,  " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode  " & _
                 "and datFinalizedDate is Null " & _
                 "and datToBranchCheif is Null  " & _
                 "and datToDirector is Null  " & _
@@ -4174,7 +4174,7 @@ Public Class SSPPStatisticalTools
 
             If txtToUCCount.Text <> "" Then
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc,  " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -4191,13 +4191,13 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " & _
                 "end as AppStatus,   " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,  " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode  " & _
                 "and datFinalizedDate is Null " & _
                 "and datToBranchCheif is Null  " & _
                 "and datToDirector is Null  " & _
@@ -4300,7 +4300,7 @@ Public Class SSPPStatisticalTools
 
             If txtWStaffCount.Text <> "" Then
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc,  " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -4317,13 +4317,13 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " & _
                 "end as AppStatus,   " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,  " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode  " & _
                 "and datFinalizedDate is Null " & _
                 "and datToBranchCheif is Null  " & _
                 "and datToDirector is Null  " & _
@@ -4440,7 +4440,7 @@ Public Class SSPPStatisticalTools
 
             If txtTVTotalOpenCount.Text <> "" Then
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -4458,13 +4458,13 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,  " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "and datFinalizedDate is Null " & _
                 "and (strApplicationType = '14' or strApplicationType = '16') " & _
                 EngineerLine
@@ -4563,7 +4563,7 @@ Public Class SSPPStatisticalTools
 
             If txtTVOneYearCount.Text <> "" Then
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -4581,13 +4581,13 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,  " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "and datFinalizedDate is Null " & _
                 "and (strApplicationType = '14' or strApplicationType = '16') " & _
                 "and datReceivedDate > add_months(sysdate, -12)  " & _
@@ -4687,7 +4687,7 @@ Public Class SSPPStatisticalTools
 
             If txtTVTwelveCount.Text <> "" Then
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -4705,13 +4705,13 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,  " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "and datFinalizedDate is Null " & _
                 "and (strApplicationType = '14' or strApplicationType = '16') " & _
                 "and datReceivedDate >= add_months(sysdate, -18) " & _
@@ -4811,7 +4811,7 @@ Public Class SSPPStatisticalTools
 
             If txtTVGreaterCount.Text <> "" Then
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -4829,13 +4829,13 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,  " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "and datFinalizedDate is Null " & _
                 "and (strApplicationType = '14' or strApplicationType = '16') " & _
                 "and datReceivedDate < add_months(sysdate, -18)" & _
@@ -4949,7 +4949,7 @@ Public Class SSPPStatisticalTools
 
             If txtTotalOpenCount.Text <> "" Then
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -4967,13 +4967,13 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,  " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "and datFinalizedDate is Null " & _
                 "and strApplicationType <> '16' and strApplicationType <> '14' " & _
                 "and strApplicationType <> '17' and strApplicationType <> '27' " & _
@@ -5072,7 +5072,7 @@ Public Class SSPPStatisticalTools
 
             If txtThreeMonthOpenCount.Text <> "" Then
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -5090,13 +5090,13 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,  " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "and datFinalizedDate is Null " & _
                 "and strApplicationType <> '16' and strApplicationType <> '14' " & _
                 "and strApplicationType <> '17' and strApplicationType <> '27' " & _
@@ -5196,7 +5196,7 @@ Public Class SSPPStatisticalTools
 
             If txtSixMonthOpenCount.Text <> "" Then
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -5214,13 +5214,13 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,  " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "and datFinalizedDate is Null " & _
                 "and strApplicationType <> '16' and strApplicationType <> '14' " & _
                 "and strApplicationType <> '17' and strApplicationType <> '27' " & _
@@ -5321,7 +5321,7 @@ Public Class SSPPStatisticalTools
 
             If txtNineMonthOpenCount.Text <> "" Then
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -5339,13 +5339,13 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,  " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "and datFinalizedDate is Null " & _
                 "and strApplicationType <> '16' and strApplicationType <> '14' " & _
                 "and strApplicationType <> '17' and strApplicationType <> '27' " & _
@@ -5446,7 +5446,7 @@ Public Class SSPPStatisticalTools
 
             If txtTwelveMonthOpenCount.Text <> "" Then
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -5464,13 +5464,13 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,  " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "and datFinalizedDate is Null " & _
                 "and strApplicationType <> '16' and strApplicationType <> '14' " & _
                 "and strApplicationType <> '17' and strApplicationType <> '27' " & _
@@ -5571,7 +5571,7 @@ Public Class SSPPStatisticalTools
 
             If txtGreaterThanOpenCount.Text <> "" Then
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -5589,13 +5589,13 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & DBNameSpace & ".EPDUserProfiles " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes,  " & _
+                "AIRBRANCH.EPDUserProfiles " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "and datFinalizedDate is Null " & _
                 "and strApplicationType <> '16' and strApplicationType <> '14' " & _
                 "and strApplicationType <> '17' and strApplicationType <> '27' " & _
@@ -5671,8 +5671,8 @@ Public Class SSPPStatisticalTools
 
             If txtEPA2a.Text <> "" Then
                 SQL = "Select " & _
-                "distinct(substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5)) as AIRSNumber,  " & _
-                "" & DBNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
+                "distinct(substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5)) as AIRSNumber,  " & _
+                "AIRBRANCH.APBFacilityInformation.strFacilityName,  " & _
                 "case  " & _
                 "   when substr(strAirprogramCodes, 13, 1) = '1' then 'Title V'  " & _
                 "Else 'Non Title V'  " & _
@@ -5681,27 +5681,27 @@ Public Class SSPPStatisticalTools
                 "   when strOperationalStatus = 'O' then 'O-Operating'  " & _
                 "Else 'Not Operating'  " & _
                 "End strOperationalStatus  " & _
-                "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".APBHeaderData,  " & _
-                "(select " & DBNameSpace & ".APBHeaderData.strAIRSnumber as AIRSNumber1 " & _
-                "from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBSupplamentalData " & _
-                "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber  " & _
+                "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBHeaderData,  " & _
+                "(select AIRBRANCH.APBHeaderData.strAIRSnumber as AIRSNumber1 " & _
+                "from AIRBRANCH.APBHeaderData, AIRBRANCH.APBSupplamentalData " & _
+                "where AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber  " & _
                 "AND substr(strAirProgramCodes, 13, 1) = '1'  " & _
                 "and (strEPATOPSExcluded is null or strEPATOPSExcluded = 'False')   " & _
                 "and strOperationalStatus = 'O') EPA1,  " & _
-                "(select " & DBNameSpace & ".APBHeaderData.strAIRSNumber as AIRSNumber2 " & _
-                "from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBSupplamentalData,   " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking   " & _
-                "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber  " & _
-                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber (+)   " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strAPplicationNumber   " & _
+                "(select AIRBRANCH.APBHeaderData.strAIRSNumber as AIRSNumber2 " & _
+                "from AIRBRANCH.APBHeaderData, AIRBRANCH.APBSupplamentalData,   " & _
+                "AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking   " & _
+                "where AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber  " & _
+                "and AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.SSPPApplicationMaster.strAIRSNumber (+)   " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strAPplicationNumber   " & _
                 "AND substr(strAirProgramCodes, 13, 1) <> '1'   " & _
                 "and datPermitIssued is null   " & _
                 "and strApplicationType = '14'   " & _
                 "and datFinalizeddate is null  " & _
                 "and (strEPATOPSExcluded is null or strEPATOPSExcluded = 'False')) EPA2 " & _
-                "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSnumber  " & _
-                "and (" & DBNameSpace & ".APBHeaderData.strAIRSnumber = EPA1.AIRSNumber1  " & _
-                "or " & DBNameSpace & ".APBHeaderData.strAIRSnumber = EPA2.AIRSNumber2) "
+                "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSnumber  " & _
+                "and (AIRBRANCH.APBHeaderData.strAIRSnumber = EPA1.AIRSNumber1  " & _
+                "or AIRBRANCH.APBHeaderData.strAIRSnumber = EPA2.AIRSNumber2) "
 
                 dsViewCount = New DataSet
                 daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
@@ -5749,8 +5749,8 @@ Public Class SSPPStatisticalTools
 
             If txtEPA2d.Text <> "" Then
                 SQL = "Select " & _
-                "distinct(substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5)) as AIRSNumber,   " & _
-                "" & DBNameSpace & ".APBFacilityInformation.strFacilityName,   " & _
+                "distinct(substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5)) as AIRSNumber,   " & _
+                "AIRBRANCH.APBFacilityInformation.strFacilityName,   " & _
                 "case      " & _
                 "   when substr(strAirprogramCodes, 13, 1) = '1' then 'Title V'   " & _
                 "Else 'Non Title V'   " & _
@@ -5765,27 +5765,27 @@ Public Class SSPPStatisticalTools
                 "   when strEPATOPSExcluded = 'False' then ' '  " & _
                 "else ' '  " & _
                 "End strEPATOPSExcluded    " & _
-                "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".APBHeaderData,   " & _
-                "" & DBNameSpace & ".APBSupplamentalData,   " & _
-                "(select " & DBNameSpace & ".APBHeaderData.strAIRSnumber as AIRSNumber1  " & _
-                "from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBSupplamentalData  " & _
-                "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber   " & _
+                "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBHeaderData,   " & _
+                "AIRBRANCH.APBSupplamentalData,   " & _
+                "(select AIRBRANCH.APBHeaderData.strAIRSnumber as AIRSNumber1  " & _
+                "from AIRBRANCH.APBHeaderData, AIRBRANCH.APBSupplamentalData  " & _
+                "where AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber   " & _
                 "AND substr(strAirProgramCodes, 13, 1) = '1'   " & _
                 "and strOperationalStatus = 'O') EPA1,   " & _
-                "(select " & DBNameSpace & ".APBHeaderData.strAIRSNumber as AIRSNumber2  " & _
-                "from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBSupplamentalData,    " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking    " & _
-                "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber   " & _
-                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber (+)    " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strAPplicationNumber    " & _
+                "(select AIRBRANCH.APBHeaderData.strAIRSNumber as AIRSNumber2  " & _
+                "from AIRBRANCH.APBHeaderData, AIRBRANCH.APBSupplamentalData,    " & _
+                "AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking    " & _
+                "where AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber   " & _
+                "and AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.SSPPApplicationMaster.strAIRSNumber (+)    " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strAPplicationNumber    " & _
                 "AND substr(strAirProgramCodes, 13, 1) <> '1'    " & _
                 "and datPermitIssued is null    " & _
                 "and strApplicationType = '14'   " & _
                 "and datFinalizeddate is null) EPA2   " & _
-                "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSnumber   " & _
-                "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber  " & _
-                "and (" & DBNameSpace & ".APBHeaderData.strAIRSnumber = EPA1.AIRSNumber1   " & _
-                "or " & DBNameSpace & ".APBHeaderData.strAIRSnumber = EPA2.AIRSNumber2) "
+                "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSnumber   " & _
+                "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber  " & _
+                "and (AIRBRANCH.APBHeaderData.strAIRSnumber = EPA1.AIRSNumber1   " & _
+                "or AIRBRANCH.APBHeaderData.strAIRSnumber = EPA2.AIRSNumber2) "
 
                 dsViewCount = New DataSet
                 daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
@@ -5835,7 +5835,7 @@ Public Class SSPPStatisticalTools
 
             If txtEPA3a.Text <> "" Then
                 SQL = "Select " & _
-                "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " & _
+                "substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " & _
                 "strFacilityName,  " & _
                 "case  " & _
                 " when substr(strAirprogramCodes, 13, 1) = '1' then 'Title V'  " & _
@@ -5845,8 +5845,8 @@ Public Class SSPPStatisticalTools
                 " when strOperationalStatus = 'O' then 'O-Operating' " & _
                 "else 'Not Operating'  " & _
                 "end strOperationalStatus  " & _
-                "from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBFacilityInformation  " & _
-                "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
+                "from AIRBRANCH.APBHeaderData, AIRBRANCH.APBFacilityInformation  " & _
+                "where AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " & _
                 "and substr(strAirProgramCodes, 13, 1) = '1'  " & _
                 "and strOPerationalStatus = 'O'  "
 
@@ -5911,7 +5911,7 @@ Public Class SSPPStatisticalTools
 
             If txtEPA4a.Text <> "" Then
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -5929,11 +5929,11 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "AND datPermitIssued IS NOT NULL " & _
                 "AND strApplicationType = '14'  " & _
                 "AND strPermitType = '7'  " & _
@@ -6005,7 +6005,7 @@ Public Class SSPPStatisticalTools
 
             If txtEPA4b.Text <> "" Then
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -6023,11 +6023,11 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "AND datPermitIssued IS NOT NULL " & _
                 "AND strApplicationType = '14'  " & _
                 "AND strPermitType = '7'  " & _
@@ -6100,7 +6100,7 @@ Public Class SSPPStatisticalTools
 
             If txtEPA5a.Text <> "" Then
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -6117,11 +6117,11 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " & _
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "AND strApplicationType = '14' " & _
                 "and datPermitIssued is Null " & _
                 "and datReceivedDate < add_months('" & EndDate & "', -18) "
@@ -6188,36 +6188,36 @@ Public Class SSPPStatisticalTools
 
             If txtEPA6a.Text <> "" Then
                 SQL = "select " & _
-                "distinct(substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber, 5)) as AIRSNumber,  " & _
+                "distinct(substr(AIRBRANCH.SSPPApplicationMaster.strAIRSnumber, 5)) as AIRSNumber,  " & _
                 "strFacilityName,  " & _
                 "to_char(MaxDate, 'RRRR-MM-dd') as MaxDate " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
-                "" & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".APBHeaderData,  " & _
-                "" & DBNameSpace & ".APBFacilityInformation,   " & _
+                "from AIRBRANCH.SSPPApplicationMaster,  " & _
+                "AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.APBHeaderData,  " & _
+                "AIRBRANCH.APBFacilityInformation,   " & _
                 "(select  " & _
                 "strAIRSNumber, " & _
                 "max(datEffective) as MaxDate  " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking  " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking  " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
                 "and datEffective is not null  " & _
                 "group by strAIRSnumber) Effect,  " & _
                 "(Select  " & _
-                "distinct(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking  " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "distinct(AIRBRANCH.SSPPApplicationMaster.strAIRSnumber) as AIRSNumber " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking  " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
                 "and datReceiveddate < add_months('" & EndDate & "', -6)  " & _
                 "and datReceivedDate > add_months('" & EndDate & "', -54)  " & _
                 "and strApplicationType <> '16'  " & _
                 "and strApplicationType <> '12') PermitRequests   " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationnumber " & _
-                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber   " & _
-                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " & _
-                "and MaxDate = " & DBNameSpace & ".SSPPApplicationTracking.datEffective " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationnumber " & _
+                "and AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.SSPPApplicationMaster.strAIRSNumber   " & _
+                "and AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " & _
+                "and MaxDate = AIRBRANCH.SSPPApplicationTracking.datEffective " & _
                 "and maxDate < add_months('" & EndDate & "', -54) " & _
                 "and strOperationalStatus = 'O'  " & _
                 "and substr(strAirProgramCodes, 13, 1) = '1'  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber "
+                "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber "
 
                 dsViewCount = New DataSet
                 daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
@@ -6277,35 +6277,35 @@ Public Class SSPPStatisticalTools
 
             If txtEPA6b.Text <> "" Then
                 SQL = "select " & _
-            "distinct(substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber, 5) ) as AIRSNumber,  " & _
+            "distinct(substr(AIRBRANCH.SSPPApplicationMaster.strAIRSnumber, 5) ) as AIRSNumber,  " & _
             "strFacilityName, " & _
             "to_char(MaxDate, 'RRRR-MM-dd') as MaxDate " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
-            "" & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".APBHeaderData,  " & _
-            "" & DBNameSpace & ".APBFacilityInformation,   " & _
+            "from AIRBRANCH.SSPPApplicationMaster,  " & _
+            "AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.APBHeaderData,  " & _
+            "AIRBRANCH.APBFacilityInformation,   " & _
             "(select  " & _
          "strAIRSNumber,  " & _
             "max(datEffective) as MaxDate  " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking  " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking  " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
             "and datEffective is not null  " & _
             "group by strAIRSnumber) Effect,  " & _
             "(Select  " & _
-            "distinct(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking  " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "distinct(AIRBRANCH.SSPPApplicationMaster.strAIRSnumber) as AIRSNumber " & _
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking  " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
             "and datReceiveddate < add_months('" & EndDate & "', -6)  " & _
             "and datReceivedDate > add_months('" & EndDate & "', -54)  " & _
             "and (strApplicationType = '16' or strApplicationType = '12')) PermitRequests   " & _
-            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationnumber " & _
-            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber   " & _
-            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " & _
-            "and MaxDate = " & DBNameSpace & ".SSPPApplicationTracking.datEffective " & _
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationnumber " & _
+            "and AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.SSPPApplicationMaster.strAIRSNumber   " & _
+            "and AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " & _
+            "and MaxDate = AIRBRANCH.SSPPApplicationTracking.datEffective " & _
             "and maxDate < add_months('" & EndDate & "', -54) " & _
             "and strOperationalStatus = 'O'  " & _
             "and substr(strAirProgramCodes, 13, 1) = '1'  " & _
-            "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber  " & _
+            "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber  " & _
             "order by AIRSNumber "
 
                 dsViewCount = New DataSet
@@ -6371,52 +6371,52 @@ Public Class SSPPStatisticalTools
                 SQL = "select * " & _
                 "from (Select *  From  " & _
                 "(select  " & _
-                "distinct(substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber, 5)) as AIRSNumber,   " & _
+                "distinct(substr(AIRBRANCH.SSPPApplicationMaster.strAIRSnumber, 5)) as AIRSNumber,   " & _
                 "strFacilityName, MaxDate  " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster,  " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBFacilityInformation,  " & _
+                "from AIRBRANCH.SSPPApplicationMaster,  AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.APBHeaderData, AIRBRANCH.APBFacilityInformation,  " & _
                 "(select  strAIRSNumber,  " & _
                 "max(datEffective) as MaxDate   " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking   " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber   " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking   " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber   " & _
                 "and datEffective is not null  GROUP BY strAIRSNumber) Effect,   " & _
-                "(Select  distinct(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber  " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking   " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "(Select  distinct(AIRBRANCH.SSPPApplicationMaster.strAIRSnumber) as AIRSNumber  " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking   " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
                 "and datReceiveddate < add_months('" & EndDate & "', -6)   " & _
                 "and datReceivedDate > add_months('" & EndDate & "', -54)   " & _
                 "and strApplicationType <> '16'   " & _
                 "and strApplicationType <> '12') PermitRequests    " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationnumber  " & _
-                "and " & DBNameSpace & ".APBHeaderData.strAIRSnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber    " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber   " & _
-                "and MaxDate = " & DBNameSpace & ".SSPPApplicationTracking.datEffective  " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationnumber  " & _
+                "and AIRBRANCH.APBHeaderData.strAIRSnumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " & _
+                "and AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.SSPPApplicationMaster.strAIRSNumber    " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber   " & _
+                "and MaxDate = AIRBRANCH.SSPPApplicationTracking.datEffective  " & _
                 "and maxDate < add_months('" & EndDate & "', -54) " & _
                 "and strOperationalStatus = 'O'   " & _
                 "and substr(strAirProgramCodes, 13, 1) = '1'  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber))  EPA6A " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber))  EPA6A " & _
                 "where not exists  " & _
                 "(select * from (Select *   " & _
-                "From (select distinct(substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber, 5) ) as AIRSNumber,   " & _
-                "strFacilityName, MaxDate from " & DBNameSpace & ".SSPPApplicationMaster,  " & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".APBHeaderData,   " & _
-                "" & DBNameSpace & ".APBFacilityInformation,   (select  strAIRSNumber,  max(datEffective) as MaxDate  from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
-                "" & DBNameSpace & ".SSPPApplicationTracking   " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber   " & _
+                "From (select distinct(substr(AIRBRANCH.SSPPApplicationMaster.strAIRSnumber, 5) ) as AIRSNumber,   " & _
+                "strFacilityName, MaxDate from AIRBRANCH.SSPPApplicationMaster,  AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.APBHeaderData,   " & _
+                "AIRBRANCH.APBFacilityInformation,   (select  strAIRSNumber,  max(datEffective) as MaxDate  from AIRBRANCH.SSPPApplicationMaster,  " & _
+                "AIRBRANCH.SSPPApplicationTracking   " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber   " & _
                 "and datEffective is not null  group by strAIRSnumber) Effect,   " & _
-                "(Select  distinct(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
-                "" & DBNameSpace & ".SSPPApplicationTracking   " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber   " & _
+                "(Select  distinct(AIRBRANCH.SSPPApplicationMaster.strAIRSnumber) as AIRSNumber from AIRBRANCH.SSPPApplicationMaster,  " & _
+                "AIRBRANCH.SSPPApplicationTracking   " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber   " & _
                 "and datReceiveddate < add_months('" & EndDate & "', -6)  and datReceivedDate > add_months('" & EndDate & "', -54)   " & _
                 "and (strApplicationType = '16' or strApplicationType = '12')) PermitRequests    " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationnumber  " & _
-                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber    " & _
-                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " & _
-                "and MaxDate = " & DBNameSpace & ".SSPPApplicationTracking.datEffective  " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationnumber  " & _
+                "and AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.SSPPApplicationMaster.strAIRSNumber    " & _
+                "and AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " & _
+                "and MaxDate = AIRBRANCH.SSPPApplicationTracking.datEffective  " & _
                 "and maxDate < add_months('" & EndDate & "', -54)  " & _
                 "and strOperationalStatus = 'O'  and substr(strAirProgramCodes, 13, 1) = '1'   " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  ) EPA6b where  EPA6A.airsnumber = EPA6b.airsNumber) "
+                "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  ) EPA6b where  EPA6A.airsnumber = EPA6b.airsNumber) "
 
                 dsViewCount = New DataSet
                 daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
@@ -6481,7 +6481,7 @@ Public Class SSPPStatisticalTools
 
             If txtEPA7a.Text <> "" Then
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -6499,11 +6499,11 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "AND datPermitIssued IS NOT NULL " & _
                 "AND (strApplicationType = '22' or strApplicationType = '21')  " & _
                 "AND strPermitType = '7'  " & _
@@ -6575,7 +6575,7 @@ Public Class SSPPStatisticalTools
 
             If txtEPA7b.Text <> "" Then
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -6593,11 +6593,11 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "AND datPermitIssued IS NOT NULL " & _
                 "AND (strApplicationType = '22' or strApplicationType = '21')  " & _
                 "AND strPermitType = '7'  " & _
@@ -6670,7 +6670,7 @@ Public Class SSPPStatisticalTools
 
             If txtEPA7c.Text <> "" Then
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -6688,11 +6688,11 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "AND datPermitIssued IS NOT NULL " & _
                 "AND (strApplicationType = '22' or strApplicationType = '21')  " & _
                 "AND strPermitType = '7'  " & _
@@ -6764,7 +6764,7 @@ Public Class SSPPStatisticalTools
 
             If txtEPA8a.Text <> "" Then
                 SQL = "select " & _
-                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -6781,11 +6781,11 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " & _
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate " & _
-                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes " & _
-                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
+                "AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes " & _
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "AND (strApplicationType = '22' or strApplicationType = '21')  " & _
                 "and datPermitIssued is Null " & _
                 "and datReceivedDate < add_months('" & EndDate & "', -18) "
@@ -6883,13 +6883,13 @@ Public Class SSPPStatisticalTools
                     SQL = "select (strLastName||', '||strFirstName) as UserName,  " & _
                     "numUSerID    " & _
                     "from    " & _
-                    "" & DBNameSpace & ".EPDUserProfiles,    " & _
+                    "AIRBRANCH.EPDUserProfiles,    " & _
                     "(select distinct(strStaffResponsible) As Users   " & _
-                    "from " & DBNameSpace & ".SSPPApplicationMaster   " & _
+                    "from AIRBRANCH.SSPPApplicationMaster   " & _
                     "minus    " & _
                     "select to_char(numUserID)     " & _
-                    "from " & DBNameSpace & ".EPDUserProfiles where numProgram = '5') AppUsers   " & _
-                    "where " & DBNameSpace & ".EPDUserProfiles.numUserID = AppUsers.Users    " & _
+                    "from AIRBRANCH.EPDUserProfiles where numProgram = '5') AppUsers   " & _
+                    "where AIRBRANCH.EPDUserProfiles.numUserID = AppUsers.Users    " & _
                     "Order by Username  "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -7166,10 +7166,10 @@ Public Class SSPPStatisticalTools
             Dim drDSRow4 As DataRow
             Dim drNewRow As DataRow
 
-            SQL = "Select * from " & DBNameSpace & ".LookupSubPart60 order by strSubpart "
-            SQL2 = "Select * from " & DBNameSpace & ".LookupSubPart61 order by strSubpart "
-            SQL3 = "Select * from " & DBNameSpace & ".LookupSubPart63 order by strSubpart "
-            SQL4 = "Select * from " & DBNameSpace & ".LookUpSubPartSIP order by strSubPart "
+            SQL = "Select * from AIRBRANCH.LookupSubPart60 order by strSubpart "
+            SQL2 = "Select * from AIRBRANCH.LookupSubPart61 order by strSubpart "
+            SQL3 = "Select * from AIRBRANCH.LookupSubPart63 order by strSubpart "
+            SQL4 = "Select * from AIRBRANCH.LookUpSubPartSIP order by strSubPart "
 
             dsPart60 = New DataSet
             dsPart61 = New DataSet
@@ -7327,7 +7327,7 @@ Public Class SSPPStatisticalTools
                 txtSIPDescription.BackColor = Color.White
 
                 SQL = "Select strSubPart " & _
-                "From " & DBNameSpace & ".LookUpSubpartSIP " & _
+                "From AIRBRANCH.LookUpSubpartSIP " & _
                 "where strSubPart = '" & txtSIPCode.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -7337,11 +7337,11 @@ Public Class SSPPStatisticalTools
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".LookUpSubpartSIP set " & _
+                    SQL = "Update AIRBRANCH.LookUpSubpartSIP set " & _
                     "strDescription = '" & Replace(txtSIPDescription.Text, "'", "''") & "' " & _
                     "where strSubpart = '" & txtSIPCode.Text & "' "
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".LookUpSubpartSIP " & _
+                    SQL = "Insert into AIRBRANCH.LookUpSubpartSIP " & _
                     "values " & _
                     "('" & Replace(txtSIPCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtSIPDescription.Text, "'", "''") & "') "
@@ -7380,7 +7380,7 @@ Public Class SSPPStatisticalTools
                 txtNSPSDescription.BackColor = Color.White
 
                 SQL = "Select strSubPart " & _
-                "From " & DBNameSpace & ".LookUpSubpart60 " & _
+                "From AIRBRANCH.LookUpSubpart60 " & _
                 "where strSubPart = '" & txtNSPSCode.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -7390,11 +7390,11 @@ Public Class SSPPStatisticalTools
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".LookUpSubpart60 set " & _
+                    SQL = "Update AIRBRANCH.LookUpSubpart60 set " & _
                     "strDescription = '" & Replace(txtNSPSDescription.Text, "'", "''") & "' " & _
                     "where strSubpart = '" & txtNSPSCode.Text & "' "
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".LookUpSubpart60 " & _
+                    SQL = "Insert into AIRBRANCH.LookUpSubpart60 " & _
                     "values " & _
                     "('" & Replace(txtNSPSCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtNSPSDescription.Text, "'", "''") & "') "
@@ -7432,7 +7432,7 @@ Public Class SSPPStatisticalTools
                 txtNESHAPDescription.BackColor = Color.White
 
                 SQL = "Select strSubPart " & _
-                "From " & DBNameSpace & ".LookUpSubpart61 " & _
+                "From AIRBRANCH.LookUpSubpart61 " & _
                 "where strSubPart = '" & txtNESHAPCode.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -7442,11 +7442,11 @@ Public Class SSPPStatisticalTools
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".LookUpSubpart61 set " & _
+                    SQL = "Update AIRBRANCH.LookUpSubpart61 set " & _
                     "strDescription = '" & Replace(txtNESHAPDescription.Text, "'", "''") & "' " & _
                     "where strSubpart = '" & txtNESHAPCode.Text & "' "
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".LookUpSubpart61 " & _
+                    SQL = "Insert into AIRBRANCH.LookUpSubpart61 " & _
                     "values " & _
                     "('" & Replace(txtNESHAPCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtNESHAPDescription.Text, "'", "''") & "') "
@@ -7485,7 +7485,7 @@ Public Class SSPPStatisticalTools
                 txtMACTDescription.BackColor = Color.White
 
                 SQL = "Select strSubPart " & _
-                "From " & DBNameSpace & ".LookUpSubpart63 " & _
+                "From AIRBRANCH.LookUpSubpart63 " & _
                 "where strSubPart = '" & txtMACTCode.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -7495,11 +7495,11 @@ Public Class SSPPStatisticalTools
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".LookUpSubpart63 set " & _
+                    SQL = "Update AIRBRANCH.LookUpSubpart63 set " & _
                     "strDescription = '" & Replace(txtMACTDescription.Text, "'", "''") & "' " & _
                     "where strSubpart = '" & txtMACTCode.Text & "' "
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".LookUpSubpart63 " & _
+                    SQL = "Insert into AIRBRANCH.LookUpSubpart63 " & _
                     "values " & _
                     "('" & Replace(txtMACTCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtMACTDescription.Text, "'", "''") & "') "
@@ -7533,7 +7533,7 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub btnDeleteSIPSubpart_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteSIPSubpart.Click
         Try
-            SQL = "Delete " & DBNameSpace & ".LookUpSubpartSIP " & _
+            SQL = "Delete AIRBRANCH.LookUpSubpartSIP " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -7551,7 +7551,7 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub btnDeleteNSPSSubpart_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteNSPSSubpart.Click
         Try
-            SQL = "Delete " & DBNameSpace & ".LookUpSubpart60 " & _
+            SQL = "Delete AIRBRANCH.LookUpSubpart60 " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -7569,7 +7569,7 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub btnDeleteNESHAPSubpart_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteNESHAPSubpart.Click
         Try
-            SQL = "Delete " & DBNameSpace & ".LookUpSubpart61 " & _
+            SQL = "Delete AIRBRANCH.LookUpSubpart61 " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -7587,7 +7587,7 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub btnDeleteMACTSubpart_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteMACTSubpart.Click
         Try
-            SQL = "Delete " & DBNameSpace & ".LookUpSubpart63 " & _
+            SQL = "Delete AIRBRANCH.LookUpSubpart63 " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)

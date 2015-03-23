@@ -3133,7 +3133,7 @@ Public Class SSCPEvents
         Dim EventTypeDbString As String = ""
         Dim ReceivedDate As String = ""
 
-        SQL = "Select * from " & DBNameSpace & ".SSCPItemMaster " & _
+        SQL = "Select * from AIRBRANCH.SSCPItemMaster " & _
         "where strTrackingNumber = '" & txtTrackingNumber.Text & "'"
 
         If CurrentConnection.State = ConnectionState.Closed Then
@@ -3290,7 +3290,7 @@ Public Class SSCPEvents
         dsNotifications = New DataSet
 
         SQL = "Select strNotificationKey, strNotificationDESC " & _
-        "from " & DBNameSpace & ".LookUPSSCPNotifications " & _
+        "from AIRBRANCH.LookUPSSCPNotifications " & _
         "order by strNotificationDESC "
 
         daNotifications = New OracleDataAdapter(SQL, CurrentConnection)
@@ -3334,13 +3334,13 @@ Public Class SSCPEvents
             "strlastname, strfirstname, " & _
             "strResponsibleStaff, " & _
             "strDelete " & _
-            "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".LookUpCountyInformation,  " & _
-            "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".SSCPItemMaster  " & _
-            "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNUMBER = " & DBNameSpace & ".APBHeaderData.strAIRSNUmber " & _
-            "and " & DBNameSpace & ".LookUpCountyInformation.strCountyCode = substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5, 3)  " & _
-            "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
-            "and " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
-            "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = '" & txtTrackingNumber.Text & "' "
+            "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.LookUpCountyInformation,  " & _
+            "AIRBRANCH.APBHeaderData, AIRBRANCH.EPDUserProfiles, AIRBRANCH.SSCPItemMaster  " & _
+            "where AIRBRANCH.APBFacilityInformation.strAIRSNUMBER = AIRBRANCH.APBHeaderData.strAIRSNUmber " & _
+            "and AIRBRANCH.LookUpCountyInformation.strCountyCode = substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5, 3)  " & _
+            "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCPItemMaster.strAIRSNumber  " & _
+            "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCPItemMaster.strResponsibleStaff  " & _
+            "and AIRBRANCH.SSCPItemMaster.strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -3399,7 +3399,7 @@ Public Class SSCPEvents
 
 
             SQL = "Select strRMPID " & _
-            "from " & DBNameSpace & ".APBSupplamentalData " & _
+            "from AIRBRANCH.APBSupplamentalData " & _
             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3503,7 +3503,7 @@ Public Class SSCPEvents
     End Sub
     Sub CheckforInspectionLink()
         SQL = "Select datScheduleDateStart, datScheduleDateEnd " & _
-        "from " & DBNameSpace & ".SSCPInspectionTracking " & _
+        "from AIRBRANCH.SSCPInspectionTracking " & _
         "where SSCPTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3528,7 +3528,7 @@ Public Class SSCPEvents
         Dim Completedate As String = ""
 
         SQL = "Select datCompleteDate " & _
-        "from " & DBNameSpace & ".SSCPItemMaster " & _
+        "from AIRBRANCH.SSCPItemMaster " & _
         "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3950,7 +3950,7 @@ Public Class SSCPEvents
                     CurrentConnection.Open()
                 End If
 
-                SQL = "Select strTrackingNumber from " & DBNameSpace & ".SSCPREports where " & _
+                SQL = "Select strTrackingNumber from AIRBRANCH.SSCPREports where " & _
                 "strTrackingNumber = '" & txtTrackingNumber.Text & "'"
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
@@ -3958,7 +3958,7 @@ Public Class SSCPEvents
                 recExist = dr.Read
 
                 If recExist = False Then
-                    SQL = "Insert into " & DBNameSpace & ".SSCPREports " & _
+                    SQL = "Insert into AIRBRANCH.SSCPREports " & _
                     "(strTrackingNumber, strReportPeriod, " & _
                     "DatReportingPeriodStart, DatReportingPeriodEnd, " & _
                     "strReportingPeriodComments, datreportduedate, " & _
@@ -3982,7 +3982,7 @@ Public Class SSCPEvents
 
                     dr = cmd.ExecuteReader
 
-                    SQL = "Insert into " & DBNameSpace & ".SSCPREportsHistory " & _
+                    SQL = "Insert into AIRBRANCH.SSCPREportsHistory " & _
                     "(strTrackingNumber, strSubmittalNumber, " & _
                     "strReportPeriod, DatReportingPeriodStart, " & _
                     "DatReportingPeriodEnd, strReportingPeriodComments, " & _
@@ -4007,7 +4007,7 @@ Public Class SSCPEvents
                     dr = cmd.ExecuteReader
 
                 Else
-                    SQL = "Update " & DBNameSpace & ".SSCPREports set " & _
+                    SQL = "Update AIRBRANCH.SSCPREports set " & _
                     "strSubmittalNumber = '" & NUPReportSubmittal.Value & "', " & _
                     "strReportPeriod = '" & cboReportSchedule.Text & "', " & _
                     "DatReportingPeriodStart = '" & DTPReportPeriodStart.Text & "', " & _
@@ -4031,7 +4031,7 @@ Public Class SSCPEvents
                     dr.Close()
 
                     SQL = "Select strSubmittalNumber " & _
-                    "from " & DBNameSpace & ".SSCPREportsHistory " & _
+                    "from AIRBRANCH.SSCPREportsHistory " & _
                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "' " & _
                     "and strSubmittalNumber = '" & NUPReportSubmittal.Value & "'"
 
@@ -4043,7 +4043,7 @@ Public Class SSCPEvents
                     recExist = dr.Read
                     dr.Close()
                     If recExist = True Then
-                        SQL = "Update " & DBNameSpace & ".SSCPREportsHistory set " & _
+                        SQL = "Update AIRBRANCH.SSCPREportsHistory set " & _
                          "strSubmittalNumber = '" & NUPReportSubmittal.Value & "', " & _
                          "strReportPeriod = '" & cboReportSchedule.Text & "', " & _
                          "DatReportingPeriodStart = '" & DTPReportPeriodStart.Text & "', " & _
@@ -4060,7 +4060,7 @@ Public Class SSCPEvents
                          "where strTrackingNumber = '" & txtTrackingNumber.Text & "' " & _
                          "and strSubmittalNumber = '" & NUPReportSubmittal.Value & "'"
                     Else
-                        SQL = "Insert into " & DBNameSpace & ".SSCPREportsHistory " & _
+                        SQL = "Insert into AIRBRANCH.SSCPREportsHistory " & _
                         "(strTrackingNumber, strSubmittalNumber, " & _
                         "strReportPeriod, DatReportingPeriodStart, " & _
                         "DatReportingPeriodEnd, strReportingPeriodComments, " & _
@@ -4087,7 +4087,7 @@ Public Class SSCPEvents
                     dr.Close()
 
                     If Me.chbReportReceivedByAPB.Checked = True Then
-                        SQL = "Update " & DBNameSpace & ".SSCPItemMaster set " & _
+                        SQL = "Update AIRBRANCH.SSCPItemMaster set " & _
                         "datReceivedDate = '" & Me.DTPReportReceivedDate.Text & "' " & _
                         "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4164,7 +4164,7 @@ Public Class SSCPEvents
                     CurrentConnection.Open()
                 End If
 
-                SQL = "Select * from " & DBNameSpace & ".SSCPInspections " & _
+                SQL = "Select * from AIRBRANCH.SSCPInspections " & _
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4173,7 +4173,7 @@ Public Class SSCPEvents
                 recExist = dr.Read
 
                 If recExist = False Then
-                    SQL = "Insert into " & DBNameSpace & ".SSCPInspections " & _
+                    SQL = "Insert into AIRBRANCH.SSCPInspections " & _
                     "(strTrackingNumber, DatInspectionDateStart, " & _
                     "datinspectionDateEnd, strInspectionReason, " & _
                     "strWeatherConditions, strInspectionGuide, " & _
@@ -4192,7 +4192,7 @@ Public Class SSCPEvents
                     "'" & EnforcementFollowUp & "', '" & UserGCode & "', " & _
                     "'" & OracleDate & "')"
                 Else
-                    SQL = "Update " & DBNameSpace & ".SSCPInspections set " & _
+                    SQL = "Update AIRBRANCH.SSCPInspections set " & _
                     "DatInspectionDateStart = to_date('" & InspectionTimeStart & "', 'dd.mm.yyyy HH24:mi:ss'), " & _
                     "datinspectionDateEnd = to_date('" & InspectionTimeEnd & "', 'dd.mm.yyyy HH24:mi:ss'), " & _
                     "strInspectionReason = '" & Replace(InspectionReason, "'", "''") & "', " & _
@@ -4257,7 +4257,7 @@ Public Class SSCPEvents
                 End If
 
                 SQL = "Select strTrackingNumber " & _
-                "from " & DBNameSpace & ".SSCPACCS where " & _
+                "from AIRBRANCH.SSCPACCS where " & _
                 "strTrackingNumber = '" & txtTrackingNumber.Text & "'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4329,7 +4329,7 @@ Public Class SSCPEvents
                 If recExist = False Then
                     NUPACCSubmittal.Text = 1
 
-                    SQL = "Insert into " & DBNameSpace & ".SSCPACCS " & _
+                    SQL = "Insert into AIRBRANCH.SSCPACCS " & _
                     "(strTrackingNumber, strSubmittalNumber, " & _
                     "strPostMarkedOnTime, DATPostMarkDate, " & _
                     "strsignedbyRO, strCorrectACCFOrms, " & _
@@ -4355,7 +4355,7 @@ Public Class SSCPEvents
                     End If
                     dr = cmd.ExecuteReader
 
-                    SQL = "Insert into " & DBNameSpace & ".SSCPACCSHistory " & _
+                    SQL = "Insert into AIRBRANCH.SSCPACCSHistory " & _
                     "(strTrackingNumber, strSubmittalNumber, " & _
                     "strPostMarkedOnTime, DATPostMarkDate, " & _
                     "strsignedbyRO, StrCorrectACCForms, " & _
@@ -4382,7 +4382,7 @@ Public Class SSCPEvents
                     dr = cmd.ExecuteReader
 
                 Else  'recExist = False 
-                    SQL = "Update " & DBNameSpace & ".SSCPACCS set " & _
+                    SQL = "Update AIRBRANCH.SSCPACCS set " & _
                     "strSubmittalNumber = '" & NUPACCSubmittal.Text & "', " & _
                     "strPostMarkedOnTime = '" & PostedOnTime & "', " & _
                     "DATPostMarkDate = '" & DTPACCPostmarked.Text & "', " & _
@@ -4409,7 +4409,7 @@ Public Class SSCPEvents
                     dr.Close()
 
                     SQL = "Select strSubmittalNumber " & _
-                    "from " & DBNameSpace & ".SSCPACCSHistory " & _
+                    "from AIRBRANCH.SSCPACCSHistory " & _
                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "' " & _
                     "and strSubmittalNumber = '" & NUPACCSubmittal.Text & "' "
 
@@ -4420,7 +4420,7 @@ Public Class SSCPEvents
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     If recExist = True Then
-                        SQL = "Update " & DBNameSpace & ".SSCPACCSHistory set " & _
+                        SQL = "Update AIRBRANCH.SSCPACCSHistory set " & _
                         "strSubmittalNumber = '" & NUPACCSubmittal.Text & "', " & _
                         "strPostMarkedOnTime = '" & PostedOnTime & "', " & _
                         "DATPostMarkDate = '" & DTPACCPostmarked.Text & "', " & _
@@ -4440,7 +4440,7 @@ Public Class SSCPEvents
                         "where strTrackingnumber = '" & txtTrackingNumber.Text & "' " & _
                         "and strSubmittalNumber = '" & NUPACCSubmittal.Text & "'"
                     Else
-                        SQL = "Insert into " & DBNameSpace & ".SSCPACCSHistory " & _
+                        SQL = "Insert into AIRBRANCH.SSCPACCSHistory " & _
                         "(strTrackingNumber, strSubmittalNumber, " & _
                         "strPostMarkedOnTime, DATPostMarkDate, " & _
                         "strsignedbyRO, StrCorrectACCForms, " & _
@@ -4467,7 +4467,7 @@ Public Class SSCPEvents
                     dr = cmd.ExecuteReader
 
                     If chbACCReceivedByAPB.Checked = True Then
-                        SQL = "Update " & DBNameSpace & ".SSCPItemMaster set " & _
+                        SQL = "Update AIRBRANCH.SSCPItemMaster set " & _
                         "datReceivedDate = '" & DTPACCReceivedDate.Text & "' " & _
                         "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4478,7 +4478,7 @@ Public Class SSCPEvents
                         dr.Close()
                     End If
 
-                End If 'If recExist in the " & DBNameSpace & ".SSCPACCS table
+                End If 'If recExist in the AIRBRANCH.SSCPACCS table
             End If  'Warnings Check
 
         Catch ex As Exception
@@ -4525,7 +4525,7 @@ Public Class SSCPEvents
             End If
 
             SQL = "Select strTrackingNumber " & _
-            "from " & DBNameSpace & ".SSCPTestReports " & _
+            "from AIRBRANCH.SSCPTestReports " & _
             "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4533,7 +4533,7 @@ Public Class SSCPEvents
 
             recExist = dr.Read
             If recExist = True Then
-                SQL = "Update " & DBNameSpace & ".SSCPTestReports set " & _
+                SQL = "Update AIRBRANCH.SSCPTestReports set " & _
                 "strReferenceNumber = '" & ReferenceNumber & "', " & _
                 "datTestReportDue = '" & TestReportDue & "', " & _
                 "strTestReportComments = '" & Replace(TestReportComments, "'", "''") & "', " & _
@@ -4542,7 +4542,7 @@ Public Class SSCPEvents
                 "datModifingDate = '" & OracleDate & "' " & _
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
             Else
-                SQL = "Insert into " & DBNameSpace & ".SSCPTestReports " & _
+                SQL = "Insert into AIRBRANCH.SSCPTestReports " & _
                 "(strTrackingNumber, strReferenceNumber, " & _
                 "datTestReportDue, " & _
                 "strTestReportComments, strTestReportFollowUp, " & _
@@ -4559,7 +4559,7 @@ Public Class SSCPEvents
             dr.Close()
 
             SQL = "Select strAIRSnumber " & _
-            "from " & DBNameSpace & ".APBSupplamentalData " & _
+            "from AIRBRANCH.APBSupplamentalData " & _
             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4571,7 +4571,7 @@ Public Class SSCPEvents
             dr.Close()
 
             If recExist = True Then
-                SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+                SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                 "datSSCPTestReportDue = '" & DTPTestReportNewDueDate.Text & "' " & _
                 "where strAIRSNUmber = '0413" & txtAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4584,7 +4584,7 @@ Public Class SSCPEvents
             End If
 
             If Me.chbISMPTestReportReceivedByAPB.Checked = True Then
-                SQL = "Update " & DBNameSpace & ".SSCPItemMaster set " & _
+                SQL = "Update AIRBRANCH.SSCPItemMaster set " & _
                 "datReceivedDate = '" & Me.DTPTestReportReceivedDate.Text & "' " & _
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4645,7 +4645,7 @@ Public Class SSCPEvents
             End If
 
             SQL = "Select strTrackingNumber " & _
-            "from " & DBNameSpace & ".SSCPNotifications " & _
+            "from AIRBRANCH.SSCPNotifications " & _
             "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4655,7 +4655,7 @@ Public Class SSCPEvents
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = True Then
-                SQL = "UPdate " & DBNameSpace & ".SSCPNotifications set " & _
+                SQL = "UPdate AIRBRANCH.SSCPNotifications set " & _
                 "datNotificationDue = '" & NotificationDueDate & "', " & _
                 "strNotificationDue = '" & NotificationDue & "', " & _
                 "datNotificationSent = '" & NotificationSentDate & "', " & _
@@ -4668,7 +4668,7 @@ Public Class SSCPEvents
                 "datModifingDate = '" & OracleDate & "' " & _
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
             Else
-                SQL = "Insert into " & DBNameSpace & ".SSCPNotifications " & _
+                SQL = "Insert into AIRBRANCH.SSCPNotifications " & _
                 "(strTrackingNumber, datNotificationDue, " & _
                 "strNotificationDue, datNotificationSent, " & _
                 "strNotificationSent, strNotificationType, " & _
@@ -4688,7 +4688,7 @@ Public Class SSCPEvents
             dr = cmd.ExecuteReader
 
             If Me.chbNotificationReceivedByAPB.Checked = True Then
-                SQL = "Update " & DBNameSpace & ".SSCPItemMaster set " & _
+                SQL = "Update AIRBRANCH.SSCPItemMaster set " & _
                 "datReceivedDate = '" & DTPNotificationReceived.Text & "' " & _
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4719,7 +4719,7 @@ Public Class SSCPEvents
 
         Try
             SQL = "Select strTrackingNumber " & _
-            "from " & DBNameSpace & ".SSCPItemMaster " & _
+            "from AIRBRANCH.SSCPItemMaster " & _
             "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4746,7 +4746,7 @@ Public Class SSCPEvents
                     Staff = "0"
                 End If
 
-                SQL = "Update " & DBNameSpace & ".SSCPItemMaster set " & _
+                SQL = "Update AIRBRANCH.SSCPItemMaster set " & _
                 "datCompleteDate = '" & CompleteDate & "', " & _
                 "datAcknoledgmentLetterSent = '" & AcknoledgmentLetter & "', " & _
                 "strResponsibleStaff = '" & Staff & "', " & _
@@ -4762,7 +4762,7 @@ Public Class SSCPEvents
 
                 If TPTestReports.Focus = False Then
                     SQL = "Select strUpDateStatus " & _
-                    "from " & DBNameSpace & ".AFSSSCPRecords " & _
+                    "from AIRBRANCH.AFSSSCPRecords " & _
                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4781,7 +4781,7 @@ Public Class SSCPEvents
                             Case "C"
                                 'Leave it alone
                             Case "N"
-                                SQL = "Update " & DBNameSpace & ".AFSSSCPRecords set " & _
+                                SQL = "Update AIRBRANCH.AFSSSCPRecords set " & _
                                 "strUpDateStatus = 'C' " & _
                                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
@@ -4801,7 +4801,7 @@ Public Class SSCPEvents
                               (Me.TPNotifications.Focus = True And Me.rdbNotificationFollowUpYes.Checked = True) Then
 
                             SQL = "Select strAFSActionNumber " & _
-                            "from " & DBNameSpace & ".APBSupplamentalData " & _
+                            "from AIRBRANCH.APBSupplamentalData " & _
                             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4814,7 +4814,7 @@ Public Class SSCPEvents
                             End While
                             dr.Close()
 
-                            SQL = "Insert into " & DBNameSpace & ".AFSSSCPRecords " & _
+                            SQL = "Insert into AIRBRANCH.AFSSSCPRecords " & _
                             "(strTrackingNumber, strAFSActionNumber, " & _
                             "strUpDateStatus, strModifingPerson, " & _
                             "datModifingdate) " & _
@@ -4832,7 +4832,7 @@ Public Class SSCPEvents
 
                             ActionNumber = CStr(CInt(ActionNumber) + 1)
 
-                            SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+                            SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                             "strAFSActionNUmber = '" & ActionNumber & "' " & _
                             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4848,7 +4848,7 @@ Public Class SSCPEvents
                 If TPACC.Focus = True Then
                     ReceivedDate = DTPACCReceivedDate.Text
                     SQL = "Select strTrackingNumber " & _
-                    "from " & DBNameSpace & ".SSCPItemMaster " & _
+                    "from AIRBRANCH.SSCPItemMaster " & _
                     "where strTrackingnumber = '" & CStr(CInt(txtTrackingNumber.Text + 1)) & "' " & _
                     "and streventType = '06' "
 
@@ -4862,7 +4862,7 @@ Public Class SSCPEvents
 
                     If recExist = True Then
                         SQL = "Select strUpDateStatus " & _
-                        "from " & DBNameSpace & ".AFSSSCPRecords " & _
+                        "from AIRBRANCH.AFSSSCPRecords " & _
                         "where strTrackingNumber = '" & CStr(CInt(txtTrackingNumber.Text + 1)) & "' "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4881,7 +4881,7 @@ Public Class SSCPEvents
                                 Case "C"
                                     'Leave it alone
                                 Case "N"
-                                    SQL = "Update " & DBNameSpace & ".AFSSSCPRecords set " & _
+                                    SQL = "Update AIRBRANCH.AFSSSCPRecords set " & _
                                     "strUpDateStatus = 'C' " & _
                                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
@@ -4898,7 +4898,7 @@ Public Class SSCPEvents
                             dr.Close()
 
                             SQL = "Select strAFSActionNumber " & _
-                            "from " & DBNameSpace & ".APBSupplamentalData " & _
+                            "from AIRBRANCH.APBSupplamentalData " & _
                             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4911,7 +4911,7 @@ Public Class SSCPEvents
                             End While
                             dr.Close()
 
-                            SQL = "Insert into " & DBNameSpace & ".AFSSSCPRecords " & _
+                            SQL = "Insert into AIRBRANCH.AFSSSCPRecords " & _
                             "(strTrackingNumber, strAFSActionNumber, " & _
                             "strUpDateStatus, strModifingPerson, " & _
                             "datModifingdate) " & _
@@ -4929,7 +4929,7 @@ Public Class SSCPEvents
 
                             ActionNumber = CStr(CInt(ActionNumber) + 1)
 
-                            SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+                            SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                             "strAFSActionNUmber = '" & ActionNumber & "' " & _
                             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4942,53 +4942,9 @@ Public Class SSCPEvents
                     End If
                 End If
 
-                'If cboNotificationType.Text = "Shutdown" And chbEventComplete.Checked = True Then
-                'If cboNotificationType.Text = "Permit Revocation" And chbEventComplete.Checked = True Then
-                '    SQL = "update AIRBranch.APBHeaderData set " & _
-                '    "strOperationalStatus = 'X',  " & _
-                '    "datShutDownDate = '" & dtpNotificationDate.Text & "', " & _
-                '    "strComments = 'SSCP Shut Down Notification', " & _
-                '    "strModifingLocation = '3', " & _
-                '    "strModifingPerson = '" & UserGCode & "', " & _
-                '    "datModifingDate = '" & OracleDate & "' " & _
-                '    "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "'"
-                '    cmd = New OracleCommand(SQL, CurrentConnection)
-                '    If CurrentConnection.State = ConnectionState.Closed Then
-                '        CurrentConnection.Open()
-                '    End If
-                '    dr = cmd.ExecuteReader
-                '    dr.Close()
-
-                '    SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
-                '    "strOperationalStatus = 'X', " & _
-                '    "strModifingPerson = '" & UserGCode & "', " & _
-                '    "datModifingDate = '" & OracleDate & "' " & _
-                '    "where strAirPollutantKey like '0413" & txtAIRSNumber.Text & "_'"
-
-                '    cmd = New OracleCommand(SQL, CurrentConnection)
-                '    If CurrentConnection.State = ConnectionState.Closed Then
-                '        CurrentConnection.Open()
-                '    End If
-                '    dr = cmd.ExecuteReader
-                '    dr.Close()
-
-                '    SQL = "Update airbranch.EIS_FacilitySite set " & _
-                '    "strFacilitySiteStatusCode = 'PS', " & _
-                '    "strFacilitySiteComment = 'Facility shut down by permitting action.', " & _
-                '    "UpdateUSer = '" & UserName & "', " & _
-                '    "updateDateTime = sysdate " & _
-                '    "where facilitySiteID = '" & txtAIRSNumber.Text & "' "
-                '    cmd = New OracleCommand(SQL, CurrentConnection)
-                '    If CurrentConnection.State = ConnectionState.Closed Then
-                '        CurrentConnection.Open()
-                '    End If
-                '    cmd.ExecuteReader()
-
-                'End If
-
                 If TPReport.Focus = True Then
                     SQL = "Select strUpDateStatus " & _
-                    "from " & DBNameSpace & ".AFSSSCPRecords " & _
+                    "from AIRBRANCH.AFSSSCPRecords " & _
                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5007,7 +4963,7 @@ Public Class SSCPEvents
                             Case "C"
                                 'Leave it alone
                             Case "N"
-                                SQL = "Update " & DBNameSpace & ".AFSSSCPRecords set " & _
+                                SQL = "Update AIRBRANCH.AFSSSCPRecords set " & _
                                 "strUpDateStatus = 'C' " & _
                                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
@@ -5024,7 +4980,7 @@ Public Class SSCPEvents
                         dr.Close()
 
                         SQL = "Select strAFSActionNumber " & _
-                        "from " & DBNameSpace & ".APBSupplamentalData " & _
+                        "from AIRBRANCH.APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5037,7 +4993,7 @@ Public Class SSCPEvents
                         End While
                         dr.Close()
 
-                        SQL = "Insert into " & DBNameSpace & ".AFSSSCPRecords " & _
+                        SQL = "Insert into AIRBRANCH.AFSSSCPRecords " & _
                         "(strTrackingNumber, strAFSActionNumber, " & _
                         "strUpDateStatus, strModifingPerson, " & _
                         "datModifingdate) " & _
@@ -5055,7 +5011,7 @@ Public Class SSCPEvents
 
                         ActionNumber = CStr(CInt(ActionNumber) + 1)
 
-                        SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
+                        SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                         "strAFSActionNUmber = '" & ActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5100,7 +5056,7 @@ Public Class SSCPEvents
                 "strEnforcementNeeded, strShowDeviation, " & _
                 "strGeneralComments, strModifingPerson, " & _
                 "datModifingDate, strSubmittalNumber " & _
-                "from " & DBNameSpace & ".SSCPREports " & _
+                "from AIRBRANCH.SSCPREports " & _
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "'"
 
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -5175,7 +5131,7 @@ Public Class SSCPEvents
                     CurrentConnection.Open()
                 End If
 
-                SQL = "Select * from " & DBNameSpace & ".SSCPREportsHistory " & _
+                SQL = "Select * from AIRBRANCH.SSCPREportsHistory " & _
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' " & _
                 "and strSubmittalNumber = '" & NUPReportSubmittal.Value & "'"
 
@@ -5242,9 +5198,9 @@ Public Class SSCPEvents
 
             SQL = "Select strSubmittalNumber, datModifingDate, " & _
                          "(strLastName|| ', ' ||strFirstName) as UserName " & _
-                         "from " & DBNameSpace & ".SSCPREportsHistory, " & DBNameSpace & ".EPDUserProfiles " & _
+                         "from AIRBRANCH.SSCPREportsHistory, AIRBRANCH.EPDUserProfiles " & _
                          "where strTrackingNumber = '" & txtTrackingNumber.Text & "' " & _
-                         "and " & DBNameSpace & ".SSCPREportsHistory.strModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                         "and AIRBRANCH.SSCPREportsHistory.strModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
                          "order by strsubmittalnumber"
 
             dsReportsDGR = New DataSet
@@ -5333,7 +5289,7 @@ Public Class SSCPEvents
                 "strInspectionComments, " & _
                 "strInspectionFollowUP, strModifingPerson, " & _
                 "datModifingDate " & _
-                "from " & DBNameSpace & ".SSCPInspections " & _
+                "from AIRBRANCH.SSCPInspections " & _
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5423,7 +5379,7 @@ Public Class SSCPEvents
                 "strComments, strEnforcementNeeded, " & _
                 "strModifingPerson, datModifingDate, datAccReportingYear, " & _
                 "STRKNOWNDEVIATIONSREPORTED, STRRESUBMITTALREQUIRED " & _
-                "from " & DBNameSpace & ".SSCPACCS " & _
+                "from AIRBRANCH.SSCPACCS " & _
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5640,7 +5596,7 @@ Public Class SSCPEvents
                     CurrentConnection.Open()
                 End If
 
-                SQL = "Select * from " & DBNameSpace & ".SSCPACCSHistory " & _
+                SQL = "Select * from AIRBRANCH.SSCPACCSHistory " & _
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' " & _
                 "and strSubmittalNumber = '" & NUPACCSubmittal.Value & "'"
 
@@ -5840,9 +5796,9 @@ Public Class SSCPEvents
 
             SQL = "Select strSubmittalNumber, datModifingDate, " & _
             "(strLastName|| ', ' ||strFirstName) as UserName " & _
-            "from " & DBNameSpace & ".SSCPACCSHistory, " & DBNameSpace & ".EPDUserProfiles " & _
+            "from AIRBRANCH.SSCPACCSHistory, AIRBRANCH.EPDUserProfiles " & _
             "where strTrackingNumber = '" & txtTrackingNumber.Text & "' " & _
-            "and " & DBNameSpace & ".SSCPACCSHistory.strModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and AIRBRANCH.SSCPACCSHistory.strModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
             "order by strsubmittalnumber"
 
             dsACCsDGR = New DataSet
@@ -5927,7 +5883,7 @@ Public Class SSCPEvents
                 "datTestReportDue, " & _
                 "strTestReportComments, strTestReportFOllowUP, " & _
                 "strModifingPerson, datModifingDate " & _
-                "from " & DBNameSpace & ".SSCPTestReports " & _
+                "from AIRBRANCH.SSCPTestReports " & _
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5962,7 +5918,7 @@ Public Class SSCPEvents
                     txtTestReportISMPCompleteDate.Text = "N/A"
                 Else
                     SQL = "Select datReceivedDate, datCompleteDate " & _
-                    "from " & DBNameSpace & ".ISMPReportInformation " & _
+                    "from AIRBRANCH.ISMPReportInformation " & _
                     "where strReferenceNumber = '" & txtISMPReferenceNumber.Text & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -5985,7 +5941,7 @@ Public Class SSCPEvents
                 End If
 
                 SQL = "Select datSSCPTestReportDue " & _
-                "from " & DBNameSpace & ".APBSupplamentalData " & _
+                "from AIRBRANCH.APBSupplamentalData " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -6005,9 +5961,9 @@ Public Class SSCPEvents
                 If txtISMPReferenceNumber.Text <> "N/A" Then
                     SQL = "Select " & _
                     "strEmissionSource, strPollutantDescription " & _
-                    "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".LookUPPollutants " & _
+                    "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.LookUPPollutants " & _
                     "where strReferenceNumber = '" & txtISMPReferenceNumber.Text & "' " & _
-                    "and " & DBNameSpace & ".ISMPReportInformation.strPollutant = " & DBNameSpace & ".LookUPPollutants.strPollutantCode "
+                    "and AIRBRANCH.ISMPReportInformation.strPollutant = AIRBRANCH.LookUPPollutants.strPollutantCode "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
@@ -6047,7 +6003,7 @@ Public Class SSCPEvents
                 "strNotificationTypeOther, strNotificationComment, " & _
                 "strNotificationFollowUp, strModifingPerson, " & _
                 "datModifingDate " & _
-                "From " & DBNameSpace & ".SSCPNotifications " & _
+                "From AIRBRANCH.SSCPNotifications " & _
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -6181,7 +6137,7 @@ Public Class SSCPEvents
 
             ' Determine if action has been submitted to EPA
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM " & DBNameSpace & ".AFSSSCPRECORDS " & _
+                " FROM AIRBRANCH.AFSSSCPRECORDS " & _
                 " WHERE RowNum = 1 AND STRUPDATESTATUS  <> 'A' " & _
                 " AND STRTRACKINGNUMBER = :pId "
             Dim parameter As OracleParameter = New OracleParameter("pId", txtTrackingNumber.Text)
@@ -6199,12 +6155,12 @@ Public Class SSCPEvents
             Dim parametersList As New List(Of OracleParameter())
             Dim parameters As OracleParameter()
 
-            query = " DELETE FROM " & DBNameSpace & ".AFSSSCPRECORDS WHERE STRTRACKINGNUMBER = :pId "
+            query = " DELETE FROM AIRBRANCH.AFSSSCPRECORDS WHERE STRTRACKINGNUMBER = :pId "
             queryList.Add(query)
             parameters = New OracleParameter() {New OracleParameter("pId", txtTrackingNumber.Text)}
             parametersList.Add(parameters)
 
-            query = " UPDATE " & DBNameSpace & ".SSCPITEMMASTER SET STRDELETE = '" & Boolean.TrueString & "' " & _
+            query = " UPDATE AIRBRANCH.SSCPITEMMASTER SET STRDELETE = '" & Boolean.TrueString & "' " & _
                 " WHERE STRTRACKINGNUMBER = :pId "
             queryList.Add(query)
             parametersList.Add(parameters) ' parameters are same for both queries

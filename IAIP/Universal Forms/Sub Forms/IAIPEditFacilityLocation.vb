@@ -38,11 +38,11 @@ Public Class IAIPEditFacilityLocation
         Try
 
             SQL = "Select * " & _
-            "from " & DBNameSpace & ".VW_APBFacilityLocation " & _
+            "from AIRBRANCH.VW_APBFacilityLocation " & _
             "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
             SQL2 = "Select * " & _
-            "from " & DBNameSpace & ".VW_HB_APBFacilityLocation " & _
+            "from AIRBRANCH.VW_HB_APBFacilityLocation " & _
             "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' " & _
             "Order by strKey DESC "
 
@@ -186,6 +186,7 @@ Public Class IAIPEditFacilityLocation
                 'If UserProgram = "5" Or (UserBranch = "1" And UserUnit = "---") _
                 '  Or (UserProgram = "3" And AccountArray(68, 3) = "1") Then
                 If txtFacilityName.Text <> "" Then
+                    txtFacilityName.Text = Apb.Facility.SanitizeFacilityNameForDb(txtFacilityName.Text)
                     If txtFacilityName.Text <> dsFacilityInformation.Tables("Current").Rows(0).Item(1).ToString() Then
                         FacilityName = Replace(txtFacilityName.Text, "'", "''")
                     Else
@@ -300,7 +301,7 @@ Public Class IAIPEditFacilityLocation
                           Longitude <> "" Or Latitude <> "" Or _
                           Comments <> "" Then
 
-                            SQL = "Update " & DBNameSpace & ".APBFacilityInformation set "
+                            SQL = "Update AIRBRANCH.APBFacilityInformation set "
                             If FacilityName <> "" Then
                                 SQL = SQL & "strFacilityName = '" & FacilityName & "', "
                             End If
@@ -348,8 +349,8 @@ Public Class IAIPEditFacilityLocation
                             dr.Close()
 
                             If FacilityName <> "" Then
-                                SQL = "Update " & DBNameSpace & ".OLAPUserAccess set " & _
-                                "strFacilityName = '" & Replace(FacilityName, "'", "''") & "' " & _
+                                SQL = "Update AIRBRANCH.OLAPUserAccess set " & _
+                                "strFacilityName = '" & FacilityName & "' " & _
                                 "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
                                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -361,7 +362,7 @@ Public Class IAIPEditFacilityLocation
                             End If
 
                             SQL = "Update airbranch.EIS_FacilitySite set " & _
-                            "strFacilitySiteName = '" & Replace(txtFacilityName.Text, "'", "''") & "', " & _
+                            "strFacilitySiteName = '" & FacilityName & "', " & _
                             "strFacilitySiteComment = 'Facility Name updated.', " & _
                             "UpdateUSer = '" & UserName & "', " & _
                             "updateDateTime = sysdate " & _
@@ -434,7 +435,7 @@ Public Class IAIPEditFacilityLocation
 
             If txtKey.Text <> "" Then
                 SQL = "Select * " & _
-                "from " & DBNameSpace & ".VW_HB_APBFacilityLocation " & _
+                "from AIRBRANCH.VW_HB_APBFacilityLocation " & _
                 "where strKey = '" & txtKey.Text & "' " & _
                 "Order by strKey DESC "
 

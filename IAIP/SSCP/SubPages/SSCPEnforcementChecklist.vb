@@ -855,11 +855,11 @@ Public Class SSCPEnforcementChecklist
             SQL = "Select strFacilityName, strFacilityStreet1, " & _
                  "strFacilityCity, strCountyName, strFacilityState, strFacilityZipCode, " & _
                  "strClass, strAIRProgramCodes " & _
-                 "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".LookUpCountyInformation, " & _
-                 "" & DBNameSpace & ".APBHeaderData " & _
-                 "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
+                 "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.LookUpCountyInformation, " & _
+                 "AIRBRANCH.APBHeaderData " & _
+                 "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
                  "and strCountyCode = '" & Mid(txtAIRSNumber.Text, 1, 3) & "' " & _
-                 "and " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".APBHeaderData.strairsnumber"
+                 "and AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.APBHeaderData.strairsnumber"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
 
@@ -889,7 +889,7 @@ Public Class SSCPEnforcementChecklist
             If txtEnforcementNumber.Text = "" Then
                 If txtTrackingNumber.Text <> "" Then
                     SQL = "Select strEnforcementNumber " & _
-                    "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
+                    "from AIRBRANCH.SSCP_AuditedEnforcement " & _
                     "where strTrackingNumber= '" & txtTrackingNumber.Text & "'"
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -918,7 +918,7 @@ Public Class SSCPEnforcementChecklist
             If txtTrackingNumber.Text = "" Then
                 If txtEnforcementNumber.Text <> "" Then
                     SQL = "Select strTrackingNumber " & _
-                                 "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
+                                 "from AIRBRANCH.SSCP_AuditedEnforcement " & _
                                  "where strEnforcementNumber= '" & txtEnforcementNumber.Text & "'"
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -955,9 +955,9 @@ Public Class SSCPEnforcementChecklist
 
             If EnforcementNumber <> "N/A" Then
                 SQL = "Select strFirstName, strLastName " & _
-                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
-                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCP_AuditedEnforcement.numStaffResponsible " & _
-                "and " & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber = '" & EnforcementNumber & "' "
+                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.SSCP_AuditedEnforcement " & _
+                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCP_AuditedEnforcement.numStaffResponsible " & _
+                "and AIRBRANCH.SSCP_AuditedEnforcement.strEnforcementNumber = '" & EnforcementNumber & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -975,9 +975,9 @@ Public Class SSCPEnforcementChecklist
             If Staff = "" Then
                 If TrackingNumber <> "N/A" Then
                     SQL = "Select strFirstName, strLastName " & _
-                    "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".SSCPItemMaster " & _
-                    "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff " & _
-                    "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = '" & TrackingNumber & "' "
+                    "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.SSCPItemMaster " & _
+                    "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCPItemMaster.strResponsibleStaff " & _
+                    "and AIRBRANCH.SSCPItemMaster.strTrackingNumber = '" & TrackingNumber & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
@@ -1135,55 +1135,55 @@ Public Class SSCPEnforcementChecklist
         Dim SQLCount As Integer = 0
         Dim SQLUnit As String = ""
 
-        SQL = "Select substr(" & DBNameSpace & ".SSCPItemMaster.strAIrsnumber, 5) as AIRSNumber, strfacilityName, " & _
+        SQL = "Select substr(AIRBRANCH.SSCPItemMaster.strAIrsnumber, 5) as AIRSNumber, strfacilityName, " & _
         "strActivityName, " & _
         "to_char(datReceivedDate, 'yyyy-MM-dd') as ReceivedDate, " & _
         "strTrackingNumber, (strLastName|| ', ' ||strFirstName) as Staff " & _
-        "from " & DBNameSpace & ".SSCPItemMaster, " & _
-        "" & DBNameSpace & ".LookUPComplianceActivities, " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles " & _
+        "from AIRBRANCH.SSCPItemMaster, " & _
+        "AIRBRANCH.LookUPComplianceActivities, AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles " & _
         "where " & _
-        "" & DBNameSpace & ".SSCPItemMaster.strEventType = " & DBNameSpace & ".LookUPComplianceActivities.strActivityType " & _
-        "and " & DBNameSpace & ".SSCPItemMaster.strairsnumber = " & DBNameSpace & ".APBFacilityInformation.strairsnumber " & _
-        "and " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff " & _
-        "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
-        "and " & DBNameSpace & ".SSCPItemMaster.strEventType <> '05' "
+        "AIRBRANCH.SSCPItemMaster.strEventType = AIRBRANCH.LookUPComplianceActivities.strActivityType " & _
+        "and AIRBRANCH.SSCPItemMaster.strairsnumber = AIRBRANCH.APBFacilityInformation.strairsnumber " & _
+        "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCPItemMaster.strResponsibleStaff " & _
+        "and AIRBRANCH.SSCPItemMaster.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
+        "and AIRBRANCH.SSCPItemMaster.strEventType <> '05' "
 
         If chbWorkType.Checked = True Then
             If chbAllWork.Checked <> True Then
                 SQLCount = 0
                 If chbACCs.Checked = True Then
-                    SQLLine = SQLLine & "" & DBNameSpace & ".SSCPItemMaster.strEventType = '04' "
+                    SQLLine = SQLLine & "AIRBRANCH.SSCPItemMaster.strEventType = '04' "
                     SQLCount += 1
                 End If
                 If chbInspections.Checked = True Then
                     If SQLCount <> 0 Then
-                        SQLLine = SQLLine & "OR " & DBNameSpace & ".SSCPItemMaster.strEventType = '02' "
+                        SQLLine = SQLLine & "OR AIRBRANCH.SSCPItemMaster.strEventType = '02' "
                     Else
-                        SQLLine = SQLLine & "" & DBNameSpace & ".SSCPItemMaster.strEventType = '02' "
+                        SQLLine = SQLLine & "AIRBRANCH.SSCPItemMaster.strEventType = '02' "
                     End If
                     SQLCount += 1
                 End If
                 'If chbNotifications.Checked = True Then
                 '    If SQLCount <> 0 Then
-                '        SQLLine = SQLLine & "OR " & DBNameSpace & ".SSCPItemMaster.strEventType = '05' "
+                '        SQLLine = SQLLine & "OR AIRBRANCH.SSCPItemMaster.strEventType = '05' "
                 '    Else
-                '        SQLLine = SQLLine & "" & DBNameSpace & ".SSCPItemMaster.strEventType = '05' "
+                '        SQLLine = SQLLine & "AIRBRANCH.SSCPItemMaster.strEventType = '05' "
                 '    End If
                 '    SQLCount += 1
                 'End If
                 If chbPerformanceTests.Checked = True Then
                     If SQLCount <> 0 Then
-                        SQLLine = SQLLine & "OR " & DBNameSpace & ".SSCPItemMaster.strEventType = '03' "
+                        SQLLine = SQLLine & "OR AIRBRANCH.SSCPItemMaster.strEventType = '03' "
                     Else
-                        SQLLine = SQLLine & "" & DBNameSpace & ".SSCPItemMaster.strEventType = '03' "
+                        SQLLine = SQLLine & "AIRBRANCH.SSCPItemMaster.strEventType = '03' "
                     End If
                     SQLCount += 1
                 End If
                 If chbReports.Checked = True Then
                     If SQLCount <> 0 Then
-                        SQLLine = SQLLine & "OR " & DBNameSpace & ".SSCPItemMaster.strEventType = '01' "
+                        SQLLine = SQLLine & "OR AIRBRANCH.SSCPItemMaster.strEventType = '01' "
                     Else
-                        SQLLine = SQLLine & "" & DBNameSpace & ".SSCPItemMaster.strEventType = '01' "
+                        SQLLine = SQLLine & "AIRBRANCH.SSCPItemMaster.strEventType = '01' "
                     End If
                     SQLCount += 1
                 End If
@@ -1204,7 +1204,7 @@ Public Class SSCPEnforcementChecklist
         If chbDateReceived.Checked = True Then
             If chbAllDates.Checked = True Then
             Else
-                SQLLine = SQLLine & "and " & DBNameSpace & ".SSCPItemMaster.datReceivedDate between " & _
+                SQLLine = SQLLine & "and AIRBRANCH.SSCPItemMaster.datReceivedDate between " & _
                 "'" & DTPStartDate.Text & "' and '" & DTPEndDate.Text & "' "
             End If
         End If

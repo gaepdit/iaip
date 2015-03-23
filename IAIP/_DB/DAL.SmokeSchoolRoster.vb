@@ -32,7 +32,7 @@ Namespace DAL
                 " STRLOCATIONDATE AS LocationDate, STRLECTUREYESNO AS LectureYesNo, " & _
                 " STRFIRSTNAME AS FirstName, STRLASTNAME AS LastName, " & _
                 " TO_CHAR(NUMUSERID) AS StudentID " & _
-                " FROM " & DBNameSpace & ".SMOKESCHOOLRESERVATION " & _
+                " FROM AIRBRANCH.SMOKESCHOOLRESERVATION " & _
                 " WHERE STRLOCATIONDATE = :pId " & _
                 " ORDER BY LastName, FirstName, StudentID "
             Dim parameter As New OracleParameter("pId", id)

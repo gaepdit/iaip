@@ -102,10 +102,10 @@ Public Class PASPFeeReports
 
         Try
 
-            SQL = "Select DISTINCT substr(" & DBNameSpace & ".FSCalculations.strairsnumber, 5) as strairsnumber, " _
+            SQL = "Select DISTINCT substr(AIRBRANCH.FSCalculations.strairsnumber, 5) as strairsnumber, " _
             + "strfacilityname " _
-            + "from " & DBNameSpace & ".FSCalculations, " & DBNameSpace & ".APBFacilityInformation " _
-            + "where " & DBNameSpace & ".FSCalculations.strairsnumber = " & DBNameSpace & ".APBFacilityInformation.strairsnumber " _
+            + "from AIRBRANCH.FSCalculations, AIRBRANCH.APBFacilityInformation " _
+            + "where AIRBRANCH.FSCalculations.strairsnumber = AIRBRANCH.APBFacilityInformation.strairsnumber " _
             + "Order by strfacilityname "
 
             ds = New DataSet
@@ -167,10 +167,10 @@ Public Class PASPFeeReports
 
         Try
 
-            ' SQL = "Select distinct strdepositno from " & DBNameSpace & ".FSAddPaid " _
+            ' SQL = "Select distinct strdepositno from AIRBRANCH.FSAddPaid " _
             '+ "order by strdepositno"
 
-            SQL = "Select distinct strdepositno from " & DBNameSpace & ".FS_Transactions " _
+            SQL = "Select distinct strdepositno from AIRBRANCH.FS_Transactions " _
           + "order by strdepositno"
 
             Dim cmd As New OracleCommand(SQL, CurrentConnection)
@@ -200,7 +200,7 @@ Public Class PASPFeeReports
         Try
 
             SQL = "Select distinct substr(strairsnumber,5) as strairsnumber " _
-            + "from " & DBNameSpace & ".FSAddPaid order by strairsnumber"
+            + "from AIRBRANCH.FSAddPaid order by strairsnumber"
 
             Dim cmd As New OracleCommand(SQL, CurrentConnection)
 
@@ -264,7 +264,7 @@ Public Class PASPFeeReports
             ds = New DataSet
             rpt = New FacilityFee10
             monitor.TrackFeature("Report." & rpt.ResourceName)
-            SQL = "Select * from " & DBNameSpace & ".VW_Facility_Fee " & _
+            SQL = "Select * from AIRBRANCH.VW_Facility_Fee " & _
             "where strAIRSNumber = '0413" & cboAirsNo.SelectedValue & "' "
 
             da = New OracleDataAdapter(SQL, CurrentConnection)
@@ -308,7 +308,7 @@ Public Class PASPFeeReports
             rpt = New TotalFee10
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
-            SQL = "Select * from " & DBNameSpace & ".VW_Total_fee "
+            SQL = "Select * from AIRBRANCH.VW_Total_fee "
 
             SQL = "SELECT  intYear, sum(intVOCTons) as intvoctons, " & _
             "sum(intPMTons) as intPMTons, " & _
@@ -320,7 +320,7 @@ Public Class PASPFeeReports
             "round(avg(numFeeRate)) as numFeeRate, " & _
             "Round(avg(titlevminfee)) as titlevminfee, " & _
             "round(avg(titlevfee)) as titlevfee  " & _
-            "from " & DBNameSpace & ".vw_total_fee " & _
+            "from AIRBRANCH.vw_total_fee " & _
             "group by intyear "
 
             da = New OracleDataAdapter(SQL, CurrentConnection)
@@ -354,8 +354,8 @@ Public Class PASPFeeReports
             rpt = New FacilityClassification10
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
-            SQL = "Select * from " & DBNameSpace & ".FSCalculations "
-            SQL = "Select * from " & DBNameSpace & ".VW_Facility_Class_Counts "
+            SQL = "Select * from AIRBRANCH.FSCalculations "
+            SQL = "Select * from AIRBRANCH.VW_Facility_Class_Counts "
 
             da = New OracleDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -535,7 +535,7 @@ Public Class PASPFeeReports
             ds = New DataSet
             rpt = New TotalPayment10
             monitor.TrackFeature("Report." & rpt.ResourceName)
-            SQL = "Select * from " & DBNameSpace & ".VW_Total_PAYMENT "
+            SQL = "Select * from AIRBRANCH.VW_Total_PAYMENT "
             da = New OracleDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -605,7 +605,7 @@ Public Class PASPFeeReports
             rpt = New DepositDataQA10
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
-            SQL = "Select * from " & DBNameSpace & ".FSAddPaid " & _
+            SQL = "Select * from AIRBRANCH.FSAddPaid " & _
             "where datPayDate between '" & Format(DateTimePicker1.Value, "dd-MMM-yyyy") & "' and '" & Format(DateTimePicker2.Value, "dd-MMM-yyyy") & "' " & _
             "order by strBatchNo "
 
@@ -656,7 +656,7 @@ Public Class PASPFeeReports
             rpt = New DepositData10
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
-            SQL = "Select * from " & DBNameSpace & ".FSAddPaid " & _
+            SQL = "Select * from AIRBRANCH.FSAddPaid " & _
             "where datPayDate between '" & Format(DateTimePicker1.Value, "dd-MMM-yyyy") & "' and '" & Format(DateTimePicker2.Value, "dd-MMM-yyyy") & "' "
 
             da = New OracleDataAdapter(SQL, CurrentConnection)
@@ -711,7 +711,7 @@ Public Class PASPFeeReports
             rpt = New Bankrupt10
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
-            SQL = "select * from " & DBNameSpace & ".VW_Bankrupt"
+            SQL = "select * from AIRBRANCH.VW_Bankrupt"
             da = New OracleDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -744,7 +744,7 @@ Public Class PASPFeeReports
             ds = New DataSet
             rpt = New feeByYear10
             monitor.TrackFeature("Report." & rpt.ResourceName)
-            SQL = "Select * from " & DBNameSpace & ".FeesDue "
+            SQL = "Select * from AIRBRANCH.FeesDue "
 
             da = New OracleDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -787,11 +787,11 @@ Public Class PASPFeeReports
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
             If rdb2005Variance.Checked = True Then
-                SQL = "Select * from " & DBNameSpace & ".FeeVariance " & _
+                SQL = "Select * from AIRBRANCH.FeeVariance " & _
                 "where difference2005 <> '0' and vCheck2005 <> 'YES' "
 
             Else
-                SQL = "Select * from " & DBNameSpace & ".FeeVariance " & _
+                SQL = "Select * from AIRBRANCH.FeeVariance " & _
                 "where difference2006 <> '0' and vCheck2006 <> 'YES' "
 
             End If
@@ -881,29 +881,29 @@ Public Class PASPFeeReports
 
             SQL = ""
             If cboDepositNo.Text <> "" Then
-                'SQL = "Select * from " & DBNameSpace & ".FSAddPaid " & _
+                'SQL = "Select * from AIRBRANCH.FSAddPaid " & _
                 '"where strDepositNo like '%" & cboDepositNo.Text & "%' " & _
                 '"order by intyear desc  "
 
-                SQL = "Select * from " & DBNameSpace & ".FS_Transactions " & _
+                SQL = "Select * from AIRBRANCH.FS_Transactions " & _
                 "where strDepositNo like '%" & cboDepositNo.Text & "%' " & _
                 "order by nuMFeeYear desc  "
             Else
                 If cboAirs.Text <> "" Then
-                    'SQL = "Select * from " & DBNameSpace & ".FSAddPaid " & _
+                    'SQL = "Select * from AIRBRANCH.FSAddPaid " & _
                     '"where strAIRSNumber like '0413%" & cboAirs.Text & "%' " & _
                     '"order by intyear desc  "
 
-                    SQL = "Select * from " & DBNameSpace & ".FS_Transactions " & _
+                    SQL = "Select * from AIRBRANCH.FS_Transactions " & _
                     "where strAIRSNumber like '0413%" & cboAirs.Text & "%' " & _
                     "order by nuMFeeYear desc  "
                 End If
             End If
             If SQL = "" Then
-                'SQL = "Select * from " & DBNameSpace & ".FSAddPaid " & _
+                'SQL = "Select * from AIRBRANCH.FSAddPaid " & _
                 '"order by intyear desc  "
 
-                SQL = "Select * from " & DBNameSpace & ".FS_Transactions " & _
+                SQL = "Select * from AIRBRANCH.FS_Transactions " & _
                 "order by nuMFeeYear desc  "
             End If
 
@@ -985,7 +985,7 @@ Public Class PASPFeeReports
             rpt = New ClassChanged10
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
-            SQL = "select * from " & DBNameSpace & ".VW_Class_Changed"
+            SQL = "select * from AIRBRANCH.VW_Class_Changed"
 
             da = New OracleDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1038,7 +1038,7 @@ Public Class PASPFeeReports
             ds = New DataSet
 
             SQL = "Select * " & _
-            "from " & DBNameSpace & ".VW_NSPS_Status " & _
+            "from AIRBRANCH.VW_NSPS_Status " & _
             "where strnsps = 'YES' " & _
             "and STRnspsexempt = 'YES'"
 
@@ -1075,7 +1075,7 @@ Public Class PASPFeeReports
             rpt = New NSPSStatus1_10
             monitor.TrackFeature("Report." & rpt.ResourceName)
             SQL = "Select * " & _
-            "from " & DBNameSpace & ".VW_NSPS_Status " & _
+            "from AIRBRANCH.VW_NSPS_Status " & _
             "where Strnsps1 = 'YES' " & _
             "and strnsps = 'NO'"
 
@@ -1109,7 +1109,7 @@ Public Class PASPFeeReports
             rpt = New NSPSStatus2_10
             monitor.TrackFeature("Report." & rpt.ResourceName)
             SQL = "Select * " & _
-            "from " & DBNameSpace & ".VW_NSPS_Status " & _
+            "from AIRBRANCH.VW_NSPS_Status " & _
             "where strnsps = 'YES' " & _
             "and STRoperate <> 'YES'"
 
@@ -1160,7 +1160,7 @@ Public Class PASPFeeReports
             rpt = New NonRespondent10
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
-            SQL = "Select * from " & DBNameSpace & ".VW_NonRespondent " & _
+            SQL = "Select * from AIRBRANCH.VW_NonRespondent " & _
             "where intYear = '" & mtbNonRespondentYear.Text & "' " & _
             "and intSubmittal <> '1' "
 
@@ -1218,7 +1218,7 @@ Public Class PASPFeeReports
             ds = New DataSet
             rpt = New NoOperate10
             monitor.TrackFeature("Report." & rpt.ResourceName)
-            SQL = "Select * from " & DBNameSpace & ".VW_No_Operate "
+            SQL = "Select * from AIRBRANCH.VW_No_Operate "
 
             da = New OracleDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1255,7 +1255,7 @@ Public Class PASPFeeReports
             rpt = New FacilityComments10
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
-            SQL = "Select * from " & DBNameSpace & ".FSPAYANDSUBMIT " & _
+            SQL = "Select * from AIRBRANCH.FSPAYANDSUBMIT " & _
             "where strComments is not Null "
 
             da = New OracleDataAdapter(SQL, CurrentConnection)
@@ -1288,7 +1288,7 @@ Public Class PASPFeeReports
             rpt = New FacilityInfo10
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
-            SQL = "Select * from " & DBNameSpace & ".VW_Facility_Info "
+            SQL = "Select * from AIRBRANCH.VW_Facility_Info "
 
             da = New OracleDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then

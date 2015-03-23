@@ -205,7 +205,7 @@
             Dim SQL As String = "select " & _
             "(strLastName||', '||strFirstName) as PhoneListName, " & _
             "strOffice, strPhone " & _
-            "from " & DBNameSpace & ".EPDUSerProfiles " & _
+            "from AIRBRANCH.EPDUSerProfiles " & _
             "where  numEmployeeStatus = '1' "
 
             SQLWhere = " and ( "

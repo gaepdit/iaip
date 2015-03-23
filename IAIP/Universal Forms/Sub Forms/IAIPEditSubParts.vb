@@ -43,10 +43,10 @@ Public Class IAIPEditSubParts
             Dim drDSRow4 As DataRow
             Dim drNewRow As DataRow
 
-            SQL = "Select * from " & DBNameSpace & ".LookupSubPart60 order by strSubpart "
-            SQL2 = "Select * from " & DBNameSpace & ".LookupSubPart61 order by strSubpart "
-            SQL3 = "Select * from " & DBNameSpace & ".LookupSubPart63 order by strSubpart "
-            SQL4 = "Select * from " & DBNameSpace & ".LookUpSubPartSIP order by strSubPart "
+            SQL = "Select * from AIRBRANCH.LookupSubPart60 order by strSubpart "
+            SQL2 = "Select * from AIRBRANCH.LookupSubPart61 order by strSubpart "
+            SQL3 = "Select * from AIRBRANCH.LookupSubPart63 order by strSubpart "
+            SQL4 = "Select * from AIRBRANCH.LookUpSubPartSIP order by strSubPart "
 
             dsPart60 = New DataSet
             dsPart61 = New DataSet
@@ -269,9 +269,9 @@ Public Class IAIPEditSubParts
             If txtAIRSNumber.Text <> "" Then
                 SQL = "Select " & _
                 "strFacilityName, strAirProgramCodes  " & _
-                "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".APBHeaderData " & _
-                "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSnumber " & _
-                "and " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber = '0413" & txtAIRSNumber.Text & "'"
+                "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBHeaderData " & _
+                "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSnumber " & _
+                "and AIRBRANCH.APBFacilityInformation.strAIRSnumber = '0413" & txtAIRSNumber.Text & "'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -305,8 +305,8 @@ Public Class IAIPEditSubParts
 
                 SQL = "Select " & _
                 "strSubPartKey, strSubPart " & _
-                "from " & DBNameSpace & ".APBSubpartData " & _
-                "where " & DBNameSpace & ".APBSubpartData.strAIRSnumber = '0413" & txtAIRSNumber.Text & "' " & _
+                "from AIRBRANCH.APBSubpartData " & _
+                "where AIRBRANCH.APBSubpartData.strAIRSnumber = '0413" & txtAIRSNumber.Text & "' " & _
                 "and Active = '1' " & _
                 "order by strSubPart "
 
@@ -387,7 +387,7 @@ Public Class IAIPEditSubParts
 
 
             SQL = "Select strDescription " & _
-            "from " & DBNameSpace & ".LookupSubPartSIP " & _
+            "from AIRBRANCH.LookupSubPartSIP " & _
             "where strSubPart = '" & SubPart & "' "
             cmd2 = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -416,7 +416,7 @@ Public Class IAIPEditSubParts
 
 
             SQL = "Select strDescription " & _
-            "from " & DBNameSpace & ".LookupSubPart60 " & _
+            "from AIRBRANCH.LookupSubPart60 " & _
             "where strSubPart = '" & SubPart & "' "
             cmd2 = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -441,7 +441,7 @@ Public Class IAIPEditSubParts
         Try
 
             SQL = "Select strDescription " & _
-                       "from " & DBNameSpace & ".LookupSubPart61 " & _
+                       "from AIRBRANCH.LookupSubPart61 " & _
                        "where strSubPart = '" & SubPart & "' "
             cmd2 = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -466,7 +466,7 @@ Public Class IAIPEditSubParts
         Try
 
             SQL = "Select strDescription " & _
-                       "from " & DBNameSpace & ".LookupSubPart63 " & _
+                       "from AIRBRANCH.LookupSubPart63 " & _
                        "where strSubPart = '" & SubPart & "' "
             cmd2 = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -491,7 +491,7 @@ Public Class IAIPEditSubParts
         Try
             SQL = "Select " & _
             "strSubPart " & _
-            "from " & DBNameSpace & ".APBSubpartData " & _
+            "from AIRBRANCH.APBSubpartData " & _
             "where strSubpartKey = '0413" & txtAIRSNumber.Text & "0' " & _
             "and strSubpart = '" & cboSIPSubpart.SelectedValue & "' "
 
@@ -503,19 +503,21 @@ Public Class IAIPEditSubParts
             recExist = dr.Read
             dr.Close()
             If recExist = True Then
-                SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
+                SQL = "Update AIRBRANCH.APBSubpartData set " & _
                 "Active = '1', " & _
                 "UpdateUser = '" & UserGCode & "', " & _
                 "updateDateTime = '" & OracleDate & "' " & _
                 "where strSubpartKey = '0413" & txtAIRSNumber.Text & "0' " & _
                 "and strSubpart = '" & cboSIPSubpart.SelectedValue & "' "
             Else
-                SQL = "Insert into " & DBNameSpace & ".APBSubpartData " & _
-                "values " & _
+                SQL = "INSERT INTO AIRBRANCH.APBSUBPARTDATA " & _
+                "  ( STRAIRSNUMBER, STRSUBPARTKEY, STRSUBPART, UPDATEUSER , " & _
+                "    UPDATEDATETIME, ACTIVE, CREATEDATETIME, " & _
+                "  ) VALUES " & _
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "0', " & _
                 "'" & cboSIPSubpart.SelectedValue & "', '" & UserGCode & "', " & _
                 "'" & OracleDate & "', '1', " & _
-                "'" & OracleDate & "', NULL) "
+                "'" & OracleDate & "') "
             End If
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -526,7 +528,7 @@ Public Class IAIPEditSubParts
 
             LoadSIPDescription(cboSIPSubpart.SelectedValue)
 
-            SQL = "Update " & DBNameSpace & ".AFSAirPollutantData set " & _
+            SQL = "Update AIRBRANCH.AFSAirPollutantData set " & _
             "strUpdateStatus = 'C' " & _
             "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "0' " & _
             "and strUpdateStatus = 'N' "
@@ -548,7 +550,7 @@ Public Class IAIPEditSubParts
         Try
             SQL = "Select " & _
             "strSubPart " & _
-            "from " & DBNameSpace & ".APBSubpartData " & _
+            "from AIRBRANCH.APBSubpartData " & _
             "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " & _
             "and strSubpart = '" & cboNSPSSubpart.SelectedValue & "' "
 
@@ -560,19 +562,21 @@ Public Class IAIPEditSubParts
             recExist = dr.Read
             dr.Close()
             If recExist = True Then
-                SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
+                SQL = "Update AIRBRANCH.APBSubpartData set " & _
                 "Active = '1', " & _
                 "UpdateUser = '" & UserGCode & "', " & _
                 "updateDateTime = '" & OracleDate & "' " & _
                 "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " & _
                 "and strSubpart = '" & cboNSPSSubpart.SelectedValue & "' "
             Else
-                SQL = "Insert into " & DBNameSpace & ".APBSubpartData " & _
-                "values " & _
+                SQL = "INSERT INTO AIRBRANCH.APBSUBPARTDATA " & _
+                "  ( STRAIRSNUMBER, STRSUBPARTKEY, STRSUBPART, UPDATEUSER , " & _
+                "    UPDATEDATETIME, ACTIVE, CREATEDATETIME, " & _
+                "  ) VALUES " & _
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " & _
                 "'" & cboNSPSSubpart.SelectedValue & "', '" & UserGCode & "', " & _
                 "'" & OracleDate & "', '1', " & _
-                "'" & OracleDate & "', NULL) "
+                "'" & OracleDate & "') "
             End If
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -583,7 +587,7 @@ Public Class IAIPEditSubParts
 
             LoadNSPSDescription(cboNSPSSubpart.SelectedValue)
 
-            SQL = "Update " & DBNameSpace & ".AFSAirPollutantData set " & _
+            SQL = "Update AIRBRANCH.AFSAirPollutantData set " & _
             "strUpdateStatus = 'C' " & _
             "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "9' " & _
             "and strUpdateStatus = 'N' "
@@ -605,7 +609,7 @@ Public Class IAIPEditSubParts
         Try
             SQL = "Select " & _
             "strSubPart " & _
-            "from " & DBNameSpace & ".APBSubpartData " & _
+            "from AIRBRANCH.APBSubpartData " & _
             "where strSubpartKey = '0413" & txtAIRSNumber.Text & "8' " & _
             "and strSubpart = '" & cboNESHAPSubpart.SelectedValue & "' "
 
@@ -617,19 +621,21 @@ Public Class IAIPEditSubParts
             recExist = dr.Read
             dr.Close()
             If recExist = True Then
-                SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
+                SQL = "Update AIRBRANCH.APBSubpartData set " & _
                 "Active = '1', " & _
                 "UpdateUser = '" & UserGCode & "', " & _
                 "updateDateTime = '" & OracleDate & "' " & _
                 "where strSubpartKey = '0413" & txtAIRSNumber.Text & "8' " & _
                 "and strSubpart = '" & cboNESHAPSubpart.SelectedValue & "' "
             Else
-                SQL = "Insert into " & DBNameSpace & ".APBSubpartData " & _
-                "values " & _
+                SQL = "INSERT INTO AIRBRANCH.APBSUBPARTDATA " & _
+                "  ( STRAIRSNUMBER, STRSUBPARTKEY, STRSUBPART, UPDATEUSER , " & _
+                "    UPDATEDATETIME, ACTIVE, CREATEDATETIME, " & _
+                "  ) VALUES " & _
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "8', " & _
                 "'" & cboNESHAPSubpart.SelectedValue & "', '" & UserGCode & "', " & _
                 "'" & OracleDate & "', '1', " & _
-                "'" & OracleDate & "', NULL) "
+                "'" & OracleDate & "' ) "
             End If
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -640,7 +646,7 @@ Public Class IAIPEditSubParts
 
             LoadNESHAPDescription(cboNESHAPSubpart.SelectedValue)
 
-            SQL = "Update " & DBNameSpace & ".AFSAirPollutantData set " & _
+            SQL = "Update AIRBRANCH.AFSAirPollutantData set " & _
             "strUpdateStatus = 'C' " & _
             "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "8' " & _
             "and strUpdateStatus = 'N' "
@@ -662,7 +668,7 @@ Public Class IAIPEditSubParts
         Try
             SQL = "Select " & _
             "strSubPart " & _
-            "from " & DBNameSpace & ".APBSubpartData " & _
+            "from AIRBRANCH.APBSubpartData " & _
             "where strSubpartKey = '0413" & txtAIRSNumber.Text & "M' " & _
             "and strSubpart = '" & cboMACTSubPart.SelectedValue & "' "
 
@@ -674,19 +680,21 @@ Public Class IAIPEditSubParts
             recExist = dr.Read
             dr.Close()
             If recExist = True Then
-                SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
+                SQL = "Update AIRBRANCH.APBSubpartData set " & _
                 "Active = '1', " & _
                 "UpdateUser = '" & UserGCode & "', " & _
                 "updateDateTime = '" & OracleDate & "' " & _
                 "where strSubpartKey = '0413" & txtAIRSNumber.Text & "M' " & _
                 "and strSubpart = '" & cboMACTSubPart.SelectedValue & "' "
             Else
-                SQL = "Insert into " & DBNameSpace & ".APBSubpartData " & _
-                "values " & _
+                SQL = "INSERT INTO AIRBRANCH.APBSUBPARTDATA " & _
+                "  ( STRAIRSNUMBER, STRSUBPARTKEY, STRSUBPART, UPDATEUSER , " & _
+                "    UPDATEDATETIME, ACTIVE, CREATEDATETIME, " & _
+                "  ) VALUES " & _
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "M', " & _
                 "'" & cboMACTSubPart.SelectedValue & "', '" & UserGCode & "', " & _
                 "'" & OracleDate & "', '1', " & _
-                "'" & OracleDate & "', NULL) "
+                "'" & OracleDate & "' ) "
             End If
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -697,7 +705,7 @@ Public Class IAIPEditSubParts
 
             LoadMACTDescription(cboMACTSubPart.SelectedValue)
 
-            SQL = "Update " & DBNameSpace & ".AFSAirPollutantData set " & _
+            SQL = "Update AIRBRANCH.AFSAirPollutantData set " & _
             "strUpdateStatus = 'C' " & _
             "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "M' " & _
             "and strUpdateStatus = 'N' "
@@ -728,7 +736,7 @@ Public Class IAIPEditSubParts
                 If clbSIP.CheckedIndices.Contains(count) = True Then
                     Subpart = ""
                     Subpart = Mid(clbSIP.Items.Item(count), 1, ((clbSIP.Items.Item(count).ToString.IndexOf("-")) - 1))
-                    SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
+                    SQL = "Update AIRBRANCH.APBSubpartData set " & _
                     "active = '0', " & _
                     "UpdateUser = '" & UserGCode & "', " & _
                     "updateDateTime = '" & OracleDate & "' " & _
@@ -741,14 +749,14 @@ Public Class IAIPEditSubParts
                     dr = cmd.ExecuteReader
                     dr.Close()
 
-                    SQL = "Insert into " & DBNameSpace & ".AFSDeletions " & _
+                    SQL = "Insert into AIRBRANCH.AFSDeletions " & _
                      "values " & _
                      "(" & _
                      "(select " & _
                      "case when max(numCounter) is null then 1 " & _
                      "else max(numCounter) + 1 " & _
                      "end numCounter " & _
-                     "from " & DBNameSpace & ".AFSDeletions), " & _
+                     "from AIRBRANCH.AFSDeletions), " & _
                      "'0413" & txtAIRSNumber.Text & "', " & _
                      "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                      "'" & OracleDate & "', '', " & _
@@ -791,7 +799,7 @@ Public Class IAIPEditSubParts
                 If clbNSPS.CheckedIndices.Contains(count) = True Then
                     Subpart = ""
                     Subpart = Mid(clbNSPS.Items.Item(count), 1, ((clbNSPS.Items.Item(count).ToString.IndexOf("-")) - 1))
-                    SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
+                    SQL = "Update AIRBRANCH.APBSubpartData set " & _
                     "active = '0', " & _
                     "UpdateUser = '" & UserGCode & "', " & _
                     "updateDateTime = '" & OracleDate & "' " & _
@@ -804,14 +812,14 @@ Public Class IAIPEditSubParts
                     dr = cmd.ExecuteReader
                     dr.Close()
 
-                    SQL = "Insert into " & DBNameSpace & ".AFSDeletions " & _
+                    SQL = "Insert into AIRBRANCH.AFSDeletions " & _
                      "values " & _
                      "(" & _
                      "(select " & _
                      "case when max(numCounter) is null then 1 " & _
                      "else max(numCounter) + 1 " & _
                      "end numCounter " & _
-                     "from " & DBNameSpace & ".AFSDeletions), " & _
+                     "from AIRBRANCH.AFSDeletions), " & _
                      "'0413" & txtAIRSNumber.Text & "', " & _
                      "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                      "'" & OracleDate & "', '', " & _
@@ -855,7 +863,7 @@ Public Class IAIPEditSubParts
                 If clbNESHAP.CheckedIndices.Contains(count) = True Then
                     Subpart = ""
                     Subpart = Mid(clbNESHAP.Items.Item(count), 1, ((clbNESHAP.Items.Item(count).ToString.IndexOf("-")) - 1))
-                    SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
+                    SQL = "Update AIRBRANCH.APBSubpartData set " & _
                     "active = '0', " & _
                     "UpdateUser = '" & UserGCode & "', " & _
                     "updateDateTime = '" & OracleDate & "' " & _
@@ -868,14 +876,14 @@ Public Class IAIPEditSubParts
                     dr = cmd.ExecuteReader
                     dr.Close()
 
-                    SQL = "Insert into " & DBNameSpace & ".AFSDeletions " & _
+                    SQL = "Insert into AIRBRANCH.AFSDeletions " & _
                      "values " & _
                      "(" & _
                      "(select " & _
                      "case when max(numCounter) is null then 1 " & _
                      "else max(numCounter) + 1 " & _
                      "end numCounter " & _
-                     "from " & DBNameSpace & ".AFSDeletions), " & _
+                     "from AIRBRANCH.AFSDeletions), " & _
                      "'0413" & txtAIRSNumber.Text & "', " & _
                      "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                      "'" & OracleDate & "', '', " & _
@@ -919,7 +927,7 @@ Public Class IAIPEditSubParts
                 If clbMACT.CheckedIndices.Contains(count) = True Then
                     Subpart = ""
                     Subpart = Mid(clbMACT.Items.Item(count), 1, ((clbMACT.Items.Item(count).ToString.IndexOf("-")) - 1))
-                    SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
+                    SQL = "Update AIRBRANCH.APBSubpartData set " & _
                     "active = '0', " & _
                     "UpdateUser = '" & UserGCode & "', " & _
                     "updateDateTime = '" & OracleDate & "' " & _
@@ -932,14 +940,14 @@ Public Class IAIPEditSubParts
                     dr = cmd.ExecuteReader
                     dr.Close()
 
-                    SQL = "Insert into " & DBNameSpace & ".AFSDeletions " & _
+                    SQL = "Insert into AIRBRANCH.AFSDeletions " & _
                      "values " & _
                      "(" & _
                      "(select " & _
                      "case when max(numCounter) is null then 1 " & _
                      "else max(numCounter) + 1 " & _
                      "end numCounter " & _
-                     "from " & DBNameSpace & ".AFSDeletions), " & _
+                     "from AIRBRANCH.AFSDeletions), " & _
                      "'0413" & txtAIRSNumber.Text & "', " & _
                      "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                      "'" & OracleDate & "', '', " & _
@@ -1111,7 +1119,7 @@ Public Class IAIPEditSubParts
                 txtSIPDescription.BackColor = Color.White
 
                 SQL = "Select strSubPart " & _
-                "From " & DBNameSpace & ".LookUpSubpartSIP " & _
+                "From AIRBRANCH.LookUpSubpartSIP " & _
                 "where strSubPart = '" & txtSIPCode.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1121,11 +1129,11 @@ Public Class IAIPEditSubParts
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".LookUpSubpartSIP set " & _
+                    SQL = "Update AIRBRANCH.LookUpSubpartSIP set " & _
                     "strDescription = '" & Replace(txtSIPDescription.Text, "'", "''") & "' " & _
                     "where strSubpart = '" & txtSIPCode.Text & "' "
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".LookUpSubpartSIP " & _
+                    SQL = "Insert into AIRBRANCH.LookUpSubpartSIP " & _
                     "values " & _
                     "('" & Replace(txtSIPCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtSIPDescription.Text, "'", "''") & "') "
@@ -1164,7 +1172,7 @@ Public Class IAIPEditSubParts
                 txtNSPSDescription.BackColor = Color.White
 
                 SQL = "Select strSubPart " & _
-                "From " & DBNameSpace & ".LookUpSubpart60 " & _
+                "From AIRBRANCH.LookUpSubpart60 " & _
                 "where strSubPart = '" & txtNSPSCode.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1174,11 +1182,11 @@ Public Class IAIPEditSubParts
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".LookUpSubpart60 set " & _
+                    SQL = "Update AIRBRANCH.LookUpSubpart60 set " & _
                     "strDescription = '" & Replace(txtNSPSDescription.Text, "'", "''") & "' " & _
                     "where strSubpart = '" & txtNSPSCode.Text & "' "
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".LookUpSubpart60 " & _
+                    SQL = "Insert into AIRBRANCH.LookUpSubpart60 " & _
                     "values " & _
                     "('" & Replace(txtNSPSCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtNSPSDescription.Text, "'", "''") & "') "
@@ -1216,7 +1224,7 @@ Public Class IAIPEditSubParts
                 txtNESHAPDescription.BackColor = Color.White
 
                 SQL = "Select strSubPart " & _
-                "From " & DBNameSpace & ".LookUpSubpart61 " & _
+                "From AIRBRANCH.LookUpSubpart61 " & _
                 "where strSubPart = '" & txtNESHAPCode.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1226,11 +1234,11 @@ Public Class IAIPEditSubParts
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".LookUpSubpart61 set " & _
+                    SQL = "Update AIRBRANCH.LookUpSubpart61 set " & _
                     "strDescription = '" & Replace(txtNESHAPDescription.Text, "'", "''") & "' " & _
                     "where strSubpart = '" & txtNESHAPCode.Text & "' "
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".LookUpSubpart61 " & _
+                    SQL = "Insert into AIRBRANCH.LookUpSubpart61 " & _
                     "values " & _
                     "('" & Replace(txtNESHAPCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtNESHAPDescription.Text, "'", "''") & "') "
@@ -1269,7 +1277,7 @@ Public Class IAIPEditSubParts
                 txtMACTDescription.BackColor = Color.White
 
                 SQL = "Select strSubPart " & _
-                "From " & DBNameSpace & ".LookUpSubpart63 " & _
+                "From AIRBRANCH.LookUpSubpart63 " & _
                 "where strSubPart = '" & txtMACTCode.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1279,11 +1287,11 @@ Public Class IAIPEditSubParts
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & DBNameSpace & ".LookUpSubpart63 set " & _
+                    SQL = "Update AIRBRANCH.LookUpSubpart63 set " & _
                     "strDescription = '" & Replace(txtMACTDescription.Text, "'", "''") & "' " & _
                     "where strSubpart = '" & txtMACTCode.Text & "' "
                 Else
-                    SQL = "Insert into " & DBNameSpace & ".LookUpSubpart63 " & _
+                    SQL = "Insert into AIRBRANCH.LookUpSubpart63 " & _
                     "values " & _
                     "('" & Replace(txtMACTCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtMACTDescription.Text, "'", "''") & "') "
@@ -1317,7 +1325,7 @@ Public Class IAIPEditSubParts
     End Sub
     Private Sub btnDeleteSIPSubpart_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteSIPSubpart.Click
         Try
-            SQL = "Delete " & DBNameSpace & ".LookUpSubpartSIP " & _
+            SQL = "Delete AIRBRANCH.LookUpSubpartSIP " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1335,7 +1343,7 @@ Public Class IAIPEditSubParts
     End Sub
     Private Sub btnDeleteNSPSSubpart_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteNSPSSubpart.Click
         Try
-            SQL = "Delete " & DBNameSpace & ".LookUpSubpart60 " & _
+            SQL = "Delete AIRBRANCH.LookUpSubpart60 " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1353,7 +1361,7 @@ Public Class IAIPEditSubParts
     End Sub
     Private Sub btnDeleteNESHAPSubpart_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteNESHAPSubpart.Click
         Try
-            SQL = "Delete " & DBNameSpace & ".LookUpSubpart61 " & _
+            SQL = "Delete AIRBRANCH.LookUpSubpart61 " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1371,7 +1379,7 @@ Public Class IAIPEditSubParts
     End Sub
     Private Sub btnDeleteMACTSubpart_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteMACTSubpart.Click
         Try
-            SQL = "Delete " & DBNameSpace & ".LookUpSubpart63 " & _
+            SQL = "Delete AIRBRANCH.LookUpSubpart63 " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)

@@ -16,7 +16,7 @@ Namespace DAL
         ''' <remarks>Does not make any judgements about state of facility otherwise.</remarks>
         Public Function AirsNumberExists(ByVal airsNumber As ApbFacilityId) As Boolean
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM " & DBNameSpace & ".APBMasterAIRS " & _
+                " FROM AIRBRANCH.APBMasterAIRS " & _
                 " WHERE RowNum = 1 " & _
                 " AND strAIRSnumber = :pId "
             Dim parameter As New OracleParameter("pId", airsNumber.DbFormattedString)
@@ -26,7 +26,7 @@ Namespace DAL
         End Function
 
         Public Function AirsNumberExists(ByVal airsNumber As String) As Boolean
-            If Not ApbFacilityId.ValidAirsNumberFormat(airsNumber) Then
+            If Not ApbFacilityId.IsValidAirsNumberFormat(airsNumber) Then
                 Return False
             Else
                 Return AirsNumberExists(CType(airsNumber, ApbFacilityId))
@@ -40,7 +40,7 @@ Namespace DAL
         ''' <returns>The facility name, or an empty string if facility AIRS number does not exist.</returns>
         Public Function GetFacilityName(ByVal airsNumber As ApbFacilityId) As String
             Dim query As String = "SELECT STRFACILITYNAME " & _
-                " FROM " & DBNameSpace & ".APBFACILITYINFORMATION " & _
+                " FROM AIRBRANCH.APBFACILITYINFORMATION " & _
                 " WHERE STRAIRSNUMBER = :pId"
             Dim parameter As New OracleParameter("pId", airsNumber.DbFormattedString)
 
@@ -71,8 +71,8 @@ Namespace DAL
                 "   APBFACILITYINFORMATION.NUMFACILITYLONGITUDE, " & _
                 "   APBFACILITYINFORMATION.NUMFACILITYLATITUDE, " & _
                 "   LOOKUPCOUNTYINFORMATION.STRCOUNTYNAME " & _
-                " FROM " & DBNameSpace & ".APBFACILITYINFORMATION " & _
-                " LEFT JOIN " & DBNameSpace & ".LOOKUPCOUNTYINFORMATION " & _
+                " FROM AIRBRANCH.APBFACILITYINFORMATION " & _
+                " LEFT JOIN AIRBRANCH.LOOKUPCOUNTYINFORMATION " & _
                 " ON SUBSTR(APBFACILITYINFORMATION.STRAIRSNUMBER, 5, 3) = LOOKUPCOUNTYINFORMATION.STRCOUNTYCODE " & _
                 " WHERE APBFACILITYINFORMATION.STRAIRSNUMBER = :pId "
 
@@ -137,7 +137,7 @@ Namespace DAL
 
             ' 1. Update APBHeaderData
             queryList.Add( _
-                " UPDATE " & DBNameSpace & ".APBHEADERDATA " & _
+                " UPDATE AIRBRANCH.APBHEADERDATA " & _
                 " SET STROPERATIONALSTATUS = :operationalStatus, " & _
                 "  DATSHUTDOWNDATE        = :shutdownDate, " & _
                 "  STRCOMMENTS            = :comments, " & _
@@ -157,7 +157,7 @@ Namespace DAL
 
             ' 2. Update APBAirProgramPollutants
             queryList.Add( _
-                " UPDATE " & DBNameSpace & ".APBAIRPROGRAMPOLLUTANTS " & _
+                " UPDATE AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " & _
                 " SET STRCOMPLIANCESTATUS = :complianceStatus, " & _
                 "  STRMODIFINGPERSON     = :modifiedBy, " & _
                 "  DATMODIFINGDATE       = SYSDATE, " & _
@@ -173,7 +173,7 @@ Namespace DAL
 
             ' 3. Update EIS_FacilitySite
             queryList.Add( _
-                " UPDATE " & DBNameSpace & ".EIS_FACILITYSITE " & _
+                " UPDATE AIRBRANCH.EIS_FACILITYSITE " & _
                 " SET STRFACILITYSITESTATUSCODE = :statusCode, " & _
                 "  STRFACILITYSITECOMMENT      = :comments, " & _
                 "  UPDATEUSER                  = :modifiedBy, " & _
@@ -189,7 +189,7 @@ Namespace DAL
 
             ' 4. Revoke all open permits
             queryList.Add( _
-                " UPDATE " & DBNameSpace & ".APBISSUEDPERMIT " & _
+                " UPDATE AIRBRANCH.APBISSUEDPERMIT " & _
                 " SET DATREVOKED         = :shutdownDate, " & _
                 "   UPDATEDATE         = SYSDATE, " & _
                 "   UPDATEDBY          = :modifiedBy, " & _

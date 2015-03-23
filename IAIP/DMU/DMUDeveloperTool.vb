@@ -4296,6 +4296,7 @@ Public Class DMUDeveloperTool
 
                 If recExist = False Then
                     If txtCDSFacilityName.Text <> "" Then
+                        txtCDSFacilityName.Text = Apb.Facility.SanitizeFacilityNameForDb(txtCDSFacilityName.Text)
                         FacilityName = txtCDSFacilityName.Text
                         If txtCDSStreetAddress.Text <> "" Then
                             FacilityStreet = txtCDSStreetAddress.Text
@@ -5273,7 +5274,7 @@ Public Class DMUDeveloperTool
                 ErrorSolution = Mid(txtErrorSolution.Text, 1, 4000)
             End If
             If txtErrorNumber.Text <> "" Then
-                SQL = "Update " & DBNameSpace & ".IAIPErrorLog set " & _
+                SQL = "Update AIRBRANCH.IAIPErrorLog set " & _
                 "strSolution = '" & Replace(ErrorSolution, "'", "''") & "' " & _
                 "where strErrornumber = '" & txtErrorNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5324,14 +5325,14 @@ Public Class DMUDeveloperTool
                     "strIPAddress, strAgent, strPage, " & _
                     "strTime, strDetails, numError, " & _
                     "strSolution " & _
-                    "from " & DBNameSpace & ".LogErrors " & _
+                    "from AIRBRANCH.LogErrors " & _
                     "where NumError = " & txtWebErrorNumber.Text & " "
 
                     SQL = "select numError, " & _
                     "strIPAddress, strUserEmail, " & _
                     "strErrorPage, dateTimeStamp, " & _
                     "strErrorMsg, strSolution " & _
-                    "From " & DBNameSpace & ".OLAPERRORLog " & _
+                    "From AIRBRANCH.OLAPERRORLog " & _
                     "where numError = " & txtWebErrorNumber.Text & " "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5388,7 +5389,7 @@ Public Class DMUDeveloperTool
                 ErrorSolution = Mid(txtWebErrorSolution.Text, 1, 4000)
             End If
             If txtWebErrorNumber.Text <> "" Then
-                SQL = "Update " & DBNameSpace & ".OLAPErrorLog set " & _
+                SQL = "Update AIRBRANCH.OLAPErrorLog set " & _
                 "strSolution = '" & Replace(ErrorSolution, "'", "''") & "' " & _
                 "where numError = '" & txtWebErrorNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5427,7 +5428,7 @@ Public Class DMUDeveloperTool
         Try
 
             If Me.txtDeleteAIRSNumber.Text <> "" And txtDeleteAIRSNumber.Text.Length = 8 Then
-                SQL = "delete " & DBNameSpace & ".afsairpollutantdata where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "' "
+                SQL = "delete AIRBRANCH.afsairpollutantdata where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -5435,14 +5436,14 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
                 "values " & _
                 "(" & _
                 "(select " & _
                 "case when max(numCounter) is null then 1 " & _
                 "else max(numCounter) + 1 " & _
                 "end numCounter " & _
-                "from " & DBNameSpace & ".AFSDeletions), " & _
+                "from AIRBRANCH.AFSDeletions), " & _
                 "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                 "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                 "'" & OracleDate & "', '', " & _
@@ -5455,7 +5456,7 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & DBNameSpace & ".afsfacilitydata where strAirsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete AIRBRANCH.afsfacilitydata where strAirsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -5463,14 +5464,14 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & DBNameSpace & ".AFSDeletions), " & _
+                         "from AIRBRANCH.AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -5483,7 +5484,7 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & DBNameSpace & ".apbairprogrampollutants where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete AIRBRANCH.apbairprogrampollutants where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -5491,14 +5492,14 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & DBNameSpace & ".AFSDeletions), " & _
+                         "from AIRBRANCH.AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -5511,7 +5512,7 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & DBNameSpace & ".hb_apbairprogrampollutants where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete AIRBRANCH.hb_apbairprogrampollutants where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -5519,14 +5520,14 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & DBNameSpace & ".AFSDeletions), " & _
+                         "from AIRBRANCH.AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -5539,7 +5540,7 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & DBNameSpace & ".apbcontactinformation where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete AIRBRANCH.apbcontactinformation where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -5547,14 +5548,14 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & DBNameSpace & ".AFSDeletions), " & _
+                         "from AIRBRANCH.AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -5567,7 +5568,7 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & DBNameSpace & ".apbheaderdata where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete AIRBRANCH.apbheaderdata where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -5575,14 +5576,14 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & DBNameSpace & ".AFSDeletions), " & _
+                         "from AIRBRANCH.AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -5595,7 +5596,7 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & DBNameSpace & ".HB_APBHeaderData where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete AIRBRANCH.HB_APBHeaderData where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -5603,14 +5604,14 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & DBNameSpace & ".AFSDeletions), " & _
+                         "from AIRBRANCH.AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -5623,7 +5624,7 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & DBNameSpace & ".HB_APBFacilityInformation where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete AIRBRANCH.HB_APBFacilityInformation where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -5631,14 +5632,14 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & DBNameSpace & ".AFSDeletions), " & _
+                         "from AIRBRANCH.AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -5651,7 +5652,7 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & DBNameSpace & ".APBFacilityInformation where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete AIRBRANCH.APBFacilityInformation where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -5659,14 +5660,14 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & DBNameSpace & ".AFSDeletions), " & _
+                         "from AIRBRANCH.AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -5679,7 +5680,7 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & DBNameSpace & ".apbsupplamentaldata where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete AIRBRANCH.apbsupplamentaldata where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -5687,14 +5688,14 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & DBNameSpace & ".AFSDeletions), " & _
+                         "from AIRBRANCH.AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -5707,7 +5708,7 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Delete " & DBNameSpace & ".SSCPInspectionsRequired where strAIRSnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
+                SQL = "Delete AIRBRANCH.SSCPInspectionsRequired where strAIRSnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -5716,14 +5717,14 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & DBNameSpace & ".AFSDeletions), " & _
+                         "from AIRBRANCH.AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -5736,7 +5737,7 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Delete " & DBNameSpace & ".SSCPDistrictResponsible where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
+                SQL = "Delete AIRBRANCH.SSCPDistrictResponsible where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -5744,14 +5745,14 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & DBNameSpace & ".AFSDeletions), " & _
+                         "from AIRBRANCH.AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -5764,7 +5765,7 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & DBNameSpace & ".sscpInspectionsRequired where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
+                SQL = "delete AIRBRANCH.sscpInspectionsRequired where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -5772,14 +5773,14 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & DBNameSpace & ".AFSDeletions), " & _
+                         "from AIRBRANCH.AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -5793,7 +5794,7 @@ Public Class DMUDeveloperTool
                 dr.Close()
 
 
-                SQL = "delete " & DBNameSpace & ".apbmasterairs where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
+                SQL = "delete AIRBRANCH.apbmasterairs where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -5801,14 +5802,14 @@ Public Class DMUDeveloperTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & DBNameSpace & ".AFSDeletions), " & _
+                         "from AIRBRANCH.AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -5840,10 +5841,10 @@ Public Class DMUDeveloperTool
                 "strContactLastName, strContactpreFix, " & _
                 "strContactSuffix, strContactTitle, " & _
                 "strContactPhoneNumber1 " & _
-                "from " & DBNameSpace & ".SSPPApplicationdata, " & _
-                "" & DBNameSpace & ".SSPPApplicationContact " & _
-                "where " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationContact.strApplicationNumber " & _
-                "and " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
+                "from AIRBRANCH.SSPPApplicationdata, " & _
+                "AIRBRANCH.SSPPApplicationContact " & _
+                "where AIRBRANCH.SSPPApplicationData.strApplicationNumber = AIRBRANCH.SSPPApplicationContact.strApplicationNumber " & _
+                "and AIRBRANCH.SSPPApplicationData.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -6056,7 +6057,7 @@ Public Class DMUDeveloperTool
             If txtAFSBatchFile.Text = "" Then
                 txtAFSBatchFile.Text = "NO AFS DATA TO UPDATE."
             Else
-                SQL = "select " & DBNameSpace & ".afsFileNumber.nextval from Dual"
+                SQL = "select AIRBRANCH.afsFileNumber.nextval from Dual"
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -6089,7 +6090,7 @@ Public Class DMUDeveloperTool
                         fs.Close()
 
                         SQL = "Select * " & _
-                        "from " & DBNameSpace & ".AFSBatchFiles " & _
+                        "from AIRBRANCH.AFSBatchFiles " & _
                         "where AFSFileName = '" & FileName & "' "
 
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -6146,23 +6147,23 @@ Public Class DMUDeveloperTool
             'G36 is for Compliance Manager 
             'GM8 is for Monitoring Manager 
 
-            SQL = "Select " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber, " & _
+            SQL = "Select AIRBRANCH.APBMasterAIRS.strAIRSNumber, " & _
             "strFacilityName, strFacilityStreet1,   " & _
             "strFacilityCity, strFacilityzipCode,   " & _
             "strSICCode, strContactFirstName,   " & _
             "strContactLastName, strContactTitle,   " & _
             "strContactPhoneNumber1, strPlantDescription,   " & _
-            "" & DBNameSpace & ".AFSFacilityData.strModifingPerson, strUpdateStatus,  " & _
+            "AIRBRANCH.AFSFacilityData.strModifingPerson, strUpdateStatus,  " & _
             "strCMSMember  " & _
-            "from " & DBNameSpace & ".APBMasterAIRS, " & DBNameSpace & ".APBFacilityInformation,  " & _
-            "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBContactInformation,  " & _
-            "" & DBNameSpace & ".APBSupplamentalData, " & DBNameSpace & ".AFSFacilityData  " & _
-            "where " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".AFSFacilityData.strAIRSNumber    " & _
-            "and " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber  " & _
-            "and " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber   " & _
-            "and " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".APBContactInformation.strAIRSNumber " & _
-            "and " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber   " & _
-            "and " & DBNameSpace & ".APBContactInformation.strKEy = '30'  "
+            "from AIRBRANCH.APBMasterAIRS, AIRBRANCH.APBFacilityInformation,  " & _
+            "AIRBRANCH.APBHeaderData, AIRBRANCH.APBContactInformation,  " & _
+            "AIRBRANCH.APBSupplamentalData, AIRBRANCH.AFSFacilityData  " & _
+            "where AIRBRANCH.APBMasterAIRS.strAIRSNumber = AIRBRANCH.AFSFacilityData.strAIRSNumber    " & _
+            "and AIRBRANCH.APBMasterAIRS.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber  " & _
+            "and AIRBRANCH.APBMasterAIRS.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber   " & _
+            "and AIRBRANCH.APBMasterAIRS.strAIRSNumber = AIRBRANCH.APBContactInformation.strAIRSNumber " & _
+            "and AIRBRANCH.APBMasterAIRS.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber   " & _
+            "and AIRBRANCH.APBContactInformation.strKEy = '30'  "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -6322,19 +6323,19 @@ Public Class DMUDeveloperTool
                     SICCode = SICCode & "            " & Inspector & "      "
 
                     SQL2 = "Select " & _
-                    "" & DBNameSpace & ".AFSAirPollutantData.strAIRPollutantKey, " & _
-                    "" & DBNameSpace & ".AFSAirPollutantData.strPollutantKey, " & _
+                    "AIRBRANCH.AFSAirPollutantData.strAIRPollutantKey, " & _
+                    "AIRBRANCH.AFSAirPollutantData.strPollutantKey, " & _
                     "strComplianceStatus, strClass, " & _
-                    "" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, " & _
-                    "" & DBNameSpace & ".APBAirProgramPollutants.strOperationalStatus " & _
-                    "from " & DBNameSpace & ".APBAirProgramPollutants, " & DBNameSpace & ".AFSAirPollutantData, " & _
-                    "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".LookUpCountyInformation " & _
-                    "where " & DBNameSpace & ".APBAirProgramPollutants.strAIRSNumber = '" & dr.Item("strAIRSNumber") & "' " & _
-                    "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBAirProgramPollutants.strAIRSNumber " & _
-                    "and substr(" & DBNameSpace & ".APBHeaderData.strAIRSNumber, 5, 3) = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode " & _
-                    "and " & DBNameSpace & ".AFSAirPollutantData.strAirPollutantKey = " & DBNameSpace & ".APBAirProgramPollutants.strAirPollutantKey " & _
-                    "and " & DBNameSpace & ".AFSAirPollutantData.strPollutantKey = " & DBNameSpace & ".APBAirProgramPollutants.strPollutantKey " & _
-                    "and " & DBNameSpace & ".AFSAirPollutantData.strAIRSNumber  = '04" & AIRSNumber & "' "
+                    "AIRBRANCH.APBHeaderData.strAttainmentStatus, " & _
+                    "AIRBRANCH.APBAirProgramPollutants.strOperationalStatus " & _
+                    "from AIRBRANCH.APBAirProgramPollutants, AIRBRANCH.AFSAirPollutantData, " & _
+                    "AIRBRANCH.APBHeaderData, AIRBRANCH.LookUpCountyInformation " & _
+                    "where AIRBRANCH.APBAirProgramPollutants.strAIRSNumber = '" & dr.Item("strAIRSNumber") & "' " & _
+                    "and AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.APBAirProgramPollutants.strAIRSNumber " & _
+                    "and substr(AIRBRANCH.APBHeaderData.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode " & _
+                    "and AIRBRANCH.AFSAirPollutantData.strAirPollutantKey = AIRBRANCH.APBAirProgramPollutants.strAirPollutantKey " & _
+                    "and AIRBRANCH.AFSAirPollutantData.strPollutantKey = AIRBRANCH.APBAirProgramPollutants.strPollutantKey " & _
+                    "and AIRBRANCH.AFSAirPollutantData.strAIRSNumber  = '04" & AIRSNumber & "' "
 
                     cmd2 = New OracleCommand(SQL2, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -6501,8 +6502,8 @@ Public Class DMUDeveloperTool
                     "strErrorLocation, strErrorMessage,  " & _
                     "to_char(datErrorDate, 'DD-Mon-YYYY') as ErrorDate,  " & _
                     "strSolution  " & _
-                    "from " & DBNameSpace & ".IAIPErrorLog, " & DBNameSpace & ".EPDUserProfiles  " & _
-                    "where " & DBNameSpace & ".IAIPErrorLog.strUser = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                    "from AIRBRANCH.IAIPErrorLog, AIRBRANCH.EPDUserProfiles  " & _
+                    "where AIRBRANCH.IAIPErrorLog.strUser = AIRBRANCH.EPDUserProfiles.numUserID " & _
                     "and strErrorNumber = '" & txtErrorNumber.Text & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -6562,17 +6563,17 @@ Public Class DMUDeveloperTool
 
             SQL = "Select " & _
             "distinct(substr(strSubPartkey, 13, 1)) as subpart,  " & _
-            "" & DBNameSpace & ".APBSubpartData.strAIRSnumber, " & _
-            "" & DBNameSpace & ".AFSAirPollutantData.strUpdateStatus    " & _
-            "from " & DBNameSpace & ".APBSubpartData, " & DBNameSpace & ".AFSAirPollutantData,   " & _
-            "" & DBNameSpace & ".AFSFacilityData, airbranch.apbHeaderdata " & _
-            "where " & DBNameSpace & ".APBSubpartData.strSubpartKey = " & _
-            "" & DBNameSpace & ".AFSAirPollutantData.strAIRPollutantKey  " & _
+            "AIRBRANCH.APBSubpartData.strAIRSnumber, " & _
+            "AIRBRANCH.AFSAirPollutantData.strUpdateStatus    " & _
+            "from AIRBRANCH.APBSubpartData, AIRBRANCH.AFSAirPollutantData,   " & _
+            "AIRBRANCH.AFSFacilityData, airbranch.apbHeaderdata " & _
+            "where AIRBRANCH.APBSubpartData.strSubpartKey = " & _
+            "AIRBRANCH.AFSAirPollutantData.strAIRPollutantKey  " & _
             " and airbranch.afsfacilitydata.strairsnumber = airbranch.apbHeaderdata.strairsnumber " & _
             "and stroperationalstatus  = 'O' " & _
-            " and " & DBNameSpace & ".AFSAirPollutantData.strAIRSNUmber = " & _
-            "" & DBNameSpace & ".AFSFacilityData.strAIRSNUmber  " & _
-            " and " & DBNameSpace & ".AFSFacilityData.strUpdateStatus <>  'A' " & _
+            " and AIRBRANCH.AFSAirPollutantData.strAIRSNUmber = " & _
+            "AIRBRANCH.AFSFacilityData.strAIRSNUmber  " & _
+            " and AIRBRANCH.AFSFacilityData.strUpdateStatus <>  'A' " & _
             "   and AIRBranch.AFSFacilityData.strUpdateStatus <>  'H' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -6599,7 +6600,7 @@ Public Class DMUDeveloperTool
                     Case "8"
                         SQL = "Select " & _
                         "strSubPart " & _
-                        "from " & DBNameSpace & ".APBSubpartData " & _
+                        "from AIRBRANCH.APBSubpartData " & _
                         "where strSubpartKey = '04" & AIRSNumber & "8' "
 
                         cmd2 = New OracleCommand(SQL, CurrentConnection)
@@ -6643,7 +6644,7 @@ Public Class DMUDeveloperTool
                     Case "9"
                         SQL = "Select " & _
                         "strSubPart " & _
-                        "from " & DBNameSpace & ".APBSubpartData " & _
+                        "from AIRBRANCH.APBSubpartData " & _
                         "where strSubpartKey = '04" & AIRSNumber & "9' "
 
                         cmd2 = New OracleCommand(SQL, CurrentConnection)
@@ -6687,7 +6688,7 @@ Public Class DMUDeveloperTool
                     Case "M"
                         SQL = "Select " & _
                          "strSubPart " & _
-                         "from " & DBNameSpace & ".APBSubpartData " & _
+                         "from AIRBRANCH.APBSubpartData " & _
                          "where strSubpartKey = '04" & AIRSNumber & "M' "
 
                         cmd2 = New OracleCommand(SQL, CurrentConnection)
@@ -6744,17 +6745,17 @@ Public Class DMUDeveloperTool
 
             SQL = "Select " & _
           "distinct(substr(strSubPartkey, 13, 1)) as subpart,  " & _
-          "" & DBNameSpace & ".APBSubpartData.strAIRSnumber, " & _
-          "" & DBNameSpace & ".AFSAirPollutantData.strUpdateStatus    " & _
-          "from " & DBNameSpace & ".APBSubpartData, " & DBNameSpace & ".AFSAirPollutantData,   " & _
-          "" & DBNameSpace & ".AFSFacilityData, airbranch.apbHeaderdata " & _
-          "where " & DBNameSpace & ".APBSubpartData.strSubpartKey = " & _
-          "" & DBNameSpace & ".AFSAirPollutantData.strAIRPollutantKey  " & _
+          "AIRBRANCH.APBSubpartData.strAIRSnumber, " & _
+          "AIRBRANCH.AFSAirPollutantData.strUpdateStatus    " & _
+          "from AIRBRANCH.APBSubpartData, AIRBRANCH.AFSAirPollutantData,   " & _
+          "AIRBRANCH.AFSFacilityData, airbranch.apbHeaderdata " & _
+          "where AIRBRANCH.APBSubpartData.strSubpartKey = " & _
+          "AIRBRANCH.AFSAirPollutantData.strAIRPollutantKey  " & _
           " and airbranch.afsfacilitydata.strairsnumber = airbranch.apbHeaderdata.strairsnumber " & _
           "and stroperationalstatus  = 'O' " & _
-          " and " & DBNameSpace & ".AFSAirPollutantData.strAIRSNUmber = " & _
-          "" & DBNameSpace & ".AFSFacilityData.strAIRSNUmber  " & _
-          " and " & DBNameSpace & ".AFSFacilityData.strUpdateStatus <>  'A' " & _
+          " and AIRBRANCH.AFSAirPollutantData.strAIRSNUmber = " & _
+          "AIRBRANCH.AFSFacilityData.strAIRSNUmber  " & _
+          " and AIRBRANCH.AFSFacilityData.strUpdateStatus <>  'A' " & _
           "   and AIRBranch.AFSFacilityData.strUpdateStatus <>  'H' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -6781,7 +6782,7 @@ Public Class DMUDeveloperTool
                     Case "8"
                         SQL = "Select " & _
                         "strSubPart " & _
-                        "from " & DBNameSpace & ".APBSubpartData " & _
+                        "from AIRBRANCH.APBSubpartData " & _
                         "where strSubpartKey = '04" & AIRSNumber & "8' "
 
                         cmd2 = New OracleCommand(SQL, CurrentConnection)
@@ -6825,7 +6826,7 @@ Public Class DMUDeveloperTool
                     Case "9"
                         SQL = "Select " & _
                         "strSubPart " & _
-                        "from " & DBNameSpace & ".APBSubpartData " & _
+                        "from AIRBRANCH.APBSubpartData " & _
                         "where strSubpartKey = '04" & AIRSNumber & "9' "
 
                         cmd2 = New OracleCommand(SQL, CurrentConnection)
@@ -6869,7 +6870,7 @@ Public Class DMUDeveloperTool
                     Case "M"
                         SQL = "Select " & _
                          "strSubPart " & _
-                         "from " & DBNameSpace & ".APBSubpartData " & _
+                         "from AIRBRANCH.APBSubpartData " & _
                          "where strSubpartKey = '04" & AIRSNumber & "M' "
 
                         cmd2 = New OracleCommand(SQL, CurrentConnection)
@@ -6934,7 +6935,7 @@ Public Class DMUDeveloperTool
             If txtAFSBatchFile.Text = "" Then
                 txtAFSBatchFile.Text = "NO AFS DATA TO UPDATE."
             Else
-                SQL = "select " & DBNameSpace & ".afsFileNumber.nextval from Dual"
+                SQL = "select AIRBRANCH.afsFileNumber.nextval from Dual"
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -6967,7 +6968,7 @@ Public Class DMUDeveloperTool
                         fs.Close()
 
                         SQL = "Select * " & _
-                        "from " & DBNameSpace & ".AFSBatchFiles " & _
+                        "from AIRBRANCH.AFSBatchFiles " & _
                         "where AFSFileName = '" & FileName & "' "
 
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -7217,7 +7218,7 @@ Public Class DMUDeveloperTool
             If txtAFSBatchFile.Text = "" Then
                 txtAFSBatchFile.Text = "NO AFS DATA TO UPDATE."
             Else
-                SQL = "select " & DBNameSpace & ".afsFileNumber.nextval from Dual"
+                SQL = "select AIRBRANCH.afsFileNumber.nextval from Dual"
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -7250,7 +7251,7 @@ Public Class DMUDeveloperTool
                         fs.Close()
 
                         SQL = "Select * " & _
-                        "from " & DBNameSpace & ".AFSBatchFiles " & _
+                        "from AIRBRANCH.AFSBatchFiles " & _
                         "where AFSFileName = '" & FileName & "' "
 
                         If CurrentConnection.State = ConnectionState.Closed Then

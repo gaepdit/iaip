@@ -6,7 +6,6 @@ Module subMain
 
 #Region " DB Connections "
 
-    Friend Const DBNameSpace As String = "AIRBRANCH"
     Friend CurrentServerEnvironment As DB.ServerEnvironment = DB.DefaultServerEnvironment
     Friend CurrentConnection As New OracleConnection(DB.CurrentConnectionString)
 
