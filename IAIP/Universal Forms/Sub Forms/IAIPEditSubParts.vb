@@ -510,12 +510,14 @@ Public Class IAIPEditSubParts
                 "where strSubpartKey = '0413" & txtAIRSNumber.Text & "0' " & _
                 "and strSubpart = '" & cboSIPSubpart.SelectedValue & "' "
             Else
-                SQL = "Insert into AIRBRANCH.APBSubpartData " & _
-                "values " & _
+                SQL = "INSERT INTO AIRBRANCH.APBSUBPARTDATA " & _
+                "  ( STRAIRSNUMBER, STRSUBPARTKEY, STRSUBPART, UPDATEUSER , " & _
+                "    UPDATEDATETIME, ACTIVE, CREATEDATETIME, " & _
+                "  ) VALUES " & _
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "0', " & _
                 "'" & cboSIPSubpart.SelectedValue & "', '" & UserGCode & "', " & _
                 "'" & OracleDate & "', '1', " & _
-                "'" & OracleDate & "', NULL) "
+                "'" & OracleDate & "') "
             End If
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -567,12 +569,14 @@ Public Class IAIPEditSubParts
                 "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " & _
                 "and strSubpart = '" & cboNSPSSubpart.SelectedValue & "' "
             Else
-                SQL = "Insert into AIRBRANCH.APBSubpartData " & _
-                "values " & _
+                SQL = "INSERT INTO AIRBRANCH.APBSUBPARTDATA " & _
+                "  ( STRAIRSNUMBER, STRSUBPARTKEY, STRSUBPART, UPDATEUSER , " & _
+                "    UPDATEDATETIME, ACTIVE, CREATEDATETIME, " & _
+                "  ) VALUES " & _
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " & _
                 "'" & cboNSPSSubpart.SelectedValue & "', '" & UserGCode & "', " & _
                 "'" & OracleDate & "', '1', " & _
-                "'" & OracleDate & "', NULL) "
+                "'" & OracleDate & "') "
             End If
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -624,12 +628,14 @@ Public Class IAIPEditSubParts
                 "where strSubpartKey = '0413" & txtAIRSNumber.Text & "8' " & _
                 "and strSubpart = '" & cboNESHAPSubpart.SelectedValue & "' "
             Else
-                SQL = "Insert into AIRBRANCH.APBSubpartData " & _
-                "values " & _
+                SQL = "INSERT INTO AIRBRANCH.APBSUBPARTDATA " & _
+                "  ( STRAIRSNUMBER, STRSUBPARTKEY, STRSUBPART, UPDATEUSER , " & _
+                "    UPDATEDATETIME, ACTIVE, CREATEDATETIME, " & _
+                "  ) VALUES " & _
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "8', " & _
                 "'" & cboNESHAPSubpart.SelectedValue & "', '" & UserGCode & "', " & _
                 "'" & OracleDate & "', '1', " & _
-                "'" & OracleDate & "', NULL) "
+                "'" & OracleDate & "' ) "
             End If
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -681,12 +687,14 @@ Public Class IAIPEditSubParts
                 "where strSubpartKey = '0413" & txtAIRSNumber.Text & "M' " & _
                 "and strSubpart = '" & cboMACTSubPart.SelectedValue & "' "
             Else
-                SQL = "Insert into AIRBRANCH.APBSubpartData " & _
-                "values " & _
+                SQL = "INSERT INTO AIRBRANCH.APBSUBPARTDATA " & _
+                "  ( STRAIRSNUMBER, STRSUBPARTKEY, STRSUBPART, UPDATEUSER , " & _
+                "    UPDATEDATETIME, ACTIVE, CREATEDATETIME, " & _
+                "  ) VALUES " & _
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "M', " & _
                 "'" & cboMACTSubPart.SelectedValue & "', '" & UserGCode & "', " & _
                 "'" & OracleDate & "', '1', " & _
-                "'" & OracleDate & "', NULL) "
+                "'" & OracleDate & "' ) "
             End If
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
