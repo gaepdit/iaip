@@ -1476,6 +1476,7 @@
     <Compile Include="_Classes\BooleanFormatProvider.vb" />
     <Compile Include="_Data Classes\ApbFacilityId.vb" />
     <Compile Include="_Data Classes\Contact.vb" />
+    <Compile Include="_Data Classes\DMU.EdtError.vb" />
     <Compile Include="_Data Classes\FacilityHeaderData.vb" />
     <Compile Include="_Data Classes\SSPP.Permit.vb" />
     <Compile Include="_DB\DAL.SSCP.FacilityAssignments.vb" />
