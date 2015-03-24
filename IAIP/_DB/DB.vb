@@ -92,6 +92,24 @@ Namespace DB
 
 #End Region
 
+#Region " Read (DataRow) "
+
+        Public Function GetDataRow(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing) As DataRow
+            Dim parameterArray As OracleParameter() = {parameter}
+            Return GetDataRow(query, parameterArray)
+        End Function
+
+        Public Function GetDataRow(ByVal query As String, ByVal parameterArray As OracleParameter()) As DataRow
+            Dim resultTable As DataTable = GetDataTable(query, parameterArray)
+            If resultTable IsNot Nothing And resultTable.Rows.Count > 0 Then
+                Return resultTable.Rows(0)
+            Else
+                Return Nothing
+            End If
+        End Function
+
+#End Region
+
 #Region " Read (DataTable) "
 
         Public Function GetDataTable(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing) As DataTable

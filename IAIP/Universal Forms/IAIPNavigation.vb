@@ -1350,7 +1350,7 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(137, "Registration Tool", "MASPRegistrationTool", NavButtonCategories.MASP)
 
         ' DMU
-        AddNavButtonIfAccountHasFormAccess(129, "AFS Tools", "DMUDeveloperTool", NavButtonCategories.DMU)
+        AddNavButtonIfAccountHasFormAccess(129, "Developer Tools", "DMUDeveloperTool", NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(10, "District Tools", "IAIPDistrictSourceTool", NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(133, "Look Up Tables", "IAIPLookUpTables", NavButtonCategories.DMU)
         If (UserGCode = "345") Then

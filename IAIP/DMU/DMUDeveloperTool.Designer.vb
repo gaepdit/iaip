@@ -26,7 +26,6 @@ Partial Class DMUDeveloperTool
         Me.TPErrorLog = New System.Windows.Forms.TabPage
         Me.GroupBox3 = New System.Windows.Forms.GroupBox
         Me.Panel4 = New System.Windows.Forms.Panel
-        Me.btnExporttoExcel = New System.Windows.Forms.Button
         Me.Panel6 = New System.Windows.Forms.Panel
         Me.rdbNoLimit = New System.Windows.Forms.RadioButton
         Me.rdbLast60days = New System.Windows.Forms.RadioButton
@@ -122,7 +121,6 @@ Partial Class DMUDeveloperTool
         'Panel4
         '
         Me.Panel4.AutoSize = True
-        Me.Panel4.Controls.Add(Me.btnExporttoExcel)
         Me.Panel4.Controls.Add(Me.Panel6)
         Me.Panel4.Controls.Add(Me.Label61)
         Me.Panel4.Controls.Add(Me.txtErrorCount)
@@ -147,15 +145,6 @@ Partial Class DMUDeveloperTool
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(778, 400)
         Me.Panel4.TabIndex = 18
-        '
-        'btnExporttoExcel
-        '
-        Me.btnExporttoExcel.Location = New System.Drawing.Point(659, 6)
-        Me.btnExporttoExcel.Name = "btnExporttoExcel"
-        Me.btnExporttoExcel.Size = New System.Drawing.Size(99, 23)
-        Me.btnExporttoExcel.TabIndex = 20
-        Me.btnExporttoExcel.Text = "Export to Excel"
-        Me.btnExporttoExcel.UseVisualStyleBackColor = True
         '
         'Panel6
         '
@@ -303,6 +292,7 @@ Partial Class DMUDeveloperTool
         '
         Me.txtErrorSolution.AcceptsReturn = True
         Me.txtErrorSolution.Location = New System.Drawing.Point(91, 169)
+        Me.txtErrorSolution.MaxLength = 4000
         Me.txtErrorSolution.Multiline = True
         Me.txtErrorSolution.Name = "txtErrorSolution"
         Me.txtErrorSolution.Size = New System.Drawing.Size(546, 56)
@@ -556,6 +546,7 @@ Partial Class DMUDeveloperTool
         '
         Me.txtWebErrorSolution.AcceptsReturn = True
         Me.txtWebErrorSolution.Location = New System.Drawing.Point(88, 170)
+        Me.txtWebErrorSolution.MaxLength = 4000
         Me.txtWebErrorSolution.Multiline = True
         Me.txtWebErrorSolution.Name = "txtWebErrorSolution"
         Me.txtWebErrorSolution.Size = New System.Drawing.Size(546, 56)
@@ -682,6 +673,5 @@ Partial Class DMUDeveloperTool
     Friend WithEvents rdbNoLimit As System.Windows.Forms.RadioButton
     Friend WithEvents rdbLast60days As System.Windows.Forms.RadioButton
     Friend WithEvents rdbLast30Days As System.Windows.Forms.RadioButton
-    Friend WithEvents btnExporttoExcel As System.Windows.Forms.Button
     Friend WithEvents dgvErrorList As System.Windows.Forms.DataGridView
 End Class
