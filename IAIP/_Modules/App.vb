@@ -149,9 +149,8 @@ Module App
 
     Public Sub TestCrystalReportsInstallation()
         Try
-            Dim crViewer As CrystalDecisions.Windows.Forms.CrystalReportViewer = New CrystalDecisions.Windows.Forms.CrystalReportViewer
-            crViewer.Dispose()
-        Catch ex As Exception
+            System.Reflection.Assembly.Load("CrystalDecisions.Windows.Forms, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304")
+        Catch ex As FileNotFoundException
             ShowCrystalReportsSupportMessage()
         End Try
     End Sub
