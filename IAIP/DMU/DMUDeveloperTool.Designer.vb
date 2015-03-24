@@ -22,40 +22,7 @@ Partial Class DMUDeveloperTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DMUDeveloperTool))
-        Me.bgwTransfer = New System.ComponentModel.BackgroundWorker
-        Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.TCDMUTools = New System.Windows.Forms.TabControl
-        Me.TPAFSFileGenerator = New System.Windows.Forms.TabPage
-        Me.txtAFSBatchFile = New System.Windows.Forms.TextBox
-        Me.PanelBatchOrder = New System.Windows.Forms.Panel
-        Me.pnlBasicRefresh = New System.Windows.Forms.Panel
-        Me.btnForceBasicRefresh = New System.Windows.Forms.Button
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.pnlSubParts = New System.Windows.Forms.Panel
-        Me.btnUpdateAllSubParts = New System.Windows.Forms.Button
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.pnlAIRSSpecific = New System.Windows.Forms.Panel
-        Me.btnAIRSSpecificRefresh = New System.Windows.Forms.Button
-        Me.mtbAFSAirsNumber = New System.Windows.Forms.MaskedTextBox
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.pnlStandardFile = New System.Windows.Forms.Panel
-        Me.btnGenerateBatchFile = New System.Windows.Forms.Button
-        Me.Label55 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.Label41 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label59 = New System.Windows.Forms.Label
-        Me.Label58 = New System.Windows.Forms.Label
-        Me.Label38 = New System.Windows.Forms.Label
-        Me.Label29 = New System.Windows.Forms.Label
-        Me.Panel8 = New System.Windows.Forms.Panel
-        Me.rdbBasicData = New System.Windows.Forms.RadioButton
-        Me.rdbUpdateAllSubparts = New System.Windows.Forms.RadioButton
-        Me.rdbAIRSSpecific = New System.Windows.Forms.RadioButton
-        Me.rdbGenerateStandardFile = New System.Windows.Forms.RadioButton
-        Me.btnClearAFSFileGenerator = New System.Windows.Forms.Button
         Me.TPErrorLog = New System.Windows.Forms.TabPage
         Me.GroupBox3 = New System.Windows.Forms.GroupBox
         Me.Panel4 = New System.Windows.Forms.Panel
@@ -108,13 +75,6 @@ Partial Class DMUDeveloperTool
         Me.txtWebErrorDate = New System.Windows.Forms.TextBox
         Me.dgrWebErrorList = New System.Windows.Forms.DataGrid
         Me.TCDMUTools.SuspendLayout()
-        Me.TPAFSFileGenerator.SuspendLayout()
-        Me.PanelBatchOrder.SuspendLayout()
-        Me.pnlBasicRefresh.SuspendLayout()
-        Me.pnlSubParts.SuspendLayout()
-        Me.pnlAIRSSpecific.SuspendLayout()
-        Me.pnlStandardFile.SuspendLayout()
-        Me.Panel8.SuspendLayout()
         Me.TPErrorLog.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.Panel4.SuspendLayout()
@@ -126,99 +86,8 @@ Partial Class DMUDeveloperTool
         CType(Me.dgrWebErrorList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'Image_List_All
-        '
-        Me.Image_List_All.ImageStream = CType(resources.GetObject("Image_List_All.ImageStream"), System.Windows.Forms.ImageListStreamer)
-        Me.Image_List_All.TransparentColor = System.Drawing.Color.Transparent
-        Me.Image_List_All.Images.SetKeyName(0, "")
-        Me.Image_List_All.Images.SetKeyName(1, "")
-        Me.Image_List_All.Images.SetKeyName(2, "")
-        Me.Image_List_All.Images.SetKeyName(3, "")
-        Me.Image_List_All.Images.SetKeyName(4, "")
-        Me.Image_List_All.Images.SetKeyName(5, "")
-        Me.Image_List_All.Images.SetKeyName(6, "")
-        Me.Image_List_All.Images.SetKeyName(7, "")
-        Me.Image_List_All.Images.SetKeyName(8, "")
-        Me.Image_List_All.Images.SetKeyName(9, "")
-        Me.Image_List_All.Images.SetKeyName(10, "")
-        Me.Image_List_All.Images.SetKeyName(11, "")
-        Me.Image_List_All.Images.SetKeyName(12, "")
-        Me.Image_List_All.Images.SetKeyName(13, "")
-        Me.Image_List_All.Images.SetKeyName(14, "")
-        Me.Image_List_All.Images.SetKeyName(15, "")
-        Me.Image_List_All.Images.SetKeyName(16, "")
-        Me.Image_List_All.Images.SetKeyName(17, "")
-        Me.Image_List_All.Images.SetKeyName(18, "")
-        Me.Image_List_All.Images.SetKeyName(19, "")
-        Me.Image_List_All.Images.SetKeyName(20, "")
-        Me.Image_List_All.Images.SetKeyName(21, "")
-        Me.Image_List_All.Images.SetKeyName(22, "")
-        Me.Image_List_All.Images.SetKeyName(23, "")
-        Me.Image_List_All.Images.SetKeyName(24, "")
-        Me.Image_List_All.Images.SetKeyName(25, "")
-        Me.Image_List_All.Images.SetKeyName(26, "")
-        Me.Image_List_All.Images.SetKeyName(27, "")
-        Me.Image_List_All.Images.SetKeyName(28, "")
-        Me.Image_List_All.Images.SetKeyName(29, "")
-        Me.Image_List_All.Images.SetKeyName(30, "")
-        Me.Image_List_All.Images.SetKeyName(31, "")
-        Me.Image_List_All.Images.SetKeyName(32, "")
-        Me.Image_List_All.Images.SetKeyName(33, "")
-        Me.Image_List_All.Images.SetKeyName(34, "")
-        Me.Image_List_All.Images.SetKeyName(35, "")
-        Me.Image_List_All.Images.SetKeyName(36, "")
-        Me.Image_List_All.Images.SetKeyName(37, "")
-        Me.Image_List_All.Images.SetKeyName(38, "")
-        Me.Image_List_All.Images.SetKeyName(39, "")
-        Me.Image_List_All.Images.SetKeyName(40, "")
-        Me.Image_List_All.Images.SetKeyName(41, "")
-        Me.Image_List_All.Images.SetKeyName(42, "")
-        Me.Image_List_All.Images.SetKeyName(43, "")
-        Me.Image_List_All.Images.SetKeyName(44, "")
-        Me.Image_List_All.Images.SetKeyName(45, "")
-        Me.Image_List_All.Images.SetKeyName(46, "")
-        Me.Image_List_All.Images.SetKeyName(47, "")
-        Me.Image_List_All.Images.SetKeyName(48, "")
-        Me.Image_List_All.Images.SetKeyName(49, "")
-        Me.Image_List_All.Images.SetKeyName(50, "")
-        Me.Image_List_All.Images.SetKeyName(51, "")
-        Me.Image_List_All.Images.SetKeyName(52, "")
-        Me.Image_List_All.Images.SetKeyName(53, "")
-        Me.Image_List_All.Images.SetKeyName(54, "")
-        Me.Image_List_All.Images.SetKeyName(55, "")
-        Me.Image_List_All.Images.SetKeyName(56, "")
-        Me.Image_List_All.Images.SetKeyName(57, "")
-        Me.Image_List_All.Images.SetKeyName(58, "")
-        Me.Image_List_All.Images.SetKeyName(59, "")
-        Me.Image_List_All.Images.SetKeyName(60, "")
-        Me.Image_List_All.Images.SetKeyName(61, "")
-        Me.Image_List_All.Images.SetKeyName(62, "")
-        Me.Image_List_All.Images.SetKeyName(63, "")
-        Me.Image_List_All.Images.SetKeyName(64, "")
-        Me.Image_List_All.Images.SetKeyName(65, "")
-        Me.Image_List_All.Images.SetKeyName(66, "")
-        Me.Image_List_All.Images.SetKeyName(67, "")
-        Me.Image_List_All.Images.SetKeyName(68, "")
-        Me.Image_List_All.Images.SetKeyName(69, "")
-        Me.Image_List_All.Images.SetKeyName(70, "")
-        Me.Image_List_All.Images.SetKeyName(71, "")
-        Me.Image_List_All.Images.SetKeyName(72, "")
-        Me.Image_List_All.Images.SetKeyName(73, "")
-        Me.Image_List_All.Images.SetKeyName(74, "")
-        Me.Image_List_All.Images.SetKeyName(75, "")
-        Me.Image_List_All.Images.SetKeyName(76, "")
-        Me.Image_List_All.Images.SetKeyName(77, "")
-        Me.Image_List_All.Images.SetKeyName(78, "")
-        Me.Image_List_All.Images.SetKeyName(79, "")
-        Me.Image_List_All.Images.SetKeyName(80, "")
-        Me.Image_List_All.Images.SetKeyName(81, "")
-        Me.Image_List_All.Images.SetKeyName(82, "")
-        Me.Image_List_All.Images.SetKeyName(83, "")
-        Me.Image_List_All.Images.SetKeyName(84, "")
-        '
         'TCDMUTools
         '
-        Me.TCDMUTools.Controls.Add(Me.TPAFSFileGenerator)
         Me.TCDMUTools.Controls.Add(Me.TPErrorLog)
         Me.TCDMUTools.Controls.Add(Me.TPWebErrorLog)
         Me.TCDMUTools.Dock = System.Windows.Forms.DockStyle.Fill
@@ -227,305 +96,6 @@ Partial Class DMUDeveloperTool
         Me.TCDMUTools.SelectedIndex = 0
         Me.TCDMUTools.Size = New System.Drawing.Size(792, 687)
         Me.TCDMUTools.TabIndex = 256
-        '
-        'TPAFSFileGenerator
-        '
-        Me.TPAFSFileGenerator.Controls.Add(Me.txtAFSBatchFile)
-        Me.TPAFSFileGenerator.Controls.Add(Me.PanelBatchOrder)
-        Me.TPAFSFileGenerator.Location = New System.Drawing.Point(4, 22)
-        Me.TPAFSFileGenerator.Name = "TPAFSFileGenerator"
-        Me.TPAFSFileGenerator.Size = New System.Drawing.Size(784, 661)
-        Me.TPAFSFileGenerator.TabIndex = 1
-        Me.TPAFSFileGenerator.Text = "AFS File Generator"
-        Me.TPAFSFileGenerator.UseVisualStyleBackColor = True
-        '
-        'txtAFSBatchFile
-        '
-        Me.txtAFSBatchFile.AcceptsReturn = True
-        Me.txtAFSBatchFile.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtAFSBatchFile.Location = New System.Drawing.Point(0, 257)
-        Me.txtAFSBatchFile.Multiline = True
-        Me.txtAFSBatchFile.Name = "txtAFSBatchFile"
-        Me.txtAFSBatchFile.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtAFSBatchFile.Size = New System.Drawing.Size(784, 404)
-        Me.txtAFSBatchFile.TabIndex = 11
-        '
-        'PanelBatchOrder
-        '
-        Me.PanelBatchOrder.Controls.Add(Me.pnlBasicRefresh)
-        Me.PanelBatchOrder.Controls.Add(Me.pnlSubParts)
-        Me.PanelBatchOrder.Controls.Add(Me.pnlAIRSSpecific)
-        Me.PanelBatchOrder.Controls.Add(Me.pnlStandardFile)
-        Me.PanelBatchOrder.Controls.Add(Me.Panel8)
-        Me.PanelBatchOrder.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelBatchOrder.Location = New System.Drawing.Point(0, 0)
-        Me.PanelBatchOrder.Name = "PanelBatchOrder"
-        Me.PanelBatchOrder.Size = New System.Drawing.Size(784, 257)
-        Me.PanelBatchOrder.TabIndex = 10
-        '
-        'pnlBasicRefresh
-        '
-        Me.pnlBasicRefresh.Controls.Add(Me.btnForceBasicRefresh)
-        Me.pnlBasicRefresh.Controls.Add(Me.Label11)
-        Me.pnlBasicRefresh.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlBasicRefresh.Enabled = False
-        Me.pnlBasicRefresh.Location = New System.Drawing.Point(296, 160)
-        Me.pnlBasicRefresh.Name = "pnlBasicRefresh"
-        Me.pnlBasicRefresh.Size = New System.Drawing.Size(488, 97)
-        Me.pnlBasicRefresh.TabIndex = 21
-        '
-        'btnForceBasicRefresh
-        '
-        Me.btnForceBasicRefresh.AutoSize = True
-        Me.btnForceBasicRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnForceBasicRefresh.Location = New System.Drawing.Point(3, 8)
-        Me.btnForceBasicRefresh.Name = "btnForceBasicRefresh"
-        Me.btnForceBasicRefresh.Size = New System.Drawing.Size(113, 23)
-        Me.btnForceBasicRefresh.TabIndex = 10
-        Me.btnForceBasicRefresh.Text = "Force Basic Refresh"
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(10, 34)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(175, 13)
-        Me.Label11.TabIndex = 13
-        Me.Label11.Text = "This will force an add of all facilities."
-        '
-        'pnlSubParts
-        '
-        Me.pnlSubParts.Controls.Add(Me.btnUpdateAllSubParts)
-        Me.pnlSubParts.Controls.Add(Me.Label6)
-        Me.pnlSubParts.Dock = System.Windows.Forms.DockStyle.Top
-        Me.pnlSubParts.Enabled = False
-        Me.pnlSubParts.Location = New System.Drawing.Point(296, 98)
-        Me.pnlSubParts.Name = "pnlSubParts"
-        Me.pnlSubParts.Size = New System.Drawing.Size(488, 62)
-        Me.pnlSubParts.TabIndex = 20
-        '
-        'btnUpdateAllSubParts
-        '
-        Me.btnUpdateAllSubParts.AutoSize = True
-        Me.btnUpdateAllSubParts.Location = New System.Drawing.Point(3, 5)
-        Me.btnUpdateAllSubParts.Name = "btnUpdateAllSubParts"
-        Me.btnUpdateAllSubParts.Size = New System.Drawing.Size(112, 23)
-        Me.btnUpdateAllSubParts.TabIndex = 11
-        Me.btnUpdateAllSubParts.Text = "Update All SubParts"
-        Me.btnUpdateAllSubParts.UseVisualStyleBackColor = True
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(10, 31)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(252, 13)
-        Me.Label6.TabIndex = 12
-        Me.Label6.Text = "This will add and update all SubParts for all Facilities"
-        '
-        'pnlAIRSSpecific
-        '
-        Me.pnlAIRSSpecific.Controls.Add(Me.btnAIRSSpecificRefresh)
-        Me.pnlAIRSSpecific.Controls.Add(Me.mtbAFSAirsNumber)
-        Me.pnlAIRSSpecific.Controls.Add(Me.Label12)
-        Me.pnlAIRSSpecific.Dock = System.Windows.Forms.DockStyle.Top
-        Me.pnlAIRSSpecific.Enabled = False
-        Me.pnlAIRSSpecific.Location = New System.Drawing.Point(296, 40)
-        Me.pnlAIRSSpecific.Name = "pnlAIRSSpecific"
-        Me.pnlAIRSSpecific.Size = New System.Drawing.Size(488, 58)
-        Me.pnlAIRSSpecific.TabIndex = 19
-        '
-        'btnAIRSSpecificRefresh
-        '
-        Me.btnAIRSSpecificRefresh.AutoSize = True
-        Me.btnAIRSSpecificRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnAIRSSpecificRefresh.Enabled = False
-        Me.btnAIRSSpecificRefresh.Location = New System.Drawing.Point(83, 7)
-        Me.btnAIRSSpecificRefresh.Name = "btnAIRSSpecificRefresh"
-        Me.btnAIRSSpecificRefresh.Size = New System.Drawing.Size(123, 23)
-        Me.btnAIRSSpecificRefresh.TabIndex = 15
-        Me.btnAIRSSpecificRefresh.Text = "AIRS Specific Refresh"
-        '
-        'mtbAFSAirsNumber
-        '
-        Me.mtbAFSAirsNumber.Location = New System.Drawing.Point(7, 9)
-        Me.mtbAFSAirsNumber.Mask = "000-00000"
-        Me.mtbAFSAirsNumber.Name = "mtbAFSAirsNumber"
-        Me.mtbAFSAirsNumber.Size = New System.Drawing.Size(70, 20)
-        Me.mtbAFSAirsNumber.TabIndex = 14
-        Me.mtbAFSAirsNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(9, 33)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(254, 13)
-        Me.Label12.TabIndex = 16
-        Me.Label12.Text = "This will add and update all of a Facilities Information"
-        '
-        'pnlStandardFile
-        '
-        Me.pnlStandardFile.Controls.Add(Me.btnGenerateBatchFile)
-        Me.pnlStandardFile.Controls.Add(Me.Label55)
-        Me.pnlStandardFile.Controls.Add(Me.Label3)
-        Me.pnlStandardFile.Controls.Add(Me.Label41)
-        Me.pnlStandardFile.Controls.Add(Me.Label2)
-        Me.pnlStandardFile.Controls.Add(Me.Label59)
-        Me.pnlStandardFile.Controls.Add(Me.Label58)
-        Me.pnlStandardFile.Controls.Add(Me.Label38)
-        Me.pnlStandardFile.Controls.Add(Me.Label29)
-        Me.pnlStandardFile.Dock = System.Windows.Forms.DockStyle.Left
-        Me.pnlStandardFile.Enabled = False
-        Me.pnlStandardFile.Location = New System.Drawing.Point(0, 40)
-        Me.pnlStandardFile.Name = "pnlStandardFile"
-        Me.pnlStandardFile.Size = New System.Drawing.Size(296, 217)
-        Me.pnlStandardFile.TabIndex = 17
-        '
-        'btnGenerateBatchFile
-        '
-        Me.btnGenerateBatchFile.Location = New System.Drawing.Point(11, 7)
-        Me.btnGenerateBatchFile.Name = "btnGenerateBatchFile"
-        Me.btnGenerateBatchFile.Size = New System.Drawing.Size(88, 23)
-        Me.btnGenerateBatchFile.TabIndex = 0
-        Me.btnGenerateBatchFile.Text = "Generate File"
-        '
-        'Label55
-        '
-        Me.Label55.AutoSize = True
-        Me.Label55.Location = New System.Drawing.Point(139, 117)
-        Me.Label55.Name = "Label55"
-        Me.Label55.Size = New System.Drawing.Size(112, 13)
-        Me.Label55.TabIndex = 5
-        Me.Label55.Text = "4) Compliance Actions"
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(123, 16)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(102, 13)
-        Me.Label3.TabIndex = 1
-        Me.Label3.Text = "Batch File Hierarchy"
-        '
-        'Label41
-        '
-        Me.Label41.AutoSize = True
-        Me.Label41.Location = New System.Drawing.Point(139, 93)
-        Me.Label41.Name = "Label41"
-        Me.Label41.Size = New System.Drawing.Size(103, 13)
-        Me.Label41.TabIndex = 4
-        Me.Label41.Text = "3) Permitting Actions"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(139, 45)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(84, 13)
-        Me.Label2.TabIndex = 2
-        Me.Label2.Text = "1) New Facilities"
-        '
-        'Label59
-        '
-        Me.Label59.AutoSize = True
-        Me.Label59.Location = New System.Drawing.Point(139, 189)
-        Me.Label59.Name = "Label59"
-        Me.Label59.Size = New System.Drawing.Size(109, 13)
-        Me.Label59.TabIndex = 7
-        Me.Label59.Text = "7) ISMP Test Reports"
-        '
-        'Label58
-        '
-        Me.Label58.AutoSize = True
-        Me.Label58.Location = New System.Drawing.Point(139, 165)
-        Me.Label58.Name = "Label58"
-        Me.Label58.Size = New System.Drawing.Size(117, 13)
-        Me.Label58.TabIndex = 6
-        Me.Label58.Text = "6) Enforcement Actions"
-        '
-        'Label38
-        '
-        Me.Label38.AutoSize = True
-        Me.Label38.Location = New System.Drawing.Point(139, 69)
-        Me.Label38.Name = "Label38"
-        Me.Label38.Size = New System.Drawing.Size(137, 13)
-        Me.Label38.TabIndex = 3
-        Me.Label38.Text = "2) Changes to Header Data"
-        '
-        'Label29
-        '
-        Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(139, 141)
-        Me.Label29.Name = "Label29"
-        Me.Label29.Size = New System.Drawing.Size(151, 13)
-        Me.Label29.TabIndex = 8
-        Me.Label29.Text = "5) Full Compliance Evaluations"
-        '
-        'Panel8
-        '
-        Me.Panel8.Controls.Add(Me.rdbBasicData)
-        Me.Panel8.Controls.Add(Me.rdbUpdateAllSubparts)
-        Me.Panel8.Controls.Add(Me.rdbAIRSSpecific)
-        Me.Panel8.Controls.Add(Me.rdbGenerateStandardFile)
-        Me.Panel8.Controls.Add(Me.btnClearAFSFileGenerator)
-        Me.Panel8.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel8.Location = New System.Drawing.Point(0, 0)
-        Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(784, 40)
-        Me.Panel8.TabIndex = 18
-        '
-        'rdbBasicData
-        '
-        Me.rdbBasicData.AutoSize = True
-        Me.rdbBasicData.Location = New System.Drawing.Point(488, 11)
-        Me.rdbBasicData.Name = "rdbBasicData"
-        Me.rdbBasicData.Size = New System.Drawing.Size(169, 17)
-        Me.rdbBasicData.TabIndex = 13
-        Me.rdbBasicData.TabStop = True
-        Me.rdbBasicData.Text = "Force Refresh of all basic data"
-        Me.rdbBasicData.UseVisualStyleBackColor = True
-        '
-        'rdbUpdateAllSubparts
-        '
-        Me.rdbUpdateAllSubparts.AutoSize = True
-        Me.rdbUpdateAllSubparts.Location = New System.Drawing.Point(363, 11)
-        Me.rdbUpdateAllSubparts.Name = "rdbUpdateAllSubparts"
-        Me.rdbUpdateAllSubparts.Size = New System.Drawing.Size(119, 17)
-        Me.rdbUpdateAllSubparts.TabIndex = 12
-        Me.rdbUpdateAllSubparts.TabStop = True
-        Me.rdbUpdateAllSubparts.Text = "Update All Subparts"
-        Me.rdbUpdateAllSubparts.UseVisualStyleBackColor = True
-        '
-        'rdbAIRSSpecific
-        '
-        Me.rdbAIRSSpecific.AutoSize = True
-        Me.rdbAIRSSpecific.Location = New System.Drawing.Point(266, 11)
-        Me.rdbAIRSSpecific.Name = "rdbAIRSSpecific"
-        Me.rdbAIRSSpecific.Size = New System.Drawing.Size(91, 17)
-        Me.rdbAIRSSpecific.TabIndex = 11
-        Me.rdbAIRSSpecific.TabStop = True
-        Me.rdbAIRSSpecific.Text = "AIRS Specific"
-        Me.rdbAIRSSpecific.UseVisualStyleBackColor = True
-        '
-        'rdbGenerateStandardFile
-        '
-        Me.rdbGenerateStandardFile.AutoSize = True
-        Me.rdbGenerateStandardFile.Location = New System.Drawing.Point(126, 11)
-        Me.rdbGenerateStandardFile.Name = "rdbGenerateStandardFile"
-        Me.rdbGenerateStandardFile.Size = New System.Drawing.Size(134, 17)
-        Me.rdbGenerateStandardFile.TabIndex = 10
-        Me.rdbGenerateStandardFile.TabStop = True
-        Me.rdbGenerateStandardFile.Text = "Generate Standard File"
-        Me.rdbGenerateStandardFile.UseVisualStyleBackColor = True
-        '
-        'btnClearAFSFileGenerator
-        '
-        Me.btnClearAFSFileGenerator.Location = New System.Drawing.Point(11, 8)
-        Me.btnClearAFSFileGenerator.Name = "btnClearAFSFileGenerator"
-        Me.btnClearAFSFileGenerator.Size = New System.Drawing.Size(87, 23)
-        Me.btnClearAFSFileGenerator.TabIndex = 9
-        Me.btnClearAFSFileGenerator.Text = "Clear Form"
         '
         'TPErrorLog
         '
@@ -1046,19 +616,6 @@ Partial Class DMUDeveloperTool
         Me.Name = "DMUDeveloperTool"
         Me.Text = "DMU Developer Tools"
         Me.TCDMUTools.ResumeLayout(False)
-        Me.TPAFSFileGenerator.ResumeLayout(False)
-        Me.TPAFSFileGenerator.PerformLayout()
-        Me.PanelBatchOrder.ResumeLayout(False)
-        Me.pnlBasicRefresh.ResumeLayout(False)
-        Me.pnlBasicRefresh.PerformLayout()
-        Me.pnlSubParts.ResumeLayout(False)
-        Me.pnlSubParts.PerformLayout()
-        Me.pnlAIRSSpecific.ResumeLayout(False)
-        Me.pnlAIRSSpecific.PerformLayout()
-        Me.pnlStandardFile.ResumeLayout(False)
-        Me.pnlStandardFile.PerformLayout()
-        Me.Panel8.ResumeLayout(False)
-        Me.Panel8.PerformLayout()
         Me.TPErrorLog.ResumeLayout(False)
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
@@ -1075,8 +632,6 @@ Partial Class DMUDeveloperTool
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents bgwTransfer As System.ComponentModel.BackgroundWorker
-    Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents TCDMUTools As System.Windows.Forms.TabControl
     Friend WithEvents TPWebErrorLog As System.Windows.Forms.TabPage
     Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
@@ -1121,20 +676,6 @@ Partial Class DMUDeveloperTool
     Friend WithEvents btnSaveError As System.Windows.Forms.Button
     Friend WithEvents txtErrorNumber As System.Windows.Forms.TextBox
     Friend WithEvents Label61 As System.Windows.Forms.Label
-    Friend WithEvents TPAFSFileGenerator As System.Windows.Forms.TabPage
-    Friend WithEvents txtAFSBatchFile As System.Windows.Forms.TextBox
-    Friend WithEvents PanelBatchOrder As System.Windows.Forms.Panel
-    Friend WithEvents btnClearAFSFileGenerator As System.Windows.Forms.Button
-    Friend WithEvents Label29 As System.Windows.Forms.Label
-    Friend WithEvents Label38 As System.Windows.Forms.Label
-    Friend WithEvents Label58 As System.Windows.Forms.Label
-    Friend WithEvents Label59 As System.Windows.Forms.Label
-    Friend WithEvents btnGenerateBatchFile As System.Windows.Forms.Button
-    Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents Label41 As System.Windows.Forms.Label
-    Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents Label55 As System.Windows.Forms.Label
-    Friend WithEvents btnForceBasicRefresh As System.Windows.Forms.Button
     Friend WithEvents Panel5 As System.Windows.Forms.Panel
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
     Friend WithEvents Panel6 As System.Windows.Forms.Panel
@@ -1143,19 +684,4 @@ Partial Class DMUDeveloperTool
     Friend WithEvents rdbLast30Days As System.Windows.Forms.RadioButton
     Friend WithEvents btnExporttoExcel As System.Windows.Forms.Button
     Friend WithEvents dgvErrorList As System.Windows.Forms.DataGridView
-    Friend WithEvents btnUpdateAllSubParts As System.Windows.Forms.Button
-    Friend WithEvents mtbAFSAirsNumber As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents Label11 As System.Windows.Forms.Label
-    Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents btnAIRSSpecificRefresh As System.Windows.Forms.Button
-    Friend WithEvents Label12 As System.Windows.Forms.Label
-    Friend WithEvents pnlStandardFile As System.Windows.Forms.Panel
-    Friend WithEvents pnlBasicRefresh As System.Windows.Forms.Panel
-    Friend WithEvents pnlSubParts As System.Windows.Forms.Panel
-    Friend WithEvents pnlAIRSSpecific As System.Windows.Forms.Panel
-    Friend WithEvents Panel8 As System.Windows.Forms.Panel
-    Friend WithEvents rdbUpdateAllSubparts As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbAIRSSpecific As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbGenerateStandardFile As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbBasicData As System.Windows.Forms.RadioButton
 End Class
