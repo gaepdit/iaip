@@ -19,66 +19,66 @@ Partial Class PASPFeeReports
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.tabReport = New System.Windows.Forms.TabControl
-        Me.TPFacilitySpecific = New System.Windows.Forms.TabPage
-        Me.cboFacilityName = New System.Windows.Forms.ComboBox
-        Me.cboAirsNo = New System.Windows.Forms.ComboBox
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.llbViewAll = New System.Windows.Forms.LinkLabel
-        Me.Label = New System.Windows.Forms.Label
-        Me.TPFinancial = New System.Windows.Forms.TabPage
-        Me.pnlDateRange = New System.Windows.Forms.Panel
-        Me.btnRunVarianceReport = New System.Windows.Forms.Button
-        Me.rdb2006Variance = New System.Windows.Forms.RadioButton
-        Me.rdb2005Variance = New System.Windows.Forms.RadioButton
-        Me.btndeposit = New System.Windows.Forms.Button
-        Me.btnDateReport = New System.Windows.Forms.Button
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker
-        Me.Panel4 = New System.Windows.Forms.Panel
-        Me.btnvariance = New System.Windows.Forms.Button
-        Me.btnFeeByYear = New System.Windows.Forms.Button
-        Me.btnBankrupt = New System.Windows.Forms.Button
-        Me.btnPayDate = New System.Windows.Forms.Button
-        Me.btnPayment = New System.Windows.Forms.Button
-        Me.TPYearSpecific = New System.Windows.Forms.TabPage
-        Me.Panel5 = New System.Windows.Forms.Panel
-        Me.mtbFacilityBalanceYear = New System.Windows.Forms.MaskedTextBox
-        Me.chbFacilityBalance = New System.Windows.Forms.CheckBox
-        Me.lblFacilityBalanceReportTag = New System.Windows.Forms.Label
-        Me.btnRunBalanceReport = New System.Windows.Forms.Button
-        Me.btnFeeBalanceZero = New System.Windows.Forms.Button
-        Me.btnFeeBalance = New System.Windows.Forms.Button
-        Me.btnClassification = New System.Windows.Forms.Button
-        Me.btnFeesandEmissions = New System.Windows.Forms.Button
-        Me.TPDeposits = New System.Windows.Forms.TabPage
-        Me.cboDepositNo = New System.Windows.Forms.ComboBox
-        Me.cboAirs = New System.Windows.Forms.ComboBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.lblDepositData = New System.Windows.Forms.LinkLabel
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.TPCompliance = New System.Windows.Forms.TabPage
-        Me.pnlNSPS = New System.Windows.Forms.Panel
-        Me.btnRunNonRespondent = New System.Windows.Forms.Button
-        Me.lblNonRespondant = New System.Windows.Forms.Label
-        Me.mtbNonRespondentYear = New System.Windows.Forms.MaskedTextBox
-        Me.lblNSPS3 = New System.Windows.Forms.LinkLabel
-        Me.lblNSPS2 = New System.Windows.Forms.LinkLabel
-        Me.lblNSPS1 = New System.Windows.Forms.LinkLabel
-        Me.Panel6 = New System.Windows.Forms.Panel
-        Me.btnNSPSChange = New System.Windows.Forms.Button
-        Me.btnNoOperate = New System.Windows.Forms.Button
-        Me.btnNoResponse = New System.Windows.Forms.Button
-        Me.btnClassChange = New System.Windows.Forms.Button
-        Me.TPGeneral = New System.Windows.Forms.TabPage
-        Me.Panel7 = New System.Windows.Forms.Panel
-        Me.btnTrainingReg = New System.Windows.Forms.Button
-        Me.btnFacInfoChange = New System.Windows.Forms.Button
-        Me.btnComments = New System.Windows.Forms.Button
-        Me.CRFeesReports = New CrystalDecisions.Windows.Forms.CrystalReportViewer
+        Me.tabReport = New System.Windows.Forms.TabControl()
+        Me.TPFacilitySpecific = New System.Windows.Forms.TabPage()
+        Me.cboFacilityName = New System.Windows.Forms.ComboBox()
+        Me.cboAirsNo = New System.Windows.Forms.ComboBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.llbViewAll = New System.Windows.Forms.LinkLabel()
+        Me.Label = New System.Windows.Forms.Label()
+        Me.TPFinancial = New System.Windows.Forms.TabPage()
+        Me.pnlDateRange = New System.Windows.Forms.Panel()
+        Me.btnRunVarianceReport = New System.Windows.Forms.Button()
+        Me.rdb2006Variance = New System.Windows.Forms.RadioButton()
+        Me.rdb2005Variance = New System.Windows.Forms.RadioButton()
+        Me.btndeposit = New System.Windows.Forms.Button()
+        Me.btnDateReport = New System.Windows.Forms.Button()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.btnvariance = New System.Windows.Forms.Button()
+        Me.btnFeeByYear = New System.Windows.Forms.Button()
+        Me.btnBankrupt = New System.Windows.Forms.Button()
+        Me.btnPayDate = New System.Windows.Forms.Button()
+        Me.btnPayment = New System.Windows.Forms.Button()
+        Me.TPYearSpecific = New System.Windows.Forms.TabPage()
+        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.mtbFacilityBalanceYear = New System.Windows.Forms.MaskedTextBox()
+        Me.chbFacilityBalance = New System.Windows.Forms.CheckBox()
+        Me.lblFacilityBalanceReportTag = New System.Windows.Forms.Label()
+        Me.btnRunBalanceReport = New System.Windows.Forms.Button()
+        Me.btnFeeBalanceZero = New System.Windows.Forms.Button()
+        Me.btnFeeBalance = New System.Windows.Forms.Button()
+        Me.btnClassification = New System.Windows.Forms.Button()
+        Me.btnFeesandEmissions = New System.Windows.Forms.Button()
+        Me.TPDeposits = New System.Windows.Forms.TabPage()
+        Me.cboDepositNo = New System.Windows.Forms.ComboBox()
+        Me.cboAirs = New System.Windows.Forms.ComboBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblDepositData = New System.Windows.Forms.LinkLabel()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.TPCompliance = New System.Windows.Forms.TabPage()
+        Me.pnlNSPS = New System.Windows.Forms.Panel()
+        Me.btnRunNonRespondent = New System.Windows.Forms.Button()
+        Me.lblNonRespondant = New System.Windows.Forms.Label()
+        Me.mtbNonRespondentYear = New System.Windows.Forms.MaskedTextBox()
+        Me.lblNSPS3 = New System.Windows.Forms.LinkLabel()
+        Me.lblNSPS2 = New System.Windows.Forms.LinkLabel()
+        Me.lblNSPS1 = New System.Windows.Forms.LinkLabel()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.btnNSPSChange = New System.Windows.Forms.Button()
+        Me.btnNoOperate = New System.Windows.Forms.Button()
+        Me.btnNoResponse = New System.Windows.Forms.Button()
+        Me.btnClassChange = New System.Windows.Forms.Button()
+        Me.TPGeneral = New System.Windows.Forms.TabPage()
+        Me.Panel7 = New System.Windows.Forms.Panel()
+        Me.btnTrainingReg = New System.Windows.Forms.Button()
+        Me.btnFacInfoChange = New System.Windows.Forms.Button()
+        Me.btnComments = New System.Windows.Forms.Button()
+        Me.CRFeesReports = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
         Me.tabReport.SuspendLayout()
         Me.TPFacilitySpecific.SuspendLayout()
         Me.TPFinancial.SuspendLayout()
@@ -300,7 +300,7 @@ Partial Class PASPFeeReports
         Me.Label3.Size = New System.Drawing.Size(588, 19)
         Me.Label3.TabIndex = 1
         Me.Label3.Text = "Select the Date Range and click on ""Get Report"" button. If no date is selected, t" & _
-            "oday's date will be assumed."
+    "oday's date will be assumed."
         '
         'DateTimePicker1
         '
@@ -461,7 +461,7 @@ Partial Class PASPFeeReports
         Me.lblFacilityBalanceReportTag.Size = New System.Drawing.Size(533, 13)
         Me.lblFacilityBalanceReportTag.TabIndex = 6
         Me.lblFacilityBalanceReportTag.Text = "Please enter in a valid year (2000 or 2001, etc...) If you do not enter a valid y" & _
-            "ear the current year will be entered."
+    "ear the current year will be entered."
         '
         'btnRunBalanceReport
         '
@@ -850,7 +850,8 @@ Partial Class PASPFeeReports
         '
         Me.CRFeesReports.ActiveViewIndex = -1
         Me.CRFeesReports.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CRFeesReports.DisplayGroupTree = False
+        Me.CRFeesReports.CachedPageNumberPerDoc = 10
+        Me.CRFeesReports.Cursor = System.Windows.Forms.Cursors.Default
         Me.CRFeesReports.DisplayToolbar = False
         Me.CRFeesReports.Dock = System.Windows.Forms.DockStyle.Fill
         Me.CRFeesReports.Location = New System.Drawing.Point(0, 114)
@@ -859,6 +860,7 @@ Partial Class PASPFeeReports
         Me.CRFeesReports.SelectionFormula = ""
         Me.CRFeesReports.Size = New System.Drawing.Size(669, 422)
         Me.CRFeesReports.TabIndex = 269
+        Me.CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
         Me.CRFeesReports.ViewTimeSelectionFormula = ""
         '
         'PASPFeeReports
