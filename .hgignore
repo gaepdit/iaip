@@ -1,0 +1,8 @@
+syntax: glob
+
+Website/changelog.html
+Website/index.html
+Website/install/index.html
+Website/changelog.min.html
+Website/index.min.html
+Website/install/index.min.html
