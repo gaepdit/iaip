@@ -1,4 +1,4 @@
-﻿Imports Oracle.DataAccess.Client
+﻿Imports Oracle.ManagedDataAccess.Client
 
 Public Class IAIPLookUpTables
     Dim SQL As String

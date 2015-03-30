@@ -5,8 +5,8 @@ Imports Iaip.Apb.SSCP
 Imports Iaip.DAL.SSCP
 Imports Iaip.DAL.Documents
 
-Imports Oracle.DataAccess.Types
-Imports Oracle.DataAccess.Client
+Imports Oracle.ManagedDataAccess.Types
+Imports Oracle.ManagedDataAccess.Client
 
 Public Class SscpEnforcement
 

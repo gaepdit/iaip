@@ -1,4 +1,4 @@
-Imports Oracle.DataAccess.Client
+Imports Oracle.ManagedDataAccess.Client
 
 Public Class SSCPFCEWork
     Dim SQL, SQL2 As String

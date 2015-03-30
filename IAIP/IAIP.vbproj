@@ -101,9 +101,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\common-libraries\Telerik\Analytics\3.2.61\EQATEC.Analytics.Monitor.dll</HintPath>
     </Reference>
-    <Reference Include="Oracle.DataAccess, Version=2.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\common-libraries\Oracle\x86\ODAC_xcopy\Oracle.DataAccess.dll</HintPath>
+      <HintPath>..\packages\Oracle.ManagedDataAccess.12.1.021\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -1426,26 +1426,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="IAIP_New_TemporaryKey.pfx" />
-    <Content Include="..\..\common-libraries\Oracle\x86\instantclient\oci.dll">
-      <Link>oci.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\common-libraries\Oracle\x86\instantclient\orannzsbb11.dll">
-      <Link>orannzsbb11.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\common-libraries\Oracle\x86\instantclient\oraociicus11.dll">
-      <Link>oraociicus11.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\common-libraries\Oracle\x86\ODAC_xcopy\OraOps11w.dll">
-      <Link>OraOps11w.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </Content>
+    <None Include="packages.config" />
     <None Include="Resources\saveHS.png" />
     <None Include="Resources\Seal_of_Georgia_gold.ico" />
     <None Include="Resources\Seal_of_Georgia_red_small.ico" />

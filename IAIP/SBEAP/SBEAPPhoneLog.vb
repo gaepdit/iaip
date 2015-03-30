@@ -1,4 +1,4 @@
-﻿Imports Oracle.DataAccess.Client
+﻿Imports Oracle.ManagedDataAccess.Client
 
 Public Class SBEAPPhoneLog
     Dim SQL, SQL2 As String

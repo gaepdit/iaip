@@ -1,4 +1,4 @@
-﻿Imports Oracle.DataAccess.Types
+﻿Imports Oracle.ManagedDataAccess.Types
 Imports System.IO
 
 Public Class Document

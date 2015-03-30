@@ -1,6 +1,6 @@
 ﻿Imports System.DateTime
 Imports System.IO
-Imports Oracle.DataAccess.Client
+Imports Oracle.ManagedDataAccess.Client
 
 Public Class DMUEisGecoTool
     Dim daStaff As OracleDataAdapter

@@ -1,5 +1,5 @@
-﻿Imports Oracle.DataAccess.Client
-Imports Oracle.DataAccess.Types
+﻿Imports Oracle.ManagedDataAccess.Client
+Imports Oracle.ManagedDataAccess.Types
 
 Namespace DAL
     Module QueryGenerator

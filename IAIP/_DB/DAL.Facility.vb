@@ -1,4 +1,4 @@
-﻿Imports Oracle.DataAccess.Client
+﻿Imports Oracle.ManagedDataAccess.Client
 Imports Iaip.Apb
 Imports Iaip.Apb.Facility
 Imports System.Collections.Generic

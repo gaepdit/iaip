@@ -1,5 +1,5 @@
 ﻿Imports System.Collections.Generic
-Imports Oracle.DataAccess.Client
+Imports Oracle.ManagedDataAccess.Client
 Imports CrystalDecisions.Shared
 
 Public Class SmokeSchool

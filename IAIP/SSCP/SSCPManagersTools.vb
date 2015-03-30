@@ -1,4 +1,4 @@
-Imports Oracle.DataAccess.Client
+Imports Oracle.ManagedDataAccess.Client
 Imports System.Data
 Imports System.IO
 'Imports System.Text

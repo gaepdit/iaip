@@ -1,4 +1,4 @@
-﻿Imports Oracle.DataAccess.Client
+﻿Imports Oracle.ManagedDataAccess.Client
 Imports System.Collections.Generic
 Imports Iaip.DAL.EventRegistration
 Imports Iaip.Apb.Res

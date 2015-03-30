@@ -1,5 +1,5 @@
 ﻿Imports System.Collections.Generic
-Imports Oracle.DataAccess.Client
+Imports Oracle.ManagedDataAccess.Client
 Imports Iaip.Apb.SSPP
 
 Namespace DAL.SSPP
