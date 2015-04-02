@@ -293,10 +293,53 @@ Namespace DB
 
 #End Region
 
+#Region " SP Read (DataTable) "
+
+        Public Function SPGetDataTable(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing) As DataTable
+            Dim parameterArray As OracleParameter() = {parameter}
+            Return SPGetDataTable(spName, parameterArray)
+        End Function
+
+        Public Function SPGetDataTable(ByVal spName As String, ByVal parameterArray As OracleParameter()) As DataTable
+            Dim table As New DataTable
+            Using connection As New OracleConnection(CurrentConnectionString)
+                Using command As New OracleCommand(spName, connection)
+                    command.CommandType = CommandType.StoredProcedure
+                    command.BindByName = True
+                    command.Parameters.AddRange(parameterArray)
+                    Using adapter As New OracleDataAdapter(command)
+                        Try
+                            command.Connection.Open()
+                            adapter.Fill(table)
+                            command.Connection.Close()
+                            Return table
+                        Catch ee As OracleException
+                            ErrorReport(ee, System.Reflection.MethodBase.GetCurrentMethod.Name)
+                            Return Nothing
+                        End Try
+                    End Using
+                End Using
+            End Using
+        End Function
+
+#End Region
+
 #Region " SP Write (ExecuteNonQuery) "
 
-        Public Function SPRunCommand(ByVal spName As String, ByVal parameterArray As OracleParameter()) As Integer
-            Dim rowsAffected As Integer = 0
+        Public Function SPRunCommand(ByVal spName As String, _
+                                     Optional ByVal parameter As OracleParameter = Nothing, _
+                                     Optional ByRef rowsAffected As Integer = 0 _
+                                     ) As Boolean
+            rowsAffected = 0
+            Dim parameterArray As OracleParameter() = {parameter}
+            Return SPRunCommand(spName, parameterArray, rowsAffected)
+        End Function
+
+        Public Function SPRunCommand(ByVal spName As String, _
+                                     ByVal parameterArray As OracleParameter(), _
+                                     Optional ByRef rowsAffected As Integer = 0 _
+                                     ) As Boolean
+            rowsAffected = 0
             Using connection As New OracleConnection(CurrentConnectionString)
                 Using command As New OracleCommand(spName, connection)
                     command.CommandType = CommandType.StoredProcedure
@@ -305,11 +348,11 @@ Namespace DB
                         command.Connection.Open()
                         rowsAffected = command.ExecuteNonQuery()
                         command.Connection.Close()
+                        Return True
                     Catch ee As OracleException
                         MessageBox.Show("Database error: " & ee.ToString)
+                        Return False
                     End Try
-
-                    Return rowsAffected
                 End Using
             End Using
         End Function
