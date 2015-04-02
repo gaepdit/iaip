@@ -70,6 +70,7 @@ Namespace DAL
 
             With user
                 .Staff = staff
+                .UserID = DB.GetNullable(Of Integer)(row("numUserID"))
                 .UserName = DB.GetNullable(Of String)(row("strUserName"))
                 .PermissionsString = DB.GetNullable(Of String)(row("strIAIPPermissions"))
             End With
