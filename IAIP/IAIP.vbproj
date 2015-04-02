@@ -914,8 +914,8 @@
       <DependentUpon>IAIPPhoneList.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="DMU\DmuEdtErrors.resx">
-      <DependentUpon>DmuEdtErrors.vb</DependentUpon>
+    <EmbeddedResource Include="DMU\DmuEdtErrorMessages.resx">
+      <DependentUpon>DmuEdtErrorMessages.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Fees\PASPFeeStatistics.resx">
       <DependentUpon>PASPFeeStatistics.vb</DependentUpon>
@@ -1461,10 +1461,10 @@
     <None Include="Resources\Seal_of_Georgia_gold.ico" />
     <None Include="Resources\Seal_of_Georgia_red_small.ico" />
     <None Include="Resources\Seal_of_Georgia_gold_256x256x32.png" />
-    <Compile Include="DMU\DmuEdtErrors.Designer.vb">
-      <DependentUpon>DmuEdtErrors.vb</DependentUpon>
+    <Compile Include="DMU\DmuEdtErrorMessages.Designer.vb">
+      <DependentUpon>DmuEdtErrorMessages.vb</DependentUpon>
     </Compile>
-    <Compile Include="DMU\DmuEdtErrors.vb">
+    <Compile Include="DMU\DmuEdtErrorMessages.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SSPP\Sub Forms\SsppPermitRevocationDialog.Designer.vb">
