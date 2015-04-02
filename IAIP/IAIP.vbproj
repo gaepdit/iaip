@@ -1479,6 +1479,10 @@
     <Compile Include="_Data Classes\DMU.EdtError.vb" />
     <Compile Include="_Data Classes\FacilityHeaderData.vb" />
     <Compile Include="_Data Classes\SSPP.Permit.vb" />
+    <Compile Include="_DB\DAL.DMU.EdtError.vb" />
+    <Compile Include="_DB\DAL.ISMP.StackTest.vb">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="_DB\DAL.SSCP.FacilityAssignments.vb" />
     <Compile Include="_DB\DAL.AppData.vb" />
     <Compile Include="_DB\DAL.FacilityHeaderData.vb" />
@@ -1580,7 +1584,6 @@
     </Compile>
     <Compile Include="_Data Classes\IaipUser.vb" />
     <Compile Include="_DB\DAL.SSCP.WorkItem.vb" />
-    <Compile Include="_DB\DAL.ISMP.StackTest.vb" />
     <Compile Include="_DB\DAL.LoginCreds.vb" />
     <Compile Include="_DB\DAL.NavigationScreen.vb">
       <SubType>Code</SubType>
