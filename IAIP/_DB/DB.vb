@@ -84,7 +84,7 @@ Namespace DB
             Dim dataTable As DataTable = DB.GetDataTable(query)
 
             For Each row As DataRow In dataTable.Rows
-                d.Add(row.Item(0), row(1))
+                d.Add(row.Item(0), row.Item(1))
             Next
 
             Return d
@@ -355,6 +355,23 @@ Namespace DB
                     End Try
                 End Using
             End Using
+        End Function
+
+#End Region
+
+#Region " SP Read (Lookup Dictionary) "
+
+        Public Function SPGetLookupDictionary(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing) _
+        As Dictionary(Of Integer, String)
+            Dim d As New Dictionary(Of Integer, String)
+
+            Dim dataTable As DataTable = DB.SPGetDataTable(spName, parameter)
+
+            For Each row As DataRow In dataTable.Rows
+                d.Add(row.Item(0), row.Item(1))
+            Next
+
+            Return d
         End Function
 
 #End Region
