@@ -914,6 +914,12 @@
       <DependentUpon>IAIPPhoneList.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="DMU\DmuEdtErrorDetail.resx">
+      <DependentUpon>DmuEdtErrorDetail.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DMU\DmuEdtErrorMessageDetail.resx">
+      <DependentUpon>DmuEdtErrorMessageDetail.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DMU\DmuEdtErrorMessages.resx">
       <DependentUpon>DmuEdtErrorMessages.vb</DependentUpon>
     </EmbeddedResource>
@@ -1461,6 +1467,18 @@
     <None Include="Resources\Seal_of_Georgia_gold.ico" />
     <None Include="Resources\Seal_of_Georgia_red_small.ico" />
     <None Include="Resources\Seal_of_Georgia_gold_256x256x32.png" />
+    <Compile Include="DMU\DmuEdtErrorDetail.Designer.vb">
+      <DependentUpon>DmuEdtErrorDetail.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DMU\DmuEdtErrorDetail.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DMU\DmuEdtErrorMessageDetail.Designer.vb">
+      <DependentUpon>DmuEdtErrorMessageDetail.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DMU\DmuEdtErrorMessageDetail.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="DMU\DmuEdtErrorMessages.Designer.vb">
       <DependentUpon>DmuEdtErrorMessages.vb</DependentUpon>
     </Compile>

@@ -1,19 +1,28 @@
-﻿Imports System.Collections.Generic
-
-Public Class DmuEdtErrorMessages
+﻿Public Class DmuEdtErrorMessageDetail
 
 #Region " Properties and variables "
 
     Private edtErrorMessagesTable As DataTable
     Private edtErrorMessagesBindingSource As BindingSource
+    Private edtErrorMessageDetails As DMU.EdtErrorMessage
+
+    Private _errorCode As String
+    Public Property ErrorCode() As String
+        Get
+            Return _errorCode
+        End Get
+        Set(ByVal value As String)
+            _errorCode = value
+        End Set
+    End Property
 
 #End Region
 
 #Region " Load "
 
-    Private Sub DmuEdtErrors_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        GetData()
+    Private Sub DmuEdtErrorMessageDetail_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         AddDisplayOptionHandlers()
+        PrepDefaultUserCombo()
     End Sub
 
     Private Sub AddDisplayOptionHandlers()
@@ -23,17 +32,43 @@ Public Class DmuEdtErrorMessages
         AddHandler DisplayAll.CheckedChanged, AddressOf DisplayOptionsChanged
     End Sub
 
+    Private Sub PrepDefaultUserCombo()
+        Dim activeUsers As Generic.Dictionary(Of Integer, String) = DAL.GetActiveUsers
+        DefaultUser.BindToDictionary(activeUsers)
+    End Sub
+
+#End Region
+
+#Region " Form-level events "
+
+    Private Sub DmuEdtErrorMessageDetail_ResizeEnd(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.ResizeEnd
+        ErrorMessageDisplay.MaximumSize = New Size(ErrorMessageDisplayContainer.Size.Width - 30, 0)
+        BusinessRuleDisplay.MaximumSize = New Size(BusinessRuleDisplayContainer.Size.Width - 30, 0)
+    End Sub
+
 #End Region
 
 #Region " Data "
 
     Private Sub ReloadButton_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles ReloadButton.Click
         'GetData()
-        OpenErrorMessageDetail("EAM307") ' testing only
+        OpenErrorDetail(4) ' testing only
     End Sub
 
-    Private Sub GetData()
-        edtErrorMessagesTable = DAL.DMU.GetErrorCounts(CurrentUser.UserID)
+    Public Sub GetData()
+        ErrorCodeDisplay.Text = ErrorCode
+
+        ' Header
+        edtErrorMessageDetails = DAL.DMU.GetErrorMessageDetail(ErrorCode)
+
+        If edtErrorMessageDetails IsNot Nothing Then
+            ErrorMessageDisplay.Text = edtErrorMessageDetails.ErrorMessage
+            BusinessRuleDisplay.Text = edtErrorMessageDetails.BusinessRuleMessage
+            DefaultUser.SelectedValue = edtErrorMessageDetails.DefaultUserID
+        End If
+
+        ' Table
+        edtErrorMessagesTable = DAL.DMU.GetErrors(ErrorCode)
 
         If edtErrorMessagesTable IsNot Nothing Then
             edtErrorMessagesBindingSource = New BindingSource
@@ -70,11 +105,11 @@ Public Class DmuEdtErrorMessages
 
     Private Sub SetGridDisplay()
         If DisplayMine.Checked And DisplayOpen.Checked Then
-            edtErrorMessagesBindingSource.Filter = "DefaultUserID = " & CurrentUser.UserID & " and CountOpenAssignedToUser > 0 "
+            edtErrorMessagesBindingSource.Filter = "AssignedToUser = " & CurrentUser.UserID & " and Resolved = False"
         ElseIf DisplayMine.Checked And DisplayAll.Checked Then
-            edtErrorMessagesBindingSource.Filter = "DefaultUserID = " & CurrentUser.UserID
+            edtErrorMessagesBindingSource.Filter = "AssignedToUser = " & CurrentUser.UserID
         ElseIf DisplayEveryone.Checked And DisplayOpen.Checked Then
-            edtErrorMessagesBindingSource.Filter = "CountOpen > 0 "
+            edtErrorMessagesBindingSource.Filter = "Resolved = False"
         ElseIf DisplayEveryone.Checked And DisplayAll.Checked Then
             edtErrorMessagesBindingSource.RemoveFilter()
         End If
@@ -91,23 +126,23 @@ Public Class DmuEdtErrorMessages
 
 #Region " DataGridView Selection and Events "
 
-    Private Sub OpenErrorMessageDetail(ByVal errorCode As String)
-        Dim edtErrorMessageDetail As DmuEdtErrorMessageDetail = OpenMultiForm(DmuEdtErrorMessageDetail, errorCode.GetHashCode)
-        edtErrorMessageDetail.ErrorCode = errorCode
-        edtErrorMessageDetail.GetData()
+    Private Sub OpenErrorDetail(ByVal errorID As Integer)
+        Dim edtErrorDetail As DmuEdtErrorDetail = OpenMultiForm(DmuEdtErrorDetail, errorID)
+        edtErrorDetail.ErrorID = errorID
+        edtErrorDetail.GetData()
     End Sub
 
     Private Sub EdtErrorMessageGrid_CellClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellClick
         ' Only within the cell content of first column
         If e.RowIndex <> -1 And e.RowIndex < EdtErrorMessageGrid.RowCount And e.ColumnIndex = 0 Then
-            OpenErrorMessageDetail(EdtErrorMessageGrid.Rows(e.RowIndex).Cells(0).Value)
+            OpenErrorDetail(EdtErrorMessageGrid.Rows(e.RowIndex).Cells(0).Value)
         End If
     End Sub
 
     Private Sub EdtErrorMessageGrid_CellDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellDoubleClick
         'Double-click within the cell content (but exclude first column to avoid double-firing)
         If e.RowIndex <> -1 And e.RowIndex < EdtErrorMessageGrid.RowCount And e.ColumnIndex <> 0 Then
-            OpenErrorMessageDetail(EdtErrorMessageGrid.Rows(e.RowIndex).Cells(0).Value)
+            OpenErrorDetail(EdtErrorMessageGrid.Rows(e.RowIndex).Cells(0).Value)
         End If
     End Sub
 
@@ -127,10 +162,13 @@ Public Class DmuEdtErrorMessages
 
     Private Sub EdtErrorMessageGrid_KeyUp(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles EdtErrorMessageGrid.KeyUp
         If e.KeyCode = Keys.Enter Then
-            OpenErrorMessageDetail(EdtErrorMessageGrid.CurrentRow.Cells(0).Value)
+            OpenErrorDetail(EdtErrorMessageGrid.CurrentRow.Cells(0).Value)
         End If
     End Sub
 
 #End Region
 
+    Private Sub DefaultUser_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DefaultUser.SelectedIndexChanged
+        ErrorCodeDisplay.Text = DefaultUser.SelectedValue.ToString & " | " & DefaultUser.SelectedText.ToString
+    End Sub
 End Class

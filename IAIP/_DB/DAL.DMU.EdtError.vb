@@ -200,7 +200,7 @@ Namespace DAL.DMU
         ''' <param name="errorIDs">An array of EDT error IDs to modify</param>
         ''' <returns>True if the action was successful; otherwise false</returns>
         Public Function AssignErrorToUser(ByVal userId As Integer, ByVal errorIDs As String()) As Boolean
-            Dim spName As String = "ICIS_EDT_ReassignError"
+            Dim spName As String = "ICIS_EDT_AssignError"
 
             Dim p1 As OracleParameter = New OracleParameter("userID", userId)
 
