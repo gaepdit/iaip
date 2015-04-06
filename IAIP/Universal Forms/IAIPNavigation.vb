@@ -1004,7 +1004,7 @@ Public Class IAIPNavigation
         'Console.WriteLine("CellMouseEnter: " & e.ColumnIndex.ToString & ", " & e.RowIndex.ToString)
         ' Change cursor and text color when hovering over first column (treats text like a hyperlink)
         If e.RowIndex <> -1 AndAlso e.RowIndex < dgvWorkViewer.RowCount AndAlso e.ColumnIndex = 0 Then
-            dgvWorkViewer.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex)
+            dgvWorkViewer.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex, True)
         End If
     End Sub
 
@@ -1013,7 +1013,7 @@ Public Class IAIPNavigation
         'Console.WriteLine("CellMouseLeave: " & e.ColumnIndex.ToString & ", " & e.RowIndex.ToString)
         ' Reset cursor and text color when mouse leaves (un-hovers) a cell
         If e.RowIndex <> -1 AndAlso e.RowIndex < dgvWorkViewer.RowCount AndAlso e.ColumnIndex = 0 Then
-            dgvWorkViewer.MakeCellNotLookLikeHoveredLink(e.RowIndex, e.ColumnIndex)
+            dgvWorkViewer.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex, False)
         End If
     End Sub
 

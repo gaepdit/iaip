@@ -3540,7 +3540,7 @@ Public Class SSPPApplicationLog
         ' Change cursor and text color when hovering over first column (treats text like a hyperlink)
 
         If e.ColumnIndex = dgvApplicationLog.Columns("strApplicationNumber").Index And e.RowIndex <> -1 Then
-            dgvApplicationLog.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex)
+            dgvApplicationLog.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex, True)
         End If
     End Sub
 
@@ -3548,7 +3548,7 @@ Public Class SSPPApplicationLog
     Handles dgvApplicationLog.CellMouseLeave
         ' Reset cursor and text color when mouse leaves (un-hovers) a cell
         If e.ColumnIndex = dgvApplicationLog.Columns("strApplicationNumber").Index And e.RowIndex <> -1 Then
-            dgvApplicationLog.MakeCellNotLookLikeHoveredLink(e.RowIndex, e.ColumnIndex)
+            dgvApplicationLog.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex, False)
         End If
     End Sub
 
