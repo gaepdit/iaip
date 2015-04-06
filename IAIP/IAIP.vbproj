@@ -1584,7 +1584,7 @@
     </Compile>
     <Compile Include="_Data Classes\IaipUser.vb" />
     <Compile Include="_DB\DAL.SSCP.WorkItem.vb" />
-    <Compile Include="_DB\DAL.LoginCreds.vb" />
+    <Compile Include="_DB\DAL.IaipUser.vb" />
     <Compile Include="_DB\DAL.NavigationScreen.vb">
       <SubType>Code</SubType>
     </Compile>
