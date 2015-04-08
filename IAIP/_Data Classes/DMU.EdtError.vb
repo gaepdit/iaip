@@ -86,6 +86,7 @@
             End Set
         End Property
         Private m_EdtTableName As String
+
         Public Property EdtID() As String
             Get
                 Return m_EdtID
@@ -95,6 +96,7 @@
             End Set
         End Property
         Private m_EdtID As String
+
         Public Property EdtForeignKeyID() As String
             Get
                 Return m_EdtForeignKeyID
@@ -104,6 +106,7 @@
             End Set
         End Property
         Private m_EdtForeignKeyID As String
+
         Public Property EdtOperation() As String
             Get
                 Return m_EdtOperation
@@ -113,6 +116,7 @@
             End Set
         End Property
         Private m_EdtOperation As String
+
         Public Property EdtStatus() As String
             Get
                 Return m_EdtStatus
@@ -122,6 +126,7 @@
             End Set
         End Property
         Private m_EdtStatus As String
+
         Public Property EdtSubmitDate() As DateTime
             Get
                 Return m_EdtSubmitDate
@@ -148,6 +153,7 @@
             End Set
         End Property
         Private m_ErrorID As Integer
+
         Public Property ErrorMessage() As EdtErrorMessage
             Get
                 Return m_ErrorMessage
@@ -157,6 +163,7 @@
             End Set
         End Property
         Private m_ErrorMessage As EdtErrorMessage
+
         Public Property EdtErrorMessageDetail() As String
             Get
                 Return m_EdtErrorMessageDetail
@@ -166,6 +173,7 @@
             End Set
         End Property
         Private m_EdtErrorMessageDetail As String
+
         Public Property EdtSubmission() As EdtSubmission
             Get
                 Return m_EdtSubmission
@@ -195,6 +203,7 @@
             End Set
         End Property
         Private m_Resolved As Boolean
+
         Public Property ResolvedDate() As DateTime
             Get
                 Return m_ResolvedDate
@@ -204,6 +213,7 @@
             End Set
         End Property
         Private m_ResolvedDate As DateTime
+
         Public Property ResolvedByUserID() As Integer
             Get
                 Return m_ResolvedByUserID
@@ -213,6 +223,7 @@
             End Set
         End Property
         Private m_ResolvedByUserID As Integer
+
         Public Property ResolvedByUserName() As String
             Get
                 Return m_ResolvedByUserName

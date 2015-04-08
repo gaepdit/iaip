@@ -336,7 +336,7 @@ Namespace DB
         End Function
 
         Public Function SPRunCommand(ByVal spName As String, _
-                                     ByVal parameterArray As OracleParameter(), _
+                                     ByRef parameterArray As OracleParameter(), _
                                      Optional ByRef rowsAffected As Integer = 0 _
                                      ) As Boolean
             rowsAffected = 0
@@ -348,6 +348,7 @@ Namespace DB
                         command.Connection.Open()
                         rowsAffected = command.ExecuteNonQuery()
                         command.Connection.Close()
+                        command.Parameters.CopyTo(parameterArray, 0)
                         Return True
                     Catch ee As OracleException
                         MessageBox.Show("Database error: " & ee.ToString)

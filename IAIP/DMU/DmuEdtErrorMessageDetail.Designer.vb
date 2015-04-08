@@ -22,7 +22,6 @@ Partial Class DmuEdtErrorMessageDetail
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DmuEdtErrorMessageDetail))
         Me.OwnerGroupPanel = New System.Windows.Forms.Panel
         Me.DisplayMine = New System.Windows.Forms.RadioButton
         Me.DisplayEveryone = New System.Windows.Forms.RadioButton
@@ -40,11 +39,14 @@ Partial Class DmuEdtErrorMessageDetail
         Me.BusinessRuleDisplayContainer = New System.Windows.Forms.Panel
         Me.BusinessRuleDisplay = New System.Windows.Forms.Label
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer
-        Me.DefaultUser = New System.Windows.Forms.ComboBox
+        Me.UserAsDefault = New System.Windows.Forms.ComboBox
         Me.DefaultUserLabel = New System.Windows.Forms.Label
-        Me.UserToReassign = New System.Windows.Forms.ComboBox
-        Me.ReassignToUser = New System.Windows.Forms.Button
-        Me.ChangeStatus = New System.Windows.Forms.Button
+        Me.UserToAssign = New System.Windows.Forms.ComboBox
+        Me.AssignSelectedToUser = New System.Windows.Forms.Button
+        Me.ChangeStatusForSelectedRows = New System.Windows.Forms.Button
+        Me.AssignDefaultUser = New System.Windows.Forms.Button
+        Me.OpenEdtError = New System.Windows.Forms.Button
+        Me.GridSelectionActionPanel = New System.Windows.Forms.Panel
         Me.OwnerGroupPanel.SuspendLayout()
         Me.ResolvedStatusGroupPanel.SuspendLayout()
         CType(Me.EdtErrorMessageGrid, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -53,6 +55,7 @@ Partial Class DmuEdtErrorMessageDetail
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
+        Me.GridSelectionActionPanel.SuspendLayout()
         Me.SuspendLayout()
         '
         'OwnerGroupPanel
@@ -170,15 +173,16 @@ Partial Class DmuEdtErrorMessageDetail
         Me.EdtErrorMessageGrid.ReadOnly = True
         Me.EdtErrorMessageGrid.RowHeadersVisible = False
         Me.EdtErrorMessageGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.EdtErrorMessageGrid.Size = New System.Drawing.Size(602, 244)
+        Me.EdtErrorMessageGrid.Size = New System.Drawing.Size(602, 245)
         Me.EdtErrorMessageGrid.TabIndex = 9
         '
         'ErrorCodeDisplay
         '
         Me.ErrorCodeDisplay.AutoSize = True
-        Me.ErrorCodeDisplay.Location = New System.Drawing.Point(16, 28)
+        Me.ErrorCodeDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ErrorCodeDisplay.Location = New System.Drawing.Point(15, 23)
         Me.ErrorCodeDisplay.Name = "ErrorCodeDisplay"
-        Me.ErrorCodeDisplay.Size = New System.Drawing.Size(46, 13)
+        Me.ErrorCodeDisplay.Size = New System.Drawing.Size(69, 20)
         Me.ErrorCodeDisplay.TabIndex = 13
         Me.ErrorCodeDisplay.Text = "ABC123"
         '
@@ -190,9 +194,8 @@ Partial Class DmuEdtErrorMessageDetail
         Me.ErrorMessageDisplay.Location = New System.Drawing.Point(3, 0)
         Me.ErrorMessageDisplay.MaximumSize = New System.Drawing.Size(258, 0)
         Me.ErrorMessageDisplay.Name = "ErrorMessageDisplay"
-        Me.ErrorMessageDisplay.Size = New System.Drawing.Size(255, 247)
+        Me.ErrorMessageDisplay.Size = New System.Drawing.Size(0, 13)
         Me.ErrorMessageDisplay.TabIndex = 13
-        Me.ErrorMessageDisplay.Text = resources.GetString("ErrorMessageDisplay.Text")
         '
         'ErrorMessageLabel
         '
@@ -244,9 +247,8 @@ Partial Class DmuEdtErrorMessageDetail
         Me.BusinessRuleDisplay.Location = New System.Drawing.Point(3, 0)
         Me.BusinessRuleDisplay.MaximumSize = New System.Drawing.Size(251, 0)
         Me.BusinessRuleDisplay.Name = "BusinessRuleDisplay"
-        Me.BusinessRuleDisplay.Size = New System.Drawing.Size(251, 117)
+        Me.BusinessRuleDisplay.Size = New System.Drawing.Size(0, 13)
         Me.BusinessRuleDisplay.TabIndex = 13
-        Me.BusinessRuleDisplay.Text = resources.GetString("BusinessRuleDisplay.Text")
         '
         'SplitContainer1
         '
@@ -269,74 +271,107 @@ Partial Class DmuEdtErrorMessageDetail
         Me.SplitContainer1.SplitterDistance = 313
         Me.SplitContainer1.TabIndex = 15
         '
-        'DefaultUser
+        'UserAsDefault
         '
-        Me.DefaultUser.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.DefaultUser.FormattingEnabled = True
-        Me.DefaultUser.Location = New System.Drawing.Point(483, 25)
-        Me.DefaultUser.Name = "DefaultUser"
-        Me.DefaultUser.Size = New System.Drawing.Size(131, 21)
-        Me.DefaultUser.TabIndex = 16
+        Me.UserAsDefault.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.UserAsDefault.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.UserAsDefault.FormattingEnabled = True
+        Me.UserAsDefault.Location = New System.Drawing.Point(340, 24)
+        Me.UserAsDefault.Name = "UserAsDefault"
+        Me.UserAsDefault.Size = New System.Drawing.Size(154, 21)
+        Me.UserAsDefault.TabIndex = 16
         '
         'DefaultUserLabel
         '
+        Me.DefaultUserLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.DefaultUserLabel.AutoSize = True
-        Me.DefaultUserLabel.Location = New System.Drawing.Point(483, 9)
+        Me.DefaultUserLabel.Location = New System.Drawing.Point(340, 9)
         Me.DefaultUserLabel.Name = "DefaultUserLabel"
         Me.DefaultUserLabel.Size = New System.Drawing.Size(66, 13)
         Me.DefaultUserLabel.TabIndex = 17
         Me.DefaultUserLabel.Text = "Default User"
         '
-        'UserToReassign
+        'UserToAssign
         '
-        Me.UserToReassign.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.UserToReassign.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.UserToReassign.FormattingEnabled = True
-        Me.UserToReassign.Location = New System.Drawing.Point(12, 477)
-        Me.UserToReassign.Name = "UserToReassign"
-        Me.UserToReassign.Size = New System.Drawing.Size(131, 21)
-        Me.UserToReassign.TabIndex = 16
+        Me.UserToAssign.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.UserToAssign.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.UserToAssign.FormattingEnabled = True
+        Me.UserToAssign.Location = New System.Drawing.Point(11, 6)
+        Me.UserToAssign.Name = "UserToAssign"
+        Me.UserToAssign.Size = New System.Drawing.Size(154, 21)
+        Me.UserToAssign.TabIndex = 16
         '
-        'ReassignToUser
+        'AssignSelectedToUser
         '
-        Me.ReassignToUser.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.ReassignToUser.Location = New System.Drawing.Point(149, 476)
-        Me.ReassignToUser.Name = "ReassignToUser"
-        Me.ReassignToUser.Size = New System.Drawing.Size(96, 23)
-        Me.ReassignToUser.TabIndex = 8
-        Me.ReassignToUser.Text = "Assign User"
-        Me.ReassignToUser.UseVisualStyleBackColor = True
+        Me.AssignSelectedToUser.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.AssignSelectedToUser.Location = New System.Drawing.Point(171, 5)
+        Me.AssignSelectedToUser.Name = "AssignSelectedToUser"
+        Me.AssignSelectedToUser.Size = New System.Drawing.Size(99, 23)
+        Me.AssignSelectedToUser.TabIndex = 8
+        Me.AssignSelectedToUser.Text = "Assign User"
+        Me.AssignSelectedToUser.UseVisualStyleBackColor = True
         '
-        'ChangeStatus
+        'ChangeStatusForSelectedRows
         '
-        Me.ChangeStatus.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ChangeStatus.Location = New System.Drawing.Point(483, 477)
-        Me.ChangeStatus.Name = "ChangeStatus"
-        Me.ChangeStatus.Size = New System.Drawing.Size(131, 23)
-        Me.ChangeStatus.TabIndex = 8
-        Me.ChangeStatus.Text = "Resolve Checked"
-        Me.ChangeStatus.UseVisualStyleBackColor = True
+        Me.ChangeStatusForSelectedRows.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.ChangeStatusForSelectedRows.Location = New System.Drawing.Point(276, 5)
+        Me.ChangeStatusForSelectedRows.Name = "ChangeStatusForSelectedRows"
+        Me.ChangeStatusForSelectedRows.Size = New System.Drawing.Size(99, 23)
+        Me.ChangeStatusForSelectedRows.TabIndex = 8
+        Me.ChangeStatusForSelectedRows.Text = "Resolve Selected"
+        Me.ChangeStatusForSelectedRows.UseVisualStyleBackColor = True
+        '
+        'AssignDefaultUser
+        '
+        Me.AssignDefaultUser.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.AssignDefaultUser.Location = New System.Drawing.Point(500, 23)
+        Me.AssignDefaultUser.Name = "AssignDefaultUser"
+        Me.AssignDefaultUser.Size = New System.Drawing.Size(114, 23)
+        Me.AssignDefaultUser.TabIndex = 18
+        Me.AssignDefaultUser.Text = "Set Default User"
+        Me.AssignDefaultUser.UseVisualStyleBackColor = True
+        '
+        'OpenEdtError
+        '
+        Me.OpenEdtError.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.OpenEdtError.Location = New System.Drawing.Point(515, 475)
+        Me.OpenEdtError.Name = "OpenEdtError"
+        Me.OpenEdtError.Size = New System.Drawing.Size(99, 23)
+        Me.OpenEdtError.TabIndex = 8
+        Me.OpenEdtError.Text = "View Details"
+        Me.OpenEdtError.UseVisualStyleBackColor = True
+        '
+        'GridSelectionActionPanel
+        '
+        Me.GridSelectionActionPanel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.GridSelectionActionPanel.Controls.Add(Me.UserToAssign)
+        Me.GridSelectionActionPanel.Controls.Add(Me.ChangeStatusForSelectedRows)
+        Me.GridSelectionActionPanel.Controls.Add(Me.AssignSelectedToUser)
+        Me.GridSelectionActionPanel.Location = New System.Drawing.Point(1, 470)
+        Me.GridSelectionActionPanel.Name = "GridSelectionActionPanel"
+        Me.GridSelectionActionPanel.Size = New System.Drawing.Size(397, 40)
+        Me.GridSelectionActionPanel.TabIndex = 19
         '
         'DmuEdtErrorMessageDetail
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(626, 510)
+        Me.Controls.Add(Me.GridSelectionActionPanel)
+        Me.Controls.Add(Me.AssignDefaultUser)
         Me.Controls.Add(Me.DefaultUserLabel)
-        Me.Controls.Add(Me.UserToReassign)
-        Me.Controls.Add(Me.DefaultUser)
+        Me.Controls.Add(Me.UserAsDefault)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.ErrorCodeDisplay)
         Me.Controls.Add(Me.OwnerGroupPanel)
         Me.Controls.Add(Me.ResolvedStatusGroupPanel)
-        Me.Controls.Add(Me.ChangeStatus)
-        Me.Controls.Add(Me.ReassignToUser)
+        Me.Controls.Add(Me.OpenEdtError)
         Me.Controls.Add(Me.ReloadButton)
         Me.Controls.Add(Me.EdtErrorCountDisplay)
         Me.Controls.Add(Me.EdtErrorMessageGrid)
         Me.MinimumSize = New System.Drawing.Size(500, 330)
         Me.Name = "DmuEdtErrorMessageDetail"
-        Me.Text = "ICIS-Air EDT Error Message Detail"
+        Me.Text = "EDT Error Code Detail"
         Me.OwnerGroupPanel.ResumeLayout(False)
         Me.ResolvedStatusGroupPanel.ResumeLayout(False)
         CType(Me.EdtErrorMessageGrid, System.ComponentModel.ISupportInitialize).EndInit()
@@ -349,6 +384,7 @@ Partial Class DmuEdtErrorMessageDetail
         Me.SplitContainer1.Panel2.ResumeLayout(False)
         Me.SplitContainer1.Panel2.PerformLayout()
         Me.SplitContainer1.ResumeLayout(False)
+        Me.GridSelectionActionPanel.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -370,9 +406,12 @@ Partial Class DmuEdtErrorMessageDetail
     Friend WithEvents BusinessRuleDisplayContainer As System.Windows.Forms.Panel
     Friend WithEvents BusinessRuleDisplay As System.Windows.Forms.Label
     Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
-    Friend WithEvents DefaultUser As System.Windows.Forms.ComboBox
+    Friend WithEvents UserAsDefault As System.Windows.Forms.ComboBox
     Friend WithEvents DefaultUserLabel As System.Windows.Forms.Label
-    Friend WithEvents UserToReassign As System.Windows.Forms.ComboBox
-    Friend WithEvents ReassignToUser As System.Windows.Forms.Button
-    Friend WithEvents ChangeStatus As System.Windows.Forms.Button
+    Friend WithEvents UserToAssign As System.Windows.Forms.ComboBox
+    Friend WithEvents AssignSelectedToUser As System.Windows.Forms.Button
+    Friend WithEvents ChangeStatusForSelectedRows As System.Windows.Forms.Button
+    Friend WithEvents AssignDefaultUser As System.Windows.Forms.Button
+    Friend WithEvents OpenEdtError As System.Windows.Forms.Button
+    Friend WithEvents GridSelectionActionPanel As System.Windows.Forms.Panel
 End Class

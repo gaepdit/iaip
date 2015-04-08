@@ -117,14 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ErrorMessageDisplay.Text" xml:space="preserve">
-    <value>Air Delegated Agency Informal Enforcement Action
-
-1) For Air Violation (&lt;Air Violation Type Code value&gt;, &lt;Air Violation Program Code value&gt;, &lt;Air Violation Program Description Text value&gt;, &lt;Air Violation Pollutant Code value&gt;, &lt;FRV Determination Date value&gt;, &lt;HPV Day Zero Date value&gt;, &lt;Occurrence Start Date value&gt;, &lt;Occurrence End Date value&gt;), HPV Designation Removal Type Code must be submitted because HPV Designation Removal Date was submitted. 2) For Air Violation (&lt;Air Violation Type Code value&gt;, &lt;Air Violation Program Code value&gt;, &lt;Air Violation Program Description Text value&gt;, &lt;Air Violation Pollutant Code value&gt;, &lt;FRV Determination Date value&gt;, &lt;HPV Day Zero Date value&gt;, &lt;Occurrence Start Date value&gt;, &lt;Occurrence End Date value&gt;), HPV Designation Removal Date must be submitted because HPV Designation Removal Type Code was submitted.</value>
-  </data>
-  <data name="BusinessRuleDisplay.Text" xml:space="preserve">
-    <value>Position 3-5 of the Case File ID must be a valid (i.e., Active) LCON code in the REF_LCON table for the corresponding State in position 1-2 of the Delegated Agency Case File and if no LCON is associated to that record, Position 3-5 must be '000’.
-
-Note: This business rule is not checked for Replace transactions where the Case File exists in ICIS.</value>
-  </data>
 </root>

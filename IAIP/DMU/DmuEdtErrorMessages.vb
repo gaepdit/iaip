@@ -29,7 +29,7 @@ Public Class DmuEdtErrorMessages
 
     Private Sub ReloadButton_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles ReloadButton.Click
         'GetData()
-        OpenErrorMessageDetail("EAM307") ' testing only
+        OpenErrorMessageDetail("CEL004") ' testing only
     End Sub
 
     Private Sub GetData()
@@ -93,8 +93,8 @@ Public Class DmuEdtErrorMessages
 
     Private Sub OpenErrorMessageDetail(ByVal errorCode As String)
         Dim edtErrorMessageDetail As DmuEdtErrorMessageDetail = OpenMultiForm(DmuEdtErrorMessageDetail, errorCode.GetHashCode)
-        edtErrorMessageDetail.ErrorCode = errorCode
-        edtErrorMessageDetail.GetData()
+        edtErrorMessageDetail.EdtErrorCode = errorCode
+        edtErrorMessageDetail.Init()
     End Sub
 
     Private Sub EdtErrorMessageGrid_CellClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellClick
