@@ -322,6 +322,15 @@ Module Extensions
         End With
     End Sub
 
+    <Extension()> _
+    Public Sub BindToKeyValuePairs(ByVal c As ComboBox, ByVal l As List(Of KeyValuePair(Of Integer, String)))
+        With c
+            .DataSource = New BindingSource(l, Nothing)
+            .DisplayMember = "Value"
+            .ValueMember = "Key"
+        End With
+    End Sub
+
     ''' <summary>
     ''' Populates the combobox with the values and text descriptions of an Enum.
     ''' </summary>
