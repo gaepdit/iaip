@@ -359,7 +359,7 @@ Namespace DB
 
 #End Region
 
-#Region " SP Read (Lookup Dictionary) "
+#Region " SP Read (Lookup Dictionary/List) "
 
         Public Function SPGetLookupDictionary(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing) _
         As Dictionary(Of Integer, String)
@@ -372,6 +372,19 @@ Namespace DB
             Next
 
             Return d
+        End Function
+
+        Public Function SPGetListOfKeyValuePair(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing) _
+        As List(Of KeyValuePair(Of Integer, String))
+            Dim l As New List(Of KeyValuePair(Of Integer, String))
+
+            Dim dataTable As DataTable = DB.SPGetDataTable(spName, parameter)
+
+            For Each row As DataRow In dataTable.Rows
+                l.Add(New KeyValuePair(Of Integer, String)(row.Item(0), row.Item(1)))
+            Next
+
+            Return l
         End Function
 
 #End Region

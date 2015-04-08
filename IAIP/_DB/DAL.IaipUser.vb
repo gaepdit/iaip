@@ -123,13 +123,13 @@ Namespace DAL
             Return user
         End Function
 
-        Public Function GetActiveUsers() As Dictionary(Of Integer, String)
+        Public Function GetActiveUsers() As List(Of KeyValuePair(Of Integer, String))
             Dim spName As String = "IAIP_GetActiveUsers"
             Dim parm As New OracleParameter
             parm.Direction = ParameterDirection.ReturnValue
             parm.OracleDbType = OracleDbType.RefCursor
 
-            Return DB.SPGetLookupDictionary(spName, parm)
+            Return DB.SPGetListOfKeyValuePair(spName, parm)
         End Function
 
     End Module
