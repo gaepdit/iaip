@@ -56,7 +56,7 @@
 
 #End Region
 
-#Region " Public Shared Functions "
+#Region " Validate/normalize AIRS number "
 
         ''' <summary>
         ''' Determines whether a string is in the format of a valid AIRS number.
@@ -73,10 +73,6 @@
             Dim rgx As New System.Text.RegularExpressions.Regex("^(04-?13-?)?\d{3}-?\d{5}$")
             Return rgx.IsMatch(airsNumber)
         End Function
-
-#End Region
-
-#Region " Private Functions "
 
         ''' <summary>
         ''' Converts a string representation of an AIRS number to the "00000000" form. If 'expand' is True, then 
@@ -95,7 +91,7 @@
             ' Remove spaces, dashes, and leading '0413'
             airsNumber = airsNumber.Replace("-", "").Replace(" ", "")
             If airsNumber.Length = 12 Then airsNumber = airsNumber.Remove(0, 4)
-            
+
             Return airsNumber
         End Function
 
