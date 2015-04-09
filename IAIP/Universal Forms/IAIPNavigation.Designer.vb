@@ -218,6 +218,7 @@ Partial Class IAIPNavigation
         Me.btnOpenTestReport.Name = "btnOpenTestReport"
         Me.btnOpenTestReport.Size = New System.Drawing.Size(43, 23)
         Me.btnOpenTestReport.TabIndex = 9
+        Me.btnOpenTestReport.TabStop = False
         Me.btnOpenTestReport.Text = "Open"
         Me.btnOpenTestReport.UseVisualStyleBackColor = True
         '
@@ -231,6 +232,7 @@ Partial Class IAIPNavigation
         Me.btnOpenApplication.Name = "btnOpenApplication"
         Me.btnOpenApplication.Size = New System.Drawing.Size(43, 23)
         Me.btnOpenApplication.TabIndex = 3
+        Me.btnOpenApplication.TabStop = False
         Me.btnOpenApplication.Text = "Open"
         Me.btnOpenApplication.UseVisualStyleBackColor = True
         '
@@ -244,6 +246,7 @@ Partial Class IAIPNavigation
         Me.btnOpenTestLog.Name = "btnOpenTestLog"
         Me.btnOpenTestLog.Size = New System.Drawing.Size(43, 23)
         Me.btnOpenTestLog.TabIndex = 11
+        Me.btnOpenTestLog.TabStop = False
         Me.btnOpenTestLog.Text = "Open"
         Me.btnOpenTestLog.UseVisualStyleBackColor = True
         '
@@ -257,6 +260,7 @@ Partial Class IAIPNavigation
         Me.btnOpenSscpItem.Name = "btnOpenSscpItem"
         Me.btnOpenSscpItem.Size = New System.Drawing.Size(43, 23)
         Me.btnOpenSscpItem.TabIndex = 7
+        Me.btnOpenSscpItem.TabStop = False
         Me.btnOpenSscpItem.Text = "Open"
         Me.btnOpenSscpItem.UseVisualStyleBackColor = True
         '
@@ -270,6 +274,7 @@ Partial Class IAIPNavigation
         Me.btnOpenEnforcement.Name = "btnOpenEnforcement"
         Me.btnOpenEnforcement.Size = New System.Drawing.Size(43, 23)
         Me.btnOpenEnforcement.TabIndex = 5
+        Me.btnOpenEnforcement.TabStop = False
         Me.btnOpenEnforcement.Text = "Open"
         Me.btnOpenEnforcement.UseVisualStyleBackColor = True
         '
@@ -283,6 +288,7 @@ Partial Class IAIPNavigation
         Me.btnOpenFacilitySummary.Name = "btnOpenFacilitySummary"
         Me.btnOpenFacilitySummary.Size = New System.Drawing.Size(43, 23)
         Me.btnOpenFacilitySummary.TabIndex = 1
+        Me.btnOpenFacilitySummary.TabStop = False
         Me.btnOpenFacilitySummary.Text = "Open"
         Me.btnOpenFacilitySummary.UseVisualStyleBackColor = True
         '
@@ -324,6 +330,7 @@ Partial Class IAIPNavigation
         Me.btnOpenSbeapCaseLog.Name = "btnOpenSbeapCaseLog"
         Me.btnOpenSbeapCaseLog.Size = New System.Drawing.Size(43, 23)
         Me.btnOpenSbeapCaseLog.TabIndex = 3
+        Me.btnOpenSbeapCaseLog.TabStop = False
         Me.btnOpenSbeapCaseLog.Text = "Open"
         Me.btnOpenSbeapCaseLog.UseVisualStyleBackColor = True
         '
@@ -337,6 +344,7 @@ Partial Class IAIPNavigation
         Me.btnOpenSbeapClient.Name = "btnOpenSbeapClient"
         Me.btnOpenSbeapClient.Size = New System.Drawing.Size(43, 23)
         Me.btnOpenSbeapClient.TabIndex = 1
+        Me.btnOpenSbeapClient.TabStop = False
         Me.btnOpenSbeapClient.Text = "Open"
         Me.btnOpenSbeapClient.UseVisualStyleBackColor = True
         '
