@@ -24,7 +24,7 @@ Public Class IAIPFacilitySummary
     Dim count As Integer
 
 
-    Private Sub DEVFacilitySummary_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub IAIPFacilitySummary_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Try
             TCFacilitySummary.TabPages.Remove(TPContactInformation)
@@ -43,19 +43,15 @@ Public Class IAIPFacilitySummary
             mmiPrintFacilitySummary.Visible = True
 
             If (UserGCode = "1" Or UserGCode = "345") Then
-                mmiAddAFS.Visible = True
-                mmiUpdateAFSData.Visible = True
+                UpdateEpa.Visible = True
             Else
-                mmiAddAFS.Visible = False
-                mmiUpdateAFSData.Visible = False
+                UpdateEpa.Visible = False
             End If
 
             ParseParameters()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
         mtbAIRSNumber.Focus()
@@ -73,13 +69,14 @@ Public Class IAIPFacilitySummary
         End If
     End Sub
 
-    Private Sub llbViewAll_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewAll.LinkClicked
+    Private Sub ViewData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ViewData.Click
         Try
-            If mtbAIRSNumber.Text = "" And mtbAIRSNumber.Text.Length <> 8 Then
+            If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbAIRSNumber.Text) Then
                 mtbAIRSNumber.BackColor = Color.Tomato
-                MsgBox("Please enter a valid 8 digit AIRS Number.", MsgBoxStyle.Information, "Facility Summary")
+                MsgBox("Please enter a valid AIRS Number.", MsgBoxStyle.Information, "Invalid AIRS Number")
                 Exit Sub
             End If
+
             mtbAIRSNumber.BackColor = Color.White
 
             ClearForm()
@@ -322,28 +319,6 @@ Public Class IAIPFacilitySummary
         End Try
     End Sub
 
-    Private Sub mtbAIRSNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles mtbAIRSNumber.KeyPress
-        Try
-
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
-                If mtbAIRSNumber.Text = "" And mtbAIRSNumber.Text.Length <> 8 Then
-                    mtbAIRSNumber.BackColor = Color.Tomato
-                    MsgBox("Please enter a valid 8 digit AIRS Number.", MsgBoxStyle.Information, "Facility Summary")
-                    Exit Sub
-                End If
-                mtbAIRSNumber.BackColor = Color.White
-
-                ClearForm()
-                LoadInitialData()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-    End Sub
     Private Sub chbAPC0_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAPC0.CheckedChanged
         Try
 
@@ -1104,6 +1079,14 @@ Public Class IAIPFacilitySummary
                 lblDistrictSource.Visible = False
             End If
             dr.Close()
+
+            If DAL.Facility.FacilityHasBeenApproved(mtbAIRSNumber.Text) Then
+                FacilityApprovalLinkLabel.Enabled = False
+                FacilityApprovalLinkLabel.Visible = False
+            Else
+                FacilityApprovalLinkLabel.Enabled = True
+                FacilityApprovalLinkLabel.Visible = True
+            End If
 
             EditSubPart()
             btnEditAirProgramPollutants.Enabled = True
@@ -4329,8 +4312,7 @@ Public Class IAIPFacilitySummary
 
             editHeaderDataDialog.Dispose()
         Else
-            MessageBox.Show("AIRS number is not valid.", _
-                "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("AIRS number is not valid.", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End If
     End Sub
 
@@ -4405,238 +4387,20 @@ Public Class IAIPFacilitySummary
 
 #End Region
 
-#Region "AFS Updates"
-    Private Sub mmiAddAFS_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiAddAFS.Click
-        Try
-            SQL = "Update AIRBRANCH.AFSFacilityData set " & _
-            "strUpdateStatus = 'A' " & _
-            "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
+#Region "ICIS-Air Update"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
+    Private Sub UpdateEpa_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UpdateEpa.Click
+        If Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbAIRSNumber.Text) AndAlso DAL.Facility.AirsNumberExists(mtbAIRSNumber.Text) Then
+            If DAL.Facility.UpdateDataAtEPA(mtbAIRSNumber.Text) Then
+                MessageBox.Show("Data for this facility will be sent to EPA the next time the database update procedures run.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Else
+                MessageBox.Show("There was an error attempting to flag this facility to update.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            SQL = "Update AIRBRANCH.AFSAirPollutantData set " & _
-            "strUpdateStatus = 'A' " & _
-            "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            SQL = "update AIRBranch.AFSSSPPRecords set " & _
-            "strUpdateStatus = 'A'  " & _
-            "where exists  " & _
-            "(select AIRBranch.SSPPApplicationmaster.strApplicationNumber  " & _
-            "from AIRBranch.SSPPApplicationmaster  " & _
-            "where AIRBranch.SSPPApplicationmaster.strapplicationNumber =  " & _
-            "airbranch.AFSSSPPrecords.strApplicationNumber  " & _
-            "and AIRbranch.SSPPApplicationMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            SQL = "update AIRBranch.AFSSSCPRecords set " & _
-            "strUpdateStatus = 'A'  " & _
-            "where exists  " & _
-            "(select AIRBranch.SSCPItemMaster.strTrackingNumber  " & _
-            "from AIRBranch.SSCPItemMaster  " & _
-            "where AIRBranch.SSCPItemMaster.strTrackingNumber =  " & _
-            "       airbranch.AFSSSCPRecords.strTrackingNumber  " & _
-            "and AIRbranch.SSCPItemMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            SQL = "update AIRBranch.AFSISMPRecords set " & _
-            "strUpdateStatus = 'A'  " & _
-            "where exists  " & _
-            "(select AIRBranch.ISMPMaster.strReferenceNumber  " & _
-            "from AIRBranch.ISMPMaster  " & _
-            "where AIRBranch.ISMPMaster.strReferenceNumber =  " & _
-            "       airbranch.AFSISMPRecords.strReferenceNumber  " & _
-            "and AIRbranch.ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
-
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            SQL = "Update AIRBRANCH.AFSSSCPEnforcementRecords set " & _
-           "strUpdateStatus = 'A' " & _
-           "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-
-            SQL = "update AIRBranch.AFSSSCPEnforcementRecords set " & _
-           "strUpdateStatus = 'A'  " & _
-           "where exists  " & _
-           "(select AIRBranch.SSCPEnforcementItems.strEnforcementNumber  " & _
-           "from AIRBranch.SSCPEnforcementItems  " & _
-           "where AIRBranch.SSCPEnforcementItems.strEnforcementNumber =  " & _
-           "       airbranch.AFSSSCPEnforcementRecords.strEnforcementNumber  " & _
-           "and AIRbranch.SSCPEnforcementItems.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
-
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            SQL = "Update AIRBRANCH.AFSSSCPFCERecords set " & _
-    "strUpdateStatus = 'A' " & _
-    "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-
-            SQL = "update AIRBranch.AFSSSCPFCERecords set " & _
-        "strUpdateStatus = 'A'  " & _
-        "where exists  " & _
-        "(select AIRBranch.SSCPFCEMaster.strFCENumber  " & _
-        "from AIRBranch.SSCPFCEMaster  " & _
-        "where AIRBranch.SSCPFCEMaster.strFCENumber =  " & _
-        "       airbranch.AFSSSCPFCERecords.strFCENumber  " & _
-        "and AIRbranch.SSCPFCEMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            MsgBox("Done", MsgBoxStyle.Information, Me.Text)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        Else
+            MessageBox.Show("The AIRS number is not valid.", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End If
     End Sub
 
-    Private Sub mmiUpdateAFSData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiUpdateAFSData.Click
-        Try
-            SQL = "Update AIRBRANCH.AFSFacilityData set " & _
-            "strUpdateStatus = 'C' " & _
-            "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            SQL = "Update AIRBRANCH.AFSAirPollutantData set " & _
-            "strUpdateStatus = 'C' " & _
-            "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            SQL = "update AIRBranch.AFSSSPPRecords set " & _
-            "strUpdateStatus = 'C'  " & _
-            "where exists  " & _
-            "(select AIRBranch.SSPPApplicationmaster.strApplicationNumber  " & _
-            "from AIRBranch.SSPPApplicationmaster  " & _
-            "where AIRBranch.SSPPApplicationmaster.strapplicationNumber =  " & _
-            "airbranch.AFSSSPPrecords.strApplicationNumber  " & _
-            "and AIRbranch.SSPPApplicationMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            SQL = "update AIRBranch.AFSSSCPRecords set " & _
-            "strUpdateStatus = 'C'  " & _
-            "where exists  " & _
-            "(select AIRBranch.SSCPItemMaster.strTrackingNumber  " & _
-            "from AIRBranch.SSCPItemMaster  " & _
-            "where AIRBranch.SSCPItemMaster.strTrackingNumber =  " & _
-            "       airbranch.AFSSSCPRecords.strTrackingNumber  " & _
-            "and AIRbranch.SSCPItemMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            SQL = "update AIRBranch.AFSISMPRecords set " & _
-            "strUpdateStatus = 'C'  " & _
-            "where exists  " & _
-            "(select AIRBranch.ISMPMaster.strReferenceNumber  " & _
-            "from AIRBranch.ISMPMaster  " & _
-            "where AIRBranch.ISMPMaster.strReferenceNumber =  " & _
-            "       airbranch.AFSISMPRecords.strReferenceNumber  " & _
-            "and AIRbranch.ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
-
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            SQL = "update AIRBranch.AFSSSCPEnforcementRecords set " & _
-           "strUpdateStatus = 'C'  " & _
-           "where exists  " & _
-           "(select AIRBranch.SSCPEnforcementItems.strEnforcementNumber  " & _
-           "from AIRBranch.SSCPEnforcementItems  " & _
-           "where AIRBranch.SSCPEnforcementItems.strEnforcementNumber =  " & _
-           "       airbranch.AFSSSCPEnforcementRecords.strEnforcementNumber  " & _
-           "and AIRbranch.SSCPEnforcementItems.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
-
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            SQL = "update AIRBranch.AFSSSCPFCERecords set " & _
-        "strUpdateStatus = 'C'  " & _
-        "where exists  " & _
-        "(select AIRBranch.SSCPFCEMaster.strFCENumber  " & _
-        "from AIRBranch.SSCPFCEMaster  " & _
-        "where AIRBranch.SSCPFCEMaster.strFCENumber =  " & _
-        "       airbranch.AFSSSCPFCERecords.strFCENumber  " & _
-        "and AIRbranch.SSCPFCEMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            MsgBox("Done", MsgBoxStyle.Information, Me.Text)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
 #End Region
 
 #Region "Menu and toolbar"
@@ -4681,5 +4445,17 @@ Public Class IAIPFacilitySummary
     End Sub
 
 #End Region
+
+    Private Sub mtbAIRSNumber_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mtbAIRSNumber.Enter
+        Me.AcceptButton = ViewData
+    End Sub
+
+    Private Sub mtbAIRSNumber_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mtbAIRSNumber.Leave
+        Me.AcceptButton = Nothing
+    End Sub
+
+    Private Sub FacilityApprovalLinkLabel_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles FacilityApprovalLinkLabel.LinkClicked
+        OpenSingleForm("IAIPFacilityCreator")
+    End Sub
 
 End Class
