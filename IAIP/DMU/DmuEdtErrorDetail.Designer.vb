@@ -88,7 +88,7 @@ Partial Class DmuEdtErrorDetail
         Me.SplitContainer1.Panel2.Controls.Add(Me.BusinessRuleLabel)
         Me.SplitContainer1.Size = New System.Drawing.Size(414, 114)
         Me.SplitContainer1.SplitterDistance = 207
-        Me.SplitContainer1.TabIndex = 19
+        Me.SplitContainer1.TabIndex = 4
         '
         'GenericErrorMessageLabel
         '
@@ -111,7 +111,7 @@ Partial Class DmuEdtErrorDetail
         Me.GenericErrorMessageDisplayContainer.Location = New System.Drawing.Point(12, 18)
         Me.GenericErrorMessageDisplayContainer.Name = "GenericErrorMessageDisplayContainer"
         Me.GenericErrorMessageDisplayContainer.Size = New System.Drawing.Size(180, 88)
-        Me.GenericErrorMessageDisplayContainer.TabIndex = 14
+        Me.GenericErrorMessageDisplayContainer.TabIndex = 0
         '
         'GenericErrorMessageDisplay
         '
@@ -135,7 +135,7 @@ Partial Class DmuEdtErrorDetail
         Me.BusinessRuleDisplayContainer.Location = New System.Drawing.Point(12, 18)
         Me.BusinessRuleDisplayContainer.Name = "BusinessRuleDisplayContainer"
         Me.BusinessRuleDisplayContainer.Size = New System.Drawing.Size(180, 87)
-        Me.BusinessRuleDisplayContainer.TabIndex = 14
+        Me.BusinessRuleDisplayContainer.TabIndex = 0
         '
         'BusinessRuleDisplay
         '
@@ -165,14 +165,14 @@ Partial Class DmuEdtErrorDetail
         Me.UserAssigned.Location = New System.Drawing.Point(19, 52)
         Me.UserAssigned.Name = "UserAssigned"
         Me.UserAssigned.Size = New System.Drawing.Size(167, 21)
-        Me.UserAssigned.TabIndex = 16
+        Me.UserAssigned.TabIndex = 0
         '
         'ChangeStatus
         '
         Me.ChangeStatus.Location = New System.Drawing.Point(297, 51)
         Me.ChangeStatus.Name = "ChangeStatus"
         Me.ChangeStatus.Size = New System.Drawing.Size(99, 23)
-        Me.ChangeStatus.TabIndex = 8
+        Me.ChangeStatus.TabIndex = 2
         Me.ChangeStatus.Text = "Reopen"
         Me.ChangeStatus.UseVisualStyleBackColor = True
         '
@@ -181,7 +181,7 @@ Partial Class DmuEdtErrorDetail
         Me.AssignSelectedToUser.Location = New System.Drawing.Point(192, 51)
         Me.AssignSelectedToUser.Name = "AssignSelectedToUser"
         Me.AssignSelectedToUser.Size = New System.Drawing.Size(99, 23)
-        Me.AssignSelectedToUser.TabIndex = 8
+        Me.AssignSelectedToUser.TabIndex = 1
         Me.AssignSelectedToUser.Text = "Assign User"
         Me.AssignSelectedToUser.UseVisualStyleBackColor = True
         '
@@ -324,7 +324,7 @@ Partial Class DmuEdtErrorDetail
         Me.ErrorMessageDisplayContainer.Location = New System.Drawing.Point(12, 275)
         Me.ErrorMessageDisplayContainer.Name = "ErrorMessageDisplayContainer"
         Me.ErrorMessageDisplayContainer.Size = New System.Drawing.Size(391, 98)
-        Me.ErrorMessageDisplayContainer.TabIndex = 14
+        Me.ErrorMessageDisplayContainer.TabIndex = 3
         '
         'ErrorMessageDisplay
         '

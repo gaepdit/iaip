@@ -65,7 +65,7 @@ Partial Class DmuEdtErrorMessages
         Me.DisplayMine.Location = New System.Drawing.Point(0, 10)
         Me.DisplayMine.Name = "DisplayMine"
         Me.DisplayMine.Size = New System.Drawing.Size(66, 23)
-        Me.DisplayMine.TabIndex = 1
+        Me.DisplayMine.TabIndex = 0
         Me.DisplayMine.TabStop = True
         Me.DisplayMine.Text = "Mine"
         Me.DisplayMine.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -79,7 +79,7 @@ Partial Class DmuEdtErrorMessages
         Me.DisplayEveryone.Location = New System.Drawing.Point(65, 10)
         Me.DisplayEveryone.Name = "DisplayEveryone"
         Me.DisplayEveryone.Size = New System.Drawing.Size(66, 23)
-        Me.DisplayEveryone.TabIndex = 2
+        Me.DisplayEveryone.TabIndex = 1
         Me.DisplayEveryone.Text = "All"
         Me.DisplayEveryone.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.DisplayEveryone.UseVisualStyleBackColor = True
@@ -93,7 +93,7 @@ Partial Class DmuEdtErrorMessages
         Me.DisplayOpen.Location = New System.Drawing.Point(0, 10)
         Me.DisplayOpen.Name = "DisplayOpen"
         Me.DisplayOpen.Size = New System.Drawing.Size(66, 23)
-        Me.DisplayOpen.TabIndex = 1
+        Me.DisplayOpen.TabIndex = 0
         Me.DisplayOpen.TabStop = True
         Me.DisplayOpen.Text = "Open"
         Me.DisplayOpen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -107,7 +107,7 @@ Partial Class DmuEdtErrorMessages
         Me.DisplayAll.Location = New System.Drawing.Point(65, 10)
         Me.DisplayAll.Name = "DisplayAll"
         Me.DisplayAll.Size = New System.Drawing.Size(66, 23)
-        Me.DisplayAll.TabIndex = 2
+        Me.DisplayAll.TabIndex = 1
         Me.DisplayAll.Text = "All"
         Me.DisplayAll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.DisplayAll.UseVisualStyleBackColor = True
@@ -139,7 +139,7 @@ Partial Class DmuEdtErrorMessages
         Me.ResolvedStatusGroupPanel.Location = New System.Drawing.Point(460, 13)
         Me.ResolvedStatusGroupPanel.Name = "ResolvedStatusGroupPanel"
         Me.ResolvedStatusGroupPanel.Size = New System.Drawing.Size(131, 33)
-        Me.ResolvedStatusGroupPanel.TabIndex = 6
+        Me.ResolvedStatusGroupPanel.TabIndex = 2
         '
         'OwnerGroupPanel
         '
@@ -150,7 +150,7 @@ Partial Class DmuEdtErrorMessages
         Me.OwnerGroupPanel.Location = New System.Drawing.Point(324, 13)
         Me.OwnerGroupPanel.Name = "OwnerGroupPanel"
         Me.OwnerGroupPanel.Size = New System.Drawing.Size(131, 33)
-        Me.OwnerGroupPanel.TabIndex = 7
+        Me.OwnerGroupPanel.TabIndex = 1
         '
         'DmuEdtErrorMessages
         '
