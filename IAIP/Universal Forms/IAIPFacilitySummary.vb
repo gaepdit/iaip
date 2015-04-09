@@ -4673,13 +4673,7 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub mmiNewFacility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiNewFacility.Click
-        Try
-            FacilityCreator = Nothing
-            If FacilityCreator Is Nothing Then FacilityCreator = New IAIPFacilityCreator
-            FacilityCreator.Show()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenSingleForm("IAIPFacilityCreator")
     End Sub
 
     Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
