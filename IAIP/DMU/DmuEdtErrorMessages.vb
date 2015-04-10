@@ -28,8 +28,7 @@ Public Class DmuEdtErrorMessages
 #Region " Data "
 
     Private Sub ReloadButton_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles ReloadButton.Click
-        'GetData()
-        OpenErrorMessageDetail("CEL004") ' testing only
+        GetData()
     End Sub
 
     Private Sub GetData()

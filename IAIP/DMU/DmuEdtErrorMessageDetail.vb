@@ -76,13 +76,10 @@ Public Class DmuEdtErrorMessageDetail
 
 #Region " Get Data "
 
-    Private counter As Integer = 1
     Private Sub ReloadButton_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles ReloadButton.Click
-        'If headerSuccess Then
-        '    GetTableData()
-        'End If
-        OpenEdtErrorDetail(counter) ' Testing purposes only
-        counter += 1
+        If headerSuccess Then
+            GetTableData()
+        End If
     End Sub
 
     Private Function GetHeaderData() As Boolean
@@ -120,7 +117,7 @@ Public Class DmuEdtErrorMessageDetail
             FormatGrid()
             SetGridFilter()
             Dim shown As Integer = edtErrorMessagesBindingSource.Count
-            EdtErrorCountDisplay.Text = shown.ToString & " errors" & If(shown = 1, "", "s") & " shown"
+            EdtErrorCountDisplay.Text = shown.ToString & " error" & If(shown = 1, "", "s") & " shown"
 
             OwnerGroupPanel.Enabled = True
             ResolvedStatusGroupPanel.Enabled = True
