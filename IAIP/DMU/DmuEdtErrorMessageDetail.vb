@@ -116,8 +116,6 @@ Public Class DmuEdtErrorMessageDetail
 
             FormatGrid()
             SetGridFilter()
-            Dim shown As Integer = edtErrorMessagesBindingSource.Count
-            EdtErrorCountDisplay.Text = shown.ToString & " error" & If(shown = 1, "", "s") & " shown"
 
             OwnerGroupPanel.Enabled = True
             ResolvedStatusGroupPanel.Enabled = True
@@ -152,6 +150,9 @@ Public Class DmuEdtErrorMessageDetail
     End Sub
 
     Private Sub SetGridFilter()
+        edtErrorMessagesBindingSource.RemoveFilter()
+        Dim total As Integer = edtErrorMessagesBindingSource.Count
+
         If DisplayMine.Checked And DisplayOpen.Checked Then
             edtErrorMessagesBindingSource.Filter = "AssignedToUser = " & CurrentUser.UserID & " and Resolved = False"
         ElseIf DisplayMine.Checked And DisplayAll.Checked Then
@@ -161,6 +162,9 @@ Public Class DmuEdtErrorMessageDetail
         ElseIf DisplayEveryone.Checked And DisplayAll.Checked Then
             edtErrorMessagesBindingSource.RemoveFilter()
         End If
+
+        Dim shown As Integer = edtErrorMessagesBindingSource.Count
+        EdtErrorCountDisplay.Text = shown.ToString & " error" & If(shown = 1, "", "s") & " shown / " & total.ToString & " total"
     End Sub
 
     Private Sub DisplayOptionsChanged(ByVal sender As Object, ByVal e As System.EventArgs)
@@ -265,11 +269,13 @@ Public Class DmuEdtErrorMessageDetail
         If statusOfSelectedRows = SelectedRowsState.AllResolved Then
             With ChangeStatusForSelectedRows
                 .Enabled = True
+                .Visible = True
                 .Text = "Reopen Selected"
             End With
         ElseIf statusOfSelectedRows = SelectedRowsState.AllOpen Then
             With ChangeStatusForSelectedRows
                 .Enabled = True
+                .Visible = True
                 .Text = "Resolve Selected"
             End With
         Else

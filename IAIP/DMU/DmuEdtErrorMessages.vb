@@ -40,7 +40,7 @@ Public Class DmuEdtErrorMessages
             EdtErrorMessageGrid.DataSource = edtErrorMessagesBindingSource
 
             FormatGrid()
-            SetGridDisplay()
+            SetGridFilter()
             OwnerGroupPanel.Enabled = True
             ResolvedStatusGroupPanel.Enabled = True
         Else
@@ -67,9 +67,12 @@ Public Class DmuEdtErrorMessages
         End With
     End Sub
 
-    Private Sub SetGridDisplay()
+    Private Sub SetGridFilter()
+        edtErrorMessagesBindingSource.RemoveFilter()
+        Dim total As Integer = edtErrorMessagesBindingSource.Count
+
         If DisplayMine.Checked And DisplayOpen.Checked Then
-            edtErrorMessagesBindingSource.Filter = "DefaultUserID = " & CurrentUser.UserID & " and CountOpenAssignedToUser > 0 "
+            edtErrorMessagesBindingSource.Filter = "DefaultUserID = " & CurrentUser.UserID & " and CountOpenByUser > 0 "
         ElseIf DisplayMine.Checked And DisplayAll.Checked Then
             edtErrorMessagesBindingSource.Filter = "DefaultUserID = " & CurrentUser.UserID
         ElseIf DisplayEveryone.Checked And DisplayOpen.Checked Then
@@ -79,11 +82,11 @@ Public Class DmuEdtErrorMessages
         End If
 
         Dim shown As Integer = edtErrorMessagesBindingSource.Count
-        EdtErrorCountDisplay.Text = shown.ToString & " errors" & If(shown = 1, "", "s") & " shown"
+        EdtErrorCountDisplay.Text = shown.ToString & " error" & If(shown = 1, "", "s") & " shown / " & total.ToString & " total"
     End Sub
 
     Private Sub DisplayOptionsChanged(ByVal sender As Object, ByVal e As System.EventArgs)
-        SetGridDisplay()
+        SetGridFilter()
     End Sub
 
 #End Region
@@ -99,14 +102,14 @@ Public Class DmuEdtErrorMessages
     Private Sub EdtErrorMessageGrid_CellClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellClick
         ' Only within the cell content of first column
         If e.RowIndex <> -1 And e.RowIndex < EdtErrorMessageGrid.RowCount And e.ColumnIndex = 0 Then
-            OpenErrorMessageDetail(EdtErrorMessageGrid.Rows(e.RowIndex).Cells(0).Value)
+            OpenErrorMessageDetail(EdtErrorMessageGrid.Rows(e.RowIndex).Cells(0).Value.ToString)
         End If
     End Sub
 
     Private Sub EdtErrorMessageGrid_CellDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellDoubleClick
         'Double-click within the cell content (but exclude first column to avoid double-firing)
         If e.RowIndex <> -1 And e.RowIndex < EdtErrorMessageGrid.RowCount And e.ColumnIndex <> 0 Then
-            OpenErrorMessageDetail(EdtErrorMessageGrid.Rows(e.RowIndex).Cells(0).Value)
+            OpenErrorMessageDetail(EdtErrorMessageGrid.Rows(e.RowIndex).Cells(0).Value.ToString)
         End If
     End Sub
 
@@ -126,7 +129,7 @@ Public Class DmuEdtErrorMessages
 
     Private Sub EdtErrorMessageGrid_KeyUp(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles EdtErrorMessageGrid.KeyUp
         If e.KeyCode = Keys.Enter Then
-            OpenErrorMessageDetail(EdtErrorMessageGrid.CurrentRow.Cells(0).Value)
+            OpenErrorMessageDetail(EdtErrorMessageGrid.CurrentRow.Cells(0).Value.ToString)
         End If
     End Sub
 
