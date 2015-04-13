@@ -124,12 +124,8 @@ Namespace DAL
         End Function
 
         Public Function GetActiveUsers() As List(Of KeyValuePair(Of Integer, String))
-            Dim spName As String = "AIRBRANCH.IAIP_GetActiveUsers"
-            Dim pcur As New OracleParameter
-            pcur.Direction = ParameterDirection.ReturnValue
-            pcur.OracleDbType = OracleDbType.RefCursor
-
-            Return DB.SPGetListOfKeyValuePair(spName, pcur)
+            Dim spName As String = "AIRBRANCH.IAIP.GetActiveUsers"
+            Return DB.SPGetListOfKeyValuePair(spName)
         End Function
 
     End Module

@@ -43,23 +43,6 @@ Namespace DAL.DMU
             Return em
         End Function
 
-        Private Function MakeEdtErrorMessageFrom(ByVal row As DataRow) As EdtErrorMessage
-            If row Is Nothing Then Return Nothing
-
-            Dim em As New EdtErrorMessage
-            With em
-                .BusinessRuleCode = DB.GetNullable(Of String)(row("BUSINESSRULECODE"))
-                .BusinessRuleMessage = DB.GetNullable(Of String)(row("BUSINESSRULE"))
-                .DefaultUserID = DB.GetNullable(Of Integer)(row("DEFAULTUSER"))
-                .DefaultUserName = DB.GetNullable(Of String)(row("DefaultUserName"))
-                .ErrorCategory = DB.GetNullable(Of String)(row("CATEGORY"))
-                .ErrorCode = DB.GetNullable(Of String)(row("ERRORCODE"))
-                .ErrorMessage = DB.GetNullable(Of String)(row("ERRORMESSAGE"))
-            End With
-
-            Return em
-        End Function
-
         ''' <summary>
         ''' Returns summary information on all EDT errors reported organized by EDT Error Code. Includes counts of 
         ''' all errors reported, open errors, and errors assigned to specified user.
@@ -68,14 +51,8 @@ Namespace DAL.DMU
         ''' <returns>A DataTable</returns>
         Public Function GetErrorCounts(ByVal userID As Integer) As DataTable
             Dim spName As String = "AIRBRANCH.ICIS_EDT_GetErrorCounts"
-            Dim p1 As OracleParameter = New OracleParameter("userID", userID)
-            Dim pcur As New OracleParameter
-            pcur.Direction = ParameterDirection.ReturnValue
-            pcur.OracleDbType = OracleDbType.RefCursor
-
-            Dim parameters As OracleParameter() = {p1, pcur}
-
-            Return DB.SPGetDataTable(spName, parameters)
+            Dim parameter As OracleParameter = New OracleParameter("userID", userID)
+            Return DB.SPGetDataTable(spName, parameter)
         End Function
 
         ''' <summary>
@@ -85,14 +62,8 @@ Namespace DAL.DMU
         ''' <returns>A DataTable</returns>
         Public Function GetErrors(ByVal errorCode As String) As DataTable
             Dim spName As String = "AIRBRANCH.ICIS_EDT_GetErrors"
-            Dim p1 As OracleParameter = New OracleParameter("errorCode", errorCode)
-            Dim pcur As New OracleParameter
-            pcur.Direction = ParameterDirection.ReturnValue
-            pcur.OracleDbType = OracleDbType.RefCursor
-
-            Dim parameters As OracleParameter() = {p1, pcur}
-
-            Return DB.SPGetDataTable(spName, parameters)
+            Dim parameter As OracleParameter = New OracleParameter("errorCode", errorCode)
+            Return DB.SPGetDataTable(spName, parameter)
         End Function
 
         ''' <summary>
@@ -102,16 +73,11 @@ Namespace DAL.DMU
         ''' <returns>An EdtError Object</returns>
         Public Function GetErrorDetail(ByVal errorID As String) As EdtError
             Dim er As EdtError = Nothing
+
             Dim spName As String = "AIRBRANCH.ICIS_EDT_GetErrorDetail"
+            Dim parameter As OracleParameter = New OracleParameter("errorID", errorID)
 
-            Dim p1 As OracleParameter = New OracleParameter("errorID", errorID)
-            Dim pcur As New OracleParameter
-            pcur.Direction = ParameterDirection.ReturnValue
-            pcur.OracleDbType = OracleDbType.RefCursor
-
-            Dim parameters As OracleParameter() = {p1, pcur}
-
-            Dim dt As DataTable = DB.SPGetDataTable(spName, parameters)
+            Dim dt As DataTable = DB.SPGetDataTable(spName, parameter)
 
             If dt IsNot Nothing AndAlso dt.Rows.Count = 1 Then
                 er = MakeEdtErrorDetailFrom(dt.Rows(0))
@@ -197,18 +163,21 @@ Namespace DAL.DMU
         ''' <param name="errorIDs">An array of EDT error IDs to modify</param>
         ''' <returns>True if the action was successful; otherwise false</returns>
         Public Function SetResolvedStatus(ByVal resolved As Boolean, ByVal errorIDs As Integer()) As Boolean
-            Dim spName As String = "AIRBRANCH.ICIS_EDT_SetResolvedStatus"
+            Dim spName As String = "AIRBRANCH.ICIS_EDT.SetResolvedStatus"
 
-            Dim p1 As OracleParameter = New OracleParameter("resolved", resolved.ToString)
+            Dim p1 As OracleParameter = New OracleParameter("Resolved", resolved.ToString)
 
-            Dim p2 As New OracleParameter
-            p2.OracleDbType = OracleDbType.Int32
-            p2.Direction = ParameterDirection.Input
-            p2.CollectionType = OracleCollectionType.PLSQLAssociativeArray
-            p2.Value = errorIDs
-            p2.Size = errorIDs.Length
+            Dim p2 As OracleParameter = New OracleParameter("UserID", CurrentUser.UserID)
 
-            Dim parameters As OracleParameter() = {p1, p2}
+            Dim p3 As New OracleParameter
+            p3.ParameterName = "ErrorIdArray"
+            p3.OracleDbType = OracleDbType.Int32
+            p3.Direction = ParameterDirection.Input
+            p3.CollectionType = OracleCollectionType.PLSQLAssociativeArray
+            p3.Value = errorIDs
+            p3.Size = errorIDs.Length
+
+            Dim parameters As OracleParameter() = {p1, p2, p3}
 
             Return DB.SPRunCommand(spName, parameters)
         End Function
@@ -231,12 +200,13 @@ Namespace DAL.DMU
         ''' <param name="errorIDs">An array of EDT error IDs to modify</param>
         ''' <returns>True if the action was successful; otherwise false</returns>
         Public Function AssignErrorToUser(ByVal userId As Integer, ByVal errorIDs As Integer()) As Boolean
-            Dim spName As String = "AIRBRANCH.ICIS_EDT_AssignError"
+            Dim spName As String = "AIRBRANCH.ICIS_EDT.AssignErrors"
 
-            Dim p1 As OracleParameter = New OracleParameter("userID", userId)
+            Dim p1 As OracleParameter = New OracleParameter("UserID", userId)
 
             Dim p2 As New OracleParameter
-            p2.OracleDbType = OracleDbType.Varchar2
+            p2.ParameterName = "ErrorIdArray"
+            p2.OracleDbType = OracleDbType.Int32
             p2.Direction = ParameterDirection.Input
             p2.CollectionType = OracleCollectionType.PLSQLAssociativeArray
             p2.Value = errorIDs

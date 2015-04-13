@@ -252,48 +252,49 @@ Namespace DB
 
 #End Region
 
-#Region " Stored Procedures "
+#Region " SP (Scalar) -- unimplemented "
+        ' Not yet used: Oracle Stored Procedures that return a single value. 
+        'Code here is untested and probably won't work as-is.
 
-#Region " SP Read (Scalar) "
+        'Public Function SPGetBoolean(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing, Optional ByVal failSilently As Boolean = False) As Boolean
+        '    Return Convert.ToBoolean(SPGetSingleValue(Of Boolean)(spName, parameter, failSilently))
+        'End Function
 
-        Public Function SPGetBoolean(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing, Optional ByVal failSilently As Boolean = False) As Boolean
-            Return Convert.ToBoolean(SPGetSingleValue(Of Boolean)(spName, parameter, failSilently))
-        End Function
+        'Public Function SPGetBoolean(ByVal spName As String, ByVal parameterArray As OracleParameter(), Optional ByVal failSilently As Boolean = False) As Boolean
+        '    Return Convert.ToBoolean(SPGetSingleValue(Of Boolean)(spName, parameterArray, failSilently))
+        'End Function
 
-        Public Function SPGetBoolean(ByVal spName As String, ByVal parameterArray As OracleParameter(), Optional ByVal failSilently As Boolean = False) As Boolean
-            Return Convert.ToBoolean(SPGetSingleValue(Of Boolean)(spName, parameterArray, failSilently))
-        End Function
+        'Public Function SPGetSingleValue(Of T)(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing, Optional ByVal failSilently As Boolean = False) As T
+        '    Dim parameterArray As OracleParameter() = {parameter}
+        '    Return SPGetSingleValue(Of T)(spName, parameterArray, failSilently)
+        'End Function
 
-        Public Function SPGetSingleValue(Of T)(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing, Optional ByVal failSilently As Boolean = False) As T
-            Dim parameterArray As OracleParameter() = {parameter}
-            Return SPGetSingleValue(Of T)(spName, parameterArray, failSilently)
-        End Function
+        'Public Function SPGetSingleValue(Of T)(ByVal spName As String, ByVal parameterArray As OracleParameter(), Optional ByVal failSilently As Boolean = False) As T
+        '    Dim result As Object = Nothing
+        '    Using connection As New OracleConnection(CurrentConnectionString)
+        '        Using command As New OracleCommand(spName, connection)
+        '            command.CommandType = CommandType.StoredProcedure
+        '            command.BindByName = True
+        '            command.Parameters.AddRange(parameterArray)
+        '            Try
+        '                command.Connection.Open()
+        '                result = command.ExecuteScalar()
+        '                command.Connection.Close()
+        '            Catch ee As OracleException
+        '                If Not failSilently Then
+        '                    MessageBox.Show("Database error: " & ee.ToString)
+        '                End If
+        '            End Try
 
-        Public Function SPGetSingleValue(Of T)(ByVal spName As String, ByVal parameterArray As OracleParameter(), Optional ByVal failSilently As Boolean = False) As T
-            Dim result As Object = Nothing
-            Using connection As New OracleConnection(CurrentConnectionString)
-                Using command As New OracleCommand(spName, connection)
-                    command.CommandType = CommandType.StoredProcedure
-                    command.BindByName = True
-                    command.Parameters.AddRange(parameterArray)
-                    Try
-                        command.Connection.Open()
-                        result = command.ExecuteScalar()
-                        command.Connection.Close()
-                    Catch ee As OracleException
-                        If Not failSilently Then
-                            MessageBox.Show("Database error: " & ee.ToString)
-                        End If
-                    End Try
-
-                    Return GetNullable(Of T)(result)
-                End Using
-            End Using
-        End Function
+        '            Return GetNullable(Of T)(result)
+        '        End Using
+        '    End Using
+        'End Function
 
 #End Region
 
-#Region " SP Read (DataTable) "
+#Region " SP (Return SYS_REFCURSOR) "
+        ' These functions call Oracle Functions that return an Oracle SYS_REFCURSOR.
 
         Public Function SPGetDataTable(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing) As DataTable
             Dim parameterArray As OracleParameter() = {parameter}
@@ -301,7 +302,14 @@ Namespace DB
         End Function
 
         Public Function SPGetDataTable(ByVal spName As String, ByVal parameterArray As OracleParameter()) As DataTable
+            If String.IsNullOrEmpty(spName) Then
+                Return Nothing
+            End If
+
+            AddRefCursorParameter(parameterArray)
+
             Dim table As New DataTable
+
             Using connection As New OracleConnection(CurrentConnectionString)
                 Using command As New OracleCommand(spName, connection)
                     command.CommandType = CommandType.StoredProcedure
@@ -322,18 +330,73 @@ Namespace DB
             End Using
         End Function
 
+        'Public Function SPGetLookupDictionary(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing) _
+        'As Dictionary(Of Integer, String)
+        '    Dim d As New Dictionary(Of Integer, String)
+
+        '    Dim dataTable As DataTable = DB.SPGetDataTable(spName, parameter)
+
+        '    For Each row As DataRow In dataTable.Rows
+        '        d.Add(row.Item(0), row.Item(1))
+        '    Next
+
+        '    Return d
+        'End Function
+
+        ''' <summary>
+        ''' Calls an Oracle Stored Procedure and returns a List of KeyValuePairs with Integer keys and 
+        ''' String values. Useful for creating DropDownList ComboBoxes.
+        ''' </summary>
+        ''' <param name="spName">The Oracle Stored Procedure to call</param>
+        ''' <param name="parameter">A single Oracle Parameter to pass in</param>
+        ''' <returns>List of Integer keys and String value pairs</returns>
+        ''' <remarks>Use List returned with ComboBox.BindToKeyValuePairs</remarks>
+        Public Function SPGetListOfKeyValuePair(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing) _
+        As List(Of KeyValuePair(Of Integer, String))
+            Dim l As New List(Of KeyValuePair(Of Integer, String))
+
+            Dim dataTable As DataTable = DB.SPGetDataTable(spName, parameter)
+
+            For Each row As DataRow In dataTable.Rows
+                l.Add(New KeyValuePair(Of Integer, String)(row.Item(0), row.Item(1)))
+            Next
+
+            Return l
+        End Function
+
+        Private Sub AddRefCursorParameter(ByRef parameterArray As OracleParameter())
+            Dim pRefCursor As New OracleParameter
+            pRefCursor.Direction = ParameterDirection.ReturnValue
+            pRefCursor.OracleDbType = OracleDbType.RefCursor
+
+            If parameterArray Is Nothing Then
+                Array.Resize(parameterArray, 1)
+            ElseIf parameterArray(0) IsNot Nothing Then
+                Array.Resize(parameterArray, parameterArray.Length + 1)
+            End If
+
+            parameterArray(parameterArray.GetUpperBound(0)) = pRefCursor
+        End Sub
+
 #End Region
 
-#Region " SP Write (ExecuteNonQuery) "
+#Region " SP Write (In/Out Parameters) "
+        ' These functions call Oracle Stored Procedures using IN and/or OUT parameters.
+        ' If successful, the OUT parameters are available to the calling procedure as 
+        ' returned by the Oracle database.
 
-        Public Function SPRunCommand(ByVal spName As String, _
-                                     Optional ByVal parameter As OracleParameter = Nothing, _
-                                     Optional ByRef rowsAffected As Integer = 0 _
-                                     ) As Boolean
-            rowsAffected = 0
-            Dim parameterArray As OracleParameter() = {parameter}
-            Return SPRunCommand(spName, parameterArray, rowsAffected)
-        End Function
+        'Public Function SPRunCommand(ByVal spName As String, _
+        '                             Optional ByRef parameter As OracleParameter = Nothing, _
+        '                             Optional ByRef rowsAffected As Integer = 0 _
+        '                             ) As Boolean
+        '    rowsAffected = 0
+        '    Dim parameterArray As OracleParameter() = {parameter}
+        '    Dim result As Boolean = SPRunCommand(spName, parameterArray, rowsAffected)
+        '    If result Then
+        '        parameter = parameterArray(0)
+        '    End If
+        '    Return result
+        'End Function
 
         Public Function SPRunCommand(ByVal spName As String, _
                                      ByRef parameterArray As OracleParameter(), _
@@ -357,38 +420,6 @@ Namespace DB
                 End Using
             End Using
         End Function
-
-#End Region
-
-#Region " SP Read (Lookup Dictionary/List) "
-
-        Public Function SPGetLookupDictionary(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing) _
-        As Dictionary(Of Integer, String)
-            Dim d As New Dictionary(Of Integer, String)
-
-            Dim dataTable As DataTable = DB.SPGetDataTable(spName, parameter)
-
-            For Each row As DataRow In dataTable.Rows
-                d.Add(row.Item(0), row.Item(1))
-            Next
-
-            Return d
-        End Function
-
-        Public Function SPGetListOfKeyValuePair(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing) _
-        As List(Of KeyValuePair(Of Integer, String))
-            Dim l As New List(Of KeyValuePair(Of Integer, String))
-
-            Dim dataTable As DataTable = DB.SPGetDataTable(spName, parameter)
-
-            For Each row As DataRow In dataTable.Rows
-                l.Add(New KeyValuePair(Of Integer, String)(row.Item(0), row.Item(1)))
-            Next
-
-            Return l
-        End Function
-
-#End Region
 
 #End Region
 
