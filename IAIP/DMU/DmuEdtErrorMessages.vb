@@ -12,6 +12,7 @@ Public Class DmuEdtErrorMessages
 #Region " Load "
 
     Private Sub DmuEdtErrors_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         GetData()
         AddDisplayOptionHandlers()
     End Sub

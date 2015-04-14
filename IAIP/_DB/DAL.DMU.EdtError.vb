@@ -24,7 +24,7 @@ Namespace DAL.DMU
             Dim p5 As New OracleParameter("DefaultUserID", OracleDbType.Int32, 22, Nothing, ParameterDirection.Output)
             Dim p6 As New OracleParameter("DefaultUserName", OracleDbType.Varchar2, 202, Nothing, ParameterDirection.Output)
 
-            Dim spName As String = "AIRBRANCH.ICIS_EDT_GetErrorMessageDetail"
+            Dim spName As String = "AIRBRANCH.ICIS_EDT.GetErrorMessageDetail"
             Dim parameters As OracleParameter() = {p0, p1, p2, p3, p4, p5, p6}
             Dim result As Boolean = DB.SPRunCommand(spName, parameters)
 
@@ -50,7 +50,7 @@ Namespace DAL.DMU
         ''' <param name="userID">The user ID for which to return error counts</param>
         ''' <returns>A DataTable</returns>
         Public Function GetErrorCounts(ByVal userID As Integer) As DataTable
-            Dim spName As String = "AIRBRANCH.ICIS_EDT_GetErrorCounts"
+            Dim spName As String = "AIRBRANCH.ICIS_EDT.GetErrorCounts"
             Dim parameter As OracleParameter = New OracleParameter("userID", userID)
             Return DB.SPGetDataTable(spName, parameter)
         End Function
@@ -61,7 +61,7 @@ Namespace DAL.DMU
         ''' <param name="errorCode">The Error Code for which to return errors</param>
         ''' <returns>A DataTable</returns>
         Public Function GetErrors(ByVal errorCode As String) As DataTable
-            Dim spName As String = "AIRBRANCH.ICIS_EDT_GetErrors"
+            Dim spName As String = "AIRBRANCH.ICIS_EDT.GetErrors"
             Dim parameter As OracleParameter = New OracleParameter("errorCode", errorCode)
             Return DB.SPGetDataTable(spName, parameter)
         End Function
@@ -74,7 +74,7 @@ Namespace DAL.DMU
         Public Function GetErrorDetail(ByVal errorID As String) As EdtError
             Dim er As EdtError = Nothing
 
-            Dim spName As String = "AIRBRANCH.ICIS_EDT_GetErrorDetail"
+            Dim spName As String = "AIRBRANCH.ICIS_EDT.GetErrorDetail"
             Dim parameter As OracleParameter = New OracleParameter("errorID", errorID)
 
             Dim dt As DataTable = DB.SPGetDataTable(spName, parameter)
@@ -135,11 +135,11 @@ Namespace DAL.DMU
         ''' <param name="defaultUserID">The User ID to set as the default for the error code</param>
         ''' <returns>True if the action was successful; otherwise false</returns>
         Public Function SetDefaultUser(ByVal errorCode As String, ByVal defaultUserID As Integer) As Boolean
-            Dim spName As String = "AIRBRANCH.ICIS_EDT_SetDefaultUser"
+            Dim spName As String = "AIRBRANCH.ICIS_EDT.SetDefaultUser"
 
             Dim parameters As OracleParameter() = { _
-                New OracleParameter("errorCode", errorCode), _
-                New OracleParameter("defaultUserID", defaultUserID) _
+                New OracleParameter("ErrorCode", errorCode), _
+                New OracleParameter("UserID", defaultUserID) _
             }
 
             Return DB.SPRunCommand(spName, parameters)

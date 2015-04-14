@@ -162,14 +162,14 @@ Partial Class DmuEdtErrorDetail
         '
         Me.UserAssigned.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.UserAssigned.FormattingEnabled = True
-        Me.UserAssigned.Location = New System.Drawing.Point(19, 52)
+        Me.UserAssigned.Location = New System.Drawing.Point(19, 54)
         Me.UserAssigned.Name = "UserAssigned"
         Me.UserAssigned.Size = New System.Drawing.Size(167, 21)
         Me.UserAssigned.TabIndex = 0
         '
         'ChangeStatus
         '
-        Me.ChangeStatus.Location = New System.Drawing.Point(297, 51)
+        Me.ChangeStatus.Location = New System.Drawing.Point(297, 53)
         Me.ChangeStatus.Name = "ChangeStatus"
         Me.ChangeStatus.Size = New System.Drawing.Size(99, 23)
         Me.ChangeStatus.TabIndex = 2
@@ -178,7 +178,7 @@ Partial Class DmuEdtErrorDetail
         '
         'AssignSelectedToUser
         '
-        Me.AssignSelectedToUser.Location = New System.Drawing.Point(192, 51)
+        Me.AssignSelectedToUser.Location = New System.Drawing.Point(192, 53)
         Me.AssignSelectedToUser.Name = "AssignSelectedToUser"
         Me.AssignSelectedToUser.Size = New System.Drawing.Size(99, 23)
         Me.AssignSelectedToUser.TabIndex = 1

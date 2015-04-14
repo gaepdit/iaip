@@ -204,15 +204,15 @@
         End Property
         Private m_Resolved As Boolean
 
-        Public Property ResolvedDate() As DateTime
+        Public Property ResolvedDate() As DateTime?
             Get
                 Return m_ResolvedDate
             End Get
-            Set(ByVal value As DateTime)
+            Set(ByVal value As DateTime?)
                 m_ResolvedDate = value
             End Set
         End Property
-        Private m_ResolvedDate As DateTime
+        Private m_ResolvedDate As DateTime?
 
         Public Property ResolvedByUserID() As Integer
             Get

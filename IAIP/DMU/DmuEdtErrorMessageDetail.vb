@@ -33,6 +33,7 @@ Public Class DmuEdtErrorMessageDetail
 #Region " Load "
 
     Private Sub DmuEdtErrorMessageDetail_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         AddDisplayOptionHandlers()
         PrepUserComboBoxes()
     End Sub
@@ -291,28 +292,78 @@ Public Class DmuEdtErrorMessageDetail
 #Region " Update data "
 
     Private Sub AssignDefaultUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AssignDefaultUser.Click
-        DAL.DMU.SetDefaultUser(EdtErrorCode, UserAsDefault.SelectedValue)
+        If DAL.DMU.SetDefaultUser(EdtErrorCode, UserAsDefault.SelectedValue) Then
+            MessageBox.Show("Default user set.", "Success", MessageBoxButtons.OK)
+        Else
+            MessageBox.Show("There was an error setting the default user.", "Error", MessageBoxButtons.OK)
+        End If
     End Sub
 
     Private Sub AssignSelectedToUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AssignSelectedToUser.Click
         Dim idArray As Integer() = GetSelectedIDs()
+        Dim result As Boolean = False
+
         If idArray IsNot Nothing Then
-            DAL.DMU.AssignErrorToUser(UserToAssign.SelectedValue, idArray)
+            result = DAL.DMU.AssignErrorToUser(UserToAssign.SelectedValue, idArray)
+        End If
+
+        If result = True Then
+            AssignUserInGrid()
+        Else
+            MessageBox.Show("There was an error assigning a user to the selected items.", "Error", MessageBoxButtons.OK)
+        End If
+    End Sub
+
+    Private Sub AssignUserInGrid()
+        If (EdtErrorMessageGrid.SelectedRows.Count > 0) Then
+            For Each row As DataGridViewRow In EdtErrorMessageGrid.SelectedRows
+                row.Cells("ASSIGNEDTOUSER").Value = UserToAssign.SelectedValue
+                row.Cells("AssignedToUserName").Value = UserToAssign.Text
+            Next
         End If
     End Sub
 
     Private Sub ChangeStatusForSelectedRows_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChangeStatusForSelectedRows.Click
         If statusOfSelectedRows = SelectedRowsState.AllOpen Or statusOfSelectedRows = SelectedRowsState.AllResolved Then
             Dim idArray As Integer() = GetSelectedIDs()
+            Dim result As Boolean = False
 
             If idArray IsNot Nothing Then
                 If statusOfSelectedRows = SelectedRowsState.AllOpen Then
-                    DAL.DMU.SetResolvedStatus(True, idArray)
+                    result = DAL.DMU.SetResolvedStatus(True, idArray)
                 ElseIf statusOfSelectedRows = SelectedRowsState.AllResolved Then
-                    DAL.DMU.SetResolvedStatus(False, idArray)
+                    result = DAL.DMU.SetResolvedStatus(False, idArray)
                 End If
             End If
 
+            If result = True Then
+                ChangeStatusInGrid()
+            Else
+                MessageBox.Show("There was an error changing the status for the selected items.", "Error", MessageBoxButtons.OK)
+            End If
+        End If
+    End Sub
+
+    Private Sub ChangeStatusInGrid()
+        If (EdtErrorMessageGrid.SelectedRows.Count > 0) Then
+            If statusOfSelectedRows = SelectedRowsState.AllOpen Then
+                For Each row As DataGridViewRow In EdtErrorMessageGrid.SelectedRows
+                    row.Cells("Resolved").Value = True
+                    row.Cells("ResolvedDate").Value = Now
+                    row.Cells("ResolvedByUserID").Value = CurrentUser.UserID
+                    row.Cells("ResolvedByUserName").Value = CurrentUser.Staff.AlphaName
+                Next
+                statusOfSelectedRows = SelectedRowsState.AllResolved
+            ElseIf statusOfSelectedRows = SelectedRowsState.AllResolved Then
+                For Each row As DataGridViewRow In EdtErrorMessageGrid.SelectedRows
+                    row.Cells("Resolved").Value = False
+                    row.Cells("ResolvedDate").Value = DBNull.Value
+                    row.Cells("ResolvedByUserID").Value = Nothing
+                    row.Cells("ResolvedByUserName").Value = Nothing
+                Next
+                statusOfSelectedRows = SelectedRowsState.AllOpen
+            End If
+            SetUpResolveOrReopenButton()
         End If
     End Sub
 
