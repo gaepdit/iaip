@@ -140,14 +140,58 @@ Public Class DmuEdtErrorMessageDetail
 #Region " Grid Display "
 
     Private Sub FormatGrid()
-        ' Stuff about column headers and visibility goes here...
-        '
-        '
-
         With EdtErrorMessageGrid
+            With .Columns("ERRORID")
+                .HeaderText = "Error ID"
+                .DisplayIndex = 0
+            End With
+            With .Columns("RESOLVED")
+                .HeaderText = "Resolved"
+                .DefaultCellStyle.FormatProvider = New BooleanFormatProvider
+                .DefaultCellStyle.Format = "YesNo"
+                .DisplayIndex = 1
+            End With
+            With .Columns("AssignedToUserName")
+                .HeaderText = "Assigned to"
+                .DisplayIndex = 2
+            End With
+            With .Columns("SUBMITDATE")
+                .HeaderText = "Date submitted"
+                .DisplayIndex = 3
+            End With
+            With .Columns("STATUSDETAIL")
+                .HeaderText = "Error Message"
+                .DisplayIndex = 4
+            End With
+            With .Columns("EDTID")
+                .HeaderText = "EPA record ID"
+                .DisplayIndex = 5
+            End With
+            .Columns("ASSIGNEDTOUSER").Visible = False
+            With .Columns("RESOLVEDDATE")
+                .HeaderText = "Date resolved"
+                .DisplayIndex = 6
+            End With
+            .Columns("ResolvedByUserID").Visible = False
+            With .Columns("ResolvedByUserName")
+                .HeaderText = "Resolved by"
+                .DisplayIndex = 7
+            End With
+
             .MakeColumnsLookLikeLinks(0)
             .SanelyResizeColumns()
         End With
+
+    End Sub
+
+    Private Sub EdtErrorMessageGrid_CellFormatting(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) _
+    Handles EdtErrorMessageGrid.CellFormatting
+
+        If TypeOf e.CellStyle.FormatProvider Is ICustomFormatter Then
+            e.Value = TryCast(e.CellStyle.FormatProvider.GetFormat(GetType(ICustomFormatter)), ICustomFormatter).Format(e.CellStyle.Format, e.Value, e.CellStyle.FormatProvider)
+            e.FormattingApplied = True
+        End If
+
     End Sub
 
     Private Sub SetGridFilter()

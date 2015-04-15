@@ -58,11 +58,34 @@ Public Class DmuEdtErrorMessages
 #Region " Display "
 
     Private Sub FormatGrid()
-        ' Stuff about column headers and visibility goes here...
-        '
-        '
-
         With EdtErrorMessageGrid
+            With .Columns("ERRORCODE")
+                .HeaderText = "Error Code"
+                .DisplayIndex = 0
+            End With
+            With .Columns("DefaultUserName")
+                .HeaderText = "Default User"
+                .DisplayIndex = 1
+            End With
+            With .Columns("CountOpen")
+                .HeaderText = "Total Open"
+                .DisplayIndex = 2
+            End With
+            With .Columns("ERRORMESSAGE")
+                .HeaderText = "Error Message"
+                .DisplayIndex = 3
+            End With
+            With .Columns("CATEGORY")
+                .HeaderText = "Error Category"
+                .DisplayIndex = 4
+            End With
+            .Columns("BUSINESSRULECODE").Visible = False
+            .Columns("BUSINESSRULE").Visible = False
+            .Columns("CountAll").Visible = False
+            .Columns("CountAllByUser").Visible = False
+            .Columns("CountOpenByUser").Visible = False
+            .Columns("DefaultUserId").Visible = False
+
             .MakeColumnsLookLikeLinks(0)
             .SanelyResizeColumns()
         End With

@@ -21,7 +21,7 @@ Public Class CollectionHelper
         Return table
     End Function
 
-    Public Shared Function CreateTable(Of T)() As DataTable
+    Private Shared Function CreateTable(Of T)() As DataTable
         Dim entityType As Type = GetType(T)
         Dim table As New DataTable(entityType.Name)
         Dim properties As PropertyDescriptorCollection = TypeDescriptor.GetProperties(entityType)

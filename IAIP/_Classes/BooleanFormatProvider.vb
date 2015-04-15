@@ -2,6 +2,8 @@
     Implements ICustomFormatter
     Implements IFormatProvider
 
+    ' Don't forget to set the CellFormatting event on the datagridview/whatever
+
     Public Function GetFormat(ByVal formatType As Type) As Object _
     Implements System.IFormatProvider.GetFormat
 
@@ -18,7 +20,7 @@
         OnOff
     End Enum
 
-    Public Function Format(ByVal format__1 As String, ByVal arg As Object, ByVal formatProvider As IFormatProvider) As String _
+    Public Function Format(ByVal booleanFormat As String, ByVal arg As Object, ByVal formatProvider As IFormatProvider) As String _
     Implements System.ICustomFormatter.Format
 
         If arg Is Nothing Then
@@ -27,7 +29,7 @@
 
         Dim value As Boolean = CBool(arg)
 
-        Select Case If(format__1, String.Empty)
+        Select Case booleanFormat
             Case "YesNo"
                 Return If(value, "Yes", "No")
             Case "OnOff"
