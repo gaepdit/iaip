@@ -1351,7 +1351,8 @@ Public Class IAIPNavigation
 
         ' DMU
         AddNavButtonIfAccountHasFormAccess(129, "AFS Tools", "DMUDeveloperTool", NavButtonCategories.DMU)
-        AddNavButtonIfAccountHasFormAccess(129, "EDT Errors", "DmuEdtErrorMessages", NavButtonCategories.DMU)
+        AddNavButtonIfUserHasPermission(New String() {"(118)", "(19)"}, _
+                                        "EDT Errors", "DmuEdtErrorMessages", NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(10, "District Tools", "IAIPDistrictSourceTool", NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(133, "Look Up Tables", "IAIPLookUpTables", NavButtonCategories.DMU)
         If (UserGCode = "345") Then
