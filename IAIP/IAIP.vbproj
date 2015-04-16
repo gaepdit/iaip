@@ -657,12 +657,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\SSPP\CRTitleVRenewal.vb">
-      <SubType>Component</SubType>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRTitleVRenewal.rpt</DependentUpon>
-    </Compile>
     <Compile Include="Crystal Reports\Oracle 9.2\SSPP\SSPPPublicNotice.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1270,10 +1264,6 @@
     <EmbeddedResource Include="Crystal Reports\Oracle 9.2\ISMP\CRTwoStackStandard.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CRTwoStackStandard.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\SSPP\CRTitleVRenewal.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRTitleVRenewal.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Oracle 9.2\SSPP\SSPPPublicNotice.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
