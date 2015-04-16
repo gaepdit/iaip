@@ -8,7 +8,7 @@ Namespace DB
         Public Function GetNullable(Of T)(ByVal obj As Object) As T
             ' http://stackoverflow.com/a/870771/212978
             ' http://stackoverflow.com/a/9953399/212978
-            If obj Is Nothing OrElse IsDBNull(obj) Then
+            If obj Is Nothing OrElse IsDBNull(obj) OrElse obj.ToString = "null" Then
                 ' returns the default value for the type
                 Return CType(Nothing, T)
             Else

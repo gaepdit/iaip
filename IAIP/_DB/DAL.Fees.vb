@@ -19,8 +19,7 @@ Namespace DAL
             }
 
             Try
-                DB.SPRunCommand(sp, parameters)
-                Return True
+                Return DB.SPRunCommand(sp, parameters)
             Catch ex As Exception
                 Return False
             End Try
