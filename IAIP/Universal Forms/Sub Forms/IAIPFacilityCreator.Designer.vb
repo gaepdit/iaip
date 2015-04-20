@@ -109,6 +109,7 @@ Partial Class IAIPFacilityCreator
         Me.Label4 = New System.Windows.Forms.Label
         Me.txtCDSAIRSNumber = New System.Windows.Forms.TextBox
         Me.TCFacilityTools = New System.Windows.Forms.TabControl
+        Me.TPCreateNewFacility = New System.Windows.Forms.TabPage
         Me.TPApproveNewFacility = New System.Windows.Forms.TabPage
         Me.dgvVerifyNewFacilities = New System.Windows.Forms.DataGridView
         Me.Panel5 = New System.Windows.Forms.Panel
@@ -147,7 +148,11 @@ Partial Class IAIPFacilityCreator
         Me.txtNewFacilityName = New System.Windows.Forms.TextBox
         Me.Label12 = New System.Windows.Forms.Label
         Me.txtNewAIRSNumber = New System.Windows.Forms.TextBox
-        Me.TPCreateNewFacility = New System.Windows.Forms.TabPage
+        Me.TPDeleteFacility = New System.Windows.Forms.TabPage
+        Me.FacilityLongDisplay = New System.Windows.Forms.Label
+        Me.AirsNumberToDelete = New System.Windows.Forms.TextBox
+        Me.DeleteAirsNumber = New System.Windows.Forms.Button
+        Me.AirsNumberToDeleteLabel = New System.Windows.Forms.Label
         Me.ToolStrip1.SuspendLayout()
         Me.GBFacilityInformation.SuspendLayout()
         Me.Panel4.SuspendLayout()
@@ -157,11 +162,12 @@ Partial Class IAIPFacilityCreator
         Me.GBMailingLocation.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.TCFacilityTools.SuspendLayout()
+        Me.TPCreateNewFacility.SuspendLayout()
         Me.TPApproveNewFacility.SuspendLayout()
         CType(Me.dgvVerifyNewFacilities, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
         CType(Me.dgvValidatingAIRS, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TPCreateNewFacility.SuspendLayout()
+        Me.TPDeleteFacility.SuspendLayout()
         Me.SuspendLayout()
         '
         'ToolStrip1
@@ -370,7 +376,7 @@ Partial Class IAIPFacilityCreator
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel4.Location = New System.Drawing.Point(3, 3)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(778, 485)
+        Me.Panel4.Size = New System.Drawing.Size(778, 509)
         Me.Panel4.TabIndex = 62
         '
         'GBContactInformation
@@ -1027,14 +1033,26 @@ Partial Class IAIPFacilityCreator
         '
         'TCFacilityTools
         '
-        Me.TCFacilityTools.Controls.Add(Me.TPApproveNewFacility)
         Me.TCFacilityTools.Controls.Add(Me.TPCreateNewFacility)
+        Me.TCFacilityTools.Controls.Add(Me.TPApproveNewFacility)
+        Me.TCFacilityTools.Controls.Add(Me.TPDeleteFacility)
         Me.TCFacilityTools.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCFacilityTools.Location = New System.Drawing.Point(0, 25)
         Me.TCFacilityTools.Name = "TCFacilityTools"
         Me.TCFacilityTools.SelectedIndex = 0
         Me.TCFacilityTools.Size = New System.Drawing.Size(792, 541)
         Me.TCFacilityTools.TabIndex = 374
+        '
+        'TPCreateNewFacility
+        '
+        Me.TPCreateNewFacility.Controls.Add(Me.Panel4)
+        Me.TPCreateNewFacility.Location = New System.Drawing.Point(4, 22)
+        Me.TPCreateNewFacility.Name = "TPCreateNewFacility"
+        Me.TPCreateNewFacility.Padding = New System.Windows.Forms.Padding(3)
+        Me.TPCreateNewFacility.Size = New System.Drawing.Size(784, 515)
+        Me.TPCreateNewFacility.TabIndex = 0
+        Me.TPCreateNewFacility.Text = "Create New Facility"
+        Me.TPCreateNewFacility.UseVisualStyleBackColor = True
         '
         'TPApproveNewFacility
         '
@@ -1348,13 +1366,12 @@ Partial Class IAIPFacilityCreator
         '
         'btnRemoveFromPlatform
         '
-        Me.btnRemoveFromPlatform.AutoSize = True
         Me.btnRemoveFromPlatform.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRemoveFromPlatform.Location = New System.Drawing.Point(605, 82)
+        Me.btnRemoveFromPlatform.Location = New System.Drawing.Point(605, 63)
         Me.btnRemoveFromPlatform.Name = "btnRemoveFromPlatform"
         Me.btnRemoveFromPlatform.Size = New System.Drawing.Size(159, 23)
         Me.btnRemoveFromPlatform.TabIndex = 17
-        Me.btnRemoveFromPlatform.Text = "Remove Facility From Platform"
+        Me.btnRemoveFromPlatform.Text = "Remove Facility"
         Me.btnRemoveFromPlatform.UseVisualStyleBackColor = True
         '
         'DTPSSCPApproveDate
@@ -1374,7 +1391,7 @@ Partial Class IAIPFacilityCreator
         Me.btnSubmitFacilityToAFS.Name = "btnSubmitFacilityToAFS"
         Me.btnSubmitFacilityToAFS.Size = New System.Drawing.Size(159, 23)
         Me.btnSubmitFacilityToAFS.TabIndex = 16
-        Me.btnSubmitFacilityToAFS.Text = "Submit Facility to AFS"
+        Me.btnSubmitFacilityToAFS.Text = "Approve Facility"
         Me.btnSubmitFacilityToAFS.UseVisualStyleBackColor = True
         '
         'txtSSCPApprover
@@ -1432,16 +1449,53 @@ Partial Class IAIPFacilityCreator
         Me.txtNewAIRSNumber.Size = New System.Drawing.Size(88, 20)
         Me.txtNewAIRSNumber.TabIndex = 1
         '
-        'TPCreateNewFacility
+        'TPDeleteFacility
         '
-        Me.TPCreateNewFacility.Controls.Add(Me.Panel4)
-        Me.TPCreateNewFacility.Location = New System.Drawing.Point(4, 22)
-        Me.TPCreateNewFacility.Name = "TPCreateNewFacility"
-        Me.TPCreateNewFacility.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPCreateNewFacility.Size = New System.Drawing.Size(784, 491)
-        Me.TPCreateNewFacility.TabIndex = 0
-        Me.TPCreateNewFacility.Text = "Create New Facility"
-        Me.TPCreateNewFacility.UseVisualStyleBackColor = True
+        Me.TPDeleteFacility.Controls.Add(Me.FacilityLongDisplay)
+        Me.TPDeleteFacility.Controls.Add(Me.AirsNumberToDelete)
+        Me.TPDeleteFacility.Controls.Add(Me.DeleteAirsNumber)
+        Me.TPDeleteFacility.Controls.Add(Me.AirsNumberToDeleteLabel)
+        Me.TPDeleteFacility.Location = New System.Drawing.Point(4, 22)
+        Me.TPDeleteFacility.Name = "TPDeleteFacility"
+        Me.TPDeleteFacility.Size = New System.Drawing.Size(784, 515)
+        Me.TPDeleteFacility.TabIndex = 2
+        Me.TPDeleteFacility.Text = "Destroy Facility"
+        Me.TPDeleteFacility.UseVisualStyleBackColor = True
+        '
+        'FacilityLongDisplay
+        '
+        Me.FacilityLongDisplay.AutoSize = True
+        Me.FacilityLongDisplay.Location = New System.Drawing.Point(247, 39)
+        Me.FacilityLongDisplay.Name = "FacilityLongDisplay"
+        Me.FacilityLongDisplay.Size = New System.Drawing.Size(0, 13)
+        Me.FacilityLongDisplay.TabIndex = 67
+        '
+        'AirsNumberToDelete
+        '
+        Me.AirsNumberToDelete.Location = New System.Drawing.Point(37, 55)
+        Me.AirsNumberToDelete.MaxLength = 12
+        Me.AirsNumberToDelete.Name = "AirsNumberToDelete"
+        Me.AirsNumberToDelete.Size = New System.Drawing.Size(100, 20)
+        Me.AirsNumberToDelete.TabIndex = 0
+        '
+        'DeleteAirsNumber
+        '
+        Me.DeleteAirsNumber.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.DeleteAirsNumber.Location = New System.Drawing.Point(37, 81)
+        Me.DeleteAirsNumber.Name = "DeleteAirsNumber"
+        Me.DeleteAirsNumber.Size = New System.Drawing.Size(159, 38)
+        Me.DeleteAirsNumber.TabIndex = 1
+        Me.DeleteAirsNumber.Text = "Delete Facility/AIRS number"
+        Me.DeleteAirsNumber.UseVisualStyleBackColor = True
+        '
+        'AirsNumberToDeleteLabel
+        '
+        Me.AirsNumberToDeleteLabel.AutoSize = True
+        Me.AirsNumberToDeleteLabel.Location = New System.Drawing.Point(34, 39)
+        Me.AirsNumberToDeleteLabel.Name = "AirsNumberToDeleteLabel"
+        Me.AirsNumberToDeleteLabel.Size = New System.Drawing.Size(72, 13)
+        Me.AirsNumberToDeleteLabel.TabIndex = 66
+        Me.AirsNumberToDeleteLabel.Text = "AIRS Number"
         '
         'IAIPFacilityCreator
         '
@@ -1467,12 +1521,14 @@ Partial Class IAIPFacilityCreator
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.TCFacilityTools.ResumeLayout(False)
+        Me.TPCreateNewFacility.ResumeLayout(False)
         Me.TPApproveNewFacility.ResumeLayout(False)
         CType(Me.dgvVerifyNewFacilities, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel5.ResumeLayout(False)
         Me.Panel5.PerformLayout()
         CType(Me.dgvValidatingAIRS, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TPCreateNewFacility.ResumeLayout(False)
+        Me.TPDeleteFacility.ResumeLayout(False)
+        Me.TPDeleteFacility.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1674,4 +1730,9 @@ Partial Class IAIPFacilityCreator
     Friend WithEvents Label32 As System.Windows.Forms.Label
     Friend WithEvents mtbCDSNAICSCode As System.Windows.Forms.MaskedTextBox
     Friend WithEvents Label37 As System.Windows.Forms.Label
+    Friend WithEvents TPDeleteFacility As System.Windows.Forms.TabPage
+    Friend WithEvents DeleteAirsNumber As System.Windows.Forms.Button
+    Friend WithEvents AirsNumberToDeleteLabel As System.Windows.Forms.Label
+    Friend WithEvents AirsNumberToDelete As System.Windows.Forms.TextBox
+    Friend WithEvents FacilityLongDisplay As System.Windows.Forms.Label
 End Class

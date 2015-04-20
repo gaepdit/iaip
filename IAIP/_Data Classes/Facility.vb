@@ -107,6 +107,27 @@ Namespace Apb
             End Set
         End Property
 
+        Public ReadOnly Property LongDisplay() As String
+            Get
+                Dim ld As String = Me.AirsNumber.FormattedString & _
+                vbNewLine & _
+                Me.FacilityName.ToString & vbNewLine
+
+                If Me.FacilityLocation IsNot Nothing Then
+                    ld = ld & Me.FacilityLocation.Address.ToString & vbNewLine & _
+                    Me.FacilityLocation.County.ToString & " county"
+                End If
+
+                If Me.HeaderData IsNot Nothing Then
+                    ld = ld & vbNewLine & vbNewLine & _
+                    "Classification: " & Me.HeaderData.Classification.GetDescription & vbNewLine & _
+                    "Status: " & Me.HeaderData.OperationalStatus.GetDescription
+                End If
+
+                Return ld
+            End Get
+        End Property
+
 #End Region
 
 #Region " Public shared functions "

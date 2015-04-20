@@ -605,7 +605,7 @@ Partial Class DMUDeveloperTool
         Me.ClientSize = New System.Drawing.Size(792, 687)
         Me.Controls.Add(Me.TCDMUTools)
         Me.Name = "DMUDeveloperTool"
-        Me.Text = "DMU Developer Tools"
+        Me.Text = "DMU Error Logs"
         Me.TCDMUTools.ResumeLayout(False)
         Me.TPErrorLog.ResumeLayout(False)
         Me.GroupBox3.ResumeLayout(False)

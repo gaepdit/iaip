@@ -4,16 +4,16 @@ Module FormHandler
     Public MultiForm As Dictionary(Of String, Dictionary(Of Integer, BaseForm))
     Public SingleForm As Dictionary(Of String, BaseForm)
 
-    Public Sub OpenMultiForm(ByVal formName As String, ByVal id As Integer, Optional ByVal parameters As Dictionary(Of String, String) = Nothing)
+    Public Function OpenMultiForm(ByVal formName As String, ByVal id As Integer, Optional ByVal parameters As Dictionary(Of String, String) = Nothing) As Form
         Dim formType As Type = GetFormTypeByName(formName)
-        OpenMultiForm(formType, formName, id, parameters)
-    End Sub
+        Return OpenMultiForm(formType, formName, id, parameters)
+    End Function
 
-    Public Sub OpenMultiForm(ByVal formClass As BaseForm, ByVal id As Integer, Optional ByVal parameters As Dictionary(Of String, String) = Nothing)
-        OpenMultiForm(formClass.GetType, formClass.Name, id, parameters)
-    End Sub
+    Public Function OpenMultiForm(ByVal formClass As BaseForm, ByVal id As Integer, Optional ByVal parameters As Dictionary(Of String, String) = Nothing) As Form
+        Return OpenMultiForm(formClass.GetType, formClass.Name, id, parameters)
+    End Function
 
-    Private Sub OpenMultiForm(ByVal formType As Type, ByVal formName As String, ByVal id As Integer, Optional ByVal parameters As Dictionary(Of String, String) = Nothing)
+    Private Function OpenMultiForm(ByVal formType As Type, ByVal formName As String, ByVal id As Integer, Optional ByVal parameters As Dictionary(Of String, String) = Nothing) As Form
         If MultiForm Is Nothing Then MultiForm = New Dictionary(Of String, Dictionary(Of Integer, BaseForm))
 
         If formName Is Nothing Then formName = formType.Name
@@ -30,7 +30,9 @@ Module FormHandler
         If parameters IsNot Nothing Then MultiForm(formName)(id).Parameters = parameters
         MultiForm(formName)(id).Show()
         MultiForm(formName)(id).Activate()
-    End Sub
+
+        Return MultiForm(formName)(id)
+    End Function
 
     Public Function MultiFormIsOpen(ByVal formClass As BaseForm, ByVal id As Integer) As Boolean
         Return MultiFormIsOpen(formClass.Name, id)

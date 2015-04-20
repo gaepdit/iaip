@@ -93,6 +93,9 @@ Namespace DAL
                 .State = DB.GetNullable(Of String)(row("STRFACILITYSTATE"))
                 .Street = DB.GetNullable(Of String)(row("STRFACILITYSTREET1"))
                 .Street2 = DB.GetNullable(Of String)(row("STRFACILITYSTREET2"))
+                If .Street2 = "N/A" Then
+                    .Street2 = ""
+                End If
             End With
 
             Dim location As New Location
@@ -108,6 +111,24 @@ Namespace DAL
                 .FacilityName = DB.GetNullable(Of String)(row("STRFACILITYNAME"))
             End With
         End Sub
+
+        ''' <summary>
+        ''' Determines if a facility has been approved (by the APB) in the database
+        ''' </summary>
+        ''' <param name="airsNumber">The AIRS number to check</param>
+        ''' <returns>True if facility has been approved; otherwise, false</returns>
+        Public Function FacilityHasBeenApproved(ByVal airsNumber As Apb.ApbFacilityId) As Boolean
+            Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
+            " FROM AIRBRANCH.AFSFacilityData " & _
+            " WHERE RowNum = 1 " & _
+            " AND strAIRSnumber = :airsnumber " & _
+            " and strUpdateStatus <> 'H' "
+
+            Dim parameter As New OracleParameter("airsnumber", airsNumber.DbFormattedString)
+
+            Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
+            Return Convert.ToBoolean(result)
+        End Function
 
 #End Region
 
@@ -204,6 +225,114 @@ Namespace DAL
                 New OracleParameter("active", 0), _
                 New OracleParameter("airsnumber", airsNumber.ShortString) _
             })
+
+            Return DB.RunCommand(queryList, parametersList)
+        End Function
+
+        ''' <summary>
+        ''' Completely remove a facility (AIRS number) from the database
+        ''' </summary>
+        ''' <param name="airsNumber">The AIRS number to delete</param>
+        ''' <returns>True if successful; otherwise false</returns>
+        Public Function DeleteFacility(ByVal airsNumber As ApbFacilityId) As Boolean
+            Dim queryList As New List(Of String)
+            Dim parametersList As New List(Of OracleParameter())
+
+            Dim parameter As OracleParameter() = {New OracleParameter("airsnumber", airsNumber.DbFormattedString)}
+
+            Dim query As String = "Delete AIRBRANCH.SSCPInspectionsRequired " & _
+            " where strAIRSNumber = :airsnumber"
+            queryList.Add(query)
+            parametersList.Add(parameter)
+
+            query = "Delete AIRBRANCH.SSCPDistrictResponsible " & _
+            " where strAIRSNumber = :airsnumber"
+            queryList.Add(query)
+            parametersList.Add(parameter)
+
+            query = "Delete AIRBRANCH.APBAirProgramPollutants " & _
+            " where strAIRSNumber = :airsnumber"
+            queryList.Add(query)
+            parametersList.Add(parameter)
+
+            query = "Delete AIRBRANCH.APBContactInformation " & _
+            " where strAIRSNumber = :airsnumber"
+            queryList.Add(query)
+            parametersList.Add(parameter)
+
+            query = "Delete AIRBRANCH.APBSupplamentalData " & _
+            " where strAIRSNumber = :airsnumber"
+            queryList.Add(query)
+            parametersList.Add(parameter)
+
+            query = "Delete AIRBRANCH.APBHeaderData " & _
+            " where strAIRSNumber = :airsnumber"
+            queryList.Add(query)
+            parametersList.Add(parameter)
+
+            query = "Delete AIRBRANCH.APBFacilityInformation " & _
+            " where strAIRSNumber = :airsnumber"
+            queryList.Add(query)
+            parametersList.Add(parameter)
+
+            query = "Delete AIRBRANCH.AFSFacilityData " & _
+            " where strAIRSNumber = :airsnumber"
+            queryList.Add(query)
+            parametersList.Add(parameter)
+
+            query = "Delete AIRBRANCH.AFSAIRPollutantData " & _
+            " where strAIRSNumber = :airsnumber"
+            queryList.Add(query)
+            parametersList.Add(parameter)
+
+            query = "Delete AIRBRANCH.APBMasterAIRS " & _
+            " where strAIRSNumber = :airsnumber"
+            queryList.Add(query)
+            parametersList.Add(parameter)
+
+            Return DB.RunCommand(queryList, parametersList)
+        End Function
+
+        Public Function UpdateDataAtEPA(ByVal airsnumber As ApbFacilityId) As Boolean
+            Dim queryList As New List(Of String)
+            Dim parametersList As New List(Of OracleParameter())
+            Dim parameter As OracleParameter() = {New OracleParameter("airsnumber", airsnumber.DbFormattedString)}
+
+            Dim query As String = " UPDATE AIRBRANCH.APBFACILITYINFORMATION " & _
+            " SET ICIS_STATUSIND = 'U' " & _
+            " WHERE STRAIRSNUMBER = :airsnumber "
+            queryList.Add(query)
+            parametersList.Add(parameter)
+
+            query = " UPDATE AIRBRANCH.APBHEADERDATA " & _
+            " SET ICIS_STATUSIND = 'U' " & _
+            " WHERE STRAIRSNUMBER = :airsnumber "
+            queryList.Add(query)
+            parametersList.Add(parameter)
+
+            query = " UPDATE AIRBRANCH.SSCPITEMMASTER " & _
+            " SET ICIS_STATUSIND = 'U' " & _
+            " WHERE STRAIRSNUMBER = :airsnumber "
+            queryList.Add(query)
+            parametersList.Add(parameter)
+
+            query = " UPDATE AIRBRANCH.SSCP_AUDITEDENFORCEMENT " & _
+            " SET ICIS_STATUSIND = 'U' " & _
+            " WHERE STRAIRSNUMBER = :airsnumber "
+            queryList.Add(query)
+            parametersList.Add(parameter)
+
+            query = " UPDATE AIRBRANCH.SSCPFCEMASTER " & _
+            " SET ICIS_STATUSIND = 'U' " & _
+            " WHERE STRAIRSNUMBER = :airsnumber "
+            queryList.Add(query)
+            parametersList.Add(parameter)
+
+            query = " UPDATE AIRBRANCH.APBSUPPLAMENTALDATA " & _
+            " SET ICIS_STATUSIND = 'U' " & _
+            " WHERE STRAIRSNUMBER = :airsnumber "
+            queryList.Add(query)
+            parametersList.Add(parameter)
 
             Return DB.RunCommand(queryList, parametersList)
         End Function

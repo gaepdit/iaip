@@ -1,6 +1,6 @@
 Imports System.DateTime
 Imports Oracle.ManagedDataAccess.Client
-
+Imports System.Collections.Generic
 
 Public Class IAIPFacilityCreator
     Dim ds As New DataSet
@@ -13,8 +13,8 @@ Public Class IAIPFacilityCreator
         monitor.TrackFeature("Forms." & Me.Name)
         Try
             LoadCounty()
-            TCFacilityTools.TabPages.Remove(TPCreateNewFacility)
             TCFacilityTools.TabPages.Remove(TPApproveNewFacility)
+            TCFacilityTools.TabPages.Remove(TPDeleteFacility)
 
             If AccountFormAccess(138, 0) Is Nothing Then
             Else
@@ -26,17 +26,18 @@ Public Class IAIPFacilityCreator
                         DTPSSCPApproveDate.Text = OracleDate
                         DTPSSPPApproveDate.Text = OracleDate
 
+                        TCFacilityTools.TabPages.Add(TPDeleteFacility)
+
                         LoadPendingFacilities()
                     End If
                 End If
             End If
 
-            TCFacilityTools.TabPages.Add(TPCreateNewFacility)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-      
+
     End Sub
     Sub LoadCounty()
         Try
@@ -201,49 +202,6 @@ Public Class IAIPFacilityCreator
          "where FullData.AIRSNumber = SSCPStaff.AIRSNumber (+) " & _
          "and FullData.AIRSNumber = SSPPStaff.AIRSNumber (+) "
             End If
-
-            'SQL = "select " & _
-            '"FUllData.AIRSNumber, strFacilityName, " & _
-            '"DateCreated, strComments, " & _
-            '"SSCPApprover, datApproveDateSSCP, strCommentSSCP, " & _
-            '"SSPPApprover, datApproveDateSSPP, strCommentSSPP, " & _
-            '"strfacilityStreet1 " & _
-            '"from " & _
-            '"(select substr(AIRBRANCH.APBMasterAIRS.strAIRSNumber, 5) as AIRSNumber, " & _
-            '"strFacilityName, AIRBRANCH.AFSFacilityData.datModifingDate as dateCreated, " & _
-            '"AIRBRANCH.APBHeaderData.strComments,  " & _
-            '"datApproveDateSSCP, strCommentSSCP, " & _
-            '"datApproveDateSSPP, strCommentSSPP, " & _
-            '"strfacilityStreet1 " & _
-            '"from AIRBRANCH.AFSFacilityData, AIRBRANCH.APBFacilityInformation,  " & _
-            '"AIRBRANCH.APBMasterAIRS, AIRBRANCH.APBHeaderData, AIRBRANCH.APBSupplamentalData " & _
-            '"where AIRBRANCH.AFSFacilityData.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber  " & _
-            '"and AIRBRANCH.AFSFacilityData.strAIRSNumber = AIRBRANCH.APBMasterAIRS.strAIRSnumber  " & _
-            '"and AIRBRANCH.AFSFacilityData.strAIRSnumber = AIRBRANCH.APBHeaderData.strAIRSNumber " & _
-            '"and AIRBRANCH.AFSFacilityData.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber " & _
-            '"and strUpdateStatus = 'H') FullData,   " & _
-            '"(select substr(AIRBRANCH.AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " & _
-            '"case " & _
-            '"when numApprovingSSCP is not null then (strLastName||', '||strFirstName) " & _
-            '"else '' " & _
-            '"end SSCPApprover " & _
-            '"from AIRBRANCH.AFSFacilityData, AIRBRANCH.APBSupplamentalData, " & _
-            '"AIRBRANCH.EPDUserProfiles " & _
-            '"where  AIRBRANCH.AFSFacilityData.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber " & _
-            '"and AIRBRANCH.APBSupplamentalData.numApprovingSSCP = AIRBRANCH.EPDUserProfiles.numUserID (+) " & _
-            '"and strUpdateStatus = 'H')SSCPStaff, " & _
-            '"(select substr(AIRBRANCH.AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " & _
-            '"case " & _
-            '"when numApprovingSSPP is not null then (strLastName||', '||strFirstName) " & _
-            '"else '' " & _
-            '"end SSPPApprover " & _
-            '"from AIRBRANCH.AFSFacilityData, AIRBRANCH.APBSupplamentalData, " & _
-            '"AIRBRANCH.EPDUserProfiles " & _
-            '"where  AIRBRANCH.AFSFacilityData.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber " & _
-            '"and AIRBRANCH.APBSupplamentalData.numApprovingSSPP = AIRBRANCH.EPDUserProfiles.numUserID (+) " & _
-            '"and strUpdateStatus = 'H')SSPPStaff " & _
-            '"where FullData.AIRSNumber = SSCPStaff.AIRSNumber (+) " & _
-            '"and FullData.AIRSNumber = SSPPStaff.AIRSNumber (+) "
 
             If chbFilterNewFacilities.Checked = True Then
                 SQL = SQL & "and dateCreated between '" & dtpStartFilter.Text & "' and '" & dtpEndFilter.Text & "' "
@@ -447,7 +405,7 @@ Public Class IAIPFacilityCreator
                 AIRSNumber = "0413" & txtCDSAIRSNumber.Text
             End If
             If txtCDSFacilityName.Text = "" Then
-                facilityname = "N/A"
+                FacilityName = "N/A"
             Else
                 txtCDSFacilityName.Text = Apb.Facility.SanitizeFacilityNameForDb(txtCDSFacilityName.Text)
                 FacilityName = txtCDSFacilityName.Text
@@ -1700,8 +1658,8 @@ Public Class IAIPFacilityCreator
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                MsgBox(txtNewFacilityName.Text & " - (" & txtNewAIRSNumber.Text & _
-                       ") will be submitted to AFS", MsgBoxStyle.Information, Me.Text)
+                MsgBox(txtNewFacilityName.Text & " (" & txtNewAIRSNumber.Text & _
+                       ") has been approved", MsgBoxStyle.Information, Me.Text)
                 LoadPendingFacilities()
                 ClearValidator()
                 ClearNewFacility()
@@ -1714,130 +1672,32 @@ Public Class IAIPFacilityCreator
     End Sub
     Private Sub btnRemoveFromPlatform_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRemoveFromPlatform.Click
         Try
-            If txtNewAIRSNumber.Text = "" Then
+            If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(txtNewAIRSNumber.Text) Then
+                MessageBox.Show("AIRS number is not valid", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
-            Dim Result As DialogResult
 
-            Result = MessageBox.Show("Are you sure you want to remove this AIRS #?." & vbCrLf & "The data will not be recoverable.", Me.Text, _
-                                      MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-
-            Select Case Result
-                Case Windows.Forms.DialogResult.Yes
-
-                Case Windows.Forms.DialogResult.No
-                    Exit Sub
-                Case Windows.Forms.DialogResult.Cancel
-                    Exit Sub
-                Case Else
-                    Exit Sub
-            End Select
-
-            SQL = "Delete AIRBRANCH.SSCPInspectionsRequired " & _
-            "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
+            If DAL.Facility.FacilityHasBeenApproved(txtNewAIRSNumber.Text) Then
+                MessageBox.Show("Facility has already been approved.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
             End If
-            dr = cmd.ExecuteReader
-            dr.Close()
 
-            SQL = "Delete AIRBRANCH.SSCPDistrictResponsible " & _
-            "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
+            Dim result As DialogResult
+            result = MessageBox.Show("Are you sure you want to completely remove this facility from the database? The data will not be recoverable.", "Confirm facility deletion", _
+                                      MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
+            If result = Windows.Forms.DialogResult.No Then
+                Exit Sub
             End If
-            dr = cmd.ExecuteReader
-            dr.Close()
 
-            SQL = "Delete AIRBRANCH.APBAirProgramPollutants " & _
-            "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
+            If DAL.Facility.DeleteFacility(txtNewAIRSNumber.Text) Then
+                MessageBox.Show("Facility removed from the database", "Gone", MessageBoxButtons.OK)
+            Else
+                MessageBox.Show("There was an error when attempting to remove the facility from the database." & vbNewLine & vbNewLine & "Facility has not been removed.", "Error", MessageBoxButtons.OK)
             End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            SQL = "Delete AIRBRANCH.APBContactInformation " & _
-           "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            SQL = "Delete AIRBRANCH.APBSupplamentalData " & _
-            "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            SQL = "Delete AIRBRANCH.APBHeaderData " & _
-            "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            SQL = "Delete AIRBRANCH.APBFacilityInformation " & _
-            "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            SQL = "Delete AIRBRANCH.AFSFacilityData " & _
-            "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            SQL = "Delete AIRBRANCH.AFSAIRPollutantData " & _
-            "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            SQL = "Delete AIRBRANCH.APBMasterAIRS " & _
-            "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
 
             LoadPendingFacilities()
             ClearValidator()
             ClearNewFacility()
-
-            MsgBox("Facility Removed from the Platform", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2399,4 +2259,45 @@ Public Class IAIPFacilityCreator
         End Try
     End Sub
 
+    Private Sub DeleteAirsNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DeleteAirsNumber.Click
+        Try
+            If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToDelete.Text) Then
+                MessageBox.Show("AIRS number is not valid", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+
+            Dim airsNumberDeleting As New Apb.ApbFacilityId(AirsNumberToDelete.Text)
+
+            If Not DAL.Facility.FacilityHasBeenApproved(airsNumberDeleting) Then
+                MessageBox.Show("Facility has not been approved yet. Remove facility using the ""Approve New Facilities"" tab.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+
+            Dim result As DialogResult
+            result = MessageBox.Show("Are you sure you want to completely remove this facility from the database? The data will not be recoverable.", "Confirm facility deletion", _
+                                      MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
+            If result = Windows.Forms.DialogResult.No Then
+                Exit Sub
+            End If
+
+            If DAL.Facility.DeleteFacility(airsNumberDeleting) Then
+                MessageBox.Show("Facility removed from the database", "Gone", MessageBoxButtons.OK)
+            Else
+                MessageBox.Show("There was an error when attempting to remove the facility from the database." & vbNewLine & vbNewLine & "Facility has not been removed.", "Error", MessageBoxButtons.OK)
+            End If
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
+    Private Sub AirsNumberToDelete_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AirsNumberToDelete.TextChanged
+        If Apb.ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToDelete.Text) Then
+            Dim fac As Apb.Facility = DAL.Facility.GetFacility(AirsNumberToDelete.Text)
+            fac.HeaderData = DAL.FacilityHeaderData.GetFacilityHeaderData(AirsNumberToDelete.Text)
+
+            FacilityLongDisplay.Text = fac.LongDisplay
+        Else
+            FacilityLongDisplay.Text = ""
+        End If
+    End Sub
 End Class

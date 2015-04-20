@@ -467,7 +467,7 @@ Public Class IAIPEditHeaderData
 
         If Not editedFacility.ShutdownDate Is Nothing _
             AndAlso editedFacility.OperationalStatus <> Facility.OperationalStatus.X _
-            AndAlso editedFacility.ShutdownDate = Nothing Then
+            AndAlso editedFacility.ShutdownDate Is Nothing Then
             MessageBox.Show("A permit revocation date is entered, but the facility is not marked as closed. Please reconcile this.", _
                             "Missing Date", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             valid = False

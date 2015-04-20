@@ -151,7 +151,7 @@ Public Class IAIPLogIn
 
             UserGCode = ""
 
-            CurrentUser = DAL.GetIaipUser(txtUserID.Text.ToUpper, EncryptDecrypt.EncryptText(txtUserPassword.Text))
+            CurrentUser = DAL.LoginIaipUser(txtUserID.Text.ToUpper, EncryptDecrypt.EncryptText(txtUserPassword.Text))
 
             If CurrentUser Is Nothing Then
                 MsgBox("Login information is incorrect." & vbCrLf & "Please try again.", MsgBoxStyle.Exclamation, "Login Error")
