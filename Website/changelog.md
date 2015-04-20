@@ -2,8 +2,8 @@
 
 ## Version 3.7.0 <span>(2015-04-20)</span>
 
-+ NEW: *SSCP* -- New module to review errors returned by EPA's new data transfer system (#307)
-+ NEW: *SSCP* -- New UI to trigger forcing an update of facility data to EPA (#314)
++ NEW: *SSCP* -- Module to review errors returned by EPA's new data transfer system (#307)
++ NEW: *SSCP* -- UI to trigger forcing an update of facility data to EPA (#314)
 + NEW: *SSPP* -- Updated Title V reminder letter with GEOS language (#327); thx Eric
 
 - FIX: *ISMP* -- Smoke School module can't handle people with apostrophes in their name (#325); thx Jeff
