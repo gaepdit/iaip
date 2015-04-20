@@ -56,7 +56,6 @@ Module subMain
     Public ListTool As IAIPListTool ' TODO DWW: Remove
     Public ProfileUpdate As IAIPProfileUpdate
     Public FacilityPrintOut As IaipFacilitySummaryPrint ' TODO DWW: Remove
-    Public FacilityCreator As IAIPFacilityCreator ' TODO DWW: Remove
 #End Region
 
 #Region " ISMP Screens "

@@ -16343,7 +16343,7 @@ Public Class IAIPPrintOut
         Dim ProgramManager As String = ""
         Dim rpt As New ReportClass
 
-        rpt = New CRTitleVRenewal
+        rpt = New CRTitleVRenewal10
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields

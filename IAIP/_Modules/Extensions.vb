@@ -45,19 +45,18 @@ Module Extensions
     End Sub
 
     <Extension()> _
-    Public Sub MakeCellLookLikeHoveredLink(ByVal dgv As DataGridView, ByVal row As Integer, ByVal col As Integer)
-        dgv.Cursor = Cursors.Hand
-        dgv.Rows(row).Cells(col).Style.ForeColor = Color.Blue
-        dgv.Rows(row).Cells(col).Style.Font = _
-            New Font(dgv.DefaultCellStyle.Font, FontStyle.Underline)
-    End Sub
-
-    <Extension()> _
-Public Sub MakeCellNotLookLikeHoveredLink(ByVal dgv As DataGridView, ByVal row As Integer, ByVal col As Integer)
-        dgv.Cursor = Cursors.Default
-        dgv.Rows(row).Cells(col).Style.ForeColor = SystemColors.HotTrack
-        dgv.Rows(row).Cells(col).Style.Font = _
-            New Font(dgv.DefaultCellStyle.Font, FontStyle.Regular)
+    Public Sub MakeCellLookLikeHoveredLink(ByVal dgv As DataGridView, ByVal row As Integer, ByVal col As Integer, Optional ByVal hover As Boolean = True)
+        If hover Then
+            dgv.Cursor = Cursors.Hand
+            dgv.Rows(row).Cells(col).Style.ForeColor = Color.Blue
+            dgv.Rows(row).Cells(col).Style.Font = _
+                New Font(dgv.DefaultCellStyle.Font, FontStyle.Underline)
+        Else
+            dgv.Cursor = Cursors.Default
+            dgv.Rows(row).Cells(col).Style.ForeColor = SystemColors.HotTrack
+            dgv.Rows(row).Cells(col).Style.Font = _
+                New Font(dgv.DefaultCellStyle.Font, FontStyle.Regular)
+        End If
     End Sub
 
 #End Region
@@ -318,6 +317,15 @@ Public Sub MakeCellNotLookLikeHoveredLink(ByVal dgv As DataGridView, ByVal row A
     Public Sub BindToDictionary(Of T)(ByVal c As ComboBox, ByVal d As Dictionary(Of T, String))
         With c
             .DataSource = New BindingSource(d, Nothing)
+            .DisplayMember = "Value"
+            .ValueMember = "Key"
+        End With
+    End Sub
+
+    <Extension()> _
+    Public Sub BindToKeyValuePairs(ByVal c As ComboBox, ByVal l As List(Of KeyValuePair(Of Integer, String)))
+        With c
+            .DataSource = New BindingSource(l, Nothing)
             .DisplayMember = "Value"
             .ValueMember = "Key"
         End With

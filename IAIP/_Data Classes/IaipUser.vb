@@ -1,4 +1,5 @@
 ﻿Public Class IaipUser
+
     Private _staff As Staff
     Public Property Staff() As Staff
         Get
@@ -26,6 +27,16 @@
         End Get
         Set(ByVal value As String)
             _userName = value
+        End Set
+    End Property
+
+    Private _userID As Integer
+    Public Property UserID() As Integer
+        Get
+            Return _userID
+        End Get
+        Set(ByVal value As Integer)
+            _userID = value
         End Set
     End Property
 

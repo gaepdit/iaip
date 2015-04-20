@@ -1004,7 +1004,7 @@ Public Class IAIPNavigation
         'Console.WriteLine("CellMouseEnter: " & e.ColumnIndex.ToString & ", " & e.RowIndex.ToString)
         ' Change cursor and text color when hovering over first column (treats text like a hyperlink)
         If e.RowIndex <> -1 AndAlso e.RowIndex < dgvWorkViewer.RowCount AndAlso e.ColumnIndex = 0 Then
-            dgvWorkViewer.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex)
+            dgvWorkViewer.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex, True)
         End If
     End Sub
 
@@ -1013,7 +1013,7 @@ Public Class IAIPNavigation
         'Console.WriteLine("CellMouseLeave: " & e.ColumnIndex.ToString & ", " & e.RowIndex.ToString)
         ' Reset cursor and text color when mouse leaves (un-hovers) a cell
         If e.RowIndex <> -1 AndAlso e.RowIndex < dgvWorkViewer.RowCount AndAlso e.ColumnIndex = 0 Then
-            dgvWorkViewer.MakeCellNotLookLikeHoveredLink(e.RowIndex, e.ColumnIndex)
+            dgvWorkViewer.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex, False)
         End If
     End Sub
 
@@ -1350,11 +1350,13 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(137, "Registration Tool", "MASPRegistrationTool", NavButtonCategories.MASP)
 
         ' DMU
-        AddNavButtonIfAccountHasFormAccess(129, "AFS Tools", "DMUDeveloperTool", NavButtonCategories.DMU)
+        AddNavButtonIfAccountHasFormAccess(129, "Error Logs", "DMUDeveloperTool", NavButtonCategories.DMU)
+        AddNavButtonIfUserHasPermission(New String() {"(118)", "(19)"}, _
+                                        "EDT Errors", "DmuEdtErrorMessages", NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(10, "District Tools", "IAIPDistrictSourceTool", NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(133, "Look Up Tables", "IAIPLookUpTables", NavButtonCategories.DMU)
         If (UserGCode = "345") Then
-            AddNavButtonIfAccountHasFormAccess(63, "Scary DMU-Only Tool", "DMUDangerousTool", NavButtonCategories.DMU)
+            AddNavButtonIfAccountHasFormAccess(63, "Special Tools", "DMUDangerousTool", NavButtonCategories.DMU)
         End If
 
         ' EIS

@@ -55,7 +55,7 @@
     <MinimumRequiredVersion>3.6.10.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>IAIP-install.html</WebPage>
-    <ApplicationRevision>66</ApplicationRevision>
+    <ApplicationRevision>70</ApplicationRevision>
     <ApplicationVersion>3.6.10.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -657,12 +657,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\SSPP\CRTitleVRenewal.vb">
-      <SubType>Component</SubType>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRTitleVRenewal.rpt</DependentUpon>
-    </Compile>
     <Compile Include="Crystal Reports\Oracle 9.2\SSPP\SSPPPublicNotice.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -913,6 +907,15 @@
     <EmbeddedResource Include="DevelopmentForms\IAIPPhoneList.resx">
       <DependentUpon>IAIPPhoneList.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DMU\DmuEdtErrorDetail.resx">
+      <DependentUpon>DmuEdtErrorDetail.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DMU\DmuEdtErrorMessageDetail.resx">
+      <DependentUpon>DmuEdtErrorMessageDetail.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DMU\DmuEdtErrorMessages.resx">
+      <DependentUpon>DmuEdtErrorMessages.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Fees\PASPFeeStatistics.resx">
       <DependentUpon>PASPFeeStatistics.vb</DependentUpon>
@@ -1262,10 +1265,6 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CRTwoStackStandard.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\SSPP\CRTitleVRenewal.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRTitleVRenewal.vb</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Oracle 9.2\SSPP\SSPPPublicNotice.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>SSPPPublicNotice.vb</LastGenOutput>
@@ -1458,6 +1457,24 @@
     <None Include="Resources\Seal_of_Georgia_gold.ico" />
     <None Include="Resources\Seal_of_Georgia_red_small.ico" />
     <None Include="Resources\Seal_of_Georgia_gold_256x256x32.png" />
+    <Compile Include="DMU\DmuEdtErrorDetail.Designer.vb">
+      <DependentUpon>DmuEdtErrorDetail.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DMU\DmuEdtErrorDetail.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DMU\DmuEdtErrorMessageDetail.Designer.vb">
+      <DependentUpon>DmuEdtErrorMessageDetail.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DMU\DmuEdtErrorMessageDetail.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DMU\DmuEdtErrorMessages.Designer.vb">
+      <DependentUpon>DmuEdtErrorMessages.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DMU\DmuEdtErrorMessages.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="SSPP\Sub Forms\SsppPermitRevocationDialog.Designer.vb">
       <DependentUpon>SsppPermitRevocationDialog.vb</DependentUpon>
     </Compile>
@@ -1467,8 +1484,13 @@
     <Compile Include="_Classes\BooleanFormatProvider.vb" />
     <Compile Include="_Data Classes\ApbFacilityId.vb" />
     <Compile Include="_Data Classes\Contact.vb" />
+    <Compile Include="_Data Classes\DMU.EdtError.vb" />
     <Compile Include="_Data Classes\FacilityHeaderData.vb" />
     <Compile Include="_Data Classes\SSPP.Permit.vb" />
+    <Compile Include="_DB\DAL.DMU.EdtError.vb" />
+    <Compile Include="_DB\DAL.ISMP.StackTest.vb">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="_DB\DAL.SSCP.FacilityAssignments.vb" />
     <Compile Include="_DB\DAL.AppData.vb" />
     <Compile Include="_DB\DAL.FacilityHeaderData.vb" />
@@ -1570,8 +1592,7 @@
     </Compile>
     <Compile Include="_Data Classes\IaipUser.vb" />
     <Compile Include="_DB\DAL.SSCP.WorkItem.vb" />
-    <Compile Include="_DB\DAL.ISMP.StackTest.vb" />
-    <Compile Include="_DB\DAL.LoginCreds.vb" />
+    <Compile Include="_DB\DAL.IaipUser.vb" />
     <Compile Include="_DB\DAL.NavigationScreen.vb">
       <SubType>Code</SubType>
     </Compile>
