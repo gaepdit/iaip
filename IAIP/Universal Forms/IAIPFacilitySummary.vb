@@ -4391,7 +4391,7 @@ Public Class IAIPFacilitySummary
 
     Private Sub UpdateEpa_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UpdateEpa.Click
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbAIRSNumber.Text) AndAlso DAL.Facility.AirsNumberExists(mtbAIRSNumber.Text) Then
-            If DAL.Facility.UpdateDataAtEPA(mtbAIRSNumber.Text) Then
+            If DAL.Facility.TriggerDataUpdateAtEPA(mtbAIRSNumber.Text) Then
                 MessageBox.Show("Data for this facility will be sent to EPA the next time the database update procedures run.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Else
                 MessageBox.Show("There was an error attempting to flag this facility to update.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
