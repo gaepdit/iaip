@@ -2291,13 +2291,14 @@ Public Class IAIPFacilityCreator
     End Sub
 
     Private Sub AirsNumberToDelete_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AirsNumberToDelete.TextChanged
+        FacilityLongDisplay.Text = ""
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToDelete.Text) Then
             Dim fac As Apb.Facility = DAL.Facility.GetFacility(AirsNumberToDelete.Text)
-            fac.HeaderData = DAL.FacilityHeaderData.GetFacilityHeaderData(AirsNumberToDelete.Text)
-
-            FacilityLongDisplay.Text = fac.LongDisplay
-        Else
-            FacilityLongDisplay.Text = ""
+            If fac IsNot Nothing Then
+                fac.HeaderData = DAL.FacilityHeaderData.GetFacilityHeaderData(AirsNumberToDelete.Text)
+                If fac.HeaderData IsNot Nothing Then FacilityLongDisplay.Text = fac.LongDisplay
+            End If
         End If
     End Sub
+
 End Class
