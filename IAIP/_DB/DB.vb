@@ -427,11 +427,10 @@ Namespace DB
         Public Function SPGetListOfKeyValuePair(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing) _
         As List(Of KeyValuePair(Of Integer, String))
             Dim l As New List(Of KeyValuePair(Of Integer, String))
+            Dim t As DataTable = DB.SPGetDataTable(spName, parameter)
 
-            Dim dataTable As DataTable = DB.SPGetDataTable(spName, parameter)
-
-            For Each row As DataRow In dataTable.Rows
-                l.Add(New KeyValuePair(Of Integer, String)(row.Item(0), row.Item(1)))
+            For Each r As DataRow In t.Rows
+                l.Add(New KeyValuePair(Of Integer, String)(r.Item(0), GetNullable(Of String)(r.Item(1))))
             Next
 
             Return l
