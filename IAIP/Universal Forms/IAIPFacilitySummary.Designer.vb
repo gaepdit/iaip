@@ -53,7 +53,6 @@ Partial Class IAIPFacilitySummary
         Me.mmiISMPAddMemo = New System.Windows.Forms.MenuItem
         Me.mmiSSCP = New System.Windows.Forms.MenuItem
         Me.mmiSSCPNewWork = New System.Windows.Forms.MenuItem
-        Me.mmiSSCPFCE = New System.Windows.Forms.MenuItem
         Me.mmiHelp = New System.Windows.Forms.MenuItem
         Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
         Me.TTFacilitySummary = New System.Windows.Forms.ToolTip(Me.components)
@@ -92,9 +91,7 @@ Partial Class IAIPFacilitySummary
         Me.txtFacilityCounty = New System.Windows.Forms.TextBox
         Me.llbViewGoogleMap = New System.Windows.Forms.LinkLabel
         Me.Label4 = New System.Windows.Forms.Label
-        Me.txtOffice = New System.Windows.Forms.TextBox
         Me.txtStreetAddress2 = New System.Windows.Forms.TextBox
-        Me.Label422 = New System.Windows.Forms.Label
         Me.Label3 = New System.Windows.Forms.Label
         Me.txtDistrict = New System.Windows.Forms.TextBox
         Me.txtFacilityZipCode = New System.Windows.Forms.TextBox
@@ -108,7 +105,7 @@ Partial Class IAIPFacilitySummary
         Me.btnOpenFacilityLocationEditor = New System.Windows.Forms.Button
         Me.TPHeaderData = New System.Windows.Forms.TabPage
         Me.Panel13 = New System.Windows.Forms.Panel
-        Me.btnOpenSubpartEditior = New System.Windows.Forms.Button
+        Me.btnOpenSubpartEditor = New System.Windows.Forms.Button
         Me.txtRMPID = New System.Windows.Forms.TextBox
         Me.Label18 = New System.Windows.Forms.Label
         Me.Label6 = New System.Windows.Forms.Label
@@ -117,7 +114,6 @@ Partial Class IAIPFacilitySummary
         Me.Label10 = New System.Windows.Forms.Label
         Me.Label14 = New System.Windows.Forms.Label
         Me.txtSICCode = New System.Windows.Forms.TextBox
-        Me.txtPhysicalShutDownDate = New System.Windows.Forms.TextBox
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
         Me.chbAPCRMP = New System.Windows.Forms.CheckBox
         Me.chbHAPsMajor = New System.Windows.Forms.CheckBox
@@ -135,7 +131,6 @@ Partial Class IAIPFacilitySummary
         Me.chbAPC3 = New System.Windows.Forms.CheckBox
         Me.chbAPC1 = New System.Windows.Forms.CheckBox
         Me.chbAPC0 = New System.Windows.Forms.CheckBox
-        Me.Label9 = New System.Windows.Forms.Label
         Me.txtClassification = New System.Windows.Forms.TextBox
         Me.txtPollutantStatus = New System.Windows.Forms.TextBox
         Me.txtOperationalStatus = New System.Windows.Forms.TextBox
@@ -238,31 +233,9 @@ Partial Class IAIPFacilitySummary
         Me.btnEditContacts = New System.Windows.Forms.Button
         Me.TPEmissionInventory = New System.Windows.Forms.TabPage
         Me.GroupBox6 = New System.Windows.Forms.GroupBox
-        Me.Button1 = New System.Windows.Forms.Button
-        Me.Button2 = New System.Windows.Forms.Button
-        Me.Label19 = New System.Windows.Forms.Label
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox
         Me.dgvEISData = New System.Windows.Forms.DataGridView
         Me.GroupBox7 = New System.Windows.Forms.GroupBox
         Me.dgvEIData = New System.Windows.Forms.DataGridView
-        Me.Panel15 = New System.Windows.Forms.Panel
-        Me.chkLessThan25 = New System.Windows.Forms.CheckBox
-        Me.chkNotNonAttain = New System.Windows.Forms.CheckBox
-        Me.dgvER = New System.Windows.Forms.DataGridView
-        Me.Label99 = New System.Windows.Forms.Label
-        Me.Label98 = New System.Windows.Forms.Label
-        Me.txtNOXEmission = New System.Windows.Forms.TextBox
-        Me.dgvEM = New System.Windows.Forms.DataGridView
-        Me.txtVOCEmission = New System.Windows.Forms.TextBox
-        Me.txtRow = New System.Windows.Forms.TextBox
-        Me.dgvEP = New System.Windows.Forms.DataGridView
-        Me.dgvSI = New System.Windows.Forms.DataGridView
-        Me.dgvEU = New System.Windows.Forms.DataGridView
-        Me.Label17 = New System.Windows.Forms.Label
-        Me.btnExportEIExport = New System.Windows.Forms.Button
-        Me.btnExcel = New System.Windows.Forms.Button
-        Me.Label100 = New System.Windows.Forms.Label
-        Me.cboEIYear = New System.Windows.Forms.ComboBox
         Me.TPISMPTestingWork = New System.Windows.Forms.TabPage
         Me.TCISMPWork = New System.Windows.Forms.TabControl
         Me.TPTestReports = New System.Windows.Forms.TabPage
@@ -360,12 +333,6 @@ Partial Class IAIPFacilitySummary
         CType(Me.dgvEISData, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox7.SuspendLayout()
         CType(Me.dgvEIData, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel15.SuspendLayout()
-        CType(Me.dgvER, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dgvEM, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dgvEP, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dgvSI, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dgvEU, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPISMPTestingWork.SuspendLayout()
         Me.TCISMPWork.SuspendLayout()
         Me.TPTestReports.SuspendLayout()
@@ -497,18 +464,13 @@ Partial Class IAIPFacilitySummary
         'mmiSSCP
         '
         Me.mmiSSCP.Index = 3
-        Me.mmiSSCP.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiSSCPNewWork, Me.mmiSSCPFCE})
+        Me.mmiSSCP.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiSSCPNewWork})
         Me.mmiSSCP.Text = "SS&CP"
         '
         'mmiSSCPNewWork
         '
         Me.mmiSSCPNewWork.Index = 0
         Me.mmiSSCPNewWork.Text = "New Compliance Event(s)"
-        '
-        'mmiSSCPFCE
-        '
-        Me.mmiSSCPFCE.Index = 1
-        Me.mmiSSCPFCE.Text = "View FCE"
         '
         'mmiHelp
         '
@@ -912,9 +874,7 @@ Partial Class IAIPFacilitySummary
         Me.Panel14.Controls.Add(Me.txtFacilityCounty)
         Me.Panel14.Controls.Add(Me.llbViewGoogleMap)
         Me.Panel14.Controls.Add(Me.Label4)
-        Me.Panel14.Controls.Add(Me.txtOffice)
         Me.Panel14.Controls.Add(Me.txtStreetAddress2)
-        Me.Panel14.Controls.Add(Me.Label422)
         Me.Panel14.Controls.Add(Me.Label3)
         Me.Panel14.Controls.Add(Me.txtDistrict)
         Me.Panel14.Controls.Add(Me.txtFacilityZipCode)
@@ -1018,18 +978,6 @@ Partial Class IAIPFacilitySummary
         Me.Label4.Text = "Street Address:"
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.BottomLeft
         '
-        'txtOffice
-        '
-        Me.txtOffice.BackColor = System.Drawing.SystemColors.Control
-        Me.txtOffice.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtOffice.Location = New System.Drawing.Point(89, 250)
-        Me.txtOffice.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtOffice.Name = "txtOffice"
-        Me.txtOffice.ReadOnly = True
-        Me.txtOffice.Size = New System.Drawing.Size(131, 20)
-        Me.txtOffice.TabIndex = 159
-        Me.txtOffice.Visible = False
-        '
         'txtStreetAddress2
         '
         Me.txtStreetAddress2.BackColor = System.Drawing.SystemColors.Control
@@ -1040,18 +988,6 @@ Partial Class IAIPFacilitySummary
         Me.txtStreetAddress2.ReadOnly = True
         Me.txtStreetAddress2.Size = New System.Drawing.Size(211, 20)
         Me.txtStreetAddress2.TabIndex = 147
-        '
-        'Label422
-        '
-        Me.Label422.AutoSize = True
-        Me.Label422.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label422.Location = New System.Drawing.Point(46, 252)
-        Me.Label422.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label422.Name = "Label422"
-        Me.Label422.Size = New System.Drawing.Size(38, 13)
-        Me.Label422.TabIndex = 158
-        Me.Label422.Text = "Office:"
-        Me.Label422.Visible = False
         '
         'Label3
         '
@@ -1188,7 +1124,7 @@ Partial Class IAIPFacilitySummary
         '
         'Panel13
         '
-        Me.Panel13.Controls.Add(Me.btnOpenSubpartEditior)
+        Me.Panel13.Controls.Add(Me.btnOpenSubpartEditor)
         Me.Panel13.Controls.Add(Me.txtRMPID)
         Me.Panel13.Controls.Add(Me.Label18)
         Me.Panel13.Controls.Add(Me.Label6)
@@ -1197,9 +1133,7 @@ Partial Class IAIPFacilitySummary
         Me.Panel13.Controls.Add(Me.Label10)
         Me.Panel13.Controls.Add(Me.Label14)
         Me.Panel13.Controls.Add(Me.txtSICCode)
-        Me.Panel13.Controls.Add(Me.txtPhysicalShutDownDate)
         Me.Panel13.Controls.Add(Me.GroupBox2)
-        Me.Panel13.Controls.Add(Me.Label9)
         Me.Panel13.Controls.Add(Me.txtClassification)
         Me.Panel13.Controls.Add(Me.txtPollutantStatus)
         Me.Panel13.Controls.Add(Me.txtOperationalStatus)
@@ -1220,16 +1154,16 @@ Partial Class IAIPFacilitySummary
         Me.Panel13.Size = New System.Drawing.Size(660, 398)
         Me.Panel13.TabIndex = 342
         '
-        'btnOpenSubpartEditior
+        'btnOpenSubpartEditor
         '
-        Me.btnOpenSubpartEditior.AutoSize = True
-        Me.btnOpenSubpartEditior.Location = New System.Drawing.Point(259, 189)
-        Me.btnOpenSubpartEditior.Name = "btnOpenSubpartEditior"
-        Me.btnOpenSubpartEditior.Size = New System.Drawing.Size(89, 25)
-        Me.btnOpenSubpartEditior.TabIndex = 314
-        Me.btnOpenSubpartEditior.Text = "Edit Subparts"
-        Me.btnOpenSubpartEditior.UseVisualStyleBackColor = True
-        Me.btnOpenSubpartEditior.Visible = False
+        Me.btnOpenSubpartEditor.AutoSize = True
+        Me.btnOpenSubpartEditor.Location = New System.Drawing.Point(259, 189)
+        Me.btnOpenSubpartEditor.Name = "btnOpenSubpartEditor"
+        Me.btnOpenSubpartEditor.Size = New System.Drawing.Size(89, 25)
+        Me.btnOpenSubpartEditor.TabIndex = 314
+        Me.btnOpenSubpartEditor.Text = "Edit Subparts"
+        Me.btnOpenSubpartEditor.UseVisualStyleBackColor = True
+        Me.btnOpenSubpartEditor.Visible = False
         '
         'txtRMPID
         '
@@ -1323,17 +1257,6 @@ Partial Class IAIPFacilitySummary
         Me.txtSICCode.ReadOnly = True
         Me.txtSICCode.Size = New System.Drawing.Size(43, 20)
         Me.txtSICCode.TabIndex = 321
-        '
-        'txtPhysicalShutDownDate
-        '
-        Me.txtPhysicalShutDownDate.BackColor = System.Drawing.SystemColors.Control
-        Me.txtPhysicalShutDownDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPhysicalShutDownDate.Location = New System.Drawing.Point(519, 51)
-        Me.txtPhysicalShutDownDate.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtPhysicalShutDownDate.Name = "txtPhysicalShutDownDate"
-        Me.txtPhysicalShutDownDate.ReadOnly = True
-        Me.txtPhysicalShutDownDate.Size = New System.Drawing.Size(94, 20)
-        Me.txtPhysicalShutDownDate.TabIndex = 338
         '
         'GroupBox2
         '
@@ -1556,17 +1479,6 @@ Partial Class IAIPFacilitySummary
         Me.chbAPC0.TabIndex = 129
         Me.chbAPC0.Text = "0 - SIP"
         '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(366, 55)
-        Me.Label9.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(148, 13)
-        Me.Label9.TabIndex = 337
-        Me.Label9.Text = "(Optional) Physical Shutdown:"
-        '
         'txtClassification
         '
         Me.txtClassification.BackColor = System.Drawing.SystemColors.Control
@@ -1603,9 +1515,9 @@ Partial Class IAIPFacilitySummary
         Me.Label101.AutoSize = True
         Me.Label101.Location = New System.Drawing.Point(7, 287)
         Me.Label101.Name = "Label101"
-        Me.Label101.Size = New System.Drawing.Size(133, 13)
+        Me.Label101.Size = New System.Drawing.Size(98, 13)
         Me.Label101.TabIndex = 335
-        Me.Label101.Text = "Facility Compliance Status:"
+        Me.Label101.Text = "Compliance Status:"
         '
         'Label430
         '
@@ -1725,9 +1637,9 @@ Partial Class IAIPFacilitySummary
         Me.Label92.AutoSize = True
         Me.Label92.Location = New System.Drawing.Point(6, 217)
         Me.Label92.Name = "Label92"
-        Me.Label92.Size = New System.Drawing.Size(90, 13)
+        Me.Label92.Size = New System.Drawing.Size(63, 13)
         Me.Label92.TabIndex = 332
-        Me.Label92.Text = "Plant Description:"
+        Me.Label92.Text = "Description:"
         '
         'txtDateClosed
         '
@@ -2424,9 +2336,9 @@ Partial Class IAIPFacilitySummary
         Me.Label377.Location = New System.Drawing.Point(8, 45)
         Me.Label377.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label377.Name = "Label377"
-        Me.Label377.Size = New System.Drawing.Size(191, 13)
+        Me.Label377.Size = New System.Drawing.Size(53, 13)
         Me.Label377.TabIndex = 1
-        Me.Label377.Text = "Stationary Source Permitting Engineer: "
+        Me.Label377.Text = "Permitting"
         '
         'Label376
         '
@@ -2434,9 +2346,9 @@ Partial Class IAIPFacilitySummary
         Me.Label376.Location = New System.Drawing.Point(8, 15)
         Me.Label376.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label376.Name = "Label376"
-        Me.Label376.Size = New System.Drawing.Size(200, 13)
+        Me.Label376.Size = New System.Drawing.Size(62, 13)
         Me.Label376.TabIndex = 0
-        Me.Label376.Text = "Stationary Source Compliance Engineer: "
+        Me.Label376.Text = "Compliance"
         '
         'TPWebContacts
         '
@@ -2760,10 +2672,6 @@ Partial Class IAIPFacilitySummary
         '
         'GroupBox6
         '
-        Me.GroupBox6.Controls.Add(Me.Button1)
-        Me.GroupBox6.Controls.Add(Me.Button2)
-        Me.GroupBox6.Controls.Add(Me.Label19)
-        Me.GroupBox6.Controls.Add(Me.ComboBox1)
         Me.GroupBox6.Controls.Add(Me.dgvEISData)
         Me.GroupBox6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox6.Location = New System.Drawing.Point(0, 0)
@@ -2773,66 +2681,18 @@ Partial Class IAIPFacilitySummary
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Emission Data after 2009"
         '
-        'Button1
-        '
-        Me.Button1.AutoSize = True
-        Me.Button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Button1.Location = New System.Drawing.Point(338, 185)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(114, 23)
-        Me.Button1.TabIndex = 59
-        Me.Button1.Text = "Export Full EI Report"
-        Me.Button1.UseVisualStyleBackColor = True
-        Me.Button1.Visible = False
-        '
-        'Button2
-        '
-        Me.Button2.AutoSize = True
-        Me.Button2.Location = New System.Drawing.Point(15, 184)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(106, 25)
-        Me.Button2.TabIndex = 56
-        Me.Button2.Text = "Export Summary"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
-        'Label19
-        '
-        Me.Label19.AutoSize = True
-        Me.Label19.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label19.Location = New System.Drawing.Point(151, 190)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(84, 13)
-        Me.Label19.TabIndex = 58
-        Me.Label19.Text = "Choose EI Year:"
-        Me.Label19.Visible = False
-        '
-        'ComboBox1
-        '
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(241, 186)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(84, 21)
-        Me.ComboBox1.TabIndex = 57
-        Me.ComboBox1.Visible = False
-        '
         'dgvEISData
         '
         Me.dgvEISData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvEISData.Dock = System.Windows.Forms.DockStyle.Top
         Me.dgvEISData.Location = New System.Drawing.Point(3, 16)
         Me.dgvEISData.Name = "dgvEISData"
-        Me.dgvEISData.Size = New System.Drawing.Size(660, 162)
+        Me.dgvEISData.Size = New System.Drawing.Size(660, 193)
         Me.dgvEISData.TabIndex = 0
         '
         'GroupBox7
         '
         Me.GroupBox7.Controls.Add(Me.dgvEIData)
-        Me.GroupBox7.Controls.Add(Me.Panel15)
-        Me.GroupBox7.Controls.Add(Me.Label17)
-        Me.GroupBox7.Controls.Add(Me.btnExportEIExport)
-        Me.GroupBox7.Controls.Add(Me.btnExcel)
-        Me.GroupBox7.Controls.Add(Me.Label100)
-        Me.GroupBox7.Controls.Add(Me.cboEIYear)
         Me.GroupBox7.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.GroupBox7.Location = New System.Drawing.Point(0, 215)
         Me.GroupBox7.Name = "GroupBox7"
@@ -2848,198 +2708,8 @@ Partial Class IAIPFacilitySummary
         Me.dgvEIData.Location = New System.Drawing.Point(3, 16)
         Me.dgvEIData.Name = "dgvEIData"
         Me.dgvEIData.ReadOnly = True
-        Me.dgvEIData.Size = New System.Drawing.Size(660, 168)
+        Me.dgvEIData.Size = New System.Drawing.Size(660, 201)
         Me.dgvEIData.TabIndex = 39
-        '
-        'Panel15
-        '
-        Me.Panel15.Controls.Add(Me.chkLessThan25)
-        Me.Panel15.Controls.Add(Me.chkNotNonAttain)
-        Me.Panel15.Controls.Add(Me.dgvER)
-        Me.Panel15.Controls.Add(Me.Label99)
-        Me.Panel15.Controls.Add(Me.Label98)
-        Me.Panel15.Controls.Add(Me.txtNOXEmission)
-        Me.Panel15.Controls.Add(Me.dgvEM)
-        Me.Panel15.Controls.Add(Me.txtVOCEmission)
-        Me.Panel15.Controls.Add(Me.txtRow)
-        Me.Panel15.Controls.Add(Me.dgvEP)
-        Me.Panel15.Controls.Add(Me.dgvSI)
-        Me.Panel15.Controls.Add(Me.dgvEU)
-        Me.Panel15.Location = New System.Drawing.Point(484, 188)
-        Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(37, 29)
-        Me.Panel15.TabIndex = 57
-        Me.Panel15.Visible = False
-        '
-        'chkLessThan25
-        '
-        Me.chkLessThan25.CheckAlign = System.Drawing.ContentAlignment.TopLeft
-        Me.chkLessThan25.Enabled = False
-        Me.chkLessThan25.Location = New System.Drawing.Point(3, 3)
-        Me.chkLessThan25.Name = "chkLessThan25"
-        Me.chkLessThan25.Size = New System.Drawing.Size(34, 30)
-        Me.chkLessThan25.TabIndex = 45
-        Me.chkLessThan25.Text = "Facility-wide VOC and or NOX Emissions " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "       less than 25 Tons Per Year "
-        Me.chkLessThan25.UseVisualStyleBackColor = True
-        Me.chkLessThan25.Visible = False
-        '
-        'chkNotNonAttain
-        '
-        Me.chkNotNonAttain.Enabled = False
-        Me.chkNotNonAttain.Location = New System.Drawing.Point(29, 3)
-        Me.chkNotNonAttain.Name = "chkNotNonAttain"
-        Me.chkNotNonAttain.Size = New System.Drawing.Size(43, 30)
-        Me.chkNotNonAttain.TabIndex = 44
-        Me.chkNotNonAttain.Text = "Not in 13 nonattainmnet counties "
-        Me.chkNotNonAttain.UseVisualStyleBackColor = True
-        Me.chkNotNonAttain.Visible = False
-        '
-        'dgvER
-        '
-        Me.dgvER.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvER.Location = New System.Drawing.Point(128, 13)
-        Me.dgvER.Name = "dgvER"
-        Me.dgvER.ReadOnly = True
-        Me.dgvER.Size = New System.Drawing.Size(10, 10)
-        Me.dgvER.TabIndex = 51
-        Me.dgvER.Visible = False
-        '
-        'Label99
-        '
-        Me.Label99.Location = New System.Drawing.Point(3, 36)
-        Me.Label99.Name = "Label99"
-        Me.Label99.Size = New System.Drawing.Size(34, 15)
-        Me.Label99.TabIndex = 40
-        Me.Label99.Text = "NOX Emission (Tons Per Year):"
-        Me.Label99.Visible = False
-        '
-        'Label98
-        '
-        Me.Label98.Location = New System.Drawing.Point(56, 36)
-        Me.Label98.Name = "Label98"
-        Me.Label98.Size = New System.Drawing.Size(34, 16)
-        Me.Label98.TabIndex = 43
-        Me.Label98.Text = "VOC Emission (Tons Per Year):"
-        Me.Label98.Visible = False
-        '
-        'txtNOXEmission
-        '
-        Me.txtNOXEmission.Location = New System.Drawing.Point(32, 33)
-        Me.txtNOXEmission.Name = "txtNOXEmission"
-        Me.txtNOXEmission.ReadOnly = True
-        Me.txtNOXEmission.Size = New System.Drawing.Size(18, 20)
-        Me.txtNOXEmission.TabIndex = 41
-        Me.txtNOXEmission.Visible = False
-        '
-        'dgvEM
-        '
-        Me.dgvEM.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvEM.Location = New System.Drawing.Point(162, 13)
-        Me.dgvEM.Name = "dgvEM"
-        Me.dgvEM.ReadOnly = True
-        Me.dgvEM.Size = New System.Drawing.Size(10, 10)
-        Me.dgvEM.TabIndex = 53
-        Me.dgvEM.Visible = False
-        '
-        'txtVOCEmission
-        '
-        Me.txtVOCEmission.Location = New System.Drawing.Point(88, 33)
-        Me.txtVOCEmission.Name = "txtVOCEmission"
-        Me.txtVOCEmission.ReadOnly = True
-        Me.txtVOCEmission.Size = New System.Drawing.Size(18, 20)
-        Me.txtVOCEmission.TabIndex = 42
-        Me.txtVOCEmission.Visible = False
-        '
-        'txtRow
-        '
-        Me.txtRow.Location = New System.Drawing.Point(78, 3)
-        Me.txtRow.Name = "txtRow"
-        Me.txtRow.Size = New System.Drawing.Size(12, 20)
-        Me.txtRow.TabIndex = 54
-        Me.txtRow.Visible = False
-        '
-        'dgvEP
-        '
-        Me.dgvEP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvEP.Location = New System.Drawing.Point(146, 13)
-        Me.dgvEP.Name = "dgvEP"
-        Me.dgvEP.ReadOnly = True
-        Me.dgvEP.Size = New System.Drawing.Size(10, 10)
-        Me.dgvEP.TabIndex = 52
-        Me.dgvEP.Visible = False
-        '
-        'dgvSI
-        '
-        Me.dgvSI.AllowUserToAddRows = False
-        Me.dgvSI.AllowUserToDeleteRows = False
-        Me.dgvSI.AllowUserToOrderColumns = True
-        Me.dgvSI.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvSI.Location = New System.Drawing.Point(96, 13)
-        Me.dgvSI.Name = "dgvSI"
-        Me.dgvSI.ReadOnly = True
-        Me.dgvSI.RowHeadersVisible = False
-        Me.dgvSI.Size = New System.Drawing.Size(10, 10)
-        Me.dgvSI.TabIndex = 49
-        Me.dgvSI.Visible = False
-        '
-        'dgvEU
-        '
-        Me.dgvEU.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvEU.Location = New System.Drawing.Point(112, 13)
-        Me.dgvEU.Name = "dgvEU"
-        Me.dgvEU.ReadOnly = True
-        Me.dgvEU.Size = New System.Drawing.Size(10, 10)
-        Me.dgvEU.TabIndex = 50
-        Me.dgvEU.Visible = False
-        '
-        'Label17
-        '
-        Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label17.Location = New System.Drawing.Point(554, 190)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(20, 24)
-        Me.Label17.TabIndex = 56
-        Me.Label17.Text = "The Data Displayed here only covers up to 2009."
-        Me.Label17.Visible = False
-        '
-        'btnExportEIExport
-        '
-        Me.btnExportEIExport.AutoSize = True
-        Me.btnExportEIExport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnExportEIExport.Location = New System.Drawing.Point(338, 191)
-        Me.btnExportEIExport.Name = "btnExportEIExport"
-        Me.btnExportEIExport.Size = New System.Drawing.Size(114, 23)
-        Me.btnExportEIExport.TabIndex = 55
-        Me.btnExportEIExport.Text = "Export Full EI Report"
-        Me.btnExportEIExport.UseVisualStyleBackColor = True
-        '
-        'btnExcel
-        '
-        Me.btnExcel.AutoSize = True
-        Me.btnExcel.Location = New System.Drawing.Point(15, 190)
-        Me.btnExcel.Name = "btnExcel"
-        Me.btnExcel.Size = New System.Drawing.Size(106, 25)
-        Me.btnExcel.TabIndex = 38
-        Me.btnExcel.Text = "Export Summary"
-        Me.btnExcel.UseVisualStyleBackColor = True
-        '
-        'Label100
-        '
-        Me.Label100.AutoSize = True
-        Me.Label100.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label100.Location = New System.Drawing.Point(151, 196)
-        Me.Label100.Name = "Label100"
-        Me.Label100.Size = New System.Drawing.Size(84, 13)
-        Me.Label100.TabIndex = 48
-        Me.Label100.Text = "Choose EI Year:"
-        '
-        'cboEIYear
-        '
-        Me.cboEIYear.FormattingEnabled = True
-        Me.cboEIYear.Location = New System.Drawing.Point(241, 192)
-        Me.cboEIYear.Name = "cboEIYear"
-        Me.cboEIYear.Size = New System.Drawing.Size(84, 21)
-        Me.cboEIYear.TabIndex = 46
         '
         'TPISMPTestingWork
         '
@@ -3733,18 +3403,9 @@ Partial Class IAIPFacilitySummary
         Me.pnlEditContactData.PerformLayout()
         Me.TPEmissionInventory.ResumeLayout(False)
         Me.GroupBox6.ResumeLayout(False)
-        Me.GroupBox6.PerformLayout()
         CType(Me.dgvEISData, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox7.ResumeLayout(False)
-        Me.GroupBox7.PerformLayout()
         CType(Me.dgvEIData, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel15.ResumeLayout(False)
-        Me.Panel15.PerformLayout()
-        CType(Me.dgvER, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dgvEM, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dgvEP, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dgvSI, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dgvEU, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPISMPTestingWork.ResumeLayout(False)
         Me.TCISMPWork.ResumeLayout(False)
         Me.TPTestReports.ResumeLayout(False)
@@ -3810,7 +3471,6 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents mmiISMPAddMemo As System.Windows.Forms.MenuItem
     Friend WithEvents mmiSSCP As System.Windows.Forms.MenuItem
     Friend WithEvents mmiSSCPNewWork As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiSSCPFCE As System.Windows.Forms.MenuItem
     Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents TTFacilitySummary As System.Windows.Forms.ToolTip
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
@@ -3842,8 +3502,6 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents llbViewAirPermits As System.Windows.Forms.LinkLabel
     Friend WithEvents lblDistrictSource As System.Windows.Forms.Label
     Friend WithEvents llbViewGoogleMap As System.Windows.Forms.LinkLabel
-    Friend WithEvents txtOffice As System.Windows.Forms.TextBox
-    Friend WithEvents Label422 As System.Windows.Forms.Label
     Friend WithEvents txtDistrict As System.Windows.Forms.TextBox
     Friend WithEvents Label421 As System.Windows.Forms.Label
     Friend WithEvents txtFacilityLatitude As System.Windows.Forms.TextBox
@@ -3859,8 +3517,6 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents txtFacilityCounty As System.Windows.Forms.TextBox
     Friend WithEvents txtFacilityCity As System.Windows.Forms.TextBox
     Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents txtPhysicalShutDownDate As System.Windows.Forms.TextBox
-    Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents txtPollutantStatus As System.Windows.Forms.TextBox
     Friend WithEvents Label101 As System.Windows.Forms.Label
     Friend WithEvents GroupBox5 As System.Windows.Forms.GroupBox
@@ -3882,7 +3538,7 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents txtOperationalStatus As System.Windows.Forms.TextBox
     Friend WithEvents txtClassification As System.Windows.Forms.TextBox
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
-    Friend WithEvents btnOpenSubpartEditior As System.Windows.Forms.Button
+    Friend WithEvents btnOpenSubpartEditor As System.Windows.Forms.Button
     Friend WithEvents chbHAPsMajor As System.Windows.Forms.CheckBox
     Friend WithEvents chbNSRMajor As System.Windows.Forms.CheckBox
     Friend WithEvents chbAPCI As System.Windows.Forms.CheckBox
@@ -3971,23 +3627,7 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents txtFeesTotal As System.Windows.Forms.TextBox
     Friend WithEvents cboFeeYear As System.Windows.Forms.ComboBox
     Friend WithEvents Label423 As System.Windows.Forms.Label
-    Friend WithEvents dgvER As System.Windows.Forms.DataGridView
     Friend WithEvents dgvEIData As System.Windows.Forms.DataGridView
-    Friend WithEvents btnExportEIExport As System.Windows.Forms.Button
-    Friend WithEvents dgvEM As System.Windows.Forms.DataGridView
-    Friend WithEvents txtRow As System.Windows.Forms.TextBox
-    Friend WithEvents dgvEP As System.Windows.Forms.DataGridView
-    Friend WithEvents dgvEU As System.Windows.Forms.DataGridView
-    Friend WithEvents dgvSI As System.Windows.Forms.DataGridView
-    Friend WithEvents Label100 As System.Windows.Forms.Label
-    Friend WithEvents cboEIYear As System.Windows.Forms.ComboBox
-    Friend WithEvents Label98 As System.Windows.Forms.Label
-    Friend WithEvents chkLessThan25 As System.Windows.Forms.CheckBox
-    Friend WithEvents txtVOCEmission As System.Windows.Forms.TextBox
-    Friend WithEvents txtNOXEmission As System.Windows.Forms.TextBox
-    Friend WithEvents Label99 As System.Windows.Forms.Label
-    Friend WithEvents chkNotNonAttain As System.Windows.Forms.CheckBox
-    Friend WithEvents btnExcel As System.Windows.Forms.Button
     Friend WithEvents TCISMPWork As System.Windows.Forms.TabControl
     Friend WithEvents TPTestReports As System.Windows.Forms.TabPage
     Friend WithEvents dgvISMPWork As System.Windows.Forms.DataGridView
@@ -4062,18 +3702,12 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents lblFeeStatus As System.Windows.Forms.Label
     Friend WithEvents TPInvoices As System.Windows.Forms.TabPage
     Friend WithEvents dgvInvoices As System.Windows.Forms.DataGridView
-    Friend WithEvents Label17 As System.Windows.Forms.Label
     Friend WithEvents txtRMPID As System.Windows.Forms.TextBox
     Friend WithEvents Label18 As System.Windows.Forms.Label
     Friend WithEvents chbAPCRMP As System.Windows.Forms.CheckBox
-    Friend WithEvents Panel15 As System.Windows.Forms.Panel
     Friend WithEvents GroupBox7 As System.Windows.Forms.GroupBox
     Friend WithEvents GroupBox6 As System.Windows.Forms.GroupBox
     Friend WithEvents dgvEISData As System.Windows.Forms.DataGridView
-    Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents Button2 As System.Windows.Forms.Button
-    Friend WithEvents Label19 As System.Windows.Forms.Label
-    Friend WithEvents ComboBox1 As System.Windows.Forms.ComboBox
     Friend WithEvents MenuItem14 As System.Windows.Forms.MenuItem
     Friend WithEvents mmiOnlineHelp As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem12 As System.Windows.Forms.MenuItem

@@ -35,7 +35,7 @@ Public Class IAIPFacilitySummary
             TCFacilitySummary.TabPages.Remove(TPPlanningSupportData)
 
             mmiPrintFacilitySummary.Visible = True
-            btnOpenSubpartEditior.Visible = False
+            btnOpenSubpartEditor.Visible = False
             btnEditAirProgramPollutants.Enabled = False
 
             LoadPermissions()
@@ -105,54 +105,20 @@ Public Class IAIPFacilitySummary
 
                         Case "3" 'ISMP 
                             mmiISMP.Visible = True
+                            mmiISMPNewLogEnTry.Visible = True
+                            llbClosePrintTestReport.Visible = False
+                            mmiSeperator.Visible = False
 
                             If UserUnit = "---" Then 'Program Manager
-                                mmiISMPNewLogEnTry.Visible = True
                                 llbClosePrintTestReport.Visible = True
                                 mmiSeperator.Visible = True
-                            Else
-                                If AccountFormAccess(17, 3) = "1" Then 'Unit Manager 
-                                    mmiISMPNewLogEnTry.Visible = True
-                                    llbClosePrintTestReport.Visible = False
-                                    mmiSeperator.Visible = False
-                                Else
-                                    If AccountFormAccess(68, 3) = "1" Then 'ISMP Administrator
-                                        mmiISMPNewLogEnTry.Visible = True
-                                        llbClosePrintTestReport.Visible = True
-                                        mmiSeperator.Visible = False
-                                    Else
-                                        If AccountFormAccess(68, 2) = "1" Then 'ISMP Specialist
-                                            mmiISMPNewLogEnTry.Visible = True
-                                            llbClosePrintTestReport.Visible = False
-                                            mmiSeperator.Visible = False
-                                        Else
-                                            mmiISMPNewLogEnTry.Visible = True
-                                            llbClosePrintTestReport.Visible = False
-                                            mmiSeperator.Visible = False
-                                        End If
-                                    End If
-                                End If
+                            ElseIf AccountFormAccess(68, 3) = "1" Then 'ISMP Administrator
+                                llbClosePrintTestReport.Visible = True
                             End If
                         Case "4" 'SSCP
                             mmiSSCP.Visible = True
+                            mmiSSCPNewWork.Visible = True
 
-                            If UserUnit = "---" Then 'Program Manager 
-                                mmiSSCPNewWork.Visible = True
-                                mmiSSCPFCE.Visible = True
-                            Else
-                                If AccountFormAccess(22, 3) = "1" Then 'Unit Manager 
-                                    mmiSSCPNewWork.Visible = True
-                                    mmiSSCPFCE.Visible = True
-                                Else
-                                    If AccountFormAccess(10, 3) = "1" Then 'District Liason 
-                                        mmiSSCPNewWork.Visible = True
-                                        mmiSSCPFCE.Visible = True
-                                    Else
-                                        mmiSSCPNewWork.Visible = True
-                                        mmiSSCPFCE.Visible = True
-                                    End If
-                                End If
-                            End If
                         Case "5" 'SSPP 
 
                         Case "6" 'Ambient 
@@ -180,13 +146,19 @@ Public Class IAIPFacilitySummary
                 End If
             End If
 
+            If UserAccounts.Contains("(118)") Then
+                mmiISMP.Visible = True
+                mmiSSCP.Visible = True
+                mmiEditContactInformation.Visible = True
+                mmiISMPNewLogEnTry.Visible = True
+                llbClosePrintTestReport.Visible = True
+                mmiSeperator.Visible = True
+                mmiSSCP.Visible = True
+                mmiSSCPNewWork.Visible = True
+            End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
-
     End Sub
 
     Sub LoadToolBars()
@@ -216,14 +188,12 @@ Public Class IAIPFacilitySummary
             txtFacilityLongitude.Clear()
             txtFacilityCounty.Clear()
             txtDistrict.Clear()
-            txtOffice.Clear()
             txtClassification.Clear()
             txtSICCode.Clear()
             txtOperationalStatus.Clear()
             txtCMSState.Clear()
             txtStartUpDate.Clear()
             txtDateClosed.Clear()
-            txtPhysicalShutDownDate.Clear()
             txt1hour.Clear()
             txt8HROzone.Clear()
             txtPM.Clear()
@@ -284,7 +254,7 @@ Public Class IAIPFacilitySummary
             txtFCEYear.Clear()
             txtEnforcementNumber.Clear()
             txtApplicationNumber.Clear()
-            btnOpenSubpartEditior.Visible = False
+            btnOpenSubpartEditor.Visible = False
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -322,7 +292,7 @@ Public Class IAIPFacilitySummary
     Private Sub chbAPC0_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAPC0.CheckedChanged
         Try
 
-            EditSubPart()
+            MakeEditSubpartButtonVisible()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -334,7 +304,7 @@ Public Class IAIPFacilitySummary
     Private Sub chbAPC8_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAPC8.CheckedChanged
         Try
 
-            EditSubPart()
+            MakeEditSubpartButtonVisible()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -346,7 +316,7 @@ Public Class IAIPFacilitySummary
     Private Sub chbAPC9_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAPC9.CheckedChanged
         Try
 
-            EditSubPart()
+            MakeEditSubpartButtonVisible()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -357,7 +327,7 @@ Public Class IAIPFacilitySummary
     Private Sub chbAPCM_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAPCM.CheckedChanged
         Try
 
-            EditSubPart()
+            MakeEditSubpartButtonVisible()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -589,11 +559,6 @@ Public Class IAIPFacilitySummary
                 Else
                     txtDistrict.Text = dr.Item("strDistrictName")
                 End If
-                'If IsDBNull(dr.Item("strOfficeName")) Then
-                '    txtOffice.Clear()
-                'Else
-                '    txtOffice.Text = dr.Item("strOfficeName")
-                'End If
                 If IsDBNull(dr.Item("strOperationalStatus")) Then
                     txtOperationalStatus.Clear()
                 Else
@@ -1088,7 +1053,7 @@ Public Class IAIPFacilitySummary
                 FacilityApprovalLinkLabel.Visible = True
             End If
 
-            EditSubPart()
+            MakeEditSubpartButtonVisible()
             btnEditAirProgramPollutants.Enabled = True
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1171,7 +1136,7 @@ Public Class IAIPFacilitySummary
         End Try
 
     End Sub
-    Private Sub btnOpenSubpartEditior_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenSubpartEditior.Click
+    Private Sub btnOpenSubpartEditior_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenSubpartEditor.Click
         Try
 
 
@@ -1193,20 +1158,9 @@ Public Class IAIPFacilitySummary
         End Try
 
     End Sub
-    Sub EditSubPart()
-        Try
 
-            If chbAPC8.Checked = True Or chbAPC9.Checked = True Or chbAPCM.Checked = True Or chbAPC0.Checked = True Then
-                btnOpenSubpartEditior.Visible = True
-            Else
-                btnOpenSubpartEditior.Visible = False
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+    Private Sub MakeEditSubpartButtonVisible()
+        btnOpenSubpartEditor.Visible = (chbAPC8.Checked Or chbAPC9.Checked Or chbAPCM.Checked Or chbAPC0.Checked)
     End Sub
 
 #End Region
@@ -1696,40 +1650,8 @@ Public Class IAIPFacilitySummary
                 TCFacilitySummary.TabPages.Add(TPEmissionInventory)
             End If
 
-            cboEIYear.Items.Clear()
-
-            SQL = "select distinct(strInventoryYear)  as EIYear " & _
-            "from AIRBRANCH.EISI " & _
-            "where strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "' " & _
-            "order by EIYear desc "
-
-            SQL = "select * from " & _
-            "(select  " & _
-            "distinct(inventoryyear) as EIYear  " & _
-            "from airbranch.eis_admin  " & _
-            "where airbranch.eis_admin.facilitysiteid = '" & mtbAIRSNumber.Text & "'  " & _
-            "union  " & _
-            "Select   " & _
-            "distinct(to_number(strInventoryYear)) as EIYear  " & _
-            "from AIRBranch.EISI  " & _
-            "where strInventoryYear < 2010   " & _
-            "and strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  ) " & _
-            "order by EIYear desc "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                cboEIYear.Items.Add(dr.Item("EIYear"))
-            End While
-            dr.Close()
 
             If mtbAIRSNumber.Text <> "" Then
-                chkNotNonAttain.Checked = False
-                chkLessThan25.Checked = False
 
                 SQL = "Select * from AIRBRANCH.eiSI where strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "' " ' & _ 
 
@@ -1947,74 +1869,12 @@ Public Class IAIPFacilitySummary
                     dgvEIData.Columns("PMFIL").Width = 50
                 Else
                     MsgBox("There is no data available", MsgBoxStyle.OkOnly, "No EI data for this year, choose another year")
-                    chkNotNonAttain.Checked = False
-                End If
-
-                If cboEIYear.Text <> "" Then
-                    inventoryYear = CInt(cboEIYear.Text)
-                Else
-                    'inventoryYear = Now.Year
-                    'cboEIYear.Text = Now.Year
-                End If
-
-                SQL = "select * " & _
-                "from AIRBRANCH.ESSchema " & _
-                "where strAirsNumber = '0413" & mtbAIRSNumber.Text & "' " & _
-                "and intESYear = '" & inventoryYear & "' "
-
-                If CurrentConnection.State = ConnectionState.Open Then
-                Else
-                    CurrentConnection.Open()
-                End If
-
-                Dim county As String = Mid(mtbAIRSNumber.Text, 1, 3)
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-
-                If recExist = True Then
-                    If county = "057" Or county = "063" Or county = "067" Or county = "077" Or county = "089" _
-                                                Or county = "097" Or county = "113" Or county = "117" Or county = "121" _
-                                                Or county = "135" Or county = "151" Or county = "223" Or county = "247" Then
-                        SQL = "Select dblVOCEmission, dblNOXEmission, strOptOut " & _
-                        "from AIRBRANCH.ESSchema " & _
-                        "where intESYear = '" & inventoryYear & "' " & _
-                        "and strAirsNumber = '0413" & mtbAIRSNumber.Text & "' "
-
-                        cmd = New OracleCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        While dr.Read
-                            If dr.Item("strOptOut") = "YES" Then
-                                chkLessThan25.Checked = True
-                            Else
-                                chkLessThan25.Checked = False
-                                txtNOXEmission.Text = dr.Item("dblNOXEmission")
-                                txtVOCEmission.Text = dr.Item("dblVOCEmission")
-                            End If
-                        End While
-                        dr.Close()
-                    Else
-                        chkNotNonAttain.Checked = True
-                    End If
-                Else
-                    chkNotNonAttain.Checked = True
-                    txtNOXEmission.Text = ""
-                    txtVOCEmission.Text = ""
                 End If
 
             End If
 
             SQL = "select inventoryyear from airbranch.eis_admin where facilitysiteId = '" & mtbAIRSNumber.Text & "' " & _
             "and inventoryyear > 2009 "
-
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -2099,803 +1959,6 @@ Public Class IAIPFacilitySummary
 
         End Try
     End Sub
-#Region "Emission Summary"
-    Private Sub btnExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExcel.Click
-        Try
-            'Dim ExcelApp As New Excel.Application
-            Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-            'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-            Dim i As Integer
-            Dim j As Integer
-
-            If dgvEIData.RowCount <> 0 Then
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-
-                    For i = 0 To dgvEIData.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvEIData.Columns(i).HeaderText.ToString
-                    Next
-
-                    For i = 0 To dgvEIData.ColumnCount - 1
-                        For j = 0 To dgvEIData.RowCount - 2
-                            .Cells(j + 2, i + 1).value = dgvEIData.Item(i, j).Value.ToString
-                        Next
-                    Next
-
-                End With
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-            Else
-                ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            End If
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub btnExportEIExport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportEIExport.Click
-        Try
-            If mtbAIRSNumber.Text <> "" And Me.cboEIYear.Text <> "" Then
-                BindDataGridSI()
-                BindDataGridEU()
-                BindDataGridER()
-                BindDataGridEP()
-                BindDataGridEM()
-                export2Excel()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
-#Region "EI Export Routines"
-    Private Sub BindDataGridSI()
-        Try
-
-            Dim SQL As String
-            Dim AirsNumber As String = "0413" & mtbAIRSNumber.Text
-            Dim inventoryYear As String = cboEIYear.SelectedItem
-            Dim airsYear As String
-            Dim dr As OracleDataReader
-            ds = New DataSet
-
-            airsYear = AirsNumber & inventoryYear
-
-            SQL = "select strFacilityName, " & _
-                            "strLocationAddress, " & _
-                            "strCity, " & _
-                            "strState, " & _
-                            "strZipCode, " & _
-                            "strCounty, " & _
-                            "dblXCoordinate, " & _
-                            "dblYCoordinate, " & _
-                            "strHorizontalCollectionCode, " & _
-                            "(Select STRHORIZCOLLECTIONMETHODDESC " & _
-                               "from AIRBRANCH.EILOOKUPHORIZCOLMETHOD " & _
-                               "where AIRBRANCH.EISI.STRHORIZONTALCOLLECTIONCODE = " & _
-                               "AIRBRANCH.EILOOKUPHORIZCOLMETHOD.STRHORIZCOLLECTIONMETHODCODE) as HMCdesc, " & _
-                            "strHorizontalReferenceCode, " & _
-                            "strHorizontalAccuracyMeasure, " & _
-                            "(Select STRHORIZONTALREFERENCEDESC " & _
-                               "from AIRBRANCH.EILOOKUPHORIZREFDATUM " & _
-                               "where AIRBRANCH.EISI.STRHORIZONTALREFERENCECODE = " & _
-                               "AIRBRANCH.EILOOKUPHORIZREFDATUM.STRHORIZONTALREFERENCEDATUM) as HDRCdesc, " & _
-                            "strContactPrefix, " & _
-                            "strContactFirstName, " & _
-                            "strContactLastName, " & _
-                            "strContactTitle, " & _
-                            "strContactEmail, " & _
-                            "strContactPhoneNumber1, " & _
-                            "strContactPhoneNumber2, " & _
-                            "strContactFaxNumber, " & _
-                            "strContactCompanyName, " & _
-                            "strContactAddress1, " & _
-                            "strContactCity, " & _
-                            "strContactState, " & _
-                            "strContactZipCode, " & _
-                            "strSiteDescription, " & _
-                            "strSICPrimary, " & _
-                            "strNAICSPrimary " & _
-                     "from AIRBRANCH.eiSI where strAirsYear = '" & airsYear & "'"
-
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
-            cmd.CommandType = CommandType.Text
-
-            If CurrentConnection.State = ConnectionState.Open Then
-            Else
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-
-            dgvSI.Rows.Clear()
-            dgvSI.Columns.Clear()
-
-            dgvSI.Columns.Add("strFacilityName", "Facility")
-            dgvSI.Columns.Add("strLocationAddress", "Facility Location")
-            dgvSI.Columns.Add("strCity", "City")
-            dgvSI.Columns.Add("strState", "State")
-            dgvSI.Columns.Add("strZipCode", "Zip Code")
-            dgvSI.Columns.Add("strCounty", "County")
-            dgvSI.Columns.Add("dblXCoordinate", "Longitude")
-            dgvSI.Columns.Add("dblYCoordinate", "Latitude")
-            dgvSI.Columns.Add("strHorizontalCollectionCode", "Horizontal Collection Code")
-            dgvSI.Columns.Add("HMCdesc", "Horizontal Collection Desc")
-            dgvSI.Columns.Add("strHorizontalAccuracyMeasure", "Horizontal Accuracy Measure")
-            dgvSI.Columns.Add("strHorizontalReferenceCode", "Horizontal Datum Reference Code")
-            dgvSI.Columns.Add("HDRCdesc", "Horizontal Datum Reference Desc")
-            dgvSI.Columns.Add("strContactPrefix", "Contact Prefix")
-            dgvSI.Columns.Add("strContactFirstName", "Contact First Name")
-            dgvSI.Columns.Add("strContactLastName", "Contact Last Name")
-            dgvSI.Columns.Add("strContactTitle", "Contact Title")
-            dgvSI.Columns.Add("strContactEmail", "Contact Email")
-            dgvSI.Columns.Add("strContactPhoneNumber1", "Contact Phone Number")
-            dgvSI.Columns.Add("strContactPhoneNumber2", "Contact Phone Other")
-            dgvSI.Columns.Add("strContactFaxNumber", "Contact Fax Number")
-            dgvSI.Columns.Add("strContactCompanyName", "Contact Company Name")
-            dgvSI.Columns.Add("strContactAddress1", "Contact Address")
-            dgvSI.Columns.Add("strContactCity", "Contact City")
-            dgvSI.Columns.Add("strContactState", "Contact State")
-            dgvSI.Columns.Add("strContactZipCode", "Contact Zip Code")
-            dgvSI.Columns.Add("strSiteDescription", "Site Description")
-            dgvSI.Columns.Add("strSICPrimary", "SIC Primary")
-            dgvSI.Columns.Add("strNAICSPrimary", "NAICS Primary")
-
-            dgvSI.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
-            dgvSI.RowHeadersVisible = False
-
-            While dr.Read
-                'Get row data as an object array
-                'objCells(2) means col[0], col[1], col[2]
-                'which returns the first colums in the table
-                Dim objCells(dgvSI.Columns.Count) As Object
-                dr.GetValues(objCells)
-                dgvSI.Rows.Add(objCells)
-            End While
-
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub BindDataGridEU()
-        Try
-
-            Dim SQL As String
-            Dim AirsNumber As String = "0413" & mtbAIRSNumber.Text
-            Dim inventoryYear As String = cboEIYear.SelectedItem
-            Dim airsYear As String
-            Dim dr As OracleDataReader
-            ds = New DataSet
-
-            airsYear = AirsNumber & inventoryYear
-
-            SQL = "select strEmissionUnitID, " & _
-                         "sngDesignCapacity, " & _
-                         "strDesignCapUnitNum, " & _
-                         "(Select STRUNITDESCRIPTION " & _
-                               "from AIRBRANCH.EILOOKUPUNITCODES " & _
-                               "where AIRBRANCH.EIEU.strDesignCapUnitNum = " & _
-                               "AIRBRANCH.EILOOKUPUNITCODES.STRUNITCODE) as numDesc, " & _
-                         "strDesignCapUnitDenom, " & _
-                         "(Select STRUNITDESCRIPTION " & _
-                               "from AIRBRANCH.EILOOKUPUNITCODES " & _
-                               "where AIRBRANCH.EIEU.strDesignCapUnitDenom = " & _
-                               "AIRBRANCH.EILOOKUPUNITCODES.STRUNITCODE) as denomDesc, " & _
-                         "sngMaxNameplateCapacity, " & _
-                         "strEmissionUnitDesc " & _
-                    "from AIRBRANCH.eiEU where strAirsYear = '" & airsYear & "'"
-
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
-            cmd.CommandType = CommandType.Text
-
-            If CurrentConnection.State = ConnectionState.Open Then
-            Else
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-
-            dgvEU.Rows.Clear()
-            dgvEU.Columns.Clear()
-
-            dgvEU.Columns.Add("strEmissionUnitID", "Emission Unit ID")
-            dgvEU.Columns.Add("sngDesignCapacity", "Design Capacity")
-            dgvEU.Columns.Add("strDesignCapUnitNum", "Design Capacity Unit Numerator")
-            dgvEU.Columns.Add("numDesc", "Design Capacity Unit Numerator Desc")
-            dgvEU.Columns.Add("strDesignCapUnitDenom", "Design Capacity Unit Denominator")
-            dgvEU.Columns.Add("denomDesc", "Design Capacity Unit Denominator Desc")
-            dgvEU.Columns.Add("sngMaxNameplateCapacity", "Max Name plate Capacity")
-            dgvEU.Columns.Add("strEmissionUnitDesc", "Emission Unit Desc")
-
-            dgvEU.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
-            dgvEU.RowHeadersVisible = False
-
-            While dr.Read
-                'Get row data as an object array
-                'objCells(2) means col[0], col[1], col[2]
-                'which returns the first colums in the table
-                Dim objCells(dgvEU.Columns.Count) As Object
-                dr.GetValues(objCells)
-                dgvEU.Rows.Add(objCells)
-            End While
-
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub BindDataGridER()
-        Try
-            Dim SQL As String
-            Dim AirsNumber As String = "0413" & mtbAIRSNumber.Text
-            Dim inventoryYear As String = cboEIYear.SelectedItem
-            Dim airsYear As String
-            Dim dr As OracleDataReader
-            ds = New DataSet
-
-            airsYear = AirsNumber & inventoryYear
-
-            SQL = "select strEmissionReleasePointID, " & _
-            "strEmissionReleaseType, " & _
-            "(Select STREMISSIONTYPEDESC " & _
-            "from AIRBRANCH.EILOOKUPEMISSIONTYPES " & _
-            "where AIRBRANCH.EIER.STREMISSIONRELEASETYPE = " & _
-            "AIRBRANCH.EILOOKUPEMISSIONTYPES.STREMISSIONTYPECODE) as stackType, " & _
-            "sngStackHeight, " & _
-            "sngStackDiameter, " & _
-            "sngExitGasTemperature, " & _
-            "sngExitGasVelocity, " & _
-            "sngExitGasFlowRate, " & _
-            "dblXCoordinate, " & _
-            "dblYCoordinate, " & _
-            "strEmissionReleasePtDesc, " & _
-            "strHorizontalCollectionCode, " & _
-            "(Select STRHORIZCOLLECTIONMETHODDESC " & _
-            "from AIRBRANCH.EILOOKUPHORIZCOLMETHOD " & _
-            "where AIRBRANCH.EIER.STRHORIZONTALCOLLECTIONCODE = " & _
-            "AIRBRANCH.EILOOKUPHORIZCOLMETHOD.STRHORIZCOLLECTIONMETHODCODE) as HMCdesc, " & _
-            "strHorizontalAccuracyMeasure, " & _
-            "strHorizontalReferenceCode, " & _
-            "(Select STRHORIZONTALREFERENCEDESC " & _
-            "from AIRBRANCH.EILOOKUPHORIZREFDATUM " & _
-            "where AIRBRANCH.EIER.STRHORIZONTALREFERENCECODE = " & _
-            "AIRBRANCH.EILOOKUPHORIZREFDATUM.STRHORIZONTALREFERENCEDATUM) as HDRCdesc " & _
-            "from AIRBRANCH.eiER where strAirsYear = '" & airsYear & "'"
-
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
-            cmd.CommandType = CommandType.Text
-
-            If CurrentConnection.State = ConnectionState.Open Then
-            Else
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-
-            dgvER.Rows.Clear()
-            dgvER.Columns.Clear()
-
-            dgvER.Columns.Add("strEmissionReleasePointID", "Emission Release Point ID")
-            dgvER.Columns.Add("strEmissionReleaseType", "Emission Release Type")
-            dgvER.Columns.Add("stackType", "Stack Type")
-            dgvER.Columns.Add("sngStackHeight", "Stack Height")
-            dgvER.Columns.Add("sngStackDiameter", "Stack Diameter")
-            dgvER.Columns.Add("sngExitGasTemperature", "Exit Gas Temperature")
-            dgvER.Columns.Add("sngExitGasVelocity", "Exit Gas Velocity")
-            dgvER.Columns.Add("sngExitGasFlowRate", "Exit Gas Flow Rate")
-            dgvER.Columns.Add("dblXCoordinate", "Longitude")
-            dgvER.Columns.Add("dblYCoordinate", "Latitude")
-            dgvER.Columns.Add("strEmissionReleasePtDesc", "Emission Release Point Desc")
-            dgvER.Columns.Add("strHorizontalCollectionCode", "Horizontal Collection Code")
-            dgvER.Columns.Add("HMCdesc", "Horizontal Collection Code Desc")
-            dgvER.Columns.Add("strHorizontalAccuracyMeasure", "Horizontal Accuracy Measure")
-            dgvER.Columns.Add("strHorizontalReferenceCode", "Horizontal Datum Reference Code")
-            dgvER.Columns.Add("HDRCdesc", "Horizontal Datum Reference Code Desc")
-
-            dgvER.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
-            dgvER.RowHeadersVisible = False
-
-            While dr.Read
-                'Get row data as an object array
-                'objCells(2) means col[0], col[1], col[2]
-                'which returns the first colums in the table
-                Dim objCells(dgvER.Columns.Count) As Object
-                dr.GetValues(objCells)
-                dgvER.Rows.Add(objCells)
-            End While
-
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub BindDataGridEP()
-        Try
-
-            Dim SQL As String
-            Dim AirsNumber As String = "0413" & mtbAIRSNumber.Text
-            Dim inventoryYear As String = cboEIYear.SelectedItem
-            Dim airsYear As String
-            Dim dr As OracleDataReader
-            ds = New DataSet
-
-            airsYear = AirsNumber & inventoryYear
-
-            SQL = "select strSCC, " & _
-                            "strEmissionProcessDescription, " & _
-                            "strEmissionUnitID, " & _
-                            "strEmissionReleasePointID, " & _
-                            "strProcessID, " & _
-                            "intWinterThroughputPCT, " & _
-                            "intSpringThroughputPCT, " & _
-                            "intSummerThroughputPCT, " & _
-                            "intFallThroughputPCT, " & _
-                            "intAnnualAvgDaysPerWeek, " & _
-                            "intAnnualAvgWeeksPerYear, " & _
-                            "intAnnualAvgHoursPerDay, " & _
-                            "intAnnualAvgHoursPerYear, " & _
-                            "sngHeatContent, " & _
-                            "sngSulfurContent, " & _
-                            "sngAshContent, " & _
-                            "sngDailySummerProcessTPut, " & _
-                            "strDailySummerProcessTPutNum, " & _
-                            "(Select STRUNITDESCRIPTION " & _
-                               "from AIRBRANCH.EILOOKUPUNITCODES " & _
-                               "where AIRBRANCH.EIEP.strDailySummerProcessTPutNum = " & _
-                               "AIRBRANCH.EILOOKUPUNITCODES.STRUNITCODE) as DailySummerTputNumDesc, " & _
-                            "sngActualThroughput, " & _
-                            "strThroughputUnitNumerator, " & _
-                            "(Select STRUNITDESCRIPTION " & _
-                               "from AIRBRANCH.EILOOKUPUNITCODES " & _
-                               "where AIRBRANCH.EIEP.strThroughputUnitNumerator = " & _
-                               "AIRBRANCH.EILOOKUPUNITCODES.STRUNITCODE) as TputNumDesc, " & _
-                            "strStartTime " & _
-                       "from AIRBRANCH.eiEP " & _
-                      "where strAirsYear = '" & airsYear & "'"
-
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
-            cmd.CommandType = CommandType.Text
-
-            If CurrentConnection.State = ConnectionState.Open Then
-            Else
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-
-            dgvEP.Rows.Clear()
-            dgvEP.Columns.Clear()
-
-            dgvEP.Columns.Add("strSCC", "SCC")
-            dgvEP.Columns.Add("strEmissionProcessDescription", "Emission Process Description")
-            dgvEP.Columns.Add("strEmissionUnitID", "Emission Unit ID")
-            dgvEP.Columns.Add("strEmissionReleasePointID", "Emission Release Point ID")
-            dgvEP.Columns.Add("strProcessID", "Process ID")
-            dgvEP.Columns.Add("intWinterThroughputPCT", "Winter Throughput Percent")
-            dgvEP.Columns.Add("intSpringThroughputPCT", "Spring Throughput Percent")
-            dgvEP.Columns.Add("intSummerThroughputPCT", "Summer Throughput Percent")
-            dgvEP.Columns.Add("intFallThroughputPCT", "Fall Throughput Percent")
-            dgvEP.Columns.Add("intAnnualAvgDaysPerWeek", "Annual Average Days Per Week")
-            dgvEP.Columns.Add("intAnnualAvgWeeksPerYear", "Annual Average Weeks Per Year")
-            dgvEP.Columns.Add("intAnnualAvgHoursPerDay", "Annual Average Hours Per Day")
-            dgvEP.Columns.Add("intAnnualAvgHoursPerYear", "Annual Average Hours Per Year")
-            dgvEP.Columns.Add("sngHeatContent", "Heat Content")
-            dgvEP.Columns.Add("sngSulfurContent", "Sulfur Content")
-            dgvEP.Columns.Add("sngAshContent", "Ash Content")
-            dgvEP.Columns.Add("sngDailySummerProcessTPut", "Daily Summer Process Throughput")
-            dgvEP.Columns.Add("strDailySummerProcessTPutNum", "Daily Summer Process Throughput Numerator")
-            dgvEP.Columns.Add("DailySummerTputNumDesc", "Daily Summer Process Throughput Numerator Desc")
-            dgvEP.Columns.Add("sngActualThroughput", "Actual Throughput")
-            dgvEP.Columns.Add("strThroughputUnitNumerator", "Actual Throughput Unit Numerator")
-            dgvEP.Columns.Add("TputNumDesc", "Actual Throughput Unit Numerator Desc")
-            dgvEP.Columns.Add("strStartTime", "Start Time")
-
-
-            dgvEP.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
-            dgvEP.RowHeadersVisible = False
-
-            While dr.Read
-                'Get row data as an object array
-                'objCells(2) means col[0], col[1], col[2]
-                'which returns the first colums in the table
-                Dim objCells(dgvEP.Columns.Count) As Object
-                dr.GetValues(objCells)
-                dgvEP.Rows.Add(objCells)
-            End While
-
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub BindDataGridEM()
-        Try
-
-            Dim SQL As String
-            Dim AirsNumber As String = "0413" & mtbAIRSNumber.Text
-            Dim inventoryYear As String = cboEIYear.SelectedItem
-            Dim airsYear As String
-            Dim dr As OracleDataReader
-            ds = New DataSet
-
-            airsYear = AirsNumber & inventoryYear
-
-            SQL = "select STREMISSIONUNITID, "
-            SQL += "STREMISSIONRELEASEPOINTID, "
-            SQL += "STRPROCESSID, "
-            SQL += "strPollutantCode, "
-            SQL += "(Select STRPOLLUTANTDESC "
-            SQL += "from AIRBRANCH.EILOOKUPPOLLUTANTCODES "
-            SQL += "where AIRBRANCH.EIEM.STRPOLLUTANTCODE = "
-            SQL += "AIRBRANCH.EILOOKUPPOLLUTANTCODES.STRPOLLUTANTCODE) as pollutantDesc, "
-            SQL += "DBLEMISSIONNUMERICVALUE, "
-            SQL += "STREMISSIONUNITNUMERATOR, "
-            SQL += "(Select STRUNITDESCRIPTION "
-            SQL += "from AIRBRANCH.EILOOKUPUNITCODES "
-            SQL += "where AIRBRANCH.EIEM.STREMISSIONUNITNUMERATOR = "
-            SQL += "AIRBRANCH.EILOOKUPUNITCODES.STRUNITCODE) as EMISSIONUNITNUMERATORDesc, "
-            SQL += "sngFactorNumericValue, "
-            SQL += "strFactorUnitNumerator, "
-            SQL += "(Select STRUNITDESCRIPTION "
-            SQL += "from AIRBRANCH.EILOOKUPUNITCODES "
-            SQL += "where AIRBRANCH.EIEM.strFactorUnitNumerator = "
-            SQL += "AIRBRANCH.EILOOKUPUNITCODES.STRUNITCODE) as FactorUnitNumeratorDesc, "
-            SQL += "strFactorUnitDenominator, "
-            SQL += "(Select STRUNITDESCRIPTION "
-            SQL += "from AIRBRANCH.EILOOKUPUNITCODES "
-            SQL += "where AIRBRANCH.EIEM.strFactorUnitDenominator = "
-            SQL += "AIRBRANCH.EILOOKUPUNITCODES.STRUNITCODE) as FactorUnitDenominatorDesc, "
-            SQL += "strEmissionCalculationMetCode, "
-            SQL += "(Select STREMISSIONCALCMETHODDESC "
-            SQL += "from AIRBRANCH.EILOOKUPEMISSIONCALCMETHOD "
-            SQL += "where AIRBRANCH.EIEM.strEmissionCalculationMetCode = "
-            SQL += "AIRBRANCH.EILOOKUPEMISSIONCALCMETHOD.STREMISSIONCALCMETHODCODE) as EMISSIONCALCMETHODDESC, "
-            SQL += "strControlStatus, "
-            SQL += "strControlSystemDescription, "
-            SQL += "strPrimaryDeviceTypeCode, "
-            SQL += "(Select STRCONTROLDEVICEDesc "
-            SQL += "from AIRBRANCH.EILOOKUPCONTROLDEVICE "
-            SQL += "where AIRBRANCH.EIEM.strPrimaryDeviceTypeCode = "
-            SQL += "AIRBRANCH.EILOOKUPCONTROLDEVICE.STRCONTROLDEVICECODE) as PrimaryDeviceTypeDesc, "
-            SQL += "sngPrimaryPCTControlEffic, "
-            SQL += "strSecondaryDeviceTypeCode, "
-            SQL += "(Select STRCONTROLDEVICEDesc "
-            SQL += "from AIRBRANCH.EILOOKUPCONTROLDEVICE "
-            SQL += "where AIRBRANCH.EIEM.strSecondaryDeviceTypeCode = "
-            SQL += "AIRBRANCH.EILOOKUPCONTROLDEVICE.STRCONTROLDEVICECODE) as SecondaryDeviceTypeDesc, "
-            SQL += "sngPCTCaptureEfficiency, "
-            SQL += "sngTotalCaptureControlEffic "
-            SQL += "from AIRBRANCH.eiEM "
-            SQL += "where strAirsYear = '" & airsYear & "'"
-
-            'SQL = "Select * from AIRBRANCH.eiEM where strAirsYear = '" & airsYear & "'"
-
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
-            cmd.CommandType = CommandType.Text
-
-            If CurrentConnection.State = ConnectionState.Open Then
-            Else
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-
-            dgvEM.Rows.Clear()
-            dgvEM.Columns.Clear()
-
-            dgvEM.Columns.Add("STREMISSIONUNITID", "EMISSION UNIT ID")
-            dgvEM.Columns.Add("STREMISSIONRELEASEPOINTID", "EMISSION RELEASE POINT ID")
-            dgvEM.Columns.Add("STRPROCESSID", "PROCESS ID")
-            dgvEM.Columns.Add("strPollutantCode", "Pollutant Code")
-            dgvEM.Columns.Add("pollutantDesc", "pollutant Desc")
-            dgvEM.Columns.Add("DBLEMISSIONNUMERICVALUE", "EMISSION NUMERIC VALUE")
-            dgvEM.Columns.Add("STREMISSIONUNITNUMERATOR", "EMISSION UNIT NUMERATOR")
-            dgvEM.Columns.Add("EMISSIONUNITNUMERATORDesc", "EMISSION UNIT NUMERATOR Desc")
-            dgvEM.Columns.Add("sngFactorNumericValue", "Factor Numeric Value")
-            dgvEM.Columns.Add("strFactorUnitNumerator", "Factor Unit Numerator")
-            dgvEM.Columns.Add("FactorUnitNumeratorDesc", "Factor Unit Numerator Desc")
-            dgvEM.Columns.Add("strFactorUnitDenominator", "Factor Unit Denominator")
-            dgvEM.Columns.Add("FactorUnitDenominatorDesc", "Factor Unit Denominator Desc")
-            dgvEM.Columns.Add("strEmissionCalculationMetCode", "Emission Calculation Method Code")
-            dgvEM.Columns.Add("EMISSIONCALCMETHODDESC", "Emission Calculation Method Code Desc")
-            dgvEM.Columns.Add("strControlStatus", "Control Status")
-            dgvEM.Columns.Add("strControlSystemDescription", "Control System Description")
-            dgvEM.Columns.Add("strPrimaryDeviceTypeCode", "Primary Device Type Code")
-            dgvEM.Columns.Add("PrimaryDeviceTypeDesc", "Primary Device Type Code Desc")
-            dgvEM.Columns.Add("sngPrimaryPCTControlEffic", "Primary Percentage Control Efficiency")
-            dgvEM.Columns.Add("strSecondaryDeviceTypeCode", "Secondary Device Type Code")
-            dgvEM.Columns.Add("SecondaryDeviceTypeDesc", "Secondary Device Type Code Desc")
-            dgvEM.Columns.Add("sngPCTCaptureEfficiency", "Percent Capture Efficiency")
-            dgvEM.Columns.Add("sngTotalCaptureControlEffic", "Total Capture Control Efficiency")
-
-
-
-            dgvEM.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
-            dgvEM.RowHeadersVisible = False
-
-            While dr.Read
-                'Get row data as an object array
-                'objCells(2) means col[0], col[1], col[2]
-                'which returns the first colums in the table
-                Dim objCells(dgvEM.Columns.Count) As Object
-                dr.GetValues(objCells)
-                dgvEM.Rows.Add(objCells)
-            End While
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub export2Excel()
-        Try
-            exportSI()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub exportSI()
-        Try
-            'Response.AddHeader("content-disposition", "attachment;filename=EIData.xls")
-            '' Set MIME type to Excel.
-            'Response.ContentType = "application/vnd.ms-excel"
-            '' Remove the charset from the Content-Type header.
-            'Response.Charset = ""
-            Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-            'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-            'Dim ExcelApp As Excel.Application = New Excel.ApplicationClass
-            Dim col, row As Integer
-            Dim x As String
-            Dim y As String
-            Dim a As Integer
-            Dim b As Integer
-            Dim c As Integer
-            Dim d As Integer
-            Dim startRow As Integer = 1
-
-
-
-            'load SI data into Excel
-            If dgvSI.RowCount <> 0 Then
-
-                ExcelApp.SheetsInNewWorkbook = 1
-                ExcelApp.Workbooks.Add()
-
-                ExcelApp.Cells(startRow, 1).value = "Facility Information"
-
-                'For displaying the column name in the the excel file.
-                '29 columns in SI 
-                'cells(x,y) x=row  y=col
-                For col = 0 To dgvSI.ColumnCount - 1
-                    y = dgvSI.Columns(col).HeaderText.ToString
-                    ExcelApp.Cells(startRow + 1, col + 1).value = y
-                Next
-
-                For row = 0 To 0
-                    For col = 0 To dgvSI.ColumnCount - 1
-                        If IsDBNull(dgvSI.Item(col, row).Value.ToString) Then
-                            x = ""
-                        Else
-                            x = dgvSI.Item(col, row).Value.ToString
-                        End If
-                        'x = dgvSI.Item(col, row).Value.ToString
-                        ExcelApp.Cells(startRow + 2, col + 1).value = x
-                    Next
-                Next
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-
-            End If
-
-            txtRow.Text = startRow + 3
-
-            'load EU data into Excel
-            If dgvEU.RowCount <> 0 Then
-
-                startRow = CInt(txtRow.Text) + 2
-                ExcelApp.Cells(startRow, 1).value = "Emission Units"
-                startRow = startRow + 1
-
-                'For displaying the column name in the the excel file.
-                For col = 0 To dgvEU.ColumnCount - 1
-                    y = dgvEU.Columns(col).HeaderText.ToString
-                    ExcelApp.Cells(startRow, col + 1).value = y
-                Next
-
-                a = dgvEU.ColumnCount - 1
-                b = dgvEU.RowCount - 1
-
-                'For col = 0 To dgvEU.RowCount - 1
-                '    For row = 0 To dgvEU.ColumnCount - 1
-                startRow = startRow + 1
-                d = dgvEU.RowCount - 2
-                For row = 0 To d
-
-                    c = dgvEU.ColumnCount - 1
-                    For col = 0 To c
-                        If IsDBNull(dgvEU.Item(col, row).Value.ToString) Then
-                            x = ""
-                        Else
-                            x = dgvEU.Item(col, row).Value.ToString
-                        End If
-                        'x = dgvEU.Item(col, row).Value.ToString
-                        ExcelApp.Cells(startRow, col + 1).value = x
-                    Next
-                    startRow = startRow + 1
-                Next
-
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-
-            txtRow.Text = startRow + 2
-
-            'load ER data into Excel
-            If dgvER.RowCount <> 0 Then
-
-                startRow = CInt(txtRow.Text)
-                ExcelApp.Cells(startRow, 1).value = "Stacks"
-                startRow = startRow + 1
-
-                'For displaying the column name in the the excel file.
-                For col = 0 To dgvER.ColumnCount - 1
-                    y = dgvER.Columns(col).HeaderText.ToString
-                    ExcelApp.Cells(startRow, col + 1).value = y
-                Next
-
-                a = dgvER.ColumnCount - 1
-                b = dgvER.RowCount - 1
-
-                startRow = startRow + 1
-                d = dgvER.RowCount - 2
-                For row = 0 To d
-
-                    c = dgvER.ColumnCount - 1
-                    x = ""
-                    For col = 0 To c
-                        'If IsDBNull(dgvER.Item(col, row).Value.ToString) Then
-                        If IsDBNull(dgvER.Item(col, row).Value) Then
-                        Else
-                            'x = dgvER.Item(col, row).Value.ToString
-                            x = dgvER.Item(col, row).Value
-                        End If
-                        ExcelApp.Cells(startRow, col + 1).value = x
-                    Next
-                    startRow = startRow + 1
-                Next
-
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-
-            txtRow.Text = startRow + 2
-
-            'load EP data into Excel
-            If dgvEP.RowCount <> 0 Then
-
-                startRow = CInt(txtRow.Text)
-                ExcelApp.Cells(startRow, 1).value = "Processes"
-                startRow = startRow + 1
-
-                'For displaying the column name in the the excel file.
-                For col = 0 To dgvEP.ColumnCount - 1
-                    y = dgvEP.Columns(col).HeaderText.ToString
-                    ExcelApp.Cells(startRow, col + 1).value = y
-                Next
-
-                a = dgvEP.ColumnCount - 1
-                b = dgvEP.RowCount - 1
-
-                startRow = startRow + 1
-                d = dgvEP.RowCount - 2
-                For row = 0 To d
-
-                    c = dgvEP.ColumnCount - 1
-                    x = ""
-                    For col = 0 To c
-                        'If IsDBNull(dgvEP.Item(col, row).Value.ToString) Then
-                        If IsDBNull(dgvEP.Item(col, row).Value) Then
-                        Else
-                            'x = dgvEP.Item(col, row).Value.ToString
-                            x = dgvEP.Item(col, row).Value
-                        End If
-                        ExcelApp.Cells(startRow, col + 1).value = x
-                    Next
-                    startRow = startRow + 1
-                Next
-
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-
-            txtRow.Text = startRow + 2
-
-            'load EM data into Excel
-            If dgvEM.RowCount <> 0 Then
-
-                startRow = CInt(txtRow.Text)
-                ExcelApp.Cells(startRow, 1).value = "Pollutants and Control Equipment"
-                startRow = startRow + 1
-
-                'For displaying the column name in the the excel file.
-                For col = 0 To dgvEM.ColumnCount - 1
-                    y = dgvEM.Columns(col).HeaderText.ToString
-                    ExcelApp.Cells(startRow, col + 1).value = y
-                Next
-
-                a = dgvEM.ColumnCount - 1
-                b = dgvEM.RowCount - 1
-
-                startRow = startRow + 1
-                d = dgvEM.RowCount - 2
-                For row = 0 To d
-
-                    c = dgvEM.ColumnCount - 1
-                    x = ""
-                    For col = 0 To c
-                        'If IsDBNull(dgvEM.Item(col, row).Value.ToString) Then
-                        If IsDBNull(dgvEM.Item(col, row).Value) Then
-                        Else
-                            'x = dgvEM.Item(col, row).Value.ToString
-                            x = dgvEM.Item(col, row).Value
-                        End If
-                        ExcelApp.Cells(startRow, col + 1).value = x
-                    Next
-                    startRow = startRow + 1
-                Next
-
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-
-            'txtRow.Text = startRow + 2
-
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-            Else
-                MsgBox(ex.ToString)
-            End If
-        Finally
-
-        End Try
-
-    End Sub
-#End Region
-#End Region
 
     Private Sub llbISMPTestingWork_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbISMPTestingWork.LinkClicked
         Try
@@ -3479,60 +2542,8 @@ Public Class IAIPFacilitySummary
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ViewFCE()
-        Dim AirProgramCodes As String = ""
+    Private Sub ViewFCE()
         Try
-
-            If chbAPC0.Checked = True Then
-                AirProgramCodes = "0 - SIP" & vbCrLf
-            End If
-            If chbAPC1.Checked = True Then
-                AirProgramCodes = AirProgramCodes & "1 - Federal SIP" & vbCrLf
-            End If
-            If chbAPC3.Checked = True Then
-                AirProgramCodes = AirProgramCodes & "3 - Non-Federal SIP" & vbCrLf
-            End If
-            If chbAPC4.Checked = True Then
-                AirProgramCodes = AirProgramCodes & "4 - CFC Tracking" & vbCrLf
-            End If
-            If chbAPC6.Checked = True Then
-                AirProgramCodes = AirProgramCodes & "6 - PSD" & vbCrLf
-            End If
-            If chbAPC7.Checked = True Then
-                AirProgramCodes = AirProgramCodes & "7 - NSR" & vbCrLf
-            End If
-            If chbAPC8.Checked = True Then
-                AirProgramCodes = AirProgramCodes & "8 - NESHAP" & vbCrLf
-            End If
-            If chbAPC9.Checked = True Then
-                AirProgramCodes = AirProgramCodes & "9 - NSPS" & vbCrLf
-            End If
-            If chbAPCF.Checked = True Then
-                AirProgramCodes = AirProgramCodes & "F - FESOP" & vbCrLf
-            End If
-            If chbAPCA.Checked = True Then
-                AirProgramCodes = AirProgramCodes & "A - Acid Precipitation" & vbCrLf
-            End If
-            If chbAPCI.Checked = True Then
-                AirProgramCodes = AirProgramCodes & "I - Native American" & vbCrLf
-            End If
-            If chbAPCM.Checked = True Then
-                AirProgramCodes = AirProgramCodes & "M - MACT" & vbCrLf
-            End If
-            If chbAPCV.Checked = True Then
-                AirProgramCodes = AirProgramCodes & "V - Title V Permit" & vbCrLf
-            End If
-            If chbAPCRMP.Checked = True Then
-                AirProgramCodes = AirProgramCodes & "RMP - Risk Mgmt. Plan" & vbCrLf
-            End If
-
-            If AirProgramCodes = "" Then
-                AirProgramCodes = "No Air Program Codes available" & vbCrLf
-            End If
-
-            AirProgramCodes = Mid(AirProgramCodes, 1, (Len(AirProgramCodes) - 2))
-
-
             If mtbAIRSNumber.Text.Length <> 8 Then
                 MsgBox("Please Enter a valid AIRS Number.", MsgBoxStyle.Information, "Facility Summary Warning")
             Else
@@ -3548,10 +2559,7 @@ Public Class IAIPFacilitySummary
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
 
 #End Region
@@ -4337,14 +3345,6 @@ Public Class IAIPFacilitySummary
                     SSCPEngWork.Show()
                 End If
             End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub mmiSSCPFCE_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSSCPFCE.Click
-        Try
-            ViewFCE()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
