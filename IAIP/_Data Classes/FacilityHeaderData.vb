@@ -219,22 +219,22 @@ Namespace Apb
 
 #Region " Nonattainment statuses "
 
-        Private _oneHourOzone As OneHourNonattainmentStatus
-        Public Property OneHourNonAttainmentState() As OneHourNonattainmentStatus
+        Private _oneHourOzone As OneHourOzoneNonattainmentStatus
+        Public Property OneHourOzoneNonAttainment() As OneHourOzoneNonattainmentStatus
             Get
                 Return _oneHourOzone
             End Get
-            Set(ByVal value As OneHourNonattainmentStatus)
+            Set(ByVal value As OneHourOzoneNonattainmentStatus)
                 _oneHourOzone = value
             End Set
         End Property
 
-        Private _eightHourOzone As EightHourNonattainmentStatus
-        Public Property EightHourNonAttainmentState() As EightHourNonattainmentStatus
+        Private _eightHourOzone As EightHourOzoneNonattainmentStatus
+        Public Property EightHourOzoneNonAttainment() As EightHourOzoneNonattainmentStatus
             Get
                 Return _eightHourOzone
             End Get
-            Set(ByVal value As EightHourNonattainmentStatus)
+            Set(ByVal value As EightHourOzoneNonattainmentStatus)
                 _eightHourOzone = value
             End Set
         End Property
@@ -261,19 +261,19 @@ Namespace Apb
         Public Property NonattainmentStatusesCode() As String
             Get
                 Return "0" & _
-                OneHourNonAttainmentState.ToString("D") & _
-                EightHourNonAttainmentState.ToString("D") & _
+                OneHourOzoneNonAttainment.ToString("D") & _
+                EightHourOzoneNonAttainment.ToString("D") & _
                 PMFineNonAttainmentState.ToString("D") & _
                 "0"
             End Get
             Set(ByVal value As String)
                 If String.IsNullOrEmpty(value) Then
-                    OneHourNonAttainmentState = Facility.OneHourNonattainmentStatus.No
-                    EightHourNonAttainmentState = Facility.EightHourNonattainmentStatus.None
+                    OneHourOzoneNonAttainment = Facility.OneHourOzoneNonattainmentStatus.No
+                    EightHourOzoneNonAttainment = Facility.EightHourOzoneNonattainmentStatus.None
                     PMFineNonAttainmentState = Facility.PMFineNonattainmentStatus.None
                 Else
-                    OneHourNonAttainmentState = Mid(value, 2, 1)
-                    EightHourNonAttainmentState = Mid(value, 3, 1)
+                    OneHourOzoneNonAttainment = Mid(value, 2, 1)
+                    EightHourOzoneNonAttainment = Mid(value, 3, 1)
                     PMFineNonAttainmentState = Mid(value, 4, 1)
                 End If
             End Set

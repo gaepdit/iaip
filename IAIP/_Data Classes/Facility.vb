@@ -57,15 +57,18 @@ Namespace Apb
         End Property
         Private _facilityLocation As Location
 
-        Public Property MailingAddress() As Address
-            Get
-                Return _mailingAddress
-            End Get
-            Set(ByVal value As Address)
-                _mailingAddress = value
-            End Set
-        End Property
-        Private _mailingAddress As Address
+        '''' <summary>
+        '''' Mailing Address is the true postal address. Currently not used.
+        '''' </summary>
+        'Public Property MailingAddress() As Address
+        '    Get
+        '        Return _mailingAddress
+        '    End Get
+        '    Set(ByVal value As Address)
+        '        _mailingAddress = value
+        '    End Set
+        'End Property
+        'Private _mailingAddress As Address
 
         Public Property HeaderData() As FacilityHeaderData
             Get
@@ -78,23 +81,25 @@ Namespace Apb
         Private _headerData As FacilityHeaderData
 
         Private _subjectToNsps As Boolean?
-        Public Property SubjectToNsps() As Boolean?
+        Public ReadOnly Property SubjectToNsps() As Boolean?
             Get
-                Return _subjectToNsps
+                If HeaderData Is Nothing Then
+                    Return Nothing
+                Else
+                    Return Convert.ToBoolean((Me.HeaderData.AirPrograms And AirProgram.NSPS) > 0)
+                End If
             End Get
-            Set(ByVal value As Boolean?)
-                _subjectToNsps = value
-            End Set
         End Property
 
         Private _subjectToPart70 As Boolean?
-        Public Property SubjectToPart70() As Boolean?
+        Public ReadOnly Property SubjectToPart70() As Boolean?
             Get
-                Return _subjectToPart70
+                If HeaderData Is Nothing Then
+                    Return Nothing
+                Else
+                    Return Convert.ToBoolean((Me.HeaderData.AirPrograms And AirProgram.TitleV) > 0)
+                End If
             End Get
-            Set(ByVal value As Boolean?)
-                _subjectToPart70 = value
-            End Set
         End Property
 
         Private _comment As String
@@ -127,6 +132,16 @@ Namespace Apb
                 Return ld
             End Get
         End Property
+
+#End Region
+
+#Region " Methods "
+
+        Public Sub RetrieveHeaderData()
+            If Me IsNot Nothing Then
+                _headerData = DAL.GetFacilityHeaderData(Me.AirsNumber)
+            End If
+        End Sub
 
 #End Region
 
@@ -186,7 +201,7 @@ Namespace Apb
         ''' <remarks>The value of each enumeration member is significant because the members are stored
         ''' and retrieved from the database in a coded string (along with EightHourNonattainmentStatus and
         ''' PMFineNonattainmentStatus.)</remarks>
-        Public Enum OneHourNonattainmentStatus
+        Public Enum OneHourOzoneNonattainmentStatus
             No = 0
             Yes = 1
             Contribute = 2
@@ -198,7 +213,7 @@ Namespace Apb
         ''' <remarks>The value of each enumeration member is significant because the members are stored
         ''' and retrieved from the database in a coded string (along with OneHourNonattainmentStatus and
         ''' PMFineNonattainmentStatus.)</remarks>
-        Public Enum EightHourNonattainmentStatus
+        Public Enum EightHourOzoneNonattainmentStatus
             None = 0
             Atlanta = 1
             Macon = 2

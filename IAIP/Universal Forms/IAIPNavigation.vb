@@ -436,7 +436,7 @@ Public Class IAIPNavigation
                                         CurrentWorkViewerContextParameter = UserUnit
                                     Else
                                         CurrentWorkViewerContext = WorkViewerType.ISMP_Staff
-                                        ' TODO (Doug): When a better user object is set up, change this (pnl2.Text)
+                                        ' TODO DWW: When a better User object is set up, change this (pnlName.Text)
                                         ' to something more appropriate
                                         CurrentWorkViewerContextParameter = pnlName.Text
                                     End If
@@ -547,7 +547,7 @@ Public Class IAIPNavigation
                 Case "Monitoring Test Reports"
                     If rdbStaffView.Checked Then
                         CurrentWorkViewerContext = WorkViewerType.MonitoringTestReports_Staff
-                        ' TODO (Doug): When a better user object is set up, change this (pnl2.Text)
+                        ' TODO DWW: When a better user object is set up, change this (pnlName.Text)
                         ' to something more appropriate
                         CurrentWorkViewerContextParameter = pnlName.Text
                     ElseIf rdbUCView.Checked Then
@@ -1355,7 +1355,7 @@ Public Class IAIPNavigation
                                         "EDT Errors", "DmuEdtErrorMessages", NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(10, "District Tools", "IAIPDistrictSourceTool", NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(133, "Look Up Tables", "IAIPLookUpTables", NavButtonCategories.DMU)
-        If (UserGCode = "345") Then
+        If (CurrentUser.UserID = "345") Then
             AddNavButtonIfAccountHasFormAccess(63, "Special Tools", "DMUDangerousTool", NavButtonCategories.DMU)
         End If
 

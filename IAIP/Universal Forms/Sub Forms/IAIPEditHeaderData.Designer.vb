@@ -19,7 +19,7 @@ Partial Class IAIPEditHeaderData
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.FacilityDescription = New System.Windows.Forms.TextBox
         Me.FacilityDescriptionLabel = New System.Windows.Forms.Label
         Me.FacilityHistoryDataGridView = New System.Windows.Forms.DataGridView
@@ -103,8 +103,8 @@ Partial Class IAIPEditHeaderData
         Me.FacilityHistoryDataGridView.AllowUserToDeleteRows = False
         Me.FacilityHistoryDataGridView.AllowUserToOrderColumns = True
         Me.FacilityHistoryDataGridView.AllowUserToResizeRows = False
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.FacilityHistoryDataGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.FacilityHistoryDataGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.FacilityHistoryDataGridView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -156,9 +156,9 @@ Partial Class IAIPEditHeaderData
         Me.StartupDateLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StartupDateLabel.Location = New System.Drawing.Point(12, 86)
         Me.StartupDateLabel.Name = "StartupDateLabel"
-        Me.StartupDateLabel.Size = New System.Drawing.Size(44, 13)
+        Me.StartupDateLabel.Size = New System.Drawing.Size(70, 13)
         Me.StartupDateLabel.TabIndex = 370
-        Me.StartupDateLabel.Text = "Startup:"
+        Me.StartupDateLabel.Text = "Startup Date:"
         Me.StartupDateLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft
         '
         'StartUpDate

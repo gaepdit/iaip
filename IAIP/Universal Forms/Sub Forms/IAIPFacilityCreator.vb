@@ -355,12 +355,12 @@ Public Class IAIPFacilityCreator
                 "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Exit Sub
             End If
-            If Not DAL.FacilityHeaderData.NaicsCodeIsValid(mtbCDSNAICSCode.Text) Then
+            If Not DAL.FacilityHeaderDataModule.NaicsCodeIsValid(mtbCDSNAICSCode.Text) Then
                 MsgBox("The NAICS Code is not valid and must be fixed before proceeding." & _
                   "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Exit Sub
             End If
-            If Not DAL.FacilityHeaderData.SicCodeIsValid(mtbCDSSICCode.Text) Then
+            If Not DAL.FacilityHeaderDataModule.SicCodeIsValid(mtbCDSSICCode.Text) Then
                 MsgBox("The SIC Code is not valid and must be fixed before proceeding." & _
                 "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Exit Sub
@@ -1958,7 +1958,7 @@ Public Class IAIPFacilityCreator
                        MsgBoxStyle.Information, Me.Text)
                 Exit Sub
             End If
-            If DAL.FacilityHeaderData.NaicsCodeIsValid(mtbCDSNAICSCode.Text) = False Then
+            If DAL.FacilityHeaderDataModule.NaicsCodeIsValid(mtbCDSNAICSCode.Text) = False Then
                 MsgBox("The NACIS Code is not valid." & _
                   "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Exit Sub
@@ -2295,7 +2295,7 @@ Public Class IAIPFacilityCreator
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToDelete.Text) Then
             Dim fac As Apb.Facility = DAL.Facility.GetFacility(AirsNumberToDelete.Text)
             If fac IsNot Nothing Then
-                fac.HeaderData = DAL.FacilityHeaderData.GetFacilityHeaderData(AirsNumberToDelete.Text)
+                fac.HeaderData = DAL.FacilityHeaderDataModule.GetFacilityHeaderData(AirsNumberToDelete.Text)
                 If fac.HeaderData IsNot Nothing Then FacilityLongDisplay.Text = fac.LongDisplay
             End If
         End If

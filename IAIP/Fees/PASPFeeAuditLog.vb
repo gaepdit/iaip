@@ -2423,12 +2423,15 @@ Public Class PASPFeeAuditLog
 
         With facility
             .FacilityName = txtInitialFacilityName.Text
-            .MailingAddress = New Address
-            With .MailingAddress
-                .Street = txtInitailFacilityAddress.Text
-                .Street2 = txtInitialAddressLine2.Text
-                .City = txtInitialCity.Text
-                .PostalCode = mtbInitialZipCode.Text
+            .FacilityLocation = New Location
+            With .FacilityLocation
+                .Address = New Address
+                With .Address
+                    .Street = txtInitailFacilityAddress.Text
+                    .Street2 = txtInitialAddressLine2.Text
+                    .City = txtInitialCity.Text
+                    .PostalCode = mtbInitialZipCode.Text
+                End With
             End With
             .Comment = txtInitialFacilityComment.Text
             .HeaderData = New Apb.FacilityHeaderData
@@ -2438,9 +2441,7 @@ Public Class PASPFeeAuditLog
                 .ShutdownDate = If(dtpInitialShutDownDate.Checked, dtpInitialShutDownDate.Value, CType(Nothing, DateTime?))
             End With
             If rdbInitialNSPSTrue.Checked Then .HeaderData.AirPrograms = .HeaderData.AirPrograms Or AirProgram.NSPS
-            .SubjectToNsps = rdbInitialNSPSTrue.Checked ' TODO: remove
-            If rdbInitialPart70True.Checked Then .HeaderData.AirPrograms = AirProgram.TitleV Or .HeaderData.AirPrograms
-            .SubjectToPart70 = rdbInitialPart70True.Checked ' TODO: remove
+            If rdbInitialPart70True.Checked Then .HeaderData.AirPrograms = .HeaderData.AirPrograms Or AirProgram.TitleV
         End With
 
         Return facility
@@ -2531,10 +2532,10 @@ Public Class PASPFeeAuditLog
     Private Sub MailoutFillFacilityFrom(ByVal facility As Apb.Facility)
         With facility
             txtInitialFacilityName.Text = .FacilityName
-            txtInitailFacilityAddress.Text = .MailingAddress.Street
-            txtInitialAddressLine2.Text = .MailingAddress.Street2
-            txtInitialCity.Text = .MailingAddress.City
-            mtbInitialZipCode.Text = .MailingAddress.PostalCode
+            txtInitailFacilityAddress.Text = .FacilityLocation.Address.Street
+            txtInitialAddressLine2.Text = .FacilityLocation.Address.Street2
+            txtInitialCity.Text = .FacilityLocation.Address.City
+            mtbInitialZipCode.Text = .FacilityLocation.Address.PostalCode
             txtInitialFacilityComment.Text = .Comment
             cboInitialOpStatus.SelectedValue = .HeaderData.OperationalStatus
             cboInitialClassification.SelectedValue = .HeaderData.Classification
@@ -2561,58 +2562,8 @@ Public Class PASPFeeAuditLog
         Try
 
             MailoutEditingToggle(True, False)
-            Dim facility As New Apb.Facility
-            facility.MailingAddress = New Address
-            facility.HeaderData = New Apb.FacilityHeaderData
-
-            'TODO DWW: When permit revocation branch lands, this can be rewritten using new facility and facility header classes
-            Dim query As String = "select " & _
-            "strOperationalStatus, strClass, " & _
-            "case " & _
-            "when substr(strAIRProgramCodes, 8,1)= '1' then 'True' " & _
-            "else 'False' " & _
-            "end strNSPS, " & _
-            "case " & _
-            "when substr(strAIRProgramCodes, 13, 1) = '1' then 'True' " & _
-            "else 'False' " & _
-            "end strPart70, " & _
-            "strFacilityName, strFacilityStreet1, " & _
-            "strFacilityStreet2, strFacilityCity, datShutdownDate, " & _
-            "strFacilityZipCode " & _
-            "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBHeaderData  " & _
-            "where APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber " & _
-            "and APBFacilityInformation.strAIRSnumber = :airsnumber "
-
-            Dim parameter As OracleParameter = New OracleParameter("airsnumber", ExpandedAirsNumber)
-
-            Using connection As New OracleConnection(DB.CurrentConnectionString)
-                Using command As New OracleCommand(query, connection)
-                    command.CommandType = CommandType.Text
-                    command.BindByName = True
-                    command.Parameters.Add(parameter)
-                    command.Connection.Open()
-
-                    Dim dr As OracleDataReader = command.ExecuteReader
-                    While dr.Read
-                        With facility
-                            .FacilityName = DB.GetNullable(Of String)(dr.Item("strFacilityName"))
-                            .MailingAddress.Street = DB.GetNullable(Of String)(dr.Item("strFacilityStreet1"))
-                            .MailingAddress.Street2 = DB.GetNullable(Of String)(dr.Item("strFacilityStreet2"))
-                            .MailingAddress.City = DB.GetNullable(Of String)(dr.Item("strFacilityCity"))
-                            .MailingAddress.PostalCode = DB.GetNullable(Of String)(dr.Item("strFacilityZipCode"))
-                            .Comment = ""
-                            .HeaderData.ClassificationCode = DB.GetNullable(Of String)(dr.Item("strClass"))
-                            .HeaderData.OperationalStatusCode = DB.GetNullable(Of String)(dr.Item("strOperationalStatus"))
-                            .SubjectToNsps = Convert.ToBoolean(dr.Item("strNSPS"))
-                            .SubjectToPart70 = Convert.ToBoolean(dr.Item("strPart70"))
-                            .HeaderData.ShutdownDate = DB.GetNullable(Of Date?)(dr.Item("datShutdownDate"))
-                        End With
-                    End While
-                    dr.Close()
-
-                    command.Connection.Close()
-                End Using
-            End Using
+            Dim facility As Apb.Facility = DAL.GetFacility(Me.AirsNumber)
+            facility.RetrieveHeaderData()
 
             MailoutFillFacilityFrom(facility)
         Catch ex As Exception

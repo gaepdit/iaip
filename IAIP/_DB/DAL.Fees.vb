@@ -127,10 +127,10 @@ Namespace DAL
                     New OracleParameter("v16", If(facility.SubjectToPart70, "1", "0")), _
                     New OracleParameter("v17", facility.HeaderData.ShutdownDate), _
                     New OracleParameter("v18", facility.FacilityName), _
-                    New OracleParameter("v19", facility.MailingAddress.Street), _
-                    New OracleParameter("v20", facility.MailingAddress.Street2), _
-                    New OracleParameter("v21", facility.MailingAddress.City), _
-                    New OracleParameter("v22", facility.MailingAddress.PostalCode), _
+                    New OracleParameter("v19", facility.FacilityLocation.Address.Street), _
+                    New OracleParameter("v20", facility.FacilityLocation.Address.Street2), _
+                    New OracleParameter("v21", facility.FacilityLocation.Address.City), _
+                    New OracleParameter("v22", facility.FacilityLocation.Address.PostalCode), _
                     New OracleParameter("v23", facility.Comment), _
                     New OracleParameter("v25", UserGCode), _
                     New OracleParameter("v26", OracleDate), _

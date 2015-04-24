@@ -13,13 +13,19 @@ Namespace DAL
         ''' </summary>
         ''' <param name="airsNumber">The AIRS number to test.</param>
         ''' <returns>True if the AIRS number exists; otherwise false.</returns>
-        ''' <remarks>Does not make any judgements about state of facility otherwise.</remarks>
+        ''' <remarks>Does not make any judgments about state of facility otherwise.</remarks>
         Public Function AirsNumberExists(ByVal airsNumber As ApbFacilityId) As Boolean
             Dim spName As String = "IAIP_FACILITY.DoesAirsNumberExist"
             Dim parameter As New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPGetBoolean(spName, parameter)
         End Function
 
+        ''' <summary>
+        ''' Returns whether an AIRS number already exists in the database
+        ''' </summary>
+        ''' <param name="airsNumber">The AIRS number to test as a string.</param>
+        ''' <returns>True if the AIRS number exists; otherwise false.</returns>
+        ''' <remarks>Does not make any judgments about state of facility otherwise.</remarks>
         Public Function AirsNumberExists(ByVal airsNumber As String) As Boolean
             If Not ApbFacilityId.IsValidAirsNumberFormat(airsNumber) Then
                 Return False
@@ -31,7 +37,7 @@ Namespace DAL
         ''' <summary>
         ''' Returns the facility name for a given AIRS number.
         ''' </summary>
-        ''' <param name="airsNumber">The AIRS number to search for.</param>
+        ''' <param name="airsNumber">The AIRS number to search for as a string.</param>
         ''' <returns>The facility name, or an empty string if facility AIRS number does not exist.</returns>
         Public Function GetFacilityName(ByVal airsNumber As ApbFacilityId) As String
             Dim fac As Apb.Facility = GetFacility(airsNumber)
@@ -144,6 +150,11 @@ Namespace DAL
             Return DB.SPRunCommand(spName, parameter)
         End Function
 
+        ''' <summary>
+        ''' Marks all data related to a facility as "updated" to trigger processing by the ICIS-Air procedures.
+        ''' </summary>
+        ''' <param name="airsnumber">The AIRS number of the facility to update.</param>
+        ''' <returns>True if successful; otherwise false</returns>
         Public Function TriggerDataUpdateAtEPA(ByVal airsnumber As ApbFacilityId) As Boolean
             Dim spName As String = "IAIP_FACILITY.TriggerDataUpdateAtEPA"
             Dim parameter As OracleParameter = New OracleParameter("AirsNumber", airsnumber.DbFormattedString)
