@@ -2298,7 +2298,7 @@ Public Class SSCPManagersTools
     End Sub
     Private Sub llbCMSOpenFacilitySummary2_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbCMSOpenFacilitySummary2.LinkClicked
         Try
-            If Not DAL.Facility.AirsNumberExists(txtCMSAIRSNumber2.Text) Then
+            If Not DAL.FacilityModule.AirsNumberExists(txtCMSAIRSNumber2.Text) Then
                 MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
                 Exit Sub
             End If
@@ -4066,7 +4066,7 @@ Public Class SSCPManagersTools
     End Sub
     Sub OpenFacilitySummary()
         Try
-            If Not DAL.Facility.AirsNumberExists(txtRecordNumber.Text) Then
+            If Not DAL.FacilityModule.AirsNumberExists(txtRecordNumber.Text) Then
                 MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
                 Exit Sub
             End If

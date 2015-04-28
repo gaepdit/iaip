@@ -59,8 +59,8 @@ Public Class IAIPEditHeaderData
     End Sub
 
     Private Sub PreloadComboBoxes()
-        ClassificationDropDown.BindToEnum(Of Facility.Classification)()
-        OperationalDropDown.BindToEnum(Of Facility.OperationalStatus)()
+        ClassificationDropDown.BindToEnum(Of Facility.FacilityClassification)()
+        OperationalDropDown.BindToEnum(Of Facility.FacilityOperationalStatus)()
         EightHourOzoneDropDown.BindToEnum(Of Facility.EightHourOzoneNonattainmentStatus)()
         OneHourOzoneDropDown.BindToEnum(Of Facility.OneHourOzoneNonattainmentStatus)()
         PmFineDropDown.BindToEnum(Of Facility.PMFineNonattainmentStatus)()
@@ -150,7 +150,7 @@ Public Class IAIPEditHeaderData
         }
         EnableControls(EditableControls)
 
-        If CurrentFacilityHeaderData.OperationalStatus = Facility.OperationalStatus.X Then
+        If CurrentFacilityHeaderData.OperationalStatus = Facility.FacilityOperationalStatus.X Then
             OperationalDropDown.Enabled = False
         End If
 
@@ -242,8 +242,8 @@ Public Class IAIPEditHeaderData
     End Sub
 
     Private Function UserIsTryingToCloseFacility() As Boolean
-        If OperationalDropDown.SelectedValue = Facility.OperationalStatus.X _
-        AndAlso CurrentFacilityHeaderData.OperationalStatus <> Facility.OperationalStatus.X Then
+        If OperationalDropDown.SelectedValue = Facility.FacilityOperationalStatus.X _
+        AndAlso CurrentFacilityHeaderData.OperationalStatus <> Facility.FacilityOperationalStatus.X Then
             Return True
         Else
             Return False
@@ -456,8 +456,8 @@ Public Class IAIPEditHeaderData
             invalidControls.Add(CommentsLabel)
         End If
 
-        If editedFacility.OperationalStatus = Facility.OperationalStatus.X _
-        AndAlso CurrentFacilityHeaderData.OperationalStatus <> Facility.OperationalStatus.X _
+        If editedFacility.OperationalStatus = Facility.FacilityOperationalStatus.X _
+        AndAlso CurrentFacilityHeaderData.OperationalStatus <> Facility.FacilityOperationalStatus.X _
         AndAlso editedFacility.ShutdownDate Is Nothing Then
             MessageBox.Show("You have marked the facility as closed. Please enter the date the final permit was revoked.", _
                             "Missing Date", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -466,7 +466,7 @@ Public Class IAIPEditHeaderData
         End If
 
         If Not editedFacility.ShutdownDate Is Nothing _
-            AndAlso editedFacility.OperationalStatus <> Facility.OperationalStatus.X _
+            AndAlso editedFacility.OperationalStatus <> Facility.FacilityOperationalStatus.X _
             AndAlso editedFacility.ShutdownDate Is Nothing Then
             MessageBox.Show("A permit revocation date is entered, but the facility is not marked as closed. Please reconcile this.", _
                             "Missing Date", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -474,12 +474,12 @@ Public Class IAIPEditHeaderData
             invalidControls.Add(PermitRevocationDateLabel)
         End If
 
-        If ClassificationDropDown.SelectedValue = Facility.Classification.Unspecified Then
+        If ClassificationDropDown.SelectedValue = Facility.FacilityClassification.Unspecified Then
             valid = False
             invalidControls.Add(ClassificationLabel)
         End If
 
-        If OperationalDropDown.SelectedValue = Facility.OperationalStatus.Unspecified Then
+        If OperationalDropDown.SelectedValue = Facility.FacilityOperationalStatus.Unspecified Then
             valid = False
             invalidControls.Add(OperationalStatusLabel)
         End If
@@ -549,10 +549,10 @@ Public Class IAIPEditHeaderData
                 result = DAL.ShutDownFacility(editedFacility.AirsNumber, _
                                               editedFacility.ShutdownDate, _
                                               editedFacility.HeaderUpdateComment, _
-                                              FacilityHeaderData.ModificationLocation.HeaderDataEditor)
+                                              FacilityHeaderData.HeaderDataModificationLocation.HeaderDataEditor)
             Else
                 result = DAL.SaveFacilityHeaderData(editedFacility, _
-                                                    FacilityHeaderData.ModificationLocation.HeaderDataEditor)
+                                                    FacilityHeaderData.HeaderDataModificationLocation.HeaderDataEditor)
             End If
 
             If result Then

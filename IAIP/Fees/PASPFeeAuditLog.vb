@@ -73,27 +73,27 @@ Public Class PASPFeeAuditLog
     Private Sub PopulateComboBoxes()
 
         ' Operational Status
-        Dim operationalStatusDictionary As New Generic.Dictionary(Of OperationalStatus, String)
-        operationalStatusDictionary.Add(OperationalStatus.Unspecified, "Select…")
-        operationalStatusDictionary.Add(OperationalStatus.O, "Operational")
-        operationalStatusDictionary.Add(OperationalStatus.P, "Planned")
-        operationalStatusDictionary.Add(OperationalStatus.C, "Under Construction")
-        operationalStatusDictionary.Add(OperationalStatus.T, "Temporarily Closed")
-        operationalStatusDictionary.Add(OperationalStatus.X, "Closed/Dismantled")
-        operationalStatusDictionary.Add(OperationalStatus.I, "Seasonal Operation")
+        Dim operationalStatusDictionary As New Generic.Dictionary(Of FacilityOperationalStatus, String)
+        operationalStatusDictionary.Add(FacilityOperationalStatus.Unspecified, "Select…")
+        operationalStatusDictionary.Add(FacilityOperationalStatus.O, "Operational")
+        operationalStatusDictionary.Add(FacilityOperationalStatus.P, "Planned")
+        operationalStatusDictionary.Add(FacilityOperationalStatus.C, "Under Construction")
+        operationalStatusDictionary.Add(FacilityOperationalStatus.T, "Temporarily Closed")
+        operationalStatusDictionary.Add(FacilityOperationalStatus.X, "Closed/Dismantled")
+        operationalStatusDictionary.Add(FacilityOperationalStatus.I, "Seasonal Operation")
 
-        cboInitialOpStatus.BindToDictionary(Of OperationalStatus)(operationalStatusDictionary)
+        cboInitialOpStatus.BindToDictionary(Of FacilityOperationalStatus)(operationalStatusDictionary)
 
         ' Classification
-        Dim classificationDictionary As New Generic.Dictionary(Of Classification, String)
-        classificationDictionary.Add(Classification.Unspecified, "Select…")
-        classificationDictionary.Add(Classification.A, "A")
-        classificationDictionary.Add(Classification.B, "B")
-        classificationDictionary.Add(Classification.SM, "SM")
-        classificationDictionary.Add(Classification.PR, "PR")
-        classificationDictionary.Add(Classification.C, "C")
+        Dim classificationDictionary As New Generic.Dictionary(Of FacilityClassification, String)
+        classificationDictionary.Add(FacilityClassification.Unspecified, "Select…")
+        classificationDictionary.Add(FacilityClassification.A, "A")
+        classificationDictionary.Add(FacilityClassification.B, "B")
+        classificationDictionary.Add(FacilityClassification.SM, "SM")
+        classificationDictionary.Add(FacilityClassification.PR, "PR")
+        classificationDictionary.Add(FacilityClassification.C, "C")
 
-        cboInitialClassification.BindToDictionary(Of Classification)(classificationDictionary)
+        cboInitialClassification.BindToDictionary(Of FacilityClassification)(classificationDictionary)
 
         cboEditClassification.Items.Add("")
         cboEditClassification.Items.Add("A")
@@ -312,8 +312,8 @@ Public Class PASPFeeAuditLog
             txtInitialAddressLine2.Clear()
             txtInitialCity.Clear()
             mtbInitialZipCode.Clear()
-            cboInitialOpStatus.SelectedValue = OperationalStatus.Unspecified
-            cboInitialClassification.SelectedValue = Classification.Unspecified
+            cboInitialOpStatus.SelectedValue = FacilityOperationalStatus.Unspecified
+            cboInitialClassification.SelectedValue = FacilityClassification.Unspecified
             rdbInitialNSPSTrue.Checked = False
             rdbInitialNSPSFalse.Checked = False
             rdbInitialPart70True.Checked = False
@@ -580,43 +580,43 @@ Public Class PASPFeeAuditLog
                     txtContactEmail.Text = dr.Item("strGECOUserEmail")
                 End If
                 If IsDBNull(dr.Item("strOperationalStatus")) Then
-                    cboInitialOpStatus.SelectedValue = OperationalStatus.Unspecified
+                    cboInitialOpStatus.SelectedValue = FacilityOperationalStatus.Unspecified
                 Else
                     OpStatus = dr.Item("strOperationalStatus")
                     Select Case OpStatus
                         Case "O"
-                            cboInitialOpStatus.SelectedValue = OperationalStatus.O
+                            cboInitialOpStatus.SelectedValue = FacilityOperationalStatus.O
                         Case "P"
-                            cboInitialOpStatus.SelectedValue = OperationalStatus.P
+                            cboInitialOpStatus.SelectedValue = FacilityOperationalStatus.P
                         Case "C"
-                            cboInitialOpStatus.SelectedValue = OperationalStatus.C
+                            cboInitialOpStatus.SelectedValue = FacilityOperationalStatus.C
                         Case "T"
-                            cboInitialOpStatus.SelectedValue = OperationalStatus.T
+                            cboInitialOpStatus.SelectedValue = FacilityOperationalStatus.T
                         Case "X"
-                            cboInitialOpStatus.SelectedValue = OperationalStatus.X
+                            cboInitialOpStatus.SelectedValue = FacilityOperationalStatus.X
                         Case "I"
-                            cboInitialOpStatus.SelectedValue = OperationalStatus.I
+                            cboInitialOpStatus.SelectedValue = FacilityOperationalStatus.I
                         Case Else
-                            cboInitialOpStatus.SelectedValue = OperationalStatus.Unspecified
+                            cboInitialOpStatus.SelectedValue = FacilityOperationalStatus.Unspecified
                     End Select
                 End If
                 If IsDBNull(dr.Item("strClass")) Then
-                    cboInitialClassification.SelectedValue = Classification.Unspecified
+                    cboInitialClassification.SelectedValue = FacilityClassification.Unspecified
                 Else
                     itemClassification = dr.Item("strClass")
                     Select Case itemClassification
                         Case "A"
-                            cboInitialClassification.SelectedValue = Classification.A
+                            cboInitialClassification.SelectedValue = FacilityClassification.A
                         Case "B"
-                            cboInitialClassification.SelectedValue = Classification.B
+                            cboInitialClassification.SelectedValue = FacilityClassification.B
                         Case "SM"
-                            cboInitialClassification.SelectedValue = Classification.SM
+                            cboInitialClassification.SelectedValue = FacilityClassification.SM
                         Case "PR"
-                            cboInitialClassification.SelectedValue = Classification.PR
+                            cboInitialClassification.SelectedValue = FacilityClassification.PR
                         Case "C"
-                            cboInitialClassification.SelectedValue = Classification.C
+                            cboInitialClassification.SelectedValue = FacilityClassification.C
                         Case Else
-                            cboInitialClassification.SelectedValue = Classification.Unspecified
+                            cboInitialClassification.SelectedValue = FacilityClassification.Unspecified
                     End Select
                 End If
                 If IsDBNull(dr.Item("strNSPS")) Then

@@ -1677,7 +1677,7 @@ Public Class IAIPFacilityCreator
                 Exit Sub
             End If
 
-            If DAL.Facility.FacilityHasBeenApproved(txtNewAIRSNumber.Text) Then
+            If DAL.FacilityModule.FacilityHasBeenApproved(txtNewAIRSNumber.Text) Then
                 MessageBox.Show("Facility has already been approved.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
@@ -1689,7 +1689,7 @@ Public Class IAIPFacilityCreator
                 Exit Sub
             End If
 
-            If DAL.Facility.DeleteFacility(txtNewAIRSNumber.Text) Then
+            If DAL.FacilityModule.DeleteFacility(txtNewAIRSNumber.Text) Then
                 MessageBox.Show("Facility removed from the database", "Gone", MessageBoxButtons.OK)
             Else
                 MessageBox.Show("There was an error when attempting to remove the facility from the database." & vbNewLine & vbNewLine & "Facility has not been removed.", "Error", MessageBoxButtons.OK)
@@ -2268,7 +2268,7 @@ Public Class IAIPFacilityCreator
 
             Dim airsNumberDeleting As New Apb.ApbFacilityId(AirsNumberToDelete.Text)
 
-            If Not DAL.Facility.FacilityHasBeenApproved(airsNumberDeleting) Then
+            If Not DAL.FacilityModule.FacilityHasBeenApproved(airsNumberDeleting) Then
                 MessageBox.Show("Facility has not been approved yet. Remove facility using the ""Approve New Facilities"" tab.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
@@ -2280,7 +2280,7 @@ Public Class IAIPFacilityCreator
                 Exit Sub
             End If
 
-            If DAL.Facility.DeleteFacility(airsNumberDeleting) Then
+            If DAL.FacilityModule.DeleteFacility(airsNumberDeleting) Then
                 MessageBox.Show("Facility removed from the database", "Gone", MessageBoxButtons.OK)
             Else
                 MessageBox.Show("There was an error when attempting to remove the facility from the database." & vbNewLine & vbNewLine & "Facility has not been removed.", "Error", MessageBoxButtons.OK)
@@ -2293,7 +2293,7 @@ Public Class IAIPFacilityCreator
     Private Sub AirsNumberToDelete_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AirsNumberToDelete.TextChanged
         FacilityLongDisplay.Text = ""
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToDelete.Text) Then
-            Dim fac As Apb.Facility = DAL.Facility.GetFacility(AirsNumberToDelete.Text)
+            Dim fac As Apb.Facility = DAL.FacilityModule.GetFacility(AirsNumberToDelete.Text)
             If fac IsNot Nothing Then
                 fac.HeaderData = DAL.FacilityHeaderDataModule.GetFacilityHeaderData(AirsNumberToDelete.Text)
                 If fac.HeaderData IsNot Nothing Then FacilityLongDisplay.Text = fac.LongDisplay

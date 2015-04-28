@@ -168,7 +168,7 @@ Namespace Apb
         ''' The operational status of a facility.
         ''' </summary>
         ''' <remarks>Stored in database as a single-character string.</remarks>
-        Public Enum OperationalStatus
+        Public Enum FacilityOperationalStatus
             Unspecified
             <Description("Operational")> O
             <Description("Planned")> P
@@ -182,7 +182,7 @@ Namespace Apb
         ''' The source classification of a facility (based on permit type).
         ''' </summary>
         ''' <remarks>Stored in database as a two-character string.</remarks>
-        Public Enum Classification
+        Public Enum FacilityClassification
             Unspecified
             <Description("Major source")> A
             <Description("Minor source")> B
