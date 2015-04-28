@@ -18,10 +18,11 @@ Public Class IAIPLogIn
         monitor.TrackFeature("Main." & Me.Name)
         Try
             CheckLanguageRegistrySetting()
-            CheckDBAvailability()
 
 #If DEBUG Then
             ToggleServerEnvironment()
+#Else
+            CheckDBAvailability()
 #End If
 
         Catch ex As Exception
