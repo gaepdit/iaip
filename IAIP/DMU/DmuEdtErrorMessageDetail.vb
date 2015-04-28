@@ -59,7 +59,7 @@ Public Class DmuEdtErrorMessageDetail
 #Region " Init "
 
     ''' <summary>
-    ''' Fetches information about the EDT Error Messsage code "ErrorCode" and conditionally fetches a list of all 
+    ''' Fetches information about the EDT Error Message code "ErrorCode" and conditionally fetches a list of all 
     ''' related error records
     ''' </summary>
     ''' <remarks>Should only be run once after ErrorCode is set</remarks>
@@ -108,6 +108,8 @@ Public Class DmuEdtErrorMessageDetail
     End Function
 
     Private Function GetTableData() As Boolean
+        statusOfSelectedRows = SelectedRowsState.NoneSelected
+
         edtErrorMessagesTable = DAL.DMU.GetErrors(EdtErrorCode)
 
         If edtErrorMessagesTable IsNot Nothing Then
@@ -131,8 +133,6 @@ Public Class DmuEdtErrorMessageDetail
             EdtErrorCountDisplay.Text = "No errors to display"
             Return False
         End If
-
-        statusOfSelectedRows = SelectedRowsState.NoneSelected
     End Function
 
 #End Region
