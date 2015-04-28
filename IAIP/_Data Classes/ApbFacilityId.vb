@@ -1,6 +1,7 @@
 ﻿Namespace Apb
 
-    Public Structure ApbFacilityId
+    Public Class ApbFacilityId
+        Implements IEquatable(Of ApbFacilityId)
 
 #Region " Constructor "
 
@@ -56,6 +57,26 @@
 
 #End Region
 
+#Region " IEquatable Interface implementation "
+
+        Public Overloads Function Equals(ByVal other As ApbFacilityId) As Boolean _
+        Implements IEquatable(Of ApbFacilityId).Equals
+            If other Is Nothing Then Return False
+            Return Me.ToString.Equals(other.ToString)
+        End Function
+
+        Public Overrides Function Equals(ByVal obj As Object) As Boolean
+            If obj Is Nothing Then Return MyBase.Equals(obj)
+            If TypeOf obj Is ApbFacilityId Then Return Equals(DirectCast(obj, ApbFacilityId))
+            Return False
+        End Function
+
+        Public Overrides Function GetHashCode() As Integer
+            Return Me.ToString.GetHashCode()
+        End Function
+
+#End Region
+
 #Region " Validate/normalize AIRS number "
 
         ''' <summary>
@@ -75,11 +96,10 @@
         End Function
 
         ''' <summary>
-        ''' Converts a string representation of an AIRS number to the "00000000" form. If 'expand' is True, then 
-        ''' the AIRS number is expanded to the "041300000000" form.
+        ''' Converts a string representation of an AIRS number to the "00000000" form.
         ''' </summary>
         ''' <param name="airsNumber">The AIRS number to convert.</param>
-        ''' <returns>A string representation of an AIRS number in the "00000000" or "041300000000" form.</returns>
+        ''' <returns>A string representation of an AIRS number in the form "00000000".</returns>
         <DebuggerStepThrough()> _
         Private Function GetNormalizedAirsNumber(ByVal airsNumber As String) As String
             ' Converts a string representation of an AIRS number to the "00000000" form 
@@ -97,7 +117,7 @@
 
 #End Region
 
-    End Structure
+    End Class
 
     Public Class InvalidAirsNumberException
         Inherits Exception
