@@ -1890,7 +1890,7 @@ Public Class SSCPComplianceLog
     End Sub
     Private Sub txtNewAIRSNumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtNewAIRSNumber.TextChanged
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtNewAIRSNumber.Text) Then
-            Dim fac As Apb.Facility = DAL.Facility.GetFacility(txtNewAIRSNumber.Text)
+            Dim fac As Apb.Facility = DAL.FacilityModule.GetFacility(txtNewAIRSNumber.Text)
             txtFacilityInformation.Text = fac.LongDisplay
         Else
             txtFacilityInformation.Text = ""
@@ -2022,7 +2022,7 @@ Public Class SSCPComplianceLog
     End Sub
     Private Sub btnOpenSummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenSummary.Click
         Try
-            If Not DAL.Facility.AirsNumberExists(txtAIRSNumber.Text) Then
+            If Not DAL.FacilityModule.AirsNumberExists(txtAIRSNumber.Text) Then
                 MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
                 Exit Sub
             End If

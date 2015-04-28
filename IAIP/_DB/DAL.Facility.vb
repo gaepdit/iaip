@@ -4,7 +4,7 @@ Imports Iaip.Apb.Facility
 Imports System.Collections.Generic
 
 Namespace DAL
-    Module Facility
+    Module FacilityModule
 
 #Region " Read "
 
