@@ -180,7 +180,7 @@ Namespace DAL
         ''' <param name="fromLocation">A ModificationLocation Enum representing the user interface location where a change in facility header data was initiated</param>
         ''' <returns>True if the data was successfully saved to the database; otherwise, False</returns>
         ''' <remarks></remarks>
-        Public Function SaveFacilityHeaderData(ByVal headerData As FacilityHeaderData, ByVal fromLocation As FacilityHeaderData.ModificationLocation) As Boolean
+        Public Function SaveFacilityHeaderData(ByVal headerData As FacilityHeaderData, ByVal fromLocation As FacilityHeaderData.HeaderDataModificationLocation) As Boolean
             If Not AirsNumberExists(headerData.AirsNumber) Then Return False
 
             ' -- Transaction

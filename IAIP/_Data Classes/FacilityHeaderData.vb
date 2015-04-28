@@ -147,15 +147,15 @@ Namespace Apb
 
 #Region " Operational Status "
 
-        Public Property OperationalStatus() As OperationalStatus
+        Public Property OperationalStatus() As FacilityOperationalStatus
             Get
                 Return _operationalStatus
             End Get
-            Set(ByVal value As OperationalStatus)
+            Set(ByVal value As FacilityOperationalStatus)
                 _operationalStatus = value
             End Set
         End Property
-        Private _operationalStatus As OperationalStatus
+        Private _operationalStatus As FacilityOperationalStatus
 
         ''' <summary>
         ''' A single-character string representing the operational status. 
@@ -169,7 +169,7 @@ Namespace Apb
                 Return _operationalStatus.ToString()
             End Get
             Set(ByVal value As String)
-                _operationalStatus = [Enum].Parse(GetType(OperationalStatus), value)
+                _operationalStatus = [Enum].Parse(GetType(FacilityOperationalStatus), value)
             End Set
         End Property
 
@@ -183,15 +183,15 @@ Namespace Apb
 
 #Region " Classification "
 
-        Public Property Classification() As Classification
+        Public Property Classification() As FacilityClassification
             Get
                 Return _classification
             End Get
-            Set(ByVal value As Classification)
+            Set(ByVal value As FacilityClassification)
                 _classification = value
             End Set
         End Property
-        Private _classification As Classification
+        Private _classification As FacilityClassification
 
         ''' <summary>
         ''' A single-character string representing the facility classification. 
@@ -205,7 +205,7 @@ Namespace Apb
                 Return _classification.ToString()
             End Get
             Set(ByVal value As String)
-                _classification = [Enum].Parse(GetType(Classification), value)
+                _classification = [Enum].Parse(GetType(FacilityClassification), value)
             End Set
         End Property
 
@@ -367,7 +367,7 @@ Namespace Apb
         ''' The action or user interface that initiates a change in facility header data
         ''' </summary>
         ''' <remarks>Stored in database as a numeric key.</remarks>
-        Public Enum ModificationLocation
+        Public Enum HeaderDataModificationLocation
             Unspecified
             <Description("Permitting Action")> PermittingAction = 1
             <Description("Facility Header Editor")> HeaderDataEditor = 2

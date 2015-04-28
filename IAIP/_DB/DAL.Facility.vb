@@ -120,7 +120,7 @@ Namespace DAL
         Public Function ShutDownFacility(ByVal airsNumber As Apb.ApbFacilityId, _
                                          ByVal shutdownDate As Date, _
                                          ByVal comments As String, _
-                                         ByVal fromLocation As Apb.FacilityHeaderData.ModificationLocation _
+                                         ByVal fromLocation As Apb.FacilityHeaderData.HeaderDataModificationLocation _
                                          ) As Boolean
             ' -- Transaction:
             '    1. Update APBHeaderData
