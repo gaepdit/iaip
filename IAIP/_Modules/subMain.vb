@@ -18,10 +18,18 @@ Module subMain
     Friend Const APP_NAME As String = "IAIP"
     Friend Const APP_FRIENDLY_NAME As String = "Integrated Air Information Platform"
     Friend Const APP_ROOT_NAMESPACE As String = "Iaip"
+
     Friend DocumentationUrl As New Uri("https://sites.google.com/site/iaipdocs/")
     Friend SupportUrl As New Uri("http://dmu.georgiaair.org/iaip/")
     Friend ChangelogUrl As New Uri("http://dmu.georgiaair.org/iaip/changelog.html")
+    Friend MapUrlFragment As New String("http://maps.google.com/maps?z=14&q=")
+    Friend PermitSearchUrlFragment As New String("http://search.georgiaair.org/?AirsNumber=")
+
     Friend DateFormat As String = "dd-MMM-yyyy"
+    Friend DateTimeFormat As String = "dd-MMM-yyyy h:mm tt"
+    Friend DateStringFormat As String = "{0:dd-MMM-yyyy}"
+    Friend DateTimeStringFormat As String = "{0:dd-MMM-yyyy h:mm tt}"
+
     Friend CurrentUser As IaipUser
     Friend AppFirstRun As Boolean = False
     Friend AppUpgraded As Boolean = False

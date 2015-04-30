@@ -878,9 +878,8 @@ Public Class MASPRegistrationTool
                 ZipCode = mtbEventZipCode.Text
             End If
 
-            Dim url As String = "http://maps.google.com/maps?q=" & StreetAddress & "+" & _
-                      City & "+" & State & "+" & ZipCode & "&z=14"
-            OpenUri(url, Me)
+            Dim mapString As String = StreetAddress & "+" & City & "+" & State & "+" & ZipCode
+            OpenMapUrl(mapString, Me)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

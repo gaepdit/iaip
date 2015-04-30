@@ -52,7 +52,7 @@ Public Class SSCPEvents
     Friend WithEvents lblACCAllDeviationsReported As System.Windows.Forms.Label
     Friend WithEvents rdbACCResubmittalRequestedUnknown As System.Windows.Forms.RadioButton
     Friend WithEvents rdbACCAllDeviationsReportedUnknown As System.Windows.Forms.RadioButton
-    Dim facility As Apb.Facility
+    Dim facility As Apb.Facilities.Facility
 
 #Region " Windows Form Designer generated code "
 

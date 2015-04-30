@@ -315,24 +315,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub OpenFacilitySummary()
-        If txtOpenFacilitySummary.TextLength = 0 Then
-            OpenSingleForm(IAIPFacilitySummary)
-            Exit Sub
-        End If
-
-        If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(txtOpenFacilitySummary.Text) Then
-            MsgBox("AIRS number is not valid.", MsgBoxStyle.Information, "Navigation Screen")
-            Exit Sub
-        End If
-
-        If Not DAL.FacilityModule.AirsNumberExists(txtOpenFacilitySummary.Text) Then
-            MsgBox("AIRS number does not exist.", MsgBoxStyle.Information, "Navigation Screen")
-            Exit Sub
-        End If
-
-        Dim parameters As New Generic.Dictionary(Of String, String)
-        parameters("airsnumber") = txtOpenFacilitySummary.Text
-        OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
+        OpenFormFacilitySummary(txtOpenFacilitySummary.Text)
     End Sub
 
     Private Sub OpenTestLog()

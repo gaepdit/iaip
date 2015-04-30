@@ -1486,6 +1486,7 @@
     <Compile Include="_Data Classes\ApbFacilityId.vb" />
     <Compile Include="_Data Classes\Contact.vb" />
     <Compile Include="_Data Classes\DMU.EdtError.vb" />
+    <Compile Include="_Data Classes\FacilityEnums.vb" />
     <Compile Include="_Data Classes\FacilityHeaderData.vb" />
     <Compile Include="_Data Classes\SSPP.Permit.vb" />
     <Compile Include="_DB\DAL.DMU.EdtError.vb" />
@@ -1646,6 +1647,7 @@
     <Compile Include="_Modules\Email.vb" />
     <Compile Include="_Modules\FileSystem.vb" />
     <Compile Include="_Modules\FormHandler.vb" />
+    <Compile Include="_Modules\FormHelpers.vb" />
     <Compile Include="_Modules\FormSettings.vb" />
     <Compile Include="_Modules\General.vb" />
     <Compile Include="_Modules\MD5.vb" />

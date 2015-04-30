@@ -414,7 +414,7 @@ Namespace DB
 
 #End Region
 
-#Region " KeyValuePair "
+#Region " Lists, Keys & Values "
 
         ''' <summary>
         ''' Calls an Oracle Stored Procedure and returns a List of KeyValuePairs with Integer keys and 
@@ -427,14 +427,46 @@ Namespace DB
         Public Function SPGetListOfKeyValuePair(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing) _
         As List(Of KeyValuePair(Of Integer, String))
             Dim l As New List(Of KeyValuePair(Of Integer, String))
-            Dim t As DataTable = DB.SPGetDataTable(spName, parameter)
+            Dim dt As DataTable = DB.SPGetDataTable(spName, parameter)
 
-            For Each r As DataRow In t.Rows
+            For Each r As DataRow In dt.Rows
                 l.Add(New KeyValuePair(Of Integer, String)(r.Item(0), GetNullable(Of String)(r.Item(1))))
             Next
 
             Return l
         End Function
+
+        Public Function SPGetList(Of T)(ByVal spname As String, Optional ByVal parameter As OracleParameter = Nothing) As List(Of T)
+            Dim l As New List(Of T)
+            Dim dt As DataTable = DB.SPGetDataTable(spname, parameter)
+
+            For Each r As DataRow In dt.Rows
+                l.Add(GetNullable(Of T)(r.Item(0)))
+            Next
+
+            Return l
+        End Function
+
+        '''' <summary>
+        '''' Calls an Oracle Stored Procedure and returns a Dictionary of keys and values
+        '''' </summary>
+        '''' <typeparam name="TKey">The type of the keys in the dictionary</typeparam>
+        '''' <typeparam name="TValue">The type of the values in the dictionary.</typeparam>
+        '''' <param name="spName">The Oracle Stored Procedure to call</param>
+        '''' <param name="parameter">A single Oracle Parameter to pass in</param>
+        '''' <returns>Dictionary of keys and values</returns>
+        '''' <remarks>Presumes that the stored procedure returns a table with two columns -- 
+        '''' keys and values -- and furthermore that the keys are never null.</remarks>
+        'Public Function SPGetDictionary(Of TKey, TValue)(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing) As Dictionary(Of TKey, TValue)
+        '    Dim d As New Dictionary(Of TKey, TValue)
+        '    Dim t As DataTable = DB.SPGetDataTable(spName, parameter)
+
+        '    For Each r As DataRow In t.Rows
+        '        d.Add(r.Item(0), GetNullable(Of TValue)(r.Item(1)))
+        '    Next
+
+        '    Return d
+        'End Function
 
 #End Region
 

@@ -1,7 +1,6 @@
 ﻿Imports Oracle.DataAccess.Client
 Imports Iaip.Apb
-Imports Iaip.Apb.FacilityHeaderData
-Imports Iaip.Apb.Facility
+Imports Iaip.Apb.Facilities
 Imports System.Collections.Generic
 
 Namespace DAL
@@ -68,32 +67,9 @@ Namespace DAL
         ''' <returns>DataRow containing header data for the specified facility</returns>
         ''' <remarks></remarks>
         Public Function GetFacilityHeaderDataAsDataRow(ByVal airsNumber As ApbFacilityId) As DataRow
-            Dim query As String = " SELECT " & _
-                "  Null AS STRKEY, " & _
-                "  USERNAME, " & _
-                "  MODIFINGDATE, " & _
-                "  STRMODIFINGLOCATION, " & _
-                "  STROPERATIONALSTATUS, " & _
-                "  STRCLASS, " & _
-                "  STRCOMMENTS, " & _
-                "  DATSTARTUPDATE, " & _
-                "  DATSHUTDOWNDATE, " & _
-                "  STRPLANTDESCRIPTION, " & _
-                "  STRSICCODE, " & _
-                "  STRNAICSCODE, " & _
-                "  STRRMPID, " & _
-                "  STRAIRPROGRAMCODES, " & _
-                "  STRSTATEPROGRAMCODES, " & _
-                "  STRATTAINMENTSTATUS " & _
-                " FROM AIRBRANCH.VW_APBFACILITYHEADER " & _
-                " WHERE STRAIRSNUMBER = :pId "
-
-            Dim parameter As New OracleParameter("pId", airsNumber.DbFormattedString)
-
-            Dim dataTable As DataTable = DB.GetDataTable(query, parameter)
-            If dataTable Is Nothing Then Return Nothing
-
-            Return dataTable.Rows(0)
+            Dim spName As String = "AIRBRANCH.IAIP_FACILITY.GetFacilityHeaderData"
+            Dim parameter As New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
+            Return DB.SPGetDataRow(spName, parameter)
         End Function
 
         ''' <summary>
@@ -130,9 +106,10 @@ Namespace DAL
                 .AirProgramClassificationsCode = DB.GetNullable(Of String)(row("STRSTATEPROGRAMCODES"))
                 .NonattainmentStatusesCode = DB.GetNullable(Of String)(row("STRATTAINMENTSTATUS"))
                 .HeaderUpdateComment = DB.GetNullable(Of String)(row("STRCOMMENTS"))
-                .DateDataModified = DB.GetNullableDateTimeFromString(row("MODIFINGDATE"))
-                .WhoModified = DB.GetNullable(Of String)(row("USERNAME"))
-                .WhereModified = DB.GetNullable(Of String)(row("STRMODIFINGLOCATION"))
+                .DateDataModified = DB.GetNullableDateTimeFromString(row("DATMODIFINGDATE"))
+                .WhoModified = DB.GetNullable(Of String)(row("WhoModified"))
+                .WhereModifiedCode = DB.GetNullable(Of String)(row("STRMODIFINGLOCATION"))
+                .CmsMemberCode = DB.GetNullable(Of String)(row("STRCMSMEMBER"))
             End With
         End Sub
 
@@ -143,30 +120,10 @@ Namespace DAL
         ''' <returns>A DataTable of historical header data for the specified facility</returns>
         ''' <remarks></remarks>
         Public Function GetFacilityHeaderDataHistoryAsDataTable(ByVal airsNumber As ApbFacilityId) As DataTable
-            Dim query As String = " SELECT " & _
-                "  STRKEY, " & _
-                "  USERNAME, " & _
-                "  MODIFINGDATE, " & _
-                "  STRMODIFINGLOCATION, " & _
-                "  STROPERATIONALSTATUS, " & _
-                "  STRCLASS, " & _
-                "  STRCOMMENTS, " & _
-                "  DATSTARTUPDATE, " & _
-                "  DATSHUTDOWNDATE, " & _
-                "  STRPLANTDESCRIPTION, " & _
-                "  STRSICCODE, " & _
-                "  STRNAICSCODE, " & _
-                "  STRRMPID, " & _
-                "  STRAIRPROGRAMCODES, " & _
-                "  STRSTATEPROGRAMCODES, " & _
-                "  STRATTAINMENTSTATUS " & _
-                " FROM AIRBRANCH.VW_HB_APBHEADERDATA " & _
-                " WHERE STRAIRSNUMBER = :pId " & _
-                " ORDER BY STRKEY DESC "
+            Dim spName As String = "AIRBRANCH.IAIP_FACILITY.GetFacilityHeaderDataHistory"
+            Dim parameter As New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
 
-            Dim parameter As New OracleParameter("pId", airsNumber.DbFormattedString)
-
-            Return DB.GetDataTable(query, parameter)
+            Return DB.SPGetDataTable(spName, parameter)
         End Function
 
 #End Region
@@ -180,7 +137,7 @@ Namespace DAL
         ''' <param name="fromLocation">A ModificationLocation Enum representing the user interface location where a change in facility header data was initiated</param>
         ''' <returns>True if the data was successfully saved to the database; otherwise, False</returns>
         ''' <remarks></remarks>
-        Public Function SaveFacilityHeaderData(ByVal headerData As FacilityHeaderData, ByVal fromLocation As FacilityHeaderData.HeaderDataModificationLocation) As Boolean
+        Public Function SaveFacilityHeaderData(ByVal headerData As FacilityHeaderData, ByVal fromLocation As HeaderDataModificationLocation) As Boolean
             If Not AirsNumberExists(headerData.AirsNumber) Then Return False
 
             ' -- Transaction
@@ -299,7 +256,7 @@ Namespace DAL
                     )
                     parametersList.Add(New OracleParameter() { _
                         New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString), _
-                        New OracleParameter("airpollkey", headerData.AirsNumber.DbFormattedString & GetAirProgramDbKey(apc)), _
+                        New OracleParameter("airpollkey", headerData.AirsNumber.DbFormattedString & Facility.GetAirProgramDbKey(apc)), _
                         New OracleParameter("pollkey", "OT"), _
                         New OracleParameter("compliancestatus", "C"), _
                         New OracleParameter("modifiedby", UserGCode), _
@@ -319,7 +276,7 @@ Namespace DAL
                     parametersList.Add(New OracleParameter() { _
                         New OracleParameter("active", "0"), _
                         New OracleParameter("modifiedby", UserGCode), _
-                        New OracleParameter("airpollkey", headerData.AirsNumber.DbFormattedString & GetAirProgramDbKey(apc)) _
+                        New OracleParameter("airpollkey", headerData.AirsNumber.DbFormattedString & Facility.GetAirProgramDbKey(apc)) _
                     })
 
                 End If

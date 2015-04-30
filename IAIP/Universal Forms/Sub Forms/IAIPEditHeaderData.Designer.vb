@@ -69,11 +69,11 @@ Partial Class IAIPEditHeaderData
         Me.SaveChangesButton = New System.Windows.Forms.Button
         Me.CancelEditButton = New System.Windows.Forms.Button
         Me.EditData = New System.Windows.Forms.CheckBox
-        Me.AirProgramClassifications = New System.Windows.Forms.GroupBox
+        Me.AirProgramClassificationsGroupbox = New System.Windows.Forms.GroupBox
         CType(Me.FacilityHistoryDataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.AirProgramCodes.SuspendLayout()
         Me.NonattainmentStatuses.SuspendLayout()
-        Me.AirProgramClassifications.SuspendLayout()
+        Me.AirProgramClassificationsGroupbox.SuspendLayout()
         Me.SuspendLayout()
         '
         'FacilityDescription
@@ -603,23 +603,23 @@ Partial Class IAIPEditHeaderData
         Me.EditData.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.EditData.UseVisualStyleBackColor = True
         '
-        'AirProgramClassifications
+        'AirProgramClassificationsGroupbox
         '
-        Me.AirProgramClassifications.Controls.Add(Me.NsrMajor)
-        Me.AirProgramClassifications.Controls.Add(Me.HapMajor)
-        Me.AirProgramClassifications.Location = New System.Drawing.Point(264, 119)
-        Me.AirProgramClassifications.Name = "AirProgramClassifications"
-        Me.AirProgramClassifications.Size = New System.Drawing.Size(144, 145)
-        Me.AirProgramClassifications.TabIndex = 9
-        Me.AirProgramClassifications.TabStop = False
-        Me.AirProgramClassifications.Text = "Air Program Classifications"
+        Me.AirProgramClassificationsGroupbox.Controls.Add(Me.NsrMajor)
+        Me.AirProgramClassificationsGroupbox.Controls.Add(Me.HapMajor)
+        Me.AirProgramClassificationsGroupbox.Location = New System.Drawing.Point(264, 119)
+        Me.AirProgramClassificationsGroupbox.Name = "AirProgramClassificationsGroupbox"
+        Me.AirProgramClassificationsGroupbox.Size = New System.Drawing.Size(144, 145)
+        Me.AirProgramClassificationsGroupbox.TabIndex = 9
+        Me.AirProgramClassificationsGroupbox.TabStop = False
+        Me.AirProgramClassificationsGroupbox.Text = "Air Program Classifications"
         '
         'IAIPEditHeaderData
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(612, 560)
-        Me.Controls.Add(Me.AirProgramClassifications)
+        Me.Controls.Add(Me.AirProgramClassificationsGroupbox)
         Me.Controls.Add(Me.EditData)
         Me.Controls.Add(Me.CancelEditButton)
         Me.Controls.Add(Me.RmpIdLabel)
@@ -659,8 +659,8 @@ Partial Class IAIPEditHeaderData
         Me.AirProgramCodes.PerformLayout()
         Me.NonattainmentStatuses.ResumeLayout(False)
         Me.NonattainmentStatuses.PerformLayout()
-        Me.AirProgramClassifications.ResumeLayout(False)
-        Me.AirProgramClassifications.PerformLayout()
+        Me.AirProgramClassificationsGroupbox.ResumeLayout(False)
+        Me.AirProgramClassificationsGroupbox.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -714,5 +714,5 @@ Partial Class IAIPEditHeaderData
     Friend WithEvents SaveChangesButton As System.Windows.Forms.Button
     Friend WithEvents CancelEditButton As System.Windows.Forms.Button
     Friend WithEvents EditData As System.Windows.Forms.CheckBox
-    Friend WithEvents AirProgramClassifications As System.Windows.Forms.GroupBox
+    Friend WithEvents AirProgramClassificationsGroupbox As System.Windows.Forms.GroupBox
 End Class

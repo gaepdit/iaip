@@ -3076,20 +3076,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
     Private Sub btnFeeFacilitySummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFeeFacilitySummary.Click
-        Try
-            If txtFeeAIRSNumber.Text <> "" Then
-                If Not DAL.FacilityModule.AirsNumberExists(txtFeeAIRSNumber.Text) Then
-                    MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
-                    Exit Sub
-                End If
-                Dim parameters As New Generic.Dictionary(Of String, String)
-                parameters("airsnumber") = txtFeeAIRSNumber.Text
-                OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenFormFacilitySummary(txtFeeAIRSNumber.Text)
     End Sub
     Private Sub btnFeeViewComplianceEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFeeViewComplianceEvent.Click
         Try

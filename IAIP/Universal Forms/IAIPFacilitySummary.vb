@@ -1,14 +1,16 @@
 ﻿Imports Oracle.DataAccess.Client
 Imports System.Collections.Generic
+Imports Iaip.Apb
+Imports Iaip.Apb.ApbFacilityId
+Imports Iaip.Apb.Facilities
 
 Public Class IAIPFacilitySummary
+
+#Region " Deprecated fields "
+
     Dim SQL As String
     Dim dsFacilityWideData As DataSet
     Dim daFacilityWideData As OracleDataAdapter
-    Dim dsBottomData As DataSet
-    Dim daBottomData As OracleDataAdapter
-    Dim dsFees As DataSet
-    Dim daFees As OracleDataAdapter
     Dim dsISMP As DataSet
     Dim daISMP As OracleDataAdapter
     Dim dsSSCP As DataSet
@@ -17,459 +19,274 @@ Public Class IAIPFacilitySummary
     Dim daSSPP As OracleDataAdapter
     Dim ds As DataSet
     Dim da As OracleDataAdapter
-    Dim year As String
-    Dim inventoryYear As Integer
-    Dim recExist2 As Boolean
     Dim SQLLine As String
-    Dim count As Integer
 
+#End Region
 
-    Private Sub IAIPFacilitySummary_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
-        Try
-            TCFacilitySummary.TabPages.Remove(TPContactInformation)
-            TCFacilitySummary.TabPages.Remove(TPEmissionInventory)
-            TCFacilitySummary.TabPages.Remove(TPISMPTestingWork)
-            TCFacilitySummary.TabPages.Remove(TPComplianceWork)
-            TCFacilitySummary.TabPages.Remove(TPPermittingData)
-            TCFacilitySummary.TabPages.Remove(TPPlanningSupportData)
+#Region " Properties and fields "
 
-            mmiPrintFacilitySummary.Visible = True
-            btnOpenSubpartEditor.Visible = False
-            btnEditAirProgramPollutants.Enabled = False
-
-            LoadPermissions()
-            LoadToolBars()
-            mmiPrintFacilitySummary.Visible = True
-
-            If (UserGCode = "1" Or UserGCode = "345") Then
-                UpdateEpa.Visible = True
-            Else
-                UpdateEpa.Visible = False
+    Private _airsNumber As ApbFacilityId
+    Public Property AirsNumber() As ApbFacilityId
+        Get
+            Return _airsNumber
+        End Get
+        Set(ByVal value As ApbFacilityId)
+            If _airsNumber Is Nothing AndAlso value Is Nothing Then Return
+            If _airsNumber IsNot Nothing AndAlso _airsNumber.Equals(value) Then Return
+            _airsNumber = value
+            ClearAllData()
+            If _airsNumber IsNot Nothing Then
+                LoadBasicFacilityAndHeaderData()
             End If
-
-            ParseParameters()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-        mtbAIRSNumber.Focus()
-    End Sub
-
-    Private Sub ParseParameters()
-        If Parameters IsNot Nothing AndAlso Parameters.ContainsKey("airsnumber") Then
-            Try
-                Dim airs As Apb.ApbFacilityId = New Apb.ApbFacilityId(Parameters("airsnumber"))
-                mtbAIRSNumber.Text = airs.ShortString
-                LoadInitialData()
-            Catch ex As Apb.InvalidAirsNumberException
-                mtbAIRSNumber.Text = ""
-            End Try
-        End If
-    End Sub
-
-    Private Sub ViewData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ViewData.Click
-        Try
-            If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbAIRSNumber.Text) Then
-                mtbAIRSNumber.BackColor = Color.Tomato
-                MsgBox("Please enter a valid AIRS Number.", MsgBoxStyle.Information, "Invalid AIRS Number")
-                Exit Sub
-            End If
-
-            mtbAIRSNumber.BackColor = Color.White
-
-            ClearForm()
-            LoadInitialData()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Sub LoadPermissions()
-        Try
-
-
-            mmiISMP.Visible = False
-            mmiSSCP.Visible = False
-            mmiEditContactInformation.Visible = False
-
-            Select Case UserBranch
-                Case "1" 'Air Protection
-                    mmiEditContactInformation.Visible = True
-                    Select Case UserProgram
-                        Case "1" 'Mobile & Area
-
-                        Case "2" 'Planning & Support 
-
-                        Case "3" 'ISMP 
-                            mmiISMP.Visible = True
-                            mmiISMPNewLogEnTry.Visible = True
-                            llbClosePrintTestReport.Visible = False
-                            mmiSeperator.Visible = False
-
-                            If UserUnit = "---" Then 'Program Manager
-                                llbClosePrintTestReport.Visible = True
-                                mmiSeperator.Visible = True
-                            ElseIf AccountFormAccess(68, 3) = "1" Then 'ISMP Administrator
-                                llbClosePrintTestReport.Visible = True
-                            End If
-                        Case "4" 'SSCP
-                            mmiSSCP.Visible = True
-                            mmiSSCPNewWork.Visible = True
-
-                        Case "5" 'SSPP 
-
-                        Case "6" 'Ambient 
-
-                    End Select
-                Case "2" 'Watershed
-
-                Case "3" 'Hazard Waste
-
-                Case "4" 'Land Protection
-
-                Case "5" 'Program Coordination 
-
-                Case "6" 'Directors Office 
-
-            End Select
-
-            mmiNewFacility.Visible = False
-            If AccountFormAccess(138, 0) Is Nothing Then
-            Else
-                If AccountFormAccess(138, 0) = "138" Then
-                    If AccountFormAccess(138, 1) = "1" Or AccountFormAccess(138, 2) = "1" Or AccountFormAccess(138, 3) = "1" Or AccountFormAccess(138, 4) = "1" Then
-                        mmiNewFacility.Visible = True
-                    End If
-                End If
-            End If
-
-            If UserAccounts.Contains("(118)") Then
-                mmiISMP.Visible = True
-                mmiSSCP.Visible = True
-                mmiEditContactInformation.Visible = True
-                mmiISMPNewLogEnTry.Visible = True
-                llbClosePrintTestReport.Visible = True
-                mmiSeperator.Visible = True
-                mmiSSCP.Visible = True
-                mmiSSCPNewWork.Visible = True
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Sub LoadToolBars()
-        pnlLocationEditor.Visible = False
-        pnlEditHeaderData.Visible = False
-
-        If UserUnit = "---" Or AccountFormAccess(22, 3) = "1" Or AccountFormAccess(1, 3) = "1" Then
-            pnlLocationEditor.Visible = True
-            pnlEditHeaderData.Visible = True
-        End If
-    End Sub
-
-    Sub ClearPage()
-        ClearForm()
-        mtbAIRSNumber.Clear()
-    End Sub
-
-    Sub ClearForm()
-        Try
-            txtFacilityName.Clear()
-            txtStreetAddress.Clear()
-            txtStreetAddress2.Clear()
-            txtFacilityCity.Clear()
-            txtFacilityState.Clear()
-            txtFacilityZipCode.Clear()
-            txtFacilityLatitude.Clear()
-            txtFacilityLongitude.Clear()
-            txtFacilityCounty.Clear()
-            txtDistrict.Clear()
-            txtClassification.Clear()
-            txtSICCode.Clear()
-            txtOperationalStatus.Clear()
-            txtCMSState.Clear()
-            txtStartUpDate.Clear()
-            txtDateClosed.Clear()
-            txt1hour.Clear()
-            txt8HROzone.Clear()
-            txtPM.Clear()
-            txtPlantDescription.Clear()
-            txtPollutantStatus.Clear()
-            txtPollutantStatus.BackColor = Color.Gray
-            txtNAICSCode.Clear()
-
-            chbAPC0.Checked = False
-            chbAPC1.Checked = False
-            chbAPC3.Checked = False
-            chbAPC4.Checked = False
-            chbAPC6.Checked = False
-            chbAPC7.Checked = False
-            chbAPC8.Checked = False
-            chbAPC9.Checked = False
-            chbAPCA.Checked = False
-            chbAPCF.Checked = False
-            chbAPCI.Checked = False
-            chbAPCM.Checked = False
-            chbAPCV.Checked = False
-            chbAPCRMP.Checked = False
-            chbHAPsMajor.Checked = False
-            chbNSRMajor.Checked = False
-
-            btnEditAirProgramPollutants.Enabled = False
-            If TCFacilitySummary.TabPages.Contains(TPContactInformation) = True Then
-                txtSSCPContact.Clear()
-                txtSSCPUnit.Clear()
-                txtSSPPContact.Clear()
-                txtSSPPUnit.Clear()
-                txtISMPContact.Clear()
-                txtISMPUnit.Clear()
-                txtDistrictEngineer.Clear()
-                txtDistrictUnit.Clear()
-                TCFacilitySummary.TabPages.Remove(TPContactInformation)
-            End If
-            If TCFacilitySummary.TabPages.Contains(TPEmissionInventory) = True Then
-                TCFacilitySummary.TabPages.Remove(TPEmissionInventory)
-            End If
-            If TCFacilitySummary.TabPages.Contains(TPISMPTestingWork) = True Then
-                TCFacilitySummary.TabPages.Remove(TPISMPTestingWork)
-            End If
-            If TCFacilitySummary.TabPages.Contains(TPComplianceWork) = True Then
-                TCFacilitySummary.TabPages.Remove(TPComplianceWork)
-            End If
-            If TCFacilitySummary.TabPages.Contains(TPPermittingData) = True Then
-                TCFacilitySummary.TabPages.Remove(TPPermittingData)
-            End If
-            If TCFacilitySummary.TabPages.Contains(TPPlanningSupportData) = True Then
-                TCFacilitySummary.TabPages.Remove(TPPlanningSupportData)
-            End If
-
-            txtReferenceNumber.Clear()
-            txtTestingNumber.Clear()
-            txtReferenceNumber2.Clear()
-            txtTrackingNumber.Clear()
-            txtFCEYear.Clear()
-            txtEnforcementNumber.Clear()
-            txtApplicationNumber.Clear()
-            btnOpenSubpartEditor.Visible = False
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Public WriteOnly Property ValueFromFacilityLookUp() As String
-        Set(ByVal Value As String)
-            mtbAIRSNumber.Text = Value
         End Set
     End Property
 
-    Private Sub OpenEditContactInformationTool()
-        Dim parameters As New Dictionary(Of String, String)
-        parameters("airsnumber") = mtbAIRSNumber.Text
-        parameters("facilityname") = txtFacilityName.Text
-        OpenMultiForm("IAIPEditContacts", mtbAIRSNumber.Text, parameters)
+    Public WriteOnly Property ValueFromFacilityLookUp() As String
+        Set(ByVal Value As String)
+            AirsNumberEntry.Text = Value
+        End Set
+    End Property
+
+    Private selectedFacility As New Facility
+    Private selectedFacilityDataSet As New DataSet
+
+#End Region
+
+#Region " Form Load "
+
+    Private Sub IAIPFacilitySummary_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        monitor.TrackFeature("Forms." & Me.Name)
+        LoadPermissions()
     End Sub
 
-    Private Sub OpenFacilityLookupTool()
-        Try
-            Dim facilityLookupDialog As New IAIPFacilityLookUpTool
-            facilityLookupDialog.ShowDialog()
-            If facilityLookupDialog.DialogResult = Windows.Forms.DialogResult.OK _
-            AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
-                Me.ValueFromFacilityLookUp = facilityLookupDialog.SelectedAirsNumber
-                ClearForm()
-                LoadInitialData()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub IAIPFacilitySummary_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
+        If Me.AirsNumber Is Nothing Then
+            ClearAllData()
+            AirsNumberEntry.Focus()
+        End If
     End Sub
 
-    Private Sub chbAPC0_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAPC0.CheckedChanged
-        Try
+    Private Sub LoadPermissions()
+        ' Update EPA
+        If (UserGCode = "1" Or UserGCode = "345") Then ' TODO DWW: Better permissions defn for EPA Update
+            UpdateAllDataSentToEPAToolStripMenuItem.Visible = True
+            UpdateEpaMenuItemSeparator.Visible = True
+        Else
+            UpdateAllDataSentToEPAToolStripMenuItem.Visible = False
+            UpdateEpaMenuItemSeparator.Visible = False
+        End If
 
-            MakeEditSubpartButtonVisible()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+        ' Facility Creator
+        If AccountFormAccess(138, 0) IsNot Nothing AndAlso AccountFormAccess(138, 0) = "138" AndAlso (AccountFormAccess(138, 1) = "1" Or AccountFormAccess(138, 2) = "1" Or AccountFormAccess(138, 3) = "1" Or AccountFormAccess(138, 4) = "1") Then
+            FacilityCreatorToolToolStripMenuItem.Visible = True
+            FacilityCreatorToolMenuItemSeparator.Visible = True
+        Else
+            FacilityCreatorToolToolStripMenuItem.Visible = False
+            FacilityCreatorToolMenuItemSeparator.Visible = False
+        End If
 
-        End Try
+        ' Close/Print Test Reports
+        If UserAccounts.Contains("(118)") Then
+            llbClosePrintTestReport.Visible = True
+        Else
+            llbClosePrintTestReport.Visible = False
+        End If
+
+        ' Edit location/header data
+        If UserUnit = "---" Or AccountFormAccess(22, 3) = "1" Or AccountFormAccess(1, 3) = "1" Then
+            btnOpenFacilityLocationEditor.Enabled = True
+            btnOpenFacilityLocationEditor.Visible = True
+            btnEditHeaderData.Visible = True
+        Else
+            btnOpenFacilityLocationEditor.Enabled = False
+            btnOpenFacilityLocationEditor.Visible = False
+            btnEditHeaderData.Visible = False
+        End If
+    End Sub
+
+#End Region
+
+#Region " Clear all data "
+
+    Private Sub ClearAllData()
+        selectedFacility = Nothing
+        selectedFacilityDataSet = Nothing
+
+        FacilitySummaryTabControl.SelectedTab = TPBasicInfo
+        FacilitySummaryTabControl.Enabled = False
+
+        'TODO: Fill this out as more data is configured
+        ClearBasicFacilityData()
+        ClearHeaderData()
 
 
     End Sub
-    Private Sub chbAPC8_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAPC8.CheckedChanged
-        Try
 
-            MakeEditSubpartButtonVisible()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+#End Region
 
-        End Try
+#Region " Basic facility data "
 
+    Private Sub ClearBasicFacilityData()
+
+        'Navigation Panel
+        AirsNumberEntry.Text = ""
+        AirsNumberEntry.BackColor = SystemColors.ControlLightLight
+        FacilityNameDisplay.Text = ""
+
+        'Location
+        LocationDisplay.Text = ""
+        MapAddressLink.Enabled = False
+        LatLonDisplay.Text = ""
+        MapLatLonLink.Enabled = False
+
+        'Description
+        DescriptionDisplay.Text = ""
+
+        'Status
+        ClassificationDisplay.Text = ""
+        OperatingStatusDisplay.Text = ""
+        ComplianceStatusDisplay.Text = ""
+        ComplianceStatusDisplay.BackColor = SystemColors.ControlLightLight
+
+        'Offices
+        DistrictOfficeDisplay.Text = ""
+        ResponsibleOfficeDisplay.Text = ""
+
+        'Facility Dates
+        StartupDateDisplay.Text = ""
+        PermitRevocationDateDisplay.Text = ""
+        CreatedDateDisplay.Text = ""
+
+        'Data Dates
+        FisDateDisplay.Text = ""
+        EpaDateDisplay.Text = ""
+        DataUpdateDateDisplay.Text = ""
 
     End Sub
-    Private Sub chbAPC9_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAPC9.CheckedChanged
-        Try
 
-            MakeEditSubpartButtonVisible()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+    Private Sub LoadBasicFacilityAndHeaderData()
+        selectedFacility = DAL.FacilityModule.GetFacility(Me.AirsNumber)
 
-        End Try
-
-    End Sub
-    Private Sub chbAPCM_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAPCM.CheckedChanged
-        Try
-
-            MakeEditSubpartButtonVisible()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        If selectedFacility Is Nothing Then
+            FacilityNameDisplay.Text = "Facility does not exist"
+            AirsNumberEntry.BackColor = Color.Bisque
+            AirsNumberEntry.Focus()
+        Else
+            selectedFacility.RetrieveHeaderData()
+            selectedFacility.RetrieveComplianceStatusList()
+            DisplayBasicFacilityData()
+            DisplayHeaderData()
+        End If
     End Sub
 
-    Private Sub btnCopyWebSiteContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCopyWebSiteContact.Click
-        Try
-            Dim MailingAddress As String = ""
-            Dim i As Integer = 0
+    Private Sub DisplayBasicFacilityData()
 
-            If dgvWebSiteContacts.RowCount > 0 Then
-                i = dgvWebSiteContacts.CurrentCell.RowIndex
-                MailingAddress = dgvWebSiteContacts(1, i).Value & vbCrLf & _
-                dgvWebSiteContacts(2, i).Value & vbCrLf & _
-                dgvWebSiteContacts(7, i).Value & vbCrLf & _
-                dgvWebSiteContacts(9, i).Value & " " & dgvWebSiteContacts(10, i).Value & ", " & _
-                dgvWebSiteContacts(11, i).Value
+        'Tab Control
+        FacilitySummaryTabControl.Enabled = True
 
-                Clipboard.SetDataObject(MailingAddress, True)
+        'Navigation Panel
+        AirsNumberEntry.Text = Me.AirsNumber.FormattedString
 
-                MsgBox(MailingAddress, MsgBoxStyle.Information, "Mailing Address")
-            End If
+        With selectedFacility
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnCopyPermittingContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCopyPermittingContact.Click
-        Try
-            Dim MailingAddress As String = ""
-            Dim i As Integer = 0
+            FacilityNameDisplay.Text = .FacilityName
+            FacilityApprovalLinkLabel.Visible = Not .ApprovedByApb
 
-            If dgvSSPPContacts.RowCount > 0 Then
-                i = dgvSSPPContacts.CurrentCell.RowIndex
-                MailingAddress = dgvSSPPContacts(1, i).Value & vbCrLf & _
-                dgvSSPPContacts(2, i).Value & vbCrLf & _
-                dgvSSPPContacts(7, i).Value & vbCrLf & _
-                dgvSSPPContacts(9, i).Value & " " & dgvSSPPContacts(10, i).Value & ", " & _
-                dgvSSPPContacts(11, i).Value
+            With .FacilityLocation
+                'Location
+                LocationDisplay.Text = .Address.ToString & _
+                    vbNewLine & vbNewLine & _
+                    .County.ToString & " County"
+                If .Address IsNot Nothing Then
+                    MapAddressLink.Enabled = True
+                End If
+                LatLonDisplay.Text = .Latitude.ToString & _
+                    " / " & _
+                    .Longitude.ToString
+                If .Latitude IsNot Nothing _
+                AndAlso .Longitude IsNot Nothing Then
+                    MapLatLonLink.Enabled = True
+                End If
+            End With
 
-                Clipboard.SetDataObject(MailingAddress, True)
+            With .HeaderData
+                'Status
+                ClassificationDisplay.Text = .ClassificationCode & ", " & .ClassificationDescription
+                OperatingStatusDisplay.Text = .OperationalStatusDescription
 
-                MsgBox(MailingAddress, MsgBoxStyle.Information, "Mailing Address")
-            End If
+                'Description
+                DescriptionDisplay.Text = .FacilityDescription
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnCopyMointoringContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCopyMointoringContact.Click
-        Try
-            Dim MailingAddress As String = ""
-            Dim i As Integer = 0
+                'Facility Dates
+                StartupDateDisplay.Text = String.Format(DateStringFormat, .StartupDate)
+                PermitRevocationDateDisplay.Text = String.Format(DateStringFormat, .ShutdownDate)
+            End With
 
-            If dgvISMPContacts.RowCount > 0 Then
-                i = dgvISMPContacts.CurrentCell.RowIndex
-                MailingAddress = dgvISMPContacts(1, i).Value & vbCrLf & _
-                dgvISMPContacts(2, i).Value & vbCrLf & _
-                dgvISMPContacts(7, i).Value & vbCrLf & _
-                dgvISMPContacts(9, i).Value & " " & dgvISMPContacts(10, i).Value & ", " & _
-                dgvISMPContacts(11, i).Value
+            'Compliance Status
+            ComplianceStatusDisplay.Text = .ControllingComplianceStatus.GetDescription
+            ColorCodeComplianceStatusDisplay()
 
-                Clipboard.SetDataObject(MailingAddress, True)
+            'Offices
+            DistrictOfficeDisplay.Text = .DistrictOfficeLocation
+            ResponsibleOfficeDisplay.Text = .DistrictResponsible
 
-                MsgBox(MailingAddress, MsgBoxStyle.Information, "Mailing Address")
-            End If
+        End With
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnCopyComplianceContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCopyComplianceContact.Click
-        Try
-            Dim MailingAddress As String = ""
-            Dim i As Integer = 0
 
-            If dgvSSCPContacts.RowCount > 0 Then
-                i = dgvSSCPContacts.CurrentCell.RowIndex
-                MailingAddress = dgvSSCPContacts(1, i).Value & vbCrLf & _
-                dgvSSCPContacts(2, i).Value & vbCrLf & _
-                dgvSSCPContacts(7, i).Value & vbCrLf & _
-                dgvSSCPContacts(9, i).Value & " " & dgvSSCPContacts(10, i).Value & ", " & _
-                dgvSSCPContacts(11, i).Value
-
-                Clipboard.SetDataObject(MailingAddress, True)
-
-                MsgBox(MailingAddress, MsgBoxStyle.Information, "Mailing Address")
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnCopyGECOContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCopyGECOContact.Click
-        Try
-            Dim MailingAddress As String = ""
-            Dim i As Integer = 0
-
-            If dgvGECOContacts.RowCount > 0 Then
-                i = dgvGECOContacts.CurrentCell.RowIndex
-                MailingAddress = dgvGECOContacts(2, i).Value & vbCrLf & _
-                dgvGECOContacts(6, i).Value & vbCrLf & _
-                dgvGECOContacts(7, i).Value & vbCrLf & _
-                dgvGECOContacts(8, i).Value & " " & dgvGECOContacts(9, i).Value & ", " & _
-                dgvGECOContacts(10, i).Value
-
-                Clipboard.SetDataObject(MailingAddress, True)
-
-                MsgBox(MailingAddress, MsgBoxStyle.Information, "Mailing Address")
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub OpenFacilitySummaryPrintTool()
-        Try
-            If mtbAIRSNumber.Text = "" Or mtbAIRSNumber.Text.Length <> 8 Then
-                MsgBox("Enter a valid AIRS # first", MsgBoxStyle.Information, "Facility Summary")
-                Exit Sub
-            End If
-            If FacilityPrintOut Is Nothing Then
-                If FacilityPrintOut Is Nothing Then FacilityPrintOut = New IaipFacilitySummaryPrint
-                FacilityPrintOut.Show()
-            Else
-                FacilityPrintOut.Dispose()
-                FacilityPrintOut = New IaipFacilitySummaryPrint
-                If FacilityPrintOut Is Nothing Then FacilityPrintOut = New IaipFacilitySummaryPrint
-                FacilityPrintOut.Show()
-            End If
-            FacilityPrintOut.AirsNumber.Text = mtbAIRSNumber.Text
-            FacilityPrintOut.FacilityName.Text = txtFacilityName.Text
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        'Data Dates
+        Dim dataDates As DataRow = DAL.FacilityModule.GetDataExchangeDates(Me.AirsNumber)
+        If dataDates IsNot Nothing Then
+            CreatedDateDisplay.Text = String.Format(DateStringFormat, dataDates("DbRecordCreated"))
+            FisDateDisplay.Text = String.Format(DateStringFormat, dataDates("FisExchangeDate"))
+            EpaDateDisplay.Text = String.Format(DateTimeStringFormat, dataDates("EpaExchangeDate"))
+            DataUpdateDateDisplay.Text = String.Format(DateStringFormat, dataDates("DataModifiedOn"))
+        End If
     End Sub
 
-    Sub LoadInitialData()
+    Private Sub ColorCodeComplianceStatusDisplay()
+        If selectedFacility.ControllingComplianceStatus > 20 Then
+            ComplianceStatusDisplay.BackColor = Color.Pink
+        ElseIf selectedFacility.ControllingComplianceStatus > 10 Then
+            ComplianceStatusDisplay.BackColor = Color.LemonChiffon
+        ElseIf selectedFacility.ControllingComplianceStatus > 0 Then
+            ComplianceStatusDisplay.BackColor = Color.PaleGreen
+        Else
+            ComplianceStatusDisplay.BackColor = SystemColors.ControlLightLight
+        End If
+    End Sub
+
+#End Region
+
+#Region " Basic Data TabPage functionality "
+
+    Private Sub MapAddressLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles MapAddressLink.LinkClicked
+        OpenMapUrl(selectedFacility.FacilityLocation.Address.ToLinearString, Me)
+    End Sub
+
+    Private Sub MapLatLonLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles MapLatLonLink.LinkClicked
+        OpenMapUrl(selectedFacility.FacilityLocation.Latitude.ToString & "," & _
+                   selectedFacility.FacilityLocation.Longitude.ToString, Me)
+    End Sub
+
+#End Region
+
+#Region " Header Data "
+
+    Private Sub ClearHeaderData()
+
+    End Sub
+
+    Private Sub DisplayHeaderData()
+
+
+        btnOpenSubpartEditor.Visible = False
+        btnEditAirProgramPollutants.Enabled = False
+
+    End Sub
+
+#End Region
+
+    Private Sub OldLoadInitialData()
         Try
             Dim PollutantStatus As String = ""
             Dim dtFacilityWideData As New DataTable
@@ -494,7 +311,7 @@ Public Class IAIPFacilitySummary
             "AIRBRANCH.VW_APBFacilityLocation, " & _
             "AIRBRANCH.VW_APBFacilityHeader " & _
             "where AIRBRANCH.VW_APBFacilityLocation.strAIRSNumber = AIRBRANCH.VW_APBFacilityHeader.strAIRSNumber " & _
-            "and AIRBRANCH.VW_APBFacilityLocation.strAIRSnumber = '0413" & mtbAIRSNumber.Text & "' "
+            "and AIRBRANCH.VW_APBFacilityLocation.strAIRSnumber = '" & Me.AirsNumber.DbFormattedString & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -509,241 +326,241 @@ Public Class IAIPFacilitySummary
 
             dr = cmd.ExecuteReader
             While dr.Read
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    txtFacilityName.Clear()
-                Else
-                    txtFacilityName.Text = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("strFacilityStreet1")) Then
-                    txtStreetAddress.Clear()
-                Else
-                    txtStreetAddress.Text = dr.Item("strFacilityStreet1")
-                End If
-                If IsDBNull(dr.Item("strFacilityStreet2")) Then
-                    txtStreetAddress2.Clear()
-                Else
-                    txtStreetAddress2.Text = dr.Item("strFacilityStreet2")
-                End If
-                If IsDBNull(dr.Item("strFacilityCity")) Then
-                    txtFacilityCity.Clear()
-                Else
-                    txtFacilityCity.Text = dr.Item("strFacilityCity")
-                End If
-                If IsDBNull(dr.Item("strFacilityState")) Then
-                    txtFacilityState.Clear()
-                Else
-                    txtFacilityState.Text = dr.Item("strFacilityState")
-                End If
-                If IsDBNull(dr.Item("strFacilityZipCode")) Then
-                    txtFacilityZipCode.Clear()
-                Else
-                    txtFacilityZipCode.Text = dr.Item("strFacilityZipCode")
-                End If
-                If IsDBNull(dr.Item("numFacilityLongitude")) Then
-                    txtFacilityLongitude.Clear()
-                Else
-                    txtFacilityLongitude.Text = dr.Item("numFacilityLongitude")
-                End If
-                If IsDBNull(dr.Item("numFacilityLatitude")) Then
-                    txtFacilityLatitude.Clear()
-                Else
-                    txtFacilityLatitude.Text = dr.Item("numFacilityLatitude")
-                End If
-                If IsDBNull(dr.Item("strCountyName")) Then
-                    txtFacilityCounty.Clear()
-                Else
-                    txtFacilityCounty.Text = dr.Item("strCountyName")
-                End If
-                If IsDBNull(dr.Item("strDistrictName")) Then
-                    txtDistrict.Clear()
-                Else
-                    txtDistrict.Text = dr.Item("strDistrictName")
-                End If
-                If IsDBNull(dr.Item("strOperationalStatus")) Then
-                    txtOperationalStatus.Clear()
-                Else
-                    temp = dr.Item("strOperationalStatus")
-                    Select Case temp
-                        Case "O"
-                            txtOperationalStatus.Text = "O - Operational"
-                        Case "P"
-                            txtOperationalStatus.Text = "P - Planned"
-                        Case "C"
-                            txtOperationalStatus.Text = "C - Under Construction"
-                        Case "T"
-                            txtOperationalStatus.Text = "T - Temporarily Closed"
-                        Case "X"
-                            txtOperationalStatus.Text = "X - Closed/Dismantled"
-                        Case "I"
-                            txtOperationalStatus.Text = "I - Seasonal Operation"
-                        Case Else
-                            txtOperationalStatus.Text = "Unknown - Please Fix"
-                    End Select
-                End If
-                If IsDBNull(dr.Item("strClass")) Then
-                    txtClassification.Clear()
-                Else
-                    txtClassification.Text = dr.Item("strClass")
-                End If
-                If IsDBNull(dr.Item("strAirProgramCodes")) Then
-                    chbAPC0.Checked = False
-                    chbAPC1.Checked = False
-                    chbAPC3.Checked = False
-                    chbAPC4.Checked = False
-                    chbAPC6.Checked = False
-                    chbAPC7.Checked = False
-                    chbAPC8.Checked = False
-                    chbAPC9.Checked = False
-                    chbAPCA.Checked = False
-                    chbAPCF.Checked = False
-                    chbAPCI.Checked = False
-                    chbAPCM.Checked = False
-                    chbAPCV.Checked = False
-                    chbAPCRMP.Checked = False
-                Else
-                    temp = dr.Item("strAirProgramCodes")
-                    If Mid(temp, 1, 1) = 1 Then
-                        chbAPC0.Checked = True
-                    End If
-                    If Mid(temp, 2, 1) = 1 Then
-                        chbAPC1.Checked = True
-                    End If
-                    If Mid(temp, 3, 1) = 1 Then
-                        chbAPC3.Checked = True
-                    End If
-                    If Mid(temp, 4, 1) = 1 Then
-                        chbAPC4.Checked = True
-                    End If
-                    If Mid(temp, 5, 1) = 1 Then
-                        chbAPC6.Checked = True
-                    End If
-                    If Mid(temp, 6, 1) = 1 Then
-                        chbAPC7.Checked = True
-                    End If
-                    If Mid(temp, 7, 1) = 1 Then
-                        chbAPC8.Checked = True
-                    End If
-                    If Mid(temp, 8, 1) = 1 Then
-                        chbAPC9.Checked = True
-                    End If
-                    If Mid(temp, 9, 1) = 1 Then
-                        chbAPCF.Checked = True
-                    End If
-                    If Mid(temp, 10, 1) = 1 Then
-                        chbAPCA.Checked = True
-                    End If
-                    If Mid(temp, 11, 1) = 1 Then
-                        chbAPCI.Checked = True
-                    End If
-                    If Mid(temp, 12, 1) = 1 Then
-                        chbAPCM.Checked = True
-                    End If
-                    If Mid(temp, 13, 1) = 1 Then
-                        chbAPCV.Checked = True
-                    End If
-                    If Mid(temp, 14, 1) = 1 Then
-                        chbAPCRMP.Checked = True
-                    End If
-                End If
-                If IsDBNull(dr.Item("strSICCode")) Then
-                    txtSICCode.Clear()
-                Else
-                    txtSICCode.Text = dr.Item("strSICCode")
-                End If
-                If IsDBNull(dr.Item("strAttainmentStatus")) Then
-                    txt1hour.Text = "No"
-                    txt8HROzone.Text = "No"
-                    txtPM.Text = "No"
-                Else
-                    temp = dr.Item("strAttainmentStatus")
+                'If IsDBNull(dr.Item("strFacilityName")) Then
+                '    txtFacilityName.Clear()
+                'Else
+                '    txtFacilityName.Text = dr.Item("strFacilityName")
+                'End If
+                'If IsDBNull(dr.Item("strFacilityStreet1")) Then
+                '    txtStreetAddress.Clear()
+                'Else
+                '    txtStreetAddress.Text = dr.Item("strFacilityStreet1")
+                'End If
+                'If IsDBNull(dr.Item("strFacilityStreet2")) Then
+                '    txtStreetAddress2.Clear()
+                'Else
+                '    txtStreetAddress2.Text = dr.Item("strFacilityStreet2")
+                'End If
+                'If IsDBNull(dr.Item("strFacilityCity")) Then
+                '    txtFacilityCity.Clear()
+                'Else
+                '    txtFacilityCity.Text = dr.Item("strFacilityCity")
+                'End If
+                'If IsDBNull(dr.Item("strFacilityState")) Then
+                '    txtFacilityState.Clear()
+                'Else
+                '    txtFacilityState.Text = dr.Item("strFacilityState")
+                'End If
+                'If IsDBNull(dr.Item("strFacilityZipCode")) Then
+                '    txtFacilityZipCode.Clear()
+                'Else
+                '    txtFacilityZipCode.Text = dr.Item("strFacilityZipCode")
+                'End If
+                'If IsDBNull(dr.Item("numFacilityLongitude")) Then
+                '    txtFacilityLongitude.Clear()
+                'Else
+                '    txtFacilityLongitude.Text = dr.Item("numFacilityLongitude")
+                'End If
+                'If IsDBNull(dr.Item("numFacilityLatitude")) Then
+                '    txtFacilityLatitude.Clear()
+                'Else
+                '    txtFacilityLatitude.Text = dr.Item("numFacilityLatitude")
+                'End If
+                'If IsDBNull(dr.Item("strCountyName")) Then
+                '    txtFacilityCounty.Clear()
+                'Else
+                '    txtFacilityCounty.Text = dr.Item("strCountyName")
+                'End If
+                'If IsDBNull(dr.Item("strDistrictName")) Then
+                '    txtDistrict.Clear()
+                'Else
+                '    txtDistrict.Text = dr.Item("strDistrictName")
+                'End If
+                'If IsDBNull(dr.Item("strOperationalStatus")) Then
+                '    txtOperationalStatus.Clear()
+                'Else
+                '    temp = dr.Item("strOperationalStatus")
+                '    Select Case temp
+                '        Case "O"
+                '            txtOperationalStatus.Text = "O - Operational"
+                '        Case "P"
+                '            txtOperationalStatus.Text = "P - Planned"
+                '        Case "C"
+                '            txtOperationalStatus.Text = "C - Under Construction"
+                '        Case "T"
+                '            txtOperationalStatus.Text = "T - Temporarily Closed"
+                '        Case "X"
+                '            txtOperationalStatus.Text = "X - Closed/Dismantled"
+                '        Case "I"
+                '            txtOperationalStatus.Text = "I - Seasonal Operation"
+                '        Case Else
+                '            txtOperationalStatus.Text = "Unknown - Please Fix"
+                '    End Select
+                'End If
+                'If IsDBNull(dr.Item("strClass")) Then
+                '    txtClassification.Clear()
+                'Else
+                '    txtClassification.Text = dr.Item("strClass")
+                'End If
+                'If IsDBNull(dr.Item("strAirProgramCodes")) Then
+                '    chbAPC0.Checked = False
+                '    chbAPC1.Checked = False
+                '    chbAPC3.Checked = False
+                '    chbAPC4.Checked = False
+                '    chbAPC6.Checked = False
+                '    chbAPC7.Checked = False
+                '    chbAPC8.Checked = False
+                '    chbAPC9.Checked = False
+                '    chbAPCA.Checked = False
+                '    chbAPCF.Checked = False
+                '    chbAPCI.Checked = False
+                '    chbAPCM.Checked = False
+                '    chbAPCV.Checked = False
+                '    chbAPCRMP.Checked = False
+                'Else
+                '    temp = dr.Item("strAirProgramCodes")
+                '    If Mid(temp, 1, 1) = 1 Then
+                '        chbAPC0.Checked = True
+                '    End If
+                '    If Mid(temp, 2, 1) = 1 Then
+                '        chbAPC1.Checked = True
+                '    End If
+                '    If Mid(temp, 3, 1) = 1 Then
+                '        chbAPC3.Checked = True
+                '    End If
+                '    If Mid(temp, 4, 1) = 1 Then
+                '        chbAPC4.Checked = True
+                '    End If
+                '    If Mid(temp, 5, 1) = 1 Then
+                '        chbAPC6.Checked = True
+                '    End If
+                '    If Mid(temp, 6, 1) = 1 Then
+                '        chbAPC7.Checked = True
+                '    End If
+                '    If Mid(temp, 7, 1) = 1 Then
+                '        chbAPC8.Checked = True
+                '    End If
+                '    If Mid(temp, 8, 1) = 1 Then
+                '        chbAPC9.Checked = True
+                '    End If
+                '    If Mid(temp, 9, 1) = 1 Then
+                '        chbAPCF.Checked = True
+                '    End If
+                '    If Mid(temp, 10, 1) = 1 Then
+                '        chbAPCA.Checked = True
+                '    End If
+                '    If Mid(temp, 11, 1) = 1 Then
+                '        chbAPCI.Checked = True
+                '    End If
+                '    If Mid(temp, 12, 1) = 1 Then
+                '        chbAPCM.Checked = True
+                '    End If
+                '    If Mid(temp, 13, 1) = 1 Then
+                '        chbAPCV.Checked = True
+                '    End If
+                '    If Mid(temp, 14, 1) = 1 Then
+                '        chbAPCRMP.Checked = True
+                '    End If
+                'End If
+                'If IsDBNull(dr.Item("strSICCode")) Then
+                '    txtSICCode.Clear()
+                'Else
+                '    txtSICCode.Text = dr.Item("strSICCode")
+                'End If
+                'If IsDBNull(dr.Item("strAttainmentStatus")) Then
+                '    txt1hour.Text = "No"
+                '    txt8HROzone.Text = "No"
+                '    txtPM.Text = "No"
+                'Else
+                '    temp = dr.Item("strAttainmentStatus")
 
-                    Select Case Mid(temp, 2, 1)
-                        Case 0
-                            txt1hour.Text = "No"
-                        Case 1
-                            txt1hour.Text = "Yes"
-                        Case 2
-                            txt1hour.Text = "Contributing"
-                        Case Else
-                            txt1hour.Text = "No"
-                    End Select
-                    Select Case Mid(temp, 3, 1)
-                        Case 0
-                            txt8HROzone.Text = "No"
-                        Case 1
-                            txt8HROzone.Text = "Atlanta"
-                        Case 2
-                            txt8HROzone.Text = "Macon"
-                        Case Else
-                            txt8HROzone.Text = "No"
-                    End Select
-                    Select Case Mid(temp, 4, 1)
-                        Case 0
-                            txtPM.Text = "No"
-                        Case 1
-                            txtPM.Text = "Atlanta"
-                        Case 2
-                            txtPM.Text = "Chattanooga"
-                        Case 3
-                            txtPM.Text = "Floyd"
-                        Case 4
-                            txtPM.Text = "Macon"
-                        Case Else
-                            txtPM.Text = "No"
-                    End Select
-                End If
-                If IsDBNull(dr.Item("datStartUpDate")) Then
-                    txtStartUpDate.Clear()
-                Else
-                    txtStartUpDate.Text = Format(dr.Item("datStartUpDate"), "dd-MMM-yyyy")
-                End If
-                If IsDBNull(dr.Item("datShutDownDate")) Then
-                    txtDateClosed.Clear()
-                Else
-                    txtDateClosed.Text = Format(dr.Item("datShutDownDate"), "dd-MMM-yyyy")
-                End If
-                If IsDBNull(dr.Item("strCMSMember")) Then
-                    txtCMSState.Clear()
-                Else
-                    txtCMSState.Text = dr.Item("strCMSMember")
-                End If
-                If IsDBNull(dr.Item("strPlantDescription")) Then
-                    txtPlantDescription.Clear()
-                Else
-                    txtPlantDescription.Text = dr.Item("strPlantDescription")
-                End If
-                If IsDBNull(dr.Item("strStateProgramCodes")) Then
-                    chbNSRMajor.Checked = False
-                    chbHAPsMajor.Checked = False
-                Else
-                    temp = dr.Item("strStateProgramCodes")
-                    If Mid(temp, 1, 1) = "1" Then
-                        chbNSRMajor.Checked = True
-                    Else
-                        chbNSRMajor.Checked = False
-                    End If
-                    If Mid(temp, 2, 1) = "1" Then
-                        chbHAPsMajor.Checked = True
-                    Else
-                        chbHAPsMajor.Checked = False
-                    End If
-                End If
-                If IsDBNull(dr.Item("strNAICSCode")) Then
-                    txtNAICSCode.Clear()
-                Else
-                    txtNAICSCode.Text = dr.Item("strNAICSCode")
-                End If
-                If IsDBNull(dr.Item("STRRMPID")) Then
-                    txtRMPID.Clear()
-                Else
-                    txtRMPID.Text = dr.Item("strRMPID")
-                End If
+                '    Select Case Mid(temp, 2, 1)
+                '        Case 0
+                '            txt1hour.Text = "No"
+                '        Case 1
+                '            txt1hour.Text = "Yes"
+                '        Case 2
+                '            txt1hour.Text = "Contributing"
+                '        Case Else
+                '            txt1hour.Text = "No"
+                '    End Select
+                '    Select Case Mid(temp, 3, 1)
+                '        Case 0
+                '            txt8HROzone.Text = "No"
+                '        Case 1
+                '            txt8HROzone.Text = "Atlanta"
+                '        Case 2
+                '            txt8HROzone.Text = "Macon"
+                '        Case Else
+                '            txt8HROzone.Text = "No"
+                '    End Select
+                '    Select Case Mid(temp, 4, 1)
+                '        Case 0
+                '            txtPM.Text = "No"
+                '        Case 1
+                '            txtPM.Text = "Atlanta"
+                '        Case 2
+                '            txtPM.Text = "Chattanooga"
+                '        Case 3
+                '            txtPM.Text = "Floyd"
+                '        Case 4
+                '            txtPM.Text = "Macon"
+                '        Case Else
+                '            txtPM.Text = "No"
+                '    End Select
+                'End If
+                'If IsDBNull(dr.Item("datStartUpDate")) Then
+                '    txtStartUpDate.Clear()
+                'Else
+                '    txtStartUpDate.Text = Format(dr.Item("datStartUpDate"), "dd-MMM-yyyy")
+                'End If
+                'If IsDBNull(dr.Item("datShutDownDate")) Then
+                '    txtDateClosed.Clear()
+                'Else
+                '    txtDateClosed.Text = Format(dr.Item("datShutDownDate"), "dd-MMM-yyyy")
+                'End If
+                'If IsDBNull(dr.Item("strCMSMember")) Then
+                '    txtCMSState.Clear()
+                'Else
+                '    txtCMSState.Text = dr.Item("strCMSMember")
+                'End If
+                'If IsDBNull(dr.Item("strPlantDescription")) Then
+                '    txtPlantDescription.Clear()
+                'Else
+                '    txtPlantDescription.Text = dr.Item("strPlantDescription")
+                'End If
+                'If IsDBNull(dr.Item("strStateProgramCodes")) Then
+                '    chbNSRMajor.Checked = False
+                '    chbHAPsMajor.Checked = False
+                'Else
+                '    temp = dr.Item("strStateProgramCodes")
+                '    If Mid(temp, 1, 1) = "1" Then
+                '        chbNSRMajor.Checked = True
+                '    Else
+                '        chbNSRMajor.Checked = False
+                '    End If
+                '    If Mid(temp, 2, 1) = "1" Then
+                '        chbHAPsMajor.Checked = True
+                '    Else
+                '        chbHAPsMajor.Checked = False
+                '    End If
+                'End If
+                'If IsDBNull(dr.Item("strNAICSCode")) Then
+                '    txtNAICSCode.Clear()
+                'Else
+                '    txtNAICSCode.Text = dr.Item("strNAICSCode")
+                'End If
+                'If IsDBNull(dr.Item("STRRMPID")) Then
+                '    txtRMPID.Clear()
+                'Else
+                '    txtRMPID.Text = dr.Item("strRMPID")
+                'End If
             End While
             dr.Close()
 
             SQL = "select distinct(strComplianceStatus) as PollutantStatus " & _
             "from AIRBranch.APBAirProgramPollutants  " & _
-            "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
+            "where strAIRSNumber = '" & Me.AirsNumber.DbFormattedString & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -760,73 +577,73 @@ Public Class IAIPFacilitySummary
             End While
             dr.Close()
 
-            If PollutantStatus.Contains("B") Then
-                txtPollutantStatus.Text = "B - In violation, Procedural  Emissions"
-                txtPollutantStatus.BackColor = Color.Pink
-            Else
-                If PollutantStatus.Contains("1") Then
-                    txtPollutantStatus.Text = "1 - In violation, No Schedule"
-                    txtPollutantStatus.BackColor = Color.Pink
-                Else
-                    If PollutantStatus.Contains("6") Then
-                        txtPollutantStatus.Text = "6 - In violation, Not Meeting Schedule"
-                        txtPollutantStatus.BackColor = Color.Pink
-                    Else
-                        If PollutantStatus.Contains("W") Then
-                            txtPollutantStatus.Text = "W - In violation, procedural"
-                            txtPollutantStatus.BackColor = Color.Pink
-                        Else
-                            If PollutantStatus.Contains("0") Then
-                                txtPollutantStatus.Text = "0 - Unknown Compliance Status (SCAP)"
-                                txtPollutantStatus.BackColor = Color.Pink
-                            Else
-                                If PollutantStatus.Contains("5") Then
-                                    txtPollutantStatus.Text = "5 - Meeting Compliance Schedule"
-                                    txtPollutantStatus.BackColor = Color.LightGreen
-                                Else
-                                    If PollutantStatus.Contains("8") Then
-                                        txtPollutantStatus.Text = "8 - No Applicable State Reg."
-                                        txtPollutantStatus.BackColor = Color.Pink
-                                    Else
-                                        If PollutantStatus.Contains("2") Then
-                                            txtPollutantStatus.Text = "2 - In Compliance, Source Test"
-                                            txtPollutantStatus.BackColor = Color.LightGreen
-                                        Else
-                                            If PollutantStatus.Contains("3") Then
-                                                txtPollutantStatus.Text = "3 - In Compliance, Inspection"
-                                                txtPollutantStatus.BackColor = Color.LightGreen
-                                            Else
-                                                If PollutantStatus.Contains("4") Then
-                                                    txtPollutantStatus.Text = "4 - In Compliance, Certification"
-                                                    txtPollutantStatus.BackColor = Color.LightGreen
-                                                Else
-                                                    If PollutantStatus.Contains("9") Then
-                                                        txtPollutantStatus.Text = "9 - In Compliance, Shut Down"
-                                                        txtPollutantStatus.BackColor = Color.LightGreen
-                                                    Else
-                                                        If PollutantStatus.Contains("C") Then
-                                                            txtPollutantStatus.Text = "C - In Compliance, Procedural"
-                                                            txtPollutantStatus.BackColor = Color.LightGreen
-                                                        Else
-                                                            If PollutantStatus.Contains("M") Then
-                                                                txtPollutantStatus.Text = "M - In Complinace, CEMS Data"
-                                                                txtPollutantStatus.BackColor = Color.LightGreen
-                                                            Else
-                                                                txtPollutantStatus.Text = ""
-                                                                txtPollutantStatus.BackColor = Color.White
-                                                            End If
-                                                        End If
-                                                    End If
-                                                End If
-                                            End If
-                                        End If
-                                    End If
-                                End If
-                            End If
-                        End If
-                    End If
-                End If
-            End If
+            'If PollutantStatus.Contains("B") Then
+            '    txtPollutantStatus.Text = "B - In violation, Procedural  Emissions"
+            '    txtPollutantStatus.BackColor = Color.Pink
+            'Else
+            '    If PollutantStatus.Contains("1") Then
+            '        txtPollutantStatus.Text = "1 - In violation, No Schedule"
+            '        txtPollutantStatus.BackColor = Color.Pink
+            '    Else
+            '        If PollutantStatus.Contains("6") Then
+            '            txtPollutantStatus.Text = "6 - In violation, Not Meeting Schedule"
+            '            txtPollutantStatus.BackColor = Color.Pink
+            '        Else
+            '            If PollutantStatus.Contains("W") Then
+            '                txtPollutantStatus.Text = "W - In violation, procedural"
+            '                txtPollutantStatus.BackColor = Color.Pink
+            '            Else
+            '                If PollutantStatus.Contains("0") Then
+            '                    txtPollutantStatus.Text = "0 - Unknown Compliance Status (SCAP)"
+            '                    txtPollutantStatus.BackColor = Color.Pink
+            '                Else
+            '                    If PollutantStatus.Contains("5") Then
+            '                        txtPollutantStatus.Text = "5 - Meeting Compliance Schedule"
+            '                        txtPollutantStatus.BackColor = Color.LightGreen
+            '                    Else
+            '                        If PollutantStatus.Contains("8") Then
+            '                            txtPollutantStatus.Text = "8 - No Applicable State Reg."
+            '                            txtPollutantStatus.BackColor = Color.Pink
+            '                        Else
+            '                            If PollutantStatus.Contains("2") Then
+            '                                txtPollutantStatus.Text = "2 - In Compliance, Source Test"
+            '                                txtPollutantStatus.BackColor = Color.LightGreen
+            '                            Else
+            '                                If PollutantStatus.Contains("3") Then
+            '                                    txtPollutantStatus.Text = "3 - In Compliance, Inspection"
+            '                                    txtPollutantStatus.BackColor = Color.LightGreen
+            '                                Else
+            '                                    If PollutantStatus.Contains("4") Then
+            '                                        txtPollutantStatus.Text = "4 - In Compliance, Certification"
+            '                                        txtPollutantStatus.BackColor = Color.LightGreen
+            '                                    Else
+            '                                        If PollutantStatus.Contains("9") Then
+            '                                            txtPollutantStatus.Text = "9 - In Compliance, Shut Down"
+            '                                            txtPollutantStatus.BackColor = Color.LightGreen
+            '                                        Else
+            '                                            If PollutantStatus.Contains("C") Then
+            '                                                txtPollutantStatus.Text = "C - In Compliance, Procedural"
+            '                                                txtPollutantStatus.BackColor = Color.LightGreen
+            '                                            Else
+            '                                                If PollutantStatus.Contains("M") Then
+            '                                                    txtPollutantStatus.Text = "M - In Complinace, CEMS Data"
+            '                                                    txtPollutantStatus.BackColor = Color.LightGreen
+            '                                                Else
+            '                                                    txtPollutantStatus.Text = ""
+            '                                                    txtPollutantStatus.BackColor = Color.White
+            '                                                End If
+            '                                            End If
+            '                                        End If
+            '                                    End If
+            '                                End If
+            '                            End If
+            '                        End If
+            '                    End If
+            '                End If
+            '            End If
+            '        End If
+            '    End If
+            'End If
 
             dsFacilityWideData = New DataSet
 
@@ -834,7 +651,7 @@ Public Class IAIPFacilitySummary
             "AIRBRANCH.VW_APBFacilityFees.*, " & _
             "(numTotalFee - TotalPaid) as Balance " & _
             "from AIRBRANCH.VW_APBFacilityFees " & _
-            "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  " & _
+            "where strAIRSNumber = '" & Me.AirsNumber.DbFormattedString & "'  " & _
             "order by intYear DESC "
 
             daFacilityWideData = New OracleDataAdapter(SQL, CurrentConnection)
@@ -1023,7 +840,7 @@ Public Class IAIPFacilitySummary
 
             SQL = "select strDistrictResponsible " & _
             "from AIRBRANCH.SSCPDistrictResponsible " & _
-            "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
+            "where strAIRSNumber = '" & Me.AirsNumber.DbFormattedString & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1031,27 +848,20 @@ Public Class IAIPFacilitySummary
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = True Then
-                If IsDBNull(dr.Item("strDistrictResponsible")) Then
-                    lblDistrictSource.Visible = False
-                Else
-                    If dr.Item("strDistrictResponsible") = "True" Then
-                        lblDistrictSource.Visible = True
-                    Else
-                        lblDistrictSource.Visible = False
-                    End If
-                End If
-            Else
-                lblDistrictSource.Visible = False
+                '    If IsDBNull(dr.Item("strDistrictResponsible")) Then
+                '        lblDistrictSource.Visible = False
+                '    Else
+                '        If dr.Item("strDistrictResponsible") = "True" Then
+                '            lblDistrictSource.Visible = True
+                '        Else
+                '            lblDistrictSource.Visible = False
+                '        End If
+                '    End If
+                'Else
+                '    lblDistrictSource.Visible = False
             End If
             dr.Close()
 
-            If DAL.FacilityModule.FacilityHasBeenApproved(mtbAIRSNumber.Text) Then
-                FacilityApprovalLinkLabel.Enabled = False
-                FacilityApprovalLinkLabel.Visible = False
-            Else
-                FacilityApprovalLinkLabel.Enabled = True
-                FacilityApprovalLinkLabel.Visible = True
-            End If
 
             MakeEditSubpartButtonVisible()
             btnEditAirProgramPollutants.Enabled = True
@@ -1059,32 +869,203 @@ Public Class IAIPFacilitySummary
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-#Region "Main Load Work"
-    Private Sub llbViewGoogleMap_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewGoogleMap.LinkClicked
+
+    Private Sub ClearForm()
+        Try
+            txtClassification.Clear()
+            txtSICCode.Clear()
+            txtOperationalStatus.Clear()
+            txtCMSState.Clear()
+            txtStartUpDate.Clear()
+            txtDateClosed.Clear()
+            txt1hour.Clear()
+            txt8HROzone.Clear()
+            txtPM.Clear()
+            txtPlantDescription.Clear()
+            'txtPollutantStatus.Clear()
+            'txtPollutantStatus.BackColor = Color.Gray
+            txtNAICSCode.Clear()
+
+            chbAPC0.Checked = False
+            chbAPC1.Checked = False
+            chbAPC3.Checked = False
+            chbAPC4.Checked = False
+            chbAPC6.Checked = False
+            chbAPC7.Checked = False
+            chbAPC8.Checked = False
+            chbAPC9.Checked = False
+            chbAPCA.Checked = False
+            chbAPCF.Checked = False
+            chbAPCI.Checked = False
+            chbAPCM.Checked = False
+            chbAPCV.Checked = False
+            chbAPCRMP.Checked = False
+            chbHAPsMajor.Checked = False
+            chbNSRMajor.Checked = False
+
+            btnEditAirProgramPollutants.Enabled = False
+            If FacilitySummaryTabControl.TabPages.Contains(TPContacts) = True Then
+                txtSSCPContact.Clear()
+                txtSSCPUnit.Clear()
+                txtSSPPContact.Clear()
+                txtSSPPUnit.Clear()
+                txtISMPContact.Clear()
+                txtISMPUnit.Clear()
+                txtDistrictEngineer.Clear()
+                txtDistrictUnit.Clear()
+                FacilitySummaryTabControl.TabPages.Remove(TPContacts)
+            End If
+            If FacilitySummaryTabControl.TabPages.Contains(TPEmissionInventory) = True Then
+                FacilitySummaryTabControl.TabPages.Remove(TPEmissionInventory)
+            End If
+            If FacilitySummaryTabControl.TabPages.Contains(TPTesting) = True Then
+                FacilitySummaryTabControl.TabPages.Remove(TPTesting)
+            End If
+            If FacilitySummaryTabControl.TabPages.Contains(TPCompliance) = True Then
+                FacilitySummaryTabControl.TabPages.Remove(TPCompliance)
+            End If
+            If FacilitySummaryTabControl.TabPages.Contains(TPPermitting) = True Then
+                FacilitySummaryTabControl.TabPages.Remove(TPPermitting)
+            End If
+            If FacilitySummaryTabControl.TabPages.Contains(TPFinancial) = True Then
+                FacilitySummaryTabControl.TabPages.Remove(TPFinancial)
+            End If
+
+            txtReferenceNumber.Clear()
+            txtTestingNumber.Clear()
+            txtReferenceNumber2.Clear()
+            txtTrackingNumber.Clear()
+            txtFCEYear.Clear()
+            txtEnforcementNumber.Clear()
+            txtApplicationNumber.Clear()
+            btnOpenSubpartEditor.Visible = False
+
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
+#Region " ... open other forms"
+
+    Private Sub OpenEditContactInformationTool()
+        If Me.AirsNumber IsNot Nothing Then
+            Dim parameters As New Dictionary(Of String, String)
+            parameters("airsnumber") = Me.AirsNumber.ShortString
+            parameters("facilityname") = Me.selectedFacility.FacilityName
+            OpenMultiForm("IAIPEditContacts", Me.AirsNumber.ShortString, parameters)
+        End If
+    End Sub
+
+    Private Sub OpenFacilityLookupTool()
+        Try
+            Dim facilityLookupDialog As New IAIPFacilityLookUpTool
+            facilityLookupDialog.ShowDialog()
+            If facilityLookupDialog.DialogResult = Windows.Forms.DialogResult.OK _
+            AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
+                Me.ValueFromFacilityLookUp = facilityLookupDialog.SelectedAirsNumber
+                ClearForm()
+                OldLoadInitialData()
+            End If
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
+    Private Sub OpenFacilitySummaryPrintTool()
+        Try
+            If Me.AirsNumber Is Nothing Then
+                MsgBox("Enter a valid AIRS # first", MsgBoxStyle.Information, "Facility Summary")
+                Exit Sub
+            End If
+            If FacilityPrintOut Is Nothing Then
+                If FacilityPrintOut Is Nothing Then FacilityPrintOut = New IaipFacilitySummaryPrint
+                FacilityPrintOut.Show()
+            Else
+                FacilityPrintOut.Dispose()
+                FacilityPrintOut = New IaipFacilitySummaryPrint
+                If FacilityPrintOut Is Nothing Then FacilityPrintOut = New IaipFacilitySummaryPrint
+                FacilityPrintOut.Show()
+            End If
+            FacilityPrintOut.AirsNumber.Text = Me.AirsNumber.ShortString
+            FacilityPrintOut.FacilityName.Text = Me.selectedFacility.FacilityName
+
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
+    Private Sub btnOpenFacilityLocationEditor_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFacilityLocationEditor.Click
+        Try
+            If EditFacilityLocation Is Nothing Then
+                EditFacilityLocation = New IAIPEditFacilityLocation
+                EditFacilityLocation.txtAirsNumber.Text = Me.AirsNumber.ToString
+                EditFacilityLocation.Show()
+            Else
+                EditFacilityLocation.txtAirsNumber.Text = Me.AirsNumber.ToString
+                EditFacilityLocation.Show()
+                EditFacilityLocation.BringToFront()
+            End If
+
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
+    Private Sub btnEditHeaderData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditHeaderData.Click
+        If Apb.ApbFacilityId.IsValidAirsNumberFormat(Me.AirsNumber.ToString) Then
+
+            Dim editHeaderDataDialog As New IAIPEditHeaderData
+            editHeaderDataDialog.AirsNumber = Me.AirsNumber.ToString
+            editHeaderDataDialog.FacilityName = Me.selectedFacility.FacilityName
+
+            editHeaderDataDialog.ShowDialog()
+
+            If editHeaderDataDialog.SomethingWasSaved Then
+                OldLoadInitialData()
+            End If
+
+            editHeaderDataDialog.Dispose()
+        Else
+            MessageBox.Show("AIRS number is not valid.", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End If
+    End Sub
+
+    Private Sub btnEditContacts_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditContacts.Click
+        OpenEditContactInformationTool()
+    End Sub
+
+#End Region
+
+#Region " ... air program check boxes "
+
+    Private Sub chbAPC0_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAPC0.CheckedChanged
         Try
 
-            Dim StreetAddress As String = "4244 International Parkway"
-            Dim City As String = "Atlanta"
-            Dim State As String = "GA"
-            Dim ZipCode As String = "30354"
+            MakeEditSubpartButtonVisible()
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
 
-            If txtStreetAddress.Text <> "" Then
-                StreetAddress = txtStreetAddress.Text
-            End If
-            If txtFacilityCity.Text <> "" Then
-                City = txtFacilityCity.Text
-            End If
-            If txtFacilityState.Text <> "" Then
-                State = txtFacilityState.Text
-            End If
-            If txtFacilityZipCode.Text <> "" Then
-                ZipCode = txtFacilityZipCode.Text
-            End If
+        End Try
 
-            Dim url As String = "http://maps.google.com/maps?q=" & StreetAddress & "+" & _
-                      City & "+" & State & "+" & ZipCode & "&z=14"
-            OpenUri(url, Me)
 
+    End Sub
+    Private Sub chbAPC8_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAPC8.CheckedChanged
+        Try
+
+            MakeEditSubpartButtonVisible()
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+
+        End Try
+
+
+    End Sub
+    Private Sub chbAPC9_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAPC9.CheckedChanged
+        Try
+
+            MakeEditSubpartButtonVisible()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -1092,20 +1073,139 @@ Public Class IAIPFacilitySummary
         End Try
 
     End Sub
-    Private Sub llbViewAirPermits_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewAirPermits.LinkClicked
+    Private Sub chbAPCM_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAPCM.CheckedChanged
         Try
 
+            MakeEditSubpartButtonVisible()
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
 
-            If mtbAIRSNumber.Text <> "" Then
-                Dim url As String = "http://search.georgiaair.org/?AirsNumber=" & mtbAIRSNumber.Text
-                OpenUri(url, Me)
+        End Try
+
+    End Sub
+#End Region
+
+#Region " ... contact copy buttons "
+
+    Private Sub btnCopyWebSiteContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCopyWebSiteContact.Click
+        Try
+            Dim MailingAddress As String = ""
+            Dim i As Integer = 0
+
+            If dgvWebSiteContacts.RowCount > 0 Then
+                i = dgvWebSiteContacts.CurrentCell.RowIndex
+                MailingAddress = dgvWebSiteContacts(1, i).Value & vbCrLf & _
+                dgvWebSiteContacts(2, i).Value & vbCrLf & _
+                dgvWebSiteContacts(7, i).Value & vbCrLf & _
+                dgvWebSiteContacts(9, i).Value & " " & dgvWebSiteContacts(10, i).Value & ", " & _
+                dgvWebSiteContacts(11, i).Value
+
+                Clipboard.SetDataObject(MailingAddress, True)
+
+                MsgBox(MailingAddress, MsgBoxStyle.Information, "Mailing Address")
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
+    Private Sub btnCopyPermittingContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCopyPermittingContact.Click
+        Try
+            Dim MailingAddress As String = ""
+            Dim i As Integer = 0
+
+            If dgvSSPPContacts.RowCount > 0 Then
+                i = dgvSSPPContacts.CurrentCell.RowIndex
+                MailingAddress = dgvSSPPContacts(1, i).Value & vbCrLf & _
+                dgvSSPPContacts(2, i).Value & vbCrLf & _
+                dgvSSPPContacts(7, i).Value & vbCrLf & _
+                dgvSSPPContacts(9, i).Value & " " & dgvSSPPContacts(10, i).Value & ", " & _
+                dgvSSPPContacts(11, i).Value
+
+                Clipboard.SetDataObject(MailingAddress, True)
+
+                MsgBox(MailingAddress, MsgBoxStyle.Information, "Mailing Address")
+            End If
+
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnCopyMointoringContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCopyMointoringContact.Click
+        Try
+            Dim MailingAddress As String = ""
+            Dim i As Integer = 0
+
+            If dgvISMPContacts.RowCount > 0 Then
+                i = dgvISMPContacts.CurrentCell.RowIndex
+                MailingAddress = dgvISMPContacts(1, i).Value & vbCrLf & _
+                dgvISMPContacts(2, i).Value & vbCrLf & _
+                dgvISMPContacts(7, i).Value & vbCrLf & _
+                dgvISMPContacts(9, i).Value & " " & dgvISMPContacts(10, i).Value & ", " & _
+                dgvISMPContacts(11, i).Value
+
+                Clipboard.SetDataObject(MailingAddress, True)
+
+                MsgBox(MailingAddress, MsgBoxStyle.Information, "Mailing Address")
+            End If
+
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnCopyComplianceContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCopyComplianceContact.Click
+        Try
+            Dim MailingAddress As String = ""
+            Dim i As Integer = 0
+
+            If dgvSSCPContacts.RowCount > 0 Then
+                i = dgvSSCPContacts.CurrentCell.RowIndex
+                MailingAddress = dgvSSCPContacts(1, i).Value & vbCrLf & _
+                dgvSSCPContacts(2, i).Value & vbCrLf & _
+                dgvSSCPContacts(7, i).Value & vbCrLf & _
+                dgvSSCPContacts(9, i).Value & " " & dgvSSCPContacts(10, i).Value & ", " & _
+                dgvSSCPContacts(11, i).Value
+
+                Clipboard.SetDataObject(MailingAddress, True)
+
+                MsgBox(MailingAddress, MsgBoxStyle.Information, "Mailing Address")
+            End If
+
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnCopyGECOContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCopyGECOContact.Click
+        Try
+            Dim MailingAddress As String = ""
+            Dim i As Integer = 0
+
+            If dgvGECOContacts.RowCount > 0 Then
+                i = dgvGECOContacts.CurrentCell.RowIndex
+                MailingAddress = dgvGECOContacts(2, i).Value & vbCrLf & _
+                dgvGECOContacts(6, i).Value & vbCrLf & _
+                dgvGECOContacts(7, i).Value & vbCrLf & _
+                dgvGECOContacts(8, i).Value & " " & dgvGECOContacts(9, i).Value & ", " & _
+                dgvGECOContacts(10, i).Value
+
+                Clipboard.SetDataObject(MailingAddress, True)
+
+                MsgBox(MailingAddress, MsgBoxStyle.Information, "Mailing Address")
+            End If
+
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+#End Region
+
+#Region " ... main Load Work"
+
+    Private Sub llbViewAirPermitsOnline_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewAirPermitsOnline.LinkClicked
+        OpenPermitSearchUrl(Me.AirsNumber, Me)
+    End Sub
+
     Private Sub txtDateSubmitted_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtDateSubmitted.TextChanged
         Try
             If txtBalance.Text <> "" Then
@@ -1126,7 +1226,7 @@ Public Class IAIPFacilitySummary
 
             EditAirProgramPollutants = Nothing
             If EditAirProgramPollutants Is Nothing Then EditAirProgramPollutants = New IAIPEditAirProgramPollutants
-            EditAirProgramPollutants.txtAirsNumber.Text = Me.mtbAIRSNumber.Text
+            EditAirProgramPollutants.txtAirsNumber.Text = Me.AirsNumber.ToString
             EditAirProgramPollutants.Show()
 
         Catch ex As Exception
@@ -1147,8 +1247,8 @@ Public Class IAIPFacilitySummary
                 EditSubParts = New IAIPEditSubParts
             End If
             EditSubParts.Show()
-            If mtbAIRSNumber.Text <> "" Then
-                EditSubParts.txtAIRSNumber.Text = Me.mtbAIRSNumber.Text
+            If Me.AirsNumber IsNot Nothing Then
+                EditSubParts.txtAIRSNumber.Text = Me.AirsNumber.ToString
             End If
 
         Catch ex As Exception
@@ -1165,982 +1265,7 @@ Public Class IAIPFacilitySummary
 
 #End Region
 
-    Private Sub llbContactInformation_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbContactInformation.LinkClicked
-        Try
-            If mtbAIRSNumber.Text = "" Or mtbAIRSNumber.Text.Length <> 8 Or txtFacilityName.Text = "" Then
-                mtbAIRSNumber.BackColor = Color.Tomato
-                MsgBox("Please select a valid AIRS # first.", MsgBoxStyle.Exclamation, Me.Text)
-                If TCFacilitySummary.TabPages.Contains(TPContactInformation) = True Then
-                    TCFacilitySummary.TabPages.Remove(TPContactInformation)
-                End If
-                Exit Sub
-            End If
-            mtbAIRSNumber.BackColor = Color.White
-
-            If TCFacilitySummary.TabPages.Contains(TPContactInformation) = False Then
-                TCFacilitySummary.TabPages.Add(TPContactInformation)
-            End If
-
-            Dim dtFacilityWideData As New DataTable
-            Dim drDSRow As DataRow
-
-            dsFacilityWideData = New DataSet
-
-            SQL = "select " & _
-           "distinct(AIRBRANCH.OLAPUserAccess.numUserID), " & _
-           "strUserType, " & _
-           "(strSalutation||' '||strFirstName||' '||strLastName||', '||strTitle) as GECOContact, " & _
-           "AIRBRANCH.OLAPUserLogIN.strUserEmail, " & _
-           "strPhoneNumber, strFaxNumber, " & _
-           "strCompanyName, strAddress, " & _
-           "strCity, strState,  " & _
-           "strZip " & _
-           "from AIRBRANCH.OLAPUserAccess, AIRBRANCH.OLAPUserProfile,  " & _
-           "AIRBRANCH.OLAPUserLogIN  " & _
-           "where AIRBRANCH.OLAPUserAccess.numUserID = AIRBRANCH.OLAPUserProfile.NumUserID  " & _
-           "and AIRBRANCH.OLAPUserAccess.numUserID = AIRBRANCH.OLAPUserLogIN.numUserID (+) " & _
-           "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-
-            daFacilityWideData = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daFacilityWideData.Fill(dsFacilityWideData, "GECOContacts")
-
-            SQL = "Select strContactKey, " & _
-            "(strContactPrefix||' '||strContactFirstName||' '||strContactLastName||' '||strContactSuffix||', '||strContactTitle) as ContactName, " & _
-            "strContactCompanyName, " & _
-            "strContactPhoneNumber1, strContactPhoneNumber2, " & _
-            "strContactFaxNumber, strContactEmail, " & _
-            "strContactAddress1, strContactAddress2, " & _
-            "strContactCity, strContactState, " & _
-            "strContactZipCode, strContactDescription " & _
-            "from AIRBRANCH.APBContactInformation " & _
-            "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
-            "and strKey like '1%' " & _
-            "order by strContactKey "
-
-            daFacilityWideData = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daFacilityWideData.Fill(dsFacilityWideData, "ISMPContacts")
-
-            SQL = "Select strContactKey, " & _
-            "(strContactPrefix||' '||strContactFirstName||' '||strContactLastName||' '||strContactSuffix||', '||strContactTitle) as ContactName, " & _
-            "strContactCompanyName, " & _
-            "strContactPhoneNumber1, strContactPhoneNumber2, " & _
-            "strContactFaxNumber, strContactEmail, " & _
-            "strContactAddress1, strContactAddress2, " & _
-            "strContactCity, strContactState, " & _
-            "strContactZipCode, strContactDescription " & _
-            "from AIRBRANCH.APBContactInformation " & _
-            "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
-            "and strKey like '2%' " & _
-            "order by strContactKey "
-
-            daFacilityWideData = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daFacilityWideData.Fill(dsFacilityWideData, "SSCPContacts")
-
-            SQL = "Select strContactKey, " & _
-            "(strContactPrefix||' '||strContactFirstName||' '||strContactLastName||' '||strContactSuffix||', '||strContactTitle) as ContactName, " & _
-            "strContactCompanyName, " & _
-            "strContactPhoneNumber1, strContactPhoneNumber2, " & _
-            "strContactFaxNumber, strContactEmail, " & _
-            "strContactAddress1, strContactAddress2, " & _
-            "strContactCity, strContactState, " & _
-            "strContactZipCode, strContactDescription " & _
-            "from AIRBRANCH.APBContactInformation " & _
-            "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
-            "and strKey like '3%' " & _
-            "order by strContactKey "
-
-            daFacilityWideData = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daFacilityWideData.Fill(dsFacilityWideData, "SSPPContacts")
-
-            SQL = "Select strContactKey, " & _
-            "(strContactPrefix||' '||strContactFirstName||' '||strContactLastName||' '||strContactSuffix||', '||strContactTitle) as ContactName, " & _
-            "strContactCompanyName, " & _
-            "strContactPhoneNumber1, strContactPhoneNumber2, " & _
-            "strContactFaxNumber, strContactEmail, " & _
-            "strContactAddress1, strContactAddress2, " & _
-            "strContactCity, strContactState, " & _
-            "strContactZipCode, strContactDescription " & _
-            "from AIRBRANCH.APBContactInformation " & _
-            "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
-            "and strKey like '4%' " & _
-            "order by strContactKey "
-
-            daFacilityWideData = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daFacilityWideData.Fill(dsFacilityWideData, "WebContacts")
-
-            SQL = "select " & _
-"SSCPENGINEER, " & _
-"STRUNITDESC " & _
-"from " & _
-"(select " & _
-"NUMSSCPENGINEER, " & _
-"(STRLASTNAME||', '||STRFIRSTNAME) as SSCPENGINEER, " & _
-"strUnitDesc " & _
-"from AIRBRANCH.SSCPINSPECTIONSREQUIRED, " & _
-"AIRBRANCH.EPDUSERPROFILES, AIRBRANCH.LookUpEPDUnits,  " & _
-"(select max(intyear) as MaxYear, AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER  " & _
-"from AIRBRANCH.SSCPINSPECTIONSREQUIRED " & _
-"where AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = '0413" & mtbAIRSNumber.Text & "' " & _
-"group by AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER ) MaxResults " & _
-"where AIRBRANCH.SSCPINSPECTIONSREQUIRED.NUMSSCPENGINEER = AIRBRANCH.EPDUSERPROFILES.NUMUSERID " & _
-"and AIRBRANCH.SSCPINSPECTIONSREQUIRED.intyear = maxResults.maxYear  " & _
-"and AIRBRANCH.EPDUSERPROFILES.NUMUNIT = AIRBRANCH.LOOKUPEPDUNITS.NUMUNITCODE (+) " & _
-"and AIRBRANCH.SSCPINSPECTIONSREQUIRED.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  " & _
-"group by NUMSSCPENGINEER, (STRLASTNAME||', '||STRFIRSTNAME), STRUNITDESC)  "
-
-
-            daFacilityWideData = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daFacilityWideData.Fill(dsFacilityWideData, "ComplianceContact")
-
-            SQL = "Select " & _
-            "Distinct((strLastName||', '||strFirstName)) as ISMPEngineer, strUnitDesc   " & _
-            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation,   " & _
-            "AIRBRANCH.ISMPMaster, AIRBRANCH.LookUpEPDUnits    " & _
-            "where AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDunits.numunitCode (+) " & _
-            "and numUserID = strReviewingEngineer   " & _
-            "AND AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber   " & _
-            "and strClosed = 'True'  " & _
-            "and datCompleteDate = (Select Distinct(Max(datCompleteDate)) as CompleteDate  " & _
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster  " & _
-            "where AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber   " & _
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  " & _
-            "and strClosed = 'True')  " & _
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  "
-
-            daFacilityWideData = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daFacilityWideData.Fill(dsFacilityWideData, "MonitoringContact")
-
-            SQL = "select  " & _
-            "Distinct((strLastName||', '||strFirstName)) as SSPPStaffResponsible, strUnitDesc   " & _
-            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.SSPPApplicationMaster, " & _
-            "AIRBRANCH.LookUpEPDUnits " & _
-            "where AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " & _
-            "and numUserID = strStaffResponsible  " & _
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber =  " & _
-            "(select distinct(max(to_number(strApplicationNumber))) as GreatestApplication  " & _
-            "from AIRBRANCH.SSPPApplicationMaster   " & _
-            "where AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "')  " & _
-            "and AIRBRANCH.SSPPApplicationMaster.strAIRSnumber = '0413" & mtbAIRSNumber.Text & "'  "
-
-            daFacilityWideData = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daFacilityWideData.Fill(dsFacilityWideData, "PermittingContact")
-
-            dgvGECOContacts.DataSource = dsFacilityWideData
-            dgvGECOContacts.DataMember = "GECOContacts"
-
-            dgvGECOContacts.RowHeadersVisible = False
-            dgvGECOContacts.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvGECOContacts.AllowUserToResizeColumns = True
-            dgvGECOContacts.AllowUserToAddRows = False
-            dgvGECOContacts.AllowUserToDeleteRows = False
-            dgvGECOContacts.AllowUserToOrderColumns = True
-            dgvGECOContacts.AllowUserToResizeRows = True
-            dgvGECOContacts.ColumnHeadersHeight = "35"
-
-            dgvGECOContacts.Columns("numUserID").HeaderText = "User ID"
-            dgvGECOContacts.Columns("numUserID").DisplayIndex = 0
-            dgvGECOContacts.Columns("numUserID").Visible = False
-            dgvGECOContacts.Columns("strUserType").HeaderText = "User Type"
-            dgvGECOContacts.Columns("strUserType").DisplayIndex = 2
-            dgvGECOContacts.Columns("strUserType").Width = 100
-            dgvGECOContacts.Columns("GECOContact").HeaderText = "Contact Name"
-            dgvGECOContacts.Columns("GECOContact").DisplayIndex = 1
-            dgvGECOContacts.Columns("GECOContact").Width = 200
-            dgvGECOContacts.Columns("strUserEmail").HeaderText = "User Email"
-            dgvGECOContacts.Columns("strUserEmail").DisplayIndex = 3
-            dgvGECOContacts.Columns("strUserEmail").Width = 200
-            dgvGECOContacts.Columns("strPhoneNumber").HeaderText = "Phone #"
-            dgvGECOContacts.Columns("strPhoneNumber").DisplayIndex = 4
-            dgvGECOContacts.Columns("strFaxNumber").HeaderText = "Fax #"
-            dgvGECOContacts.Columns("strFaxNumber").DisplayIndex = 5
-            dgvGECOContacts.Columns("strCompanyName").HeaderText = "Company Name"
-            dgvGECOContacts.Columns("strCompanyName").DisplayIndex = 6
-            dgvGECOContacts.Columns("strAddress").HeaderText = "Street Address"
-            dgvGECOContacts.Columns("strAddress").DisplayIndex = 7
-            dgvGECOContacts.Columns("strCity").HeaderText = "City"
-            dgvGECOContacts.Columns("strCity").DisplayIndex = 8
-            dgvGECOContacts.Columns("strState").HeaderText = "State"
-            dgvGECOContacts.Columns("strState").DisplayIndex = 9
-            dgvGECOContacts.Columns("strZip").HeaderText = "Zip Code"
-            dgvGECOContacts.Columns("strZip").DisplayIndex = 10
-
-            dgvISMPContacts.DataSource = dsFacilityWideData
-            dgvISMPContacts.DataMember = "ISMPContacts"
-
-            dgvISMPContacts.RowHeadersVisible = False
-            dgvISMPContacts.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvISMPContacts.AllowUserToResizeColumns = True
-            dgvISMPContacts.AllowUserToAddRows = False
-            dgvISMPContacts.AllowUserToDeleteRows = False
-            dgvISMPContacts.AllowUserToOrderColumns = True
-            dgvISMPContacts.AllowUserToResizeRows = True
-            dgvISMPContacts.ColumnHeadersHeight = "35"
-
-            dgvISMPContacts.Columns("strContactKey").HeaderText = "Contact Key"
-            dgvISMPContacts.Columns("strContactKey").DisplayIndex = 0
-            dgvISMPContacts.Columns("strContactKey").Visible = False
-            dgvISMPContacts.Columns("strContactDescription").HeaderText = "User Type"
-            dgvISMPContacts.Columns("strContactDescription").DisplayIndex = 2
-            dgvISMPContacts.Columns("strContactDescription").Width = 100
-            dgvISMPContacts.Columns("ContactName").HeaderText = "Contact Name"
-            dgvISMPContacts.Columns("ContactName").DisplayIndex = 1
-            dgvISMPContacts.Columns("ContactName").Width = 200
-            dgvISMPContacts.Columns("strContactEmail").HeaderText = "User Email"
-            dgvISMPContacts.Columns("strContactEmail").DisplayIndex = 3
-            dgvISMPContacts.Columns("strContactEmail").Width = 200
-            dgvISMPContacts.Columns("strContactPhoneNumber1").HeaderText = "Phone #"
-            dgvISMPContacts.Columns("strContactPhoneNumber1").DisplayIndex = 4
-            dgvISMPContacts.Columns("strContactPhoneNumber2").HeaderText = "Phone #2"
-            dgvISMPContacts.Columns("strContactPhoneNumber2").DisplayIndex = 5
-            dgvISMPContacts.Columns("strContactFaxNumber").HeaderText = "Fax #"
-            dgvISMPContacts.Columns("strContactFaxNumber").DisplayIndex = 6
-            dgvISMPContacts.Columns("strContactCompanyName").HeaderText = "Company Name"
-            dgvISMPContacts.Columns("strContactCompanyName").DisplayIndex = 7
-            dgvISMPContacts.Columns("strContactAddress1").HeaderText = "Street Address"
-            dgvISMPContacts.Columns("strContactAddress1").DisplayIndex = 8
-            dgvISMPContacts.Columns("strContactAddress2").HeaderText = "Street Address"
-            dgvISMPContacts.Columns("strContactAddress2").DisplayIndex = 12
-            dgvISMPContacts.Columns("strContactAddress2").Visible = False
-            dgvISMPContacts.Columns("strContactCity").HeaderText = "City"
-            dgvISMPContacts.Columns("strContactCity").DisplayIndex = 9
-            dgvISMPContacts.Columns("strContactState").HeaderText = "State"
-            dgvISMPContacts.Columns("strContactState").DisplayIndex = 10
-            dgvISMPContacts.Columns("strContactZipCode").HeaderText = "Zip Code"
-            dgvISMPContacts.Columns("strContactZipCode").DisplayIndex = 11
-
-            dgvSSCPContacts.DataSource = dsFacilityWideData
-            dgvSSCPContacts.DataMember = "SSCPContacts"
-
-            dgvSSCPContacts.RowHeadersVisible = False
-            dgvSSCPContacts.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvSSCPContacts.AllowUserToResizeColumns = True
-            dgvSSCPContacts.AllowUserToAddRows = False
-            dgvSSCPContacts.AllowUserToDeleteRows = False
-            dgvSSCPContacts.AllowUserToOrderColumns = True
-            dgvSSCPContacts.AllowUserToResizeRows = True
-            dgvSSCPContacts.ColumnHeadersHeight = "35"
-
-            dgvSSCPContacts.Columns("strContactKey").HeaderText = "Contact Key"
-            dgvSSCPContacts.Columns("strContactKey").DisplayIndex = 0
-            dgvSSCPContacts.Columns("strContactKey").Visible = False
-            dgvSSCPContacts.Columns("strContactDescription").HeaderText = "User Type"
-            dgvSSCPContacts.Columns("strContactDescription").DisplayIndex = 2
-            dgvSSCPContacts.Columns("strContactDescription").Width = 100
-            dgvSSCPContacts.Columns("ContactName").HeaderText = "Contact Name"
-            dgvSSCPContacts.Columns("ContactName").DisplayIndex = 1
-            dgvSSCPContacts.Columns("ContactName").Width = 200
-            dgvSSCPContacts.Columns("strContactEmail").HeaderText = "User Email"
-            dgvSSCPContacts.Columns("strContactEmail").DisplayIndex = 3
-            dgvSSCPContacts.Columns("strContactEmail").Width = 200
-            dgvSSCPContacts.Columns("strContactPhoneNumber1").HeaderText = "Phone #"
-            dgvSSCPContacts.Columns("strContactPhoneNumber1").DisplayIndex = 4
-            dgvSSCPContacts.Columns("strContactPhoneNumber2").HeaderText = "Phone #2"
-            dgvSSCPContacts.Columns("strContactPhoneNumber2").DisplayIndex = 5
-            dgvSSCPContacts.Columns("strContactFaxNumber").HeaderText = "Fax #"
-            dgvSSCPContacts.Columns("strContactFaxNumber").DisplayIndex = 6
-            dgvSSCPContacts.Columns("strContactCompanyName").HeaderText = "Company Name"
-            dgvSSCPContacts.Columns("strContactCompanyName").DisplayIndex = 7
-            dgvSSCPContacts.Columns("strContactAddress1").HeaderText = "Street Address"
-            dgvSSCPContacts.Columns("strContactAddress1").DisplayIndex = 8
-            dgvSSCPContacts.Columns("strContactAddress2").HeaderText = "Street Address"
-            dgvSSCPContacts.Columns("strContactAddress2").DisplayIndex = 12
-            dgvSSCPContacts.Columns("strContactAddress2").Visible = False
-            dgvSSCPContacts.Columns("strContactCity").HeaderText = "City"
-            dgvSSCPContacts.Columns("strContactCity").DisplayIndex = 9
-            dgvSSCPContacts.Columns("strContactState").HeaderText = "State"
-            dgvSSCPContacts.Columns("strContactState").DisplayIndex = 10
-            dgvSSCPContacts.Columns("strContactZipCode").HeaderText = "Zip Code"
-            dgvSSCPContacts.Columns("strContactZipCode").DisplayIndex = 11
-
-            dgvSSPPContacts.DataSource = dsFacilityWideData
-            dgvSSPPContacts.DataMember = "SSPPContacts"
-
-            dgvSSPPContacts.RowHeadersVisible = False
-            dgvSSPPContacts.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvSSPPContacts.AllowUserToResizeColumns = True
-            dgvSSPPContacts.AllowUserToAddRows = False
-            dgvSSPPContacts.AllowUserToDeleteRows = False
-            dgvSSPPContacts.AllowUserToOrderColumns = True
-            dgvSSPPContacts.AllowUserToResizeRows = True
-            dgvSSPPContacts.ColumnHeadersHeight = "35"
-
-            dgvSSPPContacts.Columns("strContactKey").HeaderText = "Contact Key"
-            dgvSSPPContacts.Columns("strContactKey").DisplayIndex = 0
-            dgvSSPPContacts.Columns("strContactKey").Visible = False
-            dgvSSPPContacts.Columns("strContactDescription").HeaderText = "User Type"
-            dgvSSPPContacts.Columns("strContactDescription").DisplayIndex = 2
-            dgvSSPPContacts.Columns("strContactDescription").Width = 100
-            dgvSSPPContacts.Columns("ContactName").HeaderText = "Contact Name"
-            dgvSSPPContacts.Columns("ContactName").DisplayIndex = 1
-            dgvSSPPContacts.Columns("ContactName").Width = 200
-            dgvSSPPContacts.Columns("strContactEmail").HeaderText = "User Email"
-            dgvSSPPContacts.Columns("strContactEmail").DisplayIndex = 3
-            dgvSSPPContacts.Columns("strContactEmail").Width = 200
-            dgvSSPPContacts.Columns("strContactPhoneNumber1").HeaderText = "Phone #"
-            dgvSSPPContacts.Columns("strContactPhoneNumber1").DisplayIndex = 4
-            dgvSSPPContacts.Columns("strContactPhoneNumber2").HeaderText = "Phone #2"
-            dgvSSPPContacts.Columns("strContactPhoneNumber2").DisplayIndex = 5
-            dgvSSPPContacts.Columns("strContactFaxNumber").HeaderText = "Fax #"
-            dgvSSPPContacts.Columns("strContactFaxNumber").DisplayIndex = 6
-            dgvSSPPContacts.Columns("strContactCompanyName").HeaderText = "Company Name"
-            dgvSSPPContacts.Columns("strContactCompanyName").DisplayIndex = 7
-            dgvSSPPContacts.Columns("strContactAddress1").HeaderText = "Street Address"
-            dgvSSPPContacts.Columns("strContactAddress1").DisplayIndex = 8
-            dgvSSPPContacts.Columns("strContactAddress2").HeaderText = "Street Address"
-            dgvSSPPContacts.Columns("strContactAddress2").DisplayIndex = 12
-            dgvSSPPContacts.Columns("strContactAddress2").Visible = False
-            dgvSSPPContacts.Columns("strContactCity").HeaderText = "City"
-            dgvSSPPContacts.Columns("strContactCity").DisplayIndex = 9
-            dgvSSPPContacts.Columns("strContactState").HeaderText = "State"
-            dgvSSPPContacts.Columns("strContactState").DisplayIndex = 10
-            dgvSSPPContacts.Columns("strContactZipCode").HeaderText = "Zip Code"
-            dgvSSPPContacts.Columns("strContactZipCode").DisplayIndex = 11
-
-            dgvWebSiteContacts.DataSource = dsFacilityWideData
-            dgvWebSiteContacts.DataMember = "WebContacts"
-
-            dgvWebSiteContacts.RowHeadersVisible = False
-            dgvWebSiteContacts.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvWebSiteContacts.AllowUserToResizeColumns = True
-            dgvWebSiteContacts.AllowUserToAddRows = False
-            dgvWebSiteContacts.AllowUserToDeleteRows = False
-            dgvWebSiteContacts.AllowUserToOrderColumns = True
-            dgvWebSiteContacts.AllowUserToResizeRows = True
-            dgvWebSiteContacts.ColumnHeadersHeight = "35"
-
-            dgvWebSiteContacts.Columns("strContactKey").HeaderText = "Contact Key"
-            dgvWebSiteContacts.Columns("strContactKey").DisplayIndex = 0
-            dgvWebSiteContacts.Columns("strContactKey").Visible = False
-            dgvWebSiteContacts.Columns("strContactDescription").HeaderText = "User Type"
-            dgvWebSiteContacts.Columns("strContactDescription").DisplayIndex = 2
-            dgvWebSiteContacts.Columns("strContactDescription").Width = 100
-            dgvWebSiteContacts.Columns("ContactName").HeaderText = "Contact Name"
-            dgvWebSiteContacts.Columns("ContactName").DisplayIndex = 1
-            dgvWebSiteContacts.Columns("ContactName").Width = 200
-            dgvWebSiteContacts.Columns("strContactEmail").HeaderText = "User Email"
-            dgvWebSiteContacts.Columns("strContactEmail").DisplayIndex = 3
-            dgvWebSiteContacts.Columns("strContactEmail").Width = 200
-            dgvWebSiteContacts.Columns("strContactPhoneNumber1").HeaderText = "Phone #"
-            dgvWebSiteContacts.Columns("strContactPhoneNumber1").DisplayIndex = 4
-            dgvWebSiteContacts.Columns("strContactPhoneNumber2").HeaderText = "Phone #2"
-            dgvWebSiteContacts.Columns("strContactPhoneNumber2").DisplayIndex = 5
-            dgvWebSiteContacts.Columns("strContactFaxNumber").HeaderText = "Fax #"
-            dgvWebSiteContacts.Columns("strContactFaxNumber").DisplayIndex = 6
-            dgvWebSiteContacts.Columns("strContactCompanyName").HeaderText = "Company Name"
-            dgvWebSiteContacts.Columns("strContactCompanyName").DisplayIndex = 7
-            dgvWebSiteContacts.Columns("strContactAddress1").HeaderText = "Street Address"
-            dgvWebSiteContacts.Columns("strContactAddress1").DisplayIndex = 8
-            dgvWebSiteContacts.Columns("strContactAddress2").HeaderText = "Street Address"
-            dgvWebSiteContacts.Columns("strContactAddress2").DisplayIndex = 12
-            dgvWebSiteContacts.Columns("strContactAddress2").Visible = False
-            dgvWebSiteContacts.Columns("strContactCity").HeaderText = "City"
-            dgvWebSiteContacts.Columns("strContactCity").DisplayIndex = 9
-            dgvWebSiteContacts.Columns("strContactState").HeaderText = "State"
-            dgvWebSiteContacts.Columns("strContactState").DisplayIndex = 10
-            dgvWebSiteContacts.Columns("strContactZipCode").HeaderText = "Zip Code"
-            dgvWebSiteContacts.Columns("strContactZipCode").DisplayIndex = 11
-
-            dtFacilityWideData.Columns.Add("SSCPEngineer", GetType(System.String))
-            dtFacilityWideData.Columns.Add("strUnitDesc", GetType(System.String))
-
-            For Each drDSRow In dsFacilityWideData.Tables("ComplianceContact").Rows()
-                If IsDBNull(drDSRow("SSCPEngineer")) Then
-                    txtSSCPContact.Clear()
-                Else
-                    txtSSCPContact.Text = drDSRow("SSCPEngineer")
-                End If
-                If IsDBNull(drDSRow("strUnitDesc")) Then
-                    txtSSCPUnit.Clear()
-                Else
-                    txtSSCPUnit.Text = drDSRow("strUnitDesc")
-                End If
-            Next
-
-            dtFacilityWideData.Columns.Add("ISMPEngineer", GetType(System.String))
-
-            For Each drDSRow In dsFacilityWideData.Tables("MonitoringContact").Rows()
-                If IsDBNull(drDSRow("ISMPEngineer")) Then
-                    txtISMPContact.Clear()
-                Else
-                    txtISMPContact.Text = drDSRow("ISMPEngineer")
-                End If
-                If IsDBNull(drDSRow("strUnitDesc")) Then
-                    txtISMPUnit.Clear()
-                Else
-                    txtISMPUnit.Text = drDSRow("strUnitDesc")
-                End If
-            Next
-
-            dtFacilityWideData.Columns.Add("SSPPStaffResponsible", GetType(System.String))
-
-            For Each drDSRow In dsFacilityWideData.Tables("PermittingContact").Rows()
-                If IsDBNull(drDSRow("SSPPStaffResponsible")) Then
-                    txtSSPPContact.Clear()
-                Else
-                    txtSSPPContact.Text = drDSRow("SSPPStaffResponsible")
-                End If
-                If IsDBNull(drDSRow("strUnitDesc")) Then
-                    txtSSPPUnit.Clear()
-                Else
-                    txtSSPPUnit.Text = drDSRow("strUnitDesc")
-                End If
-            Next
-
-            If TCFacilitySummary.TabPages.Contains(TPContactInformation) Then
-                temp = TCFacilitySummary.TabPages.IndexOf(TPContactInformation)
-                If TCFacilitySummary.TabPages.IndexOf(TPContactInformation) <> -1 Then
-                    TCFacilitySummary.SelectedIndex = TCFacilitySummary.TabPages.IndexOf(TPContactInformation)
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(mtbAIRSNumber.Text & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-#Region "Contact Information"
-
-
-#End Region
-
-    Private Sub llbEmissionInventory_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEmissionInventory.LinkClicked
-        Try
-            If mtbAIRSNumber.Text = "" Or mtbAIRSNumber.Text.Length <> 8 Then
-                mtbAIRSNumber.BackColor = Color.Tomato
-                MsgBox("Please select a valid AIRS # first.", MsgBoxStyle.Exclamation, Me.Text)
-                If TCFacilitySummary.TabPages.Contains(TPEmissionInventory) = True Then
-                    TCFacilitySummary.TabPages.Remove(TPEmissionInventory)
-                End If
-                Exit Sub
-            End If
-            mtbAIRSNumber.BackColor = Color.White
-
-            If TCFacilitySummary.TabPages.Contains(TPEmissionInventory) = False Then
-                TCFacilitySummary.TabPages.Add(TPEmissionInventory)
-            End If
-
-
-            If mtbAIRSNumber.Text <> "" Then
-
-                SQL = "Select * from AIRBRANCH.eiSI where strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "' " ' & _ 
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-
-                If recExist = True Then
-                    SQL = "Select " & _
-                    "distinct(EIEM.strInventoryYear),  " & _
-                    "case  " & _
-                    "when COTable.TotalEmissions is Null then  0 " & _
-                    "else COTable.TotalEmissions " & _
-                    "End CO,  " & _
-                    "case  " & _
-                    "when LeadTable.TotalEmissions is Null then 0 " & _
-                    "else LeadTable. TotalEmissions " & _
-                    "END Lead,   " & _
-                    "case  " & _
-                    "when NH3Table.TotalEmissions is Null then 0 " & _
-                    "else NH3Table.TotalEmissions  " & _
-                    "END NH3,   " & _
-                    "case  " & _
-                    "When NOXTable.TotalEmissions is Null then 0 " & _
-                    "else NOXTable.TotalEmissions  " & _
-                    "END NOX,  " & _
-                    "case  " & _
-                    "when PMTable.TotalEmissions is null then 0  " & _
-                    "else PMTable.TotalEmissions  " & _
-                    "end PM,   " & _
-                    "case  " & _
-                    "when PM10Table.TotalEmissions is NUll then 0  " & _
-                    "else PM10Table.TotalEmissions  " & _
-                    "end PM10,  " & _
-                    "case  " & _
-                    "when PM25Table.TotalEmissions is null then 0  " & _
-                    "else PM25Table.TotalEmissions  " & _
-                    "end PM25,  " & _
-                    "case  " & _
-                    "when SO2Table.TotalEmissions is NUll then 0  " & _
-                    "else SO2Table.TotalEmissions  " & _
-                    "End SO2,  " & _
-                    "case  " & _
-                    "when VOCTable.TotalEmissions is Null then 0  " & _
-                    "else VOCTable.TotalEmissions  " & _
-                    "end VOC,  " & _
-                    "case  " & _
-                    "when PMFILTable.TotalEmissions is Null then 0  " & _
-                    "else PMFILTable.TotalEmissions  " & _
-                    "end PMFIL " & _
-                    "from AIRBRANCH.EIEM,  " & _
-                    "(Select  " & _
-                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "AIRBRANCH.EIEM.strInventoryYear,  " & _
-                    "strStateFacilityIdentifier  " & _
-                    "from AIRBRANCH.EIEM   " & _
-                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
-                    "and strPollutantCode = 'CO'  " & _
-                    "group by AIRBRANCH.EIEM.strPollutantCode,  " & _
-                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) COTable,  " & _
-                    "(Select  " & _
-                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "AIRBRANCH.EIEM.strInventoryYear,  " & _
-                    "strStateFacilityIdentifier  " & _
-                    "from AIRBRANCH.EIEM   " & _
-                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
-                    "and strPollutantCode = '7439921'  " & _
-                    "group by AIRBRANCH.EIEM.strPollutantCode,  " & _
-                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) LeadTable,  " & _
-                    "(Select  " & _
-                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "AIRBRANCH.EIEM.strInventoryYear,  " & _
-                    "strStateFacilityIdentifier  " & _
-                    "from AIRBRANCH.EIEM   " & _
-                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
-                    "and strPollutantCode = 'NH3'  " & _
-                    "group by AIRBRANCH.EIEM.strPollutantCode,  " & _
-                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) NH3Table,  " & _
-                    "(Select  " & _
-                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "AIRBRANCH.EIEM.strInventoryYear,  " & _
-                    "strStateFacilityIdentifier  " & _
-                    "from AIRBRANCH.EIEM   " & _
-                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
-                    "and strPollutantCode = 'NOX'  " & _
-                    "group by AIRBRANCH.EIEM.strPollutantCode,  " & _
-                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) NOXTable,  " & _
-                    "(Select  " & _
-                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "AIRBRANCH.EIEM.strInventoryYear,  " & _
-                    "strStateFacilityIdentifier  " & _
-                    "from AIRBRANCH.EIEM   " & _
-                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
-                    "and strPollutantCode = 'PM-PRI'  " & _
-                    "group by AIRBRANCH.EIEM.strPollutantCode,  " & _
-                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) PMTable,  " & _
-                    "(Select  " & _
-                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "AIRBRANCH.EIEM.strInventoryYear,  " & _
-                    "strStateFacilityIdentifier  " & _
-                    "from AIRBRANCH.EIEM   " & _
-                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
-                    "and strPollutantCode = 'PM10-PMI'  " & _
-                    "group by AIRBRANCH.EIEM.strPollutantCode,  " & _
-                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) PM10Table,  " & _
-                    "(Select  " & _
-                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "AIRBRANCH.EIEM.strInventoryYear,  " & _
-                    "strStateFacilityIdentifier  " & _
-                    "from AIRBRANCH.EIEM   " & _
-                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
-                    "and strPollutantCode = 'PM25-PMI'  " & _
-                    "group by AIRBRANCH.EIEM.strPollutantCode,  " & _
-                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) PM25Table,  " & _
-                    "(Select  " & _
-                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "AIRBRANCH.EIEM.strInventoryYear,  " & _
-                    "strStateFacilityIdentifier  " & _
-                    "from AIRBRANCH.EIEM   " & _
-                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
-                    "and strPollutantCode = 'SO2'  " & _
-                    "group by AIRBRANCH.EIEM.strPollutantCode,  " & _
-                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) SO2Table,  " & _
-                    "(Select  " & _
-                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "AIRBRANCH.EIEM.strInventoryYear,  " & _
-                    "strStateFacilityIdentifier  " & _
-                    "from AIRBRANCH.EIEM   " & _
-                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
-                    "and strPollutantCode = 'VOC'  " & _
-                    "group by AIRBRANCH.EIEM.strPollutantCode,  " & _
-                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) VOCTable,  " & _
-                    "(Select  " & _
-                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "AIRBRANCH.EIEM.strInventoryYear,  " & _
-                    "strStateFacilityIdentifier  " & _
-                    "from AIRBRANCH.EIEM   " & _
-                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
-                    "and strPollutantCode = 'PM-FIL'  " & _
-                    "group by AIRBRANCH.EIEM.strPollutantCode,  " & _
-                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) PMFILTable " & _
-                    "where EIEM.strInventoryYear = COTable.strInventoryYear (+)   " & _
-                    "and EIEM.strInventoryYear = LeadTable.strInventoryYear (+)   " & _
-                    "and EIEM.strInventoryYear = NH3Table.strInventoryYear  (+)  " & _
-                    "and EIEM.strInventoryYear = NOXTable.strInventoryYear  (+)  " & _
-                    "and EIEM.strInventoryYear = PMTable.strInventoryYear  (+)  " & _
-                    "and EIEM.strInventoryYear = PM10Table.strInventoryYear  (+)  " & _
-                    "and EIEM.strInventoryYear = PM25Table.strInventoryYear  (+)  " & _
-                    "and EIEM.strInventoryYear = SO2Table.strInventoryYear  (+)  " & _
-                    "and EIEM.strInventoryYear = VOCTable.strInventoryYear  (+)  " & _
-                    "and EIEM.strInventoryYear = PMFILTable.strInventoryYear  (+) " & _
-                    "and EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "' " & _
-                    "order by EIEM.strInventoryYear DESC "
-
-                    ds = New DataSet
-                    da = New OracleDataAdapter(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    da.Fill(ds, "EM")
-                    dgvEIData.DataSource = ds
-                    dgvEIData.DataMember = "EM"
-
-                    dgvEIData.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                    dgvEIData.ReadOnly = True
-                    dgvEIData.AllowUserToOrderColumns = True
-                    dgvEIData.AllowUserToOrderColumns = True
-                    dgvEIData.RowHeadersVisible = False
-                    dgvEIData.Columns("strInventoryYear").HeaderText = "Year"
-                    dgvEIData.Columns("strInventoryYear").DisplayIndex = 0
-                    dgvEIData.Columns("strInventoryYear").Width = 50
-                    dgvEIData.Columns("CO").HeaderText = "CO"
-                    dgvEIData.Columns("CO").DisplayIndex = 1
-                    dgvEIData.Columns("CO").Width = 50
-                    dgvEIData.Columns("LEAD").HeaderText = "LEAD"
-                    dgvEIData.Columns("LEAD").DisplayIndex = 2
-                    dgvEIData.Columns("LEAD").Width = 50
-                    dgvEIData.Columns("NH3").HeaderText = "NH3"
-                    dgvEIData.Columns("NH3").DisplayIndex = 3
-                    dgvEIData.Columns("NH3").Width = 50
-                    dgvEIData.Columns("NOX").HeaderText = "NOX"
-                    dgvEIData.Columns("NOX").DisplayIndex = 4
-                    dgvEIData.Columns("NOX").Width = 50
-                    dgvEIData.Columns("PM").HeaderText = "PM"
-                    dgvEIData.Columns("PM").DisplayIndex = 5
-                    dgvEIData.Columns("PM").Width = 50
-                    dgvEIData.Columns("PM10").HeaderText = "PM-10"
-                    dgvEIData.Columns("PM10").DisplayIndex = 6
-                    dgvEIData.Columns("PM10").Width = 50
-                    dgvEIData.Columns("PM25").HeaderText = "PM-2.5"
-                    dgvEIData.Columns("PM25").DisplayIndex = 7
-                    dgvEIData.Columns("PM25").Width = 50
-                    dgvEIData.Columns("SO2").HeaderText = "SO2"
-                    dgvEIData.Columns("SO2").DisplayIndex = 8
-                    dgvEIData.Columns("SO2").Width = 50
-                    dgvEIData.Columns("VOC").HeaderText = "VOC"
-                    dgvEIData.Columns("VOC").DisplayIndex = 9
-                    dgvEIData.Columns("VOC").Width = 50
-                    dgvEIData.Columns("PMFIL").HeaderText = "PM-FIL"
-                    dgvEIData.Columns("PMFIL").DisplayIndex = 10
-                    dgvEIData.Columns("PMFIL").Width = 50
-                Else
-                    MsgBox("There is no data available", MsgBoxStyle.OkOnly, "No EI data for this year, choose another year")
-                End If
-
-            End If
-
-            SQL = "select inventoryyear from airbranch.eis_admin where facilitysiteId = '" & mtbAIRSNumber.Text & "' " & _
-            "and inventoryyear > 2009 "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            dr.Close()
-
-            If recExist = True Then
-                SQL = "select * from Airbranch.VW_EIS_EmissionSummary  " & _
-                "where FacilitySiteID = '" & mtbAIRSNumber.Text & "' "
-
-                ds = New DataSet
-                da = New OracleDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                da.Fill(ds, "EIS")
-                dgvEISData.DataSource = ds
-                dgvEISData.DataMember = "EIS"
-
-                dgvEISData.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                dgvEISData.ReadOnly = True
-                dgvEISData.AllowUserToOrderColumns = True
-                dgvEISData.AllowUserToOrderColumns = True
-                dgvEISData.RowHeadersVisible = False
-
-                dgvEISData.Columns("intinventoryyear").HeaderText = "Year"
-                dgvEISData.Columns("intinventoryyear").DisplayIndex = 0
-                dgvEISData.Columns("intinventoryyear").Width = 50
-                'facilitysiteId
-                dgvEISData.Columns("facilitysiteId").HeaderText = "AIRS #"
-                dgvEISData.Columns("facilitysiteId").DisplayIndex = 1
-                dgvEISData.Columns("facilitysiteId").Visible = False
-
-                dgvEISData.Columns("COEmissions").HeaderText = "Carbon Monoxide"
-                dgvEISData.Columns("COEmissions").DisplayIndex = 2
-                'dgvEISData.Columns("COEmissions").Width = 50
-                dgvEISData.Columns("LeadEmissions").HeaderText = "Lead"
-                dgvEISData.Columns("LeadEmissions").DisplayIndex = 3
-                'dgvEISData.Columns("LeadEmissions").Width = 50
-                dgvEISData.Columns("NH3Emissions").HeaderText = "Ammonia"
-                dgvEISData.Columns("NH3Emissions").DisplayIndex = 4
-                'dgvEISData.Columns("NH3Emissions").Width = 50
-                dgvEISData.Columns("NOxEmissions").HeaderText = "Nitrogen Oxides"
-                dgvEISData.Columns("NOxEmissions").DisplayIndex = 5
-                ' dgvEISData.Columns("NOxEmissions").Width = 50
-                dgvEISData.Columns("PMConEmissions").HeaderText = "Condensible PM (All less than 1 micron)"
-                dgvEISData.Columns("PMConEmissions").DisplayIndex = 6
-                'dgvEISData.Columns("PMConEmissions").Width = 50
-                dgvEISData.Columns("PM10FilEmissions").HeaderText = "Filterable PM10"
-                dgvEISData.Columns("PM10FilEmissions").DisplayIndex = 7
-                'dgvEISData.Columns("PM10FilEmissions").Width = 50
-                dgvEISData.Columns("PM10PriEmissions").HeaderText = "Primary PM10 (Includes Filterables + Condensibles)"
-                dgvEISData.Columns("PM10PriEmissions").DisplayIndex = 8
-                'dgvEISData.Columns("PM10PriEmissions").Width = 50
-
-                dgvEISData.Columns("PM25FilEmissions").HeaderText = "Filterable PM2.5"
-                dgvEISData.Columns("PM25FilEmissions").DisplayIndex = 9
-                'dgvEISData.Columns("PM25FilEmissions").Width = 50
-                dgvEISData.Columns("PM25PriEmissions").HeaderText = "Primary PM2.5 (Includes Filterables + Condensibles)"
-                dgvEISData.Columns("PM25PriEmissions").DisplayIndex = 10
-                'dgvEISData.Columns("PM25PriEmissions").Width = 50
-
-                dgvEISData.Columns("SO2Emissions").HeaderText = "Sulfur Dioxide"
-                dgvEISData.Columns("SO2Emissions").DisplayIndex = 11
-                'dgvEISData.Columns("SO2Emissions").Width = 50
-                dgvEISData.Columns("VOCEmissions").HeaderText = "Volatile Organic Compounds"
-                dgvEISData.Columns("VOCEmissions").DisplayIndex = 12
-                'dgvEISData.Columns("VOCEmissions").Width = 50
-
-
-            End If
-
-            If TCFacilitySummary.TabPages.Contains(TPEmissionInventory) Then
-                If TCFacilitySummary.TabPages.IndexOf(TPEmissionInventory) <> -1 Then
-                    TCFacilitySummary.SelectedIndex = TCFacilitySummary.TabPages.IndexOf(TPEmissionInventory)
-                End If
-            End If
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
-    Private Sub llbISMPTestingWork_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbISMPTestingWork.LinkClicked
-        Try
-            If mtbAIRSNumber.Text = "" Or mtbAIRSNumber.Text.Length <> 8 Then
-                mtbAIRSNumber.BackColor = Color.Tomato
-                MsgBox("Please select a valid AIRS # first.", MsgBoxStyle.Exclamation, Me.Text)
-                If TCFacilitySummary.TabPages.Contains(TPISMPTestingWork) = True Then
-                    TCFacilitySummary.TabPages.Remove(TPISMPTestingWork)
-                End If
-                Exit Sub
-            End If
-            mtbAIRSNumber.BackColor = Color.White
-            dsISMP = New DataSet
-
-            If TCFacilitySummary.TabPages.Contains(TPISMPTestingWork) = False Then
-                TCFacilitySummary.TabPages.Add(TPISMPTestingWork)
-            End If
-
-            SQL = "Select AIRBRANCH.VW_ISMPWorkDataGrid.*, strPreComplianceStatus  " & _
-            "from AIRBRANCH.VW_ISMPWorkDataGrid, AIRBRANCH.ISMPReportInformation " & _
-            "where AIRBRANCH.VW_ISMPWorkDataGrid.strReferenceNumber = " & _
-            "AIRBRANCH.ISMPReportInformation.strReferenceNumber " & _
-            "and strAIRSNUmber = '0413" & mtbAIRSNumber.Text & "' " & _
-            SQLLine '& _
-            ' "order by AIRBRANCH.ISMPReportInformation.strReferenceNumber DESC "
-
-            daISMP = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daISMP.Fill(dsISMP, "ISMPWork")
-
-            SQL = "Select strTestLogNumber, " & _
-            "(strLastName||', '||strFirstName) as Engineer,  " & _
-            "strEmissionUnit, strUnitDesc, " & _
-            "datTestNotification, datProposedstartDate,  " & _
-            "datProposedEndDate, strComments  " & _
-            "from AIRBRANCH.ISMPTestNotification, AIRBRANCH.EPDUserProfiles, " & _
-            "AIRBRANCH.LookUpEPDUnits  " & _
-            "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPTestNotification.strStaffResponsible  " & _
-            "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " & _
-            "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  " & _
-            "order by strTestLogNumber DESC "
-
-            daISMP = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daISMP.Fill(dsISMP, "ISMPTestLog")
-
-            SQL = "Select AIRBRANCH.ISMPTestREportMemo.strReferenceNumber, " & _
-            "strMemorandumField " & _
-            "from AIRBRANCH.ISMPTestREportMemo, AIRBRANCH.ISMPMaster " & _
-            "where AIRBRANCH.ISMPTestREportMemo.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber " & _
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
-            SQLLine & _
-            "Order by AIRBRANCH.ISMPTestREportMemo.strReferenceNumber DESC "
-
-            daISMP = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daISMP.Fill(dsISMP, "ISMPMemo")
-
-            dgvISMPWork.DataSource = dsISMP
-            dgvISMPWork.DataMember = "ISMPWork"
-
-            dgvISMPWork.RowHeadersVisible = False
-            dgvISMPWork.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvISMPWork.AllowUserToResizeColumns = True
-            dgvISMPWork.AllowUserToAddRows = False
-            dgvISMPWork.AllowUserToDeleteRows = False
-            dgvISMPWork.AllowUserToOrderColumns = True
-            dgvISMPWork.AllowUserToResizeRows = True
-
-            dgvISMPWork.Columns("strAIRSNumber").HeaderText = "AIRS Number"
-            dgvISMPWork.Columns("strAIRSNumber").DisplayIndex = 0
-            dgvISMPWork.Columns("strAIRSNumber").Visible = False
-            dgvISMPWork.Columns("strReferenceNumber").HeaderText = "Reference Number"
-            dgvISMPWork.Columns("strReferenceNumber").DisplayIndex = 1
-            dgvISMPWork.Columns("strReferenceNumber").Width = 100
-            dgvISMPWork.Columns("strEmissionSource").HeaderText = "Emission Source"
-            dgvISMPWork.Columns("strEmissionSource").DisplayIndex = 2
-            dgvISMPWork.Columns("strEmissionSource").Width = 200
-            dgvISMPWork.Columns("strPollutantDescription").HeaderText = "Pollutant"
-            dgvISMPWork.Columns("strPollutantDescription").DisplayIndex = 3
-            dgvISMPWork.Columns("strReportType").HeaderText = "Report Type"
-            dgvISMPWork.Columns("strReportType").DisplayIndex = 4
-            dgvISMPWork.Columns("ReviewingEngineer").HeaderText = "Reviewing Engineer"
-            dgvISMPWork.Columns("ReviewingEngineer").DisplayIndex = 7
-            dgvISMPWork.Columns("TestDateStart").HeaderText = "Test Date"
-            dgvISMPWork.Columns("TestDateStart").DisplayIndex = 8
-            dgvISMPWork.Columns("TestDateStart").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvISMPWork.Columns("ReceivedDate").HeaderText = "Received Date"
-            dgvISMPWork.Columns("ReceivedDate").DisplayIndex = 9
-            dgvISMPWork.Columns("ReceivedDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvISMPWork.Columns("DatReceivedDate").HeaderText = "Received Date"
-            dgvISMPWork.Columns("DatReceivedDate").DisplayIndex = 10
-            dgvISMPWork.Columns("DatReceivedDate").Visible = False
-            dgvISMPWork.Columns("CompleteDate").HeaderText = "Complete Date"
-            dgvISMPWork.Columns("CompleteDate").DisplayIndex = 11
-            dgvISMPWork.Columns("CompleteDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvISMPWork.Columns("strComplianceStatus").HeaderText = "Compliance Status"
-            dgvISMPWork.Columns("strComplianceStatus").DisplayIndex = 12
-            dgvISMPWork.Columns("Status").HeaderText = "Compliance Status"
-            dgvISMPWork.Columns("Status").DisplayIndex = 13
-            dgvISMPWork.Columns("MMOCommentArea").HeaderText = "Comment Field"
-            dgvISMPWork.Columns("MMOCommentArea").DisplayIndex = 14
-            dgvISMPWork.Columns("strDocumentType").HeaderText = "Document Type"
-            dgvISMPWork.Columns("strDocumentType").DisplayIndex = 5
-            dgvISMPWork.Columns("strApplicableRequirement").HeaderText = "Applicable Requirement"
-            dgvISMPWork.Columns("strApplicableRequirement").DisplayIndex = 15
-            dgvISMPWork.Columns("strUnitTitle").HeaderText = "Reviewing Unit"
-            dgvISMPWork.Columns("strUnitTitle").DisplayIndex = 6
-            dgvISMPWork.Columns("strPreComplianceStatus").HeaderText = "Pre-Compliance Status"
-            dgvISMPWork.Columns("strPreComplianceStatus").DisplayIndex = 16
-
-            dgvISMPTestNotification.DataSource = dsISMP
-            dgvISMPTestNotification.DataMember = "ISMPTestLog"
-
-            dgvISMPTestNotification.RowHeadersVisible = False
-            dgvISMPTestNotification.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvISMPTestNotification.AllowUserToResizeColumns = True
-            dgvISMPTestNotification.AllowUserToAddRows = False
-            dgvISMPTestNotification.AllowUserToDeleteRows = False
-            dgvISMPTestNotification.AllowUserToOrderColumns = True
-            dgvISMPTestNotification.AllowUserToResizeRows = True
-            dgvISMPTestNotification.Columns("strTestLogNumber").HeaderText = "Test Log Number"
-            dgvISMPTestNotification.Columns("strTestLogNumber").DisplayIndex = 0
-            dgvISMPTestNotification.Columns("Engineer").HeaderText = "ISMP Engineer"
-            dgvISMPTestNotification.Columns("Engineer").DisplayIndex = 3
-            dgvISMPTestNotification.Columns("strEmissionUnit").HeaderText = "Emission Source"
-            dgvISMPTestNotification.Columns("strEmissionUnit").DisplayIndex = 1
-            dgvISMPTestNotification.Columns("strEmissionUnit").Width = 100
-            dgvISMPTestNotification.Columns("strUnitDesc").HeaderText = "ISMP Unit"
-            dgvISMPTestNotification.Columns("strUnitDesc").DisplayIndex = 2
-            dgvISMPTestNotification.Columns("strUnitDesc").Width = 200
-            dgvISMPTestNotification.Columns("datTestNotification").HeaderText = "Date Notified"
-            dgvISMPTestNotification.Columns("datTestNotification").DisplayIndex = 4
-            dgvISMPTestNotification.Columns("datTestNotification").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvISMPTestNotification.Columns("datProposedstartDate").HeaderText = "Proposed Date"
-            dgvISMPTestNotification.Columns("datProposedstartDate").DisplayIndex = 5
-            dgvISMPTestNotification.Columns("datProposedstartDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvISMPTestNotification.Columns("datProposedEndDate").HeaderText = "Proposed End Date"
-            dgvISMPTestNotification.Columns("datProposedEndDate").DisplayIndex = 6
-            dgvISMPTestNotification.Columns("datProposedEndDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvISMPTestNotification.Columns("strComments").HeaderText = "Comments"
-            dgvISMPTestNotification.Columns("strComments").DisplayIndex = 7
-
-            dgvISMPMemo.DataSource = dsISMP
-            dgvISMPMemo.DataMember = "ISMPMemo"
-
-            dgvISMPMemo.RowHeadersVisible = False
-            dgvISMPMemo.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvISMPMemo.AllowUserToResizeColumns = True
-            dgvISMPMemo.AllowUserToAddRows = False
-            dgvISMPMemo.AllowUserToDeleteRows = False
-            dgvISMPMemo.AllowUserToOrderColumns = True
-            dgvISMPMemo.AllowUserToResizeRows = True
-            dgvISMPMemo.Columns("strReferenceNumber").HeaderText = "Reference Number"
-            dgvISMPMemo.Columns("strReferenceNumber").DisplayIndex = 0
-            dgvISMPMemo.Columns("strMemorandumField").HeaderText = "Memo Field"
-            dgvISMPMemo.Columns("strMemorandumField").DisplayIndex = 1
-            dgvISMPMemo.Columns("strMemorandumField").Width = 500
-
-            LoadCompliaceColor()
-
-
-            If TCFacilitySummary.TabPages.Contains(TPISMPTestingWork) Then
-                If TCFacilitySummary.TabPages.IndexOf(TPISMPTestingWork) <> -1 Then
-                    TCFacilitySummary.SelectedIndex = TCFacilitySummary.TabPages.IndexOf(TPISMPTestingWork)
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-#Region "ISMP Monitoring Work"
+#Region " ... ISMP Monitoring Work"
     Private Sub dgvISMPWork_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvISMPWork.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvISMPWork.HitTest(e.X, e.Y)
 
@@ -2252,8 +1377,8 @@ Public Class IAIPFacilitySummary
                     If ISMPCloseAndPrint Is Nothing Then ISMPCloseAndPrint = New ISMPClosePrint
                     ISMPCloseAndPrint.txtTestReportType.Text = dr.Item("strDocumentType")
                     ISMPCloseAndPrint.txtReferenceNumber.Text = txtReferenceNumber.Text
-                    ISMPCloseAndPrint.txtAIRSNumber.Text = mtbAIRSNumber.Text
-                    ISMPCloseAndPrint.txtFacilityName.Text = txtFacilityName.Text
+                    ISMPCloseAndPrint.txtAIRSNumber.Text = Me.AirsNumber.ToString
+                    ISMPCloseAndPrint.txtFacilityName.Text = selectedFacility.FacilityName
                     ISMPCloseAndPrint.txtOrigin.Text = "Facility Summary"
                     ISMPCloseAndPrint.Show()
                 End If
@@ -2301,163 +1426,7 @@ Public Class IAIPFacilitySummary
 
 #End Region
 
-    Private Sub llbComplianceWork_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbComplianceWork.LinkClicked
-        Try
-            If mtbAIRSNumber.Text = "" Or mtbAIRSNumber.Text.Length <> 8 Then
-                mtbAIRSNumber.BackColor = Color.Tomato
-                MsgBox("Please select a valid AIRS # first.", MsgBoxStyle.Exclamation, Me.Text)
-                If TCFacilitySummary.TabPages.Contains(TPComplianceWork) = True Then
-                    TCFacilitySummary.TabPages.Remove(TPComplianceWork)
-                End If
-                Exit Sub
-            End If
-            mtbAIRSNumber.BackColor = Color.White
-            dsSSCP = New DataSet
-
-            If TCFacilitySummary.TabPages.Contains(TPComplianceWork) = False Then
-                TCFacilitySummary.TabPages.Add(TPComplianceWork)
-            End If
-
-            SQL = "Select * " & _
-            "From AIRBRANCH.VW_SSCPWorkDataGrid " & _
-            "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
-            "Order by strTrackingNumber DESC "
-
-            daSSCP = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daSSCP.Fill(dsSSCP, "SSCPEvents")
-
-
-            SQL = "Select distinct(strEnforcementNumber), " & _
-           "Case  " & _
-           "	when datDiscoveryDate is Null then '' " & _
-           "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " & _
-           "END as Violationdate,  " & _
-           "strActionType as HPVStatus, " & _
-           "Case " & _
-           "	when datEnforcementFinalized Is Not NULL then 'Closed' " & _
-           "	when datEnforcementFinalized is NUll then 'Open' " & _
-           "Else 'Open' " & _
-           "End as Status, " & _
-           "substr(strAIRSNumber, 5) as AIRSNumber " & _
-           "from AIRBRANCH.SSCP_AuditedEnforcement  " & _
-           "Where  strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
-           "order by strENforcementNumber DESC "
-
-            daSSCP = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daSSCP.Fill(dsSSCP, "SSCPEnforcement")
-
-            SQL = "Select AIRBRANCH.SSCPFCEMaster.strFCENumber, " & _
-            "strFCEStatus, " & _
-            "(strLastname||', '||strFirstName) as ReviewingEngineer, " & _
-            "to_char(DatFCECompleted, 'dd-Mon-yyyy') as FCECompleted, " & _
-            "strFCEYear as FCEYear, " & _
-            "strFCEComments " & _
-            "from AIRBRANCH.SSCPFCE, AIRBRANCH.SSCPFCEMaster, AIRBRANCH.EPDuserProfiles " & _
-            "where StrAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
-            "and AIRBRANCH.SSCPFCEMaster.strFCENumber = AIRBRANCH.SSCPFCE.strFCENumber " & _
-            "and AIRBRANCH.EPDuserProfiles.numUserID = AIRBRANCH.SSCPFCE.strReviewer  " & _
-            "order by DatFCECompleted DESC "
-
-            daSSCP = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daSSCP.Fill(dsSSCP, "SSCPFCE")
-
-
-            dgvSSCPEvents.DataSource = dsSSCP
-            dgvSSCPEvents.DataMember = "SSCPEvents"
-
-            dgvSSCPEvents.RowHeadersVisible = False
-            dgvSSCPEvents.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvSSCPEvents.AllowUserToResizeColumns = True
-            dgvSSCPEvents.AllowUserToAddRows = False
-            dgvSSCPEvents.AllowUserToDeleteRows = False
-            dgvSSCPEvents.AllowUserToOrderColumns = True
-            dgvSSCPEvents.AllowUserToResizeRows = True
-            dgvSSCPEvents.Columns("strAIRSNumber").HeaderText = "AIRS Number"
-            dgvSSCPEvents.Columns("strAIRSNumber").DisplayIndex = 0
-            dgvSSCPEvents.Columns("strAIRSNumber").Visible = False
-            dgvSSCPEvents.Columns("strTrackingNumber").HeaderText = "Tracking Number"
-            dgvSSCPEvents.Columns("strTrackingNumber").DisplayIndex = 1
-            dgvSSCPEvents.Columns("strActivityName").HeaderText = "Event Type"
-            dgvSSCPEvents.Columns("strActivityName").DisplayIndex = 2
-            dgvSSCPEvents.Columns("ReceivedDate").HeaderText = "Received Date"
-            dgvSSCPEvents.Columns("ReceivedDate").DisplayIndex = 3
-            dgvSSCPEvents.Columns("ReceivedDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvSSCPEvents.Columns("datReceivedDate").HeaderText = "ReceivedDate"
-            dgvSSCPEvents.Columns("datReceivedDate").DisplayIndex = 4
-            dgvSSCPEvents.Columns("datReceivedDate").Visible = False
-
-            dgvSSCPEnforcement.DataSource = dsSSCP
-            dgvSSCPEnforcement.DataMember = "SSCPEnforcement"
-
-            dgvSSCPEnforcement.RowHeadersVisible = False
-            dgvSSCPEnforcement.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvSSCPEnforcement.AllowUserToResizeColumns = True
-            dgvSSCPEnforcement.AllowUserToAddRows = False
-            dgvSSCPEnforcement.AllowUserToDeleteRows = False
-            dgvSSCPEnforcement.AllowUserToOrderColumns = True
-            dgvSSCPEnforcement.AllowUserToResizeRows = True
-            dgvSSCPEnforcement.Columns("strEnforcementNumber").HeaderText = "Enforcement Number"
-            dgvSSCPEnforcement.Columns("strEnforcementNumber").DisplayIndex = 0
-            dgvSSCPEnforcement.Columns("Violationdate").HeaderText = "Violation Discovery Date"
-            dgvSSCPEnforcement.Columns("Violationdate").DisplayIndex = 1
-            dgvSSCPEnforcement.Columns("Violationdate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvSSCPEnforcement.Columns("HPVStatus").HeaderText = "HPV Status"
-            dgvSSCPEnforcement.Columns("HPVStatus").DisplayIndex = 2
-            dgvSSCPEnforcement.Columns("Status").HeaderText = "Open/Closed"
-            dgvSSCPEnforcement.Columns("Status").DisplayIndex = 3
-            dgvSSCPEnforcement.Columns("AIRSNumber").HeaderText = "AIRS Number"
-            dgvSSCPEnforcement.Columns("AIRSNumber").DisplayIndex = 4
-            dgvSSCPEnforcement.Columns("AIRSNumber").Visible = False
-
-            dgvFCEData.DataSource = dsSSCP
-            dgvFCEData.DataMember = "SSCPFCE"
-
-            dgvFCEData.RowHeadersVisible = False
-            dgvFCEData.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFCEData.AllowUserToResizeColumns = True
-            dgvFCEData.AllowUserToAddRows = False
-            dgvFCEData.AllowUserToDeleteRows = False
-            dgvFCEData.AllowUserToOrderColumns = True
-            dgvFCEData.AllowUserToResizeRows = True
-            dgvFCEData.Columns("strFCENumber").HeaderText = "FCE Number"
-            dgvFCEData.Columns("strFCENumber").DisplayIndex = 5
-            dgvFCEData.Columns("strFCENumber").Visible = False
-            dgvFCEData.Columns("strFCEStatus").HeaderText = "FCE Status"
-            dgvFCEData.Columns("strFCEStatus").DisplayIndex = 4
-            dgvFCEData.Columns("strFCEStatus").Visible = False
-            dgvFCEData.Columns("ReviewingEngineer").HeaderText = "Reviewing Engineer"
-            dgvFCEData.Columns("ReviewingEngineer").DisplayIndex = 2
-            dgvFCEData.Columns("FCECompleted").HeaderText = "FCE Complete Date"
-            dgvFCEData.Columns("FCECompleted").DisplayIndex = 1
-            dgvFCEData.Columns("FCECompleted").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvFCEData.Columns("FCEYear").HeaderText = "FCE Year"
-            dgvFCEData.Columns("FCEYear").DisplayIndex = 0
-            dgvFCEData.Columns("strFCEComments").HeaderText = "FCE Comments"
-            dgvFCEData.Columns("strFCEComments").DisplayIndex = 3
-
-            If TCFacilitySummary.TabPages.Contains(TPComplianceWork) Then
-                If TCFacilitySummary.TabPages.IndexOf(TPComplianceWork) <> -1 Then
-                    TCFacilitySummary.SelectedIndex = TCFacilitySummary.TabPages.IndexOf(TPComplianceWork)
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-#Region "SSCP Compliance Work"
+#Region " ... SSCP Compliance Work"
     Private Sub dgvSSCPEvents_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvSSCPEvents.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvSSCPEvents.HitTest(e.X, e.Y)
 
@@ -2544,18 +1513,14 @@ Public Class IAIPFacilitySummary
     End Sub
     Private Sub ViewFCE()
         Try
-            If mtbAIRSNumber.Text.Length <> 8 Then
+            If Me.AirsNumber Is Nothing Then
                 MsgBox("Please Enter a valid AIRS Number.", MsgBoxStyle.Information, "Facility Summary Warning")
             Else
-                If txtFacilityName.Text = "" Then
-                    MsgBox("Please verify that the AIRS Number is correct", MsgBoxStyle.Information, "Facility Summary Warning")
-                Else
-                    SSCPFCE = Nothing
-                    If SSCPFCE Is Nothing Then SSCPFCE = New SSCPFCEWork
-                    SSCPFCE.txtAirsNumber.Text = Me.mtbAIRSNumber.Text
-                    SSCPFCE.txtOrigin.Text = "Facility Summary"
-                    SSCPFCE.Show()
-                End If
+                SSCPFCE = Nothing
+                If SSCPFCE Is Nothing Then SSCPFCE = New SSCPFCEWork
+                SSCPFCE.txtAirsNumber.Text = Me.AirsNumber.ToString
+                SSCPFCE.txtOrigin.Text = "Facility Summary"
+                SSCPFCE.Show()
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2564,348 +1529,10 @@ Public Class IAIPFacilitySummary
 
 #End Region
 
-    Private Sub llbPermittingData_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbPermittingData.LinkClicked
-        Try
-            If mtbAIRSNumber.Text = "" Or mtbAIRSNumber.Text.Length <> 8 Then
-                mtbAIRSNumber.BackColor = Color.Tomato
-                MsgBox("Please select a valid AIRS # first.", MsgBoxStyle.Exclamation, Me.Text)
-                If TCFacilitySummary.TabPages.Contains(TPPermittingData) = True Then
-                    TCFacilitySummary.TabPages.Remove(TPPermittingData)
-                End If
-                Exit Sub
-            End If
-            mtbAIRSNumber.BackColor = Color.White
-            dsSSPP = New DataSet
-
-            If TCFacilitySummary.TabPages.Contains(TPPermittingData) = False Then
-                TCFacilitySummary.TabPages.Add(TPPermittingData)
-            End If
-
-            SQL = "Select  " & _
-           "distinct(to_Number(AIRBRANCH.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,   " & _
-           "  case   " & _
-           "	when strApplicationTypeDesc IS Null then ' '   " & _
-           "Else strApplicationTypeDesc   " & _
-           "End as strApplicationType,   " & _
-           "case   " & _
-           "	when datReceivedDate is Null then ' '   " & _
-           "Else to_char(datReceivedDate, 'RRRR-MM-dd')   " & _
-           "End as datReceivedDate,   " & _
-           "case    " & _
-        " when strPermitNumber is NULL then ' '    " & _
-        "  else substr(strPermitNumber, 1, 4)|| '-' ||substr(strPermitNumber, 5, 3)|| '-'    " & _
-        " ||substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)|| '-'   " & _
-        " ||substr(strPermitNumber, 13, 2)|| '-' ||substr(strPermitNumber, 15, 1)   " & _
-          " end As strPermitNumber,   " & _
-           "case   " & _
-   "	when datPermitIssued is Null then ' '   " & _
-   "else to_char(datPermitIssued, 'RRRR-MM-dd')   " & _
-   "end as datPermitIssued,   " & _
-   "case   " & _
-   "	when strStaffResponsible = '0' then ' '   " & _
-   "	when strStaffResponsible is Null then ' '   " & _
-   "else (strLastName||', '||strFirstName)   " & _
-   "end as StaffResponsible,   " & _
-   "case   " & _
-   "	when AIRBRANCH.SSPPApplicationData.strFacilityName is Null then ' '   " & _
-   "else AIRBRANCH.SSPPApplicationData.strFacilityName   " & _
-   "end as strFacilityName,   " & _
-   "case   " & _
-   "	when AIRBRANCH.SSPPApplicationMaster.strAIRSNumber is Null then ' '   " & _
-   "	when AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = '0413' then ' '   " & _
-   "else substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5)   " & _
-   "end as strAIRSNumber,   " & _
-  "case   " & _
-  "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out'   " & _
-  "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '09 - Administrative Review'   " & _
-  "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - Administrative Review'   " & _
-  "when datEPAEnds is not Null then '08 - EPA 45-day Review'   " & _
-  "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'   " & _
-  "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'    " & _
-  "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'    " & _
-  "when dattoPMII is Not Null then '04 - AT PM'    " & _
-  "when dattoPMI is Not Null then '03 - At UC'    " & _
-  "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then '02 - Internal Review'   " & _
-  "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'     " & _
-  "else '01 - At Engineer'    " & _
-  "end as AppStatus,   " & _
-  "   case   " & _
-  "	when strPermitTypeDescription is Null then ''   " & _
-  "else strPermitTypeDescription   " & _
-  "End as strPermitType,   " & _
-  "case    " & _
-  "when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd')      " & _
-  "when datFinalizedDate is Not Null then to_char(datFinalizedDate, 'RRRR-MM-dd')   " & _
-  "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then to_char(datToDirector, 'RRRR-MM-dd')   " & _
-  "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then to_char(DatTOBranchCheif, 'RRRR-MM-dd')    " & _
-  "when datEPAEnds is not Null then to_char(datEPAEnds, 'RRRR-MM-dd')     " & _
-  "when datPNExpires is Not Null and datPNExpires < sysdate then to_char(datPNExpires, 'RRRR-MM-dd')     " & _
-  "when datPNExpires is Not Null and datPNExpires >= sysdate then to_char(datPNExpires, 'RRRR-MM-dd')      " & _
-  "when datDraftIssued is Not Null and datPNExpires is Null then to_char(datDraftIssued, 'RRRR-MM-dd')      " & _
-  "when dattoPMII is Not Null then to_char(datToPMII, 'RRRR-MM-dd')      " & _
-  "when dattoPMI is Not Null then to_char(datToPMI, 'RRRR-MM-dd')      " & _
-  "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then to_char(datReviewSubmitted, 'RRRR-MM-dd')     " & _
-  "when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown'      " & _
-  "else to_char(datAssignedToEngineer, 'RRRR-MM-dd')      " & _
-  "end as StatusDate    " & _
-   "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,   " & _
-   "AIRBRANCH.SSPPApplicationData,   " & _
-   "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUPPermitTypes,   " & _
-   "AIRBRANCH.EPDUserProfiles  " & _
-   "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber (+)    " & _
-   "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber (+)   " & _
-   "and strApplicationType = strApplicationTypeCode (+)   " & _
-   "and strPermitType = strPermitTypeCode (+)   " & _
-   "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID (+)   " & _
-         "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'   "
-
-            SQL = SQL & SQLLine & "order by strApplicationNumber DESC "
-
-            daSSPP = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daSSPP.Fill(dsSSPP, "ApplictionLog")
-
-            SQL = "select " & _
-            "substr(strAIRSNumber, 5) as AIRSNumber,  " & _
-            "'0-SIP' as Subpart, " & _
-            "AIRBRANCH.LookUpSUBPartSip.strSubpart, " & _
-            "AIRBRANCH.LookUpSubpartSIP.strDescription, " & _
-            "AIRBRANCH.APBSubpartData.CreateDateTime " & _
-            "from AIRBRANCH.APBSubpartData, AIRBRANCH.LookUpSubPartSIP " & _
-            "where AIRBRANCH.APBSubpartData.strSubpart = AIRBRANCH.LookUpSubpartSIP.strSubpart " & _
-            "and ACTIVE <> '0' " & _
-            "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
-            "and substr(strSubpartKey, 13, 1) = '0' " & _
-            "Union " & _
-            "select " & _
-            "substr(strAIRSNumber, 5) as AIRSNumber,  " & _
-            "'9-NSPS(Part 60)' as Subpart, " & _
-            "AIRBRANCH.LookUpSUBPart60.strSubpart, " & _
-            "AIRBRANCH.LookUpSubpart60.strDescription, " & _
-            "AIRBRANCH.APBSubpartData.CreateDateTime " & _
-            "from AIRBRANCH.APBSubpartData, AIRBRANCH.LookUpSubPart60 " & _
-            "where AIRBRANCH.APBSubpartData.strSubpart = AIRBRANCH.LookUpSubpart60.strSubpart " & _
-            "and ACTIVE <> '0' " & _
-            "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
-            "and substr(strSubpartKey, 13, 1) = '9' " & _
-            "Union " & _
-            "select " & _
-            "substr(strAIRSNumber, 5) as AIRSNumber,  " & _
-            "'8-NESHAP(Part 61)' as Subpart, " & _
-            "AIRBRANCH.LookUpSUBPart61.strSubpart, " & _
-            "AIRBRANCH.LookUpSubpart61.strDescription, " & _
-            "AIRBRANCH.APBSubpartData.CreateDateTime " & _
-            "from AIRBRANCH.APBSubpartData, AIRBRANCH.LookUpSubPart61 " & _
-            "where AIRBRANCH.APBSubpartData.strSubpart = AIRBRANCH.LookUpSubpart61.strSubpart " & _
-            "and ACTIVE <> '0' " & _
-            "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
-            "and substr(strSubpartKey, 13, 1) = '8' " & _
-            "UNION " & _
-            "select " & _
-            "substr(strAIRSNumber, 5) as AIRSNumber,  " & _
-            "'M-MACT(Part 63)' as Subpart, " & _
-            "AIRBRANCH.LookUpSUBPart63.strSubpart, " & _
-            "AIRBRANCH.LookUpSubpart63.strDescription, " & _
-            "AIRBRANCH.APBSubpartData.CreateDateTime " & _
-            "from AIRBRANCH.APBSubpartData, AIRBRANCH.LookUpSubPart63 " & _
-            "where AIRBRANCH.APBSubpartData.strSubpart = AIRBRANCH.LookUpSubpart63.strSubpart " & _
-            "and ACTIVE <> '0' " & _
-            "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
-            "and substr(strSubpartKey, 13, 1) = 'M' "
-
-            daSSPP = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daSSPP.Fill(dsSSPP, "ActiveRules")
-
-            SQL = "select " & _
-            "'0-SIP' as Subpart,  " & _
-            "AIRBRANCH.LookUpSubpartSIP.strSubpart,  " & _
-            "AIRBRANCH.LookupSubpartSIP.strDescription,  " & _
-            "AIRBRANCH.SSPPSubpartData.strApplicationNumber,  " & _
-            "AIRBRANCH.SSPPSubpartData.CreateDateTime,  " & _
-            "case  " & _
-            "when strApplicationActivity = '0' then 'Removed'  " & _
-            "when strApplicationActivity = '1' then 'Added'  " & _
-            "when strApplicationActivity = '2' then 'Modified'  " & _
-            "End AppActivity  " & _
-            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPSubpartData,  " & _
-            "AIRBRANCH.LookUpSubpartSIP  " & _
-            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber =  " & _
-            "   AIRBRANCH.SSPPSubpartData.strApplicationNumber  " & _
-            "and AIRBRANCH.SSPPSubpartData.strSubPart = AIRBRANCH.LookUPSubpartSIP.strSubpart  " & _
-            "and strAIRSnumber = '0413" & mtbAIRSNumber.Text & "' " & _
-            "and substr(strSubpartKey, 6,1) = '0'  " & _
-            "union  " & _
-            "select  " & _
-            "'9-NSPS(Part 60)' as Subpart,  " & _
-            "AIRBRANCH.LookUpSubpart60.strSubpart,  " & _
-            "AIRBRANCH.LookupSubpart60.strDescription,  " & _
-            "AIRBRANCH.SSPPSubpartData.strApplicationNumber,  " & _
-            "AIRBRANCH.SSPPSubpartData.CreateDateTime,  " & _
-            "case  " & _
-            "when strApplicationActivity = '0' then 'Removed'  " & _
-            "when strApplicationActivity = '1' then 'Added'  " & _
-            "when strApplicationActivity = '2' then 'Modified'  " & _
-            "End AppActivity  " & _
-            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPSubpartData,  " & _
-            "AIRBRANCH.LookUpSubpart60  " & _
-            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber =  " & _
-            "   AIRBRANCH.SSPPSubpartData.strApplicationNumber  " & _
-            "and AIRBRANCH.SSPPSubpartData.strSubPart = AIRBRANCH.LookUPSubpart60.strSubpart  " & _
-            "and strAIRSnumber = '0413" & mtbAIRSNumber.Text & "' " & _
-            "and substr(strSubpartKey, 6,1) = '9' " & _
-            "Union  " & _
-            "select  " & _
-            "'8-NESHAP(Part 61)' as Subpart,  " & _
-            "AIRBRANCH.LookUpSubpart61.strSubpart,  " & _
-            "AIRBRANCH.LookupSubpart61.strDescription,  " & _
-            "AIRBRANCH.SSPPSubpartData.strApplicationNumber,  " & _
-            "AIRBRANCH.SSPPSubpartData.CreateDateTime,  " & _
-            "case  " & _
-            "when strApplicationActivity = '0' then 'Removed'  " & _
-            "when strApplicationActivity = '1' then 'Added'  " & _
-            "when strApplicationActivity = '2' then 'Modified'  " & _
-            "End AppActivity  " & _
-            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPSubpartData,  " & _
-            "AIRBRANCH.LookUpSubpart61  " & _
-            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber =  " & _
-            "   AIRBRANCH.SSPPSubpartData.strApplicationNumber  " & _
-            "and AIRBRANCH.SSPPSubpartData.strSubPart = AIRBRANCH.LookUPSubpart61.strSubpart  " & _
-            "and strAIRSnumber = '0413" & mtbAIRSNumber.Text & "' " & _
-            "and substr(strSubpartKey, 6,1) = '8' " & _
-            "Union  " & _
-            "select  " & _
-            "'M-MACT(Part 63)' as Subpart,  " & _
-            "AIRBRANCH.LookUpSubpart63.strSubpart,  " & _
-            "AIRBRANCH.LookupSubpart63.strDescription,  " & _
-            "AIRBRANCH.SSPPSubpartData.strApplicationNumber,  " & _
-            "AIRBRANCH.SSPPSubpartData.CreateDateTime,  " & _
-            "case  " & _
-            "when strApplicationActivity = '0' then 'Removed'  " & _
-            "when strApplicationActivity = '1' then 'Added'  " & _
-            "when strApplicationActivity = '2' then 'Modified'  " & _
-            "End AppActivity  " & _
-            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPSubpartData,  " & _
-            "AIRBRANCH.LookUpSubpart63  " & _
-            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber =  " & _
-            "   AIRBRANCH.SSPPSubpartData.strApplicationNumber  " & _
-            "and AIRBRANCH.SSPPSubpartData.strSubPart = AIRBRANCH.LookUPSubpart63.strSubpart  " & _
-            "and strAIRSnumber = '0413" & mtbAIRSNumber.Text & "' " & _
-            "and substr(strSubpartKey, 6,1) = 'M'"
-
-            daSSPP = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daSSPP.Fill(dsSSPP, "RuleHistory")
-
-            dgvApplicationLog.DataSource = dsSSPP
-            dgvApplicationLog.DataMember = "ApplictionLog"
-
-            dgvApplicationLog.RowHeadersVisible = False
-            dgvApplicationLog.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvApplicationLog.AllowUserToResizeColumns = True
-            dgvApplicationLog.AllowUserToAddRows = False
-            dgvApplicationLog.AllowUserToDeleteRows = False
-            dgvApplicationLog.AllowUserToOrderColumns = True
-            dgvApplicationLog.AllowUserToResizeRows = True
-            dgvApplicationLog.Columns("strApplicationNumber").HeaderText = "APL #"
-            dgvApplicationLog.Columns("strApplicationNumber").DisplayIndex = 0
-            dgvApplicationLog.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvApplicationLog.Columns("strFacilityName").DisplayIndex = 1
-            dgvApplicationLog.Columns("strAIRSNumber").HeaderText = "AIRS #"
-            dgvApplicationLog.Columns("strAIRSNumber").DisplayIndex = 2
-            dgvApplicationLog.Columns("StaffResponsible").HeaderText = "Staff Responsible"
-            dgvApplicationLog.Columns("StaffResponsible").DisplayIndex = 3
-            dgvApplicationLog.Columns("strApplicationType").HeaderText = "APL Type"
-            dgvApplicationLog.Columns("strApplicationType").DisplayIndex = 4
-            dgvApplicationLog.Columns("datReceivedDate").HeaderText = "APL Rcvd"
-            dgvApplicationLog.Columns("datReceivedDate").DisplayIndex = 5
-            dgvApplicationLog.Columns("datReceivedDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvApplicationLog.Columns("datPermitIssued").HeaderText = "Permit Issued"
-            dgvApplicationLog.Columns("datPermitIssued").DisplayIndex = 6
-            dgvApplicationLog.Columns("datPermitIssued").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvApplicationLog.Columns("strPermitNumber").HeaderText = "Permit Number"
-            dgvApplicationLog.Columns("strPermitNumber").DisplayIndex = 7
-            dgvApplicationLog.Columns("strPermitType").HeaderText = "Action Type"
-            dgvApplicationLog.Columns("strPermitType").DisplayIndex = 8
-            dgvApplicationLog.Columns("AppStatus").HeaderText = "App Status"
-            dgvApplicationLog.Columns("AppStatus").DisplayIndex = 9
-            dgvApplicationLog.Columns("StatusDate").HeaderText = "Status Date"
-            dgvApplicationLog.Columns("StatusDate").DisplayIndex = 10
-            dgvApplicationLog.Columns("StatusDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-
-            dgvActiveRules.DataSource = dsSSPP
-            dgvActiveRules.DataMember = "ActiveRules"
-
-            dgvActiveRules.RowHeadersVisible = False
-            dgvActiveRules.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvActiveRules.AllowUserToResizeColumns = True
-            dgvActiveRules.AllowUserToAddRows = False
-            dgvActiveRules.AllowUserToDeleteRows = False
-            dgvActiveRules.AllowUserToOrderColumns = True
-            dgvActiveRules.AllowUserToResizeRows = True
-            dgvActiveRules.Columns("Subpart").HeaderText = "Subpart"
-            dgvActiveRules.Columns("Subpart").DisplayIndex = 0
-            dgvActiveRules.Columns("strSubpart").HeaderText = "Rule"
-            dgvActiveRules.Columns("strSubpart").DisplayIndex = 1
-            dgvActiveRules.Columns("strDescription").HeaderText = "Description"
-            dgvActiveRules.Columns("strDescription").DisplayIndex = 2
-            dgvActiveRules.Columns("strDescription").Width = 400
-            dgvActiveRules.Columns("CreateDateTime").HeaderText = "Initial Applicability"
-            dgvActiveRules.Columns("CreateDateTime").DisplayIndex = 3
-            dgvActiveRules.Columns("CreateDateTime").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvActiveRules.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvActiveRules.Columns("AIRSNumber").DisplayIndex = 4
-            dgvActiveRules.Columns("AIRSNumber").Visible = False
-
-            dgvRuleHistory.DataSource = dsSSPP
-            dgvRuleHistory.DataMember = "RuleHistory"
-
-            dgvRuleHistory.RowHeadersVisible = False
-            dgvRuleHistory.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvRuleHistory.AllowUserToResizeColumns = True
-            dgvRuleHistory.AllowUserToAddRows = False
-            dgvRuleHistory.AllowUserToDeleteRows = False
-            dgvRuleHistory.AllowUserToOrderColumns = True
-            dgvRuleHistory.AllowUserToResizeRows = True
-            dgvRuleHistory.Columns("strApplicationNumber").HeaderText = "App #"
-            dgvRuleHistory.Columns("strApplicationNumber").DisplayIndex = 0
-            dgvRuleHistory.Columns("AppActivity").HeaderText = "Action"
-            dgvRuleHistory.Columns("AppActivity").DisplayIndex = 1
-            dgvRuleHistory.Columns("Subpart").HeaderText = "Subpart"
-            dgvRuleHistory.Columns("Subpart").DisplayIndex = 2
-            dgvRuleHistory.Columns("strSubpart").HeaderText = "Rule"
-            dgvRuleHistory.Columns("strSubpart").DisplayIndex = 3
-            dgvRuleHistory.Columns("strDescription").HeaderText = "Description"
-            dgvRuleHistory.Columns("strDescription").DisplayIndex = 4
-            dgvRuleHistory.Columns("strDescription").Width = 250
-            dgvRuleHistory.Columns("CreateDateTime").HeaderText = "Action Date"
-            dgvRuleHistory.Columns("CreateDateTime").DisplayIndex = 5
-            dgvRuleHistory.Columns("CreateDateTime").DefaultCellStyle.Format = "dd-MMM-yyyy"
-
-            LoadPermitsData()
-
-            If TCFacilitySummary.TabPages.Contains(TPPermittingData) Then
-                If TCFacilitySummary.TabPages.IndexOf(TPPermittingData) <> -1 Then
-                    TCFacilitySummary.SelectedIndex = TCFacilitySummary.TabPages.IndexOf(TPPermittingData)
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
+#Region " ... SSPP Permitting Work"
 
     Private Sub LoadPermitsData()
-        Dim allPermits As DataTable = DAL.SSPP.GetPermitsAsTable(mtbAIRSNumber.Text)
+        Dim allPermits As DataTable = DAL.SSPP.GetPermitsAsTable(Me.AirsNumber.ToString)
 
         dgvPermits.DataSource = allPermits
 
@@ -2938,7 +1565,6 @@ Public Class IAIPFacilitySummary
 
     End Sub
 
-#Region "SSPP Permitting Work"
     Private Sub dgvApplicationLog_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvApplicationLog.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvApplicationLog.HitTest(e.X, e.Y)
 
@@ -2978,420 +1604,12 @@ Public Class IAIPFacilitySummary
     End Sub
 
 #End Region
-    Private Sub llbPlanningSupport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbPlanningSupport.LinkClicked
-        Try
-            If mtbAIRSNumber.Text = "" Or mtbAIRSNumber.Text.Length <> 8 Then
-                mtbAIRSNumber.BackColor = Color.Tomato
-                MsgBox("Please select a valid AIRS # first.", MsgBoxStyle.Exclamation, Me.Text)
-                If TCFacilitySummary.TabPages.Contains(TPPlanningSupportData) = True Then
-                    TCFacilitySummary.TabPages.Remove(TPPlanningSupportData)
-                End If
-                Exit Sub
-            End If
-            mtbAIRSNumber.BackColor = Color.White
-            ds = New DataSet
 
-            If TCFacilitySummary.TabPages.Contains(TPPlanningSupportData) = False Then
-                TCFacilitySummary.TabPages.Add(TPPlanningSupportData)
-            End If
+#Region " ICIS-Air Update "
 
-            SQL = "select substr(AIRBRANCH.FS_FeeAuditedData.strAIRSNumber, 5) as AIRSNumber, " & _
-            "AIRBRANCH.FS_FeeAuditedData.numFeeYear,  " & _
-            "AIRBRANCH.FS_FeeAuditedData.intVOCTons,  " & _
-            "AIRBRANCH.FS_FeeAuditedData.intPMTons,  " & _
-            "AIRBRANCH.FS_FeeAuditedData.intSO2Tons,  " & _
-            "AIRBRANCH.FS_FeeAuditedData.intNOXTons,  " & _
-            "AIRBRANCH.FS_FeeAuditedData.numPart70Fee,  " & _
-            "AIRBRANCH.FS_FeeAuditedData.numSMFee,  " & _
-            "AIRBRANCH.FS_FeeAuditedData.numTotalFee,  " & _
-            "case " & _
-            "when AIRBRANCH.FS_FeeAuditedData.strNSPSExempt = '1' then 'YES' " & _
-            "when AIRBRANCH.FS_FeeAuditedData.strNSPSExempt = '0' then 'NO' " & _
-            "end strNSPSExempt, " & _
-            "'' as strNSPSReason,  " & _
-            "case " & _
-            "when AIRBRANCH.FS_FeeAuditedData.strOperate = '1' then 'YES' " & _
-            "when AIRBRANCH.FS_FeeAuditedData.strOperate = '0' then 'NO' " & _
-            "end strOperate, " & _
-            "AIRBRANCH.FS_FeeAuditedData.numFeeRate,  " & _
-            "AIRBRANCH.FS_FeeAuditedData.strNSPSExemptReason,  " & _
-            "case " & _
-            "when AIRBRANCH.FS_FeeAuditedData.strPart70 = '1' then 'YES' " & _
-            "when AIRBRANCH.FS_FeeAuditedData.strPart70 = '0' then 'NO' " & _
-            "end strPart70, " & _
-            "case " & _
-            "when AIRBRANCH.FS_FeeAuditedData.strSyntheticMinor = '1' then 'YES' " & _
-            "when AIRBRANCH.FS_FeeAuditedData.strSyntheticMinor = '0' then 'NO' " & _
-            "End strSyntheticMinor, " & _
-            "AIRBRANCH.FS_FeeAuditedData.numCalculatedFee,  " & _
-            "AIRBRANCH.FS_FeeAuditedData.strClass,  " & _
-            "case " & _
-            "when AIRBRANCH.FS_FeeAuditedData.strNSPS = '1' then 'YES' " & _
-            "when AIRBRANCH.FS_FeeAuditedData.strNSPS = '0' then 'NO' " & _
-            "end strNSPS,  " & _
-            "AIRBRANCH.FS_FeeAuditedData.datShutDown,  " & _
-            "AIRBRANCH.FS_FeeAuditedData.strPaymentPlan,  " & _
-            "AIRBRANCH.FS_FeeAuditedData.strOfficialName,  " & _
-            "AIRBRANCH.FS_FeeAuditedData.strOfficialTitle,  " & _
-            "case " & _
-            "when intSubmittal = '1' then 'YES' " & _
-            "when intSubmittal = '0' then 'NO' " & _
-            "end intSubmittal, " & _
-            "datSubmittal " & _
-            "from AIRBRANCH.FS_FeeAuditedData, AIRBRANCH.FS_Admin " & _
-            "where AIRBRANCH.FS_FeeAuditedData.strAIRSNUmber = '0413" & mtbAIRSNumber.Text & "' " & _
-            "and AIRBRANCH.FS_FeeAuditedData.strAIRSnumber = AIRBRANCH.FS_Admin.strAIRSnumber  " & _
-            "and AIRBRANCH.FS_FeeAuditedData.numFeeYear = AIRBRANCH.FS_Admin.numFeeYear " & _
-            "and AIRBRANCH.FS_Admin.active = '1' " & _
-            "and strEnrolled is not null " & _
-            "and strenrolled = '1'" & _
-            "order by AIRBRANCH.FS_FeeAuditedData.numFeeYear desc "
-
-            da = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "FeeData")
-
-
-            SQL = "select distinct " & _
-            "AIRBRANCH.FS_FeeInvoice.numFeeYear, " & _
-           "AIRBRANCH.FS_FeeInvoice.InvoiceID, " & _
-           "AIRBRANCH.FS_FeeInvoice.numAmount, " & _
-           "datInvoiceDate, " & _
-           "case " & _
-           "when AIRBRANCH.FS_FeeInvoice.active = '1' then 'Active' " & _
-           "when AIRBRANCH.FS_FeeInvoice.active = '0' then 'VOID' " & _
-           "end InvoiceStatus, strPayTypeDesc, " & _
-           "case " & _
-           "when strInvoiceStatus = '1' then 'Paid in Full' " & _
-           "when strInvoiceStatus = '0' and " & _
-           "(numPayment <> '0' and numPayment is not null and AIRBRANCH.FS_Transactions.active = '1') then 'Partial Payment' " & _
-           "when strInvoicestatus = '0' then 'Unpaid' " & _
-           "end PayStatus, " & _
-           "AIRBRANCH.FS_FeeInvoice.strComment " & _
-           "from AIRBRANCH.FS_FeeInvoice, AIRBRANCH.FSLK_PayType, " & _
-           "AIRBRANCH.FS_Transactions " & _
-           "where AIRBRANCH.FS_FeeInvoice.strPayType = AIRBRANCH.FSLK_PayType.nuMPayTypeID " & _
-           "and AIRBRANCH.FS_FeeInvoice.InvoiceID = AIRBRANCH.FS_Transactions.InvoiceID (+) " & _
-           "and AIRBRANCH.FS_FeeInvoice.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
-           "order by numFeeyear desc, datInvoiceDate desc  "
-
-            da = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "FeeInvoice")
-
-            SQL = "Select " & _
-            "substr(strAIRSNumber, 5) as AIRSNumber, numFeeYear,  " & _
-            "numPayment, dattransactiondate, Invoiceid, strCheckNo,  " & _
-            "strDepositNo, " & _
-            "case " & _
-            "when TRANSACTIONTYPECODE = '1' then 'Deposit' " & _
-            "when TRANSACTIONTYPECODE = '2' then 'Refund' " & _
-            "else 'N/A' " & _
-            "end TRANSACTIONTYPECODE, " & _
-            "strBatchNo,  " & _
-            "case " & _
-            "when strEntryPerson is null then '' " & _
-            "else (strLastName||', '||strFirstName) " & _
-            "end strEntryPerson, " & _
-            "strComment,  " & _
-            "transactionid  " & _
-            "from AIRBRANCH.FS_Transactions, AIRBRANCH.EPDUserProfiles " & _
-            "where AIRBRANCH.FS_Transactions.strEntryPerson = AIRBRANCH.EPDUserProfiles.numUserID (+) " & _
-            "and strAIRSnumber = '0413" & mtbAIRSNumber.Text & "' " & _
-            "and Active = '1' " & _
-            "order by numFeeYear desc, dattransactiondate desc "
-
-            da = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "FeeDeposits")
-
-            dgvFeeData.DataSource = ds
-            dgvFeeData.DataMember = "FeeData"
-
-            dgvFeeData.RowHeadersVisible = False
-            dgvFeeData.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvFeeData.Columns("AIRSNumber").DisplayIndex = 0
-            dgvFeeData.Columns("AIRSNumber").Width = 100
-            dgvFeeData.Columns("numFeeYear").HeaderText = "Year"
-            dgvFeeData.Columns("numFeeYear").DisplayIndex = 1
-            dgvFeeData.Columns("numFeeYear").Width = 80
-            dgvFeeData.Columns("intVOCTons").HeaderText = "VOC Tons"
-            dgvFeeData.Columns("intVOCTons").DisplayIndex = 2
-            dgvFeeData.Columns("intVOCTons").Width = 100
-            dgvFeeData.Columns("intPMTons").HeaderText = "PM Tons"
-            dgvFeeData.Columns("intPMTons").DisplayIndex = 3
-            dgvFeeData.Columns("intPMTons").Width = 80
-            dgvFeeData.Columns("intSO2Tons").HeaderText = "SO2 Tons"
-            dgvFeeData.Columns("intSO2Tons").DisplayIndex = 4
-            dgvFeeData.Columns("intSO2Tons").Width = 100
-            dgvFeeData.Columns("intNOXTons").HeaderText = "NOx Tons"
-            dgvFeeData.Columns("intNOXTons").DisplayIndex = 5
-            dgvFeeData.Columns("intNOXTons").Width = 100
-            dgvFeeData.Columns("numPart70Fee").HeaderText = "Part 70 Fees"
-            dgvFeeData.Columns("numPart70Fee").DisplayIndex = 6
-            dgvFeeData.Columns("numPart70Fee").Width = 100
-            dgvFeeData.Columns("numPart70Fee").DefaultCellStyle.Format = "c"
-            dgvFeeData.Columns("numSMFee").HeaderText = "SM Fees"
-            dgvFeeData.Columns("numSMFee").DisplayIndex = 7
-            dgvFeeData.Columns("numSMFee").Width = 100
-            dgvFeeData.Columns("numSMFee").DefaultCellStyle.Format = "c"
-            dgvFeeData.Columns("numTotalFee").HeaderText = "Total Fees"
-            dgvFeeData.Columns("numTotalFee").DisplayIndex = 8
-            dgvFeeData.Columns("numTotalFee").Width = 100
-            dgvFeeData.Columns("numTotalFee").DefaultCellStyle.Format = "c"
-            dgvFeeData.Columns("strNSPSExempt").HeaderText = "NSPS Exempt"
-            dgvFeeData.Columns("strNSPSExempt").DisplayIndex = 9
-            dgvFeeData.Columns("strNSPSExempt").Width = 100
-            dgvFeeData.Columns("strNSPSReason").HeaderText = "NSPS Exempt Reason"
-            dgvFeeData.Columns("strNSPSReason").DisplayIndex = 10
-            dgvFeeData.Columns("strNSPSReason").Width = 200
-            dgvFeeData.Columns("strOperate").HeaderText = "Operating"
-            dgvFeeData.Columns("strOperate").DisplayIndex = 11
-            dgvFeeData.Columns("strOperate").Width = 100
-            dgvFeeData.Columns("numFeeRate").HeaderText = "Fee Rate"
-            dgvFeeData.Columns("numFeeRate").DisplayIndex = 12
-            dgvFeeData.Columns("numFeeRate").Width = 100
-            dgvFeeData.Columns("numFeeRate").DefaultCellStyle.Format = "c"
-            dgvFeeData.Columns("strNSPSExemptReason").HeaderText = "NSPS Exempt Reason"
-            dgvFeeData.Columns("strNSPSExemptReason").DisplayIndex = 13
-            dgvFeeData.Columns("strNSPSExemptReason").Width = 200
-            dgvFeeData.Columns("strPart70").HeaderText = "Part 70 Status"
-            dgvFeeData.Columns("strPart70").DisplayIndex = 14
-            dgvFeeData.Columns("strPart70").Width = 100
-            dgvFeeData.Columns("strSyntheticMinor").HeaderText = "SM Status"
-            dgvFeeData.Columns("strSyntheticMinor").DisplayIndex = 15
-            dgvFeeData.Columns("strSyntheticMinor").Width = 100
-            dgvFeeData.Columns("numCalculatedFee").HeaderText = "Calculated Fees"
-            dgvFeeData.Columns("numCalculatedFee").DisplayIndex = 16
-            dgvFeeData.Columns("numCalculatedFee").Width = 100
-            dgvFeeData.Columns("numCalculatedFee").DefaultCellStyle.Format = "c"
-            dgvFeeData.Columns("strClass").HeaderText = "Classification"
-            dgvFeeData.Columns("strClass").DisplayIndex = 17
-            dgvFeeData.Columns("strClass").Width = 100
-            dgvFeeData.Columns("strNSPS").HeaderText = "NSPS"
-            dgvFeeData.Columns("strNSPS").DisplayIndex = 18
-            dgvFeeData.Columns("strNSPS").Width = 100
-            dgvFeeData.Columns("datShutDown").HeaderText = "Shutdown Date"
-            dgvFeeData.Columns("datShutDown").DisplayIndex = 19
-            dgvFeeData.Columns("datShutDown").Width = 100
-
-            dgvFeeData.Columns("strPaymentPlan").HeaderText = "Payment Type"
-            dgvFeeData.Columns("strPaymentPlan").DisplayIndex = 20
-            dgvFeeData.Columns("strPaymentPlan").Width = 100
-            dgvFeeData.Columns("strOfficialName").HeaderText = "Official Name"
-            dgvFeeData.Columns("strOfficialName").DisplayIndex = 21
-            dgvFeeData.Columns("strOfficialName").Width = 100
-            dgvFeeData.Columns("strOfficialTitle").HeaderText = "Official Title"
-            dgvFeeData.Columns("strOfficialTitle").DisplayIndex = 22
-            dgvFeeData.Columns("strOfficialTitle").Width = 100
-            dgvFeeData.Columns("intSubmittal").HeaderText = "Submitted"
-            dgvFeeData.Columns("intSubmittal").DisplayIndex = 23
-            dgvFeeData.Columns("intSubmittal").Width = 75
-
-            dgvFeeData.Columns("datSubmittal").HeaderText = "Date Submitted"
-            dgvFeeData.Columns("datSubmittal").DisplayIndex = 24
-            dgvFeeData.Columns("datSubmittal").Width = 100
-            dgvFeeData.Columns("datSubmittal").DefaultCellStyle.Format = "dd-MMM-yyyy"
-
-            dgvInvoices.DataSource = ds
-            dgvInvoices.DataMember = "FeeInvoice"
-
-            dgvInvoices.RowHeadersVisible = False
-            dgvInvoices.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvInvoices.AllowUserToResizeColumns = True
-            dgvInvoices.AllowUserToAddRows = False
-            dgvInvoices.AllowUserToDeleteRows = False
-            dgvInvoices.AllowUserToOrderColumns = True
-            dgvInvoices.AllowUserToResizeRows = True
-
-            dgvInvoices.Columns("InvoiceID").HeaderText = "ID"
-            dgvInvoices.Columns("InvoiceID").DisplayIndex = 0
-            dgvInvoices.Columns("InvoiceID").Width = 40
-            dgvInvoices.Columns("numFeeYear").HeaderText = "Fee Year"
-            dgvInvoices.Columns("numFeeYear").DisplayIndex = 1
-            dgvInvoices.Columns("numFeeYear").Width = 40
-            dgvInvoices.Columns("numAmount").HeaderText = "Invoice Amount"
-            dgvInvoices.Columns("numAmount").DisplayIndex = 2
-            dgvInvoices.Columns("numAmount").Width = 100
-            dgvInvoices.Columns("numAmount").DefaultCellStyle.Format = "c"
-            dgvInvoices.Columns("datInvoiceDate").HeaderText = "Invoice Date"
-            dgvInvoices.Columns("datInvoiceDate").DisplayIndex = 3
-            dgvInvoices.Columns("datInvoiceDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvInvoices.Columns("datInvoiceDate").Width = 85
-            dgvInvoices.Columns("InvoiceStatus").HeaderText = "Invoice Status"
-            dgvInvoices.Columns("InvoiceStatus").DisplayIndex = 4
-            dgvInvoices.Columns("strPayTypeDesc").HeaderText = "Invoice Type"
-            dgvInvoices.Columns("strPayTypeDesc").DisplayIndex = 5
-            dgvInvoices.Columns("PayStatus").HeaderText = "Pay Status"
-            dgvInvoices.Columns("PayStatus").DisplayIndex = 6
-            dgvInvoices.Columns("strComment").HeaderText = "Comment"
-            dgvInvoices.Columns("strComment").DisplayIndex = 7
-
-            dgvFeeDeposits.DataSource = ds
-            dgvFeeDeposits.DataMember = "FeeDeposits"
-
-            dgvFeeDeposits.RowHeadersVisible = False
-            dgvFeeDeposits.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvFeeDeposits.Columns("AIRSNumber").DisplayIndex = 0
-            dgvFeeDeposits.Columns("AIRSNumber").Width = 100
-            dgvFeeDeposits.Columns("numFeeyEar").HeaderText = "Year"
-            dgvFeeDeposits.Columns("numFeeyEar").DisplayIndex = 1
-            dgvFeeDeposits.Columns("numFeeyEar").Width = 80
-            dgvFeeDeposits.Columns("numPayment").HeaderText = "Amount Paid"
-            dgvFeeDeposits.Columns("numPayment").DisplayIndex = 2
-            dgvFeeDeposits.Columns("numPayment").Width = 100
-            dgvFeeDeposits.Columns("numPayment").DefaultCellStyle.Format = "c"
-            dgvFeeDeposits.Columns("dattransactiondate").HeaderText = "Pay date"
-            dgvFeeDeposits.Columns("dattransactiondate").DisplayIndex = 3
-            dgvFeeDeposits.Columns("dattransactiondate").Width = 80
-            dgvFeeDeposits.Columns("dattransactiondate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-
-            dgvFeeDeposits.Columns("Invoiceid").HeaderText = "Invoice #"
-            dgvFeeDeposits.Columns("Invoiceid").DisplayIndex = 4
-            dgvFeeDeposits.Columns("Invoiceid").Width = 100
-            dgvFeeDeposits.Columns("strCheckNo").HeaderText = "Check No."
-            dgvFeeDeposits.Columns("strCheckNo").DisplayIndex = 5
-            dgvFeeDeposits.Columns("strCheckNo").Width = 100
-            dgvFeeDeposits.Columns("strDepositNo").HeaderText = "Deposit #"
-            dgvFeeDeposits.Columns("strDepositNo").DisplayIndex = 6
-            dgvFeeDeposits.Columns("strDepositNo").Width = 100
-            dgvFeeDeposits.Columns("TRANSACTIONTYPECODE").HeaderText = "Pay Type"
-            dgvFeeDeposits.Columns("TRANSACTIONTYPECODE").DisplayIndex = 7
-            dgvFeeDeposits.Columns("TRANSACTIONTYPECODE").Width = 150
-            dgvFeeDeposits.Columns("strBatchNo").HeaderText = "Batch No"
-            dgvFeeDeposits.Columns("strBatchNo").DisplayIndex = 8
-            dgvFeeDeposits.Columns("strBatchNo").Width = 100
-            dgvFeeDeposits.Columns("strEntryPerson").HeaderText = "Entry Person"
-            dgvFeeDeposits.Columns("strEntryPerson").DisplayIndex = 9
-            dgvFeeDeposits.Columns("strEntryPerson").Width = 150
-            dgvFeeDeposits.Columns("strComment").HeaderText = "Comments"
-            dgvFeeDeposits.Columns("strComment").DisplayIndex = 10
-            dgvFeeDeposits.Columns("strComment").Width = 200
-
-            dgvFeeDeposits.Columns("transactionid").HeaderText = "Transaction ID"
-            dgvFeeDeposits.Columns("transactionid").DisplayIndex = 11
-            dgvFeeDeposits.Columns("transactionid").Width = 50
-
-            If TCFacilitySummary.TabPages.Contains(TPPlanningSupportData) Then
-                If TCFacilitySummary.TabPages.IndexOf(TPPlanningSupportData) <> -1 Then
-                    TCFacilitySummary.SelectedIndex = TCFacilitySummary.TabPages.IndexOf(TPPlanningSupportData)
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnOpenFacilityLocationEditor_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFacilityLocationEditor.Click
-        Try
-            If EditFacilityLocation Is Nothing Then
-                EditFacilityLocation = New IAIPEditFacilityLocation
-                EditFacilityLocation.txtAirsNumber.Text = mtbAIRSNumber.Text
-                EditFacilityLocation.Show()
-            Else
-                EditFacilityLocation.txtAirsNumber.Text = mtbAIRSNumber.Text
-                EditFacilityLocation.Show()
-                EditFacilityLocation.BringToFront()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub btnEditHeaderData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditHeaderData.Click
-        If Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbAIRSNumber.Text) Then
-
-            Dim editHeaderDataDialog As New IAIPEditHeaderData
-            editHeaderDataDialog.AirsNumber = mtbAIRSNumber.Text
-            editHeaderDataDialog.FacilityName = txtFacilityName.Text
-
-            editHeaderDataDialog.ShowDialog()
-
-            If editHeaderDataDialog.SomethingWasSaved Then
-                LoadInitialData()
-            End If
-
-            editHeaderDataDialog.Dispose()
-        Else
-            MessageBox.Show("AIRS number is not valid.", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-        End If
-    End Sub
-
-    Private Sub btnEditContacts_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditContacts.Click
-        OpenEditContactInformationTool()
-    End Sub
-
-#Region "SSCP Menu"
-
-    Private Sub mmiSSCPNewWork_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSSCPNewWork.Click
-        Try
-            If mtbAIRSNumber.Text.Length <> 8 Then
-                MsgBox("Please Enter a valid AIRS Number.", MsgBoxStyle.Information, "Facility Summary Warning")
-            Else
-                If txtFacilityName.Text = "" Then
-                    MsgBox("Please verify that the AIRS Number is correct", MsgBoxStyle.Information, "Facility Summary Warning")
-                Else
-                    SSCPEngWork = Nothing
-                    If SSCPEngWork Is Nothing Then SSCPEngWork = New SSCPWorkEnTry
-                    SSCPEngWork.txtFacilityName.Text = Me.txtFacilityName.Text
-                    SSCPEngWork.txtAIRSNumber.Text = Me.mtbAIRSNumber.Text
-                    SSCPEngWork.Show()
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-#End Region
-
-#Region "ISMP Menu"
-
-    Private Sub mmiISMPNewLogEnTry_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiISMPNewLogEnTry.Click
-        Try
-            If mtbAIRSNumber.Text.Length <> 8 Then
-                MsgBox("Please Enter a valid AIRS Number.", MsgBoxStyle.Information, "Facility Summary Warning")
-            Else
-                If txtFacilityName.Text = "" Then
-                    MsgBox("Please verify that the AIRS Number is correct", MsgBoxStyle.Information, "Facility Summary")
-                Else
-                    ISMPNotificationLogForm = Nothing
-                    If ISMPNotificationLogForm Is Nothing Then ISMPNotificationLogForm = New ISMPNotificationLog
-                    ISMPNotificationLogForm.txtTestNotificationNumber.Text = Me.txtTestingNumber.Text
-                    ISMPNotificationLogForm.Show()
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub mmiISMPAddMemo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiISMPAddMemo.Click
-        Try
-            ISMPMemoEdit = Nothing
-            If ISMPMemoEdit Is Nothing Then ISMPMemoEdit = New ISMPMemo
-            ISMPMemoEdit.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
-            ISMPMemoEdit.Show()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-#End Region
-
-#Region "ICIS-Air Update"
-
-    Private Sub UpdateEpa_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UpdateEpa.Click
-        If Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbAIRSNumber.Text) AndAlso DAL.FacilityModule.AirsNumberExists(mtbAIRSNumber.Text) Then
-            If DAL.FacilityModule.TriggerDataUpdateAtEPA(mtbAIRSNumber.Text) Then
+    Private Sub UpdateEpaData()
+        If selectedFacility IsNot Nothing Then
+            If DAL.FacilityModule.TriggerDataUpdateAtEPA(Me.AirsNumber.ToString) Then
                 MessageBox.Show("Data for this facility will be sent to EPA the next time the database update procedures run.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Else
                 MessageBox.Show("There was an error attempting to flag this facility to update.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -3403,59 +1621,71 @@ Public Class IAIPFacilitySummary
 
 #End Region
 
-#Region "Menu and toolbar"
-
-    Private Sub TBFacilitySummary_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBFacilitySummary.ButtonClick
-        Select Case TBFacilitySummary.Buttons.IndexOf(e.Button)
-            Case 0
-                OpenFacilityLookupTool()
-            Case 1
-                ClearPage()
-            Case 2
-                OpenFacilitySummaryPrintTool()
-        End Select
-    End Sub
-
-    Private Sub mmiFacilityLookup_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiFacilityLookup.Click
-        OpenFacilityLookupTool()
-    End Sub
-
-    Private Sub mmiPrintFacilitySummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPrintFacilitySummary.Click
-        OpenFacilitySummaryPrintTool()
-    End Sub
-
-    Private Sub mmiClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClear.Click
-        ClearPage()
-    End Sub
-
-    Private Sub mmiClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClose.Click
-        Me.Close()
-    End Sub
-
-    Private Sub mmiEditContactInformation_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiEditContactInformation.Click
-        OpenEditContactInformationTool()
-    End Sub
-
-    Private Sub mmiNewFacility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiNewFacility.Click
-        OpenSingleForm("IAIPFacilityCreator")
-    End Sub
-
-    Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
-        OpenDocumentationUrl(Me)
-    End Sub
-
-#End Region
-
-    Private Sub mtbAIRSNumber_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mtbAIRSNumber.Enter
-        Me.AcceptButton = ViewData
-    End Sub
-
-    Private Sub mtbAIRSNumber_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mtbAIRSNumber.Leave
-        Me.AcceptButton = Nothing
-    End Sub
+#Region " Navigation Panel "
 
     Private Sub FacilityApprovalLinkLabel_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles FacilityApprovalLinkLabel.LinkClicked
         OpenSingleForm("IAIPFacilityCreator")
     End Sub
+
+    Private Sub AirsNumberEntry_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AirsNumberEntry.Enter
+        Me.AcceptButton = ViewData
+    End Sub
+
+    Private Sub AirsNumberEntry_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AirsNumberEntry.Leave
+        Me.AcceptButton = Nothing
+    End Sub
+
+    Private Sub ViewData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ViewData.Click
+        If AirsNumberEntry.Text = "" Then
+            ClearAllData()
+        Else
+            Try
+                Me.AirsNumber = AirsNumberEntry.Text
+            Catch ex As InvalidAirsNumberException
+                ClearAllData()
+                FacilityNameDisplay.Text = "Invalid AIRS number"
+                AirsNumberEntry.BackColor = Color.Bisque
+                AirsNumberEntry.Focus()
+            End Try
+        End If
+    End Sub
+
+#End Region
+
+#Region " Menu Strip "
+
+    Private Sub LookUpFacilityToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LookUpFacilityToolStripMenuItem.Click
+        OpenFacilityLookupTool()
+    End Sub
+
+    Private Sub PrintFacilitySummaryToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PrintFacilitySummaryToolStripMenuItem.Click
+        OpenFacilitySummaryPrintTool()
+    End Sub
+
+    Private Sub ClearFormToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ClearFormToolStripMenuItem.Click
+        Me.AirsNumber = Nothing
+    End Sub
+
+    Private Sub CloseToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CloseToolStripMenuItem.Click
+        Me.Close()
+    End Sub
+
+    Private Sub EditContactInformationToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditContactInformationToolStripMenuItem.Click
+        OpenEditContactInformationTool()
+    End Sub
+
+    Private Sub FacilityCreatorToolToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FacilityCreatorToolToolStripMenuItem.Click
+        OpenSingleForm("IAIPFacilityCreator")
+    End Sub
+
+    Private Sub UpdateAllDataSentToEPAToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UpdateAllDataSentToEPAToolStripMenuItem.Click
+        UpdateEpaData()
+    End Sub
+
+    Private Sub OnlineHelpToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnlineHelpToolStripMenuItem.Click
+        OpenDocumentationUrl(Me)
+    End Sub
+
+#End Region
 
 End Class

@@ -1,13 +1,12 @@
 ﻿Imports System.ComponentModel
-Imports Iaip.Apb.Facility
+Imports Iaip.Apb.Facilities.Facility
 
-Namespace Apb
+Namespace Apb.Facilities
 
     ''' <summary>
     ''' Facility Header Data includes program-related data for a facility, such as classification, 
     ''' operating status, and air program codes. 
     ''' </summary>
-    ''' <remarks></remarks>
     Public Class FacilityHeaderData
 
 #Region " Constructors "
@@ -133,16 +132,28 @@ Namespace Apb
         End Property
         Private _WhoModified As String
 
-        Public Property WhereModified() As String
+        Public Property WhereModified() As HeaderDataModificationLocation
             Get
-                Return _WhereModified
+                Return _whereModified
             End Get
-            Set(ByVal value As String)
-                _WhereModified = NothingifyEmptyString(value)
+            Set(ByVal value As HeaderDataModificationLocation)
+                _whereModified = value
             End Set
         End Property
-        Private _WhereModified As String
-
+        Private _whereModified As HeaderDataModificationLocation
+        Public Property WhereModifiedCode() As String
+            Get
+                Return _whereModified.ToString
+            End Get
+            Set(ByVal value As String)
+                _whereModified = [Enum].Parse(GetType(HeaderDataModificationLocation), value)
+            End Set
+        End Property
+        Public ReadOnly Property WhereModifiedDescription() As String
+            Get
+                Return _whereModified.GetDescription()
+            End Get
+        End Property
 #End Region
 
 #Region " Operational Status "
@@ -194,12 +205,12 @@ Namespace Apb
         Private _classification As FacilityClassification
 
         ''' <summary>
-        ''' A single-character string representing the facility classification. 
+        ''' A one or two-character string representing the facility classification.
         ''' Used for storage and retrieval from database.
         ''' </summary>
-        ''' <value>A one-character encoded string.</value>
-        ''' <returns>A one-character encoded string.</returns>
-        ''' <remarks>Used to encode facility classification. Stored in database as a single-character string.</remarks>
+        ''' <value>A one or two-character encoded string.</value>
+        ''' <returns>A one or two-character encoded string.</returns>
+        ''' <remarks>Used to encode facility classification. Stored in database as a one or two-character string.</remarks>
         Public Property ClassificationCode() As String
             Get
                 Return _classification.ToString()
@@ -212,6 +223,38 @@ Namespace Apb
         Public ReadOnly Property ClassificationDescription() As String
             Get
                 Return _classification.GetDescription()
+            End Get
+        End Property
+
+        Public Property CmsMember() As FacilityCmsMember
+            Get
+                Return _cmsMember
+            End Get
+            Set(ByVal value As FacilityCmsMember)
+                _cmsMember = value
+            End Set
+        End Property
+        Private _cmsMember As FacilityCmsMember
+
+        ''' <summary>
+        ''' A single-character string representing the facility classification. 
+        ''' Used for storage and retrieval from database.
+        ''' </summary>
+        ''' <value>A one-character encoded string.</value>
+        ''' <returns>A one-character encoded string.</returns>
+        ''' <remarks>Used to encode facility classification. Stored in database as a single-character string.</remarks>
+        Public Property CmsMemberCode() As String
+            Get
+                Return _cmsMember.ToString()
+            End Get
+            Set(ByVal value As String)
+                _cmsMember = [Enum].Parse(GetType(FacilityCmsMember), value)
+            End Set
+        End Property
+
+        Public ReadOnly Property CmsMemberDescription() As String
+            Get
+                Return _cmsMember.GetDescription()
             End Get
         End Property
 
@@ -268,9 +311,9 @@ Namespace Apb
             End Get
             Set(ByVal value As String)
                 If String.IsNullOrEmpty(value) Then
-                    OneHourOzoneNonAttainment = Facility.OneHourOzoneNonattainmentStatus.No
-                    EightHourOzoneNonAttainment = Facility.EightHourOzoneNonattainmentStatus.None
-                    PMFineNonAttainmentState = Facility.PMFineNonattainmentStatus.None
+                    OneHourOzoneNonAttainment = OneHourOzoneNonattainmentStatus.No
+                    EightHourOzoneNonAttainment = EightHourOzoneNonattainmentStatus.None
+                    PMFineNonAttainmentState = PMFineNonattainmentStatus.None
                 Else
                     OneHourOzoneNonAttainment = Mid(value, 2, 1)
                     EightHourOzoneNonAttainment = Mid(value, 3, 1)
@@ -341,7 +384,7 @@ Namespace Apb
 
 #End Region
 
-#End Region ' End Properties
+#End Region
 
 #Region " Shared Functions "
 
@@ -358,42 +401,6 @@ Namespace Apb
             Dim rgx As New System.Text.RegularExpressions.Regex("^\d{4}-\d{4}-\d{4}$")
             Return rgx.IsMatch(rmpID)
         End Function
-
-#End Region
-
-#Region " Enums "
-
-        ''' <summary>
-        ''' The action or user interface that initiates a change in facility header data
-        ''' </summary>
-        ''' <remarks>Stored in database as a numeric key.</remarks>
-        Public Enum HeaderDataModificationLocation
-            Unspecified
-            <Description("Permitting Action")> PermittingAction = 1
-            <Description("Facility Header Editor")> HeaderDataEditor = 2
-            <Description("SSCP Shutdown Notification")> SscpNotification = 3
-            <Description("IAIP Facility Creation Tool")> FacilityCreationTool = 4
-        End Enum
-
-        ''' <summary>
-        ''' Compliance Status codes
-        ''' </summary>
-        ''' <remarks></remarks>
-        Public Enum PollutantComplianceStatus
-            <Description("Unknown compliance status")> UnknownComplianceStatus = 0
-            <Description("Violation, Procedural and emissions")> ViolationProceduralAndEmissions
-            <Description("Violation, No schedule")> ViolationNoSchedule
-            <Description("Violation, Not meeting schedule")> ViolationNotMeetingSchedule
-            <Description("Violation, Procedural")> ViolationProcedural
-            <Description("Violation, Meeting compliance schedule")> ViolationMeetingComplianceSchedule
-            <Description("Violation, No applicable State reg")> ViolationNoStateReg
-            <Description("In Compliance, Source test")> ComplianceSourceTest
-            <Description("In Compliance, Inspection")> ComplianceInspection
-            <Description("In Compliance, Certification")> ComplianceCertification
-            <Description("In Compliance, Shut down")> ComplianceShutDown
-            <Description("In Compliance, Procedural")> ComplianceProcedural
-            <Description("In Compliance, CEMS data")> ComplianceCems
-        End Enum
 
 #End Region
 

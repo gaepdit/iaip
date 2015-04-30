@@ -2199,12 +2199,8 @@ Public Class SSPPStatisticalTools
 
 
             If txtRecordNumber.Text <> "" Then
-                If txtRecordNumber.Text.Length = 8 Then
-                    If DAL.FacilityModule.AirsNumberExists(txtRecordNumber.Text) Then
-                        Dim parameters As New Generic.Dictionary(Of String, String)
-                        parameters("airsnumber") = txtRecordNumber.Text
-                        OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
-                    End If
+                If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtRecordNumber.Text) Then
+                    OpenFormFacilitySummary(txtRecordNumber.Text)
                 Else
                     SQL = "select strApplicationNumber " & _
                     "from AIRBRANCH.SSPPApplicationMaster " & _

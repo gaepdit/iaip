@@ -1,4 +1,5 @@
 Imports Iaip.Apb
+Imports Iaip.Apb.Facilities
 Imports System.Collections.Generic
 
 Public Class IAIPEditHeaderData
@@ -59,11 +60,11 @@ Public Class IAIPEditHeaderData
     End Sub
 
     Private Sub PreloadComboBoxes()
-        ClassificationDropDown.BindToEnum(Of Facility.FacilityClassification)()
-        OperationalDropDown.BindToEnum(Of Facility.FacilityOperationalStatus)()
-        EightHourOzoneDropDown.BindToEnum(Of Facility.EightHourOzoneNonattainmentStatus)()
-        OneHourOzoneDropDown.BindToEnum(Of Facility.OneHourOzoneNonattainmentStatus)()
-        PmFineDropDown.BindToEnum(Of Facility.PMFineNonattainmentStatus)()
+        ClassificationDropDown.BindToEnum(Of FacilityClassification)()
+        OperationalDropDown.BindToEnum(Of FacilityOperationalStatus)()
+        EightHourOzoneDropDown.BindToEnum(Of EightHourOzoneNonattainmentStatus)()
+        OneHourOzoneDropDown.BindToEnum(Of OneHourOzoneNonattainmentStatus)()
+        PmFineDropDown.BindToEnum(Of PMFineNonattainmentStatus)()
     End Sub
 
     Private Sub LoadFacilityData()
@@ -140,7 +141,7 @@ Public Class IAIPEditHeaderData
             StartUpDate, _
             NaicsCode, _
             AirProgramCodes, _
-            AirProgramClassifications, _
+            AirProgramClassificationsGroupbox, _
             NonattainmentStatuses, _
             FacilityDescription, _
             RmpId, _
@@ -150,7 +151,7 @@ Public Class IAIPEditHeaderData
         }
         EnableControls(EditableControls)
 
-        If CurrentFacilityHeaderData.OperationalStatus = Facility.FacilityOperationalStatus.X Then
+        If CurrentFacilityHeaderData.OperationalStatus = FacilityOperationalStatus.X Then
             OperationalDropDown.Enabled = False
         End If
 
@@ -168,7 +169,7 @@ Public Class IAIPEditHeaderData
             ShutdownDate, _
             NaicsCode, _
             AirProgramCodes, _
-            AirProgramClassifications, _
+            AirProgramClassificationsGroupbox, _
             NonattainmentStatuses, _
             FacilityDescription, _
             RmpId, _
@@ -218,7 +219,7 @@ Public Class IAIPEditHeaderData
                 StartUpDate, _
                 NaicsCode, _
                 AirProgramCodes, _
-                AirProgramClassifications, _
+                AirProgramClassificationsGroupbox, _
                 NonattainmentStatuses, _
                 FacilityDescription, _
                 RmpId _
@@ -242,8 +243,8 @@ Public Class IAIPEditHeaderData
     End Sub
 
     Private Function UserIsTryingToCloseFacility() As Boolean
-        If OperationalDropDown.SelectedValue = Facility.FacilityOperationalStatus.X _
-        AndAlso CurrentFacilityHeaderData.OperationalStatus <> Facility.FacilityOperationalStatus.X Then
+        If OperationalDropDown.SelectedValue = FacilityOperationalStatus.X _
+        AndAlso CurrentFacilityHeaderData.OperationalStatus <> FacilityOperationalStatus.X Then
             Return True
         Else
             Return False
@@ -294,23 +295,23 @@ Public Class IAIPEditHeaderData
             End If
             NaicsCode.Text = .Naics
 
-            ApcAcid.Checked = Convert.ToBoolean(.AirPrograms And Facility.AirProgram.AcidPrecipitation)
-            ApcCfc.Checked = (.AirPrograms And Facility.AirProgram.CfcTracking)
-            ApcFederalSip.Checked = (.AirPrograms And Facility.AirProgram.FederalSIP)
-            ApcFesop.Checked = (.AirPrograms And Facility.AirProgram.FESOP)
-            ApcMact.Checked = (.AirPrograms And Facility.AirProgram.MACT)
-            ApcNativeAmerican.Checked = (.AirPrograms And Facility.AirProgram.NativeAmerican)
-            ApcNeshap.Checked = (.AirPrograms And Facility.AirProgram.NESHAP)
-            ApcNonfederalSip.Checked = (.AirPrograms And Facility.AirProgram.NonFederalSIP)
-            ApcNsps.Checked = (.AirPrograms And Facility.AirProgram.NSPS)
-            ApcNsr.Checked = (.AirPrograms And Facility.AirProgram.NSR)
-            ApcPsd.Checked = (.AirPrograms And Facility.AirProgram.PSD)
-            ApcRmp.Checked = (.AirPrograms And Facility.AirProgram.RMP)
-            ApcSip.Checked = (.AirPrograms And Facility.AirProgram.SIP)
-            ApcTitleV.Checked = (.AirPrograms And Facility.AirProgram.TitleV)
+            ApcAcid.Checked = Convert.ToBoolean(.AirPrograms And AirProgram.AcidPrecipitation)
+            ApcCfc.Checked = (.AirPrograms And AirProgram.CfcTracking)
+            ApcFederalSip.Checked = (.AirPrograms And AirProgram.FederalSIP)
+            ApcFesop.Checked = (.AirPrograms And AirProgram.FESOP)
+            ApcMact.Checked = (.AirPrograms And AirProgram.MACT)
+            ApcNativeAmerican.Checked = (.AirPrograms And AirProgram.NativeAmerican)
+            ApcNeshap.Checked = (.AirPrograms And AirProgram.NESHAP)
+            ApcNonfederalSip.Checked = (.AirPrograms And AirProgram.NonFederalSIP)
+            ApcNsps.Checked = (.AirPrograms And AirProgram.NSPS)
+            ApcNsr.Checked = (.AirPrograms And AirProgram.NSR)
+            ApcPsd.Checked = (.AirPrograms And AirProgram.PSD)
+            ApcRmp.Checked = (.AirPrograms And AirProgram.RMP)
+            ApcSip.Checked = (.AirPrograms And AirProgram.SIP)
+            ApcTitleV.Checked = (.AirPrograms And AirProgram.TitleV)
 
-            NsrMajor.Checked = .AirProgramClassifications And Facility.AirProgramClassifications.NsrMajor
-            HapMajor.Checked = .AirProgramClassifications And Facility.AirProgramClassifications.HapMajor
+            NsrMajor.Checked = .AirProgramClassifications And AirProgramClassifications.NsrMajor
+            HapMajor.Checked = .AirProgramClassifications And AirProgramClassifications.HapMajor
 
             OneHourOzoneDropDown.SelectedValue = .OneHourOzoneNonAttainment
             EightHourOzoneDropDown.SelectedValue = .EightHourOzoneNonAttainment
@@ -355,25 +356,25 @@ Public Class IAIPEditHeaderData
             End If
             .Naics = NaicsCode.Text
 
-            .AirPrograms = Facility.AirProgram.None
-            If ApcAcid.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.AcidPrecipitation
-            If ApcCfc.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.CfcTracking
-            If ApcFederalSip.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.FederalSIP
-            If ApcFesop.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.FESOP
-            If ApcMact.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.MACT
-            If ApcNativeAmerican.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.NativeAmerican
-            If ApcNeshap.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.NESHAP
-            If ApcNonfederalSip.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.NonFederalSIP
-            If ApcNsps.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.NSPS
-            If ApcNsr.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.NSR
-            If ApcPsd.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.PSD
-            If ApcRmp.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.RMP
-            If ApcSip.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.SIP
-            If ApcTitleV.Checked Then .AirPrograms = .AirPrograms Or Facility.AirProgram.TitleV
+            .AirPrograms = AirProgram.None
+            If ApcAcid.Checked Then .AirPrograms = .AirPrograms Or AirProgram.AcidPrecipitation
+            If ApcCfc.Checked Then .AirPrograms = .AirPrograms Or AirProgram.CfcTracking
+            If ApcFederalSip.Checked Then .AirPrograms = .AirPrograms Or AirProgram.FederalSIP
+            If ApcFesop.Checked Then .AirPrograms = .AirPrograms Or AirProgram.FESOP
+            If ApcMact.Checked Then .AirPrograms = .AirPrograms Or AirProgram.MACT
+            If ApcNativeAmerican.Checked Then .AirPrograms = .AirPrograms Or AirProgram.NativeAmerican
+            If ApcNeshap.Checked Then .AirPrograms = .AirPrograms Or AirProgram.NESHAP
+            If ApcNonfederalSip.Checked Then .AirPrograms = .AirPrograms Or AirProgram.NonFederalSIP
+            If ApcNsps.Checked Then .AirPrograms = .AirPrograms Or AirProgram.NSPS
+            If ApcNsr.Checked Then .AirPrograms = .AirPrograms Or AirProgram.NSR
+            If ApcPsd.Checked Then .AirPrograms = .AirPrograms Or AirProgram.PSD
+            If ApcRmp.Checked Then .AirPrograms = .AirPrograms Or AirProgram.RMP
+            If ApcSip.Checked Then .AirPrograms = .AirPrograms Or AirProgram.SIP
+            If ApcTitleV.Checked Then .AirPrograms = .AirPrograms Or AirProgram.TitleV
 
-            .AirProgramClassifications = Facility.AirProgramClassifications.None
-            If NsrMajor.Checked Then .AirProgramClassifications = .AirProgramClassifications Or Facility.AirProgramClassifications.NsrMajor
-            If HapMajor.Checked Then .AirProgramClassifications = .AirProgramClassifications Or Facility.AirProgramClassifications.HapMajor
+            .AirProgramClassifications = Facilities.AirProgramClassifications.None
+            If NsrMajor.Checked Then .AirProgramClassifications = .AirProgramClassifications Or AirProgramClassifications.NsrMajor
+            If HapMajor.Checked Then .AirProgramClassifications = .AirProgramClassifications Or AirProgramClassifications.HapMajor
 
             .OneHourOzoneNonAttainment = OneHourOzoneDropDown.SelectedValue
             .EightHourOzoneNonAttainment = EightHourOzoneDropDown.SelectedValue
@@ -456,8 +457,8 @@ Public Class IAIPEditHeaderData
             invalidControls.Add(CommentsLabel)
         End If
 
-        If editedFacility.OperationalStatus = Facility.FacilityOperationalStatus.X _
-        AndAlso CurrentFacilityHeaderData.OperationalStatus <> Facility.FacilityOperationalStatus.X _
+        If editedFacility.OperationalStatus = FacilityOperationalStatus.X _
+        AndAlso CurrentFacilityHeaderData.OperationalStatus <> FacilityOperationalStatus.X _
         AndAlso editedFacility.ShutdownDate Is Nothing Then
             MessageBox.Show("You have marked the facility as closed. Please enter the date the final permit was revoked.", _
                             "Missing Date", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -466,7 +467,7 @@ Public Class IAIPEditHeaderData
         End If
 
         If Not editedFacility.ShutdownDate Is Nothing _
-            AndAlso editedFacility.OperationalStatus <> Facility.FacilityOperationalStatus.X _
+            AndAlso editedFacility.OperationalStatus <> FacilityOperationalStatus.X _
             AndAlso editedFacility.ShutdownDate Is Nothing Then
             MessageBox.Show("A permit revocation date is entered, but the facility is not marked as closed. Please reconcile this.", _
                             "Missing Date", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -474,12 +475,12 @@ Public Class IAIPEditHeaderData
             invalidControls.Add(PermitRevocationDateLabel)
         End If
 
-        If ClassificationDropDown.SelectedValue = Facility.FacilityClassification.Unspecified Then
+        If ClassificationDropDown.SelectedValue = FacilityClassification.Unspecified Then
             valid = False
             invalidControls.Add(ClassificationLabel)
         End If
 
-        If OperationalDropDown.SelectedValue = Facility.FacilityOperationalStatus.Unspecified Then
+        If OperationalDropDown.SelectedValue = FacilityOperationalStatus.Unspecified Then
             valid = False
             invalidControls.Add(OperationalStatusLabel)
         End If
@@ -549,10 +550,10 @@ Public Class IAIPEditHeaderData
                 result = DAL.ShutDownFacility(editedFacility.AirsNumber, _
                                               editedFacility.ShutdownDate, _
                                               editedFacility.HeaderUpdateComment, _
-                                              FacilityHeaderData.HeaderDataModificationLocation.HeaderDataEditor)
+                                              HeaderDataModificationLocation.HeaderDataEditor)
             Else
                 result = DAL.SaveFacilityHeaderData(editedFacility, _
-                                                    FacilityHeaderData.HeaderDataModificationLocation.HeaderDataEditor)
+                                                    HeaderDataModificationLocation.HeaderDataEditor)
             End If
 
             If result Then

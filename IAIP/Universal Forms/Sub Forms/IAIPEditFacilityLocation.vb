@@ -186,7 +186,7 @@ Public Class IAIPEditFacilityLocation
                 'If UserProgram = "5" Or (UserBranch = "1" And UserUnit = "---") _
                 '  Or (UserProgram = "3" And AccountArray(68, 3) = "1") Then
                 If txtFacilityName.Text <> "" Then
-                    txtFacilityName.Text = Apb.Facility.SanitizeFacilityNameForDb(txtFacilityName.Text)
+                    txtFacilityName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(txtFacilityName.Text)
                     If txtFacilityName.Text <> dsFacilityInformation.Tables("Current").Rows(0).Item(1).ToString() Then
                         FacilityName = Replace(txtFacilityName.Text, "'", "''")
                     Else
