@@ -10,7 +10,9 @@ Public Class DmuEdtErrorDetail
             Return _edtErrorID
         End Get
         Set(ByVal value As Integer)
+            If value = _edtErrorID Then Return
             _edtErrorID = value
+            Init()
         End Set
     End Property
 
@@ -20,7 +22,9 @@ Public Class DmuEdtErrorDetail
             Return _activeUsersList
         End Get
         Set(ByVal value As List(Of KeyValuePair(Of Integer, String)))
+            If value.Equals(_activeUsersList) Then Return
             _activeUsersList = value
+            PrepUserComboBox()
         End Set
     End Property
 
@@ -30,10 +34,9 @@ Public Class DmuEdtErrorDetail
 
 #Region " Init "
 
-    Public Sub Init()
+    Private Sub Init()
         ErrorIDDisplay.Text = "Error #" & EdtErrorID.ToString
         Me.Text = "EDT Error #" & EdtErrorID.ToString & " Detail"
-        PrepUserComboBox()
         GetData()
     End Sub
 
