@@ -15,7 +15,7 @@ Namespace DAL
         ''' <returns>True if the AIRS number exists; otherwise false.</returns>
         ''' <remarks>Does not make any judgments about state of facility otherwise.</remarks>
         Public Function AirsNumberExists(ByVal airsNumber As ApbFacilityId) As Boolean
-            Dim spName As String = "IAIP_FACILITY.DoesAirsNumberExist"
+            Dim spName As String = "AIRBRANCH.IAIP_FACILITY.DoesAirsNumberExist"
             Dim parameter As New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPGetBoolean(spName, parameter)
         End Function
@@ -62,7 +62,7 @@ Namespace DAL
         End Function
 
         Private Function GetFacilityAsDataRow(ByVal airsNumber As ApbFacilityId) As DataRow
-            Dim spName As String = "IAIP_FACILITY.GetFacilityBasicInfo"
+            Dim spName As String = "AIRBRANCH.IAIP_FACILITY.GetFacilityBasicInfo"
             Dim parameter As New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
 
             Return DB.SPGetDataRow(spName, parameter)
@@ -102,7 +102,7 @@ Namespace DAL
         ''' <param name="airsNumber">The AIRS number to check</param>
         ''' <returns>True if facility has been approved; otherwise, false</returns>
         Public Function FacilityHasBeenApproved(ByVal airsNumber As Apb.ApbFacilityId) As Boolean
-            Dim spName As String = "IAIP_FACILITY.HasFacilityBeenApproved"
+            Dim spName As String = "AIRBRANCH.IAIP_FACILITY.HasFacilityBeenApproved"
             Dim parameter As New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPGetBoolean(spName, parameter)
         End Function
@@ -127,7 +127,7 @@ Namespace DAL
             '    2. Update APBAirProgramPollutants
             '    3. Update EIS_FacilitySite
             '    4. Revoke all open permits
-            Dim spName As String = "IAIP_FACILITY.ShutDownFacility"
+            Dim spName As String = "AIRBRANCH.IAIP_FACILITY.ShutDownFacility"
             Dim parameters As OracleParameter() = { _
                 New OracleParameter("AirsNumber", airsNumber.DbFormattedString), _
                 New OracleParameter("ShutDownDate", shutdownDate), _
@@ -145,7 +145,7 @@ Namespace DAL
         ''' <param name="airsNumber">The AIRS number to delete</param>
         ''' <returns>True if successful; otherwise false</returns>
         Public Function DeleteFacility(ByVal airsNumber As ApbFacilityId) As Boolean
-            Dim spName As String = "IAIP_FACILITY.ShutDownFacility"
+            Dim spName As String = "AIRBRANCH.IAIP_FACILITY.ShutDownFacility"
             Dim parameter As OracleParameter = New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPRunCommand(spName, parameter)
         End Function
@@ -156,7 +156,7 @@ Namespace DAL
         ''' <param name="airsnumber">The AIRS number of the facility to update.</param>
         ''' <returns>True if successful; otherwise false</returns>
         Public Function TriggerDataUpdateAtEPA(ByVal airsnumber As ApbFacilityId) As Boolean
-            Dim spName As String = "IAIP_FACILITY.TriggerDataUpdateAtEPA"
+            Dim spName As String = "AIRBRANCH.IAIP_FACILITY.TriggerDataUpdateAtEPA"
             Dim parameter As OracleParameter = New OracleParameter("AirsNumber", airsnumber.DbFormattedString)
             Return DB.SPRunCommand(spName, parameter)
         End Function
