@@ -1,5 +1,13 @@
 % IAIP Change Log
 
+## Version 3.7.1 <span>(2015-05-04)</span>
+
++ NEW: UI and data improvements for EDT Errors (#332, etc.)
+
++ FIX: Crasher in Facility Creator
++ FIX: *Smoke School* -- First class in Smoke School scores tab not displayed (#331)
+- Various other bug fixes and UI improvements
+
 ## Version 3.7.0 <span>(2015-04-20)</span>
 
 + NEW: *SSCP* -- Module to review errors returned by EPA's new data transfer system (#307)
