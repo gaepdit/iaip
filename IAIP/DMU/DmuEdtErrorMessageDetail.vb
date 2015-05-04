@@ -174,6 +174,11 @@ Public Class DmuEdtErrorMessageDetail
                 .HeaderText = "Resolved by"
                 .DisplayIndex = 7
             End With
+            With .Columns("IAIPID")
+                .HeaderText = "IAIP ID"
+                .DisplayIndex = 6
+            End With
+            .Columns("IDCATEGORY").Visible = False
 
             .MakeColumnsLookLikeLinks(0)
             .SanelyResizeColumns()

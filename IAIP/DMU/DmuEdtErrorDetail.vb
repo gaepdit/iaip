@@ -102,6 +102,17 @@ Public Class DmuEdtErrorDetail
                 EdtOperation.Text = .EdtOperation
                 EdtStatus.Text = .EdtStatus
                 EdtDateSubmitted.Text = .EdtSubmitDate.ToString(DateFormat)
+                If .IaipIDCategory = "AIRFACILITY" Then
+                    IaipId.Text = New Apb.ApbFacilityId(.IaipID).FormattedString
+                Else
+                    IaipId.Text = .IaipID
+                End If
+                If .IaipForeignIDCategory = "AIRFACILITY" Then
+                    IaipForeignId.Text = New Apb.ApbFacilityId(.IaipForeignID).FormattedString
+                Else
+                    IaipForeignId.Text = .IaipForeignID
+                End If
+
             End With
         End With
 

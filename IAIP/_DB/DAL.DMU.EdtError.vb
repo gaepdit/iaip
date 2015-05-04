@@ -98,6 +98,10 @@ Namespace DAL.DMU
                 .EdtStatus = DB.GetNullable(Of String)(row("STATUS"))
                 .EdtSubmitDate = DB.GetNullable(Of Date)(row("SUBMITDATE"))
                 .EdtTableName = DB.GetNullable(Of String)(row("TABLENAME"))
+                .IaipID = DB.GetNullable(Of String)(row("IAIPID"))
+                .IaipIDCategory = DB.GetNullable(Of String)(row("IAIPIDCATEGORY"))
+                .IaipForeignID = DB.GetNullable(Of String)(row("IAIPFOREIGNID"))
+                .IaipForeignIDCategory = DB.GetNullable(Of String)(row("IAIPFOREIGNIDCATEGORY"))
             End With
 
             Dim em As New EdtErrorMessage
