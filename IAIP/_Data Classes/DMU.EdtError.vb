@@ -97,6 +97,46 @@
         End Property
         Private m_EdtID As String
 
+        Public Property IaipID() As String
+            Get
+                Return m_IaipID
+            End Get
+            Set(ByVal value As String)
+                m_IaipID = value
+            End Set
+        End Property
+        Private m_IaipID As String
+
+        Public Property IaipIDCategory() As String
+            Get
+                Return m_IaipIDCategory
+            End Get
+            Set(ByVal value As String)
+                m_IaipIDCategory = value
+            End Set
+        End Property
+        Private m_IaipIDCategory As String
+
+        Public Property IaipForeignID() As String
+            Get
+                Return m_IaipForeignID
+            End Get
+            Set(ByVal value As String)
+                m_IaipForeignID = value
+            End Set
+        End Property
+        Private m_IaipForeignID As String
+
+        Public Property IaipForeignIDCategory() As String
+            Get
+                Return m_IaipForeignIDCategory
+            End Get
+            Set(ByVal value As String)
+                m_IaipForeignIDCategory = value
+            End Set
+        End Property
+        Private m_IaipForeignIDCategory As String
+
         Public Property EdtForeignKeyID() As String
             Get
                 Return m_EdtForeignKeyID

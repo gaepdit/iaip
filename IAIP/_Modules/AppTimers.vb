@@ -53,6 +53,7 @@
         monitor.TrackFeature("Timers.DbPingTimer")
         Dim result As Boolean = DB.PingDBConnection(CurrentConnection)
         If Not result Then
+            monitor.TrackFeature("Timers.DbPingFailure")
             MessageBox.Show("The database connection has been lost. " & vbNewLine & _
                             "Please close and restart the IAIP.", _
                             "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

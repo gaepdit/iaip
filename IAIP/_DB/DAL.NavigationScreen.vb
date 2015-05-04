@@ -70,7 +70,7 @@ Namespace DAL
         ''' <param name="workViewerList">The type of work item list desired</param>
         ''' <returns>SQL as String</returns>
         Private Function GetWorkViewerSQL(ByVal workViewerList As WorkViewerType) As String
-            ' TODO (Doug): Review SQL on case-by-case basis for efficiency (maybe move some to Oracle Views)
+            ' TODO DWW: Review SQL on case-by-case basis for efficiency (maybe move some to Oracle Views)
             ' Can use EQATEC monitoring to prioritize
 
 

@@ -1535,7 +1535,7 @@ Public Class IAIPUserAdminTool
                     If lblUserID.Text = UserGCode Then
                         UpdateUser()
                     Else
-                        MsgBox("Sorry but you only have attorization to edit your own data.", MsgBoxStyle.Information, "IAIP User Admin Tool")
+                        MsgBox("You only have authorization to edit your own data.", MsgBoxStyle.Information, "IAIP User Admin Tool")
                     End If
                 Else
                     If AccountFormAccess(8, 4) = "0" Then
@@ -1543,14 +1543,14 @@ Public Class IAIPUserAdminTool
                             If UserBranch.ToString = cboBranch.SelectedValue.ToString And UserProgram.ToString = cboProgram.SelectedValue.ToString Then
                                 UpdateUser()
                             Else
-                                MsgBox("Sorry but you only have attorization to edit users in your Branch and Program.", _
+                                MsgBox("You only have authorization to edit users in your Branch and Program.", _
                                          MsgBoxStyle.Information, "IAIP User Admin Tool")
                             End If
                         Else
                             If UserBranch.ToString = cboBranch.SelectedValue.ToString Then
                                 UpdateUser()
                             Else
-                                MsgBox("Sorry but you only have attorization to edit users in your Branch.", _
+                                MsgBox("You only have authorization to edit users in your Branch.", _
                                          MsgBoxStyle.Information, "IAIP User Admin Tool")
                             End If
                         End If
@@ -1559,7 +1559,7 @@ Public Class IAIPUserAdminTool
                     End If
                 End If
             Else
-                MsgBox("Select a user for the search tool below before making and changes and saving data.", MsgBoxStyle.Information, "IAIP User Admin Tool")
+                MsgBox("Select a user for the search tool below before making changes and saving data.", MsgBoxStyle.Information, "IAIP User Admin Tool")
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
