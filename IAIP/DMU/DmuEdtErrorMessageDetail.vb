@@ -10,7 +10,9 @@ Public Class DmuEdtErrorMessageDetail
             Return _edtErrorCode
         End Get
         Set(ByVal value As String)
+            If value = _edtErrorCode Then Return
             _edtErrorCode = value
+            Init()
         End Set
     End Property
 
@@ -58,12 +60,7 @@ Public Class DmuEdtErrorMessageDetail
 
 #Region " Init "
 
-    ''' <summary>
-    ''' Fetches information about the EDT Error Message code "ErrorCode" and conditionally fetches a list of all 
-    ''' related error records
-    ''' </summary>
-    ''' <remarks>Should only be run once after ErrorCode is set</remarks>
-    Public Sub Init()
+    Private Sub Init()
         ErrorCodeDisplay.Text = EdtErrorCode
         Me.Text = "EDT Error Code " & EdtErrorCode
 
@@ -177,6 +174,11 @@ Public Class DmuEdtErrorMessageDetail
                 .HeaderText = "Resolved by"
                 .DisplayIndex = 7
             End With
+            With .Columns("IAIPID")
+                .HeaderText = "IAIP ID"
+                .DisplayIndex = 6
+            End With
+            .Columns("IDCATEGORY").Visible = False
 
             .MakeColumnsLookLikeLinks(0)
             .SanelyResizeColumns()
@@ -229,9 +231,8 @@ Public Class DmuEdtErrorMessageDetail
 
     Private Sub OpenEdtErrorDetail(ByVal errorID As Integer)
         Dim edtErrorDetail As DmuEdtErrorDetail = OpenMultiForm(DmuEdtErrorDetail, errorID)
-        edtErrorDetail.EdtErrorID = errorID
         edtErrorDetail.ActiveUsersList = activeUsersList
-        edtErrorDetail.Init()
+        edtErrorDetail.EdtErrorID = errorID
     End Sub
 
     Private Sub EdtErrorMessageGrid_CellClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellClick

@@ -22,18 +22,18 @@ Partial Class SmokeSchool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.Panel1 = New System.Windows.Forms.Panel
         Me.tcSmokeSchool = New System.Windows.Forms.TabControl
         Me.TabReservation = New System.Windows.Forms.TabPage
@@ -92,15 +92,19 @@ Partial Class SmokeSchool
         Me.btnSelectClass1 = New System.Windows.Forms.Button
         Me.cboSchedule1 = New System.Windows.Forms.ComboBox
         Me.TabMoveRes2Scores = New System.Windows.Forms.TabPage
-        Me.Button1 = New System.Windows.Forms.Button
-        Me.btnRemoveRes2Scores = New System.Windows.Forms.Button
-        Me.btnMoveRes2Scores = New System.Windows.Forms.Button
-        Me.Label34 = New System.Windows.Forms.Label
-        Me.txtNumberOfStudents3 = New System.Windows.Forms.TextBox
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel
         Me.dgvScores = New System.Windows.Forms.DataGridView
+        Me.Panel4 = New System.Windows.Forms.Panel
+        Me.Button1 = New System.Windows.Forms.Button
+        Me.btnMoveRes2Scores = New System.Windows.Forms.Button
+        Me.btnRemoveRes2Scores = New System.Windows.Forms.Button
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel
+        Me.dgvSchedule2 = New System.Windows.Forms.DataGridView
         Me.dgvRes2 = New System.Windows.Forms.DataGridView
         Me.txtSchedule2 = New System.Windows.Forms.TextBox
-        Me.dgvSchedule2 = New System.Windows.Forms.DataGridView
+        Me.Panel5 = New System.Windows.Forms.Panel
+        Me.txtNumberOfStudents3 = New System.Windows.Forms.TextBox
+        Me.Label34 = New System.Windows.Forms.Label
         Me.TabScores = New System.Windows.Forms.TabPage
         Me.txtScoreKey = New System.Windows.Forms.TextBox
         Me.btnRefreshClasses = New System.Windows.Forms.Button
@@ -257,18 +261,18 @@ Partial Class SmokeSchool
         Me.txtSortItem = New System.Windows.Forms.TextBox
         Me.txtsortnbr = New System.Windows.Forms.TextBox
         Me.Label1 = New System.Windows.Forms.Label
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel
-        Me.Panel4 = New System.Windows.Forms.Panel
-        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel
-        Me.Panel5 = New System.Windows.Forms.Panel
         Me.Panel1.SuspendLayout()
         Me.tcSmokeSchool.SuspendLayout()
         Me.TabReservation.SuspendLayout()
         CType(Me.dgvRes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabMoveRes2Scores.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.dgvScores, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dgvRes2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel4.SuspendLayout()
+        Me.TableLayoutPanel2.SuspendLayout()
         CType(Me.dgvSchedule2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvRes2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel5.SuspendLayout()
         Me.TabScores.SuspendLayout()
         Me.PanelStats.SuspendLayout()
         CType(Me.dgvScore3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -280,10 +284,6 @@ Partial Class SmokeSchool
         Me.TabActivate.SuspendLayout()
         Me.TabCache.SuspendLayout()
         Me.Panel2.SuspendLayout()
-        Me.TableLayoutPanel1.SuspendLayout()
-        Me.Panel4.SuspendLayout()
-        Me.TableLayoutPanel2.SuspendLayout()
-        Me.Panel5.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
@@ -844,23 +844,23 @@ Partial Class SmokeSchool
         Me.dgvRes.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle13.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvRes.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvRes.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvRes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle14.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvRes.DefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvRes.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvRes.Location = New System.Drawing.Point(17, 76)
         Me.dgvRes.Name = "dgvRes"
         Me.dgvRes.ReadOnly = True
@@ -897,6 +897,62 @@ Partial Class SmokeSchool
         Me.TabMoveRes2Scores.Text = "Move Res to Scores"
         Me.TabMoveRes2Scores.UseVisualStyleBackColor = True
         '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TableLayoutPanel1.ColumnCount = 3
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.dgvScores, 2, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.Panel4, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel2, 0, 0)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(11, 15)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 1
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(685, 499)
+        Me.TableLayoutPanel1.TabIndex = 10
+        '
+        'dgvScores
+        '
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvScores.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
+        Me.dgvScores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvScores.DefaultCellStyle = DataGridViewCellStyle4
+        Me.dgvScores.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvScores.Location = New System.Drawing.Point(395, 3)
+        Me.dgvScores.Name = "dgvScores"
+        Me.dgvScores.ReadOnly = True
+        Me.dgvScores.Size = New System.Drawing.Size(287, 493)
+        Me.dgvScores.TabIndex = 3
+        '
+        'Panel4
+        '
+        Me.Panel4.Controls.Add(Me.Button1)
+        Me.Panel4.Controls.Add(Me.btnMoveRes2Scores)
+        Me.Panel4.Controls.Add(Me.btnRemoveRes2Scores)
+        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel4.Location = New System.Drawing.Point(295, 3)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(94, 493)
+        Me.Panel4.TabIndex = 11
+        '
         'Button1
         '
         Me.Button1.Location = New System.Drawing.Point(10, 3)
@@ -905,15 +961,6 @@ Partial Class SmokeSchool
         Me.Button1.TabIndex = 8
         Me.Button1.Text = "Reset"
         Me.Button1.UseVisualStyleBackColor = True
-        '
-        'btnRemoveRes2Scores
-        '
-        Me.btnRemoveRes2Scores.Location = New System.Drawing.Point(10, 111)
-        Me.btnRemoveRes2Scores.Name = "btnRemoveRes2Scores"
-        Me.btnRemoveRes2Scores.Size = New System.Drawing.Size(75, 73)
-        Me.btnRemoveRes2Scores.TabIndex = 7
-        Me.btnRemoveRes2Scores.Text = "Delete Reservation Information from Scores"
-        Me.btnRemoveRes2Scores.UseVisualStyleBackColor = True
         '
         'btnMoveRes2Scores
         '
@@ -924,67 +971,79 @@ Partial Class SmokeSchool
         Me.btnMoveRes2Scores.Text = "Move Reservation Information to Scores"
         Me.btnMoveRes2Scores.UseVisualStyleBackColor = True
         '
-        'Label34
+        'btnRemoveRes2Scores
         '
-        Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(57, 8)
-        Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(101, 13)
-        Me.Label34.TabIndex = 5
-        Me.Label34.Text = "Number of Students"
+        Me.btnRemoveRes2Scores.Location = New System.Drawing.Point(10, 111)
+        Me.btnRemoveRes2Scores.Name = "btnRemoveRes2Scores"
+        Me.btnRemoveRes2Scores.Size = New System.Drawing.Size(75, 73)
+        Me.btnRemoveRes2Scores.TabIndex = 7
+        Me.btnRemoveRes2Scores.Text = "Delete Reservation Information from Scores"
+        Me.btnRemoveRes2Scores.UseVisualStyleBackColor = True
         '
-        'txtNumberOfStudents3
+        'TableLayoutPanel2
         '
-        Me.txtNumberOfStudents3.Location = New System.Drawing.Point(164, 5)
-        Me.txtNumberOfStudents3.Name = "txtNumberOfStudents3"
-        Me.txtNumberOfStudents3.Size = New System.Drawing.Size(100, 20)
-        Me.txtNumberOfStudents3.TabIndex = 4
+        Me.TableLayoutPanel2.ColumnCount = 1
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.dgvSchedule2, 0, 1)
+        Me.TableLayoutPanel2.Controls.Add(Me.dgvRes2, 0, 3)
+        Me.TableLayoutPanel2.Controls.Add(Me.txtSchedule2, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.Panel5, 0, 2)
+        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 3)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        Me.TableLayoutPanel2.RowCount = 4
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(286, 493)
+        Me.TableLayoutPanel2.TabIndex = 12
         '
-        'dgvScores
+        'dgvSchedule2
         '
-        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle15.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvScores.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle15
-        Me.dgvScores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle16.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvScores.DefaultCellStyle = DataGridViewCellStyle16
-        Me.dgvScores.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvScores.Location = New System.Drawing.Point(395, 3)
-        Me.dgvScores.Name = "dgvScores"
-        Me.dgvScores.ReadOnly = True
-        Me.dgvScores.Size = New System.Drawing.Size(287, 493)
-        Me.dgvScores.TabIndex = 3
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvSchedule2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        Me.dgvSchedule2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvSchedule2.DefaultCellStyle = DataGridViewCellStyle6
+        Me.dgvSchedule2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvSchedule2.Location = New System.Drawing.Point(3, 38)
+        Me.dgvSchedule2.Name = "dgvSchedule2"
+        Me.dgvSchedule2.ReadOnly = True
+        Me.dgvSchedule2.Size = New System.Drawing.Size(280, 205)
+        Me.dgvSchedule2.TabIndex = 0
         '
         'dgvRes2
         '
-        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle17.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvRes2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle17
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvRes2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.dgvRes2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle18.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvRes2.DefaultCellStyle = DataGridViewCellStyle18
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvRes2.DefaultCellStyle = DataGridViewCellStyle8
         Me.dgvRes2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvRes2.Location = New System.Drawing.Point(3, 284)
         Me.dgvRes2.Name = "dgvRes2"
@@ -1001,31 +1060,31 @@ Partial Class SmokeSchool
         Me.txtSchedule2.Size = New System.Drawing.Size(280, 20)
         Me.txtSchedule2.TabIndex = 1
         '
-        'dgvSchedule2
+        'Panel5
         '
-        DataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle19.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvSchedule2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle19
-        Me.dgvSchedule2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle20.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvSchedule2.DefaultCellStyle = DataGridViewCellStyle20
-        Me.dgvSchedule2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvSchedule2.Location = New System.Drawing.Point(3, 38)
-        Me.dgvSchedule2.Name = "dgvSchedule2"
-        Me.dgvSchedule2.ReadOnly = True
-        Me.dgvSchedule2.Size = New System.Drawing.Size(280, 205)
-        Me.dgvSchedule2.TabIndex = 0
+        Me.Panel5.Controls.Add(Me.txtNumberOfStudents3)
+        Me.Panel5.Controls.Add(Me.Label34)
+        Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel5.Location = New System.Drawing.Point(3, 249)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Size = New System.Drawing.Size(280, 29)
+        Me.Panel5.TabIndex = 2
+        '
+        'txtNumberOfStudents3
+        '
+        Me.txtNumberOfStudents3.Location = New System.Drawing.Point(164, 5)
+        Me.txtNumberOfStudents3.Name = "txtNumberOfStudents3"
+        Me.txtNumberOfStudents3.Size = New System.Drawing.Size(100, 20)
+        Me.txtNumberOfStudents3.TabIndex = 4
+        '
+        'Label34
+        '
+        Me.Label34.AutoSize = True
+        Me.Label34.Location = New System.Drawing.Point(57, 8)
+        Me.Label34.Name = "Label34"
+        Me.Label34.Size = New System.Drawing.Size(101, 13)
+        Me.Label34.TabIndex = 5
+        Me.Label34.Text = "Number of Students"
         '
         'TabScores
         '
@@ -1953,23 +2012,23 @@ Partial Class SmokeSchool
         Me.dgvScore3.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle21.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvScore3.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle21
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvScore3.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle9
         Me.dgvScore3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle22.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvScore3.DefaultCellStyle = DataGridViewCellStyle22
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvScore3.DefaultCellStyle = DataGridViewCellStyle10
         Me.dgvScore3.Location = New System.Drawing.Point(19, 64)
         Me.dgvScore3.Name = "dgvScore3"
         Me.dgvScore3.ReadOnly = True
@@ -2288,23 +2347,23 @@ Partial Class SmokeSchool
         '
         Me.dgvSchedule.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
                     Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle23.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvSchedule.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle23
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvSchedule.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle11
         Me.dgvSchedule.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle24.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvSchedule.DefaultCellStyle = DataGridViewCellStyle24
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvSchedule.DefaultCellStyle = DataGridViewCellStyle12
         Me.dgvSchedule.Location = New System.Drawing.Point(29, 55)
         Me.dgvSchedule.Name = "dgvSchedule"
         Me.dgvSchedule.ReadOnly = True
@@ -2732,65 +2791,6 @@ Partial Class SmokeSchool
         Me.Label1.TabIndex = 4
         Me.Label1.Text = "Georgia Visible Emissions Evaluation Certification Training Program"
         '
-        'TableLayoutPanel1
-        '
-        Me.TableLayoutPanel1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TableLayoutPanel1.ColumnCount = 3
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.dgvScores, 2, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.Panel4, 1, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel2, 0, 0)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(11, 15)
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 1
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(685, 499)
-        Me.TableLayoutPanel1.TabIndex = 10
-        '
-        'Panel4
-        '
-        Me.Panel4.Controls.Add(Me.Button1)
-        Me.Panel4.Controls.Add(Me.btnMoveRes2Scores)
-        Me.Panel4.Controls.Add(Me.btnRemoveRes2Scores)
-        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel4.Location = New System.Drawing.Point(295, 3)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(94, 493)
-        Me.Panel4.TabIndex = 11
-        '
-        'TableLayoutPanel2
-        '
-        Me.TableLayoutPanel2.ColumnCount = 1
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Controls.Add(Me.dgvSchedule2, 0, 1)
-        Me.TableLayoutPanel2.Controls.Add(Me.dgvRes2, 0, 3)
-        Me.TableLayoutPanel2.Controls.Add(Me.txtSchedule2, 0, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.Panel5, 0, 2)
-        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 3)
-        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
-        Me.TableLayoutPanel2.RowCount = 4
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(286, 493)
-        Me.TableLayoutPanel2.TabIndex = 12
-        '
-        'Panel5
-        '
-        Me.Panel5.Controls.Add(Me.txtNumberOfStudents3)
-        Me.Panel5.Controls.Add(Me.Label34)
-        Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel5.Location = New System.Drawing.Point(3, 249)
-        Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(280, 29)
-        Me.Panel5.TabIndex = 2
-        '
         'SmokeSchool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2807,9 +2807,15 @@ Partial Class SmokeSchool
         Me.TabReservation.PerformLayout()
         CType(Me.dgvRes, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabMoveRes2Scores.ResumeLayout(False)
+        Me.TableLayoutPanel1.ResumeLayout(False)
         CType(Me.dgvScores, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dgvRes2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel4.ResumeLayout(False)
+        Me.TableLayoutPanel2.ResumeLayout(False)
+        Me.TableLayoutPanel2.PerformLayout()
         CType(Me.dgvSchedule2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvRes2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel5.ResumeLayout(False)
+        Me.Panel5.PerformLayout()
         Me.TabScores.ResumeLayout(False)
         Me.TabScores.PerformLayout()
         Me.PanelStats.ResumeLayout(False)
@@ -2828,12 +2834,6 @@ Partial Class SmokeSchool
         Me.TabCache.PerformLayout()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
-        Me.TableLayoutPanel1.ResumeLayout(False)
-        Me.Panel4.ResumeLayout(False)
-        Me.TableLayoutPanel2.ResumeLayout(False)
-        Me.TableLayoutPanel2.PerformLayout()
-        Me.Panel5.ResumeLayout(False)
-        Me.Panel5.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub

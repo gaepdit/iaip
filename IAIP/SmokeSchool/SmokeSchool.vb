@@ -275,10 +275,8 @@ Public Class SmokeSchool
             cboSchedule3.Items.Add("- Select a Location/Term -")
             cboSchedule3.Items.Add("- All Terms -")
 
-            dr.Read()
-
             While (dr.Read)
-			locTerm = dr("strSchedule")
+                locTerm = dr("strSchedule")
                 cboSchedule3.Items.Add(locTerm)
             End While
 
@@ -3886,5 +3884,6 @@ Public Class SmokeSchool
     Private Sub btnExportDiplomas_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportDiplomas.Click
         If dgvDiplomas.RowCount > 0 Then dgvDiplomas.ExportToExcel(Me)
     End Sub
+
 
 End Class
