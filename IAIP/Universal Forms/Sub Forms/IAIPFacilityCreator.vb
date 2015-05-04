@@ -355,12 +355,12 @@ Public Class IAIPFacilityCreator
                 "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Exit Sub
             End If
-            If Not DAL.FacilityHeaderData.NaicsCodeIsValid(mtbCDSNAICSCode.Text) Then
+            If Not DAL.FacilityHeaderDataModule.NaicsCodeIsValid(mtbCDSNAICSCode.Text) Then
                 MsgBox("The NAICS Code is not valid and must be fixed before proceeding." & _
                   "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Exit Sub
             End If
-            If Not DAL.FacilityHeaderData.SicCodeIsValid(mtbCDSSICCode.Text) Then
+            If Not DAL.FacilityHeaderDataModule.SicCodeIsValid(mtbCDSSICCode.Text) Then
                 MsgBox("The SIC Code is not valid and must be fixed before proceeding." & _
                 "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Exit Sub
@@ -1677,7 +1677,7 @@ Public Class IAIPFacilityCreator
                 Exit Sub
             End If
 
-            If DAL.Facility.FacilityHasBeenApproved(txtNewAIRSNumber.Text) Then
+            If DAL.FacilityModule.FacilityHasBeenApproved(txtNewAIRSNumber.Text) Then
                 MessageBox.Show("Facility has already been approved.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
@@ -1689,7 +1689,7 @@ Public Class IAIPFacilityCreator
                 Exit Sub
             End If
 
-            If DAL.Facility.DeleteFacility(txtNewAIRSNumber.Text) Then
+            If DAL.FacilityModule.DeleteFacility(txtNewAIRSNumber.Text) Then
                 MessageBox.Show("Facility removed from the database", "Gone", MessageBoxButtons.OK)
             Else
                 MessageBox.Show("There was an error when attempting to remove the facility from the database." & vbNewLine & vbNewLine & "Facility has not been removed.", "Error", MessageBoxButtons.OK)
@@ -1958,7 +1958,7 @@ Public Class IAIPFacilityCreator
                        MsgBoxStyle.Information, Me.Text)
                 Exit Sub
             End If
-            If DAL.FacilityHeaderData.NaicsCodeIsValid(mtbCDSNAICSCode.Text) = False Then
+            If DAL.FacilityHeaderDataModule.NaicsCodeIsValid(mtbCDSNAICSCode.Text) = False Then
                 MsgBox("The NACIS Code is not valid." & _
                   "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Exit Sub
@@ -2268,7 +2268,7 @@ Public Class IAIPFacilityCreator
 
             Dim airsNumberDeleting As New Apb.ApbFacilityId(AirsNumberToDelete.Text)
 
-            If Not DAL.Facility.FacilityHasBeenApproved(airsNumberDeleting) Then
+            If Not DAL.FacilityModule.FacilityHasBeenApproved(airsNumberDeleting) Then
                 MessageBox.Show("Facility has not been approved yet. Remove facility using the ""Approve New Facilities"" tab.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
@@ -2280,7 +2280,7 @@ Public Class IAIPFacilityCreator
                 Exit Sub
             End If
 
-            If DAL.Facility.DeleteFacility(airsNumberDeleting) Then
+            If DAL.FacilityModule.DeleteFacility(airsNumberDeleting) Then
                 MessageBox.Show("Facility removed from the database", "Gone", MessageBoxButtons.OK)
             Else
                 MessageBox.Show("There was an error when attempting to remove the facility from the database." & vbNewLine & vbNewLine & "Facility has not been removed.", "Error", MessageBoxButtons.OK)
@@ -2291,13 +2291,14 @@ Public Class IAIPFacilityCreator
     End Sub
 
     Private Sub AirsNumberToDelete_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AirsNumberToDelete.TextChanged
+        FacilityLongDisplay.Text = ""
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToDelete.Text) Then
-            Dim fac As Apb.Facility = DAL.Facility.GetFacility(AirsNumberToDelete.Text)
-            fac.HeaderData = DAL.FacilityHeaderData.GetFacilityHeaderData(AirsNumberToDelete.Text)
-
-            FacilityLongDisplay.Text = fac.LongDisplay
-        Else
-            FacilityLongDisplay.Text = ""
+            Dim fac As Apb.Facility = DAL.FacilityModule.GetFacility(AirsNumberToDelete.Text)
+            If fac IsNot Nothing Then
+                fac.HeaderData = DAL.FacilityHeaderDataModule.GetFacilityHeaderData(AirsNumberToDelete.Text)
+                If fac.HeaderData IsNot Nothing Then FacilityLongDisplay.Text = fac.LongDisplay
+            End If
         End If
     End Sub
+
 End Class

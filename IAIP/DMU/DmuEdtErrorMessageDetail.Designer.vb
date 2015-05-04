@@ -74,13 +74,11 @@ Partial Class DmuEdtErrorMessageDetail
         '
         Me.DisplayMine.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.DisplayMine.Appearance = System.Windows.Forms.Appearance.Button
-        Me.DisplayMine.Checked = True
         Me.DisplayMine.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.DisplayMine.Location = New System.Drawing.Point(0, 8)
         Me.DisplayMine.Name = "DisplayMine"
         Me.DisplayMine.Size = New System.Drawing.Size(66, 23)
         Me.DisplayMine.TabIndex = 0
-        Me.DisplayMine.TabStop = True
         Me.DisplayMine.Text = "Mine"
         Me.DisplayMine.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.DisplayMine.UseVisualStyleBackColor = True
@@ -89,11 +87,13 @@ Partial Class DmuEdtErrorMessageDetail
         '
         Me.DisplayEveryone.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.DisplayEveryone.Appearance = System.Windows.Forms.Appearance.Button
+        Me.DisplayEveryone.Checked = True
         Me.DisplayEveryone.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.DisplayEveryone.Location = New System.Drawing.Point(65, 8)
         Me.DisplayEveryone.Name = "DisplayEveryone"
         Me.DisplayEveryone.Size = New System.Drawing.Size(66, 23)
         Me.DisplayEveryone.TabIndex = 1
+        Me.DisplayEveryone.TabStop = True
         Me.DisplayEveryone.Text = "All"
         Me.DisplayEveryone.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.DisplayEveryone.UseVisualStyleBackColor = True

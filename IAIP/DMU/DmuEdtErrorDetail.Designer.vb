@@ -35,22 +35,26 @@ Partial Class DmuEdtErrorDetail
         Me.AssignSelectedToUser = New System.Windows.Forms.Button
         Me.EdtErrorCodeLabel = New System.Windows.Forms.Label
         Me.CurrentStatus = New System.Windows.Forms.Label
-        Me.TableName = New System.Windows.Forms.Label
         Me.TableNameLabel = New System.Windows.Forms.Label
-        Me.EdtId = New System.Windows.Forms.Label
         Me.EdtIdLabel = New System.Windows.Forms.Label
         Me.EdtForeignKeyLabel = New System.Windows.Forms.Label
-        Me.EdtForeignKey = New System.Windows.Forms.Label
         Me.EdtOperationLabel = New System.Windows.Forms.Label
-        Me.EdtOperation = New System.Windows.Forms.Label
         Me.EdtStatusLabel = New System.Windows.Forms.Label
-        Me.EdtStatus = New System.Windows.Forms.Label
         Me.EdtDateSubmittedLabel = New System.Windows.Forms.Label
-        Me.EdtDateSubmitted = New System.Windows.Forms.Label
         Me.ErrorMessageDisplayContainer = New System.Windows.Forms.Panel
         Me.ErrorMessageDisplay = New System.Windows.Forms.Label
         Me.ErrorMessageLabel = New System.Windows.Forms.Label
-        Me.EdtErrorCode = New System.Windows.Forms.Label
+        Me.EdtErrorCode = New System.Windows.Forms.TextBox
+        Me.TableName = New System.Windows.Forms.TextBox
+        Me.EdtId = New System.Windows.Forms.TextBox
+        Me.EdtForeignKey = New System.Windows.Forms.TextBox
+        Me.EdtOperation = New System.Windows.Forms.TextBox
+        Me.EdtStatus = New System.Windows.Forms.TextBox
+        Me.EdtDateSubmitted = New System.Windows.Forms.TextBox
+        Me.IaipIdLabel = New System.Windows.Forms.Label
+        Me.IaipId = New System.Windows.Forms.TextBox
+        Me.IaipForeignIdLabel = New System.Windows.Forms.Label
+        Me.IaipForeignId = New System.Windows.Forms.TextBox
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
@@ -74,7 +78,7 @@ Partial Class DmuEdtErrorDetail
         Me.SplitContainer1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SplitContainer1.IsSplitterFixed = True
-        Me.SplitContainer1.Location = New System.Drawing.Point(0, 389)
+        Me.SplitContainer1.Location = New System.Drawing.Point(0, 387)
         Me.SplitContainer1.Name = "SplitContainer1"
         '
         'SplitContainer1.Panel1
@@ -98,7 +102,7 @@ Partial Class DmuEdtErrorDetail
         Me.GenericErrorMessageLabel.Name = "GenericErrorMessageLabel"
         Me.GenericErrorMessageLabel.Size = New System.Drawing.Size(121, 13)
         Me.GenericErrorMessageLabel.TabIndex = 13
-        Me.GenericErrorMessageLabel.Text = "Error Message (General)"
+        Me.GenericErrorMessageLabel.Text = "Error Message (Generic)"
         '
         'GenericErrorMessageDisplayContainer
         '
@@ -165,14 +169,14 @@ Partial Class DmuEdtErrorDetail
         Me.UserAssigned.Location = New System.Drawing.Point(19, 54)
         Me.UserAssigned.Name = "UserAssigned"
         Me.UserAssigned.Size = New System.Drawing.Size(167, 21)
-        Me.UserAssigned.TabIndex = 0
+        Me.UserAssigned.TabIndex = 2
         '
         'ChangeStatus
         '
         Me.ChangeStatus.Location = New System.Drawing.Point(297, 53)
         Me.ChangeStatus.Name = "ChangeStatus"
         Me.ChangeStatus.Size = New System.Drawing.Size(99, 23)
-        Me.ChangeStatus.TabIndex = 2
+        Me.ChangeStatus.TabIndex = 4
         Me.ChangeStatus.Text = "Reopen"
         Me.ChangeStatus.UseVisualStyleBackColor = True
         '
@@ -181,7 +185,7 @@ Partial Class DmuEdtErrorDetail
         Me.AssignSelectedToUser.Location = New System.Drawing.Point(192, 53)
         Me.AssignSelectedToUser.Name = "AssignSelectedToUser"
         Me.AssignSelectedToUser.Size = New System.Drawing.Size(99, 23)
-        Me.AssignSelectedToUser.TabIndex = 1
+        Me.AssignSelectedToUser.TabIndex = 3
         Me.AssignSelectedToUser.Text = "Assign User"
         Me.AssignSelectedToUser.UseVisualStyleBackColor = True
         '
@@ -201,40 +205,22 @@ Partial Class DmuEdtErrorDetail
         Me.CurrentStatus.Location = New System.Drawing.Point(138, 9)
         Me.CurrentStatus.Name = "CurrentStatus"
         Me.CurrentStatus.Size = New System.Drawing.Size(65, 20)
-        Me.CurrentStatus.TabIndex = 0
+        Me.CurrentStatus.TabIndex = 1
         Me.CurrentStatus.Text = "No data"
-        '
-        'TableName
-        '
-        Me.TableName.AutoSize = True
-        Me.TableName.Location = New System.Drawing.Point(122, 117)
-        Me.TableName.Name = "TableName"
-        Me.TableName.Size = New System.Drawing.Size(27, 13)
-        Me.TableName.TabIndex = 0
-        Me.TableName.Text = "N/A"
         '
         'TableNameLabel
         '
         Me.TableNameLabel.AutoSize = True
-        Me.TableNameLabel.Location = New System.Drawing.Point(16, 117)
+        Me.TableNameLabel.Location = New System.Drawing.Point(16, 114)
         Me.TableNameLabel.Name = "TableNameLabel"
         Me.TableNameLabel.Size = New System.Drawing.Size(65, 13)
         Me.TableNameLabel.TabIndex = 0
         Me.TableNameLabel.Text = "Table Name"
         '
-        'EdtId
-        '
-        Me.EdtId.AutoSize = True
-        Me.EdtId.Location = New System.Drawing.Point(122, 139)
-        Me.EdtId.Name = "EdtId"
-        Me.EdtId.Size = New System.Drawing.Size(27, 13)
-        Me.EdtId.TabIndex = 0
-        Me.EdtId.Text = "N/A"
-        '
         'EdtIdLabel
         '
         Me.EdtIdLabel.AutoSize = True
-        Me.EdtIdLabel.Location = New System.Drawing.Point(16, 139)
+        Me.EdtIdLabel.Location = New System.Drawing.Point(16, 133)
         Me.EdtIdLabel.Name = "EdtIdLabel"
         Me.EdtIdLabel.Size = New System.Drawing.Size(43, 13)
         Me.EdtIdLabel.TabIndex = 0
@@ -243,74 +229,38 @@ Partial Class DmuEdtErrorDetail
         'EdtForeignKeyLabel
         '
         Me.EdtForeignKeyLabel.AutoSize = True
-        Me.EdtForeignKeyLabel.Location = New System.Drawing.Point(16, 161)
+        Me.EdtForeignKeyLabel.Location = New System.Drawing.Point(16, 171)
         Me.EdtForeignKeyLabel.Name = "EdtForeignKeyLabel"
         Me.EdtForeignKeyLabel.Size = New System.Drawing.Size(63, 13)
         Me.EdtForeignKeyLabel.TabIndex = 0
         Me.EdtForeignKeyLabel.Text = "Foreign Key"
         '
-        'EdtForeignKey
-        '
-        Me.EdtForeignKey.AutoSize = True
-        Me.EdtForeignKey.Location = New System.Drawing.Point(122, 161)
-        Me.EdtForeignKey.Name = "EdtForeignKey"
-        Me.EdtForeignKey.Size = New System.Drawing.Size(27, 13)
-        Me.EdtForeignKey.TabIndex = 0
-        Me.EdtForeignKey.Text = "N/A"
-        '
         'EdtOperationLabel
         '
         Me.EdtOperationLabel.AutoSize = True
-        Me.EdtOperationLabel.Location = New System.Drawing.Point(16, 183)
+        Me.EdtOperationLabel.Location = New System.Drawing.Point(16, 209)
         Me.EdtOperationLabel.Name = "EdtOperationLabel"
         Me.EdtOperationLabel.Size = New System.Drawing.Size(53, 13)
         Me.EdtOperationLabel.TabIndex = 0
         Me.EdtOperationLabel.Text = "Operation"
         '
-        'EdtOperation
-        '
-        Me.EdtOperation.AutoSize = True
-        Me.EdtOperation.Location = New System.Drawing.Point(122, 183)
-        Me.EdtOperation.Name = "EdtOperation"
-        Me.EdtOperation.Size = New System.Drawing.Size(27, 13)
-        Me.EdtOperation.TabIndex = 0
-        Me.EdtOperation.Text = "N/A"
-        '
         'EdtStatusLabel
         '
         Me.EdtStatusLabel.AutoSize = True
-        Me.EdtStatusLabel.Location = New System.Drawing.Point(16, 205)
+        Me.EdtStatusLabel.Location = New System.Drawing.Point(16, 228)
         Me.EdtStatusLabel.Name = "EdtStatusLabel"
         Me.EdtStatusLabel.Size = New System.Drawing.Size(37, 13)
         Me.EdtStatusLabel.TabIndex = 0
         Me.EdtStatusLabel.Text = "Status"
         '
-        'EdtStatus
-        '
-        Me.EdtStatus.AutoSize = True
-        Me.EdtStatus.Location = New System.Drawing.Point(122, 205)
-        Me.EdtStatus.Name = "EdtStatus"
-        Me.EdtStatus.Size = New System.Drawing.Size(27, 13)
-        Me.EdtStatus.TabIndex = 0
-        Me.EdtStatus.Text = "N/A"
-        '
         'EdtDateSubmittedLabel
         '
         Me.EdtDateSubmittedLabel.AutoSize = True
-        Me.EdtDateSubmittedLabel.Location = New System.Drawing.Point(16, 227)
+        Me.EdtDateSubmittedLabel.Location = New System.Drawing.Point(16, 247)
         Me.EdtDateSubmittedLabel.Name = "EdtDateSubmittedLabel"
         Me.EdtDateSubmittedLabel.Size = New System.Drawing.Size(80, 13)
         Me.EdtDateSubmittedLabel.TabIndex = 0
         Me.EdtDateSubmittedLabel.Text = "Date Submitted"
-        '
-        'EdtDateSubmitted
-        '
-        Me.EdtDateSubmitted.AutoSize = True
-        Me.EdtDateSubmitted.Location = New System.Drawing.Point(122, 227)
-        Me.EdtDateSubmitted.Name = "EdtDateSubmitted"
-        Me.EdtDateSubmitted.Size = New System.Drawing.Size(27, 13)
-        Me.EdtDateSubmitted.TabIndex = 0
-        Me.EdtDateSubmitted.Text = "N/A"
         '
         'ErrorMessageDisplayContainer
         '
@@ -321,10 +271,10 @@ Partial Class DmuEdtErrorDetail
         Me.ErrorMessageDisplayContainer.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.ErrorMessageDisplayContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.ErrorMessageDisplayContainer.Controls.Add(Me.ErrorMessageDisplay)
-        Me.ErrorMessageDisplayContainer.Location = New System.Drawing.Point(12, 275)
+        Me.ErrorMessageDisplayContainer.Location = New System.Drawing.Point(12, 298)
         Me.ErrorMessageDisplayContainer.Name = "ErrorMessageDisplayContainer"
-        Me.ErrorMessageDisplayContainer.Size = New System.Drawing.Size(391, 98)
-        Me.ErrorMessageDisplayContainer.TabIndex = 3
+        Me.ErrorMessageDisplayContainer.Size = New System.Drawing.Size(391, 73)
+        Me.ErrorMessageDisplayContainer.TabIndex = 12
         '
         'ErrorMessageDisplay
         '
@@ -340,7 +290,7 @@ Partial Class DmuEdtErrorDetail
         'ErrorMessageLabel
         '
         Me.ErrorMessageLabel.AutoSize = True
-        Me.ErrorMessageLabel.Location = New System.Drawing.Point(16, 259)
+        Me.ErrorMessageLabel.Location = New System.Drawing.Point(16, 282)
         Me.ErrorMessageLabel.Name = "ErrorMessageLabel"
         Me.ErrorMessageLabel.Size = New System.Drawing.Size(122, 13)
         Me.ErrorMessageLabel.TabIndex = 13
@@ -348,18 +298,126 @@ Partial Class DmuEdtErrorDetail
         '
         'EdtErrorCode
         '
-        Me.EdtErrorCode.AutoSize = True
-        Me.EdtErrorCode.Location = New System.Drawing.Point(122, 95)
+        Me.EdtErrorCode.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.EdtErrorCode.Location = New System.Drawing.Point(125, 95)
         Me.EdtErrorCode.Name = "EdtErrorCode"
-        Me.EdtErrorCode.Size = New System.Drawing.Size(27, 13)
-        Me.EdtErrorCode.TabIndex = 0
+        Me.EdtErrorCode.ReadOnly = True
+        Me.EdtErrorCode.Size = New System.Drawing.Size(271, 13)
+        Me.EdtErrorCode.TabIndex = 5
         Me.EdtErrorCode.Text = "N/A"
+        '
+        'TableName
+        '
+        Me.TableName.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TableName.Location = New System.Drawing.Point(125, 114)
+        Me.TableName.Name = "TableName"
+        Me.TableName.ReadOnly = True
+        Me.TableName.Size = New System.Drawing.Size(271, 13)
+        Me.TableName.TabIndex = 6
+        Me.TableName.Text = "N/A"
+        '
+        'EdtId
+        '
+        Me.EdtId.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.EdtId.Location = New System.Drawing.Point(125, 133)
+        Me.EdtId.Name = "EdtId"
+        Me.EdtId.ReadOnly = True
+        Me.EdtId.Size = New System.Drawing.Size(271, 13)
+        Me.EdtId.TabIndex = 7
+        Me.EdtId.Text = "N/A"
+        '
+        'EdtForeignKey
+        '
+        Me.EdtForeignKey.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.EdtForeignKey.Location = New System.Drawing.Point(125, 171)
+        Me.EdtForeignKey.Name = "EdtForeignKey"
+        Me.EdtForeignKey.ReadOnly = True
+        Me.EdtForeignKey.Size = New System.Drawing.Size(271, 13)
+        Me.EdtForeignKey.TabIndex = 8
+        Me.EdtForeignKey.Text = "N/A"
+        '
+        'EdtOperation
+        '
+        Me.EdtOperation.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.EdtOperation.Location = New System.Drawing.Point(125, 209)
+        Me.EdtOperation.Name = "EdtOperation"
+        Me.EdtOperation.ReadOnly = True
+        Me.EdtOperation.Size = New System.Drawing.Size(271, 13)
+        Me.EdtOperation.TabIndex = 9
+        Me.EdtOperation.Text = "N/A"
+        '
+        'EdtStatus
+        '
+        Me.EdtStatus.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.EdtStatus.Location = New System.Drawing.Point(125, 228)
+        Me.EdtStatus.Name = "EdtStatus"
+        Me.EdtStatus.ReadOnly = True
+        Me.EdtStatus.Size = New System.Drawing.Size(271, 13)
+        Me.EdtStatus.TabIndex = 10
+        Me.EdtStatus.Text = "N/A"
+        '
+        'EdtDateSubmitted
+        '
+        Me.EdtDateSubmitted.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.EdtDateSubmitted.Location = New System.Drawing.Point(125, 247)
+        Me.EdtDateSubmitted.Name = "EdtDateSubmitted"
+        Me.EdtDateSubmitted.ReadOnly = True
+        Me.EdtDateSubmitted.Size = New System.Drawing.Size(271, 13)
+        Me.EdtDateSubmitted.TabIndex = 11
+        Me.EdtDateSubmitted.Text = "N/A"
+        '
+        'IaipIdLabel
+        '
+        Me.IaipIdLabel.AutoSize = True
+        Me.IaipIdLabel.Location = New System.Drawing.Point(16, 152)
+        Me.IaipIdLabel.Name = "IaipIdLabel"
+        Me.IaipIdLabel.Size = New System.Drawing.Size(41, 13)
+        Me.IaipIdLabel.TabIndex = 0
+        Me.IaipIdLabel.Text = "IAIP ID"
+        '
+        'IaipId
+        '
+        Me.IaipId.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.IaipId.Location = New System.Drawing.Point(125, 152)
+        Me.IaipId.Name = "IaipId"
+        Me.IaipId.ReadOnly = True
+        Me.IaipId.Size = New System.Drawing.Size(271, 13)
+        Me.IaipId.TabIndex = 7
+        Me.IaipId.Text = "N/A"
+        '
+        'IaipForeignIdLabel
+        '
+        Me.IaipForeignIdLabel.AutoSize = True
+        Me.IaipForeignIdLabel.Location = New System.Drawing.Point(16, 190)
+        Me.IaipForeignIdLabel.Name = "IaipForeignIdLabel"
+        Me.IaipForeignIdLabel.Size = New System.Drawing.Size(100, 13)
+        Me.IaipForeignIdLabel.TabIndex = 0
+        Me.IaipForeignIdLabel.Text = "IAIP Foreign Key ID"
+        '
+        'IaipForeignId
+        '
+        Me.IaipForeignId.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.IaipForeignId.Location = New System.Drawing.Point(125, 190)
+        Me.IaipForeignId.Name = "IaipForeignId"
+        Me.IaipForeignId.ReadOnly = True
+        Me.IaipForeignId.Size = New System.Drawing.Size(271, 13)
+        Me.IaipForeignId.TabIndex = 7
+        Me.IaipForeignId.Text = "N/A"
         '
         'DmuEdtErrorDetail
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(415, 504)
+        Me.ClientSize = New System.Drawing.Size(415, 502)
+        Me.Controls.Add(Me.EdtDateSubmitted)
+        Me.Controls.Add(Me.EdtStatus)
+        Me.Controls.Add(Me.EdtOperation)
+        Me.Controls.Add(Me.EdtForeignKey)
+        Me.Controls.Add(Me.IaipForeignId)
+        Me.Controls.Add(Me.IaipId)
+        Me.Controls.Add(Me.EdtId)
+        Me.Controls.Add(Me.TableName)
+        Me.Controls.Add(Me.EdtErrorCode)
         Me.Controls.Add(Me.ErrorMessageDisplayContainer)
         Me.Controls.Add(Me.ErrorMessageLabel)
         Me.Controls.Add(Me.UserAssigned)
@@ -367,21 +425,16 @@ Partial Class DmuEdtErrorDetail
         Me.Controls.Add(Me.TableNameLabel)
         Me.Controls.Add(Me.EdtErrorCodeLabel)
         Me.Controls.Add(Me.SplitContainer1)
-        Me.Controls.Add(Me.EdtErrorCode)
         Me.Controls.Add(Me.AssignSelectedToUser)
-        Me.Controls.Add(Me.TableName)
         Me.Controls.Add(Me.ErrorIDDisplay)
-        Me.Controls.Add(Me.EdtId)
         Me.Controls.Add(Me.CurrentStatus)
-        Me.Controls.Add(Me.EdtForeignKey)
+        Me.Controls.Add(Me.IaipForeignIdLabel)
         Me.Controls.Add(Me.EdtDateSubmittedLabel)
+        Me.Controls.Add(Me.IaipIdLabel)
         Me.Controls.Add(Me.EdtIdLabel)
         Me.Controls.Add(Me.EdtStatusLabel)
-        Me.Controls.Add(Me.EdtOperation)
-        Me.Controls.Add(Me.EdtDateSubmitted)
         Me.Controls.Add(Me.EdtForeignKeyLabel)
         Me.Controls.Add(Me.EdtOperationLabel)
-        Me.Controls.Add(Me.EdtStatus)
         Me.MinimumSize = New System.Drawing.Size(431, 540)
         Me.Name = "DmuEdtErrorDetail"
         Me.Text = "EDT Error Item Detail"
@@ -413,20 +466,24 @@ Partial Class DmuEdtErrorDetail
     Friend WithEvents AssignSelectedToUser As System.Windows.Forms.Button
     Friend WithEvents EdtErrorCodeLabel As System.Windows.Forms.Label
     Friend WithEvents CurrentStatus As System.Windows.Forms.Label
-    Friend WithEvents TableName As System.Windows.Forms.Label
     Friend WithEvents TableNameLabel As System.Windows.Forms.Label
-    Friend WithEvents EdtId As System.Windows.Forms.Label
     Friend WithEvents EdtIdLabel As System.Windows.Forms.Label
     Friend WithEvents EdtForeignKeyLabel As System.Windows.Forms.Label
-    Friend WithEvents EdtForeignKey As System.Windows.Forms.Label
     Friend WithEvents EdtOperationLabel As System.Windows.Forms.Label
-    Friend WithEvents EdtOperation As System.Windows.Forms.Label
     Friend WithEvents EdtStatusLabel As System.Windows.Forms.Label
-    Friend WithEvents EdtStatus As System.Windows.Forms.Label
     Friend WithEvents EdtDateSubmittedLabel As System.Windows.Forms.Label
-    Friend WithEvents EdtDateSubmitted As System.Windows.Forms.Label
     Friend WithEvents ErrorMessageDisplayContainer As System.Windows.Forms.Panel
     Friend WithEvents ErrorMessageDisplay As System.Windows.Forms.Label
     Friend WithEvents ErrorMessageLabel As System.Windows.Forms.Label
-    Friend WithEvents EdtErrorCode As System.Windows.Forms.Label
+    Friend WithEvents EdtErrorCode As System.Windows.Forms.TextBox
+    Friend WithEvents TableName As System.Windows.Forms.TextBox
+    Friend WithEvents EdtId As System.Windows.Forms.TextBox
+    Friend WithEvents EdtForeignKey As System.Windows.Forms.TextBox
+    Friend WithEvents EdtOperation As System.Windows.Forms.TextBox
+    Friend WithEvents EdtStatus As System.Windows.Forms.TextBox
+    Friend WithEvents EdtDateSubmitted As System.Windows.Forms.TextBox
+    Friend WithEvents IaipIdLabel As System.Windows.Forms.Label
+    Friend WithEvents IaipId As System.Windows.Forms.TextBox
+    Friend WithEvents IaipForeignIdLabel As System.Windows.Forms.Label
+    Friend WithEvents IaipForeignId As System.Windows.Forms.TextBox
 End Class

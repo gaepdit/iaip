@@ -59,17 +59,17 @@ Public Class IAIPEditHeaderData
     End Sub
 
     Private Sub PreloadComboBoxes()
-        ClassificationDropDown.BindToEnum(Of Facility.Classification)()
-        OperationalDropDown.BindToEnum(Of Facility.OperationalStatus)()
-        EightHourOzoneDropDown.BindToEnum(Of Facility.EightHourNonattainmentStatus)()
-        OneHourOzoneDropDown.BindToEnum(Of Facility.OneHourNonattainmentStatus)()
+        ClassificationDropDown.BindToEnum(Of Facility.FacilityClassification)()
+        OperationalDropDown.BindToEnum(Of Facility.FacilityOperationalStatus)()
+        EightHourOzoneDropDown.BindToEnum(Of Facility.EightHourOzoneNonattainmentStatus)()
+        OneHourOzoneDropDown.BindToEnum(Of Facility.OneHourOzoneNonattainmentStatus)()
         PmFineDropDown.BindToEnum(Of Facility.PMFineNonattainmentStatus)()
     End Sub
 
     Private Sub LoadFacilityData()
-        FacilityHeaderDataHistory = DAL.FacilityHeaderData.GetFacilityHeaderDataHistoryAsDataTable(AirsNumber)
+        FacilityHeaderDataHistory = DAL.FacilityHeaderDataModule.GetFacilityHeaderDataHistoryAsDataTable(AirsNumber)
 
-        Dim currentData As DataRow = DAL.FacilityHeaderData.GetFacilityHeaderDataAsDataRow(AirsNumber)
+        Dim currentData As DataRow = DAL.FacilityHeaderDataModule.GetFacilityHeaderDataAsDataRow(AirsNumber)
 
         If FacilityHeaderDataHistory IsNot Nothing AndAlso FacilityHeaderDataHistory.Rows.Count > 0 Then
             currentData(0) = FacilityHeaderDataHistory.Compute("Max(STRKEY)", String.Empty) + 1
@@ -150,7 +150,7 @@ Public Class IAIPEditHeaderData
         }
         EnableControls(EditableControls)
 
-        If CurrentFacilityHeaderData.OperationalStatus = Facility.OperationalStatus.X Then
+        If CurrentFacilityHeaderData.OperationalStatus = Facility.FacilityOperationalStatus.X Then
             OperationalDropDown.Enabled = False
         End If
 
@@ -242,8 +242,8 @@ Public Class IAIPEditHeaderData
     End Sub
 
     Private Function UserIsTryingToCloseFacility() As Boolean
-        If OperationalDropDown.SelectedValue = Facility.OperationalStatus.X _
-        AndAlso CurrentFacilityHeaderData.OperationalStatus <> Facility.OperationalStatus.X Then
+        If OperationalDropDown.SelectedValue = Facility.FacilityOperationalStatus.X _
+        AndAlso CurrentFacilityHeaderData.OperationalStatus <> Facility.FacilityOperationalStatus.X Then
             Return True
         Else
             Return False
@@ -269,7 +269,7 @@ Public Class IAIPEditHeaderData
 
     Private Sub DisplayFacilityData(ByVal row As DataRow)
         Dim displayedFacility As FacilityHeaderData = New FacilityHeaderData(AirsNumber)
-        DAL.FacilityHeaderData.FillFacilityHeaderDataFromDataRow(row, displayedFacility)
+        DAL.FacilityHeaderDataModule.FillFacilityHeaderDataFromDataRow(row, displayedFacility)
 
         DisplayFacilityData(displayedFacility)
     End Sub
@@ -312,8 +312,8 @@ Public Class IAIPEditHeaderData
             NsrMajor.Checked = .AirProgramClassifications And Facility.AirProgramClassifications.NsrMajor
             HapMajor.Checked = .AirProgramClassifications And Facility.AirProgramClassifications.HapMajor
 
-            OneHourOzoneDropDown.SelectedValue = .OneHourNonAttainmentState
-            EightHourOzoneDropDown.SelectedValue = .EightHourNonAttainmentState
+            OneHourOzoneDropDown.SelectedValue = .OneHourOzoneNonAttainment
+            EightHourOzoneDropDown.SelectedValue = .EightHourOzoneNonAttainment
             PmFineDropDown.SelectedValue = .PMFineNonAttainmentState
 
             FacilityDescription.Text = .FacilityDescription
@@ -375,8 +375,8 @@ Public Class IAIPEditHeaderData
             If NsrMajor.Checked Then .AirProgramClassifications = .AirProgramClassifications Or Facility.AirProgramClassifications.NsrMajor
             If HapMajor.Checked Then .AirProgramClassifications = .AirProgramClassifications Or Facility.AirProgramClassifications.HapMajor
 
-            .OneHourNonAttainmentState = OneHourOzoneDropDown.SelectedValue
-            .EightHourNonAttainmentState = EightHourOzoneDropDown.SelectedValue
+            .OneHourOzoneNonAttainment = OneHourOzoneDropDown.SelectedValue
+            .EightHourOzoneNonAttainment = EightHourOzoneDropDown.SelectedValue
             .PMFineNonAttainmentState = PmFineDropDown.SelectedValue
 
             .FacilityDescription = FacilityDescription.Text
@@ -456,8 +456,8 @@ Public Class IAIPEditHeaderData
             invalidControls.Add(CommentsLabel)
         End If
 
-        If editedFacility.OperationalStatus = Facility.OperationalStatus.X _
-        AndAlso CurrentFacilityHeaderData.OperationalStatus <> Facility.OperationalStatus.X _
+        If editedFacility.OperationalStatus = Facility.FacilityOperationalStatus.X _
+        AndAlso CurrentFacilityHeaderData.OperationalStatus <> Facility.FacilityOperationalStatus.X _
         AndAlso editedFacility.ShutdownDate Is Nothing Then
             MessageBox.Show("You have marked the facility as closed. Please enter the date the final permit was revoked.", _
                             "Missing Date", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -466,7 +466,7 @@ Public Class IAIPEditHeaderData
         End If
 
         If Not editedFacility.ShutdownDate Is Nothing _
-            AndAlso editedFacility.OperationalStatus <> Facility.OperationalStatus.X _
+            AndAlso editedFacility.OperationalStatus <> Facility.FacilityOperationalStatus.X _
             AndAlso editedFacility.ShutdownDate Is Nothing Then
             MessageBox.Show("A permit revocation date is entered, but the facility is not marked as closed. Please reconcile this.", _
                             "Missing Date", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -474,24 +474,24 @@ Public Class IAIPEditHeaderData
             invalidControls.Add(PermitRevocationDateLabel)
         End If
 
-        If ClassificationDropDown.SelectedValue = Facility.Classification.Unspecified Then
+        If ClassificationDropDown.SelectedValue = Facility.FacilityClassification.Unspecified Then
             valid = False
             invalidControls.Add(ClassificationLabel)
         End If
 
-        If OperationalDropDown.SelectedValue = Facility.OperationalStatus.Unspecified Then
+        If OperationalDropDown.SelectedValue = Facility.FacilityOperationalStatus.Unspecified Then
             valid = False
             invalidControls.Add(OperationalStatusLabel)
         End If
 
-        If Not DAL.FacilityHeaderData.SicCodeIsValid(SicCode.Text) Then
+        If Not DAL.FacilityHeaderDataModule.SicCodeIsValid(SicCode.Text) Then
             MessageBox.Show("Please enter a valid SIC code.", _
                             "Invalid SIC", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             valid = False
             invalidControls.Add(SicCodeLabel)
         End If
 
-        If Not DAL.FacilityHeaderData.NaicsCodeIsValid(NaicsCode.Text) Then
+        If Not DAL.FacilityHeaderDataModule.NaicsCodeIsValid(NaicsCode.Text) Then
             MessageBox.Show("Please enter a valid NAICS code.", _
                             "Invalid NAICS", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             valid = False
@@ -549,10 +549,10 @@ Public Class IAIPEditHeaderData
                 result = DAL.ShutDownFacility(editedFacility.AirsNumber, _
                                               editedFacility.ShutdownDate, _
                                               editedFacility.HeaderUpdateComment, _
-                                              FacilityHeaderData.ModificationLocation.HeaderDataEditor)
+                                              FacilityHeaderData.HeaderDataModificationLocation.HeaderDataEditor)
             Else
                 result = DAL.SaveFacilityHeaderData(editedFacility, _
-                                                    FacilityHeaderData.ModificationLocation.HeaderDataEditor)
+                                                    FacilityHeaderData.HeaderDataModificationLocation.HeaderDataEditor)
             End If
 
             If result Then
@@ -563,7 +563,7 @@ Public Class IAIPEditHeaderData
                 CurrentFacilityHeaderData = editedFacility
 
                 ' Add to datagridview
-                Dim currentData As DataRow = DAL.FacilityHeaderData.GetFacilityHeaderDataAsDataRow(AirsNumber)
+                Dim currentData As DataRow = DAL.FacilityHeaderDataModule.GetFacilityHeaderDataAsDataRow(AirsNumber)
                 currentData(0) = FacilityHeaderDataHistory.Compute("Max(STRKEY)", String.Empty) + 1
                 FacilityHeaderDataHistory.ImportRow(currentData)
                 FacilityHistoryDataGridView.Rows(0).Selected = True

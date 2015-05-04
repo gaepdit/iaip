@@ -1,10 +1,11 @@
 ﻿Imports Oracle.ManagedDataAccess.Client
 Imports Iaip.Apb
+Imports Iaip.Apb.FacilityHeaderData
 Imports Iaip.Apb.Facility
 Imports System.Collections.Generic
 
 Namespace DAL
-    Module FacilityHeaderData
+    Module FacilityHeaderDataModule
 
 #Region " Validate SIC/NAICS "
 
@@ -13,7 +14,7 @@ Namespace DAL
         ''' </summary>
         ''' <param name="sicCode">The SIC Code to test.</param>
         ''' <returns>True if the SIC Code exists; otherwise false.</returns>
-        ''' <remarks>Does not make any judgements about appropriateness of SIC Code otherwise.</remarks>
+        ''' <remarks>Does not make any judgments about appropriateness of SIC Code otherwise.</remarks>
         Public Function SicCodeIsValid(ByVal sicCode As String) As Boolean
             If sicCode Is Nothing OrElse String.IsNullOrEmpty(sicCode) Then Return False
 
@@ -37,7 +38,7 @@ Namespace DAL
         ''' </summary>
         ''' <param name="naicsCode">The NAICS Code to test.</param>
         ''' <returns>True if the NAICS Code exists; otherwise false.</returns>
-        ''' <remarks>Does not make any judgements about appropriateness of NAICS Code otherwise.</remarks>
+        ''' <remarks>Does not make any judgments about appropriateness of NAICS Code otherwise.</remarks>
         Public Function NaicsCodeIsValid(ByVal naicsCode As String) As Boolean
             If naicsCode Is Nothing OrElse String.IsNullOrEmpty(naicsCode) Then Return False
 
@@ -66,7 +67,7 @@ Namespace DAL
         ''' <param name="airsNumber">The AIRS number of the specified facility</param>
         ''' <returns>DataRow containing header data for the specified facility</returns>
         ''' <remarks></remarks>
-        Public Function GetFacilityHeaderDataAsDataRow(ByVal airsNumber As Apb.ApbFacilityId) As DataRow
+        Public Function GetFacilityHeaderDataAsDataRow(ByVal airsNumber As ApbFacilityId) As DataRow
             Dim query As String = " SELECT " & _
                 "  Null AS STRKEY, " & _
                 "  USERNAME, " & _
@@ -101,9 +102,9 @@ Namespace DAL
         ''' <param name="airsNumber">The AIRS number of the specified facility</param>
         ''' <returns>A FacilityHeaderData object containing header data for the specified facility</returns>
         ''' <remarks></remarks>
-        Public Function GetFacilityHeaderData(ByVal airsNumber As Apb.ApbFacilityId) As Apb.FacilityHeaderData
+        Public Function GetFacilityHeaderData(ByVal airsNumber As ApbFacilityId) As FacilityHeaderData
             Dim row As DataRow = GetFacilityHeaderDataAsDataRow(airsNumber)
-            Dim facilityHeaderData As New Apb.FacilityHeaderData(airsNumber)
+            Dim facilityHeaderData As New FacilityHeaderData(airsNumber)
 
             FillFacilityHeaderDataFromDataRow(row, facilityHeaderData)
             Return facilityHeaderData
@@ -115,7 +116,7 @@ Namespace DAL
         ''' <param name="row">A DataRow containing data from the database</param>
         ''' <param name="facilityHeaderData">A FacilityHeaderData object to complete</param>
         ''' <remarks></remarks>
-        Public Sub FillFacilityHeaderDataFromDataRow(ByVal row As DataRow, ByRef facilityHeaderData As Apb.FacilityHeaderData)
+        Public Sub FillFacilityHeaderDataFromDataRow(ByVal row As DataRow, ByRef facilityHeaderData As FacilityHeaderData)
             With facilityHeaderData
                 .OperationalStatusCode = DB.GetNullable(Of String)(row("STROPERATIONALSTATUS"))
                 .ClassificationCode = DB.GetNullable(Of String)(row("STRCLASS"))
@@ -141,7 +142,7 @@ Namespace DAL
         ''' <param name="airsNumber">The AIRS number of the specified facility</param>
         ''' <returns>A DataTable of historical header data for the specified facility</returns>
         ''' <remarks></remarks>
-        Public Function GetFacilityHeaderDataHistoryAsDataTable(ByVal airsNumber As Apb.ApbFacilityId) As DataTable
+        Public Function GetFacilityHeaderDataHistoryAsDataTable(ByVal airsNumber As ApbFacilityId) As DataTable
             Dim query As String = " SELECT " & _
                 "  STRKEY, " & _
                 "  USERNAME, " & _
@@ -179,7 +180,7 @@ Namespace DAL
         ''' <param name="fromLocation">A ModificationLocation Enum representing the user interface location where a change in facility header data was initiated</param>
         ''' <returns>True if the data was successfully saved to the database; otherwise, False</returns>
         ''' <remarks></remarks>
-        Public Function SaveFacilityHeaderData(ByVal headerData As Apb.FacilityHeaderData, ByVal fromLocation As Apb.FacilityHeaderData.ModificationLocation) As Boolean
+        Public Function SaveFacilityHeaderData(ByVal headerData As FacilityHeaderData, ByVal fromLocation As FacilityHeaderData.HeaderDataModificationLocation) As Boolean
             If Not AirsNumberExists(headerData.AirsNumber) Then Return False
 
             ' -- Transaction
@@ -253,7 +254,7 @@ Namespace DAL
                     Continue For
                 End If
 
-                ' TODO: Change to HasFlag after converting to .NET 4.0
+                ' TODO DWW: Change to HasFlag after converting to .NET 4.0
                 If (headerData.AirPrograms And apc) <> 0 Then
 
                     ' 3a. For each active APC, update all existing keys in 

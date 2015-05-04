@@ -6722,12 +6722,12 @@ Public Class SSPPApplicationTrackingLog
 
         Try
             If txtApplicationNumber.Text <> "" Then
-                If Not DAL.FacilityHeaderData.SicCodeIsValid(txtSICCode.Text) Then
+                If Not DAL.FacilityHeaderDataModule.SicCodeIsValid(txtSICCode.Text) Then
                     MsgBox("ERROR" & vbCrLf & "The SIC Code is not valid and must be fixed before proceeding.", MsgBoxStyle.Exclamation, Me.Text)
                     Exit Sub
                 End If
 
-                If DAL.FacilityHeaderData.NaicsCodeIsValid(txtNAICSCode.Text) = False Then
+                If DAL.FacilityHeaderDataModule.NaicsCodeIsValid(txtNAICSCode.Text) = False Then
                     MsgBox("ERROR" & vbCrLf & "The NAICS Code is not valid and must be fixed before proceeding.", MsgBoxStyle.Exclamation, Me.Text)
                     Exit Sub
                 End If
@@ -7349,7 +7349,7 @@ Public Class SSPPApplicationTrackingLog
 
                 If DTPFinalAction.Checked And chbClosedOut.Checked And Apb.ApbFacilityId.IsValidAirsNumberFormat(txtAIRSNumber.Text) Then
 
-                    If Not DAL.FacilityHeaderData.SicCodeIsValid(txtSICCode.Text) Then
+                    If Not DAL.FacilityHeaderDataModule.SicCodeIsValid(txtSICCode.Text) Then
                         MessageBox.Show("The SIC code entered is not valid. The application cannot be closed out without a valid SIC code.", _
                                         "Invalid SIC code", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                         chbClosedOut.Checked = False

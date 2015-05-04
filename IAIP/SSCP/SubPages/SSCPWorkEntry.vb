@@ -3,11 +3,6 @@ Imports Oracle.ManagedDataAccess.Client
 
 Public Class SSCPWorkEnTry
     Inherits BaseForm
-    Dim statusBar1 As New StatusBar
-    Dim panel1 As New StatusBarPanel
-    Dim panel2 As New StatusBarPanel
-    Dim panel3 As New StatusBarPanel
-    Dim Paneltemp1 As String
     Dim dsWorkEnTry As DataSet
     Dim daWorkEnTry As OracleDataAdapter
     Dim SQL, SQL2 As String
@@ -46,12 +41,6 @@ Public Class SSCPWorkEnTry
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
-    Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiSave As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem10 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiBack As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem5 As System.Windows.Forms.MenuItem
     Friend WithEvents tbbSave As System.Windows.Forms.ToolBarButton
     Friend WithEvents tbbClear As System.Windows.Forms.ToolBarButton
     Friend WithEvents tbbBack As System.Windows.Forms.ToolBarButton
@@ -73,12 +62,6 @@ Public Class SSCPWorkEnTry
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPWorkEnTry))
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem
-        Me.MmiSave = New System.Windows.Forms.MenuItem
-        Me.MenuItem10 = New System.Windows.Forms.MenuItem
-        Me.MmiBack = New System.Windows.Forms.MenuItem
-        Me.MenuItem5 = New System.Windows.Forms.MenuItem
         Me.TBComplianceEvents = New System.Windows.Forms.ToolBar
         Me.tbbSave = New System.Windows.Forms.ToolBarButton
         Me.tbbClear = New System.Windows.Forms.ToolBarButton
@@ -189,36 +172,6 @@ Public Class SSCPWorkEnTry
         Me.Image_List_All.Images.SetKeyName(82, "")
         Me.Image_List_All.Images.SetKeyName(83, "")
         Me.Image_List_All.Images.SetKeyName(84, "")
-        '
-        'MainMenu1
-        '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.MenuItem5})
-        '
-        'MenuItem1
-        '
-        Me.MenuItem1.Index = 0
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiSave, Me.MenuItem10, Me.MmiBack})
-        Me.MenuItem1.Text = "File"
-        '
-        'MmiSave
-        '
-        Me.MmiSave.Index = 0
-        Me.MmiSave.Text = "Save"
-        '
-        'MenuItem10
-        '
-        Me.MenuItem10.Index = 1
-        Me.MenuItem10.Text = "-"
-        '
-        'MmiBack
-        '
-        Me.MmiBack.Index = 2
-        Me.MmiBack.Text = "Back"
-        '
-        'MenuItem5
-        '
-        Me.MenuItem5.Index = 1
-        Me.MenuItem5.Text = "Help"
         '
         'TBComplianceEvents
         '
@@ -375,7 +328,6 @@ Public Class SSCPWorkEnTry
         Me.Controls.Add(Me.PanelSSCPWorkEnTry)
         Me.Controls.Add(Me.GBFacilityData)
         Me.Controls.Add(Me.TBComplianceEvents)
-        Me.Menu = Me.MainMenu1
         Me.Name = "SSCPWorkEnTry"
         Me.Text = "Compliance Work Entry"
         Me.GBFacilityData.ResumeLayout(False)
@@ -393,7 +345,6 @@ Public Class SSCPWorkEnTry
         monitor.TrackFeature("Forms." & Me.Name)
         Try
 
-            CreateStatusBar()
             DTPDateReceived.Value = Date.Today
             LoadDataSets()
             LoadComboBox()
@@ -408,45 +359,6 @@ Public Class SSCPWorkEnTry
     End Sub
 
 #Region "Page Load"
-    Sub CreateStatusBar()
-        Try
-
-            panel1.Text = "Select a Function..."
-            panel2.Text = UserName
-            panel3.Text = OracleDate
-
-            panel1.AutoSize = StatusBarPanelAutoSize.Spring
-            panel2.AutoSize = StatusBarPanelAutoSize.Contents
-            panel3.AutoSize = StatusBarPanelAutoSize.Contents
-
-            panel1.BorderStyle = StatusBarPanelBorderStyle.Sunken
-            panel2.BorderStyle = StatusBarPanelBorderStyle.Sunken
-            panel3.BorderStyle = StatusBarPanelBorderStyle.Sunken
-
-            panel1.Alignment = HorizontalAlignment.Left
-            panel2.Alignment = HorizontalAlignment.Left
-            panel3.Alignment = HorizontalAlignment.Right
-
-            ' Display panels in the StatusBar control.
-            statusBar1.ShowPanels = True
-
-            ' Add both panels to the StatusBarPanelCollection of the StatusBar.            
-            statusBar1.Panels.Add(panel1)
-            statusBar1.Panels.Add(panel2)
-            statusBar1.Panels.Add(panel3)
-
-            ' Add the StatusBar to the form.
-            Me.Controls.Add(statusBar1)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
-
-    End Sub
     Private Sub LoadDataSets()
         Dim SQL As String
         Dim cmd As OracleCommand
@@ -525,13 +437,7 @@ Public Class SSCPWorkEnTry
 
         Try
 
-            Paneltemp1 = panel1.Text
-
             If cboEvent.Text <> " " Then
-
-                panel1.Text = "Getting New Tracking Number.."
-
-                panel1.Text = "Saving New Compliance Event."
 
                 SQL = "Insert into AIRBRANCH.SSCPItemMaster " & _
                 "(strTrackingNumber, strAIRSnumber, DatReceivedDate, strEventType, " & _
@@ -549,7 +455,6 @@ Public Class SSCPWorkEnTry
                     CurrentConnection.Open()
                 End If
 
-                panel1.Text = "Saving New Compliance Event.."
                 dr = cmd.ExecuteReader
 
                 dr2 = cmd2.ExecuteReader
@@ -561,13 +466,9 @@ Public Class SSCPWorkEnTry
                     'conn.close()
                 End If
 
-                panel1.Text = "Saving New Compliance Event..."
-                panel1.Text = "Refreshing Facility Summary Screen..."
-                panel1.Text = Paneltemp1
                 MsgBox("Done")
 
             Else
-                panel1.Text = Paneltemp1
                 MsgBox("Please Select an Event type.")
             End If
 
@@ -713,7 +614,4 @@ Public Class SSCPWorkEnTry
 
     End Sub
 
-    Private Sub MenuItem5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuItem5.Click
-        OpenDocumentationUrl(Me)
-    End Sub
 End Class
