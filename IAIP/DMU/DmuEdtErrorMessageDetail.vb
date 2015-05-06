@@ -1,4 +1,5 @@
 ﻿Imports System.Collections.Generic
+Imports System.Linq
 
 Public Class DmuEdtErrorMessageDetail
 
@@ -29,6 +30,8 @@ Public Class DmuEdtErrorMessageDetail
     Private statusOfSelectedRows As SelectedRowsState
     Private headerSuccess As Boolean
     Private activeUsersList As List(Of KeyValuePair(Of Integer, String))
+    Private totalCount As Integer = 0
+    Private shownCount As Integer = 0
 
 #End Region
 
@@ -108,6 +111,9 @@ Public Class DmuEdtErrorMessageDetail
         statusOfSelectedRows = SelectedRowsState.NoneSelected
 
         edtErrorMessagesTable = DAL.DMU.GetErrors(EdtErrorCode)
+        Dim keys(1) As DataColumn
+        keys(0) = edtErrorMessagesTable.Columns("ERRORID")
+        edtErrorMessagesTable.PrimaryKey = keys
 
         If edtErrorMessagesTable IsNot Nothing Then
             edtErrorMessagesBindingSource = New BindingSource
@@ -198,20 +204,24 @@ Public Class DmuEdtErrorMessageDetail
 
     Private Sub SetGridFilter()
         edtErrorMessagesBindingSource.RemoveFilter()
-        Dim total As Integer = edtErrorMessagesBindingSource.Count
+        totalCount = edtErrorMessagesBindingSource.Count
 
-        If DisplayMine.Checked And DisplayOpen.Checked Then
+        If DisplayOwnerMine.Checked And DisplayResolutionOpen.Checked Then
             edtErrorMessagesBindingSource.Filter = "AssignedToUser = " & CurrentUser.UserID & " and Resolved = False"
-        ElseIf DisplayMine.Checked And DisplayAll.Checked Then
+        ElseIf DisplayOwnerMine.Checked And DisplayResolutionAll.Checked Then
             edtErrorMessagesBindingSource.Filter = "AssignedToUser = " & CurrentUser.UserID
-        ElseIf DisplayEveryone.Checked And DisplayOpen.Checked Then
+        ElseIf DisplayOwnerEveryone.Checked And DisplayResolutionOpen.Checked Then
             edtErrorMessagesBindingSource.Filter = "Resolved = False"
-        ElseIf DisplayEveryone.Checked And DisplayAll.Checked Then
+        ElseIf DisplayOwnerEveryone.Checked And DisplayResolutionAll.Checked Then
             edtErrorMessagesBindingSource.RemoveFilter()
         End If
 
-        Dim shown As Integer = edtErrorMessagesBindingSource.Count
-        EdtErrorCountDisplay.Text = shown.ToString & " error" & If(shown = 1, "", "s") & " shown / " & total.ToString & " total"
+        SetCountDisplay()
+    End Sub
+
+    Private Sub SetCountDisplay()
+        shownCount = edtErrorMessagesBindingSource.Count
+        EdtErrorCountDisplay.Text = shownCount.ToString & " error" & If(shownCount = 1, "", "s") & " shown / " & totalCount.ToString & " total"
     End Sub
 
     Private Sub DisplayOptionsChanged(ByVal sender As Object, ByVal e As System.EventArgs)
@@ -219,10 +229,10 @@ Public Class DmuEdtErrorMessageDetail
     End Sub
 
     Private Sub AddDisplayOptionHandlers()
-        AddHandler DisplayMine.CheckedChanged, AddressOf DisplayOptionsChanged
-        AddHandler DisplayEveryone.CheckedChanged, AddressOf DisplayOptionsChanged
-        AddHandler DisplayOpen.CheckedChanged, AddressOf DisplayOptionsChanged
-        AddHandler DisplayAll.CheckedChanged, AddressOf DisplayOptionsChanged
+        AddHandler DisplayOwnerMine.CheckedChanged, AddressOf DisplayOptionsChanged
+        AddHandler DisplayOwnerEveryone.CheckedChanged, AddressOf DisplayOptionsChanged
+        AddHandler DisplayResolutionOpen.CheckedChanged, AddressOf DisplayOptionsChanged
+        AddHandler DisplayResolutionAll.CheckedChanged, AddressOf DisplayOptionsChanged
     End Sub
 
 #End Region
@@ -360,12 +370,17 @@ Public Class DmuEdtErrorMessageDetail
     End Sub
 
     Private Sub AssignUserInGrid()
-        If (EdtErrorMessageGrid.SelectedRows.Count > 0) Then
-            For Each row As DataGridViewRow In EdtErrorMessageGrid.SelectedRows
-                row.Cells("ASSIGNEDTOUSER").Value = UserToAssign.SelectedValue
-                row.Cells("AssignedToUserName").Value = UserToAssign.Text
-            Next
-        End If
+        If (EdtErrorMessageGrid.SelectedRows.Count = 0) Then Exit Sub
+
+        For Each selectedRow As DataGridViewRow In EdtErrorMessageGrid.SelectedRows
+            Dim tableRow As DataRow = edtErrorMessagesTable.Rows().Find(selectedRow.Cells("ERRORID").Value)
+            With tableRow
+                .Item("ASSIGNEDTOUSER") = UserToAssign.SelectedValue
+                .Item("AssignedToUserName") = UserToAssign.Text
+            End With
+        Next
+
+        SetCountDisplay()
     End Sub
 
     Private Sub ChangeStatusForSelectedRows_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChangeStatusForSelectedRows.Click
@@ -382,34 +397,44 @@ Public Class DmuEdtErrorMessageDetail
             End If
 
             If result = True Then
-                ChangeStatusInGrid()
+                ChangeResolutionStatusInGrid()
             Else
                 MessageBox.Show("There was an error changing the status for the selected items.", "Error", MessageBoxButtons.OK)
             End If
         End If
     End Sub
 
-    Private Sub ChangeStatusInGrid()
-        If (EdtErrorMessageGrid.SelectedRows.Count > 0) Then
-            If statusOfSelectedRows = SelectedRowsState.AllOpen Then
-                For Each row As DataGridViewRow In EdtErrorMessageGrid.SelectedRows
-                    row.Cells("Resolved").Value = True
-                    row.Cells("ResolvedDate").Value = Now
-                    row.Cells("ResolvedByUserID").Value = CurrentUser.UserID
-                    row.Cells("ResolvedByUserName").Value = CurrentUser.Staff.AlphaName
-                Next
-                statusOfSelectedRows = SelectedRowsState.AllResolved
-            ElseIf statusOfSelectedRows = SelectedRowsState.AllResolved Then
-                For Each row As DataGridViewRow In EdtErrorMessageGrid.SelectedRows
-                    row.Cells("Resolved").Value = False
-                    row.Cells("ResolvedDate").Value = DBNull.Value
-                    row.Cells("ResolvedByUserID").Value = Nothing
-                    row.Cells("ResolvedByUserName").Value = Nothing
-                Next
-                statusOfSelectedRows = SelectedRowsState.AllOpen
-            End If
-            SetUpResolveOrReopenButton()
+    Private Sub ChangeResolutionStatusInGrid()
+        If (EdtErrorMessageGrid.SelectedRows.Count = 0) Then Exit Sub
+
+        If statusOfSelectedRows = SelectedRowsState.AllOpen Then
+
+            For Each selectedRow As DataGridViewRow In EdtErrorMessageGrid.SelectedRows
+                Dim tableRow As DataRow = edtErrorMessagesTable.Rows().Find(selectedRow.Cells("ERRORID").Value)
+                With tableRow
+                    .Item("Resolved") = True
+                    .Item("ResolvedDate") = Now
+                    .Item("ResolvedByUserID") = CurrentUser.UserID
+                    .Item("ResolvedByUserName") = CurrentUser.Staff.AlphaName
+                End With
+            Next
+
+        ElseIf statusOfSelectedRows = SelectedRowsState.AllResolved Then
+
+            For Each selectedRow As DataGridViewRow In EdtErrorMessageGrid.SelectedRows
+                Dim tableRow As DataRow = edtErrorMessagesTable.Rows().Find(selectedRow.Cells("ERRORID").Value)
+                With tableRow
+                    .Item("Resolved") = False
+                    .Item("ResolvedDate") = DBNull.Value
+                    .Item("ResolvedByUserID") = Nothing
+                    .Item("ResolvedByUserName") = Nothing
+                End With
+            Next
+
         End If
+
+        SetCountDisplay()
+        SetUpResolveOrReopenButton()
     End Sub
 
     Private Function GetSelectedIDs() As Integer()

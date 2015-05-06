@@ -71,17 +71,20 @@ Public Class DmuEdtErrorMessages
                 .HeaderText = "Total Open"
                 .DisplayIndex = 2
             End With
+            With .Columns("CountAll")
+                .HeaderText = "Total"
+                .DisplayIndex = 3
+            End With
             With .Columns("ERRORMESSAGE")
                 .HeaderText = "Error Message"
-                .DisplayIndex = 3
+                .DisplayIndex = 4
             End With
             With .Columns("CATEGORY")
                 .HeaderText = "Error Category"
-                .DisplayIndex = 4
+                .DisplayIndex = 5
             End With
             .Columns("BUSINESSRULECODE").Visible = False
             .Columns("BUSINESSRULE").Visible = False
-            .Columns("CountAll").Visible = False
             .Columns("CountAllByUser").Visible = False
             .Columns("CountOpenByUser").Visible = False
             .Columns("DefaultUserId").Visible = False
