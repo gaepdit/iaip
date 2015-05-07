@@ -2544,19 +2544,8 @@ Public Class SSCPManagersTools
         End Try
     End Sub
     Private Sub btnEditAirProgramPollutants_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditAirProgramPollutants.Click
-        Try
-            If txtAIRSNumber.Text <> "" Then
-
-                EditAirProgramPollutants = Nothing
-                If EditAirProgramPollutants Is Nothing Then EditAirProgramPollutants = New IAIPEditAirProgramPollutants
-                EditAirProgramPollutants.txtAirsNumber.Text = Me.txtAIRSNumber.Text
-                EditAirProgramPollutants.Show()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        Dim EditAirProgramPollutants As IAIPEditAirProgramPollutants = OpenSingleForm(IAIPEditAirProgramPollutants)
+        EditAirProgramPollutants.AirsNumberDisplay.Text = Me.txtAIRSNumber.Text
     End Sub
     Private Sub dgvPollutantFacilities_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvPollutantFacilities.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvPollutantFacilities.HitTest(e.X, e.Y)

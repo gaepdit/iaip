@@ -310,8 +310,8 @@ Public Class IAIPEditHeaderData
             ApcSip.Checked = (.AirPrograms And AirProgram.SIP)
             ApcTitleV.Checked = (.AirPrograms And AirProgram.TitleV)
 
-            NsrMajor.Checked = .AirProgramClassifications And AirProgramClassifications.NsrMajor
-            HapMajor.Checked = .AirProgramClassifications And AirProgramClassifications.HapMajor
+            NsrMajor.Checked = .AirProgramClassifications And AirProgramClassification.NsrMajor
+            HapMajor.Checked = .AirProgramClassifications And AirProgramClassification.HapMajor
 
             OneHourOzoneDropDown.SelectedValue = .OneHourOzoneNonAttainment
             EightHourOzoneDropDown.SelectedValue = .EightHourOzoneNonAttainment
@@ -372,9 +372,9 @@ Public Class IAIPEditHeaderData
             If ApcSip.Checked Then .AirPrograms = .AirPrograms Or AirProgram.SIP
             If ApcTitleV.Checked Then .AirPrograms = .AirPrograms Or AirProgram.TitleV
 
-            .AirProgramClassifications = Facilities.AirProgramClassifications.None
-            If NsrMajor.Checked Then .AirProgramClassifications = .AirProgramClassifications Or AirProgramClassifications.NsrMajor
-            If HapMajor.Checked Then .AirProgramClassifications = .AirProgramClassifications Or AirProgramClassifications.HapMajor
+            .AirProgramClassifications = Facilities.AirProgramClassification.None
+            If NsrMajor.Checked Then .AirProgramClassifications = .AirProgramClassifications Or AirProgramClassification.NsrMajor
+            If HapMajor.Checked Then .AirProgramClassifications = .AirProgramClassifications Or AirProgramClassification.HapMajor
 
             .OneHourOzoneNonAttainment = OneHourOzoneDropDown.SelectedValue
             .EightHourOzoneNonAttainment = EightHourOzoneDropDown.SelectedValue

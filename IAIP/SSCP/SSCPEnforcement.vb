@@ -3670,24 +3670,12 @@ Public Class SscpEnforcement
 
     End Sub
     Private Sub btnEditAirProgramPollutants_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditAirProgramPollutants.Click
-        Try
-            If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
-
-                If EditAirProgramPollutants IsNot Nothing Then EditAirProgramPollutants.Dispose()
-                EditAirProgramPollutants = Nothing
-                If EditAirProgramPollutants Is Nothing Then EditAirProgramPollutants = New IAIPEditAirProgramPollutants
-                EditAirProgramPollutants.txtAirsNumber.Text = Me.txtAIRSNumber.Text
-                EditAirProgramPollutants.txtEnforcementNumber.Text = txtEnforcementNumber.Text
-                EditAirProgramPollutants.Show()
-                EditAirProgramPollutants.TPEnforcementPollutants.Focus()
-            Else
-                MsgBox("Save this Enforcement Action atleast once before you try to add pollutants.", MsgBoxStyle.Information, "Enforcement")
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
+            Dim EditAirProgramPollutants As IAIPEditAirProgramPollutants = OpenSingleForm(IAIPEditAirProgramPollutants)
+            EditAirProgramPollutants.AirsNumberDisplay.Text = Me.txtAIRSNumber.Text
+        Else
+            MsgBox("Save this Enforcement Action at least once before you try to add pollutants.", MsgBoxStyle.Information, "Enforcement")
+        End If
     End Sub
 
 

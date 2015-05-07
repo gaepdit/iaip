@@ -354,12 +354,12 @@ Namespace Apb.Facilities
         End Property
         Private Shared AirProgramsCodeLength As Integer = 15
 
-        Private _airProgramClassifications As AirProgramClassifications
-        Public Property AirProgramClassifications() As AirProgramClassifications
+        Private _airProgramClassifications As AirProgramClassification
+        Public Property AirProgramClassifications() As AirProgramClassification
             Get
                 Return _airProgramClassifications
             End Get
-            Set(ByVal value As AirProgramClassifications)
+            Set(ByVal value As AirProgramClassification)
                 _airProgramClassifications = value
             End Set
         End Property
@@ -374,10 +374,10 @@ Namespace Apb.Facilities
         ''' Stored in database as a five-character coded string, but only the first two are used.</remarks>
         Public Property AirProgramClassificationsCode() As String
             Get
-                Return ConvertEnumToBitFlags(Of AirProgramClassifications)(Me.AirProgramClassifications, AirProgramClassificationsCodeLength)
+                Return ConvertEnumToBitFlags(Of AirProgramClassification)(Me.AirProgramClassifications, AirProgramClassificationsCodeLength)
             End Get
             Set(ByVal value As String)
-                _airProgramClassifications = ConvertBitFieldToEnum(Of AirProgramClassifications)(value)
+                _airProgramClassifications = ConvertBitFieldToEnum(Of AirProgramClassification)(value)
             End Set
         End Property
         Private Shared AirProgramClassificationsCodeLength As Integer = 5

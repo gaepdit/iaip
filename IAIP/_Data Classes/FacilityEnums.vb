@@ -118,7 +118,7 @@ Namespace Apb.Facilities
     ''' <remarks>The enum value of the flags is significant because the flags are stored 
     ''' in the database as a (reversed) bitwise string. The string is 5 characters, but 
     ''' only the first 2 are used.</remarks>
-    <Flags()> Public Enum AirProgramClassifications
+    <Flags()> Public Enum AirProgramClassification
         None = 0
         <Description("NSR/PSD Major")> NsrMajor = 1
         <Description("HAPs Major")> HapMajor = 2

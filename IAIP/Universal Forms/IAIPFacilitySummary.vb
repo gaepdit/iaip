@@ -1221,20 +1221,8 @@ Public Class IAIPFacilitySummary
         End Try
     End Sub
     Private Sub btnEditAirProgramPollutants_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditAirProgramPollutants.Click
-        Try
-
-
-            EditAirProgramPollutants = Nothing
-            If EditAirProgramPollutants Is Nothing Then EditAirProgramPollutants = New IAIPEditAirProgramPollutants
-            EditAirProgramPollutants.txtAirsNumber.Text = Me.AirsNumber.ToString
-            EditAirProgramPollutants.Show()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        Dim EditAirProgramPollutants As IAIPEditAirProgramPollutants = OpenSingleForm(IAIPEditAirProgramPollutants)
+        EditAirProgramPollutants.AirsNumberDisplay.Text = Me.AirsNumber.ToString
     End Sub
     Private Sub btnOpenSubpartEditior_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenSubpartEditor.Click
         Try

@@ -1,9 +1,8 @@
 Imports Oracle.DataAccess.Client
 Imports System.Collections.Generic
 
-
 Public Class IAIPEditAirProgramPollutants
-    Dim SQL, SQL2, SQL3 As String
+    Dim SQL, SQL2 As String
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader
     Dim recExist As Boolean
@@ -17,25 +16,15 @@ Public Class IAIPEditAirProgramPollutants
 
     Private Sub DevEditAirProgramPollutants_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
+    End Sub
+
+    Private Sub IAIPEditAirProgramPollutants_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
         Try
-
-
-            Panel1.Text = "Select a Function..."
-            Panel2.Text = UserName
-            Panel3.Text = OracleDate
 
             LoadTop()
             LoadDataSets()
             LoadPollutantCombos()
             LoadDataGrid()
-            TCEditPollutants.TabPages.Remove(TPEnforcementPollutants)
-
-            'If txtEnforcementNumber.Text <> "" Then
-            '    LoadEnforcementPollutants()
-            '    lblEnforcement.Text = "Enforcement Action #" & txtEnforcementNumber.Text & " - Pollutants in Violation"
-            'Else
-            '    TCEditPollutants.TabPages.Remove(TPEnforcementPollutants)
-            'End If
 
             If AccountFormAccess(27, 3) = "1" Or AccountFormAccess(27, 2) = "1" Or (UserBranch = "1" And UserUnit = "---") Then
                 cboComplianceStatus.Enabled = True
@@ -49,15 +38,13 @@ Public Class IAIPEditAirProgramPollutants
                 Or UserProgram = "11" Or UserProgram = "12" Or UserProgram = "13" _
                     Or UserProgram = "14" Or UserProgram = "15" Then
                 btnSaveNewPollutant.Enabled = False
-                tsbSave.Visible = False
-                mmiSave.Visible = False
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
+
 #Region "Page Load Functions"
     Sub LoadTop()
         Dim AirPrograms As String
@@ -73,7 +60,7 @@ Public Class IAIPEditAirProgramPollutants
             "strAirProgramCodes, strFacilityName " & _
             "from AIRBRANCH.APBHeaderData, AIRBRANCH.APBFacilityInformation " & _
             "where AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber " & _
-            "and AIRBRANCH.APBHeaderData.strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
+            "and AIRBRANCH.APBHeaderData.strAIRSNumber = '0413" & AirsNumberDisplay.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -86,7 +73,7 @@ Public Class IAIPEditAirProgramPollutants
 
                 'AirPrograms = dr.Item("Programs")
                 AirPrograms = dr.Item("strAirProgramCodes")
-                txtFacilityName.Text = dr.Item("strFacilityName")
+                FacilityNameDisplay.Text = dr.Item("strFacilityName")
 
                 If AirPrograms <> "" Then
                     If Mid(AirPrograms, 1, 1) = "1" Then
@@ -131,20 +118,11 @@ Public Class IAIPEditAirProgramPollutants
                 End If
             End While
 
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
-
-
     End Sub
+
     Sub LoadDataSets()
         Try
 
@@ -173,18 +151,11 @@ Public Class IAIPEditAirProgramPollutants
             daPollutant.Fill(dsPollutant, "Pollutant")
             daComplianceStatus.Fill(dsComplianceStatus, "ComplianceStatus")
 
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
-
     End Sub
+
     Sub LoadPollutantCombos()
         Dim dtPollutants As New DataTable
         Dim dtComplianceStatus As New DataTable
@@ -241,13 +212,9 @@ Public Class IAIPEditAirProgramPollutants
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
-
     End Sub
+
     Sub LoadDataGrid()
         Try
 
@@ -277,7 +244,7 @@ Public Class IAIPEditAirProgramPollutants
             "where AIRBRANCH.APBAirProgramPollutants.strPollutantKey = AIRBRANCH.LookUPPollutants.strPOllutantCode   " & _
             "and AIRBRANCH.LookUpComplianceStatus.strComplianceCode = AIRBRANCH.APBAirProgramPollutants.strComplianceStatus " & _
             "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.APBAirProgramPollutants.strModifingPerson  " & _
-            "and strAIRSNumber = '0413" & txtAirsNumber.Text & "' " & _
+            "and strAIRSNumber = '0413" & AirsNumberDisplay.Text & "' " & _
             "Order by AirProgram "
 
             dsDataGrid = New DataSet
@@ -291,10 +258,6 @@ Public Class IAIPEditAirProgramPollutants
             daDataGrid.Fill(dsDataGrid, "DataGrid")
             dgvAirProgramPollutants.DataSource = dsDataGrid
             dgvAirProgramPollutants.DataMember = "DataGrid"
-
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
 
             dgvAirProgramPollutants.RowHeadersVisible = False
             dgvAirProgramPollutants.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -321,110 +284,10 @@ Public Class IAIPEditAirProgramPollutants
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
-
-    End Sub
-    Sub LoadEnforcementPollutants()
-        Try
-            Dim Pollutants As String = ""
-            Dim AirProgram As String = ""
-            Dim Pollutant As String = ""
-            Dim temp As String = ""
-
-            SQL = "Select strPollutants " & _
-            "from AIRBRANCH.SSCPEnforcement " & _
-            "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            If recExist = True Then
-                If IsDBNull(dr.Item("strPollutants")) Then
-                    Pollutants = ""
-                Else
-                    Pollutants = dr.Item("strPollutants")
-                End If
-            End If
-            dr.Close()
-
-            If Pollutants <> "" Then
-                Do While Pollutants <> ""
-                    temp = Mid(Pollutants, 1, (InStr(Pollutants, ",", CompareMethod.Text) - 1))
-                    Pollutants = Mid(Pollutants, (InStr(Pollutants, ",", CompareMethod.Text) + 1))
-                    AirProgram = Mid(temp, 1, 1)
-                    Pollutant = Mid(temp, 2)
-
-                    SQL = "Select " & _
-                    "strPollutantDescription, strComplianceStatus " & _
-                    "from AIRBRANCH.LookUPPollutants, AIRBRANCH.APBAirProgramPollutants " & _
-                    "where strAirPollutantKey = '0413" & txtAirsNumber.Text & AirProgram & "' " & _
-                    "and strPollutantKey = strPollutantCode  " & _
-                    "and strPollutantKey = '" & Pollutant & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    If recExist = True Then
-                        Select Case AirProgram
-                            Case "0"
-                                temp = "(0 - SIP) - " & dr.Item("strPollutantDescription")
-                            Case "1"
-                                temp = "(1 - Fed. SIP) - " & dr.Item("strPollutantDescription")
-                            Case "3"
-                                temp = "(3 - Non Fed.) - " & dr.Item("strPollutantDescription")
-                            Case "4"
-                                temp = "(4 - CFC Tracking) - " & dr.Item("strPollutantDescription")
-                            Case "6"
-                                temp = "(6 - PSD) - " & dr.Item("strPollutantDescription")
-                            Case "7"
-                                temp = "(7 - NSR) - " & dr.Item("strPollutantDescription")
-                            Case "8"
-                                temp = "(8 - NESHAP) - " & dr.Item("strPollutantDescription")
-                            Case "9"
-                                temp = "(9 - NSPS) - " & dr.Item("strPollutantDescription")
-                            Case "F"
-                                temp = "(F - FESOP) - " & dr.Item("strPollutantDescription")
-                            Case "A"
-                                temp = "(A - Acid Precip.) - " & dr.Item("strPollutantDescription")
-                            Case "I"
-                                temp = "(I - Native American) - " & dr.Item("strPollutantDescription")
-                            Case "M"
-                                temp = "(M - MACT) - " & dr.Item("strPollutantDescription")
-                            Case "V"
-                                temp = "(V - Title V) - " & dr.Item("strPollutantDescription")
-                            Case Else
-                                temp = ""
-                        End Select
-                        If clbEnforcementPollutants.Items.Contains(temp) = False Then
-                            clbEnforcementPollutants.Items.Add(temp)
-                            clbEnforcementPollutants.SetItemChecked(clbEnforcementPollutants.Items.IndexOf(temp), True)
-                        End If
-                    End If
-                    dr.Close()
-                Loop
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
     End Sub
 #End Region
-#Region "Subs and Functions"
+
     Sub Save()
         Try
 
@@ -439,33 +302,33 @@ Public Class IAIPEditAirProgramPollutants
                                cboComplianceStatus.SelectedValue <> Nothing And cboComplianceStatus.Text <> "" Then
                     Select Case cboAirProgramCodes.Text
                         Case "0 - SIP"
-                            AIRSPollutantKey = "0413" & txtAirsNumber.Text & "0"
+                            AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "0"
                         Case "1 - Fed. SIP"
-                            AIRSPollutantKey = "0413" & txtAirsNumber.Text & "1"
+                            AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "1"
                         Case "3 - Non Fed."
-                            AIRSPollutantKey = "0413" & txtAirsNumber.Text & "3"
+                            AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "3"
                         Case "4 - CFC Tracking"
-                            AIRSPollutantKey = "0413" & txtAirsNumber.Text & "4"
+                            AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "4"
                         Case "6 - PSD"
-                            AIRSPollutantKey = "0413" & txtAirsNumber.Text & "6"
+                            AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "6"
                         Case "7 - NSR"
-                            AIRSPollutantKey = "0413" & txtAirsNumber.Text & "7"
+                            AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "7"
                         Case "8 - NESHAP"
-                            AIRSPollutantKey = "0413" & txtAirsNumber.Text & "8"
+                            AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "8"
                         Case "9 - NSPS"
-                            AIRSPollutantKey = "0413" & txtAirsNumber.Text & "9"
+                            AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "9"
                         Case "F - FESOP"
-                            AIRSPollutantKey = "0413" & txtAirsNumber.Text & "F"
+                            AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "F"
                         Case "A - Acid Precip."
-                            AIRSPollutantKey = "0413" & txtAirsNumber.Text & "A"
+                            AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "A"
                         Case "I - Native American"
-                            AIRSPollutantKey = "0413" & txtAirsNumber.Text & "I"
+                            AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "I"
                         Case "M - MACT"
-                            AIRSPollutantKey = "0413" & txtAirsNumber.Text & "M"
+                            AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "M"
                         Case "V - Title V"
-                            AIRSPollutantKey = "0413" & txtAirsNumber.Text & "V"
+                            AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "V"
                         Case Else
-                            AIRSPollutantKey = "0413" & txtAirsNumber.Text & "0"
+                            AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "0"
                     End Select
 
                     SQL = "Select strairsnumber " & _
@@ -488,7 +351,7 @@ Public Class IAIPEditAirProgramPollutants
 
                         SQL = "select strAirProgramCodes " & _
                         "from AIRBRANCH.APBHeaderData  " & _
-                        "where strAIRSnumber = '0413" & txtAirsNumber.Text & "' "
+                        "where strAIRSnumber = '0413" & AirsNumberDisplay.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
@@ -590,7 +453,7 @@ Public Class IAIPEditAirProgramPollutants
                             "strModifingperson = '" & UserGCode & "', " & _
                             "datModifingdate = '" & OracleDate & "' " & _
                             "where strAIRPollutantKey = '" & AIRSPollutantKey & "' " & _
-                            "and strAIRSnumber = '0413" & txtAirsNumber.Text & "' " & _
+                            "and strAIRSnumber = '0413" & AirsNumberDisplay.Text & "' " & _
                             "and strPOllutantKey = '" & cboPollutants.SelectedValue & "' "
                         Else
                             SQL = "Update AIRBRANCH.APBAirProgramPollutants set " & _
@@ -599,7 +462,7 @@ Public Class IAIPEditAirProgramPollutants
                             "datModifingdate = '" & OracleDate & "', " & _
                             "strOperationalStatus = 'X' " & _
                             "where strAIRPollutantKey = '" & AIRSPollutantKey & "' " & _
-                            "and strAIRSnumber = '0413" & txtAirsNumber.Text & "' " & _
+                            "and strAIRSnumber = '0413" & AirsNumberDisplay.Text & "' " & _
                             "and strPOllutantKey = '" & cboPollutants.SelectedValue & "' "
                         End If
                     Else
@@ -609,11 +472,9 @@ Public Class IAIPEditAirProgramPollutants
                         "strModifingperson, datModifingdate, " & _
                         "strOperationalStatus) " & _
                         "values " & _
-                        "('0413" & txtAirsNumber.Text & "', '" & AIRSPollutantKey & "', " & _
+                        "('0413" & AirsNumberDisplay.Text & "', '" & AIRSPollutantKey & "', " & _
                         "'" & cboPollutants.SelectedValue & "', '" & cboComplianceStatus.SelectedValue & "', " & _
                         "'" & UserGCode & "', '" & OracleDate & "', 'O') "
-                        txtModifingPerson.Text = UserName
-                        txtModifingDate.Text = OracleDate
                     End If
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -627,9 +488,6 @@ Public Class IAIPEditAirProgramPollutants
                         MsgBox(ex.ToString())
                     End Try
 
-                    If CurrentConnection.State = ConnectionState.Open Then
-                        'conn.close()
-                    End If
                     MsgBox("Pollutant added to Air Program Code.", MsgBoxStyle.Information, "Edit Air Program Code Pollutants")
 
                     LoadDataGrid()
@@ -640,310 +498,33 @@ Public Class IAIPEditAirProgramPollutants
                         Next
                     End If
 
-                    'If SSCP_Enforcement IsNot Nothing Then
-                    '    SSCP_Enforcement.LoadEnforcementPollutants2()
-                    'End If
                 Else
                     MsgBox("No Data Saved", MsgBoxStyle.Exclamation, "Edit Air Program Code Pollutants")
                 End If
 
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
-
-
     End Sub
-    Sub EditCompliancePollutants()
-        Try
 
-            Dim strObject As Object
-            Dim temp As String = ""
-            Dim AirProgram As String = ""
-            Dim Pollutant As String = ""
-            Dim PollutantList As String = ""
-
-            For Each strObject In clbEnforcementPollutants.CheckedItems
-                temp = strObject
-                AirProgram = Mid(strObject, 2, 1)
-                Pollutant = Mid(strObject, InStr(strObject, ") - ", CompareMethod.Text) + 4)
-
-                SQL = "Select strPollutantKey " & _
-                "from AIRBRANCH.APBAirProgramPollutants, AIRBRANCH.LookUPPollutants " & _
-                "where AIRBRANCH.APBAirProgramPollutants.strPollutantKey = AIRBRANCH.LookUPPollutants.strPollutantCode " & _
-                "and strAirPollutantKey = '0413" & txtAirsNumber.Text & AirProgram & "' " & _
-                "and strPollutantDescription = '" & Pollutant & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
-                    If IsDBNull(dr.Item("strPollutantKey")) Then
-                        Pollutant = ""
-                    Else
-                        Pollutant = dr.Item("strPollutantKey")
-                    End If
-                End If
-                dr.Close()
-
-                If Pollutant <> "" Then
-                    PollutantList = PollutantList & AirProgram & Pollutant & ","
-                Else
-                    'PollutantList = PollutantList
-                End If
-            Next
-
-            SQL = "Update AIRBRANCH.SSCPEnforcement set " & _
-            "strPollutants = '" & PollutantList & "' " & _
-            "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
+    Private Sub btnSaveNewPollutant_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveNewPollutant.Click
+        Save()
     End Sub
-    Sub Back()
-        Try
 
-
-            EditAirProgramPollutants = Nothing
-
-            Me.Close()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
-    End Sub
-#End Region
-#Region "Declarations"
-    Private Sub tsbSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbSave.Click
-        Try
-
-            Save()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
-    End Sub
-    Private Sub tsbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbBack.Click
-        Try
-
-            Back()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
-    End Sub
-#Region "Main Menu"
-    Private Sub mmiSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSave.Click
-        Try
-
-            Save()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
-    End Sub
-    Private Sub mmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiBack.Click
-        Try
-
-            Back()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
-    End Sub
-    Private Sub mmiCut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCut.Click
-        Try
-
-            SendKeys.Send("(^X)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
-    End Sub
-    Private Sub mmiCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCopy.Click
-        Try
-
-            SendKeys.Send("(^C)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
-    End Sub
-    Private Sub mmiPaste_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPaste.Click
-        Try
-
-            SendKeys.Send("(^V)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
-    End Sub
-    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
-        OpenDocumentationUrl(Me)
-    End Sub
-#End Region
-    Private Sub APBEditAIRProgramPollutants_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-
-            EditAirProgramPollutants = Nothing
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
-    End Sub
     Private Sub dgvAirProgramPollutants_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvAirProgramPollutants.MouseUp
-        Dim hti As DataGridView.HitTestInfo = dgvAirProgramPollutants.HitTest(e.X, e.Y)
-
         Try
-
-            Dim temp As String = ""
-            Dim temp2 As String = ""
+            Dim hti As DataGridView.HitTestInfo = dgvAirProgramPollutants.HitTest(e.X, e.Y)
 
             If dgvAirProgramPollutants.RowCount > 0 And hti.RowIndex <> -1 Then
                 cboAirProgramCodes.Text = dgvAirProgramPollutants(0, hti.RowIndex).Value
                 cboPollutants.Text = dgvAirProgramPollutants(1, hti.RowIndex).Value
                 cboComplianceStatus.Text = dgvAirProgramPollutants(2, hti.RowIndex).Value
-                txtModifingDate.Text = dgvAirProgramPollutants(3, hti.RowIndex).Value
-                txtModifingPerson.Text = dgvAirProgramPollutants(4, hti.RowIndex).Value
-                temp = "(" & dgvAirProgramPollutants(0, hti.RowIndex).Value & ") - " & dgvAirProgramPollutants(1, hti.RowIndex).Value
             End If
-
-            If clbEnforcementPollutants.Items.Contains(temp) = False Then
-                clbEnforcementPollutants.Items.Add(temp)
-                temp2 = clbEnforcementPollutants.Items.IndexOf(temp)
-                clbEnforcementPollutants.SetItemChecked(temp2, True)
-            End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
-
     End Sub
-    Private Sub btnAddPollutants_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddPollutants.Click
-        Try
-
-            If txtEnforcementNumber.Text <> "" Then
-                EditCompliancePollutants()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
-    End Sub
-    Private Sub btnSaveNewPollutant_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveNewPollutant.Click
-        Try
-
-            Save()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
-    End Sub
-    Private Sub btnRemovePollutantsfromList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRemovePollutantsfromList.Click
-        Try
-            Dim strObject As Object
-            Dim temp As String = ""
-            Dim count As Integer = 0
-            Dim i As Integer = 0
-            Dim uncheckeditems As CheckedListBox.CheckedItemCollection = clbEnforcementPollutants.CheckedItems
-            Dim CheckedItems(count) As String
-
-            For Each strObject In uncheckeditems
-                ReDim Preserve CheckedItems(count)
-                CheckedItems(count) = strObject.ToString()
-                count += 1
-            Next
-
-            clbEnforcementPollutants.Items.Clear()
-
-            For i = 0 To count - 1
-                clbEnforcementPollutants.Items.Add(CheckedItems(i))
-                clbEnforcementPollutants.SetItemChecked(i, True)
-            Next
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
-    End Sub
-
-#End Region
-
 
 End Class
