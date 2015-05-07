@@ -123,7 +123,10 @@
   <metadata name="llbViewTestReportMemo.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="DescriptionDisplay.Text" xml:space="preserve">
+  <data name="InfoDescDisplay.Text" xml:space="preserve">
+    <value>Wire manufacturing process involving metal clad armoring, drawing, extrusion, and ink application activities; and the operation of a machine shop including four abrasive blasting booths and one spray paint booth.</value>
+  </data>
+  <data name="HeaderDescDisplay.Text" xml:space="preserve">
     <value>Wire manufacturing process involving metal clad armoring, drawing, extrusion, and ink application activities; and the operation of a machine shop including four abrasive blasting booths and one spray paint booth.</value>
   </data>
   <metadata name="Label435.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -210,7 +213,7 @@
   <metadata name="TPSSCPContacts.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="TCISMPWork.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="TestingTabControl.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="TPTestReports.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -237,7 +240,7 @@
   <metadata name="Label374.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="TCComplianceWork.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="ComplianceTabControl.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="TPComplianceEvents.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -291,9 +294,12 @@
   <metadata name="Label91.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="MenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="FSMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>134, 17</value>
   </metadata>
+  <data name="TextBox28.Text" xml:space="preserve">
+    <value>Wire manufacturing process involving metal clad armoring, drawing, extrusion, and ink application activities; and the operation of a machine shop including four abrasive blasting booths and one spray paint booth.</value>
+  </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>56</value>
   </metadata>

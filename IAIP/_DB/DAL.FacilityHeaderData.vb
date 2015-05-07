@@ -108,7 +108,7 @@ Namespace DAL
                 .HeaderUpdateComment = DB.GetNullable(Of String)(row("STRCOMMENTS"))
                 .DateDataModified = DB.GetNullableDateTimeFromString(row("DATMODIFINGDATE"))
                 .WhoModified = DB.GetNullable(Of String)(row("WhoModified"))
-                .WhereModifiedCode = DB.GetNullable(Of String)(row("STRMODIFINGLOCATION"))
+                .WhereModifiedCode = DB.GetNullable(Of Integer)(row("STRMODIFINGLOCATION"))
                 .CmsMemberCode = DB.GetNullable(Of String)(row("STRCMSMEMBER"))
             End With
         End Sub

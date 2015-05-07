@@ -133,7 +133,7 @@ Namespace Apb.Facilities
     ''' </summary>
     ''' <remarks>Stored in database as a numeric key.</remarks>
     Public Enum HeaderDataModificationLocation
-        Unspecified
+        Unspecified = 0
         <Description("Permitting Action")> PermittingAction = 1
         <Description("Facility Header Editor")> HeaderDataEditor = 2
         <Description("SSCP Shutdown Notification")> SscpNotification = 3

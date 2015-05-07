@@ -45,85 +45,71 @@ Partial Class IAIPFacilitySummary
         Me.FacilityApprovalLinkLabel = New System.Windows.Forms.LinkLabel
         Me.ViewData = New System.Windows.Forms.Button
         Me.AirsNumberEntryLabel = New System.Windows.Forms.Label
-        Me.FacilitySummaryTabControl = New System.Windows.Forms.TabControl
-        Me.TPBasicInfo = New System.Windows.Forms.TabPage
+        Me.FSMainTabControl = New System.Windows.Forms.TabControl
+        Me.FSInfo = New System.Windows.Forms.TabPage
+        Me.CmsLabel = New System.Windows.Forms.Label
+        Me.CmsDisplay = New System.Windows.Forms.TextBox
         Me.Label101 = New System.Windows.Forms.Label
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
+        Me.InfoDescLabel = New System.Windows.Forms.Label
+        Me.InfoClassLabel = New System.Windows.Forms.Label
+        Me.InfoOperLabel = New System.Windows.Forms.Label
         Me.CreatedDateLabel = New System.Windows.Forms.Label
         Me.FisDateLabel = New System.Windows.Forms.Label
-        Me.StartupDateLabel = New System.Windows.Forms.Label
+        Me.InfoStartupDateLabel = New System.Windows.Forms.Label
         Me.DataUpdateDateLabel = New System.Windows.Forms.Label
         Me.EpaDateLabel = New System.Windows.Forms.Label
-        Me.PermitRevocationDateLabel = New System.Windows.Forms.Label
+        Me.InfoPermitRevocationDateLabel = New System.Windows.Forms.Label
         Me.ResponsibleOfficeDisplay = New System.Windows.Forms.TextBox
         Me.DataUpdateDateDisplay = New System.Windows.Forms.TextBox
         Me.EpaDateDisplay = New System.Windows.Forms.TextBox
-        Me.PermitRevocationDateDisplay = New System.Windows.Forms.TextBox
+        Me.InfoPermitRevocationDateDisplay = New System.Windows.Forms.TextBox
         Me.CreatedDateDisplay = New System.Windows.Forms.TextBox
         Me.FisDateDisplay = New System.Windows.Forms.TextBox
-        Me.StartupDateDisplay = New System.Windows.Forms.TextBox
+        Me.InfoStartupDateDisplay = New System.Windows.Forms.TextBox
         Me.ComplianceStatusDisplay = New System.Windows.Forms.TextBox
-        Me.OperatingStatusDisplay = New System.Windows.Forms.TextBox
-        Me.ClassificationDisplay = New System.Windows.Forms.TextBox
+        Me.InfoOperStatusDisplay = New System.Windows.Forms.TextBox
+        Me.InfoClassDisplay = New System.Windows.Forms.TextBox
         Me.DistrictOfficeDisplay = New System.Windows.Forms.TextBox
         Me.LatLonDisplay = New System.Windows.Forms.TextBox
-        Me.DescriptionDisplay = New System.Windows.Forms.TextBox
+        Me.InfoDescDisplay = New System.Windows.Forms.TextBox
         Me.LocationDisplay = New System.Windows.Forms.TextBox
-        Me.btnOpenFacilityLocationEditor = New System.Windows.Forms.Button
+        Me.EditFacilityLocationButton = New System.Windows.Forms.Button
         Me.ResponsibleOfficeLabel = New System.Windows.Forms.Label
         Me.DistrictOfficeLabel = New System.Windows.Forms.Label
         Me.MapLatLonLink = New System.Windows.Forms.LinkLabel
         Me.MapAddressLink = New System.Windows.Forms.LinkLabel
-        Me.TPHeaderData = New System.Windows.Forms.TabPage
-        Me.GroupBox8 = New System.Windows.Forms.GroupBox
-        Me.chbNSRMajor = New System.Windows.Forms.CheckBox
-        Me.chbHAPsMajor = New System.Windows.Forms.CheckBox
-        Me.btnEditHeaderData = New System.Windows.Forms.Button
-        Me.btnOpenSubpartEditor = New System.Windows.Forms.Button
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.txtRMPID = New System.Windows.Forms.TextBox
-        Me.txtCMSState = New System.Windows.Forms.TextBox
-        Me.Label18 = New System.Windows.Forms.Label
-        Me.Label439 = New System.Windows.Forms.Label
-        Me.btnEditAirProgramPollutants = New System.Windows.Forms.Button
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.txtDateClosed = New System.Windows.Forms.TextBox
-        Me.txtNAICSCode = New System.Windows.Forms.TextBox
-        Me.Label92 = New System.Windows.Forms.Label
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.txtStartUpDate = New System.Windows.Forms.TextBox
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.txtPlantDescription = New System.Windows.Forms.TextBox
-        Me.txtSICCode = New System.Windows.Forms.TextBox
-        Me.Label438 = New System.Windows.Forms.Label
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.chbAPCRMP = New System.Windows.Forms.CheckBox
-        Me.chbAPCI = New System.Windows.Forms.CheckBox
-        Me.chbAPCF = New System.Windows.Forms.CheckBox
-        Me.chbAPCA = New System.Windows.Forms.CheckBox
-        Me.chbAPCV = New System.Windows.Forms.CheckBox
-        Me.chbAPCM = New System.Windows.Forms.CheckBox
-        Me.chbAPC9 = New System.Windows.Forms.CheckBox
-        Me.chbAPC8 = New System.Windows.Forms.CheckBox
-        Me.chbAPC7 = New System.Windows.Forms.CheckBox
-        Me.chbAPC6 = New System.Windows.Forms.CheckBox
-        Me.chbAPC4 = New System.Windows.Forms.CheckBox
-        Me.chbAPC3 = New System.Windows.Forms.CheckBox
-        Me.chbAPC1 = New System.Windows.Forms.CheckBox
-        Me.chbAPC0 = New System.Windows.Forms.CheckBox
-        Me.GroupBox5 = New System.Windows.Forms.GroupBox
-        Me.txtPM = New System.Windows.Forms.TextBox
-        Me.txt8HROzone = New System.Windows.Forms.TextBox
-        Me.txt1hour = New System.Windows.Forms.TextBox
-        Me.Label97 = New System.Windows.Forms.Label
-        Me.Label96 = New System.Windows.Forms.Label
-        Me.Label94 = New System.Windows.Forms.Label
-        Me.txtClassification = New System.Windows.Forms.TextBox
-        Me.Label430 = New System.Windows.Forms.Label
-        Me.txtOperationalStatus = New System.Windows.Forms.TextBox
-        Me.TPFees = New System.Windows.Forms.TabPage
+        Me.FSHeaderData = New System.Windows.Forms.TabPage
+        Me.AirProgramsListBox = New System.Windows.Forms.ListBox
+        Me.ProgramClassificationsListBox = New System.Windows.Forms.ListBox
+        Me.RmpIdLabel = New System.Windows.Forms.Label
+        Me.NaicsLabel = New System.Windows.Forms.Label
+        Me.HeaderRevocationLabel = New System.Windows.Forms.Label
+        Me.HeaderOperLabel = New System.Windows.Forms.Label
+        Me.RmpIdDisplay = New System.Windows.Forms.TextBox
+        Me.NaicsDisplay = New System.Windows.Forms.TextBox
+        Me.HeaderRevocationDateDisplay = New System.Windows.Forms.TextBox
+        Me.HeaderOperStatusDisplay = New System.Windows.Forms.TextBox
+        Me.HeaderDescLabel = New System.Windows.Forms.Label
+        Me.HeaderDescDisplay = New System.Windows.Forms.TextBox
+        Me.NonattainmentStatuses = New System.Windows.Forms.GroupBox
+        Me.PmLabel = New System.Windows.Forms.Label
+        Me.EightHourLabel = New System.Windows.Forms.Label
+        Me.OneHourLabel = New System.Windows.Forms.Label
+        Me.PmNonattainmentDisplay = New System.Windows.Forms.TextBox
+        Me.EightHourOzoneDisplay = New System.Windows.Forms.TextBox
+        Me.OneHourOzoneDisplay = New System.Windows.Forms.TextBox
+        Me.SicLabel = New System.Windows.Forms.Label
+        Me.HeaderStartupLabel = New System.Windows.Forms.Label
+        Me.ProgramClassificationsLabel = New System.Windows.Forms.Label
+        Me.AirProgramsLabel = New System.Windows.Forms.Label
+        Me.HeaderClassLabel = New System.Windows.Forms.Label
+        Me.SicDisplay = New System.Windows.Forms.TextBox
+        Me.HeaderStartupDisplay = New System.Windows.Forms.TextBox
+        Me.HeaderClassDisplay = New System.Windows.Forms.TextBox
+        Me.EditHeaderDataButton = New System.Windows.Forms.Button
+        Me.EditSubpartsButton = New System.Windows.Forms.Button
+        Me.EditPollutantsButton = New System.Windows.Forms.Button
+        Me.FSFees = New System.Windows.Forms.TabPage
         Me.lblFeeStatus = New System.Windows.Forms.Label
         Me.txtBalance = New System.Windows.Forms.TextBox
         Me.txtDateSubmitted = New System.Windows.Forms.TextBox
@@ -164,8 +150,8 @@ Partial Class IAIPFacilitySummary
         Me.txtFeesTotal = New System.Windows.Forms.TextBox
         Me.cboFeeYear = New System.Windows.Forms.ComboBox
         Me.Label423 = New System.Windows.Forms.Label
-        Me.TPContacts = New System.Windows.Forms.TabPage
-        Me.TCContacts = New System.Windows.Forms.TabControl
+        Me.FSContacts = New System.Windows.Forms.TabPage
+        Me.ContactsTabControl = New System.Windows.Forms.TabControl
         Me.TPStateContacts = New System.Windows.Forms.TabPage
         Me.txtDistrictUnit = New System.Windows.Forms.TextBox
         Me.txtISMPUnit = New System.Windows.Forms.TextBox
@@ -201,8 +187,8 @@ Partial Class IAIPFacilitySummary
         Me.btnCopyGECOContact = New System.Windows.Forms.Button
         Me.pnlEditContactData = New System.Windows.Forms.Panel
         Me.btnEditContacts = New System.Windows.Forms.Button
-        Me.TPTesting = New System.Windows.Forms.TabPage
-        Me.TCISMPWork = New System.Windows.Forms.TabControl
+        Me.FSTesting = New System.Windows.Forms.TabPage
+        Me.TestingTabControl = New System.Windows.Forms.TabControl
         Me.TPTestReports = New System.Windows.Forms.TabPage
         Me.dgvISMPWork = New System.Windows.Forms.DataGridView
         Me.PanelISMPWork = New System.Windows.Forms.Panel
@@ -217,8 +203,8 @@ Partial Class IAIPFacilitySummary
         Me.PanelISMPMemo = New System.Windows.Forms.Panel
         Me.txtReferenceNumber2 = New System.Windows.Forms.TextBox
         Me.Label374 = New System.Windows.Forms.Label
-        Me.TPCompliance = New System.Windows.Forms.TabPage
-        Me.TCComplianceWork = New System.Windows.Forms.TabControl
+        Me.FSCompliance = New System.Windows.Forms.TabPage
+        Me.ComplianceTabControl = New System.Windows.Forms.TabControl
         Me.TPComplianceEvents = New System.Windows.Forms.TabPage
         Me.dgvSSCPEvents = New System.Windows.Forms.DataGridView
         Me.PanelSSCPEvents = New System.Windows.Forms.Panel
@@ -237,8 +223,8 @@ Partial Class IAIPFacilitySummary
         Me.llbViewSSCPEnforcement = New System.Windows.Forms.LinkLabel
         Me.txtEnforcementNumber = New System.Windows.Forms.TextBox
         Me.Label375 = New System.Windows.Forms.Label
-        Me.TPPermitting = New System.Windows.Forms.TabPage
-        Me.TCPermittingData = New System.Windows.Forms.TabControl
+        Me.FSPermitting = New System.Windows.Forms.TabPage
+        Me.PermittingTabControl = New System.Windows.Forms.TabControl
         Me.TPAppLog = New System.Windows.Forms.TabPage
         Me.dgvApplicationLog = New System.Windows.Forms.DataGridView
         Me.Panel12 = New System.Windows.Forms.Panel
@@ -253,47 +239,72 @@ Partial Class IAIPFacilitySummary
         Me.WebLinkPanel = New System.Windows.Forms.Panel
         Me.llbViewAirPermitsOnline = New System.Windows.Forms.LinkLabel
         Me.dgvPermits = New System.Windows.Forms.DataGridView
-        Me.TPFinancial = New System.Windows.Forms.TabPage
-        Me.TabControl2 = New System.Windows.Forms.TabControl
+        Me.FSFinancial = New System.Windows.Forms.TabPage
+        Me.FinancialTabControl = New System.Windows.Forms.TabControl
         Me.TPFeeData = New System.Windows.Forms.TabPage
         Me.dgvFeeData = New System.Windows.Forms.DataGridView
         Me.TPInvoices = New System.Windows.Forms.TabPage
         Me.dgvInvoices = New System.Windows.Forms.DataGridView
         Me.TPFeeDeposits = New System.Windows.Forms.TabPage
         Me.dgvFeeDeposits = New System.Windows.Forms.DataGridView
-        Me.TPEmissionInventory = New System.Windows.Forms.TabPage
+        Me.FSEmissionInventory = New System.Windows.Forms.TabPage
         Me.GroupBox6 = New System.Windows.Forms.GroupBox
         Me.dgvEISData = New System.Windows.Forms.DataGridView
         Me.GroupBox7 = New System.Windows.Forms.GroupBox
         Me.dgvEIData = New System.Windows.Forms.DataGridView
-        Me.MenuStrip = New System.Windows.Forms.MenuStrip
-        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.LookUpFacilityToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.PrintFacilitySummaryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ClearFormToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator
-        Me.CloseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.EditContactInformationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.FacilityCreatorToolMenuItemSeparator = New System.Windows.Forms.ToolStripSeparator
-        Me.FacilityCreatorToolToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.UpdateEpaMenuItemSeparator = New System.Windows.Forms.ToolStripSeparator
-        Me.UpdateAllDataSentToEPAToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.OnlineHelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.FSMenuStrip = New System.Windows.Forms.MenuStrip
+        Me.FileMenu = New System.Windows.Forms.ToolStripMenuItem
+        Me.LookUpFacilityMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.PrintFacilitySummaryMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.ClearFormMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.FileMenuSeparator = New System.Windows.Forms.ToolStripSeparator
+        Me.CloseMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolsMenu = New System.Windows.Forms.ToolStripMenuItem
+        Me.CreateFacilityMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolsMenuSeparator = New System.Windows.Forms.ToolStripSeparator
+        Me.UpdateEpaMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.HelpMenu = New System.Windows.Forms.ToolStripMenuItem
+        Me.HelpMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.Label21 = New System.Windows.Forms.Label
+        Me.Label22 = New System.Windows.Forms.Label
+        Me.Label23 = New System.Windows.Forms.Label
+        Me.Label24 = New System.Windows.Forms.Label
+        Me.Label25 = New System.Windows.Forms.Label
+        Me.Label26 = New System.Windows.Forms.Label
+        Me.Label27 = New System.Windows.Forms.Label
+        Me.Label28 = New System.Windows.Forms.Label
+        Me.Label29 = New System.Windows.Forms.Label
+        Me.Label30 = New System.Windows.Forms.Label
+        Me.TextBox16 = New System.Windows.Forms.TextBox
+        Me.TextBox17 = New System.Windows.Forms.TextBox
+        Me.TextBox18 = New System.Windows.Forms.TextBox
+        Me.TextBox19 = New System.Windows.Forms.TextBox
+        Me.TextBox20 = New System.Windows.Forms.TextBox
+        Me.TextBox21 = New System.Windows.Forms.TextBox
+        Me.TextBox22 = New System.Windows.Forms.TextBox
+        Me.TextBox23 = New System.Windows.Forms.TextBox
+        Me.TextBox24 = New System.Windows.Forms.TextBox
+        Me.TextBox25 = New System.Windows.Forms.TextBox
+        Me.TextBox26 = New System.Windows.Forms.TextBox
+        Me.TextBox27 = New System.Windows.Forms.TextBox
+        Me.TextBox28 = New System.Windows.Forms.TextBox
+        Me.TextBox29 = New System.Windows.Forms.TextBox
+        Me.Button2 = New System.Windows.Forms.Button
+        Me.Label31 = New System.Windows.Forms.Label
+        Me.Label32 = New System.Windows.Forms.Label
+        Me.LinkLabel3 = New System.Windows.Forms.LinkLabel
+        Me.LinkLabel4 = New System.Windows.Forms.LinkLabel
         Me.NavigationPanel.SuspendLayout()
-        Me.FacilitySummaryTabControl.SuspendLayout()
-        Me.TPBasicInfo.SuspendLayout()
-        Me.TPHeaderData.SuspendLayout()
-        Me.GroupBox8.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
-        Me.GroupBox5.SuspendLayout()
-        Me.TPFees.SuspendLayout()
+        Me.FSMainTabControl.SuspendLayout()
+        Me.FSInfo.SuspendLayout()
+        Me.FSHeaderData.SuspendLayout()
+        Me.NonattainmentStatuses.SuspendLayout()
+        Me.FSFees.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
-        Me.TPContacts.SuspendLayout()
-        Me.TCContacts.SuspendLayout()
+        Me.FSContacts.SuspendLayout()
+        Me.ContactsTabControl.SuspendLayout()
         Me.TPStateContacts.SuspendLayout()
         Me.TPWebContacts.SuspendLayout()
         Me.Panel6.SuspendLayout()
@@ -311,8 +322,8 @@ Partial Class IAIPFacilitySummary
         CType(Me.dgvGECOContacts, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel10.SuspendLayout()
         Me.pnlEditContactData.SuspendLayout()
-        Me.TPTesting.SuspendLayout()
-        Me.TCISMPWork.SuspendLayout()
+        Me.FSTesting.SuspendLayout()
+        Me.TestingTabControl.SuspendLayout()
         Me.TPTestReports.SuspendLayout()
         CType(Me.dgvISMPWork, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelISMPWork.SuspendLayout()
@@ -322,8 +333,8 @@ Partial Class IAIPFacilitySummary
         Me.TPReportMemos.SuspendLayout()
         CType(Me.dgvISMPMemo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelISMPMemo.SuspendLayout()
-        Me.TPCompliance.SuspendLayout()
-        Me.TCComplianceWork.SuspendLayout()
+        Me.FSCompliance.SuspendLayout()
+        Me.ComplianceTabControl.SuspendLayout()
         Me.TPComplianceEvents.SuspendLayout()
         CType(Me.dgvSSCPEvents, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelSSCPEvents.SuspendLayout()
@@ -333,8 +344,8 @@ Partial Class IAIPFacilitySummary
         Me.TPEnforcement.SuspendLayout()
         CType(Me.dgvSSCPEnforcement, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelSSCPEnforcement.SuspendLayout()
-        Me.TPPermitting.SuspendLayout()
-        Me.TCPermittingData.SuspendLayout()
+        Me.FSPermitting.SuspendLayout()
+        Me.PermittingTabControl.SuspendLayout()
         Me.TPAppLog.SuspendLayout()
         CType(Me.dgvApplicationLog, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel12.SuspendLayout()
@@ -345,20 +356,20 @@ Partial Class IAIPFacilitySummary
         Me.TPPermits.SuspendLayout()
         Me.WebLinkPanel.SuspendLayout()
         CType(Me.dgvPermits, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TPFinancial.SuspendLayout()
-        Me.TabControl2.SuspendLayout()
+        Me.FSFinancial.SuspendLayout()
+        Me.FinancialTabControl.SuspendLayout()
         Me.TPFeeData.SuspendLayout()
         CType(Me.dgvFeeData, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPInvoices.SuspendLayout()
         CType(Me.dgvInvoices, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPFeeDeposits.SuspendLayout()
         CType(Me.dgvFeeDeposits, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TPEmissionInventory.SuspendLayout()
+        Me.FSEmissionInventory.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
         CType(Me.dgvEISData, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox7.SuspendLayout()
         CType(Me.dgvEIData, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.MenuStrip.SuspendLayout()
+        Me.FSMenuStrip.SuspendLayout()
         Me.SuspendLayout()
         '
         'llbClosePrintTestReport
@@ -424,8 +435,8 @@ Partial Class IAIPFacilitySummary
         Me.NavigationPanel.Dock = System.Windows.Forms.DockStyle.Top
         Me.NavigationPanel.Location = New System.Drawing.Point(0, 24)
         Me.NavigationPanel.Name = "NavigationPanel"
-        Me.NavigationPanel.Size = New System.Drawing.Size(792, 58)
-        Me.NavigationPanel.TabIndex = 275
+        Me.NavigationPanel.Size = New System.Drawing.Size(645, 58)
+        Me.NavigationPanel.TabIndex = 1
         '
         'FacilityNameDisplay
         '
@@ -437,8 +448,8 @@ Partial Class IAIPFacilitySummary
         Me.FacilityNameDisplay.Multiline = True
         Me.FacilityNameDisplay.Name = "FacilityNameDisplay"
         Me.FacilityNameDisplay.ReadOnly = True
-        Me.FacilityNameDisplay.Size = New System.Drawing.Size(489, 37)
-        Me.FacilityNameDisplay.TabIndex = 277
+        Me.FacilityNameDisplay.Size = New System.Drawing.Size(342, 37)
+        Me.FacilityNameDisplay.TabIndex = 2
         Me.FacilityNameDisplay.Text = "name line 1" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "line 2"
         '
         'AirsNumberEntry
@@ -448,17 +459,16 @@ Partial Class IAIPFacilitySummary
         Me.AirsNumberEntry.MaxLength = 9
         Me.AirsNumberEntry.Name = "AirsNumberEntry"
         Me.AirsNumberEntry.Size = New System.Drawing.Size(86, 23)
-        Me.AirsNumberEntry.TabIndex = 275
+        Me.AirsNumberEntry.TabIndex = 0
         '
         'FacilityApprovalLinkLabel
         '
-        Me.FacilityApprovalLinkLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.FacilityApprovalLinkLabel.AutoSize = True
         Me.FacilityApprovalLinkLabel.LinkArea = New System.Windows.Forms.LinkArea(33, 63)
-        Me.FacilityApprovalLinkLabel.Location = New System.Drawing.Point(11, 36)
+        Me.FacilityApprovalLinkLabel.Location = New System.Drawing.Point(12, 36)
         Me.FacilityApprovalLinkLabel.Name = "FacilityApprovalLinkLabel"
         Me.FacilityApprovalLinkLabel.Size = New System.Drawing.Size(262, 17)
-        Me.FacilityApprovalLinkLabel.TabIndex = 274
+        Me.FacilityApprovalLinkLabel.TabIndex = 3
         Me.FacilityApprovalLinkLabel.TabStop = True
         Me.FacilityApprovalLinkLabel.Text = "Facility not approved yet in the Facility Creator Tool"
         Me.FacilityApprovalLinkLabel.UseCompatibleTextRendering = True
@@ -470,7 +480,7 @@ Partial Class IAIPFacilitySummary
         Me.ViewData.Location = New System.Drawing.Point(183, 10)
         Me.ViewData.Name = "ViewData"
         Me.ViewData.Size = New System.Drawing.Size(91, 23)
-        Me.ViewData.TabIndex = 273
+        Me.ViewData.TabIndex = 1
         Me.ViewData.Text = "View Data"
         Me.ViewData.UseVisualStyleBackColor = True
         '
@@ -484,110 +494,132 @@ Partial Class IAIPFacilitySummary
         Me.AirsNumberEntryLabel.TabIndex = 272
         Me.AirsNumberEntryLabel.Text = "AIRS Number:"
         '
-        'FacilitySummaryTabControl
+        'FSMainTabControl
         '
-        Me.FacilitySummaryTabControl.Controls.Add(Me.TPBasicInfo)
-        Me.FacilitySummaryTabControl.Controls.Add(Me.TPHeaderData)
-        Me.FacilitySummaryTabControl.Controls.Add(Me.TPFees)
-        Me.FacilitySummaryTabControl.Controls.Add(Me.TPContacts)
-        Me.FacilitySummaryTabControl.Controls.Add(Me.TPTesting)
-        Me.FacilitySummaryTabControl.Controls.Add(Me.TPCompliance)
-        Me.FacilitySummaryTabControl.Controls.Add(Me.TPPermitting)
-        Me.FacilitySummaryTabControl.Controls.Add(Me.TPFinancial)
-        Me.FacilitySummaryTabControl.Controls.Add(Me.TPEmissionInventory)
-        Me.FacilitySummaryTabControl.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.FacilitySummaryTabControl.Location = New System.Drawing.Point(0, 82)
-        Me.FacilitySummaryTabControl.Name = "FacilitySummaryTabControl"
-        Me.FacilitySummaryTabControl.SelectedIndex = 0
-        Me.FacilitySummaryTabControl.Size = New System.Drawing.Size(792, 442)
-        Me.FacilitySummaryTabControl.TabIndex = 277
+        Me.FSMainTabControl.Controls.Add(Me.FSInfo)
+        Me.FSMainTabControl.Controls.Add(Me.FSHeaderData)
+        Me.FSMainTabControl.Controls.Add(Me.FSFees)
+        Me.FSMainTabControl.Controls.Add(Me.FSContacts)
+        Me.FSMainTabControl.Controls.Add(Me.FSTesting)
+        Me.FSMainTabControl.Controls.Add(Me.FSCompliance)
+        Me.FSMainTabControl.Controls.Add(Me.FSPermitting)
+        Me.FSMainTabControl.Controls.Add(Me.FSFinancial)
+        Me.FSMainTabControl.Controls.Add(Me.FSEmissionInventory)
+        Me.FSMainTabControl.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.FSMainTabControl.Location = New System.Drawing.Point(0, 82)
+        Me.FSMainTabControl.Name = "FSMainTabControl"
+        Me.FSMainTabControl.SelectedIndex = 0
+        Me.FSMainTabControl.Size = New System.Drawing.Size(645, 373)
+        Me.FSMainTabControl.TabIndex = 2
         '
-        'TPBasicInfo
+        'FSInfo
         '
-        Me.TPBasicInfo.Controls.Add(Me.Label101)
-        Me.TPBasicInfo.Controls.Add(Me.Label9)
-        Me.TPBasicInfo.Controls.Add(Me.Label1)
-        Me.TPBasicInfo.Controls.Add(Me.Label2)
-        Me.TPBasicInfo.Controls.Add(Me.CreatedDateLabel)
-        Me.TPBasicInfo.Controls.Add(Me.FisDateLabel)
-        Me.TPBasicInfo.Controls.Add(Me.StartupDateLabel)
-        Me.TPBasicInfo.Controls.Add(Me.DataUpdateDateLabel)
-        Me.TPBasicInfo.Controls.Add(Me.EpaDateLabel)
-        Me.TPBasicInfo.Controls.Add(Me.PermitRevocationDateLabel)
-        Me.TPBasicInfo.Controls.Add(Me.ResponsibleOfficeDisplay)
-        Me.TPBasicInfo.Controls.Add(Me.DataUpdateDateDisplay)
-        Me.TPBasicInfo.Controls.Add(Me.EpaDateDisplay)
-        Me.TPBasicInfo.Controls.Add(Me.PermitRevocationDateDisplay)
-        Me.TPBasicInfo.Controls.Add(Me.CreatedDateDisplay)
-        Me.TPBasicInfo.Controls.Add(Me.FisDateDisplay)
-        Me.TPBasicInfo.Controls.Add(Me.StartupDateDisplay)
-        Me.TPBasicInfo.Controls.Add(Me.ComplianceStatusDisplay)
-        Me.TPBasicInfo.Controls.Add(Me.OperatingStatusDisplay)
-        Me.TPBasicInfo.Controls.Add(Me.ClassificationDisplay)
-        Me.TPBasicInfo.Controls.Add(Me.DistrictOfficeDisplay)
-        Me.TPBasicInfo.Controls.Add(Me.LatLonDisplay)
-        Me.TPBasicInfo.Controls.Add(Me.DescriptionDisplay)
-        Me.TPBasicInfo.Controls.Add(Me.LocationDisplay)
-        Me.TPBasicInfo.Controls.Add(Me.btnOpenFacilityLocationEditor)
-        Me.TPBasicInfo.Controls.Add(Me.ResponsibleOfficeLabel)
-        Me.TPBasicInfo.Controls.Add(Me.DistrictOfficeLabel)
-        Me.TPBasicInfo.Controls.Add(Me.MapLatLonLink)
-        Me.TPBasicInfo.Controls.Add(Me.MapAddressLink)
-        Me.TPBasicInfo.Location = New System.Drawing.Point(4, 22)
-        Me.TPBasicInfo.Name = "TPBasicInfo"
-        Me.TPBasicInfo.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPBasicInfo.Size = New System.Drawing.Size(784, 416)
-        Me.TPBasicInfo.TabIndex = 0
-        Me.TPBasicInfo.Text = "Basic Info"
-        Me.TPBasicInfo.UseVisualStyleBackColor = True
+        Me.FSInfo.Controls.Add(Me.CmsLabel)
+        Me.FSInfo.Controls.Add(Me.CmsDisplay)
+        Me.FSInfo.Controls.Add(Me.Label101)
+        Me.FSInfo.Controls.Add(Me.InfoDescLabel)
+        Me.FSInfo.Controls.Add(Me.InfoClassLabel)
+        Me.FSInfo.Controls.Add(Me.InfoOperLabel)
+        Me.FSInfo.Controls.Add(Me.CreatedDateLabel)
+        Me.FSInfo.Controls.Add(Me.FisDateLabel)
+        Me.FSInfo.Controls.Add(Me.InfoStartupDateLabel)
+        Me.FSInfo.Controls.Add(Me.DataUpdateDateLabel)
+        Me.FSInfo.Controls.Add(Me.EpaDateLabel)
+        Me.FSInfo.Controls.Add(Me.InfoPermitRevocationDateLabel)
+        Me.FSInfo.Controls.Add(Me.ResponsibleOfficeDisplay)
+        Me.FSInfo.Controls.Add(Me.DataUpdateDateDisplay)
+        Me.FSInfo.Controls.Add(Me.EpaDateDisplay)
+        Me.FSInfo.Controls.Add(Me.InfoPermitRevocationDateDisplay)
+        Me.FSInfo.Controls.Add(Me.CreatedDateDisplay)
+        Me.FSInfo.Controls.Add(Me.FisDateDisplay)
+        Me.FSInfo.Controls.Add(Me.InfoStartupDateDisplay)
+        Me.FSInfo.Controls.Add(Me.ComplianceStatusDisplay)
+        Me.FSInfo.Controls.Add(Me.InfoOperStatusDisplay)
+        Me.FSInfo.Controls.Add(Me.InfoClassDisplay)
+        Me.FSInfo.Controls.Add(Me.DistrictOfficeDisplay)
+        Me.FSInfo.Controls.Add(Me.LatLonDisplay)
+        Me.FSInfo.Controls.Add(Me.InfoDescDisplay)
+        Me.FSInfo.Controls.Add(Me.LocationDisplay)
+        Me.FSInfo.Controls.Add(Me.EditFacilityLocationButton)
+        Me.FSInfo.Controls.Add(Me.ResponsibleOfficeLabel)
+        Me.FSInfo.Controls.Add(Me.DistrictOfficeLabel)
+        Me.FSInfo.Controls.Add(Me.MapLatLonLink)
+        Me.FSInfo.Controls.Add(Me.MapAddressLink)
+        Me.FSInfo.Location = New System.Drawing.Point(4, 22)
+        Me.FSInfo.Name = "FSInfo"
+        Me.FSInfo.Padding = New System.Windows.Forms.Padding(3)
+        Me.FSInfo.Size = New System.Drawing.Size(637, 347)
+        Me.FSInfo.TabIndex = 0
+        Me.FSInfo.Text = "Info"
+        Me.FSInfo.UseVisualStyleBackColor = True
+        '
+        'CmsLabel
+        '
+        Me.CmsLabel.AutoSize = True
+        Me.CmsLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CmsLabel.Location = New System.Drawing.Point(380, 61)
+        Me.CmsLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.CmsLabel.Name = "CmsLabel"
+        Me.CmsLabel.Size = New System.Drawing.Size(66, 13)
+        Me.CmsLabel.TabIndex = 347
+        Me.CmsLabel.Text = "CMS Status:"
+        '
+        'CmsDisplay
+        '
+        Me.CmsDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.CmsDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.CmsDisplay.Location = New System.Drawing.Point(458, 61)
+        Me.CmsDisplay.Name = "CmsDisplay"
+        Me.CmsDisplay.ReadOnly = True
+        Me.CmsDisplay.Size = New System.Drawing.Size(138, 13)
+        Me.CmsDisplay.TabIndex = 8
+        Me.CmsDisplay.Text = "class"
         '
         'Label101
         '
         Me.Label101.AutoSize = True
-        Me.Label101.Location = New System.Drawing.Point(348, 136)
+        Me.Label101.Location = New System.Drawing.Point(348, 155)
         Me.Label101.Name = "Label101"
         Me.Label101.Size = New System.Drawing.Size(98, 13)
         Me.Label101.TabIndex = 339
         Me.Label101.Text = "Compliance Status:"
         '
-        'Label9
+        'InfoDescLabel
         '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(7, 174)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(63, 13)
-        Me.Label9.TabIndex = 337
-        Me.Label9.Text = "Description:"
+        Me.InfoDescLabel.AutoSize = True
+        Me.InfoDescLabel.Location = New System.Drawing.Point(7, 23)
+        Me.InfoDescLabel.Name = "InfoDescLabel"
+        Me.InfoDescLabel.Size = New System.Drawing.Size(63, 13)
+        Me.InfoDescLabel.TabIndex = 337
+        Me.InfoDescLabel.Text = "Description:"
         '
-        'Label1
+        'InfoClassLabel
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(375, 23)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(71, 13)
-        Me.Label1.TabIndex = 329
-        Me.Label1.Text = "Classification:"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.BottomLeft
+        Me.InfoClassLabel.AutoSize = True
+        Me.InfoClassLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.InfoClassLabel.Location = New System.Drawing.Point(375, 42)
+        Me.InfoClassLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.InfoClassLabel.Name = "InfoClassLabel"
+        Me.InfoClassLabel.Size = New System.Drawing.Size(71, 13)
+        Me.InfoClassLabel.TabIndex = 329
+        Me.InfoClassLabel.Text = "Classification:"
         '
-        'Label2
+        'InfoOperLabel
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(357, 42)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(89, 13)
-        Me.Label2.TabIndex = 330
-        Me.Label2.Text = "Operating Status:"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.BottomLeft
+        Me.InfoOperLabel.AutoSize = True
+        Me.InfoOperLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.InfoOperLabel.Location = New System.Drawing.Point(357, 23)
+        Me.InfoOperLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.InfoOperLabel.Name = "InfoOperLabel"
+        Me.InfoOperLabel.Size = New System.Drawing.Size(89, 13)
+        Me.InfoOperLabel.TabIndex = 330
+        Me.InfoOperLabel.Text = "Operating Status:"
         '
         'CreatedDateLabel
         '
         Me.CreatedDateLabel.AutoSize = True
         Me.CreatedDateLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CreatedDateLabel.Location = New System.Drawing.Point(326, 231)
+        Me.CreatedDateLabel.Location = New System.Drawing.Point(326, 250)
         Me.CreatedDateLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.CreatedDateLabel.Name = "CreatedDateLabel"
         Me.CreatedDateLabel.Size = New System.Drawing.Size(120, 13)
@@ -598,29 +630,29 @@ Partial Class IAIPFacilitySummary
         '
         Me.FisDateLabel.AutoSize = True
         Me.FisDateLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FisDateLabel.Location = New System.Drawing.Point(311, 288)
+        Me.FisDateLabel.Location = New System.Drawing.Point(311, 307)
         Me.FisDateLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.FisDateLabel.Name = "FisDateLabel"
         Me.FisDateLabel.Size = New System.Drawing.Size(135, 13)
         Me.FisDateLabel.TabIndex = 333
         Me.FisDateLabel.Text = "Latest FIS Data Exchange:"
         '
-        'StartupDateLabel
+        'InfoStartupDateLabel
         '
-        Me.StartupDateLabel.AutoSize = True
-        Me.StartupDateLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.StartupDateLabel.Location = New System.Drawing.Point(376, 174)
-        Me.StartupDateLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.StartupDateLabel.Name = "StartupDateLabel"
-        Me.StartupDateLabel.Size = New System.Drawing.Size(70, 13)
-        Me.StartupDateLabel.TabIndex = 333
-        Me.StartupDateLabel.Text = "Startup Date:"
+        Me.InfoStartupDateLabel.AutoSize = True
+        Me.InfoStartupDateLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.InfoStartupDateLabel.Location = New System.Drawing.Point(376, 193)
+        Me.InfoStartupDateLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.InfoStartupDateLabel.Name = "InfoStartupDateLabel"
+        Me.InfoStartupDateLabel.Size = New System.Drawing.Size(70, 13)
+        Me.InfoStartupDateLabel.TabIndex = 333
+        Me.InfoStartupDateLabel.Text = "Startup Date:"
         '
         'DataUpdateDateLabel
         '
         Me.DataUpdateDateLabel.AutoSize = True
         Me.DataUpdateDateLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DataUpdateDateLabel.Location = New System.Drawing.Point(320, 250)
+        Me.DataUpdateDateLabel.Location = New System.Drawing.Point(320, 269)
         Me.DataUpdateDateLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.DataUpdateDateLabel.Name = "DataUpdateDateLabel"
         Me.DataUpdateDateLabel.Size = New System.Drawing.Size(126, 13)
@@ -631,197 +663,195 @@ Partial Class IAIPFacilitySummary
         '
         Me.EpaDateLabel.AutoSize = True
         Me.EpaDateLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EpaDateLabel.Location = New System.Drawing.Point(311, 307)
+        Me.EpaDateLabel.Location = New System.Drawing.Point(311, 326)
         Me.EpaDateLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.EpaDateLabel.Name = "EpaDateLabel"
         Me.EpaDateLabel.Size = New System.Drawing.Size(135, 13)
         Me.EpaDateLabel.TabIndex = 334
         Me.EpaDateLabel.Text = "Latest EPA Data Submittal:"
         '
-        'PermitRevocationDateLabel
+        'InfoPermitRevocationDateLabel
         '
-        Me.PermitRevocationDateLabel.AutoSize = True
-        Me.PermitRevocationDateLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PermitRevocationDateLabel.Location = New System.Drawing.Point(349, 193)
-        Me.PermitRevocationDateLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.PermitRevocationDateLabel.Name = "PermitRevocationDateLabel"
-        Me.PermitRevocationDateLabel.Size = New System.Drawing.Size(97, 13)
-        Me.PermitRevocationDateLabel.TabIndex = 334
-        Me.PermitRevocationDateLabel.Text = "Permit Revocation:"
+        Me.InfoPermitRevocationDateLabel.AutoSize = True
+        Me.InfoPermitRevocationDateLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.InfoPermitRevocationDateLabel.Location = New System.Drawing.Point(349, 212)
+        Me.InfoPermitRevocationDateLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.InfoPermitRevocationDateLabel.Name = "InfoPermitRevocationDateLabel"
+        Me.InfoPermitRevocationDateLabel.Size = New System.Drawing.Size(97, 13)
+        Me.InfoPermitRevocationDateLabel.TabIndex = 334
+        Me.InfoPermitRevocationDateLabel.Text = "Permit Revocation:"
         '
         'ResponsibleOfficeDisplay
         '
         Me.ResponsibleOfficeDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.ResponsibleOfficeDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.ResponsibleOfficeDisplay.Location = New System.Drawing.Point(458, 99)
+        Me.ResponsibleOfficeDisplay.Location = New System.Drawing.Point(458, 118)
         Me.ResponsibleOfficeDisplay.Name = "ResponsibleOfficeDisplay"
         Me.ResponsibleOfficeDisplay.ReadOnly = True
         Me.ResponsibleOfficeDisplay.Size = New System.Drawing.Size(138, 13)
-        Me.ResponsibleOfficeDisplay.TabIndex = 161
+        Me.ResponsibleOfficeDisplay.TabIndex = 10
         Me.ResponsibleOfficeDisplay.Text = "responsible office"
         '
         'DataUpdateDateDisplay
         '
         Me.DataUpdateDateDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.DataUpdateDateDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.DataUpdateDateDisplay.Location = New System.Drawing.Point(458, 250)
+        Me.DataUpdateDateDisplay.Location = New System.Drawing.Point(458, 269)
         Me.DataUpdateDateDisplay.Name = "DataUpdateDateDisplay"
         Me.DataUpdateDateDisplay.ReadOnly = True
         Me.DataUpdateDateDisplay.Size = New System.Drawing.Size(138, 13)
-        Me.DataUpdateDateDisplay.TabIndex = 161
+        Me.DataUpdateDateDisplay.TabIndex = 15
         Me.DataUpdateDateDisplay.Text = "date"
         '
         'EpaDateDisplay
         '
         Me.EpaDateDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.EpaDateDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.EpaDateDisplay.Location = New System.Drawing.Point(458, 307)
+        Me.EpaDateDisplay.Location = New System.Drawing.Point(458, 326)
         Me.EpaDateDisplay.Name = "EpaDateDisplay"
         Me.EpaDateDisplay.ReadOnly = True
         Me.EpaDateDisplay.Size = New System.Drawing.Size(138, 13)
-        Me.EpaDateDisplay.TabIndex = 161
+        Me.EpaDateDisplay.TabIndex = 17
         Me.EpaDateDisplay.Text = "date"
         '
-        'PermitRevocationDateDisplay
+        'InfoPermitRevocationDateDisplay
         '
-        Me.PermitRevocationDateDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.PermitRevocationDateDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.PermitRevocationDateDisplay.Location = New System.Drawing.Point(458, 193)
-        Me.PermitRevocationDateDisplay.Name = "PermitRevocationDateDisplay"
-        Me.PermitRevocationDateDisplay.ReadOnly = True
-        Me.PermitRevocationDateDisplay.Size = New System.Drawing.Size(138, 13)
-        Me.PermitRevocationDateDisplay.TabIndex = 161
-        Me.PermitRevocationDateDisplay.Text = "date"
+        Me.InfoPermitRevocationDateDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.InfoPermitRevocationDateDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.InfoPermitRevocationDateDisplay.Location = New System.Drawing.Point(458, 212)
+        Me.InfoPermitRevocationDateDisplay.Name = "InfoPermitRevocationDateDisplay"
+        Me.InfoPermitRevocationDateDisplay.ReadOnly = True
+        Me.InfoPermitRevocationDateDisplay.Size = New System.Drawing.Size(138, 13)
+        Me.InfoPermitRevocationDateDisplay.TabIndex = 13
+        Me.InfoPermitRevocationDateDisplay.Text = "date"
         '
         'CreatedDateDisplay
         '
         Me.CreatedDateDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.CreatedDateDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.CreatedDateDisplay.Location = New System.Drawing.Point(458, 231)
+        Me.CreatedDateDisplay.Location = New System.Drawing.Point(458, 250)
         Me.CreatedDateDisplay.Name = "CreatedDateDisplay"
         Me.CreatedDateDisplay.ReadOnly = True
         Me.CreatedDateDisplay.Size = New System.Drawing.Size(138, 13)
-        Me.CreatedDateDisplay.TabIndex = 161
+        Me.CreatedDateDisplay.TabIndex = 14
         Me.CreatedDateDisplay.Text = "date"
         '
         'FisDateDisplay
         '
         Me.FisDateDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.FisDateDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.FisDateDisplay.Location = New System.Drawing.Point(458, 288)
+        Me.FisDateDisplay.Location = New System.Drawing.Point(458, 307)
         Me.FisDateDisplay.Name = "FisDateDisplay"
         Me.FisDateDisplay.ReadOnly = True
         Me.FisDateDisplay.Size = New System.Drawing.Size(138, 13)
-        Me.FisDateDisplay.TabIndex = 161
+        Me.FisDateDisplay.TabIndex = 16
         Me.FisDateDisplay.Text = "date"
         '
-        'StartupDateDisplay
+        'InfoStartupDateDisplay
         '
-        Me.StartupDateDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.StartupDateDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.StartupDateDisplay.Location = New System.Drawing.Point(458, 174)
-        Me.StartupDateDisplay.Name = "StartupDateDisplay"
-        Me.StartupDateDisplay.ReadOnly = True
-        Me.StartupDateDisplay.Size = New System.Drawing.Size(138, 13)
-        Me.StartupDateDisplay.TabIndex = 161
-        Me.StartupDateDisplay.Text = "date"
+        Me.InfoStartupDateDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.InfoStartupDateDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.InfoStartupDateDisplay.Location = New System.Drawing.Point(458, 193)
+        Me.InfoStartupDateDisplay.Name = "InfoStartupDateDisplay"
+        Me.InfoStartupDateDisplay.ReadOnly = True
+        Me.InfoStartupDateDisplay.Size = New System.Drawing.Size(138, 13)
+        Me.InfoStartupDateDisplay.TabIndex = 12
+        Me.InfoStartupDateDisplay.Text = "date"
         '
         'ComplianceStatusDisplay
         '
         Me.ComplianceStatusDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.ComplianceStatusDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.ComplianceStatusDisplay.Location = New System.Drawing.Point(458, 136)
+        Me.ComplianceStatusDisplay.Location = New System.Drawing.Point(458, 155)
         Me.ComplianceStatusDisplay.Name = "ComplianceStatusDisplay"
         Me.ComplianceStatusDisplay.ReadOnly = True
         Me.ComplianceStatusDisplay.Size = New System.Drawing.Size(171, 13)
-        Me.ComplianceStatusDisplay.TabIndex = 161
+        Me.ComplianceStatusDisplay.TabIndex = 11
         Me.ComplianceStatusDisplay.Text = "In violation, no applicable state reg"
         '
-        'OperatingStatusDisplay
+        'InfoOperStatusDisplay
         '
-        Me.OperatingStatusDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.OperatingStatusDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.OperatingStatusDisplay.Location = New System.Drawing.Point(458, 42)
-        Me.OperatingStatusDisplay.Name = "OperatingStatusDisplay"
-        Me.OperatingStatusDisplay.ReadOnly = True
-        Me.OperatingStatusDisplay.Size = New System.Drawing.Size(138, 13)
-        Me.OperatingStatusDisplay.TabIndex = 161
-        Me.OperatingStatusDisplay.Text = "oper"
+        Me.InfoOperStatusDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.InfoOperStatusDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.InfoOperStatusDisplay.Location = New System.Drawing.Point(458, 23)
+        Me.InfoOperStatusDisplay.Name = "InfoOperStatusDisplay"
+        Me.InfoOperStatusDisplay.ReadOnly = True
+        Me.InfoOperStatusDisplay.Size = New System.Drawing.Size(138, 13)
+        Me.InfoOperStatusDisplay.TabIndex = 6
+        Me.InfoOperStatusDisplay.Text = "oper"
         '
-        'ClassificationDisplay
+        'InfoClassDisplay
         '
-        Me.ClassificationDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.ClassificationDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.ClassificationDisplay.Location = New System.Drawing.Point(458, 23)
-        Me.ClassificationDisplay.Name = "ClassificationDisplay"
-        Me.ClassificationDisplay.ReadOnly = True
-        Me.ClassificationDisplay.Size = New System.Drawing.Size(138, 13)
-        Me.ClassificationDisplay.TabIndex = 161
-        Me.ClassificationDisplay.Text = "class"
+        Me.InfoClassDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.InfoClassDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.InfoClassDisplay.Location = New System.Drawing.Point(458, 42)
+        Me.InfoClassDisplay.Name = "InfoClassDisplay"
+        Me.InfoClassDisplay.ReadOnly = True
+        Me.InfoClassDisplay.Size = New System.Drawing.Size(138, 13)
+        Me.InfoClassDisplay.TabIndex = 7
+        Me.InfoClassDisplay.Text = "class"
         '
         'DistrictOfficeDisplay
         '
         Me.DistrictOfficeDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.DistrictOfficeDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.DistrictOfficeDisplay.Location = New System.Drawing.Point(458, 80)
+        Me.DistrictOfficeDisplay.Location = New System.Drawing.Point(458, 99)
         Me.DistrictOfficeDisplay.Name = "DistrictOfficeDisplay"
         Me.DistrictOfficeDisplay.ReadOnly = True
         Me.DistrictOfficeDisplay.Size = New System.Drawing.Size(138, 13)
-        Me.DistrictOfficeDisplay.TabIndex = 161
+        Me.DistrictOfficeDisplay.TabIndex = 9
         Me.DistrictOfficeDisplay.Text = "district office"
         '
         'LatLonDisplay
         '
         Me.LatLonDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.LatLonDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.LatLonDisplay.Location = New System.Drawing.Point(151, 136)
+        Me.LatLonDisplay.Location = New System.Drawing.Point(154, 268)
         Me.LatLonDisplay.Name = "LatLonDisplay"
         Me.LatLonDisplay.ReadOnly = True
         Me.LatLonDisplay.Size = New System.Drawing.Size(140, 13)
-        Me.LatLonDisplay.TabIndex = 161
+        Me.LatLonDisplay.TabIndex = 4
         Me.LatLonDisplay.Text = "lat, lon"
         '
-        'DescriptionDisplay
+        'InfoDescDisplay
         '
-        Me.DescriptionDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.DescriptionDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.DescriptionDisplay.Location = New System.Drawing.Point(34, 193)
-        Me.DescriptionDisplay.Multiline = True
-        Me.DescriptionDisplay.Name = "DescriptionDisplay"
-        Me.DescriptionDisplay.ReadOnly = True
-        Me.DescriptionDisplay.Size = New System.Drawing.Size(260, 73)
-        Me.DescriptionDisplay.TabIndex = 161
-        Me.DescriptionDisplay.Text = resources.GetString("DescriptionDisplay.Text")
+        Me.InfoDescDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.InfoDescDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.InfoDescDisplay.Location = New System.Drawing.Point(34, 42)
+        Me.InfoDescDisplay.Multiline = True
+        Me.InfoDescDisplay.Name = "InfoDescDisplay"
+        Me.InfoDescDisplay.ReadOnly = True
+        Me.InfoDescDisplay.Size = New System.Drawing.Size(260, 73)
+        Me.InfoDescDisplay.TabIndex = 0
+        Me.InfoDescDisplay.Text = resources.GetString("InfoDescDisplay.Text")
         '
         'LocationDisplay
         '
         Me.LocationDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.LocationDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.LocationDisplay.Location = New System.Drawing.Point(34, 42)
+        Me.LocationDisplay.Location = New System.Drawing.Point(34, 175)
         Me.LocationDisplay.Multiline = True
         Me.LocationDisplay.Name = "LocationDisplay"
         Me.LocationDisplay.ReadOnly = True
         Me.LocationDisplay.Size = New System.Drawing.Size(260, 76)
-        Me.LocationDisplay.TabIndex = 161
+        Me.LocationDisplay.TabIndex = 2
         Me.LocationDisplay.Text = "location 1" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "line 2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "line 3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "county"
         '
-        'btnOpenFacilityLocationEditor
+        'EditFacilityLocationButton
         '
-        Me.btnOpenFacilityLocationEditor.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnOpenFacilityLocationEditor.AutoSize = True
-        Me.btnOpenFacilityLocationEditor.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnOpenFacilityLocationEditor.Location = New System.Drawing.Point(10, 385)
-        Me.btnOpenFacilityLocationEditor.Name = "btnOpenFacilityLocationEditor"
-        Me.btnOpenFacilityLocationEditor.Size = New System.Drawing.Size(114, 23)
-        Me.btnOpenFacilityLocationEditor.TabIndex = 0
-        Me.btnOpenFacilityLocationEditor.Text = "Edit Facility Location"
-        Me.btnOpenFacilityLocationEditor.UseVisualStyleBackColor = True
+        Me.EditFacilityLocationButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.EditFacilityLocationButton.Location = New System.Drawing.Point(10, 288)
+        Me.EditFacilityLocationButton.Name = "EditFacilityLocationButton"
+        Me.EditFacilityLocationButton.Size = New System.Drawing.Size(118, 23)
+        Me.EditFacilityLocationButton.TabIndex = 5
+        Me.EditFacilityLocationButton.Text = "Edit Facility Location"
+        Me.EditFacilityLocationButton.UseVisualStyleBackColor = True
         '
         'ResponsibleOfficeLabel
         '
         Me.ResponsibleOfficeLabel.AutoSize = True
         Me.ResponsibleOfficeLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ResponsibleOfficeLabel.Location = New System.Drawing.Point(349, 99)
+        Me.ResponsibleOfficeLabel.Location = New System.Drawing.Point(349, 118)
         Me.ResponsibleOfficeLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.ResponsibleOfficeLabel.Name = "ResponsibleOfficeLabel"
         Me.ResponsibleOfficeLabel.Size = New System.Drawing.Size(97, 13)
@@ -832,21 +862,21 @@ Partial Class IAIPFacilitySummary
         '
         Me.DistrictOfficeLabel.AutoSize = True
         Me.DistrictOfficeLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DistrictOfficeLabel.Location = New System.Drawing.Point(375, 80)
+        Me.DistrictOfficeLabel.Location = New System.Drawing.Point(364, 99)
         Me.DistrictOfficeLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.DistrictOfficeLabel.Name = "DistrictOfficeLabel"
-        Me.DistrictOfficeLabel.Size = New System.Drawing.Size(71, 13)
+        Me.DistrictOfficeLabel.Size = New System.Drawing.Size(82, 13)
         Me.DistrictOfficeLabel.TabIndex = 156
-        Me.DistrictOfficeLabel.Text = "District office:"
+        Me.DistrictOfficeLabel.Text = "District location:"
         '
         'MapLatLonLink
         '
         Me.MapLatLonLink.AutoSize = True
         Me.MapLatLonLink.LinkArea = New System.Windows.Forms.LinkArea(9, 15)
-        Me.MapLatLonLink.Location = New System.Drawing.Point(8, 136)
+        Me.MapLatLonLink.Location = New System.Drawing.Point(9, 268)
         Me.MapLatLonLink.Name = "MapLatLonLink"
         Me.MapLatLonLink.Size = New System.Drawing.Size(137, 17)
-        Me.MapLatLonLink.TabIndex = 160
+        Me.MapLatLonLink.TabIndex = 3
         Me.MapLatLonLink.TabStop = True
         Me.MapLatLonLink.Text = "Lat/Lon (view online map):"
         Me.MapLatLonLink.UseCompatibleTextRendering = True
@@ -855,600 +885,404 @@ Partial Class IAIPFacilitySummary
         '
         Me.MapAddressLink.AutoSize = True
         Me.MapAddressLink.LinkArea = New System.Windows.Forms.LinkArea(10, 15)
-        Me.MapAddressLink.Location = New System.Drawing.Point(8, 23)
+        Me.MapAddressLink.Location = New System.Drawing.Point(9, 155)
         Me.MapAddressLink.Name = "MapAddressLink"
         Me.MapAddressLink.Size = New System.Drawing.Size(142, 17)
-        Me.MapAddressLink.TabIndex = 160
+        Me.MapAddressLink.TabIndex = 1
         Me.MapAddressLink.TabStop = True
         Me.MapAddressLink.Text = "Location (view online map):"
         Me.MapAddressLink.UseCompatibleTextRendering = True
         '
-        'TPHeaderData
-        '
-        Me.TPHeaderData.Controls.Add(Me.GroupBox8)
-        Me.TPHeaderData.Controls.Add(Me.btnEditHeaderData)
-        Me.TPHeaderData.Controls.Add(Me.btnOpenSubpartEditor)
-        Me.TPHeaderData.Controls.Add(Me.Label6)
-        Me.TPHeaderData.Controls.Add(Me.txtRMPID)
-        Me.TPHeaderData.Controls.Add(Me.txtCMSState)
-        Me.TPHeaderData.Controls.Add(Me.Label18)
-        Me.TPHeaderData.Controls.Add(Me.Label439)
-        Me.TPHeaderData.Controls.Add(Me.btnEditAirProgramPollutants)
-        Me.TPHeaderData.Controls.Add(Me.Label8)
-        Me.TPHeaderData.Controls.Add(Me.txtDateClosed)
-        Me.TPHeaderData.Controls.Add(Me.txtNAICSCode)
-        Me.TPHeaderData.Controls.Add(Me.Label92)
-        Me.TPHeaderData.Controls.Add(Me.Label10)
-        Me.TPHeaderData.Controls.Add(Me.txtStartUpDate)
-        Me.TPHeaderData.Controls.Add(Me.Label14)
-        Me.TPHeaderData.Controls.Add(Me.txtPlantDescription)
-        Me.TPHeaderData.Controls.Add(Me.txtSICCode)
-        Me.TPHeaderData.Controls.Add(Me.Label438)
-        Me.TPHeaderData.Controls.Add(Me.GroupBox2)
-        Me.TPHeaderData.Controls.Add(Me.GroupBox5)
-        Me.TPHeaderData.Controls.Add(Me.txtClassification)
-        Me.TPHeaderData.Controls.Add(Me.Label430)
-        Me.TPHeaderData.Controls.Add(Me.txtOperationalStatus)
-        Me.TPHeaderData.Location = New System.Drawing.Point(4, 22)
-        Me.TPHeaderData.Name = "TPHeaderData"
-        Me.TPHeaderData.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPHeaderData.Size = New System.Drawing.Size(784, 416)
-        Me.TPHeaderData.TabIndex = 1
-        Me.TPHeaderData.Text = "Header Data"
-        Me.TPHeaderData.UseVisualStyleBackColor = True
-        '
-        'GroupBox8
-        '
-        Me.GroupBox8.Controls.Add(Me.chbNSRMajor)
-        Me.GroupBox8.Controls.Add(Me.chbHAPsMajor)
-        Me.GroupBox8.Location = New System.Drawing.Point(289, 81)
-        Me.GroupBox8.Name = "GroupBox8"
-        Me.GroupBox8.Size = New System.Drawing.Size(200, 100)
-        Me.GroupBox8.TabIndex = 343
-        Me.GroupBox8.TabStop = False
-        Me.GroupBox8.Text = "GroupBox8"
-        '
-        'chbNSRMajor
-        '
-        Me.chbNSRMajor.AutoCheck = False
-        Me.chbNSRMajor.AutoSize = True
-        Me.chbNSRMajor.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbNSRMajor.Location = New System.Drawing.Point(21, 31)
-        Me.chbNSRMajor.Margin = New System.Windows.Forms.Padding(2)
-        Me.chbNSRMajor.Name = "chbNSRMajor"
-        Me.chbNSRMajor.Size = New System.Drawing.Size(105, 17)
-        Me.chbNSRMajor.TabIndex = 143
-        Me.chbNSRMajor.Text = "NSR/PSD Major"
-        '
-        'chbHAPsMajor
-        '
-        Me.chbHAPsMajor.AutoCheck = False
-        Me.chbHAPsMajor.AutoSize = True
-        Me.chbHAPsMajor.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbHAPsMajor.Location = New System.Drawing.Point(21, 48)
-        Me.chbHAPsMajor.Margin = New System.Windows.Forms.Padding(2)
-        Me.chbHAPsMajor.Name = "chbHAPsMajor"
-        Me.chbHAPsMajor.Size = New System.Drawing.Size(82, 17)
-        Me.chbHAPsMajor.TabIndex = 144
-        Me.chbHAPsMajor.Text = "HAPs Major"
-        '
-        'btnEditHeaderData
-        '
-        Me.btnEditHeaderData.AutoSize = True
-        Me.btnEditHeaderData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnEditHeaderData.Location = New System.Drawing.Point(8, 385)
-        Me.btnEditHeaderData.Name = "btnEditHeaderData"
-        Me.btnEditHeaderData.Size = New System.Drawing.Size(127, 23)
-        Me.btnEditHeaderData.TabIndex = 1
-        Me.btnEditHeaderData.Text = "Edit/View Header Data"
-        Me.btnEditHeaderData.UseVisualStyleBackColor = True
-        '
-        'btnOpenSubpartEditor
-        '
-        Me.btnOpenSubpartEditor.AutoSize = True
-        Me.btnOpenSubpartEditor.Location = New System.Drawing.Point(181, 223)
-        Me.btnOpenSubpartEditor.Name = "btnOpenSubpartEditor"
-        Me.btnOpenSubpartEditor.Size = New System.Drawing.Size(89, 25)
-        Me.btnOpenSubpartEditor.TabIndex = 314
-        Me.btnOpenSubpartEditor.Text = "Edit Subparts"
-        Me.btnOpenSubpartEditor.UseVisualStyleBackColor = True
-        Me.btnOpenSubpartEditor.Visible = False
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(7, 18)
-        Me.Label6.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(71, 13)
-        Me.Label6.TabIndex = 318
-        Me.Label6.Text = "Classification:"
-        Me.Label6.TextAlign = System.Drawing.ContentAlignment.BottomLeft
-        '
-        'txtRMPID
-        '
-        Me.txtRMPID.BackColor = System.Drawing.SystemColors.Control
-        Me.txtRMPID.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtRMPID.Location = New System.Drawing.Point(541, 272)
-        Me.txtRMPID.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtRMPID.Name = "txtRMPID"
-        Me.txtRMPID.ReadOnly = True
-        Me.txtRMPID.Size = New System.Drawing.Size(106, 20)
-        Me.txtRMPID.TabIndex = 342
-        '
-        'txtCMSState
-        '
-        Me.txtCMSState.BackColor = System.Drawing.SystemColors.Control
-        Me.txtCMSState.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtCMSState.Location = New System.Drawing.Point(401, 14)
-        Me.txtCMSState.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtCMSState.Name = "txtCMSState"
-        Me.txtCMSState.ReadOnly = True
-        Me.txtCMSState.Size = New System.Drawing.Size(43, 20)
-        Me.txtCMSState.TabIndex = 330
-        '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Label18.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label18.Location = New System.Drawing.Point(492, 275)
-        Me.Label18.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(48, 13)
-        Me.Label18.TabIndex = 341
-        Me.Label18.Text = "RMP ID:"
-        Me.Label18.TextAlign = System.Drawing.ContentAlignment.BottomLeft
-        '
-        'Label439
-        '
-        Me.Label439.AutoSize = True
-        Me.Label439.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label439.Location = New System.Drawing.Point(326, 17)
-        Me.Label439.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label439.Name = "Label439"
-        Me.Label439.Size = New System.Drawing.Size(66, 13)
-        Me.Label439.TabIndex = 329
-        Me.Label439.Text = "CMS Status:"
-        '
-        'btnEditAirProgramPollutants
-        '
-        Me.btnEditAirProgramPollutants.Location = New System.Drawing.Point(8, 224)
-        Me.btnEditAirProgramPollutants.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnEditAirProgramPollutants.Name = "btnEditAirProgramPollutants"
-        Me.btnEditAirProgramPollutants.Size = New System.Drawing.Size(168, 22)
-        Me.btnEditAirProgramPollutants.TabIndex = 331
-        Me.btnEditAirProgramPollutants.Text = "Air Program Pollutants"
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(568, 21)
-        Me.Label8.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(55, 13)
-        Me.Label8.TabIndex = 319
-        Me.Label8.Text = "SIC Code:"
-        Me.Label8.TextAlign = System.Drawing.ContentAlignment.BottomLeft
-        '
-        'txtDateClosed
-        '
-        Me.txtDateClosed.BackColor = System.Drawing.SystemColors.Control
-        Me.txtDateClosed.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtDateClosed.Location = New System.Drawing.Point(324, 46)
-        Me.txtDateClosed.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtDateClosed.Name = "txtDateClosed"
-        Me.txtDateClosed.ReadOnly = True
-        Me.txtDateClosed.Size = New System.Drawing.Size(91, 20)
-        Me.txtDateClosed.TabIndex = 328
-        '
-        'txtNAICSCode
-        '
-        Me.txtNAICSCode.BackColor = System.Drawing.SystemColors.Control
-        Me.txtNAICSCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtNAICSCode.Location = New System.Drawing.Point(626, 50)
-        Me.txtNAICSCode.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtNAICSCode.Name = "txtNAICSCode"
-        Me.txtNAICSCode.ReadOnly = True
-        Me.txtNAICSCode.Size = New System.Drawing.Size(71, 20)
-        Me.txtNAICSCode.TabIndex = 340
-        '
-        'Label92
-        '
-        Me.Label92.AutoSize = True
-        Me.Label92.Location = New System.Drawing.Point(13, 275)
-        Me.Label92.Name = "Label92"
-        Me.Label92.Size = New System.Drawing.Size(63, 13)
-        Me.Label92.TabIndex = 332
-        Me.Label92.Text = "Description:"
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(130, 18)
-        Me.Label10.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(89, 13)
-        Me.Label10.TabIndex = 320
-        Me.Label10.Text = "Operating Status:"
-        Me.Label10.TextAlign = System.Drawing.ContentAlignment.BottomLeft
-        '
-        'txtStartUpDate
-        '
-        Me.txtStartUpDate.BackColor = System.Drawing.SystemColors.Control
-        Me.txtStartUpDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtStartUpDate.Location = New System.Drawing.Point(82, 46)
-        Me.txtStartUpDate.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtStartUpDate.Name = "txtStartUpDate"
-        Me.txtStartUpDate.ReadOnly = True
-        Me.txtStartUpDate.Size = New System.Drawing.Size(91, 20)
-        Me.txtStartUpDate.TabIndex = 327
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(553, 53)
-        Me.Label14.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(70, 13)
-        Me.Label14.TabIndex = 339
-        Me.Label14.Text = "NAICS Code:"
-        Me.Label14.TextAlign = System.Drawing.ContentAlignment.BottomLeft
-        '
-        'txtPlantDescription
-        '
-        Me.txtPlantDescription.Location = New System.Drawing.Point(82, 272)
-        Me.txtPlantDescription.Multiline = True
-        Me.txtPlantDescription.Name = "txtPlantDescription"
-        Me.txtPlantDescription.Size = New System.Drawing.Size(372, 48)
-        Me.txtPlantDescription.TabIndex = 333
-        '
-        'txtSICCode
-        '
-        Me.txtSICCode.BackColor = System.Drawing.SystemColors.Control
-        Me.txtSICCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSICCode.Location = New System.Drawing.Point(626, 18)
-        Me.txtSICCode.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtSICCode.Name = "txtSICCode"
-        Me.txtSICCode.ReadOnly = True
-        Me.txtSICCode.Size = New System.Drawing.Size(71, 20)
-        Me.txtSICCode.TabIndex = 321
-        '
-        'Label438
-        '
-        Me.Label438.AutoSize = True
-        Me.Label438.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label438.Location = New System.Drawing.Point(197, 49)
-        Me.Label438.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label438.Name = "Label438"
-        Me.Label438.Size = New System.Drawing.Size(123, 13)
-        Me.Label438.TabIndex = 326
-        Me.Label438.Text = "Permit Revocation Date:"
-        '
-        'GroupBox2
-        '
-        Me.GroupBox2.Controls.Add(Me.chbAPCRMP)
-        Me.GroupBox2.Controls.Add(Me.chbAPCI)
-        Me.GroupBox2.Controls.Add(Me.chbAPCF)
-        Me.GroupBox2.Controls.Add(Me.chbAPCA)
-        Me.GroupBox2.Controls.Add(Me.chbAPCV)
-        Me.GroupBox2.Controls.Add(Me.chbAPCM)
-        Me.GroupBox2.Controls.Add(Me.chbAPC9)
-        Me.GroupBox2.Controls.Add(Me.chbAPC8)
-        Me.GroupBox2.Controls.Add(Me.chbAPC7)
-        Me.GroupBox2.Controls.Add(Me.chbAPC6)
-        Me.GroupBox2.Controls.Add(Me.chbAPC4)
-        Me.GroupBox2.Controls.Add(Me.chbAPC3)
-        Me.GroupBox2.Controls.Add(Me.chbAPC1)
-        Me.GroupBox2.Controls.Add(Me.chbAPC0)
-        Me.GroupBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox2.Location = New System.Drawing.Point(8, 81)
-        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(2)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox2.Size = New System.Drawing.Size(276, 139)
-        Me.GroupBox2.TabIndex = 322
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Air Program Code(s) "
-        '
-        'chbAPCRMP
-        '
-        Me.chbAPCRMP.AutoCheck = False
-        Me.chbAPCRMP.AutoSize = True
-        Me.chbAPCRMP.CheckAlign = System.Drawing.ContentAlignment.TopLeft
-        Me.chbAPCRMP.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbAPCRMP.Location = New System.Drawing.Point(125, 109)
-        Me.chbAPCRMP.Margin = New System.Windows.Forms.Padding(2)
-        Me.chbAPCRMP.Name = "chbAPCRMP"
-        Me.chbAPCRMP.Size = New System.Drawing.Size(112, 30)
-        Me.chbAPCRMP.TabIndex = 145
-        Me.chbAPCRMP.Text = "RMP - " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "   Risk Mgmt. Plan"
-        '
-        'chbAPCI
-        '
-        Me.chbAPCI.AutoCheck = False
-        Me.chbAPCI.AutoSize = True
-        Me.chbAPCI.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbAPCI.Location = New System.Drawing.Point(125, 90)
-        Me.chbAPCI.Margin = New System.Windows.Forms.Padding(2)
-        Me.chbAPCI.Name = "chbAPCI"
-        Me.chbAPCI.Size = New System.Drawing.Size(116, 17)
-        Me.chbAPCI.TabIndex = 137
-        Me.chbAPCI.Text = "I - Native American"
-        '
-        'chbAPCF
-        '
-        Me.chbAPCF.AutoCheck = False
-        Me.chbAPCF.AutoSize = True
-        Me.chbAPCF.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbAPCF.Location = New System.Drawing.Point(125, 75)
-        Me.chbAPCF.Margin = New System.Windows.Forms.Padding(2)
-        Me.chbAPCF.Name = "chbAPCF"
-        Me.chbAPCF.Size = New System.Drawing.Size(76, 17)
-        Me.chbAPCF.TabIndex = 140
-        Me.chbAPCF.Text = "F - FESOP"
-        '
-        'chbAPCA
-        '
-        Me.chbAPCA.AutoCheck = False
-        Me.chbAPCA.AutoSize = True
-        Me.chbAPCA.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbAPCA.Location = New System.Drawing.Point(125, 60)
-        Me.chbAPCA.Margin = New System.Windows.Forms.Padding(2)
-        Me.chbAPCA.Name = "chbAPCA"
-        Me.chbAPCA.Size = New System.Drawing.Size(124, 17)
-        Me.chbAPCA.TabIndex = 142
-        Me.chbAPCA.Text = "A - Acid Precipitation"
-        '
-        'chbAPCV
-        '
-        Me.chbAPCV.AutoCheck = False
-        Me.chbAPCV.AutoSize = True
-        Me.chbAPCV.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbAPCV.Location = New System.Drawing.Point(8, 113)
-        Me.chbAPCV.Margin = New System.Windows.Forms.Padding(2)
-        Me.chbAPCV.Name = "chbAPCV"
-        Me.chbAPCV.Size = New System.Drawing.Size(72, 17)
-        Me.chbAPCV.TabIndex = 139
-        Me.chbAPCV.Text = "V - Title V"
-        '
-        'chbAPCM
-        '
-        Me.chbAPCM.AutoCheck = False
-        Me.chbAPCM.AutoSize = True
-        Me.chbAPCM.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbAPCM.Location = New System.Drawing.Point(124, 9)
-        Me.chbAPCM.Margin = New System.Windows.Forms.Padding(2)
-        Me.chbAPCM.Name = "chbAPCM"
-        Me.chbAPCM.Size = New System.Drawing.Size(117, 17)
-        Me.chbAPCM.TabIndex = 138
-        Me.chbAPCM.Text = "M - MACT (Part 63)"
-        '
-        'chbAPC9
-        '
-        Me.chbAPC9.AutoCheck = False
-        Me.chbAPC9.AutoSize = True
-        Me.chbAPC9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbAPC9.Location = New System.Drawing.Point(125, 45)
-        Me.chbAPC9.Margin = New System.Windows.Forms.Padding(2)
-        Me.chbAPC9.Name = "chbAPC9"
-        Me.chbAPC9.Size = New System.Drawing.Size(70, 17)
-        Me.chbAPC9.TabIndex = 136
-        Me.chbAPC9.Text = "9 - NSPS"
-        '
-        'chbAPC8
-        '
-        Me.chbAPC8.AutoCheck = False
-        Me.chbAPC8.AutoSize = True
-        Me.chbAPC8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbAPC8.Location = New System.Drawing.Point(125, 30)
-        Me.chbAPC8.Margin = New System.Windows.Forms.Padding(2)
-        Me.chbAPC8.Name = "chbAPC8"
-        Me.chbAPC8.Size = New System.Drawing.Size(128, 17)
-        Me.chbAPC8.TabIndex = 135
-        Me.chbAPC8.Text = "8 - NESHAP (Part 61)"
-        '
-        'chbAPC7
-        '
-        Me.chbAPC7.AutoCheck = False
-        Me.chbAPC7.AutoSize = True
-        Me.chbAPC7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbAPC7.Location = New System.Drawing.Point(8, 92)
-        Me.chbAPC7.Margin = New System.Windows.Forms.Padding(2)
-        Me.chbAPC7.Name = "chbAPC7"
-        Me.chbAPC7.Size = New System.Drawing.Size(64, 17)
-        Me.chbAPC7.TabIndex = 134
-        Me.chbAPC7.Text = "7 - NSR"
-        '
-        'chbAPC6
-        '
-        Me.chbAPC6.AutoCheck = False
-        Me.chbAPC6.AutoSize = True
-        Me.chbAPC6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbAPC6.Location = New System.Drawing.Point(8, 75)
-        Me.chbAPC6.Margin = New System.Windows.Forms.Padding(2)
-        Me.chbAPC6.Name = "chbAPC6"
-        Me.chbAPC6.Size = New System.Drawing.Size(63, 17)
-        Me.chbAPC6.TabIndex = 133
-        Me.chbAPC6.Text = "6 - PSD"
-        '
-        'chbAPC4
-        '
-        Me.chbAPC4.AutoCheck = False
-        Me.chbAPC4.AutoSize = True
-        Me.chbAPC4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbAPC4.Location = New System.Drawing.Point(8, 60)
-        Me.chbAPC4.Margin = New System.Windows.Forms.Padding(2)
-        Me.chbAPC4.Name = "chbAPC4"
-        Me.chbAPC4.Size = New System.Drawing.Size(106, 17)
-        Me.chbAPC4.TabIndex = 132
-        Me.chbAPC4.Text = "4 - CFC Tracking"
-        '
-        'chbAPC3
-        '
-        Me.chbAPC3.AutoCheck = False
-        Me.chbAPC3.AutoSize = True
-        Me.chbAPC3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbAPC3.Location = New System.Drawing.Point(8, 45)
-        Me.chbAPC3.Margin = New System.Windows.Forms.Padding(2)
-        Me.chbAPC3.Name = "chbAPC3"
-        Me.chbAPC3.Size = New System.Drawing.Size(119, 17)
-        Me.chbAPC3.TabIndex = 131
-        Me.chbAPC3.Text = "3 - Non-Federal SIP"
-        '
-        'chbAPC1
-        '
-        Me.chbAPC1.AutoCheck = False
-        Me.chbAPC1.AutoSize = True
-        Me.chbAPC1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbAPC1.Location = New System.Drawing.Point(8, 30)
-        Me.chbAPC1.Margin = New System.Windows.Forms.Padding(2)
-        Me.chbAPC1.Name = "chbAPC1"
-        Me.chbAPC1.Size = New System.Drawing.Size(96, 17)
-        Me.chbAPC1.TabIndex = 130
-        Me.chbAPC1.Text = "1 - Federal SIP"
-        '
-        'chbAPC0
-        '
-        Me.chbAPC0.AutoCheck = False
-        Me.chbAPC0.AutoSize = True
-        Me.chbAPC0.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chbAPC0.Location = New System.Drawing.Point(8, 15)
-        Me.chbAPC0.Margin = New System.Windows.Forms.Padding(2)
-        Me.chbAPC0.Name = "chbAPC0"
-        Me.chbAPC0.Size = New System.Drawing.Size(58, 17)
-        Me.chbAPC0.TabIndex = 129
-        Me.chbAPC0.Text = "0 - SIP"
-        '
-        'GroupBox5
-        '
-        Me.GroupBox5.Controls.Add(Me.txtPM)
-        Me.GroupBox5.Controls.Add(Me.txt8HROzone)
-        Me.GroupBox5.Controls.Add(Me.txt1hour)
-        Me.GroupBox5.Controls.Add(Me.Label97)
-        Me.GroupBox5.Controls.Add(Me.Label96)
-        Me.GroupBox5.Controls.Add(Me.Label94)
-        Me.GroupBox5.Location = New System.Drawing.Point(506, 90)
-        Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(217, 108)
-        Me.GroupBox5.TabIndex = 334
-        Me.GroupBox5.TabStop = False
-        Me.GroupBox5.Text = "Nonattainment"
-        '
-        'txtPM
-        '
-        Me.txtPM.BackColor = System.Drawing.SystemColors.Control
-        Me.txtPM.Location = New System.Drawing.Point(120, 73)
-        Me.txtPM.Name = "txtPM"
-        Me.txtPM.ReadOnly = True
-        Me.txtPM.Size = New System.Drawing.Size(91, 20)
-        Me.txtPM.TabIndex = 5
-        '
-        'txt8HROzone
-        '
-        Me.txt8HROzone.BackColor = System.Drawing.SystemColors.Control
-        Me.txt8HROzone.Location = New System.Drawing.Point(120, 46)
-        Me.txt8HROzone.Name = "txt8HROzone"
-        Me.txt8HROzone.ReadOnly = True
-        Me.txt8HROzone.Size = New System.Drawing.Size(91, 20)
-        Me.txt8HROzone.TabIndex = 4
-        '
-        'txt1hour
-        '
-        Me.txt1hour.BackColor = System.Drawing.SystemColors.Control
-        Me.txt1hour.Location = New System.Drawing.Point(120, 19)
-        Me.txt1hour.Name = "txt1hour"
-        Me.txt1hour.ReadOnly = True
-        Me.txt1hour.Size = New System.Drawing.Size(91, 20)
-        Me.txt1hour.TabIndex = 3
-        '
-        'Label97
-        '
-        Me.Label97.AutoSize = True
-        Me.Label97.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label97.Location = New System.Drawing.Point(45, 77)
-        Me.Label97.Name = "Label97"
-        Me.Label97.Size = New System.Drawing.Size(69, 13)
-        Me.Label97.TabIndex = 2
-        Me.Label97.Text = "PM 2.5 NAA:"
-        '
-        'Label96
-        '
-        Me.Label96.AutoSize = True
-        Me.Label96.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label96.Location = New System.Drawing.Point(29, 50)
-        Me.Label96.Name = "Label96"
-        Me.Label96.Size = New System.Drawing.Size(85, 13)
-        Me.Label96.TabIndex = 1
-        Me.Label96.Text = "8-hr ozone NAA:"
-        '
-        'Label94
-        '
-        Me.Label94.AutoSize = True
-        Me.Label94.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label94.Location = New System.Drawing.Point(54, 23)
-        Me.Label94.Name = "Label94"
-        Me.Label94.Size = New System.Drawing.Size(60, 13)
-        Me.Label94.TabIndex = 0
-        Me.Label94.Text = "1-hr ozone:"
-        '
-        'txtClassification
-        '
-        Me.txtClassification.BackColor = System.Drawing.SystemColors.Control
-        Me.txtClassification.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtClassification.Location = New System.Drawing.Point(82, 15)
-        Me.txtClassification.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtClassification.Name = "txtClassification"
-        Me.txtClassification.ReadOnly = True
-        Me.txtClassification.Size = New System.Drawing.Size(43, 20)
-        Me.txtClassification.TabIndex = 323
-        '
-        'Label430
-        '
-        Me.Label430.AutoSize = True
-        Me.Label430.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label430.Location = New System.Drawing.Point(8, 49)
-        Me.Label430.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label430.Name = "Label430"
-        Me.Label430.Size = New System.Drawing.Size(70, 13)
-        Me.Label430.TabIndex = 325
-        Me.Label430.Text = "Startup Date:"
-        '
-        'txtOperationalStatus
-        '
-        Me.txtOperationalStatus.BackColor = System.Drawing.SystemColors.Control
-        Me.txtOperationalStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtOperationalStatus.Location = New System.Drawing.Point(223, 15)
-        Me.txtOperationalStatus.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtOperationalStatus.Name = "txtOperationalStatus"
-        Me.txtOperationalStatus.ReadOnly = True
-        Me.txtOperationalStatus.Size = New System.Drawing.Size(97, 20)
-        Me.txtOperationalStatus.TabIndex = 324
-        '
-        'TPFees
-        '
-        Me.TPFees.Controls.Add(Me.lblFeeStatus)
-        Me.TPFees.Controls.Add(Me.txtBalance)
-        Me.TPFees.Controls.Add(Me.txtDateSubmitted)
-        Me.TPFees.Controls.Add(Me.Label103)
-        Me.TPFees.Controls.Add(Me.txtTotalFeesPaid)
-        Me.TPFees.Controls.Add(Me.Label102)
-        Me.TPFees.Controls.Add(Me.GroupBox4)
-        Me.TPFees.Controls.Add(Me.GroupBox3)
-        Me.TPFees.Controls.Add(Me.GroupBox1)
-        Me.TPFees.Controls.Add(Me.Label424)
-        Me.TPFees.Controls.Add(Me.txtFeesTotal)
-        Me.TPFees.Controls.Add(Me.cboFeeYear)
-        Me.TPFees.Controls.Add(Me.Label423)
-        Me.TPFees.Location = New System.Drawing.Point(4, 22)
-        Me.TPFees.Name = "TPFees"
-        Me.TPFees.Size = New System.Drawing.Size(784, 416)
-        Me.TPFees.TabIndex = 3
-        Me.TPFees.Text = "Fees"
-        Me.TPFees.UseVisualStyleBackColor = True
+        'FSHeaderData
+        '
+        Me.FSHeaderData.Controls.Add(Me.AirProgramsListBox)
+        Me.FSHeaderData.Controls.Add(Me.ProgramClassificationsListBox)
+        Me.FSHeaderData.Controls.Add(Me.RmpIdLabel)
+        Me.FSHeaderData.Controls.Add(Me.NaicsLabel)
+        Me.FSHeaderData.Controls.Add(Me.HeaderRevocationLabel)
+        Me.FSHeaderData.Controls.Add(Me.HeaderOperLabel)
+        Me.FSHeaderData.Controls.Add(Me.RmpIdDisplay)
+        Me.FSHeaderData.Controls.Add(Me.NaicsDisplay)
+        Me.FSHeaderData.Controls.Add(Me.HeaderRevocationDateDisplay)
+        Me.FSHeaderData.Controls.Add(Me.HeaderOperStatusDisplay)
+        Me.FSHeaderData.Controls.Add(Me.HeaderDescLabel)
+        Me.FSHeaderData.Controls.Add(Me.HeaderDescDisplay)
+        Me.FSHeaderData.Controls.Add(Me.NonattainmentStatuses)
+        Me.FSHeaderData.Controls.Add(Me.SicLabel)
+        Me.FSHeaderData.Controls.Add(Me.HeaderStartupLabel)
+        Me.FSHeaderData.Controls.Add(Me.ProgramClassificationsLabel)
+        Me.FSHeaderData.Controls.Add(Me.AirProgramsLabel)
+        Me.FSHeaderData.Controls.Add(Me.HeaderClassLabel)
+        Me.FSHeaderData.Controls.Add(Me.SicDisplay)
+        Me.FSHeaderData.Controls.Add(Me.HeaderStartupDisplay)
+        Me.FSHeaderData.Controls.Add(Me.HeaderClassDisplay)
+        Me.FSHeaderData.Controls.Add(Me.EditHeaderDataButton)
+        Me.FSHeaderData.Controls.Add(Me.EditSubpartsButton)
+        Me.FSHeaderData.Controls.Add(Me.EditPollutantsButton)
+        Me.FSHeaderData.Location = New System.Drawing.Point(4, 22)
+        Me.FSHeaderData.Name = "FSHeaderData"
+        Me.FSHeaderData.Padding = New System.Windows.Forms.Padding(3)
+        Me.FSHeaderData.Size = New System.Drawing.Size(637, 347)
+        Me.FSHeaderData.TabIndex = 1
+        Me.FSHeaderData.Text = "Header Data"
+        Me.FSHeaderData.UseVisualStyleBackColor = True
+        '
+        'AirProgramsListBox
+        '
+        Me.AirProgramsListBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.AirProgramsListBox.FormattingEnabled = True
+        Me.AirProgramsListBox.Items.AddRange(New Object() {"SIP", "Federal SIP", "Non-Federal SIP", "CFC Tracking", "PSD", "NSR", "Title V", "MACT (Part 63)", "NESHAP (Part 61)", "NSPS", "Acid Precipitation", "FESOP", "Native American", "Risk Mgmt. Plan"})
+        Me.AirProgramsListBox.Location = New System.Drawing.Point(287, 39)
+        Me.AirProgramsListBox.MultiColumn = True
+        Me.AirProgramsListBox.Name = "AirProgramsListBox"
+        Me.AirProgramsListBox.SelectionMode = System.Windows.Forms.SelectionMode.None
+        Me.AirProgramsListBox.Size = New System.Drawing.Size(247, 93)
+        Me.AirProgramsListBox.TabIndex = 9
+        '
+        'ProgramClassificationsListBox
+        '
+        Me.ProgramClassificationsListBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.ProgramClassificationsListBox.FormattingEnabled = True
+        Me.ProgramClassificationsListBox.Items.AddRange(New Object() {"NSR/PSD Major", "HAPs Major"})
+        Me.ProgramClassificationsListBox.Location = New System.Drawing.Point(287, 191)
+        Me.ProgramClassificationsListBox.Name = "ProgramClassificationsListBox"
+        Me.ProgramClassificationsListBox.SelectionMode = System.Windows.Forms.SelectionMode.None
+        Me.ProgramClassificationsListBox.Size = New System.Drawing.Size(145, 41)
+        Me.ProgramClassificationsListBox.TabIndex = 12
+        '
+        'RmpIdLabel
+        '
+        Me.RmpIdLabel.AutoSize = True
+        Me.RmpIdLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RmpIdLabel.Location = New System.Drawing.Point(82, 118)
+        Me.RmpIdLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.RmpIdLabel.Name = "RmpIdLabel"
+        Me.RmpIdLabel.Size = New System.Drawing.Size(48, 13)
+        Me.RmpIdLabel.TabIndex = 351
+        Me.RmpIdLabel.Text = "RMP ID:"
+        Me.RmpIdLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft
+        '
+        'NaicsLabel
+        '
+        Me.NaicsLabel.AutoSize = True
+        Me.NaicsLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.NaicsLabel.Location = New System.Drawing.Point(88, 99)
+        Me.NaicsLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.NaicsLabel.Name = "NaicsLabel"
+        Me.NaicsLabel.Size = New System.Drawing.Size(42, 13)
+        Me.NaicsLabel.TabIndex = 351
+        Me.NaicsLabel.Text = "NAICS:"
+        Me.NaicsLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft
+        '
+        'HeaderRevocationLabel
+        '
+        Me.HeaderRevocationLabel.AutoSize = True
+        Me.HeaderRevocationLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.HeaderRevocationLabel.Location = New System.Drawing.Point(7, 175)
+        Me.HeaderRevocationLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.HeaderRevocationLabel.Name = "HeaderRevocationLabel"
+        Me.HeaderRevocationLabel.Size = New System.Drawing.Size(123, 13)
+        Me.HeaderRevocationLabel.TabIndex = 351
+        Me.HeaderRevocationLabel.Text = "Permit Revocation Date:"
+        Me.HeaderRevocationLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft
+        '
+        'HeaderOperLabel
+        '
+        Me.HeaderOperLabel.AutoSize = True
+        Me.HeaderOperLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.HeaderOperLabel.Location = New System.Drawing.Point(41, 42)
+        Me.HeaderOperLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.HeaderOperLabel.Name = "HeaderOperLabel"
+        Me.HeaderOperLabel.Size = New System.Drawing.Size(89, 13)
+        Me.HeaderOperLabel.TabIndex = 351
+        Me.HeaderOperLabel.Text = "Operating Status:"
+        Me.HeaderOperLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft
+        '
+        'RmpIdDisplay
+        '
+        Me.RmpIdDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.RmpIdDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.RmpIdDisplay.Location = New System.Drawing.Point(142, 118)
+        Me.RmpIdDisplay.Name = "RmpIdDisplay"
+        Me.RmpIdDisplay.ReadOnly = True
+        Me.RmpIdDisplay.Size = New System.Drawing.Size(128, 13)
+        Me.RmpIdDisplay.TabIndex = 4
+        Me.RmpIdDisplay.Text = "id"
+        '
+        'NaicsDisplay
+        '
+        Me.NaicsDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.NaicsDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.NaicsDisplay.Location = New System.Drawing.Point(142, 99)
+        Me.NaicsDisplay.Name = "NaicsDisplay"
+        Me.NaicsDisplay.ReadOnly = True
+        Me.NaicsDisplay.Size = New System.Drawing.Size(128, 13)
+        Me.NaicsDisplay.TabIndex = 3
+        Me.NaicsDisplay.Text = "code"
+        '
+        'HeaderRevocationDateDisplay
+        '
+        Me.HeaderRevocationDateDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.HeaderRevocationDateDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.HeaderRevocationDateDisplay.Location = New System.Drawing.Point(142, 175)
+        Me.HeaderRevocationDateDisplay.Name = "HeaderRevocationDateDisplay"
+        Me.HeaderRevocationDateDisplay.ReadOnly = True
+        Me.HeaderRevocationDateDisplay.Size = New System.Drawing.Size(128, 13)
+        Me.HeaderRevocationDateDisplay.TabIndex = 6
+        Me.HeaderRevocationDateDisplay.Text = "date"
+        '
+        'HeaderOperStatusDisplay
+        '
+        Me.HeaderOperStatusDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.HeaderOperStatusDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.HeaderOperStatusDisplay.Location = New System.Drawing.Point(142, 42)
+        Me.HeaderOperStatusDisplay.Name = "HeaderOperStatusDisplay"
+        Me.HeaderOperStatusDisplay.ReadOnly = True
+        Me.HeaderOperStatusDisplay.Size = New System.Drawing.Size(128, 13)
+        Me.HeaderOperStatusDisplay.TabIndex = 1
+        Me.HeaderOperStatusDisplay.Text = "oper"
+        '
+        'HeaderDescLabel
+        '
+        Me.HeaderDescLabel.AutoSize = True
+        Me.HeaderDescLabel.Location = New System.Drawing.Point(7, 210)
+        Me.HeaderDescLabel.Name = "HeaderDescLabel"
+        Me.HeaderDescLabel.Size = New System.Drawing.Size(63, 13)
+        Me.HeaderDescLabel.TabIndex = 349
+        Me.HeaderDescLabel.Text = "Description:"
+        '
+        'HeaderDescDisplay
+        '
+        Me.HeaderDescDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.HeaderDescDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.HeaderDescDisplay.Location = New System.Drawing.Point(34, 226)
+        Me.HeaderDescDisplay.Multiline = True
+        Me.HeaderDescDisplay.Name = "HeaderDescDisplay"
+        Me.HeaderDescDisplay.ReadOnly = True
+        Me.HeaderDescDisplay.Size = New System.Drawing.Size(237, 73)
+        Me.HeaderDescDisplay.TabIndex = 7
+        Me.HeaderDescDisplay.Text = resources.GetString("HeaderDescDisplay.Text")
+        '
+        'NonattainmentStatuses
+        '
+        Me.NonattainmentStatuses.Controls.Add(Me.PmLabel)
+        Me.NonattainmentStatuses.Controls.Add(Me.EightHourLabel)
+        Me.NonattainmentStatuses.Controls.Add(Me.OneHourLabel)
+        Me.NonattainmentStatuses.Controls.Add(Me.PmNonattainmentDisplay)
+        Me.NonattainmentStatuses.Controls.Add(Me.EightHourOzoneDisplay)
+        Me.NonattainmentStatuses.Controls.Add(Me.OneHourOzoneDisplay)
+        Me.NonattainmentStatuses.Location = New System.Drawing.Point(287, 249)
+        Me.NonattainmentStatuses.Name = "NonattainmentStatuses"
+        Me.NonattainmentStatuses.Size = New System.Drawing.Size(145, 81)
+        Me.NonattainmentStatuses.TabIndex = 13
+        Me.NonattainmentStatuses.TabStop = False
+        Me.NonattainmentStatuses.Text = "Nonattainment Status"
+        '
+        'PmLabel
+        '
+        Me.PmLabel.AutoSize = True
+        Me.PmLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PmLabel.Location = New System.Drawing.Point(22, 60)
+        Me.PmLabel.Name = "PmLabel"
+        Me.PmLabel.Size = New System.Drawing.Size(44, 13)
+        Me.PmLabel.TabIndex = 2
+        Me.PmLabel.Text = "PM 2.5:"
+        '
+        'EightHourLabel
+        '
+        Me.EightHourLabel.AutoSize = True
+        Me.EightHourLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EightHourLabel.Location = New System.Drawing.Point(6, 41)
+        Me.EightHourLabel.Name = "EightHourLabel"
+        Me.EightHourLabel.Size = New System.Drawing.Size(60, 13)
+        Me.EightHourLabel.TabIndex = 1
+        Me.EightHourLabel.Text = "8-hr ozone:"
+        '
+        'OneHourLabel
+        '
+        Me.OneHourLabel.AutoSize = True
+        Me.OneHourLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.OneHourLabel.Location = New System.Drawing.Point(6, 22)
+        Me.OneHourLabel.Name = "OneHourLabel"
+        Me.OneHourLabel.Size = New System.Drawing.Size(60, 13)
+        Me.OneHourLabel.TabIndex = 0
+        Me.OneHourLabel.Text = "1-hr ozone:"
+        '
+        'PmNonattainmentDisplay
+        '
+        Me.PmNonattainmentDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.PmNonattainmentDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.PmNonattainmentDisplay.Location = New System.Drawing.Point(72, 60)
+        Me.PmNonattainmentDisplay.Name = "PmNonattainmentDisplay"
+        Me.PmNonattainmentDisplay.ReadOnly = True
+        Me.PmNonattainmentDisplay.Size = New System.Drawing.Size(67, 13)
+        Me.PmNonattainmentDisplay.TabIndex = 2
+        Me.PmNonattainmentDisplay.Text = "Chattanooga"
+        '
+        'EightHourOzoneDisplay
+        '
+        Me.EightHourOzoneDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.EightHourOzoneDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.EightHourOzoneDisplay.Location = New System.Drawing.Point(72, 41)
+        Me.EightHourOzoneDisplay.Name = "EightHourOzoneDisplay"
+        Me.EightHourOzoneDisplay.ReadOnly = True
+        Me.EightHourOzoneDisplay.Size = New System.Drawing.Size(67, 13)
+        Me.EightHourOzoneDisplay.TabIndex = 1
+        Me.EightHourOzoneDisplay.Text = "status"
+        '
+        'OneHourOzoneDisplay
+        '
+        Me.OneHourOzoneDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.OneHourOzoneDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.OneHourOzoneDisplay.Location = New System.Drawing.Point(72, 22)
+        Me.OneHourOzoneDisplay.Name = "OneHourOzoneDisplay"
+        Me.OneHourOzoneDisplay.ReadOnly = True
+        Me.OneHourOzoneDisplay.Size = New System.Drawing.Size(67, 13)
+        Me.OneHourOzoneDisplay.TabIndex = 0
+        Me.OneHourOzoneDisplay.Text = "Contribute"
+        '
+        'SicLabel
+        '
+        Me.SicLabel.AutoSize = True
+        Me.SicLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SicLabel.Location = New System.Drawing.Point(103, 80)
+        Me.SicLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.SicLabel.Name = "SicLabel"
+        Me.SicLabel.Size = New System.Drawing.Size(27, 13)
+        Me.SicLabel.TabIndex = 345
+        Me.SicLabel.Text = "SIC:"
+        Me.SicLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft
+        '
+        'HeaderStartupLabel
+        '
+        Me.HeaderStartupLabel.AutoSize = True
+        Me.HeaderStartupLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.HeaderStartupLabel.Location = New System.Drawing.Point(60, 156)
+        Me.HeaderStartupLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.HeaderStartupLabel.Name = "HeaderStartupLabel"
+        Me.HeaderStartupLabel.Size = New System.Drawing.Size(70, 13)
+        Me.HeaderStartupLabel.TabIndex = 345
+        Me.HeaderStartupLabel.Text = "Startup Date:"
+        Me.HeaderStartupLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft
+        '
+        'ProgramClassificationsLabel
+        '
+        Me.ProgramClassificationsLabel.AutoSize = True
+        Me.ProgramClassificationsLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ProgramClassificationsLabel.Location = New System.Drawing.Point(284, 175)
+        Me.ProgramClassificationsLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.ProgramClassificationsLabel.Name = "ProgramClassificationsLabel"
+        Me.ProgramClassificationsLabel.Size = New System.Drawing.Size(118, 13)
+        Me.ProgramClassificationsLabel.TabIndex = 345
+        Me.ProgramClassificationsLabel.Text = "Program Classifications:"
+        Me.ProgramClassificationsLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft
+        '
+        'AirProgramsLabel
+        '
+        Me.AirProgramsLabel.AutoSize = True
+        Me.AirProgramsLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.AirProgramsLabel.Location = New System.Drawing.Point(284, 23)
+        Me.AirProgramsLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.AirProgramsLabel.Name = "AirProgramsLabel"
+        Me.AirProgramsLabel.Size = New System.Drawing.Size(69, 13)
+        Me.AirProgramsLabel.TabIndex = 345
+        Me.AirProgramsLabel.Text = "Air Programs:"
+        Me.AirProgramsLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft
+        '
+        'HeaderClassLabel
+        '
+        Me.HeaderClassLabel.AutoSize = True
+        Me.HeaderClassLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.HeaderClassLabel.Location = New System.Drawing.Point(59, 23)
+        Me.HeaderClassLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.HeaderClassLabel.Name = "HeaderClassLabel"
+        Me.HeaderClassLabel.Size = New System.Drawing.Size(71, 13)
+        Me.HeaderClassLabel.TabIndex = 345
+        Me.HeaderClassLabel.Text = "Classification:"
+        Me.HeaderClassLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft
+        '
+        'SicDisplay
+        '
+        Me.SicDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.SicDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.SicDisplay.Location = New System.Drawing.Point(142, 80)
+        Me.SicDisplay.Name = "SicDisplay"
+        Me.SicDisplay.ReadOnly = True
+        Me.SicDisplay.Size = New System.Drawing.Size(128, 13)
+        Me.SicDisplay.TabIndex = 2
+        Me.SicDisplay.Text = "code"
+        '
+        'HeaderStartupDisplay
+        '
+        Me.HeaderStartupDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.HeaderStartupDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.HeaderStartupDisplay.Location = New System.Drawing.Point(142, 156)
+        Me.HeaderStartupDisplay.Name = "HeaderStartupDisplay"
+        Me.HeaderStartupDisplay.ReadOnly = True
+        Me.HeaderStartupDisplay.Size = New System.Drawing.Size(128, 13)
+        Me.HeaderStartupDisplay.TabIndex = 5
+        Me.HeaderStartupDisplay.Text = "date"
+        '
+        'HeaderClassDisplay
+        '
+        Me.HeaderClassDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.HeaderClassDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.HeaderClassDisplay.Location = New System.Drawing.Point(142, 23)
+        Me.HeaderClassDisplay.Name = "HeaderClassDisplay"
+        Me.HeaderClassDisplay.ReadOnly = True
+        Me.HeaderClassDisplay.Size = New System.Drawing.Size(128, 13)
+        Me.HeaderClassDisplay.TabIndex = 0
+        Me.HeaderClassDisplay.Text = "class"
+        '
+        'EditHeaderDataButton
+        '
+        Me.EditHeaderDataButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.EditHeaderDataButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.EditHeaderDataButton.Location = New System.Drawing.Point(10, 316)
+        Me.EditHeaderDataButton.Name = "EditHeaderDataButton"
+        Me.EditHeaderDataButton.Size = New System.Drawing.Size(118, 23)
+        Me.EditHeaderDataButton.TabIndex = 8
+        Me.EditHeaderDataButton.Text = "Edit Header Data"
+        Me.EditHeaderDataButton.UseVisualStyleBackColor = True
+        '
+        'EditSubpartsButton
+        '
+        Me.EditSubpartsButton.Location = New System.Drawing.Point(416, 138)
+        Me.EditSubpartsButton.Name = "EditSubpartsButton"
+        Me.EditSubpartsButton.Size = New System.Drawing.Size(118, 23)
+        Me.EditSubpartsButton.TabIndex = 11
+        Me.EditSubpartsButton.Text = "Edit Subparts"
+        Me.EditSubpartsButton.UseVisualStyleBackColor = True
+        '
+        'EditPollutantsButton
+        '
+        Me.EditPollutantsButton.Location = New System.Drawing.Point(287, 138)
+        Me.EditPollutantsButton.Name = "EditPollutantsButton"
+        Me.EditPollutantsButton.Size = New System.Drawing.Size(118, 23)
+        Me.EditPollutantsButton.TabIndex = 10
+        Me.EditPollutantsButton.Text = "Edit Pollutants"
+        '
+        'FSFees
+        '
+        Me.FSFees.Controls.Add(Me.lblFeeStatus)
+        Me.FSFees.Controls.Add(Me.txtBalance)
+        Me.FSFees.Controls.Add(Me.txtDateSubmitted)
+        Me.FSFees.Controls.Add(Me.Label103)
+        Me.FSFees.Controls.Add(Me.txtTotalFeesPaid)
+        Me.FSFees.Controls.Add(Me.Label102)
+        Me.FSFees.Controls.Add(Me.GroupBox4)
+        Me.FSFees.Controls.Add(Me.GroupBox3)
+        Me.FSFees.Controls.Add(Me.GroupBox1)
+        Me.FSFees.Controls.Add(Me.Label424)
+        Me.FSFees.Controls.Add(Me.txtFeesTotal)
+        Me.FSFees.Controls.Add(Me.cboFeeYear)
+        Me.FSFees.Controls.Add(Me.Label423)
+        Me.FSFees.Location = New System.Drawing.Point(4, 22)
+        Me.FSFees.Name = "FSFees"
+        Me.FSFees.Size = New System.Drawing.Size(637, 347)
+        Me.FSFees.TabIndex = 3
+        Me.FSFees.Text = "Fees"
+        Me.FSFees.UseVisualStyleBackColor = True
         '
         'lblFeeStatus
         '
@@ -1912,34 +1746,34 @@ Partial Class IAIPFacilitySummary
         Me.Label423.TabIndex = 175
         Me.Label423.Text = "Year:"
         '
-        'TPContacts
+        'FSContacts
         '
-        Me.TPContacts.Controls.Add(Me.TCContacts)
-        Me.TPContacts.Controls.Add(Me.pnlEditContactData)
-        Me.TPContacts.Location = New System.Drawing.Point(4, 22)
-        Me.TPContacts.Name = "TPContacts"
-        Me.TPContacts.Size = New System.Drawing.Size(784, 416)
-        Me.TPContacts.TabIndex = 2
-        Me.TPContacts.Text = "Contacts"
-        Me.TPContacts.UseVisualStyleBackColor = True
+        Me.FSContacts.Controls.Add(Me.ContactsTabControl)
+        Me.FSContacts.Controls.Add(Me.pnlEditContactData)
+        Me.FSContacts.Location = New System.Drawing.Point(4, 22)
+        Me.FSContacts.Name = "FSContacts"
+        Me.FSContacts.Size = New System.Drawing.Size(637, 347)
+        Me.FSContacts.TabIndex = 2
+        Me.FSContacts.Text = "Contacts"
+        Me.FSContacts.UseVisualStyleBackColor = True
         '
-        'TCContacts
+        'ContactsTabControl
         '
-        Me.TCContacts.Controls.Add(Me.TPStateContacts)
-        Me.TCContacts.Controls.Add(Me.TPWebContacts)
-        Me.TCContacts.Controls.Add(Me.TPSSPPContacts)
-        Me.TCContacts.Controls.Add(Me.TPISMPContacts)
-        Me.TCContacts.Controls.Add(Me.TPSSCPContacts)
-        Me.TCContacts.Controls.Add(Me.TPGECOContacts)
-        Me.TCContacts.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCContacts.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TCContacts.HotTrack = True
-        Me.TCContacts.Location = New System.Drawing.Point(0, 31)
-        Me.TCContacts.Margin = New System.Windows.Forms.Padding(2)
-        Me.TCContacts.Name = "TCContacts"
-        Me.TCContacts.SelectedIndex = 0
-        Me.TCContacts.Size = New System.Drawing.Size(784, 385)
-        Me.TCContacts.TabIndex = 1
+        Me.ContactsTabControl.Controls.Add(Me.TPStateContacts)
+        Me.ContactsTabControl.Controls.Add(Me.TPWebContacts)
+        Me.ContactsTabControl.Controls.Add(Me.TPSSPPContacts)
+        Me.ContactsTabControl.Controls.Add(Me.TPISMPContacts)
+        Me.ContactsTabControl.Controls.Add(Me.TPSSCPContacts)
+        Me.ContactsTabControl.Controls.Add(Me.TPGECOContacts)
+        Me.ContactsTabControl.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ContactsTabControl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ContactsTabControl.HotTrack = True
+        Me.ContactsTabControl.Location = New System.Drawing.Point(0, 31)
+        Me.ContactsTabControl.Margin = New System.Windows.Forms.Padding(2)
+        Me.ContactsTabControl.Name = "ContactsTabControl"
+        Me.ContactsTabControl.SelectedIndex = 0
+        Me.ContactsTabControl.Size = New System.Drawing.Size(637, 316)
+        Me.ContactsTabControl.TabIndex = 1
         '
         'TPStateContacts
         '
@@ -1958,7 +1792,7 @@ Partial Class IAIPFacilitySummary
         Me.TPStateContacts.Location = New System.Drawing.Point(4, 22)
         Me.TPStateContacts.Margin = New System.Windows.Forms.Padding(2)
         Me.TPStateContacts.Name = "TPStateContacts"
-        Me.TPStateContacts.Size = New System.Drawing.Size(776, 359)
+        Me.TPStateContacts.Size = New System.Drawing.Size(629, 290)
         Me.TPStateContacts.TabIndex = 4
         Me.TPStateContacts.Text = "State Contacts"
         Me.TPStateContacts.UseVisualStyleBackColor = True
@@ -2082,7 +1916,7 @@ Partial Class IAIPFacilitySummary
         Me.TPWebContacts.Location = New System.Drawing.Point(4, 22)
         Me.TPWebContacts.Margin = New System.Windows.Forms.Padding(2)
         Me.TPWebContacts.Name = "TPWebContacts"
-        Me.TPWebContacts.Size = New System.Drawing.Size(776, 359)
+        Me.TPWebContacts.Size = New System.Drawing.Size(629, 290)
         Me.TPWebContacts.TabIndex = 0
         Me.TPWebContacts.Text = "Web Site Contact(s)"
         Me.TPWebContacts.UseVisualStyleBackColor = True
@@ -2091,9 +1925,9 @@ Partial Class IAIPFacilitySummary
         '
         Me.Panel6.Controls.Add(Me.btnCopyWebSiteContact)
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel6.Location = New System.Drawing.Point(0, 324)
+        Me.Panel6.Location = New System.Drawing.Point(0, 255)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(776, 35)
+        Me.Panel6.Size = New System.Drawing.Size(629, 35)
         Me.Panel6.TabIndex = 2
         '
         'btnCopyWebSiteContact
@@ -2130,7 +1964,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvWebSiteContacts.Location = New System.Drawing.Point(0, 0)
         Me.dgvWebSiteContacts.Name = "dgvWebSiteContacts"
         Me.dgvWebSiteContacts.ReadOnly = True
-        Me.dgvWebSiteContacts.Size = New System.Drawing.Size(776, 359)
+        Me.dgvWebSiteContacts.Size = New System.Drawing.Size(629, 290)
         Me.dgvWebSiteContacts.TabIndex = 1
         '
         'TPSSPPContacts
@@ -2140,7 +1974,7 @@ Partial Class IAIPFacilitySummary
         Me.TPSSPPContacts.Location = New System.Drawing.Point(4, 22)
         Me.TPSSPPContacts.Margin = New System.Windows.Forms.Padding(2)
         Me.TPSSPPContacts.Name = "TPSSPPContacts"
-        Me.TPSSPPContacts.Size = New System.Drawing.Size(776, 359)
+        Me.TPSSPPContacts.Size = New System.Drawing.Size(629, 290)
         Me.TPSSPPContacts.TabIndex = 1
         Me.TPSSPPContacts.Text = "Permitting Contact(s)"
         Me.TPSSPPContacts.UseVisualStyleBackColor = True
@@ -2168,16 +2002,16 @@ Partial Class IAIPFacilitySummary
         Me.dgvSSPPContacts.Location = New System.Drawing.Point(0, 0)
         Me.dgvSSPPContacts.Name = "dgvSSPPContacts"
         Me.dgvSSPPContacts.ReadOnly = True
-        Me.dgvSSPPContacts.Size = New System.Drawing.Size(776, 324)
+        Me.dgvSSPPContacts.Size = New System.Drawing.Size(629, 255)
         Me.dgvSSPPContacts.TabIndex = 2
         '
         'Panel7
         '
         Me.Panel7.Controls.Add(Me.btnCopyPermittingContact)
         Me.Panel7.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel7.Location = New System.Drawing.Point(0, 324)
+        Me.Panel7.Location = New System.Drawing.Point(0, 255)
         Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(776, 35)
+        Me.Panel7.Size = New System.Drawing.Size(629, 35)
         Me.Panel7.TabIndex = 3
         '
         'btnCopyPermittingContact
@@ -2198,7 +2032,7 @@ Partial Class IAIPFacilitySummary
         Me.TPISMPContacts.Location = New System.Drawing.Point(4, 22)
         Me.TPISMPContacts.Margin = New System.Windows.Forms.Padding(2)
         Me.TPISMPContacts.Name = "TPISMPContacts"
-        Me.TPISMPContacts.Size = New System.Drawing.Size(776, 359)
+        Me.TPISMPContacts.Size = New System.Drawing.Size(629, 290)
         Me.TPISMPContacts.TabIndex = 2
         Me.TPISMPContacts.Text = "ISMP Contact(s)"
         Me.TPISMPContacts.UseVisualStyleBackColor = True
@@ -2226,16 +2060,16 @@ Partial Class IAIPFacilitySummary
         Me.dgvISMPContacts.Location = New System.Drawing.Point(0, 0)
         Me.dgvISMPContacts.Name = "dgvISMPContacts"
         Me.dgvISMPContacts.ReadOnly = True
-        Me.dgvISMPContacts.Size = New System.Drawing.Size(776, 324)
+        Me.dgvISMPContacts.Size = New System.Drawing.Size(629, 255)
         Me.dgvISMPContacts.TabIndex = 3
         '
         'Panel8
         '
         Me.Panel8.Controls.Add(Me.btnCopyMointoringContact)
         Me.Panel8.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel8.Location = New System.Drawing.Point(0, 324)
+        Me.Panel8.Location = New System.Drawing.Point(0, 255)
         Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(776, 35)
+        Me.Panel8.Size = New System.Drawing.Size(629, 35)
         Me.Panel8.TabIndex = 4
         '
         'btnCopyMointoringContact
@@ -2256,7 +2090,7 @@ Partial Class IAIPFacilitySummary
         Me.TPSSCPContacts.Location = New System.Drawing.Point(4, 22)
         Me.TPSSCPContacts.Margin = New System.Windows.Forms.Padding(2)
         Me.TPSSCPContacts.Name = "TPSSCPContacts"
-        Me.TPSSCPContacts.Size = New System.Drawing.Size(776, 359)
+        Me.TPSSCPContacts.Size = New System.Drawing.Size(629, 290)
         Me.TPSSCPContacts.TabIndex = 3
         Me.TPSSCPContacts.Text = "Compliance Contact(s)"
         Me.TPSSCPContacts.UseVisualStyleBackColor = True
@@ -2284,16 +2118,16 @@ Partial Class IAIPFacilitySummary
         Me.dgvSSCPContacts.Location = New System.Drawing.Point(0, 0)
         Me.dgvSSCPContacts.Name = "dgvSSCPContacts"
         Me.dgvSSCPContacts.ReadOnly = True
-        Me.dgvSSCPContacts.Size = New System.Drawing.Size(776, 324)
+        Me.dgvSSCPContacts.Size = New System.Drawing.Size(629, 255)
         Me.dgvSSCPContacts.TabIndex = 3
         '
         'Panel9
         '
         Me.Panel9.Controls.Add(Me.btnCopyComplianceContact)
         Me.Panel9.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel9.Location = New System.Drawing.Point(0, 324)
+        Me.Panel9.Location = New System.Drawing.Point(0, 255)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(776, 35)
+        Me.Panel9.Size = New System.Drawing.Size(629, 35)
         Me.Panel9.TabIndex = 4
         '
         'btnCopyComplianceContact
@@ -2313,7 +2147,7 @@ Partial Class IAIPFacilitySummary
         Me.TPGECOContacts.Controls.Add(Me.Panel10)
         Me.TPGECOContacts.Location = New System.Drawing.Point(4, 22)
         Me.TPGECOContacts.Name = "TPGECOContacts"
-        Me.TPGECOContacts.Size = New System.Drawing.Size(776, 359)
+        Me.TPGECOContacts.Size = New System.Drawing.Size(629, 290)
         Me.TPGECOContacts.TabIndex = 5
         Me.TPGECOContacts.Text = "GECO Contact (Online Users)"
         Me.TPGECOContacts.UseVisualStyleBackColor = True
@@ -2341,16 +2175,16 @@ Partial Class IAIPFacilitySummary
         Me.dgvGECOContacts.Location = New System.Drawing.Point(0, 0)
         Me.dgvGECOContacts.Name = "dgvGECOContacts"
         Me.dgvGECOContacts.ReadOnly = True
-        Me.dgvGECOContacts.Size = New System.Drawing.Size(776, 324)
+        Me.dgvGECOContacts.Size = New System.Drawing.Size(629, 255)
         Me.dgvGECOContacts.TabIndex = 0
         '
         'Panel10
         '
         Me.Panel10.Controls.Add(Me.btnCopyGECOContact)
         Me.Panel10.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel10.Location = New System.Drawing.Point(0, 324)
+        Me.Panel10.Location = New System.Drawing.Point(0, 255)
         Me.Panel10.Name = "Panel10"
-        Me.Panel10.Size = New System.Drawing.Size(776, 35)
+        Me.Panel10.Size = New System.Drawing.Size(629, 35)
         Me.Panel10.TabIndex = 3
         '
         'btnCopyGECOContact
@@ -2370,7 +2204,7 @@ Partial Class IAIPFacilitySummary
         Me.pnlEditContactData.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlEditContactData.Location = New System.Drawing.Point(0, 0)
         Me.pnlEditContactData.Name = "pnlEditContactData"
-        Me.pnlEditContactData.Size = New System.Drawing.Size(784, 31)
+        Me.pnlEditContactData.Size = New System.Drawing.Size(637, 31)
         Me.pnlEditContactData.TabIndex = 342
         '
         'btnEditContacts
@@ -2384,28 +2218,28 @@ Partial Class IAIPFacilitySummary
         Me.btnEditContacts.Text = "Edit Contacts"
         Me.btnEditContacts.UseVisualStyleBackColor = True
         '
-        'TPTesting
+        'FSTesting
         '
-        Me.TPTesting.Controls.Add(Me.TCISMPWork)
-        Me.TPTesting.Location = New System.Drawing.Point(4, 22)
-        Me.TPTesting.Name = "TPTesting"
-        Me.TPTesting.Size = New System.Drawing.Size(784, 416)
-        Me.TPTesting.TabIndex = 5
-        Me.TPTesting.Text = "Testing"
-        Me.TPTesting.UseVisualStyleBackColor = True
+        Me.FSTesting.Controls.Add(Me.TestingTabControl)
+        Me.FSTesting.Location = New System.Drawing.Point(4, 22)
+        Me.FSTesting.Name = "FSTesting"
+        Me.FSTesting.Size = New System.Drawing.Size(637, 347)
+        Me.FSTesting.TabIndex = 5
+        Me.FSTesting.Text = "Testing"
+        Me.FSTesting.UseVisualStyleBackColor = True
         '
-        'TCISMPWork
+        'TestingTabControl
         '
-        Me.TCISMPWork.Controls.Add(Me.TPTestReports)
-        Me.TCISMPWork.Controls.Add(Me.TPTestLog)
-        Me.TCISMPWork.Controls.Add(Me.TPReportMemos)
-        Me.TCISMPWork.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCISMPWork.Location = New System.Drawing.Point(0, 0)
-        Me.TCISMPWork.Margin = New System.Windows.Forms.Padding(2)
-        Me.TCISMPWork.Name = "TCISMPWork"
-        Me.TCISMPWork.SelectedIndex = 0
-        Me.TCISMPWork.Size = New System.Drawing.Size(784, 416)
-        Me.TCISMPWork.TabIndex = 6
+        Me.TestingTabControl.Controls.Add(Me.TPTestReports)
+        Me.TestingTabControl.Controls.Add(Me.TPTestLog)
+        Me.TestingTabControl.Controls.Add(Me.TPReportMemos)
+        Me.TestingTabControl.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TestingTabControl.Location = New System.Drawing.Point(0, 0)
+        Me.TestingTabControl.Margin = New System.Windows.Forms.Padding(2)
+        Me.TestingTabControl.Name = "TestingTabControl"
+        Me.TestingTabControl.SelectedIndex = 0
+        Me.TestingTabControl.Size = New System.Drawing.Size(637, 347)
+        Me.TestingTabControl.TabIndex = 6
         '
         'TPTestReports
         '
@@ -2415,7 +2249,7 @@ Partial Class IAIPFacilitySummary
         Me.TPTestReports.Location = New System.Drawing.Point(4, 22)
         Me.TPTestReports.Margin = New System.Windows.Forms.Padding(2)
         Me.TPTestReports.Name = "TPTestReports"
-        Me.TPTestReports.Size = New System.Drawing.Size(776, 390)
+        Me.TPTestReports.Size = New System.Drawing.Size(629, 321)
         Me.TPTestReports.TabIndex = 0
         Me.TPTestReports.Text = "Test Report(s)"
         '
@@ -2426,7 +2260,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvISMPWork.Location = New System.Drawing.Point(0, 30)
         Me.dgvISMPWork.Name = "dgvISMPWork"
         Me.dgvISMPWork.ReadOnly = True
-        Me.dgvISMPWork.Size = New System.Drawing.Size(776, 360)
+        Me.dgvISMPWork.Size = New System.Drawing.Size(629, 291)
         Me.dgvISMPWork.TabIndex = 5
         '
         'PanelISMPWork
@@ -2440,7 +2274,7 @@ Partial Class IAIPFacilitySummary
         Me.PanelISMPWork.Location = New System.Drawing.Point(0, 0)
         Me.PanelISMPWork.Margin = New System.Windows.Forms.Padding(2)
         Me.PanelISMPWork.Name = "PanelISMPWork"
-        Me.PanelISMPWork.Size = New System.Drawing.Size(776, 30)
+        Me.PanelISMPWork.Size = New System.Drawing.Size(629, 30)
         Me.PanelISMPWork.TabIndex = 2
         '
         'Label373
@@ -2460,7 +2294,7 @@ Partial Class IAIPFacilitySummary
         Me.TPTestLog.Location = New System.Drawing.Point(4, 22)
         Me.TPTestLog.Margin = New System.Windows.Forms.Padding(2)
         Me.TPTestLog.Name = "TPTestLog"
-        Me.TPTestLog.Size = New System.Drawing.Size(776, 390)
+        Me.TPTestLog.Size = New System.Drawing.Size(629, 321)
         Me.TPTestLog.TabIndex = 1
         Me.TPTestLog.Text = "Test Notification(s)"
         '
@@ -2471,7 +2305,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvISMPTestNotification.Location = New System.Drawing.Point(0, 30)
         Me.dgvISMPTestNotification.Name = "dgvISMPTestNotification"
         Me.dgvISMPTestNotification.ReadOnly = True
-        Me.dgvISMPTestNotification.Size = New System.Drawing.Size(776, 360)
+        Me.dgvISMPTestNotification.Size = New System.Drawing.Size(629, 291)
         Me.dgvISMPTestNotification.TabIndex = 3
         '
         'PanelISMPTestNotification
@@ -2483,7 +2317,7 @@ Partial Class IAIPFacilitySummary
         Me.PanelISMPTestNotification.Location = New System.Drawing.Point(0, 0)
         Me.PanelISMPTestNotification.Margin = New System.Windows.Forms.Padding(2)
         Me.PanelISMPTestNotification.Name = "PanelISMPTestNotification"
-        Me.PanelISMPTestNotification.Size = New System.Drawing.Size(776, 30)
+        Me.PanelISMPTestNotification.Size = New System.Drawing.Size(629, 30)
         Me.PanelISMPTestNotification.TabIndex = 0
         '
         'txtTestingNumber
@@ -2511,7 +2345,7 @@ Partial Class IAIPFacilitySummary
         Me.TPReportMemos.Location = New System.Drawing.Point(4, 22)
         Me.TPReportMemos.Margin = New System.Windows.Forms.Padding(2)
         Me.TPReportMemos.Name = "TPReportMemos"
-        Me.TPReportMemos.Size = New System.Drawing.Size(776, 390)
+        Me.TPReportMemos.Size = New System.Drawing.Size(629, 321)
         Me.TPReportMemos.TabIndex = 2
         Me.TPReportMemos.Text = "Test Report Memo(s)"
         '
@@ -2522,7 +2356,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvISMPMemo.Location = New System.Drawing.Point(0, 30)
         Me.dgvISMPMemo.Name = "dgvISMPMemo"
         Me.dgvISMPMemo.ReadOnly = True
-        Me.dgvISMPMemo.Size = New System.Drawing.Size(776, 360)
+        Me.dgvISMPMemo.Size = New System.Drawing.Size(629, 291)
         Me.dgvISMPMemo.TabIndex = 3
         '
         'PanelISMPMemo
@@ -2534,7 +2368,7 @@ Partial Class IAIPFacilitySummary
         Me.PanelISMPMemo.Location = New System.Drawing.Point(0, 0)
         Me.PanelISMPMemo.Margin = New System.Windows.Forms.Padding(2)
         Me.PanelISMPMemo.Name = "PanelISMPMemo"
-        Me.PanelISMPMemo.Size = New System.Drawing.Size(776, 30)
+        Me.PanelISMPMemo.Size = New System.Drawing.Size(629, 30)
         Me.PanelISMPMemo.TabIndex = 0
         '
         'txtReferenceNumber2
@@ -2555,28 +2389,28 @@ Partial Class IAIPFacilitySummary
         Me.Label374.TabIndex = 3
         Me.Label374.Text = "Test Report Reference Number:"
         '
-        'TPCompliance
+        'FSCompliance
         '
-        Me.TPCompliance.Controls.Add(Me.TCComplianceWork)
-        Me.TPCompliance.Location = New System.Drawing.Point(4, 22)
-        Me.TPCompliance.Name = "TPCompliance"
-        Me.TPCompliance.Size = New System.Drawing.Size(784, 416)
-        Me.TPCompliance.TabIndex = 6
-        Me.TPCompliance.Text = "Compliance"
-        Me.TPCompliance.UseVisualStyleBackColor = True
+        Me.FSCompliance.Controls.Add(Me.ComplianceTabControl)
+        Me.FSCompliance.Location = New System.Drawing.Point(4, 22)
+        Me.FSCompliance.Name = "FSCompliance"
+        Me.FSCompliance.Size = New System.Drawing.Size(637, 347)
+        Me.FSCompliance.TabIndex = 6
+        Me.FSCompliance.Text = "Compliance"
+        Me.FSCompliance.UseVisualStyleBackColor = True
         '
-        'TCComplianceWork
+        'ComplianceTabControl
         '
-        Me.TCComplianceWork.Controls.Add(Me.TPComplianceEvents)
-        Me.TCComplianceWork.Controls.Add(Me.TPFCE)
-        Me.TCComplianceWork.Controls.Add(Me.TPEnforcement)
-        Me.TCComplianceWork.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCComplianceWork.Location = New System.Drawing.Point(0, 0)
-        Me.TCComplianceWork.Margin = New System.Windows.Forms.Padding(2)
-        Me.TCComplianceWork.Name = "TCComplianceWork"
-        Me.TCComplianceWork.SelectedIndex = 0
-        Me.TCComplianceWork.Size = New System.Drawing.Size(784, 416)
-        Me.TCComplianceWork.TabIndex = 1
+        Me.ComplianceTabControl.Controls.Add(Me.TPComplianceEvents)
+        Me.ComplianceTabControl.Controls.Add(Me.TPFCE)
+        Me.ComplianceTabControl.Controls.Add(Me.TPEnforcement)
+        Me.ComplianceTabControl.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ComplianceTabControl.Location = New System.Drawing.Point(0, 0)
+        Me.ComplianceTabControl.Margin = New System.Windows.Forms.Padding(2)
+        Me.ComplianceTabControl.Name = "ComplianceTabControl"
+        Me.ComplianceTabControl.SelectedIndex = 0
+        Me.ComplianceTabControl.Size = New System.Drawing.Size(637, 347)
+        Me.ComplianceTabControl.TabIndex = 1
         '
         'TPComplianceEvents
         '
@@ -2585,7 +2419,7 @@ Partial Class IAIPFacilitySummary
         Me.TPComplianceEvents.Location = New System.Drawing.Point(4, 22)
         Me.TPComplianceEvents.Margin = New System.Windows.Forms.Padding(2)
         Me.TPComplianceEvents.Name = "TPComplianceEvents"
-        Me.TPComplianceEvents.Size = New System.Drawing.Size(776, 390)
+        Me.TPComplianceEvents.Size = New System.Drawing.Size(629, 321)
         Me.TPComplianceEvents.TabIndex = 0
         Me.TPComplianceEvents.Text = "Compliance Event(s)"
         Me.TPComplianceEvents.UseVisualStyleBackColor = True
@@ -2597,7 +2431,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvSSCPEvents.Location = New System.Drawing.Point(0, 30)
         Me.dgvSSCPEvents.Name = "dgvSSCPEvents"
         Me.dgvSSCPEvents.ReadOnly = True
-        Me.dgvSSCPEvents.Size = New System.Drawing.Size(776, 360)
+        Me.dgvSSCPEvents.Size = New System.Drawing.Size(629, 291)
         Me.dgvSSCPEvents.TabIndex = 3
         '
         'PanelSSCPEvents
@@ -2609,7 +2443,7 @@ Partial Class IAIPFacilitySummary
         Me.PanelSSCPEvents.Location = New System.Drawing.Point(0, 0)
         Me.PanelSSCPEvents.Margin = New System.Windows.Forms.Padding(2)
         Me.PanelSSCPEvents.Name = "PanelSSCPEvents"
-        Me.PanelSSCPEvents.Size = New System.Drawing.Size(776, 30)
+        Me.PanelSSCPEvents.Size = New System.Drawing.Size(629, 30)
         Me.PanelSSCPEvents.TabIndex = 0
         '
         'llbViewComplianceEvent
@@ -2649,7 +2483,7 @@ Partial Class IAIPFacilitySummary
         Me.TPFCE.Margin = New System.Windows.Forms.Padding(2)
         Me.TPFCE.Name = "TPFCE"
         Me.TPFCE.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.TPFCE.Size = New System.Drawing.Size(776, 390)
+        Me.TPFCE.Size = New System.Drawing.Size(629, 321)
         Me.TPFCE.TabIndex = 1
         Me.TPFCE.Text = "Full Compliance Evaluation(s)"
         Me.TPFCE.UseVisualStyleBackColor = True
@@ -2662,7 +2496,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvFCEData.Name = "dgvFCEData"
         Me.dgvFCEData.ReadOnly = True
         Me.dgvFCEData.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.dgvFCEData.Size = New System.Drawing.Size(776, 360)
+        Me.dgvFCEData.Size = New System.Drawing.Size(629, 291)
         Me.dgvFCEData.TabIndex = 3
         '
         'Panel11
@@ -2674,7 +2508,7 @@ Partial Class IAIPFacilitySummary
         Me.Panel11.Location = New System.Drawing.Point(0, 0)
         Me.Panel11.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(776, 30)
+        Me.Panel11.Size = New System.Drawing.Size(629, 30)
         Me.Panel11.TabIndex = 0
         '
         'llbViewFCE
@@ -2714,7 +2548,7 @@ Partial Class IAIPFacilitySummary
         Me.TPEnforcement.Location = New System.Drawing.Point(4, 22)
         Me.TPEnforcement.Margin = New System.Windows.Forms.Padding(2)
         Me.TPEnforcement.Name = "TPEnforcement"
-        Me.TPEnforcement.Size = New System.Drawing.Size(776, 390)
+        Me.TPEnforcement.Size = New System.Drawing.Size(629, 321)
         Me.TPEnforcement.TabIndex = 2
         Me.TPEnforcement.Text = "Enforcement"
         Me.TPEnforcement.UseVisualStyleBackColor = True
@@ -2726,7 +2560,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvSSCPEnforcement.Location = New System.Drawing.Point(0, 30)
         Me.dgvSSCPEnforcement.Name = "dgvSSCPEnforcement"
         Me.dgvSSCPEnforcement.ReadOnly = True
-        Me.dgvSSCPEnforcement.Size = New System.Drawing.Size(776, 360)
+        Me.dgvSSCPEnforcement.Size = New System.Drawing.Size(629, 291)
         Me.dgvSSCPEnforcement.TabIndex = 3
         '
         'PanelSSCPEnforcement
@@ -2738,7 +2572,7 @@ Partial Class IAIPFacilitySummary
         Me.PanelSSCPEnforcement.Location = New System.Drawing.Point(0, 0)
         Me.PanelSSCPEnforcement.Margin = New System.Windows.Forms.Padding(2)
         Me.PanelSSCPEnforcement.Name = "PanelSSCPEnforcement"
-        Me.PanelSSCPEnforcement.Size = New System.Drawing.Size(776, 30)
+        Me.PanelSSCPEnforcement.Size = New System.Drawing.Size(629, 30)
         Me.PanelSSCPEnforcement.TabIndex = 0
         '
         'llbViewSSCPEnforcement
@@ -2770,29 +2604,29 @@ Partial Class IAIPFacilitySummary
         Me.Label375.TabIndex = 6
         Me.Label375.Text = "Enforcement Number:"
         '
-        'TPPermitting
+        'FSPermitting
         '
-        Me.TPPermitting.Controls.Add(Me.TCPermittingData)
-        Me.TPPermitting.Location = New System.Drawing.Point(4, 22)
-        Me.TPPermitting.Name = "TPPermitting"
-        Me.TPPermitting.Size = New System.Drawing.Size(784, 416)
-        Me.TPPermitting.TabIndex = 7
-        Me.TPPermitting.Text = "Permitting"
-        Me.TPPermitting.UseVisualStyleBackColor = True
+        Me.FSPermitting.Controls.Add(Me.PermittingTabControl)
+        Me.FSPermitting.Location = New System.Drawing.Point(4, 22)
+        Me.FSPermitting.Name = "FSPermitting"
+        Me.FSPermitting.Size = New System.Drawing.Size(637, 347)
+        Me.FSPermitting.TabIndex = 7
+        Me.FSPermitting.Text = "Permitting"
+        Me.FSPermitting.UseVisualStyleBackColor = True
         '
-        'TCPermittingData
+        'PermittingTabControl
         '
-        Me.TCPermittingData.Controls.Add(Me.TPAppLog)
-        Me.TCPermittingData.Controls.Add(Me.TPActiveRules)
-        Me.TCPermittingData.Controls.Add(Me.TPRuleHistory)
-        Me.TCPermittingData.Controls.Add(Me.TPPermits)
-        Me.TCPermittingData.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCPermittingData.Location = New System.Drawing.Point(0, 0)
-        Me.TCPermittingData.Margin = New System.Windows.Forms.Padding(2)
-        Me.TCPermittingData.Name = "TCPermittingData"
-        Me.TCPermittingData.SelectedIndex = 0
-        Me.TCPermittingData.Size = New System.Drawing.Size(784, 416)
-        Me.TCPermittingData.TabIndex = 1
+        Me.PermittingTabControl.Controls.Add(Me.TPAppLog)
+        Me.PermittingTabControl.Controls.Add(Me.TPActiveRules)
+        Me.PermittingTabControl.Controls.Add(Me.TPRuleHistory)
+        Me.PermittingTabControl.Controls.Add(Me.TPPermits)
+        Me.PermittingTabControl.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PermittingTabControl.Location = New System.Drawing.Point(0, 0)
+        Me.PermittingTabControl.Margin = New System.Windows.Forms.Padding(2)
+        Me.PermittingTabControl.Name = "PermittingTabControl"
+        Me.PermittingTabControl.SelectedIndex = 0
+        Me.PermittingTabControl.Size = New System.Drawing.Size(637, 347)
+        Me.PermittingTabControl.TabIndex = 1
         '
         'TPAppLog
         '
@@ -2801,7 +2635,7 @@ Partial Class IAIPFacilitySummary
         Me.TPAppLog.Location = New System.Drawing.Point(4, 22)
         Me.TPAppLog.Margin = New System.Windows.Forms.Padding(2)
         Me.TPAppLog.Name = "TPAppLog"
-        Me.TPAppLog.Size = New System.Drawing.Size(776, 390)
+        Me.TPAppLog.Size = New System.Drawing.Size(629, 321)
         Me.TPAppLog.TabIndex = 0
         Me.TPAppLog.Text = "Application Tracking Log"
         Me.TPAppLog.UseVisualStyleBackColor = True
@@ -2813,7 +2647,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvApplicationLog.Location = New System.Drawing.Point(0, 30)
         Me.dgvApplicationLog.Name = "dgvApplicationLog"
         Me.dgvApplicationLog.ReadOnly = True
-        Me.dgvApplicationLog.Size = New System.Drawing.Size(776, 360)
+        Me.dgvApplicationLog.Size = New System.Drawing.Size(629, 291)
         Me.dgvApplicationLog.TabIndex = 4
         '
         'Panel12
@@ -2825,7 +2659,7 @@ Partial Class IAIPFacilitySummary
         Me.Panel12.Location = New System.Drawing.Point(0, 0)
         Me.Panel12.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel12.Name = "Panel12"
-        Me.Panel12.Size = New System.Drawing.Size(776, 30)
+        Me.Panel12.Size = New System.Drawing.Size(629, 30)
         Me.Panel12.TabIndex = 1
         '
         'llbViewApplication
@@ -2862,7 +2696,7 @@ Partial Class IAIPFacilitySummary
         Me.TPActiveRules.Controls.Add(Me.dgvActiveRules)
         Me.TPActiveRules.Location = New System.Drawing.Point(4, 22)
         Me.TPActiveRules.Name = "TPActiveRules"
-        Me.TPActiveRules.Size = New System.Drawing.Size(776, 390)
+        Me.TPActiveRules.Size = New System.Drawing.Size(629, 321)
         Me.TPActiveRules.TabIndex = 1
         Me.TPActiveRules.Text = "Current Applicable Rules"
         Me.TPActiveRules.UseVisualStyleBackColor = True
@@ -2874,7 +2708,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvActiveRules.Location = New System.Drawing.Point(0, 0)
         Me.dgvActiveRules.Name = "dgvActiveRules"
         Me.dgvActiveRules.ReadOnly = True
-        Me.dgvActiveRules.Size = New System.Drawing.Size(776, 390)
+        Me.dgvActiveRules.Size = New System.Drawing.Size(629, 321)
         Me.dgvActiveRules.TabIndex = 5
         '
         'TPRuleHistory
@@ -2882,7 +2716,7 @@ Partial Class IAIPFacilitySummary
         Me.TPRuleHistory.Controls.Add(Me.dgvRuleHistory)
         Me.TPRuleHistory.Location = New System.Drawing.Point(4, 22)
         Me.TPRuleHistory.Name = "TPRuleHistory"
-        Me.TPRuleHistory.Size = New System.Drawing.Size(776, 390)
+        Me.TPRuleHistory.Size = New System.Drawing.Size(629, 321)
         Me.TPRuleHistory.TabIndex = 2
         Me.TPRuleHistory.Text = "Rule Applicability History"
         Me.TPRuleHistory.UseVisualStyleBackColor = True
@@ -2894,7 +2728,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvRuleHistory.Location = New System.Drawing.Point(0, 0)
         Me.dgvRuleHistory.Name = "dgvRuleHistory"
         Me.dgvRuleHistory.ReadOnly = True
-        Me.dgvRuleHistory.Size = New System.Drawing.Size(776, 390)
+        Me.dgvRuleHistory.Size = New System.Drawing.Size(629, 321)
         Me.dgvRuleHistory.TabIndex = 5
         '
         'TPPermits
@@ -2903,7 +2737,7 @@ Partial Class IAIPFacilitySummary
         Me.TPPermits.Controls.Add(Me.dgvPermits)
         Me.TPPermits.Location = New System.Drawing.Point(4, 22)
         Me.TPPermits.Name = "TPPermits"
-        Me.TPPermits.Size = New System.Drawing.Size(776, 390)
+        Me.TPPermits.Size = New System.Drawing.Size(629, 321)
         Me.TPPermits.TabIndex = 3
         Me.TPPermits.Text = "Permits"
         Me.TPPermits.UseVisualStyleBackColor = True
@@ -2914,7 +2748,7 @@ Partial Class IAIPFacilitySummary
         Me.WebLinkPanel.Dock = System.Windows.Forms.DockStyle.Top
         Me.WebLinkPanel.Location = New System.Drawing.Point(0, 0)
         Me.WebLinkPanel.Name = "WebLinkPanel"
-        Me.WebLinkPanel.Size = New System.Drawing.Size(776, 30)
+        Me.WebLinkPanel.Size = New System.Drawing.Size(629, 30)
         Me.WebLinkPanel.TabIndex = 1
         '
         'llbViewAirPermitsOnline
@@ -2946,37 +2780,37 @@ Partial Class IAIPFacilitySummary
         Me.dgvPermits.ReadOnly = True
         Me.dgvPermits.RowHeadersVisible = False
         Me.dgvPermits.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvPermits.Size = New System.Drawing.Size(776, 390)
+        Me.dgvPermits.Size = New System.Drawing.Size(629, 321)
         Me.dgvPermits.TabIndex = 0
         '
-        'TPFinancial
+        'FSFinancial
         '
-        Me.TPFinancial.Controls.Add(Me.TabControl2)
-        Me.TPFinancial.Location = New System.Drawing.Point(4, 22)
-        Me.TPFinancial.Name = "TPFinancial"
-        Me.TPFinancial.Size = New System.Drawing.Size(784, 416)
-        Me.TPFinancial.TabIndex = 8
-        Me.TPFinancial.Text = "Financial Data"
-        Me.TPFinancial.UseVisualStyleBackColor = True
+        Me.FSFinancial.Controls.Add(Me.FinancialTabControl)
+        Me.FSFinancial.Location = New System.Drawing.Point(4, 22)
+        Me.FSFinancial.Name = "FSFinancial"
+        Me.FSFinancial.Size = New System.Drawing.Size(637, 347)
+        Me.FSFinancial.TabIndex = 8
+        Me.FSFinancial.Text = "Financial Data"
+        Me.FSFinancial.UseVisualStyleBackColor = True
         '
-        'TabControl2
+        'FinancialTabControl
         '
-        Me.TabControl2.Controls.Add(Me.TPFeeData)
-        Me.TabControl2.Controls.Add(Me.TPInvoices)
-        Me.TabControl2.Controls.Add(Me.TPFeeDeposits)
-        Me.TabControl2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TabControl2.Location = New System.Drawing.Point(0, 0)
-        Me.TabControl2.Name = "TabControl2"
-        Me.TabControl2.SelectedIndex = 0
-        Me.TabControl2.Size = New System.Drawing.Size(784, 416)
-        Me.TabControl2.TabIndex = 1
+        Me.FinancialTabControl.Controls.Add(Me.TPFeeData)
+        Me.FinancialTabControl.Controls.Add(Me.TPInvoices)
+        Me.FinancialTabControl.Controls.Add(Me.TPFeeDeposits)
+        Me.FinancialTabControl.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.FinancialTabControl.Location = New System.Drawing.Point(0, 0)
+        Me.FinancialTabControl.Name = "FinancialTabControl"
+        Me.FinancialTabControl.SelectedIndex = 0
+        Me.FinancialTabControl.Size = New System.Drawing.Size(637, 347)
+        Me.FinancialTabControl.TabIndex = 1
         '
         'TPFeeData
         '
         Me.TPFeeData.Controls.Add(Me.dgvFeeData)
         Me.TPFeeData.Location = New System.Drawing.Point(4, 22)
         Me.TPFeeData.Name = "TPFeeData"
-        Me.TPFeeData.Size = New System.Drawing.Size(776, 390)
+        Me.TPFeeData.Size = New System.Drawing.Size(629, 321)
         Me.TPFeeData.TabIndex = 0
         Me.TPFeeData.Text = "Fee Data"
         Me.TPFeeData.UseVisualStyleBackColor = True
@@ -2988,7 +2822,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvFeeData.Location = New System.Drawing.Point(0, 0)
         Me.dgvFeeData.Name = "dgvFeeData"
         Me.dgvFeeData.ReadOnly = True
-        Me.dgvFeeData.Size = New System.Drawing.Size(776, 390)
+        Me.dgvFeeData.Size = New System.Drawing.Size(629, 321)
         Me.dgvFeeData.TabIndex = 0
         '
         'TPInvoices
@@ -2996,7 +2830,7 @@ Partial Class IAIPFacilitySummary
         Me.TPInvoices.Controls.Add(Me.dgvInvoices)
         Me.TPInvoices.Location = New System.Drawing.Point(4, 22)
         Me.TPInvoices.Name = "TPInvoices"
-        Me.TPInvoices.Size = New System.Drawing.Size(776, 390)
+        Me.TPInvoices.Size = New System.Drawing.Size(629, 321)
         Me.TPInvoices.TabIndex = 2
         Me.TPInvoices.Text = "Invoices"
         Me.TPInvoices.UseVisualStyleBackColor = True
@@ -3008,7 +2842,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvInvoices.Location = New System.Drawing.Point(0, 0)
         Me.dgvInvoices.Name = "dgvInvoices"
         Me.dgvInvoices.ReadOnly = True
-        Me.dgvInvoices.Size = New System.Drawing.Size(776, 390)
+        Me.dgvInvoices.Size = New System.Drawing.Size(629, 321)
         Me.dgvInvoices.TabIndex = 1
         '
         'TPFeeDeposits
@@ -3016,7 +2850,7 @@ Partial Class IAIPFacilitySummary
         Me.TPFeeDeposits.Controls.Add(Me.dgvFeeDeposits)
         Me.TPFeeDeposits.Location = New System.Drawing.Point(4, 22)
         Me.TPFeeDeposits.Name = "TPFeeDeposits"
-        Me.TPFeeDeposits.Size = New System.Drawing.Size(776, 390)
+        Me.TPFeeDeposits.Size = New System.Drawing.Size(629, 321)
         Me.TPFeeDeposits.TabIndex = 1
         Me.TPFeeDeposits.Text = "Fee Deposits"
         Me.TPFeeDeposits.UseVisualStyleBackColor = True
@@ -3028,19 +2862,19 @@ Partial Class IAIPFacilitySummary
         Me.dgvFeeDeposits.Location = New System.Drawing.Point(0, 0)
         Me.dgvFeeDeposits.Name = "dgvFeeDeposits"
         Me.dgvFeeDeposits.ReadOnly = True
-        Me.dgvFeeDeposits.Size = New System.Drawing.Size(776, 390)
+        Me.dgvFeeDeposits.Size = New System.Drawing.Size(629, 321)
         Me.dgvFeeDeposits.TabIndex = 0
         '
-        'TPEmissionInventory
+        'FSEmissionInventory
         '
-        Me.TPEmissionInventory.Controls.Add(Me.GroupBox6)
-        Me.TPEmissionInventory.Controls.Add(Me.GroupBox7)
-        Me.TPEmissionInventory.Location = New System.Drawing.Point(4, 22)
-        Me.TPEmissionInventory.Name = "TPEmissionInventory"
-        Me.TPEmissionInventory.Size = New System.Drawing.Size(784, 416)
-        Me.TPEmissionInventory.TabIndex = 4
-        Me.TPEmissionInventory.Text = "Emission Inventory"
-        Me.TPEmissionInventory.UseVisualStyleBackColor = True
+        Me.FSEmissionInventory.Controls.Add(Me.GroupBox6)
+        Me.FSEmissionInventory.Controls.Add(Me.GroupBox7)
+        Me.FSEmissionInventory.Location = New System.Drawing.Point(4, 22)
+        Me.FSEmissionInventory.Name = "FSEmissionInventory"
+        Me.FSEmissionInventory.Size = New System.Drawing.Size(637, 347)
+        Me.FSEmissionInventory.TabIndex = 4
+        Me.FSEmissionInventory.Text = "Emission Inventory"
+        Me.FSEmissionInventory.UseVisualStyleBackColor = True
         '
         'GroupBox6
         '
@@ -3048,7 +2882,7 @@ Partial Class IAIPFacilitySummary
         Me.GroupBox6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox6.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(784, 196)
+        Me.GroupBox6.Size = New System.Drawing.Size(637, 127)
         Me.GroupBox6.TabIndex = 58
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Emission Data after 2009"
@@ -3059,16 +2893,16 @@ Partial Class IAIPFacilitySummary
         Me.dgvEISData.Dock = System.Windows.Forms.DockStyle.Top
         Me.dgvEISData.Location = New System.Drawing.Point(3, 16)
         Me.dgvEISData.Name = "dgvEISData"
-        Me.dgvEISData.Size = New System.Drawing.Size(778, 193)
+        Me.dgvEISData.Size = New System.Drawing.Size(631, 193)
         Me.dgvEISData.TabIndex = 0
         '
         'GroupBox7
         '
         Me.GroupBox7.Controls.Add(Me.dgvEIData)
         Me.GroupBox7.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GroupBox7.Location = New System.Drawing.Point(0, 196)
+        Me.GroupBox7.Location = New System.Drawing.Point(0, 127)
         Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(784, 220)
+        Me.GroupBox7.Size = New System.Drawing.Size(637, 220)
         Me.GroupBox7.TabIndex = 59
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Emission Data up to 2009"
@@ -3080,141 +2914,448 @@ Partial Class IAIPFacilitySummary
         Me.dgvEIData.Location = New System.Drawing.Point(3, 16)
         Me.dgvEIData.Name = "dgvEIData"
         Me.dgvEIData.ReadOnly = True
-        Me.dgvEIData.Size = New System.Drawing.Size(778, 201)
+        Me.dgvEIData.Size = New System.Drawing.Size(631, 201)
         Me.dgvEIData.TabIndex = 39
         '
-        'MenuStrip
+        'FSMenuStrip
         '
-        Me.MenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.ToolsToolStripMenuItem, Me.HelpToolStripMenuItem})
-        Me.MenuStrip.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip.Name = "MenuStrip"
-        Me.MenuStrip.Size = New System.Drawing.Size(792, 24)
-        Me.MenuStrip.TabIndex = 278
-        Me.MenuStrip.Text = "MenuStrip1"
+        Me.FSMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileMenu, Me.ToolsMenu, Me.HelpMenu})
+        Me.FSMenuStrip.Location = New System.Drawing.Point(0, 0)
+        Me.FSMenuStrip.Name = "FSMenuStrip"
+        Me.FSMenuStrip.Size = New System.Drawing.Size(645, 24)
+        Me.FSMenuStrip.TabIndex = 0
+        Me.FSMenuStrip.Text = "MenuStrip1"
         '
-        'FileToolStripMenuItem
+        'FileMenu
         '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LookUpFacilityToolStripMenuItem, Me.PrintFacilitySummaryToolStripMenuItem, Me.ClearFormToolStripMenuItem, Me.ToolStripSeparator1, Me.CloseToolStripMenuItem})
-        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.FileToolStripMenuItem.Text = "&File"
+        Me.FileMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LookUpFacilityMenuItem, Me.PrintFacilitySummaryMenuItem, Me.ClearFormMenuItem, Me.FileMenuSeparator, Me.CloseMenuItem})
+        Me.FileMenu.Name = "FileMenu"
+        Me.FileMenu.Size = New System.Drawing.Size(37, 20)
+        Me.FileMenu.Text = "&File"
         '
-        'LookUpFacilityToolStripMenuItem
+        'LookUpFacilityMenuItem
         '
-        Me.LookUpFacilityToolStripMenuItem.Name = "LookUpFacilityToolStripMenuItem"
-        Me.LookUpFacilityToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.F), System.Windows.Forms.Keys)
-        Me.LookUpFacilityToolStripMenuItem.Size = New System.Drawing.Size(234, 22)
-        Me.LookUpFacilityToolStripMenuItem.Text = "&Look Up Facility"
+        Me.LookUpFacilityMenuItem.Name = "LookUpFacilityMenuItem"
+        Me.LookUpFacilityMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.F), System.Windows.Forms.Keys)
+        Me.LookUpFacilityMenuItem.Size = New System.Drawing.Size(234, 22)
+        Me.LookUpFacilityMenuItem.Text = "&Look Up Facility"
         '
-        'PrintFacilitySummaryToolStripMenuItem
+        'PrintFacilitySummaryMenuItem
         '
-        Me.PrintFacilitySummaryToolStripMenuItem.Name = "PrintFacilitySummaryToolStripMenuItem"
-        Me.PrintFacilitySummaryToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.P), System.Windows.Forms.Keys)
-        Me.PrintFacilitySummaryToolStripMenuItem.Size = New System.Drawing.Size(234, 22)
-        Me.PrintFacilitySummaryToolStripMenuItem.Text = "&Print Facility Summary"
+        Me.PrintFacilitySummaryMenuItem.Name = "PrintFacilitySummaryMenuItem"
+        Me.PrintFacilitySummaryMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.P), System.Windows.Forms.Keys)
+        Me.PrintFacilitySummaryMenuItem.Size = New System.Drawing.Size(234, 22)
+        Me.PrintFacilitySummaryMenuItem.Text = "&Print Facility Summary"
         '
-        'ClearFormToolStripMenuItem
+        'ClearFormMenuItem
         '
-        Me.ClearFormToolStripMenuItem.Name = "ClearFormToolStripMenuItem"
-        Me.ClearFormToolStripMenuItem.Size = New System.Drawing.Size(234, 22)
-        Me.ClearFormToolStripMenuItem.Text = "Clear &Form"
+        Me.ClearFormMenuItem.Name = "ClearFormMenuItem"
+        Me.ClearFormMenuItem.Size = New System.Drawing.Size(234, 22)
+        Me.ClearFormMenuItem.Text = "Clear &Form"
         '
-        'ToolStripSeparator1
+        'FileMenuSeparator
         '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(231, 6)
+        Me.FileMenuSeparator.Name = "FileMenuSeparator"
+        Me.FileMenuSeparator.Size = New System.Drawing.Size(231, 6)
         '
-        'CloseToolStripMenuItem
+        'CloseMenuItem
         '
-        Me.CloseToolStripMenuItem.Name = "CloseToolStripMenuItem"
-        Me.CloseToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.W), System.Windows.Forms.Keys)
-        Me.CloseToolStripMenuItem.Size = New System.Drawing.Size(234, 22)
-        Me.CloseToolStripMenuItem.Text = "&Close"
+        Me.CloseMenuItem.Name = "CloseMenuItem"
+        Me.CloseMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.W), System.Windows.Forms.Keys)
+        Me.CloseMenuItem.Size = New System.Drawing.Size(234, 22)
+        Me.CloseMenuItem.Text = "&Close"
         '
-        'ToolsToolStripMenuItem
+        'ToolsMenu
         '
-        Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EditContactInformationToolStripMenuItem, Me.FacilityCreatorToolMenuItemSeparator, Me.FacilityCreatorToolToolStripMenuItem, Me.UpdateEpaMenuItemSeparator, Me.UpdateAllDataSentToEPAToolStripMenuItem})
-        Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
-        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(48, 20)
-        Me.ToolsToolStripMenuItem.Text = "&Tools"
+        Me.ToolsMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CreateFacilityMenuItem, Me.ToolsMenuSeparator, Me.UpdateEpaMenuItem})
+        Me.ToolsMenu.Name = "ToolsMenu"
+        Me.ToolsMenu.Size = New System.Drawing.Size(48, 20)
+        Me.ToolsMenu.Text = "&Tools"
         '
-        'EditContactInformationToolStripMenuItem
+        'CreateFacilityMenuItem
         '
-        Me.EditContactInformationToolStripMenuItem.Name = "EditContactInformationToolStripMenuItem"
-        Me.EditContactInformationToolStripMenuItem.Size = New System.Drawing.Size(220, 22)
-        Me.EditContactInformationToolStripMenuItem.Text = "Edit &Contact Information"
+        Me.CreateFacilityMenuItem.Name = "CreateFacilityMenuItem"
+        Me.CreateFacilityMenuItem.Size = New System.Drawing.Size(220, 22)
+        Me.CreateFacilityMenuItem.Text = "&Create New Facility"
         '
-        'FacilityCreatorToolMenuItemSeparator
+        'ToolsMenuSeparator
         '
-        Me.FacilityCreatorToolMenuItemSeparator.Name = "FacilityCreatorToolMenuItemSeparator"
-        Me.FacilityCreatorToolMenuItemSeparator.Size = New System.Drawing.Size(217, 6)
+        Me.ToolsMenuSeparator.Name = "ToolsMenuSeparator"
+        Me.ToolsMenuSeparator.Size = New System.Drawing.Size(217, 6)
         '
-        'FacilityCreatorToolToolStripMenuItem
+        'UpdateEpaMenuItem
         '
-        Me.FacilityCreatorToolToolStripMenuItem.Name = "FacilityCreatorToolToolStripMenuItem"
-        Me.FacilityCreatorToolToolStripMenuItem.Size = New System.Drawing.Size(220, 22)
-        Me.FacilityCreatorToolToolStripMenuItem.Text = "&Facility Creator Tool"
+        Me.UpdateEpaMenuItem.Name = "UpdateEpaMenuItem"
+        Me.UpdateEpaMenuItem.Size = New System.Drawing.Size(220, 22)
+        Me.UpdateEpaMenuItem.Text = "&Update All Data Sent to EPA"
         '
-        'UpdateEpaMenuItemSeparator
+        'HelpMenu
         '
-        Me.UpdateEpaMenuItemSeparator.Name = "UpdateEpaMenuItemSeparator"
-        Me.UpdateEpaMenuItemSeparator.Size = New System.Drawing.Size(217, 6)
+        Me.HelpMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpMenuItem})
+        Me.HelpMenu.Name = "HelpMenu"
+        Me.HelpMenu.Size = New System.Drawing.Size(44, 20)
+        Me.HelpMenu.Text = "&Help"
         '
-        'UpdateAllDataSentToEPAToolStripMenuItem
+        'HelpMenuItem
         '
-        Me.UpdateAllDataSentToEPAToolStripMenuItem.Name = "UpdateAllDataSentToEPAToolStripMenuItem"
-        Me.UpdateAllDataSentToEPAToolStripMenuItem.Size = New System.Drawing.Size(220, 22)
-        Me.UpdateAllDataSentToEPAToolStripMenuItem.Text = "&Update All Data Sent to EPA"
+        Me.HelpMenuItem.Name = "HelpMenuItem"
+        Me.HelpMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.H), System.Windows.Forms.Keys)
+        Me.HelpMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.HelpMenuItem.Text = "Online &Help"
         '
-        'HelpToolStripMenuItem
+        'Label21
         '
-        Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OnlineHelpToolStripMenuItem})
-        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
-        Me.HelpToolStripMenuItem.Text = "&Help"
+        Me.Label21.AutoSize = True
+        Me.Label21.Location = New System.Drawing.Point(7, 174)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(63, 13)
+        Me.Label21.TabIndex = 337
+        Me.Label21.Text = "Description:"
         '
-        'OnlineHelpToolStripMenuItem
+        'Label22
         '
-        Me.OnlineHelpToolStripMenuItem.Name = "OnlineHelpToolStripMenuItem"
-        Me.OnlineHelpToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.H), System.Windows.Forms.Keys)
-        Me.OnlineHelpToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.OnlineHelpToolStripMenuItem.Text = "Online &Help"
+        Me.Label22.AutoSize = True
+        Me.Label22.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label22.Location = New System.Drawing.Point(357, 42)
+        Me.Label22.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(89, 13)
+        Me.Label22.TabIndex = 330
+        Me.Label22.Text = "Operating Status:"
+        Me.Label22.TextAlign = System.Drawing.ContentAlignment.BottomLeft
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.Location = New System.Drawing.Point(348, 136)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(98, 13)
+        Me.Label23.TabIndex = 339
+        Me.Label23.Text = "Compliance Status:"
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label24.Location = New System.Drawing.Point(375, 23)
+        Me.Label24.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(71, 13)
+        Me.Label24.TabIndex = 329
+        Me.Label24.Text = "Classification:"
+        Me.Label24.TextAlign = System.Drawing.ContentAlignment.BottomLeft
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label25.Location = New System.Drawing.Point(326, 231)
+        Me.Label25.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(120, 13)
+        Me.Label25.TabIndex = 333
+        Me.Label25.Text = "Facility Record Created:"
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label26.Location = New System.Drawing.Point(311, 288)
+        Me.Label26.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(135, 13)
+        Me.Label26.TabIndex = 333
+        Me.Label26.Text = "Latest FIS Data Exchange:"
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label27.Location = New System.Drawing.Point(376, 174)
+        Me.Label27.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(70, 13)
+        Me.Label27.TabIndex = 333
+        Me.Label27.Text = "Startup Date:"
+        '
+        'Label28
+        '
+        Me.Label28.AutoSize = True
+        Me.Label28.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label28.Location = New System.Drawing.Point(320, 250)
+        Me.Label28.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(126, 13)
+        Me.Label28.TabIndex = 334
+        Me.Label28.Text = "Latest IAIP Data Update:"
+        '
+        'Label29
+        '
+        Me.Label29.AutoSize = True
+        Me.Label29.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label29.Location = New System.Drawing.Point(311, 307)
+        Me.Label29.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label29.Name = "Label29"
+        Me.Label29.Size = New System.Drawing.Size(135, 13)
+        Me.Label29.TabIndex = 334
+        Me.Label29.Text = "Latest EPA Data Submittal:"
+        '
+        'Label30
+        '
+        Me.Label30.AutoSize = True
+        Me.Label30.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label30.Location = New System.Drawing.Point(349, 193)
+        Me.Label30.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(97, 13)
+        Me.Label30.TabIndex = 334
+        Me.Label30.Text = "Permit Revocation:"
+        '
+        'TextBox16
+        '
+        Me.TextBox16.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.TextBox16.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox16.Location = New System.Drawing.Point(458, 99)
+        Me.TextBox16.Name = "TextBox16"
+        Me.TextBox16.ReadOnly = True
+        Me.TextBox16.Size = New System.Drawing.Size(138, 13)
+        Me.TextBox16.TabIndex = 161
+        Me.TextBox16.Text = "responsible office"
+        '
+        'TextBox17
+        '
+        Me.TextBox17.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.TextBox17.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox17.Location = New System.Drawing.Point(458, 250)
+        Me.TextBox17.Name = "TextBox17"
+        Me.TextBox17.ReadOnly = True
+        Me.TextBox17.Size = New System.Drawing.Size(138, 13)
+        Me.TextBox17.TabIndex = 161
+        Me.TextBox17.Text = "date"
+        '
+        'TextBox18
+        '
+        Me.TextBox18.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.TextBox18.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox18.Location = New System.Drawing.Point(458, 307)
+        Me.TextBox18.Name = "TextBox18"
+        Me.TextBox18.ReadOnly = True
+        Me.TextBox18.Size = New System.Drawing.Size(138, 13)
+        Me.TextBox18.TabIndex = 161
+        Me.TextBox18.Text = "date"
+        '
+        'TextBox19
+        '
+        Me.TextBox19.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.TextBox19.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox19.Location = New System.Drawing.Point(458, 193)
+        Me.TextBox19.Name = "TextBox19"
+        Me.TextBox19.ReadOnly = True
+        Me.TextBox19.Size = New System.Drawing.Size(138, 13)
+        Me.TextBox19.TabIndex = 161
+        Me.TextBox19.Text = "date"
+        '
+        'TextBox20
+        '
+        Me.TextBox20.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.TextBox20.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox20.Location = New System.Drawing.Point(458, 231)
+        Me.TextBox20.Name = "TextBox20"
+        Me.TextBox20.ReadOnly = True
+        Me.TextBox20.Size = New System.Drawing.Size(138, 13)
+        Me.TextBox20.TabIndex = 161
+        Me.TextBox20.Text = "date"
+        '
+        'TextBox21
+        '
+        Me.TextBox21.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.TextBox21.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox21.Location = New System.Drawing.Point(458, 288)
+        Me.TextBox21.Name = "TextBox21"
+        Me.TextBox21.ReadOnly = True
+        Me.TextBox21.Size = New System.Drawing.Size(138, 13)
+        Me.TextBox21.TabIndex = 161
+        Me.TextBox21.Text = "date"
+        '
+        'TextBox22
+        '
+        Me.TextBox22.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.TextBox22.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox22.Location = New System.Drawing.Point(458, 174)
+        Me.TextBox22.Name = "TextBox22"
+        Me.TextBox22.ReadOnly = True
+        Me.TextBox22.Size = New System.Drawing.Size(138, 13)
+        Me.TextBox22.TabIndex = 161
+        Me.TextBox22.Text = "date"
+        '
+        'TextBox23
+        '
+        Me.TextBox23.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.TextBox23.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox23.Location = New System.Drawing.Point(458, 136)
+        Me.TextBox23.Name = "TextBox23"
+        Me.TextBox23.ReadOnly = True
+        Me.TextBox23.Size = New System.Drawing.Size(171, 13)
+        Me.TextBox23.TabIndex = 161
+        Me.TextBox23.Text = "In violation, no applicable state reg"
+        '
+        'TextBox24
+        '
+        Me.TextBox24.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.TextBox24.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox24.Location = New System.Drawing.Point(458, 42)
+        Me.TextBox24.Name = "TextBox24"
+        Me.TextBox24.ReadOnly = True
+        Me.TextBox24.Size = New System.Drawing.Size(138, 13)
+        Me.TextBox24.TabIndex = 161
+        Me.TextBox24.Text = "oper"
+        '
+        'TextBox25
+        '
+        Me.TextBox25.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.TextBox25.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox25.Location = New System.Drawing.Point(458, 23)
+        Me.TextBox25.Name = "TextBox25"
+        Me.TextBox25.ReadOnly = True
+        Me.TextBox25.Size = New System.Drawing.Size(138, 13)
+        Me.TextBox25.TabIndex = 161
+        Me.TextBox25.Text = "class"
+        '
+        'TextBox26
+        '
+        Me.TextBox26.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.TextBox26.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox26.Location = New System.Drawing.Point(458, 80)
+        Me.TextBox26.Name = "TextBox26"
+        Me.TextBox26.ReadOnly = True
+        Me.TextBox26.Size = New System.Drawing.Size(138, 13)
+        Me.TextBox26.TabIndex = 161
+        Me.TextBox26.Text = "district office"
+        '
+        'TextBox27
+        '
+        Me.TextBox27.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.TextBox27.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox27.Location = New System.Drawing.Point(151, 136)
+        Me.TextBox27.Name = "TextBox27"
+        Me.TextBox27.ReadOnly = True
+        Me.TextBox27.Size = New System.Drawing.Size(140, 13)
+        Me.TextBox27.TabIndex = 161
+        Me.TextBox27.Text = "lat, lon"
+        '
+        'TextBox28
+        '
+        Me.TextBox28.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.TextBox28.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox28.Location = New System.Drawing.Point(34, 193)
+        Me.TextBox28.Multiline = True
+        Me.TextBox28.Name = "TextBox28"
+        Me.TextBox28.ReadOnly = True
+        Me.TextBox28.Size = New System.Drawing.Size(260, 73)
+        Me.TextBox28.TabIndex = 161
+        Me.TextBox28.Text = resources.GetString("TextBox28.Text")
+        '
+        'TextBox29
+        '
+        Me.TextBox29.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.TextBox29.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox29.Location = New System.Drawing.Point(34, 42)
+        Me.TextBox29.Multiline = True
+        Me.TextBox29.Name = "TextBox29"
+        Me.TextBox29.ReadOnly = True
+        Me.TextBox29.Size = New System.Drawing.Size(260, 76)
+        Me.TextBox29.TabIndex = 161
+        Me.TextBox29.Text = "location 1" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "line 2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "line 3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "county"
+        '
+        'Button2
+        '
+        Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Button2.AutoSize = True
+        Me.Button2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Button2.Location = New System.Drawing.Point(10, 385)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(114, 23)
+        Me.Button2.TabIndex = 0
+        Me.Button2.Text = "Edit Facility Location"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'Label31
+        '
+        Me.Label31.AutoSize = True
+        Me.Label31.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label31.Location = New System.Drawing.Point(349, 99)
+        Me.Label31.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(97, 13)
+        Me.Label31.TabIndex = 156
+        Me.Label31.Text = "Responsible office:"
+        '
+        'Label32
+        '
+        Me.Label32.AutoSize = True
+        Me.Label32.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label32.Location = New System.Drawing.Point(375, 80)
+        Me.Label32.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(71, 13)
+        Me.Label32.TabIndex = 156
+        Me.Label32.Text = "District office:"
+        '
+        'LinkLabel3
+        '
+        Me.LinkLabel3.AutoSize = True
+        Me.LinkLabel3.LinkArea = New System.Windows.Forms.LinkArea(9, 15)
+        Me.LinkLabel3.Location = New System.Drawing.Point(8, 136)
+        Me.LinkLabel3.Name = "LinkLabel3"
+        Me.LinkLabel3.Size = New System.Drawing.Size(137, 17)
+        Me.LinkLabel3.TabIndex = 160
+        Me.LinkLabel3.TabStop = True
+        Me.LinkLabel3.Text = "Lat/Lon (view online map):"
+        Me.LinkLabel3.UseCompatibleTextRendering = True
+        '
+        'LinkLabel4
+        '
+        Me.LinkLabel4.AutoSize = True
+        Me.LinkLabel4.LinkArea = New System.Windows.Forms.LinkArea(10, 15)
+        Me.LinkLabel4.Location = New System.Drawing.Point(8, 23)
+        Me.LinkLabel4.Name = "LinkLabel4"
+        Me.LinkLabel4.Size = New System.Drawing.Size(142, 17)
+        Me.LinkLabel4.TabIndex = 160
+        Me.LinkLabel4.TabStop = True
+        Me.LinkLabel4.Text = "Location (view online map):"
+        Me.LinkLabel4.UseCompatibleTextRendering = True
         '
         'IAIPFacilitySummary
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(792, 524)
-        Me.Controls.Add(Me.FacilitySummaryTabControl)
+        Me.ClientSize = New System.Drawing.Size(645, 455)
+        Me.Controls.Add(Me.FSMainTabControl)
         Me.Controls.Add(Me.NavigationPanel)
-        Me.Controls.Add(Me.MenuStrip)
-        Me.MainMenuStrip = Me.MenuStrip
-        Me.MinimumSize = New System.Drawing.Size(658, 469)
+        Me.Controls.Add(Me.FSMenuStrip)
+        Me.MainMenuStrip = Me.FSMenuStrip
+        Me.MinimumSize = New System.Drawing.Size(661, 493)
         Me.Name = "IAIPFacilitySummary"
         Me.Text = "Facility Summary"
         Me.NavigationPanel.ResumeLayout(False)
         Me.NavigationPanel.PerformLayout()
-        Me.FacilitySummaryTabControl.ResumeLayout(False)
-        Me.TPBasicInfo.ResumeLayout(False)
-        Me.TPBasicInfo.PerformLayout()
-        Me.TPHeaderData.ResumeLayout(False)
-        Me.TPHeaderData.PerformLayout()
-        Me.GroupBox8.ResumeLayout(False)
-        Me.GroupBox8.PerformLayout()
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
-        Me.GroupBox5.ResumeLayout(False)
-        Me.GroupBox5.PerformLayout()
-        Me.TPFees.ResumeLayout(False)
-        Me.TPFees.PerformLayout()
+        Me.FSMainTabControl.ResumeLayout(False)
+        Me.FSInfo.ResumeLayout(False)
+        Me.FSInfo.PerformLayout()
+        Me.FSHeaderData.ResumeLayout(False)
+        Me.FSHeaderData.PerformLayout()
+        Me.NonattainmentStatuses.ResumeLayout(False)
+        Me.NonattainmentStatuses.PerformLayout()
+        Me.FSFees.ResumeLayout(False)
+        Me.FSFees.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        Me.TPContacts.ResumeLayout(False)
-        Me.TCContacts.ResumeLayout(False)
+        Me.FSContacts.ResumeLayout(False)
+        Me.ContactsTabControl.ResumeLayout(False)
         Me.TPStateContacts.ResumeLayout(False)
         Me.TPStateContacts.PerformLayout()
         Me.TPWebContacts.ResumeLayout(False)
@@ -3239,8 +3380,8 @@ Partial Class IAIPFacilitySummary
         Me.Panel10.PerformLayout()
         Me.pnlEditContactData.ResumeLayout(False)
         Me.pnlEditContactData.PerformLayout()
-        Me.TPTesting.ResumeLayout(False)
-        Me.TCISMPWork.ResumeLayout(False)
+        Me.FSTesting.ResumeLayout(False)
+        Me.TestingTabControl.ResumeLayout(False)
         Me.TPTestReports.ResumeLayout(False)
         CType(Me.dgvISMPWork, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelISMPWork.ResumeLayout(False)
@@ -3253,8 +3394,8 @@ Partial Class IAIPFacilitySummary
         CType(Me.dgvISMPMemo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelISMPMemo.ResumeLayout(False)
         Me.PanelISMPMemo.PerformLayout()
-        Me.TPCompliance.ResumeLayout(False)
-        Me.TCComplianceWork.ResumeLayout(False)
+        Me.FSCompliance.ResumeLayout(False)
+        Me.ComplianceTabControl.ResumeLayout(False)
         Me.TPComplianceEvents.ResumeLayout(False)
         CType(Me.dgvSSCPEvents, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelSSCPEvents.ResumeLayout(False)
@@ -3267,8 +3408,8 @@ Partial Class IAIPFacilitySummary
         CType(Me.dgvSSCPEnforcement, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelSSCPEnforcement.ResumeLayout(False)
         Me.PanelSSCPEnforcement.PerformLayout()
-        Me.TPPermitting.ResumeLayout(False)
-        Me.TCPermittingData.ResumeLayout(False)
+        Me.FSPermitting.ResumeLayout(False)
+        Me.PermittingTabControl.ResumeLayout(False)
         Me.TPAppLog.ResumeLayout(False)
         CType(Me.dgvApplicationLog, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel12.ResumeLayout(False)
@@ -3281,21 +3422,21 @@ Partial Class IAIPFacilitySummary
         Me.WebLinkPanel.ResumeLayout(False)
         Me.WebLinkPanel.PerformLayout()
         CType(Me.dgvPermits, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TPFinancial.ResumeLayout(False)
-        Me.TabControl2.ResumeLayout(False)
+        Me.FSFinancial.ResumeLayout(False)
+        Me.FinancialTabControl.ResumeLayout(False)
         Me.TPFeeData.ResumeLayout(False)
         CType(Me.dgvFeeData, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPInvoices.ResumeLayout(False)
         CType(Me.dgvInvoices, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPFeeDeposits.ResumeLayout(False)
         CType(Me.dgvFeeDeposits, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TPEmissionInventory.ResumeLayout(False)
+        Me.FSEmissionInventory.ResumeLayout(False)
         Me.GroupBox6.ResumeLayout(False)
         CType(Me.dgvEISData, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox7.ResumeLayout(False)
         CType(Me.dgvEIData, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.MenuStrip.ResumeLayout(False)
-        Me.MenuStrip.PerformLayout()
+        Me.FSMenuStrip.ResumeLayout(False)
+        Me.FSMenuStrip.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -3304,58 +3445,21 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents tbbClearForm As System.Windows.Forms.ToolBarButton
     Friend WithEvents NavigationPanel As System.Windows.Forms.Panel
     Friend WithEvents AirsNumberEntryLabel As System.Windows.Forms.Label
-    Friend WithEvents FacilitySummaryTabControl As System.Windows.Forms.TabControl
-    Friend WithEvents TPBasicInfo As System.Windows.Forms.TabPage
-    Friend WithEvents TPHeaderData As System.Windows.Forms.TabPage
-    Friend WithEvents TPContacts As System.Windows.Forms.TabPage
-    Friend WithEvents TPFees As System.Windows.Forms.TabPage
-    Friend WithEvents TPEmissionInventory As System.Windows.Forms.TabPage
-    Friend WithEvents TPTesting As System.Windows.Forms.TabPage
-    Friend WithEvents TPCompliance As System.Windows.Forms.TabPage
-    Friend WithEvents TPPermitting As System.Windows.Forms.TabPage
-    Friend WithEvents TPFinancial As System.Windows.Forms.TabPage
+    Friend WithEvents FSMainTabControl As System.Windows.Forms.TabControl
+    Friend WithEvents FSInfo As System.Windows.Forms.TabPage
+    Friend WithEvents FSHeaderData As System.Windows.Forms.TabPage
+    Friend WithEvents FSContacts As System.Windows.Forms.TabPage
+    Friend WithEvents FSFees As System.Windows.Forms.TabPage
+    Friend WithEvents FSEmissionInventory As System.Windows.Forms.TabPage
+    Friend WithEvents FSTesting As System.Windows.Forms.TabPage
+    Friend WithEvents FSCompliance As System.Windows.Forms.TabPage
+    Friend WithEvents FSPermitting As System.Windows.Forms.TabPage
+    Friend WithEvents FSFinancial As System.Windows.Forms.TabPage
     Friend WithEvents MapAddressLink As System.Windows.Forms.LinkLabel
     Friend WithEvents DistrictOfficeLabel As System.Windows.Forms.Label
-    Friend WithEvents GroupBox5 As System.Windows.Forms.GroupBox
-    Friend WithEvents txtPM As System.Windows.Forms.TextBox
-    Friend WithEvents txt8HROzone As System.Windows.Forms.TextBox
-    Friend WithEvents txt1hour As System.Windows.Forms.TextBox
-    Friend WithEvents Label97 As System.Windows.Forms.Label
-    Friend WithEvents Label96 As System.Windows.Forms.Label
-    Friend WithEvents Label94 As System.Windows.Forms.Label
-    Friend WithEvents txtPlantDescription As System.Windows.Forms.TextBox
-    Friend WithEvents Label92 As System.Windows.Forms.Label
-    Friend WithEvents btnEditAirProgramPollutants As System.Windows.Forms.Button
-    Friend WithEvents txtCMSState As System.Windows.Forms.TextBox
-    Friend WithEvents Label439 As System.Windows.Forms.Label
-    Friend WithEvents txtDateClosed As System.Windows.Forms.TextBox
-    Friend WithEvents txtStartUpDate As System.Windows.Forms.TextBox
-    Friend WithEvents Label438 As System.Windows.Forms.Label
-    Friend WithEvents Label430 As System.Windows.Forms.Label
-    Friend WithEvents txtOperationalStatus As System.Windows.Forms.TextBox
-    Friend WithEvents txtClassification As System.Windows.Forms.TextBox
-    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
-    Friend WithEvents btnOpenSubpartEditor As System.Windows.Forms.Button
-    Friend WithEvents chbHAPsMajor As System.Windows.Forms.CheckBox
-    Friend WithEvents chbNSRMajor As System.Windows.Forms.CheckBox
-    Friend WithEvents chbAPCI As System.Windows.Forms.CheckBox
-    Friend WithEvents chbAPCF As System.Windows.Forms.CheckBox
-    Friend WithEvents chbAPCA As System.Windows.Forms.CheckBox
-    Friend WithEvents chbAPCV As System.Windows.Forms.CheckBox
-    Friend WithEvents chbAPCM As System.Windows.Forms.CheckBox
-    Friend WithEvents chbAPC9 As System.Windows.Forms.CheckBox
-    Friend WithEvents chbAPC8 As System.Windows.Forms.CheckBox
-    Friend WithEvents chbAPC7 As System.Windows.Forms.CheckBox
-    Friend WithEvents chbAPC6 As System.Windows.Forms.CheckBox
-    Friend WithEvents chbAPC4 As System.Windows.Forms.CheckBox
-    Friend WithEvents chbAPC3 As System.Windows.Forms.CheckBox
-    Friend WithEvents chbAPC1 As System.Windows.Forms.CheckBox
-    Friend WithEvents chbAPC0 As System.Windows.Forms.CheckBox
-    Friend WithEvents txtSICCode As System.Windows.Forms.TextBox
-    Friend WithEvents Label10 As System.Windows.Forms.Label
-    Friend WithEvents Label8 As System.Windows.Forms.Label
-    Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents TCContacts As System.Windows.Forms.TabControl
+    Friend WithEvents EditPollutantsButton As System.Windows.Forms.Button
+    Friend WithEvents EditSubpartsButton As System.Windows.Forms.Button
+    Friend WithEvents ContactsTabControl As System.Windows.Forms.TabControl
     Friend WithEvents TPStateContacts As System.Windows.Forms.TabPage
     Friend WithEvents txtDistrictUnit As System.Windows.Forms.TextBox
     Friend WithEvents txtISMPUnit As System.Windows.Forms.TextBox
@@ -3425,7 +3529,7 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents cboFeeYear As System.Windows.Forms.ComboBox
     Friend WithEvents Label423 As System.Windows.Forms.Label
     Friend WithEvents dgvEIData As System.Windows.Forms.DataGridView
-    Friend WithEvents TCISMPWork As System.Windows.Forms.TabControl
+    Friend WithEvents TestingTabControl As System.Windows.Forms.TabControl
     Friend WithEvents TPTestReports As System.Windows.Forms.TabPage
     Friend WithEvents dgvISMPWork As System.Windows.Forms.DataGridView
     Friend WithEvents PanelISMPWork As System.Windows.Forms.Panel
@@ -3445,7 +3549,7 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents llbViewTestReportMemo As System.Windows.Forms.LinkLabel
     Friend WithEvents txtReferenceNumber2 As System.Windows.Forms.TextBox
     Friend WithEvents Label374 As System.Windows.Forms.Label
-    Friend WithEvents TCComplianceWork As System.Windows.Forms.TabControl
+    Friend WithEvents ComplianceTabControl As System.Windows.Forms.TabControl
     Friend WithEvents TPComplianceEvents As System.Windows.Forms.TabPage
     Friend WithEvents dgvSSCPEvents As System.Windows.Forms.DataGridView
     Friend WithEvents PanelSSCPEvents As System.Windows.Forms.Panel
@@ -3464,7 +3568,7 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents llbViewSSCPEnforcement As System.Windows.Forms.LinkLabel
     Friend WithEvents txtEnforcementNumber As System.Windows.Forms.TextBox
     Friend WithEvents Label375 As System.Windows.Forms.Label
-    Friend WithEvents TCPermittingData As System.Windows.Forms.TabControl
+    Friend WithEvents PermittingTabControl As System.Windows.Forms.TabControl
     Friend WithEvents TPAppLog As System.Windows.Forms.TabPage
     Friend WithEvents dgvApplicationLog As System.Windows.Forms.DataGridView
     Friend WithEvents Panel12 As System.Windows.Forms.Panel
@@ -3475,16 +3579,14 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents dgvActiveRules As System.Windows.Forms.DataGridView
     Friend WithEvents TPRuleHistory As System.Windows.Forms.TabPage
     Friend WithEvents dgvRuleHistory As System.Windows.Forms.DataGridView
-    Friend WithEvents TabControl2 As System.Windows.Forms.TabControl
+    Friend WithEvents FinancialTabControl As System.Windows.Forms.TabControl
     Friend WithEvents TPFeeData As System.Windows.Forms.TabPage
     Friend WithEvents dgvFeeData As System.Windows.Forms.DataGridView
     Friend WithEvents TPFeeDeposits As System.Windows.Forms.TabPage
     Friend WithEvents dgvFeeDeposits As System.Windows.Forms.DataGridView
-    Friend WithEvents txtNAICSCode As System.Windows.Forms.TextBox
-    Friend WithEvents Label14 As System.Windows.Forms.Label
     Friend WithEvents txtBalance As System.Windows.Forms.TextBox
-    Friend WithEvents btnOpenFacilityLocationEditor As System.Windows.Forms.Button
-    Friend WithEvents btnEditHeaderData As System.Windows.Forms.Button
+    Friend WithEvents EditFacilityLocationButton As System.Windows.Forms.Button
+    Friend WithEvents EditHeaderDataButton As System.Windows.Forms.Button
     Friend WithEvents pnlEditContactData As System.Windows.Forms.Panel
     Friend WithEvents btnEditContacts As System.Windows.Forms.Button
     Friend WithEvents Label15 As System.Windows.Forms.Label
@@ -3493,9 +3595,6 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents lblFeeStatus As System.Windows.Forms.Label
     Friend WithEvents TPInvoices As System.Windows.Forms.TabPage
     Friend WithEvents dgvInvoices As System.Windows.Forms.DataGridView
-    Friend WithEvents txtRMPID As System.Windows.Forms.TextBox
-    Friend WithEvents Label18 As System.Windows.Forms.Label
-    Friend WithEvents chbAPCRMP As System.Windows.Forms.CheckBox
     Friend WithEvents GroupBox7 As System.Windows.Forms.GroupBox
     Friend WithEvents GroupBox6 As System.Windows.Forms.GroupBox
     Friend WithEvents dgvEISData As System.Windows.Forms.DataGridView
@@ -3504,21 +3603,19 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents ViewData As System.Windows.Forms.Button
     Friend WithEvents FacilityApprovalLinkLabel As System.Windows.Forms.LinkLabel
     Friend WithEvents AirsNumberEntry As System.Windows.Forms.TextBox
-    Friend WithEvents MenuStrip As System.Windows.Forms.MenuStrip
-    Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents LookUpFacilityToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents PrintFacilitySummaryToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ClearFormToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents CloseToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents EditContactInformationToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents FacilityCreatorToolMenuItemSeparator As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents OnlineHelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents FacilityCreatorToolToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents UpdateEpaMenuItemSeparator As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents UpdateAllDataSentToEPAToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents FSMenuStrip As System.Windows.Forms.MenuStrip
+    Friend WithEvents FileMenu As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents LookUpFacilityMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents PrintFacilitySummaryMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ClearFormMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents FileMenuSeparator As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents CloseMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolsMenu As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents HelpMenu As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents HelpMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents CreateFacilityMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolsMenuSeparator As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents UpdateEpaMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents WebLinkPanel As System.Windows.Forms.Panel
     Friend WithEvents llbViewAirPermitsOnline As System.Windows.Forms.LinkLabel
     Friend WithEvents ResponsibleOfficeLabel As System.Windows.Forms.Label
@@ -3528,25 +3625,82 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents FacilityNameDisplay As System.Windows.Forms.TextBox
     Friend WithEvents DistrictOfficeDisplay As System.Windows.Forms.TextBox
     Friend WithEvents ResponsibleOfficeDisplay As System.Windows.Forms.TextBox
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents StartupDateLabel As System.Windows.Forms.Label
-    Friend WithEvents PermitRevocationDateLabel As System.Windows.Forms.Label
-    Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents InfoClassLabel As System.Windows.Forms.Label
+    Friend WithEvents InfoOperLabel As System.Windows.Forms.Label
+    Friend WithEvents InfoStartupDateLabel As System.Windows.Forms.Label
+    Friend WithEvents InfoPermitRevocationDateLabel As System.Windows.Forms.Label
+    Friend WithEvents InfoDescLabel As System.Windows.Forms.Label
     Friend WithEvents Label101 As System.Windows.Forms.Label
-    Friend WithEvents GroupBox8 As System.Windows.Forms.GroupBox
     Friend WithEvents CreatedDateLabel As System.Windows.Forms.Label
     Friend WithEvents FisDateLabel As System.Windows.Forms.Label
     Friend WithEvents DataUpdateDateLabel As System.Windows.Forms.Label
     Friend WithEvents EpaDateLabel As System.Windows.Forms.Label
     Friend WithEvents DataUpdateDateDisplay As System.Windows.Forms.TextBox
     Friend WithEvents EpaDateDisplay As System.Windows.Forms.TextBox
-    Friend WithEvents PermitRevocationDateDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents InfoPermitRevocationDateDisplay As System.Windows.Forms.TextBox
     Friend WithEvents CreatedDateDisplay As System.Windows.Forms.TextBox
     Friend WithEvents FisDateDisplay As System.Windows.Forms.TextBox
-    Friend WithEvents StartupDateDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents InfoStartupDateDisplay As System.Windows.Forms.TextBox
     Friend WithEvents ComplianceStatusDisplay As System.Windows.Forms.TextBox
-    Friend WithEvents OperatingStatusDisplay As System.Windows.Forms.TextBox
-    Friend WithEvents ClassificationDisplay As System.Windows.Forms.TextBox
-    Friend WithEvents DescriptionDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents InfoOperStatusDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents InfoClassDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents InfoDescDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents HeaderClassLabel As System.Windows.Forms.Label
+    Friend WithEvents HeaderClassDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents NonattainmentStatuses As System.Windows.Forms.GroupBox
+    Friend WithEvents PmLabel As System.Windows.Forms.Label
+    Friend WithEvents EightHourLabel As System.Windows.Forms.Label
+    Friend WithEvents OneHourLabel As System.Windows.Forms.Label
+    Friend WithEvents HeaderRevocationLabel As System.Windows.Forms.Label
+    Friend WithEvents HeaderOperLabel As System.Windows.Forms.Label
+    Friend WithEvents HeaderRevocationDateDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents HeaderOperStatusDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents HeaderDescLabel As System.Windows.Forms.Label
+    Friend WithEvents HeaderDescDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents HeaderStartupLabel As System.Windows.Forms.Label
+    Friend WithEvents HeaderStartupDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents Label21 As System.Windows.Forms.Label
+    Friend WithEvents Label22 As System.Windows.Forms.Label
+    Friend WithEvents Label23 As System.Windows.Forms.Label
+    Friend WithEvents Label24 As System.Windows.Forms.Label
+    Friend WithEvents Label25 As System.Windows.Forms.Label
+    Friend WithEvents Label26 As System.Windows.Forms.Label
+    Friend WithEvents Label27 As System.Windows.Forms.Label
+    Friend WithEvents Label28 As System.Windows.Forms.Label
+    Friend WithEvents Label29 As System.Windows.Forms.Label
+    Friend WithEvents Label30 As System.Windows.Forms.Label
+    Friend WithEvents TextBox16 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox17 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox18 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox19 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox20 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox21 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox22 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox23 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox24 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox25 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox26 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox27 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox28 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox29 As System.Windows.Forms.TextBox
+    Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents Label31 As System.Windows.Forms.Label
+    Friend WithEvents Label32 As System.Windows.Forms.Label
+    Friend WithEvents LinkLabel3 As System.Windows.Forms.LinkLabel
+    Friend WithEvents LinkLabel4 As System.Windows.Forms.LinkLabel
+    Friend WithEvents NaicsLabel As System.Windows.Forms.Label
+    Friend WithEvents NaicsDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents SicLabel As System.Windows.Forms.Label
+    Friend WithEvents SicDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents RmpIdLabel As System.Windows.Forms.Label
+    Friend WithEvents RmpIdDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents PmNonattainmentDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents EightHourOzoneDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents OneHourOzoneDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents CmsLabel As System.Windows.Forms.Label
+    Friend WithEvents CmsDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents ProgramClassificationsListBox As System.Windows.Forms.ListBox
+    Friend WithEvents AirProgramsListBox As System.Windows.Forms.ListBox
+    Friend WithEvents ProgramClassificationsLabel As System.Windows.Forms.Label
+    Friend WithEvents AirProgramsLabel As System.Windows.Forms.Label
 End Class

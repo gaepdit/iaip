@@ -25,7 +25,7 @@ Public Class IAIPFacilitySummary
 
 #Region " Properties and fields "
 
-    Private _airsNumber As ApbFacilityId
+    Private _airsNumber As ApbFacilityId = Nothing
     Public Property AirsNumber() As ApbFacilityId
         Get
             Return _airsNumber
@@ -35,7 +35,9 @@ Public Class IAIPFacilitySummary
             If _airsNumber IsNot Nothing AndAlso _airsNumber.Equals(value) Then Return
             _airsNumber = value
             ClearAllData()
-            If _airsNumber IsNot Nothing Then
+            If _airsNumber Is Nothing Then
+                AirsNumberEntry.Focus()
+            Else
                 LoadBasicFacilityAndHeaderData()
             End If
         End Set
@@ -67,40 +69,28 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub LoadPermissions()
-        ' Update EPA
-        If (UserGCode = "1" Or UserGCode = "345") Then ' TODO DWW: Better permissions defn for EPA Update
-            UpdateAllDataSentToEPAToolStripMenuItem.Visible = True
-            UpdateEpaMenuItemSeparator.Visible = True
-        Else
-            UpdateAllDataSentToEPAToolStripMenuItem.Visible = False
-            UpdateEpaMenuItemSeparator.Visible = False
-        End If
+        ' TODO DWW: Better permissions defn 
 
-        ' Facility Creator
-        If AccountFormAccess(138, 0) IsNot Nothing AndAlso AccountFormAccess(138, 0) = "138" AndAlso (AccountFormAccess(138, 1) = "1" Or AccountFormAccess(138, 2) = "1" Or AccountFormAccess(138, 3) = "1" Or AccountFormAccess(138, 4) = "1") Then
-            FacilityCreatorToolToolStripMenuItem.Visible = True
-            FacilityCreatorToolMenuItemSeparator.Visible = True
-        Else
-            FacilityCreatorToolToolStripMenuItem.Visible = False
-            FacilityCreatorToolMenuItemSeparator.Visible = False
-        End If
+        ' Menu items
+        UpdateEpaMenuItem.Available = (UserGCode = "1" Or UserGCode = "345")
+        CreateFacilityMenuItem.Available = (AccountFormAccess(138, 0) IsNot Nothing _
+                                          AndAlso AccountFormAccess(138, 0) = "138" _
+                                          AndAlso (AccountFormAccess(138, 1) = "1" _
+                                                   Or AccountFormAccess(138, 2) = "1" _
+                                                   Or AccountFormAccess(138, 3) = "1" _
+                                                   Or AccountFormAccess(138, 4) = "1"))
+        ToolsMenuSeparator.Visible = (CreateFacilityMenuItem.Available And UpdateEpaMenuItem.Available)
 
         ' Close/Print Test Reports
-        If UserAccounts.Contains("(118)") Then
-            llbClosePrintTestReport.Visible = True
-        Else
-            llbClosePrintTestReport.Visible = False
-        End If
-
+        llbClosePrintTestReport.Visible = UserAccounts.Contains("(118)")
+        
         ' Edit location/header data
         If UserUnit = "---" Or AccountFormAccess(22, 3) = "1" Or AccountFormAccess(1, 3) = "1" Then
-            btnOpenFacilityLocationEditor.Enabled = True
-            btnOpenFacilityLocationEditor.Visible = True
-            btnEditHeaderData.Visible = True
+            EditFacilityLocationButton.Visible = True
+            EditHeaderDataButton.Visible = True
         Else
-            btnOpenFacilityLocationEditor.Enabled = False
-            btnOpenFacilityLocationEditor.Visible = False
-            btnEditHeaderData.Visible = False
+            EditFacilityLocationButton.Visible = False
+            EditHeaderDataButton.Visible = False
         End If
     End Sub
 
@@ -112,8 +102,7 @@ Public Class IAIPFacilitySummary
         selectedFacility = Nothing
         selectedFacilityDataSet = Nothing
 
-        FacilitySummaryTabControl.SelectedTab = TPBasicInfo
-        FacilitySummaryTabControl.Enabled = False
+        DisableFacilityTools()
 
         'TODO: Fill this out as more data is configured
         ClearBasicFacilityData()
@@ -122,45 +111,59 @@ Public Class IAIPFacilitySummary
 
     End Sub
 
+    Private Sub DisableFacilityTools()
+        FSMainTabControl.SelectedTab = FSInfo
+        FSMainTabControl.Enabled = False
+        UpdateEpaMenuItem.Enabled = False
+        PrintFacilitySummaryMenuItem.Enabled = False
+    End Sub
+
+    Private Sub EnableFacilityTools()
+        FSMainTabControl.Enabled = True
+        UpdateEpaMenuItem.Enabled = True
+        PrintFacilitySummaryMenuItem.Enabled = True
+    End Sub
+
 #End Region
 
-#Region " Basic facility data "
+#Region " Basic Info Data "
 
     Private Sub ClearBasicFacilityData()
 
         'Navigation Panel
-        AirsNumberEntry.Text = ""
         AirsNumberEntry.BackColor = SystemColors.ControlLightLight
         FacilityNameDisplay.Text = ""
 
         'Location
-        LocationDisplay.Text = ""
+        LocationDisplay.Text = "N/A"
         MapAddressLink.Enabled = False
-        LatLonDisplay.Text = ""
+        LatLonDisplay.Text = "N/A"
         MapLatLonLink.Enabled = False
 
         'Description
-        DescriptionDisplay.Text = ""
+        InfoDescDisplay.Text = "N/A"
 
         'Status
-        ClassificationDisplay.Text = ""
-        OperatingStatusDisplay.Text = ""
-        ComplianceStatusDisplay.Text = ""
+        InfoClassDisplay.Text = "N/A"
+        InfoOperStatusDisplay.Text = "N/A"
+        CmsDisplay.Text = "N/A"
+        CmsDisplay.BackColor = SystemColors.ControlLightLight
+        ComplianceStatusDisplay.Text = "N/A"
         ComplianceStatusDisplay.BackColor = SystemColors.ControlLightLight
 
         'Offices
-        DistrictOfficeDisplay.Text = ""
-        ResponsibleOfficeDisplay.Text = ""
+        DistrictOfficeDisplay.Text = "N/A"
+        ResponsibleOfficeDisplay.Text = "N/A"
 
         'Facility Dates
-        StartupDateDisplay.Text = ""
-        PermitRevocationDateDisplay.Text = ""
-        CreatedDateDisplay.Text = ""
+        InfoStartupDateDisplay.Text = "N/A"
+        InfoPermitRevocationDateDisplay.Text = "N/A"
+        CreatedDateDisplay.Text = "N/A"
 
         'Data Dates
-        FisDateDisplay.Text = ""
-        EpaDateDisplay.Text = ""
-        DataUpdateDateDisplay.Text = ""
+        FisDateDisplay.Text = "N/A"
+        EpaDateDisplay.Text = "N/A"
+        DataUpdateDateDisplay.Text = "N/A"
 
     End Sub
 
@@ -172,6 +175,7 @@ Public Class IAIPFacilitySummary
             AirsNumberEntry.BackColor = Color.Bisque
             AirsNumberEntry.Focus()
         Else
+            EnableFacilityTools()
             selectedFacility.RetrieveHeaderData()
             selectedFacility.RetrieveComplianceStatusList()
             DisplayBasicFacilityData()
@@ -180,9 +184,6 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub DisplayBasicFacilityData()
-
-        'Tab Control
-        FacilitySummaryTabControl.Enabled = True
 
         'Navigation Panel
         AirsNumberEntry.Text = Me.AirsNumber.FormattedString
@@ -211,15 +212,17 @@ Public Class IAIPFacilitySummary
 
             With .HeaderData
                 'Status
-                ClassificationDisplay.Text = .ClassificationCode & ", " & .ClassificationDescription
-                OperatingStatusDisplay.Text = .OperationalStatusDescription
+                InfoClassDisplay.Text = .ClassificationCode & ", " & .ClassificationDescription
+                InfoOperStatusDisplay.Text = .OperationalStatusDescription
+                CmsDisplay.Text = .CmsMemberDescription
+                ColorCodeCmsDisplay()
 
                 'Description
-                DescriptionDisplay.Text = .FacilityDescription
+                InfoDescDisplay.Text = .FacilityDescription
 
                 'Facility Dates
-                StartupDateDisplay.Text = String.Format(DateStringFormat, .StartupDate)
-                PermitRevocationDateDisplay.Text = String.Format(DateStringFormat, .ShutdownDate)
+                InfoStartupDateDisplay.Text = String.Format(DateStringFormat, .StartupDate)
+                InfoPermitRevocationDateDisplay.Text = String.Format(DateStringFormat, .ShutdownDate)
             End With
 
             'Compliance Status
@@ -228,10 +231,9 @@ Public Class IAIPFacilitySummary
 
             'Offices
             DistrictOfficeDisplay.Text = .DistrictOfficeLocation
-            ResponsibleOfficeDisplay.Text = .DistrictResponsible
+            ResponsibleOfficeDisplay.Text = If(.DistrictResponsible, "District Office", "Air Branch")
 
         End With
-
 
         'Data Dates
         Dim dataDates As DataRow = DAL.FacilityModule.GetDataExchangeDates(Me.AirsNumber)
@@ -241,6 +243,7 @@ Public Class IAIPFacilitySummary
             EpaDateDisplay.Text = String.Format(DateTimeStringFormat, dataDates("EpaExchangeDate"))
             DataUpdateDateDisplay.Text = String.Format(DateStringFormat, dataDates("DataModifiedOn"))
         End If
+
     End Sub
 
     Private Sub ColorCodeComplianceStatusDisplay()
@@ -248,16 +251,25 @@ Public Class IAIPFacilitySummary
             ComplianceStatusDisplay.BackColor = Color.Pink
         ElseIf selectedFacility.ControllingComplianceStatus > 10 Then
             ComplianceStatusDisplay.BackColor = Color.LemonChiffon
-        ElseIf selectedFacility.ControllingComplianceStatus > 0 Then
-            ComplianceStatusDisplay.BackColor = Color.PaleGreen
         Else
             ComplianceStatusDisplay.BackColor = SystemColors.ControlLightLight
         End If
     End Sub
 
+    Private Sub ColorCodeCmsDisplay()
+        With selectedFacility.HeaderData
+            If (.CmsMember = FacilityCmsMember.A And .Classification <> FacilityClassification.A) _
+            OrElse (.CmsMember = FacilityCmsMember.S And .Classification <> FacilityClassification.SM) Then
+                CmsDisplay.BackColor = Color.Pink
+            Else
+                CmsDisplay.BackColor = SystemColors.ControlLightLight
+            End If
+        End With
+    End Sub
+
 #End Region
 
-#Region " Basic Data TabPage functionality "
+#Region " Basic Info TabPage functionality "
 
     Private Sub MapAddressLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles MapAddressLink.LinkClicked
         OpenMapUrl(selectedFacility.FacilityLocation.Address.ToLinearString, Me)
@@ -273,378 +285,104 @@ Public Class IAIPFacilitySummary
 #Region " Header Data "
 
     Private Sub ClearHeaderData()
-
+        'Status
+        HeaderClassDisplay.Text = "N/A"
+        HeaderOperStatusDisplay.Text = "N/A"
+        'Codes
+        SicDisplay.Text = "N/A"
+        NaicsDisplay.Text = "N/A"
+        RmpIdDisplay.Text = "N/A"
+        'Facility Dates
+        HeaderStartupDisplay.Text = "N/A"
+        HeaderRevocationDateDisplay.Text = "N/A"
+        'Desc
+        HeaderDescDisplay.Text = "N/A"
+        'Air Programs
+        AirProgramsListBox.Items.Clear()
+        EditPollutantsButton.Enabled = False
+        EditSubpartsButton.Visible = False
+        'Program Classifications
+        ProgramClassificationsListBox.Items.Clear()
+        'Nonattainment
+        OneHourOzoneDisplay.Text = "N/A"
+        EightHourOzoneDisplay.Text = "N/A"
+        PmNonattainmentDisplay.Text = "N/A"
     End Sub
 
     Private Sub DisplayHeaderData()
+        With selectedFacility.HeaderData
+            'Status
+            HeaderClassDisplay.Text = .ClassificationDescription
+            HeaderOperStatusDisplay.Text = .OperationalStatusDescription
+            'Codes
+            SicDisplay.Text = .SicCode
+            NaicsDisplay.Text = .Naics
+            RmpIdDisplay.Text = .RmpId
+            'Facility Dates
+            HeaderStartupDisplay.Text = String.Format(DateStringFormat, .StartupDate)
+            HeaderRevocationDateDisplay.Text = String.Format(DateStringFormat, .ShutdownDate)
+            'Desc
+            HeaderDescDisplay.Text = .FacilityDescription
 
+            'Air Programs
+            Dim tempAP As AirProgram = .AirPrograms
+            With AirProgramsListBox.Items
+                If tempAP = AirProgram.None Then
+                    .Add(AirProgram.None.GetDescription)
+                Else
+                    If (tempAP And AirProgram.SIP) Then .Add(AirProgram.SIP.GetDescription)
+                    If (tempAP And AirProgram.FederalSIP) Then AirProgramsListBox.Items.Add(AirProgram.FederalSIP.GetDescription)
+                    If (tempAP And AirProgram.NonFederalSIP) Then AirProgramsListBox.Items.Add(AirProgram.NonFederalSIP.GetDescription)
+                    If (tempAP And AirProgram.CfcTracking) Then AirProgramsListBox.Items.Add(AirProgram.CfcTracking.GetDescription)
+                    If (tempAP And AirProgram.PSD) Then AirProgramsListBox.Items.Add(AirProgram.PSD.GetDescription)
+                    If (tempAP And AirProgram.NSR) Then AirProgramsListBox.Items.Add(AirProgram.NSR.GetDescription)
+                    If (tempAP And AirProgram.TitleV) Then AirProgramsListBox.Items.Add(AirProgram.TitleV.GetDescription)
+                    If (tempAP And AirProgram.MACT) Then AirProgramsListBox.Items.Add(AirProgram.MACT.GetDescription)
+                    If (tempAP And AirProgram.NESHAP) Then AirProgramsListBox.Items.Add(AirProgram.NESHAP.GetDescription)
+                    If (tempAP And AirProgram.NSPS) Then AirProgramsListBox.Items.Add(AirProgram.NSPS.GetDescription)
+                    If (tempAP And AirProgram.AcidPrecipitation) Then AirProgramsListBox.Items.Add(AirProgram.AcidPrecipitation.GetDescription)
+                    If (tempAP And AirProgram.FESOP) Then AirProgramsListBox.Items.Add(AirProgram.FESOP.GetDescription)
+                    If (tempAP And AirProgram.NativeAmerican) Then AirProgramsListBox.Items.Add(AirProgram.NativeAmerican.GetDescription)
+                    If (tempAP And AirProgram.RMP) Then AirProgramsListBox.Items.Add(AirProgram.RMP.GetDescription)
+                End If
+            End With
 
-        btnOpenSubpartEditor.Visible = False
-        btnEditAirProgramPollutants.Enabled = False
+            'Buttons for Air Program Subparts
+            EditSubpartsButton.Visible = .AirPrograms And (AirProgram.MACT _
+                                                           Or AirProgram.NESHAP _
+                                                           Or AirProgram.NSPS _
+                                                           Or AirProgram.SIP)
+            EditPollutantsButton.Enabled = True
 
+            'Classifications
+            If (.AirProgramClassifications = AirProgramClassification.None) Then
+                ProgramClassificationsListBox.Items.Add(AirProgramClassification.None.GetDescription)
+            Else
+                If (.AirProgramClassifications And AirProgramClassification.NsrMajor) Then
+                    ProgramClassificationsListBox.Items.Add(AirProgramClassification.NsrMajor.GetDescription)
+                End If
+                If (.AirProgramClassifications And AirProgramClassification.HapMajor) Then
+                    ProgramClassificationsListBox.Items.Add(AirProgramClassification.HapMajor.GetDescription)
+                End If
+            End If
+
+            'Nonattainment
+            OneHourOzoneDisplay.Text = .OneHourOzoneNonAttainment.ToString
+            EightHourOzoneDisplay.Text = .EightHourOzoneNonAttainment.ToString
+            PmNonattainmentDisplay.Text = .PMFineNonAttainmentState.ToString
+
+        End With
     End Sub
 
 #End Region
 
-    Private Sub OldLoadInitialData()
+#Region " Fees Data "
+
+    Private Sub LoadFeesData()
         Try
             Dim PollutantStatus As String = ""
             Dim dtFacilityWideData As New DataTable
             Dim drDSRow As DataRow
-
-            SQL = "select " & _
-            "AIRBRANCH.VW_APBFacilityLocation.strAIRSnumber, " & _
-            "AIRBRANCH.VW_APBFacilityLocation.strFacilityName, " & _
-            "strFacilityStreet1, strFacilityStreet2, " & _
-            "strFacilityCity, strFacilityState, " & _
-            "strFacilityZipCode, " & _
-            "numFacilityLongitude, numFacilityLatitude, " & _
-            "strCountyName, strDistrictName, " & _
-            "strOperationalStatus, " & _
-            "strClass, strAirProgramCodes, " & _
-            "strSICCode, strAttainmentStatus, " & _
-            "datStartUpDate, datShutDownDate, " & _
-            "strCMSMember, strPlantDescription, " & _
-            "strStateProgramCodes, strNAICSCode, " & _
-            "STRRMPID " & _
-            "from " & _
-            "AIRBRANCH.VW_APBFacilityLocation, " & _
-            "AIRBRANCH.VW_APBFacilityHeader " & _
-            "where AIRBRANCH.VW_APBFacilityLocation.strAIRSNumber = AIRBRANCH.VW_APBFacilityHeader.strAIRSNumber " & _
-            "and AIRBRANCH.VW_APBFacilityLocation.strAIRSnumber = '" & Me.AirsNumber.DbFormattedString & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            dr.Close()
-            If recExist = False Then
-                MsgBox("No data ", MsgBoxStyle.Exclamation, "Facility Summary")
-                Exit Sub
-            End If
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                'If IsDBNull(dr.Item("strFacilityName")) Then
-                '    txtFacilityName.Clear()
-                'Else
-                '    txtFacilityName.Text = dr.Item("strFacilityName")
-                'End If
-                'If IsDBNull(dr.Item("strFacilityStreet1")) Then
-                '    txtStreetAddress.Clear()
-                'Else
-                '    txtStreetAddress.Text = dr.Item("strFacilityStreet1")
-                'End If
-                'If IsDBNull(dr.Item("strFacilityStreet2")) Then
-                '    txtStreetAddress2.Clear()
-                'Else
-                '    txtStreetAddress2.Text = dr.Item("strFacilityStreet2")
-                'End If
-                'If IsDBNull(dr.Item("strFacilityCity")) Then
-                '    txtFacilityCity.Clear()
-                'Else
-                '    txtFacilityCity.Text = dr.Item("strFacilityCity")
-                'End If
-                'If IsDBNull(dr.Item("strFacilityState")) Then
-                '    txtFacilityState.Clear()
-                'Else
-                '    txtFacilityState.Text = dr.Item("strFacilityState")
-                'End If
-                'If IsDBNull(dr.Item("strFacilityZipCode")) Then
-                '    txtFacilityZipCode.Clear()
-                'Else
-                '    txtFacilityZipCode.Text = dr.Item("strFacilityZipCode")
-                'End If
-                'If IsDBNull(dr.Item("numFacilityLongitude")) Then
-                '    txtFacilityLongitude.Clear()
-                'Else
-                '    txtFacilityLongitude.Text = dr.Item("numFacilityLongitude")
-                'End If
-                'If IsDBNull(dr.Item("numFacilityLatitude")) Then
-                '    txtFacilityLatitude.Clear()
-                'Else
-                '    txtFacilityLatitude.Text = dr.Item("numFacilityLatitude")
-                'End If
-                'If IsDBNull(dr.Item("strCountyName")) Then
-                '    txtFacilityCounty.Clear()
-                'Else
-                '    txtFacilityCounty.Text = dr.Item("strCountyName")
-                'End If
-                'If IsDBNull(dr.Item("strDistrictName")) Then
-                '    txtDistrict.Clear()
-                'Else
-                '    txtDistrict.Text = dr.Item("strDistrictName")
-                'End If
-                'If IsDBNull(dr.Item("strOperationalStatus")) Then
-                '    txtOperationalStatus.Clear()
-                'Else
-                '    temp = dr.Item("strOperationalStatus")
-                '    Select Case temp
-                '        Case "O"
-                '            txtOperationalStatus.Text = "O - Operational"
-                '        Case "P"
-                '            txtOperationalStatus.Text = "P - Planned"
-                '        Case "C"
-                '            txtOperationalStatus.Text = "C - Under Construction"
-                '        Case "T"
-                '            txtOperationalStatus.Text = "T - Temporarily Closed"
-                '        Case "X"
-                '            txtOperationalStatus.Text = "X - Closed/Dismantled"
-                '        Case "I"
-                '            txtOperationalStatus.Text = "I - Seasonal Operation"
-                '        Case Else
-                '            txtOperationalStatus.Text = "Unknown - Please Fix"
-                '    End Select
-                'End If
-                'If IsDBNull(dr.Item("strClass")) Then
-                '    txtClassification.Clear()
-                'Else
-                '    txtClassification.Text = dr.Item("strClass")
-                'End If
-                'If IsDBNull(dr.Item("strAirProgramCodes")) Then
-                '    chbAPC0.Checked = False
-                '    chbAPC1.Checked = False
-                '    chbAPC3.Checked = False
-                '    chbAPC4.Checked = False
-                '    chbAPC6.Checked = False
-                '    chbAPC7.Checked = False
-                '    chbAPC8.Checked = False
-                '    chbAPC9.Checked = False
-                '    chbAPCA.Checked = False
-                '    chbAPCF.Checked = False
-                '    chbAPCI.Checked = False
-                '    chbAPCM.Checked = False
-                '    chbAPCV.Checked = False
-                '    chbAPCRMP.Checked = False
-                'Else
-                '    temp = dr.Item("strAirProgramCodes")
-                '    If Mid(temp, 1, 1) = 1 Then
-                '        chbAPC0.Checked = True
-                '    End If
-                '    If Mid(temp, 2, 1) = 1 Then
-                '        chbAPC1.Checked = True
-                '    End If
-                '    If Mid(temp, 3, 1) = 1 Then
-                '        chbAPC3.Checked = True
-                '    End If
-                '    If Mid(temp, 4, 1) = 1 Then
-                '        chbAPC4.Checked = True
-                '    End If
-                '    If Mid(temp, 5, 1) = 1 Then
-                '        chbAPC6.Checked = True
-                '    End If
-                '    If Mid(temp, 6, 1) = 1 Then
-                '        chbAPC7.Checked = True
-                '    End If
-                '    If Mid(temp, 7, 1) = 1 Then
-                '        chbAPC8.Checked = True
-                '    End If
-                '    If Mid(temp, 8, 1) = 1 Then
-                '        chbAPC9.Checked = True
-                '    End If
-                '    If Mid(temp, 9, 1) = 1 Then
-                '        chbAPCF.Checked = True
-                '    End If
-                '    If Mid(temp, 10, 1) = 1 Then
-                '        chbAPCA.Checked = True
-                '    End If
-                '    If Mid(temp, 11, 1) = 1 Then
-                '        chbAPCI.Checked = True
-                '    End If
-                '    If Mid(temp, 12, 1) = 1 Then
-                '        chbAPCM.Checked = True
-                '    End If
-                '    If Mid(temp, 13, 1) = 1 Then
-                '        chbAPCV.Checked = True
-                '    End If
-                '    If Mid(temp, 14, 1) = 1 Then
-                '        chbAPCRMP.Checked = True
-                '    End If
-                'End If
-                'If IsDBNull(dr.Item("strSICCode")) Then
-                '    txtSICCode.Clear()
-                'Else
-                '    txtSICCode.Text = dr.Item("strSICCode")
-                'End If
-                'If IsDBNull(dr.Item("strAttainmentStatus")) Then
-                '    txt1hour.Text = "No"
-                '    txt8HROzone.Text = "No"
-                '    txtPM.Text = "No"
-                'Else
-                '    temp = dr.Item("strAttainmentStatus")
-
-                '    Select Case Mid(temp, 2, 1)
-                '        Case 0
-                '            txt1hour.Text = "No"
-                '        Case 1
-                '            txt1hour.Text = "Yes"
-                '        Case 2
-                '            txt1hour.Text = "Contributing"
-                '        Case Else
-                '            txt1hour.Text = "No"
-                '    End Select
-                '    Select Case Mid(temp, 3, 1)
-                '        Case 0
-                '            txt8HROzone.Text = "No"
-                '        Case 1
-                '            txt8HROzone.Text = "Atlanta"
-                '        Case 2
-                '            txt8HROzone.Text = "Macon"
-                '        Case Else
-                '            txt8HROzone.Text = "No"
-                '    End Select
-                '    Select Case Mid(temp, 4, 1)
-                '        Case 0
-                '            txtPM.Text = "No"
-                '        Case 1
-                '            txtPM.Text = "Atlanta"
-                '        Case 2
-                '            txtPM.Text = "Chattanooga"
-                '        Case 3
-                '            txtPM.Text = "Floyd"
-                '        Case 4
-                '            txtPM.Text = "Macon"
-                '        Case Else
-                '            txtPM.Text = "No"
-                '    End Select
-                'End If
-                'If IsDBNull(dr.Item("datStartUpDate")) Then
-                '    txtStartUpDate.Clear()
-                'Else
-                '    txtStartUpDate.Text = Format(dr.Item("datStartUpDate"), "dd-MMM-yyyy")
-                'End If
-                'If IsDBNull(dr.Item("datShutDownDate")) Then
-                '    txtDateClosed.Clear()
-                'Else
-                '    txtDateClosed.Text = Format(dr.Item("datShutDownDate"), "dd-MMM-yyyy")
-                'End If
-                'If IsDBNull(dr.Item("strCMSMember")) Then
-                '    txtCMSState.Clear()
-                'Else
-                '    txtCMSState.Text = dr.Item("strCMSMember")
-                'End If
-                'If IsDBNull(dr.Item("strPlantDescription")) Then
-                '    txtPlantDescription.Clear()
-                'Else
-                '    txtPlantDescription.Text = dr.Item("strPlantDescription")
-                'End If
-                'If IsDBNull(dr.Item("strStateProgramCodes")) Then
-                '    chbNSRMajor.Checked = False
-                '    chbHAPsMajor.Checked = False
-                'Else
-                '    temp = dr.Item("strStateProgramCodes")
-                '    If Mid(temp, 1, 1) = "1" Then
-                '        chbNSRMajor.Checked = True
-                '    Else
-                '        chbNSRMajor.Checked = False
-                '    End If
-                '    If Mid(temp, 2, 1) = "1" Then
-                '        chbHAPsMajor.Checked = True
-                '    Else
-                '        chbHAPsMajor.Checked = False
-                '    End If
-                'End If
-                'If IsDBNull(dr.Item("strNAICSCode")) Then
-                '    txtNAICSCode.Clear()
-                'Else
-                '    txtNAICSCode.Text = dr.Item("strNAICSCode")
-                'End If
-                'If IsDBNull(dr.Item("STRRMPID")) Then
-                '    txtRMPID.Clear()
-                'Else
-                '    txtRMPID.Text = dr.Item("strRMPID")
-                'End If
-            End While
-            dr.Close()
-
-            SQL = "select distinct(strComplianceStatus) as PollutantStatus " & _
-            "from AIRBranch.APBAirProgramPollutants  " & _
-            "where strAIRSNumber = '" & Me.AirsNumber.DbFormattedString & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("PollutantStatus")) Then
-                    PollutantStatus = PollutantStatus
-                Else
-                    PollutantStatus = PollutantStatus & dr.Item("PollutantStatus")
-                End If
-            End While
-            dr.Close()
-
-            'If PollutantStatus.Contains("B") Then
-            '    txtPollutantStatus.Text = "B - In violation, Procedural  Emissions"
-            '    txtPollutantStatus.BackColor = Color.Pink
-            'Else
-            '    If PollutantStatus.Contains("1") Then
-            '        txtPollutantStatus.Text = "1 - In violation, No Schedule"
-            '        txtPollutantStatus.BackColor = Color.Pink
-            '    Else
-            '        If PollutantStatus.Contains("6") Then
-            '            txtPollutantStatus.Text = "6 - In violation, Not Meeting Schedule"
-            '            txtPollutantStatus.BackColor = Color.Pink
-            '        Else
-            '            If PollutantStatus.Contains("W") Then
-            '                txtPollutantStatus.Text = "W - In violation, procedural"
-            '                txtPollutantStatus.BackColor = Color.Pink
-            '            Else
-            '                If PollutantStatus.Contains("0") Then
-            '                    txtPollutantStatus.Text = "0 - Unknown Compliance Status (SCAP)"
-            '                    txtPollutantStatus.BackColor = Color.Pink
-            '                Else
-            '                    If PollutantStatus.Contains("5") Then
-            '                        txtPollutantStatus.Text = "5 - Meeting Compliance Schedule"
-            '                        txtPollutantStatus.BackColor = Color.LightGreen
-            '                    Else
-            '                        If PollutantStatus.Contains("8") Then
-            '                            txtPollutantStatus.Text = "8 - No Applicable State Reg."
-            '                            txtPollutantStatus.BackColor = Color.Pink
-            '                        Else
-            '                            If PollutantStatus.Contains("2") Then
-            '                                txtPollutantStatus.Text = "2 - In Compliance, Source Test"
-            '                                txtPollutantStatus.BackColor = Color.LightGreen
-            '                            Else
-            '                                If PollutantStatus.Contains("3") Then
-            '                                    txtPollutantStatus.Text = "3 - In Compliance, Inspection"
-            '                                    txtPollutantStatus.BackColor = Color.LightGreen
-            '                                Else
-            '                                    If PollutantStatus.Contains("4") Then
-            '                                        txtPollutantStatus.Text = "4 - In Compliance, Certification"
-            '                                        txtPollutantStatus.BackColor = Color.LightGreen
-            '                                    Else
-            '                                        If PollutantStatus.Contains("9") Then
-            '                                            txtPollutantStatus.Text = "9 - In Compliance, Shut Down"
-            '                                            txtPollutantStatus.BackColor = Color.LightGreen
-            '                                        Else
-            '                                            If PollutantStatus.Contains("C") Then
-            '                                                txtPollutantStatus.Text = "C - In Compliance, Procedural"
-            '                                                txtPollutantStatus.BackColor = Color.LightGreen
-            '                                            Else
-            '                                                If PollutantStatus.Contains("M") Then
-            '                                                    txtPollutantStatus.Text = "M - In Complinace, CEMS Data"
-            '                                                    txtPollutantStatus.BackColor = Color.LightGreen
-            '                                                Else
-            '                                                    txtPollutantStatus.Text = ""
-            '                                                    txtPollutantStatus.BackColor = Color.White
-            '                                                End If
-            '                                            End If
-            '                                        End If
-            '                                    End If
-            '                                End If
-            '                            End If
-            '                        End If
-            '                    End If
-            '                End If
-            '            End If
-            '        End If
-            '    End If
-            'End If
-
             dsFacilityWideData = New DataSet
 
             SQL = "Select " & _
@@ -838,111 +576,50 @@ Public Class IAIPFacilitySummary
 
             End If
 
-            SQL = "select strDistrictResponsible " & _
-            "from AIRBRANCH.SSCPDistrictResponsible " & _
-            "where strAIRSNumber = '" & Me.AirsNumber.DbFormattedString & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            If recExist = True Then
-                '    If IsDBNull(dr.Item("strDistrictResponsible")) Then
-                '        lblDistrictSource.Visible = False
-                '    Else
-                '        If dr.Item("strDistrictResponsible") = "True" Then
-                '            lblDistrictSource.Visible = True
-                '        Else
-                '            lblDistrictSource.Visible = False
-                '        End If
-                '    End If
-                'Else
-                '    lblDistrictSource.Visible = False
-            End If
-            dr.Close()
-
-
-            MakeEditSubpartButtonVisible()
-            btnEditAirProgramPollutants.Enabled = True
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
+#End Region
+
     Private Sub ClearForm()
-        Try
-            txtClassification.Clear()
-            txtSICCode.Clear()
-            txtOperationalStatus.Clear()
-            txtCMSState.Clear()
-            txtStartUpDate.Clear()
-            txtDateClosed.Clear()
-            txt1hour.Clear()
-            txt8HROzone.Clear()
-            txtPM.Clear()
-            txtPlantDescription.Clear()
-            'txtPollutantStatus.Clear()
-            'txtPollutantStatus.BackColor = Color.Gray
-            txtNAICSCode.Clear()
+        'If FSTabControl.TabPages.Contains(FSContacts) = True Then
+        '    txtSSCPContact.Clear()
+        '    txtSSCPUnit.Clear()
+        '    txtSSPPContact.Clear()
+        '    txtSSPPUnit.Clear()
+        '    txtISMPContact.Clear()
+        '    txtISMPUnit.Clear()
+        '    txtDistrictEngineer.Clear()
+        '    txtDistrictUnit.Clear()
+        '    FSTabControl.TabPages.Remove(FSContacts)
+        'End If
+        'If FSTabControl.TabPages.Contains(FSEmissionInventory) = True Then
+        '    FSTabControl.TabPages.Remove(FSEmissionInventory)
+        'End If
+        'If FSTabControl.TabPages.Contains(FSTesting) = True Then
+        '    FSTabControl.TabPages.Remove(FSTesting)
+        'End If
+        'If FSTabControl.TabPages.Contains(FSCompliance) = True Then
+        '    FSTabControl.TabPages.Remove(FSCompliance)
+        'End If
+        'If FSTabControl.TabPages.Contains(FSPermitting) = True Then
+        '    FSTabControl.TabPages.Remove(FSPermitting)
+        'End If
+        'If FSTabControl.TabPages.Contains(FSFinancial) = True Then
+        '    FSTabControl.TabPages.Remove(FSFinancial)
+        'End If
 
-            chbAPC0.Checked = False
-            chbAPC1.Checked = False
-            chbAPC3.Checked = False
-            chbAPC4.Checked = False
-            chbAPC6.Checked = False
-            chbAPC7.Checked = False
-            chbAPC8.Checked = False
-            chbAPC9.Checked = False
-            chbAPCA.Checked = False
-            chbAPCF.Checked = False
-            chbAPCI.Checked = False
-            chbAPCM.Checked = False
-            chbAPCV.Checked = False
-            chbAPCRMP.Checked = False
-            chbHAPsMajor.Checked = False
-            chbNSRMajor.Checked = False
+        'txtReferenceNumber.Clear()
+        'txtTestingNumber.Clear()
+        'txtReferenceNumber2.Clear()
+        'txtTrackingNumber.Clear()
+        'txtFCEYear.Clear()
+        'txtEnforcementNumber.Clear()
+        'txtApplicationNumber.Clear()
+        'EditSubpartsButton.Visible = False
 
-            btnEditAirProgramPollutants.Enabled = False
-            If FacilitySummaryTabControl.TabPages.Contains(TPContacts) = True Then
-                txtSSCPContact.Clear()
-                txtSSCPUnit.Clear()
-                txtSSPPContact.Clear()
-                txtSSPPUnit.Clear()
-                txtISMPContact.Clear()
-                txtISMPUnit.Clear()
-                txtDistrictEngineer.Clear()
-                txtDistrictUnit.Clear()
-                FacilitySummaryTabControl.TabPages.Remove(TPContacts)
-            End If
-            If FacilitySummaryTabControl.TabPages.Contains(TPEmissionInventory) = True Then
-                FacilitySummaryTabControl.TabPages.Remove(TPEmissionInventory)
-            End If
-            If FacilitySummaryTabControl.TabPages.Contains(TPTesting) = True Then
-                FacilitySummaryTabControl.TabPages.Remove(TPTesting)
-            End If
-            If FacilitySummaryTabControl.TabPages.Contains(TPCompliance) = True Then
-                FacilitySummaryTabControl.TabPages.Remove(TPCompliance)
-            End If
-            If FacilitySummaryTabControl.TabPages.Contains(TPPermitting) = True Then
-                FacilitySummaryTabControl.TabPages.Remove(TPPermitting)
-            End If
-            If FacilitySummaryTabControl.TabPages.Contains(TPFinancial) = True Then
-                FacilitySummaryTabControl.TabPages.Remove(TPFinancial)
-            End If
-
-            txtReferenceNumber.Clear()
-            txtTestingNumber.Clear()
-            txtReferenceNumber2.Clear()
-            txtTrackingNumber.Clear()
-            txtFCEYear.Clear()
-            txtEnforcementNumber.Clear()
-            txtApplicationNumber.Clear()
-            btnOpenSubpartEditor.Visible = False
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
     End Sub
 
 #Region " ... open other forms"
@@ -964,7 +641,7 @@ Public Class IAIPFacilitySummary
             AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
                 Me.ValueFromFacilityLookUp = facilityLookupDialog.SelectedAirsNumber
                 ClearForm()
-                OldLoadInitialData()
+                LoadFeesData()
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -994,7 +671,7 @@ Public Class IAIPFacilitySummary
         End Try
     End Sub
 
-    Private Sub btnOpenFacilityLocationEditor_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFacilityLocationEditor.Click
+    Private Sub btnOpenFacilityLocationEditor_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditFacilityLocationButton.Click
         Try
             If EditFacilityLocation Is Nothing Then
                 EditFacilityLocation = New IAIPEditFacilityLocation
@@ -1011,7 +688,7 @@ Public Class IAIPFacilitySummary
         End Try
     End Sub
 
-    Private Sub btnEditHeaderData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditHeaderData.Click
+    Private Sub btnEditHeaderData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditHeaderDataButton.Click
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(Me.AirsNumber.ToString) Then
 
             Dim editHeaderDataDialog As New IAIPEditHeaderData
@@ -1021,12 +698,13 @@ Public Class IAIPFacilitySummary
             editHeaderDataDialog.ShowDialog()
 
             If editHeaderDataDialog.SomethingWasSaved Then
-                OldLoadInitialData()
+                LoadFeesData()
             End If
 
             editHeaderDataDialog.Dispose()
         Else
             MessageBox.Show("AIRS number is not valid.", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Me.AirsNumber = Nothing
         End If
     End Sub
 
@@ -1034,56 +712,6 @@ Public Class IAIPFacilitySummary
         OpenEditContactInformationTool()
     End Sub
 
-#End Region
-
-#Region " ... air program check boxes "
-
-    Private Sub chbAPC0_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAPC0.CheckedChanged
-        Try
-
-            MakeEditSubpartButtonVisible()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-    End Sub
-    Private Sub chbAPC8_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAPC8.CheckedChanged
-        Try
-
-            MakeEditSubpartButtonVisible()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-    End Sub
-    Private Sub chbAPC9_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAPC9.CheckedChanged
-        Try
-
-            MakeEditSubpartButtonVisible()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub chbAPCM_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAPCM.CheckedChanged
-        Try
-
-            MakeEditSubpartButtonVisible()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
 #End Region
 
 #Region " ... contact copy buttons "
@@ -1220,11 +848,11 @@ Public Class IAIPFacilitySummary
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnEditAirProgramPollutants_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditAirProgramPollutants.Click
+    Private Sub btnEditAirProgramPollutants_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditPollutantsButton.Click
         Dim EditAirProgramPollutants As IAIPEditAirProgramPollutants = OpenSingleForm(IAIPEditAirProgramPollutants)
         EditAirProgramPollutants.AirsNumberDisplay.Text = Me.AirsNumber.ToString
     End Sub
-    Private Sub btnOpenSubpartEditior_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenSubpartEditor.Click
+    Private Sub btnOpenSubpartEditior_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditSubpartsButton.Click
         Try
 
 
@@ -1245,10 +873,6 @@ Public Class IAIPFacilitySummary
 
         End Try
 
-    End Sub
-
-    Private Sub MakeEditSubpartButtonVisible()
-        btnOpenSubpartEditor.Visible = (chbAPC8.Checked Or chbAPC9.Checked Or chbAPCM.Checked Or chbAPC0.Checked)
     End Sub
 
 #End Region
@@ -1642,38 +1266,53 @@ Public Class IAIPFacilitySummary
 
 #Region " Menu Strip "
 
-    Private Sub LookUpFacilityToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LookUpFacilityToolStripMenuItem.Click
+    Private Sub LookUpFacilityToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LookUpFacilityMenuItem.Click
         OpenFacilityLookupTool()
     End Sub
 
-    Private Sub PrintFacilitySummaryToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PrintFacilitySummaryToolStripMenuItem.Click
+    Private Sub PrintFacilitySummaryToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PrintFacilitySummaryMenuItem.Click
         OpenFacilitySummaryPrintTool()
     End Sub
 
-    Private Sub ClearFormToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ClearFormToolStripMenuItem.Click
+    Private Sub ClearFormToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ClearFormMenuItem.Click
         Me.AirsNumber = Nothing
     End Sub
 
-    Private Sub CloseToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CloseToolStripMenuItem.Click
+    Private Sub CloseToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CloseMenuItem.Click
         Me.Close()
     End Sub
 
-    Private Sub EditContactInformationToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditContactInformationToolStripMenuItem.Click
-        OpenEditContactInformationTool()
-    End Sub
-
-    Private Sub FacilityCreatorToolToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FacilityCreatorToolToolStripMenuItem.Click
+    Private Sub FacilityCreatorToolToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CreateFacilityMenuItem.Click
         OpenSingleForm("IAIPFacilityCreator")
     End Sub
 
-    Private Sub UpdateAllDataSentToEPAToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UpdateAllDataSentToEPAToolStripMenuItem.Click
+    Private Sub UpdateAllDataSentToEPAToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UpdateEpaMenuItem.Click
         UpdateEpaData()
     End Sub
 
-    Private Sub OnlineHelpToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnlineHelpToolStripMenuItem.Click
+    Private Sub OnlineHelpToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HelpMenuItem.Click
         OpenDocumentationUrl(Me)
     End Sub
 
 #End Region
+
+    Private Sub FacilitySummaryTabControl_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FSMainTabControl.SelectedIndexChanged
+        Select Case FSMainTabControl.SelectedTab.Name
+            Case FSCompliance.Name
+
+            Case FSContacts.Name
+
+            Case FSEmissionInventory.Name
+
+            Case FSFees.Name
+
+            Case FSFinancial.Name
+
+            Case FSPermitting.Name
+
+            Case FSTesting.Name
+
+        End Select
+    End Sub
 
 End Class
