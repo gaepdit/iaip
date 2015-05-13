@@ -3743,28 +3743,17 @@ Public Class SSCPEvents
 #Region "Opening Enforcement Actions"
     Private Sub OpenEnforcement()
         Try
-
             If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" And txtFacilityInformation.Text <> "" Then
-                Dim enfNum As String = txtEnforcementNumber.Text
-                If DAL.SSCP.EnforcementExists(enfNum) Then
-                    OpenMultiForm("SscpEnforcement", enfNum)
-                Else
-                    MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
-                End If
+                OpenFormEnforcement(txtEnforcementNumber.Text)
             Else
                 Dim parameters As New Dictionary(Of String, String)
                 parameters("airsnumber") = txtAIRSNumber.Text
                 If txtTrackingNumber.Text <> "" Then parameters("trackingnumber") = txtTrackingNumber.Text
                 OpenSingleForm(SSCPEnforcementSelector, parameters:=parameters, closeFirst:=True)
             End If
-
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
 
 #End Region

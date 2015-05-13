@@ -33,7 +33,7 @@ Module FormHelpers
 
 #End Region
 
-#Region " SSCP Work Item "
+#Region " SSCP "
 
     Public Function OpenFormSscpWorkItem(ByVal id As String) As Form
         If DAL.SSCP.WorkItemExists(id) Then
@@ -51,6 +51,32 @@ Module FormHelpers
             End If
         Else
             MessageBox.Show("Tracking number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return Nothing
+        End If
+    End Function
+
+    Private Sub OpenFormFce(ByVal airsNumber As ApbFacilityId)
+        ' TODO: better FCE form handling (requires plenty of work in SSCPFCEWork.vb)
+        SSCPFCE = New SSCPFCEWork
+        SSCPFCE.txtAirsNumber.Text = airsNumber.ToString
+        SSCPFCE.Show()
+    End Sub
+
+    Public Sub OpenFormFceByYear(ByVal airsNumber As ApbFacilityId, ByVal year As String)
+        OpenFormFce(airsNumber)
+        SSCPFCE.cboFCEYear.Text = year
+    End Sub
+
+    Public Sub OpenFormFceByID(ByVal airsNumber As ApbFacilityId, Optional ByVal id As String = "")
+        OpenFormFce(airsNumber)
+        If Not String.IsNullOrEmpty(id) Then SSCPFCE.txtFCENumber.Text = id
+    End Sub
+
+    Public Function OpenFormEnforcement(ByVal id As String) As Form
+        If DAL.SSCP.EnforcementExists(id) Then
+            Return OpenMultiForm("SscpEnforcement", id)
+        Else
+            MessageBox.Show("Enforcement number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return Nothing
         End If
     End Function

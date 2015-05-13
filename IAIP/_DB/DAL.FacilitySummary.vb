@@ -8,7 +8,7 @@ Namespace DAL
 
         Public Function GetComplianceWorkData(ByVal airsNumber As Apb.ApbFacilityId) As DataTable
             Dim query As String = _
-            "SELECT vw.* " & _
+            "SELECT vw.STRTRACKINGNUMBER, vw.STRACTIVITYNAME, vw.RECEIVEDDATE " & _
             "FROM AIRBRANCH.VW_SSCPWORKDATAGRID vw " & _
             "WHERE vw.STRAIRSNUMBER = :AirsNumber " & _
             "ORDER BY vw.STRTRACKINGNUMBER DESC"
@@ -20,10 +20,10 @@ Namespace DAL
 
         Public Function GetComplianceFceData(ByVal airsNumber As Apb.ApbFacilityId) As DataTable
             Dim query As String = _
-            "SELECT fm.STRFCENUMBER, (eup.STRLASTNAME || ', ' || " & _
+            "SELECT fce.STRFCEYEAR AS FCEYear, fm.STRFCENUMBER, (eup.STRLASTNAME || ', ' || " & _
             "  eup.STRFIRSTNAME) AS ReviewingEngineer, TO_CHAR( " & _
             "  fce.DATFCECOMPLETED, 'dd-Mon-yyyy') AS FCECompleted, " & _
-            "  fce.STRFCEYEAR AS FCEYear, fce.STRFCECOMMENTS " & _
+            "  fce.STRFCECOMMENTS " & _
             "FROM AIRBRANCH.SSCPFCE fce " & _
             "INNER JOIN AIRBRANCH.SSCPFCEMASTER fm " & _
             "ON fce.STRFCENUMBER = fm.STRFCENUMBER " & _

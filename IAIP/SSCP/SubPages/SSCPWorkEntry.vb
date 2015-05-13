@@ -498,32 +498,12 @@ Public Class SSCPWorkEnTry
 
     End Sub
     Sub Back()
-        Try
-
-            SSCPEngWork = Nothing
-            Me.Hide()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
+        SSCPEngWork = Nothing
+        Me.Hide()
     End Sub
 #End Region
     Private Sub SSCPWorkEnTry_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-
-            SSCPEngWork = Nothing
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
+        SSCPEngWork = Nothing
     End Sub
     Private Sub TBComplianceEvents_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBComplianceEvents.ButtonClick
         Try

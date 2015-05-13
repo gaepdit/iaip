@@ -1797,14 +1797,8 @@ Public Class SSCPFCEWork
         End Set
     End Property
     Private Sub SSCPFCECheckList_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-
-            SSCPFCE = Nothing
-            Me.Dispose()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        SSCPFCE = Nothing
+        Me.Dispose()
     End Sub
 
 #End Region
@@ -2112,21 +2106,7 @@ Public Class SSCPFCEWork
 
     End Sub
     Private Sub llbFCEEnforcement_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFCEEnforcement.LinkClicked
-        Try
-
-            If txtEnforcement.Text <> "" Then
-                Dim enfNum As String = txtEnforcement.Text
-                If DAL.SSCP.EnforcementExists(enfNum) Then
-                    OpenMultiForm("SscpEnforcement", enfNum)
-                Else
-                    MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
-                End If
-
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        OpenFormEnforcement(txtEnforcement.Text)
     End Sub
 #End Region
 

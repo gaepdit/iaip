@@ -276,17 +276,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub OpenEnforcement()
-        Try
-            Dim id As String = txtOpenEnforcement.Text
-            If id = "" Then Exit Sub
-            If DAL.SSCP.EnforcementExists(id) Then
-                OpenMultiForm("SscpEnforcement", id)
-            Else
-                MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenFormEnforcement(txtOpenEnforcement.Text)
     End Sub
 
     Private Sub OpenSscpItem()

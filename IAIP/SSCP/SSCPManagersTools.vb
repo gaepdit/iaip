@@ -4038,21 +4038,8 @@ Public Class SSCPManagersTools
         OpenFormFacilitySummary(txtRecordNumber.Text)
     End Sub
     Sub OpenEnforcement()
-        Try
-
-            Dim enfNum As String = txtRecordNumber.Text
-            If enfNum = "" Then Exit Sub
-            If DAL.SSCP.EnforcementExists(enfNum) Then
-                OpenMultiForm("SscpEnforcement", enfNum)
-            Else
-                MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        OpenFormEnforcement(txtRecordNumber.Text)
     End Sub
-
     Sub OpenSSCPWork()
         OpenFormSscpWorkItem(txtRecordNumber.Text)
     End Sub

@@ -78,7 +78,7 @@ Module subMain
 
 #Region " SSCP Screens "
     Public SSCP_Work As SSCPComplianceLog ' TODO DWW: Remove
-    Public SSCPFCE As SSCPFCEWork
+    Public SSCPFCE As SSCPFCEWork ' TODO DWW: Remove
     Public SSCPEngWork As SSCPWorkEnTry ' TODO DWW: Remove
 #End Region
 

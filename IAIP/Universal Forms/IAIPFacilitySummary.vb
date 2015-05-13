@@ -475,7 +475,7 @@ Public Class IAIPFacilitySummary
 
 #End Region
 
-#Region " Grid Selection "
+#Region " Grid Item Selection "
 
     Private GridSelectionDictionary As New Dictionary(Of DataGridView, TextBox)
     Private Sub InitializeGridSelectionDictionary()
@@ -509,13 +509,11 @@ Public Class IAIPFacilitySummary
         With ComplianceWorkGrid
             If .DataSource Is Nothing Then
                 .DataSource = thisFacilityDataSet.Tables(WhichTable.ComplianceWork.ToString)
-                .Columns("STRAIRSNUMBER").Visible = False
                 .Columns("STRTRACKINGNUMBER").HeaderText = "Tracking Number"
                 .Columns("STRTRACKINGNUMBER").DisplayIndex = 0
                 .Columns("STRACTIVITYNAME").HeaderText = "Event Type"
                 .Columns("RECEIVEDDATE").HeaderText = "Date Received"
                 .Columns("RECEIVEDDATE").DefaultCellStyle.Format = DateFormat
-                .Columns("DATRECEIVEDDATE").Visible = False
             End If
         End With
     End Sub
@@ -562,11 +560,11 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub OpenComplianceFceButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OpenComplianceFceButton.Click
-
+        OpenFormFceByYear(Me.AirsNumber, ComplianceFceEntry.Text)
     End Sub
 
     Private Sub OpenComplianceEnforcementButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OpenComplianceEnforcementButton.Click
-
+        OpenFormEnforcement(ComplianceEnforcementEntry.Text)
     End Sub
 
 #End Region
@@ -1189,50 +1187,6 @@ Public Class IAIPFacilitySummary
 
         End Try
 
-    End Sub
-
-#End Region
-
-#Region " ... SSCP Compliance Work"
-    Private Sub llbViewSSCPEnforcement_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs)
-        'Try
-
-        '    Dim enfNum As String = txtEnforcementNumber.Text
-        '    If enfNum = "" Then Exit Sub
-        '    If DAL.SSCP.EnforcementExists(enfNum) Then
-        '        OpenMultiForm("SscpEnforcement", enfNum)
-        '    Else
-        '        MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
-        '    End If
-
-        'Catch ex As Exception
-        '    ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        'End Try
-    End Sub
-    Private Sub llbViewFCE_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs)
-        'Try
-        '    If txtFCEYear.Text <> "" Then
-        '        ViewFCE()
-        '        SSCPFCE.cboFCEYear.Text = txtFCEYear.Text
-        '    End If
-        'Catch ex As Exception
-        '    ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        'End Try
-    End Sub
-    Private Sub ViewFCE()
-        Try
-            If Me.AirsNumber Is Nothing Then
-                MsgBox("Please Enter a valid AIRS Number.", MsgBoxStyle.Information, "Facility Summary Warning")
-            Else
-                SSCPFCE = Nothing
-                If SSCPFCE Is Nothing Then SSCPFCE = New SSCPFCEWork
-                SSCPFCE.txtAirsNumber.Text = Me.AirsNumber.ToString
-                SSCPFCE.txtOrigin.Text = "Facility Summary"
-                SSCPFCE.Show()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
     End Sub
 
 #End Region

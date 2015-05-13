@@ -3083,31 +3083,9 @@ Public Class PASPFeeStatistics
             If txtFeeComplianceEvent.Text <> "" Then
                 Select Case txtFeeComplianceEventType.Text
                     Case "FCE"
-                        If SSCPFCE Is Nothing Then
-                            If SSCPFCE Is Nothing Then SSCPFCE = New SSCPFCEWork
-                            SSCPFCE.txtAirsNumber.Text = txtFeeAIRSNumber.Text
-                            SSCPFCE.txtFacilityInformation.Text = txtFeeAIRSNumber.Text
-                            SSCPFCE.Show()
-                            SSCPFCE.txtFCENumber.Text = txtFeeComplianceEvent.Text
-                        Else
-                            SSCPFCE.Clear()
-                            SSCPFCE = Nothing
-                            If SSCPFCE Is Nothing Then SSCPFCE = New SSCPFCEWork
-                            SSCPFCE.txtAirsNumber.Text = Me.txtFeeAIRSNumber.Text
-                            SSCPFCE.txtFacilityInformation.Text = txtFeeAIRSNumber.Text
-                            SSCPFCE.Show()
-                            SSCPFCE.txtFCENumber.Text = txtFeeComplianceEvent.Text
-                        End If
-
+                        OpenFormFceByID(New Apb.ApbFacilityId(txtFeeAIRSNumber.Text), txtFeeComplianceEvent.Text)
                     Case "Enforcement"
-                        Dim enfNum As String = txtFeeComplianceEvent.Text
-                        If enfNum = "" Then Exit Sub
-                        If DAL.SSCP.EnforcementExists(enfNum) Then
-                            OpenMultiForm("SscpEnforcement", enfNum)
-                        Else
-                            MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
-                        End If
-
+                        OpenFormEnforcement(txtFeeComplianceEvent.Text)
                     Case Else
                         OpenFormSscpWorkItem(txtFeeComplianceEvent.Text)
                 End Select
