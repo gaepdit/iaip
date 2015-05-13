@@ -2066,79 +2066,19 @@ Public Class SSCPFCEWork
 
 #Region "Open Subborting Documents"
     Private Sub llbFCEInspections_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFCEInspections.LinkClicked
-        Try
-
-            If txtInspectionTrackingNumber.Text <> "" Then
-                SSCPReports = Nothing
-                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                SSCPReports.txtTrackingNumber.Text = txtInspectionTrackingNumber.Text
-                SSCPReports.txtOrigin.Text = "FCE Checklist"
-                SSCPReports.Show()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        OpenFormSscpWorkItem(txtInspectionTrackingNumber.Text)
     End Sub
     Private Sub llbFCEACC_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFCEACC.LinkClicked
-        Try
-
-            If txtACCTrackingNumber.Text <> "" Then
-                SSCPReports = Nothing
-                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                SSCPReports.txtTrackingNumber.Text = txtACCTrackingNumber.Text
-                SSCPReports.txtOrigin.Text = "FCE Checklist"
-                SSCPReports.Show()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        OpenFormSscpWorkItem(txtACCTrackingNumber.Text)
     End Sub
     Private Sub llbFCEReports_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFCEReports.LinkClicked
-        Try
-
-            If txtReportTrackingNumber.Text <> "" Then
-                SSCPReports = Nothing
-                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                SSCPReports.txtTrackingNumber.Text = txtReportTrackingNumber.Text
-                SSCPReports.txtOrigin.Text = "FCE Checklist"
-                SSCPReports.Show()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        OpenFormSscpWorkItem(txtReportTrackingNumber.Text)
     End Sub
     Private Sub llbPerformanceTests_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbPerformanceTests.LinkClicked
-        Try
-
-            If txtPerformanceTests.Text <> "" Then
-                SSCPReports = Nothing
-                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                SSCPReports.txtTrackingNumber.Text = txtPerformanceTests.Text
-                SSCPReports.txtOrigin.Text = "FCE Checklist"
-                SSCPReports.Show()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        OpenFormSscpWorkItem(txtPerformanceTests.Text)
     End Sub
     Private Sub llbNotification_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbNotification.LinkClicked
-        Try
-
-            If txtNotificationTrackingNumber.Text <> "" Then
-                SSCPReports = Nothing
-                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                SSCPReports.txtTrackingNumber.Text = txtNotificationTrackingNumber.Text
-                SSCPReports.txtOrigin.Text = "FCE Checklist"
-                SSCPReports.Show()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        OpenFormSscpWorkItem(txtNotificationTrackingNumber.Text)
     End Sub
     Private Sub llbISMPSummaryReports_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbISMPSummaryReports.LinkClicked
         Dim temp As String = ""

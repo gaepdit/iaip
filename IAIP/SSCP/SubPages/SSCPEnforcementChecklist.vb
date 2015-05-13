@@ -1229,18 +1229,13 @@ Public Class SSCPEnforcementChecklist
         txtWorkCount.Text = dsWorkEnTry.Tables(0).Rows.Count
 
     End Sub
+
     Private Sub MoveOn()
-        If txtTrackingNumber.Text <> "" Then
-
-            SSCPReports = Nothing
-            If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-            SSCPReports.txtTrackingNumber.Text = txtTrackingNumber.Text
-            SSCPReports.txtOrigin.Text = "Enforcement Checklist"
-            SSCPReports.Show()
-        End If
-
+        OpenFormSscpWorkItem(txtTrackingNumber.Text)
     End Sub
+
 #End Region
+
 #Region "Declarations"
     Private Sub btnViewLON_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewLON.Click
         Dim TempHeight As String

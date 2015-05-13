@@ -3688,28 +3688,15 @@ Public Class SscpEnforcement
 
     End Sub
     Private Sub btnOpenEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenEvent.Click
-        Try
-
-            If txtTrackingNumber.Text <> "" Then
-                SSCPReports = Nothing
-                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                SSCPReports.txtTrackingNumber.Text = txtTrackingNumber.Text
-                SSCPReports.Show()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        OpenFormSscpWorkItem(txtTrackingNumber.Text)
     End Sub
     Private Sub btnSaveStipulatedPenalty_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SaveStipulatedPenaltyButton.Click
         If String.IsNullOrEmpty(txtStipulatedPenalty.Text) Then
             MsgBox("Enter a stipulated penalty amount first.")
-            Exit Sub
+        Else
+            SaveStipulatedPenalties()
+            ClearStipulatedPenaltyForm()
         End If
-
-        SaveStipulatedPenalties()
-        ClearStipulatedPenaltyForm()
     End Sub
     Private Sub DeletePenalty(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DeletePenaltyButton.Click
         If Not PresaveCheck() Then

@@ -290,28 +290,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub OpenSscpItem()
-        Try
-            Dim id As String = txtOpenSscpItem.Text
-            If id = "" Then Exit Sub
-
-            If DAL.SSCP.WorkItemExists(id) Then
-                Dim refNum As String = ""
-                If DAL.SSCP.WorkItemIsAStackTest(id, refNum) Then
-                    OpenMultiForm("ISMPTestReports", refNum)
-                Else
-                    If SSCPReports IsNot Nothing AndAlso Not SSCPReports.IsDisposed Then
-                        SSCPReports.Dispose()
-                    End If
-                    SSCPReports = New SSCPEvents
-                    SSCPReports.txtTrackingNumber.Text = id
-                    SSCPReports.Show()
-                End If
-            Else
-                MsgBox("Tracking number is not in the system.", MsgBoxStyle.Information, Me.Text)
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenFormSscpWorkItem(txtOpenSscpItem.Text)
     End Sub
 
     Private Sub OpenFacilitySummary()

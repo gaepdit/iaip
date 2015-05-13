@@ -78,10 +78,8 @@ Module subMain
 
 #Region " SSCP Screens "
     Public SSCP_Work As SSCPComplianceLog ' TODO DWW: Remove
-    Public SSCPReports As SSCPEvents
     Public SSCPFCE As SSCPFCEWork
     Public SSCPEngWork As SSCPWorkEnTry ' TODO DWW: Remove
-    Public SSCPInspectionscheduleTool As SSCPInspectionscheduleLink ' TODO DWW: Remove
 #End Region
 
 #Region " SSPP Screens "

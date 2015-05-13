@@ -3109,47 +3109,7 @@ Public Class PASPFeeStatistics
                         End If
 
                     Case Else
-                        Dim RefNum As String = ""
-                        Dim DocType As String = ""
-
-                        SQL = "Select " & _
-                        "AIRBRANCH.ISMPReportInformation.strReferenceNumber, AIRBRANCH.ISMPDocumentType.strDocumentType " & _
-                        "from AIRBRANCH.SSCPTestReports, AIRBRANCH.ISMPDocumentType, " & _
-                        "AIRBRANCH.ISMPReportInformation " & _
-                        "where AIRBRANCH.SSCPTestReports.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " & _
-                        "and AIRBRANCH.ISMPReportInformation.strDocumentType = AIRBRANCH.ISMPDocumentType.strKey " & _
-                        "and strTrackingNumber = '" & txtFeeComplianceEvent.Text & "' "
-
-                        cmd = New OracleCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        recExist = dr.Read
-                        If recExist = True Then
-                            RefNum = dr.Item("strReferenceNumber")
-                            DocType = dr.Item("strDocumentType")
-                        Else
-                            RefNum = ""
-                            DocType = ""
-                        End If
-                        dr.Close()
-                        If RefNum <> "" Then
-                            If DAL.ISMP.StackTestExists(RefNum) Then OpenMultiForm("ISMPTestReports", RefNum)
-                        Else
-                            If SSCPReports Is Nothing Then
-                                SSCPReports = Nothing
-                                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                                SSCPReports.txtTrackingNumber.Text = txtFeeComplianceEvent.Text
-                                SSCPReports.Show()
-                            Else
-                                SSCPReports.Close()
-                                SSCPReports = Nothing
-                                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                                SSCPReports.txtTrackingNumber.Text = txtFeeComplianceEvent.Text
-                                SSCPReports.Show()
-                            End If
-                        End If
+                        OpenFormSscpWorkItem(txtFeeComplianceEvent.Text)
                 End Select
             End If
         Catch ex As Exception

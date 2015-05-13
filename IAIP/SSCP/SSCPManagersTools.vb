@@ -4052,41 +4052,9 @@ Public Class SSCPManagersTools
         End Try
 
     End Sub
+
     Sub OpenSSCPWork()
-        Try
-
-            If txtRecordNumber.Text <> "" And IsNumeric(txtRecordNumber.Text) Then
-                SQL = "Select " & _
-                "strTrackingNumber " & _
-                "from AIRBRANCH.SSCPItemMaster " & _
-                "where strTrackingNumber = '" & txtRecordNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
-                    If SSCPReports Is Nothing Then
-                        SSCPReports = Nothing
-                        If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                        SSCPReports.txtTrackingNumber.Text = txtRecordNumber.Text
-                        SSCPReports.Show()
-                    Else
-                        SSCPReports.txtTrackingNumber.Text = txtRecordNumber.Text
-                        SSCPReports.Show()
-                    End If
-                Else
-                    MsgBox("Tracking Number is not in the system.", MsgBoxStyle.Information, "SSCP Managers Tools")
-                End If
-            Else
-                MsgBox("Tracking Number is not in the system.", MsgBoxStyle.Information, "SSCP Managers Tools")
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        OpenFormSscpWorkItem(txtRecordNumber.Text)
     End Sub
 
     Private Sub dgvCMSUniverse_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvCMSUniverse.MouseUp

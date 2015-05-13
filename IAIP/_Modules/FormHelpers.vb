@@ -33,4 +33,28 @@ Module FormHelpers
 
 #End Region
 
+#Region " SSCP Work Item "
+
+    Public Function OpenFormSscpWorkItem(ByVal id As String) As Form
+        If DAL.SSCP.WorkItemExists(id) Then
+            Dim refNum As String = ""
+            If DAL.SSCP.WorkItemIsAStackTest(id, refNum) Then
+                Return OpenMultiForm("ISMPTestReports", refNum)
+            ElseIf SingleFormIsOpen("SSCPEvents") _
+            AndAlso CType(SingleForm("SSCPEvents"), SSCPEvents).txtTrackingNumber.Text = id Then
+                SingleForm("SSCPEvents").Activate()
+                Return SingleForm("SSCPEvents")
+            Else
+                Dim sscpReport As SSCPEvents = OpenSingleForm("SSCPEvents", id, closeFirst:=True)
+                sscpReport.txtTrackingNumber.Text = id
+                Return sscpReport
+            End If
+        Else
+            MessageBox.Show("Tracking number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return Nothing
+        End If
+    End Function
+
+#End Region
+
 End Module
