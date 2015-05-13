@@ -23,17 +23,20 @@ Partial Class IAIPFacilitySummary
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPFacilitySummary))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.llbClosePrintTestReport = New System.Windows.Forms.LinkLabel
         Me.llbISMPTestReport = New System.Windows.Forms.LinkLabel
         Me.txtReferenceNumber = New System.Windows.Forms.TextBox
@@ -43,7 +46,7 @@ Partial Class IAIPFacilitySummary
         Me.FacilityNameDisplay = New System.Windows.Forms.TextBox
         Me.AirsNumberEntry = New System.Windows.Forms.TextBox
         Me.FacilityApprovalLinkLabel = New System.Windows.Forms.LinkLabel
-        Me.ViewData = New System.Windows.Forms.Button
+        Me.ViewDataButton = New System.Windows.Forms.Button
         Me.AirsNumberEntryLabel = New System.Windows.Forms.Label
         Me.FSMainTabControl = New System.Windows.Forms.TabControl
         Me.FSInfo = New System.Windows.Forms.TabPage
@@ -205,24 +208,27 @@ Partial Class IAIPFacilitySummary
         Me.Label374 = New System.Windows.Forms.Label
         Me.FSCompliance = New System.Windows.Forms.TabPage
         Me.ComplianceTabControl = New System.Windows.Forms.TabControl
-        Me.TPComplianceEvents = New System.Windows.Forms.TabPage
-        Me.dgvSSCPEvents = New System.Windows.Forms.DataGridView
-        Me.PanelSSCPEvents = New System.Windows.Forms.Panel
-        Me.llbViewComplianceEvent = New System.Windows.Forms.LinkLabel
-        Me.txtTrackingNumber = New System.Windows.Forms.TextBox
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.TPFCE = New System.Windows.Forms.TabPage
-        Me.dgvFCEData = New System.Windows.Forms.DataGridView
-        Me.Panel11 = New System.Windows.Forms.Panel
-        Me.llbViewFCE = New System.Windows.Forms.LinkLabel
-        Me.txtFCEYear = New System.Windows.Forms.TextBox
-        Me.Label379 = New System.Windows.Forms.Label
+        Me.TPComplianceWork = New System.Windows.Forms.TabPage
+        Me.ComplianceWorkGrid = New System.Windows.Forms.DataGridView
+        Me.ComplianceWorkPanel = New System.Windows.Forms.Panel
+        Me.ComplianceWorkNoDataLabel = New System.Windows.Forms.Label
+        Me.OpenComplianceWorkButton = New System.Windows.Forms.Button
+        Me.ComplianceWorkEntry = New System.Windows.Forms.TextBox
+        Me.ComplianceWorkLabel = New System.Windows.Forms.Label
+        Me.TPFce = New System.Windows.Forms.TabPage
+        Me.ComplianceFceGrid = New System.Windows.Forms.DataGridView
+        Me.ComplianceFcePanel = New System.Windows.Forms.Panel
+        Me.ComplianceFceNoDataLabel = New System.Windows.Forms.Label
+        Me.OpenComplianceFceButton = New System.Windows.Forms.Button
+        Me.ComplianceFceEntry = New System.Windows.Forms.TextBox
+        Me.ComplianceFceLabel = New System.Windows.Forms.Label
         Me.TPEnforcement = New System.Windows.Forms.TabPage
-        Me.dgvSSCPEnforcement = New System.Windows.Forms.DataGridView
-        Me.PanelSSCPEnforcement = New System.Windows.Forms.Panel
-        Me.llbViewSSCPEnforcement = New System.Windows.Forms.LinkLabel
-        Me.txtEnforcementNumber = New System.Windows.Forms.TextBox
-        Me.Label375 = New System.Windows.Forms.Label
+        Me.ComplianceEnforcementGrid = New System.Windows.Forms.DataGridView
+        Me.ComplianceEnforcementPanel = New System.Windows.Forms.Panel
+        Me.ComplianceEnforcementNoDataLabel = New System.Windows.Forms.Label
+        Me.OpenComplianceEnforcementButton = New System.Windows.Forms.Button
+        Me.ComplianceEnforcementEntry = New System.Windows.Forms.TextBox
+        Me.ComplianceEnforcementLabel = New System.Windows.Forms.Label
         Me.FSPermitting = New System.Windows.Forms.TabPage
         Me.PermittingTabControl = New System.Windows.Forms.TabControl
         Me.TPAppLog = New System.Windows.Forms.TabPage
@@ -335,15 +341,15 @@ Partial Class IAIPFacilitySummary
         Me.PanelISMPMemo.SuspendLayout()
         Me.FSCompliance.SuspendLayout()
         Me.ComplianceTabControl.SuspendLayout()
-        Me.TPComplianceEvents.SuspendLayout()
-        CType(Me.dgvSSCPEvents, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.PanelSSCPEvents.SuspendLayout()
-        Me.TPFCE.SuspendLayout()
-        CType(Me.dgvFCEData, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel11.SuspendLayout()
+        Me.TPComplianceWork.SuspendLayout()
+        CType(Me.ComplianceWorkGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ComplianceWorkPanel.SuspendLayout()
+        Me.TPFce.SuspendLayout()
+        CType(Me.ComplianceFceGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ComplianceFcePanel.SuspendLayout()
         Me.TPEnforcement.SuspendLayout()
-        CType(Me.dgvSSCPEnforcement, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.PanelSSCPEnforcement.SuspendLayout()
+        CType(Me.ComplianceEnforcementGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ComplianceEnforcementPanel.SuspendLayout()
         Me.FSPermitting.SuspendLayout()
         Me.PermittingTabControl.SuspendLayout()
         Me.TPAppLog.SuspendLayout()
@@ -430,7 +436,7 @@ Partial Class IAIPFacilitySummary
         Me.NavigationPanel.Controls.Add(Me.FacilityNameDisplay)
         Me.NavigationPanel.Controls.Add(Me.AirsNumberEntry)
         Me.NavigationPanel.Controls.Add(Me.FacilityApprovalLinkLabel)
-        Me.NavigationPanel.Controls.Add(Me.ViewData)
+        Me.NavigationPanel.Controls.Add(Me.ViewDataButton)
         Me.NavigationPanel.Controls.Add(Me.AirsNumberEntryLabel)
         Me.NavigationPanel.Dock = System.Windows.Forms.DockStyle.Top
         Me.NavigationPanel.Location = New System.Drawing.Point(0, 24)
@@ -474,15 +480,15 @@ Partial Class IAIPFacilitySummary
         Me.FacilityApprovalLinkLabel.UseCompatibleTextRendering = True
         Me.FacilityApprovalLinkLabel.Visible = False
         '
-        'ViewData
+        'ViewDataButton
         '
-        Me.ViewData.AutoSize = True
-        Me.ViewData.Location = New System.Drawing.Point(183, 10)
-        Me.ViewData.Name = "ViewData"
-        Me.ViewData.Size = New System.Drawing.Size(91, 23)
-        Me.ViewData.TabIndex = 1
-        Me.ViewData.Text = "View Data"
-        Me.ViewData.UseVisualStyleBackColor = True
+        Me.ViewDataButton.AutoSize = True
+        Me.ViewDataButton.Location = New System.Drawing.Point(183, 10)
+        Me.ViewDataButton.Name = "ViewDataButton"
+        Me.ViewDataButton.Size = New System.Drawing.Size(91, 23)
+        Me.ViewDataButton.TabIndex = 1
+        Me.ViewDataButton.Text = "View Data"
+        Me.ViewDataButton.UseVisualStyleBackColor = True
         '
         'AirsNumberEntryLabel
         '
@@ -492,7 +498,7 @@ Partial Class IAIPFacilitySummary
         Me.AirsNumberEntryLabel.Name = "AirsNumberEntryLabel"
         Me.AirsNumberEntryLabel.Size = New System.Drawing.Size(75, 13)
         Me.AirsNumberEntryLabel.TabIndex = 272
-        Me.AirsNumberEntryLabel.Text = "AIRS Number:"
+        Me.AirsNumberEntryLabel.Text = "&AIRS Number:"
         '
         'FSMainTabControl
         '
@@ -557,6 +563,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.CmsLabel.AutoSize = True
         Me.CmsLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CmsLabel.ForeColor = System.Drawing.SystemColors.GrayText
         Me.CmsLabel.Location = New System.Drawing.Point(380, 61)
         Me.CmsLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.CmsLabel.Name = "CmsLabel"
@@ -578,6 +585,7 @@ Partial Class IAIPFacilitySummary
         'Label101
         '
         Me.Label101.AutoSize = True
+        Me.Label101.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Label101.Location = New System.Drawing.Point(348, 155)
         Me.Label101.Name = "Label101"
         Me.Label101.Size = New System.Drawing.Size(98, 13)
@@ -587,6 +595,7 @@ Partial Class IAIPFacilitySummary
         'InfoDescLabel
         '
         Me.InfoDescLabel.AutoSize = True
+        Me.InfoDescLabel.ForeColor = System.Drawing.SystemColors.GrayText
         Me.InfoDescLabel.Location = New System.Drawing.Point(7, 23)
         Me.InfoDescLabel.Name = "InfoDescLabel"
         Me.InfoDescLabel.Size = New System.Drawing.Size(63, 13)
@@ -597,6 +606,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.InfoClassLabel.AutoSize = True
         Me.InfoClassLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.InfoClassLabel.ForeColor = System.Drawing.SystemColors.GrayText
         Me.InfoClassLabel.Location = New System.Drawing.Point(375, 42)
         Me.InfoClassLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.InfoClassLabel.Name = "InfoClassLabel"
@@ -608,6 +618,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.InfoOperLabel.AutoSize = True
         Me.InfoOperLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.InfoOperLabel.ForeColor = System.Drawing.SystemColors.GrayText
         Me.InfoOperLabel.Location = New System.Drawing.Point(357, 23)
         Me.InfoOperLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.InfoOperLabel.Name = "InfoOperLabel"
@@ -619,6 +630,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.CreatedDateLabel.AutoSize = True
         Me.CreatedDateLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CreatedDateLabel.ForeColor = System.Drawing.SystemColors.GrayText
         Me.CreatedDateLabel.Location = New System.Drawing.Point(326, 250)
         Me.CreatedDateLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.CreatedDateLabel.Name = "CreatedDateLabel"
@@ -630,6 +642,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.FisDateLabel.AutoSize = True
         Me.FisDateLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FisDateLabel.ForeColor = System.Drawing.SystemColors.GrayText
         Me.FisDateLabel.Location = New System.Drawing.Point(311, 307)
         Me.FisDateLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.FisDateLabel.Name = "FisDateLabel"
@@ -641,6 +654,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.InfoStartupDateLabel.AutoSize = True
         Me.InfoStartupDateLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.InfoStartupDateLabel.ForeColor = System.Drawing.SystemColors.GrayText
         Me.InfoStartupDateLabel.Location = New System.Drawing.Point(376, 193)
         Me.InfoStartupDateLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.InfoStartupDateLabel.Name = "InfoStartupDateLabel"
@@ -652,6 +666,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.DataUpdateDateLabel.AutoSize = True
         Me.DataUpdateDateLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DataUpdateDateLabel.ForeColor = System.Drawing.SystemColors.GrayText
         Me.DataUpdateDateLabel.Location = New System.Drawing.Point(320, 269)
         Me.DataUpdateDateLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.DataUpdateDateLabel.Name = "DataUpdateDateLabel"
@@ -663,6 +678,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.EpaDateLabel.AutoSize = True
         Me.EpaDateLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EpaDateLabel.ForeColor = System.Drawing.SystemColors.GrayText
         Me.EpaDateLabel.Location = New System.Drawing.Point(311, 326)
         Me.EpaDateLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.EpaDateLabel.Name = "EpaDateLabel"
@@ -674,6 +690,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.InfoPermitRevocationDateLabel.AutoSize = True
         Me.InfoPermitRevocationDateLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.InfoPermitRevocationDateLabel.ForeColor = System.Drawing.SystemColors.GrayText
         Me.InfoPermitRevocationDateLabel.Location = New System.Drawing.Point(349, 212)
         Me.InfoPermitRevocationDateLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.InfoPermitRevocationDateLabel.Name = "InfoPermitRevocationDateLabel"
@@ -851,6 +868,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.ResponsibleOfficeLabel.AutoSize = True
         Me.ResponsibleOfficeLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ResponsibleOfficeLabel.ForeColor = System.Drawing.SystemColors.GrayText
         Me.ResponsibleOfficeLabel.Location = New System.Drawing.Point(349, 118)
         Me.ResponsibleOfficeLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.ResponsibleOfficeLabel.Name = "ResponsibleOfficeLabel"
@@ -862,6 +880,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.DistrictOfficeLabel.AutoSize = True
         Me.DistrictOfficeLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DistrictOfficeLabel.ForeColor = System.Drawing.SystemColors.GrayText
         Me.DistrictOfficeLabel.Location = New System.Drawing.Point(364, 99)
         Me.DistrictOfficeLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.DistrictOfficeLabel.Name = "DistrictOfficeLabel"
@@ -872,6 +891,7 @@ Partial Class IAIPFacilitySummary
         'MapLatLonLink
         '
         Me.MapLatLonLink.AutoSize = True
+        Me.MapLatLonLink.ForeColor = System.Drawing.SystemColors.GrayText
         Me.MapLatLonLink.LinkArea = New System.Windows.Forms.LinkArea(9, 15)
         Me.MapLatLonLink.Location = New System.Drawing.Point(9, 268)
         Me.MapLatLonLink.Name = "MapLatLonLink"
@@ -884,6 +904,7 @@ Partial Class IAIPFacilitySummary
         'MapAddressLink
         '
         Me.MapAddressLink.AutoSize = True
+        Me.MapAddressLink.ForeColor = System.Drawing.SystemColors.GrayText
         Me.MapAddressLink.LinkArea = New System.Windows.Forms.LinkArea(10, 15)
         Me.MapAddressLink.Location = New System.Drawing.Point(9, 155)
         Me.MapAddressLink.Name = "MapAddressLink"
@@ -954,6 +975,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.RmpIdLabel.AutoSize = True
         Me.RmpIdLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RmpIdLabel.ForeColor = System.Drawing.SystemColors.GrayText
         Me.RmpIdLabel.Location = New System.Drawing.Point(82, 118)
         Me.RmpIdLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.RmpIdLabel.Name = "RmpIdLabel"
@@ -966,6 +988,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.NaicsLabel.AutoSize = True
         Me.NaicsLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.NaicsLabel.ForeColor = System.Drawing.SystemColors.GrayText
         Me.NaicsLabel.Location = New System.Drawing.Point(88, 99)
         Me.NaicsLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.NaicsLabel.Name = "NaicsLabel"
@@ -978,6 +1001,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.HeaderRevocationLabel.AutoSize = True
         Me.HeaderRevocationLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.HeaderRevocationLabel.ForeColor = System.Drawing.SystemColors.GrayText
         Me.HeaderRevocationLabel.Location = New System.Drawing.Point(7, 175)
         Me.HeaderRevocationLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.HeaderRevocationLabel.Name = "HeaderRevocationLabel"
@@ -990,6 +1014,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.HeaderOperLabel.AutoSize = True
         Me.HeaderOperLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.HeaderOperLabel.ForeColor = System.Drawing.SystemColors.GrayText
         Me.HeaderOperLabel.Location = New System.Drawing.Point(41, 42)
         Me.HeaderOperLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.HeaderOperLabel.Name = "HeaderOperLabel"
@@ -1045,6 +1070,7 @@ Partial Class IAIPFacilitySummary
         'HeaderDescLabel
         '
         Me.HeaderDescLabel.AutoSize = True
+        Me.HeaderDescLabel.ForeColor = System.Drawing.SystemColors.GrayText
         Me.HeaderDescLabel.Location = New System.Drawing.Point(7, 210)
         Me.HeaderDescLabel.Name = "HeaderDescLabel"
         Me.HeaderDescLabel.Size = New System.Drawing.Size(63, 13)
@@ -1145,6 +1171,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.SicLabel.AutoSize = True
         Me.SicLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SicLabel.ForeColor = System.Drawing.SystemColors.GrayText
         Me.SicLabel.Location = New System.Drawing.Point(103, 80)
         Me.SicLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.SicLabel.Name = "SicLabel"
@@ -1157,6 +1184,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.HeaderStartupLabel.AutoSize = True
         Me.HeaderStartupLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.HeaderStartupLabel.ForeColor = System.Drawing.SystemColors.GrayText
         Me.HeaderStartupLabel.Location = New System.Drawing.Point(60, 156)
         Me.HeaderStartupLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.HeaderStartupLabel.Name = "HeaderStartupLabel"
@@ -1193,6 +1221,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.HeaderClassLabel.AutoSize = True
         Me.HeaderClassLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.HeaderClassLabel.ForeColor = System.Drawing.SystemColors.GrayText
         Me.HeaderClassLabel.Location = New System.Drawing.Point(59, 23)
         Me.HeaderClassLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.HeaderClassLabel.Name = "HeaderClassLabel"
@@ -1943,23 +1972,23 @@ Partial Class IAIPFacilitySummary
         '
         'dgvWebSiteContacts
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvWebSiteContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle15.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvWebSiteContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle15
         Me.dgvWebSiteContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvWebSiteContacts.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle16.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvWebSiteContacts.DefaultCellStyle = DataGridViewCellStyle16
         Me.dgvWebSiteContacts.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvWebSiteContacts.Location = New System.Drawing.Point(0, 0)
         Me.dgvWebSiteContacts.Name = "dgvWebSiteContacts"
@@ -1981,23 +2010,23 @@ Partial Class IAIPFacilitySummary
         '
         'dgvSSPPContacts
         '
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvSSPPContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle17.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvSSPPContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle17
         Me.dgvSSPPContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvSSPPContacts.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle18.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvSSPPContacts.DefaultCellStyle = DataGridViewCellStyle18
         Me.dgvSSPPContacts.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvSSPPContacts.Location = New System.Drawing.Point(0, 0)
         Me.dgvSSPPContacts.Name = "dgvSSPPContacts"
@@ -2039,23 +2068,23 @@ Partial Class IAIPFacilitySummary
         '
         'dgvISMPContacts
         '
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvISMPContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle19.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvISMPContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle19
         Me.dgvISMPContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvISMPContacts.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle20.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvISMPContacts.DefaultCellStyle = DataGridViewCellStyle20
         Me.dgvISMPContacts.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvISMPContacts.Location = New System.Drawing.Point(0, 0)
         Me.dgvISMPContacts.Name = "dgvISMPContacts"
@@ -2097,23 +2126,23 @@ Partial Class IAIPFacilitySummary
         '
         'dgvSSCPContacts
         '
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvSSCPContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle21.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvSSCPContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle21
         Me.dgvSSCPContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvSSCPContacts.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle22.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvSSCPContacts.DefaultCellStyle = DataGridViewCellStyle22
         Me.dgvSSCPContacts.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvSSCPContacts.Location = New System.Drawing.Point(0, 0)
         Me.dgvSSCPContacts.Name = "dgvSSCPContacts"
@@ -2154,23 +2183,23 @@ Partial Class IAIPFacilitySummary
         '
         'dgvGECOContacts
         '
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvGECOContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle23.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvGECOContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle23
         Me.dgvGECOContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvGECOContacts.DefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle24.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvGECOContacts.DefaultCellStyle = DataGridViewCellStyle24
         Me.dgvGECOContacts.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvGECOContacts.Location = New System.Drawing.Point(0, 0)
         Me.dgvGECOContacts.Name = "dgvGECOContacts"
@@ -2401,8 +2430,8 @@ Partial Class IAIPFacilitySummary
         '
         'ComplianceTabControl
         '
-        Me.ComplianceTabControl.Controls.Add(Me.TPComplianceEvents)
-        Me.ComplianceTabControl.Controls.Add(Me.TPFCE)
+        Me.ComplianceTabControl.Controls.Add(Me.TPComplianceWork)
+        Me.ComplianceTabControl.Controls.Add(Me.TPFce)
         Me.ComplianceTabControl.Controls.Add(Me.TPEnforcement)
         Me.ComplianceTabControl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ComplianceTabControl.Location = New System.Drawing.Point(0, 0)
@@ -2412,139 +2441,170 @@ Partial Class IAIPFacilitySummary
         Me.ComplianceTabControl.Size = New System.Drawing.Size(637, 347)
         Me.ComplianceTabControl.TabIndex = 1
         '
-        'TPComplianceEvents
+        'TPComplianceWork
         '
-        Me.TPComplianceEvents.Controls.Add(Me.dgvSSCPEvents)
-        Me.TPComplianceEvents.Controls.Add(Me.PanelSSCPEvents)
-        Me.TPComplianceEvents.Location = New System.Drawing.Point(4, 22)
-        Me.TPComplianceEvents.Margin = New System.Windows.Forms.Padding(2)
-        Me.TPComplianceEvents.Name = "TPComplianceEvents"
-        Me.TPComplianceEvents.Size = New System.Drawing.Size(629, 321)
-        Me.TPComplianceEvents.TabIndex = 0
-        Me.TPComplianceEvents.Text = "Compliance Event(s)"
-        Me.TPComplianceEvents.UseVisualStyleBackColor = True
+        Me.TPComplianceWork.Controls.Add(Me.ComplianceWorkGrid)
+        Me.TPComplianceWork.Controls.Add(Me.ComplianceWorkPanel)
+        Me.TPComplianceWork.Location = New System.Drawing.Point(4, 22)
+        Me.TPComplianceWork.Margin = New System.Windows.Forms.Padding(2)
+        Me.TPComplianceWork.Name = "TPComplianceWork"
+        Me.TPComplianceWork.Size = New System.Drawing.Size(629, 321)
+        Me.TPComplianceWork.TabIndex = 0
+        Me.TPComplianceWork.Text = "Compliance Work"
+        Me.TPComplianceWork.UseVisualStyleBackColor = True
         '
-        'dgvSSCPEvents
+        'ComplianceWorkGrid
         '
-        Me.dgvSSCPEvents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvSSCPEvents.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvSSCPEvents.Location = New System.Drawing.Point(0, 30)
-        Me.dgvSSCPEvents.Name = "dgvSSCPEvents"
-        Me.dgvSSCPEvents.ReadOnly = True
-        Me.dgvSSCPEvents.Size = New System.Drawing.Size(629, 291)
-        Me.dgvSSCPEvents.TabIndex = 3
+        Me.ComplianceWorkGrid.AllowUserToAddRows = False
+        Me.ComplianceWorkGrid.AllowUserToDeleteRows = False
+        Me.ComplianceWorkGrid.AllowUserToOrderColumns = True
+        DataGridViewCellStyle25.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.ComplianceWorkGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle25
+        Me.ComplianceWorkGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.ComplianceWorkGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.ComplianceWorkGrid.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ComplianceWorkGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.ComplianceWorkGrid.Location = New System.Drawing.Point(0, 44)
+        Me.ComplianceWorkGrid.Name = "ComplianceWorkGrid"
+        Me.ComplianceWorkGrid.ReadOnly = True
+        Me.ComplianceWorkGrid.RowHeadersVisible = False
+        Me.ComplianceWorkGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.ComplianceWorkGrid.Size = New System.Drawing.Size(629, 277)
+        Me.ComplianceWorkGrid.TabIndex = 5
         '
-        'PanelSSCPEvents
+        'ComplianceWorkPanel
         '
-        Me.PanelSSCPEvents.Controls.Add(Me.llbViewComplianceEvent)
-        Me.PanelSSCPEvents.Controls.Add(Me.txtTrackingNumber)
-        Me.PanelSSCPEvents.Controls.Add(Me.Label13)
-        Me.PanelSSCPEvents.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelSSCPEvents.Location = New System.Drawing.Point(0, 0)
-        Me.PanelSSCPEvents.Margin = New System.Windows.Forms.Padding(2)
-        Me.PanelSSCPEvents.Name = "PanelSSCPEvents"
-        Me.PanelSSCPEvents.Size = New System.Drawing.Size(629, 30)
-        Me.PanelSSCPEvents.TabIndex = 0
+        Me.ComplianceWorkPanel.Controls.Add(Me.ComplianceWorkNoDataLabel)
+        Me.ComplianceWorkPanel.Controls.Add(Me.OpenComplianceWorkButton)
+        Me.ComplianceWorkPanel.Controls.Add(Me.ComplianceWorkEntry)
+        Me.ComplianceWorkPanel.Controls.Add(Me.ComplianceWorkLabel)
+        Me.ComplianceWorkPanel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.ComplianceWorkPanel.Location = New System.Drawing.Point(0, 0)
+        Me.ComplianceWorkPanel.Margin = New System.Windows.Forms.Padding(2)
+        Me.ComplianceWorkPanel.Name = "ComplianceWorkPanel"
+        Me.ComplianceWorkPanel.Size = New System.Drawing.Size(629, 44)
+        Me.ComplianceWorkPanel.TabIndex = 4
         '
-        'llbViewComplianceEvent
+        'ComplianceWorkNoDataLabel
         '
-        Me.llbViewComplianceEvent.AutoSize = True
-        Me.llbViewComplianceEvent.Location = New System.Drawing.Point(225, 10)
-        Me.llbViewComplianceEvent.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.llbViewComplianceEvent.Name = "llbViewComplianceEvent"
-        Me.llbViewComplianceEvent.Size = New System.Drawing.Size(119, 13)
-        Me.llbViewComplianceEvent.TabIndex = 5
-        Me.llbViewComplianceEvent.TabStop = True
-        Me.llbViewComplianceEvent.Text = "View Compliance Event"
+        Me.ComplianceWorkNoDataLabel.AutoSize = True
+        Me.ComplianceWorkNoDataLabel.Location = New System.Drawing.Point(295, 15)
+        Me.ComplianceWorkNoDataLabel.Name = "ComplianceWorkNoDataLabel"
+        Me.ComplianceWorkNoDataLabel.Size = New System.Drawing.Size(75, 13)
+        Me.ComplianceWorkNoDataLabel.TabIndex = 6
+        Me.ComplianceWorkNoDataLabel.Text = "No data found"
         '
-        'txtTrackingNumber
+        'OpenComplianceWorkButton
         '
-        Me.txtTrackingNumber.Location = New System.Drawing.Point(135, 7)
-        Me.txtTrackingNumber.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtTrackingNumber.Name = "txtTrackingNumber"
-        Me.txtTrackingNumber.Size = New System.Drawing.Size(82, 20)
-        Me.txtTrackingNumber.TabIndex = 4
+        Me.OpenComplianceWorkButton.Location = New System.Drawing.Point(204, 10)
+        Me.OpenComplianceWorkButton.Name = "OpenComplianceWorkButton"
+        Me.OpenComplianceWorkButton.Size = New System.Drawing.Size(75, 23)
+        Me.OpenComplianceWorkButton.TabIndex = 5
+        Me.OpenComplianceWorkButton.Text = "Open"
+        Me.OpenComplianceWorkButton.UseVisualStyleBackColor = True
         '
-        'Label13
+        'ComplianceWorkEntry
         '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(8, 10)
-        Me.Label13.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(123, 13)
-        Me.Label13.TabIndex = 3
-        Me.Label13.Text = "Event Tracking Number:"
+        Me.ComplianceWorkEntry.Location = New System.Drawing.Point(117, 12)
+        Me.ComplianceWorkEntry.Margin = New System.Windows.Forms.Padding(2)
+        Me.ComplianceWorkEntry.Name = "ComplianceWorkEntry"
+        Me.ComplianceWorkEntry.Size = New System.Drawing.Size(82, 20)
+        Me.ComplianceWorkEntry.TabIndex = 4
         '
-        'TPFCE
+        'ComplianceWorkLabel
         '
-        Me.TPFCE.Controls.Add(Me.dgvFCEData)
-        Me.TPFCE.Controls.Add(Me.Panel11)
-        Me.TPFCE.Location = New System.Drawing.Point(4, 22)
-        Me.TPFCE.Margin = New System.Windows.Forms.Padding(2)
-        Me.TPFCE.Name = "TPFCE"
-        Me.TPFCE.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.TPFCE.Size = New System.Drawing.Size(629, 321)
-        Me.TPFCE.TabIndex = 1
-        Me.TPFCE.Text = "Full Compliance Evaluation(s)"
-        Me.TPFCE.UseVisualStyleBackColor = True
+        Me.ComplianceWorkLabel.AutoSize = True
+        Me.ComplianceWorkLabel.Location = New System.Drawing.Point(21, 15)
+        Me.ComplianceWorkLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.ComplianceWorkLabel.Name = "ComplianceWorkLabel"
+        Me.ComplianceWorkLabel.Size = New System.Drawing.Size(92, 13)
+        Me.ComplianceWorkLabel.TabIndex = 3
+        Me.ComplianceWorkLabel.Text = "Tracking Number:"
         '
-        'dgvFCEData
+        'TPFce
         '
-        Me.dgvFCEData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvFCEData.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvFCEData.Location = New System.Drawing.Point(0, 30)
-        Me.dgvFCEData.Name = "dgvFCEData"
-        Me.dgvFCEData.ReadOnly = True
-        Me.dgvFCEData.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.dgvFCEData.Size = New System.Drawing.Size(629, 291)
-        Me.dgvFCEData.TabIndex = 3
+        Me.TPFce.Controls.Add(Me.ComplianceFceGrid)
+        Me.TPFce.Controls.Add(Me.ComplianceFcePanel)
+        Me.TPFce.Location = New System.Drawing.Point(4, 22)
+        Me.TPFce.Margin = New System.Windows.Forms.Padding(2)
+        Me.TPFce.Name = "TPFce"
+        Me.TPFce.Size = New System.Drawing.Size(629, 321)
+        Me.TPFce.TabIndex = 1
+        Me.TPFce.Text = "FCE"
+        Me.TPFce.UseVisualStyleBackColor = True
         '
-        'Panel11
+        'ComplianceFceGrid
         '
-        Me.Panel11.Controls.Add(Me.llbViewFCE)
-        Me.Panel11.Controls.Add(Me.txtFCEYear)
-        Me.Panel11.Controls.Add(Me.Label379)
-        Me.Panel11.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel11.Location = New System.Drawing.Point(0, 0)
-        Me.Panel11.Margin = New System.Windows.Forms.Padding(2)
-        Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(629, 30)
-        Me.Panel11.TabIndex = 0
+        Me.ComplianceFceGrid.AllowUserToAddRows = False
+        Me.ComplianceFceGrid.AllowUserToDeleteRows = False
+        Me.ComplianceFceGrid.AllowUserToOrderColumns = True
+        DataGridViewCellStyle26.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.ComplianceFceGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle26
+        Me.ComplianceFceGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.ComplianceFceGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.ComplianceFceGrid.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ComplianceFceGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.ComplianceFceGrid.Location = New System.Drawing.Point(0, 44)
+        Me.ComplianceFceGrid.Name = "ComplianceFceGrid"
+        Me.ComplianceFceGrid.ReadOnly = True
+        Me.ComplianceFceGrid.RowHeadersVisible = False
+        Me.ComplianceFceGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.ComplianceFceGrid.Size = New System.Drawing.Size(629, 277)
+        Me.ComplianceFceGrid.TabIndex = 5
         '
-        'llbViewFCE
+        'ComplianceFcePanel
         '
-        Me.llbViewFCE.AutoSize = True
-        Me.llbViewFCE.Location = New System.Drawing.Point(166, 10)
-        Me.llbViewFCE.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.llbViewFCE.Name = "llbViewFCE"
-        Me.llbViewFCE.Size = New System.Drawing.Size(53, 13)
-        Me.llbViewFCE.TabIndex = 8
-        Me.llbViewFCE.TabStop = True
-        Me.llbViewFCE.Text = "View FCE"
+        Me.ComplianceFcePanel.Controls.Add(Me.ComplianceFceNoDataLabel)
+        Me.ComplianceFcePanel.Controls.Add(Me.OpenComplianceFceButton)
+        Me.ComplianceFcePanel.Controls.Add(Me.ComplianceFceEntry)
+        Me.ComplianceFcePanel.Controls.Add(Me.ComplianceFceLabel)
+        Me.ComplianceFcePanel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.ComplianceFcePanel.Location = New System.Drawing.Point(0, 0)
+        Me.ComplianceFcePanel.Margin = New System.Windows.Forms.Padding(2)
+        Me.ComplianceFcePanel.Name = "ComplianceFcePanel"
+        Me.ComplianceFcePanel.Size = New System.Drawing.Size(629, 44)
+        Me.ComplianceFcePanel.TabIndex = 4
         '
-        'txtFCEYear
+        'ComplianceFceNoDataLabel
         '
-        Me.txtFCEYear.Location = New System.Drawing.Point(64, 7)
-        Me.txtFCEYear.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtFCEYear.Name = "txtFCEYear"
-        Me.txtFCEYear.Size = New System.Drawing.Size(91, 20)
-        Me.txtFCEYear.TabIndex = 7
+        Me.ComplianceFceNoDataLabel.AutoSize = True
+        Me.ComplianceFceNoDataLabel.Location = New System.Drawing.Point(295, 15)
+        Me.ComplianceFceNoDataLabel.Name = "ComplianceFceNoDataLabel"
+        Me.ComplianceFceNoDataLabel.Size = New System.Drawing.Size(75, 13)
+        Me.ComplianceFceNoDataLabel.TabIndex = 7
+        Me.ComplianceFceNoDataLabel.Text = "No data found"
         '
-        'Label379
+        'OpenComplianceFceButton
         '
-        Me.Label379.AutoSize = True
-        Me.Label379.Location = New System.Drawing.Point(8, 10)
-        Me.Label379.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label379.Name = "Label379"
-        Me.Label379.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label379.Size = New System.Drawing.Size(55, 13)
-        Me.Label379.TabIndex = 6
-        Me.Label379.Text = "FCE Year:"
+        Me.OpenComplianceFceButton.Location = New System.Drawing.Point(204, 10)
+        Me.OpenComplianceFceButton.Name = "OpenComplianceFceButton"
+        Me.OpenComplianceFceButton.Size = New System.Drawing.Size(75, 23)
+        Me.OpenComplianceFceButton.TabIndex = 5
+        Me.OpenComplianceFceButton.Text = "Open"
+        Me.OpenComplianceFceButton.UseVisualStyleBackColor = True
+        '
+        'ComplianceFceEntry
+        '
+        Me.ComplianceFceEntry.Location = New System.Drawing.Point(117, 12)
+        Me.ComplianceFceEntry.Margin = New System.Windows.Forms.Padding(2)
+        Me.ComplianceFceEntry.Name = "ComplianceFceEntry"
+        Me.ComplianceFceEntry.Size = New System.Drawing.Size(82, 20)
+        Me.ComplianceFceEntry.TabIndex = 4
+        '
+        'ComplianceFceLabel
+        '
+        Me.ComplianceFceLabel.AutoSize = True
+        Me.ComplianceFceLabel.Location = New System.Drawing.Point(43, 15)
+        Me.ComplianceFceLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.ComplianceFceLabel.Name = "ComplianceFceLabel"
+        Me.ComplianceFceLabel.Size = New System.Drawing.Size(70, 13)
+        Me.ComplianceFceLabel.TabIndex = 3
+        Me.ComplianceFceLabel.Text = "FCE Number:"
         '
         'TPEnforcement
         '
-        Me.TPEnforcement.Controls.Add(Me.dgvSSCPEnforcement)
-        Me.TPEnforcement.Controls.Add(Me.PanelSSCPEnforcement)
+        Me.TPEnforcement.Controls.Add(Me.ComplianceEnforcementGrid)
+        Me.TPEnforcement.Controls.Add(Me.ComplianceEnforcementPanel)
         Me.TPEnforcement.Location = New System.Drawing.Point(4, 22)
         Me.TPEnforcement.Margin = New System.Windows.Forms.Padding(2)
         Me.TPEnforcement.Name = "TPEnforcement"
@@ -2553,56 +2613,73 @@ Partial Class IAIPFacilitySummary
         Me.TPEnforcement.Text = "Enforcement"
         Me.TPEnforcement.UseVisualStyleBackColor = True
         '
-        'dgvSSCPEnforcement
+        'ComplianceEnforcementGrid
         '
-        Me.dgvSSCPEnforcement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvSSCPEnforcement.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvSSCPEnforcement.Location = New System.Drawing.Point(0, 30)
-        Me.dgvSSCPEnforcement.Name = "dgvSSCPEnforcement"
-        Me.dgvSSCPEnforcement.ReadOnly = True
-        Me.dgvSSCPEnforcement.Size = New System.Drawing.Size(629, 291)
-        Me.dgvSSCPEnforcement.TabIndex = 3
+        Me.ComplianceEnforcementGrid.AllowUserToAddRows = False
+        Me.ComplianceEnforcementGrid.AllowUserToDeleteRows = False
+        Me.ComplianceEnforcementGrid.AllowUserToOrderColumns = True
+        DataGridViewCellStyle27.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.ComplianceEnforcementGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle27
+        Me.ComplianceEnforcementGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.ComplianceEnforcementGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.ComplianceEnforcementGrid.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ComplianceEnforcementGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.ComplianceEnforcementGrid.Location = New System.Drawing.Point(0, 44)
+        Me.ComplianceEnforcementGrid.Name = "ComplianceEnforcementGrid"
+        Me.ComplianceEnforcementGrid.ReadOnly = True
+        Me.ComplianceEnforcementGrid.RowHeadersVisible = False
+        Me.ComplianceEnforcementGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.ComplianceEnforcementGrid.Size = New System.Drawing.Size(629, 277)
+        Me.ComplianceEnforcementGrid.TabIndex = 7
         '
-        'PanelSSCPEnforcement
+        'ComplianceEnforcementPanel
         '
-        Me.PanelSSCPEnforcement.Controls.Add(Me.llbViewSSCPEnforcement)
-        Me.PanelSSCPEnforcement.Controls.Add(Me.txtEnforcementNumber)
-        Me.PanelSSCPEnforcement.Controls.Add(Me.Label375)
-        Me.PanelSSCPEnforcement.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelSSCPEnforcement.Location = New System.Drawing.Point(0, 0)
-        Me.PanelSSCPEnforcement.Margin = New System.Windows.Forms.Padding(2)
-        Me.PanelSSCPEnforcement.Name = "PanelSSCPEnforcement"
-        Me.PanelSSCPEnforcement.Size = New System.Drawing.Size(629, 30)
-        Me.PanelSSCPEnforcement.TabIndex = 0
+        Me.ComplianceEnforcementPanel.Controls.Add(Me.ComplianceEnforcementNoDataLabel)
+        Me.ComplianceEnforcementPanel.Controls.Add(Me.OpenComplianceEnforcementButton)
+        Me.ComplianceEnforcementPanel.Controls.Add(Me.ComplianceEnforcementEntry)
+        Me.ComplianceEnforcementPanel.Controls.Add(Me.ComplianceEnforcementLabel)
+        Me.ComplianceEnforcementPanel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.ComplianceEnforcementPanel.Location = New System.Drawing.Point(0, 0)
+        Me.ComplianceEnforcementPanel.Margin = New System.Windows.Forms.Padding(2)
+        Me.ComplianceEnforcementPanel.Name = "ComplianceEnforcementPanel"
+        Me.ComplianceEnforcementPanel.Size = New System.Drawing.Size(629, 44)
+        Me.ComplianceEnforcementPanel.TabIndex = 6
         '
-        'llbViewSSCPEnforcement
+        'ComplianceEnforcementNoDataLabel
         '
-        Me.llbViewSSCPEnforcement.AutoSize = True
-        Me.llbViewSSCPEnforcement.Location = New System.Drawing.Point(216, 10)
-        Me.llbViewSSCPEnforcement.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.llbViewSSCPEnforcement.Name = "llbViewSSCPEnforcement"
-        Me.llbViewSSCPEnforcement.Size = New System.Drawing.Size(93, 13)
-        Me.llbViewSSCPEnforcement.TabIndex = 8
-        Me.llbViewSSCPEnforcement.TabStop = True
-        Me.llbViewSSCPEnforcement.Text = "View Enforcement"
+        Me.ComplianceEnforcementNoDataLabel.AutoSize = True
+        Me.ComplianceEnforcementNoDataLabel.Location = New System.Drawing.Point(295, 15)
+        Me.ComplianceEnforcementNoDataLabel.Name = "ComplianceEnforcementNoDataLabel"
+        Me.ComplianceEnforcementNoDataLabel.Size = New System.Drawing.Size(75, 13)
+        Me.ComplianceEnforcementNoDataLabel.TabIndex = 7
+        Me.ComplianceEnforcementNoDataLabel.Text = "No data found"
         '
-        'txtEnforcementNumber
+        'OpenComplianceEnforcementButton
         '
-        Me.txtEnforcementNumber.Location = New System.Drawing.Point(116, 7)
-        Me.txtEnforcementNumber.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtEnforcementNumber.Name = "txtEnforcementNumber"
-        Me.txtEnforcementNumber.Size = New System.Drawing.Size(91, 20)
-        Me.txtEnforcementNumber.TabIndex = 7
+        Me.OpenComplianceEnforcementButton.Location = New System.Drawing.Point(204, 10)
+        Me.OpenComplianceEnforcementButton.Name = "OpenComplianceEnforcementButton"
+        Me.OpenComplianceEnforcementButton.Size = New System.Drawing.Size(75, 23)
+        Me.OpenComplianceEnforcementButton.TabIndex = 5
+        Me.OpenComplianceEnforcementButton.Text = "Open"
+        Me.OpenComplianceEnforcementButton.UseVisualStyleBackColor = True
         '
-        'Label375
+        'ComplianceEnforcementEntry
         '
-        Me.Label375.AutoSize = True
-        Me.Label375.Location = New System.Drawing.Point(8, 10)
-        Me.Label375.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label375.Name = "Label375"
-        Me.Label375.Size = New System.Drawing.Size(110, 13)
-        Me.Label375.TabIndex = 6
-        Me.Label375.Text = "Enforcement Number:"
+        Me.ComplianceEnforcementEntry.Location = New System.Drawing.Point(117, 12)
+        Me.ComplianceEnforcementEntry.Margin = New System.Windows.Forms.Padding(2)
+        Me.ComplianceEnforcementEntry.Name = "ComplianceEnforcementEntry"
+        Me.ComplianceEnforcementEntry.Size = New System.Drawing.Size(82, 20)
+        Me.ComplianceEnforcementEntry.TabIndex = 4
+        '
+        'ComplianceEnforcementLabel
+        '
+        Me.ComplianceEnforcementLabel.AutoSize = True
+        Me.ComplianceEnforcementLabel.Location = New System.Drawing.Point(3, 15)
+        Me.ComplianceEnforcementLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.ComplianceEnforcementLabel.Name = "ComplianceEnforcementLabel"
+        Me.ComplianceEnforcementLabel.Size = New System.Drawing.Size(110, 13)
+        Me.ComplianceEnforcementLabel.TabIndex = 3
+        Me.ComplianceEnforcementLabel.Text = "Enforcement Number:"
         '
         'FSPermitting
         '
@@ -2767,8 +2844,8 @@ Partial Class IAIPFacilitySummary
         Me.dgvPermits.AllowUserToDeleteRows = False
         Me.dgvPermits.AllowUserToOrderColumns = True
         Me.dgvPermits.AllowUserToResizeRows = False
-        DataGridViewCellStyle11.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvPermits.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle28.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvPermits.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle28
         Me.dgvPermits.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvPermits.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText
         Me.dgvPermits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -3396,18 +3473,18 @@ Partial Class IAIPFacilitySummary
         Me.PanelISMPMemo.PerformLayout()
         Me.FSCompliance.ResumeLayout(False)
         Me.ComplianceTabControl.ResumeLayout(False)
-        Me.TPComplianceEvents.ResumeLayout(False)
-        CType(Me.dgvSSCPEvents, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.PanelSSCPEvents.ResumeLayout(False)
-        Me.PanelSSCPEvents.PerformLayout()
-        Me.TPFCE.ResumeLayout(False)
-        CType(Me.dgvFCEData, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel11.ResumeLayout(False)
-        Me.Panel11.PerformLayout()
+        Me.TPComplianceWork.ResumeLayout(False)
+        CType(Me.ComplianceWorkGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ComplianceWorkPanel.ResumeLayout(False)
+        Me.ComplianceWorkPanel.PerformLayout()
+        Me.TPFce.ResumeLayout(False)
+        CType(Me.ComplianceFceGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ComplianceFcePanel.ResumeLayout(False)
+        Me.ComplianceFcePanel.PerformLayout()
         Me.TPEnforcement.ResumeLayout(False)
-        CType(Me.dgvSSCPEnforcement, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.PanelSSCPEnforcement.ResumeLayout(False)
-        Me.PanelSSCPEnforcement.PerformLayout()
+        CType(Me.ComplianceEnforcementGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ComplianceEnforcementPanel.ResumeLayout(False)
+        Me.ComplianceEnforcementPanel.PerformLayout()
         Me.FSPermitting.ResumeLayout(False)
         Me.PermittingTabControl.ResumeLayout(False)
         Me.TPAppLog.ResumeLayout(False)
@@ -3550,24 +3627,9 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents txtReferenceNumber2 As System.Windows.Forms.TextBox
     Friend WithEvents Label374 As System.Windows.Forms.Label
     Friend WithEvents ComplianceTabControl As System.Windows.Forms.TabControl
-    Friend WithEvents TPComplianceEvents As System.Windows.Forms.TabPage
-    Friend WithEvents dgvSSCPEvents As System.Windows.Forms.DataGridView
-    Friend WithEvents PanelSSCPEvents As System.Windows.Forms.Panel
-    Friend WithEvents llbViewComplianceEvent As System.Windows.Forms.LinkLabel
-    Friend WithEvents txtTrackingNumber As System.Windows.Forms.TextBox
-    Friend WithEvents Label13 As System.Windows.Forms.Label
-    Friend WithEvents TPFCE As System.Windows.Forms.TabPage
-    Friend WithEvents dgvFCEData As System.Windows.Forms.DataGridView
-    Friend WithEvents Panel11 As System.Windows.Forms.Panel
-    Friend WithEvents llbViewFCE As System.Windows.Forms.LinkLabel
-    Friend WithEvents txtFCEYear As System.Windows.Forms.TextBox
-    Friend WithEvents Label379 As System.Windows.Forms.Label
+    Friend WithEvents TPComplianceWork As System.Windows.Forms.TabPage
+    Friend WithEvents TPFce As System.Windows.Forms.TabPage
     Friend WithEvents TPEnforcement As System.Windows.Forms.TabPage
-    Friend WithEvents dgvSSCPEnforcement As System.Windows.Forms.DataGridView
-    Friend WithEvents PanelSSCPEnforcement As System.Windows.Forms.Panel
-    Friend WithEvents llbViewSSCPEnforcement As System.Windows.Forms.LinkLabel
-    Friend WithEvents txtEnforcementNumber As System.Windows.Forms.TextBox
-    Friend WithEvents Label375 As System.Windows.Forms.Label
     Friend WithEvents PermittingTabControl As System.Windows.Forms.TabControl
     Friend WithEvents TPAppLog As System.Windows.Forms.TabPage
     Friend WithEvents dgvApplicationLog As System.Windows.Forms.DataGridView
@@ -3600,7 +3662,7 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents dgvEISData As System.Windows.Forms.DataGridView
     Friend WithEvents TPPermits As System.Windows.Forms.TabPage
     Friend WithEvents dgvPermits As System.Windows.Forms.DataGridView
-    Friend WithEvents ViewData As System.Windows.Forms.Button
+    Friend WithEvents ViewDataButton As System.Windows.Forms.Button
     Friend WithEvents FacilityApprovalLinkLabel As System.Windows.Forms.LinkLabel
     Friend WithEvents AirsNumberEntry As System.Windows.Forms.TextBox
     Friend WithEvents FSMenuStrip As System.Windows.Forms.MenuStrip
@@ -3703,4 +3765,22 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents AirProgramsListBox As System.Windows.Forms.ListBox
     Friend WithEvents ProgramClassificationsLabel As System.Windows.Forms.Label
     Friend WithEvents AirProgramsLabel As System.Windows.Forms.Label
+    Friend WithEvents ComplianceWorkGrid As System.Windows.Forms.DataGridView
+    Friend WithEvents ComplianceWorkPanel As System.Windows.Forms.Panel
+    Friend WithEvents OpenComplianceWorkButton As System.Windows.Forms.Button
+    Friend WithEvents ComplianceWorkEntry As System.Windows.Forms.TextBox
+    Friend WithEvents ComplianceWorkLabel As System.Windows.Forms.Label
+    Friend WithEvents ComplianceFceGrid As System.Windows.Forms.DataGridView
+    Friend WithEvents ComplianceFcePanel As System.Windows.Forms.Panel
+    Friend WithEvents OpenComplianceFceButton As System.Windows.Forms.Button
+    Friend WithEvents ComplianceFceEntry As System.Windows.Forms.TextBox
+    Friend WithEvents ComplianceFceLabel As System.Windows.Forms.Label
+    Friend WithEvents ComplianceEnforcementGrid As System.Windows.Forms.DataGridView
+    Friend WithEvents ComplianceEnforcementPanel As System.Windows.Forms.Panel
+    Friend WithEvents OpenComplianceEnforcementButton As System.Windows.Forms.Button
+    Friend WithEvents ComplianceEnforcementEntry As System.Windows.Forms.TextBox
+    Friend WithEvents ComplianceEnforcementLabel As System.Windows.Forms.Label
+    Friend WithEvents ComplianceWorkNoDataLabel As System.Windows.Forms.Label
+    Friend WithEvents ComplianceFceNoDataLabel As System.Windows.Forms.Label
+    Friend WithEvents ComplianceEnforcementNoDataLabel As System.Windows.Forms.Label
 End Class

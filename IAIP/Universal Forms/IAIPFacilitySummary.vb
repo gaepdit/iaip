@@ -1,8 +1,9 @@
-﻿Imports Oracle.DataAccess.Client
+﻿Imports Oracle.DataAccess.Client ' TODO: remove
 Imports System.Collections.Generic
 Imports Iaip.Apb
 Imports Iaip.Apb.ApbFacilityId
 Imports Iaip.Apb.Facilities
+Imports Iaip.DAL.FacilitySummary
 
 Public Class IAIPFacilitySummary
 
@@ -13,13 +14,6 @@ Public Class IAIPFacilitySummary
     Dim daFacilityWideData As OracleDataAdapter
     Dim dsISMP As DataSet
     Dim daISMP As OracleDataAdapter
-    Dim dsSSCP As DataSet
-    Dim daSSCP As OracleDataAdapter
-    Dim dsSSPP As DataSet
-    Dim daSSPP As OracleDataAdapter
-    Dim ds As DataSet
-    Dim da As OracleDataAdapter
-    Dim SQLLine As String
 
 #End Region
 
@@ -49,8 +43,15 @@ Public Class IAIPFacilitySummary
         End Set
     End Property
 
-    Private selectedFacility As New Facility
-    Private selectedFacilityDataSet As New DataSet
+    Private thisFacility As Facility
+    Private thisFacilityDataSet As DataSet
+
+    Private Enum WhichTable
+        ComplianceWork
+        ComplianceEnforcement
+        ComplianceFCE
+        Fees
+    End Enum
 
 #End Region
 
@@ -59,6 +60,9 @@ Public Class IAIPFacilitySummary
     Private Sub IAIPFacilitySummary_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         monitor.TrackFeature("Forms." & Me.Name)
         LoadPermissions()
+        InitializeDataTables()
+        InitializeAcceptButtonDictionary()
+        InitializeGridSelectionDictionary()
     End Sub
 
     Private Sub IAIPFacilitySummary_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
@@ -83,7 +87,7 @@ Public Class IAIPFacilitySummary
 
         ' Close/Print Test Reports
         llbClosePrintTestReport.Visible = UserAccounts.Contains("(118)")
-        
+
         ' Edit location/header data
         If UserUnit = "---" Or AccountFormAccess(22, 3) = "1" Or AccountFormAccess(1, 3) = "1" Then
             EditFacilityLocationButton.Visible = True
@@ -94,20 +98,29 @@ Public Class IAIPFacilitySummary
         End If
     End Sub
 
+    Private Sub InitializeDataTables()
+        thisFacilityDataSet = New DataSet
+        With thisFacilityDataSet.Tables
+            .Add(WhichTable.ComplianceWork.ToString)
+            .Add(WhichTable.ComplianceEnforcement.ToString)
+            .Add(WhichTable.ComplianceFCE.ToString)
+            .Add(WhichTable.Fees.ToString)
+        End With
+    End Sub
+
 #End Region
 
 #Region " Clear all data "
 
     Private Sub ClearAllData()
-        selectedFacility = Nothing
-        selectedFacilityDataSet = Nothing
+        thisFacility = Nothing
+        thisFacilityDataSet.Clear()
 
         DisableFacilityTools()
 
         'TODO: Fill this out as more data is configured
         ClearBasicFacilityData()
         ClearHeaderData()
-
 
     End Sub
 
@@ -168,16 +181,16 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub LoadBasicFacilityAndHeaderData()
-        selectedFacility = DAL.FacilityModule.GetFacility(Me.AirsNumber)
+        thisFacility = DAL.FacilityModule.GetFacility(Me.AirsNumber)
 
-        If selectedFacility Is Nothing Then
+        If thisFacility Is Nothing Then
             FacilityNameDisplay.Text = "Facility does not exist"
             AirsNumberEntry.BackColor = Color.Bisque
             AirsNumberEntry.Focus()
         Else
             EnableFacilityTools()
-            selectedFacility.RetrieveHeaderData()
-            selectedFacility.RetrieveComplianceStatusList()
+            thisFacility.RetrieveHeaderData()
+            thisFacility.RetrieveComplianceStatusList()
             DisplayBasicFacilityData()
             DisplayHeaderData()
         End If
@@ -188,7 +201,7 @@ Public Class IAIPFacilitySummary
         'Navigation Panel
         AirsNumberEntry.Text = Me.AirsNumber.FormattedString
 
-        With selectedFacility
+        With thisFacility
 
             FacilityNameDisplay.Text = .FacilityName
             FacilityApprovalLinkLabel.Visible = Not .ApprovedByApb
@@ -247,9 +260,9 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub ColorCodeComplianceStatusDisplay()
-        If selectedFacility.ControllingComplianceStatus > 20 Then
+        If thisFacility.ControllingComplianceStatus > 20 Then
             ComplianceStatusDisplay.BackColor = Color.Pink
-        ElseIf selectedFacility.ControllingComplianceStatus > 10 Then
+        ElseIf thisFacility.ControllingComplianceStatus > 10 Then
             ComplianceStatusDisplay.BackColor = Color.LemonChiffon
         Else
             ComplianceStatusDisplay.BackColor = SystemColors.ControlLightLight
@@ -257,7 +270,7 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub ColorCodeCmsDisplay()
-        With selectedFacility.HeaderData
+        With thisFacility.HeaderData
             If (.CmsMember = FacilityCmsMember.A And .Classification <> FacilityClassification.A) _
             OrElse (.CmsMember = FacilityCmsMember.S And .Classification <> FacilityClassification.SM) Then
                 CmsDisplay.BackColor = Color.Pink
@@ -269,15 +282,15 @@ Public Class IAIPFacilitySummary
 
 #End Region
 
-#Region " Basic Info TabPage functionality "
+#Region " Basic Info tab functionality "
 
     Private Sub MapAddressLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles MapAddressLink.LinkClicked
-        OpenMapUrl(selectedFacility.FacilityLocation.Address.ToLinearString, Me)
+        OpenMapUrl(thisFacility.FacilityLocation.Address.ToLinearString, Me)
     End Sub
 
     Private Sub MapLatLonLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles MapLatLonLink.LinkClicked
-        OpenMapUrl(selectedFacility.FacilityLocation.Latitude.ToString & "," & _
-                   selectedFacility.FacilityLocation.Longitude.ToString, Me)
+        OpenMapUrl(thisFacility.FacilityLocation.Latitude.ToString & "," & _
+                   thisFacility.FacilityLocation.Longitude.ToString, Me)
     End Sub
 
 #End Region
@@ -310,7 +323,7 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub DisplayHeaderData()
-        With selectedFacility.HeaderData
+        With thisFacility.HeaderData
             'Status
             HeaderClassDisplay.Text = .ClassificationDescription
             HeaderOperStatusDisplay.Text = .OperationalStatusDescription
@@ -376,11 +389,192 @@ Public Class IAIPFacilitySummary
 
 #End Region
 
-#Region " Fees Data "
+#Region " Generic data procedures "
+
+    Private Sub LoadData(ByVal table As WhichTable)
+        If Me.AirsNumber Is Nothing OrElse Me.thisFacility Is Nothing Then Exit Sub
+        If TableDataExists(table) Then Exit Sub
+
+        With thisFacilityDataSet.Tables(table.ToString)
+            .Merge(GetData(table), False, MissingSchemaAction.Add)
+            If .Rows.Count > 0 Then SetUpGrid(table)
+            DisplayNoDataMessage(table, .Rows.Count = 0)
+        End With
+    End Sub
+
+    Private Function TableDataExists(ByVal whichTable As WhichTable) As Boolean
+        Return thisFacilityDataSet.Tables(whichTable.ToString).Rows.Count > 0
+    End Function
+
+    Private Function GetData(ByVal table As WhichTable) As DataTable
+        Select Case table
+            Case WhichTable.ComplianceWork
+                Return GetComplianceWorkData(Me.AirsNumber)
+            Case WhichTable.ComplianceFCE
+                Return GetComplianceFceData(Me.AirsNumber)
+            Case WhichTable.ComplianceEnforcement
+                Return GetComplianceEnforcementData(Me.AirsNumber)
+            Case Else
+                Return Nothing
+        End Select
+    End Function
+
+    Private Sub SetUpGrid(ByVal table As WhichTable)
+        Select Case table
+            Case WhichTable.ComplianceWork
+                SetUpComplianceWorkGrid()
+            Case WhichTable.ComplianceFCE
+                SetUpComplianceFceGrid()
+            Case WhichTable.ComplianceEnforcement
+                SetUpComplianceEnforcementGrid()
+
+        End Select
+    End Sub
+
+    Private Sub DisplayNoDataMessage(ByVal table As WhichTable, ByVal display As Boolean)
+        Select Case table
+            Case WhichTable.ComplianceWork
+                ComplianceWorkNoDataLabel.Visible = display
+            Case WhichTable.ComplianceFCE
+                ComplianceFceNoDataLabel.Visible = display
+            Case WhichTable.ComplianceEnforcement
+                ComplianceEnforcementNoDataLabel.Visible = display
+
+        End Select
+    End Sub
+
+#End Region
+
+#Region " AcceptButton "
+
+    Private AcceptButtonDictionary As New Dictionary(Of TextBox, Button)
+    Private Sub InitializeAcceptButtonDictionary()
+        ' Navigation Panel
+        AcceptButtonDictionary.Add(AirsNumberEntry, ViewDataButton)
+
+        'Compliance tab
+        AcceptButtonDictionary.Add(ComplianceWorkEntry, OpenComplianceWorkButton)
+        AcceptButtonDictionary.Add(ComplianceFceEntry, OpenComplianceFceButton)
+        AcceptButtonDictionary.Add(ComplianceEnforcementEntry, OpenComplianceEnforcementButton)
+
+    End Sub
+
+    Private Sub AddAcceptButton(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles AirsNumberEntry.Enter, _
+    ComplianceWorkEntry.Enter, ComplianceFceEntry.Enter, ComplianceEnforcementEntry.Enter
+        If TypeOf (sender) Is TextBox Then
+            Me.AcceptButton = AcceptButtonDictionary(sender)
+        End If
+    End Sub
+
+    Private Sub RemoveAcceptButton(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles AirsNumberEntry.Leave, _
+    ComplianceWorkEntry.Leave, ComplianceFceEntry.Leave, ComplianceEnforcementEntry.Leave
+        Me.AcceptButton = Nothing
+    End Sub
+
+#End Region
+
+#Region " Grid Selection "
+
+    Private GridSelectionDictionary As New Dictionary(Of DataGridView, TextBox)
+    Private Sub InitializeGridSelectionDictionary()
+        'Compliance tab
+        GridSelectionDictionary.Add(ComplianceEnforcementGrid, ComplianceEnforcementEntry)
+        GridSelectionDictionary.Add(ComplianceFceGrid, ComplianceFceEntry)
+        GridSelectionDictionary.Add(ComplianceWorkGrid, ComplianceWorkEntry)
+    End Sub
+
+    Private Sub HandleGridSelection(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
+    Handles ComplianceWorkGrid.CellEnter, ComplianceFceGrid.CellEnter, ComplianceEnforcementGrid.CellEnter
+        If TypeOf (sender) Is DataGridView Then
+            Dim dgv As DataGridView = CType(sender, DataGridView)
+            If e.RowIndex <> -1 AndAlso e.RowIndex < dgv.RowCount Then
+                GridSelectionDictionary(dgv).Text = dgv(0, e.RowIndex).FormattedValue
+            End If
+        End If
+    End Sub
+
+#End Region
+
+#Region " Compliance Data "
+
+    Private Sub LoadComplianceData()
+        LoadData(WhichTable.ComplianceWork)
+        LoadData(WhichTable.ComplianceFCE)
+        LoadData(WhichTable.ComplianceEnforcement)
+    End Sub
+
+    Private Sub SetUpComplianceWorkGrid()
+        With ComplianceWorkGrid
+            If .DataSource Is Nothing Then
+                .DataSource = thisFacilityDataSet.Tables(WhichTable.ComplianceWork.ToString)
+                .Columns("STRAIRSNUMBER").Visible = False
+                .Columns("STRTRACKINGNUMBER").HeaderText = "Tracking Number"
+                .Columns("STRTRACKINGNUMBER").DisplayIndex = 0
+                .Columns("STRACTIVITYNAME").HeaderText = "Event Type"
+                .Columns("RECEIVEDDATE").HeaderText = "Date Received"
+                .Columns("RECEIVEDDATE").DefaultCellStyle.Format = DateFormat
+                .Columns("DATRECEIVEDDATE").Visible = False
+            End If
+        End With
+    End Sub
+
+    Private Sub SetUpComplianceEnforcementGrid()
+        With ComplianceEnforcementGrid
+            If .DataSource Is Nothing Then
+                .DataSource = thisFacilityDataSet.Tables(WhichTable.ComplianceEnforcement.ToString)
+                .Columns("STRENFORCEMENTNUMBER").HeaderText = "Enforcement Number"
+                .Columns("STRENFORCEMENTNUMBER").DisplayIndex = 0
+                .Columns("ViolationDate").HeaderText = "Discovery Date"
+                .Columns("ViolationDate").DefaultCellStyle.Format = DateFormat
+                .Columns("HPVStatus").HeaderText = "HPV Status"
+                .Columns("Status").HeaderText = "Status"
+            End If
+        End With
+    End Sub
+
+    Private Sub SetUpComplianceFceGrid()
+        With ComplianceFceGrid
+            If .DataSource Is Nothing Then
+                .DataSource = thisFacilityDataSet.Tables(WhichTable.ComplianceFCE.ToString)
+                .Columns("FCEYear").HeaderText = "FCE Year"
+                .Columns("FCEYear").DisplayIndex = 0
+                .Columns("FCECompleted").HeaderText = "Date Completed"
+                .Columns("FCECompleted").DefaultCellStyle.Format = DateFormat
+                .Columns("FCECompleted").DisplayIndex = 1
+                .Columns("ReviewingEngineer").HeaderText = "Reviewing Engineer"
+                .Columns("ReviewingEngineer").DisplayIndex = 2
+                .Columns("STRFCECOMMENTS").HeaderText = "Comments"
+                .Columns("STRFCECOMMENTS").DisplayIndex = 3
+                .Columns("STRFCENUMBER").Visible = False
+                .Columns("STRFCENUMBER").DisplayIndex = 4
+            End If
+        End With
+    End Sub
+
+#End Region
+
+#Region " Compliance Tab events "
+
+    Private Sub OpenComplianceWorkButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OpenComplianceWorkButton.Click
+        OpenFormSscpWorkItem(ComplianceWorkEntry.Text)
+    End Sub
+
+    Private Sub OpenComplianceFceButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OpenComplianceFceButton.Click
+
+    End Sub
+
+    Private Sub OpenComplianceEnforcementButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OpenComplianceEnforcementButton.Click
+
+    End Sub
+
+#End Region
+
+#Region " ... Fees Data "
 
     Private Sub LoadFeesData()
         Try
-            Dim PollutantStatus As String = ""
             Dim dtFacilityWideData As New DataTable
             Dim drDSRow As DataRow
             dsFacilityWideData = New DataSet
@@ -583,52 +777,13 @@ Public Class IAIPFacilitySummary
 
 #End Region
 
-    Private Sub ClearForm()
-        'If FSTabControl.TabPages.Contains(FSContacts) = True Then
-        '    txtSSCPContact.Clear()
-        '    txtSSCPUnit.Clear()
-        '    txtSSPPContact.Clear()
-        '    txtSSPPUnit.Clear()
-        '    txtISMPContact.Clear()
-        '    txtISMPUnit.Clear()
-        '    txtDistrictEngineer.Clear()
-        '    txtDistrictUnit.Clear()
-        '    FSTabControl.TabPages.Remove(FSContacts)
-        'End If
-        'If FSTabControl.TabPages.Contains(FSEmissionInventory) = True Then
-        '    FSTabControl.TabPages.Remove(FSEmissionInventory)
-        'End If
-        'If FSTabControl.TabPages.Contains(FSTesting) = True Then
-        '    FSTabControl.TabPages.Remove(FSTesting)
-        'End If
-        'If FSTabControl.TabPages.Contains(FSCompliance) = True Then
-        '    FSTabControl.TabPages.Remove(FSCompliance)
-        'End If
-        'If FSTabControl.TabPages.Contains(FSPermitting) = True Then
-        '    FSTabControl.TabPages.Remove(FSPermitting)
-        'End If
-        'If FSTabControl.TabPages.Contains(FSFinancial) = True Then
-        '    FSTabControl.TabPages.Remove(FSFinancial)
-        'End If
-
-        'txtReferenceNumber.Clear()
-        'txtTestingNumber.Clear()
-        'txtReferenceNumber2.Clear()
-        'txtTrackingNumber.Clear()
-        'txtFCEYear.Clear()
-        'txtEnforcementNumber.Clear()
-        'txtApplicationNumber.Clear()
-        'EditSubpartsButton.Visible = False
-
-    End Sub
-
 #Region " ... open other forms"
 
     Private Sub OpenEditContactInformationTool()
         If Me.AirsNumber IsNot Nothing Then
             Dim parameters As New Dictionary(Of String, String)
             parameters("airsnumber") = Me.AirsNumber.ShortString
-            parameters("facilityname") = Me.selectedFacility.FacilityName
+            parameters("facilityname") = Me.thisFacility.FacilityName
             OpenMultiForm("IAIPEditContacts", Me.AirsNumber.ShortString, parameters)
         End If
     End Sub
@@ -640,7 +795,7 @@ Public Class IAIPFacilitySummary
             If facilityLookupDialog.DialogResult = Windows.Forms.DialogResult.OK _
             AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
                 Me.ValueFromFacilityLookUp = facilityLookupDialog.SelectedAirsNumber
-                ClearForm()
+                'ClearForm()
                 LoadFeesData()
             End If
         Catch ex As Exception
@@ -664,7 +819,7 @@ Public Class IAIPFacilitySummary
                 FacilityPrintOut.Show()
             End If
             FacilityPrintOut.AirsNumber.Text = Me.AirsNumber.ShortString
-            FacilityPrintOut.FacilityName.Text = Me.selectedFacility.FacilityName
+            FacilityPrintOut.FacilityName.Text = Me.thisFacility.FacilityName
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -693,7 +848,7 @@ Public Class IAIPFacilitySummary
 
             Dim editHeaderDataDialog As New IAIPEditHeaderData
             editHeaderDataDialog.AirsNumber = Me.AirsNumber.ToString
-            editHeaderDataDialog.FacilityName = Me.selectedFacility.FacilityName
+            editHeaderDataDialog.FacilityName = Me.thisFacility.FacilityName
 
             editHeaderDataDialog.ShowDialog()
 
@@ -990,7 +1145,7 @@ Public Class IAIPFacilitySummary
                     ISMPCloseAndPrint.txtTestReportType.Text = dr.Item("strDocumentType")
                     ISMPCloseAndPrint.txtReferenceNumber.Text = txtReferenceNumber.Text
                     ISMPCloseAndPrint.txtAIRSNumber.Text = Me.AirsNumber.ToString
-                    ISMPCloseAndPrint.txtFacilityName.Text = selectedFacility.FacilityName
+                    ISMPCloseAndPrint.txtFacilityName.Text = thisFacility.FacilityName
                     ISMPCloseAndPrint.txtOrigin.Text = "Facility Summary"
                     ISMPCloseAndPrint.Show()
                 End If
@@ -1039,89 +1194,30 @@ Public Class IAIPFacilitySummary
 #End Region
 
 #Region " ... SSCP Compliance Work"
-    Private Sub dgvSSCPEvents_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvSSCPEvents.MouseUp
-        Dim hti As DataGridView.HitTestInfo = dgvSSCPEvents.HitTest(e.X, e.Y)
+    Private Sub llbViewSSCPEnforcement_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs)
+        'Try
 
-        Try
-            If dgvSSCPEvents.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvSSCPEvents.Columns(1).HeaderText = "Tracking Number" Then
-                    txtTrackingNumber.Text = dgvSSCPEvents(1, hti.RowIndex).Value
-                End If
-            End If
+        '    Dim enfNum As String = txtEnforcementNumber.Text
+        '    If enfNum = "" Then Exit Sub
+        '    If DAL.SSCP.EnforcementExists(enfNum) Then
+        '        OpenMultiForm("SscpEnforcement", enfNum)
+        '    Else
+        '        MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
+        '    End If
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        'Catch ex As Exception
+        '    ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        'End Try
     End Sub
-    Private Sub dgvSSCPEnforcement_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvSSCPEnforcement.MouseUp
-        Dim hti As DataGridView.HitTestInfo = dgvSSCPEnforcement.HitTest(e.X, e.Y)
-
-        Try
-            If dgvSSCPEnforcement.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvSSCPEnforcement.Columns(0).HeaderText = "Enforcement Number" Then
-                    txtEnforcementNumber.Text = dgvSSCPEnforcement(0, hti.RowIndex).Value
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub dgvFCEData_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvFCEData.MouseUp
-        Dim hti As DataGridView.HitTestInfo = dgvFCEData.HitTest(e.X, e.Y)
-
-        Try
-            If dgvFCEData.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvFCEData.Columns(4).HeaderText = "FCE Year" Then
-                    txtFCEYear.Text = dgvFCEData(4, hti.RowIndex).Value
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub llbViewComplianceEvent_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewComplianceEvent.LinkClicked
-        Try
-
-            If txtTrackingNumber.Text <> "" Then
-                SSCPReports = Nothing
-                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                SSCPReports.txtTrackingNumber.Text = txtTrackingNumber.Text
-                SSCPReports.txtOrigin.Text = "Facility Summary"
-                SSCPReports.Show()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub llbViewSSCPEnforcement_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewSSCPEnforcement.LinkClicked
-        Try
-
-            Dim enfNum As String = txtEnforcementNumber.Text
-            If enfNum = "" Then Exit Sub
-            If DAL.SSCP.EnforcementExists(enfNum) Then
-                OpenMultiForm("SscpEnforcement", enfNum)
-            Else
-                MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub llbViewFCE_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewFCE.LinkClicked
-        Try
-            If txtFCEYear.Text <> "" Then
-                ViewFCE()
-                SSCPFCE.cboFCEYear.Text = txtFCEYear.Text
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub llbViewFCE_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs)
+        'Try
+        '    If txtFCEYear.Text <> "" Then
+        '        ViewFCE()
+        '        SSCPFCE.cboFCEYear.Text = txtFCEYear.Text
+        '    End If
+        'Catch ex As Exception
+        '    ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        'End Try
     End Sub
     Private Sub ViewFCE()
         Try
@@ -1220,7 +1316,7 @@ Public Class IAIPFacilitySummary
 #Region " ICIS-Air Update "
 
     Private Sub UpdateEpaData()
-        If selectedFacility IsNot Nothing Then
+        If thisFacility IsNot Nothing Then
             If DAL.FacilityModule.TriggerDataUpdateAtEPA(Me.AirsNumber.ToString) Then
                 MessageBox.Show("Data for this facility will be sent to EPA the next time the database update procedures run.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Else
@@ -1239,15 +1335,7 @@ Public Class IAIPFacilitySummary
         OpenSingleForm("IAIPFacilityCreator")
     End Sub
 
-    Private Sub AirsNumberEntry_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AirsNumberEntry.Enter
-        Me.AcceptButton = ViewData
-    End Sub
-
-    Private Sub AirsNumberEntry_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AirsNumberEntry.Leave
-        Me.AcceptButton = Nothing
-    End Sub
-
-    Private Sub ViewData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ViewData.Click
+    Private Sub ViewData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ViewDataButton.Click
         If AirsNumberEntry.Text = "" Then
             ClearAllData()
         Else
@@ -1296,10 +1384,12 @@ Public Class IAIPFacilitySummary
 
 #End Region
 
+#Region " Form-level events "
+
     Private Sub FacilitySummaryTabControl_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FSMainTabControl.SelectedIndexChanged
         Select Case FSMainTabControl.SelectedTab.Name
             Case FSCompliance.Name
-
+                LoadComplianceData()
             Case FSContacts.Name
 
             Case FSEmissionInventory.Name
@@ -1314,5 +1404,13 @@ Public Class IAIPFacilitySummary
 
         End Select
     End Sub
+
+    Private Sub IAIPFacilitySummary_KeyUp(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyUp
+        If e.KeyCode = Keys.A AndAlso e.Alt Then
+            AirsNumberEntry.Focus()
+        End If
+    End Sub
+
+#End Region
 
 End Class
