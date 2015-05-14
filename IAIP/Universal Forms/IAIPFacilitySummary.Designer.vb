@@ -23,36 +23,37 @@ Partial Class IAIPFacilitySummary
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPFacilitySummary))
-        Dim DataGridViewCellStyle43 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle44 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle45 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle46 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle47 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle48 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle49 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle50 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle51 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle52 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle53 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle54 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle55 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle56 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.llbClosePrintTestReport = New System.Windows.Forms.LinkLabel
         Me.llbISMPTestReport = New System.Windows.Forms.LinkLabel
         Me.txtReferenceNumber = New System.Windows.Forms.TextBox
         Me.llbViewTestNotification = New System.Windows.Forms.LinkLabel
         Me.llbViewTestReportMemo = New System.Windows.Forms.LinkLabel
         Me.NavigationPanel = New System.Windows.Forms.Panel
+        Me.FacilitySearchButton = New System.Windows.Forms.Button
+        Me.AirsNumberEntry = New Iaip.CueTextBox
         Me.FacilityNameDisplay = New System.Windows.Forms.TextBox
-        Me.AirsNumberEntry = New System.Windows.Forms.TextBox
         Me.FacilityApprovalLinkLabel = New System.Windows.Forms.LinkLabel
         Me.ViewDataButton = New System.Windows.Forms.Button
-        Me.AirsNumberEntryLabel = New System.Windows.Forms.Label
         Me.FSMainTabControl = New System.Windows.Forms.TabControl
         Me.FSInfo = New System.Windows.Forms.TabPage
         Me.CmsLabel = New System.Windows.Forms.Label
         Me.CmsDisplay = New System.Windows.Forms.TextBox
         Me.Label101 = New System.Windows.Forms.Label
+        Me.CountyLabel = New System.Windows.Forms.Label
         Me.InfoDescLabel = New System.Windows.Forms.Label
         Me.InfoClassLabel = New System.Windows.Forms.Label
         Me.InfoOperLabel = New System.Windows.Forms.Label
@@ -73,6 +74,7 @@ Partial Class IAIPFacilitySummary
         Me.InfoOperStatusDisplay = New System.Windows.Forms.TextBox
         Me.InfoClassDisplay = New System.Windows.Forms.TextBox
         Me.DistrictOfficeDisplay = New System.Windows.Forms.TextBox
+        Me.CountyDisplay = New System.Windows.Forms.TextBox
         Me.LatLonDisplay = New System.Windows.Forms.TextBox
         Me.InfoDescDisplay = New System.Windows.Forms.TextBox
         Me.LocationDisplay = New System.Windows.Forms.TextBox
@@ -82,8 +84,10 @@ Partial Class IAIPFacilitySummary
         Me.MapLatLonLink = New System.Windows.Forms.LinkLabel
         Me.MapAddressLink = New System.Windows.Forms.LinkLabel
         Me.FSHeaderData = New System.Windows.Forms.TabPage
-        Me.AirProgramsListBox = New System.Windows.Forms.ListBox
+        Me.ProgramClassificationsGroupBox = New System.Windows.Forms.GroupBox
         Me.ProgramClassificationsListBox = New System.Windows.Forms.ListBox
+        Me.AirProgramsGroupBox = New System.Windows.Forms.GroupBox
+        Me.AirProgramsListBox = New System.Windows.Forms.ListBox
         Me.RmpIdLabel = New System.Windows.Forms.Label
         Me.NaicsLabel = New System.Windows.Forms.Label
         Me.HeaderRevocationLabel = New System.Windows.Forms.Label
@@ -111,46 +115,45 @@ Partial Class IAIPFacilitySummary
         Me.EditSubpartsButton = New System.Windows.Forms.Button
         Me.EditPollutantsButton = New System.Windows.Forms.Button
         Me.FSFees = New System.Windows.Forms.TabPage
-        Me.lblFeeStatus = New System.Windows.Forms.Label
-        Me.txtBalance = New System.Windows.Forms.TextBox
-        Me.txtDateSubmitted = New System.Windows.Forms.TextBox
-        Me.Label103 = New System.Windows.Forms.Label
-        Me.txtTotalFeesPaid = New System.Windows.Forms.TextBox
-        Me.Label102 = New System.Windows.Forms.Label
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.txtAdminFee = New System.Windows.Forms.TextBox
-        Me.Label435 = New System.Windows.Forms.Label
-        Me.Label434 = New System.Windows.Forms.Label
-        Me.Label433 = New System.Windows.Forms.Label
-        Me.txtFeesSM = New System.Windows.Forms.TextBox
-        Me.txtFeesNSPS = New System.Windows.Forms.TextBox
-        Me.txtFeesPart70 = New System.Windows.Forms.TextBox
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox
-        Me.txtFeesNOx = New System.Windows.Forms.TextBox
-        Me.Label426 = New System.Windows.Forms.Label
-        Me.Label429 = New System.Windows.Forms.Label
-        Me.Label428 = New System.Windows.Forms.Label
-        Me.Label432 = New System.Windows.Forms.Label
-        Me.Label427 = New System.Windows.Forms.Label
-        Me.txtFeesRate = New System.Windows.Forms.TextBox
-        Me.txtFeesPollutantFee = New System.Windows.Forms.TextBox
-        Me.Label431 = New System.Windows.Forms.Label
-        Me.Label436 = New System.Windows.Forms.Label
-        Me.txtFeesVOC = New System.Windows.Forms.TextBox
-        Me.txtFeesPM = New System.Windows.Forms.TextBox
-        Me.txtFeesSO2 = New System.Windows.Forms.TextBox
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.chbFeesOperating = New System.Windows.Forms.CheckBox
+        Me.FeePaidDisplay = New System.Windows.Forms.TextBox
+        Me.FeeTotalDisplay = New System.Windows.Forms.TextBox
+        Me.FeeStatusDisplay = New System.Windows.Forms.TextBox
+        Me.FeeDateSubmitDisplay = New System.Windows.Forms.TextBox
+        Me.FeeStatusLabel = New System.Windows.Forms.Label
+        Me.FeeSubmitDateLabel = New System.Windows.Forms.Label
+        Me.FeePaidLabel = New System.Windows.Forms.Label
+        Me.FeeRegGroupBox = New System.Windows.Forms.GroupBox
+        Me.FeeAdminWarningLabel = New System.Windows.Forms.Label
+        Me.FeeAdminLabel = New System.Windows.Forms.Label
+        Me.FeeAdminDisplay = New System.Windows.Forms.TextBox
+        Me.FeeNspsDisplay = New System.Windows.Forms.TextBox
+        Me.FeeSmDisplay = New System.Windows.Forms.TextBox
+        Me.FeePart70Display = New System.Windows.Forms.TextBox
+        Me.FeeNspsLabel = New System.Windows.Forms.Label
+        Me.FeeSmLabel = New System.Windows.Forms.Label
+        Me.FeePart70Label = New System.Windows.Forms.Label
+        Me.FeeEmissionGroupBox = New System.Windows.Forms.GroupBox
+        Me.FeeVocLabel = New System.Windows.Forms.Label
+        Me.FeePollutantTotalDisplay = New System.Windows.Forms.TextBox
+        Me.FeeRateDisplay = New System.Windows.Forms.TextBox
+        Me.FeeNOxDisplay = New System.Windows.Forms.TextBox
+        Me.FeeSO2Display = New System.Windows.Forms.TextBox
+        Me.FeePmDisplay = New System.Windows.Forms.TextBox
+        Me.FeeVocDisplay = New System.Windows.Forms.TextBox
+        Me.FeePmLabel = New System.Windows.Forms.Label
+        Me.FeeSO2Label = New System.Windows.Forms.Label
+        Me.FeeEmissionTotalLabel = New System.Windows.Forms.Label
+        Me.FeeNOxLabel = New System.Windows.Forms.Label
+        Me.FeeRateLabel = New System.Windows.Forms.Label
+        Me.FeeDataGroupBox = New System.Windows.Forms.GroupBox
+        Me.FeeFacilityClassDisplay = New System.Windows.Forms.TextBox
+        Me.FeeFacilityOperatingDisplay = New System.Windows.Forms.CheckBox
         Me.Label437 = New System.Windows.Forms.Label
-        Me.txtFeesClassification = New System.Windows.Forms.TextBox
-        Me.chbFeesPart70 = New System.Windows.Forms.CheckBox
-        Me.chbNSPSExempt = New System.Windows.Forms.CheckBox
-        Me.Label424 = New System.Windows.Forms.Label
-        Me.txtFeesTotal = New System.Windows.Forms.TextBox
-        Me.cboFeeYear = New System.Windows.Forms.ComboBox
-        Me.Label423 = New System.Windows.Forms.Label
+        Me.FeeFacilityPart70Display = New System.Windows.Forms.CheckBox
+        Me.FeeFacilityNspsExemptDisplay = New System.Windows.Forms.CheckBox
+        Me.FeeDueLabel = New System.Windows.Forms.Label
+        Me.FeeYearSelect = New System.Windows.Forms.ComboBox
+        Me.FeeYearLabel = New System.Windows.Forms.Label
         Me.FSContacts = New System.Windows.Forms.TabPage
         Me.ContactsTabControl = New System.Windows.Forms.TabControl
         Me.TPStateContacts = New System.Windows.Forms.TabPage
@@ -298,17 +301,17 @@ Partial Class IAIPFacilitySummary
         Me.Label32 = New System.Windows.Forms.Label
         Me.LinkLabel3 = New System.Windows.Forms.LinkLabel
         Me.LinkLabel4 = New System.Windows.Forms.LinkLabel
-        Me.AirProgramsGroupBox = New System.Windows.Forms.GroupBox
-        Me.ProgramClassificationsGroupBox = New System.Windows.Forms.GroupBox
         Me.NavigationPanel.SuspendLayout()
         Me.FSMainTabControl.SuspendLayout()
         Me.FSInfo.SuspendLayout()
         Me.FSHeaderData.SuspendLayout()
+        Me.ProgramClassificationsGroupBox.SuspendLayout()
+        Me.AirProgramsGroupBox.SuspendLayout()
         Me.NonattainmentStatuses.SuspendLayout()
         Me.FSFees.SuspendLayout()
-        Me.GroupBox4.SuspendLayout()
-        Me.GroupBox3.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
+        Me.FeeRegGroupBox.SuspendLayout()
+        Me.FeeEmissionGroupBox.SuspendLayout()
+        Me.FeeDataGroupBox.SuspendLayout()
         Me.FSContacts.SuspendLayout()
         Me.ContactsTabControl.SuspendLayout()
         Me.TPStateContacts.SuspendLayout()
@@ -376,8 +379,6 @@ Partial Class IAIPFacilitySummary
         Me.GroupBox7.SuspendLayout()
         CType(Me.dgvEIData, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FSMenuStrip.SuspendLayout()
-        Me.AirProgramsGroupBox.SuspendLayout()
-        Me.ProgramClassificationsGroupBox.SuspendLayout()
         Me.SuspendLayout()
         '
         'llbClosePrintTestReport
@@ -435,16 +436,43 @@ Partial Class IAIPFacilitySummary
         '
         'NavigationPanel
         '
-        Me.NavigationPanel.Controls.Add(Me.FacilityNameDisplay)
+        Me.NavigationPanel.Controls.Add(Me.FacilitySearchButton)
         Me.NavigationPanel.Controls.Add(Me.AirsNumberEntry)
+        Me.NavigationPanel.Controls.Add(Me.FacilityNameDisplay)
         Me.NavigationPanel.Controls.Add(Me.FacilityApprovalLinkLabel)
         Me.NavigationPanel.Controls.Add(Me.ViewDataButton)
-        Me.NavigationPanel.Controls.Add(Me.AirsNumberEntryLabel)
         Me.NavigationPanel.Dock = System.Windows.Forms.DockStyle.Top
         Me.NavigationPanel.Location = New System.Drawing.Point(0, 24)
         Me.NavigationPanel.Name = "NavigationPanel"
         Me.NavigationPanel.Size = New System.Drawing.Size(645, 58)
         Me.NavigationPanel.TabIndex = 1
+        '
+        'FacilitySearchButton
+        '
+        Me.FacilitySearchButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control
+        Me.FacilitySearchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.FacilitySearchButton.Image = Global.Iaip.My.Resources.Resources.FindButtonImage
+        Me.FacilitySearchButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.FacilitySearchButton.Location = New System.Drawing.Point(9, 10)
+        Me.FacilitySearchButton.Name = "FacilitySearchButton"
+        Me.FacilitySearchButton.Size = New System.Drawing.Size(28, 23)
+        Me.FacilitySearchButton.TabIndex = 0
+        Me.FacilitySearchButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.FacilitySearchButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.FacilitySearchButton.UseVisualStyleBackColor = True
+        '
+        'AirsNumberEntry
+        '
+        Me.AirsNumberEntry.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.AirsNumberEntry.Cue = "AIRS #"
+        Me.AirsNumberEntry.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.AirsNumberEntry.Location = New System.Drawing.Point(42, 10)
+        Me.AirsNumberEntry.Margin = New System.Windows.Forms.Padding(2)
+        Me.AirsNumberEntry.MaxLength = 9
+        Me.AirsNumberEntry.Name = "AirsNumberEntry"
+        Me.AirsNumberEntry.Size = New System.Drawing.Size(92, 23)
+        Me.AirsNumberEntry.TabIndex = 1
+        Me.AirsNumberEntry.Tag = ""
         '
         'FacilityNameDisplay
         '
@@ -452,55 +480,36 @@ Partial Class IAIPFacilitySummary
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.FacilityNameDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.FacilityNameDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FacilityNameDisplay.Location = New System.Drawing.Point(291, 13)
+        Me.FacilityNameDisplay.Location = New System.Drawing.Point(262, 13)
         Me.FacilityNameDisplay.Multiline = True
         Me.FacilityNameDisplay.Name = "FacilityNameDisplay"
         Me.FacilityNameDisplay.ReadOnly = True
-        Me.FacilityNameDisplay.Size = New System.Drawing.Size(342, 37)
-        Me.FacilityNameDisplay.TabIndex = 2
+        Me.FacilityNameDisplay.Size = New System.Drawing.Size(371, 37)
+        Me.FacilityNameDisplay.TabIndex = 3
         Me.FacilityNameDisplay.Text = "name line 1" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "line 2"
-        '
-        'AirsNumberEntry
-        '
-        Me.AirsNumberEntry.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.AirsNumberEntry.Location = New System.Drawing.Point(91, 10)
-        Me.AirsNumberEntry.MaxLength = 9
-        Me.AirsNumberEntry.Name = "AirsNumberEntry"
-        Me.AirsNumberEntry.Size = New System.Drawing.Size(86, 23)
-        Me.AirsNumberEntry.TabIndex = 0
         '
         'FacilityApprovalLinkLabel
         '
         Me.FacilityApprovalLinkLabel.AutoSize = True
-        Me.FacilityApprovalLinkLabel.LinkArea = New System.Windows.Forms.LinkArea(33, 63)
+        Me.FacilityApprovalLinkLabel.LinkArea = New System.Windows.Forms.LinkArea(29, 63)
         Me.FacilityApprovalLinkLabel.Location = New System.Drawing.Point(12, 36)
         Me.FacilityApprovalLinkLabel.Name = "FacilityApprovalLinkLabel"
-        Me.FacilityApprovalLinkLabel.Size = New System.Drawing.Size(262, 17)
-        Me.FacilityApprovalLinkLabel.TabIndex = 3
+        Me.FacilityApprovalLinkLabel.Size = New System.Drawing.Size(244, 17)
+        Me.FacilityApprovalLinkLabel.TabIndex = 4
         Me.FacilityApprovalLinkLabel.TabStop = True
-        Me.FacilityApprovalLinkLabel.Text = "Facility not approved yet in the Facility Creator Tool"
+        Me.FacilityApprovalLinkLabel.Text = "Facility not approved in the Facility Creator Tool"
         Me.FacilityApprovalLinkLabel.UseCompatibleTextRendering = True
         Me.FacilityApprovalLinkLabel.Visible = False
         '
         'ViewDataButton
         '
         Me.ViewDataButton.AutoSize = True
-        Me.ViewDataButton.Location = New System.Drawing.Point(183, 10)
+        Me.ViewDataButton.Location = New System.Drawing.Point(139, 10)
         Me.ViewDataButton.Name = "ViewDataButton"
         Me.ViewDataButton.Size = New System.Drawing.Size(91, 23)
-        Me.ViewDataButton.TabIndex = 1
+        Me.ViewDataButton.TabIndex = 2
         Me.ViewDataButton.Text = "View Data"
         Me.ViewDataButton.UseVisualStyleBackColor = True
-        '
-        'AirsNumberEntryLabel
-        '
-        Me.AirsNumberEntryLabel.AutoSize = True
-        Me.AirsNumberEntryLabel.Location = New System.Drawing.Point(11, 15)
-        Me.AirsNumberEntryLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.AirsNumberEntryLabel.Name = "AirsNumberEntryLabel"
-        Me.AirsNumberEntryLabel.Size = New System.Drawing.Size(75, 13)
-        Me.AirsNumberEntryLabel.TabIndex = 272
-        Me.AirsNumberEntryLabel.Text = "&AIRS Number:"
         '
         'FSMainTabControl
         '
@@ -525,6 +534,7 @@ Partial Class IAIPFacilitySummary
         Me.FSInfo.Controls.Add(Me.CmsLabel)
         Me.FSInfo.Controls.Add(Me.CmsDisplay)
         Me.FSInfo.Controls.Add(Me.Label101)
+        Me.FSInfo.Controls.Add(Me.CountyLabel)
         Me.FSInfo.Controls.Add(Me.InfoDescLabel)
         Me.FSInfo.Controls.Add(Me.InfoClassLabel)
         Me.FSInfo.Controls.Add(Me.InfoOperLabel)
@@ -545,6 +555,7 @@ Partial Class IAIPFacilitySummary
         Me.FSInfo.Controls.Add(Me.InfoOperStatusDisplay)
         Me.FSInfo.Controls.Add(Me.InfoClassDisplay)
         Me.FSInfo.Controls.Add(Me.DistrictOfficeDisplay)
+        Me.FSInfo.Controls.Add(Me.CountyDisplay)
         Me.FSInfo.Controls.Add(Me.LatLonDisplay)
         Me.FSInfo.Controls.Add(Me.InfoDescDisplay)
         Me.FSInfo.Controls.Add(Me.LocationDisplay)
@@ -593,6 +604,16 @@ Partial Class IAIPFacilitySummary
         Me.Label101.Size = New System.Drawing.Size(95, 13)
         Me.Label101.TabIndex = 339
         Me.Label101.Text = "Compliance Status"
+        '
+        'CountyLabel
+        '
+        Me.CountyLabel.AutoSize = True
+        Me.CountyLabel.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.CountyLabel.Location = New System.Drawing.Point(30, 182)
+        Me.CountyLabel.Name = "CountyLabel"
+        Me.CountyLabel.Size = New System.Drawing.Size(40, 13)
+        Me.CountyLabel.TabIndex = 337
+        Me.CountyLabel.Text = "County"
         '
         'InfoDescLabel
         '
@@ -821,11 +842,22 @@ Partial Class IAIPFacilitySummary
         Me.DistrictOfficeDisplay.TabIndex = 9
         Me.DistrictOfficeDisplay.Text = "district office"
         '
+        'CountyDisplay
+        '
+        Me.CountyDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.CountyDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.CountyDisplay.Location = New System.Drawing.Point(87, 182)
+        Me.CountyDisplay.Name = "CountyDisplay"
+        Me.CountyDisplay.ReadOnly = True
+        Me.CountyDisplay.Size = New System.Drawing.Size(207, 13)
+        Me.CountyDisplay.TabIndex = 4
+        Me.CountyDisplay.Text = "county"
+        '
         'LatLonDisplay
         '
         Me.LatLonDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.LatLonDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.LatLonDisplay.Location = New System.Drawing.Point(87, 212)
+        Me.LatLonDisplay.Location = New System.Drawing.Point(87, 220)
         Me.LatLonDisplay.Name = "LatLonDisplay"
         Me.LatLonDisplay.ReadOnly = True
         Me.LatLonDisplay.Size = New System.Drawing.Size(207, 13)
@@ -852,7 +884,7 @@ Partial Class IAIPFacilitySummary
         Me.LocationDisplay.Multiline = True
         Me.LocationDisplay.Name = "LocationDisplay"
         Me.LocationDisplay.ReadOnly = True
-        Me.LocationDisplay.Size = New System.Drawing.Size(207, 69)
+        Me.LocationDisplay.Size = New System.Drawing.Size(207, 39)
         Me.LocationDisplay.TabIndex = 2
         Me.LocationDisplay.Text = "location 1" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "line 2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "line 3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "county"
         '
@@ -895,7 +927,7 @@ Partial Class IAIPFacilitySummary
         Me.MapLatLonLink.AutoSize = True
         Me.MapLatLonLink.ForeColor = System.Drawing.SystemColors.GrayText
         Me.MapLatLonLink.LinkArea = New System.Windows.Forms.LinkArea(9, 15)
-        Me.MapLatLonLink.Location = New System.Drawing.Point(10, 212)
+        Me.MapLatLonLink.Location = New System.Drawing.Point(10, 220)
         Me.MapLatLonLink.Name = "MapLatLonLink"
         Me.MapLatLonLink.Size = New System.Drawing.Size(66, 30)
         Me.MapLatLonLink.TabIndex = 3
@@ -908,13 +940,13 @@ Partial Class IAIPFacilitySummary
         '
         Me.MapAddressLink.AutoSize = True
         Me.MapAddressLink.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.MapAddressLink.LinkArea = New System.Windows.Forms.LinkArea(10, 15)
+        Me.MapAddressLink.LinkArea = New System.Windows.Forms.LinkArea(9, 15)
         Me.MapAddressLink.Location = New System.Drawing.Point(10, 118)
         Me.MapAddressLink.Name = "MapAddressLink"
         Me.MapAddressLink.Size = New System.Drawing.Size(66, 30)
         Me.MapAddressLink.TabIndex = 1
         Me.MapAddressLink.TabStop = True
-        Me.MapAddressLink.Text = "Location" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "view online  "
+        Me.MapAddressLink.Text = "Address" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "view online  "
         Me.MapAddressLink.TextAlign = System.Drawing.ContentAlignment.TopRight
         Me.MapAddressLink.UseCompatibleTextRendering = True
         '
@@ -950,17 +982,16 @@ Partial Class IAIPFacilitySummary
         Me.FSHeaderData.Text = "Header Data"
         Me.FSHeaderData.UseVisualStyleBackColor = True
         '
-        'AirProgramsListBox
+        'ProgramClassificationsGroupBox
         '
-        Me.AirProgramsListBox.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.AirProgramsListBox.FormattingEnabled = True
-        Me.AirProgramsListBox.Items.AddRange(New Object() {"SIP", "Federal SIP", "Non-Federal SIP", "CFC Tracking", "PSD", "NSR", "Title V", "MACT (Part 63)", "NESHAP (Part 61)", "NSPS", "Acid Precipitation", "FESOP", "Native American", "Risk Mgmt. Plan"})
-        Me.AirProgramsListBox.Location = New System.Drawing.Point(6, 19)
-        Me.AirProgramsListBox.MultiColumn = True
-        Me.AirProgramsListBox.Name = "AirProgramsListBox"
-        Me.AirProgramsListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.AirProgramsListBox.Size = New System.Drawing.Size(241, 91)
-        Me.AirProgramsListBox.TabIndex = 9
+        Me.ProgramClassificationsGroupBox.Controls.Add(Me.ProgramClassificationsListBox)
+        Me.ProgramClassificationsGroupBox.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.ProgramClassificationsGroupBox.Location = New System.Drawing.Point(308, 175)
+        Me.ProgramClassificationsGroupBox.Name = "ProgramClassificationsGroupBox"
+        Me.ProgramClassificationsGroupBox.Size = New System.Drawing.Size(157, 68)
+        Me.ProgramClassificationsGroupBox.TabIndex = 12
+        Me.ProgramClassificationsGroupBox.TabStop = False
+        Me.ProgramClassificationsGroupBox.Text = "Program Classifications"
         '
         'ProgramClassificationsListBox
         '
@@ -971,7 +1002,30 @@ Partial Class IAIPFacilitySummary
         Me.ProgramClassificationsListBox.Name = "ProgramClassificationsListBox"
         Me.ProgramClassificationsListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
         Me.ProgramClassificationsListBox.Size = New System.Drawing.Size(145, 39)
-        Me.ProgramClassificationsListBox.TabIndex = 12
+        Me.ProgramClassificationsListBox.TabIndex = 0
+        '
+        'AirProgramsGroupBox
+        '
+        Me.AirProgramsGroupBox.Controls.Add(Me.AirProgramsListBox)
+        Me.AirProgramsGroupBox.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.AirProgramsGroupBox.Location = New System.Drawing.Point(308, 23)
+        Me.AirProgramsGroupBox.Name = "AirProgramsGroupBox"
+        Me.AirProgramsGroupBox.Size = New System.Drawing.Size(253, 117)
+        Me.AirProgramsGroupBox.TabIndex = 9
+        Me.AirProgramsGroupBox.TabStop = False
+        Me.AirProgramsGroupBox.Text = "Air Programs"
+        '
+        'AirProgramsListBox
+        '
+        Me.AirProgramsListBox.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.AirProgramsListBox.FormattingEnabled = True
+        Me.AirProgramsListBox.Items.AddRange(New Object() {"SIP", "Federal SIP", "Non-Federal SIP", "CFC Tracking", "PSD", "NSR", "Title V", "MACT (Part 63)", "NESHAP (Part 61)", "NSPS", "Acid Precipitation", "FESOP", "Native American", "Risk Mgmt. Plan"})
+        Me.AirProgramsListBox.Location = New System.Drawing.Point(6, 19)
+        Me.AirProgramsListBox.MultiColumn = True
+        Me.AirProgramsListBox.Name = "AirProgramsListBox"
+        Me.AirProgramsListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
+        Me.AirProgramsListBox.Size = New System.Drawing.Size(241, 91)
+        Me.AirProgramsListBox.TabIndex = 0
         '
         'RmpIdLabel
         '
@@ -1073,7 +1127,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.HeaderDescLabel.AutoSize = True
         Me.HeaderDescLabel.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.HeaderDescLabel.Location = New System.Drawing.Point(8, 210)
+        Me.HeaderDescLabel.Location = New System.Drawing.Point(67, 210)
         Me.HeaderDescLabel.Name = "HeaderDescLabel"
         Me.HeaderDescLabel.Size = New System.Drawing.Size(60, 13)
         Me.HeaderDescLabel.TabIndex = 349
@@ -1083,11 +1137,11 @@ Partial Class IAIPFacilitySummary
         '
         Me.HeaderDescDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.HeaderDescDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.HeaderDescDisplay.Location = New System.Drawing.Point(87, 210)
+        Me.HeaderDescDisplay.Location = New System.Drawing.Point(142, 210)
         Me.HeaderDescDisplay.Multiline = True
         Me.HeaderDescDisplay.Name = "HeaderDescDisplay"
         Me.HeaderDescDisplay.ReadOnly = True
-        Me.HeaderDescDisplay.Size = New System.Drawing.Size(211, 77)
+        Me.HeaderDescDisplay.Size = New System.Drawing.Size(156, 93)
         Me.HeaderDescDisplay.TabIndex = 7
         Me.HeaderDescDisplay.Text = resources.GetString("HeaderDescDisplay.Text")
         '
@@ -1272,19 +1326,19 @@ Partial Class IAIPFacilitySummary
         '
         'FSFees
         '
-        Me.FSFees.Controls.Add(Me.lblFeeStatus)
-        Me.FSFees.Controls.Add(Me.txtBalance)
-        Me.FSFees.Controls.Add(Me.txtDateSubmitted)
-        Me.FSFees.Controls.Add(Me.Label103)
-        Me.FSFees.Controls.Add(Me.txtTotalFeesPaid)
-        Me.FSFees.Controls.Add(Me.Label102)
-        Me.FSFees.Controls.Add(Me.GroupBox4)
-        Me.FSFees.Controls.Add(Me.GroupBox3)
-        Me.FSFees.Controls.Add(Me.GroupBox1)
-        Me.FSFees.Controls.Add(Me.Label424)
-        Me.FSFees.Controls.Add(Me.txtFeesTotal)
-        Me.FSFees.Controls.Add(Me.cboFeeYear)
-        Me.FSFees.Controls.Add(Me.Label423)
+        Me.FSFees.Controls.Add(Me.FeePaidDisplay)
+        Me.FSFees.Controls.Add(Me.FeeTotalDisplay)
+        Me.FSFees.Controls.Add(Me.FeeStatusDisplay)
+        Me.FSFees.Controls.Add(Me.FeeDateSubmitDisplay)
+        Me.FSFees.Controls.Add(Me.FeeStatusLabel)
+        Me.FSFees.Controls.Add(Me.FeeSubmitDateLabel)
+        Me.FSFees.Controls.Add(Me.FeePaidLabel)
+        Me.FSFees.Controls.Add(Me.FeeRegGroupBox)
+        Me.FSFees.Controls.Add(Me.FeeEmissionGroupBox)
+        Me.FSFees.Controls.Add(Me.FeeDataGroupBox)
+        Me.FSFees.Controls.Add(Me.FeeDueLabel)
+        Me.FSFees.Controls.Add(Me.FeeYearSelect)
+        Me.FSFees.Controls.Add(Me.FeeYearLabel)
         Me.FSFees.Location = New System.Drawing.Point(4, 22)
         Me.FSFees.Name = "FSFees"
         Me.FSFees.Size = New System.Drawing.Size(637, 347)
@@ -1292,467 +1346,472 @@ Partial Class IAIPFacilitySummary
         Me.FSFees.Text = "Fees"
         Me.FSFees.UseVisualStyleBackColor = True
         '
-        'lblFeeStatus
+        'FeePaidDisplay
         '
-        Me.lblFeeStatus.AutoSize = True
-        Me.lblFeeStatus.Location = New System.Drawing.Point(361, 16)
-        Me.lblFeeStatus.Name = "lblFeeStatus"
-        Me.lblFeeStatus.Size = New System.Drawing.Size(0, 13)
-        Me.lblFeeStatus.TabIndex = 187
+        Me.FeePaidDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.FeePaidDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.FeePaidDisplay.Location = New System.Drawing.Point(65, 143)
+        Me.FeePaidDisplay.Name = "FeePaidDisplay"
+        Me.FeePaidDisplay.ReadOnly = True
+        Me.FeePaidDisplay.Size = New System.Drawing.Size(108, 13)
+        Me.FeePaidDisplay.TabIndex = 4
+        Me.FeePaidDisplay.Text = "N/A"
         '
-        'txtBalance
+        'FeeTotalDisplay
         '
-        Me.txtBalance.BackColor = System.Drawing.SystemColors.Control
-        Me.txtBalance.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtBalance.Location = New System.Drawing.Point(379, 46)
-        Me.txtBalance.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtBalance.Name = "txtBalance"
-        Me.txtBalance.ReadOnly = True
-        Me.txtBalance.Size = New System.Drawing.Size(44, 20)
-        Me.txtBalance.TabIndex = 186
-        Me.txtBalance.Visible = False
+        Me.FeeTotalDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.FeeTotalDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.FeeTotalDisplay.Location = New System.Drawing.Point(65, 119)
+        Me.FeeTotalDisplay.Name = "FeeTotalDisplay"
+        Me.FeeTotalDisplay.ReadOnly = True
+        Me.FeeTotalDisplay.Size = New System.Drawing.Size(108, 13)
+        Me.FeeTotalDisplay.TabIndex = 3
+        Me.FeeTotalDisplay.Text = "N/A"
         '
-        'txtDateSubmitted
+        'FeeStatusDisplay
         '
-        Me.txtDateSubmitted.BackColor = System.Drawing.SystemColors.Control
-        Me.txtDateSubmitted.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtDateSubmitted.Location = New System.Drawing.Point(225, 13)
-        Me.txtDateSubmitted.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtDateSubmitted.Name = "txtDateSubmitted"
-        Me.txtDateSubmitted.ReadOnly = True
-        Me.txtDateSubmitted.Size = New System.Drawing.Size(131, 20)
-        Me.txtDateSubmitted.TabIndex = 185
+        Me.FeeStatusDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.FeeStatusDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.FeeStatusDisplay.Location = New System.Drawing.Point(65, 71)
+        Me.FeeStatusDisplay.Multiline = True
+        Me.FeeStatusDisplay.Name = "FeeStatusDisplay"
+        Me.FeeStatusDisplay.ReadOnly = True
+        Me.FeeStatusDisplay.Size = New System.Drawing.Size(127, 42)
+        Me.FeeStatusDisplay.TabIndex = 2
+        Me.FeeStatusDisplay.Text = "GECO User has update the Fee Calculations" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3"
         '
-        'Label103
+        'FeeDateSubmitDisplay
         '
-        Me.Label103.AutoSize = True
-        Me.Label103.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label103.Location = New System.Drawing.Point(138, 17)
-        Me.Label103.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label103.Name = "Label103"
-        Me.Label103.Size = New System.Drawing.Size(83, 13)
-        Me.Label103.TabIndex = 184
-        Me.Label103.Text = "Date Submitted:"
+        Me.FeeDateSubmitDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.FeeDateSubmitDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.FeeDateSubmitDisplay.Location = New System.Drawing.Point(65, 49)
+        Me.FeeDateSubmitDisplay.Name = "FeeDateSubmitDisplay"
+        Me.FeeDateSubmitDisplay.ReadOnly = True
+        Me.FeeDateSubmitDisplay.Size = New System.Drawing.Size(108, 13)
+        Me.FeeDateSubmitDisplay.TabIndex = 1
+        Me.FeeDateSubmitDisplay.Text = "N/A"
         '
-        'txtTotalFeesPaid
+        'FeeStatusLabel
         '
-        Me.txtTotalFeesPaid.BackColor = System.Drawing.SystemColors.Control
-        Me.txtTotalFeesPaid.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTotalFeesPaid.Location = New System.Drawing.Point(287, 46)
-        Me.txtTotalFeesPaid.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtTotalFeesPaid.Name = "txtTotalFeesPaid"
-        Me.txtTotalFeesPaid.ReadOnly = True
-        Me.txtTotalFeesPaid.Size = New System.Drawing.Size(84, 20)
-        Me.txtTotalFeesPaid.TabIndex = 183
+        Me.FeeStatusLabel.AutoSize = True
+        Me.FeeStatusLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FeeStatusLabel.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.FeeStatusLabel.Location = New System.Drawing.Point(24, 71)
+        Me.FeeStatusLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.FeeStatusLabel.Name = "FeeStatusLabel"
+        Me.FeeStatusLabel.Size = New System.Drawing.Size(37, 13)
+        Me.FeeStatusLabel.TabIndex = 184
+        Me.FeeStatusLabel.Text = "Status"
         '
-        'Label102
+        'FeeSubmitDateLabel
         '
-        Me.Label102.AutoSize = True
-        Me.Label102.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label102.Location = New System.Drawing.Point(199, 50)
-        Me.Label102.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label102.Name = "Label102"
-        Me.Label102.Size = New System.Drawing.Size(84, 13)
-        Me.Label102.TabIndex = 182
-        Me.Label102.Text = "Total Fees Paid:"
+        Me.FeeSubmitDateLabel.AutoSize = True
+        Me.FeeSubmitDateLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FeeSubmitDateLabel.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.FeeSubmitDateLabel.Location = New System.Drawing.Point(7, 49)
+        Me.FeeSubmitDateLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.FeeSubmitDateLabel.Name = "FeeSubmitDateLabel"
+        Me.FeeSubmitDateLabel.Size = New System.Drawing.Size(54, 13)
+        Me.FeeSubmitDateLabel.TabIndex = 184
+        Me.FeeSubmitDateLabel.Text = "Submitted"
         '
-        'GroupBox4
+        'FeePaidLabel
         '
-        Me.GroupBox4.Controls.Add(Me.Label16)
-        Me.GroupBox4.Controls.Add(Me.Label15)
-        Me.GroupBox4.Controls.Add(Me.txtAdminFee)
-        Me.GroupBox4.Controls.Add(Me.Label435)
-        Me.GroupBox4.Controls.Add(Me.Label434)
-        Me.GroupBox4.Controls.Add(Me.Label433)
-        Me.GroupBox4.Controls.Add(Me.txtFeesSM)
-        Me.GroupBox4.Controls.Add(Me.txtFeesNSPS)
-        Me.GroupBox4.Controls.Add(Me.txtFeesPart70)
-        Me.GroupBox4.Location = New System.Drawing.Point(10, 144)
-        Me.GroupBox4.Margin = New System.Windows.Forms.Padding(2)
-        Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox4.Size = New System.Drawing.Size(297, 150)
-        Me.GroupBox4.TabIndex = 181
-        Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = "Fees Breakdown"
+        Me.FeePaidLabel.AutoSize = True
+        Me.FeePaidLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FeePaidLabel.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.FeePaidLabel.Location = New System.Drawing.Point(5, 143)
+        Me.FeePaidLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.FeePaidLabel.Name = "FeePaidLabel"
+        Me.FeePaidLabel.Size = New System.Drawing.Size(55, 13)
+        Me.FeePaidLabel.TabIndex = 182
+        Me.FeePaidLabel.Text = "Total Paid"
         '
-        'Label16
+        'FeeRegGroupBox
         '
-        Me.Label16.AutoSize = True
-        Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(75, 113)
-        Me.Label16.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(160, 26)
-        Me.Label16.TabIndex = 161
-        Me.Label16.Text = "* Admin fees are not included " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "      in the above Total Fees Due"
+        Me.FeeRegGroupBox.Controls.Add(Me.FeeAdminWarningLabel)
+        Me.FeeRegGroupBox.Controls.Add(Me.FeeAdminLabel)
+        Me.FeeRegGroupBox.Controls.Add(Me.FeeAdminDisplay)
+        Me.FeeRegGroupBox.Controls.Add(Me.FeeNspsDisplay)
+        Me.FeeRegGroupBox.Controls.Add(Me.FeeSmDisplay)
+        Me.FeeRegGroupBox.Controls.Add(Me.FeePart70Display)
+        Me.FeeRegGroupBox.Controls.Add(Me.FeeNspsLabel)
+        Me.FeeRegGroupBox.Controls.Add(Me.FeeSmLabel)
+        Me.FeeRegGroupBox.Controls.Add(Me.FeePart70Label)
+        Me.FeeRegGroupBox.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.FeeRegGroupBox.Location = New System.Drawing.Point(197, 23)
+        Me.FeeRegGroupBox.Margin = New System.Windows.Forms.Padding(2)
+        Me.FeeRegGroupBox.Name = "FeeRegGroupBox"
+        Me.FeeRegGroupBox.Padding = New System.Windows.Forms.Padding(2)
+        Me.FeeRegGroupBox.Size = New System.Drawing.Size(195, 133)
+        Me.FeeRegGroupBox.TabIndex = 6
+        Me.FeeRegGroupBox.TabStop = False
+        Me.FeeRegGroupBox.Text = "Regulatory Fees"
         '
-        'Label15
+        'FeeAdminWarningLabel
         '
-        Me.Label15.AutoSize = True
-        Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(8, 93)
-        Me.Label15.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(64, 13)
-        Me.Label15.TabIndex = 159
-        Me.Label15.Text = "Admin Fee*:"
+        Me.FeeAdminWarningLabel.AutoSize = True
+        Me.FeeAdminWarningLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FeeAdminWarningLabel.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.FeeAdminWarningLabel.Location = New System.Drawing.Point(6, 96)
+        Me.FeeAdminWarningLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.FeeAdminWarningLabel.Name = "FeeAdminWarningLabel"
+        Me.FeeAdminWarningLabel.Size = New System.Drawing.Size(182, 13)
+        Me.FeeAdminWarningLabel.TabIndex = 161
+        Me.FeeAdminWarningLabel.Text = "(Admin fee not included in Total Due)"
         '
-        'txtAdminFee
+        'FeeAdminLabel
         '
-        Me.txtAdminFee.BackColor = System.Drawing.SystemColors.Control
-        Me.txtAdminFee.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtAdminFee.Location = New System.Drawing.Point(78, 91)
-        Me.txtAdminFee.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtAdminFee.Name = "txtAdminFee"
-        Me.txtAdminFee.ReadOnly = True
-        Me.txtAdminFee.Size = New System.Drawing.Size(131, 20)
-        Me.txtAdminFee.TabIndex = 160
+        Me.FeeAdminLabel.AutoSize = True
+        Me.FeeAdminLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FeeAdminLabel.Location = New System.Drawing.Point(6, 77)
+        Me.FeeAdminLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.FeeAdminLabel.Name = "FeeAdminLabel"
+        Me.FeeAdminLabel.Size = New System.Drawing.Size(72, 13)
+        Me.FeeAdminLabel.TabIndex = 159
+        Me.FeeAdminLabel.Text = "Administrative"
         '
-        'Label435
+        'FeeAdminDisplay
         '
-        Me.Label435.AutoSize = True
-        Me.Label435.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label435.Location = New System.Drawing.Point(8, 69)
-        Me.Label435.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label435.Name = "Label435"
-        Me.Label435.Size = New System.Drawing.Size(60, 13)
-        Me.Label435.TabIndex = 155
-        Me.Label435.Text = "NSPS Fee:"
+        Me.FeeAdminDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.FeeAdminDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.FeeAdminDisplay.Location = New System.Drawing.Point(83, 77)
+        Me.FeeAdminDisplay.Name = "FeeAdminDisplay"
+        Me.FeeAdminDisplay.ReadOnly = True
+        Me.FeeAdminDisplay.Size = New System.Drawing.Size(107, 13)
+        Me.FeeAdminDisplay.TabIndex = 3
+        Me.FeeAdminDisplay.Text = "N/A"
         '
-        'Label434
+        'FeeNspsDisplay
         '
-        Me.Label434.AutoSize = True
-        Me.Label434.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label434.Location = New System.Drawing.Point(8, 47)
-        Me.Label434.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label434.Name = "Label434"
-        Me.Label434.Size = New System.Drawing.Size(47, 13)
-        Me.Label434.TabIndex = 154
-        Me.Label434.Text = "SM Fee:"
+        Me.FeeNspsDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.FeeNspsDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.FeeNspsDisplay.Location = New System.Drawing.Point(83, 58)
+        Me.FeeNspsDisplay.Name = "FeeNspsDisplay"
+        Me.FeeNspsDisplay.ReadOnly = True
+        Me.FeeNspsDisplay.Size = New System.Drawing.Size(107, 13)
+        Me.FeeNspsDisplay.TabIndex = 2
+        Me.FeeNspsDisplay.Text = "N/A"
         '
-        'Label433
+        'FeeSmDisplay
         '
-        Me.Label433.AutoSize = True
-        Me.Label433.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label433.Location = New System.Drawing.Point(8, 24)
-        Me.Label433.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label433.Name = "Label433"
-        Me.Label433.Size = New System.Drawing.Size(65, 13)
-        Me.Label433.TabIndex = 153
-        Me.Label433.Text = "Part 70 Fee:"
+        Me.FeeSmDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.FeeSmDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.FeeSmDisplay.Location = New System.Drawing.Point(83, 39)
+        Me.FeeSmDisplay.Name = "FeeSmDisplay"
+        Me.FeeSmDisplay.ReadOnly = True
+        Me.FeeSmDisplay.Size = New System.Drawing.Size(107, 13)
+        Me.FeeSmDisplay.TabIndex = 1
+        Me.FeeSmDisplay.Text = "N/A"
         '
-        'txtFeesSM
+        'FeePart70Display
         '
-        Me.txtFeesSM.BackColor = System.Drawing.SystemColors.Control
-        Me.txtFeesSM.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtFeesSM.Location = New System.Drawing.Point(78, 45)
-        Me.txtFeesSM.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtFeesSM.Name = "txtFeesSM"
-        Me.txtFeesSM.ReadOnly = True
-        Me.txtFeesSM.Size = New System.Drawing.Size(131, 20)
-        Me.txtFeesSM.TabIndex = 158
+        Me.FeePart70Display.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.FeePart70Display.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.FeePart70Display.Location = New System.Drawing.Point(83, 20)
+        Me.FeePart70Display.Name = "FeePart70Display"
+        Me.FeePart70Display.ReadOnly = True
+        Me.FeePart70Display.Size = New System.Drawing.Size(107, 13)
+        Me.FeePart70Display.TabIndex = 0
+        Me.FeePart70Display.Text = "N/A"
         '
-        'txtFeesNSPS
+        'FeeNspsLabel
         '
-        Me.txtFeesNSPS.BackColor = System.Drawing.SystemColors.Control
-        Me.txtFeesNSPS.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtFeesNSPS.Location = New System.Drawing.Point(78, 67)
-        Me.txtFeesNSPS.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtFeesNSPS.Name = "txtFeesNSPS"
-        Me.txtFeesNSPS.ReadOnly = True
-        Me.txtFeesNSPS.Size = New System.Drawing.Size(131, 20)
-        Me.txtFeesNSPS.TabIndex = 157
+        Me.FeeNspsLabel.AutoSize = True
+        Me.FeeNspsLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FeeNspsLabel.Location = New System.Drawing.Point(42, 58)
+        Me.FeeNspsLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.FeeNspsLabel.Name = "FeeNspsLabel"
+        Me.FeeNspsLabel.Size = New System.Drawing.Size(36, 13)
+        Me.FeeNspsLabel.TabIndex = 155
+        Me.FeeNspsLabel.Text = "NSPS"
         '
-        'txtFeesPart70
+        'FeeSmLabel
         '
-        Me.txtFeesPart70.BackColor = System.Drawing.SystemColors.Control
-        Me.txtFeesPart70.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtFeesPart70.Location = New System.Drawing.Point(78, 23)
-        Me.txtFeesPart70.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtFeesPart70.Name = "txtFeesPart70"
-        Me.txtFeesPart70.ReadOnly = True
-        Me.txtFeesPart70.Size = New System.Drawing.Size(131, 20)
-        Me.txtFeesPart70.TabIndex = 156
+        Me.FeeSmLabel.AutoSize = True
+        Me.FeeSmLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FeeSmLabel.Location = New System.Drawing.Point(55, 39)
+        Me.FeeSmLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.FeeSmLabel.Name = "FeeSmLabel"
+        Me.FeeSmLabel.Size = New System.Drawing.Size(23, 13)
+        Me.FeeSmLabel.TabIndex = 154
+        Me.FeeSmLabel.Text = "SM"
         '
-        'GroupBox3
+        'FeePart70Label
         '
-        Me.GroupBox3.Controls.Add(Me.txtFeesNOx)
-        Me.GroupBox3.Controls.Add(Me.Label426)
-        Me.GroupBox3.Controls.Add(Me.Label429)
-        Me.GroupBox3.Controls.Add(Me.Label428)
-        Me.GroupBox3.Controls.Add(Me.Label432)
-        Me.GroupBox3.Controls.Add(Me.Label427)
-        Me.GroupBox3.Controls.Add(Me.txtFeesRate)
-        Me.GroupBox3.Controls.Add(Me.txtFeesPollutantFee)
-        Me.GroupBox3.Controls.Add(Me.Label431)
-        Me.GroupBox3.Controls.Add(Me.Label436)
-        Me.GroupBox3.Controls.Add(Me.txtFeesVOC)
-        Me.GroupBox3.Controls.Add(Me.txtFeesPM)
-        Me.GroupBox3.Controls.Add(Me.txtFeesSO2)
-        Me.GroupBox3.Location = New System.Drawing.Point(311, 77)
-        Me.GroupBox3.Margin = New System.Windows.Forms.Padding(2)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox3.Size = New System.Drawing.Size(274, 165)
-        Me.GroupBox3.TabIndex = 180
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Emissions (Tons) "
+        Me.FeePart70Label.AutoSize = True
+        Me.FeePart70Label.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FeePart70Label.Location = New System.Drawing.Point(37, 20)
+        Me.FeePart70Label.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.FeePart70Label.Name = "FeePart70Label"
+        Me.FeePart70Label.Size = New System.Drawing.Size(41, 13)
+        Me.FeePart70Label.TabIndex = 153
+        Me.FeePart70Label.Text = "Part 70"
         '
-        'txtFeesNOx
+        'FeeEmissionGroupBox
         '
-        Me.txtFeesNOx.BackColor = System.Drawing.SystemColors.Control
-        Me.txtFeesNOx.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtFeesNOx.Location = New System.Drawing.Point(64, 90)
-        Me.txtFeesNOx.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtFeesNOx.Name = "txtFeesNOx"
-        Me.txtFeesNOx.ReadOnly = True
-        Me.txtFeesNOx.Size = New System.Drawing.Size(131, 20)
-        Me.txtFeesNOx.TabIndex = 146
+        Me.FeeEmissionGroupBox.Controls.Add(Me.FeeVocLabel)
+        Me.FeeEmissionGroupBox.Controls.Add(Me.FeePollutantTotalDisplay)
+        Me.FeeEmissionGroupBox.Controls.Add(Me.FeeRateDisplay)
+        Me.FeeEmissionGroupBox.Controls.Add(Me.FeeNOxDisplay)
+        Me.FeeEmissionGroupBox.Controls.Add(Me.FeeSO2Display)
+        Me.FeeEmissionGroupBox.Controls.Add(Me.FeePmDisplay)
+        Me.FeeEmissionGroupBox.Controls.Add(Me.FeeVocDisplay)
+        Me.FeeEmissionGroupBox.Controls.Add(Me.FeePmLabel)
+        Me.FeeEmissionGroupBox.Controls.Add(Me.FeeSO2Label)
+        Me.FeeEmissionGroupBox.Controls.Add(Me.FeeEmissionTotalLabel)
+        Me.FeeEmissionGroupBox.Controls.Add(Me.FeeNOxLabel)
+        Me.FeeEmissionGroupBox.Controls.Add(Me.FeeRateLabel)
+        Me.FeeEmissionGroupBox.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.FeeEmissionGroupBox.Location = New System.Drawing.Point(197, 169)
+        Me.FeeEmissionGroupBox.Margin = New System.Windows.Forms.Padding(2)
+        Me.FeeEmissionGroupBox.Name = "FeeEmissionGroupBox"
+        Me.FeeEmissionGroupBox.Padding = New System.Windows.Forms.Padding(2)
+        Me.FeeEmissionGroupBox.Size = New System.Drawing.Size(195, 138)
+        Me.FeeEmissionGroupBox.TabIndex = 7
+        Me.FeeEmissionGroupBox.TabStop = False
+        Me.FeeEmissionGroupBox.Text = "Emission Fees"
         '
-        'Label426
+        'FeeVocLabel
         '
-        Me.Label426.AutoSize = True
-        Me.Label426.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label426.Location = New System.Drawing.Point(31, 27)
-        Me.Label426.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label426.Name = "Label426"
-        Me.Label426.Size = New System.Drawing.Size(29, 13)
-        Me.Label426.TabIndex = 142
-        Me.Label426.Text = "VOC"
+        Me.FeeVocLabel.AutoSize = True
+        Me.FeeVocLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FeeVocLabel.Location = New System.Drawing.Point(50, 20)
+        Me.FeeVocLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.FeeVocLabel.Name = "FeeVocLabel"
+        Me.FeeVocLabel.Size = New System.Drawing.Size(29, 13)
+        Me.FeeVocLabel.TabIndex = 142
+        Me.FeeVocLabel.Text = "VOC"
         '
-        'Label429
+        'FeePollutantTotalDisplay
         '
-        Me.Label429.AutoSize = True
-        Me.Label429.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label429.Location = New System.Drawing.Point(37, 49)
-        Me.Label429.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label429.Name = "Label429"
-        Me.Label429.Size = New System.Drawing.Size(23, 13)
-        Me.Label429.TabIndex = 145
-        Me.Label429.Text = "PM"
+        Me.FeePollutantTotalDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.FeePollutantTotalDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.FeePollutantTotalDisplay.Location = New System.Drawing.Point(83, 115)
+        Me.FeePollutantTotalDisplay.Name = "FeePollutantTotalDisplay"
+        Me.FeePollutantTotalDisplay.ReadOnly = True
+        Me.FeePollutantTotalDisplay.Size = New System.Drawing.Size(107, 13)
+        Me.FeePollutantTotalDisplay.TabIndex = 5
+        Me.FeePollutantTotalDisplay.Text = "N/A"
         '
-        'Label428
+        'FeeRateDisplay
         '
-        Me.Label428.AutoSize = True
-        Me.Label428.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label428.Location = New System.Drawing.Point(32, 71)
-        Me.Label428.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label428.Name = "Label428"
-        Me.Label428.Size = New System.Drawing.Size(28, 13)
-        Me.Label428.TabIndex = 144
-        Me.Label428.Text = "SO2"
+        Me.FeeRateDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.FeeRateDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.FeeRateDisplay.Location = New System.Drawing.Point(83, 96)
+        Me.FeeRateDisplay.Name = "FeeRateDisplay"
+        Me.FeeRateDisplay.ReadOnly = True
+        Me.FeeRateDisplay.Size = New System.Drawing.Size(107, 13)
+        Me.FeeRateDisplay.TabIndex = 4
+        Me.FeeRateDisplay.Text = "N/A"
         '
-        'Label432
+        'FeeNOxDisplay
         '
-        Me.Label432.AutoSize = True
-        Me.Label432.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label432.Location = New System.Drawing.Point(8, 136)
-        Me.Label432.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label432.Name = "Label432"
-        Me.Label432.Size = New System.Drawing.Size(104, 13)
-        Me.Label432.TabIndex = 152
-        Me.Label432.Text = "Total Emissions Fee:"
+        Me.FeeNOxDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.FeeNOxDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.FeeNOxDisplay.Location = New System.Drawing.Point(83, 77)
+        Me.FeeNOxDisplay.Name = "FeeNOxDisplay"
+        Me.FeeNOxDisplay.ReadOnly = True
+        Me.FeeNOxDisplay.Size = New System.Drawing.Size(107, 13)
+        Me.FeeNOxDisplay.TabIndex = 3
+        Me.FeeNOxDisplay.Text = "N/A"
         '
-        'Label427
+        'FeeSO2Display
         '
-        Me.Label427.AutoSize = True
-        Me.Label427.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label427.Location = New System.Drawing.Point(30, 94)
-        Me.Label427.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label427.Name = "Label427"
-        Me.Label427.Size = New System.Drawing.Size(28, 13)
-        Me.Label427.TabIndex = 143
-        Me.Label427.Text = "NOx"
+        Me.FeeSO2Display.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.FeeSO2Display.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.FeeSO2Display.Location = New System.Drawing.Point(83, 58)
+        Me.FeeSO2Display.Name = "FeeSO2Display"
+        Me.FeeSO2Display.ReadOnly = True
+        Me.FeeSO2Display.Size = New System.Drawing.Size(107, 13)
+        Me.FeeSO2Display.TabIndex = 2
+        Me.FeeSO2Display.Text = "N/A"
         '
-        'txtFeesRate
+        'FeePmDisplay
         '
-        Me.txtFeesRate.BackColor = System.Drawing.SystemColors.Control
-        Me.txtFeesRate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtFeesRate.Location = New System.Drawing.Point(64, 112)
-        Me.txtFeesRate.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtFeesRate.Name = "txtFeesRate"
-        Me.txtFeesRate.ReadOnly = True
-        Me.txtFeesRate.Size = New System.Drawing.Size(63, 20)
-        Me.txtFeesRate.TabIndex = 151
+        Me.FeePmDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.FeePmDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.FeePmDisplay.Location = New System.Drawing.Point(83, 39)
+        Me.FeePmDisplay.Name = "FeePmDisplay"
+        Me.FeePmDisplay.ReadOnly = True
+        Me.FeePmDisplay.Size = New System.Drawing.Size(107, 13)
+        Me.FeePmDisplay.TabIndex = 1
+        Me.FeePmDisplay.Text = "N/A"
         '
-        'txtFeesPollutantFee
+        'FeeVocDisplay
         '
-        Me.txtFeesPollutantFee.BackColor = System.Drawing.SystemColors.Control
-        Me.txtFeesPollutantFee.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtFeesPollutantFee.Location = New System.Drawing.Point(116, 135)
-        Me.txtFeesPollutantFee.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtFeesPollutantFee.Name = "txtFeesPollutantFee"
-        Me.txtFeesPollutantFee.ReadOnly = True
-        Me.txtFeesPollutantFee.Size = New System.Drawing.Size(123, 20)
-        Me.txtFeesPollutantFee.TabIndex = 159
+        Me.FeeVocDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.FeeVocDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.FeeVocDisplay.Location = New System.Drawing.Point(83, 20)
+        Me.FeeVocDisplay.Name = "FeeVocDisplay"
+        Me.FeeVocDisplay.ReadOnly = True
+        Me.FeeVocDisplay.Size = New System.Drawing.Size(107, 13)
+        Me.FeeVocDisplay.TabIndex = 0
+        Me.FeeVocDisplay.Text = "N/A"
         '
-        'Label431
+        'FeePmLabel
         '
-        Me.Label431.AutoSize = True
-        Me.Label431.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label431.Location = New System.Drawing.Point(9, 115)
-        Me.Label431.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label431.Name = "Label431"
-        Me.Label431.Size = New System.Drawing.Size(59, 13)
-        Me.Label431.TabIndex = 150
-        Me.Label431.Text = "Fees Rate:"
+        Me.FeePmLabel.AutoSize = True
+        Me.FeePmLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FeePmLabel.Location = New System.Drawing.Point(55, 39)
+        Me.FeePmLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.FeePmLabel.Name = "FeePmLabel"
+        Me.FeePmLabel.Size = New System.Drawing.Size(23, 13)
+        Me.FeePmLabel.TabIndex = 145
+        Me.FeePmLabel.Text = "PM"
         '
-        'Label436
+        'FeeSO2Label
         '
-        Me.Label436.AutoSize = True
-        Me.Label436.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label436.Location = New System.Drawing.Point(130, 115)
-        Me.Label436.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label436.Name = "Label436"
-        Me.Label436.Size = New System.Drawing.Size(39, 13)
-        Me.Label436.TabIndex = 163
-        Me.Label436.Text = "$ / ton"
+        Me.FeeSO2Label.AutoSize = True
+        Me.FeeSO2Label.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FeeSO2Label.Location = New System.Drawing.Point(50, 58)
+        Me.FeeSO2Label.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.FeeSO2Label.Name = "FeeSO2Label"
+        Me.FeeSO2Label.Size = New System.Drawing.Size(28, 13)
+        Me.FeeSO2Label.TabIndex = 144
+        Me.FeeSO2Label.Text = "SO2"
         '
-        'txtFeesVOC
+        'FeeEmissionTotalLabel
         '
-        Me.txtFeesVOC.BackColor = System.Drawing.SystemColors.Control
-        Me.txtFeesVOC.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtFeesVOC.Location = New System.Drawing.Point(64, 23)
-        Me.txtFeesVOC.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtFeesVOC.Name = "txtFeesVOC"
-        Me.txtFeesVOC.ReadOnly = True
-        Me.txtFeesVOC.Size = New System.Drawing.Size(131, 20)
-        Me.txtFeesVOC.TabIndex = 140
+        Me.FeeEmissionTotalLabel.AutoSize = True
+        Me.FeeEmissionTotalLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FeeEmissionTotalLabel.Location = New System.Drawing.Point(47, 115)
+        Me.FeeEmissionTotalLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.FeeEmissionTotalLabel.Name = "FeeEmissionTotalLabel"
+        Me.FeeEmissionTotalLabel.Size = New System.Drawing.Size(31, 13)
+        Me.FeeEmissionTotalLabel.TabIndex = 152
+        Me.FeeEmissionTotalLabel.Text = "Total"
         '
-        'txtFeesPM
+        'FeeNOxLabel
         '
-        Me.txtFeesPM.BackColor = System.Drawing.SystemColors.Control
-        Me.txtFeesPM.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtFeesPM.Location = New System.Drawing.Point(64, 45)
-        Me.txtFeesPM.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtFeesPM.Name = "txtFeesPM"
-        Me.txtFeesPM.ReadOnly = True
-        Me.txtFeesPM.Size = New System.Drawing.Size(131, 20)
-        Me.txtFeesPM.TabIndex = 148
+        Me.FeeNOxLabel.AutoSize = True
+        Me.FeeNOxLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FeeNOxLabel.Location = New System.Drawing.Point(50, 77)
+        Me.FeeNOxLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.FeeNOxLabel.Name = "FeeNOxLabel"
+        Me.FeeNOxLabel.Size = New System.Drawing.Size(28, 13)
+        Me.FeeNOxLabel.TabIndex = 143
+        Me.FeeNOxLabel.Text = "NOx"
         '
-        'txtFeesSO2
+        'FeeRateLabel
         '
-        Me.txtFeesSO2.BackColor = System.Drawing.SystemColors.Control
-        Me.txtFeesSO2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtFeesSO2.Location = New System.Drawing.Point(64, 67)
-        Me.txtFeesSO2.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtFeesSO2.Name = "txtFeesSO2"
-        Me.txtFeesSO2.ReadOnly = True
-        Me.txtFeesSO2.Size = New System.Drawing.Size(131, 20)
-        Me.txtFeesSO2.TabIndex = 147
+        Me.FeeRateLabel.AutoSize = True
+        Me.FeeRateLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FeeRateLabel.Location = New System.Drawing.Point(27, 96)
+        Me.FeeRateLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.FeeRateLabel.Name = "FeeRateLabel"
+        Me.FeeRateLabel.Size = New System.Drawing.Size(51, 13)
+        Me.FeeRateLabel.TabIndex = 150
+        Me.FeeRateLabel.Text = "Fee Rate"
         '
-        'GroupBox1
+        'FeeDataGroupBox
         '
-        Me.GroupBox1.Controls.Add(Me.chbFeesOperating)
-        Me.GroupBox1.Controls.Add(Me.Label437)
-        Me.GroupBox1.Controls.Add(Me.txtFeesClassification)
-        Me.GroupBox1.Controls.Add(Me.chbFeesPart70)
-        Me.GroupBox1.Controls.Add(Me.chbNSPSExempt)
-        Me.GroupBox1.Location = New System.Drawing.Point(10, 72)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox1.Size = New System.Drawing.Size(297, 67)
-        Me.GroupBox1.TabIndex = 179
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Facility Data for the Calender Year of Record: "
+        Me.FeeDataGroupBox.Controls.Add(Me.FeeFacilityClassDisplay)
+        Me.FeeDataGroupBox.Controls.Add(Me.FeeFacilityOperatingDisplay)
+        Me.FeeDataGroupBox.Controls.Add(Me.Label437)
+        Me.FeeDataGroupBox.Controls.Add(Me.FeeFacilityPart70Display)
+        Me.FeeDataGroupBox.Controls.Add(Me.FeeFacilityNspsExemptDisplay)
+        Me.FeeDataGroupBox.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.FeeDataGroupBox.Location = New System.Drawing.Point(9, 169)
+        Me.FeeDataGroupBox.Margin = New System.Windows.Forms.Padding(2)
+        Me.FeeDataGroupBox.Name = "FeeDataGroupBox"
+        Me.FeeDataGroupBox.Padding = New System.Windows.Forms.Padding(2)
+        Me.FeeDataGroupBox.Size = New System.Drawing.Size(163, 138)
+        Me.FeeDataGroupBox.TabIndex = 5
+        Me.FeeDataGroupBox.TabStop = False
+        Me.FeeDataGroupBox.Text = "Recorded Facility Data"
         '
-        'chbFeesOperating
+        'FeeFacilityClassDisplay
         '
-        Me.chbFeesOperating.AutoCheck = False
-        Me.chbFeesOperating.AutoSize = True
-        Me.chbFeesOperating.Location = New System.Drawing.Point(8, 15)
-        Me.chbFeesOperating.Margin = New System.Windows.Forms.Padding(2)
-        Me.chbFeesOperating.Name = "chbFeesOperating"
-        Me.chbFeesOperating.Size = New System.Drawing.Size(107, 17)
-        Me.chbFeesOperating.TabIndex = 162
-        Me.chbFeesOperating.Text = "Facility Operating"
+        Me.FeeFacilityClassDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.FeeFacilityClassDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.FeeFacilityClassDisplay.Location = New System.Drawing.Point(77, 20)
+        Me.FeeFacilityClassDisplay.Name = "FeeFacilityClassDisplay"
+        Me.FeeFacilityClassDisplay.ReadOnly = True
+        Me.FeeFacilityClassDisplay.Size = New System.Drawing.Size(19, 13)
+        Me.FeeFacilityClassDisplay.TabIndex = 0
+        Me.FeeFacilityClassDisplay.Text = "SM"
+        Me.FeeFacilityClassDisplay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'FeeFacilityOperatingDisplay
+        '
+        Me.FeeFacilityOperatingDisplay.AutoCheck = False
+        Me.FeeFacilityOperatingDisplay.AutoSize = True
+        Me.FeeFacilityOperatingDisplay.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.FeeFacilityOperatingDisplay.Location = New System.Drawing.Point(9, 38)
+        Me.FeeFacilityOperatingDisplay.Margin = New System.Windows.Forms.Padding(2)
+        Me.FeeFacilityOperatingDisplay.Name = "FeeFacilityOperatingDisplay"
+        Me.FeeFacilityOperatingDisplay.Size = New System.Drawing.Size(72, 17)
+        Me.FeeFacilityOperatingDisplay.TabIndex = 1
+        Me.FeeFacilityOperatingDisplay.Text = "Operating"
         '
         'Label437
         '
         Me.Label437.AutoSize = True
         Me.Label437.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label437.Location = New System.Drawing.Point(58, 41)
+        Me.Label437.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.Label437.Location = New System.Drawing.Point(6, 20)
         Me.Label437.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label437.Name = "Label437"
-        Me.Label437.Size = New System.Drawing.Size(105, 13)
+        Me.Label437.Size = New System.Drawing.Size(68, 13)
         Me.Label437.TabIndex = 164
-        Me.Label437.Text = "Source Classification"
+        Me.Label437.Text = "Classification"
         '
-        'txtFeesClassification
+        'FeeFacilityPart70Display
         '
-        Me.txtFeesClassification.BackColor = System.Drawing.SystemColors.Control
-        Me.txtFeesClassification.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtFeesClassification.Location = New System.Drawing.Point(8, 37)
-        Me.txtFeesClassification.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtFeesClassification.Name = "txtFeesClassification"
-        Me.txtFeesClassification.ReadOnly = True
-        Me.txtFeesClassification.Size = New System.Drawing.Size(44, 20)
-        Me.txtFeesClassification.TabIndex = 166
+        Me.FeeFacilityPart70Display.AutoCheck = False
+        Me.FeeFacilityPart70Display.AutoSize = True
+        Me.FeeFacilityPart70Display.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.FeeFacilityPart70Display.Location = New System.Drawing.Point(9, 59)
+        Me.FeeFacilityPart70Display.Margin = New System.Windows.Forms.Padding(2)
+        Me.FeeFacilityPart70Display.Name = "FeeFacilityPart70Display"
+        Me.FeeFacilityPart70Display.Size = New System.Drawing.Size(111, 17)
+        Me.FeeFacilityPart70Display.TabIndex = 2
+        Me.FeeFacilityPart70Display.Text = "Subject to Part 70"
         '
-        'chbFeesPart70
+        'FeeFacilityNspsExemptDisplay
         '
-        Me.chbFeesPart70.AutoCheck = False
-        Me.chbFeesPart70.AutoSize = True
-        Me.chbFeesPart70.Location = New System.Drawing.Point(173, 15)
-        Me.chbFeesPart70.Margin = New System.Windows.Forms.Padding(2)
-        Me.chbFeesPart70.Name = "chbFeesPart70"
-        Me.chbFeesPart70.Size = New System.Drawing.Size(111, 17)
-        Me.chbFeesPart70.TabIndex = 160
-        Me.chbFeesPart70.Text = "Subject to Part 70"
+        Me.FeeFacilityNspsExemptDisplay.AutoCheck = False
+        Me.FeeFacilityNspsExemptDisplay.AutoSize = True
+        Me.FeeFacilityNspsExemptDisplay.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.FeeFacilityNspsExemptDisplay.Location = New System.Drawing.Point(9, 80)
+        Me.FeeFacilityNspsExemptDisplay.Margin = New System.Windows.Forms.Padding(2)
+        Me.FeeFacilityNspsExemptDisplay.Name = "FeeFacilityNspsExemptDisplay"
+        Me.FeeFacilityNspsExemptDisplay.Size = New System.Drawing.Size(93, 17)
+        Me.FeeFacilityNspsExemptDisplay.TabIndex = 3
+        Me.FeeFacilityNspsExemptDisplay.Text = "NSPS Exempt"
         '
-        'chbNSPSExempt
+        'FeeDueLabel
         '
-        Me.chbNSPSExempt.AutoCheck = False
-        Me.chbNSPSExempt.AutoSize = True
-        Me.chbNSPSExempt.Location = New System.Drawing.Point(173, 37)
-        Me.chbNSPSExempt.Margin = New System.Windows.Forms.Padding(2)
-        Me.chbNSPSExempt.Name = "chbNSPSExempt"
-        Me.chbNSPSExempt.Size = New System.Drawing.Size(93, 17)
-        Me.chbNSPSExempt.TabIndex = 161
-        Me.chbNSPSExempt.Text = "NSPS Exempt"
+        Me.FeeDueLabel.AutoSize = True
+        Me.FeeDueLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FeeDueLabel.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.FeeDueLabel.Location = New System.Drawing.Point(6, 119)
+        Me.FeeDueLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.FeeDueLabel.Name = "FeeDueLabel"
+        Me.FeeDueLabel.Size = New System.Drawing.Size(54, 13)
+        Me.FeeDueLabel.TabIndex = 178
+        Me.FeeDueLabel.Text = "Total Due"
         '
-        'Label424
+        'FeeYearSelect
         '
-        Me.Label424.AutoSize = True
-        Me.Label424.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label424.Location = New System.Drawing.Point(11, 50)
-        Me.Label424.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label424.Name = "Label424"
-        Me.Label424.Size = New System.Drawing.Size(83, 13)
-        Me.Label424.TabIndex = 178
-        Me.Label424.Text = "Total Fees Due:"
+        Me.FeeYearSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.FeeYearSelect.Location = New System.Drawing.Point(65, 19)
+        Me.FeeYearSelect.Margin = New System.Windows.Forms.Padding(2)
+        Me.FeeYearSelect.Name = "FeeYearSelect"
+        Me.FeeYearSelect.Size = New System.Drawing.Size(108, 21)
+        Me.FeeYearSelect.TabIndex = 0
         '
-        'txtFeesTotal
+        'FeeYearLabel
         '
-        Me.txtFeesTotal.BackColor = System.Drawing.SystemColors.Control
-        Me.txtFeesTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtFeesTotal.Location = New System.Drawing.Point(97, 46)
-        Me.txtFeesTotal.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtFeesTotal.Name = "txtFeesTotal"
-        Me.txtFeesTotal.ReadOnly = True
-        Me.txtFeesTotal.Size = New System.Drawing.Size(92, 20)
-        Me.txtFeesTotal.TabIndex = 177
-        '
-        'cboFeeYear
-        '
-        Me.cboFeeYear.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cboFeeYear.Location = New System.Drawing.Point(43, 13)
-        Me.cboFeeYear.Margin = New System.Windows.Forms.Padding(2)
-        Me.cboFeeYear.Name = "cboFeeYear"
-        Me.cboFeeYear.Size = New System.Drawing.Size(80, 23)
-        Me.cboFeeYear.TabIndex = 176
-        '
-        'Label423
-        '
-        Me.Label423.AutoSize = True
-        Me.Label423.Location = New System.Drawing.Point(7, 16)
-        Me.Label423.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label423.Name = "Label423"
-        Me.Label423.Size = New System.Drawing.Size(32, 13)
-        Me.Label423.TabIndex = 175
-        Me.Label423.Text = "Year:"
+        Me.FeeYearLabel.AutoSize = True
+        Me.FeeYearLabel.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.FeeYearLabel.Location = New System.Drawing.Point(32, 23)
+        Me.FeeYearLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.FeeYearLabel.Name = "FeeYearLabel"
+        Me.FeeYearLabel.Size = New System.Drawing.Size(29, 13)
+        Me.FeeYearLabel.TabIndex = 175
+        Me.FeeYearLabel.Text = "Year"
         '
         'FSContacts
         '
@@ -1951,23 +2010,23 @@ Partial Class IAIPFacilitySummary
         '
         'dgvWebSiteContacts
         '
-        DataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle43.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle43.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle43.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle43.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle43.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle43.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvWebSiteContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle43
+        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle15.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvWebSiteContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle15
         Me.dgvWebSiteContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle44.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle44.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle44.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle44.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle44.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle44.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle44.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvWebSiteContacts.DefaultCellStyle = DataGridViewCellStyle44
+        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle16.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvWebSiteContacts.DefaultCellStyle = DataGridViewCellStyle16
         Me.dgvWebSiteContacts.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvWebSiteContacts.Location = New System.Drawing.Point(0, 0)
         Me.dgvWebSiteContacts.Name = "dgvWebSiteContacts"
@@ -1989,23 +2048,23 @@ Partial Class IAIPFacilitySummary
         '
         'dgvSSPPContacts
         '
-        DataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle45.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle45.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle45.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle45.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle45.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle45.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvSSPPContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle45
+        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle17.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvSSPPContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle17
         Me.dgvSSPPContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle46.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle46.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle46.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle46.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle46.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle46.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle46.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvSSPPContacts.DefaultCellStyle = DataGridViewCellStyle46
+        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle18.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvSSPPContacts.DefaultCellStyle = DataGridViewCellStyle18
         Me.dgvSSPPContacts.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvSSPPContacts.Location = New System.Drawing.Point(0, 0)
         Me.dgvSSPPContacts.Name = "dgvSSPPContacts"
@@ -2047,23 +2106,23 @@ Partial Class IAIPFacilitySummary
         '
         'dgvISMPContacts
         '
-        DataGridViewCellStyle47.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle47.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle47.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle47.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle47.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle47.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle47.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvISMPContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle47
+        DataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle19.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvISMPContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle19
         Me.dgvISMPContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle48.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle48.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle48.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle48.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle48.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle48.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle48.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvISMPContacts.DefaultCellStyle = DataGridViewCellStyle48
+        DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle20.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvISMPContacts.DefaultCellStyle = DataGridViewCellStyle20
         Me.dgvISMPContacts.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvISMPContacts.Location = New System.Drawing.Point(0, 0)
         Me.dgvISMPContacts.Name = "dgvISMPContacts"
@@ -2105,23 +2164,23 @@ Partial Class IAIPFacilitySummary
         '
         'dgvSSCPContacts
         '
-        DataGridViewCellStyle49.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle49.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle49.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle49.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle49.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle49.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle49.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvSSCPContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle49
+        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle21.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvSSCPContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle21
         Me.dgvSSCPContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle50.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle50.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle50.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle50.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle50.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle50.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle50.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvSSCPContacts.DefaultCellStyle = DataGridViewCellStyle50
+        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle22.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvSSCPContacts.DefaultCellStyle = DataGridViewCellStyle22
         Me.dgvSSCPContacts.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvSSCPContacts.Location = New System.Drawing.Point(0, 0)
         Me.dgvSSCPContacts.Name = "dgvSSCPContacts"
@@ -2162,23 +2221,23 @@ Partial Class IAIPFacilitySummary
         '
         'dgvGECOContacts
         '
-        DataGridViewCellStyle51.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle51.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle51.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle51.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle51.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle51.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle51.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvGECOContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle51
+        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle23.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvGECOContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle23
         Me.dgvGECOContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle52.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle52.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle52.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle52.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle52.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle52.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle52.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvGECOContacts.DefaultCellStyle = DataGridViewCellStyle52
+        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle24.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvGECOContacts.DefaultCellStyle = DataGridViewCellStyle24
         Me.dgvGECOContacts.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvGECOContacts.Location = New System.Drawing.Point(0, 0)
         Me.dgvGECOContacts.Name = "dgvGECOContacts"
@@ -2438,8 +2497,8 @@ Partial Class IAIPFacilitySummary
         Me.ComplianceWorkGrid.AllowUserToDeleteRows = False
         Me.ComplianceWorkGrid.AllowUserToOrderColumns = True
         Me.ComplianceWorkGrid.AllowUserToResizeRows = False
-        DataGridViewCellStyle53.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ComplianceWorkGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle53
+        DataGridViewCellStyle25.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.ComplianceWorkGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle25
         Me.ComplianceWorkGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.ComplianceWorkGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.ComplianceWorkGrid.Dock = System.Windows.Forms.DockStyle.Fill
@@ -2519,8 +2578,8 @@ Partial Class IAIPFacilitySummary
         Me.ComplianceFceGrid.AllowUserToDeleteRows = False
         Me.ComplianceFceGrid.AllowUserToOrderColumns = True
         Me.ComplianceFceGrid.AllowUserToResizeRows = False
-        DataGridViewCellStyle54.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ComplianceFceGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle54
+        DataGridViewCellStyle26.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.ComplianceFceGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle26
         Me.ComplianceFceGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.ComplianceFceGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.ComplianceFceGrid.Dock = System.Windows.Forms.DockStyle.Fill
@@ -2600,8 +2659,8 @@ Partial Class IAIPFacilitySummary
         Me.ComplianceEnforcementGrid.AllowUserToDeleteRows = False
         Me.ComplianceEnforcementGrid.AllowUserToOrderColumns = True
         Me.ComplianceEnforcementGrid.AllowUserToResizeRows = False
-        DataGridViewCellStyle55.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ComplianceEnforcementGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle55
+        DataGridViewCellStyle27.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.ComplianceEnforcementGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle27
         Me.ComplianceEnforcementGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.ComplianceEnforcementGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.ComplianceEnforcementGrid.Dock = System.Windows.Forms.DockStyle.Fill
@@ -2826,8 +2885,8 @@ Partial Class IAIPFacilitySummary
         Me.dgvPermits.AllowUserToDeleteRows = False
         Me.dgvPermits.AllowUserToOrderColumns = True
         Me.dgvPermits.AllowUserToResizeRows = False
-        DataGridViewCellStyle56.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvPermits.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle56
+        DataGridViewCellStyle28.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvPermits.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle28
         Me.dgvPermits.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvPermits.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText
         Me.dgvPermits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -3384,28 +3443,6 @@ Partial Class IAIPFacilitySummary
         Me.LinkLabel4.Text = "Location (view online map):"
         Me.LinkLabel4.UseCompatibleTextRendering = True
         '
-        'AirProgramsGroupBox
-        '
-        Me.AirProgramsGroupBox.Controls.Add(Me.AirProgramsListBox)
-        Me.AirProgramsGroupBox.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.AirProgramsGroupBox.Location = New System.Drawing.Point(308, 23)
-        Me.AirProgramsGroupBox.Name = "AirProgramsGroupBox"
-        Me.AirProgramsGroupBox.Size = New System.Drawing.Size(253, 117)
-        Me.AirProgramsGroupBox.TabIndex = 352
-        Me.AirProgramsGroupBox.TabStop = False
-        Me.AirProgramsGroupBox.Text = "Air Programs"
-        '
-        'ProgramClassificationsGroupBox
-        '
-        Me.ProgramClassificationsGroupBox.Controls.Add(Me.ProgramClassificationsListBox)
-        Me.ProgramClassificationsGroupBox.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.ProgramClassificationsGroupBox.Location = New System.Drawing.Point(308, 175)
-        Me.ProgramClassificationsGroupBox.Name = "ProgramClassificationsGroupBox"
-        Me.ProgramClassificationsGroupBox.Size = New System.Drawing.Size(157, 68)
-        Me.ProgramClassificationsGroupBox.TabIndex = 353
-        Me.ProgramClassificationsGroupBox.TabStop = False
-        Me.ProgramClassificationsGroupBox.Text = "Program Classifications"
-        '
         'IAIPFacilitySummary
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -3425,16 +3462,18 @@ Partial Class IAIPFacilitySummary
         Me.FSInfo.PerformLayout()
         Me.FSHeaderData.ResumeLayout(False)
         Me.FSHeaderData.PerformLayout()
+        Me.ProgramClassificationsGroupBox.ResumeLayout(False)
+        Me.AirProgramsGroupBox.ResumeLayout(False)
         Me.NonattainmentStatuses.ResumeLayout(False)
         Me.NonattainmentStatuses.PerformLayout()
         Me.FSFees.ResumeLayout(False)
         Me.FSFees.PerformLayout()
-        Me.GroupBox4.ResumeLayout(False)
-        Me.GroupBox4.PerformLayout()
-        Me.GroupBox3.ResumeLayout(False)
-        Me.GroupBox3.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
+        Me.FeeRegGroupBox.ResumeLayout(False)
+        Me.FeeRegGroupBox.PerformLayout()
+        Me.FeeEmissionGroupBox.ResumeLayout(False)
+        Me.FeeEmissionGroupBox.PerformLayout()
+        Me.FeeDataGroupBox.ResumeLayout(False)
+        Me.FeeDataGroupBox.PerformLayout()
         Me.FSContacts.ResumeLayout(False)
         Me.ContactsTabControl.ResumeLayout(False)
         Me.TPStateContacts.ResumeLayout(False)
@@ -3518,8 +3557,6 @@ Partial Class IAIPFacilitySummary
         CType(Me.dgvEIData, System.ComponentModel.ISupportInitialize).EndInit()
         Me.FSMenuStrip.ResumeLayout(False)
         Me.FSMenuStrip.PerformLayout()
-        Me.AirProgramsGroupBox.ResumeLayout(False)
-        Me.ProgramClassificationsGroupBox.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -3527,7 +3564,6 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents tbbFacilityLookup As System.Windows.Forms.ToolBarButton
     Friend WithEvents tbbClearForm As System.Windows.Forms.ToolBarButton
     Friend WithEvents NavigationPanel As System.Windows.Forms.Panel
-    Friend WithEvents AirsNumberEntryLabel As System.Windows.Forms.Label
     Friend WithEvents FSMainTabControl As System.Windows.Forms.TabControl
     Friend WithEvents FSInfo As System.Windows.Forms.TabPage
     Friend WithEvents FSHeaderData As System.Windows.Forms.TabPage
@@ -3576,41 +3612,27 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents dgvGECOContacts As System.Windows.Forms.DataGridView
     Friend WithEvents Panel10 As System.Windows.Forms.Panel
     Friend WithEvents btnCopyGECOContact As System.Windows.Forms.Button
-    Friend WithEvents txtDateSubmitted As System.Windows.Forms.TextBox
-    Friend WithEvents Label103 As System.Windows.Forms.Label
-    Friend WithEvents txtTotalFeesPaid As System.Windows.Forms.TextBox
-    Friend WithEvents Label102 As System.Windows.Forms.Label
-    Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
-    Friend WithEvents Label435 As System.Windows.Forms.Label
-    Friend WithEvents Label434 As System.Windows.Forms.Label
-    Friend WithEvents Label433 As System.Windows.Forms.Label
-    Friend WithEvents txtFeesSM As System.Windows.Forms.TextBox
-    Friend WithEvents txtFeesNSPS As System.Windows.Forms.TextBox
-    Friend WithEvents txtFeesPart70 As System.Windows.Forms.TextBox
-    Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
-    Friend WithEvents txtFeesNOx As System.Windows.Forms.TextBox
-    Friend WithEvents Label426 As System.Windows.Forms.Label
-    Friend WithEvents Label429 As System.Windows.Forms.Label
-    Friend WithEvents Label428 As System.Windows.Forms.Label
-    Friend WithEvents Label432 As System.Windows.Forms.Label
-    Friend WithEvents Label427 As System.Windows.Forms.Label
-    Friend WithEvents txtFeesRate As System.Windows.Forms.TextBox
-    Friend WithEvents txtFeesPollutantFee As System.Windows.Forms.TextBox
-    Friend WithEvents Label431 As System.Windows.Forms.Label
-    Friend WithEvents Label436 As System.Windows.Forms.Label
-    Friend WithEvents txtFeesVOC As System.Windows.Forms.TextBox
-    Friend WithEvents txtFeesPM As System.Windows.Forms.TextBox
-    Friend WithEvents txtFeesSO2 As System.Windows.Forms.TextBox
-    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Friend WithEvents chbFeesOperating As System.Windows.Forms.CheckBox
+    Friend WithEvents FeeSubmitDateLabel As System.Windows.Forms.Label
+    Friend WithEvents FeePaidLabel As System.Windows.Forms.Label
+    Friend WithEvents FeeRegGroupBox As System.Windows.Forms.GroupBox
+    Friend WithEvents FeeNspsLabel As System.Windows.Forms.Label
+    Friend WithEvents FeeSmLabel As System.Windows.Forms.Label
+    Friend WithEvents FeePart70Label As System.Windows.Forms.Label
+    Friend WithEvents FeeEmissionGroupBox As System.Windows.Forms.GroupBox
+    Friend WithEvents FeeVocLabel As System.Windows.Forms.Label
+    Friend WithEvents FeePmLabel As System.Windows.Forms.Label
+    Friend WithEvents FeeSO2Label As System.Windows.Forms.Label
+    Friend WithEvents FeeEmissionTotalLabel As System.Windows.Forms.Label
+    Friend WithEvents FeeNOxLabel As System.Windows.Forms.Label
+    Friend WithEvents FeeRateLabel As System.Windows.Forms.Label
+    Friend WithEvents FeeDataGroupBox As System.Windows.Forms.GroupBox
+    Friend WithEvents FeeFacilityOperatingDisplay As System.Windows.Forms.CheckBox
     Friend WithEvents Label437 As System.Windows.Forms.Label
-    Friend WithEvents txtFeesClassification As System.Windows.Forms.TextBox
-    Friend WithEvents chbFeesPart70 As System.Windows.Forms.CheckBox
-    Friend WithEvents chbNSPSExempt As System.Windows.Forms.CheckBox
-    Friend WithEvents Label424 As System.Windows.Forms.Label
-    Friend WithEvents txtFeesTotal As System.Windows.Forms.TextBox
-    Friend WithEvents cboFeeYear As System.Windows.Forms.ComboBox
-    Friend WithEvents Label423 As System.Windows.Forms.Label
+    Friend WithEvents FeeFacilityPart70Display As System.Windows.Forms.CheckBox
+    Friend WithEvents FeeFacilityNspsExemptDisplay As System.Windows.Forms.CheckBox
+    Friend WithEvents FeeDueLabel As System.Windows.Forms.Label
+    Friend WithEvents FeeYearSelect As System.Windows.Forms.ComboBox
+    Friend WithEvents FeeYearLabel As System.Windows.Forms.Label
     Friend WithEvents dgvEIData As System.Windows.Forms.DataGridView
     Friend WithEvents TestingTabControl As System.Windows.Forms.TabControl
     Friend WithEvents TPTestReports As System.Windows.Forms.TabPage
@@ -3652,15 +3674,12 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents dgvFeeData As System.Windows.Forms.DataGridView
     Friend WithEvents TPFeeDeposits As System.Windows.Forms.TabPage
     Friend WithEvents dgvFeeDeposits As System.Windows.Forms.DataGridView
-    Friend WithEvents txtBalance As System.Windows.Forms.TextBox
     Friend WithEvents EditFacilityLocationButton As System.Windows.Forms.Button
     Friend WithEvents EditHeaderDataButton As System.Windows.Forms.Button
     Friend WithEvents pnlEditContactData As System.Windows.Forms.Panel
     Friend WithEvents btnEditContacts As System.Windows.Forms.Button
-    Friend WithEvents Label15 As System.Windows.Forms.Label
-    Friend WithEvents txtAdminFee As System.Windows.Forms.TextBox
-    Friend WithEvents Label16 As System.Windows.Forms.Label
-    Friend WithEvents lblFeeStatus As System.Windows.Forms.Label
+    Friend WithEvents FeeAdminLabel As System.Windows.Forms.Label
+    Friend WithEvents FeeAdminWarningLabel As System.Windows.Forms.Label
     Friend WithEvents TPInvoices As System.Windows.Forms.TabPage
     Friend WithEvents dgvInvoices As System.Windows.Forms.DataGridView
     Friend WithEvents GroupBox7 As System.Windows.Forms.GroupBox
@@ -3670,7 +3689,6 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents dgvPermits As System.Windows.Forms.DataGridView
     Friend WithEvents ViewDataButton As System.Windows.Forms.Button
     Friend WithEvents FacilityApprovalLinkLabel As System.Windows.Forms.LinkLabel
-    Friend WithEvents AirsNumberEntry As System.Windows.Forms.TextBox
     Friend WithEvents FSMenuStrip As System.Windows.Forms.MenuStrip
     Friend WithEvents FileMenu As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents LookUpFacilityMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -3789,4 +3807,24 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents ComplianceEnforcementNoDataLabel As System.Windows.Forms.Label
     Friend WithEvents AirProgramsGroupBox As System.Windows.Forms.GroupBox
     Friend WithEvents ProgramClassificationsGroupBox As System.Windows.Forms.GroupBox
+    Friend WithEvents FeeStatusLabel As System.Windows.Forms.Label
+    Friend WithEvents FeeTotalDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents FeeStatusDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents FeeDateSubmitDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents FeePaidDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents FeeFacilityClassDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents FeeAdminDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents FeeNspsDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents FeeSmDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents FeePart70Display As System.Windows.Forms.TextBox
+    Friend WithEvents FeeRateDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents FeeNOxDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents FeeSO2Display As System.Windows.Forms.TextBox
+    Friend WithEvents FeePmDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents FeeVocDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents FeePollutantTotalDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents CountyLabel As System.Windows.Forms.Label
+    Friend WithEvents CountyDisplay As System.Windows.Forms.TextBox
+    Friend WithEvents AirsNumberEntry As Iaip.CueTextBox
+    Friend WithEvents FacilitySearchButton As System.Windows.Forms.Button
 End Class

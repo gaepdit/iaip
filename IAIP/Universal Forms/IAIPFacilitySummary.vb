@@ -208,14 +208,13 @@ Public Class IAIPFacilitySummary
 
             With .FacilityLocation
                 'Location
-                LocationDisplay.Text = .Address.ToString & _
-                    vbNewLine & vbNewLine & _
-                    .County.ToString & " County"
+                LocationDisplay.Text = .Address.ToString
+                CountyDisplay.Text = .County.ToString
                 If .Address IsNot Nothing Then
                     MapAddressLink.Enabled = True
                 End If
                 LatLonDisplay.Text = .Latitude.ToString & _
-                    " / " & _
+                    ", " & _
                     .Longitude.ToString
                 If .Latitude IsNot Nothing _
                 AndAlso .Longitude IsNot Nothing Then
@@ -397,7 +396,7 @@ Public Class IAIPFacilitySummary
 
         With thisFacilityDataSet.Tables(table.ToString)
             .Merge(GetData(table), False, MissingSchemaAction.Add)
-            If .Rows.Count > 0 Then SetUpGrid(table)
+            If .Rows.Count > 0 Then SetUpData(table)
             DisplayNoDataMessage(table, .Rows.Count = 0)
         End With
     End Sub
@@ -414,12 +413,14 @@ Public Class IAIPFacilitySummary
                 Return GetComplianceFceData(Me.AirsNumber)
             Case WhichTable.ComplianceEnforcement
                 Return GetComplianceEnforcementData(Me.AirsNumber)
+            Case WhichTable.Fees
+                Return GetFeesData(Me.AirsNumber)
             Case Else
                 Return Nothing
         End Select
     End Function
 
-    Private Sub SetUpGrid(ByVal table As WhichTable)
+    Private Sub SetUpData(ByVal table As WhichTable)
         Select Case table
             Case WhichTable.ComplianceWork
                 SetUpComplianceWorkGrid()
@@ -427,7 +428,8 @@ Public Class IAIPFacilitySummary
                 SetUpComplianceFceGrid()
             Case WhichTable.ComplianceEnforcement
                 SetUpComplianceEnforcementGrid()
-
+            Case WhichTable.Fees
+                SetUpFeesTab()
         End Select
     End Sub
 
@@ -439,7 +441,8 @@ Public Class IAIPFacilitySummary
                 ComplianceFceNoDataLabel.Visible = display
             Case WhichTable.ComplianceEnforcement
                 ComplianceEnforcementNoDataLabel.Visible = display
-
+            Case WhichTable.Fees
+                ' Do Nothing
         End Select
     End Sub
 
@@ -569,208 +572,89 @@ Public Class IAIPFacilitySummary
 
 #End Region
 
-#Region " ... Fees Data "
+#Region " Fees data "
 
     Private Sub LoadFeesData()
-        Try
-            Dim dtFacilityWideData As New DataTable
-            Dim drDSRow As DataRow
-            dsFacilityWideData = New DataSet
+        LoadData(WhichTable.Fees)
+    End Sub
 
-            SQL = "Select " & _
-            "AIRBRANCH.VW_APBFacilityFees.*, " & _
-            "(numTotalFee - TotalPaid) as Balance " & _
-            "from AIRBRANCH.VW_APBFacilityFees " & _
-            "where strAIRSNumber = '" & Me.AirsNumber.DbFormattedString & "'  " & _
-            "order by intYear DESC "
+    Private Sub SetUpFeesTab()
+        If FeeYearSelect.DataSource Is Nothing Then
+            With FeeYearSelect
+                .DataSource = thisFacilityDataSet.Tables(WhichTable.Fees.ToString)
+                .DisplayMember = "FeesData"
+                .ValueMember = "intYear"
+                .SelectedIndex = 0
+            End With
 
-            daFacilityWideData = New OracleDataAdapter(SQL, CurrentConnection)
+            Dim textBoxDataBindings As New Dictionary(Of TextBox, String)
+            textBoxDataBindings.Add(FeeFacilityClassDisplay, "strClass")
+            textBoxDataBindings.Add(FeeDateSubmitDisplay, "DateSubmit")
+            textBoxDataBindings.Add(FeeStatusDisplay, "strIAIPDesc")
+            For Each item As KeyValuePair(Of TextBox, String) In textBoxDataBindings
+                item.Key.DataBindings.Add(New Binding("Text", thisFacilityDataSet.Tables(WhichTable.Fees.ToString), item.Value))
+            Next
 
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daFacilityWideData.Fill(dsFacilityWideData, "Fees")
+            Dim textBoxDataBindingsTons As New Dictionary(Of TextBox, String)
+            textBoxDataBindingsTons.Add(FeeVocDisplay, "intVOCTons")
+            textBoxDataBindingsTons.Add(FeePmDisplay, "intPMTons")
+            textBoxDataBindingsTons.Add(FeeSO2Display, "intSO2Tons")
+            textBoxDataBindingsTons.Add(FeeNOxDisplay, "intNOXtons")
+            For Each item As KeyValuePair(Of TextBox, String) In textBoxDataBindingsTons
+                Dim b As Binding = New Binding("Text", thisFacilityDataSet.Tables(WhichTable.Fees.ToString), item.Value)
+                AddHandler b.Format, AddressOf BindingFormatTons
+                item.Key.DataBindings.Add(b)
+            Next
 
-            cboFeeYear.DataBindings.Clear()
-            txtFeesClassification.DataBindings.Clear()
-            txtFeesTotal.DataBindings.Clear()
-            txtTotalFeesPaid.DataBindings.Clear()
-            txtDateSubmitted.DataBindings.Clear()
-            txtFeesPart70.DataBindings.Clear()
-            txtFeesSM.DataBindings.Clear()
-            txtFeesNSPS.DataBindings.Clear()
-            txtAdminFee.DataBindings.Clear()
-            txtFeesVOC.DataBindings.Clear()
-            txtFeesPM.DataBindings.Clear()
-            txtFeesSO2.DataBindings.Clear()
-            txtFeesNOx.DataBindings.Clear()
-            txtFeesRate.DataBindings.Clear()
-            txtFeesPollutantFee.DataBindings.Clear()
-            chbFeesOperating.DataBindings.Clear()
-            chbFeesPart70.DataBindings.Clear()
-            chbNSPSExempt.DataBindings.Clear()
-            txtBalance.DataBindings.Clear()
-            lblFeeStatus.DataBindings.Clear()
+            Dim textBoxDataBindingsDollars As New Dictionary(Of TextBox, String)
+            textBoxDataBindingsDollars.Add(FeeTotalDisplay, "NumTotalFee")
+            textBoxDataBindingsDollars.Add(FeePaidDisplay, "TotalPaid")
+            textBoxDataBindingsDollars.Add(FeePart70Display, "NumPart70Fee")
+            textBoxDataBindingsDollars.Add(FeeSmDisplay, "NumSMFee")
+            textBoxDataBindingsDollars.Add(FeeNspsDisplay, "NumNSPSFee")
+            textBoxDataBindingsDollars.Add(FeeAdminDisplay, "NumAdminFee")
+            textBoxDataBindingsDollars.Add(FeePollutantTotalDisplay, "numCalculatedFee")
+            For Each item As KeyValuePair(Of TextBox, String) In textBoxDataBindingsDollars
+                Dim b As Binding = New Binding("Text", thisFacilityDataSet.Tables(WhichTable.Fees.ToString), item.Value)
+                AddHandler b.Format, AddressOf BindingFormatDollars
+                item.Key.DataBindings.Add(b)
+            Next
 
-            Dim dtFees As New DataTable
-            Dim drNewRow As DataRow
+            Dim binding As Binding = New Binding("Text", thisFacilityDataSet.Tables(WhichTable.Fees.ToString), "NumFeeRate")
+            AddHandler binding.Format, AddressOf BindingFormatDollarsPerTon
+            FeeRateDisplay.DataBindings.Add(binding)
 
-            If dsFacilityWideData.Tables("Fees").Rows.Count = 0 Then
-                cboFeeYear.Text = ""
-                txtFeesClassification.Text = ""
-                txtFeesTotal.Text = ""
-                txtTotalFeesPaid.Text = ""
-                txtDateSubmitted.Text = ""
-                txtFeesPart70.Text = ""
-                txtFeesSM.Text = ""
-                txtFeesNSPS.Text = ""
-                txtAdminFee.Text = ""
-                txtFeesVOC.Text = ""
-                txtFeesPM.Text = ""
-                txtFeesSO2.Text = ""
-                txtFeesNOx.Text = ""
-                txtFeesRate.Text = ""
-                txtFeesPollutantFee.Text = ""
-                chbFeesOperating.Checked = False
-                chbFeesPart70.Checked = False
-                chbNSPSExempt.Checked = False
-                txtBalance.Text = ""
-                lblFeeStatus.Text = ""
-            Else
-                dtFees.Columns.Add("intYear", GetType(System.String))
-                dtFees.Columns.Add("strClass", GetType(System.String))
-                dtFees.Columns.Add("intVOCTons", GetType(System.String))
-                dtFees.Columns.Add("intPMTons", GetType(System.String))
-                dtFees.Columns.Add("intSO2Tons", GetType(System.String))
-                dtFees.Columns.Add("intNOXtons", GetType(System.String))
-                dtFees.Columns.Add("NumPart70Fee", GetType(System.String))
-                dtFees.Columns.Add("NumSMFee", GetType(System.String))
-                dtFees.Columns.Add("NumNSPSFee", GetType(System.String))
-                dtFees.Columns.Add("NumAdminFee", GetType(System.String))
-                dtFees.Columns.Add("NumTotalFee", GetType(System.String))
-                dtFees.Columns.Add("strNSPSExempt", GetType(System.String))
-                dtFees.Columns.Add("strOperate", GetType(System.String))
-                dtFees.Columns.Add("NumFeeRate", GetType(System.String))
-                dtFees.Columns.Add("numCalculatedFee", GetType(System.String))
-                dtFees.Columns.Add("strPart70", GetType(System.String))
-                dtFees.Columns.Add("TotalPaid", GetType(System.String))
-                dtFees.Columns.Add("DateSubmit", GetType(System.String))
-                dtFees.Columns.Add("Balance", GetType(System.String))
-                dtFees.Columns.Add("strIAIPDesc", GetType(System.String))
+            Dim checkBoxDataBindings As New Dictionary(Of CheckBox, String)
+            checkBoxDataBindings.Add(FeeFacilityOperatingDisplay, "strOperate")
+            checkBoxDataBindings.Add(FeeFacilityPart70Display, "strPart70")
+            checkBoxDataBindings.Add(FeeFacilityNspsExemptDisplay, "strNSPSExempt")
+            For Each item As KeyValuePair(Of CheckBox, String) In checkBoxDataBindings
+                item.Key.DataBindings.Add(New Binding("Checked", thisFacilityDataSet.Tables(WhichTable.Fees.ToString), item.Value))
+            Next
 
-                For Each drDSRow In dsFacilityWideData.Tables("Fees").Rows()
-                    drNewRow = dtFees.NewRow()
-                    drNewRow("intYear") = drDSRow("intYear")
-                    drNewRow("strClass") = drDSRow("strClass")
-                    drNewRow("intVOCTons") = drDSRow("intVOCTons")
-                    drNewRow("intPMTons") = drDSRow("intPMTons")
-                    drNewRow("intSO2Tons") = drDSRow("intSO2Tons")
-                    drNewRow("intNOXtons") = drDSRow("intNOXtons")
-                    drNewRow("NumPart70Fee") = drDSRow("NumPart70Fee")
-                    drNewRow("NumSMFee") = drDSRow("NumSMFee")
-                    drNewRow("NumNSPSFee") = drDSRow("NumNSPSFee")
-                    drNewRow("NumAdminFee") = drDSRow("NumAdminFee")
-                    drNewRow("NumTotalFee") = drDSRow("NumTotalFee")
-                    drNewRow("strNSPSExempt") = drDSRow("strNSPSExempt")
-                    drNewRow("strOperate") = drDSRow("strOperate")
-                    drNewRow("NumFeeRate") = drDSRow("NumFeeRate")
-                    drNewRow("numCalculatedFee") = drDSRow("numCalculatedFee")
-                    drNewRow("strPart70") = drDSRow("strPart70")
-                    drNewRow("TotalPaid") = drDSRow("TotalPaid")
-                    drNewRow("DateSubmit") = drDSRow("DateSubmit")
-                    drNewRow("Balance") = drDSRow("Balance")
-                    drNewRow("strIAIPDesc") = drDSRow("strIAIPDesc")
-                    dtFees.Rows.Add(drNewRow)
-                Next
+        End If
+    End Sub
 
-                With txtFeesClassification
-                    .DataBindings.Add(New Binding("Text", dtFees, "strClass"))
-                End With
+    Private Sub BindingFormatTons(ByVal sender As Object, ByVal cevent As ConvertEventArgs)
+        Dim num As Decimal = 0
+        If Decimal.TryParse(cevent.Value, num) Then
+            cevent.Value = num.ToString("N0") & " ton"
+            If num <> 1 Then cevent.Value = cevent.Value & "s"
+        End If
+    End Sub
 
-                With txtFeesTotal
-                    .DataBindings.Add(New Binding("Text", dtFees, "NumTotalFee"))
-                End With
+    Private Sub BindingFormatDollars(ByVal sender As Object, ByVal cevent As ConvertEventArgs)
+        Dim num As Decimal = 0
+        If Decimal.TryParse(cevent.Value, num) Then
+            cevent.Value = "$" & num.ToString("N0")
+        End If
+    End Sub
 
-                With txtTotalFeesPaid
-                    .DataBindings.Add(New Binding("Text", dtFees, "TotalPaid"))
-                End With
-
-                With txtDateSubmitted
-                    .DataBindings.Add(New Binding("Text", dtFees, "DateSubmit"))
-                End With
-
-                With txtFeesPart70
-                    .DataBindings.Add(New Binding("Text", dtFees, "NumPart70Fee"))
-                End With
-
-                With txtFeesSM
-                    .DataBindings.Add(New Binding("Text", dtFees, "NumSMFee"))
-                End With
-
-                With txtFeesNSPS
-                    .DataBindings.Add(New Binding("Text", dtFees, "NumNSPSFee"))
-                End With
-
-                With txtAdminFee
-                    .DataBindings.Add(New Binding("Text", dtFees, "NumAdminFee"))
-                End With
-
-                With txtFeesVOC
-                    .DataBindings.Add(New Binding("Text", dtFees, "intVOCTons"))
-                End With
-
-                With txtFeesPM
-                    .DataBindings.Add(New Binding("Text", dtFees, "intPMTons"))
-                End With
-
-                With txtFeesSO2
-                    .DataBindings.Add(New Binding("Text", dtFees, "intSO2Tons"))
-                End With
-
-                With txtFeesNOx
-                    .DataBindings.Add(New Binding("Text", dtFees, "intNOXtons"))
-                End With
-
-                With txtFeesRate
-                    .DataBindings.Add(New Binding("Text", dtFees, "NumFeeRate"))
-                End With
-
-                With txtFeesPollutantFee
-                    .DataBindings.Add(New Binding("Text", dtFees, "numCalculatedFee"))
-                End With
-
-                With chbFeesOperating
-                    .DataBindings.Add(New Binding("Checked", dtFees, "strOperate"))
-                End With
-
-                With chbFeesPart70
-                    .DataBindings.Add(New Binding("Checked", dtFees, "strPart70"))
-                End With
-
-                With chbNSPSExempt
-                    .DataBindings.Add(New Binding("Checked", dtFees, "strNSPSExempt"))
-                End With
-
-                With cboFeeYear
-                    .DataSource = dtFees
-                    .DisplayMember = "FeesData"
-                    .ValueMember = "intYear"
-                    .SelectedIndex = 0
-                End With
-
-                With txtBalance
-                    .DataBindings.Add(New Binding("Text", dtFees, "Balance"))
-                End With
-
-                With lblFeeStatus
-                    .DataBindings.Add(New Binding("Text", dtFees, "strIAIPDesc"))
-                End With
-
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub BindingFormatDollarsPerTon(ByVal sender As Object, ByVal cevent As ConvertEventArgs)
+        Dim num As Decimal = 0
+        If Decimal.TryParse(cevent.Value, num) Then
+            cevent.Value = "$" & num.ToString("N2") & " /ton"
+        End If
     End Sub
 
 #End Region
@@ -985,21 +869,6 @@ Public Class IAIPFacilitySummary
 
     Private Sub llbViewAirPermitsOnline_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewAirPermitsOnline.LinkClicked
         OpenPermitSearchUrl(Me.AirsNumber, Me)
-    End Sub
-
-    Private Sub txtDateSubmitted_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtDateSubmitted.TextChanged
-        Try
-            If txtBalance.Text <> "" Then
-                If CInt(txtBalance.Text) > 0 Then
-                    txtTotalFeesPaid.BackColor = Color.Tomato
-                Else
-                    txtTotalFeesPaid.BackColor = Color.LightGray
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
     End Sub
     Private Sub btnEditAirProgramPollutants_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditPollutantsButton.Click
         Dim EditAirProgramPollutants As IAIPEditAirProgramPollutants = OpenSingleForm(IAIPEditAirProgramPollutants)
@@ -1304,6 +1173,10 @@ Public Class IAIPFacilitySummary
         End If
     End Sub
 
+    Private Sub FacilitySearchButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FacilitySearchButton.Click
+
+    End Sub
+
 #End Region
 
 #Region " Menu Strip "
@@ -1342,13 +1215,16 @@ Public Class IAIPFacilitySummary
 
     Private Sub FacilitySummaryTabControl_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FSMainTabControl.SelectedIndexChanged
         Select Case FSMainTabControl.SelectedTab.Name
+
             Case FSCompliance.Name
                 LoadComplianceData()
+
+            Case FSFees.Name
+                LoadFeesData()
+
             Case FSContacts.Name
 
             Case FSEmissionInventory.Name
-
-            Case FSFees.Name
 
             Case FSFinancial.Name
 
