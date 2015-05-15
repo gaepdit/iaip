@@ -3,11 +3,18 @@ Imports Oracle.DataAccess.Client
 
 
 Public Class IAIPFacilityLookUpTool
-    Dim dsSearch As New DataSet
-    Dim daSearch As OracleDataAdapter
-    Dim SQL As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
+
+    Private Enum SearchByType
+        AirsNumber
+        FacilityName
+        HistoricalName
+        City
+        Inspector
+        County
+        ZipCode
+        SicCode
+        Subpart
+    End Enum
 
 #Region " Accessible properties "
 
@@ -40,233 +47,232 @@ Public Class IAIPFacilityLookUpTool
 
 #End Region
 
-#Region " Procedures "
+#Region " Search Procedure "
 
-    Private Sub SearchBy(ByVal SearchItem As String)
+    Private Sub SearchBy(ByVal SearchType As SearchByType)
+        monitor.TrackFeature("FacilitySearch." & SearchType.ToString)
 
-        Try
-            Select Case SearchItem
-                Case "Airs Number"
-                    SQL = "Select " & _
-                    "strFacilityName, substr(strAIRSNumber, 5) as ShortAIRS, " & _
-                    "strFacilityCity, " & _
-                    "strFacilityStreet1 " & _
-                    "from AIRBRANCH.APBFacilityInformation " & _
-                    "where strAirsNumber Like '%" & txtAIRSNumberSearch.Text & "%'"
-                Case "City"
-                    SQL = "Select " & _
-                    "strFacilityName, substr(strAIRSNumber, 5) as shortAIRS, " & _
-                    "strFacilityCity, " & _
-                    "strFacilityStreet1 " & _
-                    "from AIRBRANCH.APBFacilityInformation " & _
-                    "where Upper(strFacilityCity) Like Upper('%" & Replace(txtCityNameSearch.Text, "'", "''") & "%')"
-                Case "County"
-                    SQL = "Select " & _
-                     "strFacilityName, substr(strAIRSNumber, 5) as ShortAIRS, " & _
-                     "strFacilityCity, " & _
-                     "strFacilityStreet1, strCountyName " & _
-                     "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.LookUpCountyInformation " & _
-                     "where substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode " & _
-                     "and upper(strCountyName) like Upper('%" & txtCountyNameSearch.Text & "%') "
-                Case "Facility Name"
-                    SQL = "Select " & _
-                    "strFacilityName, substr(strAIRSNumber, 5) as shortAIRS, " & _
-                    "strFacilityCity, " & _
-                    "strFacilityStreet1 " & _
-                    "from AIRBRANCH.APBFacilityInformation " & _
-                    "where Upper(strFacilityName) Like Upper('%" & Replace(txtFacilityNameSearch.Text, "'", "''") & "%')"
-                Case "Historical Name"
-                    SQL = "Select " & _
-                    "strFacilityName, " & _
-                    "substr(strAIRSNumber, 5) as shortAIRS, " & _
-                    "strFacilityCity, " & _
-                    "strFacilityStreet1 " & _
-                    "from AIRBRANCH.APBFacilityInformation " & _
-                    "where Upper(strFacilityName) Like Upper('%" & Replace(txtFacilityNameSearch.Text, "'", "''") & "%')" & _
-                    "Union " & _
-                    "Select " & _
-                    "distinct(strFacilityName) as strFacilityName, " & _
-                    "substr(strAIRSNumber, 5) as shortAIRS, " & _
-                    "strFacilityCity, strFacilityStreet1 " & _
-                    "from AIRBRANCH.HB_APBFacilityInformation " & _
-                    "where Upper(strFacilityName) Like Upper('%" & Replace(txtFacilityNameSearch.Text, "'", "''") & "%')" & _
-                    "Union " & _
-                    "select " & _
-                    "Distinct(strFacilityname) as strFacilityname,  " & _
-                    "substr(strAIRSNumber, 5) as shortAIRS,  " & _
-                    "strFacilityCity, strFacilityStreet1  " & _
-                    "from AIRBRANCH.SSPPApplicationData, AIRBRANCH.SSPPApplicationMaster   " & _
-                    "where AIRBRANCH.SSPPApplicationData.strApplicationNumber = AIRBRANCH.SSPPApplicationMaster.strApplicationNumber " & _
-                    "and upper(strFacilityname) like Upper('%" & Replace(txtFacilityNameSearch.Text, "'", "''") & "%') "
-                Case "SIC Code"
-                    SQL = "Select " & _
-                    "strFacilityName, substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as shortAIRS, " & _
-                    "strSICCode, " & _
-                    "strFacilityCity, strFacilityStreet1 " & _
-                    "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBHeaderData " & _
-                    "where Upper(AIRBRANCH.APBHeaderData.strSICCode) Like Upper('%" & Replace(txtSICCodeSearch.Text, "'", "''") & "%') " & _
-                    "and AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.APBHeaderData.strAIRSNumber"
-                Case "Subpart"
-                    If rdbPart60.Checked = True Then
-                        SQL = "select " & _
-                        "strFacilityName, substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " & _
-                        "strFacilityCity,  " & _
-                        "strFacilityStreet1,  " & _
-                        "(AIRBRANCH.LookUpsubPart60.strSubPart|| ' - '||AIRBRANCH.LookUpSubpart60.strDescription) as SubPartData " & _
-                        "from  " & _
-                        "AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBSubpartData,  " & _
-                        "AIRBRANCH.LookUPSubPart60  " & _
-                        "where  " & _
-                        "AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBSubPartData.strAIRSNumber  " & _
-                        "and AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubPart60.strSubpart  " & _
-                        "and substr(strSubpartKey, 13) = '9'  " & _
-                        "and (AIRBRANCH.APBSubpartData.strSubpart) like '%" & Replace(txtSubpartSearch.Text, "'", "''") & "%'   "
-                    End If
-                    If rdbPart61.Checked = True Then
-                        SQL = "select " & _
-                        "strFacilityName, substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " & _
-                        "strFacilityCity,  " & _
-                        "strFacilityStreet1,  " & _
-                        "(AIRBRANCH.LookUpsubPart61.strSubPart|| ' - '||AIRBRANCH.LookUpSubpart61.strDescription) as SubPartData " & _
-                        "from  " & _
-                        "AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBSubpartData,  " & _
-                        "AIRBRANCH.LookUPSubPart61  " & _
-                        "where  " & _
-                        "AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBSubPartData.strAIRSNumber  " & _
-                        "and AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubPart61.strSubpart  " & _
-                        "and substr(strSubpartKey, 13) = '8'  " & _
-                        "and (AIRBRANCH.APBSubpartData.strSubpart) like '%" & Replace(txtSubpartSearch.Text, "'", "''") & "%'   "
-                    End If
-                    If rdbPart63.Checked = True Then
-                        SQL = "select " & _
-                        "strFacilityName, substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " & _
-                        "strFacilityCity,  " & _
-                        "strFacilityStreet1,  " & _
-                        "(AIRBRANCH.LookUpsubPart63.strSubPart|| ' - '||AIRBRANCH.LookUpSubpart63.strDescription) as SubPartData " & _
-                        "from  " & _
-                        "AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBSubpartData,  " & _
-                        "AIRBRANCH.LookUPSubPart63  " & _
-                        "where  " & _
-                        "AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBSubPartData.strAIRSNumber  " & _
-                        "and AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubPart63.strSubpart  " & _
-                        "and substr(strSubpartKey, 13) = 'M'  " & _
-                        "and (AIRBRANCH.APBSubpartData.strSubpart) like '%" & Replace(txtSubpartSearch.Text, "'", "''") & "%'   "
-                    End If
-                    If rdbGASIP.Checked = True Then
-                        SQL = "select " & _
-                        "strFacilityName, substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " & _
-                        "strFacilityCity,  " & _
-                        "strFacilityStreet1,  " & _
-                        "(AIRBRANCH.LookUpSubPartSIP.strSubPart|| ' - '||AIRBRANCH.LookUpSubpartSIP.strDescription) as SubPartData " & _
-                        "from  " & _
-                        "AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBSubpartData,  " & _
-                        "AIRBRANCH.LookUPSubPartSIP " & _
-                        "where  " & _
-                        "AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBSubPartData.strAIRSNumber  " & _
-                        "and AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubPartSIP.strSubpart  " & _
-                        "and substr(strSubpartKey, 13) = '0'  " & _
-                        "and (AIRBRANCH.APBSubpartData.strSubpart) like '%" & Replace(txtSubpartSearch.Text, "'", "''") & "%'   "
-                    End If
-                Case "Zip Code"
-                    SQL = "Select " & _
-                    "strFacilityName, substr(strAIRSNumber, 5) as shortAIRS, " & _
-                    "strFacilityCity, " & _
-                    "strFacilityStreet1, strFacilityZipCode " & _
-                    "from AIRBRANCH.APBFacilityInformation " & _
-                    "where Upper(strFacilityZipCode) Like Upper('%" & Replace(txtZipCodeSearch.Text, "'", "''") & "%')"
-                Case "Address"
+        Dim query As String = ""
+        Dim parameter As OracleParameter = Nothing
 
-                Case "Compliance"
+        Select Case SearchType
+            Case SearchByType.AirsNumber
+                query = "Select " & _
+                "strFacilityName, substr(strAIRSNumber, 5) as ShortAIRS, " & _
+                "strFacilityCity, " & _
+                "strFacilityStreet1 " & _
+                "from AIRBRANCH.APBFacilityInformation " & _
+                "where strAirsNumber Like :SearchString"
 
-                    SQL = "Select  " & _
-                    " AIRBRANCH.APBFacilityInformation.strFacilityName, " & _
-                    "substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,   " & _
-                    " AIRBRANCH.APBFacilityInformation.strFacilityCity,   " & _
-                    " AIRBRANCH.APBFacilityInformation.strFacilityStreet1, " & _
-                    "(strLastName||', '||strFirstname) as Engineer    " & _
-                    "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.VW_SSCPInspection_List, " & _
-                    "AIRBRANCH.EPDUserProfiles   " & _
-                    "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = '0413'||AIRBRANCH.VW_SSCPInspection_List.AIRSNumber   " & _
-                    "and AIRBRANCH.VW_SSCPInspection_List.numSSCPEngineer = AIRBRANCH.EPDUserProfiles.numUserID   " & _
-                    "and Upper(strLastName||', '||strFirstName) like Upper('%" & Replace(txtComplianceEngineer.Text, "'", "''") & "%')  "
+                parameter = New OracleParameter("SearchString", "%" & txtAIRSNumberSearch.Text & "%")
 
-                Case Else
+            Case SearchByType.City
+                query = "Select " & _
+                "strFacilityName, substr(strAIRSNumber, 5) as shortAIRS, " & _
+                "strFacilityCity, " & _
+                "strFacilityStreet1 " & _
+                "from AIRBRANCH.APBFacilityInformation " & _
+                "where Upper(strFacilityCity) Like Upper(:SearchString)"
 
-            End Select
-            If SQL <> "" Then
-                dsSearch = New DataSet
-                daSearch = New OracleDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
+                parameter = New OracleParameter("SearchString", "%" & txtCityNameSearch.Text & "%")
+
+            Case SearchByType.County
+                query = "Select " & _
+                 "strFacilityName, substr(strAIRSNumber, 5) as ShortAIRS, " & _
+                 "strFacilityCity, " & _
+                 "strFacilityStreet1, strCountyName " & _
+                 "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.LookUpCountyInformation " & _
+                 "where substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode " & _
+                 "and upper(strCountyName) like Upper(:SearchString) "
+
+                parameter = New OracleParameter("SearchString", "%" & txtCountyNameSearch.Text & "%")
+
+            Case SearchByType.FacilityName
+                query = "Select " & _
+                "strFacilityName, substr(strAIRSNumber, 5) as shortAIRS, " & _
+                "strFacilityCity, " & _
+                "strFacilityStreet1 " & _
+                "from AIRBRANCH.APBFacilityInformation " & _
+                "where Upper(strFacilityName) Like Upper(:SearchString)"
+
+                parameter = New OracleParameter("SearchString", "%" & txtFacilityNameSearch.Text & "%")
+
+            Case SearchByType.HistoricalName
+                query = "Select " & _
+                "strFacilityName, " & _
+                "substr(strAIRSNumber, 5) as shortAIRS, " & _
+                "strFacilityCity, " & _
+                "strFacilityStreet1 " & _
+                "from AIRBRANCH.APBFacilityInformation " & _
+                "where Upper(strFacilityName) Like Upper(:SearchString)" & _
+                "Union " & _
+                "Select " & _
+                "distinct(strFacilityName) as strFacilityName, " & _
+                "substr(strAIRSNumber, 5) as shortAIRS, " & _
+                "strFacilityCity, strFacilityStreet1 " & _
+                "from AIRBRANCH.HB_APBFacilityInformation " & _
+                "where Upper(strFacilityName) Like Upper(:SearchString)" & _
+                "Union " & _
+                "select " & _
+                "Distinct(strFacilityname) as strFacilityname,  " & _
+                "substr(strAIRSNumber, 5) as shortAIRS,  " & _
+                "strFacilityCity, strFacilityStreet1  " & _
+                "from AIRBRANCH.SSPPApplicationData, AIRBRANCH.SSPPApplicationMaster   " & _
+                "where AIRBRANCH.SSPPApplicationData.strApplicationNumber = AIRBRANCH.SSPPApplicationMaster.strApplicationNumber " & _
+                "and upper(strFacilityname) like Upper(:SearchString) "
+
+                parameter = New OracleParameter("SearchString", "%" & txtFacilityNameSearch.Text & "%")
+
+            Case SearchByType.SicCode
+                query = "Select " & _
+                "strFacilityName, substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as shortAIRS, " & _
+                "strSICCode, " & _
+                "strFacilityCity, strFacilityStreet1 " & _
+                "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBHeaderData " & _
+                "where Upper(AIRBRANCH.APBHeaderData.strSICCode) Like Upper(:SearchString) " & _
+                "and AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.APBHeaderData.strAIRSNumber"
+
+                parameter = New OracleParameter("SearchString", txtSICCodeSearch.Text & "%")
+
+            Case SearchByType.Subpart
+                If rdbPart60.Checked Then
+                    query = "select " & _
+                    "strFacilityName, substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " & _
+                    "strFacilityCity,  " & _
+                    "strFacilityStreet1,  " & _
+                    "(AIRBRANCH.LookUpsubPart60.strSubPart|| ' - '||AIRBRANCH.LookUpSubpart60.strDescription) as SubPartData " & _
+                    "from  " & _
+                    "AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBSubpartData,  " & _
+                    "AIRBRANCH.LookUPSubPart60  " & _
+                    "where  " & _
+                    "AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBSubPartData.strAIRSNumber  " & _
+                    "and AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubPart60.strSubpart  " & _
+                    "and substr(strSubpartKey, 13) = '9'  " & _
+                    "and (AIRBRANCH.APBSubpartData.strSubpart) like :SearchString   "
+
+                ElseIf rdbPart61.Checked Then
+                    query = "select " & _
+                    "strFacilityName, substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " & _
+                    "strFacilityCity,  " & _
+                    "strFacilityStreet1,  " & _
+                    "(AIRBRANCH.LookUpsubPart61.strSubPart|| ' - '||AIRBRANCH.LookUpSubpart61.strDescription) as SubPartData " & _
+                    "from  " & _
+                    "AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBSubpartData,  " & _
+                    "AIRBRANCH.LookUPSubPart61  " & _
+                    "where  " & _
+                    "AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBSubPartData.strAIRSNumber  " & _
+                    "and AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubPart61.strSubpart  " & _
+                    "and substr(strSubpartKey, 13) = '8'  " & _
+                    "and (AIRBRANCH.APBSubpartData.strSubpart) like :SearchString   "
+
+                ElseIf rdbPart63.Checked Then
+                    query = "select " & _
+                    "strFacilityName, substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " & _
+                    "strFacilityCity,  " & _
+                    "strFacilityStreet1,  " & _
+                    "(AIRBRANCH.LookUpsubPart63.strSubPart|| ' - '||AIRBRANCH.LookUpSubpart63.strDescription) as SubPartData " & _
+                    "from  " & _
+                    "AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBSubpartData,  " & _
+                    "AIRBRANCH.LookUPSubPart63  " & _
+                    "where  " & _
+                    "AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBSubPartData.strAIRSNumber  " & _
+                    "and AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubPart63.strSubpart  " & _
+                    "and substr(strSubpartKey, 13) = 'M'  " & _
+                    "and (AIRBRANCH.APBSubpartData.strSubpart) like :SearchString   "
+
+                ElseIf rdbGASIP.Checked Then
+                    query = "select " & _
+                    "strFacilityName, substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " & _
+                    "strFacilityCity,  " & _
+                    "strFacilityStreet1,  " & _
+                    "(AIRBRANCH.LookUpSubPartSIP.strSubPart|| ' - '||AIRBRANCH.LookUpSubpartSIP.strDescription) as SubPartData " & _
+                    "from  " & _
+                    "AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBSubpartData,  " & _
+                    "AIRBRANCH.LookUPSubPartSIP " & _
+                    "where  " & _
+                    "AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBSubPartData.strAIRSNumber  " & _
+                    "and AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubPartSIP.strSubpart  " & _
+                    "and substr(strSubpartKey, 13) = '0'  " & _
+                    "and (AIRBRANCH.APBSubpartData.strSubpart) like :SearchString   "
                 End If
 
-                daSearch.Fill(dsSearch, "FacSearch")
+                parameter = New OracleParameter("SearchString", "%" & txtSubpartSearch.Text & "%")
 
-                dgvPossibleMatches.DataSource = dsSearch
-                dgvPossibleMatches.DataMember = "FacSearch"
+            Case SearchByType.ZipCode
+                query = "Select " & _
+                "strFacilityName, substr(strAIRSNumber, 5) as shortAIRS, " & _
+                "strFacilityCity, " & _
+                "strFacilityStreet1, strFacilityZipCode " & _
+                "from AIRBRANCH.APBFacilityInformation " & _
+                "where Upper(strFacilityZipCode) Like Upper(:SearchString)"
 
-                dgvPossibleMatches.RowHeadersVisible = False
-                dgvPossibleMatches.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                dgvPossibleMatches.AllowUserToResizeColumns = True
-                dgvPossibleMatches.AllowUserToAddRows = False
-                dgvPossibleMatches.AllowUserToDeleteRows = False
-                dgvPossibleMatches.AllowUserToOrderColumns = True
-                dgvPossibleMatches.AllowUserToResizeRows = True
-                dgvPossibleMatches.Columns("shortAIRS").HeaderText = "AIRS #"
-                dgvPossibleMatches.Columns("shortAIRS").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                dgvPossibleMatches.Columns("shortAIRS").DisplayIndex = 0
-                dgvPossibleMatches.Columns("strFacilityName").HeaderText = "Facility Name"
-                dgvPossibleMatches.Columns("strFacilityName").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                dgvPossibleMatches.Columns("strFacilityName").DisplayIndex = 1
-                dgvPossibleMatches.Columns("strFacilityCity").HeaderText = "City"
-                dgvPossibleMatches.Columns("strFacilityCity").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                dgvPossibleMatches.Columns("strFacilityCity").DisplayIndex = 2
-                dgvPossibleMatches.Columns("strFacilityStreet1").HeaderText = "Facility Address"
-                dgvPossibleMatches.Columns("strFacilityStreet1").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                dgvPossibleMatches.Columns("strFacilityStreet1").DisplayIndex = 3
-                Select Case SearchItem
-                    Case "Airs Number"
+                parameter = New OracleParameter("SearchString", "%" & txtZipCodeSearch.Text & "%")
 
-                    Case "City"
+            Case SearchByType.Inspector
+                query = "Select  " & _
+                " AIRBRANCH.APBFacilityInformation.strFacilityName, " & _
+                "substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,   " & _
+                " AIRBRANCH.APBFacilityInformation.strFacilityCity,   " & _
+                " AIRBRANCH.APBFacilityInformation.strFacilityStreet1, " & _
+                "(strLastName||', '||strFirstname) as Inspector    " & _
+                "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.VW_SSCPInspection_List, " & _
+                "AIRBRANCH.EPDUserProfiles   " & _
+                "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = '0413'||AIRBRANCH.VW_SSCPInspection_List.AIRSNumber   " & _
+                "and AIRBRANCH.VW_SSCPInspection_List.numSSCPEngineer = AIRBRANCH.EPDUserProfiles.numUserID   " & _
+                "and Upper(strLastName||', '||strFirstName) like Upper(:SearchString)  "
 
-                    Case "County"
-                        dgvPossibleMatches.Columns("strCountyName").HeaderText = "SIC Code"
-                        dgvPossibleMatches.Columns("strCountyName").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                        dgvPossibleMatches.Columns("strCountyName").DisplayIndex = 4
-                    Case "Facility Name"
+                parameter = New OracleParameter("SearchString", "%" & txtComplianceEngineer.Text & "%")
 
-                    Case "Historical Name"
+            Case Else
+                query = ""
 
-                    Case "SIC Code"
-                        dgvPossibleMatches.Columns("strSICCode").HeaderText = "SIC Code"
-                        dgvPossibleMatches.Columns("strSICCode").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                        dgvPossibleMatches.Columns("strSICCode").DisplayIndex = 4
-                    Case "Subpart"
-                        dgvPossibleMatches.Columns("SubPartData").HeaderText = "Subpart 'Code - Description' "
-                        dgvPossibleMatches.Columns("SubPartData").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                        dgvPossibleMatches.Columns("SubPartData").DisplayIndex = 4
-                    Case "Zip Code"
-                        dgvPossibleMatches.Columns("strFacilityZipCode").HeaderText = "Zip Code"
-                        dgvPossibleMatches.Columns("strFacilityZipCode").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                        dgvPossibleMatches.Columns("strFacilityZipCode").DisplayIndex = 4
-                    Case "Address"
+        End Select
 
-                    Case "Compliance"
-                        dgvPossibleMatches.Columns("Engineer").HeaderText = "Compliance Engineer"
-                        dgvPossibleMatches.Columns("Engineer").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                        dgvPossibleMatches.Columns("Engineer").DisplayIndex = 4
-                    Case Else
+        If query <> "" Then
+            dgvResults.DataSource = DB.GetDataTable(query, parameter)
 
-                End Select
+            dgvResults.Columns("shortAIRS").HeaderText = "AIRS #"
+            dgvResults.Columns("shortAIRS").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            dgvResults.Columns("shortAIRS").DisplayIndex = 0
+            dgvResults.Columns("strFacilityName").HeaderText = "Facility Name"
+            dgvResults.Columns("strFacilityName").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            dgvResults.Columns("strFacilityName").DisplayIndex = 1
+            dgvResults.Columns("strFacilityCity").HeaderText = "City"
+            dgvResults.Columns("strFacilityCity").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            dgvResults.Columns("strFacilityCity").DisplayIndex = 2
+            dgvResults.Columns("strFacilityStreet1").HeaderText = "Facility Address"
+            dgvResults.Columns("strFacilityStreet1").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            dgvResults.Columns("strFacilityStreet1").DisplayIndex = 3
 
-            End If
+            Select Case SearchType
+                Case SearchByType.County
+                    dgvResults.Columns("strCountyName").HeaderText = "SIC Code"
+                    dgvResults.Columns("strCountyName").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                    dgvResults.Columns("strCountyName").DisplayIndex = 4
 
+                Case SearchByType.SicCode
+                    dgvResults.Columns("strSICCode").HeaderText = "SIC Code"
+                    dgvResults.Columns("strSICCode").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                    dgvResults.Columns("strSICCode").DisplayIndex = 4
 
-        Catch ex As Exception
-            ErrorReport(SQL.ToString & vbCrLf & ex.ToString(), "FacilityLookUpTool.SearchBy")
-        Finally
+                Case SearchByType.Subpart
+                    dgvResults.Columns("SubPartData").HeaderText = "Subpart 'Code - Description' "
+                    dgvResults.Columns("SubPartData").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                    dgvResults.Columns("SubPartData").DisplayIndex = 4
 
-        End Try
+                Case SearchByType.ZipCode
+                    dgvResults.Columns("strFacilityZipCode").HeaderText = "Zip Code"
+                    dgvResults.Columns("strFacilityZipCode").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                    dgvResults.Columns("strFacilityZipCode").DisplayIndex = 4
+
+                Case SearchByType.Inspector
+                    dgvResults.Columns("Inspector").HeaderText = "Compliance Inspector"
+                    dgvResults.Columns("Inspector").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                    dgvResults.Columns("Inspector").DisplayIndex = 4
+
+            End Select
+
+        End If
     End Sub
 
     Private Sub ClearPage()
@@ -280,7 +286,7 @@ Public Class IAIPFacilityLookUpTool
         txtSICCodeSearch.Clear()
         txtZipCodeSearch.Clear()
         btnUseAIRSNumber.Enabled = False
-        dgvPossibleMatches.DataSource = Nothing
+        dgvResults.DataSource = Nothing
     End Sub
 
 #End Region
@@ -288,61 +294,52 @@ Public Class IAIPFacilityLookUpTool
 #Region " Search-by buttons "
 
     Private Sub btnAIRSNumberSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAIRSNumberSearch.Click
-        SearchBy("Airs Number")
+        SearchBy(SearchByType.AirsNumber)
     End Sub
     Private Sub btnFacilityNameSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFacilityNameSearch.Click
-        If chbHistoricalNames.Checked = True Then
-            SearchBy("Historical Name")
+        If chbHistoricalNames.Checked Then
+            SearchBy(SearchByType.HistoricalName)
         Else
-            SearchBy("Facility Name")
+            SearchBy(SearchByType.FacilityName)
         End If
     End Sub
     Private Sub btnCitySearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCitySearch.Click
-        SearchBy("City")
+        SearchBy(SearchByType.City)
     End Sub
     Private Sub btnComplianceSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnComplianceSearch.Click
-        SearchBy("Compliance")
+        SearchBy(SearchByType.Inspector)
     End Sub
     Private Sub btnCountySearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountySearch.Click
-        SearchBy("County")
+        SearchBy(SearchByType.County)
     End Sub
     Private Sub btnZipCodeSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnZipCodeSearch.Click
-        SearchBy("Zip Code")
+        SearchBy(SearchByType.ZipCode)
     End Sub
     Private Sub btnSICCodeSearch_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSICCodeSearch.Click
-        SearchBy("SIC Code")
+        SearchBy(SearchByType.SicCode)
     End Sub
     Private Sub btnSubpartSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSubpartSearch.Click
-        SearchBy("Subpart")
+        SearchBy(SearchByType.Subpart)
     End Sub
 
 #End Region
 
 #Region " Results DataGridView "
 
-    Private Sub dgvPossibleMatches_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvPossibleMatches.MouseUp
-        Dim hti As DataGridView.HitTestInfo = dgvPossibleMatches.HitTest(e.X, e.Y)
-
-        Try
-            If dgvPossibleMatches.RowCount > 0 And hti.RowIndex <> -1 Then
-                txtAIRSNumber.Text = dgvPossibleMatches(1, hti.RowIndex).Value
-                txtFacilityName.Text = dgvPossibleMatches(0, hti.RowIndex).Value
-                btnUseAIRSNumber.Enabled = True
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub dgvPossibleMatches_CellEnter(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvResults.CellEnter
+        If e.RowIndex <> -1 AndAlso e.RowIndex < dgvResults.RowCount Then
+            txtAIRSNumber.Text = dgvResults(1, e.RowIndex).FormattedValue
+            txtFacilityName.Text = dgvResults(0, e.RowIndex).FormattedValue
+            btnUseAIRSNumber.Enabled = True
+        End If
     End Sub
 
 #End Region
 
 #Region " Toolbar "
 
-    Private Sub FacilityLookupToolBar_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles FacilityLookupToolBar.ButtonClick
-        Select Case FacilityLookupToolBar.Buttons.IndexOf(e.Button)
-            Case 0
-                ClearPage()
-        End Select
+    Private Sub ClearButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ClearButton.Click
+        ClearPage()
     End Sub
 
 #End Region
