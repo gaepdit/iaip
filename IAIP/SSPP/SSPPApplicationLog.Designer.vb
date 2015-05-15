@@ -20,6 +20,7 @@ Partial Class SSPPApplicationLog
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.mmiFile = New System.Windows.Forms.MenuItem
         Me.mmiClose = New System.Windows.Forms.MenuItem
@@ -484,11 +485,15 @@ Partial Class SSPPApplicationLog
         Me.dgvApplicationLog.AllowUserToAddRows = False
         Me.dgvApplicationLog.AllowUserToDeleteRows = False
         Me.dgvApplicationLog.AllowUserToOrderColumns = True
+        Me.dgvApplicationLog.AllowUserToResizeRows = False
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvApplicationLog.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvApplicationLog.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvApplicationLog.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvApplicationLog.Location = New System.Drawing.Point(0, 0)
         Me.dgvApplicationLog.Name = "dgvApplicationLog"
         Me.dgvApplicationLog.ReadOnly = True
+        Me.dgvApplicationLog.RowHeadersVisible = False
         Me.dgvApplicationLog.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvApplicationLog.Size = New System.Drawing.Size(812, 379)
         Me.dgvApplicationLog.TabIndex = 253
