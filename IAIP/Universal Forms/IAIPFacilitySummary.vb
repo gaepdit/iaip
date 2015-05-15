@@ -148,35 +148,35 @@ Public Class IAIPFacilitySummary
         FacilityNameDisplay.Text = ""
 
         'Location
-        LocationDisplay.Text = "N/A"
+        LocationDisplay.Text = ""
         MapAddressLink.Enabled = False
-        LatLonDisplay.Text = "N/A"
+        LatLonDisplay.Text = ""
         MapLatLonLink.Enabled = False
 
         'Description
-        InfoDescDisplay.Text = "N/A"
+        InfoDescDisplay.Text = ""
 
         'Status
-        InfoClassDisplay.Text = "N/A"
-        InfoOperStatusDisplay.Text = "N/A"
-        CmsDisplay.Text = "N/A"
+        InfoClassDisplay.Text = ""
+        InfoOperStatusDisplay.Text = ""
+        CmsDisplay.Text = ""
         CmsDisplay.BackColor = SystemColors.ControlLightLight
-        ComplianceStatusDisplay.Text = "N/A"
+        ComplianceStatusDisplay.Text = ""
         ComplianceStatusDisplay.BackColor = SystemColors.ControlLightLight
 
         'Offices
-        DistrictOfficeDisplay.Text = "N/A"
-        ResponsibleOfficeDisplay.Text = "N/A"
+        DistrictOfficeDisplay.Text = ""
+        ResponsibleOfficeDisplay.Text = ""
 
         'Facility Dates
-        InfoStartupDateDisplay.Text = "N/A"
-        InfoPermitRevocationDateDisplay.Text = "N/A"
-        CreatedDateDisplay.Text = "N/A"
+        InfoStartupDateDisplay.Text = ""
+        InfoPermitRevocationDateDisplay.Text = ""
+        CreatedDateDisplay.Text = ""
 
         'Data Dates
-        FisDateDisplay.Text = "N/A"
-        EpaDateDisplay.Text = "N/A"
-        DataUpdateDateDisplay.Text = "N/A"
+        FisDateDisplay.Text = ""
+        EpaDateDisplay.Text = ""
+        DataUpdateDateDisplay.Text = ""
 
     End Sub
 
@@ -252,7 +252,7 @@ Public Class IAIPFacilitySummary
         If dataDates IsNot Nothing Then
             CreatedDateDisplay.Text = String.Format(DateStringFormat, dataDates("DbRecordCreated"))
             FisDateDisplay.Text = String.Format(DateStringFormat, dataDates("FisExchangeDate"))
-            EpaDateDisplay.Text = String.Format(DateTimeStringFormat, dataDates("EpaExchangeDate"))
+            EpaDateDisplay.Text = String.Format(DateStringFormat, dataDates("EpaExchangeDate"))
             DataUpdateDateDisplay.Text = String.Format(DateStringFormat, dataDates("DataModifiedOn"))
         End If
 
@@ -1238,6 +1238,23 @@ Public Class IAIPFacilitySummary
     Private Sub IAIPFacilitySummary_KeyUp(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyUp
         If e.KeyCode = Keys.A AndAlso e.Alt Then
             AirsNumberEntry.Focus()
+        End If
+    End Sub
+
+    Private Sub DisplayEmptyTextBoxAsNA(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles InfoDescDisplay.TextChanged, LocationDisplay.TextChanged, LatLonDisplay.TextChanged, _
+        InfoDescDisplay.TextChanged, InfoClassDisplay.TextChanged, InfoOperStatusDisplay.TextChanged, _
+        CmsDisplay.TextChanged, ComplianceStatusDisplay.TextChanged, DistrictOfficeDisplay.TextChanged, _
+        ResponsibleOfficeDisplay.TextChanged, InfoStartupDateDisplay.TextChanged, _
+        InfoPermitRevocationDateDisplay.TextChanged, CreatedDateDisplay.TextChanged, FisDateDisplay.TextChanged, _
+        EpaDateDisplay.TextChanged, DataUpdateDateDisplay.TextChanged, _
+        HeaderClassDisplay.TextChanged, HeaderOperStatusDisplay.TextChanged, SicDisplay.TextChanged, _
+        NaicsDisplay.TextChanged, RmpIdDisplay.TextChanged, HeaderStartupDisplay.TextChanged, _
+        HeaderRevocationDateDisplay.TextChanged, HeaderDescDisplay.TextChanged
+
+        Dim t As TextBox = CType(sender, TextBox)
+        If t.Text = "" Then
+            t.Text = "N/A"
         End If
     End Sub
 
