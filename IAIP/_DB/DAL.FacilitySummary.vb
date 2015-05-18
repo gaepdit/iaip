@@ -69,5 +69,111 @@ Namespace DAL
 
 #End Region
 
+#Region " Contacts "
+
+        Public Function GetContactsStateData(ByVal airsNumber As Apb.ApbFacilityId) As DataTable
+            Dim query As String = _
+            "SELECT vw.AirProgram, vw.Staff, vw.Unit  " & _
+            "FROM AIRBRANCH.VW_FACILITY_STATECONTACTS vw " & _
+            "WHERE vw.AIRSNUMBER = :AirsNumber "
+
+            Dim parameter As OracleParameter = New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
+
+            Return DB.GetDataTable(query, parameter)
+        End Function
+
+        Public Function GetContactsWebSiteData(ByVal airsNumber As Apb.ApbFacilityId) As DataTable
+            Dim query As String = _
+            "SELECT strContactKey, strContactPrefix||' '|| " & _
+            "  strContactFirstName||' '||strContactLastName||' '|| " & _
+            "  strContactSuffix AS ContactName, strContactTitle , " & _
+            "  strContactCompanyName, strContactPhoneNumber1, " & _
+            "  strContactPhoneNumber2, strContactFaxNumber, strContactEmail, " & _
+            "  strContactAddress1|| ', '|| strContactAddress2|| ', '|| " & _
+            "  strContactCity|| ', '|| strContactState|| ' '|| " & _
+            "  strContactZipCode AS address, strContactDescription " & _
+            "FROM AIRBRANCH.APBContactInformation " & _
+            "WHERE strAIRSNumber = :AirsNumber AND strKey LIKE '4%' " & _
+            "ORDER BY strContactKey"
+            Dim parameter As OracleParameter = New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
+
+            Return DB.GetDataTable(query, parameter)
+        End Function
+
+        Public Function GetContactsPermittingData(ByVal airsNumber As Apb.ApbFacilityId) As DataTable
+            Dim query As String = _
+            "SELECT strContactKey, strContactPrefix||' '|| " & _
+            "  strContactFirstName||' '||strContactLastName||' '|| " & _
+            "  strContactSuffix AS ContactName, strContactTitle, " & _
+            "  strContactCompanyName, strContactPhoneNumber1, " & _
+            "  strContactPhoneNumber2, strContactFaxNumber, strContactEmail, " & _
+            "  strContactAddress1 || ', '|| strContactAddress2|| ', '|| " & _
+            "  strContactCity|| ', '|| strContactState|| ' '|| " & _
+            "  strContactZipCode AS Address, strContactDescription " & _
+            "FROM AIRBRANCH.APBContactInformation " & _
+            "WHERE strAIRSNumber = :AirsNumber AND strKey LIKE '3%' " & _
+            "ORDER BY strContactKey"
+            Dim parameter As OracleParameter = New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
+
+            Return DB.GetDataTable(query, parameter)
+        End Function
+
+        Public Function GetContactsTestingData(ByVal airsNumber As Apb.ApbFacilityId) As DataTable
+            Dim query As String = _
+            "SELECT strContactKey, strContactPrefix ||' ' ||strContactFirstName ||' ' || " & _
+            "  strContactLastName ||' ' ||strContactSuffix AS ContactName , " & _
+            "  strContactTitle , strContactCompanyName , " & _
+            "  strContactPhoneNumber1 , strContactFaxNumber , " & _
+            "  strContactEmail , strContactAddress1 || ', ' || " & _
+            "  strContactAddress2 || ', ' || strContactCity || ', ' || " & _
+            "  strContactState || ' ' || strContactZipCode AS Address , " & _
+            "  strContactDescription " & _
+            "FROM AIRBRANCH.APBContactInformation " & _
+            "WHERE strAIRSNumber = :AirsNumber AND strKey LIKE '1%' " & _
+            "ORDER BY strContactKey"
+            Dim parameter As OracleParameter = New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
+
+            Return DB.GetDataTable(query, parameter)
+        End Function
+
+        Public Function GetContactsComplianceData(ByVal airsNumber As Apb.ApbFacilityId) As DataTable
+            Dim query As String = _
+            "SELECT strContactKey , strContactPrefix ||' ' || " & _
+            "  strContactFirstName ||' ' ||strContactLastName ||' ' || " & _
+            "  strContactSuffix AS ContactName , strContactTitle , " & _
+            "  strContactCompanyName , strContactPhoneNumber1 , " & _
+            "  strContactFaxNumber , strContactEmail , strContactAddress1 || " & _
+            "  ', ' || strContactAddress2 || ', ' || strContactCity || ', ' " & _
+            "  || strContactState || ' ' || strContactZipCode AS Address , " & _
+            "  strContactDescription " & _
+            "FROM AIRBRANCH.APBContactInformation " & _
+            "WHERE strAIRSNumber = :AirsNumber AND strKey LIKE '2%' " & _
+            "ORDER BY strContactKey"
+            Dim parameter As OracleParameter = New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
+
+            Return DB.GetDataTable(query, parameter)
+        End Function
+
+        Public Function GetContactsGecoData(ByVal airsNumber As Apb.ApbFacilityId) As DataTable
+            Dim query As String = _
+            "SELECT DISTINCT( oua.NUMUSERID ) , oup.STRUSERTYPE ,( " & _
+            "  oup.STRSALUTATION || ' ' || oup.STRFIRSTNAME || ' ' || " & _
+            "  oup.STRLASTNAME ) AS GECOContact , oup.STRTITLE , " & _
+            "  oul.STRUSEREMAIL , oup.STRPHONENUMBER , oup.STRFAXNUMBER , " & _
+            "  oup.STRCOMPANYNAME , oup.STRADDRESS || ', ' || oup.STRCITY || " & _
+            "  ', ' || oup.STRSTATE || ' ' || oup.STRZIP AS Address " & _
+            "FROM AIRBRANCH.OLAPUserAccess oua " & _
+            "INNER JOIN AIRBRANCH.OLAPUserProfile oup " & _
+            "ON oua.NUMUSERID = oup.NUMUSERID " & _
+            "LEFT JOIN AIRBRANCH.OLAPUserLogIN oul " & _
+            "ON oua.NUMUSERID = oul.NUMUSERID " & _
+            "WHERE oua.STRAIRSNUMBER = :AirsNumber"
+            Dim parameter As OracleParameter = New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
+
+            Return DB.GetDataTable(query, parameter)
+        End Function
+
+#End Region
+
     End Module
 End Namespace
