@@ -88,7 +88,7 @@ Namespace DAL
             "  strContactFirstName||' '||strContactLastName||' '|| " & _
             "  strContactSuffix AS ContactName, strContactTitle , " & _
             "  strContactCompanyName, strContactPhoneNumber1, " & _
-            "  strContactPhoneNumber2, strContactFaxNumber, strContactEmail, " & _
+            "  strContactFaxNumber, strContactEmail, " & _
             "  strContactAddress1|| ', '|| strContactAddress2|| ', '|| " & _
             "  strContactCity|| ', '|| strContactState|| ' '|| " & _
             "  strContactZipCode AS address, strContactDescription " & _
@@ -106,7 +106,7 @@ Namespace DAL
             "  strContactFirstName||' '||strContactLastName||' '|| " & _
             "  strContactSuffix AS ContactName, strContactTitle, " & _
             "  strContactCompanyName, strContactPhoneNumber1, " & _
-            "  strContactPhoneNumber2, strContactFaxNumber, strContactEmail, " & _
+            "  strContactFaxNumber, strContactEmail, " & _
             "  strContactAddress1 || ', '|| strContactAddress2|| ', '|| " & _
             "  strContactCity|| ', '|| strContactState|| ' '|| " & _
             "  strContactZipCode AS Address, strContactDescription " & _

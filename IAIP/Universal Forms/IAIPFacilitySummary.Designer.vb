@@ -27,10 +27,6 @@ Partial Class IAIPFacilitySummary
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
@@ -51,6 +47,10 @@ Partial Class IAIPFacilitySummary
         Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.llbClosePrintTestReport = New System.Windows.Forms.LinkLabel
         Me.llbISMPTestReport = New System.Windows.Forms.LinkLabel
         Me.txtReferenceNumber = New System.Windows.Forms.TextBox
@@ -133,10 +133,15 @@ Partial Class IAIPFacilitySummary
         Me.TPStateContacts = New System.Windows.Forms.TabPage
         Me.ContactsStateGrid = New System.Windows.Forms.DataGridView
         Me.TPWebContacts = New System.Windows.Forms.TabPage
+        Me.ContactsWebSiteGrid = New System.Windows.Forms.DataGridView
         Me.TPSSPPContacts = New System.Windows.Forms.TabPage
+        Me.ContactsPermittingGrid = New System.Windows.Forms.DataGridView
         Me.TPISMPContacts = New System.Windows.Forms.TabPage
+        Me.ContactsTestingGrid = New System.Windows.Forms.DataGridView
         Me.TPSSCPContacts = New System.Windows.Forms.TabPage
+        Me.ContactsComplianceGrid = New System.Windows.Forms.DataGridView
         Me.TPGECOContacts = New System.Windows.Forms.TabPage
+        Me.ContactsGecoGrid = New System.Windows.Forms.DataGridView
         Me.EditContactsPanel = New System.Windows.Forms.Panel
         Me.EditContactsButton = New System.Windows.Forms.Button
         Me.FSTesting = New System.Windows.Forms.TabPage
@@ -286,11 +291,6 @@ Partial Class IAIPFacilitySummary
         Me.Label32 = New System.Windows.Forms.Label
         Me.LinkLabel3 = New System.Windows.Forms.LinkLabel
         Me.LinkLabel4 = New System.Windows.Forms.LinkLabel
-        Me.ContactsWebSiteGrid = New System.Windows.Forms.DataGridView
-        Me.ContactsPermittingGrid = New System.Windows.Forms.DataGridView
-        Me.ContactsTestingGrid = New System.Windows.Forms.DataGridView
-        Me.ContactsComplianceGrid = New System.Windows.Forms.DataGridView
-        Me.ContactsGecoGrid = New System.Windows.Forms.DataGridView
         Me.NavigationPanel.SuspendLayout()
         Me.FSMainTabControl.SuspendLayout()
         Me.FSInfo.SuspendLayout()
@@ -303,10 +303,15 @@ Partial Class IAIPFacilitySummary
         Me.TPStateContacts.SuspendLayout()
         CType(Me.ContactsStateGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPWebContacts.SuspendLayout()
+        CType(Me.ContactsWebSiteGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPSSPPContacts.SuspendLayout()
+        CType(Me.ContactsPermittingGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPISMPContacts.SuspendLayout()
+        CType(Me.ContactsTestingGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPSSCPContacts.SuspendLayout()
+        CType(Me.ContactsComplianceGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPGECOContacts.SuspendLayout()
+        CType(Me.ContactsGecoGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.EditContactsPanel.SuspendLayout()
         Me.FSTesting.SuspendLayout()
         Me.TestingTabControl.SuspendLayout()
@@ -360,11 +365,6 @@ Partial Class IAIPFacilitySummary
         Me.GroupBox7.SuspendLayout()
         CType(Me.dgvEIData, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FSMenuStrip.SuspendLayout()
-        CType(Me.ContactsWebSiteGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.ContactsPermittingGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.ContactsTestingGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.ContactsComplianceGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.ContactsGecoGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'llbClosePrintTestReport
@@ -1405,6 +1405,50 @@ Partial Class IAIPFacilitySummary
         Me.TPWebContacts.Text = "Web Site"
         Me.TPWebContacts.UseVisualStyleBackColor = True
         '
+        'ContactsWebSiteGrid
+        '
+        Me.ContactsWebSiteGrid.AllowUserToAddRows = False
+        Me.ContactsWebSiteGrid.AllowUserToDeleteRows = False
+        Me.ContactsWebSiteGrid.AllowUserToOrderColumns = True
+        Me.ContactsWebSiteGrid.AllowUserToResizeRows = False
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.ContactsWebSiteGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
+        Me.ContactsWebSiteGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ContactsWebSiteGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle6
+        Me.ContactsWebSiteGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.ContactsWebSiteGrid.DefaultCellStyle = DataGridViewCellStyle7
+        Me.ContactsWebSiteGrid.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ContactsWebSiteGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.ContactsWebSiteGrid.Location = New System.Drawing.Point(0, 0)
+        Me.ContactsWebSiteGrid.Name = "ContactsWebSiteGrid"
+        Me.ContactsWebSiteGrid.ReadOnly = True
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ContactsWebSiteGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle8
+        Me.ContactsWebSiteGrid.RowHeadersVisible = False
+        Me.ContactsWebSiteGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.ContactsWebSiteGrid.Size = New System.Drawing.Size(629, 281)
+        Me.ContactsWebSiteGrid.TabIndex = 7
+        '
         'TPSSPPContacts
         '
         Me.TPSSPPContacts.Controls.Add(Me.ContactsPermittingGrid)
@@ -1415,6 +1459,50 @@ Partial Class IAIPFacilitySummary
         Me.TPSSPPContacts.TabIndex = 1
         Me.TPSSPPContacts.Text = "Permitting"
         Me.TPSSPPContacts.UseVisualStyleBackColor = True
+        '
+        'ContactsPermittingGrid
+        '
+        Me.ContactsPermittingGrid.AllowUserToAddRows = False
+        Me.ContactsPermittingGrid.AllowUserToDeleteRows = False
+        Me.ContactsPermittingGrid.AllowUserToOrderColumns = True
+        Me.ContactsPermittingGrid.AllowUserToResizeRows = False
+        DataGridViewCellStyle9.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.ContactsPermittingGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
+        Me.ContactsPermittingGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ContactsPermittingGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
+        Me.ContactsPermittingGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.ContactsPermittingGrid.DefaultCellStyle = DataGridViewCellStyle11
+        Me.ContactsPermittingGrid.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ContactsPermittingGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.ContactsPermittingGrid.Location = New System.Drawing.Point(0, 0)
+        Me.ContactsPermittingGrid.Name = "ContactsPermittingGrid"
+        Me.ContactsPermittingGrid.ReadOnly = True
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ContactsPermittingGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
+        Me.ContactsPermittingGrid.RowHeadersVisible = False
+        Me.ContactsPermittingGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.ContactsPermittingGrid.Size = New System.Drawing.Size(629, 281)
+        Me.ContactsPermittingGrid.TabIndex = 7
         '
         'TPISMPContacts
         '
@@ -1427,6 +1515,50 @@ Partial Class IAIPFacilitySummary
         Me.TPISMPContacts.Text = "Source Monitoring"
         Me.TPISMPContacts.UseVisualStyleBackColor = True
         '
+        'ContactsTestingGrid
+        '
+        Me.ContactsTestingGrid.AllowUserToAddRows = False
+        Me.ContactsTestingGrid.AllowUserToDeleteRows = False
+        Me.ContactsTestingGrid.AllowUserToOrderColumns = True
+        Me.ContactsTestingGrid.AllowUserToResizeRows = False
+        DataGridViewCellStyle13.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.ContactsTestingGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
+        Me.ContactsTestingGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle14.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ContactsTestingGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle14
+        Me.ContactsTestingGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle15.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.ContactsTestingGrid.DefaultCellStyle = DataGridViewCellStyle15
+        Me.ContactsTestingGrid.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ContactsTestingGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.ContactsTestingGrid.Location = New System.Drawing.Point(0, 0)
+        Me.ContactsTestingGrid.Name = "ContactsTestingGrid"
+        Me.ContactsTestingGrid.ReadOnly = True
+        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle16.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ContactsTestingGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle16
+        Me.ContactsTestingGrid.RowHeadersVisible = False
+        Me.ContactsTestingGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.ContactsTestingGrid.Size = New System.Drawing.Size(629, 281)
+        Me.ContactsTestingGrid.TabIndex = 7
+        '
         'TPSSCPContacts
         '
         Me.TPSSCPContacts.Controls.Add(Me.ContactsComplianceGrid)
@@ -1438,6 +1570,50 @@ Partial Class IAIPFacilitySummary
         Me.TPSSCPContacts.Text = "Compliance"
         Me.TPSSCPContacts.UseVisualStyleBackColor = True
         '
+        'ContactsComplianceGrid
+        '
+        Me.ContactsComplianceGrid.AllowUserToAddRows = False
+        Me.ContactsComplianceGrid.AllowUserToDeleteRows = False
+        Me.ContactsComplianceGrid.AllowUserToOrderColumns = True
+        Me.ContactsComplianceGrid.AllowUserToResizeRows = False
+        DataGridViewCellStyle17.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.ContactsComplianceGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle17
+        Me.ContactsComplianceGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle18.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ContactsComplianceGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle18
+        Me.ContactsComplianceGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle19.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.ContactsComplianceGrid.DefaultCellStyle = DataGridViewCellStyle19
+        Me.ContactsComplianceGrid.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ContactsComplianceGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.ContactsComplianceGrid.Location = New System.Drawing.Point(0, 0)
+        Me.ContactsComplianceGrid.Name = "ContactsComplianceGrid"
+        Me.ContactsComplianceGrid.ReadOnly = True
+        DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle20.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ContactsComplianceGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle20
+        Me.ContactsComplianceGrid.RowHeadersVisible = False
+        Me.ContactsComplianceGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.ContactsComplianceGrid.Size = New System.Drawing.Size(629, 281)
+        Me.ContactsComplianceGrid.TabIndex = 7
+        '
         'TPGECOContacts
         '
         Me.TPGECOContacts.Controls.Add(Me.ContactsGecoGrid)
@@ -1447,6 +1623,50 @@ Partial Class IAIPFacilitySummary
         Me.TPGECOContacts.TabIndex = 5
         Me.TPGECOContacts.Text = "GECO (online users)"
         Me.TPGECOContacts.UseVisualStyleBackColor = True
+        '
+        'ContactsGecoGrid
+        '
+        Me.ContactsGecoGrid.AllowUserToAddRows = False
+        Me.ContactsGecoGrid.AllowUserToDeleteRows = False
+        Me.ContactsGecoGrid.AllowUserToOrderColumns = True
+        Me.ContactsGecoGrid.AllowUserToResizeRows = False
+        DataGridViewCellStyle21.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.ContactsGecoGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle21
+        Me.ContactsGecoGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle22.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ContactsGecoGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle22
+        Me.ContactsGecoGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle23.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.ContactsGecoGrid.DefaultCellStyle = DataGridViewCellStyle23
+        Me.ContactsGecoGrid.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ContactsGecoGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.ContactsGecoGrid.Location = New System.Drawing.Point(0, 0)
+        Me.ContactsGecoGrid.Name = "ContactsGecoGrid"
+        Me.ContactsGecoGrid.ReadOnly = True
+        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle24.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ContactsGecoGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle24
+        Me.ContactsGecoGrid.RowHeadersVisible = False
+        Me.ContactsGecoGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.ContactsGecoGrid.Size = New System.Drawing.Size(629, 281)
+        Me.ContactsGecoGrid.TabIndex = 7
         '
         'EditContactsPanel
         '
@@ -3085,226 +3305,6 @@ Partial Class IAIPFacilitySummary
         Me.LinkLabel4.Text = "Location (view online map):"
         Me.LinkLabel4.UseCompatibleTextRendering = True
         '
-        'ContactsWebSiteGrid
-        '
-        Me.ContactsWebSiteGrid.AllowUserToAddRows = False
-        Me.ContactsWebSiteGrid.AllowUserToDeleteRows = False
-        Me.ContactsWebSiteGrid.AllowUserToOrderColumns = True
-        Me.ContactsWebSiteGrid.AllowUserToResizeRows = False
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ContactsWebSiteGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
-        Me.ContactsWebSiteGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ContactsWebSiteGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle6
-        Me.ContactsWebSiteGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.ContactsWebSiteGrid.DefaultCellStyle = DataGridViewCellStyle7
-        Me.ContactsWebSiteGrid.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ContactsWebSiteGrid.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.ContactsWebSiteGrid.Location = New System.Drawing.Point(0, 0)
-        Me.ContactsWebSiteGrid.Name = "ContactsWebSiteGrid"
-        Me.ContactsWebSiteGrid.ReadOnly = True
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ContactsWebSiteGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle8
-        Me.ContactsWebSiteGrid.RowHeadersVisible = False
-        Me.ContactsWebSiteGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.ContactsWebSiteGrid.Size = New System.Drawing.Size(629, 281)
-        Me.ContactsWebSiteGrid.TabIndex = 7
-        '
-        'ContactsPermittingGrid
-        '
-        Me.ContactsPermittingGrid.AllowUserToAddRows = False
-        Me.ContactsPermittingGrid.AllowUserToDeleteRows = False
-        Me.ContactsPermittingGrid.AllowUserToOrderColumns = True
-        Me.ContactsPermittingGrid.AllowUserToResizeRows = False
-        DataGridViewCellStyle9.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ContactsPermittingGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
-        Me.ContactsPermittingGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ContactsPermittingGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
-        Me.ContactsPermittingGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.ContactsPermittingGrid.DefaultCellStyle = DataGridViewCellStyle11
-        Me.ContactsPermittingGrid.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ContactsPermittingGrid.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.ContactsPermittingGrid.Location = New System.Drawing.Point(0, 0)
-        Me.ContactsPermittingGrid.Name = "ContactsPermittingGrid"
-        Me.ContactsPermittingGrid.ReadOnly = True
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ContactsPermittingGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
-        Me.ContactsPermittingGrid.RowHeadersVisible = False
-        Me.ContactsPermittingGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.ContactsPermittingGrid.Size = New System.Drawing.Size(629, 281)
-        Me.ContactsPermittingGrid.TabIndex = 7
-        '
-        'ContactsTestingGrid
-        '
-        Me.ContactsTestingGrid.AllowUserToAddRows = False
-        Me.ContactsTestingGrid.AllowUserToDeleteRows = False
-        Me.ContactsTestingGrid.AllowUserToOrderColumns = True
-        Me.ContactsTestingGrid.AllowUserToResizeRows = False
-        DataGridViewCellStyle13.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ContactsTestingGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
-        Me.ContactsTestingGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
-        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle14.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ContactsTestingGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle14
-        Me.ContactsTestingGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle15.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.ContactsTestingGrid.DefaultCellStyle = DataGridViewCellStyle15
-        Me.ContactsTestingGrid.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ContactsTestingGrid.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.ContactsTestingGrid.Location = New System.Drawing.Point(0, 0)
-        Me.ContactsTestingGrid.Name = "ContactsTestingGrid"
-        Me.ContactsTestingGrid.ReadOnly = True
-        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle16.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ContactsTestingGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle16
-        Me.ContactsTestingGrid.RowHeadersVisible = False
-        Me.ContactsTestingGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.ContactsTestingGrid.Size = New System.Drawing.Size(629, 281)
-        Me.ContactsTestingGrid.TabIndex = 7
-        '
-        'ContactsComplianceGrid
-        '
-        Me.ContactsComplianceGrid.AllowUserToAddRows = False
-        Me.ContactsComplianceGrid.AllowUserToDeleteRows = False
-        Me.ContactsComplianceGrid.AllowUserToOrderColumns = True
-        Me.ContactsComplianceGrid.AllowUserToResizeRows = False
-        DataGridViewCellStyle17.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ContactsComplianceGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle17
-        Me.ContactsComplianceGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
-        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle18.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ContactsComplianceGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle18
-        Me.ContactsComplianceGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle19.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.ContactsComplianceGrid.DefaultCellStyle = DataGridViewCellStyle19
-        Me.ContactsComplianceGrid.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ContactsComplianceGrid.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.ContactsComplianceGrid.Location = New System.Drawing.Point(0, 0)
-        Me.ContactsComplianceGrid.Name = "ContactsComplianceGrid"
-        Me.ContactsComplianceGrid.ReadOnly = True
-        DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle20.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ContactsComplianceGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle20
-        Me.ContactsComplianceGrid.RowHeadersVisible = False
-        Me.ContactsComplianceGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.ContactsComplianceGrid.Size = New System.Drawing.Size(629, 281)
-        Me.ContactsComplianceGrid.TabIndex = 7
-        '
-        'ContactsGecoGrid
-        '
-        Me.ContactsGecoGrid.AllowUserToAddRows = False
-        Me.ContactsGecoGrid.AllowUserToDeleteRows = False
-        Me.ContactsGecoGrid.AllowUserToOrderColumns = True
-        Me.ContactsGecoGrid.AllowUserToResizeRows = False
-        DataGridViewCellStyle21.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ContactsGecoGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle21
-        Me.ContactsGecoGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
-        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle22.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ContactsGecoGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle22
-        Me.ContactsGecoGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle23.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.ContactsGecoGrid.DefaultCellStyle = DataGridViewCellStyle23
-        Me.ContactsGecoGrid.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ContactsGecoGrid.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.ContactsGecoGrid.Location = New System.Drawing.Point(0, 0)
-        Me.ContactsGecoGrid.Name = "ContactsGecoGrid"
-        Me.ContactsGecoGrid.ReadOnly = True
-        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle24.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ContactsGecoGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle24
-        Me.ContactsGecoGrid.RowHeadersVisible = False
-        Me.ContactsGecoGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.ContactsGecoGrid.Size = New System.Drawing.Size(629, 281)
-        Me.ContactsGecoGrid.TabIndex = 7
-        '
         'IAIPFacilitySummary
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -3333,10 +3333,15 @@ Partial Class IAIPFacilitySummary
         Me.TPStateContacts.ResumeLayout(False)
         CType(Me.ContactsStateGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPWebContacts.ResumeLayout(False)
+        CType(Me.ContactsWebSiteGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPSSPPContacts.ResumeLayout(False)
+        CType(Me.ContactsPermittingGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPISMPContacts.ResumeLayout(False)
+        CType(Me.ContactsTestingGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPSSCPContacts.ResumeLayout(False)
+        CType(Me.ContactsComplianceGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPGECOContacts.ResumeLayout(False)
+        CType(Me.ContactsGecoGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.EditContactsPanel.ResumeLayout(False)
         Me.FSTesting.ResumeLayout(False)
         Me.TestingTabControl.ResumeLayout(False)
@@ -3403,11 +3408,6 @@ Partial Class IAIPFacilitySummary
         CType(Me.dgvEIData, System.ComponentModel.ISupportInitialize).EndInit()
         Me.FSMenuStrip.ResumeLayout(False)
         Me.FSMenuStrip.PerformLayout()
-        CType(Me.ContactsWebSiteGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.ContactsPermittingGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.ContactsTestingGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.ContactsComplianceGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.ContactsGecoGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

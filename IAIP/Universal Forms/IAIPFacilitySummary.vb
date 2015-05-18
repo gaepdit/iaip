@@ -63,6 +63,9 @@ Public Class IAIPFacilitySummary
         InitializeDataTables()
         InitializeAcceptButtonDictionary()
         InitializeGridSelectionDictionary()
+        InitializeGridSelectionTextBoxDictionary()
+        InitializeOpenItemButtonDictionary()
+        InitializeOpenItemTextboxDictionary()
     End Sub
 
     Private Sub IAIPFacilitySummary_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
@@ -413,14 +416,19 @@ Public Class IAIPFacilitySummary
 
     Private Function GetData(ByVal table As FacilityDataTables) As DataTable
         Select Case table
+            ' Compliance
             Case FacilityDataTables.ComplianceWork
                 Return GetComplianceWorkData(Me.AirsNumber)
             Case FacilityDataTables.ComplianceFCE
                 Return GetComplianceFceData(Me.AirsNumber)
             Case FacilityDataTables.ComplianceEnforcement
                 Return GetComplianceEnforcementData(Me.AirsNumber)
+
+                'Fees
             Case FacilityDataTables.Fees
                 Return GetFeesData(Me.AirsNumber)
+
+                ' Contacts
             Case FacilityDataTables.ContactsState
                 Return GetContactsStateData(Me.AirsNumber)
             Case FacilityDataTables.ContactsWebSite
@@ -441,14 +449,20 @@ Public Class IAIPFacilitySummary
 
     Private Sub SetUpData(ByVal table As FacilityDataTables)
         Select Case table
+
+            ' Compliance
             Case FacilityDataTables.ComplianceWork
                 SetUpComplianceWorkGrid()
             Case FacilityDataTables.ComplianceFCE
                 SetUpComplianceFceGrid()
             Case FacilityDataTables.ComplianceEnforcement
                 SetUpComplianceEnforcementGrid()
+
+                ' Fees
             Case FacilityDataTables.Fees
                 SetUpFeesTab()
+
+                ' Contacts
             Case FacilityDataTables.ContactsState
                 SetUpContactsStateGrid()
             Case FacilityDataTables.ContactsWebSite
@@ -497,29 +511,132 @@ Public Class IAIPFacilitySummary
 
 #End Region
 
-#Region " Grid Item Selection "
+#Region " Open Item button events "
 
-    Private GridSelectionDictionary As New Dictionary(Of DataGridView, TextBox)
-    Private Sub InitializeGridSelectionDictionary()
-        'Compliance tab
-        GridSelectionDictionary.Add(ComplianceEnforcementGrid, ComplianceEnforcementEntry)
-        GridSelectionDictionary.Add(ComplianceFceGrid, ComplianceFceEntry)
-        GridSelectionDictionary.Add(ComplianceWorkGrid, ComplianceWorkEntry)
+    Private Sub OpenItem(ByVal itemType As FacilityDataTables, ByVal id As String)
+        Select Case itemType
+            Case FacilityDataTables.ComplianceEnforcement
+                OpenFormEnforcement(id)
+            Case FacilityDataTables.ComplianceFCE
+                OpenFormFceByYear(Me.AirsNumber, id)
+            Case FacilityDataTables.ComplianceWork
+                OpenFormSscpWorkItem(id)
+
+        End Select
     End Sub
 
-    Private Sub HandleGridSelection(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
-    Handles ComplianceWorkGrid.CellEnter, ComplianceFceGrid.CellEnter, ComplianceEnforcementGrid.CellEnter
-        If TypeOf (sender) Is DataGridView Then
-            Dim dgv As DataGridView = CType(sender, DataGridView)
-            If e.RowIndex <> -1 AndAlso e.RowIndex < dgv.RowCount Then
-                GridSelectionDictionary(dgv).Text = dgv(0, e.RowIndex).FormattedValue
-            End If
-        End If
+    Private OpenItemButtonDictionary As New Dictionary(Of Button, FacilityDataTables)
+    Private Sub InitializeOpenItemButtonDictionary()
+        'Compliance tab
+        OpenItemButtonDictionary.Add(OpenComplianceEnforcementButton, FacilityDataTables.ComplianceEnforcement)
+        OpenItemButtonDictionary.Add(OpenComplianceFceButton, FacilityDataTables.ComplianceFCE)
+        OpenItemButtonDictionary.Add(OpenComplianceWorkButton, FacilityDataTables.ComplianceWork)
+    End Sub
+
+    Private OpenItemTextboxDictionary As New Dictionary(Of Button, TextBox)
+    Private Sub InitializeOpenItemTextboxDictionary()
+        'Compliance tab
+        OpenItemTextboxDictionary.Add(OpenComplianceEnforcementButton, ComplianceEnforcementEntry)
+        OpenItemTextboxDictionary.Add(OpenComplianceFceButton, ComplianceFceEntry)
+        OpenItemTextboxDictionary.Add(OpenComplianceWorkButton, ComplianceWorkEntry)
+    End Sub
+
+    Private Sub OpenComplianceWorkButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles OpenComplianceWorkButton.Click, OpenComplianceFceButton.Click, OpenComplianceEnforcementButton.Click
+
+        Dim button As Button = CType(sender, Button)
+        OpenItem(OpenItemButtonDictionary(button), OpenItemTextboxDictionary(button).Text)
     End Sub
 
 #End Region
 
-#Region " Specific data procedures "
+#Region " Grid Item events "
+
+    Private GridSelectionDictionary As New Dictionary(Of DataGridView, FacilityDataTables)
+    Private Sub InitializeGridSelectionDictionary()
+        'Compliance tab
+        GridSelectionDictionary.Add(ComplianceEnforcementGrid, FacilityDataTables.ComplianceEnforcement)
+        GridSelectionDictionary.Add(ComplianceFceGrid, FacilityDataTables.ComplianceFCE)
+        GridSelectionDictionary.Add(ComplianceWorkGrid, FacilityDataTables.ComplianceWork)
+    End Sub
+
+    Private GridSelectionTextBoxDictionary As New Dictionary(Of DataGridView, TextBox)
+    Private Sub InitializeGridSelectionTextBoxDictionary()
+        'Compliance tab
+        GridSelectionTextBoxDictionary.Add(ComplianceEnforcementGrid, ComplianceEnforcementEntry)
+        GridSelectionTextBoxDictionary.Add(ComplianceFceGrid, ComplianceFceEntry)
+        GridSelectionTextBoxDictionary.Add(ComplianceWorkGrid, ComplianceWorkEntry)
+    End Sub
+
+    Private Sub HandleGridSelection_CellEnter(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
+    Handles ComplianceWorkGrid.CellEnter, ComplianceFceGrid.CellEnter, ComplianceEnforcementGrid.CellEnter
+
+        Dim dgv As DataGridView = CType(sender, DataGridView)
+        If e.RowIndex <> -1 AndAlso e.RowIndex < dgv.RowCount Then
+            GridSelectionTextBoxDictionary(dgv).Text = dgv(0, e.RowIndex).FormattedValue
+        End If
+    End Sub
+
+    Private Sub HandleGridLink_CellClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
+    Handles ComplianceEnforcementGrid.CellClick, ComplianceFceGrid.CellClick, ComplianceWorkGrid.CellClick
+
+        ' Only within the cell content of first column
+        Dim dgv As DataGridView = CType(sender, DataGridView)
+        If e.RowIndex <> -1 And e.RowIndex < dgv.RowCount And e.ColumnIndex = 0 Then
+            OpenItem(GridSelectionDictionary(dgv), dgv.Rows(e.RowIndex).Cells(0).Value.ToString)
+        End If
+    End Sub
+
+    Private Sub HandleGridLinkCell_DoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
+    Handles ComplianceEnforcementGrid.CellDoubleClick, ComplianceFceGrid.CellDoubleClick, ComplianceWorkGrid.CellDoubleClick
+
+        'Double-click within the cell content (but exclude first column to avoid double-firing)
+        Dim dgv As DataGridView = CType(sender, DataGridView)
+        If e.RowIndex <> -1 And e.RowIndex < dgv.RowCount And e.ColumnIndex = 0 Then
+            OpenItem(GridSelectionDictionary(dgv), dgv.Rows(e.RowIndex).Cells(0).Value.ToString)
+        End If
+    End Sub
+
+    Private Sub HandleGridLinkCell_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) _
+    Handles ComplianceEnforcementGrid.KeyDown, ComplianceFceGrid.KeyDown, ComplianceWorkGrid.KeyDown
+
+        If e.KeyCode = Keys.Enter Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub HandleGridLinkCell_KeyUp(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) _
+    Handles ComplianceEnforcementGrid.KeyUp, ComplianceFceGrid.KeyUp, ComplianceWorkGrid.KeyUp
+
+        If e.KeyCode = Keys.Enter Then
+            Dim dgv As DataGridView = CType(sender, DataGridView)
+            If dgv.RowCount > 0 Then
+                OpenItem(GridSelectionDictionary(dgv), dgv.CurrentRow.Cells(0).Value.ToString)
+            End If
+        End If
+    End Sub
+
+    Private Sub HandleGridLinkCell_MouseEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
+    Handles ComplianceEnforcementGrid.CellMouseEnter, ComplianceFceGrid.CellMouseEnter, ComplianceWorkGrid.CellMouseEnter
+
+        ' Change cursor and text color when hovering over first column (treats text like a hyperlink)
+        Dim dgv As DataGridView = CType(sender, DataGridView)
+        If e.RowIndex <> -1 And e.RowIndex < dgv.RowCount And e.ColumnIndex = 0 Then
+            dgv.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex, True)
+        End If
+    End Sub
+
+    Private Sub HandleGridLinkCell_MouseLeave(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
+    Handles ComplianceEnforcementGrid.CellMouseLeave, ComplianceFceGrid.CellMouseLeave, ComplianceWorkGrid.CellMouseLeave
+
+        ' Reset cursor and text color when mouse leaves (un-hovers) a cell
+        Dim dgv As DataGridView = CType(sender, DataGridView)
+        If e.RowIndex <> -1 And e.RowIndex < dgv.RowCount And e.ColumnIndex = 0 Then
+            dgv.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex, False)
+        End If
+    End Sub
+
+#End Region
 
 #Region " Compliance data "
 
@@ -538,6 +655,9 @@ Public Class IAIPFacilitySummary
                 .Columns("STRACTIVITYNAME").HeaderText = "Event Type"
                 .Columns("RECEIVEDDATE").HeaderText = "Date Received"
                 .Columns("RECEIVEDDATE").DefaultCellStyle.Format = DateFormat
+
+                .MakeColumnsLookLikeLinks(0)
+                .SanelyResizeColumns()
             End If
         End With
     End Sub
@@ -552,6 +672,9 @@ Public Class IAIPFacilitySummary
                 .Columns("ViolationDate").DefaultCellStyle.Format = DateFormat
                 .Columns("HPVStatus").HeaderText = "HPV Status"
                 .Columns("Status").HeaderText = "Status"
+
+                .MakeColumnsLookLikeLinks(0)
+                .SanelyResizeColumns()
             End If
         End With
     End Sub
@@ -571,24 +694,11 @@ Public Class IAIPFacilitySummary
                 .Columns("STRFCECOMMENTS").DisplayIndex = 3
                 .Columns("STRFCENUMBER").Visible = False
                 .Columns("STRFCENUMBER").DisplayIndex = 4
+
+                .MakeColumnsLookLikeLinks(0)
+                .SanelyResizeColumns()
             End If
         End With
-    End Sub
-
-#End Region
-
-#Region " Compliance Tab events "
-
-    Private Sub OpenComplianceWorkButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OpenComplianceWorkButton.Click
-        OpenFormSscpWorkItem(ComplianceWorkEntry.Text)
-    End Sub
-
-    Private Sub OpenComplianceFceButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OpenComplianceFceButton.Click
-        OpenFormFceByYear(Me.AirsNumber, ComplianceFceEntry.Text)
-    End Sub
-
-    Private Sub OpenComplianceEnforcementButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OpenComplianceEnforcementButton.Click
-        OpenFormEnforcement(ComplianceEnforcementEntry.Text)
     End Sub
 
 #End Region
@@ -818,8 +928,6 @@ Public Class IAIPFacilitySummary
     Private Sub LoadTestingData()
 
     End Sub
-
-#End Region
 
 #End Region
 
@@ -1308,6 +1416,5 @@ Public Class IAIPFacilitySummary
     End Sub
 
 #End Region
-
 
 End Class
