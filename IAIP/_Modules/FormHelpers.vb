@@ -56,7 +56,6 @@ Module FormHelpers
     End Function
 
     Private Sub OpenFormFce(ByVal airsNumber As ApbFacilityId)
-        ' TODO: better FCE form handling (requires plenty of work in SSCPFCEWork.vb)
         SSCPFCE = New SSCPFCEWork
         SSCPFCE.txtAirsNumber.Text = airsNumber.ToString
         SSCPFCE.Show()
@@ -80,6 +79,62 @@ Module FormHelpers
             Return Nothing
         End If
     End Function
+
+#End Region
+
+#Region " ISMP "
+
+    Public Sub OpenFormTestPrintout(ByVal referenceNumber As String)
+        If DAL.ISMP.StackTestExists(referenceNumber) Then
+            If UserProgram = "3" Then
+                OpenMultiForm("ISMPTestReports", referenceNumber)
+            Else
+                If DAL.ISMP.StackTestIsClosedOut(referenceNumber) Then
+                    PrintOut = New IAIPPrintOut
+                    PrintOut.txtReferenceNumber.Text = referenceNumber
+                    PrintOut.txtPrintType.Text = "SSCP"
+                    PrintOut.Show()
+                Else
+                    MessageBox.Show("Test report has not been closed out.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                End If
+            End If
+        Else
+            MessageBox.Show("Reference number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End If
+    End Sub
+
+    Public Sub OpenFormTestCloseAndPrint(ByVal referenceNumber As String, ByVal airsNumber As ApbFacilityId, ByVal facilityName As String)
+        If DAL.ISMP.StackTestExists(referenceNumber) Then
+            ISMPCloseAndPrint = New ISMPClosePrint
+            ISMPCloseAndPrint.txtTestReportType.Text = DAL.ISMP.GetStackTestDocumentType(referenceNumber)
+            ISMPCloseAndPrint.txtReferenceNumber.Text = referenceNumber
+            ISMPCloseAndPrint.txtAIRSNumber.Text = airsNumber.ShortString
+            ISMPCloseAndPrint.txtFacilityName.Text = facilityName
+            ISMPCloseAndPrint.txtOrigin.Text = "Facility Summary"
+            ISMPCloseAndPrint.Show()
+        Else
+            MessageBox.Show("Reference number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End If
+    End Sub
+
+    Public Sub OpenFormTestNotification(ByVal id As String)
+        If DAL.ISMP.TestNotificationExists(id) Then
+            ISMPNotificationLogForm = New ISMPNotificationLog
+            ISMPNotificationLogForm.txtTestNotificationNumber.Text = id
+            ISMPNotificationLogForm.Show()
+        Else
+            MessageBox.Show("Test notification number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End If
+    End Sub
+
+    Public Sub OpenFormTestMemo(ByVal referenceNumber As String)
+        If DAL.ISMP.StackTestExists(referenceNumber) Then
+            ISMPMemoEdit = New ISMPMemo
+            ISMPMemoEdit.txtReferenceNumber.Text = referenceNumber
+            ISMPMemoEdit.Show()
+        End If
+
+    End Sub
 
 #End Region
 

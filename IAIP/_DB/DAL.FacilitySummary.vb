@@ -175,5 +175,58 @@ Namespace DAL
 
 #End Region
 
+#Region " Testing "
+
+        Public Function GetTestReportData(ByVal airsNumber As Apb.ApbFacilityId) As DataTable
+            Dim query As String = _
+            "SELECT STRREFERENCENUMBER , STATUS , STREMISSIONSOURCE , " & _
+            "  STRPOLLUTANTDESCRIPTION , STRREPORTTYPE , REVIEWINGENGINEER , " & _
+            "  TESTDATESTART , RECEIVEDDATE , COMPLETEDATE , " & _
+            "  STRCOMPLIANCESTATUS " & _
+            "FROM AIRBRANCH.VW_ISMPWORKDATAGRID " & _
+            "WHERE STRAIRSNUMBER = :AirsNumber " & _
+            "ORDER BY STRREFERENCENUMBER DESC "
+
+            Dim parameter As OracleParameter = New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
+
+            Return DB.GetDataTable(query, parameter)
+        End Function
+
+        Public Function GetTestNotificationData(ByVal airsNumber As Apb.ApbFacilityId) As DataTable
+            Dim query As String = _
+            "SELECT tn.STRTESTLOGNUMBER ,( up.STRLASTNAME || ', ' || " & _
+            "  up.STRFIRSTNAME ) AS Staff , tn.STREMISSIONUNIT , " & _
+            "  eu.STRUNITDESC , tn.DATTESTNOTIFICATION , " & _
+            "  tn.DATPROPOSEDSTARTDATE , tn.DATPROPOSEDENDDATE " & _
+            "FROM AIRBRANCH.ISMPTestNotification tn " & _
+            "LEFT JOIN AIRBRANCH.EPDUserProfiles up " & _
+            "ON tn.STRSTAFFRESPONSIBLE = up.NUMUSERID " & _
+            "LEFT JOIN AIRBRANCH.LookUpEPDUnits eu " & _
+            "ON up.NUMUNIT = eu.NUMUNITCODE " & _
+            "WHERE tn.STRAIRSNUMBER = :AirsNumber " & _
+            "ORDER BY tn.STRTESTLOGNUMBER DESC"
+
+            Dim parameter As OracleParameter = New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
+
+            Return DB.GetDataTable(query, parameter)
+        End Function
+
+        Public Function GetTestMemoData(ByVal airsNumber As Apb.ApbFacilityId) As DataTable
+            Dim query As String = _
+            "SELECT tm.STRREFERENCENUMBER , SUBSTR( tm.STRMEMORANDUMFIELD, 0 " & _
+            "  , 150 ) AS MemoField " & _
+            "FROM AIRBRANCH.ISMPTestREportMemo tm " & _
+            "INNER JOIN AIRBRANCH.ISMPMaster im " & _
+            "ON tm.STRREFERENCENUMBER = im.STRREFERENCENUMBER " & _
+            "WHERE im.STRAIRSNUMBER = :AirsNumber " & _
+            "ORDER BY tm.STRREFERENCENUMBER DESC"
+
+            Dim parameter As OracleParameter = New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
+
+            Return DB.GetDataTable(query, parameter)
+        End Function
+
+#End Region
+
     End Module
 End Namespace

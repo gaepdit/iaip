@@ -861,15 +861,8 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub dgvWorkViewer_CellFormatting(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) Handles dgvWorkViewer.CellFormatting
-        If e IsNot Nothing Then
-            Try
-                If dgvWorkViewer.Columns(e.ColumnIndex).HeaderText = "AIRS #" Then
-                    Dim text As String = e.Value.ToString
-                    e.Value = String.Format("{0}-{1}", text.Substring(0, 3), text.Substring(3))
-                End If
-            Catch ex As Exception
-
-            End Try
+        If e IsNot Nothing AndAlso dgvWorkViewer.Columns(e.ColumnIndex).HeaderText = "AIRS #" Then
+            e.Value = New Apb.ApbFacilityId(e.Value).FormattedString
         End If
     End Sub
 

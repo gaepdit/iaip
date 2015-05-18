@@ -51,6 +51,10 @@ Public Class IAIPFacilitySummary
         ContactsTesting
         ContactsCompliance
         ContactsGeco
+        TestReports
+        TestNotifications
+        TestMemos
+
     End Enum
 
 #End Region
@@ -66,6 +70,7 @@ Public Class IAIPFacilitySummary
         InitializeGridSelectionTextBoxDictionary()
         InitializeOpenItemButtonDictionary()
         InitializeOpenItemTextboxDictionary()
+        InitializeLinkifiedGrids()
     End Sub
 
     Private Sub IAIPFacilitySummary_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
@@ -89,7 +94,7 @@ Public Class IAIPFacilitySummary
         ToolsMenuSeparator.Visible = (CreateFacilityMenuItem.Available And UpdateEpaMenuItem.Available)
 
         ' Close/Print Test Reports
-        llbClosePrintTestReport.Visible = UserAccounts.Contains("(118)")
+        CloseTestReportButton.Visible = UserAccounts.Contains("(118)")
 
         ' Edit location/header data
         If UserUnit = "---" Or AccountFormAccess(22, 3) = "1" Or AccountFormAccess(1, 3) = "1" Then
@@ -114,6 +119,10 @@ Public Class IAIPFacilitySummary
             .Add(FacilityDataTables.ContactsState.ToString)
             .Add(FacilityDataTables.ContactsTesting.ToString)
             .Add(FacilityDataTables.ContactsWebSite.ToString)
+            .Add(FacilityDataTables.TestReports.ToString)
+            .Add(FacilityDataTables.TestNotifications.ToString)
+            .Add(FacilityDataTables.TestMemos.ToString)
+
         End With
     End Sub
 
@@ -172,6 +181,7 @@ Public Class IAIPFacilitySummary
         CmsDisplay.BackColor = SystemColors.ControlLightLight
         ComplianceStatusDisplay.Text = ""
         ComplianceStatusDisplay.BackColor = SystemColors.ControlLightLight
+        ComplianceStatusDisplay.BorderStyle = BorderStyle.None
 
         'Offices
         DistrictOfficeDisplay.Text = ""
@@ -270,10 +280,13 @@ Public Class IAIPFacilitySummary
     Private Sub ColorCodeComplianceStatusDisplay()
         If ThisFacility.ControllingComplianceStatus > 20 Then
             ComplianceStatusDisplay.BackColor = Color.Pink
+            ComplianceStatusDisplay.BorderStyle = BorderStyle.FixedSingle
         ElseIf ThisFacility.ControllingComplianceStatus > 10 Then
             ComplianceStatusDisplay.BackColor = Color.LemonChiffon
+            ComplianceStatusDisplay.BorderStyle = BorderStyle.FixedSingle
         Else
             ComplianceStatusDisplay.BackColor = SystemColors.ControlLightLight
+            ComplianceStatusDisplay.BorderStyle = BorderStyle.None
         End If
     End Sub
 
@@ -424,7 +437,7 @@ Public Class IAIPFacilitySummary
             Case FacilityDataTables.ComplianceEnforcement
                 Return GetComplianceEnforcementData(Me.AirsNumber)
 
-                'Fees
+                ' Fees
             Case FacilityDataTables.Fees
                 Return GetFeesData(Me.AirsNumber)
 
@@ -441,6 +454,14 @@ Public Class IAIPFacilitySummary
                 Return GetContactsComplianceData(Me.AirsNumber)
             Case FacilityDataTables.ContactsGeco
                 Return GetContactsGecoData(Me.AirsNumber)
+
+                ' Testing
+            Case FacilityDataTables.TestReports
+                Return GetTestReportData(Me.AirsNumber)
+            Case FacilityDataTables.TestNotifications
+                Return GetTestNotificationData(Me.AirsNumber)
+            Case FacilityDataTables.TestMemos
+                Return GetTestMemoData(Me.AirsNumber)
 
             Case Else
                 Return Nothing
@@ -475,6 +496,14 @@ Public Class IAIPFacilitySummary
                 SetUpContactsComplianceGrid()
             Case FacilityDataTables.ContactsGeco
                 SetUpContactsGecoGrid()
+
+                ' Testing
+            Case FacilityDataTables.TestReports
+                SetUpTestReportsGrid()
+            Case FacilityDataTables.TestNotifications
+                SetUpTestNotificationsGrid()
+            Case FacilityDataTables.TestMemos
+                SetUpTestMemosGrid()
 
         End Select
     End Sub
@@ -515,6 +544,8 @@ Public Class IAIPFacilitySummary
 
     Private Sub OpenItem(ByVal itemType As FacilityDataTables, ByVal id As String)
         Select Case itemType
+
+            ' Compliance
             Case FacilityDataTables.ComplianceEnforcement
                 OpenFormEnforcement(id)
             Case FacilityDataTables.ComplianceFCE
@@ -522,26 +553,46 @@ Public Class IAIPFacilitySummary
             Case FacilityDataTables.ComplianceWork
                 OpenFormSscpWorkItem(id)
 
+                ' Testing
+            Case FacilityDataTables.TestReports
+                OpenFormTestPrintout(id)
+            Case FacilityDataTables.TestNotifications
+                OpenFormTestNotification(id)
+            Case FacilityDataTables.TestMemos
+                OpenFormTestMemo(id)
+
         End Select
     End Sub
 
     Private OpenItemButtonDictionary As New Dictionary(Of Button, FacilityDataTables)
     Private Sub InitializeOpenItemButtonDictionary()
-        'Compliance tab
+        ' Compliance 
         OpenItemButtonDictionary.Add(OpenComplianceEnforcementButton, FacilityDataTables.ComplianceEnforcement)
         OpenItemButtonDictionary.Add(OpenComplianceFceButton, FacilityDataTables.ComplianceFCE)
         OpenItemButtonDictionary.Add(OpenComplianceWorkButton, FacilityDataTables.ComplianceWork)
+
+        ' Testing
+        OpenItemButtonDictionary.Add(OpenTestReportButton, FacilityDataTables.TestReports)
+        OpenItemButtonDictionary.Add(OpenTestNotificationsButton, FacilityDataTables.TestNotifications)
+        OpenItemButtonDictionary.Add(OpenTestMemosButton, FacilityDataTables.TestMemos)
+
     End Sub
 
     Private OpenItemTextboxDictionary As New Dictionary(Of Button, TextBox)
     Private Sub InitializeOpenItemTextboxDictionary()
-        'Compliance tab
+        ' Compliance 
         OpenItemTextboxDictionary.Add(OpenComplianceEnforcementButton, ComplianceEnforcementEntry)
         OpenItemTextboxDictionary.Add(OpenComplianceFceButton, ComplianceFceEntry)
         OpenItemTextboxDictionary.Add(OpenComplianceWorkButton, ComplianceWorkEntry)
+
+        ' Testing
+        OpenItemTextboxDictionary.Add(OpenTestReportButton, TestReportEntry)
+        OpenItemTextboxDictionary.Add(OpenTestNotificationsButton, TestNotificationsEntry)
+        OpenItemTextboxDictionary.Add(OpenTestMemosButton, TestMemosEntry)
+
     End Sub
 
-    Private Sub OpenComplianceWorkButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Private Sub OpenWorkItemButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) _
     Handles OpenComplianceWorkButton.Click, OpenComplianceFceButton.Click, OpenComplianceEnforcementButton.Click
 
         Dim button As Button = CType(sender, Button)
@@ -554,32 +605,61 @@ Public Class IAIPFacilitySummary
 
     Private GridSelectionDictionary As New Dictionary(Of DataGridView, FacilityDataTables)
     Private Sub InitializeGridSelectionDictionary()
-        'Compliance tab
+        ' Compliance 
         GridSelectionDictionary.Add(ComplianceEnforcementGrid, FacilityDataTables.ComplianceEnforcement)
         GridSelectionDictionary.Add(ComplianceFceGrid, FacilityDataTables.ComplianceFCE)
         GridSelectionDictionary.Add(ComplianceWorkGrid, FacilityDataTables.ComplianceWork)
+
+        ' Testing
+        GridSelectionDictionary.Add(TestReportsGrid, FacilityDataTables.TestReports)
+        GridSelectionDictionary.Add(TestNotificationsGrid, FacilityDataTables.TestNotifications)
+        GridSelectionDictionary.Add(TestMemosGrid, FacilityDataTables.TestMemos)
+
     End Sub
 
     Private GridSelectionTextBoxDictionary As New Dictionary(Of DataGridView, TextBox)
     Private Sub InitializeGridSelectionTextBoxDictionary()
-        'Compliance tab
+        ' Compliance 
         GridSelectionTextBoxDictionary.Add(ComplianceEnforcementGrid, ComplianceEnforcementEntry)
         GridSelectionTextBoxDictionary.Add(ComplianceFceGrid, ComplianceFceEntry)
         GridSelectionTextBoxDictionary.Add(ComplianceWorkGrid, ComplianceWorkEntry)
+
+        ' Testing
+        GridSelectionTextBoxDictionary.Add(TestReportsGrid, TestReportEntry)
+        GridSelectionTextBoxDictionary.Add(TestNotificationsGrid, TestNotificationsEntry)
+        GridSelectionTextBoxDictionary.Add(TestMemosGrid, TestMemosEntry)
+
     End Sub
 
-    Private Sub HandleGridSelection_CellEnter(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
-    Handles ComplianceWorkGrid.CellEnter, ComplianceFceGrid.CellEnter, ComplianceEnforcementGrid.CellEnter
+    Private LinkifiedGrids As New List(Of DataGridView)
+    Private Sub InitializeLinkifiedGrids()
+        LinkifiedGrids.Add(ComplianceWorkGrid)
+        LinkifiedGrids.Add(ComplianceFceGrid)
+        LinkifiedGrids.Add(ComplianceEnforcementGrid)
+        LinkifiedGrids.Add(TestReportsGrid)
+        LinkifiedGrids.Add(TestNotificationsGrid)
+        LinkifiedGrids.Add(TestMemosGrid)
 
+        For Each dgv As DataGridView In LinkifiedGrids
+            AddHandler dgv.CellEnter, AddressOf HandleGrid_CellEnter
+            AddHandler dgv.CellClick, AddressOf HandleGrid_CellClick
+            AddHandler dgv.CellDoubleClick, AddressOf HandleGrid_CellDoubleClick
+            AddHandler dgv.KeyDown, AddressOf HandleGrid_KeyDown
+            AddHandler dgv.KeyUp, AddressOf HandleGrid_KeyUp
+            AddHandler dgv.CellMouseEnter, AddressOf HandleGrid_MouseEnter
+            AddHandler dgv.CellMouseLeave, AddressOf HandleGrid_MouseLeave
+        Next
+
+    End Sub
+
+    Private Sub HandleGrid_CellEnter(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs)
         Dim dgv As DataGridView = CType(sender, DataGridView)
         If e.RowIndex <> -1 AndAlso e.RowIndex < dgv.RowCount Then
             GridSelectionTextBoxDictionary(dgv).Text = dgv(0, e.RowIndex).FormattedValue
         End If
     End Sub
 
-    Private Sub HandleGridLink_CellClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
-    Handles ComplianceEnforcementGrid.CellClick, ComplianceFceGrid.CellClick, ComplianceWorkGrid.CellClick
-
+    Private Sub HandleGrid_CellClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs)
         ' Only within the cell content of first column
         Dim dgv As DataGridView = CType(sender, DataGridView)
         If e.RowIndex <> -1 And e.RowIndex < dgv.RowCount And e.ColumnIndex = 0 Then
@@ -587,9 +667,7 @@ Public Class IAIPFacilitySummary
         End If
     End Sub
 
-    Private Sub HandleGridLinkCell_DoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
-    Handles ComplianceEnforcementGrid.CellDoubleClick, ComplianceFceGrid.CellDoubleClick, ComplianceWorkGrid.CellDoubleClick
-
+    Private Sub HandleGrid_CellDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs)
         'Double-click within the cell content (but exclude first column to avoid double-firing)
         Dim dgv As DataGridView = CType(sender, DataGridView)
         If e.RowIndex <> -1 And e.RowIndex < dgv.RowCount And e.ColumnIndex = 0 Then
@@ -597,17 +675,13 @@ Public Class IAIPFacilitySummary
         End If
     End Sub
 
-    Private Sub HandleGridLinkCell_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) _
-    Handles ComplianceEnforcementGrid.KeyDown, ComplianceFceGrid.KeyDown, ComplianceWorkGrid.KeyDown
-
+    Private Sub HandleGrid_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs)
         If e.KeyCode = Keys.Enter Then
             e.Handled = True
         End If
     End Sub
 
-    Private Sub HandleGridLinkCell_KeyUp(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) _
-    Handles ComplianceEnforcementGrid.KeyUp, ComplianceFceGrid.KeyUp, ComplianceWorkGrid.KeyUp
-
+    Private Sub HandleGrid_KeyUp(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs)
         If e.KeyCode = Keys.Enter Then
             Dim dgv As DataGridView = CType(sender, DataGridView)
             If dgv.RowCount > 0 Then
@@ -616,9 +690,7 @@ Public Class IAIPFacilitySummary
         End If
     End Sub
 
-    Private Sub HandleGridLinkCell_MouseEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
-    Handles ComplianceEnforcementGrid.CellMouseEnter, ComplianceFceGrid.CellMouseEnter, ComplianceWorkGrid.CellMouseEnter
-
+    Private Sub HandleGrid_MouseEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs)
         ' Change cursor and text color when hovering over first column (treats text like a hyperlink)
         Dim dgv As DataGridView = CType(sender, DataGridView)
         If e.RowIndex <> -1 And e.RowIndex < dgv.RowCount And e.ColumnIndex = 0 Then
@@ -626,9 +698,7 @@ Public Class IAIPFacilitySummary
         End If
     End Sub
 
-    Private Sub HandleGridLinkCell_MouseLeave(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
-    Handles ComplianceEnforcementGrid.CellMouseLeave, ComplianceFceGrid.CellMouseLeave, ComplianceWorkGrid.CellMouseLeave
-
+    Private Sub HandleGrid_MouseLeave(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) 
         ' Reset cursor and text color when mouse leaves (un-hovers) a cell
         Dim dgv As DataGridView = CType(sender, DataGridView)
         If e.RowIndex <> -1 And e.RowIndex < dgv.RowCount And e.ColumnIndex = 0 Then
@@ -923,10 +993,68 @@ Public Class IAIPFacilitySummary
 
 #End Region
 
-#Region "... Testing data "
+#Region " Testing data "
+
+    Private Sub CloseTestReportButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CloseTestReportButton.Click
+        OpenFormTestCloseAndPrint(TestReportEntry.Text, Me.AirsNumber, Me.ThisFacility.FacilityName)
+    End Sub
 
     Private Sub LoadTestingData()
+        LoadDataTable(FacilityDataTables.TestReports)
+        LoadDataTable(FacilityDataTables.TestNotifications)
+        LoadDataTable(FacilityDataTables.TestMemos)
+    End Sub
 
+    Private Sub SetUpTestReportsGrid()
+        With TestReportsGrid
+            If .DataSource Is Nothing Then
+                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTables.TestReports.ToString)
+                .Columns("STRREFERENCENUMBER").HeaderText = "Reference Number"
+                .Columns("STATUS").HeaderText = "Status"
+                .Columns("STREMISSIONSOURCE").HeaderText = "Source"
+                .Columns("STRPOLLUTANTDESCRIPTION").HeaderText = "Pollutant"
+                .Columns("STRREPORTTYPE").HeaderText = "Report Type"
+                .Columns("REVIEWINGENGINEER").HeaderText = "Reviewer"
+                .Columns("TESTDATESTART").HeaderText = "Tested"
+                .Columns("RECEIVEDDATE").HeaderText = "Received"
+                .Columns("COMPLETEDATE").HeaderText = "Complete"
+                .Columns("STRCOMPLIANCESTATUS").HeaderText = "Compliance Status"
+
+                .MakeColumnsLookLikeLinks(0)
+                .SanelyResizeColumns()
+            End If
+        End With
+    End Sub
+
+    Private Sub SetUpTestNotificationsGrid()
+        With TestNotificationsGrid
+            If .DataSource Is Nothing Then
+                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTables.TestNotifications.ToString)
+                .Columns("STRTESTLOGNUMBER").HeaderText = "Test Log Number"
+                .Columns("Staff").HeaderText = "Staff"
+                .Columns("STREMISSIONUNIT").HeaderText = "Source"
+                .Columns("STRUNITDESC").HeaderText = "Unit"
+                .Columns("DATTESTNOTIFICATION").HeaderText = "Notified"
+                .Columns("DATPROPOSEDSTARTDATE").HeaderText = "Proposed Start Date"
+                .Columns("DATPROPOSEDENDDATE").HeaderText = "Proposed End Date"
+
+                .MakeColumnsLookLikeLinks(0)
+                .SanelyResizeColumns()
+            End If
+        End With
+    End Sub
+
+    Private Sub SetUpTestMemosGrid()
+        With TestMemosGrid
+            If .DataSource Is Nothing Then
+                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTables.TestMemos.ToString)
+                .Columns("STRREFERENCENUMBER").HeaderText = "Reference Number"
+                .Columns("MemoField").HeaderText = "Memo Field"
+
+                .MakeColumnsLookLikeLinks(0)
+                .SanelyResizeColumns()
+            End If
+        End With
     End Sub
 
 #End Region
@@ -1032,167 +1160,6 @@ Public Class IAIPFacilitySummary
                 EditSubParts.txtAIRSNumber.Text = Me.AirsNumber.ToString
             End If
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-
-#End Region
-
-#Region " ... ISMP Monitoring Work"
-    Private Sub dgvISMPWork_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvISMPWork.MouseUp
-        Dim hti As DataGridView.HitTestInfo = dgvISMPWork.HitTest(e.X, e.Y)
-
-        Try
-            If dgvISMPWork.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvISMPWork.Columns(1).HeaderText = "Reference Number" Then
-                    txtReferenceNumber.Text = dgvISMPWork(1, hti.RowIndex).Value
-                End If
-            End If
-            LoadCompliaceColor()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub dgvISMPTestNotification_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvISMPTestNotification.MouseUp
-        Dim hti As DataGridView.HitTestInfo = dgvISMPTestNotification.HitTest(e.X, e.Y)
-
-        Try
-            If dgvISMPTestNotification.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvISMPTestNotification.Columns(0).HeaderText = "Test Log Number" Then
-                    txtTestingNumber.Text = dgvISMPTestNotification(0, hti.RowIndex).Value
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub dgvISMPMemo_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvISMPMemo.MouseUp
-        Dim hti As DataGridView.HitTestInfo = dgvISMPMemo.HitTest(e.X, e.Y)
-
-        Try
-            If dgvISMPMemo.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvISMPMemo.Columns(0).HeaderText = "Reference Number" Then
-                    txtReferenceNumber2.Text = dgvISMPMemo(0, hti.RowIndex).Value
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Sub LoadCompliaceColor()
-        Try
-            For Each row As DataGridViewRow In dgvISMPWork.Rows
-                If Not row.IsNewRow Then
-                    If Not row.Cells(16).Value Is DBNull.Value Then
-                        temp = row.Cells(16).Value
-                        If row.Cells(16).Value = "True" Then
-                            row.DefaultCellStyle.BackColor = Color.Pink
-                        End If
-                    End If
-                    If Not row.Cells(10).Value Is DBNull.Value Then
-                        temp = row.Cells(10).Value
-                        If row.Cells(10).Value = "Not In Compliance" Then
-                            row.DefaultCellStyle.BackColor = Color.Tomato
-                        End If
-                    End If
-                End If
-            Next
-        Catch ex As Exception
-
-        End Try
-    End Sub
-    Private Sub llbISMPTestReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbISMPTestReport.LinkClicked
-        Try
-            Dim id As String = txtReferenceNumber.Text
-            If id = "" Then Exit Sub
-
-            If DAL.ISMP.StackTestExists(id) Then
-                If UserProgram = "3" Then
-                    OpenMultiForm("ISMPTestReports", id)
-                Else
-                    If DAL.ISMP.StackTestIsClosedOut(id) Then
-                        If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
-                            PrintOut.Dispose()
-                        End If
-                        PrintOut = New IAIPPrintOut
-                        PrintOut.txtReferenceNumber.Text = txtReferenceNumber.Text
-                        PrintOut.txtPrintType.Text = "SSCP"
-                        PrintOut.Show()
-                    Else
-                        MsgBox("This test has not been completely reviewed by ISMP.", MsgBoxStyle.Information, "Facility Summary")
-                    End If
-                End If
-            Else
-                MsgBox("Reference number is not in the system.", MsgBoxStyle.Information, Me.Text)
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub llbClosePrintTestReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbClosePrintTestReport.LinkClicked
-        Try
-
-            If txtReferenceNumber.Text <> "" Then
-                SQL = "Select AIRBRANCH.ISMPDocumentType.strDocumentType " & _
-                 "from AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPReportInformation " & _
-                 "where AIRBRANCH.ISMPReportInformation.strDocumentType = AIRBRANCH.ISMPDocumentType.strKey and " & _
-                 "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                Dim cmd As New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                Dim dr As OracleDataReader = cmd.ExecuteReader
-                Dim recExist As Boolean = dr.Read
-                If recExist = True Then
-                    ISMPCloseAndPrint = Nothing
-                    If ISMPCloseAndPrint Is Nothing Then ISMPCloseAndPrint = New ISMPClosePrint
-                    ISMPCloseAndPrint.txtTestReportType.Text = dr.Item("strDocumentType")
-                    ISMPCloseAndPrint.txtReferenceNumber.Text = txtReferenceNumber.Text
-                    ISMPCloseAndPrint.txtAIRSNumber.Text = Me.AirsNumber.ToString
-                    ISMPCloseAndPrint.txtFacilityName.Text = ThisFacility.FacilityName
-                    ISMPCloseAndPrint.txtOrigin.Text = "Facility Summary"
-                    ISMPCloseAndPrint.Show()
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub llbViewTestNotification_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewTestNotification.LinkClicked
-        Try
-
-            If txtTestingNumber.Text <> "" Then
-                ISMPNotificationLogForm = Nothing
-                If ISMPNotificationLogForm Is Nothing Then ISMPNotificationLogForm = New ISMPNotificationLog
-                ISMPNotificationLogForm.txtTestNotificationNumber.Text = Me.txtTestingNumber.Text
-                ISMPNotificationLogForm.Show()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub llbViewTestReport2_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewTestReportMemo.LinkClicked
-        Try
-
-            If txtReferenceNumber2.Text <> "" Then
-                ISMPMemoEdit = Nothing
-                If ISMPMemoEdit Is Nothing Then ISMPMemoEdit = New ISMPMemo
-                ISMPMemoEdit.txtReferenceNumber.Text = Me.txtReferenceNumber2.Text
-                ISMPMemoEdit.Show()
-            End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally

@@ -51,11 +51,9 @@ Partial Class IAIPFacilitySummary
         Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Me.llbClosePrintTestReport = New System.Windows.Forms.LinkLabel
-        Me.llbISMPTestReport = New System.Windows.Forms.LinkLabel
-        Me.txtReferenceNumber = New System.Windows.Forms.TextBox
-        Me.llbViewTestNotification = New System.Windows.Forms.LinkLabel
-        Me.llbViewTestReportMemo = New System.Windows.Forms.LinkLabel
+        Dim DataGridViewCellStyle29 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle31 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.NavigationPanel = New System.Windows.Forms.Panel
         Me.FacilitySearchButton = New System.Windows.Forms.Button
         Me.AirsNumberEntry = New Iaip.CueTextBox
@@ -66,7 +64,7 @@ Partial Class IAIPFacilitySummary
         Me.FSInfo = New System.Windows.Forms.TabPage
         Me.CmsLabel = New System.Windows.Forms.Label
         Me.CmsDisplay = New System.Windows.Forms.TextBox
-        Me.Label101 = New System.Windows.Forms.Label
+        Me.ComplianceStatusLabel = New System.Windows.Forms.Label
         Me.CountyLabel = New System.Windows.Forms.Label
         Me.InfoDescLabel = New System.Windows.Forms.Label
         Me.InfoClassLabel = New System.Windows.Forms.Label
@@ -146,20 +144,25 @@ Partial Class IAIPFacilitySummary
         Me.EditContactsButton = New System.Windows.Forms.Button
         Me.FSTesting = New System.Windows.Forms.TabPage
         Me.TestingTabControl = New System.Windows.Forms.TabControl
-        Me.TPTestReports = New System.Windows.Forms.TabPage
-        Me.dgvISMPWork = New System.Windows.Forms.DataGridView
-        Me.PanelISMPWork = New System.Windows.Forms.Panel
-        Me.Label373 = New System.Windows.Forms.Label
-        Me.TPTestLog = New System.Windows.Forms.TabPage
-        Me.dgvISMPTestNotification = New System.Windows.Forms.DataGridView
-        Me.PanelISMPTestNotification = New System.Windows.Forms.Panel
-        Me.txtTestingNumber = New System.Windows.Forms.TextBox
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.TPReportMemos = New System.Windows.Forms.TabPage
-        Me.dgvISMPMemo = New System.Windows.Forms.DataGridView
-        Me.PanelISMPMemo = New System.Windows.Forms.Panel
-        Me.txtReferenceNumber2 = New System.Windows.Forms.TextBox
-        Me.Label374 = New System.Windows.Forms.Label
+        Me.TPTestReport = New System.Windows.Forms.TabPage
+        Me.TestReportsGrid = New System.Windows.Forms.DataGridView
+        Me.TestReportsPanel = New System.Windows.Forms.Panel
+        Me.CloseTestReportButton = New System.Windows.Forms.Button
+        Me.OpenTestReportButton = New System.Windows.Forms.Button
+        Me.TestReportEntry = New System.Windows.Forms.TextBox
+        Me.TestReportLabel = New System.Windows.Forms.Label
+        Me.TPTestNotifications = New System.Windows.Forms.TabPage
+        Me.TestNotificationsGrid = New System.Windows.Forms.DataGridView
+        Me.TestNotificationsPanel = New System.Windows.Forms.Panel
+        Me.OpenTestNotificationsButton = New System.Windows.Forms.Button
+        Me.TestNotificationsEntry = New System.Windows.Forms.TextBox
+        Me.TestNotificationsLabel = New System.Windows.Forms.Label
+        Me.TPTestMemos = New System.Windows.Forms.TabPage
+        Me.TestMemosGrid = New System.Windows.Forms.DataGridView
+        Me.TestMemosPanel = New System.Windows.Forms.Panel
+        Me.OpenTestMemosButton = New System.Windows.Forms.Button
+        Me.TestMemosEntry = New System.Windows.Forms.TextBox
+        Me.TestMemosLabel = New System.Windows.Forms.Label
         Me.FSCompliance = New System.Windows.Forms.TabPage
         Me.ComplianceTabControl = New System.Windows.Forms.TabControl
         Me.TPComplianceWork = New System.Windows.Forms.TabPage
@@ -315,15 +318,15 @@ Partial Class IAIPFacilitySummary
         Me.EditContactsPanel.SuspendLayout()
         Me.FSTesting.SuspendLayout()
         Me.TestingTabControl.SuspendLayout()
-        Me.TPTestReports.SuspendLayout()
-        CType(Me.dgvISMPWork, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.PanelISMPWork.SuspendLayout()
-        Me.TPTestLog.SuspendLayout()
-        CType(Me.dgvISMPTestNotification, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.PanelISMPTestNotification.SuspendLayout()
-        Me.TPReportMemos.SuspendLayout()
-        CType(Me.dgvISMPMemo, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.PanelISMPMemo.SuspendLayout()
+        Me.TPTestReport.SuspendLayout()
+        CType(Me.TestReportsGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TestReportsPanel.SuspendLayout()
+        Me.TPTestNotifications.SuspendLayout()
+        CType(Me.TestNotificationsGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TestNotificationsPanel.SuspendLayout()
+        Me.TPTestMemos.SuspendLayout()
+        CType(Me.TestMemosGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TestMemosPanel.SuspendLayout()
         Me.FSCompliance.SuspendLayout()
         Me.ComplianceTabControl.SuspendLayout()
         Me.TPComplianceWork.SuspendLayout()
@@ -366,59 +369,6 @@ Partial Class IAIPFacilitySummary
         CType(Me.dgvEIData, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FSMenuStrip.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'llbClosePrintTestReport
-        '
-        Me.llbClosePrintTestReport.AutoSize = True
-        Me.llbClosePrintTestReport.Location = New System.Drawing.Point(410, 10)
-        Me.llbClosePrintTestReport.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.llbClosePrintTestReport.Name = "llbClosePrintTestReport"
-        Me.llbClosePrintTestReport.Size = New System.Drawing.Size(164, 13)
-        Me.llbClosePrintTestReport.TabIndex = 3
-        Me.llbClosePrintTestReport.TabStop = True
-        Me.llbClosePrintTestReport.Text = "Close/Print Test Report Summary"
-        Me.llbClosePrintTestReport.Visible = False
-        '
-        'llbISMPTestReport
-        '
-        Me.llbISMPTestReport.AutoSize = True
-        Me.llbISMPTestReport.Location = New System.Drawing.Point(261, 10)
-        Me.llbISMPTestReport.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.llbISMPTestReport.Name = "llbISMPTestReport"
-        Me.llbISMPTestReport.Size = New System.Drawing.Size(135, 13)
-        Me.llbISMPTestReport.TabIndex = 2
-        Me.llbISMPTestReport.TabStop = True
-        Me.llbISMPTestReport.Text = "View Test Report Summary"
-        '
-        'txtReferenceNumber
-        '
-        Me.txtReferenceNumber.Location = New System.Drawing.Point(165, 7)
-        Me.txtReferenceNumber.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtReferenceNumber.Name = "txtReferenceNumber"
-        Me.txtReferenceNumber.Size = New System.Drawing.Size(84, 20)
-        Me.txtReferenceNumber.TabIndex = 1
-        '
-        'llbViewTestNotification
-        '
-        Me.llbViewTestNotification.AutoSize = True
-        Me.llbViewTestNotification.Location = New System.Drawing.Point(230, 10)
-        Me.llbViewTestNotification.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.llbViewTestNotification.Name = "llbViewTestNotification"
-        Me.llbViewTestNotification.Size = New System.Drawing.Size(110, 13)
-        Me.llbViewTestNotification.TabIndex = 5
-        Me.llbViewTestNotification.TabStop = True
-        Me.llbViewTestNotification.Text = "View Test Notification"
-        '
-        'llbViewTestReportMemo
-        '
-        Me.llbViewTestReportMemo.AutoSize = True
-        Me.llbViewTestReportMemo.Location = New System.Drawing.Point(261, 10)
-        Me.llbViewTestReportMemo.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.llbViewTestReportMemo.Name = "llbViewTestReportMemo"
-        Me.llbViewTestReportMemo.Size = New System.Drawing.Size(121, 13)
-        Me.llbViewTestReportMemo.TabIndex = 5
-        Me.llbViewTestReportMemo.TabStop = True
-        Me.llbViewTestReportMemo.Text = "View Test Report Memo"
         '
         'NavigationPanel
         '
@@ -519,7 +469,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.FSInfo.Controls.Add(Me.CmsLabel)
         Me.FSInfo.Controls.Add(Me.CmsDisplay)
-        Me.FSInfo.Controls.Add(Me.Label101)
+        Me.FSInfo.Controls.Add(Me.ComplianceStatusLabel)
         Me.FSInfo.Controls.Add(Me.CountyLabel)
         Me.FSInfo.Controls.Add(Me.InfoDescLabel)
         Me.FSInfo.Controls.Add(Me.InfoClassLabel)
@@ -581,15 +531,15 @@ Partial Class IAIPFacilitySummary
         Me.CmsDisplay.TabIndex = 8
         Me.CmsDisplay.Text = "class"
         '
-        'Label101
+        'ComplianceStatusLabel
         '
-        Me.Label101.AutoSize = True
-        Me.Label101.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.Label101.Location = New System.Drawing.Point(346, 155)
-        Me.Label101.Name = "Label101"
-        Me.Label101.Size = New System.Drawing.Size(95, 13)
-        Me.Label101.TabIndex = 339
-        Me.Label101.Text = "Compliance Status"
+        Me.ComplianceStatusLabel.AutoSize = True
+        Me.ComplianceStatusLabel.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.ComplianceStatusLabel.Location = New System.Drawing.Point(346, 155)
+        Me.ComplianceStatusLabel.Name = "ComplianceStatusLabel"
+        Me.ComplianceStatusLabel.Size = New System.Drawing.Size(95, 13)
+        Me.ComplianceStatusLabel.TabIndex = 339
+        Me.ComplianceStatusLabel.Text = "Compliance Status"
         '
         'CountyLabel
         '
@@ -1337,7 +1287,7 @@ Partial Class IAIPFacilitySummary
         Me.ContactsTabControl.Name = "ContactsTabControl"
         Me.ContactsTabControl.SelectedIndex = 0
         Me.ContactsTabControl.Size = New System.Drawing.Size(637, 307)
-        Me.ContactsTabControl.TabIndex = 1
+        Me.ContactsTabControl.TabIndex = 0
         '
         'TPStateContacts
         '
@@ -1392,7 +1342,7 @@ Partial Class IAIPFacilitySummary
         Me.ContactsStateGrid.RowHeadersVisible = False
         Me.ContactsStateGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.ContactsStateGrid.Size = New System.Drawing.Size(629, 281)
-        Me.ContactsStateGrid.TabIndex = 6
+        Me.ContactsStateGrid.TabIndex = 0
         '
         'TPWebContacts
         '
@@ -1675,7 +1625,7 @@ Partial Class IAIPFacilitySummary
         Me.EditContactsPanel.Location = New System.Drawing.Point(0, 307)
         Me.EditContactsPanel.Name = "EditContactsPanel"
         Me.EditContactsPanel.Size = New System.Drawing.Size(637, 40)
-        Me.EditContactsPanel.TabIndex = 342
+        Me.EditContactsPanel.TabIndex = 1
         '
         'EditContactsButton
         '
@@ -1684,7 +1634,7 @@ Partial Class IAIPFacilitySummary
         Me.EditContactsButton.Location = New System.Drawing.Point(8, 9)
         Me.EditContactsButton.Name = "EditContactsButton"
         Me.EditContactsButton.Size = New System.Drawing.Size(97, 23)
-        Me.EditContactsButton.TabIndex = 1
+        Me.EditContactsButton.TabIndex = 0
         Me.EditContactsButton.Text = "Edit Contacts"
         Me.EditContactsButton.UseVisualStyleBackColor = True
         '
@@ -1700,9 +1650,9 @@ Partial Class IAIPFacilitySummary
         '
         'TestingTabControl
         '
-        Me.TestingTabControl.Controls.Add(Me.TPTestReports)
-        Me.TestingTabControl.Controls.Add(Me.TPTestLog)
-        Me.TestingTabControl.Controls.Add(Me.TPReportMemos)
+        Me.TestingTabControl.Controls.Add(Me.TPTestReport)
+        Me.TestingTabControl.Controls.Add(Me.TPTestNotifications)
+        Me.TestingTabControl.Controls.Add(Me.TPTestMemos)
         Me.TestingTabControl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TestingTabControl.Location = New System.Drawing.Point(0, 0)
         Me.TestingTabControl.Margin = New System.Windows.Forms.Padding(2)
@@ -1711,153 +1661,227 @@ Partial Class IAIPFacilitySummary
         Me.TestingTabControl.Size = New System.Drawing.Size(637, 347)
         Me.TestingTabControl.TabIndex = 6
         '
-        'TPTestReports
+        'TPTestReport
         '
-        Me.TPTestReports.BackColor = System.Drawing.Color.Transparent
-        Me.TPTestReports.Controls.Add(Me.dgvISMPWork)
-        Me.TPTestReports.Controls.Add(Me.PanelISMPWork)
-        Me.TPTestReports.Location = New System.Drawing.Point(4, 22)
-        Me.TPTestReports.Margin = New System.Windows.Forms.Padding(2)
-        Me.TPTestReports.Name = "TPTestReports"
-        Me.TPTestReports.Size = New System.Drawing.Size(629, 321)
-        Me.TPTestReports.TabIndex = 0
-        Me.TPTestReports.Text = "Test Report(s)"
+        Me.TPTestReport.Controls.Add(Me.TestReportsGrid)
+        Me.TPTestReport.Controls.Add(Me.TestReportsPanel)
+        Me.TPTestReport.Location = New System.Drawing.Point(4, 22)
+        Me.TPTestReport.Name = "TPTestReport"
+        Me.TPTestReport.Size = New System.Drawing.Size(629, 321)
+        Me.TPTestReport.TabIndex = 3
+        Me.TPTestReport.Text = "Test Reports"
+        Me.TPTestReport.UseVisualStyleBackColor = True
         '
-        'dgvISMPWork
+        'TestReportsGrid
         '
-        Me.dgvISMPWork.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvISMPWork.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvISMPWork.Location = New System.Drawing.Point(0, 30)
-        Me.dgvISMPWork.Name = "dgvISMPWork"
-        Me.dgvISMPWork.ReadOnly = True
-        Me.dgvISMPWork.Size = New System.Drawing.Size(629, 291)
-        Me.dgvISMPWork.TabIndex = 5
+        Me.TestReportsGrid.AllowUserToAddRows = False
+        Me.TestReportsGrid.AllowUserToDeleteRows = False
+        Me.TestReportsGrid.AllowUserToOrderColumns = True
+        Me.TestReportsGrid.AllowUserToResizeRows = False
+        DataGridViewCellStyle25.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.TestReportsGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle25
+        Me.TestReportsGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.TestReportsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.TestReportsGrid.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TestReportsGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.TestReportsGrid.Location = New System.Drawing.Point(0, 44)
+        Me.TestReportsGrid.Name = "TestReportsGrid"
+        Me.TestReportsGrid.ReadOnly = True
+        Me.TestReportsGrid.RowHeadersVisible = False
+        Me.TestReportsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.TestReportsGrid.Size = New System.Drawing.Size(629, 277)
+        Me.TestReportsGrid.TabIndex = 7
         '
-        'PanelISMPWork
+        'TestReportsPanel
         '
-        Me.PanelISMPWork.BackColor = System.Drawing.Color.Transparent
-        Me.PanelISMPWork.Controls.Add(Me.llbClosePrintTestReport)
-        Me.PanelISMPWork.Controls.Add(Me.llbISMPTestReport)
-        Me.PanelISMPWork.Controls.Add(Me.txtReferenceNumber)
-        Me.PanelISMPWork.Controls.Add(Me.Label373)
-        Me.PanelISMPWork.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelISMPWork.Location = New System.Drawing.Point(0, 0)
-        Me.PanelISMPWork.Margin = New System.Windows.Forms.Padding(2)
-        Me.PanelISMPWork.Name = "PanelISMPWork"
-        Me.PanelISMPWork.Size = New System.Drawing.Size(629, 30)
-        Me.PanelISMPWork.TabIndex = 2
+        Me.TestReportsPanel.Controls.Add(Me.CloseTestReportButton)
+        Me.TestReportsPanel.Controls.Add(Me.OpenTestReportButton)
+        Me.TestReportsPanel.Controls.Add(Me.TestReportEntry)
+        Me.TestReportsPanel.Controls.Add(Me.TestReportLabel)
+        Me.TestReportsPanel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TestReportsPanel.Location = New System.Drawing.Point(0, 0)
+        Me.TestReportsPanel.Margin = New System.Windows.Forms.Padding(2)
+        Me.TestReportsPanel.Name = "TestReportsPanel"
+        Me.TestReportsPanel.Size = New System.Drawing.Size(629, 44)
+        Me.TestReportsPanel.TabIndex = 6
         '
-        'Label373
+        'CloseTestReportButton
         '
-        Me.Label373.AutoSize = True
-        Me.Label373.Location = New System.Drawing.Point(8, 10)
-        Me.Label373.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label373.Name = "Label373"
-        Me.Label373.Size = New System.Drawing.Size(159, 13)
-        Me.Label373.TabIndex = 0
-        Me.Label373.Text = "Test Report Reference Number:"
+        Me.CloseTestReportButton.Location = New System.Drawing.Point(511, 10)
+        Me.CloseTestReportButton.Name = "CloseTestReportButton"
+        Me.CloseTestReportButton.Size = New System.Drawing.Size(114, 23)
+        Me.CloseTestReportButton.TabIndex = 5
+        Me.CloseTestReportButton.Text = "Close/Print Test"
+        Me.CloseTestReportButton.UseVisualStyleBackColor = True
         '
-        'TPTestLog
+        'OpenTestReportButton
         '
-        Me.TPTestLog.Controls.Add(Me.dgvISMPTestNotification)
-        Me.TPTestLog.Controls.Add(Me.PanelISMPTestNotification)
-        Me.TPTestLog.Location = New System.Drawing.Point(4, 22)
-        Me.TPTestLog.Margin = New System.Windows.Forms.Padding(2)
-        Me.TPTestLog.Name = "TPTestLog"
-        Me.TPTestLog.Size = New System.Drawing.Size(629, 321)
-        Me.TPTestLog.TabIndex = 1
-        Me.TPTestLog.Text = "Test Notification(s)"
+        Me.OpenTestReportButton.Location = New System.Drawing.Point(212, 10)
+        Me.OpenTestReportButton.Name = "OpenTestReportButton"
+        Me.OpenTestReportButton.Size = New System.Drawing.Size(75, 23)
+        Me.OpenTestReportButton.TabIndex = 5
+        Me.OpenTestReportButton.Text = "Open"
+        Me.OpenTestReportButton.UseVisualStyleBackColor = True
         '
-        'dgvISMPTestNotification
+        'TestReportEntry
         '
-        Me.dgvISMPTestNotification.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvISMPTestNotification.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvISMPTestNotification.Location = New System.Drawing.Point(0, 30)
-        Me.dgvISMPTestNotification.Name = "dgvISMPTestNotification"
-        Me.dgvISMPTestNotification.ReadOnly = True
-        Me.dgvISMPTestNotification.Size = New System.Drawing.Size(629, 291)
-        Me.dgvISMPTestNotification.TabIndex = 3
+        Me.TestReportEntry.Location = New System.Drawing.Point(125, 12)
+        Me.TestReportEntry.Margin = New System.Windows.Forms.Padding(2)
+        Me.TestReportEntry.Name = "TestReportEntry"
+        Me.TestReportEntry.Size = New System.Drawing.Size(82, 20)
+        Me.TestReportEntry.TabIndex = 4
         '
-        'PanelISMPTestNotification
+        'TestReportLabel
         '
-        Me.PanelISMPTestNotification.Controls.Add(Me.llbViewTestNotification)
-        Me.PanelISMPTestNotification.Controls.Add(Me.txtTestingNumber)
-        Me.PanelISMPTestNotification.Controls.Add(Me.Label7)
-        Me.PanelISMPTestNotification.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelISMPTestNotification.Location = New System.Drawing.Point(0, 0)
-        Me.PanelISMPTestNotification.Margin = New System.Windows.Forms.Padding(2)
-        Me.PanelISMPTestNotification.Name = "PanelISMPTestNotification"
-        Me.PanelISMPTestNotification.Size = New System.Drawing.Size(629, 30)
-        Me.PanelISMPTestNotification.TabIndex = 0
+        Me.TestReportLabel.AutoSize = True
+        Me.TestReportLabel.Location = New System.Drawing.Point(21, 15)
+        Me.TestReportLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.TestReportLabel.Name = "TestReportLabel"
+        Me.TestReportLabel.Size = New System.Drawing.Size(100, 13)
+        Me.TestReportLabel.TabIndex = 3
+        Me.TestReportLabel.Text = "Reference Number:"
         '
-        'txtTestingNumber
+        'TPTestNotifications
         '
-        Me.txtTestingNumber.Location = New System.Drawing.Point(139, 7)
-        Me.txtTestingNumber.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtTestingNumber.Name = "txtTestingNumber"
-        Me.txtTestingNumber.Size = New System.Drawing.Size(82, 20)
-        Me.txtTestingNumber.TabIndex = 4
+        Me.TPTestNotifications.Controls.Add(Me.TestNotificationsGrid)
+        Me.TPTestNotifications.Controls.Add(Me.TestNotificationsPanel)
+        Me.TPTestNotifications.Location = New System.Drawing.Point(4, 22)
+        Me.TPTestNotifications.Margin = New System.Windows.Forms.Padding(2)
+        Me.TPTestNotifications.Name = "TPTestNotifications"
+        Me.TPTestNotifications.Size = New System.Drawing.Size(629, 321)
+        Me.TPTestNotifications.TabIndex = 1
+        Me.TPTestNotifications.Text = "Notifications"
+        Me.TPTestNotifications.UseVisualStyleBackColor = True
         '
-        'Label7
+        'TestNotificationsGrid
         '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(8, 10)
-        Me.Label7.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(127, 13)
-        Me.Label7.TabIndex = 3
-        Me.Label7.Text = "Test Notification Number:"
+        Me.TestNotificationsGrid.AllowUserToAddRows = False
+        Me.TestNotificationsGrid.AllowUserToDeleteRows = False
+        Me.TestNotificationsGrid.AllowUserToOrderColumns = True
+        Me.TestNotificationsGrid.AllowUserToResizeRows = False
+        DataGridViewCellStyle26.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.TestNotificationsGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle26
+        Me.TestNotificationsGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.TestNotificationsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.TestNotificationsGrid.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TestNotificationsGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.TestNotificationsGrid.Location = New System.Drawing.Point(0, 44)
+        Me.TestNotificationsGrid.Name = "TestNotificationsGrid"
+        Me.TestNotificationsGrid.ReadOnly = True
+        Me.TestNotificationsGrid.RowHeadersVisible = False
+        Me.TestNotificationsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.TestNotificationsGrid.Size = New System.Drawing.Size(629, 277)
+        Me.TestNotificationsGrid.TabIndex = 9
         '
-        'TPReportMemos
+        'TestNotificationsPanel
         '
-        Me.TPReportMemos.Controls.Add(Me.dgvISMPMemo)
-        Me.TPReportMemos.Controls.Add(Me.PanelISMPMemo)
-        Me.TPReportMemos.Location = New System.Drawing.Point(4, 22)
-        Me.TPReportMemos.Margin = New System.Windows.Forms.Padding(2)
-        Me.TPReportMemos.Name = "TPReportMemos"
-        Me.TPReportMemos.Size = New System.Drawing.Size(629, 321)
-        Me.TPReportMemos.TabIndex = 2
-        Me.TPReportMemos.Text = "Test Report Memo(s)"
+        Me.TestNotificationsPanel.Controls.Add(Me.OpenTestNotificationsButton)
+        Me.TestNotificationsPanel.Controls.Add(Me.TestNotificationsEntry)
+        Me.TestNotificationsPanel.Controls.Add(Me.TestNotificationsLabel)
+        Me.TestNotificationsPanel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TestNotificationsPanel.Location = New System.Drawing.Point(0, 0)
+        Me.TestNotificationsPanel.Margin = New System.Windows.Forms.Padding(2)
+        Me.TestNotificationsPanel.Name = "TestNotificationsPanel"
+        Me.TestNotificationsPanel.Size = New System.Drawing.Size(629, 44)
+        Me.TestNotificationsPanel.TabIndex = 8
         '
-        'dgvISMPMemo
+        'OpenTestNotificationsButton
         '
-        Me.dgvISMPMemo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvISMPMemo.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvISMPMemo.Location = New System.Drawing.Point(0, 30)
-        Me.dgvISMPMemo.Name = "dgvISMPMemo"
-        Me.dgvISMPMemo.ReadOnly = True
-        Me.dgvISMPMemo.Size = New System.Drawing.Size(629, 291)
-        Me.dgvISMPMemo.TabIndex = 3
+        Me.OpenTestNotificationsButton.Location = New System.Drawing.Point(212, 10)
+        Me.OpenTestNotificationsButton.Name = "OpenTestNotificationsButton"
+        Me.OpenTestNotificationsButton.Size = New System.Drawing.Size(75, 23)
+        Me.OpenTestNotificationsButton.TabIndex = 5
+        Me.OpenTestNotificationsButton.Text = "Open"
+        Me.OpenTestNotificationsButton.UseVisualStyleBackColor = True
         '
-        'PanelISMPMemo
+        'TestNotificationsEntry
         '
-        Me.PanelISMPMemo.Controls.Add(Me.llbViewTestReportMemo)
-        Me.PanelISMPMemo.Controls.Add(Me.txtReferenceNumber2)
-        Me.PanelISMPMemo.Controls.Add(Me.Label374)
-        Me.PanelISMPMemo.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelISMPMemo.Location = New System.Drawing.Point(0, 0)
-        Me.PanelISMPMemo.Margin = New System.Windows.Forms.Padding(2)
-        Me.PanelISMPMemo.Name = "PanelISMPMemo"
-        Me.PanelISMPMemo.Size = New System.Drawing.Size(629, 30)
-        Me.PanelISMPMemo.TabIndex = 0
+        Me.TestNotificationsEntry.Location = New System.Drawing.Point(125, 12)
+        Me.TestNotificationsEntry.Margin = New System.Windows.Forms.Padding(2)
+        Me.TestNotificationsEntry.Name = "TestNotificationsEntry"
+        Me.TestNotificationsEntry.Size = New System.Drawing.Size(82, 20)
+        Me.TestNotificationsEntry.TabIndex = 4
         '
-        'txtReferenceNumber2
+        'TestNotificationsLabel
         '
-        Me.txtReferenceNumber2.Location = New System.Drawing.Point(167, 7)
-        Me.txtReferenceNumber2.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtReferenceNumber2.Name = "txtReferenceNumber2"
-        Me.txtReferenceNumber2.Size = New System.Drawing.Size(84, 20)
-        Me.txtReferenceNumber2.TabIndex = 4
+        Me.TestNotificationsLabel.AutoSize = True
+        Me.TestNotificationsLabel.Location = New System.Drawing.Point(18, 15)
+        Me.TestNotificationsLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.TestNotificationsLabel.Name = "TestNotificationsLabel"
+        Me.TestNotificationsLabel.Size = New System.Drawing.Size(103, 13)
+        Me.TestNotificationsLabel.TabIndex = 3
+        Me.TestNotificationsLabel.Text = "Notification Number:"
         '
-        'Label374
+        'TPTestMemos
         '
-        Me.Label374.AutoSize = True
-        Me.Label374.Location = New System.Drawing.Point(8, 10)
-        Me.Label374.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label374.Name = "Label374"
-        Me.Label374.Size = New System.Drawing.Size(159, 13)
-        Me.Label374.TabIndex = 3
-        Me.Label374.Text = "Test Report Reference Number:"
+        Me.TPTestMemos.Controls.Add(Me.TestMemosGrid)
+        Me.TPTestMemos.Controls.Add(Me.TestMemosPanel)
+        Me.TPTestMemos.Location = New System.Drawing.Point(4, 22)
+        Me.TPTestMemos.Margin = New System.Windows.Forms.Padding(2)
+        Me.TPTestMemos.Name = "TPTestMemos"
+        Me.TPTestMemos.Size = New System.Drawing.Size(629, 321)
+        Me.TPTestMemos.TabIndex = 2
+        Me.TPTestMemos.Text = "Memos"
+        Me.TPTestMemos.UseVisualStyleBackColor = True
+        '
+        'TestMemosGrid
+        '
+        Me.TestMemosGrid.AllowUserToAddRows = False
+        Me.TestMemosGrid.AllowUserToDeleteRows = False
+        Me.TestMemosGrid.AllowUserToOrderColumns = True
+        Me.TestMemosGrid.AllowUserToResizeRows = False
+        DataGridViewCellStyle27.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.TestMemosGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle27
+        Me.TestMemosGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.TestMemosGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.TestMemosGrid.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TestMemosGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.TestMemosGrid.Location = New System.Drawing.Point(0, 44)
+        Me.TestMemosGrid.Name = "TestMemosGrid"
+        Me.TestMemosGrid.ReadOnly = True
+        Me.TestMemosGrid.RowHeadersVisible = False
+        Me.TestMemosGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.TestMemosGrid.Size = New System.Drawing.Size(629, 277)
+        Me.TestMemosGrid.TabIndex = 9
+        '
+        'TestMemosPanel
+        '
+        Me.TestMemosPanel.Controls.Add(Me.OpenTestMemosButton)
+        Me.TestMemosPanel.Controls.Add(Me.TestMemosEntry)
+        Me.TestMemosPanel.Controls.Add(Me.TestMemosLabel)
+        Me.TestMemosPanel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TestMemosPanel.Location = New System.Drawing.Point(0, 0)
+        Me.TestMemosPanel.Margin = New System.Windows.Forms.Padding(2)
+        Me.TestMemosPanel.Name = "TestMemosPanel"
+        Me.TestMemosPanel.Size = New System.Drawing.Size(629, 44)
+        Me.TestMemosPanel.TabIndex = 8
+        '
+        'OpenTestMemosButton
+        '
+        Me.OpenTestMemosButton.Location = New System.Drawing.Point(212, 10)
+        Me.OpenTestMemosButton.Name = "OpenTestMemosButton"
+        Me.OpenTestMemosButton.Size = New System.Drawing.Size(75, 23)
+        Me.OpenTestMemosButton.TabIndex = 5
+        Me.OpenTestMemosButton.Text = "Open"
+        Me.OpenTestMemosButton.UseVisualStyleBackColor = True
+        '
+        'TestMemosEntry
+        '
+        Me.TestMemosEntry.Location = New System.Drawing.Point(125, 12)
+        Me.TestMemosEntry.Margin = New System.Windows.Forms.Padding(2)
+        Me.TestMemosEntry.Name = "TestMemosEntry"
+        Me.TestMemosEntry.Size = New System.Drawing.Size(82, 20)
+        Me.TestMemosEntry.TabIndex = 4
+        '
+        'TestMemosLabel
+        '
+        Me.TestMemosLabel.AutoSize = True
+        Me.TestMemosLabel.Location = New System.Drawing.Point(21, 15)
+        Me.TestMemosLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.TestMemosLabel.Name = "TestMemosLabel"
+        Me.TestMemosLabel.Size = New System.Drawing.Size(100, 13)
+        Me.TestMemosLabel.TabIndex = 3
+        Me.TestMemosLabel.Text = "Reference Number:"
         '
         'FSCompliance
         '
@@ -1900,8 +1924,8 @@ Partial Class IAIPFacilitySummary
         Me.ComplianceWorkGrid.AllowUserToDeleteRows = False
         Me.ComplianceWorkGrid.AllowUserToOrderColumns = True
         Me.ComplianceWorkGrid.AllowUserToResizeRows = False
-        DataGridViewCellStyle25.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ComplianceWorkGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle25
+        DataGridViewCellStyle28.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.ComplianceWorkGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle28
         Me.ComplianceWorkGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.ComplianceWorkGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.ComplianceWorkGrid.Dock = System.Windows.Forms.DockStyle.Fill
@@ -1971,8 +1995,8 @@ Partial Class IAIPFacilitySummary
         Me.ComplianceFceGrid.AllowUserToDeleteRows = False
         Me.ComplianceFceGrid.AllowUserToOrderColumns = True
         Me.ComplianceFceGrid.AllowUserToResizeRows = False
-        DataGridViewCellStyle26.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ComplianceFceGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle26
+        DataGridViewCellStyle29.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.ComplianceFceGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle29
         Me.ComplianceFceGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.ComplianceFceGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.ComplianceFceGrid.Dock = System.Windows.Forms.DockStyle.Fill
@@ -2042,8 +2066,8 @@ Partial Class IAIPFacilitySummary
         Me.ComplianceEnforcementGrid.AllowUserToDeleteRows = False
         Me.ComplianceEnforcementGrid.AllowUserToOrderColumns = True
         Me.ComplianceEnforcementGrid.AllowUserToResizeRows = False
-        DataGridViewCellStyle27.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ComplianceEnforcementGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle27
+        DataGridViewCellStyle30.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.ComplianceEnforcementGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle30
         Me.ComplianceEnforcementGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.ComplianceEnforcementGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.ComplianceEnforcementGrid.Dock = System.Windows.Forms.DockStyle.Fill
@@ -2258,8 +2282,8 @@ Partial Class IAIPFacilitySummary
         Me.dgvPermits.AllowUserToDeleteRows = False
         Me.dgvPermits.AllowUserToOrderColumns = True
         Me.dgvPermits.AllowUserToResizeRows = False
-        DataGridViewCellStyle28.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvPermits.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle28
+        DataGridViewCellStyle31.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvPermits.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle31
         Me.dgvPermits.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvPermits.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText
         Me.dgvPermits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -3345,18 +3369,18 @@ Partial Class IAIPFacilitySummary
         Me.EditContactsPanel.ResumeLayout(False)
         Me.FSTesting.ResumeLayout(False)
         Me.TestingTabControl.ResumeLayout(False)
-        Me.TPTestReports.ResumeLayout(False)
-        CType(Me.dgvISMPWork, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.PanelISMPWork.ResumeLayout(False)
-        Me.PanelISMPWork.PerformLayout()
-        Me.TPTestLog.ResumeLayout(False)
-        CType(Me.dgvISMPTestNotification, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.PanelISMPTestNotification.ResumeLayout(False)
-        Me.PanelISMPTestNotification.PerformLayout()
-        Me.TPReportMemos.ResumeLayout(False)
-        CType(Me.dgvISMPMemo, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.PanelISMPMemo.ResumeLayout(False)
-        Me.PanelISMPMemo.PerformLayout()
+        Me.TPTestReport.ResumeLayout(False)
+        CType(Me.TestReportsGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TestReportsPanel.ResumeLayout(False)
+        Me.TestReportsPanel.PerformLayout()
+        Me.TPTestNotifications.ResumeLayout(False)
+        CType(Me.TestNotificationsGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TestNotificationsPanel.ResumeLayout(False)
+        Me.TestNotificationsPanel.PerformLayout()
+        Me.TPTestMemos.ResumeLayout(False)
+        CType(Me.TestMemosGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TestMemosPanel.ResumeLayout(False)
+        Me.TestMemosPanel.PerformLayout()
         Me.FSCompliance.ResumeLayout(False)
         Me.ComplianceTabControl.ResumeLayout(False)
         Me.TPComplianceWork.ResumeLayout(False)
@@ -3459,25 +3483,8 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents FeeYearLabel As System.Windows.Forms.Label
     Friend WithEvents dgvEIData As System.Windows.Forms.DataGridView
     Friend WithEvents TestingTabControl As System.Windows.Forms.TabControl
-    Friend WithEvents TPTestReports As System.Windows.Forms.TabPage
-    Friend WithEvents dgvISMPWork As System.Windows.Forms.DataGridView
-    Friend WithEvents PanelISMPWork As System.Windows.Forms.Panel
-    Friend WithEvents llbClosePrintTestReport As System.Windows.Forms.LinkLabel
-    Friend WithEvents llbISMPTestReport As System.Windows.Forms.LinkLabel
-    Friend WithEvents txtReferenceNumber As System.Windows.Forms.TextBox
-    Friend WithEvents Label373 As System.Windows.Forms.Label
-    Friend WithEvents TPTestLog As System.Windows.Forms.TabPage
-    Friend WithEvents dgvISMPTestNotification As System.Windows.Forms.DataGridView
-    Friend WithEvents PanelISMPTestNotification As System.Windows.Forms.Panel
-    Friend WithEvents llbViewTestNotification As System.Windows.Forms.LinkLabel
-    Friend WithEvents txtTestingNumber As System.Windows.Forms.TextBox
-    Friend WithEvents Label7 As System.Windows.Forms.Label
-    Friend WithEvents TPReportMemos As System.Windows.Forms.TabPage
-    Friend WithEvents dgvISMPMemo As System.Windows.Forms.DataGridView
-    Friend WithEvents PanelISMPMemo As System.Windows.Forms.Panel
-    Friend WithEvents llbViewTestReportMemo As System.Windows.Forms.LinkLabel
-    Friend WithEvents txtReferenceNumber2 As System.Windows.Forms.TextBox
-    Friend WithEvents Label374 As System.Windows.Forms.Label
+    Friend WithEvents TPTestNotifications As System.Windows.Forms.TabPage
+    Friend WithEvents TPTestMemos As System.Windows.Forms.TabPage
     Friend WithEvents ComplianceTabControl As System.Windows.Forms.TabControl
     Friend WithEvents TPComplianceWork As System.Windows.Forms.TabPage
     Friend WithEvents TPFce As System.Windows.Forms.TabPage
@@ -3540,7 +3547,7 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents InfoStartupDateLabel As System.Windows.Forms.Label
     Friend WithEvents InfoPermitRevocationDateLabel As System.Windows.Forms.Label
     Friend WithEvents InfoDescLabel As System.Windows.Forms.Label
-    Friend WithEvents Label101 As System.Windows.Forms.Label
+    Friend WithEvents ComplianceStatusLabel As System.Windows.Forms.Label
     Friend WithEvents CreatedDateLabel As System.Windows.Forms.Label
     Friend WithEvents FisDateLabel As System.Windows.Forms.Label
     Friend WithEvents DataUpdateDateLabel As System.Windows.Forms.Label
@@ -3654,4 +3661,21 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents ContactsTestingGrid As System.Windows.Forms.DataGridView
     Friend WithEvents ContactsComplianceGrid As System.Windows.Forms.DataGridView
     Friend WithEvents ContactsGecoGrid As System.Windows.Forms.DataGridView
+    Friend WithEvents TPTestReport As System.Windows.Forms.TabPage
+    Friend WithEvents TestReportsGrid As System.Windows.Forms.DataGridView
+    Friend WithEvents TestReportsPanel As System.Windows.Forms.Panel
+    Friend WithEvents OpenTestReportButton As System.Windows.Forms.Button
+    Friend WithEvents TestReportEntry As System.Windows.Forms.TextBox
+    Friend WithEvents TestReportLabel As System.Windows.Forms.Label
+    Friend WithEvents TestNotificationsGrid As System.Windows.Forms.DataGridView
+    Friend WithEvents TestNotificationsPanel As System.Windows.Forms.Panel
+    Friend WithEvents OpenTestNotificationsButton As System.Windows.Forms.Button
+    Friend WithEvents TestNotificationsEntry As System.Windows.Forms.TextBox
+    Friend WithEvents TestNotificationsLabel As System.Windows.Forms.Label
+    Friend WithEvents TestMemosGrid As System.Windows.Forms.DataGridView
+    Friend WithEvents TestMemosPanel As System.Windows.Forms.Panel
+    Friend WithEvents OpenTestMemosButton As System.Windows.Forms.Button
+    Friend WithEvents TestMemosEntry As System.Windows.Forms.TextBox
+    Friend WithEvents TestMemosLabel As System.Windows.Forms.Label
+    Friend WithEvents CloseTestReportButton As System.Windows.Forms.Button
 End Class

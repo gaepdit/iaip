@@ -57,7 +57,7 @@ Module subMain
 #Region " All Forms "
 
 #Region " Universal Screens "
-    Public PrintOut As IAIPPrintOut
+    Public PrintOut As IAIPPrintOut ' TODO DWW: Remove
     Public EditFacilityLocation As IAIPEditFacilityLocation ' TODO DWW: Remove
     Public EditSubParts As IAIPEditSubParts ' TODO DWW: Remove
     Public ListTool As IAIPListTool ' TODO DWW: Remove

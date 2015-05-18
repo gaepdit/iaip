@@ -1095,23 +1095,7 @@ Public Class ISMPTestReportAdministrative
         End Try
     End Sub
     Sub OpenMemo()
-        Try
-
-            If txtReferenceNumber.Text <> "" Then
-                ISMPMemoEdit = Nothing
-                If ISMPMemoEdit Is Nothing Then ISMPMemoEdit = New ISMPMemo
-                ISMPMemoEdit.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
-                ISMPMemoEdit.Show()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
-
+        OpenFormTestMemo(Me.txtReferenceNumber.Text)
     End Sub
     Sub DeleteTestReport()
         Try
