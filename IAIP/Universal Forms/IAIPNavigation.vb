@@ -224,26 +224,7 @@ Public Class IAIPNavigation
 #Region " Quick Access Tool procedures "
 
     Private Sub OpenApplication()
-        Try
-            Dim id As String = txtOpenApplication.Text
-            If id = "" Then Exit Sub
-
-            If DAL.SSPP.ApplicationExists(id) Then
-                If PermitTrackingLog IsNot Nothing AndAlso Not PermitTrackingLog.IsDisposed Then
-                    PermitTrackingLog.Dispose()
-                End If
-
-                PermitTrackingLog = New SSPPApplicationTrackingLog
-                PermitTrackingLog.Show()
-                PermitTrackingLog.txtApplicationNumber.Text = txtOpenApplication.Text
-                PermitTrackingLog.LoadApplication()
-                PermitTrackingLog.TPTrackingLog.Focus()
-            Else
-                MsgBox("Application number is not in the system.", MsgBoxStyle.Information, Me.Text)
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenFormPermitApplication(txtOpenApplication.Text)
     End Sub
 
     Private Sub OpenTestReport()

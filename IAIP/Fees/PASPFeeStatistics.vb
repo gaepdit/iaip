@@ -3095,45 +3095,10 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
     Private Sub btnFeeViewPermittingEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFeeViewPermittingEvent.Click
-        Try
-            If txtFeePermittingEvent.Text <> "" Then
-                If PermitTrackingLog Is Nothing Then
-                    PermitTrackingLog = Nothing
-                    If PermitTrackingLog Is Nothing Then PermitTrackingLog = New SSPPApplicationTrackingLog
-                    PermitTrackingLog.Show()
-                Else
-                    PermitTrackingLog.Show()
-                End If
-                PermitTrackingLog.txtApplicationNumber.Clear()
-                PermitTrackingLog.txtApplicationNumber.Text = txtFeePermittingEvent.Text
-                PermitTrackingLog.LoadApplication()
-                PermitTrackingLog.BringToFront()
-                PermitTrackingLog.TPTrackingLog.Focus()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenFormPermitApplication(txtFeePermittingEvent.Text)
     End Sub
     Private Sub btnFeePendingPermittingEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFeePendingPermittingEvent.Click
-        Try
-            If txtFeePendingPermit.Text <> "" And txtFeePendingPermit.Text <> "No" Then
-                If PermitTrackingLog Is Nothing Then
-                    PermitTrackingLog = Nothing
-                    If PermitTrackingLog Is Nothing Then PermitTrackingLog = New SSPPApplicationTrackingLog
-                    PermitTrackingLog.Show()
-                Else
-                    PermitTrackingLog.Show()
-                End If
-                PermitTrackingLog.txtApplicationNumber.Clear()
-                PermitTrackingLog.txtApplicationNumber.Text = txtFeePendingPermit.Text
-                PermitTrackingLog.LoadApplication()
-                PermitTrackingLog.BringToFront()
-                PermitTrackingLog.TPTrackingLog.Focus()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenFormPermitApplication(txtFeePendingPermit.Text)
     End Sub
     Private Sub btnViewData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewData.Click
         Try

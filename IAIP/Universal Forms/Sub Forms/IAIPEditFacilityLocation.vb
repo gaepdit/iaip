@@ -397,19 +397,6 @@ Public Class IAIPEditFacilityLocation
 
 #End Region
 #Region "Declaration"
-    Private Sub APBEditFacilityLocation_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-
-
-            EditFacilityLocation = Nothing
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
     Private Sub dgvFaciltiyInformaitonHistory_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvFaciltiyInformaitonHistory.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvFaciltiyInformaitonHistory.HitTest(e.X, e.Y)
 

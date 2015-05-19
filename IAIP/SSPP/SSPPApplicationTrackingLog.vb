@@ -11012,20 +11012,6 @@ Public Class SSPPApplicationTrackingLog
         End Try
          
     End Sub
-    Private Sub SSPPPermitTrackingLog_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-             
-
-            PermitTrackingLog = Nothing
-            Me.Hide()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-         
-    End Sub
     Private Sub txtPermitNumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtPermitNumber.TextChanged
         Dim PermitNumber As String
         Dim SICCode As String

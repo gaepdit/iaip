@@ -103,20 +103,6 @@ Module FormHelpers
         End If
     End Sub
 
-    Public Sub OpenFormTestCloseAndPrint(ByVal referenceNumber As String, ByVal airsNumber As ApbFacilityId, ByVal facilityName As String)
-        If DAL.ISMP.StackTestExists(referenceNumber) Then
-            ISMPCloseAndPrint = New ISMPClosePrint
-            ISMPCloseAndPrint.txtTestReportType.Text = DAL.ISMP.GetStackTestDocumentType(referenceNumber)
-            ISMPCloseAndPrint.txtReferenceNumber.Text = referenceNumber
-            ISMPCloseAndPrint.txtAIRSNumber.Text = airsNumber.ShortString
-            ISMPCloseAndPrint.txtFacilityName.Text = facilityName
-            ISMPCloseAndPrint.txtOrigin.Text = "Facility Summary"
-            ISMPCloseAndPrint.Show()
-        Else
-            MessageBox.Show("Reference number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-        End If
-    End Sub
-
     Public Sub OpenFormTestNotification(ByVal id As String)
         If DAL.ISMP.TestNotificationExists(id) Then
             ISMPNotificationLogForm = New ISMPNotificationLog
@@ -135,6 +121,28 @@ Module FormHelpers
         End If
 
     End Sub
+
+#End Region
+
+#Region " SSPP "
+
+    Public Function OpenFormPermitApplication(ByVal applicationNumber As String) As Form
+        If DAL.SSPP.ApplicationExists(applicationNumber) Then
+            Dim app As SSPPApplicationTrackingLog = OpenSingleForm("SSPPApplicationTrackingLog", applicationNumber)
+            app.txtApplicationNumber.Text = applicationNumber
+            app.LoadApplication()
+            app.TPTrackingLog.Focus()
+            Return app
+        Else
+            MessageBox.Show("Application number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return Nothing
+        End If
+    End Function
+
+    Public Function OpenFormNewPermitApplication() As Form
+        Dim app As SSPPApplicationTrackingLog = OpenSingleForm("SSPPApplicationTrackingLog", closeFirst:=True)
+        Return app
+    End Function
 
 #End Region
 

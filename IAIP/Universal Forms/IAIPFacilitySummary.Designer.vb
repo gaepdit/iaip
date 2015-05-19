@@ -54,6 +54,9 @@ Partial Class IAIPFacilitySummary
         Dim DataGridViewCellStyle29 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle31 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle32 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle33 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle34 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.NavigationPanel = New System.Windows.Forms.Panel
         Me.FacilitySearchButton = New System.Windows.Forms.Button
         Me.AirsNumberEntry = New Iaip.CueTextBox
@@ -146,59 +149,30 @@ Partial Class IAIPFacilitySummary
         Me.TestingTabControl = New System.Windows.Forms.TabControl
         Me.TPTestReport = New System.Windows.Forms.TabPage
         Me.TestReportsGrid = New System.Windows.Forms.DataGridView
-        Me.TestReportsPanel = New System.Windows.Forms.Panel
-        Me.CloseTestReportButton = New System.Windows.Forms.Button
-        Me.OpenTestReportButton = New System.Windows.Forms.Button
-        Me.TestReportEntry = New System.Windows.Forms.TextBox
-        Me.TestReportLabel = New System.Windows.Forms.Label
         Me.TPTestNotifications = New System.Windows.Forms.TabPage
         Me.TestNotificationsGrid = New System.Windows.Forms.DataGridView
-        Me.TestNotificationsPanel = New System.Windows.Forms.Panel
-        Me.OpenTestNotificationsButton = New System.Windows.Forms.Button
-        Me.TestNotificationsEntry = New System.Windows.Forms.TextBox
-        Me.TestNotificationsLabel = New System.Windows.Forms.Label
         Me.TPTestMemos = New System.Windows.Forms.TabPage
         Me.TestMemosGrid = New System.Windows.Forms.DataGridView
-        Me.TestMemosPanel = New System.Windows.Forms.Panel
-        Me.OpenTestMemosButton = New System.Windows.Forms.Button
-        Me.TestMemosEntry = New System.Windows.Forms.TextBox
-        Me.TestMemosLabel = New System.Windows.Forms.Label
         Me.FSCompliance = New System.Windows.Forms.TabPage
         Me.ComplianceTabControl = New System.Windows.Forms.TabControl
         Me.TPComplianceWork = New System.Windows.Forms.TabPage
         Me.ComplianceWorkGrid = New System.Windows.Forms.DataGridView
-        Me.ComplianceWorkPanel = New System.Windows.Forms.Panel
-        Me.OpenComplianceWorkButton = New System.Windows.Forms.Button
-        Me.ComplianceWorkEntry = New System.Windows.Forms.TextBox
-        Me.ComplianceWorkLabel = New System.Windows.Forms.Label
         Me.TPFce = New System.Windows.Forms.TabPage
         Me.ComplianceFceGrid = New System.Windows.Forms.DataGridView
-        Me.ComplianceFcePanel = New System.Windows.Forms.Panel
-        Me.OpenComplianceFceButton = New System.Windows.Forms.Button
-        Me.ComplianceFceEntry = New System.Windows.Forms.TextBox
-        Me.ComplianceFceLabel = New System.Windows.Forms.Label
         Me.TPEnforcement = New System.Windows.Forms.TabPage
         Me.ComplianceEnforcementGrid = New System.Windows.Forms.DataGridView
-        Me.ComplianceEnforcementPanel = New System.Windows.Forms.Panel
-        Me.OpenComplianceEnforcementButton = New System.Windows.Forms.Button
-        Me.ComplianceEnforcementEntry = New System.Windows.Forms.TextBox
-        Me.ComplianceEnforcementLabel = New System.Windows.Forms.Label
         Me.FSPermitting = New System.Windows.Forms.TabPage
         Me.PermittingTabControl = New System.Windows.Forms.TabControl
         Me.TPAppLog = New System.Windows.Forms.TabPage
-        Me.dgvApplicationLog = New System.Windows.Forms.DataGridView
-        Me.Panel12 = New System.Windows.Forms.Panel
-        Me.llbViewApplication = New System.Windows.Forms.LinkLabel
-        Me.txtApplicationNumber = New System.Windows.Forms.TextBox
-        Me.Label91 = New System.Windows.Forms.Label
-        Me.TPActiveRules = New System.Windows.Forms.TabPage
-        Me.dgvActiveRules = New System.Windows.Forms.DataGridView
+        Me.PermitApplicationGrid = New System.Windows.Forms.DataGridView
+        Me.TPCurrentRules = New System.Windows.Forms.TabPage
+        Me.PermitRulesGrid = New System.Windows.Forms.DataGridView
         Me.TPRuleHistory = New System.Windows.Forms.TabPage
-        Me.dgvRuleHistory = New System.Windows.Forms.DataGridView
+        Me.PermitRuleHistoryGrid = New System.Windows.Forms.DataGridView
         Me.TPPermits = New System.Windows.Forms.TabPage
-        Me.WebLinkPanel = New System.Windows.Forms.Panel
-        Me.llbViewAirPermitsOnline = New System.Windows.Forms.LinkLabel
-        Me.dgvPermits = New System.Windows.Forms.DataGridView
+        Me.PermitsGrid = New System.Windows.Forms.DataGridView
+        Me.PermitsPanel = New System.Windows.Forms.Panel
+        Me.PermitsLink = New System.Windows.Forms.LinkLabel
         Me.FSFees = New System.Windows.Forms.TabPage
         Me.FeePaidDisplay = New System.Windows.Forms.TextBox
         Me.FeeTotalDisplay = New System.Windows.Forms.TextBox
@@ -320,36 +294,29 @@ Partial Class IAIPFacilitySummary
         Me.TestingTabControl.SuspendLayout()
         Me.TPTestReport.SuspendLayout()
         CType(Me.TestReportsGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TestReportsPanel.SuspendLayout()
         Me.TPTestNotifications.SuspendLayout()
         CType(Me.TestNotificationsGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TestNotificationsPanel.SuspendLayout()
         Me.TPTestMemos.SuspendLayout()
         CType(Me.TestMemosGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TestMemosPanel.SuspendLayout()
         Me.FSCompliance.SuspendLayout()
         Me.ComplianceTabControl.SuspendLayout()
         Me.TPComplianceWork.SuspendLayout()
         CType(Me.ComplianceWorkGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.ComplianceWorkPanel.SuspendLayout()
         Me.TPFce.SuspendLayout()
         CType(Me.ComplianceFceGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.ComplianceFcePanel.SuspendLayout()
         Me.TPEnforcement.SuspendLayout()
         CType(Me.ComplianceEnforcementGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.ComplianceEnforcementPanel.SuspendLayout()
         Me.FSPermitting.SuspendLayout()
         Me.PermittingTabControl.SuspendLayout()
         Me.TPAppLog.SuspendLayout()
-        CType(Me.dgvApplicationLog, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel12.SuspendLayout()
-        Me.TPActiveRules.SuspendLayout()
-        CType(Me.dgvActiveRules, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PermitApplicationGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TPCurrentRules.SuspendLayout()
+        CType(Me.PermitRulesGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPRuleHistory.SuspendLayout()
-        CType(Me.dgvRuleHistory, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PermitRuleHistoryGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPPermits.SuspendLayout()
-        Me.WebLinkPanel.SuspendLayout()
-        CType(Me.dgvPermits, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PermitsGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PermitsPanel.SuspendLayout()
         Me.FSFees.SuspendLayout()
         Me.FeeRegGroupBox.SuspendLayout()
         Me.FeeEmissionGroupBox.SuspendLayout()
@@ -1664,7 +1631,6 @@ Partial Class IAIPFacilitySummary
         'TPTestReport
         '
         Me.TPTestReport.Controls.Add(Me.TestReportsGrid)
-        Me.TPTestReport.Controls.Add(Me.TestReportsPanel)
         Me.TPTestReport.Location = New System.Drawing.Point(4, 22)
         Me.TPTestReport.Name = "TPTestReport"
         Me.TPTestReport.Size = New System.Drawing.Size(629, 321)
@@ -1684,67 +1650,17 @@ Partial Class IAIPFacilitySummary
         Me.TestReportsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.TestReportsGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TestReportsGrid.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.TestReportsGrid.Location = New System.Drawing.Point(0, 44)
+        Me.TestReportsGrid.Location = New System.Drawing.Point(0, 0)
         Me.TestReportsGrid.Name = "TestReportsGrid"
         Me.TestReportsGrid.ReadOnly = True
         Me.TestReportsGrid.RowHeadersVisible = False
         Me.TestReportsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.TestReportsGrid.Size = New System.Drawing.Size(629, 277)
+        Me.TestReportsGrid.Size = New System.Drawing.Size(629, 321)
         Me.TestReportsGrid.TabIndex = 7
-        '
-        'TestReportsPanel
-        '
-        Me.TestReportsPanel.Controls.Add(Me.CloseTestReportButton)
-        Me.TestReportsPanel.Controls.Add(Me.OpenTestReportButton)
-        Me.TestReportsPanel.Controls.Add(Me.TestReportEntry)
-        Me.TestReportsPanel.Controls.Add(Me.TestReportLabel)
-        Me.TestReportsPanel.Dock = System.Windows.Forms.DockStyle.Top
-        Me.TestReportsPanel.Location = New System.Drawing.Point(0, 0)
-        Me.TestReportsPanel.Margin = New System.Windows.Forms.Padding(2)
-        Me.TestReportsPanel.Name = "TestReportsPanel"
-        Me.TestReportsPanel.Size = New System.Drawing.Size(629, 44)
-        Me.TestReportsPanel.TabIndex = 6
-        '
-        'CloseTestReportButton
-        '
-        Me.CloseTestReportButton.Location = New System.Drawing.Point(511, 10)
-        Me.CloseTestReportButton.Name = "CloseTestReportButton"
-        Me.CloseTestReportButton.Size = New System.Drawing.Size(114, 23)
-        Me.CloseTestReportButton.TabIndex = 5
-        Me.CloseTestReportButton.Text = "Close/Print Test"
-        Me.CloseTestReportButton.UseVisualStyleBackColor = True
-        '
-        'OpenTestReportButton
-        '
-        Me.OpenTestReportButton.Location = New System.Drawing.Point(212, 10)
-        Me.OpenTestReportButton.Name = "OpenTestReportButton"
-        Me.OpenTestReportButton.Size = New System.Drawing.Size(75, 23)
-        Me.OpenTestReportButton.TabIndex = 5
-        Me.OpenTestReportButton.Text = "Open"
-        Me.OpenTestReportButton.UseVisualStyleBackColor = True
-        '
-        'TestReportEntry
-        '
-        Me.TestReportEntry.Location = New System.Drawing.Point(125, 12)
-        Me.TestReportEntry.Margin = New System.Windows.Forms.Padding(2)
-        Me.TestReportEntry.Name = "TestReportEntry"
-        Me.TestReportEntry.Size = New System.Drawing.Size(82, 20)
-        Me.TestReportEntry.TabIndex = 4
-        '
-        'TestReportLabel
-        '
-        Me.TestReportLabel.AutoSize = True
-        Me.TestReportLabel.Location = New System.Drawing.Point(21, 15)
-        Me.TestReportLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.TestReportLabel.Name = "TestReportLabel"
-        Me.TestReportLabel.Size = New System.Drawing.Size(100, 13)
-        Me.TestReportLabel.TabIndex = 3
-        Me.TestReportLabel.Text = "Reference Number:"
         '
         'TPTestNotifications
         '
         Me.TPTestNotifications.Controls.Add(Me.TestNotificationsGrid)
-        Me.TPTestNotifications.Controls.Add(Me.TestNotificationsPanel)
         Me.TPTestNotifications.Location = New System.Drawing.Point(4, 22)
         Me.TPTestNotifications.Margin = New System.Windows.Forms.Padding(2)
         Me.TPTestNotifications.Name = "TPTestNotifications"
@@ -1765,57 +1681,17 @@ Partial Class IAIPFacilitySummary
         Me.TestNotificationsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.TestNotificationsGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TestNotificationsGrid.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.TestNotificationsGrid.Location = New System.Drawing.Point(0, 44)
+        Me.TestNotificationsGrid.Location = New System.Drawing.Point(0, 0)
         Me.TestNotificationsGrid.Name = "TestNotificationsGrid"
         Me.TestNotificationsGrid.ReadOnly = True
         Me.TestNotificationsGrid.RowHeadersVisible = False
         Me.TestNotificationsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.TestNotificationsGrid.Size = New System.Drawing.Size(629, 277)
+        Me.TestNotificationsGrid.Size = New System.Drawing.Size(629, 321)
         Me.TestNotificationsGrid.TabIndex = 9
-        '
-        'TestNotificationsPanel
-        '
-        Me.TestNotificationsPanel.Controls.Add(Me.OpenTestNotificationsButton)
-        Me.TestNotificationsPanel.Controls.Add(Me.TestNotificationsEntry)
-        Me.TestNotificationsPanel.Controls.Add(Me.TestNotificationsLabel)
-        Me.TestNotificationsPanel.Dock = System.Windows.Forms.DockStyle.Top
-        Me.TestNotificationsPanel.Location = New System.Drawing.Point(0, 0)
-        Me.TestNotificationsPanel.Margin = New System.Windows.Forms.Padding(2)
-        Me.TestNotificationsPanel.Name = "TestNotificationsPanel"
-        Me.TestNotificationsPanel.Size = New System.Drawing.Size(629, 44)
-        Me.TestNotificationsPanel.TabIndex = 8
-        '
-        'OpenTestNotificationsButton
-        '
-        Me.OpenTestNotificationsButton.Location = New System.Drawing.Point(212, 10)
-        Me.OpenTestNotificationsButton.Name = "OpenTestNotificationsButton"
-        Me.OpenTestNotificationsButton.Size = New System.Drawing.Size(75, 23)
-        Me.OpenTestNotificationsButton.TabIndex = 5
-        Me.OpenTestNotificationsButton.Text = "Open"
-        Me.OpenTestNotificationsButton.UseVisualStyleBackColor = True
-        '
-        'TestNotificationsEntry
-        '
-        Me.TestNotificationsEntry.Location = New System.Drawing.Point(125, 12)
-        Me.TestNotificationsEntry.Margin = New System.Windows.Forms.Padding(2)
-        Me.TestNotificationsEntry.Name = "TestNotificationsEntry"
-        Me.TestNotificationsEntry.Size = New System.Drawing.Size(82, 20)
-        Me.TestNotificationsEntry.TabIndex = 4
-        '
-        'TestNotificationsLabel
-        '
-        Me.TestNotificationsLabel.AutoSize = True
-        Me.TestNotificationsLabel.Location = New System.Drawing.Point(18, 15)
-        Me.TestNotificationsLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.TestNotificationsLabel.Name = "TestNotificationsLabel"
-        Me.TestNotificationsLabel.Size = New System.Drawing.Size(103, 13)
-        Me.TestNotificationsLabel.TabIndex = 3
-        Me.TestNotificationsLabel.Text = "Notification Number:"
         '
         'TPTestMemos
         '
         Me.TPTestMemos.Controls.Add(Me.TestMemosGrid)
-        Me.TPTestMemos.Controls.Add(Me.TestMemosPanel)
         Me.TPTestMemos.Location = New System.Drawing.Point(4, 22)
         Me.TPTestMemos.Margin = New System.Windows.Forms.Padding(2)
         Me.TPTestMemos.Name = "TPTestMemos"
@@ -1836,52 +1712,13 @@ Partial Class IAIPFacilitySummary
         Me.TestMemosGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.TestMemosGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TestMemosGrid.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.TestMemosGrid.Location = New System.Drawing.Point(0, 44)
+        Me.TestMemosGrid.Location = New System.Drawing.Point(0, 0)
         Me.TestMemosGrid.Name = "TestMemosGrid"
         Me.TestMemosGrid.ReadOnly = True
         Me.TestMemosGrid.RowHeadersVisible = False
         Me.TestMemosGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.TestMemosGrid.Size = New System.Drawing.Size(629, 277)
+        Me.TestMemosGrid.Size = New System.Drawing.Size(629, 321)
         Me.TestMemosGrid.TabIndex = 9
-        '
-        'TestMemosPanel
-        '
-        Me.TestMemosPanel.Controls.Add(Me.OpenTestMemosButton)
-        Me.TestMemosPanel.Controls.Add(Me.TestMemosEntry)
-        Me.TestMemosPanel.Controls.Add(Me.TestMemosLabel)
-        Me.TestMemosPanel.Dock = System.Windows.Forms.DockStyle.Top
-        Me.TestMemosPanel.Location = New System.Drawing.Point(0, 0)
-        Me.TestMemosPanel.Margin = New System.Windows.Forms.Padding(2)
-        Me.TestMemosPanel.Name = "TestMemosPanel"
-        Me.TestMemosPanel.Size = New System.Drawing.Size(629, 44)
-        Me.TestMemosPanel.TabIndex = 8
-        '
-        'OpenTestMemosButton
-        '
-        Me.OpenTestMemosButton.Location = New System.Drawing.Point(212, 10)
-        Me.OpenTestMemosButton.Name = "OpenTestMemosButton"
-        Me.OpenTestMemosButton.Size = New System.Drawing.Size(75, 23)
-        Me.OpenTestMemosButton.TabIndex = 5
-        Me.OpenTestMemosButton.Text = "Open"
-        Me.OpenTestMemosButton.UseVisualStyleBackColor = True
-        '
-        'TestMemosEntry
-        '
-        Me.TestMemosEntry.Location = New System.Drawing.Point(125, 12)
-        Me.TestMemosEntry.Margin = New System.Windows.Forms.Padding(2)
-        Me.TestMemosEntry.Name = "TestMemosEntry"
-        Me.TestMemosEntry.Size = New System.Drawing.Size(82, 20)
-        Me.TestMemosEntry.TabIndex = 4
-        '
-        'TestMemosLabel
-        '
-        Me.TestMemosLabel.AutoSize = True
-        Me.TestMemosLabel.Location = New System.Drawing.Point(21, 15)
-        Me.TestMemosLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.TestMemosLabel.Name = "TestMemosLabel"
-        Me.TestMemosLabel.Size = New System.Drawing.Size(100, 13)
-        Me.TestMemosLabel.TabIndex = 3
-        Me.TestMemosLabel.Text = "Reference Number:"
         '
         'FSCompliance
         '
@@ -1909,7 +1746,6 @@ Partial Class IAIPFacilitySummary
         'TPComplianceWork
         '
         Me.TPComplianceWork.Controls.Add(Me.ComplianceWorkGrid)
-        Me.TPComplianceWork.Controls.Add(Me.ComplianceWorkPanel)
         Me.TPComplianceWork.Location = New System.Drawing.Point(4, 22)
         Me.TPComplianceWork.Margin = New System.Windows.Forms.Padding(2)
         Me.TPComplianceWork.Name = "TPComplianceWork"
@@ -1930,57 +1766,17 @@ Partial Class IAIPFacilitySummary
         Me.ComplianceWorkGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.ComplianceWorkGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ComplianceWorkGrid.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.ComplianceWorkGrid.Location = New System.Drawing.Point(0, 44)
+        Me.ComplianceWorkGrid.Location = New System.Drawing.Point(0, 0)
         Me.ComplianceWorkGrid.Name = "ComplianceWorkGrid"
         Me.ComplianceWorkGrid.ReadOnly = True
         Me.ComplianceWorkGrid.RowHeadersVisible = False
         Me.ComplianceWorkGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.ComplianceWorkGrid.Size = New System.Drawing.Size(629, 277)
+        Me.ComplianceWorkGrid.Size = New System.Drawing.Size(629, 321)
         Me.ComplianceWorkGrid.TabIndex = 5
-        '
-        'ComplianceWorkPanel
-        '
-        Me.ComplianceWorkPanel.Controls.Add(Me.OpenComplianceWorkButton)
-        Me.ComplianceWorkPanel.Controls.Add(Me.ComplianceWorkEntry)
-        Me.ComplianceWorkPanel.Controls.Add(Me.ComplianceWorkLabel)
-        Me.ComplianceWorkPanel.Dock = System.Windows.Forms.DockStyle.Top
-        Me.ComplianceWorkPanel.Location = New System.Drawing.Point(0, 0)
-        Me.ComplianceWorkPanel.Margin = New System.Windows.Forms.Padding(2)
-        Me.ComplianceWorkPanel.Name = "ComplianceWorkPanel"
-        Me.ComplianceWorkPanel.Size = New System.Drawing.Size(629, 44)
-        Me.ComplianceWorkPanel.TabIndex = 4
-        '
-        'OpenComplianceWorkButton
-        '
-        Me.OpenComplianceWorkButton.Location = New System.Drawing.Point(204, 10)
-        Me.OpenComplianceWorkButton.Name = "OpenComplianceWorkButton"
-        Me.OpenComplianceWorkButton.Size = New System.Drawing.Size(75, 23)
-        Me.OpenComplianceWorkButton.TabIndex = 5
-        Me.OpenComplianceWorkButton.Text = "Open"
-        Me.OpenComplianceWorkButton.UseVisualStyleBackColor = True
-        '
-        'ComplianceWorkEntry
-        '
-        Me.ComplianceWorkEntry.Location = New System.Drawing.Point(117, 12)
-        Me.ComplianceWorkEntry.Margin = New System.Windows.Forms.Padding(2)
-        Me.ComplianceWorkEntry.Name = "ComplianceWorkEntry"
-        Me.ComplianceWorkEntry.Size = New System.Drawing.Size(82, 20)
-        Me.ComplianceWorkEntry.TabIndex = 4
-        '
-        'ComplianceWorkLabel
-        '
-        Me.ComplianceWorkLabel.AutoSize = True
-        Me.ComplianceWorkLabel.Location = New System.Drawing.Point(21, 15)
-        Me.ComplianceWorkLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.ComplianceWorkLabel.Name = "ComplianceWorkLabel"
-        Me.ComplianceWorkLabel.Size = New System.Drawing.Size(92, 13)
-        Me.ComplianceWorkLabel.TabIndex = 3
-        Me.ComplianceWorkLabel.Text = "Tracking Number:"
         '
         'TPFce
         '
         Me.TPFce.Controls.Add(Me.ComplianceFceGrid)
-        Me.TPFce.Controls.Add(Me.ComplianceFcePanel)
         Me.TPFce.Location = New System.Drawing.Point(4, 22)
         Me.TPFce.Margin = New System.Windows.Forms.Padding(2)
         Me.TPFce.Name = "TPFce"
@@ -2001,57 +1797,17 @@ Partial Class IAIPFacilitySummary
         Me.ComplianceFceGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.ComplianceFceGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ComplianceFceGrid.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.ComplianceFceGrid.Location = New System.Drawing.Point(0, 44)
+        Me.ComplianceFceGrid.Location = New System.Drawing.Point(0, 0)
         Me.ComplianceFceGrid.Name = "ComplianceFceGrid"
         Me.ComplianceFceGrid.ReadOnly = True
         Me.ComplianceFceGrid.RowHeadersVisible = False
         Me.ComplianceFceGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.ComplianceFceGrid.Size = New System.Drawing.Size(629, 277)
+        Me.ComplianceFceGrid.Size = New System.Drawing.Size(629, 321)
         Me.ComplianceFceGrid.TabIndex = 5
-        '
-        'ComplianceFcePanel
-        '
-        Me.ComplianceFcePanel.Controls.Add(Me.OpenComplianceFceButton)
-        Me.ComplianceFcePanel.Controls.Add(Me.ComplianceFceEntry)
-        Me.ComplianceFcePanel.Controls.Add(Me.ComplianceFceLabel)
-        Me.ComplianceFcePanel.Dock = System.Windows.Forms.DockStyle.Top
-        Me.ComplianceFcePanel.Location = New System.Drawing.Point(0, 0)
-        Me.ComplianceFcePanel.Margin = New System.Windows.Forms.Padding(2)
-        Me.ComplianceFcePanel.Name = "ComplianceFcePanel"
-        Me.ComplianceFcePanel.Size = New System.Drawing.Size(629, 44)
-        Me.ComplianceFcePanel.TabIndex = 4
-        '
-        'OpenComplianceFceButton
-        '
-        Me.OpenComplianceFceButton.Location = New System.Drawing.Point(204, 10)
-        Me.OpenComplianceFceButton.Name = "OpenComplianceFceButton"
-        Me.OpenComplianceFceButton.Size = New System.Drawing.Size(75, 23)
-        Me.OpenComplianceFceButton.TabIndex = 5
-        Me.OpenComplianceFceButton.Text = "Open"
-        Me.OpenComplianceFceButton.UseVisualStyleBackColor = True
-        '
-        'ComplianceFceEntry
-        '
-        Me.ComplianceFceEntry.Location = New System.Drawing.Point(117, 12)
-        Me.ComplianceFceEntry.Margin = New System.Windows.Forms.Padding(2)
-        Me.ComplianceFceEntry.Name = "ComplianceFceEntry"
-        Me.ComplianceFceEntry.Size = New System.Drawing.Size(82, 20)
-        Me.ComplianceFceEntry.TabIndex = 4
-        '
-        'ComplianceFceLabel
-        '
-        Me.ComplianceFceLabel.AutoSize = True
-        Me.ComplianceFceLabel.Location = New System.Drawing.Point(43, 15)
-        Me.ComplianceFceLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.ComplianceFceLabel.Name = "ComplianceFceLabel"
-        Me.ComplianceFceLabel.Size = New System.Drawing.Size(70, 13)
-        Me.ComplianceFceLabel.TabIndex = 3
-        Me.ComplianceFceLabel.Text = "FCE Number:"
         '
         'TPEnforcement
         '
         Me.TPEnforcement.Controls.Add(Me.ComplianceEnforcementGrid)
-        Me.TPEnforcement.Controls.Add(Me.ComplianceEnforcementPanel)
         Me.TPEnforcement.Location = New System.Drawing.Point(4, 22)
         Me.TPEnforcement.Margin = New System.Windows.Forms.Padding(2)
         Me.TPEnforcement.Name = "TPEnforcement"
@@ -2072,52 +1828,13 @@ Partial Class IAIPFacilitySummary
         Me.ComplianceEnforcementGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.ComplianceEnforcementGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ComplianceEnforcementGrid.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.ComplianceEnforcementGrid.Location = New System.Drawing.Point(0, 44)
+        Me.ComplianceEnforcementGrid.Location = New System.Drawing.Point(0, 0)
         Me.ComplianceEnforcementGrid.Name = "ComplianceEnforcementGrid"
         Me.ComplianceEnforcementGrid.ReadOnly = True
         Me.ComplianceEnforcementGrid.RowHeadersVisible = False
         Me.ComplianceEnforcementGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.ComplianceEnforcementGrid.Size = New System.Drawing.Size(629, 277)
+        Me.ComplianceEnforcementGrid.Size = New System.Drawing.Size(629, 321)
         Me.ComplianceEnforcementGrid.TabIndex = 7
-        '
-        'ComplianceEnforcementPanel
-        '
-        Me.ComplianceEnforcementPanel.Controls.Add(Me.OpenComplianceEnforcementButton)
-        Me.ComplianceEnforcementPanel.Controls.Add(Me.ComplianceEnforcementEntry)
-        Me.ComplianceEnforcementPanel.Controls.Add(Me.ComplianceEnforcementLabel)
-        Me.ComplianceEnforcementPanel.Dock = System.Windows.Forms.DockStyle.Top
-        Me.ComplianceEnforcementPanel.Location = New System.Drawing.Point(0, 0)
-        Me.ComplianceEnforcementPanel.Margin = New System.Windows.Forms.Padding(2)
-        Me.ComplianceEnforcementPanel.Name = "ComplianceEnforcementPanel"
-        Me.ComplianceEnforcementPanel.Size = New System.Drawing.Size(629, 44)
-        Me.ComplianceEnforcementPanel.TabIndex = 6
-        '
-        'OpenComplianceEnforcementButton
-        '
-        Me.OpenComplianceEnforcementButton.Location = New System.Drawing.Point(204, 10)
-        Me.OpenComplianceEnforcementButton.Name = "OpenComplianceEnforcementButton"
-        Me.OpenComplianceEnforcementButton.Size = New System.Drawing.Size(75, 23)
-        Me.OpenComplianceEnforcementButton.TabIndex = 5
-        Me.OpenComplianceEnforcementButton.Text = "Open"
-        Me.OpenComplianceEnforcementButton.UseVisualStyleBackColor = True
-        '
-        'ComplianceEnforcementEntry
-        '
-        Me.ComplianceEnforcementEntry.Location = New System.Drawing.Point(117, 12)
-        Me.ComplianceEnforcementEntry.Margin = New System.Windows.Forms.Padding(2)
-        Me.ComplianceEnforcementEntry.Name = "ComplianceEnforcementEntry"
-        Me.ComplianceEnforcementEntry.Size = New System.Drawing.Size(82, 20)
-        Me.ComplianceEnforcementEntry.TabIndex = 4
-        '
-        'ComplianceEnforcementLabel
-        '
-        Me.ComplianceEnforcementLabel.AutoSize = True
-        Me.ComplianceEnforcementLabel.Location = New System.Drawing.Point(3, 15)
-        Me.ComplianceEnforcementLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.ComplianceEnforcementLabel.Name = "ComplianceEnforcementLabel"
-        Me.ComplianceEnforcementLabel.Size = New System.Drawing.Size(110, 13)
-        Me.ComplianceEnforcementLabel.TabIndex = 3
-        Me.ComplianceEnforcementLabel.Text = "Enforcement Number:"
         '
         'FSPermitting
         '
@@ -2132,7 +1849,7 @@ Partial Class IAIPFacilitySummary
         'PermittingTabControl
         '
         Me.PermittingTabControl.Controls.Add(Me.TPAppLog)
-        Me.PermittingTabControl.Controls.Add(Me.TPActiveRules)
+        Me.PermittingTabControl.Controls.Add(Me.TPCurrentRules)
         Me.PermittingTabControl.Controls.Add(Me.TPRuleHistory)
         Me.PermittingTabControl.Controls.Add(Me.TPPermits)
         Me.PermittingTabControl.Dock = System.Windows.Forms.DockStyle.Fill
@@ -2145,8 +1862,7 @@ Partial Class IAIPFacilitySummary
         '
         'TPAppLog
         '
-        Me.TPAppLog.Controls.Add(Me.dgvApplicationLog)
-        Me.TPAppLog.Controls.Add(Me.Panel12)
+        Me.TPAppLog.Controls.Add(Me.PermitApplicationGrid)
         Me.TPAppLog.Location = New System.Drawing.Point(4, 22)
         Me.TPAppLog.Margin = New System.Windows.Forms.Padding(2)
         Me.TPAppLog.Name = "TPAppLog"
@@ -2155,101 +1871,90 @@ Partial Class IAIPFacilitySummary
         Me.TPAppLog.Text = "Application Tracking Log"
         Me.TPAppLog.UseVisualStyleBackColor = True
         '
-        'dgvApplicationLog
+        'PermitApplicationGrid
         '
-        Me.dgvApplicationLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvApplicationLog.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvApplicationLog.Location = New System.Drawing.Point(0, 30)
-        Me.dgvApplicationLog.Name = "dgvApplicationLog"
-        Me.dgvApplicationLog.ReadOnly = True
-        Me.dgvApplicationLog.Size = New System.Drawing.Size(629, 291)
-        Me.dgvApplicationLog.TabIndex = 4
+        Me.PermitApplicationGrid.AllowUserToAddRows = False
+        Me.PermitApplicationGrid.AllowUserToDeleteRows = False
+        Me.PermitApplicationGrid.AllowUserToOrderColumns = True
+        Me.PermitApplicationGrid.AllowUserToResizeRows = False
+        DataGridViewCellStyle31.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.PermitApplicationGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle31
+        Me.PermitApplicationGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.PermitApplicationGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.PermitApplicationGrid.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PermitApplicationGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.PermitApplicationGrid.Location = New System.Drawing.Point(0, 0)
+        Me.PermitApplicationGrid.Name = "PermitApplicationGrid"
+        Me.PermitApplicationGrid.ReadOnly = True
+        Me.PermitApplicationGrid.RowHeadersVisible = False
+        Me.PermitApplicationGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.PermitApplicationGrid.Size = New System.Drawing.Size(629, 321)
+        Me.PermitApplicationGrid.TabIndex = 7
         '
-        'Panel12
+        'TPCurrentRules
         '
-        Me.Panel12.Controls.Add(Me.llbViewApplication)
-        Me.Panel12.Controls.Add(Me.txtApplicationNumber)
-        Me.Panel12.Controls.Add(Me.Label91)
-        Me.Panel12.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel12.Location = New System.Drawing.Point(0, 0)
-        Me.Panel12.Margin = New System.Windows.Forms.Padding(2)
-        Me.Panel12.Name = "Panel12"
-        Me.Panel12.Size = New System.Drawing.Size(629, 30)
-        Me.Panel12.TabIndex = 1
+        Me.TPCurrentRules.Controls.Add(Me.PermitRulesGrid)
+        Me.TPCurrentRules.Location = New System.Drawing.Point(4, 22)
+        Me.TPCurrentRules.Name = "TPCurrentRules"
+        Me.TPCurrentRules.Size = New System.Drawing.Size(629, 321)
+        Me.TPCurrentRules.TabIndex = 1
+        Me.TPCurrentRules.Text = "Current Rules"
+        Me.TPCurrentRules.UseVisualStyleBackColor = True
         '
-        'llbViewApplication
+        'PermitRulesGrid
         '
-        Me.llbViewApplication.AutoSize = True
-        Me.llbViewApplication.Location = New System.Drawing.Point(204, 10)
-        Me.llbViewApplication.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.llbViewApplication.Name = "llbViewApplication"
-        Me.llbViewApplication.Size = New System.Drawing.Size(85, 13)
-        Me.llbViewApplication.TabIndex = 5
-        Me.llbViewApplication.TabStop = True
-        Me.llbViewApplication.Text = "View Application"
-        '
-        'txtApplicationNumber
-        '
-        Me.txtApplicationNumber.Location = New System.Drawing.Point(114, 7)
-        Me.txtApplicationNumber.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtApplicationNumber.Name = "txtApplicationNumber"
-        Me.txtApplicationNumber.Size = New System.Drawing.Size(79, 20)
-        Me.txtApplicationNumber.TabIndex = 4
-        '
-        'Label91
-        '
-        Me.Label91.AutoSize = True
-        Me.Label91.Location = New System.Drawing.Point(8, 10)
-        Me.Label91.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label91.Name = "Label91"
-        Me.Label91.Size = New System.Drawing.Size(102, 13)
-        Me.Label91.TabIndex = 3
-        Me.Label91.Text = "Application Number:"
-        '
-        'TPActiveRules
-        '
-        Me.TPActiveRules.Controls.Add(Me.dgvActiveRules)
-        Me.TPActiveRules.Location = New System.Drawing.Point(4, 22)
-        Me.TPActiveRules.Name = "TPActiveRules"
-        Me.TPActiveRules.Size = New System.Drawing.Size(629, 321)
-        Me.TPActiveRules.TabIndex = 1
-        Me.TPActiveRules.Text = "Current Applicable Rules"
-        Me.TPActiveRules.UseVisualStyleBackColor = True
-        '
-        'dgvActiveRules
-        '
-        Me.dgvActiveRules.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvActiveRules.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvActiveRules.Location = New System.Drawing.Point(0, 0)
-        Me.dgvActiveRules.Name = "dgvActiveRules"
-        Me.dgvActiveRules.ReadOnly = True
-        Me.dgvActiveRules.Size = New System.Drawing.Size(629, 321)
-        Me.dgvActiveRules.TabIndex = 5
+        Me.PermitRulesGrid.AllowUserToAddRows = False
+        Me.PermitRulesGrid.AllowUserToDeleteRows = False
+        Me.PermitRulesGrid.AllowUserToOrderColumns = True
+        Me.PermitRulesGrid.AllowUserToResizeRows = False
+        DataGridViewCellStyle32.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.PermitRulesGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle32
+        Me.PermitRulesGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.PermitRulesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.PermitRulesGrid.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PermitRulesGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.PermitRulesGrid.Location = New System.Drawing.Point(0, 0)
+        Me.PermitRulesGrid.Name = "PermitRulesGrid"
+        Me.PermitRulesGrid.ReadOnly = True
+        Me.PermitRulesGrid.RowHeadersVisible = False
+        Me.PermitRulesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.PermitRulesGrid.Size = New System.Drawing.Size(629, 321)
+        Me.PermitRulesGrid.TabIndex = 10
         '
         'TPRuleHistory
         '
-        Me.TPRuleHistory.Controls.Add(Me.dgvRuleHistory)
+        Me.TPRuleHistory.Controls.Add(Me.PermitRuleHistoryGrid)
         Me.TPRuleHistory.Location = New System.Drawing.Point(4, 22)
         Me.TPRuleHistory.Name = "TPRuleHistory"
         Me.TPRuleHistory.Size = New System.Drawing.Size(629, 321)
         Me.TPRuleHistory.TabIndex = 2
-        Me.TPRuleHistory.Text = "Rule Applicability History"
+        Me.TPRuleHistory.Text = "Rule History"
         Me.TPRuleHistory.UseVisualStyleBackColor = True
         '
-        'dgvRuleHistory
+        'PermitRuleHistoryGrid
         '
-        Me.dgvRuleHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvRuleHistory.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvRuleHistory.Location = New System.Drawing.Point(0, 0)
-        Me.dgvRuleHistory.Name = "dgvRuleHistory"
-        Me.dgvRuleHistory.ReadOnly = True
-        Me.dgvRuleHistory.Size = New System.Drawing.Size(629, 321)
-        Me.dgvRuleHistory.TabIndex = 5
+        Me.PermitRuleHistoryGrid.AllowUserToAddRows = False
+        Me.PermitRuleHistoryGrid.AllowUserToDeleteRows = False
+        Me.PermitRuleHistoryGrid.AllowUserToOrderColumns = True
+        Me.PermitRuleHistoryGrid.AllowUserToResizeRows = False
+        DataGridViewCellStyle33.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.PermitRuleHistoryGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle33
+        Me.PermitRuleHistoryGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.PermitRuleHistoryGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.PermitRuleHistoryGrid.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PermitRuleHistoryGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.PermitRuleHistoryGrid.Location = New System.Drawing.Point(0, 0)
+        Me.PermitRuleHistoryGrid.Name = "PermitRuleHistoryGrid"
+        Me.PermitRuleHistoryGrid.ReadOnly = True
+        Me.PermitRuleHistoryGrid.RowHeadersVisible = False
+        Me.PermitRuleHistoryGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.PermitRuleHistoryGrid.Size = New System.Drawing.Size(629, 321)
+        Me.PermitRuleHistoryGrid.TabIndex = 10
         '
         'TPPermits
         '
-        Me.TPPermits.Controls.Add(Me.WebLinkPanel)
-        Me.TPPermits.Controls.Add(Me.dgvPermits)
+        Me.TPPermits.Controls.Add(Me.PermitsGrid)
+        Me.TPPermits.Controls.Add(Me.PermitsPanel)
         Me.TPPermits.Location = New System.Drawing.Point(4, 22)
         Me.TPPermits.Name = "TPPermits"
         Me.TPPermits.Size = New System.Drawing.Size(629, 321)
@@ -2257,46 +1962,46 @@ Partial Class IAIPFacilitySummary
         Me.TPPermits.Text = "Permits"
         Me.TPPermits.UseVisualStyleBackColor = True
         '
-        'WebLinkPanel
+        'PermitsGrid
         '
-        Me.WebLinkPanel.Controls.Add(Me.llbViewAirPermitsOnline)
-        Me.WebLinkPanel.Dock = System.Windows.Forms.DockStyle.Top
-        Me.WebLinkPanel.Location = New System.Drawing.Point(0, 0)
-        Me.WebLinkPanel.Name = "WebLinkPanel"
-        Me.WebLinkPanel.Size = New System.Drawing.Size(629, 30)
-        Me.WebLinkPanel.TabIndex = 1
+        Me.PermitsGrid.AllowUserToAddRows = False
+        Me.PermitsGrid.AllowUserToDeleteRows = False
+        Me.PermitsGrid.AllowUserToOrderColumns = True
+        Me.PermitsGrid.AllowUserToResizeRows = False
+        DataGridViewCellStyle34.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.PermitsGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle34
+        Me.PermitsGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.PermitsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.PermitsGrid.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PermitsGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.PermitsGrid.Location = New System.Drawing.Point(0, 0)
+        Me.PermitsGrid.Name = "PermitsGrid"
+        Me.PermitsGrid.ReadOnly = True
+        Me.PermitsGrid.RowHeadersVisible = False
+        Me.PermitsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.PermitsGrid.Size = New System.Drawing.Size(629, 277)
+        Me.PermitsGrid.TabIndex = 9
         '
-        'llbViewAirPermitsOnline
+        'PermitsPanel
         '
-        Me.llbViewAirPermitsOnline.AutoSize = True
-        Me.llbViewAirPermitsOnline.Location = New System.Drawing.Point(4, 8)
-        Me.llbViewAirPermitsOnline.Name = "llbViewAirPermitsOnline"
-        Me.llbViewAirPermitsOnline.Size = New System.Drawing.Size(100, 13)
-        Me.llbViewAirPermitsOnline.TabIndex = 163
-        Me.llbViewAirPermitsOnline.TabStop = True
-        Me.llbViewAirPermitsOnline.Text = "View Permits Online"
+        Me.PermitsPanel.Controls.Add(Me.PermitsLink)
+        Me.PermitsPanel.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.PermitsPanel.Location = New System.Drawing.Point(0, 277)
+        Me.PermitsPanel.Margin = New System.Windows.Forms.Padding(2)
+        Me.PermitsPanel.Name = "PermitsPanel"
+        Me.PermitsPanel.Size = New System.Drawing.Size(629, 44)
+        Me.PermitsPanel.TabIndex = 8
         '
-        'dgvPermits
+        'PermitsLink
         '
-        Me.dgvPermits.AllowUserToAddRows = False
-        Me.dgvPermits.AllowUserToDeleteRows = False
-        Me.dgvPermits.AllowUserToOrderColumns = True
-        Me.dgvPermits.AllowUserToResizeRows = False
-        DataGridViewCellStyle31.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvPermits.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle31
-        Me.dgvPermits.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.dgvPermits.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText
-        Me.dgvPermits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvPermits.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvPermits.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvPermits.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.dgvPermits.Location = New System.Drawing.Point(0, 0)
-        Me.dgvPermits.Name = "dgvPermits"
-        Me.dgvPermits.ReadOnly = True
-        Me.dgvPermits.RowHeadersVisible = False
-        Me.dgvPermits.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvPermits.Size = New System.Drawing.Size(629, 321)
-        Me.dgvPermits.TabIndex = 0
+        Me.PermitsLink.AutoSize = True
+        Me.PermitsLink.Location = New System.Drawing.Point(24, 15)
+        Me.PermitsLink.Name = "PermitsLink"
+        Me.PermitsLink.Size = New System.Drawing.Size(97, 13)
+        Me.PermitsLink.TabIndex = 5
+        Me.PermitsLink.TabStop = True
+        Me.PermitsLink.Text = "View permits online"
+        Me.PermitsLink.Visible = False
         '
         'FSFees
         '
@@ -3371,44 +3076,30 @@ Partial Class IAIPFacilitySummary
         Me.TestingTabControl.ResumeLayout(False)
         Me.TPTestReport.ResumeLayout(False)
         CType(Me.TestReportsGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TestReportsPanel.ResumeLayout(False)
-        Me.TestReportsPanel.PerformLayout()
         Me.TPTestNotifications.ResumeLayout(False)
         CType(Me.TestNotificationsGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TestNotificationsPanel.ResumeLayout(False)
-        Me.TestNotificationsPanel.PerformLayout()
         Me.TPTestMemos.ResumeLayout(False)
         CType(Me.TestMemosGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TestMemosPanel.ResumeLayout(False)
-        Me.TestMemosPanel.PerformLayout()
         Me.FSCompliance.ResumeLayout(False)
         Me.ComplianceTabControl.ResumeLayout(False)
         Me.TPComplianceWork.ResumeLayout(False)
         CType(Me.ComplianceWorkGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.ComplianceWorkPanel.ResumeLayout(False)
-        Me.ComplianceWorkPanel.PerformLayout()
         Me.TPFce.ResumeLayout(False)
         CType(Me.ComplianceFceGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.ComplianceFcePanel.ResumeLayout(False)
-        Me.ComplianceFcePanel.PerformLayout()
         Me.TPEnforcement.ResumeLayout(False)
         CType(Me.ComplianceEnforcementGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.ComplianceEnforcementPanel.ResumeLayout(False)
-        Me.ComplianceEnforcementPanel.PerformLayout()
         Me.FSPermitting.ResumeLayout(False)
         Me.PermittingTabControl.ResumeLayout(False)
         Me.TPAppLog.ResumeLayout(False)
-        CType(Me.dgvApplicationLog, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel12.ResumeLayout(False)
-        Me.Panel12.PerformLayout()
-        Me.TPActiveRules.ResumeLayout(False)
-        CType(Me.dgvActiveRules, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PermitApplicationGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TPCurrentRules.ResumeLayout(False)
+        CType(Me.PermitRulesGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPRuleHistory.ResumeLayout(False)
-        CType(Me.dgvRuleHistory, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PermitRuleHistoryGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPPermits.ResumeLayout(False)
-        Me.WebLinkPanel.ResumeLayout(False)
-        Me.WebLinkPanel.PerformLayout()
-        CType(Me.dgvPermits, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PermitsGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PermitsPanel.ResumeLayout(False)
+        Me.PermitsPanel.PerformLayout()
         Me.FSFees.ResumeLayout(False)
         Me.FSFees.PerformLayout()
         Me.FeeRegGroupBox.ResumeLayout(False)
@@ -3491,15 +3182,8 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents TPEnforcement As System.Windows.Forms.TabPage
     Friend WithEvents PermittingTabControl As System.Windows.Forms.TabControl
     Friend WithEvents TPAppLog As System.Windows.Forms.TabPage
-    Friend WithEvents dgvApplicationLog As System.Windows.Forms.DataGridView
-    Friend WithEvents Panel12 As System.Windows.Forms.Panel
-    Friend WithEvents llbViewApplication As System.Windows.Forms.LinkLabel
-    Friend WithEvents txtApplicationNumber As System.Windows.Forms.TextBox
-    Friend WithEvents Label91 As System.Windows.Forms.Label
-    Friend WithEvents TPActiveRules As System.Windows.Forms.TabPage
-    Friend WithEvents dgvActiveRules As System.Windows.Forms.DataGridView
+    Friend WithEvents TPCurrentRules As System.Windows.Forms.TabPage
     Friend WithEvents TPRuleHistory As System.Windows.Forms.TabPage
-    Friend WithEvents dgvRuleHistory As System.Windows.Forms.DataGridView
     Friend WithEvents FinancialTabControl As System.Windows.Forms.TabControl
     Friend WithEvents TPFeeData As System.Windows.Forms.TabPage
     Friend WithEvents dgvFeeData As System.Windows.Forms.DataGridView
@@ -3517,7 +3201,6 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents GroupBox6 As System.Windows.Forms.GroupBox
     Friend WithEvents dgvEISData As System.Windows.Forms.DataGridView
     Friend WithEvents TPPermits As System.Windows.Forms.TabPage
-    Friend WithEvents dgvPermits As System.Windows.Forms.DataGridView
     Friend WithEvents ViewDataButton As System.Windows.Forms.Button
     Friend WithEvents FacilityApprovalLinkLabel As System.Windows.Forms.LinkLabel
     Friend WithEvents FSMenuStrip As System.Windows.Forms.MenuStrip
@@ -3533,8 +3216,6 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents CreateFacilityMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolsMenuSeparator As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents UpdateEpaMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents WebLinkPanel As System.Windows.Forms.Panel
-    Friend WithEvents llbViewAirPermitsOnline As System.Windows.Forms.LinkLabel
     Friend WithEvents ResponsibleOfficeLabel As System.Windows.Forms.Label
     Friend WithEvents MapLatLonLink As System.Windows.Forms.LinkLabel
     Friend WithEvents LocationDisplay As System.Windows.Forms.TextBox
@@ -3619,20 +3300,8 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents ProgramClassificationsListBox As System.Windows.Forms.ListBox
     Friend WithEvents AirProgramsListBox As System.Windows.Forms.ListBox
     Friend WithEvents ComplianceWorkGrid As System.Windows.Forms.DataGridView
-    Friend WithEvents ComplianceWorkPanel As System.Windows.Forms.Panel
-    Friend WithEvents OpenComplianceWorkButton As System.Windows.Forms.Button
-    Friend WithEvents ComplianceWorkEntry As System.Windows.Forms.TextBox
-    Friend WithEvents ComplianceWorkLabel As System.Windows.Forms.Label
     Friend WithEvents ComplianceFceGrid As System.Windows.Forms.DataGridView
-    Friend WithEvents ComplianceFcePanel As System.Windows.Forms.Panel
-    Friend WithEvents OpenComplianceFceButton As System.Windows.Forms.Button
-    Friend WithEvents ComplianceFceEntry As System.Windows.Forms.TextBox
-    Friend WithEvents ComplianceFceLabel As System.Windows.Forms.Label
     Friend WithEvents ComplianceEnforcementGrid As System.Windows.Forms.DataGridView
-    Friend WithEvents ComplianceEnforcementPanel As System.Windows.Forms.Panel
-    Friend WithEvents OpenComplianceEnforcementButton As System.Windows.Forms.Button
-    Friend WithEvents ComplianceEnforcementEntry As System.Windows.Forms.TextBox
-    Friend WithEvents ComplianceEnforcementLabel As System.Windows.Forms.Label
     Friend WithEvents AirProgramsGroupBox As System.Windows.Forms.GroupBox
     Friend WithEvents ProgramClassificationsGroupBox As System.Windows.Forms.GroupBox
     Friend WithEvents FeeStatusLabel As System.Windows.Forms.Label
@@ -3663,19 +3332,12 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents ContactsGecoGrid As System.Windows.Forms.DataGridView
     Friend WithEvents TPTestReport As System.Windows.Forms.TabPage
     Friend WithEvents TestReportsGrid As System.Windows.Forms.DataGridView
-    Friend WithEvents TestReportsPanel As System.Windows.Forms.Panel
-    Friend WithEvents OpenTestReportButton As System.Windows.Forms.Button
-    Friend WithEvents TestReportEntry As System.Windows.Forms.TextBox
-    Friend WithEvents TestReportLabel As System.Windows.Forms.Label
     Friend WithEvents TestNotificationsGrid As System.Windows.Forms.DataGridView
-    Friend WithEvents TestNotificationsPanel As System.Windows.Forms.Panel
-    Friend WithEvents OpenTestNotificationsButton As System.Windows.Forms.Button
-    Friend WithEvents TestNotificationsEntry As System.Windows.Forms.TextBox
-    Friend WithEvents TestNotificationsLabel As System.Windows.Forms.Label
     Friend WithEvents TestMemosGrid As System.Windows.Forms.DataGridView
-    Friend WithEvents TestMemosPanel As System.Windows.Forms.Panel
-    Friend WithEvents OpenTestMemosButton As System.Windows.Forms.Button
-    Friend WithEvents TestMemosEntry As System.Windows.Forms.TextBox
-    Friend WithEvents TestMemosLabel As System.Windows.Forms.Label
-    Friend WithEvents CloseTestReportButton As System.Windows.Forms.Button
+    Friend WithEvents PermitApplicationGrid As System.Windows.Forms.DataGridView
+    Friend WithEvents PermitRulesGrid As System.Windows.Forms.DataGridView
+    Friend WithEvents PermitRuleHistoryGrid As System.Windows.Forms.DataGridView
+    Friend WithEvents PermitsGrid As System.Windows.Forms.DataGridView
+    Friend WithEvents PermitsPanel As System.Windows.Forms.Panel
+    Friend WithEvents PermitsLink As System.Windows.Forms.LinkLabel
 End Class

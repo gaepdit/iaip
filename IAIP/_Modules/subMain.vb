@@ -58,17 +58,13 @@ Module subMain
 
 #Region " Universal Screens "
     Public PrintOut As IAIPPrintOut ' TODO DWW: Remove
-    Public EditFacilityLocation As IAIPEditFacilityLocation ' TODO DWW: Remove
-    Public EditSubParts As IAIPEditSubParts ' TODO DWW: Remove
     Public ListTool As IAIPListTool ' TODO DWW: Remove
     Public ProfileUpdate As IAIPProfileUpdate ' TODO DWW: Remove
-    Public FacilityPrintOut As IaipFacilitySummaryPrint ' TODO DWW: Remove
 #End Region
 
 #Region " ISMP Screens "
     Public ISMPMemoEdit As ISMPMemo ' TODO DWW: Remove
     Public ISMPNotificationLogForm As ISMPNotificationLog ' TODO DWW: Remove
-    Public ISMPCloseAndPrint As ISMPClosePrint ' TODO DWW: Remove
     Public ISMPAddPollutant As ISMPAddPollutants ' TODO DWW: Remove
     Public ISMPAddTestingFirm As ISMPAddTestingFirms ' TODO DWW: Remove
     Public ISMPConfidential As ISMPConfidentialData ' TODO DWW: Remove
@@ -83,7 +79,6 @@ Module subMain
 #End Region
 
 #Region " SSPP Screens "
-    Public PermitTrackingLog As SSPPApplicationTrackingLog ' TODO DWW: Remove
     Public AttainmentStatus As SSPPAttainmentStatus ' TODO DWW: Remove
     Public FeeContact As SSPP_FeeContact ' TODO DWW: Remove
 #End Region

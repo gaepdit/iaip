@@ -294,7 +294,7 @@ Public Class IAIPEditAirProgramPollutants
             'If Mid(Permissions, 21, 5) = "00000" Then
             If UserProgram <> "4" And Mid(UserAccounts, 27, 2) = "0" And Mid(UserAccounts, 27, 3) = "0" _
                And Mid(UserAccounts, 27, 4) = "0" Then
-                MsgBox("You do not have sufficent prilvages to Save Pollutant data.", MsgBoxStyle.Information, "Air Program Pollutants")
+                MsgBox("You do not have sufficient privileges to save pollutant data.", MsgBoxStyle.Information, "Air Program Pollutants")
             Else
                 Dim AIRSPollutantKey As String
                 If cboAirProgramCodes.Text <> "" And _
