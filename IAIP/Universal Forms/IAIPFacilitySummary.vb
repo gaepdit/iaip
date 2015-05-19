@@ -945,7 +945,20 @@ Public Class IAIPFacilitySummary
         With PermitApplicationGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.PermitApplications.ToString)
-                .Columns("STRAPPLICATIONNUMBER").HeaderText = "Application Number"
+
+                .Columns("ApplicationNumber").HeaderText = "Application #"
+                .Columns("STRFACILITYNAME").HeaderText = "Facility Name"
+                .Columns("STRAPPLICATIONTYPEDESC").HeaderText = "Type"
+                .Columns("DATRECEIVEDDATE").HeaderText = "Date Received"
+                .Columns("DATRECEIVEDDATE").DefaultCellStyle.Format = "dd-MMM-yyyy"
+                .Columns("PermitNumber").HeaderText = "Permit Number"
+                .Columns("DATPERMITISSUED").HeaderText = "Date Permit Issued"
+                .Columns("DATPERMITISSUED").DefaultCellStyle.Format = "dd-MMM-yyyy"
+                .Columns("StaffResponsible").HeaderText = "Staff Responsible"
+                .Columns("STRPERMITTYPEDESCRIPTION").HeaderText = "Action Type"
+                .Columns("AppStatus").HeaderText = "Status"
+                .Columns("StatusDate").HeaderText = "Status Date"
+                .Columns("StatusDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
 
                 .MakeColumnsLookLikeLinks(0)
                 .SanelyResizeColumns()
@@ -953,23 +966,33 @@ Public Class IAIPFacilitySummary
         End With
     End Sub
 
-    Private Sub SetUpPermitRuleHistoryGrid()
+    Private Sub SetUpPermitRulesGrid()
         With PermitRulesGrid
             If .DataSource Is Nothing Then
-                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.PermitRuleHistory.ToString)
-                .Columns("STRAPPLICATIONNUMBER").HeaderText = "Application Number"
+                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.PermitRules.ToString)
+                .Columns("Part").HeaderText = "Part"
+                .Columns("STRSUBPART").HeaderText = "Subpart"
+                .Columns("STRDESCRIPTION").HeaderText = "Description"
+                .Columns("CREATEDATETIME").HeaderText = "Date added"
+                .Columns("CREATEDATETIME").DefaultCellStyle.Format = "dd-MMM-yyyy"
 
                 .SanelyResizeColumns()
             End If
         End With
     End Sub
 
-    Private Sub SetUpPermitRulesGrid()
+    Private Sub SetUpPermitRuleHistoryGrid()
         With PermitRuleHistoryGrid
             If .DataSource Is Nothing Then
-                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.PermitRules.ToString)
+                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.PermitRuleHistory.ToString)
+                .Columns("STRAPPLICATIONNUMBER").HeaderText = "Application #"
+                .Columns("AppActivity").HeaderText = "Action"
+                .Columns("Part").HeaderText = "Part"
+                .Columns("STRSUBPART").HeaderText = "Subpart"
+                .Columns("CREATEDATETIME").HeaderText = "Action Date"
+                .Columns("CREATEDATETIME").DefaultCellStyle.Format = "dd-MMM-yyyy"
+                .Columns("STRDESCRIPTION").HeaderText = "Description"
 
-                .Columns("ISSUEDPERMITID").Visible = False
                 .SanelyResizeColumns()
             End If
         End With
@@ -979,9 +1002,6 @@ Public Class IAIPFacilitySummary
         With PermitsGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.Permits.ToString)
-
-                .Columns("ISSUEDPERMITID").Visible = False
-                .Columns("STRAIRSNUMBER").Visible = False
                 .Columns("STRPERMITNUMBER").HeaderText = "Permit Number"
                 .Columns("STRPERMITNUMBER").Width = 150
                 .Columns("DATISSUED").HeaderText = "Date Issued"
@@ -991,7 +1011,6 @@ Public Class IAIPFacilitySummary
                 .Columns("ACTIVE").HeaderText = "Active"
                 .Columns("ACTIVE").DefaultCellStyle.FormatProvider = New BooleanFormatProvider
                 .Columns("ACTIVE").DefaultCellStyle.Format = BooleanFormatProvider.BooleanFormatProviderFormat.YesNo.ToString
-                .Columns("PERMITTYPECODE").Visible = False
 
                 .SanelyResizeColumns()
 
