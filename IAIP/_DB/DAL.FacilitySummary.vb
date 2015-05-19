@@ -266,13 +266,65 @@ Namespace DAL
                     "ORDER BY vw.INTYEAR DESC"
                 Case IAIPFacilitySummary.FacilityDataTable.FinancialDeposits
                     query = _
-                    ""
+                    "SELECT fst.NUMFEEYEAR , fst.NUMPAYMENT , fst.DATTRANSACTIONDATE " & _
+                    "  , fst.INVOICEID , fst.STRCHECKNO , fst.STRDEPOSITNO , CASE " & _
+                    "    WHEN fst.TRANSACTIONTYPECODE = '1' THEN 'Deposit' WHEN " & _
+                    "      fst.TRANSACTIONTYPECODE = '2'    THEN 'Refund' ELSE 'N/A' " & _
+                    "  END TRANSACTIONTYPECODE , fst.STRBATCHNO , CASE WHEN " & _
+                    "      fst.STRENTRYPERSON IS NULL THEN '' ELSE( eup.STRLASTNAME " & _
+                    "      || ', ' || eup.STRFIRSTNAME ) END strEntryPerson , " & _
+                    "  fst.STRCOMMENT , fst.TRANSACTIONID " & _
+                    "FROM AIRBRANCH.FS_Transactions fst " & _
+                    "LEFT JOIN AIRBRANCH.EPDUserProfiles eup " & _
+                    "ON fst.STRENTRYPERSON = eup.NUMUSERID " & _
+                    "WHERE fst.STRAIRSNUMBER = :AirsNumber AND fst.ACTIVE = '1' " & _
+                    "ORDER BY fst.NUMFEEYEAR DESC , fst.DATTRANSACTIONDATE DESC"
                 Case IAIPFacilitySummary.FacilityDataTable.FinancialFees
                     query = _
-                    ""
+                    "SELECT fad.NUMFEEYEAR , fad.INTVOCTONS , fad.INTPMTONS , " & _
+                    "  fad.INTSO2TONS , fad.INTNOXTONS , fad.NUMPART70FEE , " & _
+                    "  fad.NUMSMFEE , fad.NUMTOTALFEE , CASE WHEN fad.STRNSPSEXEMPT " & _
+                    "      = '1'                      THEN 'YES'                  WHEN fad.STRNSPSEXEMPT " & _
+                    "      = '0'                      THEN 'NO' END strNSPSExempt , '' AS strNSPSReason , " & _
+                    "  CASE WHEN fad.STROPERATE = '1' THEN 'YES' WHEN fad.STROPERATE " & _
+                    "      = '0'                      THEN 'NO' END strOperate , " & _
+                    "  fad.NUMFEERATE , fad.STRNSPSEXEMPTREASON , CASE        WHEN " & _
+                    "      fad.STRPART70 = '1'         THEN 'YES'                     WHEN " & _
+                    "      fad.STRPART70 = '0'         THEN 'NO' END strPart70 , CASE WHEN " & _
+                    "      fad.STRSYNTHETICMINOR = '1' THEN 'YES'                     WHEN " & _
+                    "      fad.STRSYNTHETICMINOR = '0' THEN 'NO' END " & _
+                    "  strSyntheticMinor , fad.NUMCALCULATEDFEE , fad.STRCLASS , " & _
+                    "  CASE WHEN fad.STRNSPS = '1' THEN 'YES' WHEN fad.STRNSPS = '0' " & _
+                    "                              THEN 'NO' END strNSPS , " & _
+                    "  fad.DATSHUTDOWN , fad.STRPAYMENTPLAN , fad.STROFFICIALNAME , " & _
+                    "  fad.STROFFICIALTITLE , CASE WHEN fsa.INTSUBMITTAL = '1' THEN " & _
+                    "      'YES'                   WHEN fsa.INTSUBMITTAL = '0' THEN " & _
+                    "      'NO' END intSubmittal , fsa.DATSUBMITTAL " & _
+                    "FROM AIRBRANCH.FS_FeeAuditedData fad " & _
+                    "INNER JOIN AIRBRANCH.FS_Admin fsa " & _
+                    "ON fad.STRAIRSNUMBER = fsa.STRAIRSNUMBER AND fsa.NUMFEEYEAR = " & _
+                    "  fad.NUMFEEYEAR " & _
+                    "WHERE fad.STRAIRSNUMBER = :AirsNumber AND fsa.ACTIVE = '1' AND " & _
+                    "  fsa.STRENROLLED IS NOT NULL AND fsa.STRENROLLED = '1' " & _
+                    "ORDER BY fad.NUMFEEYEAR DESC"
                 Case IAIPFacilitySummary.FacilityDataTable.FinancialInvoices
                     query = _
-                    ""
+                    "SELECT DISTINCT ffi.NUMFEEYEAR , ffi.INVOICEID , ffi.NUMAMOUNT " & _
+                    "  , ffi.DATINVOICEDATE , CASE                        WHEN ffi.ACTIVE = '1' THEN " & _
+                    "      'Active'                                       WHEN ffi.ACTIVE = '0' THEN 'VOID' " & _
+                    "  END InvoiceStatus , lpt.STRPAYTYPEDESC , CASE      WHEN " & _
+                    "      ffi.STRINVOICESTATUS = '1' THEN 'Paid in Full' WHEN " & _
+                    "      ffi.STRINVOICESTATUS = '0' AND( fst.NUMPAYMENT <> '0' AND " & _
+                    "      fst.NUMPAYMENT IS NOT NULL AND fst.ACTIVE = '1' ) THEN " & _
+                    "      'Partial Payment' WHEN ffi.STRINVOICESTATUS = '0' THEN " & _
+                    "      'Unpaid' END PayStatus , ffi.STRCOMMENT " & _
+                    "FROM AIRBRANCH.FS_FeeInvoice ffi " & _
+                    "INNER JOIN AIRBRANCH.FSLK_PayType lpt " & _
+                    "ON ffi.STRPAYTYPE = lpt.NUMPAYTYPEID " & _
+                    "LEFT JOIN AIRBRANCH.FS_Transactions fst " & _
+                    "ON ffi.INVOICEID = fst.INVOICEID " & _
+                    "WHERE ffi.STRAIRSNUMBER = :AirsNumber " & _
+                    "ORDER BY ffi.NUMFEEYEAR DESC , ffi.DATINVOICEDATE DESC"
                 Case IAIPFacilitySummary.FacilityDataTable.PermitApplications
                     query = _
                     "SELECT TO_NUMBER( appm.STRAPPLICATIONNUMBER ) AS " & _

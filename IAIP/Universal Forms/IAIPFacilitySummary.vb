@@ -941,7 +941,7 @@ Public Class IAIPFacilitySummary
 
 #End Region
 
-#Region "... Financial "
+#Region " Financial "
 
     Private Sub LoadFinancialData()
         LoadDataTable(FacilityDataTable.FinancialDeposits)
@@ -949,25 +949,80 @@ Public Class IAIPFacilitySummary
         LoadDataTable(FacilityDataTable.FinancialInvoices)
     End Sub
 
-    Private Sub SetUpFinancialDepositsGrid()
-        With PermitApplicationGrid
+    Private Sub SetUpFinancialFeesGrid()
+        With FinancialFeeGrid
             If .DataSource Is Nothing Then
-                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.PermitApplications.ToString)
-
-                .Columns("ApplicationNumber").HeaderText = "Application #"
+                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.FinancialFees.ToString)
+                .Columns("NUMFEEYEAR").HeaderText = "Year"
+                .Columns("INTVOCTONS").HeaderText = "VOC tons"
+                .Columns("INTPMTONS").HeaderText = "PM tons"
+                .Columns("INTSO2TONS").HeaderText = "SO2 tons"
+                .Columns("INTNOXTONS").HeaderText = "NOx tons"
+                .Columns("NUMPART70FEE").HeaderText = "Part 70 Fee"
+                .Columns("NUMSMFEE").HeaderText = "SM Fee"
+                .Columns("NUMTOTALFEE").HeaderText = "Total Fee"
+                .Columns("strNSPSExempt").HeaderText = "NSPS Exempt"
+                .Columns("strNSPSReason").HeaderText = "NSPS Exempt Reason"
+                .Columns("strOperate").HeaderText = "Operating"
+                .Columns("NUMFEERATE").HeaderText = "Fee Rate"
+                .Columns("STRNSPSEXEMPTREASON").HeaderText = "NSPS Exempt Reason"
+                .Columns("strPart70").HeaderText = "Part 70 Status"
+                .Columns("strSyntheticMinor").HeaderText = "SM Status"
+                .Columns("NUMCALCULATEDFEE").HeaderText = "Calculated Fee"
+                .Columns("STRCLASS").HeaderText = "Class"
+                .Columns("strNSPS").HeaderText = "NSPS"
+                .Columns("DATSHUTDOWN").HeaderText = "Shutdown Date"
+                .Columns("STRPAYMENTPLAN").HeaderText = "Payment Type"
+                .Columns("STROFFICIALNAME").HeaderText = "Official Name"
+                .Columns("STROFFICIALTITLE").HeaderText = "Official Title"
+                .Columns("intSubmittal").HeaderText = "Submitted"
+                .Columns("DATSUBMITTAL").HeaderText = "Date Submitted"
+                .Columns("DATSUBMITTAL").DefaultCellStyle.Format = "dd-MMM-yyyy"
 
                 .SanelyResizeColumns()
             End If
         End With
-
     End Sub
 
-    Private Sub SetUpFinancialFeesGrid()
+    Private Sub SetUpFinancialDepositsGrid()
+        With FinancialDepositsGrid
+            If .DataSource Is Nothing Then
+                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.FinancialDeposits.ToString)
+                .Columns("NUMFEEYEAR").HeaderText = "Year"
+                .Columns("NUMPAYMENT").HeaderText = "Amount Paid"
+                .Columns("DATTRANSACTIONDATE").HeaderText = "Payment Date"
+                .Columns("DATTRANSACTIONDATE").DefaultCellStyle.Format = "dd-MMM-yyyy"
+                .Columns("INVOICEID").HeaderText = "Invoice #"
+                .Columns("STRCHECKNO").HeaderText = "Check #"
+                .Columns("STRDEPOSITNO").HeaderText = "Deposit #"
+                .Columns("TRANSACTIONTYPECODE").HeaderText = "Payment Type"
+                .Columns("STRBATCHNO").HeaderText = "Batch #"
+                .Columns("strEntryPerson").HeaderText = "Entry Person"
+                .Columns("STRCOMMENT").HeaderText = "Comment"
+                .Columns("TRANSACTIONID").HeaderText = "Transaction ID"
 
+                .SanelyResizeColumns()
+            End If
+        End With
     End Sub
 
     Private Sub SetUpFinancialInvoicesGrid()
+        With FinancialInvoicesGrid
+            If .DataSource Is Nothing Then
+                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.FinancialInvoices.ToString)
+                .Columns("NUMFEEYEAR").HeaderText = "Fee Year"
+                .Columns("INVOICEID").HeaderText = "Invoice ID"
+                .Columns("NUMAMOUNT").HeaderText = "Invoice Amount"
+                .Columns("DATINVOICEDATE").HeaderText = "Invoice Date"
+                .Columns("DATINVOICEDATE").DefaultCellStyle.Format = "dd-MMM-yyyy"
+                .Columns("InvoiceStatus").HeaderText = "Invoice Status"
+                .Columns("STRPAYTYPEDESC").HeaderText = "Invoice Type"
+                .Columns("PayStatus").HeaderText = "Payment Status"
+                .Columns("STRCOMMENT").HeaderText = "Comment"
 
+                .SanelyResizeColumns()
+            End If
+        End With
     End Sub
 
 #End Region
