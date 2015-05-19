@@ -112,12 +112,152 @@ Namespace DAL
                     "FROM AIRBRANCH.APBContactInformation " & _
                     "WHERE strAIRSNumber = :AirsNumber AND strKey LIKE '4%' " & _
                     "ORDER BY strContactKey"
-                Case IAIPFacilitySummary.FacilityDataTable.EIPost2009
+                Case IAIPFacilitySummary.FacilityDataTable.EiPost2009
                     query = _
-                    ""
-                Case IAIPFacilitySummary.FacilityDataTable.EIPre2009
+                    "SELECT INTINVENTORYYEAR , LEADEMISSIONS , " & _
+                    "  COEMISSIONS , NH3EMISSIONS , NOXEMISSIONS , PMCONEMISSIONS , " & _
+                    "  PM10FILEMISSIONS , PM10PRIEMISSIONS , PM25FILEMISSIONS , " & _
+                    "  PM25PRIEMISSIONS , SO2EMISSIONS , VOCEMISSIONS " & _
+                    "FROM AIRBRANCH.VW_EIS_EMISSIONSUMMARY " & _
+                    "WHERE FACILITYSITEID =SUBSTR(:AirsNumber,5,8) " & _
+                    "ORDER BY INTINVENTORYYEAR DESC"
+                Case IAIPFacilitySummary.FacilityDataTable.EiPre2009
                     query = _
-                    ""
+                    "SELECT DISTINCT( em.STRINVENTORYYEAR ) , CASE WHEN " & _
+                    "      COTable.TotalEmissions IS NULL THEN 0 ELSE " & _
+                    "      COTable.TotalEmissions END CO , CASE WHEN " & _
+                    "      LeadTable.TotalEmissions IS NULL THEN 0 ELSE " & _
+                    "      LeadTable.TotalEmissions END Lead , CASE WHEN " & _
+                    "      NH3Table.TotalEmissions IS NULL THEN 0 ELSE " & _
+                    "      NH3Table.TotalEmissions END NH3 , CASE WHEN " & _
+                    "      NOXTable.TotalEmissions IS NULL THEN 0 ELSE " & _
+                    "      NOXTable.TotalEmissions END NOX , CASE WHEN " & _
+                    "      PMTable.TotalEmissions IS NULL THEN 0 ELSE " & _
+                    "      PMTable.TotalEmissions END PM , CASE WHEN " & _
+                    "      PM10Table.TotalEmissions IS NULL THEN 0 ELSE " & _
+                    "      PM10Table.TotalEmissions END PM10 , CASE WHEN " & _
+                    "      PM25Table.TotalEmissions IS NULL THEN 0 ELSE " & _
+                    "      PM25Table.TotalEmissions END PM25 , CASE WHEN " & _
+                    "      SO2Table.TotalEmissions IS NULL THEN 0 ELSE " & _
+                    "      SO2Table.TotalEmissions END SO2 , CASE WHEN " & _
+                    "      VOCTable.TotalEmissions IS NULL THEN 0 ELSE " & _
+                    "      VOCTable.TotalEmissions END VOC , CASE WHEN " & _
+                    "      PMFILTable.TotalEmissions IS NULL THEN 0 ELSE " & _
+                    "      PMFILTable.TotalEmissions END PMFIL " & _
+                    "FROM AIRBRANCH.EIEM em " & _
+                    "LEFT JOIN " & _
+                    "  (SELECT em.STRPOLLUTANTCODE AS PollutantCode , SUM( " & _
+                    "    em.DBLEMISSIONNUMERICVALUE ) AS TotalEmissions , " & _
+                    "    em.STRINVENTORYYEAR , em.STRSTATEFACILITYIDENTIFIER " & _
+                    "  FROM AIRBRANCH.EIEM em " & _
+                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( :AirsNumber, 5, " & _
+                    "    8 ) AND em.STRPOLLUTANTCODE = '7439921' " & _
+                    "  GROUP BY em.STRPOLLUTANTCODE , em.STRINVENTORYYEAR , " & _
+                    "    em.STRSTATEFACILITYIDENTIFIER " & _
+                    "  ) LeadTable " & _
+                    "ON em.STRINVENTORYYEAR = LeadTable.STRINVENTORYYEAR " & _
+                    "LEFT JOIN " & _
+                    "  (SELECT em.STRPOLLUTANTCODE AS PollutantCode , SUM( " & _
+                    "    em.DBLEMISSIONNUMERICVALUE ) AS TotalEmissions , " & _
+                    "    em.STRINVENTORYYEAR , em.STRSTATEFACILITYIDENTIFIER " & _
+                    "  FROM AIRBRANCH.EIEM em " & _
+                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( :AirsNumber, 5, " & _
+                    "    8 ) AND em.STRPOLLUTANTCODE = 'NOX' " & _
+                    "  GROUP BY em.STRPOLLUTANTCODE , em.STRINVENTORYYEAR , " & _
+                    "    em.STRSTATEFACILITYIDENTIFIER " & _
+                    "  ) NOXTable " & _
+                    "ON em.STRINVENTORYYEAR = NOXTable.STRINVENTORYYEAR " & _
+                    "LEFT JOIN " & _
+                    "  (SELECT em.STRPOLLUTANTCODE AS PollutantCode , SUM( " & _
+                    "    em.DBLEMISSIONNUMERICVALUE ) AS TotalEmissions , " & _
+                    "    em.STRINVENTORYYEAR , em.STRSTATEFACILITYIDENTIFIER " & _
+                    "  FROM AIRBRANCH.EIEM em " & _
+                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( :AirsNumber, 5, " & _
+                    "    8 ) AND em.STRPOLLUTANTCODE = 'CO' " & _
+                    "  GROUP BY em.STRPOLLUTANTCODE , em.STRINVENTORYYEAR , " & _
+                    "    em.STRSTATEFACILITYIDENTIFIER " & _
+                    "  ) COTable " & _
+                    "ON em.STRINVENTORYYEAR = COTable.STRINVENTORYYEAR " & _
+                    "LEFT JOIN " & _
+                    "  (SELECT em.STRPOLLUTANTCODE AS PollutantCode , SUM( " & _
+                    "    em.DBLEMISSIONNUMERICVALUE ) AS TotalEmissions , " & _
+                    "    em.STRINVENTORYYEAR , em.STRSTATEFACILITYIDENTIFIER " & _
+                    "  FROM AIRBRANCH.EIEM em " & _
+                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( :AirsNumber, 5, " & _
+                    "    8 ) AND em.STRPOLLUTANTCODE = 'SO2' " & _
+                    "  GROUP BY em.STRPOLLUTANTCODE , em.STRINVENTORYYEAR , " & _
+                    "    em.STRSTATEFACILITYIDENTIFIER " & _
+                    "  ) SO2Table " & _
+                    "ON em.STRINVENTORYYEAR = SO2Table.STRINVENTORYYEAR " & _
+                    "LEFT JOIN " & _
+                    "  (SELECT em.STRPOLLUTANTCODE AS PollutantCode , SUM( " & _
+                    "    em.DBLEMISSIONNUMERICVALUE ) AS TotalEmissions , " & _
+                    "    em.STRINVENTORYYEAR , em.STRSTATEFACILITYIDENTIFIER " & _
+                    "  FROM AIRBRANCH.EIEM em " & _
+                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( :AirsNumber, 5, " & _
+                    "    8 ) AND em.STRPOLLUTANTCODE = 'NH3' " & _
+                    "  GROUP BY em.STRPOLLUTANTCODE , em.STRINVENTORYYEAR , " & _
+                    "    em.STRSTATEFACILITYIDENTIFIER " & _
+                    "  ) NH3Table " & _
+                    "ON em.STRINVENTORYYEAR = NH3Table.STRINVENTORYYEAR " & _
+                    "LEFT JOIN " & _
+                    "  (SELECT em.STRPOLLUTANTCODE AS PollutantCode , SUM( " & _
+                    "    em.DBLEMISSIONNUMERICVALUE ) AS TotalEmissions , " & _
+                    "    em.STRINVENTORYYEAR , em.STRSTATEFACILITYIDENTIFIER " & _
+                    "  FROM AIRBRANCH.EIEM em " & _
+                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( :AirsNumber, 5, " & _
+                    "    8 ) AND em.STRPOLLUTANTCODE = 'PM-PRI' " & _
+                    "  GROUP BY em.STRPOLLUTANTCODE , em.STRINVENTORYYEAR , " & _
+                    "    em.STRSTATEFACILITYIDENTIFIER " & _
+                    "  ) PMTable " & _
+                    "ON em.STRINVENTORYYEAR = PMTable.STRINVENTORYYEAR " & _
+                    "LEFT JOIN " & _
+                    "  (SELECT em.STRPOLLUTANTCODE AS PollutantCode , SUM( " & _
+                    "    em.DBLEMISSIONNUMERICVALUE ) AS TotalEmissions , " & _
+                    "    em.STRINVENTORYYEAR , em.STRSTATEFACILITYIDENTIFIER " & _
+                    "  FROM AIRBRANCH.EIEM em " & _
+                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( :AirsNumber, 5, " & _
+                    "    8 ) AND em.STRPOLLUTANTCODE = 'PM10-PMI' " & _
+                    "  GROUP BY em.STRPOLLUTANTCODE , em.STRINVENTORYYEAR , " & _
+                    "    em.STRSTATEFACILITYIDENTIFIER " & _
+                    "  ) PM10Table " & _
+                    "ON em.STRINVENTORYYEAR = PM10Table.STRINVENTORYYEAR " & _
+                    "LEFT JOIN " & _
+                    "  (SELECT em.STRPOLLUTANTCODE AS PollutantCode , SUM( " & _
+                    "    em.DBLEMISSIONNUMERICVALUE ) AS TotalEmissions , " & _
+                    "    em.STRINVENTORYYEAR , em.STRSTATEFACILITYIDENTIFIER " & _
+                    "  FROM AIRBRANCH.EIEM em " & _
+                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( :AirsNumber, 5, " & _
+                    "    8 ) AND em.STRPOLLUTANTCODE = 'PM25-PMI' " & _
+                    "  GROUP BY em.STRPOLLUTANTCODE , em.STRINVENTORYYEAR , " & _
+                    "    em.STRSTATEFACILITYIDENTIFIER " & _
+                    "  ) PM25Table " & _
+                    "ON em.STRINVENTORYYEAR = PM25Table.STRINVENTORYYEAR " & _
+                    "LEFT JOIN " & _
+                    "  (SELECT em.STRPOLLUTANTCODE AS PollutantCode , SUM( " & _
+                    "    em.DBLEMISSIONNUMERICVALUE ) AS TotalEmissions , " & _
+                    "    em.STRINVENTORYYEAR , em.STRSTATEFACILITYIDENTIFIER " & _
+                    "  FROM AIRBRANCH.EIEM em " & _
+                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( :AirsNumber, 5, " & _
+                    "    8 ) AND em.STRPOLLUTANTCODE = 'PM-FIL' " & _
+                    "  GROUP BY em.STRPOLLUTANTCODE , em.STRINVENTORYYEAR , " & _
+                    "    em.STRSTATEFACILITYIDENTIFIER " & _
+                    "  ) PMFILTable " & _
+                    "ON em.STRINVENTORYYEAR = PMFILTable.STRINVENTORYYEAR " & _
+                    "LEFT JOIN " & _
+                    "  (SELECT em.STRPOLLUTANTCODE AS PollutantCode , SUM( " & _
+                    "    em.DBLEMISSIONNUMERICVALUE ) AS TotalEmissions , " & _
+                    "    em.STRINVENTORYYEAR , em.STRSTATEFACILITYIDENTIFIER " & _
+                    "  FROM AIRBRANCH.EIEM em " & _
+                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( :AirsNumber, 5, " & _
+                    "    8 ) AND em.STRPOLLUTANTCODE = 'VOC' " & _
+                    "  GROUP BY em.STRPOLLUTANTCODE , em.STRINVENTORYYEAR , " & _
+                    "    em.STRSTATEFACILITYIDENTIFIER " & _
+                    "  ) VOCTable " & _
+                    "ON em.STRINVENTORYYEAR = VOCTable.STRINVENTORYYEAR " & _
+                    "WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( :AirsNumber, 5, 8 " & _
+                    "  ) " & _
+                    "ORDER BY em.STRINVENTORYYEAR DESC"
                 Case IAIPFacilitySummary.FacilityDataTable.Fees
                     query = _
                     "SELECT vw.* ,( NUMTOTALFEE - TOTALPAID ) AS Balance " & _

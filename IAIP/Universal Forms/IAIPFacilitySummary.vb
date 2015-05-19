@@ -50,8 +50,8 @@ Public Class IAIPFacilitySummary
         FinancialFees
         FinancialInvoices
         FinancialDeposits
-        EIPost2009
-        EIPre2009
+        EiPost2009
+        EiPre2009
     End Enum
 
 #End Region
@@ -118,8 +118,8 @@ Public Class IAIPFacilitySummary
         AddDataTable(FacilityDataTable.FinancialDeposits)
         AddDataTable(FacilityDataTable.FinancialFees)
         AddDataTable(FacilityDataTable.FinancialInvoices)
-        AddDataTable(FacilityDataTable.EIPost2009)
-        AddDataTable(FacilityDataTable.EIPre2009)
+        AddDataTable(FacilityDataTable.EiPost2009)
+        AddDataTable(FacilityDataTable.EiPre2009)
     End Sub
 
     Private Sub AddDataTable(ByVal whichTable As FacilityDataTable)
@@ -493,10 +493,10 @@ Public Class IAIPFacilitySummary
                 SetUpFinancialInvoicesGrid()
 
                 ' Emission Inventory
-            Case FacilityDataTable.EIPost2009
-                SetUpEIPost2009Grid()
-            Case FacilityDataTable.EIPre2009
-                SetUpEIPre2009Grid()
+            Case FacilityDataTable.EiPost2009
+                SetUpEiPost2009Grid()
+            Case FacilityDataTable.EiPre2009
+                SetUpEiPre2009Grid()
 
         End Select
     End Sub
@@ -889,19 +889,54 @@ Public Class IAIPFacilitySummary
 
 #End Region
 
-#Region "... Emission Inventory data "
+#Region " Emission Inventory data "
 
     Private Sub LoadEmissionInventoryData()
-        LoadDataTable(FacilityDataTable.EIPost2009)
-        LoadDataTable(FacilityDataTable.EIPre2009)
+        LoadDataTable(FacilityDataTable.EiPost2009)
+        LoadDataTable(FacilityDataTable.EiPre2009)
     End Sub
 
-    Private Sub SetUpEIPost2009Grid()
+    Private Sub SetUpEiPost2009Grid()
+        With EiPost2009Grid
+            If .DataSource Is Nothing Then
+                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.EiPost2009.ToString)
+                .Columns("INTINVENTORYYEAR").HeaderText = "Year"
+                .Columns("LEADEMISSIONS").HeaderText = "Lead"
+                .Columns("COEMISSIONS").HeaderText = "Carbon Monoxide"
+                .Columns("NH3EMISSIONS").HeaderText = "Ammonia"
+                .Columns("NOXEMISSIONS").HeaderText = "Nitrogen Oxides"
+                .Columns("PMCONEMISSIONS").HeaderText = "Condensible PM (less than 1 micron)"
+                .Columns("PM10FILEMISSIONS").HeaderText = "Filterable PM10"
+                .Columns("PM10PRIEMISSIONS").HeaderText = "Primary PM10 (includes filterables + condensibles)"
+                .Columns("PM25FILEMISSIONS").HeaderText = "Filterable PM2.5"
+                .Columns("PM25PRIEMISSIONS").HeaderText = "Primary PM2.5 (includes filterables + condensibles)"
+                .Columns("SO2EMISSIONS").HeaderText = "Sulfur Dioxide"
+                .Columns("VOCEMISSIONS").HeaderText = "Volatile Organic Compounds"
 
+                .SanelyResizeColumns()
+            End If
+        End With
     End Sub
 
-    Private Sub SetUpEIPre2009Grid()
+    Private Sub SetUpEiPre2009Grid()
+        With EiPre2009Grid
+            If .DataSource Is Nothing Then
+                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.EiPre2009.ToString)
+                .Columns("STRINVENTORYYEAR").HeaderText = "Year"
+                .Columns("LEAD").HeaderText = "Lead"
+                .Columns("CO").HeaderText = "Carbon Monoxide"
+                .Columns("NH3").HeaderText = "Ammonia"
+                .Columns("NOX").HeaderText = "Nitrogen Oxides"
+                .Columns("PM").HeaderText = "PM"
+                .Columns("PM10").HeaderText = "PM10"
+                .Columns("PM25").HeaderText = "PM2.5"
+                .Columns("SO2").HeaderText = "Sulfur Dioxide"
+                .Columns("VOC").HeaderText = "Volatile Organic Compounds"
+                .Columns("PMFIL").HeaderText = "PMFIL"
 
+                .SanelyResizeColumns()
+            End If
+        End With
     End Sub
 
 #End Region
@@ -915,6 +950,15 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub SetUpFinancialDepositsGrid()
+        With PermitApplicationGrid
+            If .DataSource Is Nothing Then
+                .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.PermitApplications.ToString)
+
+                .Columns("ApplicationNumber").HeaderText = "Application #"
+
+                .SanelyResizeColumns()
+            End If
+        End With
 
     End Sub
 
@@ -928,7 +972,7 @@ Public Class IAIPFacilitySummary
 
 #End Region
 
-#Region "... Permitting data "
+#Region " Permitting data "
 
     Private Sub PermitsLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles PermitsLink.LinkClicked
         OpenPermitSearchUrl(Me.AirsNumber, Me)

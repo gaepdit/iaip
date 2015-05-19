@@ -57,6 +57,11 @@ Partial Class IAIPFacilitySummary
         Dim DataGridViewCellStyle32 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle33 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle34 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle39 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle38 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle37 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle36 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle35 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.NavigationPanel = New System.Windows.Forms.Panel
         Me.FacilitySearchButton = New System.Windows.Forms.Button
         Me.AirsNumberEntry = New Iaip.CueTextBox
@@ -216,16 +221,12 @@ Partial Class IAIPFacilitySummary
         Me.FSFinancial = New System.Windows.Forms.TabPage
         Me.FinancialTabControl = New System.Windows.Forms.TabControl
         Me.TPFeeData = New System.Windows.Forms.TabPage
-        Me.dgvFeeData = New System.Windows.Forms.DataGridView
         Me.TPInvoices = New System.Windows.Forms.TabPage
-        Me.dgvInvoices = New System.Windows.Forms.DataGridView
         Me.TPFeeDeposits = New System.Windows.Forms.TabPage
-        Me.dgvFeeDeposits = New System.Windows.Forms.DataGridView
         Me.FSEmissionInventory = New System.Windows.Forms.TabPage
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox
-        Me.dgvEISData = New System.Windows.Forms.DataGridView
-        Me.GroupBox7 = New System.Windows.Forms.GroupBox
-        Me.dgvEIData = New System.Windows.Forms.DataGridView
+        Me.EiTabControl = New System.Windows.Forms.TabControl
+        Me.TPEiPost2009 = New System.Windows.Forms.TabPage
+        Me.TpEiPre2009 = New System.Windows.Forms.TabPage
         Me.FSMenuStrip = New System.Windows.Forms.MenuStrip
         Me.FileMenu = New System.Windows.Forms.ToolStripMenuItem
         Me.LookUpFacilityMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -268,6 +269,11 @@ Partial Class IAIPFacilitySummary
         Me.Label32 = New System.Windows.Forms.Label
         Me.LinkLabel3 = New System.Windows.Forms.LinkLabel
         Me.LinkLabel4 = New System.Windows.Forms.LinkLabel
+        Me.EiPre2009Grid = New System.Windows.Forms.DataGridView
+        Me.EiPost2009Grid = New System.Windows.Forms.DataGridView
+        Me.FinancialDepositsGrid = New System.Windows.Forms.DataGridView
+        Me.FinancialInvoicesGrid = New System.Windows.Forms.DataGridView
+        Me.FinancialFeeGrid = New System.Windows.Forms.DataGridView
         Me.NavigationPanel.SuspendLayout()
         Me.FSMainTabControl.SuspendLayout()
         Me.FSInfo.SuspendLayout()
@@ -324,17 +330,18 @@ Partial Class IAIPFacilitySummary
         Me.FSFinancial.SuspendLayout()
         Me.FinancialTabControl.SuspendLayout()
         Me.TPFeeData.SuspendLayout()
-        CType(Me.dgvFeeData, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPInvoices.SuspendLayout()
-        CType(Me.dgvInvoices, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPFeeDeposits.SuspendLayout()
-        CType(Me.dgvFeeDeposits, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FSEmissionInventory.SuspendLayout()
-        Me.GroupBox6.SuspendLayout()
-        CType(Me.dgvEISData, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox7.SuspendLayout()
-        CType(Me.dgvEIData, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.EiTabControl.SuspendLayout()
+        Me.TPEiPost2009.SuspendLayout()
+        Me.TpEiPre2009.SuspendLayout()
         Me.FSMenuStrip.SuspendLayout()
+        CType(Me.EiPre2009Grid, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.EiPost2009Grid, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.FinancialDepositsGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.FinancialInvoicesGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.FinancialFeeGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'NavigationPanel
@@ -2516,7 +2523,7 @@ Partial Class IAIPFacilitySummary
         '
         'TPFeeData
         '
-        Me.TPFeeData.Controls.Add(Me.dgvFeeData)
+        Me.TPFeeData.Controls.Add(Me.FinancialFeeGrid)
         Me.TPFeeData.Location = New System.Drawing.Point(4, 22)
         Me.TPFeeData.Name = "TPFeeData"
         Me.TPFeeData.Size = New System.Drawing.Size(629, 321)
@@ -2524,19 +2531,9 @@ Partial Class IAIPFacilitySummary
         Me.TPFeeData.Text = "Fee Data"
         Me.TPFeeData.UseVisualStyleBackColor = True
         '
-        'dgvFeeData
-        '
-        Me.dgvFeeData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvFeeData.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvFeeData.Location = New System.Drawing.Point(0, 0)
-        Me.dgvFeeData.Name = "dgvFeeData"
-        Me.dgvFeeData.ReadOnly = True
-        Me.dgvFeeData.Size = New System.Drawing.Size(629, 321)
-        Me.dgvFeeData.TabIndex = 0
-        '
         'TPInvoices
         '
-        Me.TPInvoices.Controls.Add(Me.dgvInvoices)
+        Me.TPInvoices.Controls.Add(Me.FinancialInvoicesGrid)
         Me.TPInvoices.Location = New System.Drawing.Point(4, 22)
         Me.TPInvoices.Name = "TPInvoices"
         Me.TPInvoices.Size = New System.Drawing.Size(629, 321)
@@ -2544,19 +2541,9 @@ Partial Class IAIPFacilitySummary
         Me.TPInvoices.Text = "Invoices"
         Me.TPInvoices.UseVisualStyleBackColor = True
         '
-        'dgvInvoices
-        '
-        Me.dgvInvoices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvInvoices.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvInvoices.Location = New System.Drawing.Point(0, 0)
-        Me.dgvInvoices.Name = "dgvInvoices"
-        Me.dgvInvoices.ReadOnly = True
-        Me.dgvInvoices.Size = New System.Drawing.Size(629, 321)
-        Me.dgvInvoices.TabIndex = 1
-        '
         'TPFeeDeposits
         '
-        Me.TPFeeDeposits.Controls.Add(Me.dgvFeeDeposits)
+        Me.TPFeeDeposits.Controls.Add(Me.FinancialDepositsGrid)
         Me.TPFeeDeposits.Location = New System.Drawing.Point(4, 22)
         Me.TPFeeDeposits.Name = "TPFeeDeposits"
         Me.TPFeeDeposits.Size = New System.Drawing.Size(629, 321)
@@ -2564,20 +2551,9 @@ Partial Class IAIPFacilitySummary
         Me.TPFeeDeposits.Text = "Fee Deposits"
         Me.TPFeeDeposits.UseVisualStyleBackColor = True
         '
-        'dgvFeeDeposits
-        '
-        Me.dgvFeeDeposits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvFeeDeposits.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvFeeDeposits.Location = New System.Drawing.Point(0, 0)
-        Me.dgvFeeDeposits.Name = "dgvFeeDeposits"
-        Me.dgvFeeDeposits.ReadOnly = True
-        Me.dgvFeeDeposits.Size = New System.Drawing.Size(629, 321)
-        Me.dgvFeeDeposits.TabIndex = 0
-        '
         'FSEmissionInventory
         '
-        Me.FSEmissionInventory.Controls.Add(Me.GroupBox6)
-        Me.FSEmissionInventory.Controls.Add(Me.GroupBox7)
+        Me.FSEmissionInventory.Controls.Add(Me.EiTabControl)
         Me.FSEmissionInventory.Location = New System.Drawing.Point(4, 22)
         Me.FSEmissionInventory.Name = "FSEmissionInventory"
         Me.FSEmissionInventory.Size = New System.Drawing.Size(637, 347)
@@ -2585,46 +2561,38 @@ Partial Class IAIPFacilitySummary
         Me.FSEmissionInventory.Text = "Emission Inventory"
         Me.FSEmissionInventory.UseVisualStyleBackColor = True
         '
-        'GroupBox6
+        'EiTabControl
         '
-        Me.GroupBox6.Controls.Add(Me.dgvEISData)
-        Me.GroupBox6.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox6.Location = New System.Drawing.Point(0, 0)
-        Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(637, 127)
-        Me.GroupBox6.TabIndex = 58
-        Me.GroupBox6.TabStop = False
-        Me.GroupBox6.Text = "Emission Data after 2009"
+        Me.EiTabControl.Controls.Add(Me.TPEiPost2009)
+        Me.EiTabControl.Controls.Add(Me.TpEiPre2009)
+        Me.EiTabControl.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.EiTabControl.Location = New System.Drawing.Point(0, 0)
+        Me.EiTabControl.Name = "EiTabControl"
+        Me.EiTabControl.SelectedIndex = 0
+        Me.EiTabControl.Size = New System.Drawing.Size(637, 347)
+        Me.EiTabControl.TabIndex = 0
         '
-        'dgvEISData
+        'TPEiPost2009
         '
-        Me.dgvEISData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvEISData.Dock = System.Windows.Forms.DockStyle.Top
-        Me.dgvEISData.Location = New System.Drawing.Point(3, 16)
-        Me.dgvEISData.Name = "dgvEISData"
-        Me.dgvEISData.Size = New System.Drawing.Size(631, 193)
-        Me.dgvEISData.TabIndex = 0
+        Me.TPEiPost2009.Controls.Add(Me.EiPost2009Grid)
+        Me.TPEiPost2009.Location = New System.Drawing.Point(4, 22)
+        Me.TPEiPost2009.Name = "TPEiPost2009"
+        Me.TPEiPost2009.Padding = New System.Windows.Forms.Padding(3)
+        Me.TPEiPost2009.Size = New System.Drawing.Size(629, 321)
+        Me.TPEiPost2009.TabIndex = 0
+        Me.TPEiPost2009.Text = "Data Starting 2010"
+        Me.TPEiPost2009.UseVisualStyleBackColor = True
         '
-        'GroupBox7
+        'TpEiPre2009
         '
-        Me.GroupBox7.Controls.Add(Me.dgvEIData)
-        Me.GroupBox7.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GroupBox7.Location = New System.Drawing.Point(0, 127)
-        Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(637, 220)
-        Me.GroupBox7.TabIndex = 59
-        Me.GroupBox7.TabStop = False
-        Me.GroupBox7.Text = "Emission Data up to 2009"
-        '
-        'dgvEIData
-        '
-        Me.dgvEIData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvEIData.Dock = System.Windows.Forms.DockStyle.Top
-        Me.dgvEIData.Location = New System.Drawing.Point(3, 16)
-        Me.dgvEIData.Name = "dgvEIData"
-        Me.dgvEIData.ReadOnly = True
-        Me.dgvEIData.Size = New System.Drawing.Size(631, 201)
-        Me.dgvEIData.TabIndex = 39
+        Me.TpEiPre2009.Controls.Add(Me.EiPre2009Grid)
+        Me.TpEiPre2009.Location = New System.Drawing.Point(4, 22)
+        Me.TpEiPre2009.Name = "TpEiPre2009"
+        Me.TpEiPre2009.Padding = New System.Windows.Forms.Padding(3)
+        Me.TpEiPre2009.Size = New System.Drawing.Size(629, 321)
+        Me.TpEiPre2009.TabIndex = 1
+        Me.TpEiPre2009.Text = "Data Up To 2009"
+        Me.TpEiPre2009.UseVisualStyleBackColor = True
         '
         'FSMenuStrip
         '
@@ -3034,6 +3002,106 @@ Partial Class IAIPFacilitySummary
         Me.LinkLabel4.Text = "Location (view online map):"
         Me.LinkLabel4.UseCompatibleTextRendering = True
         '
+        'EiPre2009Grid
+        '
+        Me.EiPre2009Grid.AllowUserToAddRows = False
+        Me.EiPre2009Grid.AllowUserToDeleteRows = False
+        Me.EiPre2009Grid.AllowUserToOrderColumns = True
+        Me.EiPre2009Grid.AllowUserToResizeRows = False
+        DataGridViewCellStyle39.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.EiPre2009Grid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle39
+        Me.EiPre2009Grid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.EiPre2009Grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.EiPre2009Grid.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.EiPre2009Grid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.EiPre2009Grid.Location = New System.Drawing.Point(3, 3)
+        Me.EiPre2009Grid.Name = "EiPre2009Grid"
+        Me.EiPre2009Grid.ReadOnly = True
+        Me.EiPre2009Grid.RowHeadersVisible = False
+        Me.EiPre2009Grid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.EiPre2009Grid.Size = New System.Drawing.Size(623, 315)
+        Me.EiPre2009Grid.TabIndex = 6
+        '
+        'EiPost2009Grid
+        '
+        Me.EiPost2009Grid.AllowUserToAddRows = False
+        Me.EiPost2009Grid.AllowUserToDeleteRows = False
+        Me.EiPost2009Grid.AllowUserToOrderColumns = True
+        Me.EiPost2009Grid.AllowUserToResizeRows = False
+        DataGridViewCellStyle38.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.EiPost2009Grid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle38
+        Me.EiPost2009Grid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.EiPost2009Grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.EiPost2009Grid.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.EiPost2009Grid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.EiPost2009Grid.Location = New System.Drawing.Point(3, 3)
+        Me.EiPost2009Grid.Name = "EiPost2009Grid"
+        Me.EiPost2009Grid.ReadOnly = True
+        Me.EiPost2009Grid.RowHeadersVisible = False
+        Me.EiPost2009Grid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.EiPost2009Grid.Size = New System.Drawing.Size(623, 315)
+        Me.EiPost2009Grid.TabIndex = 6
+        '
+        'FinancialDepositsGrid
+        '
+        Me.FinancialDepositsGrid.AllowUserToAddRows = False
+        Me.FinancialDepositsGrid.AllowUserToDeleteRows = False
+        Me.FinancialDepositsGrid.AllowUserToOrderColumns = True
+        Me.FinancialDepositsGrid.AllowUserToResizeRows = False
+        DataGridViewCellStyle37.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.FinancialDepositsGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle37
+        Me.FinancialDepositsGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.FinancialDepositsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.FinancialDepositsGrid.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.FinancialDepositsGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.FinancialDepositsGrid.Location = New System.Drawing.Point(0, 0)
+        Me.FinancialDepositsGrid.Name = "FinancialDepositsGrid"
+        Me.FinancialDepositsGrid.ReadOnly = True
+        Me.FinancialDepositsGrid.RowHeadersVisible = False
+        Me.FinancialDepositsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.FinancialDepositsGrid.Size = New System.Drawing.Size(629, 321)
+        Me.FinancialDepositsGrid.TabIndex = 6
+        '
+        'FinancialInvoicesGrid
+        '
+        Me.FinancialInvoicesGrid.AllowUserToAddRows = False
+        Me.FinancialInvoicesGrid.AllowUserToDeleteRows = False
+        Me.FinancialInvoicesGrid.AllowUserToOrderColumns = True
+        Me.FinancialInvoicesGrid.AllowUserToResizeRows = False
+        DataGridViewCellStyle36.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.FinancialInvoicesGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle36
+        Me.FinancialInvoicesGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.FinancialInvoicesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.FinancialInvoicesGrid.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.FinancialInvoicesGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.FinancialInvoicesGrid.Location = New System.Drawing.Point(0, 0)
+        Me.FinancialInvoicesGrid.Name = "FinancialInvoicesGrid"
+        Me.FinancialInvoicesGrid.ReadOnly = True
+        Me.FinancialInvoicesGrid.RowHeadersVisible = False
+        Me.FinancialInvoicesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.FinancialInvoicesGrid.Size = New System.Drawing.Size(629, 321)
+        Me.FinancialInvoicesGrid.TabIndex = 6
+        '
+        'FinancialFeeGrid
+        '
+        Me.FinancialFeeGrid.AllowUserToAddRows = False
+        Me.FinancialFeeGrid.AllowUserToDeleteRows = False
+        Me.FinancialFeeGrid.AllowUserToOrderColumns = True
+        Me.FinancialFeeGrid.AllowUserToResizeRows = False
+        DataGridViewCellStyle35.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.FinancialFeeGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle35
+        Me.FinancialFeeGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.FinancialFeeGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.FinancialFeeGrid.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.FinancialFeeGrid.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.FinancialFeeGrid.Location = New System.Drawing.Point(0, 0)
+        Me.FinancialFeeGrid.Name = "FinancialFeeGrid"
+        Me.FinancialFeeGrid.ReadOnly = True
+        Me.FinancialFeeGrid.RowHeadersVisible = False
+        Me.FinancialFeeGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.FinancialFeeGrid.Size = New System.Drawing.Size(629, 321)
+        Me.FinancialFeeGrid.TabIndex = 6
+        '
         'IAIPFacilitySummary
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -3111,18 +3179,19 @@ Partial Class IAIPFacilitySummary
         Me.FSFinancial.ResumeLayout(False)
         Me.FinancialTabControl.ResumeLayout(False)
         Me.TPFeeData.ResumeLayout(False)
-        CType(Me.dgvFeeData, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPInvoices.ResumeLayout(False)
-        CType(Me.dgvInvoices, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPFeeDeposits.ResumeLayout(False)
-        CType(Me.dgvFeeDeposits, System.ComponentModel.ISupportInitialize).EndInit()
         Me.FSEmissionInventory.ResumeLayout(False)
-        Me.GroupBox6.ResumeLayout(False)
-        CType(Me.dgvEISData, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox7.ResumeLayout(False)
-        CType(Me.dgvEIData, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.EiTabControl.ResumeLayout(False)
+        Me.TPEiPost2009.ResumeLayout(False)
+        Me.TpEiPre2009.ResumeLayout(False)
         Me.FSMenuStrip.ResumeLayout(False)
         Me.FSMenuStrip.PerformLayout()
+        CType(Me.EiPre2009Grid, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.EiPost2009Grid, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.FinancialDepositsGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.FinancialInvoicesGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.FinancialFeeGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -3172,7 +3241,6 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents FeeDueLabel As System.Windows.Forms.Label
     Friend WithEvents FeeYearSelect As System.Windows.Forms.ComboBox
     Friend WithEvents FeeYearLabel As System.Windows.Forms.Label
-    Friend WithEvents dgvEIData As System.Windows.Forms.DataGridView
     Friend WithEvents TestingTabControl As System.Windows.Forms.TabControl
     Friend WithEvents TPTestNotifications As System.Windows.Forms.TabPage
     Friend WithEvents TPTestMemos As System.Windows.Forms.TabPage
@@ -3186,9 +3254,7 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents TPRuleHistory As System.Windows.Forms.TabPage
     Friend WithEvents FinancialTabControl As System.Windows.Forms.TabControl
     Friend WithEvents TPFeeData As System.Windows.Forms.TabPage
-    Friend WithEvents dgvFeeData As System.Windows.Forms.DataGridView
     Friend WithEvents TPFeeDeposits As System.Windows.Forms.TabPage
-    Friend WithEvents dgvFeeDeposits As System.Windows.Forms.DataGridView
     Friend WithEvents EditFacilityLocationButton As System.Windows.Forms.Button
     Friend WithEvents EditHeaderDataButton As System.Windows.Forms.Button
     Friend WithEvents EditContactsPanel As System.Windows.Forms.Panel
@@ -3196,10 +3262,6 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents FeeAdminLabel As System.Windows.Forms.Label
     Friend WithEvents FeeAdminWarningLabel As System.Windows.Forms.Label
     Friend WithEvents TPInvoices As System.Windows.Forms.TabPage
-    Friend WithEvents dgvInvoices As System.Windows.Forms.DataGridView
-    Friend WithEvents GroupBox7 As System.Windows.Forms.GroupBox
-    Friend WithEvents GroupBox6 As System.Windows.Forms.GroupBox
-    Friend WithEvents dgvEISData As System.Windows.Forms.DataGridView
     Friend WithEvents TPPermits As System.Windows.Forms.TabPage
     Friend WithEvents ViewDataButton As System.Windows.Forms.Button
     Friend WithEvents FacilityApprovalLinkLabel As System.Windows.Forms.LinkLabel
@@ -3340,4 +3402,12 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents PermitsGrid As System.Windows.Forms.DataGridView
     Friend WithEvents PermitsPanel As System.Windows.Forms.Panel
     Friend WithEvents PermitsLink As System.Windows.Forms.LinkLabel
+    Friend WithEvents EiTabControl As System.Windows.Forms.TabControl
+    Friend WithEvents TPEiPost2009 As System.Windows.Forms.TabPage
+    Friend WithEvents TpEiPre2009 As System.Windows.Forms.TabPage
+    Friend WithEvents FinancialInvoicesGrid As System.Windows.Forms.DataGridView
+    Friend WithEvents FinancialDepositsGrid As System.Windows.Forms.DataGridView
+    Friend WithEvents EiPost2009Grid As System.Windows.Forms.DataGridView
+    Friend WithEvents EiPre2009Grid As System.Windows.Forms.DataGridView
+    Friend WithEvents FinancialFeeGrid As System.Windows.Forms.DataGridView
 End Class
