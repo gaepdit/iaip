@@ -22,6 +22,7 @@ Public Class IAIPFacilitySummary
                 AirsNumberEntry.Focus()
             Else
                 LoadBasicFacilityAndHeaderData()
+                FSMainTabControl.Focus()
             End If
         End Set
     End Property
@@ -370,6 +371,7 @@ Public Class IAIPFacilitySummary
 
             'Air Programs
             Dim tempAP As AirProgram = .AirPrograms
+            AirProgramsListBox.Items.Clear()
             With AirProgramsListBox.Items
                 If tempAP = AirProgram.None Then
                     .Add(AirProgram.None.GetDescription)
