@@ -512,7 +512,7 @@ Public Class IAIPEditSubParts
             Else
                 SQL = "INSERT INTO AIRBRANCH.APBSUBPARTDATA " & _
                 "  ( STRAIRSNUMBER, STRSUBPARTKEY, STRSUBPART, UPDATEUSER , " & _
-                "    UPDATEDATETIME, ACTIVE, CREATEDATETIME, " & _
+                "    UPDATEDATETIME, ACTIVE, CREATEDATETIME " & _
                 "  ) VALUES " & _
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "0', " & _
                 "'" & cboSIPSubpart.SelectedValue & "', '" & UserGCode & "', " & _
@@ -571,7 +571,7 @@ Public Class IAIPEditSubParts
             Else
                 SQL = "INSERT INTO AIRBRANCH.APBSUBPARTDATA " & _
                 "  ( STRAIRSNUMBER, STRSUBPARTKEY, STRSUBPART, UPDATEUSER , " & _
-                "    UPDATEDATETIME, ACTIVE, CREATEDATETIME, " & _
+                "    UPDATEDATETIME, ACTIVE, CREATEDATETIME " & _
                 "  ) VALUES " & _
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " & _
                 "'" & cboNSPSSubpart.SelectedValue & "', '" & UserGCode & "', " & _
@@ -630,7 +630,7 @@ Public Class IAIPEditSubParts
             Else
                 SQL = "INSERT INTO AIRBRANCH.APBSUBPARTDATA " & _
                 "  ( STRAIRSNUMBER, STRSUBPARTKEY, STRSUBPART, UPDATEUSER , " & _
-                "    UPDATEDATETIME, ACTIVE, CREATEDATETIME, " & _
+                "    UPDATEDATETIME, ACTIVE, CREATEDATETIME " & _
                 "  ) VALUES " & _
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "8', " & _
                 "'" & cboNESHAPSubpart.SelectedValue & "', '" & UserGCode & "', " & _
@@ -689,7 +689,7 @@ Public Class IAIPEditSubParts
             Else
                 SQL = "INSERT INTO AIRBRANCH.APBSUBPARTDATA " & _
                 "  ( STRAIRSNUMBER, STRSUBPARTKEY, STRSUBPART, UPDATEUSER , " & _
-                "    UPDATEDATETIME, ACTIVE, CREATEDATETIME, " & _
+                "    UPDATEDATETIME, ACTIVE, CREATEDATETIME " & _
                 "  ) VALUES " & _
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "M', " & _
                 "'" & cboMACTSubPart.SelectedValue & "', '" & UserGCode & "', " & _

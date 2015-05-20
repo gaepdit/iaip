@@ -1,17 +1,25 @@
 % IAIP Change Log
 
+## Version 3.7.2 <span>(2015-05-06)</span>
+
+- FIX: *EDT* -- Crash when resolving EDT errors (#333)
+- FIX: Error whene adding MACT or NSPS subparts (#334); thx Sean
+- FIX: *SSPP* -- Title V renewal reminder letter needs page break between facilities (#335); thx Dave M.
+
 ## Version 3.7.1 <span>(2015-05-04)</span>
 
-+ NEW: UI and data improvements for EDT Errors (#332, etc.)
+**May the Fourth edition**
 
-+ FIX: Crasher in Facility Creator
-+ FIX: *Smoke School* -- First class in Smoke School scores tab not displayed (#331)
++ NEW: *EDT* -- UI and data improvements for EDT Errors (#332, etc.)
+
+- FIX: Crasher in Facility Creator
+- FIX: *Smoke School* -- First class in Smoke School scores tab not displayed (#331)
 - Various other bug fixes and UI improvements
 
 ## Version 3.7.0 <span>(2015-04-20)</span>
 
-+ NEW: *SSCP* -- Module to review errors returned by EPA's new data transfer system (#307)
-+ NEW: *SSCP* -- UI to trigger forcing an update of facility data to EPA (#314)
++ NEW: Module to review EDT errors returned by EPA's new data transfer system (#307)
++ NEW: *EDT* -- UI to trigger forcing an update of facility data to EPA (#314)
 + NEW: *SSPP* -- Updated Title V reminder letter with GEOS language (#327); thx Eric
 
 - FIX: *ISMP* -- Smoke School module can't handle people with apostrophes in their name (#325); thx Jeff

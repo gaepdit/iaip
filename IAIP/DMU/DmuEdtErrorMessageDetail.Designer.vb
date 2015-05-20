@@ -23,11 +23,11 @@ Partial Class DmuEdtErrorMessageDetail
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.OwnerGroupPanel = New System.Windows.Forms.Panel
-        Me.DisplayMine = New System.Windows.Forms.RadioButton
-        Me.DisplayEveryone = New System.Windows.Forms.RadioButton
+        Me.DisplayOwnerMine = New System.Windows.Forms.RadioButton
+        Me.DisplayOwnerEveryone = New System.Windows.Forms.RadioButton
         Me.ResolvedStatusGroupPanel = New System.Windows.Forms.Panel
-        Me.DisplayAll = New System.Windows.Forms.RadioButton
-        Me.DisplayOpen = New System.Windows.Forms.RadioButton
+        Me.DisplayResolutionAll = New System.Windows.Forms.RadioButton
+        Me.DisplayResolutionOpen = New System.Windows.Forms.RadioButton
         Me.ReloadButton = New System.Windows.Forms.Button
         Me.EdtErrorCountDisplay = New System.Windows.Forms.Label
         Me.EdtErrorMessageGrid = New System.Windows.Forms.DataGridView
@@ -62,81 +62,81 @@ Partial Class DmuEdtErrorMessageDetail
         '
         Me.OwnerGroupPanel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.OwnerGroupPanel.BackColor = System.Drawing.Color.Transparent
-        Me.OwnerGroupPanel.Controls.Add(Me.DisplayMine)
-        Me.OwnerGroupPanel.Controls.Add(Me.DisplayEveryone)
+        Me.OwnerGroupPanel.Controls.Add(Me.DisplayOwnerMine)
+        Me.OwnerGroupPanel.Controls.Add(Me.DisplayOwnerEveryone)
         Me.OwnerGroupPanel.Enabled = False
         Me.OwnerGroupPanel.Location = New System.Drawing.Point(343, 194)
         Me.OwnerGroupPanel.Name = "OwnerGroupPanel"
         Me.OwnerGroupPanel.Size = New System.Drawing.Size(131, 31)
         Me.OwnerGroupPanel.TabIndex = 5
         '
-        'DisplayMine
+        'DisplayOwnerMine
         '
-        Me.DisplayMine.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.DisplayMine.Appearance = System.Windows.Forms.Appearance.Button
-        Me.DisplayMine.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.DisplayMine.Location = New System.Drawing.Point(0, 8)
-        Me.DisplayMine.Name = "DisplayMine"
-        Me.DisplayMine.Size = New System.Drawing.Size(66, 23)
-        Me.DisplayMine.TabIndex = 0
-        Me.DisplayMine.Text = "Mine"
-        Me.DisplayMine.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.DisplayMine.UseVisualStyleBackColor = True
+        Me.DisplayOwnerMine.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.DisplayOwnerMine.Appearance = System.Windows.Forms.Appearance.Button
+        Me.DisplayOwnerMine.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.DisplayOwnerMine.Location = New System.Drawing.Point(0, 8)
+        Me.DisplayOwnerMine.Name = "DisplayOwnerMine"
+        Me.DisplayOwnerMine.Size = New System.Drawing.Size(66, 23)
+        Me.DisplayOwnerMine.TabIndex = 0
+        Me.DisplayOwnerMine.Text = "Mine"
+        Me.DisplayOwnerMine.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.DisplayOwnerMine.UseVisualStyleBackColor = True
         '
-        'DisplayEveryone
+        'DisplayOwnerEveryone
         '
-        Me.DisplayEveryone.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.DisplayEveryone.Appearance = System.Windows.Forms.Appearance.Button
-        Me.DisplayEveryone.Checked = True
-        Me.DisplayEveryone.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.DisplayEveryone.Location = New System.Drawing.Point(65, 8)
-        Me.DisplayEveryone.Name = "DisplayEveryone"
-        Me.DisplayEveryone.Size = New System.Drawing.Size(66, 23)
-        Me.DisplayEveryone.TabIndex = 1
-        Me.DisplayEveryone.TabStop = True
-        Me.DisplayEveryone.Text = "All"
-        Me.DisplayEveryone.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.DisplayEveryone.UseVisualStyleBackColor = True
+        Me.DisplayOwnerEveryone.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.DisplayOwnerEveryone.Appearance = System.Windows.Forms.Appearance.Button
+        Me.DisplayOwnerEveryone.Checked = True
+        Me.DisplayOwnerEveryone.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.DisplayOwnerEveryone.Location = New System.Drawing.Point(65, 8)
+        Me.DisplayOwnerEveryone.Name = "DisplayOwnerEveryone"
+        Me.DisplayOwnerEveryone.Size = New System.Drawing.Size(66, 23)
+        Me.DisplayOwnerEveryone.TabIndex = 1
+        Me.DisplayOwnerEveryone.TabStop = True
+        Me.DisplayOwnerEveryone.Text = "All"
+        Me.DisplayOwnerEveryone.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.DisplayOwnerEveryone.UseVisualStyleBackColor = True
         '
         'ResolvedStatusGroupPanel
         '
         Me.ResolvedStatusGroupPanel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ResolvedStatusGroupPanel.BackColor = System.Drawing.Color.Transparent
-        Me.ResolvedStatusGroupPanel.Controls.Add(Me.DisplayAll)
-        Me.ResolvedStatusGroupPanel.Controls.Add(Me.DisplayOpen)
+        Me.ResolvedStatusGroupPanel.Controls.Add(Me.DisplayResolutionAll)
+        Me.ResolvedStatusGroupPanel.Controls.Add(Me.DisplayResolutionOpen)
         Me.ResolvedStatusGroupPanel.Enabled = False
         Me.ResolvedStatusGroupPanel.Location = New System.Drawing.Point(483, 194)
         Me.ResolvedStatusGroupPanel.Name = "ResolvedStatusGroupPanel"
         Me.ResolvedStatusGroupPanel.Size = New System.Drawing.Size(131, 31)
         Me.ResolvedStatusGroupPanel.TabIndex = 6
         '
-        'DisplayAll
+        'DisplayResolutionAll
         '
-        Me.DisplayAll.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.DisplayAll.Appearance = System.Windows.Forms.Appearance.Button
-        Me.DisplayAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.DisplayAll.Location = New System.Drawing.Point(65, 8)
-        Me.DisplayAll.Name = "DisplayAll"
-        Me.DisplayAll.Size = New System.Drawing.Size(66, 23)
-        Me.DisplayAll.TabIndex = 1
-        Me.DisplayAll.Text = "All"
-        Me.DisplayAll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.DisplayAll.UseVisualStyleBackColor = True
+        Me.DisplayResolutionAll.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.DisplayResolutionAll.Appearance = System.Windows.Forms.Appearance.Button
+        Me.DisplayResolutionAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.DisplayResolutionAll.Location = New System.Drawing.Point(65, 8)
+        Me.DisplayResolutionAll.Name = "DisplayResolutionAll"
+        Me.DisplayResolutionAll.Size = New System.Drawing.Size(66, 23)
+        Me.DisplayResolutionAll.TabIndex = 1
+        Me.DisplayResolutionAll.Text = "All"
+        Me.DisplayResolutionAll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.DisplayResolutionAll.UseVisualStyleBackColor = True
         '
-        'DisplayOpen
+        'DisplayResolutionOpen
         '
-        Me.DisplayOpen.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.DisplayOpen.Appearance = System.Windows.Forms.Appearance.Button
-        Me.DisplayOpen.Checked = True
-        Me.DisplayOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.DisplayOpen.Location = New System.Drawing.Point(0, 8)
-        Me.DisplayOpen.Name = "DisplayOpen"
-        Me.DisplayOpen.Size = New System.Drawing.Size(66, 23)
-        Me.DisplayOpen.TabIndex = 0
-        Me.DisplayOpen.TabStop = True
-        Me.DisplayOpen.Text = "Open"
-        Me.DisplayOpen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.DisplayOpen.UseVisualStyleBackColor = True
+        Me.DisplayResolutionOpen.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.DisplayResolutionOpen.Appearance = System.Windows.Forms.Appearance.Button
+        Me.DisplayResolutionOpen.Checked = True
+        Me.DisplayResolutionOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.DisplayResolutionOpen.Location = New System.Drawing.Point(0, 8)
+        Me.DisplayResolutionOpen.Name = "DisplayResolutionOpen"
+        Me.DisplayResolutionOpen.Size = New System.Drawing.Size(66, 23)
+        Me.DisplayResolutionOpen.TabIndex = 0
+        Me.DisplayResolutionOpen.TabStop = True
+        Me.DisplayResolutionOpen.Text = "Open"
+        Me.DisplayResolutionOpen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.DisplayResolutionOpen.UseVisualStyleBackColor = True
         '
         'ReloadButton
         '
@@ -390,11 +390,11 @@ Partial Class DmuEdtErrorMessageDetail
 
     End Sub
     Friend WithEvents OwnerGroupPanel As System.Windows.Forms.Panel
-    Friend WithEvents DisplayMine As System.Windows.Forms.RadioButton
-    Friend WithEvents DisplayEveryone As System.Windows.Forms.RadioButton
+    Friend WithEvents DisplayOwnerMine As System.Windows.Forms.RadioButton
+    Friend WithEvents DisplayOwnerEveryone As System.Windows.Forms.RadioButton
     Friend WithEvents ResolvedStatusGroupPanel As System.Windows.Forms.Panel
-    Friend WithEvents DisplayAll As System.Windows.Forms.RadioButton
-    Friend WithEvents DisplayOpen As System.Windows.Forms.RadioButton
+    Friend WithEvents DisplayResolutionAll As System.Windows.Forms.RadioButton
+    Friend WithEvents DisplayResolutionOpen As System.Windows.Forms.RadioButton
     Friend WithEvents ReloadButton As System.Windows.Forms.Button
     Friend WithEvents EdtErrorCountDisplay As System.Windows.Forms.Label
     Friend WithEvents EdtErrorMessageGrid As System.Windows.Forms.DataGridView
