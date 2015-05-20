@@ -5,7 +5,9 @@ Module FormHelpers
 #Region " Facility Summary "
 
     Public Function OpenFormFacilitySummary() As Form
-        Return OpenSingleForm(IAIPFacilitySummary)
+        Dim facilitySummary As IAIPFacilitySummary = New IAIPFacilitySummary
+        facilitySummary.Show()
+        Return facilitySummary
     End Function
 
     Public Function OpenFormFacilitySummary(ByVal airsNumber As String) As Form
@@ -25,7 +27,8 @@ Module FormHelpers
             MessageBox.Show("AIRS number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return Nothing
         Else
-            Dim facilitySummary As IAIPFacilitySummary = OpenSingleForm(IAIPFacilitySummary)
+            Dim facilitySummary As IAIPFacilitySummary = New IAIPFacilitySummary
+            facilitySummary.Show()
             facilitySummary.AirsNumber = airsNumber
             Return facilitySummary
         End If
