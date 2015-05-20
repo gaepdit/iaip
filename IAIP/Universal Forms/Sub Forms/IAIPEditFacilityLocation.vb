@@ -359,20 +359,20 @@ Public Class IAIPEditFacilityLocation
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Close()
-                            End If
 
-                            SQL = "Update airbranch.EIS_FacilitySite set " & _
-                            "strFacilitySiteName = '" & FacilityName & "', " & _
-                            "strFacilitySiteComment = 'Facility Name updated.', " & _
-                            "UpdateUSer = '" & UserName & "', " & _
-                            "updateDateTime = sysdate " & _
-                            "where facilitySiteID = '" & txtAirsNumber.Text & "' "
+                                SQL = "Update airbranch.EIS_FacilitySite set " & _
+                                "strFacilitySiteName = '" & FacilityName & "', " & _
+                                "strFacilitySiteComment = 'Facility Name updated.', " & _
+                                "UpdateUSer = '" & UserName & "', " & _
+                                "updateDateTime = sysdate " & _
+                                "where facilitySiteID = '" & txtAirsNumber.Text & "' "
 
-                            cmd = New OracleCommand(SQL, CurrentConnection)
-                            If CurrentConnection.State = ConnectionState.Closed Then
-                                CurrentConnection.Open()
+                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                If CurrentConnection.State = ConnectionState.Closed Then
+                                    CurrentConnection.Open()
+                                End If
+                                cmd.ExecuteReader()
                             End If
-                            cmd.ExecuteReader()
 
                             LoadFacilityInformation()
                             MsgBox("Data Updated", MsgBoxStyle.Information, "Edit Facility Location Data")
