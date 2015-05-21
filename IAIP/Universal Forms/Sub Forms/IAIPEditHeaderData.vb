@@ -227,8 +227,9 @@ Public Class IAIPEditHeaderData
                 DisableControls(NonShutdownControls)
                 ShutdownDate.Checked = True
                 ShutdownDate.Enabled = True
-                ModifiedDescDisplay.Text = "When changing operating status to Closed/Dismantled, no other data can be modified. " & _
-                "Save any other required changes first. Please enter a final permit revocation date."
+                ModifiedDescDisplay.Text = "When changing operating status to Closed/Dismantled, " & _
+                "no other data can be modified. Make any other required changes first. " & _
+                "Please enter a final permit revocation date."
                 PermitRevocationDateLabel.BackColor = Color.Yellow
                 ModifiedDescDisplay.BackColor = Color.Yellow
             Else
