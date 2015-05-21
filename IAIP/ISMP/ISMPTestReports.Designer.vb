@@ -46,7 +46,6 @@ Me.tsbResize = New System.Windows.Forms.ToolStripButton
 Me.tsbMemo = New System.Windows.Forms.ToolStripButton
 Me.tsbTestLogLink = New System.Windows.Forms.ToolStripButton
 Me.tsbDelete = New System.Windows.Forms.ToolStripButton
-Me.tsbBack = New System.Windows.Forms.ToolStripButton
 Me.tsbConfidentialData = New System.Windows.Forms.ToolStripButton
 Me.SCTestReports = New System.Windows.Forms.SplitContainer
 Me.GroupBox1 = New System.Windows.Forms.GroupBox
@@ -909,6 +908,7 @@ Me.Label325 = New System.Windows.Forms.Label
 Me.txtTestReportComments = New System.Windows.Forms.TextBox
 Me.Label326 = New System.Windows.Forms.Label
 Me.txtTestReportDueDate = New System.Windows.Forms.TextBox
+Me.DeletedTestFlag = New System.Windows.Forms.Label
 Me.MenuStrip1.SuspendLayout
 Me.ToolStrip1.SuspendLayout
 Me.SCTestReports.Panel1.SuspendLayout
@@ -967,14 +967,14 @@ Me.mmiFile.Text = "File"
 '
 Me.mmiSave.Name = "mmiSave"
 Me.mmiSave.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.S),System.Windows.Forms.Keys)
-Me.mmiSave.Size = New System.Drawing.Size(152, 22)
+Me.mmiSave.Size = New System.Drawing.Size(148, 22)
 Me.mmiSave.Text = "Save"
 '
 'mmiClose
 '
 Me.mmiClose.Name = "mmiClose"
 Me.mmiClose.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.W),System.Windows.Forms.Keys)
-Me.mmiClose.Size = New System.Drawing.Size(152, 22)
+Me.mmiClose.Size = New System.Drawing.Size(148, 22)
 Me.mmiClose.Text = "Close"
 '
 'mmiView
@@ -987,7 +987,7 @@ Me.mmiView.Text = "View"
 'mmiOpenMemo
 '
 Me.mmiOpenMemo.Name = "mmiOpenMemo"
-Me.mmiOpenMemo.Size = New System.Drawing.Size(152, 22)
+Me.mmiOpenMemo.Size = New System.Drawing.Size(141, 22)
 Me.mmiOpenMemo.Text = "Open Memo"
 '
 'mmiTool
@@ -1036,7 +1036,7 @@ Me.mmiHelp.Text = "Help"
 '
 'ToolStrip1
 '
-Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbSave, Me.tsbSearch, Me.tsbPrePopulate, Me.tsbPrint, Me.tsbClear, Me.tsbResize, Me.tsbMemo, Me.tsbTestLogLink, Me.tsbDelete, Me.tsbBack, Me.tsbConfidentialData})
+Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbSave, Me.tsbSearch, Me.tsbPrePopulate, Me.tsbPrint, Me.tsbClear, Me.tsbResize, Me.tsbMemo, Me.tsbTestLogLink, Me.tsbDelete, Me.tsbConfidentialData})
 Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
 Me.ToolStrip1.Name = "ToolStrip1"
 Me.ToolStrip1.Size = New System.Drawing.Size(790, 25)
@@ -1087,6 +1087,7 @@ Me.tsbClear.ImageTransparentColor = System.Drawing.Color.Magenta
 Me.tsbClear.Name = "tsbClear"
 Me.tsbClear.Size = New System.Drawing.Size(23, 22)
 Me.tsbClear.Text = "Clear"
+Me.tsbClear.Visible = false
 '
 'tsbResize
 '
@@ -1123,15 +1124,7 @@ Me.tsbDelete.ImageTransparentColor = System.Drawing.Color.Magenta
 Me.tsbDelete.Name = "tsbDelete"
 Me.tsbDelete.Size = New System.Drawing.Size(23, 22)
 Me.tsbDelete.Text = "Delete Test Report Data"
-'
-'tsbBack
-'
-Me.tsbBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-Me.tsbBack.Image = CType(resources.GetObject("tsbBack.Image"),System.Drawing.Image)
-Me.tsbBack.ImageTransparentColor = System.Drawing.Color.Magenta
-Me.tsbBack.Name = "tsbBack"
-Me.tsbBack.Size = New System.Drawing.Size(23, 22)
-Me.tsbBack.Text = "Back"
+Me.tsbDelete.Visible = false
 '
 'tsbConfidentialData
 '
@@ -1233,7 +1226,7 @@ Me.GroupBox1.Text = "Report Information "
 'lblMemoEntered
 '
 Me.lblMemoEntered.AutoSize = true
-Me.lblMemoEntered.Location = New System.Drawing.Point(191, 19)
+Me.lblMemoEntered.Location = New System.Drawing.Point(190, 23)
 Me.lblMemoEntered.Name = "lblMemoEntered"
 Me.lblMemoEntered.Size = New System.Drawing.Size(76, 13)
 Me.lblMemoEntered.TabIndex = 465
@@ -1423,7 +1416,7 @@ Me.cboTestingFirm.TabIndex = 8
 'Label19
 '
 Me.Label19.AutoSize = true
-Me.Label19.Location = New System.Drawing.Point(341, 92)
+Me.Label19.Location = New System.Drawing.Point(341, 91)
 Me.Label19.Name = "Label19"
 Me.Label19.Size = New System.Drawing.Size(67, 13)
 Me.Label19.TabIndex = 17
@@ -1582,7 +1575,7 @@ Me.cboMethodDetermined.TabIndex = 7
 'Label12
 '
 Me.Label12.AutoSize = true
-Me.Label12.Location = New System.Drawing.Point(341, 68)
+Me.Label12.Location = New System.Drawing.Point(341, 67)
 Me.Label12.Name = "Label12"
 Me.Label12.Size = New System.Drawing.Size(135, 13)
 Me.Label12.TabIndex = 52
@@ -1721,7 +1714,7 @@ Me.lblDatesTested.Text = "Date(s) Tested:"
 'Label6
 '
 Me.Label6.AutoSize = true
-Me.Label6.Location = New System.Drawing.Point(341, 20)
+Me.Label6.Location = New System.Drawing.Point(341, 19)
 Me.Label6.Name = "Label6"
 Me.Label6.Size = New System.Drawing.Size(80, 13)
 Me.Label6.TabIndex = 19
@@ -1749,7 +1742,7 @@ Me.Label4.TextAlign = System.Drawing.ContentAlignment.BottomLeft
 'Label8
 '
 Me.Label8.AutoSize = true
-Me.Label8.Location = New System.Drawing.Point(342, 44)
+Me.Label8.Location = New System.Drawing.Point(341, 43)
 Me.Label8.Name = "Label8"
 Me.Label8.Size = New System.Drawing.Size(108, 13)
 Me.Label8.TabIndex = 18
@@ -10065,11 +10058,23 @@ Me.txtTestReportDueDate.ReadOnly = true
 Me.txtTestReportDueDate.Size = New System.Drawing.Size(120, 20)
 Me.txtTestReportDueDate.TabIndex = 397
 '
+'DeletedTestFlag
+'
+Me.DeletedTestFlag.AutoSize = true
+Me.DeletedTestFlag.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+Me.DeletedTestFlag.Location = New System.Drawing.Point(341, 36)
+Me.DeletedTestFlag.Name = "DeletedTestFlag"
+Me.DeletedTestFlag.Size = New System.Drawing.Size(252, 13)
+Me.DeletedTestFlag.TabIndex = 465
+Me.DeletedTestFlag.Text = "TEST REPORT IS FLAGGED AS DELETED"
+Me.DeletedTestFlag.Visible = false
+'
 'ISMPTestReports
 '
 Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
 Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 Me.ClientSize = New System.Drawing.Size(790, 764)
+Me.Controls.Add(Me.DeletedTestFlag)
 Me.Controls.Add(Me.SCTestReports)
 Me.Controls.Add(Me.ToolStrip1)
 Me.Controls.Add(Me.MenuStrip1)
@@ -10164,7 +10169,6 @@ End Sub
     Friend WithEvents tsbMemo As System.Windows.Forms.ToolStripButton
     Friend WithEvents tsbTestLogLink As System.Windows.Forms.ToolStripButton
     Friend WithEvents tsbDelete As System.Windows.Forms.ToolStripButton
-    Friend WithEvents tsbBack As System.Windows.Forms.ToolStripButton
     Friend WithEvents SCTestReports As System.Windows.Forms.SplitContainer
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents cboComplianceStatus As System.Windows.Forms.ComboBox
@@ -11031,4 +11035,5 @@ End Sub
     Friend WithEvents rdbMethod9MultiAverage30 As System.Windows.Forms.RadioButton
     Friend WithEvents rdbMethod9MultiHighestAvg As System.Windows.Forms.RadioButton
     Friend WithEvents lblMemoEntered As System.Windows.Forms.Label
+    Friend WithEvents DeletedTestFlag As System.Windows.Forms.Label
 End Class
