@@ -2,7 +2,7 @@
 
 ## Version 3.7.3 <span>(2015-05-21)</span>
 
-+ NEW: *SSPP* -- Ability to search for permit applications with confidential info added to App Log (#296); yw Eric
++ NEW: *SSPP* -- App Log can now search for permit applications with confidential info (#296); yw Eric
 
 - FIX: *ISMP* -- Clearly identify test reports that have been deleted (#342)
 - FIX: Error when closing a facility (#344); thx Sean
