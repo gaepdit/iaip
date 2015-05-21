@@ -639,7 +639,7 @@ Partial Class SSPPTitleVTools
         Me.TPTVEmails.Controls.Add(Me.Panel6)
         Me.TPTVEmails.Location = New System.Drawing.Point(4, 22)
         Me.TPTVEmails.Name = "TPTVEmails"
-        Me.TPTVEmails.Size = New System.Drawing.Size(815, 469)
+        Me.TPTVEmails.Size = New System.Drawing.Size(815, 516)
         Me.TPTVEmails.TabIndex = 9
         Me.TPTVEmails.Text = "Title V Emails"
         Me.TPTVEmails.UseVisualStyleBackColor = True
@@ -650,7 +650,7 @@ Partial Class SSPPTitleVTools
         Me.Panel8.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel8.Location = New System.Drawing.Point(0, 335)
         Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(815, 134)
+        Me.Panel8.Size = New System.Drawing.Size(815, 181)
         Me.Panel8.TabIndex = 14
         '
         'txtEmailLetter
@@ -660,7 +660,7 @@ Partial Class SSPPTitleVTools
         Me.txtEmailLetter.Multiline = True
         Me.txtEmailLetter.Name = "txtEmailLetter"
         Me.txtEmailLetter.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtEmailLetter.Size = New System.Drawing.Size(815, 134)
+        Me.txtEmailLetter.Size = New System.Drawing.Size(815, 181)
         Me.txtEmailLetter.TabIndex = 12
         '
         'Panel7
@@ -886,7 +886,7 @@ Partial Class SSPPTitleVTools
         Me.TPTitleVRenewals.Controls.Add(Me.GBTitleVRenewals)
         Me.TPTitleVRenewals.Location = New System.Drawing.Point(4, 22)
         Me.TPTitleVRenewals.Name = "TPTitleVRenewals"
-        Me.TPTitleVRenewals.Size = New System.Drawing.Size(815, 469)
+        Me.TPTitleVRenewals.Size = New System.Drawing.Size(815, 516)
         Me.TPTitleVRenewals.TabIndex = 6
         Me.TPTitleVRenewals.Text = "Title V Renewals"
         Me.TPTitleVRenewals.UseVisualStyleBackColor = True
@@ -901,7 +901,7 @@ Partial Class SSPPTitleVTools
         Me.clbTitleVRenewals.Location = New System.Drawing.Point(0, 147)
         Me.clbTitleVRenewals.Name = "clbTitleVRenewals"
         Me.clbTitleVRenewals.ScrollAlwaysVisible = True
-        Me.clbTitleVRenewals.Size = New System.Drawing.Size(815, 319)
+        Me.clbTitleVRenewals.Size = New System.Drawing.Size(815, 364)
         Me.clbTitleVRenewals.TabIndex = 1
         '
         'GBTitleVRenewals
@@ -1077,7 +1077,7 @@ Partial Class SSPPTitleVTools
         Me.TPPermittingContact.Controls.Add(Me.Label11)
         Me.TPPermittingContact.Location = New System.Drawing.Point(4, 22)
         Me.TPPermittingContact.Name = "TPPermittingContact"
-        Me.TPPermittingContact.Size = New System.Drawing.Size(815, 469)
+        Me.TPPermittingContact.Size = New System.Drawing.Size(815, 516)
         Me.TPPermittingContact.TabIndex = 10
         Me.TPPermittingContact.Text = " Permitting App Contact"
         Me.TPPermittingContact.UseVisualStyleBackColor = True
@@ -1416,7 +1416,7 @@ Partial Class SSPPTitleVTools
         Me.Label39.AutoSize = True
         Me.Label39.Location = New System.Drawing.Point(19, 154)
         Me.Label39.Name = "Label39"
-        Me.Label39.Size = New System.Drawing.Size(49, 13)
+        Me.Label39.Size = New System.Drawing.Size(33, 13)
         Me.Label39.TabIndex = 391
         Me.Label39.Text = "Suffix"
         '
@@ -1510,15 +1510,15 @@ Partial Class SSPPTitleVTools
         Me.Label11.TabIndex = 381
         Me.Label11.Text = "First Name"
         '
-        'DMUTitleVTools
+        'SSPPTitleVTools
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
         Me.ClientSize = New System.Drawing.Size(823, 542)
         Me.Controls.Add(Me.TCDMUTools)
-        Me.Name = "DMUTitleVTools"
-        Me.Text = "DMU Title V Tools"
+        Me.Name = "SSPPTitleVTools"
+        Me.Text = "Title V Tools"
         Me.TCDMUTools.ResumeLayout(False)
         Me.TPWebPublishing.ResumeLayout(False)
         CType(Me.dgrWebPublisher, System.ComponentModel.ISupportInitialize).EndInit()

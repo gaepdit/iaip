@@ -674,92 +674,47 @@ Public Class SSPPTitleVTools
 
             clbTitleVRenewals.Items.Clear()
 
-            temp = "App #  -  Airs #   - Facility Name " & vbTab & vbTab & vbTab & vbTab & vbTab & " (     Permit Number    ) " & vbTab & "Issued Date" & vbTab & "Effective Date"
+            temp = "App #   Airs #   Facility Name                             (     Permit Number    )  Issued Date  Effective Date"
             If clbTitleVRenewals.Items.Contains(temp) Then
             Else
                 clbTitleVRenewals.Items.Add(temp)
             End If
 
-            'This SQL statement was changed on Feb 3, 2010 to minimize the number of results based on effective and issued dates. 
 
-            'SQL = "select " & _
-            '"AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " & _
-            '"substr(AIRBRANCH.APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,  " & _
-            '"AIRBRANCH.APBFacilityInformation.strFacilityName,  " & _
-            '"(substr(strPermitNumber, 1, 4)|| '-' || substr(strPermitNumber, 5, 3)  " & _
-            '"   || '-' || substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)  " & _
-            '"     || '-' ||substr(strPermitNumber, 13,2) || '-' ||substr(strPermitNumber, 15)) as PermitNumber,  " & _
-            '"to_char(datPermitIssued, 'dd-Mon-yyyy') as PermitIssued, " & _
-            '"to_char(datEffective, 'dd-Mon-yyyy') as EffectiveDate  " & _
-            '"from AIRBRANCH.SSPPApplicationMaster,  " & _
-            '"AIRBRANCH.SSPPApplicationData, AIRBRANCH.SSPPApplicationTracking,  " & _
-            '"AIRBRANCH.APBHeaderData, AIRBRANCH.APBFacilityInformation  " & _
-            '"where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
-            '"and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
-            '"and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber  " & _
-            '"and AIRBRANCH.SSPPApplicationMaster.strAIRSnumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " & _
-            '"and strPermitNumber Like '%V__0'  " & _
-            '"and AIRBRANCH.APBHeaderData.strOperationalStatus <> 'X'  " & _
-            '"and substr(AIRBRANCH.apbheaderdata.strairprogramcodes, 13, 1) = '1' " & _
-            '"and (datPermitIssued between '" & Startdate & "' and '" & EndDate & "' " & _
-            '"   or datEffective between '" & Startdate & "' and '" & EndDate & "') " & _
-            '"and (strApplicationType = '14' or strApplicationType = '16' or strApplicationType = '27') "
-
-
-
-
-
-
-
-
-
-            SQL = "select " & _
-           "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " & _
-           "substr(AIRBRANCH.APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,  " & _
-           "AIRBRANCH.APBFacilityInformation.strFacilityName,  " & _
-           "(substr(strPermitNumber, 1, 4)|| '-' || substr(strPermitNumber, 5, 3)  " & _
-           "   || '-' || substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)  " & _
-           "     || '-' ||substr(strPermitNumber, 13,2) || '-' ||substr(strPermitNumber, 15)) as PermitNumber,  " & _
-           "to_char(datPermitIssued, 'dd-Mon-yyyy') as PermitIssued, " & _
-           "to_char(datEffective, 'dd-Mon-yyyy') as EffectiveDate  " & _
-           "from AIRBRANCH.SSPPApplicationMaster,  " & _
-           "AIRBRANCH.SSPPApplicationData, AIRBRANCH.SSPPApplicationTracking,  " & _
-           "AIRBRANCH.APBHeaderData, AIRBRANCH.APBFacilityInformation  " & _
-           "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
-           "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
-           "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber  " & _
-           "and AIRBRANCH.SSPPApplicationMaster.strAIRSnumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " & _
-           "and strPermitNumber Like '%V__0'  " & _
-           "and AIRBRANCH.APBHeaderData.strOperationalStatus <> 'X'  " & _
-           "and substr(AIRBRANCH.apbheaderdata.strairprogramcodes, 13, 1) = '1' " & _
-           "and (datPermitIssued not between '" & Startdate & "' and '" & EndDate & "' " & _
-           "   and datEffective between '" & Startdate & "' and '" & EndDate & "') " & _
-           "and (strApplicationType = '14' or strApplicationType = '16' or strApplicationType = '27') " & _
-           "union  " & _
-           "select " & _
-           "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " & _
-           "substr(AIRBRANCH.APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,  " & _
-           "AIRBRANCH.APBFacilityInformation.strFacilityName,  " & _
-           "(substr(strPermitNumber, 1, 4)|| '-' || substr(strPermitNumber, 5, 3)  " & _
-           "   || '-' || substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)  " & _
-           "     || '-' ||substr(strPermitNumber, 13,2) || '-' ||substr(strPermitNumber, 15)) as PermitNumber,  " & _
-           "to_char(datPermitIssued, 'dd-Mon-yyyy') as PermitIssued, " & _
-           "to_char(datEffective, 'dd-Mon-yyyy') as EffectiveDate  " & _
-           "from AIRBRANCH.SSPPApplicationMaster,  " & _
-           "AIRBRANCH.SSPPApplicationData, AIRBRANCH.SSPPApplicationTracking,  " & _
-           "AIRBRANCH.APBHeaderData, AIRBRANCH.APBFacilityInformation  " & _
-           "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
-           "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
-           "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber  " & _
-           "and AIRBRANCH.SSPPApplicationMaster.strAIRSnumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " & _
-           "and strPermitNumber Like '%V__0'  " & _
-           "and AIRBRANCH.APBHeaderData.strOperationalStatus <> 'X'  " & _
-           "and substr(AIRBRANCH.apbheaderdata.strairprogramcodes, 13, 1) = '1' " & _
-           "and (datPermitIssued between '" & Startdate & "' and '" & EndDate & "' " & _
-           "   and datEffective between '" & Startdate & "' and '" & EndDate & "') " & _
-           "and (strApplicationType = '14' or strApplicationType = '16' or strApplicationType = '27') "
+            SQL = _
+            "SELECT am.STRAPPLICATIONNUMBER , SUBSTR( fi.STRAIRSNUMBER, 5 ) " & _
+            "  AS AIRSNumber , fi.STRFACILITYNAME ,( SUBSTR( " & _
+            "  ad.STRPERMITNUMBER, 1, 4 ) || '-' || SUBSTR( " & _
+            "  ad.STRPERMITNUMBER, 5, 3 ) || '-' || SUBSTR( " & _
+            "  ad.STRPERMITNUMBER, 8, 4 ) || '-' || SUBSTR( " & _
+            "  ad.STRPERMITNUMBER, 12, 1 ) || '-' || SUBSTR( " & _
+            "  ad.STRPERMITNUMBER, 13, 2 ) || '-' || SUBSTR( " & _
+            "  ad.STRPERMITNUMBER, 15 ) ) AS PermitNumber , TO_CHAR( " & _
+            "  at.DATPERMITISSUED, 'dd-Mon-yyyy' ) AS PermitIssued , TO_CHAR " & _
+            "  ( at.DATEFFECTIVE, 'dd-Mon-yyyy' ) AS EffectiveDate " & _
+            "FROM AIRBRANCH.SSPPApplicationMaster am " & _
+            "INNER JOIN AIRBRANCH.SSPPApplicationData ad " & _
+            "ON ad.STRAPPLICATIONNUMBER = am.STRAPPLICATIONNUMBER " & _
+            "INNER JOIN AIRBRANCH.SSPPApplicationTracking at " & _
+            "ON am.STRAPPLICATIONNUMBER = at.STRAPPLICATIONNUMBER " & _
+            "INNER JOIN AIRBRANCH.APBHeaderData hd " & _
+            "ON am.STRAIRSNUMBER = hd.STRAIRSNUMBER " & _
+            "INNER JOIN AIRBRANCH.APBFacilityInformation fi " & _
+            "ON fi.STRAIRSNUMBER = am.STRAIRSNUMBER " & _
+            "WHERE ad.STRPERMITNUMBER LIKE '%V__0' AND " & _
+            "  hd.STROPERATIONALSTATUS <> 'X' AND SUBSTR( " & _
+            "  hd.STRAIRPROGRAMCODES, 13, 1 ) = '1' AND at.DATEFFECTIVE " & _
+            "  BETWEEN :Startdate AND :EndDate AND( am.STRAPPLICATIONTYPE = " & _
+            "  '14' OR am.STRAPPLICATIONTYPE = '16' OR am.STRAPPLICATIONTYPE " & _
+            "  = '27' )"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd.Parameters.Clear()
+            Dim param1 As OracleParameter = New OracleParameter("Startdate", Startdate)
+            cmd.Parameters.Add(param1)
+            Dim param2 As OracleParameter = New OracleParameter("EndDate", EndDate)
+            cmd.Parameters.Add(param2)
+
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -797,27 +752,8 @@ Public Class SSPPTitleVTools
                 End If
 
                 If AIRSNumber <> "" Then
-                    temp = ApplicationNumber & " - " & AIRSNumber & " - " & FacilityName
-                    Select Case temp.Length
-                        Case 10 To 24
-                            temp = temp & vbTab & vbTab & vbTab & vbTab & vbTab & vbTab & vbTab & " ( " & PermitNumber & " ) " & vbTab & DateIssued & vbTab & EffectiveDate
-                        Case 25 To 32
-                            temp = temp & vbTab & vbTab & vbTab & vbTab & vbTab & vbTab & " ( " & PermitNumber & " ) " & vbTab & DateIssued & vbTab & EffectiveDate
-                        Case 33 To 39
-                            temp = temp & vbTab & vbTab & vbTab & vbTab & vbTab & " ( " & PermitNumber & " ) " & vbTab & DateIssued & vbTab & EffectiveDate
-                        Case 40 To 45
-                            temp = temp & vbTab & vbTab & vbTab & vbTab & " ( " & PermitNumber & " ) " & vbTab & DateIssued & vbTab & EffectiveDate
-                        Case 46 To 52
-                            temp = temp & vbTab & vbTab & vbTab & " ( " & PermitNumber & " ) " & vbTab & DateIssued & vbTab & EffectiveDate
-                        Case 53 To 59
-                            temp = temp & vbTab & vbTab & " ( " & PermitNumber & " ) " & vbTab & DateIssued & vbTab & EffectiveDate
-                        Case 60 To 66
-                            temp = temp & vbTab & " ( " & PermitNumber & " ) " & vbTab & DateIssued & vbTab & EffectiveDate
-                        Case 67 To 100
-                            temp = temp & " ( " & PermitNumber & " ) " & vbTab & DateIssued & vbTab & EffectiveDate
-                        Case Else
-                            temp = temp & vbTab & vbTab & vbTab & vbTab & vbTab & " ( " & PermitNumber & " ) " & vbTab & DateIssued & vbTab & EffectiveDate
-                    End Select
+                    temp = ApplicationNumber & "  " & AIRSNumber & "  " & FacilityName.Substring(0, Math.Min(FacilityName.Length, 40)).PadRight(40)
+                    temp = temp & "  ( " & PermitNumber & " ) " & " " & DateIssued & "  " & EffectiveDate
 
                     If clbTitleVRenewals.Items.Contains(temp) Then
                     Else
