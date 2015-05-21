@@ -1,5 +1,14 @@
 % IAIP Change Log
 
+## Version 3.7.3 <span>(2015-05-21)</span>
+
++ NEW: *SSPP* -- Ability to search for permit applications with confidential info added to App Log (#296); yw Eric
+
+- FIX: *ISMP* -- Clearly identify test reports that have been deleted (#342)
+- FIX: Error when closing a facility (#344); thx Sean
+- FIX: *EDT* -- EDT Tools now available to SSPP PM2 (#343)
+- FIX: *SSPP* -- Better formatting of list in Title V Renewal letter tool
+
 ## Version 3.7.2 <span>(2015-05-06)</span>
 
 - FIX: *EDT* -- Crash when resolving EDT errors (#333)
