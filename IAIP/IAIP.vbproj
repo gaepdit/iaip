@@ -55,8 +55,8 @@
     <MinimumRequiredVersion>3.6.10.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>IAIP-install.html</WebPage>
-    <ApplicationRevision>74</ApplicationRevision>
-    <ApplicationVersion>3.7.2.%2a</ApplicationVersion>
+    <ApplicationRevision>75</ApplicationRevision>
+    <ApplicationVersion>3.7.3.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
