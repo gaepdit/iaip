@@ -110,13 +110,13 @@ Partial Class IAIPEditHeaderData
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.FacilityHistoryDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.FacilityHistoryDataGridView.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.FacilityHistoryDataGridView.Location = New System.Drawing.Point(0, 387)
+        Me.FacilityHistoryDataGridView.Location = New System.Drawing.Point(0, 395)
         Me.FacilityHistoryDataGridView.MultiSelect = False
         Me.FacilityHistoryDataGridView.Name = "FacilityHistoryDataGridView"
         Me.FacilityHistoryDataGridView.ReadOnly = True
         Me.FacilityHistoryDataGridView.RowHeadersVisible = False
         Me.FacilityHistoryDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.FacilityHistoryDataGridView.Size = New System.Drawing.Size(612, 173)
+        Me.FacilityHistoryDataGridView.Size = New System.Drawing.Size(612, 165)
         Me.FacilityHistoryDataGridView.TabIndex = 18
         '
         'Comments

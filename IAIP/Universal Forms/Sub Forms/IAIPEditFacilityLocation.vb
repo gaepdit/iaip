@@ -13,22 +13,14 @@ Public Class IAIPEditFacilityLocation
     Private Sub IAIPEditFacilityLocation_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Try
-
-            Panel1.Text = "Select a Function..."
-            Panel2.Text = UserName
-            Panel3.Text = OracleDate
-
-            If txtAirsNumber.Text <> "" Then
+            If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtAirsNumber.Text) Then
                 LoadFacilityInformation()
             End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
+
 #Region "Page Load"
     Sub LoadFacilityInformation()
         Dim ModifingPerson As String
@@ -521,23 +513,8 @@ Public Class IAIPEditFacilityLocation
     End Sub
 #Region "Main Menu and Toolbar"
 
-    Private Sub TBEditFacilityLocation_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBEditFacilityLocation.ButtonClick
-        Select Case TBEditFacilityLocation.Buttons.IndexOf(e.Button)
-            Case 0
-                Save()
-        End Select
-    End Sub
-
-    Private Sub mmiSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSave.Click
+    Private Sub SaveButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SaveButton.Click
         Save()
-    End Sub
-
-    Private Sub mmiClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClose.Click
-        Me.Close()
-    End Sub
-
-    Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
-        OpenDocumentationUrl(Me)
     End Sub
 
 #End Region
@@ -545,17 +522,9 @@ Public Class IAIPEditFacilityLocation
 #End Region
 
     Private Sub txtAirsNumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtAirsNumber.TextChanged
-        Try
-            If txtAirsNumber.Text <> "" Then
-                LoadFacilityInformation()
-
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtAirsNumber.Text) Then
+            LoadFacilityInformation()
+        End If
     End Sub
 
 End Class

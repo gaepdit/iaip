@@ -2150,135 +2150,62 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             Dim OtherWitnessingEng As String = "0"
             Dim ConfidentialData As String = "0"
 
-            'SQL = "Select " & _
-            '"AIRBRANCH.ISMPMaster.strReferenceNumber,  " & _
-            '"substr(AIRBRANCH.ISMpMaster.strAIRSnumber, 5) as AIRSNumber,  " & _
-            '"AIRBRANCH.APBFacilityInformation.strFacilityName,  " & _
-            '"strFacilityCity, strFacilityState,  " & _
-            '"strPollutant, strEmissionSource,  " & _
-            '"strReportType, strDocumentType,  " & _
-            '"strApplicableRequirement,  " & _
-            '"strTestingFirm, strReviewingEngineer,  " & _
-            '"strWitnessingEngineer,  " & _
-            '"strReviewingUnit,  " & _
-            '"to_char(datReviewedByUnitManager, 'dd-Mon-yyyy') as datReviewedByUnitManager,  " & _
-            '"strComplianceManager,  " & _
-            '"to_char(datReceivedDate, 'dd-Mon-yyyy') as datReceivedDate,  " & _
-            '"to_char(datTestDateStart, 'dd-Mon-yyyy') as datTestDateStart,  " & _
-            '"to_char(datTestDateEnd, 'dd-Mon-yyyy') as datTestDateEnd,  " & _
-            '"to_char(datCompleteDate, 'dd-Mon-yyyy') as datCompleteDate,  " & _
-            '"mmoCommentArea,  " & _
-            '"strClosed, strProgramManager,  " & _
-            '"strComplianceStatus, strCC,  " & _
-            '"to_char(AIRBRANCH.ISMPReportInformation.datReceivedDate - AIRBRANCH.ISMPReportInformation.datTestDateEnd) as DaysFromTest,  " & _
-            '"case  " & _
-            '"when datCompleteDate = '04-Jul-1776' then to_char(sysdate-datReceivedDate)  " & _
-            '"else to_char(datCompleteDate - datReceivedDate)  " & _
-            '"End APBDays,  " & _
-            '"Case " & _
-            '"when datCompleteDate = '04-Jul-1776' then to_char(sysdate-datReviewedByUnitManager)  " & _
-            '"else to_char(datCompleteDate - datReviewedByUnitManager)  " & _
-            '"End EngineerDays,  " & _
-            '"strDeterminationMethod, strControlEquipmentData,  " & _
-            '"strOtherWitnessingEng, strConfidentialData,  " & _
-            '"case " & _
-            '"when numReviewingManager is null then 'N/A' " & _
-            '"when numReviewingManager = '0' then 'N/A' " & _
-            '"else (strLastName||', '||strFirstName) " & _
-            '"END UnitManager, " & _
-            '"strPreComplianceStatus " & _
-            '"from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation,  " & _
-            '"AIRBRANCH.ISMPReportInformation, AIRBRANCH.EPDUserProfiles     " & _
-            '"where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " & _
-            '"and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " & _
-            '"and AIRBRANCH.ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID (+) " & _
-            '"and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & RefNumber & "' "
-
-            SQL = <s><![CDATA[
-SELECT AIRBRANCH.ISMPMaster.STRREFERENCENUMBER,
-  SUBSTR(AIRBRANCH.ISMPMaster.STRAIRSNUMBER, 5) AS AIRSNumber,
-  AIRBRANCH.APBFacilityInformation.STRFACILITYNAME,
-  AIRBRANCH.APBFacilityInformation.STRFACILITYCITY,
-  AIRBRANCH.APBFacilityInformation.STRFACILITYSTATE,
-  AIRBRANCH.ISMPReportInformation.STRPOLLUTANT,
-  AIRBRANCH.ISMPReportInformation.STREMISSIONSOURCE,
-  AIRBRANCH.ISMPReportInformation.STRREPORTTYPE,
-  AIRBRANCH.ISMPReportInformation.STRDOCUMENTTYPE,
-  AIRBRANCH.ISMPReportInformation.STRAPPLICABLEREQUIREMENT,
-  AIRBRANCH.ISMPReportInformation.STRTESTINGFIRM,
-  AIRBRANCH.ISMPReportInformation.STRREVIEWINGENGINEER,
-  AIRBRANCH.ISMPReportInformation.STRWITNESSINGENGINEER,
-  AIRBRANCH.ISMPReportInformation.STRREVIEWINGUNIT,
-  TO_CHAR(AIRBRANCH.ISMPReportInformation.DATREVIEWEDBYUNITMANAGER, 'dd-Mon-yyyy') AS datReviewedByUnitManager,
-  AIRBRANCH.ISMPReportInformation.STRCOMPLIANCEMANAGER,
-  TO_CHAR(AIRBRANCH.ISMPReportInformation.DATRECEIVEDDATE, 'dd-Mon-yyyy')  AS datReceivedDate,
-  TO_CHAR(AIRBRANCH.ISMPReportInformation.DATTESTDATESTART, 'dd-Mon-yyyy') AS datTestDateStart,
-  TO_CHAR(AIRBRANCH.ISMPReportInformation.DATTESTDATEEND, 'dd-Mon-yyyy')   AS datTestDateEnd,
-  TO_CHAR(AIRBRANCH.ISMPReportInformation.DATCOMPLETEDATE, 'dd-Mon-yyyy')  AS datCompleteDate,
-  AIRBRANCH.ISMPReportInformation.MMOCOMMENTAREA,
-  AIRBRANCH.ISMPReportInformation.STRCLOSED,
-  AIRBRANCH.ISMPReportInformation.STRPROGRAMMANAGER,
-  AIRBRANCH.ISMPReportInformation.STRCOMPLIANCESTATUS,
-  AIRBRANCH.ISMPReportInformation.STRCC,
-  TO_CHAR(AIRBRANCH.ISMPReportInformation.DATRECEIVEDDATE - AIRBRANCH.ISMPReportInformation.DATTESTDATEEND) AS DaysFromTest,
-  CASE
-    WHEN AIRBRANCH.ISMPReportInformation.DATCOMPLETEDATE = '04-Jul-1776'
-    THEN TO_CHAR(SysDate                                         - AIRBRANCH.ISMPReportInformation.DATRECEIVEDDATE)
-    ELSE TO_CHAR(AIRBRANCH.ISMPReportInformation.DATCOMPLETEDATE - AIRBRANCH.ISMPReportInformation.DATRECEIVEDDATE)
-  END APBDays,
-  CASE
-    WHEN AIRBRANCH.ISMPReportInformation.DATCOMPLETEDATE = '04-Jul-1776'
-    THEN TO_CHAR(SysDate                                         - AIRBRANCH.ISMPReportInformation.DATREVIEWEDBYUNITMANAGER)
-    ELSE TO_CHAR(AIRBRANCH.ISMPReportInformation.DATCOMPLETEDATE - AIRBRANCH.ISMPReportInformation.DATREVIEWEDBYUNITMANAGER)
-  END EngineerDays,
-  AIRBRANCH.ISMPReportInformation.STRDETERMINATIONMETHOD,
-  AIRBRANCH.ISMPReportInformation.STRCONTROLEQUIPMENTDATA,
-  AIRBRANCH.ISMPReportInformation.STROTHERWITNESSINGENG,
-  AIRBRANCH.ISMPReportInformation.STRCONFIDENTIALDATA,
-  CASE
-    WHEN AIRBRANCH.ISMPReportInformation.NUMREVIEWINGMANAGER IS NULL
-    THEN 'None'
-    WHEN AIRBRANCH.ISMPReportInformation.NUMREVIEWINGMANAGER = '0'
-    THEN 'None'
-    ELSE (P1.STRLASTNAME
-      || ', '
-      || P1.STRFIRSTNAME)
-  END UnitManager,
-  AIRBRANCH.ISMPReportInformation.STRPRECOMPLIANCESTATUS,
-  CASE
-    WHEN AIRBRANCH.ISMPReportInformation.STRCOMPLIANCEMANAGER IS NULL
-    THEN 'None'
-    WHEN AIRBRANCH.ISMPReportInformation.STRCOMPLIANCEMANAGER = '0'
-    THEN 'None'
-    ELSE (P2.STRLASTNAME
-      || ', '
-      || P2.STRFIRSTNAME)
-  END ComplianceManager,
-  CASE
-    WHEN AIRBRANCH.ISMPReportInformation.STRCC IS NULL
-    THEN 'None'
-    WHEN AIRBRANCH.ISMPReportInformation.STRCC = '0'
-    THEN 'None'
-    ELSE (P3.STRLASTNAME
-      || ', '
-      || P3.STRFIRSTNAME)
-  END CCName
-FROM AIRBRANCH.ISMPMaster,
-  AIRBRANCH.APBFacilityInformation,
-  AIRBRANCH.ISMPReportInformation,
-  AIRBRANCH.EPDUSERPROFILES P1,
-  AIRBRANCH.EPDUSERPROFILES P2,
-  AIRBRANCH.EPDUserProfiles P3
-WHERE AIRBRANCH.ISMPMaster.STRAIRSNUMBER                 = AIRBRANCH.APBFacilityInformation.STRAIRSNUMBER
-AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER              = AIRBRANCH.ISMPReportInformation.STRREFERENCENUMBER
-AND AIRBRANCH.ISMPReportInformation.NUMREVIEWINGMANAGER  = P1.NUMUSERID(+)
-AND AIRBRANCH.ISMPReportInformation.STRCOMPLIANCEMANAGER = P2.NUMUSERID(+)
-AND AIRBRANCH.ISMPReportInformation.STRCC                = P3.NUMUSERID(+)
-AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            = 
-            ]]></s>.Value & _
-            " '" & RefNumber & "' "
+            SQL = _
+            "SELECT mas.STRREFERENCENUMBER , SUBSTR( mas.STRAIRSNUMBER, 5 ) " & _
+            "  AS AIRSNumber , fac.STRFACILITYNAME , fac.STRFACILITYCITY , " & _
+            "  fac.STRFACILITYSTATE , rep.STRPOLLUTANT , " & _
+            "  rep.STREMISSIONSOURCE , rep.STRREPORTTYPE , " & _
+            "  rep.STRDOCUMENTTYPE , rep.STRAPPLICABLEREQUIREMENT , " & _
+            "  rep.STRTESTINGFIRM , rep.STRREVIEWINGENGINEER , " & _
+            "  rep.STRWITNESSINGENGINEER , rep.STRREVIEWINGUNIT , TO_CHAR( " & _
+            "  rep.DATREVIEWEDBYUNITMANAGER, 'dd-Mon-yyyy' ) AS " & _
+            "  datReviewedByUnitManager , rep.STRCOMPLIANCEMANAGER , TO_CHAR " & _
+            "  ( rep.DATRECEIVEDDATE, 'dd-Mon-yyyy' ) AS datReceivedDate , " & _
+            "  TO_CHAR( rep.DATTESTDATESTART, 'dd-Mon-yyyy' ) AS " & _
+            "  datTestDateStart , TO_CHAR( rep.DATTESTDATEEND, 'dd-Mon-yyyy' " & _
+            "  ) AS datTestDateEnd , TO_CHAR( rep.DATCOMPLETEDATE, " & _
+            "  'dd-Mon-yyyy' ) AS datCompleteDate , rep.MMOCOMMENTAREA , " & _
+            "  rep.STRCLOSED , rep.STRPROGRAMMANAGER , " & _
+            "  rep.STRCOMPLIANCESTATUS , rep.STRCC , TO_CHAR( " & _
+            "  rep.DATRECEIVEDDATE - rep.DATTESTDATEEND ) AS DaysFromTest , " & _
+            "  CASE WHEN rep.DATCOMPLETEDATE = '04-Jul-1776' THEN TO_CHAR( " & _
+            "      SysDate - rep.DATRECEIVEDDATE ) ELSE TO_CHAR( " & _
+            "      rep.DATCOMPLETEDATE - rep.DATRECEIVEDDATE ) END APBDays , " & _
+            "  CASE WHEN rep.DATCOMPLETEDATE = '04-Jul-1776' THEN TO_CHAR( " & _
+            "      SysDate - rep.DATREVIEWEDBYUNITMANAGER ) ELSE TO_CHAR( " & _
+            "      rep.DATCOMPLETEDATE - rep.DATREVIEWEDBYUNITMANAGER ) END " & _
+            "  EngineerDays , rep.STRDETERMINATIONMETHOD , " & _
+            "  rep.STRCONTROLEQUIPMENTDATA , rep.STROTHERWITNESSINGENG , " & _
+            "  rep.STRCONFIDENTIALDATA , CASE WHEN rep.NUMREVIEWINGMANAGER " & _
+            "      IS NULL THEN 'None'        WHEN rep.NUMREVIEWINGMANAGER = " & _
+            "      '0'     THEN 'None' ELSE( p1.STRLASTNAME || ', ' || " & _
+            "      p1.STRFIRSTNAME ) END UnitManager , " & _
+            "  rep.STRPRECOMPLIANCESTATUS , CASE                WHEN " & _
+            "      rep.STRCOMPLIANCEMANAGER IS NULL THEN 'None' WHEN " & _
+            "      rep.STRCOMPLIANCEMANAGER = '0'   THEN 'None' ELSE( " & _
+            "      p2.STRLASTNAME || ', ' || p2.STRFIRSTNAME ) END " & _
+            "  ComplianceManager , CASE WHEN rep.STRCC IS NULL THEN 'None' " & _
+            "                           WHEN rep.STRCC = '0'   THEN 'None' " & _
+            "    ELSE( p3.STRLASTNAME || ', ' || p3.STRFIRSTNAME ) END " & _
+            "  CCName , rep.STRDELETE " & _
+            "FROM AIRBRANCH.ISMPMaster mas " & _
+            "INNER JOIN AIRBRANCH.ISMPReportInformation rep " & _
+            "ON mas.STRREFERENCENUMBER = rep.STRREFERENCENUMBER " & _
+            "LEFT JOIN AIRBRANCH.EPDUserProfiles p3 " & _
+            "ON rep.STRCC = p3.NUMUSERID " & _
+            "LEFT JOIN AIRBRANCH.EPDUSERPROFILES p2 " & _
+            "ON rep.STRCOMPLIANCEMANAGER = p2.NUMUSERID " & _
+            "LEFT JOIN AIRBRANCH.EPDUSERPROFILES p1 " & _
+            "ON rep.NUMREVIEWINGMANAGER = p1.NUMUSERID " & _
+            "INNER JOIN AIRBRANCH.APBFacilityInformation fac " & _
+            "ON fac.STRAIRSNUMBER = mas.STRAIRSNUMBER " & _
+            "WHERE mas.STRREFERENCENUMBER = :refnum"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
+            Dim parameter As OracleParameter = New OracleParameter("RefNumber", RefNumber)
+            cmd.Parameters.Clear()
+            cmd.Parameters.Add(parameter)
+
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2542,6 +2469,8 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                     End If
                 End If
 
+                DeletedTestFlag.Visible = (Not IsDBNull(dr.Item("STRDELETE")) AndAlso dr.Item("STRDELETE") = "DELETE")
+
                 cboComplianceStatus.BackColor = Color.White
                 If cboComplianceStatus.SelectedValue = "05" Then
                     cboComplianceStatus.BackColor = Color.Tomato
@@ -2553,86 +2482,87 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             Else
 
             End If
-                    dr.Close()
+            dr.Close()
 
-                    If DocumentType <> "" Then
-                        Select Case DocumentType
-                            Case "001"
-                                TCDocumentTypes.TabPages.Remove(TPSSCPWork)
-                                LoadDefaultComplianceManager()
-                            Case "002"
-                                LoadOneStack(txtReferenceNumber.Text)
-                            Case "003"
-                                LoadOneStack(txtReferenceNumber.Text)
-                            Case "004"
-                                LoadOneStack(txtReferenceNumber.Text)
-                            Case "005"
-                                LoadTwoStack(txtReferenceNumber.Text)
-                            Case "006"
-                                LoadTwoStack(txtReferenceNumber.Text)
-                            Case "007"
-                                LoadLoadingRack(txtReferenceNumber.Text)
-                            Case "008"
-                                LoadPondTreatment(txtReferenceNumber.Text)
-                            Case "009"
-                                LoadGasConcentration(txtReferenceNumber.Text)
-                            Case "010"
-                                LoadFlare(txtReferenceNumber.Text)
-                            Case "011"
-                                LoadRata(txtReferenceNumber.Text)
-                            Case "012"
-                                LoadMemo(txtReferenceNumber.Text)
-                            Case "013"
-                                LoadMemo(txtReferenceNumber.Text)
-                            Case "014"
-                                LoadMethod9(txtReferenceNumber.Text)
-                            Case "015"
-                                LoadMethod22(txtReferenceNumber.Text)
-                            Case "016"
-                                LoadMethod9(txtReferenceNumber.Text)
-                            Case "017"
-                                LoadPEMS(txtReferenceNumber.Text)
-                            Case "018"
-                                LoadMemo(txtReferenceNumber.Text)
-                            Case Else
-                                TCDocumentTypes.TabPages.Remove(TPSSCPWork)
-                                LoadDefaultComplianceManager()
-                        End Select
-                    End If
-                    If OtherWitnessingEng <> "0" Then
-                        LoadOtherWitnessingEng()
-                    End If
+            If DocumentType <> "" Then
+                Select Case DocumentType
+                    Case "001"
+                        TCDocumentTypes.TabPages.Remove(TPSSCPWork)
+                        LoadDefaultComplianceManager()
+                    Case "002"
+                        LoadOneStack(txtReferenceNumber.Text)
+                    Case "003"
+                        LoadOneStack(txtReferenceNumber.Text)
+                    Case "004"
+                        LoadOneStack(txtReferenceNumber.Text)
+                    Case "005"
+                        LoadTwoStack(txtReferenceNumber.Text)
+                    Case "006"
+                        LoadTwoStack(txtReferenceNumber.Text)
+                    Case "007"
+                        LoadLoadingRack(txtReferenceNumber.Text)
+                    Case "008"
+                        LoadPondTreatment(txtReferenceNumber.Text)
+                    Case "009"
+                        LoadGasConcentration(txtReferenceNumber.Text)
+                    Case "010"
+                        LoadFlare(txtReferenceNumber.Text)
+                    Case "011"
+                        LoadRata(txtReferenceNumber.Text)
+                    Case "012"
+                        LoadMemo(txtReferenceNumber.Text)
+                    Case "013"
+                        LoadMemo(txtReferenceNumber.Text)
+                    Case "014"
+                        LoadMethod9(txtReferenceNumber.Text)
+                    Case "015"
+                        LoadMethod22(txtReferenceNumber.Text)
+                    Case "016"
+                        LoadMethod9(txtReferenceNumber.Text)
+                    Case "017"
+                        LoadPEMS(txtReferenceNumber.Text)
+                    Case "018"
+                        LoadMemo(txtReferenceNumber.Text)
+                    Case Else
+                        TCDocumentTypes.TabPages.Remove(TPSSCPWork)
+                        LoadDefaultComplianceManager()
+                End Select
+            End If
+            If OtherWitnessingEng <> "0" Then
+                LoadOtherWitnessingEng()
+            End If
 
             If ReportStatus = "True" Then 'Or AccountArray(69, 4) = "1" Then 'Add Compliance work if User has 'Special Permission 
                 TCDocumentTypes.TabPages.Add(TPSSCPWork)
             Else
                 TCDocumentTypes.TabPages.Remove(TPSSCPWork)
             End If
-                    If ConfidentialData.Contains("1") Then
-                        If Mid(ConfidentialData, 1, 1) = "1" Then
-                            LoadConfidentialData(ConfidentialData)
-                        End If
-                    End If
 
+            If ConfidentialData.Contains("1") Then
+                If Mid(ConfidentialData, 1, 1) = "1" Then
+                    LoadConfidentialData(ConfidentialData)
+                End If
+            End If
+
+            lblMemoEntered.Visible = False
+
+            SQL = "Select " & _
+            "* from AIRBranch.ISMPTestReportMemo " & _
+            "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
+
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
+            End If
+            dr = cmd.ExecuteReader
+            While dr.Read
+                If IsDBNull(dr.Item("strReferenceNumber")) Then
                     lblMemoEntered.Visible = False
-
-                    SQL = "Select " & _
-                    "* from AIRBranch.ISMPTestReportMemo " & _
-                    "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        If IsDBNull(dr.Item("strReferenceNumber")) Then
-                            lblMemoEntered.Visible = False
-                        Else
-                            lblMemoEntered.Visible = True
-                        End If
-                    End While
-                    dr.Close()
+                Else
+                    lblMemoEntered.Visible = True
+                End If
+            End While
+            dr.Close()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -10851,6 +10781,8 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                     " strDelete = 'DELETE' where strReferenceNumber = :ref"
                 DB.RunCommand(SQL, parameter)
 
+                DeletedTestFlag.Visible = True
+
                 SQL = "SELECT STRTRACKINGNUMBER FROM AIRBRANCH.SSCPTESTREPORTS WHERE STRREFERENCENUMBER = :ref"
                 Dim trackingNumber As String = DB.GetSingleValue(Of String)(SQL, parameter)
 
@@ -17880,14 +17812,6 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
     Private Sub tsbDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbDelete.Click
         Try
             DeleteTestReport()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
-    Private Sub tsbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbBack.Click
-        Try
-            Me.Dispose()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally

@@ -149,7 +149,7 @@ Namespace DAL
                                          ByVal comments As String, _
                                          ByVal fromLocation As HeaderDataModificationLocation _
                                          ) As Boolean
-            ' -- Transaction:
+            ' -- Transaction (handled in database procedure):
             '    1. Update APBHeaderData
             '    2. Update APBAirProgramPollutants
             '    3. Update EIS_FacilitySite
@@ -159,7 +159,7 @@ Namespace DAL
                 New OracleParameter("AirsNumber", airsNumber.DbFormattedString), _
                 New OracleParameter("ShutDownDate", shutdownDate), _
                 New OracleParameter("Comments", comments), _
-                New OracleParameter("FromUiLocation", fromLocation), _
+                New OracleParameter("FromUiLocation", Convert.ToInt32(fromLocation)), _
                 New OracleParameter("UserId", UserGCode) _
             }
 
