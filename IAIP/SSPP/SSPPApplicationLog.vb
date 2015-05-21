@@ -1066,6 +1066,10 @@ Public Class SSPPApplicationLog
                 "   when substr(strTrackedRules, 7, 1) = '1' then 'Expedited Permit'   " & _
                 "   else ' '   " & _
                 "   end ExpeditedPermitRule,   " & _
+                "   case   " & _
+                "   when substr(strTrackedRules, 8, 1) = '1' then 'Confidential information submitted'   " & _
+                "   else ' '   " & _
+                "   end ConfInfoRule,   " & _
                 " (substr(AIRBRANCH.SSPPSubpartData.strSubpartKey, -1, 1) ||' - '||AIRBRANCH.SSPPSubpartData.strSubpart) as strSubpart " & _
                 "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
                 "  AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUpPermitTypes, " & _
@@ -1204,6 +1208,8 @@ Public Class SSPPApplicationLog
                             SQLSearch1 = " substr(AIRBRANCH.SSPPApplicationData.strTrackedRules, 6, 1) = '1' "
                         Case "Expedited Permit"
                             SQLSearch1 = " substr(AIRBRANCH.SSPPApplicationData.strTrackedRules, 7, 1) = '1' "
+                        Case "Confidential information submitted"
+                            SQLSearch1 = " substr(AIRBRANCH.SSPPApplicationData.strTrackedRules, 8, 1) = '1' "
                         Case Else
                             SQLSearch1 = " "
                     End Select
@@ -1436,6 +1442,8 @@ Public Class SSPPApplicationLog
                             SQLSearch2 = " substr(AIRBRANCH.SSPPApplicationData.strTrackedRules, 6, 1) = '1' "
                         Case "Expedited Permit"
                             SQLSearch2 = " substr(AIRBRANCH.SSPPApplicationData.strTrackedRules, 7, 1) = '1' "
+                        Case "Confidential information submitted"
+                            SQLSearch2 = " substr(AIRBRANCH.SSPPApplicationData.strTrackedRules, 8, 1) = '1' "
                         Case Else
                             SQLSearch2 = " "
                     End Select
@@ -1994,14 +2002,6 @@ Public Class SSPPApplicationLog
         dgvApplicationLog.DataSource = dsApplication
         dgvApplicationLog.DataMember = "ApplicationLog"
 
-        dgvApplicationLog.RowHeadersVisible = False
-        dgvApplicationLog.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-        dgvApplicationLog.AllowUserToResizeColumns = True
-        dgvApplicationLog.AllowUserToAddRows = False
-        dgvApplicationLog.AllowUserToDeleteRows = False
-        dgvApplicationLog.AllowUserToOrderColumns = True
-        dgvApplicationLog.AllowUserToResizeRows = True
-
         dgvApplicationLog.Columns("strApplicationNumber").HeaderText = "APL #"
         dgvApplicationLog.Columns("strApplicationNumber").DisplayIndex = 0
         dgvApplicationLog.Columns("strApplicationType").HeaderText = "APL Type"
@@ -2114,15 +2114,17 @@ Public Class SSPPApplicationLog
             dgvApplicationLog.Columns("PALRule").DisplayIndex = 51
             dgvApplicationLog.Columns("ExpeditedPermitRule").HeaderText = "Expedited Permit"
             dgvApplicationLog.Columns("ExpeditedPermitRule").DisplayIndex = 52
+            dgvApplicationLog.Columns("ConfInfoRule").HeaderText = "Confidential info submitted"
+            dgvApplicationLog.Columns("ConfInfoRule").DisplayIndex = 53
             dgvApplicationLog.Columns("datApplicationPackageComplete").Visible = False
             dgvApplicationLog.Columns("datFinalizedDate").Visible = False
             dgvApplicationLog.Columns("datWithdrawn").Visible = False
             dgvApplicationLog.Columns("datApplicationStarted").Visible = False
             dgvApplicationLog.Columns("strAFSGCode").HeaderText = "AFS G Code"
-            dgvApplicationLog.Columns("strAFSGCode").DisplayIndex = 53
+            dgvApplicationLog.Columns("strAFSGCode").DisplayIndex = 54
             dgvApplicationLog.Columns("strAFSGCode").Visible = False
             dgvApplicationLog.Columns("strSubpart").HeaderText = "Subpart"
-            dgvApplicationLog.Columns("strSubpart").DisplayIndex = 54
+            dgvApplicationLog.Columns("strSubpart").DisplayIndex = 55
         End If
 
         If dsApplication.Tables(0).Rows.Count = 0 Then
@@ -2221,6 +2223,7 @@ Public Class SSPPApplicationLog
                     cboSearchText1.Items.Add("Rule (yy) RACT")
                     cboSearchText1.Items.Add("Actuals PAL")
                     cboSearchText1.Items.Add("Expedited Permit")
+                    cboSearchText1.Items.Add("Confidential information submitted")
                     cboSearchText1.Text = cboSearchText1.Items.Item(0)
                 Case "Application No."
                     txtSearchText1.Visible = True
@@ -2891,6 +2894,7 @@ Public Class SSPPApplicationLog
                     cboSearchText2.Items.Add("Rule (yy) RACT")
                     cboSearchText2.Items.Add("Actuals PAL")
                     cboSearchText2.Items.Add("Expedited Permit")
+                    cboSearchText2.Items.Add("Confidential information submitted")
                     cboSearchText2.Text = cboSearchText2.Items.Item(0)
                 Case "Application No."
                     txtSearchText2.Visible = True
