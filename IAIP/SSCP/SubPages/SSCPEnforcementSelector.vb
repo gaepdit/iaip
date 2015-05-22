@@ -22,9 +22,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -101,9 +99,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -114,9 +110,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -141,9 +135,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -184,9 +176,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -426,9 +416,7 @@ Public Class SSCPEnforcementSelector
             dgvSSCPEnforcement.DataSource = dsSSCPEnforcement
             dgvSSCPEnforcement.DataMember = "SSCPEnforcement"
 
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
             dgvSSCPEnforcement.RowHeadersVisible = False
             dgvSSCPEnforcement.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -465,9 +453,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(SQL & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -478,9 +464,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -498,9 +482,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -511,9 +493,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -560,9 +540,7 @@ Public Class SSCPEnforcementSelector
                 ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             End If
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub

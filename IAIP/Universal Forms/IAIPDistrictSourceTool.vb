@@ -32,9 +32,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
 
@@ -85,16 +83,12 @@ Public Class IAIPDistrictSourceTool
                 clbCounties.Items.Add(dr.Item("strCountyname"))
             End While
 
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -125,9 +119,7 @@ Public Class IAIPDistrictSourceTool
                 CurrentConnection.Open()
             End If
             daDistrict.Fill(dsDistrict, "District")
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
             dtDistrict.Columns.Add("strDistrictName", GetType(System.String))
             dtDistrict.Columns.Add("strDistrictCode", GetType(System.String))
@@ -203,9 +195,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
 
@@ -261,9 +251,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -334,9 +322,7 @@ Public Class IAIPDistrictSourceTool
 
                 lsbDistricts.SelectedValue = txtNewDistrict.Text & " - " & txtNewDistrictCode.Text
 
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
             End If
 
             If chbRemoveDistrict.Checked = True Then
@@ -350,9 +336,7 @@ Public Class IAIPDistrictSourceTool
 
                 dr = cmd.ExecuteReader
 
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 LoadDistrictListBox()
                 chbRemoveDistrict.Checked = False
             End If
@@ -360,9 +344,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
 
@@ -373,9 +355,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -386,9 +366,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -402,9 +380,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -415,9 +391,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -428,9 +402,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -441,9 +413,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -454,9 +424,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -477,9 +445,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -495,9 +461,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -512,9 +476,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -529,9 +491,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -542,9 +502,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -556,9 +514,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -570,9 +526,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -617,9 +571,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -688,9 +640,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub

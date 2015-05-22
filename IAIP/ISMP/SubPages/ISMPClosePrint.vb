@@ -842,9 +842,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -882,9 +880,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
 
@@ -992,16 +988,12 @@ Public Class ISMPClosePrint
             End If
 
             txtTestLinksCount.Text = llbEmissionLog.Items.Count
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -1021,9 +1013,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -1053,9 +1043,7 @@ Public Class ISMPClosePrint
             cmd = New OracleCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
             LoadInformation()
 
@@ -1064,9 +1052,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
 
@@ -1082,9 +1068,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -1099,9 +1083,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -1119,9 +1101,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -1142,9 +1122,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -1156,9 +1134,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -1170,9 +1146,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -1184,9 +1158,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -1198,9 +1170,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -1212,9 +1182,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -1230,9 +1198,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -1244,9 +1210,7 @@ Public Class ISMPClosePrint
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub

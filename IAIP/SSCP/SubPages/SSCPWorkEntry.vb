@@ -351,9 +351,7 @@ Public Class SSCPWorkEnTry
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -385,9 +383,7 @@ Public Class SSCPWorkEnTry
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -423,9 +419,7 @@ Public Class SSCPWorkEnTry
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
 
@@ -462,9 +456,7 @@ Public Class SSCPWorkEnTry
                     txtTrackingNumber.Text = dr2.Item(0)
                 End While
 
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
 
                 MsgBox("Done")
 
@@ -475,9 +467,7 @@ Public Class SSCPWorkEnTry
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
 
@@ -491,9 +481,7 @@ Public Class SSCPWorkEnTry
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -505,9 +493,7 @@ Public Class SSCPWorkEnTry
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -519,9 +505,7 @@ Public Class SSCPWorkEnTry
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -539,9 +523,7 @@ Public Class SSCPWorkEnTry
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -573,9 +555,7 @@ Public Class SSCPWorkEnTry
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -607,9 +587,7 @@ Public Class SSCPWorkEnTry
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub

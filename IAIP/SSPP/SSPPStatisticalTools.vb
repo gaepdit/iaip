@@ -111,9 +111,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -137,9 +135,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -958,9 +954,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -1209,9 +1203,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -1348,9 +1340,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -1532,9 +1522,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -1959,9 +1947,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
 
@@ -2002,9 +1988,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -2028,9 +2012,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -2123,9 +2105,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -2155,9 +2135,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -2188,9 +2166,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -2241,9 +2217,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -2334,9 +2308,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -2366,9 +2338,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -2459,9 +2429,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -2491,9 +2459,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -2584,9 +2550,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -2616,9 +2580,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -2709,9 +2671,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -2741,9 +2701,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -2834,9 +2792,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -2866,9 +2822,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -2959,9 +2913,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -2991,9 +2943,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -3086,9 +3036,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -3118,9 +3066,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -3218,9 +3164,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -3250,9 +3194,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -3345,9 +3287,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -3377,9 +3317,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -3392,9 +3330,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -3482,9 +3418,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -3510,9 +3444,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -3602,9 +3534,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -3630,9 +3560,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -3722,9 +3650,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -3750,9 +3676,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -3842,9 +3766,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -3870,9 +3792,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -3965,9 +3885,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -3994,9 +3912,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -4090,9 +4006,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -4119,9 +4033,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -4216,9 +4128,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -4245,9 +4155,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -4342,9 +4250,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -4370,9 +4276,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -4385,9 +4289,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -4478,9 +4380,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -4508,9 +4408,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -4602,9 +4500,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -4632,9 +4528,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -4726,9 +4620,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -4756,9 +4648,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -4849,9 +4739,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -4879,9 +4767,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -4894,9 +4780,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -4987,9 +4871,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -5017,9 +4899,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -5111,9 +4991,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -5141,9 +5019,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -5236,9 +5112,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -5266,9 +5140,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -5361,9 +5233,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -5391,9 +5261,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -5486,9 +5354,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -5516,9 +5382,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -5610,9 +5474,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -5640,9 +5502,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -5659,9 +5519,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -5711,9 +5569,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -5737,9 +5593,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -5795,9 +5649,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -5823,9 +5675,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -5858,9 +5708,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -5884,9 +5732,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -5948,9 +5794,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -5978,9 +5822,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -6043,9 +5885,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -6074,9 +5914,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -6134,9 +5972,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -6162,9 +5998,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -6227,9 +6061,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -6251,9 +6083,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -6316,9 +6146,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -6342,9 +6170,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -6426,9 +6252,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -6451,9 +6275,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -6518,9 +6340,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -6548,9 +6368,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -6613,9 +6431,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -6643,9 +6459,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -6708,9 +6522,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -6738,9 +6550,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -6798,9 +6608,7 @@ Public Class SSPPStatisticalTools
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvApplicationCount.AllowUserToResizeColumns = True
@@ -6827,9 +6635,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -6842,9 +6648,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -6933,9 +6737,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -6953,9 +6755,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -6973,9 +6773,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -7007,9 +6805,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -7041,9 +6837,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -7075,9 +6869,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -7093,9 +6885,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -7143,9 +6933,7 @@ Public Class SSPPStatisticalTools
                 ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             End If
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub

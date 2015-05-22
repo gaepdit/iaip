@@ -888,9 +888,7 @@ Public Class SSCPComplianceLog
                                 dr2 = cmd2.ExecuteReader
                             End If
 
-                            If CurrentConnection.State = ConnectionState.Open Then
-                                'conn.close()
-                            End If
+
 
                             SSCPReports = Nothing
                             If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
@@ -1579,9 +1577,6 @@ Public Class SSCPComplianceLog
         '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         '    End If
         'Finally
-        '    If Conn.State = ConnectionState.Open Then
-        '        'conn.close()
-        '    End If
         'End Try
 
     End Sub

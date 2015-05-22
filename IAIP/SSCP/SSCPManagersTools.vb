@@ -2675,9 +2675,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -2755,9 +2753,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -2839,9 +2835,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -2924,9 +2918,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -3011,9 +3003,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -3100,9 +3090,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -3190,9 +3178,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -3276,9 +3262,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -3362,9 +3346,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -3449,9 +3431,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -3538,9 +3518,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -3625,9 +3603,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -3712,9 +3688,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -3962,9 +3936,7 @@ Public Class SSCPManagersTools
                 daEnforcementPenalties.Fill(dsEnforcementPenalties, "EnforcementPenalties")
                 dgvStatisticalReports.DataSource = dsEnforcementPenalties
                 dgvStatisticalReports.DataMember = "EnforcementPenalties"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvStatisticalReports.RowHeadersVisible = False
                 dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvStatisticalReports.AllowUserToResizeColumns = True

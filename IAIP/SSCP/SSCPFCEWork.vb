@@ -127,9 +127,7 @@ Public Class SSCPFCEWork
             End If
             dr.Close()
 
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -174,9 +172,7 @@ Public Class SSCPFCEWork
             daFCE.Fill(dsFCE, "FCEdata")
             daStaff.Fill(dsStaff, "Staff")
 
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1468,9 +1464,7 @@ Public Class SSCPFCEWork
                     End If
                 End If
                 dr.Close()
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
 
             End If
 
@@ -2014,9 +2008,7 @@ Public Class SSCPFCEWork
                     End If
                 End If
 
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
 
                 txtFCENumber.Text = FCENumber
                 LoadFCEDataset()

@@ -40,9 +40,6 @@ Public Class PASPFeeReports
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
             progress1.progress = 0
         End Try
 
@@ -87,11 +84,6 @@ Public Class PASPFeeReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-
         End Try
 
     End Sub
@@ -117,10 +109,6 @@ Public Class PASPFeeReports
             End If
 
             da.Fill(ds, "facilityInfo")
-
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
 
             dtAIRS.Columns.Add("strairsnumber", GetType(System.String))
             dtAIRS.Columns.Add("strfacilityname", GetType(System.String))
@@ -156,11 +144,6 @@ Public Class PASPFeeReports
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-
         End Try
     End Sub
     Sub LoadComboBoxesD()
@@ -190,11 +173,6 @@ Public Class PASPFeeReports
 
         Catch ex As Exception
             ErrorReport(ex, "PASPFeeReports.LoadComboBoxesD(Sub1)")
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-
         End Try
 
         Try
@@ -218,11 +196,6 @@ Public Class PASPFeeReports
             If dr.IsClosed = False Then dr.Close()
         Catch ex As Exception
             ErrorReport(ex, "PASPFeeReports.LoadComboBoxesD(Sub2)")
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-
         End Try
     End Sub
 
@@ -248,9 +221,7 @@ Public Class PASPFeeReports
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -555,9 +526,7 @@ Public Class PASPFeeReports
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
         progress1.progress = 0
@@ -583,9 +552,7 @@ Public Class PASPFeeReports
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -1025,9 +992,7 @@ Public Class PASPFeeReports
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub

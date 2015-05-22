@@ -430,9 +430,7 @@ Public Class SscpEnforcement
             daHPV.Fill(dsHPV, "HPV")
             daStaff.Fill(dsStaff, "Staff")
 
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
             dtComplianceStatus.Columns.Add("ComplianceDesc", GetType(System.String))
             dtComplianceStatus.Columns.Add("strComplianceCode", GetType(System.String))
