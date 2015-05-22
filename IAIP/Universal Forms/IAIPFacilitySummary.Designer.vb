@@ -474,7 +474,7 @@ Partial Class IAIPFacilitySummary
         Me.CmsDisplay.ReadOnly = True
         Me.CmsDisplay.Size = New System.Drawing.Size(138, 13)
         Me.CmsDisplay.TabIndex = 8
-        Me.CmsDisplay.Text = "class"
+        Me.CmsDisplay.Text = "N/A"
         '
         'ComplianceStatusLabel
         '
@@ -611,7 +611,7 @@ Partial Class IAIPFacilitySummary
         Me.ResponsibleOfficeDisplay.ReadOnly = True
         Me.ResponsibleOfficeDisplay.Size = New System.Drawing.Size(138, 13)
         Me.ResponsibleOfficeDisplay.TabIndex = 10
-        Me.ResponsibleOfficeDisplay.Text = "responsible office"
+        Me.ResponsibleOfficeDisplay.Text = "N/A"
         '
         'DataUpdateDateDisplay
         '
@@ -622,7 +622,7 @@ Partial Class IAIPFacilitySummary
         Me.DataUpdateDateDisplay.ReadOnly = True
         Me.DataUpdateDateDisplay.Size = New System.Drawing.Size(138, 13)
         Me.DataUpdateDateDisplay.TabIndex = 15
-        Me.DataUpdateDateDisplay.Text = "date"
+        Me.DataUpdateDateDisplay.Text = "N/A"
         '
         'EpaDateDisplay
         '
@@ -633,7 +633,7 @@ Partial Class IAIPFacilitySummary
         Me.EpaDateDisplay.ReadOnly = True
         Me.EpaDateDisplay.Size = New System.Drawing.Size(138, 13)
         Me.EpaDateDisplay.TabIndex = 17
-        Me.EpaDateDisplay.Text = "date"
+        Me.EpaDateDisplay.Text = "N/A"
         '
         'InfoPermitRevocationDateDisplay
         '
@@ -644,7 +644,7 @@ Partial Class IAIPFacilitySummary
         Me.InfoPermitRevocationDateDisplay.ReadOnly = True
         Me.InfoPermitRevocationDateDisplay.Size = New System.Drawing.Size(138, 13)
         Me.InfoPermitRevocationDateDisplay.TabIndex = 13
-        Me.InfoPermitRevocationDateDisplay.Text = "date"
+        Me.InfoPermitRevocationDateDisplay.Text = "N/A"
         '
         'CreatedDateDisplay
         '
@@ -655,7 +655,7 @@ Partial Class IAIPFacilitySummary
         Me.CreatedDateDisplay.ReadOnly = True
         Me.CreatedDateDisplay.Size = New System.Drawing.Size(138, 13)
         Me.CreatedDateDisplay.TabIndex = 14
-        Me.CreatedDateDisplay.Text = "date"
+        Me.CreatedDateDisplay.Text = "N/A"
         '
         'FisDateDisplay
         '
@@ -666,7 +666,7 @@ Partial Class IAIPFacilitySummary
         Me.FisDateDisplay.ReadOnly = True
         Me.FisDateDisplay.Size = New System.Drawing.Size(138, 13)
         Me.FisDateDisplay.TabIndex = 16
-        Me.FisDateDisplay.Text = "date"
+        Me.FisDateDisplay.Text = "N/A"
         '
         'InfoStartupDateDisplay
         '
@@ -677,7 +677,7 @@ Partial Class IAIPFacilitySummary
         Me.InfoStartupDateDisplay.ReadOnly = True
         Me.InfoStartupDateDisplay.Size = New System.Drawing.Size(138, 13)
         Me.InfoStartupDateDisplay.TabIndex = 12
-        Me.InfoStartupDateDisplay.Text = "date"
+        Me.InfoStartupDateDisplay.Text = "N/A"
         '
         'ComplianceStatusDisplay
         '
@@ -688,7 +688,7 @@ Partial Class IAIPFacilitySummary
         Me.ComplianceStatusDisplay.ReadOnly = True
         Me.ComplianceStatusDisplay.Size = New System.Drawing.Size(171, 13)
         Me.ComplianceStatusDisplay.TabIndex = 11
-        Me.ComplianceStatusDisplay.Text = "In violation, no applicable state reg"
+        Me.ComplianceStatusDisplay.Text = "N/A"
         '
         'InfoOperStatusDisplay
         '
@@ -699,7 +699,7 @@ Partial Class IAIPFacilitySummary
         Me.InfoOperStatusDisplay.ReadOnly = True
         Me.InfoOperStatusDisplay.Size = New System.Drawing.Size(138, 13)
         Me.InfoOperStatusDisplay.TabIndex = 6
-        Me.InfoOperStatusDisplay.Text = "oper"
+        Me.InfoOperStatusDisplay.Text = "N/A"
         '
         'InfoClassDisplay
         '
@@ -710,7 +710,7 @@ Partial Class IAIPFacilitySummary
         Me.InfoClassDisplay.ReadOnly = True
         Me.InfoClassDisplay.Size = New System.Drawing.Size(138, 13)
         Me.InfoClassDisplay.TabIndex = 7
-        Me.InfoClassDisplay.Text = "class"
+        Me.InfoClassDisplay.Text = "N/A"
         '
         'DistrictOfficeDisplay
         '
@@ -721,7 +721,7 @@ Partial Class IAIPFacilitySummary
         Me.DistrictOfficeDisplay.ReadOnly = True
         Me.DistrictOfficeDisplay.Size = New System.Drawing.Size(138, 13)
         Me.DistrictOfficeDisplay.TabIndex = 9
-        Me.DistrictOfficeDisplay.Text = "district office"
+        Me.DistrictOfficeDisplay.Text = "N/A"
         '
         'CountyDisplay
         '
@@ -732,7 +732,7 @@ Partial Class IAIPFacilitySummary
         Me.CountyDisplay.ReadOnly = True
         Me.CountyDisplay.Size = New System.Drawing.Size(207, 13)
         Me.CountyDisplay.TabIndex = 4
-        Me.CountyDisplay.Text = "county"
+        Me.CountyDisplay.Text = "N/A"
         '
         'LatLonDisplay
         '
@@ -743,7 +743,7 @@ Partial Class IAIPFacilitySummary
         Me.LatLonDisplay.ReadOnly = True
         Me.LatLonDisplay.Size = New System.Drawing.Size(207, 13)
         Me.LatLonDisplay.TabIndex = 4
-        Me.LatLonDisplay.Text = "lat, lon"
+        Me.LatLonDisplay.Text = "N/A"
         '
         'InfoDescDisplay
         '
@@ -755,7 +755,7 @@ Partial Class IAIPFacilitySummary
         Me.InfoDescDisplay.ReadOnly = True
         Me.InfoDescDisplay.Size = New System.Drawing.Size(207, 70)
         Me.InfoDescDisplay.TabIndex = 0
-        Me.InfoDescDisplay.Text = resources.GetString("InfoDescDisplay.Text")
+        Me.InfoDescDisplay.Text = "N/A"
         '
         'LocationDisplay
         '
@@ -767,7 +767,7 @@ Partial Class IAIPFacilitySummary
         Me.LocationDisplay.ReadOnly = True
         Me.LocationDisplay.Size = New System.Drawing.Size(207, 39)
         Me.LocationDisplay.TabIndex = 2
-        Me.LocationDisplay.Text = "location 1" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "line 2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "line 3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "county"
+        Me.LocationDisplay.Text = "N/A"
         '
         'EditFacilityLocationButton
         '
@@ -1294,7 +1294,7 @@ Partial Class IAIPFacilitySummary
         Me.TPWebContacts.Location = New System.Drawing.Point(4, 22)
         Me.TPWebContacts.Margin = New System.Windows.Forms.Padding(2)
         Me.TPWebContacts.Name = "TPWebContacts"
-        Me.TPWebContacts.Size = New System.Drawing.Size(629, 320)
+        Me.TPWebContacts.Size = New System.Drawing.Size(629, 293)
         Me.TPWebContacts.TabIndex = 0
         Me.TPWebContacts.Text = "Web Site"
         Me.TPWebContacts.UseVisualStyleBackColor = True
@@ -1340,7 +1340,7 @@ Partial Class IAIPFacilitySummary
         Me.ContactsWebSiteGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle8
         Me.ContactsWebSiteGrid.RowHeadersVisible = False
         Me.ContactsWebSiteGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.ContactsWebSiteGrid.Size = New System.Drawing.Size(629, 320)
+        Me.ContactsWebSiteGrid.Size = New System.Drawing.Size(629, 293)
         Me.ContactsWebSiteGrid.TabIndex = 7
         '
         'TPSSPPContacts
@@ -1349,7 +1349,7 @@ Partial Class IAIPFacilitySummary
         Me.TPSSPPContacts.Location = New System.Drawing.Point(4, 22)
         Me.TPSSPPContacts.Margin = New System.Windows.Forms.Padding(2)
         Me.TPSSPPContacts.Name = "TPSSPPContacts"
-        Me.TPSSPPContacts.Size = New System.Drawing.Size(629, 320)
+        Me.TPSSPPContacts.Size = New System.Drawing.Size(629, 293)
         Me.TPSSPPContacts.TabIndex = 1
         Me.TPSSPPContacts.Text = "Permitting"
         Me.TPSSPPContacts.UseVisualStyleBackColor = True
@@ -1395,7 +1395,7 @@ Partial Class IAIPFacilitySummary
         Me.ContactsPermittingGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
         Me.ContactsPermittingGrid.RowHeadersVisible = False
         Me.ContactsPermittingGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.ContactsPermittingGrid.Size = New System.Drawing.Size(629, 320)
+        Me.ContactsPermittingGrid.Size = New System.Drawing.Size(629, 293)
         Me.ContactsPermittingGrid.TabIndex = 7
         '
         'TPISMPContacts
@@ -1404,7 +1404,7 @@ Partial Class IAIPFacilitySummary
         Me.TPISMPContacts.Location = New System.Drawing.Point(4, 22)
         Me.TPISMPContacts.Margin = New System.Windows.Forms.Padding(2)
         Me.TPISMPContacts.Name = "TPISMPContacts"
-        Me.TPISMPContacts.Size = New System.Drawing.Size(629, 320)
+        Me.TPISMPContacts.Size = New System.Drawing.Size(629, 293)
         Me.TPISMPContacts.TabIndex = 2
         Me.TPISMPContacts.Text = "Source Monitoring"
         Me.TPISMPContacts.UseVisualStyleBackColor = True
@@ -1450,7 +1450,7 @@ Partial Class IAIPFacilitySummary
         Me.ContactsTestingGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle16
         Me.ContactsTestingGrid.RowHeadersVisible = False
         Me.ContactsTestingGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.ContactsTestingGrid.Size = New System.Drawing.Size(629, 320)
+        Me.ContactsTestingGrid.Size = New System.Drawing.Size(629, 293)
         Me.ContactsTestingGrid.TabIndex = 7
         '
         'TPSSCPContacts
@@ -1459,7 +1459,7 @@ Partial Class IAIPFacilitySummary
         Me.TPSSCPContacts.Location = New System.Drawing.Point(4, 22)
         Me.TPSSCPContacts.Margin = New System.Windows.Forms.Padding(2)
         Me.TPSSCPContacts.Name = "TPSSCPContacts"
-        Me.TPSSCPContacts.Size = New System.Drawing.Size(629, 320)
+        Me.TPSSCPContacts.Size = New System.Drawing.Size(629, 293)
         Me.TPSSCPContacts.TabIndex = 3
         Me.TPSSCPContacts.Text = "Compliance"
         Me.TPSSCPContacts.UseVisualStyleBackColor = True
@@ -1505,7 +1505,7 @@ Partial Class IAIPFacilitySummary
         Me.ContactsComplianceGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle20
         Me.ContactsComplianceGrid.RowHeadersVisible = False
         Me.ContactsComplianceGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.ContactsComplianceGrid.Size = New System.Drawing.Size(629, 320)
+        Me.ContactsComplianceGrid.Size = New System.Drawing.Size(629, 293)
         Me.ContactsComplianceGrid.TabIndex = 7
         '
         'TPGECOContacts
@@ -1513,7 +1513,7 @@ Partial Class IAIPFacilitySummary
         Me.TPGECOContacts.Controls.Add(Me.ContactsGecoGrid)
         Me.TPGECOContacts.Location = New System.Drawing.Point(4, 22)
         Me.TPGECOContacts.Name = "TPGECOContacts"
-        Me.TPGECOContacts.Size = New System.Drawing.Size(629, 320)
+        Me.TPGECOContacts.Size = New System.Drawing.Size(629, 293)
         Me.TPGECOContacts.TabIndex = 5
         Me.TPGECOContacts.Text = "GECO (online users)"
         Me.TPGECOContacts.UseVisualStyleBackColor = True
@@ -1559,7 +1559,7 @@ Partial Class IAIPFacilitySummary
         Me.ContactsGecoGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle24
         Me.ContactsGecoGrid.RowHeadersVisible = False
         Me.ContactsGecoGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.ContactsGecoGrid.Size = New System.Drawing.Size(629, 320)
+        Me.ContactsGecoGrid.Size = New System.Drawing.Size(629, 293)
         Me.ContactsGecoGrid.TabIndex = 7
         '
         'EditContactsPanel
@@ -1641,7 +1641,7 @@ Partial Class IAIPFacilitySummary
         Me.TPTestNotifications.Location = New System.Drawing.Point(4, 22)
         Me.TPTestNotifications.Margin = New System.Windows.Forms.Padding(2)
         Me.TPTestNotifications.Name = "TPTestNotifications"
-        Me.TPTestNotifications.Size = New System.Drawing.Size(629, 360)
+        Me.TPTestNotifications.Size = New System.Drawing.Size(629, 333)
         Me.TPTestNotifications.TabIndex = 1
         Me.TPTestNotifications.Text = "Notifications"
         Me.TPTestNotifications.UseVisualStyleBackColor = True
@@ -1663,7 +1663,7 @@ Partial Class IAIPFacilitySummary
         Me.TestNotificationsGrid.ReadOnly = True
         Me.TestNotificationsGrid.RowHeadersVisible = False
         Me.TestNotificationsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.TestNotificationsGrid.Size = New System.Drawing.Size(629, 360)
+        Me.TestNotificationsGrid.Size = New System.Drawing.Size(629, 333)
         Me.TestNotificationsGrid.TabIndex = 9
         '
         'TPTestMemos
@@ -1672,7 +1672,7 @@ Partial Class IAIPFacilitySummary
         Me.TPTestMemos.Location = New System.Drawing.Point(4, 22)
         Me.TPTestMemos.Margin = New System.Windows.Forms.Padding(2)
         Me.TPTestMemos.Name = "TPTestMemos"
-        Me.TPTestMemos.Size = New System.Drawing.Size(629, 360)
+        Me.TPTestMemos.Size = New System.Drawing.Size(629, 333)
         Me.TPTestMemos.TabIndex = 2
         Me.TPTestMemos.Text = "Memos"
         Me.TPTestMemos.UseVisualStyleBackColor = True
@@ -1694,7 +1694,7 @@ Partial Class IAIPFacilitySummary
         Me.TestMemosGrid.ReadOnly = True
         Me.TestMemosGrid.RowHeadersVisible = False
         Me.TestMemosGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.TestMemosGrid.Size = New System.Drawing.Size(629, 360)
+        Me.TestMemosGrid.Size = New System.Drawing.Size(629, 333)
         Me.TestMemosGrid.TabIndex = 9
         '
         'FSCompliance
@@ -1757,7 +1757,7 @@ Partial Class IAIPFacilitySummary
         Me.TPFce.Location = New System.Drawing.Point(4, 22)
         Me.TPFce.Margin = New System.Windows.Forms.Padding(2)
         Me.TPFce.Name = "TPFce"
-        Me.TPFce.Size = New System.Drawing.Size(629, 360)
+        Me.TPFce.Size = New System.Drawing.Size(629, 333)
         Me.TPFce.TabIndex = 1
         Me.TPFce.Text = "FCE"
         Me.TPFce.UseVisualStyleBackColor = True
@@ -1779,7 +1779,7 @@ Partial Class IAIPFacilitySummary
         Me.ComplianceFceGrid.ReadOnly = True
         Me.ComplianceFceGrid.RowHeadersVisible = False
         Me.ComplianceFceGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.ComplianceFceGrid.Size = New System.Drawing.Size(629, 360)
+        Me.ComplianceFceGrid.Size = New System.Drawing.Size(629, 333)
         Me.ComplianceFceGrid.TabIndex = 5
         '
         'TPEnforcement
@@ -1788,7 +1788,7 @@ Partial Class IAIPFacilitySummary
         Me.TPEnforcement.Location = New System.Drawing.Point(4, 22)
         Me.TPEnforcement.Margin = New System.Windows.Forms.Padding(2)
         Me.TPEnforcement.Name = "TPEnforcement"
-        Me.TPEnforcement.Size = New System.Drawing.Size(629, 360)
+        Me.TPEnforcement.Size = New System.Drawing.Size(629, 333)
         Me.TPEnforcement.TabIndex = 2
         Me.TPEnforcement.Text = "Enforcement"
         Me.TPEnforcement.UseVisualStyleBackColor = True
@@ -1810,7 +1810,7 @@ Partial Class IAIPFacilitySummary
         Me.ComplianceEnforcementGrid.ReadOnly = True
         Me.ComplianceEnforcementGrid.RowHeadersVisible = False
         Me.ComplianceEnforcementGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.ComplianceEnforcementGrid.Size = New System.Drawing.Size(629, 360)
+        Me.ComplianceEnforcementGrid.Size = New System.Drawing.Size(629, 333)
         Me.ComplianceEnforcementGrid.TabIndex = 7
         '
         'FSPermitting
@@ -1873,7 +1873,7 @@ Partial Class IAIPFacilitySummary
         Me.TPCurrentRules.Controls.Add(Me.PermitRulesGrid)
         Me.TPCurrentRules.Location = New System.Drawing.Point(4, 22)
         Me.TPCurrentRules.Name = "TPCurrentRules"
-        Me.TPCurrentRules.Size = New System.Drawing.Size(629, 360)
+        Me.TPCurrentRules.Size = New System.Drawing.Size(629, 333)
         Me.TPCurrentRules.TabIndex = 1
         Me.TPCurrentRules.Text = "Current Rules"
         Me.TPCurrentRules.UseVisualStyleBackColor = True
@@ -1895,7 +1895,7 @@ Partial Class IAIPFacilitySummary
         Me.PermitRulesGrid.ReadOnly = True
         Me.PermitRulesGrid.RowHeadersVisible = False
         Me.PermitRulesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.PermitRulesGrid.Size = New System.Drawing.Size(629, 360)
+        Me.PermitRulesGrid.Size = New System.Drawing.Size(629, 333)
         Me.PermitRulesGrid.TabIndex = 10
         '
         'TPRuleHistory
@@ -1903,7 +1903,7 @@ Partial Class IAIPFacilitySummary
         Me.TPRuleHistory.Controls.Add(Me.PermitRuleHistoryGrid)
         Me.TPRuleHistory.Location = New System.Drawing.Point(4, 22)
         Me.TPRuleHistory.Name = "TPRuleHistory"
-        Me.TPRuleHistory.Size = New System.Drawing.Size(629, 360)
+        Me.TPRuleHistory.Size = New System.Drawing.Size(629, 333)
         Me.TPRuleHistory.TabIndex = 2
         Me.TPRuleHistory.Text = "Rule History"
         Me.TPRuleHistory.UseVisualStyleBackColor = True
@@ -1925,7 +1925,7 @@ Partial Class IAIPFacilitySummary
         Me.PermitRuleHistoryGrid.ReadOnly = True
         Me.PermitRuleHistoryGrid.RowHeadersVisible = False
         Me.PermitRuleHistoryGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.PermitRuleHistoryGrid.Size = New System.Drawing.Size(629, 360)
+        Me.PermitRuleHistoryGrid.Size = New System.Drawing.Size(629, 333)
         Me.PermitRuleHistoryGrid.TabIndex = 10
         '
         'TPPermits
@@ -1934,7 +1934,7 @@ Partial Class IAIPFacilitySummary
         Me.TPPermits.Controls.Add(Me.PermitsPanel)
         Me.TPPermits.Location = New System.Drawing.Point(4, 22)
         Me.TPPermits.Name = "TPPermits"
-        Me.TPPermits.Size = New System.Drawing.Size(629, 360)
+        Me.TPPermits.Size = New System.Drawing.Size(629, 333)
         Me.TPPermits.TabIndex = 3
         Me.TPPermits.Text = "Permits"
         Me.TPPermits.UseVisualStyleBackColor = True
@@ -1956,14 +1956,14 @@ Partial Class IAIPFacilitySummary
         Me.PermitsGrid.ReadOnly = True
         Me.PermitsGrid.RowHeadersVisible = False
         Me.PermitsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.PermitsGrid.Size = New System.Drawing.Size(629, 316)
+        Me.PermitsGrid.Size = New System.Drawing.Size(629, 289)
         Me.PermitsGrid.TabIndex = 9
         '
         'PermitsPanel
         '
         Me.PermitsPanel.Controls.Add(Me.PermitsLink)
         Me.PermitsPanel.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PermitsPanel.Location = New System.Drawing.Point(0, 316)
+        Me.PermitsPanel.Location = New System.Drawing.Point(0, 289)
         Me.PermitsPanel.Margin = New System.Windows.Forms.Padding(2)
         Me.PermitsPanel.Name = "PermitsPanel"
         Me.PermitsPanel.Size = New System.Drawing.Size(629, 44)
@@ -2526,7 +2526,7 @@ Partial Class IAIPFacilitySummary
         Me.TPInvoices.Controls.Add(Me.FinancialInvoicesGrid)
         Me.TPInvoices.Location = New System.Drawing.Point(4, 22)
         Me.TPInvoices.Name = "TPInvoices"
-        Me.TPInvoices.Size = New System.Drawing.Size(629, 360)
+        Me.TPInvoices.Size = New System.Drawing.Size(629, 333)
         Me.TPInvoices.TabIndex = 2
         Me.TPInvoices.Text = "Invoices"
         Me.TPInvoices.UseVisualStyleBackColor = True
@@ -2548,7 +2548,7 @@ Partial Class IAIPFacilitySummary
         Me.FinancialInvoicesGrid.ReadOnly = True
         Me.FinancialInvoicesGrid.RowHeadersVisible = False
         Me.FinancialInvoicesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.FinancialInvoicesGrid.Size = New System.Drawing.Size(629, 360)
+        Me.FinancialInvoicesGrid.Size = New System.Drawing.Size(629, 333)
         Me.FinancialInvoicesGrid.TabIndex = 6
         '
         'TPFeeDeposits
@@ -2556,7 +2556,7 @@ Partial Class IAIPFacilitySummary
         Me.TPFeeDeposits.Controls.Add(Me.FinancialDepositsGrid)
         Me.TPFeeDeposits.Location = New System.Drawing.Point(4, 22)
         Me.TPFeeDeposits.Name = "TPFeeDeposits"
-        Me.TPFeeDeposits.Size = New System.Drawing.Size(629, 360)
+        Me.TPFeeDeposits.Size = New System.Drawing.Size(629, 333)
         Me.TPFeeDeposits.TabIndex = 1
         Me.TPFeeDeposits.Text = "Fee Deposits"
         Me.TPFeeDeposits.UseVisualStyleBackColor = True
@@ -2578,7 +2578,7 @@ Partial Class IAIPFacilitySummary
         Me.FinancialDepositsGrid.ReadOnly = True
         Me.FinancialDepositsGrid.RowHeadersVisible = False
         Me.FinancialDepositsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.FinancialDepositsGrid.Size = New System.Drawing.Size(629, 360)
+        Me.FinancialDepositsGrid.Size = New System.Drawing.Size(629, 333)
         Me.FinancialDepositsGrid.TabIndex = 6
         '
         'FSEmissionInventory
@@ -2639,7 +2639,7 @@ Partial Class IAIPFacilitySummary
         Me.TpEiPre2009.Location = New System.Drawing.Point(4, 22)
         Me.TpEiPre2009.Name = "TpEiPre2009"
         Me.TpEiPre2009.Padding = New System.Windows.Forms.Padding(3)
-        Me.TpEiPre2009.Size = New System.Drawing.Size(629, 360)
+        Me.TpEiPre2009.Size = New System.Drawing.Size(629, 333)
         Me.TpEiPre2009.TabIndex = 1
         Me.TpEiPre2009.Text = "Data Up To 2009"
         Me.TpEiPre2009.UseVisualStyleBackColor = True
@@ -2661,7 +2661,7 @@ Partial Class IAIPFacilitySummary
         Me.EiPre2009Grid.ReadOnly = True
         Me.EiPre2009Grid.RowHeadersVisible = False
         Me.EiPre2009Grid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.EiPre2009Grid.Size = New System.Drawing.Size(623, 354)
+        Me.EiPre2009Grid.Size = New System.Drawing.Size(623, 327)
         Me.EiPre2009Grid.TabIndex = 6
         '
         'FSMenuStrip

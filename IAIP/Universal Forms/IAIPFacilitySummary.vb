@@ -371,8 +371,8 @@ Public Class IAIPFacilitySummary
 
             'Air Programs
             Dim tempAP As AirProgram = .AirPrograms
-            AirProgramsListBox.Items.Clear()
             With AirProgramsListBox.Items
+                .Clear()
                 If tempAP = AirProgram.None Then
                     .Add(AirProgram.None.GetDescription)
                 Else
@@ -401,6 +401,7 @@ Public Class IAIPFacilitySummary
             EditPollutantsButton.Enabled = True
 
             'Classifications
+            ProgramClassificationsListBox.Items.Clear()
             If (.AirProgramClassifications = AirProgramClassification.None) Then
                 ProgramClassificationsListBox.Items.Add(AirProgramClassification.None.GetDescription)
             Else
