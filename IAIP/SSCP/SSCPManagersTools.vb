@@ -1910,21 +1910,38 @@ Public Class SSCPManagersTools
                 End If
             End If
             If PollutantLine <> "" Then
-                PollutantLine = "and (" & PollutantLine & ") "
+                PollutantLine = "where (" & PollutantLine & ") "
             Else
                 PollutantLine = ""
             End If
 
-            SQL = "Select " & _
-            "substr(AIRBRANCH.APBAirProgramPollutants.strAIRSnumber, 5) as AIRSNumber, " & _
-            "strFacilityName, " & _
-            "(strComplianceStatus|| ' - ' ||strComplianceDesc) as PollutantStatus, " & _
-            "strPollutantDescription " & _
-            "from AIRBRANCH.APBAirProgramPollutants, AIRBRANCH.APBFacilityInformation, " & _
-            "AIRBRANCH.LookUpComplianceStatus, AIRBRANCH.LookUPPollutants " & _
-            "where AIRBRANCH.APBAirProgramPollutants.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber " & _
-            "and AIRBRANCH.APBAirProgramPollutants.strComplianceStatus  = AIRBRANCH.LookUpComplianceStatus.strComplianceCode " & _
-            "and AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.APBAirProgramPollutants.strPollutantKey " & _
+            SQL = _
+            "SELECT SUBSTR( pp.STRAIRSNUMBER, 5 ) AS AIRSNumber , " & _
+            "  fi.STRFACILITYNAME ,( pp.STRCOMPLIANCESTATUS || ' - ' || " & _
+            "  lc.STRCOMPLIANCEDESC ) AS PollutantStatus , " & _
+            "  lp.STRPOLLUTANTDESCRIPTION , CASE                    WHEN SUBSTR( " & _
+            "      strAirPollutantKey, 13, 1 ) = '0'         THEN 'SIP'     WHEN SUBSTR( " & _
+            "      strAirPollutantKey, 13, 1 ) = '1'         THEN 'Fed SIP' WHEN " & _
+            "      SUBSTR( strAirPollutantKey, 13, 1 ) = '3' THEN " & _
+            "      'Non-Fed SIP'                WHEN SUBSTR( strAirPollutantKey, 13, 1 ) = " & _
+            "      '4'                                       THEN 'CFC'       WHEN SUBSTR( strAirPollutantKey, 13, 1 ) = " & _
+            "      '6'                                       THEN 'PSD'       WHEN SUBSTR( strAirPollutantKey, 13, 1 ) = " & _
+            "      '7'                                       THEN 'NSR'       WHEN SUBSTR( strAirPollutantKey, 13, 1 ) = " & _
+            "      '8'                                       THEN 'NESHAP'    WHEN SUBSTR( strAirPollutantKey, 13, 1 " & _
+            "      ) = '9'                                   THEN 'NSPS'      WHEN SUBSTR( strAirPollutantKey, 13 " & _
+            "      , 1 ) = 'A'                               THEN 'Acid Rain' WHEN SUBSTR( " & _
+            "      strAirPollutantKey, 13, 1 ) = 'F'         THEN 'FESOP'     WHEN " & _
+            "      SUBSTR( strAirPollutantKey, 13, 1 ) = 'I' THEN " & _
+            "      'Native American'   WHEN SUBSTR( strAirPollutantKey, 13, 1 " & _
+            "      ) = 'M'   THEN 'MACT' WHEN SUBSTR( strAirPollutantKey, 13, " & _
+            "      1 ) = 'V' THEN 'Title V' ELSE '' END AirProgram " & _
+            "FROM AIRBRANCH.APBAIRPROGRAMPOLLUTANTS pp " & _
+            "INNER JOIN AIRBRANCH.LOOKUPCOMPLIANCESTATUS lc " & _
+            "ON lc.STRCOMPLIANCECODE = pp.STRCOMPLIANCESTATUS " & _
+            "INNER JOIN AIRBRANCH.LOOKUPPOLLUTANTS lp " & _
+            "ON lp.STRPOLLUTANTCODE = pp.STRPOLLUTANTKEY " & _
+            "INNER JOIN AIRBRANCH.APBFACILITYINFORMATION fi " & _
+            "ON pp.STRAIRSNUMBER = fi.STRAIRSNUMBER " & _
             PollutantLine
 
             dsPollutantList = New DataSet
@@ -1935,9 +1952,7 @@ Public Class SSCPManagersTools
             daPollutantList.Fill(dsPollutantList, "PollutantList")
             dgvPollutantFacilities.DataSource = dsPollutantList
             dgvPollutantFacilities.DataMember = "PollutantList"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvPollutantFacilities.RowHeadersVisible = False
             dgvPollutantFacilities.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvPollutantFacilities.AllowUserToResizeColumns = True
@@ -1945,18 +1960,19 @@ Public Class SSCPManagersTools
             dgvPollutantFacilities.AllowUserToDeleteRows = False
             dgvPollutantFacilities.AllowUserToOrderColumns = True
             dgvPollutantFacilities.AllowUserToResizeRows = True
+
             dgvPollutantFacilities.Columns("AIRSNumber").HeaderText = "AIRS #"
             dgvPollutantFacilities.Columns("AIRSNumber").DisplayIndex = 0
-            dgvPollutantFacilities.Columns("AIRSNumber").Width = 100
             dgvPollutantFacilities.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvPollutantFacilities.Columns("strFacilityName").DisplayIndex = 1
-            dgvPollutantFacilities.Columns("strFacilityName").Width = 250
             dgvPollutantFacilities.Columns("strPollutantDescription").HeaderText = "Pollutant"
             dgvPollutantFacilities.Columns("strPollutantDescription").DisplayIndex = 2
-            dgvPollutantFacilities.Columns("strPollutantDescription").Width = 200
             dgvPollutantFacilities.Columns("PollutantStatus").HeaderText = "Status"
             dgvPollutantFacilities.Columns("PollutantStatus").DisplayIndex = 3
-            dgvPollutantFacilities.Columns("PollutantStatus").Width = 400
+            dgvPollutantFacilities.Columns("AirProgram").HeaderText = "Air Program"
+            dgvPollutantFacilities.Columns("AirProgram").DisplayIndex = 4
+
+            dgvPollutantFacilities.SanelyResizeColumns()
 
             txtPollutantCount.Text = dgvPollutantFacilities.RowCount.ToString
 
@@ -2554,13 +2570,7 @@ Public Class SSCPManagersTools
         End Try
     End Sub
     Private Sub btnViewFacilities_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewFacilities.Click
-        Try
-
-            FilterPollutantSearch()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        FilterPollutantSearch()
     End Sub
     Private Sub btnEditAirProgramPollutants_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditAirProgramPollutants.Click
         Try
