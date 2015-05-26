@@ -535,12 +535,12 @@ Partial Class IAIPFacilitySummary
         Me.CreatedDateLabel.AutoSize = True
         Me.CreatedDateLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CreatedDateLabel.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.CreatedDateLabel.Location = New System.Drawing.Point(324, 250)
+        Me.CreatedDateLabel.Location = New System.Drawing.Point(301, 250)
         Me.CreatedDateLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.CreatedDateLabel.Name = "CreatedDateLabel"
-        Me.CreatedDateLabel.Size = New System.Drawing.Size(117, 13)
+        Me.CreatedDateLabel.Size = New System.Drawing.Size(140, 13)
         Me.CreatedDateLabel.TabIndex = 333
-        Me.CreatedDateLabel.Text = "Facility Record Created"
+        Me.CreatedDateLabel.Text = "Facility IAIP Record Created"
         '
         'FisDateLabel
         '
