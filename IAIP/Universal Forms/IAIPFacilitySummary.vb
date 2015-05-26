@@ -605,7 +605,7 @@ Public Class IAIPFacilitySummary
     Private Sub HandleGrid_CellDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs)
         'Double-click within the cell content (but exclude first column to avoid double-firing)
         Dim dgv As DataGridView = CType(sender, DataGridView)
-        If e.RowIndex <> -1 And e.RowIndex < dgv.RowCount And e.ColumnIndex = 0 Then
+        If e.RowIndex <> -1 And e.RowIndex < dgv.RowCount And e.ColumnIndex <> 0 Then
             OpenItem(dgv, dgv.Rows(e.RowIndex).Cells(0).Value.ToString)
         End If
     End Sub
