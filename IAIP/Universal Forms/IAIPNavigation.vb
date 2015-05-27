@@ -624,10 +624,6 @@ Public Class IAIPNavigation
 
             dgvWorkViewer.SanelyResizeColumns()
             dgvWorkViewer.MakeColumnsLookLikeLinks(0)
-            'Try
-            '    dgvWorkViewer.Columns("AIRSNumber").DefaultCellStyle.Format = "000-00000"
-            'Catch e As Exception
-            'End Try
 
         End If
     End Sub
@@ -842,7 +838,9 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub dgvWorkViewer_CellFormatting(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) Handles dgvWorkViewer.CellFormatting
-        If e IsNot Nothing AndAlso dgvWorkViewer.Columns(e.ColumnIndex).HeaderText = "AIRS #" Then
+        If e IsNot Nothing AndAlso e.Value IsNot Nothing _
+        AndAlso dgvWorkViewer.Columns(e.ColumnIndex).HeaderText = "AIRS #" _
+        AndAlso Apb.ApbFacilityId.IsValidAirsNumberFormat(e.Value) Then
             e.Value = New Apb.ApbFacilityId(e.Value).FormattedString
         End If
     End Sub
@@ -884,8 +882,6 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub bgrLoadWorkViewer_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgrLoadWorkViewer.RunWorkerCompleted
-        'cboWorkViewerContext.Enabled = True
-        'btnChangeWorkViewerContext.Enabled = True
         pnlCurrentList.Enabled = True
         btnChangeWorkViewerContext.Text = "Load"
 
