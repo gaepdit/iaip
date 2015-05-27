@@ -151,6 +151,8 @@ Namespace Apb.Facilities
         <Description("In violation, not meeting schedule")> Status_6 = 33
         <Description("In violation, procedural")> Status_W = 32
         <Description("In violation, no applicable state reg")> Status_8 = 31
+        <Description("Unknown compliance status")> Status_P = 23
+        <Description("Unknown compliance status")> Status_A = 22
         <Description("Unknown compliance status")> Status_0 = 21
         <Description("Meeting compliance schedule")> Status_5 = 11
         <Description("In compliance, source test")> Status_2 = 6
