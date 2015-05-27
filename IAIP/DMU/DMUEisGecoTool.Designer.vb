@@ -83,7 +83,6 @@ Me.Label72 = New System.Windows.Forms.Label
 Me.txtEISMailoutEditComments = New System.Windows.Forms.TextBox
 Me.txtEISMailoutComments = New System.Windows.Forms.TextBox
 Me.GroupBox2 = New System.Windows.Forms.GroupBox
-Me.Label73 = New System.Windows.Forms.Label
 Me.btnRefreshMailoutData = New System.Windows.Forms.Button
 Me.Label65 = New System.Windows.Forms.Label
 Me.txtEISMailoutEmail = New System.Windows.Forms.TextBox
@@ -219,8 +218,6 @@ Me.txtEILogPrePopYear = New System.Windows.Forms.TextBox
 Me.Label233 = New System.Windows.Forms.Label
 Me.Panel9 = New System.Windows.Forms.Panel
 Me.txtEILogStatusCode = New System.Windows.Forms.TextBox
-Me.Label274 = New System.Windows.Forms.Label
-Me.btnCopyAIRSNumber = New System.Windows.Forms.Button
 Me.Panel20 = New System.Windows.Forms.Panel
 Me.rdbEILogActiveNo = New System.Windows.Forms.RadioButton
 Me.rdbEILogActiveYes = New System.Windows.Forms.RadioButton
@@ -233,7 +230,6 @@ Me.dtpEILogStatusDateSubmit = New System.Windows.Forms.DateTimePicker
 Me.Label229 = New System.Windows.Forms.Label
 Me.cboEILogYear = New System.Windows.Forms.ComboBox
 Me.Label230 = New System.Windows.Forms.Label
-Me.Label231 = New System.Windows.Forms.Label
 Me.btnReloadFSData = New System.Windows.Forms.Button
 Me.txtEILogSelectedAIRSNumber = New System.Windows.Forms.TextBox
 Me.btnEILogAddNewFacility = New System.Windows.Forms.Button
@@ -421,7 +417,6 @@ Me.mtbThresholdYear = New System.Windows.Forms.MaskedTextBox
 Me.llbClearEISYear = New System.Windows.Forms.LinkLabel
 Me.Label272 = New System.Windows.Forms.Label
 Me.dtpEISDeadline = New System.Windows.Forms.DateTimePicker
-Me.btnDeleteEISYear = New System.Windows.Forms.Button
 Me.btnUpdateEISYear = New System.Windows.Forms.Button
 Me.btnAddEISYear = New System.Windows.Forms.Button
 Me.rdbEISThreeYear = New System.Windows.Forms.RadioButton
@@ -810,7 +805,6 @@ Me.btnaddNewEISType = New System.Windows.Forms.Button
 Me.btnSaveEISThresholds = New System.Windows.Forms.Button
 Me.Label16 = New System.Windows.Forms.Label
 Me.cboEISType2 = New System.Windows.Forms.ComboBox
-Me.TabEISSummary = New System.Windows.Forms.TabPage
 Me.TPEmissionInventory = New System.Windows.Forms.TabPage
 Me.TCEITools = New System.Windows.Forms.TabControl
 Me.tabeistatistics = New System.Windows.Forms.TabPage
@@ -1169,7 +1163,7 @@ Me.TCDMUTools.Location = New System.Drawing.Point(0, 0)
 Me.TCDMUTools.Name = "TCDMUTools"
 Me.TCDMUTools.SelectedIndex = 0
 Me.TCDMUTools.Size = New System.Drawing.Size(1016, 713)
-Me.TCDMUTools.TabIndex = 256
+Me.TCDMUTools.TabIndex = 0
 '
 'TPEISLog
 '
@@ -1241,7 +1235,7 @@ Me.btnUpdateLatLong.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShri
 Me.btnUpdateLatLong.Location = New System.Drawing.Point(100, 238)
 Me.btnUpdateLatLong.Name = "btnUpdateLatLong"
 Me.btnUpdateLatLong.Size = New System.Drawing.Size(123, 23)
-Me.btnUpdateLatLong.TabIndex = 491
+Me.btnUpdateLatLong.TabIndex = 8
 Me.btnUpdateLatLong.Text = "Update Lat/Long Only"
 Me.btnUpdateLatLong.UseVisualStyleBackColor = true
 '
@@ -1251,7 +1245,7 @@ Me.llbEIModifyMapTool.AutoSize = true
 Me.llbEIModifyMapTool.Location = New System.Drawing.Point(309, 161)
 Me.llbEIModifyMapTool.Name = "llbEIModifyMapTool"
 Me.llbEIModifyMapTool.Size = New System.Drawing.Size(85, 13)
-Me.llbEIModifyMapTool.TabIndex = 490
+Me.llbEIModifyMapTool.TabIndex = 6
 Me.llbEIModifyMapTool.TabStop = true
 Me.llbEIModifyMapTool.Text = "Online Map Tool"
 '
@@ -1262,7 +1256,7 @@ Me.btnEIModifyUpdate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShr
 Me.btnEIModifyUpdate.Location = New System.Drawing.Point(100, 184)
 Me.btnEIModifyUpdate.Name = "btnEIModifyUpdate"
 Me.btnEIModifyUpdate.Size = New System.Drawing.Size(153, 23)
-Me.btnEIModifyUpdate.TabIndex = 489
+Me.btnEIModifyUpdate.TabIndex = 7
 Me.btnEIModifyUpdate.Text = "Update Facility Site Info Only"
 Me.btnEIModifyUpdate.UseVisualStyleBackColor = true
 '
@@ -1282,7 +1276,7 @@ Me.btnEIModifyCopy.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrin
 Me.btnEIModifyCopy.Location = New System.Drawing.Point(470, 184)
 Me.btnEIModifyCopy.Name = "btnEIModifyCopy"
 Me.btnEIModifyCopy.Size = New System.Drawing.Size(99, 23)
-Me.btnEIModifyCopy.TabIndex = 487
+Me.btnEIModifyCopy.TabIndex = 15
 Me.btnEIModifyCopy.Text = "Copy Data to EIS"
 Me.btnEIModifyCopy.UseVisualStyleBackColor = true
 '
@@ -1293,7 +1287,7 @@ Me.mtbEIModifyIAIPLongitude.Mask = "00.000000"
 Me.mtbEIModifyIAIPLongitude.Name = "mtbEIModifyIAIPLongitude"
 Me.mtbEIModifyIAIPLongitude.ReadOnly = true
 Me.mtbEIModifyIAIPLongitude.Size = New System.Drawing.Size(59, 20)
-Me.mtbEIModifyIAIPLongitude.TabIndex = 27
+Me.mtbEIModifyIAIPLongitude.TabIndex = 14
 '
 'Label237
 '
@@ -1301,7 +1295,7 @@ Me.Label237.AutoSize = true
 Me.Label237.Location = New System.Drawing.Point(550, 162)
 Me.Label237.Name = "Label237"
 Me.Label237.Size = New System.Drawing.Size(54, 13)
-Me.Label237.TabIndex = 26
+Me.Label237.TabIndex = 10
 Me.Label237.Text = "Longitude"
 '
 'mtbEIModifyIAIPLatitude
@@ -1311,7 +1305,7 @@ Me.mtbEIModifyIAIPLatitude.Mask = "00.000000"
 Me.mtbEIModifyIAIPLatitude.Name = "mtbEIModifyIAIPLatitude"
 Me.mtbEIModifyIAIPLatitude.ReadOnly = true
 Me.mtbEIModifyIAIPLatitude.Size = New System.Drawing.Size(59, 20)
-Me.mtbEIModifyIAIPLatitude.TabIndex = 25
+Me.mtbEIModifyIAIPLatitude.TabIndex = 13
 '
 'Label238
 '
@@ -1328,7 +1322,7 @@ Me.mtbEIModifyLongitude.Location = New System.Drawing.Point(235, 157)
 Me.mtbEIModifyLongitude.Mask = "00.000000"
 Me.mtbEIModifyLongitude.Name = "mtbEIModifyLongitude"
 Me.mtbEIModifyLongitude.Size = New System.Drawing.Size(68, 20)
-Me.mtbEIModifyLongitude.TabIndex = 23
+Me.mtbEIModifyLongitude.TabIndex = 5
 '
 'Label236
 '
@@ -1345,7 +1339,7 @@ Me.mtbEIModifyLatitude.Location = New System.Drawing.Point(100, 157)
 Me.mtbEIModifyLatitude.Mask = "00.000000"
 Me.mtbEIModifyLatitude.Name = "mtbEIModifyLatitude"
 Me.mtbEIModifyLatitude.Size = New System.Drawing.Size(73, 20)
-Me.mtbEIModifyLatitude.TabIndex = 21
+Me.mtbEIModifyLatitude.TabIndex = 4
 '
 'Label235
 '
@@ -1372,7 +1366,7 @@ Me.mtbEIModifyIAIPZipCode.Mask = "00000-9999"
 Me.mtbEIModifyIAIPZipCode.Name = "mtbEIModifyIAIPZipCode"
 Me.mtbEIModifyIAIPZipCode.ReadOnly = true
 Me.mtbEIModifyIAIPZipCode.Size = New System.Drawing.Size(73, 20)
-Me.mtbEIModifyIAIPZipCode.TabIndex = 18
+Me.mtbEIModifyIAIPZipCode.TabIndex = 12
 '
 'txtEIModifyIAIPCity
 '
@@ -1380,7 +1374,7 @@ Me.txtEIModifyIAIPCity.Location = New System.Drawing.Point(470, 106)
 Me.txtEIModifyIAIPCity.Name = "txtEIModifyIAIPCity"
 Me.txtEIModifyIAIPCity.ReadOnly = true
 Me.txtEIModifyIAIPCity.Size = New System.Drawing.Size(322, 20)
-Me.txtEIModifyIAIPCity.TabIndex = 17
+Me.txtEIModifyIAIPCity.TabIndex = 11
 '
 'txtEIModifyIAIPLocation
 '
@@ -1388,7 +1382,7 @@ Me.txtEIModifyIAIPLocation.Location = New System.Drawing.Point(470, 80)
 Me.txtEIModifyIAIPLocation.Name = "txtEIModifyIAIPLocation"
 Me.txtEIModifyIAIPLocation.ReadOnly = true
 Me.txtEIModifyIAIPLocation.Size = New System.Drawing.Size(322, 20)
-Me.txtEIModifyIAIPLocation.TabIndex = 16
+Me.txtEIModifyIAIPLocation.TabIndex = 10
 '
 'txtEIModifyIAIPFacilityName
 '
@@ -1396,7 +1390,7 @@ Me.txtEIModifyIAIPFacilityName.Location = New System.Drawing.Point(470, 54)
 Me.txtEIModifyIAIPFacilityName.Name = "txtEIModifyIAIPFacilityName"
 Me.txtEIModifyIAIPFacilityName.ReadOnly = true
 Me.txtEIModifyIAIPFacilityName.Size = New System.Drawing.Size(322, 20)
-Me.txtEIModifyIAIPFacilityName.TabIndex = 15
+Me.txtEIModifyIAIPFacilityName.TabIndex = 9
 '
 'mtbEIModifyZipCode
 '
@@ -1405,7 +1399,7 @@ Me.mtbEIModifyZipCode.Location = New System.Drawing.Point(100, 132)
 Me.mtbEIModifyZipCode.Mask = "00000-9999"
 Me.mtbEIModifyZipCode.Name = "mtbEIModifyZipCode"
 Me.mtbEIModifyZipCode.Size = New System.Drawing.Size(73, 20)
-Me.mtbEIModifyZipCode.TabIndex = 14
+Me.mtbEIModifyZipCode.TabIndex = 3
 Me.mtbEIModifyZipCode.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
 '
 'Label62
@@ -1422,7 +1416,7 @@ Me.Label62.Text = "Zip Code"
 Me.txtEIModifyCity.Location = New System.Drawing.Point(100, 106)
 Me.txtEIModifyCity.Name = "txtEIModifyCity"
 Me.txtEIModifyCity.Size = New System.Drawing.Size(322, 20)
-Me.txtEIModifyCity.TabIndex = 12
+Me.txtEIModifyCity.TabIndex = 2
 '
 'Label61
 '
@@ -1438,7 +1432,7 @@ Me.Label61.Text = "City"
 Me.txtEIModifyLocation.Location = New System.Drawing.Point(100, 80)
 Me.txtEIModifyLocation.Name = "txtEIModifyLocation"
 Me.txtEIModifyLocation.Size = New System.Drawing.Size(322, 20)
-Me.txtEIModifyLocation.TabIndex = 10
+Me.txtEIModifyLocation.TabIndex = 1
 '
 'Label60
 '
@@ -1455,7 +1449,7 @@ Me.Label59.AutoSize = true
 Me.Label59.Location = New System.Drawing.Point(97, 27)
 Me.Label59.Name = "Label59"
 Me.Label59.Size = New System.Drawing.Size(83, 13)
-Me.Label59.TabIndex = 8
+Me.Label59.TabIndex = 0
 Me.Label59.Text = "EIS Facility Info "
 '
 'txtEIModifyFacilityName
@@ -1463,7 +1457,7 @@ Me.Label59.Text = "EIS Facility Info "
 Me.txtEIModifyFacilityName.Location = New System.Drawing.Point(100, 54)
 Me.txtEIModifyFacilityName.Name = "txtEIModifyFacilityName"
 Me.txtEIModifyFacilityName.Size = New System.Drawing.Size(322, 20)
-Me.txtEIModifyFacilityName.TabIndex = 7
+Me.txtEIModifyFacilityName.TabIndex = 0
 '
 'Label58
 '
@@ -1518,7 +1512,7 @@ Me.txtEISMailoutCreateDateTime.Location = New System.Drawing.Point(736, 60)
 Me.txtEISMailoutCreateDateTime.Name = "txtEISMailoutCreateDateTime"
 Me.txtEISMailoutCreateDateTime.ReadOnly = true
 Me.txtEISMailoutCreateDateTime.Size = New System.Drawing.Size(193, 20)
-Me.txtEISMailoutCreateDateTime.TabIndex = 54
+Me.txtEISMailoutCreateDateTime.TabIndex = 4
 '
 'Label201
 '
@@ -1535,7 +1529,7 @@ Me.txtEISMailoutUpdateDateTime.Location = New System.Drawing.Point(433, 60)
 Me.txtEISMailoutUpdateDateTime.Name = "txtEISMailoutUpdateDateTime"
 Me.txtEISMailoutUpdateDateTime.ReadOnly = true
 Me.txtEISMailoutUpdateDateTime.Size = New System.Drawing.Size(193, 20)
-Me.txtEISMailoutUpdateDateTime.TabIndex = 52
+Me.txtEISMailoutUpdateDateTime.TabIndex = 3
 '
 'Label200
 '
@@ -1552,7 +1546,7 @@ Me.txtEISMailoutUpdateUser.Location = New System.Drawing.Point(114, 60)
 Me.txtEISMailoutUpdateUser.Name = "txtEISMailoutUpdateUser"
 Me.txtEISMailoutUpdateUser.ReadOnly = true
 Me.txtEISMailoutUpdateUser.Size = New System.Drawing.Size(204, 20)
-Me.txtEISMailoutUpdateUser.TabIndex = 50
+Me.txtEISMailoutUpdateUser.TabIndex = 2
 '
 'Label72
 '
@@ -1569,7 +1563,7 @@ Me.txtEISMailoutEditComments.Location = New System.Drawing.Point(443, 6)
 Me.txtEISMailoutEditComments.Multiline = true
 Me.txtEISMailoutEditComments.Name = "txtEISMailoutEditComments"
 Me.txtEISMailoutEditComments.Size = New System.Drawing.Size(322, 48)
-Me.txtEISMailoutEditComments.TabIndex = 41
+Me.txtEISMailoutEditComments.TabIndex = 1
 '
 'txtEISMailoutComments
 '
@@ -1578,11 +1572,10 @@ Me.txtEISMailoutComments.Multiline = true
 Me.txtEISMailoutComments.Name = "txtEISMailoutComments"
 Me.txtEISMailoutComments.ReadOnly = true
 Me.txtEISMailoutComments.Size = New System.Drawing.Size(322, 48)
-Me.txtEISMailoutComments.TabIndex = 42
+Me.txtEISMailoutComments.TabIndex = 0
 '
 'GroupBox2
 '
-Me.GroupBox2.Controls.Add(Me.Label73)
 Me.GroupBox2.Controls.Add(Me.btnRefreshMailoutData)
 Me.GroupBox2.Controls.Add(Me.Label65)
 Me.GroupBox2.Controls.Add(Me.txtEISMailoutEmail)
@@ -1618,28 +1611,19 @@ Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Top
 Me.GroupBox2.Location = New System.Drawing.Point(0, 49)
 Me.GroupBox2.Name = "GroupBox2"
 Me.GroupBox2.Size = New System.Drawing.Size(1000, 273)
-Me.GroupBox2.TabIndex = 58
+Me.GroupBox2.TabIndex = 0
 Me.GroupBox2.TabStop = false
 Me.GroupBox2.Text = "Contact Info"
-'
-'Label73
-'
-Me.Label73.AutoSize = true
-Me.Label73.Location = New System.Drawing.Point(810, 16)
-Me.Label73.Name = "Label73"
-Me.Label73.Size = New System.Drawing.Size(151, 13)
-Me.Label73.TabIndex = 487
-Me.Label73.Text = "Refresh with current IAIP Data"
 '
 'btnRefreshMailoutData
 '
 Me.btnRefreshMailoutData.AutoSize = true
 Me.btnRefreshMailoutData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-Me.btnRefreshMailoutData.Image = CType(resources.GetObject("btnRefreshMailoutData.Image"),System.Drawing.Image)
 Me.btnRefreshMailoutData.Location = New System.Drawing.Point(782, 11)
 Me.btnRefreshMailoutData.Name = "btnRefreshMailoutData"
-Me.btnRefreshMailoutData.Size = New System.Drawing.Size(22, 22)
-Me.btnRefreshMailoutData.TabIndex = 486
+Me.btnRefreshMailoutData.Size = New System.Drawing.Size(161, 23)
+Me.btnRefreshMailoutData.TabIndex = 20
+Me.btnRefreshMailoutData.Text = "Refresh with current IAIP Data"
 Me.btnRefreshMailoutData.UseVisualStyleBackColor = true
 '
 'Label65
@@ -1657,14 +1641,14 @@ Me.txtEISMailoutEmail.Location = New System.Drawing.Point(115, 247)
 Me.txtEISMailoutEmail.Name = "txtEISMailoutEmail"
 Me.txtEISMailoutEmail.ReadOnly = true
 Me.txtEISMailoutEmail.Size = New System.Drawing.Size(322, 20)
-Me.txtEISMailoutEmail.TabIndex = 51
+Me.txtEISMailoutEmail.TabIndex = 18
 '
 'txtEISMailoutEditEmailAddress
 '
 Me.txtEISMailoutEditEmailAddress.Location = New System.Drawing.Point(443, 247)
 Me.txtEISMailoutEditEmailAddress.Name = "txtEISMailoutEditEmailAddress"
 Me.txtEISMailoutEditEmailAddress.Size = New System.Drawing.Size(322, 20)
-Me.txtEISMailoutEditEmailAddress.TabIndex = 50
+Me.txtEISMailoutEditEmailAddress.TabIndex = 19
 '
 'txtEISMailoutLastName
 '
@@ -1672,7 +1656,7 @@ Me.txtEISMailoutLastName.Location = New System.Drawing.Point(115, 195)
 Me.txtEISMailoutLastName.Name = "txtEISMailoutLastName"
 Me.txtEISMailoutLastName.ReadOnly = true
 Me.txtEISMailoutLastName.Size = New System.Drawing.Size(322, 20)
-Me.txtEISMailoutLastName.TabIndex = 57
+Me.txtEISMailoutLastName.TabIndex = 14
 '
 'Label88
 '
@@ -1688,14 +1672,14 @@ Me.Label88.Text = "Email Address"
 Me.txtEISMailoutEditCompanyName.Location = New System.Drawing.Point(443, 12)
 Me.txtEISMailoutEditCompanyName.Name = "txtEISMailoutEditCompanyName"
 Me.txtEISMailoutEditCompanyName.Size = New System.Drawing.Size(322, 20)
-Me.txtEISMailoutEditCompanyName.TabIndex = 20
+Me.txtEISMailoutEditCompanyName.TabIndex = 1
 '
 'txtEISMailoutEditLastName
 '
 Me.txtEISMailoutEditLastName.Location = New System.Drawing.Point(443, 195)
 Me.txtEISMailoutEditLastName.Name = "txtEISMailoutEditLastName"
 Me.txtEISMailoutEditLastName.Size = New System.Drawing.Size(322, 20)
-Me.txtEISMailoutEditLastName.TabIndex = 56
+Me.txtEISMailoutEditLastName.TabIndex = 15
 '
 'txtEISMailoutCompanyName
 '
@@ -1703,7 +1687,7 @@ Me.txtEISMailoutCompanyName.Location = New System.Drawing.Point(115, 12)
 Me.txtEISMailoutCompanyName.Name = "txtEISMailoutCompanyName"
 Me.txtEISMailoutCompanyName.ReadOnly = true
 Me.txtEISMailoutCompanyName.Size = New System.Drawing.Size(322, 20)
-Me.txtEISMailoutCompanyName.TabIndex = 21
+Me.txtEISMailoutCompanyName.TabIndex = 0
 '
 'Label91
 '
@@ -1729,21 +1713,21 @@ Me.txtEISMailoutPrefix.Location = New System.Drawing.Point(115, 221)
 Me.txtEISMailoutPrefix.Name = "txtEISMailoutPrefix"
 Me.txtEISMailoutPrefix.ReadOnly = true
 Me.txtEISMailoutPrefix.Size = New System.Drawing.Size(322, 20)
-Me.txtEISMailoutPrefix.TabIndex = 54
+Me.txtEISMailoutPrefix.TabIndex = 16
 '
 'txtEISMailoutEditAdress
 '
 Me.txtEISMailoutEditAdress.Location = New System.Drawing.Point(443, 38)
 Me.txtEISMailoutEditAdress.Name = "txtEISMailoutEditAdress"
 Me.txtEISMailoutEditAdress.Size = New System.Drawing.Size(322, 20)
-Me.txtEISMailoutEditAdress.TabIndex = 23
+Me.txtEISMailoutEditAdress.TabIndex = 3
 '
 'txtEISMailoutEditPrefix
 '
 Me.txtEISMailoutEditPrefix.Location = New System.Drawing.Point(443, 221)
 Me.txtEISMailoutEditPrefix.Name = "txtEISMailoutEditPrefix"
 Me.txtEISMailoutEditPrefix.Size = New System.Drawing.Size(322, 20)
-Me.txtEISMailoutEditPrefix.TabIndex = 53
+Me.txtEISMailoutEditPrefix.TabIndex = 17
 '
 'txtEISMailoutAddress
 '
@@ -1751,7 +1735,7 @@ Me.txtEISMailoutAddress.Location = New System.Drawing.Point(115, 38)
 Me.txtEISMailoutAddress.Name = "txtEISMailoutAddress"
 Me.txtEISMailoutAddress.ReadOnly = true
 Me.txtEISMailoutAddress.Size = New System.Drawing.Size(322, 20)
-Me.txtEISMailoutAddress.TabIndex = 24
+Me.txtEISMailoutAddress.TabIndex = 2
 '
 'Label90
 '
@@ -1776,7 +1760,7 @@ Me.Label67.Text = "Address Line 2"
 Me.txtEISMailoutEditAddress2.Location = New System.Drawing.Point(443, 64)
 Me.txtEISMailoutEditAddress2.Name = "txtEISMailoutEditAddress2"
 Me.txtEISMailoutEditAddress2.Size = New System.Drawing.Size(322, 20)
-Me.txtEISMailoutEditAddress2.TabIndex = 26
+Me.txtEISMailoutEditAddress2.TabIndex = 5
 '
 'txtEISMailoutAddress2
 '
@@ -1784,7 +1768,7 @@ Me.txtEISMailoutAddress2.Location = New System.Drawing.Point(115, 64)
 Me.txtEISMailoutAddress2.Name = "txtEISMailoutAddress2"
 Me.txtEISMailoutAddress2.ReadOnly = true
 Me.txtEISMailoutAddress2.Size = New System.Drawing.Size(322, 20)
-Me.txtEISMailoutAddress2.TabIndex = 27
+Me.txtEISMailoutAddress2.TabIndex = 4
 '
 'Label68
 '
@@ -1800,7 +1784,7 @@ Me.Label68.Text = "City"
 Me.txtEISMailoutEditCity.Location = New System.Drawing.Point(443, 90)
 Me.txtEISMailoutEditCity.Name = "txtEISMailoutEditCity"
 Me.txtEISMailoutEditCity.Size = New System.Drawing.Size(322, 20)
-Me.txtEISMailoutEditCity.TabIndex = 29
+Me.txtEISMailoutEditCity.TabIndex = 7
 '
 'txtEISMailoutCity
 '
@@ -1808,7 +1792,7 @@ Me.txtEISMailoutCity.Location = New System.Drawing.Point(115, 90)
 Me.txtEISMailoutCity.Name = "txtEISMailoutCity"
 Me.txtEISMailoutCity.ReadOnly = true
 Me.txtEISMailoutCity.Size = New System.Drawing.Size(322, 20)
-Me.txtEISMailoutCity.TabIndex = 30
+Me.txtEISMailoutCity.TabIndex = 6
 '
 'Label69
 '
@@ -1824,7 +1808,7 @@ Me.Label69.Text = "State"
 Me.txtEISMailoutEditState.Location = New System.Drawing.Point(443, 116)
 Me.txtEISMailoutEditState.Name = "txtEISMailoutEditState"
 Me.txtEISMailoutEditState.Size = New System.Drawing.Size(322, 20)
-Me.txtEISMailoutEditState.TabIndex = 32
+Me.txtEISMailoutEditState.TabIndex = 9
 '
 'txtEISMailoutState
 '
@@ -1832,7 +1816,7 @@ Me.txtEISMailoutState.Location = New System.Drawing.Point(115, 116)
 Me.txtEISMailoutState.Name = "txtEISMailoutState"
 Me.txtEISMailoutState.ReadOnly = true
 Me.txtEISMailoutState.Size = New System.Drawing.Size(322, 20)
-Me.txtEISMailoutState.TabIndex = 33
+Me.txtEISMailoutState.TabIndex = 8
 '
 'Label70
 '
@@ -1848,7 +1832,7 @@ Me.Label70.Text = "Zip Code"
 Me.txtEISMailoutEditZipCode.Location = New System.Drawing.Point(443, 142)
 Me.txtEISMailoutEditZipCode.Name = "txtEISMailoutEditZipCode"
 Me.txtEISMailoutEditZipCode.Size = New System.Drawing.Size(322, 20)
-Me.txtEISMailoutEditZipCode.TabIndex = 35
+Me.txtEISMailoutEditZipCode.TabIndex = 11
 '
 'txtEISMailoutZipCode
 '
@@ -1856,7 +1840,7 @@ Me.txtEISMailoutZipCode.Location = New System.Drawing.Point(115, 142)
 Me.txtEISMailoutZipCode.Name = "txtEISMailoutZipCode"
 Me.txtEISMailoutZipCode.ReadOnly = true
 Me.txtEISMailoutZipCode.Size = New System.Drawing.Size(322, 20)
-Me.txtEISMailoutZipCode.TabIndex = 36
+Me.txtEISMailoutZipCode.TabIndex = 10
 '
 'Label71
 '
@@ -1873,14 +1857,14 @@ Me.txtEISMailoutFirstName.Location = New System.Drawing.Point(115, 168)
 Me.txtEISMailoutFirstName.Name = "txtEISMailoutFirstName"
 Me.txtEISMailoutFirstName.ReadOnly = true
 Me.txtEISMailoutFirstName.Size = New System.Drawing.Size(322, 20)
-Me.txtEISMailoutFirstName.TabIndex = 39
+Me.txtEISMailoutFirstName.TabIndex = 12
 '
 'txtEISMailoutEditFirstName
 '
 Me.txtEISMailoutEditFirstName.Location = New System.Drawing.Point(443, 168)
 Me.txtEISMailoutEditFirstName.Name = "txtEISMailoutEditFirstName"
 Me.txtEISMailoutEditFirstName.Size = New System.Drawing.Size(322, 20)
-Me.txtEISMailoutEditFirstName.TabIndex = 38
+Me.txtEISMailoutEditFirstName.TabIndex = 13
 '
 'Panel11
 '
@@ -1921,7 +1905,7 @@ Me.btnEISMailoutUpdate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndS
 Me.btnEISMailoutUpdate.Location = New System.Drawing.Point(782, 20)
 Me.btnEISMailoutUpdate.Name = "btnEISMailoutUpdate"
 Me.btnEISMailoutUpdate.Size = New System.Drawing.Size(87, 23)
-Me.btnEISMailoutUpdate.TabIndex = 58
+Me.btnEISMailoutUpdate.TabIndex = 2
 Me.btnEISMailoutUpdate.Text = "Make Updates"
 Me.btnEISMailoutUpdate.UseVisualStyleBackColor = true
 '
@@ -1939,7 +1923,7 @@ Me.Label64.Text = "Facility Name"
 Me.txtEISMailoutEditFacilityName.Location = New System.Drawing.Point(445, 21)
 Me.txtEISMailoutEditFacilityName.Name = "txtEISMailoutEditFacilityName"
 Me.txtEISMailoutEditFacilityName.Size = New System.Drawing.Size(322, 20)
-Me.txtEISMailoutEditFacilityName.TabIndex = 17
+Me.txtEISMailoutEditFacilityName.TabIndex = 1
 '
 'txtEISMailoutFacilityName
 '
@@ -1947,7 +1931,7 @@ Me.txtEISMailoutFacilityName.Location = New System.Drawing.Point(116, 21)
 Me.txtEISMailoutFacilityName.Name = "txtEISMailoutFacilityName"
 Me.txtEISMailoutFacilityName.ReadOnly = true
 Me.txtEISMailoutFacilityName.Size = New System.Drawing.Size(322, 20)
-Me.txtEISMailoutFacilityName.TabIndex = 18
+Me.txtEISMailoutFacilityName.TabIndex = 0
 '
 'TPEISContacts
 '
@@ -2051,7 +2035,7 @@ Me.btnEISContactUpdate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndS
 Me.btnEISContactUpdate.Location = New System.Drawing.Point(87, 346)
 Me.btnEISContactUpdate.Name = "btnEISContactUpdate"
 Me.btnEISContactUpdate.Size = New System.Drawing.Size(87, 23)
-Me.btnEISContactUpdate.TabIndex = 112
+Me.btnEISContactUpdate.TabIndex = 18
 Me.btnEISContactUpdate.Text = "Make Updates"
 Me.btnEISContactUpdate.UseVisualStyleBackColor = true
 Me.btnEISContactUpdate.Visible = false
@@ -2071,7 +2055,7 @@ Me.txtEISContactUpdateDateTime.Location = New System.Drawing.Point(422, 276)
 Me.txtEISContactUpdateDateTime.Name = "txtEISContactUpdateDateTime"
 Me.txtEISContactUpdateDateTime.ReadOnly = true
 Me.txtEISContactUpdateDateTime.Size = New System.Drawing.Size(193, 20)
-Me.txtEISContactUpdateDateTime.TabIndex = 111
+Me.txtEISContactUpdateDateTime.TabIndex = 17
 '
 'Label226
 '
@@ -2088,7 +2072,7 @@ Me.txtEISContactUpdateUser.Location = New System.Drawing.Point(87, 279)
 Me.txtEISContactUpdateUser.Name = "txtEISContactUpdateUser"
 Me.txtEISContactUpdateUser.ReadOnly = true
 Me.txtEISContactUpdateUser.Size = New System.Drawing.Size(204, 20)
-Me.txtEISContactUpdateUser.TabIndex = 109
+Me.txtEISContactUpdateUser.TabIndex = 16
 '
 'Label224
 '
@@ -2116,7 +2100,7 @@ Me.txtEISContactDescription.Name = "txtEISContactDescription"
 Me.txtEISContactDescription.ReadOnly = true
 Me.txtEISContactDescription.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal
 Me.txtEISContactDescription.Size = New System.Drawing.Size(197, 76)
-Me.txtEISContactDescription.TabIndex = 107
+Me.txtEISContactDescription.TabIndex = 15
 '
 'Label223
 '
@@ -2141,7 +2125,7 @@ Me.txtEISContactZipCode.Location = New System.Drawing.Point(422, 151)
 Me.txtEISContactZipCode.Name = "txtEISContactZipCode"
 Me.txtEISContactZipCode.ReadOnly = true
 Me.txtEISContactZipCode.Size = New System.Drawing.Size(197, 20)
-Me.txtEISContactZipCode.TabIndex = 104
+Me.txtEISContactZipCode.TabIndex = 14
 '
 'Label222
 '
@@ -2166,7 +2150,7 @@ Me.txtEISContactState.Location = New System.Drawing.Point(422, 125)
 Me.txtEISContactState.Name = "txtEISContactState"
 Me.txtEISContactState.ReadOnly = true
 Me.txtEISContactState.Size = New System.Drawing.Size(197, 20)
-Me.txtEISContactState.TabIndex = 101
+Me.txtEISContactState.TabIndex = 13
 '
 'Label221
 '
@@ -2191,7 +2175,7 @@ Me.txtEISContactCity.Location = New System.Drawing.Point(422, 99)
 Me.txtEISContactCity.Name = "txtEISContactCity"
 Me.txtEISContactCity.ReadOnly = true
 Me.txtEISContactCity.Size = New System.Drawing.Size(197, 20)
-Me.txtEISContactCity.TabIndex = 98
+Me.txtEISContactCity.TabIndex = 12
 '
 'Label220
 '
@@ -2216,7 +2200,7 @@ Me.txtEISContactAddress2.Location = New System.Drawing.Point(422, 73)
 Me.txtEISContactAddress2.Name = "txtEISContactAddress2"
 Me.txtEISContactAddress2.ReadOnly = true
 Me.txtEISContactAddress2.Size = New System.Drawing.Size(197, 20)
-Me.txtEISContactAddress2.TabIndex = 95
+Me.txtEISContactAddress2.TabIndex = 11
 '
 'Label219
 '
@@ -2241,7 +2225,7 @@ Me.txtEISContactPhone.Location = New System.Drawing.Point(87, 155)
 Me.txtEISContactPhone.Name = "txtEISContactPhone"
 Me.txtEISContactPhone.ReadOnly = true
 Me.txtEISContactPhone.Size = New System.Drawing.Size(197, 20)
-Me.txtEISContactPhone.TabIndex = 92
+Me.txtEISContactPhone.TabIndex = 5
 '
 'Label218
 '
@@ -2266,7 +2250,7 @@ Me.txtEISContactPhone2.Location = New System.Drawing.Point(87, 181)
 Me.txtEISContactPhone2.Name = "txtEISContactPhone2"
 Me.txtEISContactPhone2.ReadOnly = true
 Me.txtEISContactPhone2.Size = New System.Drawing.Size(197, 20)
-Me.txtEISContactPhone2.TabIndex = 89
+Me.txtEISContactPhone2.TabIndex = 6
 '
 'Label217
 '
@@ -2291,7 +2275,7 @@ Me.txtEISContactFax.Location = New System.Drawing.Point(87, 207)
 Me.txtEISContactFax.Name = "txtEISContactFax"
 Me.txtEISContactFax.ReadOnly = true
 Me.txtEISContactFax.Size = New System.Drawing.Size(197, 20)
-Me.txtEISContactFax.TabIndex = 86
+Me.txtEISContactFax.TabIndex = 7
 '
 'Label216
 '
@@ -2316,7 +2300,7 @@ Me.txtEISContactEmail.Location = New System.Drawing.Point(87, 233)
 Me.txtEISContactEmail.Name = "txtEISContactEmail"
 Me.txtEISContactEmail.ReadOnly = true
 Me.txtEISContactEmail.Size = New System.Drawing.Size(197, 20)
-Me.txtEISContactEmail.TabIndex = 83
+Me.txtEISContactEmail.TabIndex = 8
 '
 'Label215
 '
@@ -2341,7 +2325,7 @@ Me.txtEISContactAddress.Location = New System.Drawing.Point(422, 47)
 Me.txtEISContactAddress.Name = "txtEISContactAddress"
 Me.txtEISContactAddress.ReadOnly = true
 Me.txtEISContactAddress.Size = New System.Drawing.Size(197, 20)
-Me.txtEISContactAddress.TabIndex = 80
+Me.txtEISContactAddress.TabIndex = 10
 '
 'Label214
 '
@@ -2366,7 +2350,7 @@ Me.txtEISContactCompanyName.Location = New System.Drawing.Point(422, 21)
 Me.txtEISContactCompanyName.Name = "txtEISContactCompanyName"
 Me.txtEISContactCompanyName.ReadOnly = true
 Me.txtEISContactCompanyName.Size = New System.Drawing.Size(197, 20)
-Me.txtEISContactCompanyName.TabIndex = 77
+Me.txtEISContactCompanyName.TabIndex = 9
 '
 'Label213
 '
@@ -2391,7 +2375,7 @@ Me.txtEISContactTitle.Location = New System.Drawing.Point(87, 129)
 Me.txtEISContactTitle.Name = "txtEISContactTitle"
 Me.txtEISContactTitle.ReadOnly = true
 Me.txtEISContactTitle.Size = New System.Drawing.Size(197, 20)
-Me.txtEISContactTitle.TabIndex = 74
+Me.txtEISContactTitle.TabIndex = 4
 '
 'Label212
 '
@@ -2416,7 +2400,7 @@ Me.txtEISContactSuffix.Location = New System.Drawing.Point(87, 103)
 Me.txtEISContactSuffix.Name = "txtEISContactSuffix"
 Me.txtEISContactSuffix.ReadOnly = true
 Me.txtEISContactSuffix.Size = New System.Drawing.Size(197, 20)
-Me.txtEISContactSuffix.TabIndex = 71
+Me.txtEISContactSuffix.TabIndex = 3
 '
 'Label211
 '
@@ -2441,7 +2425,7 @@ Me.txtEISContactPrefix.Location = New System.Drawing.Point(87, 77)
 Me.txtEISContactPrefix.Name = "txtEISContactPrefix"
 Me.txtEISContactPrefix.ReadOnly = true
 Me.txtEISContactPrefix.Size = New System.Drawing.Size(197, 20)
-Me.txtEISContactPrefix.TabIndex = 68
+Me.txtEISContactPrefix.TabIndex = 2
 '
 'Label210
 '
@@ -2466,7 +2450,7 @@ Me.txtEISContactLastName.Location = New System.Drawing.Point(87, 51)
 Me.txtEISContactLastName.Name = "txtEISContactLastName"
 Me.txtEISContactLastName.ReadOnly = true
 Me.txtEISContactLastName.Size = New System.Drawing.Size(197, 20)
-Me.txtEISContactLastName.TabIndex = 65
+Me.txtEISContactLastName.TabIndex = 1
 '
 'Label206
 '
@@ -2510,7 +2494,7 @@ Me.txtEISContactFirstName.Location = New System.Drawing.Point(87, 25)
 Me.txtEISContactFirstName.Name = "txtEISContactFirstName"
 Me.txtEISContactFirstName.ReadOnly = true
 Me.txtEISContactFirstName.Size = New System.Drawing.Size(197, 20)
-Me.txtEISContactFirstName.TabIndex = 21
+Me.txtEISContactFirstName.TabIndex = 0
 '
 'TPQAProcess
 '
@@ -2564,17 +2548,18 @@ Me.btnRemoveFromQA.AutoSize = true
 Me.btnRemoveFromQA.Location = New System.Drawing.Point(864, 29)
 Me.btnRemoveFromQA.Name = "btnRemoveFromQA"
 Me.btnRemoveFromQA.Size = New System.Drawing.Size(101, 23)
-Me.btnRemoveFromQA.TabIndex = 536
+Me.btnRemoveFromQA.TabIndex = 15
 Me.btnRemoveFromQA.Text = "Remove From QA"
 Me.btnRemoveFromQA.UseVisualStyleBackColor = true
 '
 'cboEISQAStaff
 '
+Me.cboEISQAStaff.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEISQAStaff.FormattingEnabled = true
 Me.cboEISQAStaff.Location = New System.Drawing.Point(113, 9)
 Me.cboEISQAStaff.Name = "cboEISQAStaff"
 Me.cboEISQAStaff.Size = New System.Drawing.Size(149, 21)
-Me.cboEISQAStaff.TabIndex = 447
+Me.cboEISQAStaff.TabIndex = 0
 '
 'Label273
 '
@@ -2594,7 +2579,7 @@ Me.txtAllPointTrackingNumbers.Name = "txtAllPointTrackingNumbers"
 Me.txtAllPointTrackingNumbers.ReadOnly = true
 Me.txtAllPointTrackingNumbers.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
 Me.txtAllPointTrackingNumbers.Size = New System.Drawing.Size(474, 84)
-Me.txtAllPointTrackingNumbers.TabIndex = 535
+Me.txtAllPointTrackingNumbers.TabIndex = 11
 '
 'txtAllQAComments
 '
@@ -2605,7 +2590,7 @@ Me.txtAllQAComments.Name = "txtAllQAComments"
 Me.txtAllQAComments.ReadOnly = true
 Me.txtAllQAComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
 Me.txtAllQAComments.Size = New System.Drawing.Size(786, 93)
-Me.txtAllQAComments.TabIndex = 526
+Me.txtAllQAComments.TabIndex = 13
 '
 'Label283
 '
@@ -2624,7 +2609,7 @@ Me.txtQAComments.Multiline = true
 Me.txtQAComments.Name = "txtQAComments"
 Me.txtQAComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
 Me.txtQAComments.Size = New System.Drawing.Size(786, 76)
-Me.txtQAComments.TabIndex = 525
+Me.txtQAComments.TabIndex = 12
 '
 'Label282
 '
@@ -2644,7 +2629,7 @@ Me.txtAllFITrackingNumbers.Name = "txtAllFITrackingNumbers"
 Me.txtAllFITrackingNumbers.ReadOnly = true
 Me.txtAllFITrackingNumbers.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
 Me.txtAllFITrackingNumbers.Size = New System.Drawing.Size(474, 84)
-Me.txtAllFITrackingNumbers.TabIndex = 534
+Me.txtAllFITrackingNumbers.TabIndex = 8
 '
 'Label284
 '
@@ -2661,7 +2646,7 @@ Me.chbPointErrors.AutoSize = true
 Me.chbPointErrors.Location = New System.Drawing.Point(744, 150)
 Me.chbPointErrors.Name = "chbPointErrors"
 Me.chbPointErrors.Size = New System.Drawing.Size(80, 17)
-Me.chbPointErrors.TabIndex = 533
+Me.chbPointErrors.TabIndex = 10
 Me.chbPointErrors.Text = "Point Errors"
 Me.chbPointErrors.UseVisualStyleBackColor = true
 '
@@ -2672,7 +2657,7 @@ Me.dtpQAStarted.Format = System.Windows.Forms.DateTimePickerFormat.Custom
 Me.dtpQAStarted.Location = New System.Drawing.Point(113, 39)
 Me.dtpQAStarted.Name = "dtpQAStarted"
 Me.dtpQAStarted.Size = New System.Drawing.Size(120, 20)
-Me.dtpQAStarted.TabIndex = 504
+Me.dtpQAStarted.TabIndex = 1
 '
 'chbFIErrors
 '
@@ -2680,7 +2665,7 @@ Me.chbFIErrors.AutoSize = true
 Me.chbFIErrors.Location = New System.Drawing.Point(744, 37)
 Me.chbFIErrors.Name = "chbFIErrors"
 Me.chbFIErrors.Size = New System.Drawing.Size(65, 17)
-Me.chbFIErrors.TabIndex = 532
+Me.chbFIErrors.TabIndex = 7
 Me.chbFIErrors.Text = "FI Errors"
 Me.chbFIErrors.UseVisualStyleBackColor = true
 '
@@ -2699,7 +2684,7 @@ Me.txtPointTrackingNumber.Location = New System.Drawing.Point(486, 148)
 Me.txtPointTrackingNumber.MaxLength = 100
 Me.txtPointTrackingNumber.Name = "txtPointTrackingNumber"
 Me.txtPointTrackingNumber.Size = New System.Drawing.Size(252, 20)
-Me.txtPointTrackingNumber.TabIndex = 531
+Me.txtPointTrackingNumber.TabIndex = 9
 '
 'dtpQAPassed
 '
@@ -2710,7 +2695,7 @@ Me.dtpQAPassed.Location = New System.Drawing.Point(113, 65)
 Me.dtpQAPassed.Name = "dtpQAPassed"
 Me.dtpQAPassed.ShowCheckBox = true
 Me.dtpQAPassed.Size = New System.Drawing.Size(120, 20)
-Me.dtpQAPassed.TabIndex = 506
+Me.dtpQAPassed.TabIndex = 2
 '
 'Label291
 '
@@ -2736,7 +2721,7 @@ Me.txtFITrackingNumber.Location = New System.Drawing.Point(486, 35)
 Me.txtFITrackingNumber.MaxLength = 100
 Me.txtFITrackingNumber.Name = "txtFITrackingNumber"
 Me.txtFITrackingNumber.Size = New System.Drawing.Size(252, 20)
-Me.txtFITrackingNumber.TabIndex = 529
+Me.txtFITrackingNumber.TabIndex = 6
 '
 'dtpQACompleted
 '
@@ -2747,7 +2732,7 @@ Me.dtpQACompleted.Location = New System.Drawing.Point(113, 91)
 Me.dtpQACompleted.Name = "dtpQACompleted"
 Me.dtpQACompleted.ShowCheckBox = true
 Me.dtpQACompleted.Size = New System.Drawing.Size(120, 20)
-Me.dtpQACompleted.TabIndex = 508
+Me.dtpQACompleted.TabIndex = 3
 '
 'Label290
 '
@@ -2769,11 +2754,12 @@ Me.Label287.Text = "QA Status"
 '
 'cboEISQAStatus
 '
+Me.cboEISQAStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEISQAStatus.FormattingEnabled = true
 Me.cboEISQAStatus.Location = New System.Drawing.Point(486, 5)
 Me.cboEISQAStatus.Name = "cboEISQAStatus"
 Me.cboEISQAStatus.Size = New System.Drawing.Size(155, 21)
-Me.cboEISQAStatus.TabIndex = 510
+Me.cboEISQAStatus.TabIndex = 4
 '
 'Label288
 '
@@ -2792,7 +2778,7 @@ Me.dtpQAStatus.Format = System.Windows.Forms.DateTimePickerFormat.Custom
 Me.dtpQAStatus.Location = New System.Drawing.Point(726, 5)
 Me.dtpQAStatus.Name = "dtpQAStatus"
 Me.dtpQAStatus.Size = New System.Drawing.Size(99, 20)
-Me.dtpQAStatus.TabIndex = 512
+Me.dtpQAStatus.TabIndex = 5
 '
 'btnUpdateQAData
 '
@@ -2800,7 +2786,7 @@ Me.btnUpdateQAData.AutoSize = true
 Me.btnUpdateQAData.Location = New System.Drawing.Point(864, 4)
 Me.btnUpdateQAData.Name = "btnUpdateQAData"
 Me.btnUpdateQAData.Size = New System.Drawing.Size(96, 23)
-Me.btnUpdateQAData.TabIndex = 513
+Me.btnUpdateQAData.TabIndex = 14
 Me.btnUpdateQAData.Text = "Update QA Data"
 Me.btnUpdateQAData.UseVisualStyleBackColor = true
 '
@@ -2829,7 +2815,7 @@ Me.txtAllEISDeadlineComment.Name = "txtAllEISDeadlineComment"
 Me.txtAllEISDeadlineComment.ReadOnly = true
 Me.txtAllEISDeadlineComment.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
 Me.txtAllEISDeadlineComment.Size = New System.Drawing.Size(314, 80)
-Me.txtAllEISDeadlineComment.TabIndex = 539
+Me.txtAllEISDeadlineComment.TabIndex = 4
 '
 'dtpDeadlineEIS
 '
@@ -2840,7 +2826,7 @@ Me.dtpDeadlineEIS.Location = New System.Drawing.Point(104, 75)
 Me.dtpDeadlineEIS.Name = "dtpDeadlineEIS"
 Me.dtpDeadlineEIS.ShowCheckBox = true
 Me.dtpDeadlineEIS.Size = New System.Drawing.Size(120, 20)
-Me.dtpDeadlineEIS.TabIndex = 537
+Me.dtpDeadlineEIS.TabIndex = 2
 '
 'chbOptedOutIncorrectly
 '
@@ -2849,7 +2835,7 @@ Me.chbOptedOutIncorrectly.CheckAlign = System.Drawing.ContentAlignment.TopLeft
 Me.chbOptedOutIncorrectly.Location = New System.Drawing.Point(231, 13)
 Me.chbOptedOutIncorrectly.Name = "chbOptedOutIncorrectly"
 Me.chbOptedOutIncorrectly.Size = New System.Drawing.Size(81, 30)
-Me.chbOptedOutIncorrectly.TabIndex = 507
+Me.chbOptedOutIncorrectly.TabIndex = 1
 Me.chbOptedOutIncorrectly.Text = "Opted Out"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"  Incorrectly"
 Me.chbOptedOutIncorrectly.UseVisualStyleBackColor = true
 '
@@ -2869,7 +2855,7 @@ Me.txtEISDeadlineComment.MaxLength = 100
 Me.txtEISDeadlineComment.Multiline = true
 Me.txtEISDeadlineComment.Name = "txtEISDeadlineComment"
 Me.txtEISDeadlineComment.Size = New System.Drawing.Size(314, 66)
-Me.txtEISDeadlineComment.TabIndex = 538
+Me.txtEISDeadlineComment.TabIndex = 3
 '
 'txtEILogPrePopYear
 '
@@ -2877,7 +2863,7 @@ Me.txtEILogPrePopYear.Location = New System.Drawing.Point(104, 13)
 Me.txtEILogPrePopYear.Name = "txtEILogPrePopYear"
 Me.txtEILogPrePopYear.ReadOnly = true
 Me.txtEILogPrePopYear.Size = New System.Drawing.Size(60, 20)
-Me.txtEILogPrePopYear.TabIndex = 504
+Me.txtEILogPrePopYear.TabIndex = 0
 '
 'Label233
 '
@@ -2891,8 +2877,6 @@ Me.Label233.Text = "Pre-Pop Year"
 'Panel9
 '
 Me.Panel9.Controls.Add(Me.txtEILogStatusCode)
-Me.Panel9.Controls.Add(Me.Label274)
-Me.Panel9.Controls.Add(Me.btnCopyAIRSNumber)
 Me.Panel9.Controls.Add(Me.Panel20)
 Me.Panel9.Controls.Add(Me.Label234)
 Me.Panel9.Controls.Add(Me.Label239)
@@ -2903,7 +2887,6 @@ Me.Panel9.Controls.Add(Me.dtpEILogStatusDateSubmit)
 Me.Panel9.Controls.Add(Me.Label229)
 Me.Panel9.Controls.Add(Me.cboEILogYear)
 Me.Panel9.Controls.Add(Me.Label230)
-Me.Panel9.Controls.Add(Me.Label231)
 Me.Panel9.Controls.Add(Me.btnReloadFSData)
 Me.Panel9.Controls.Add(Me.txtEILogSelectedAIRSNumber)
 Me.Panel9.Controls.Add(Me.btnEILogAddNewFacility)
@@ -2942,27 +2925,7 @@ Me.txtEILogStatusCode.Location = New System.Drawing.Point(294, 55)
 Me.txtEILogStatusCode.Name = "txtEILogStatusCode"
 Me.txtEILogStatusCode.ReadOnly = true
 Me.txtEILogStatusCode.Size = New System.Drawing.Size(152, 20)
-Me.txtEILogStatusCode.TabIndex = 510
-'
-'Label274
-'
-Me.Label274.AutoSize = true
-Me.Label274.Location = New System.Drawing.Point(156, 34)
-Me.Label274.Name = "Label274"
-Me.Label274.Size = New System.Drawing.Size(31, 13)
-Me.Label274.TabIndex = 509
-Me.Label274.Text = "Copy"
-'
-'btnCopyAIRSNumber
-'
-Me.btnCopyAIRSNumber.AutoSize = true
-Me.btnCopyAIRSNumber.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-Me.btnCopyAIRSNumber.Image = CType(resources.GetObject("btnCopyAIRSNumber.Image"),System.Drawing.Image)
-Me.btnCopyAIRSNumber.Location = New System.Drawing.Point(128, 29)
-Me.btnCopyAIRSNumber.Name = "btnCopyAIRSNumber"
-Me.btnCopyAIRSNumber.Size = New System.Drawing.Size(22, 22)
-Me.btnCopyAIRSNumber.TabIndex = 508
-Me.btnCopyAIRSNumber.UseVisualStyleBackColor = true
+Me.txtEILogStatusCode.TabIndex = 10
 '
 'Panel20
 '
@@ -2973,7 +2936,7 @@ Me.Panel20.Controls.Add(Me.rdbEILogActiveYes)
 Me.Panel20.Location = New System.Drawing.Point(868, 80)
 Me.Panel20.Name = "Panel20"
 Me.Panel20.Size = New System.Drawing.Size(90, 22)
-Me.Panel20.TabIndex = 506
+Me.Panel20.TabIndex = 18
 '
 'rdbEILogActiveNo
 '
@@ -3022,7 +2985,7 @@ Me.txtEILogStatusMgt.Multiline = true
 Me.txtEILogStatusMgt.Name = "txtEILogStatusMgt"
 Me.txtEILogStatusMgt.ReadOnly = true
 Me.txtEILogStatusMgt.Size = New System.Drawing.Size(137, 41)
-Me.txtEILogStatusMgt.TabIndex = 443
+Me.txtEILogStatusMgt.TabIndex = 15
 '
 'dtpEILogDateEnrolled
 '
@@ -3031,7 +2994,7 @@ Me.dtpEILogDateEnrolled.Format = System.Windows.Forms.DateTimePickerFormat.Custo
 Me.dtpEILogDateEnrolled.Location = New System.Drawing.Point(59, 142)
 Me.dtpEILogDateEnrolled.Name = "dtpEILogDateEnrolled"
 Me.dtpEILogDateEnrolled.Size = New System.Drawing.Size(100, 20)
-Me.dtpEILogDateEnrolled.TabIndex = 502
+Me.dtpEILogDateEnrolled.TabIndex = 6
 '
 'Label232
 '
@@ -3049,7 +3012,7 @@ Me.dtpEILogStatusDateSubmit.Format = System.Windows.Forms.DateTimePickerFormat.C
 Me.dtpEILogStatusDateSubmit.Location = New System.Drawing.Point(650, 75)
 Me.dtpEILogStatusDateSubmit.Name = "dtpEILogStatusDateSubmit"
 Me.dtpEILogStatusDateSubmit.Size = New System.Drawing.Size(100, 20)
-Me.dtpEILogStatusDateSubmit.TabIndex = 500
+Me.dtpEILogStatusDateSubmit.TabIndex = 13
 '
 'Label229
 '
@@ -3062,11 +3025,12 @@ Me.Label229.Text = "Date Status Code Changed"
 '
 'cboEILogYear
 '
+Me.cboEILogYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEILogYear.FormattingEnabled = true
 Me.cboEILogYear.Location = New System.Drawing.Point(59, 6)
 Me.cboEILogYear.Name = "cboEILogYear"
 Me.cboEILogYear.Size = New System.Drawing.Size(63, 21)
-Me.cboEILogYear.TabIndex = 1
+Me.cboEILogYear.TabIndex = 0
 '
 'Label230
 '
@@ -3077,24 +3041,14 @@ Me.Label230.Size = New System.Drawing.Size(117, 13)
 Me.Label230.TabIndex = 498
 Me.Label230.Text = "Currently selected Data"
 '
-'Label231
-'
-Me.Label231.AutoSize = true
-Me.Label231.Location = New System.Drawing.Point(156, 10)
-Me.Label231.Name = "Label231"
-Me.Label231.Size = New System.Drawing.Size(30, 13)
-Me.Label231.TabIndex = 497
-Me.Label231.Text = "View"
-'
 'btnReloadFSData
 '
-Me.btnReloadFSData.AutoSize = true
 Me.btnReloadFSData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-Me.btnReloadFSData.Image = CType(resources.GetObject("btnReloadFSData.Image"),System.Drawing.Image)
 Me.btnReloadFSData.Location = New System.Drawing.Point(128, 5)
 Me.btnReloadFSData.Name = "btnReloadFSData"
-Me.btnReloadFSData.Size = New System.Drawing.Size(22, 22)
-Me.btnReloadFSData.TabIndex = 3
+Me.btnReloadFSData.Size = New System.Drawing.Size(56, 22)
+Me.btnReloadFSData.TabIndex = 1
+Me.btnReloadFSData.Text = "View"
 Me.btnReloadFSData.UseVisualStyleBackColor = true
 '
 'txtEILogSelectedAIRSNumber
@@ -3103,7 +3057,7 @@ Me.txtEILogSelectedAIRSNumber.Location = New System.Drawing.Point(360, 7)
 Me.txtEILogSelectedAIRSNumber.Name = "txtEILogSelectedAIRSNumber"
 Me.txtEILogSelectedAIRSNumber.ReadOnly = true
 Me.txtEILogSelectedAIRSNumber.Size = New System.Drawing.Size(86, 20)
-Me.txtEILogSelectedAIRSNumber.TabIndex = 488
+Me.txtEILogSelectedAIRSNumber.TabIndex = 8
 '
 'btnEILogAddNewFacility
 '
@@ -3112,7 +3066,7 @@ Me.btnEILogAddNewFacility.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowA
 Me.btnEILogAddNewFacility.Location = New System.Drawing.Point(868, 42)
 Me.btnEILogAddNewFacility.Name = "btnEILogAddNewFacility"
 Me.btnEILogAddNewFacility.Size = New System.Drawing.Size(133, 23)
-Me.btnEILogAddNewFacility.TabIndex = 487
+Me.btnEILogAddNewFacility.TabIndex = 17
 Me.btnEILogAddNewFacility.Text = "Add New Faciltiy to Year"
 Me.btnEILogAddNewFacility.UseVisualStyleBackColor = true
 '
@@ -3123,7 +3077,7 @@ Me.btnEILogUpdate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
 Me.btnEILogUpdate.Location = New System.Drawing.Point(868, 13)
 Me.btnEILogUpdate.Name = "btnEILogUpdate"
 Me.btnEILogUpdate.Size = New System.Drawing.Size(110, 23)
-Me.btnEILogUpdate.TabIndex = 486
+Me.btnEILogUpdate.TabIndex = 16
 Me.btnEILogUpdate.Text = "Update Admin Data"
 Me.btnEILogUpdate.UseVisualStyleBackColor = true
 '
@@ -3142,7 +3096,7 @@ Me.txtEILogUpdatedTime.Location = New System.Drawing.Point(868, 136)
 Me.txtEILogUpdatedTime.Name = "txtEILogUpdatedTime"
 Me.txtEILogUpdatedTime.ReadOnly = true
 Me.txtEILogUpdatedTime.Size = New System.Drawing.Size(133, 20)
-Me.txtEILogUpdatedTime.TabIndex = 457
+Me.txtEILogUpdatedTime.TabIndex = 20
 '
 'Label176
 '
@@ -3159,7 +3113,7 @@ Me.txtEILogUpdatedBy.Location = New System.Drawing.Point(868, 110)
 Me.txtEILogUpdatedBy.Name = "txtEILogUpdatedBy"
 Me.txtEILogUpdatedBy.ReadOnly = true
 Me.txtEILogUpdatedBy.Size = New System.Drawing.Size(133, 20)
-Me.txtEILogUpdatedBy.TabIndex = 455
+Me.txtEILogUpdatedBy.TabIndex = 19
 '
 'txtEILogComments
 '
@@ -3168,7 +3122,7 @@ Me.txtEILogComments.Multiline = true
 Me.txtEILogComments.Name = "txtEILogComments"
 Me.txtEILogComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
 Me.txtEILogComments.Size = New System.Drawing.Size(448, 48)
-Me.txtEILogComments.TabIndex = 442
+Me.txtEILogComments.TabIndex = 14
 '
 'Label175
 '
@@ -3181,11 +3135,12 @@ Me.Label175.Text = "Comments"
 '
 'cboEILogAccessCode
 '
+Me.cboEILogAccessCode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEILogAccessCode.FormattingEnabled = true
 Me.cboEILogAccessCode.Location = New System.Drawing.Point(294, 84)
 Me.cboEILogAccessCode.Name = "cboEILogAccessCode"
 Me.cboEILogAccessCode.Size = New System.Drawing.Size(310, 21)
-Me.cboEILogAccessCode.TabIndex = 440
+Me.cboEILogAccessCode.TabIndex = 12
 '
 'Label103
 '
@@ -3198,11 +3153,12 @@ Me.Label103.Text = "Access Code"
 '
 'cboEILogStatusCode
 '
+Me.cboEILogStatusCode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEILogStatusCode.FormattingEnabled = true
 Me.cboEILogStatusCode.Location = New System.Drawing.Point(452, 55)
 Me.cboEILogStatusCode.Name = "cboEILogStatusCode"
 Me.cboEILogStatusCode.Size = New System.Drawing.Size(152, 21)
-Me.cboEILogStatusCode.TabIndex = 438
+Me.cboEILogStatusCode.TabIndex = 11
 '
 'Label102
 '
@@ -3231,7 +3187,7 @@ Me.Panel15.Controls.Add(Me.rdbEILogOpOutYes)
 Me.Panel15.Location = New System.Drawing.Point(59, 115)
 Me.Panel15.Name = "Panel15"
 Me.Panel15.Size = New System.Drawing.Size(91, 22)
-Me.Panel15.TabIndex = 436
+Me.Panel15.TabIndex = 5
 '
 'rdbEILogOpOutNo
 '
@@ -3273,7 +3229,7 @@ Me.Panel14.Controls.Add(Me.rdbEILogMailoutYes)
 Me.Panel14.Location = New System.Drawing.Point(59, 57)
 Me.Panel14.Name = "Panel14"
 Me.Panel14.Size = New System.Drawing.Size(91, 22)
-Me.Panel14.TabIndex = 434
+Me.Panel14.TabIndex = 3
 '
 'rdbEILogMailoutNo
 '
@@ -3315,7 +3271,7 @@ Me.Panel13.Controls.Add(Me.rdbEILogEnrolledYes)
 Me.Panel13.Location = New System.Drawing.Point(59, 85)
 Me.Panel13.Name = "Panel13"
 Me.Panel13.Size = New System.Drawing.Size(91, 22)
-Me.Panel13.TabIndex = 432
+Me.Panel13.TabIndex = 4
 '
 'rdbEILogEnrolledNo
 '
@@ -3345,7 +3301,7 @@ Me.txtEILogSelectedYear.Location = New System.Drawing.Point(294, 7)
 Me.txtEILogSelectedYear.Name = "txtEILogSelectedYear"
 Me.txtEILogSelectedYear.ReadOnly = true
 Me.txtEILogSelectedYear.Size = New System.Drawing.Size(60, 20)
-Me.txtEILogSelectedYear.TabIndex = 6
+Me.txtEILogSelectedYear.TabIndex = 7
 '
 'txtEILogFacilityName
 '
@@ -3353,7 +3309,7 @@ Me.txtEILogFacilityName.Location = New System.Drawing.Point(294, 30)
 Me.txtEILogFacilityName.Name = "txtEILogFacilityName"
 Me.txtEILogFacilityName.ReadOnly = true
 Me.txtEILogFacilityName.Size = New System.Drawing.Size(322, 20)
-Me.txtEILogFacilityName.TabIndex = 5
+Me.txtEILogFacilityName.TabIndex = 9
 '
 'Label49
 '
@@ -4911,7 +4867,6 @@ Me.Panel26.Controls.Add(Me.mtbThresholdYear)
 Me.Panel26.Controls.Add(Me.llbClearEISYear)
 Me.Panel26.Controls.Add(Me.Label272)
 Me.Panel26.Controls.Add(Me.dtpEISDeadline)
-Me.Panel26.Controls.Add(Me.btnDeleteEISYear)
 Me.Panel26.Controls.Add(Me.btnUpdateEISYear)
 Me.Panel26.Controls.Add(Me.btnAddEISYear)
 Me.Panel26.Controls.Add(Me.rdbEISThreeYear)
@@ -4959,17 +4914,6 @@ Me.dtpEISDeadline.Location = New System.Drawing.Point(71, 32)
 Me.dtpEISDeadline.Name = "dtpEISDeadline"
 Me.dtpEISDeadline.Size = New System.Drawing.Size(86, 20)
 Me.dtpEISDeadline.TabIndex = 503
-'
-'btnDeleteEISYear
-'
-Me.btnDeleteEISYear.AutoSize = true
-Me.btnDeleteEISYear.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-Me.btnDeleteEISYear.Location = New System.Drawing.Point(302, 60)
-Me.btnDeleteEISYear.Name = "btnDeleteEISYear"
-Me.btnDeleteEISYear.Size = New System.Drawing.Size(93, 23)
-Me.btnDeleteEISYear.TabIndex = 40
-Me.btnDeleteEISYear.Text = "Delete EIS Year"
-Me.btnDeleteEISYear.UseVisualStyleBackColor = true
 '
 'btnUpdateEISYear
 '
@@ -5065,6 +5009,7 @@ Me.Label74.Text = "Select a Year"
 '
 'cboEISStatisticsYear
 '
+Me.cboEISStatisticsYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEISStatisticsYear.FormattingEnabled = true
 Me.cboEISStatisticsYear.Location = New System.Drawing.Point(86, 12)
 Me.cboEISStatisticsYear.Name = "cboEISStatisticsYear"
@@ -6703,10 +6648,10 @@ Me.Label174.Text = "Choose the Year for mailout"
 Me.lblviewselectedyearMailoutList.AutoSize = true
 Me.lblviewselectedyearMailoutList.Location = New System.Drawing.Point(126, 146)
 Me.lblviewselectedyearMailoutList.Name = "lblviewselectedyearMailoutList"
-Me.lblviewselectedyearMailoutList.Size = New System.Drawing.Size(179, 13)
+Me.lblviewselectedyearMailoutList.Size = New System.Drawing.Size(173, 13)
 Me.lblviewselectedyearMailoutList.TabIndex = 9
 Me.lblviewselectedyearMailoutList.TabStop = true
-Me.lblviewselectedyearMailoutList.Text = "View Selected Year ES Mailout List  "
+Me.lblviewselectedyearMailoutList.Text = "View Selected Year ES Mailout List"
 '
 'btnDelMailOut
 '
@@ -6719,6 +6664,7 @@ Me.btnDelMailOut.UseVisualStyleBackColor = true
 '
 'cboMailoutYear
 '
+Me.cboMailoutYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboMailoutYear.FormattingEnabled = true
 Me.cboMailoutYear.Location = New System.Drawing.Point(129, 52)
 Me.cboMailoutYear.Name = "cboMailoutYear"
@@ -6761,6 +6707,7 @@ Me.lblviewESenrollment.Text = "View Enrollment"
 '
 'cboESYear
 '
+Me.cboESYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboESYear.FormattingEnabled = true
 Me.cboESYear.Location = New System.Drawing.Point(273, 38)
 Me.cboESYear.Name = "cboESYear"
@@ -6936,6 +6883,7 @@ Me.Label31.Text = "Select a Year"
 '
 'cboYear
 '
+Me.cboYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboYear.FormattingEnabled = true
 Me.cboYear.Location = New System.Drawing.Point(93, 12)
 Me.cboYear.Name = "cboYear"
@@ -7022,6 +6970,7 @@ Me.lblFacility.Text = "Current Users for:"
 '
 'cboUsers
 '
+Me.cboUsers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboUsers.FormattingEnabled = true
 Me.cboUsers.Location = New System.Drawing.Point(366, 63)
 Me.cboUsers.Name = "cboUsers"
@@ -7214,6 +7163,7 @@ Me.txtEditEmail.Visible = false
 '
 'cboFacilityToDelete
 '
+Me.cboFacilityToDelete.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboFacilityToDelete.FormattingEnabled = true
 Me.cboFacilityToDelete.Location = New System.Drawing.Point(179, 329)
 Me.cboFacilityToDelete.Name = "cboFacilityToDelete"
@@ -7524,6 +7474,7 @@ Me.pnlUserEmail.TabIndex = 147
 '
 Me.cboUserEmail.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.cboUserEmail.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+Me.cboUserEmail.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboUserEmail.Location = New System.Drawing.Point(637, 8)
 Me.cboUserEmail.Name = "cboUserEmail"
 Me.cboUserEmail.Size = New System.Drawing.Size(244, 21)
@@ -7629,7 +7580,6 @@ Me.dgvEISDataCount.TabIndex = 54
 Me.TabControl1.Controls.Add(Me.TabFacilityDetails)
 Me.TabControl1.Controls.Add(Me.TabFacilitySite)
 Me.TabControl1.Controls.Add(Me.TabEISAdmin)
-Me.TabControl1.Controls.Add(Me.TabEISSummary)
 Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Left
 Me.TabControl1.Location = New System.Drawing.Point(0, 0)
 Me.TabControl1.Name = "TabControl1"
@@ -7763,6 +7713,7 @@ Me.btnUpdateCodes.UseVisualStyleBackColor = true
 '
 'cboEISEnrollmentStatus
 '
+Me.cboEISEnrollmentStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEISEnrollmentStatus.FormattingEnabled = true
 Me.cboEISEnrollmentStatus.Location = New System.Drawing.Point(271, 307)
 Me.cboEISEnrollmentStatus.Name = "cboEISEnrollmentStatus"
@@ -7788,6 +7739,7 @@ Me.Label37.Text = "Enrollment Status:"
 '
 'cboEISMailoutStatus
 '
+Me.cboEISMailoutStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEISMailoutStatus.FormattingEnabled = true
 Me.cboEISMailoutStatus.Location = New System.Drawing.Point(271, 261)
 Me.cboEISMailoutStatus.Name = "cboEISMailoutStatus"
@@ -7813,6 +7765,7 @@ Me.Label36.Text = "Mailout Status:"
 '
 'cboEISOptoutStatus
 '
+Me.cboEISOptoutStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEISOptoutStatus.FormattingEnabled = true
 Me.cboEISOptoutStatus.Location = New System.Drawing.Point(271, 212)
 Me.cboEISOptoutStatus.Name = "cboEISOptoutStatus"
@@ -7838,6 +7791,7 @@ Me.Label35.Text = "Optout Status:"
 '
 'cboEISAccessCode
 '
+Me.cboEISAccessCode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEISAccessCode.FormattingEnabled = true
 Me.cboEISAccessCode.Location = New System.Drawing.Point(271, 170)
 Me.cboEISAccessCode.Name = "cboEISAccessCode"
@@ -7863,6 +7817,7 @@ Me.Label34.Text = "Access Code:"
 '
 'cboEISStatusCode
 '
+Me.cboEISStatusCode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEISStatusCode.FormattingEnabled = true
 Me.cboEISStatusCode.Location = New System.Drawing.Point(271, 125)
 Me.cboEISStatusCode.Name = "cboEISStatusCode"
@@ -8215,6 +8170,7 @@ Me.btnDeleteEISMaiout.UseVisualStyleBackColor = true
 '
 'cboEISMailoutYear
 '
+Me.cboEISMailoutYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEISMailoutYear.FormattingEnabled = true
 Me.cboEISMailoutYear.Location = New System.Drawing.Point(21, 25)
 Me.cboEISMailoutYear.Name = "cboEISMailoutYear"
@@ -8318,6 +8274,7 @@ Me.lblViewEISEnrollment.Text = "View Enrollment"
 '
 'cboEISMailoutEnrollmentYear
 '
+Me.cboEISMailoutEnrollmentYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEISMailoutEnrollmentYear.FormattingEnabled = true
 Me.cboEISMailoutEnrollmentYear.Location = New System.Drawing.Point(195, 26)
 Me.cboEISMailoutEnrollmentYear.Name = "cboEISMailoutEnrollmentYear"
@@ -8375,6 +8332,7 @@ Me.TabAddEISfacility.UseVisualStyleBackColor = true
 '
 'cboEISYear
 '
+Me.cboEISYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEISYear.FormattingEnabled = true
 Me.cboEISYear.Location = New System.Drawing.Point(119, 92)
 Me.cboEISYear.Name = "cboEISYear"
@@ -8499,6 +8457,7 @@ Me.tabEIS_ThresholdYear.UseVisualStyleBackColor = true
 '
 'cboEISThreholdYear
 '
+Me.cboEISThreholdYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEISThreholdYear.FormattingEnabled = true
 Me.cboEISThreholdYear.Location = New System.Drawing.Point(109, 17)
 Me.cboEISThreholdYear.Name = "cboEISThreholdYear"
@@ -8535,6 +8494,7 @@ Me.lblviewEISThreshold.Text = "View EIS Threshold"
 '
 'cboEISType
 '
+Me.cboEISType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEISType.FormattingEnabled = true
 Me.cboEISType.Location = New System.Drawing.Point(109, 49)
 Me.cboEISType.Name = "cboEISType"
@@ -8785,21 +8745,12 @@ Me.Label16.Text = "EIS Type:"
 '
 'cboEISType2
 '
+Me.cboEISType2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEISType2.FormattingEnabled = true
 Me.cboEISType2.Location = New System.Drawing.Point(114, 17)
 Me.cboEISType2.Name = "cboEISType2"
 Me.cboEISType2.Size = New System.Drawing.Size(120, 21)
 Me.cboEISType2.TabIndex = 47
-'
-'TabEISSummary
-'
-Me.TabEISSummary.Location = New System.Drawing.Point(4, 22)
-Me.TabEISSummary.Name = "TabEISSummary"
-Me.TabEISSummary.Padding = New System.Windows.Forms.Padding(3)
-Me.TabEISSummary.Size = New System.Drawing.Size(474, 661)
-Me.TabEISSummary.TabIndex = 0
-Me.TabEISSummary.Text = "EIS Summary"
-Me.TabEISSummary.UseVisualStyleBackColor = true
 '
 'TPEmissionInventory
 '
@@ -9771,6 +9722,7 @@ Me.lblviewEIThreshold.Text = "View EI Threshold"
 '
 'cboEItype
 '
+Me.cboEItype.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEItype.FormattingEnabled = true
 Me.cboEItype.Location = New System.Drawing.Point(128, 225)
 Me.cboEItype.Name = "cboEItype"
@@ -9842,6 +9794,7 @@ Me.btnDeleteEIMailOut.UseVisualStyleBackColor = true
 '
 'cboEIMailoutYear
 '
+Me.cboEIMailoutYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEIMailoutYear.FormattingEnabled = true
 Me.cboEIMailoutYear.Location = New System.Drawing.Point(128, 39)
 Me.cboEIMailoutYear.Name = "cboEIMailoutYear"
@@ -9885,6 +9838,7 @@ Me.lblViewEnrollmentlist.Text = "View Enrollment"
 '
 'cboEIEnrollmentYear
 '
+Me.cboEIEnrollmentYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEIEnrollmentYear.FormattingEnabled = true
 Me.cboEIEnrollmentYear.Location = New System.Drawing.Point(204, 57)
 Me.cboEIEnrollmentYear.Name = "cboEIEnrollmentYear"
@@ -10102,6 +10056,7 @@ Me.Label199.Text = "EI Type:"
 '
 'cboEIType2
 '
+Me.cboEIType2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEIType2.FormattingEnabled = true
 Me.cboEIType2.Location = New System.Drawing.Point(146, 42)
 Me.cboEIType2.Name = "cboEIType2"
@@ -10130,6 +10085,7 @@ Me.txtEIYear.Visible = false
 '
 'cboEIYear2
 '
+Me.cboEIYear2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEIYear2.FormattingEnabled = true
 Me.cboEIYear2.Location = New System.Drawing.Point(91, 13)
 Me.cboEIYear2.Name = "cboEIYear2"
@@ -10386,6 +10342,7 @@ Me.dgvSI.Visible = false
 '
 'cboEIYear
 '
+Me.cboEIYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 Me.cboEIYear.FormattingEnabled = true
 Me.cboEIYear.Location = New System.Drawing.Point(664, 105)
 Me.cboEIYear.Name = "cboEIYear"
@@ -10952,7 +10909,6 @@ End Sub
     Friend WithEvents Panel7 As System.Windows.Forms.Panel
     Friend WithEvents TabEISTool As System.Windows.Forms.TabPage
     Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
-    Friend WithEvents TabEISSummary As System.Windows.Forms.TabPage
     Friend WithEvents TabEISAdmin As System.Windows.Forms.TabPage
     Friend WithEvents TabControl5 As System.Windows.Forms.TabControl
     Friend WithEvents TabEISGenerateMailout As System.Windows.Forms.TabPage
@@ -11284,7 +11240,6 @@ End Sub
     Friend WithEvents txtEISContactUpdateUser As System.Windows.Forms.TextBox
     Friend WithEvents txtEILogSelectedAIRSNumber As System.Windows.Forms.TextBox
     Friend WithEvents Label230 As System.Windows.Forms.Label
-    Friend WithEvents Label231 As System.Windows.Forms.Label
     Friend WithEvents btnReloadFSData As System.Windows.Forms.Button
     Friend WithEvents cboEILogYear As System.Windows.Forms.ComboBox
     Friend WithEvents Label229 As System.Windows.Forms.Label
@@ -11312,7 +11267,6 @@ End Sub
     Friend WithEvents btnEIModifyCopy As System.Windows.Forms.Button
     Friend WithEvents btnEILogUpdate As System.Windows.Forms.Button
     Friend WithEvents llbEIModifyMapTool As System.Windows.Forms.LinkLabel
-    Friend WithEvents Label73 As System.Windows.Forms.Label
     Friend WithEvents btnRefreshMailoutData As System.Windows.Forms.Button
     Friend WithEvents TPEISStatistics As System.Windows.Forms.TabPage
     Friend WithEvents Panel17 As System.Windows.Forms.Panel
@@ -11472,7 +11426,6 @@ End Sub
     Friend WithEvents rdbEISAnnual As System.Windows.Forms.RadioButton
     Friend WithEvents btnUpdateEISYear As System.Windows.Forms.Button
     Friend WithEvents btnAddEISYear As System.Windows.Forms.Button
-    Friend WithEvents btnDeleteEISYear As System.Windows.Forms.Button
     Friend WithEvents Label272 As System.Windows.Forms.Label
     Friend WithEvents dtpEISDeadline As System.Windows.Forms.DateTimePicker
     Friend WithEvents llbClearEISYear As System.Windows.Forms.LinkLabel
@@ -11497,8 +11450,6 @@ End Sub
     Friend WithEvents txtFITrackingNumber As System.Windows.Forms.TextBox
     Friend WithEvents Label290 As System.Windows.Forms.Label
     Friend WithEvents chbOptedOutIncorrectly As System.Windows.Forms.CheckBox
-    Friend WithEvents Label274 As System.Windows.Forms.Label
-    Friend WithEvents btnCopyAIRSNumber As System.Windows.Forms.Button
     Friend WithEvents txtAllEISDeadlineComment As System.Windows.Forms.TextBox
     Friend WithEvents txtEISDeadlineComment As System.Windows.Forms.TextBox
     Friend WithEvents dtpDeadlineEIS As System.Windows.Forms.DateTimePicker
