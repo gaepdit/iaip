@@ -455,6 +455,10 @@ Public Class DMUEisGecoTool
             dgvEISStats.Columns("EISLastName").DisplayIndex = 25
             dgvEISStats.Columns("EISLastName").Visible = True
 
+            dgvEISStats.Columns.Add("DATFINALIZE", "Date Submitted")
+            dgvEISStats.Columns("DATFINALIZE").DisplayIndex = 26
+            dgvEISStats.Columns("DATFINALIZE").Visible = True
+
         Catch ex As Exception
 
         End Try
@@ -15652,7 +15656,7 @@ Public Class DMUEisGecoTool
             "EISADDRESS2, EISCITY, " & _
             "EISSTATE, EISZIPCODE, " & _
             "EISPREFIX, EISFIRSTNAME, " & _
-            "EISLASTNAME " & _
+            "EISLASTNAME, DATFINALIZE " & _
             "from AIRBranch.VW_EIS_Stats " & _
             "where inventoryyear = '" & EISYear & "' " & _
             "and Active = '" & EISActive & "' "
@@ -15829,6 +15833,12 @@ Public Class DMUEisGecoTool
                     dgvRow.Cells(25).Value = ""
                 Else
                     dgvRow.Cells(25).Value = dr.Item("EISLASTNAME")
+                End If
+
+                If IsDBNull(dr.Item("DATFINALIZE")) Then
+                    dgvRow.Cells(26).Value = ""
+                Else
+                    dgvRow.Cells(26).Value = dr.Item("DATFINALIZE")
                 End If
 
                 dgvEISStats.Rows.Add(dgvRow)
