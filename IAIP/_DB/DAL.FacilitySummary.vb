@@ -21,6 +21,7 @@ Namespace DAL
                     "      DATENFORCEMENTFINALIZED IS NOT NULL THEN 'Closed' ELSE " & _
                     "      'Open' END AS Status " & _
                     "FROM AIRBRANCH.SSCP_AUDITEDENFORCEMENT " & _
+                    "WHERE STRAIRSNUMBER = :AirsNumber " & _
                     "ORDER BY STRENFORCEMENTNUMBER DESC"
                 Case IAIPFacilitySummary.FacilityDataTable.ComplianceFCE
                     query = _
