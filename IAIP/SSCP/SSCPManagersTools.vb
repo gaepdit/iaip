@@ -6119,4 +6119,10 @@ Public Class SSCPManagersTools
 
 #End Region
 
+    Private Sub OpenFacilityButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OpenFacilityButton.Click
+        If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtAIRSNumber.Text) Then
+            OpenFormFacilitySummary(txtAIRSNumber.Text)
+        End If
+    End Sub
+
 End Class
