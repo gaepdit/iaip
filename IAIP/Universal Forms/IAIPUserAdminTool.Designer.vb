@@ -24,14 +24,8 @@ Partial Class IAIPUserAdminTool
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPUserAdminTool))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
-        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.tsmOpenMaintenanceTool = New System.Windows.Forms.ToolStripMenuItem
-        Me.tsbViewOrgChart = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiViewPhoneList = New System.Windows.Forms.ToolStripMenuItem
-        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.HelpOnlineToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
         Me.pnl1 = New System.Windows.Forms.ToolStripStatusLabel
         Me.pnl2 = New System.Windows.Forms.ToolStripStatusLabel
@@ -149,23 +143,16 @@ Partial Class IAIPUserAdminTool
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.ToolToolStripMenuItem, Me.EditToolStripMenuItem, Me.HelpToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(792, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
-        'FileToolStripMenuItem
-        '
-        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.FileToolStripMenuItem.Text = "File"
-        Me.FileToolStripMenuItem.Visible = False
-        '
         'ToolToolStripMenuItem
         '
-        Me.ToolToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmOpenMaintenanceTool, Me.tsbViewOrgChart, Me.mmiViewPhoneList})
+        Me.ToolToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmOpenMaintenanceTool})
         Me.ToolToolStripMenuItem.Name = "ToolToolStripMenuItem"
         Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(43, 20)
         Me.ToolToolStripMenuItem.Text = "Tool"
@@ -173,41 +160,8 @@ Partial Class IAIPUserAdminTool
         'tsmOpenMaintenanceTool
         '
         Me.tsmOpenMaintenanceTool.Name = "tsmOpenMaintenanceTool"
-        Me.tsmOpenMaintenanceTool.Size = New System.Drawing.Size(245, 22)
+        Me.tsmOpenMaintenanceTool.Size = New System.Drawing.Size(225, 22)
         Me.tsmOpenMaintenanceTool.Text = "Open IAIP Organization Tool"
-        '
-        'tsbViewOrgChart
-        '
-        Me.tsbViewOrgChart.Name = "tsbViewOrgChart"
-        Me.tsbViewOrgChart.Size = New System.Drawing.Size(245, 22)
-        Me.tsbViewOrgChart.Text = "View Current Organization Chart"
-        '
-        'mmiViewPhoneList
-        '
-        Me.mmiViewPhoneList.Name = "mmiViewPhoneList"
-        Me.mmiViewPhoneList.Size = New System.Drawing.Size(245, 22)
-        Me.mmiViewPhoneList.Text = "View Current Phone List"
-        '
-        'EditToolStripMenuItem
-        '
-        Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
-        Me.EditToolStripMenuItem.Text = "Edit"
-        Me.EditToolStripMenuItem.Visible = False
-        '
-        'HelpToolStripMenuItem
-        '
-        Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpOnlineToolStripMenuItem})
-        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
-        Me.HelpToolStripMenuItem.Text = "Help"
-        '
-        'HelpOnlineToolStripMenuItem
-        '
-        Me.HelpOnlineToolStripMenuItem.Name = "HelpOnlineToolStripMenuItem"
-        Me.HelpOnlineToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1
-        Me.HelpOnlineToolStripMenuItem.Size = New System.Drawing.Size(156, 22)
-        Me.HelpOnlineToolStripMenuItem.Text = "Help Online"
         '
         'StatusStrip1
         '
@@ -1263,9 +1217,6 @@ Partial Class IAIPUserAdminTool
 
     End Sub
     Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
-    Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents EditToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Friend WithEvents pnl1 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents pnl2 As System.Windows.Forms.ToolStripStatusLabel
@@ -1363,9 +1314,6 @@ Partial Class IAIPUserAdminTool
     Friend WithEvents lblPermissions As System.Windows.Forms.Label
     Friend WithEvents tsbClear As System.Windows.Forms.ToolStripButton
     Friend WithEvents lblCount As System.Windows.Forms.Label
-    Friend WithEvents HelpOnlineToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsbViewOrgChart As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiViewPhoneList As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents lbl10 As System.Windows.Forms.Label
     Friend WithEvents chb10 As System.Windows.Forms.CheckBox
     Friend WithEvents lbl9 As System.Windows.Forms.Label

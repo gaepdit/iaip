@@ -50,7 +50,6 @@ Public Class IAIPUserAdminTool
                         If AccountFormAccess(8, 1) = "1" Then
                             btnClearAllPermissions.Enabled = False
                             cboPermissionProgram.Enabled = False
-                            'cboPermissionAccounts.Enabled = False
                             cboProgram.Enabled = False
                             cboUnit.Enabled = False
                             rdbActiveStatus.Enabled = False
@@ -82,6 +81,7 @@ Public Class IAIPUserAdminTool
     End Sub
 
 #Region "Page Load"
+
     Sub LoadDataSets()
         Try
             dsOrginizations = New DataSet
@@ -290,7 +290,7 @@ Public Class IAIPUserAdminTool
     End Sub
 
 #End Region
-#Region "Subs and Functions"
+
     Sub LoadProgram(ByVal BranchCode As String)
         Try
             Dim dtProgram As New DataTable
@@ -1423,8 +1423,6 @@ Public Class IAIPUserAdminTool
         End Try
     End Sub
 
-#End Region
-#Region "Declarations"
     Private Sub cboBranch_SelectedValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboBranch.SelectedValueChanged
         Try
             If cboBranch.SelectedIndex > 0 Then
@@ -1506,20 +1504,6 @@ Public Class IAIPUserAdminTool
 
         End Try
     End Sub
-    'Private Sub cboPermissionAccounts_SelectedValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboPermissionAccounts.SelectedValueChanged
-    '    Try
-    '        'If cboPermissionAccounts.SelectedIndex > 0 Then
-    '        '    LoadUserTypes(cboPermissionAccounts.SelectedValue, cboPermissionProgram.SelectedValue, cboPermissionBranch.SelectedValue)
-    '        'Else
-    '        '    LoadUserTypes("", cboPermissionProgram.SelectedValue, cboPermissionBranch.SelectedValue)
-    '        'End If
-
-    '    Catch ex As Exception
-    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    Finally
-
-    '    End Try
-    'End Sub
     Private Sub btnCreateNewUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCreateNewUser.Click
         Try
             CreateNewUser()
@@ -1831,34 +1815,7 @@ Public Class IAIPUserAdminTool
         End Try
     End Sub
 
-#End Region
-
-    Private Sub tsbViewOrgChart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbViewOrgChart.Click
-        Try
-            If PrintOut Is Nothing Then
-                If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
-            Else
-                PrintOut.Dispose()
-                PrintOut = New IAIPPrintOut
-            End If
-            PrintOut.txtPrintType.Text = "OrgChart"
-
-            PrintOut.Show()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
-
-    Private Sub HelpOnlineToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HelpOnlineToolStripMenuItem.Click
-        OpenDocumentationUrl(Me)
-    End Sub
-
-
-    Private Sub mmiViewPhoneList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiViewPhoneList.Click
-        OpenSingleForm(IAIPPhoneList)
-    End Sub
+#Region " Accept button "
 
     Private Sub pnlSearch_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles pnlSearch.Enter
         Me.AcceptButton = btnSearch
@@ -1867,4 +1824,7 @@ Public Class IAIPUserAdminTool
     Private Sub pnlSearch_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles pnlSearch.Leave
         Me.AcceptButton = Nothing
     End Sub
+
+#End Region
+
 End Class
