@@ -3275,7 +3275,7 @@ Public Class SSCPEvents
         cboInspectionReason.Items.Add("Complaint Investigation")
         cboInspectionReason.Items.Add("Joint EPD/EPA")
         cboInspectionReason.Items.Add("Multimedia")
-
+        cboInspectionReason.Items.Add("Follow Up")
 
     End Sub
     Sub FillNotificationCombos()
