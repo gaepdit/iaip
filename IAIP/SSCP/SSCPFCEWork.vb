@@ -1914,20 +1914,6 @@ Public Class SSCPFCEWork
                         End While
                         dr.Close()
 
-                        'This was removed when AFS went to 5 digits. 
-                        'Select Case ActionNumber.Length
-                        '    Case 0
-                        '        ActionNumber = "001"
-                        '    Case 1
-                        '        ActionNumber = "00" & ActionNumber
-                        '    Case 2
-                        '        ActionNumber = "0" & ActionNumber
-                        '    Case 3
-                        '        ActionNumber = ActionNumber
-                        '    Case Else
-                        '        ActionNumber = ActionNumber
-                        'End Select
-
                         SQL = "Insert into AIRBRANCH.AFSSSCPFCERecords " & _
                         "(strFCENumber, strAFSActionNumber, " & _
                         "strUpDateStatus, strModifingPerson, " & _
@@ -1944,20 +1930,6 @@ Public Class SSCPFCEWork
                         dr.Close()
 
                         ActionNumber = CStr(CInt(ActionNumber) + 1)
-
-                        'This was removed when AFS went to 5 digits. 
-                        'Select Case ActionNumber.Length
-                        '    Case 0
-                        '        ActionNumber = "001"
-                        '    Case 1
-                        '        ActionNumber = "00" & ActionNumber
-                        '    Case 2
-                        '        ActionNumber = "0" & ActionNumber
-                        '    Case 3
-                        '        ActionNumber = ActionNumber
-                        '    Case Else
-                        '        ActionNumber = ActionNumber
-                        'End Select
 
                         SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                         "strAFSActionNUmber = '" & ActionNumber & "' " & _

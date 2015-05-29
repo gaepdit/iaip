@@ -8775,21 +8775,7 @@ Public Class SSPPApplicationTrackingLog
                     ActionNumber = dr.Item("strAFSActionNumber")
                 End While
                 dr.Close()
-
-                'This was removed when AFS went to 5 digits. 
-                'Select Case ActionNumber.Length
-                '    Case 0
-                '        ActionNumber = "001"
-                '    Case 1
-                '        ActionNumber = "00" & ActionNumber
-                '    Case 2
-                '        ActionNumber = "0" & ActionNumber
-                '    Case 3
-                '        ActionNumber = ActionNumber
-                '    Case Else
-                '        ActionNumber = ActionNumber
-                'End Select
-
+                
                 SQL = "Insert into AIRBRANCH.AFSSSPPRecords " & _
                 "(strApplicationNumber, strAFSActionNumber, " & _
                 "strUpDateStatus, strModifingPerson, " & _
@@ -8806,20 +8792,6 @@ Public Class SSPPApplicationTrackingLog
                 dr.Close()
 
                 ActionNumber = CInt(ActionNumber) + 1
-
-                'This was removed when AFS went to 5 digits. 
-                'Select Case ActionNumber.Length
-                '    Case 0
-                '        ActionNumber = "001"
-                '    Case 1
-                '        ActionNumber = "00" & ActionNumber
-                '    Case 2
-                '        ActionNumber = "0" & ActionNumber
-                '    Case 3
-                '        ActionNumber = ActionNumber
-                '    Case Else
-                '        ActionNumber = ActionNumber
-                'End Select
 
                 SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                 "strAFSActionNumber = '" & ActionNumber & "' " & _

@@ -1664,7 +1664,7 @@ Public Class IAIPFacilityCreator
                 ClearValidator()
                 ClearNewFacility()
             Else
-                MsgBox("Both SSCP and SSPP have to sign off on the new facility before it can be sent to AFS.", MsgBoxStyle.Information, Me.Text)
+                MsgBox("Both SSCP and SSPP have to sign off on the new facility before it can be sent to EPA.", MsgBoxStyle.Information, Me.Text)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

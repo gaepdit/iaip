@@ -778,21 +778,6 @@ Public Class ISMPTestReportAdministrative
                                     End While
                                     dr.Close()
 
-                                    'This was removed when AFS went to 5 digits. 
-
-                                    'Select Case AFSActionNumber.Length
-                                    '    Case 0
-                                    '        AFSActionNumber = "1"
-                                    '    Case 1
-                                    '        AFSActionNumber = "00" & AFSActionNumber
-                                    '    Case 2
-                                    '        AFSActionNumber = "0" & AFSActionNumber
-                                    '    Case 3
-                                    '        AFSActionNumber = AFSActionNumber
-                                    '    Case Else
-                                    '        AFSActionNumber = AFSActionNumber
-                                    'End Select
-
                                     SQL = "Insert into AIRBRANCH.AFSISMPRecords " & _
                                     "(strReferenceNumber, strAFSActionNumber, " & _
                                     "strUpDateStatus, strModifingPerson, " & _
@@ -810,20 +795,6 @@ Public Class ISMPTestReportAdministrative
                                     dr.Close()
 
                                     AFSActionNumber = CInt(AFSActionNumber) + 1
-
-                                    'This was removed when AFS went to 5 digits. 
-                                    'Select Case AFSActionNumber.Length
-                                    '    Case 0
-                                    '        AFSActionNumber = "001"
-                                    '    Case 1
-                                    '        AFSActionNumber = "00" & AFSActionNumber
-                                    '    Case 2
-                                    '        AFSActionNumber = "0" & AFSActionNumber
-                                    '    Case 3
-                                    '        AFSActionNumber = AFSActionNumber
-                                    '    Case Else
-                                    '        AFSActionNumber = AFSActionNumber
-                                    'End Select
 
                                     SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                                     "strAFSActionNumber = '" & AFSActionNumber & "' " & _
@@ -994,21 +965,6 @@ Public Class ISMPTestReportAdministrative
 
             End If
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub Print()
-        Try
-
-            PrintOut = Nothing
-            If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
-            PrintOut.txtPrintType.Text = "ISMPAIRSForm"
-            PrintOut.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
-            PrintOut.Show()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -2217,9 +2173,6 @@ Public Class ISMPTestReportAdministrative
             cboAIRSNumber.Text = Value
         End Set
     End Property
-    Private Sub MmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiHelp.Click
-        OpenDocumentationUrl(Me)
-    End Sub
     Private Sub MmiShowToolbar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiShowToolbar.Click
         Try
 
@@ -2275,18 +2228,10 @@ Public Class ISMPTestReportAdministrative
                     MoveOn()
                 Case 3
                     OpenMemo()
-                    'Case 4
-                    'Print()
                 Case 4
                     Clear()
                 Case 5
                     DeleteTestReport()
-                Case 6
-                    Me.Close()
-                Case 7
-                    Me.Close()
-                Case Else
-
             End Select
 
         Catch ex As Exception
@@ -2322,21 +2267,6 @@ Public Class ISMPTestReportAdministrative
             If txtReferenceNumber.Text <> "" Then
                 Find(txtReferenceNumber.Text)
             End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub cmiPrintAFSForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmiPrintAFSForm.Click
-        Try
-
-            PrintOut = Nothing
-            If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
-            PrintOut.txtPrintType.Text = "ISMPAIRSForm"
-            PrintOut.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
-            PrintOut.Show()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally

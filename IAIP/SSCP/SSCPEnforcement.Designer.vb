@@ -475,11 +475,11 @@ Partial Class SscpEnforcement
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(25, 13)
+        Me.Label10.Location = New System.Drawing.Point(46, 14)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(121, 13)
+        Me.Label10.Size = New System.Drawing.Size(98, 13)
         Me.Label10.TabIndex = 314
-        Me.Label10.Text = "AFS Key Action Number"
+        Me.Label10.Text = "Key Action Number"
         '
         'txtAFSAOResolvedActionNumber
         '
@@ -570,9 +570,9 @@ Partial Class SscpEnforcement
         Me.Label37.AutoSize = True
         Me.Label37.Location = New System.Drawing.Point(409, 37)
         Me.Label37.Name = "Label37"
-        Me.Label37.Size = New System.Drawing.Size(184, 13)
+        Me.Label37.Size = New System.Drawing.Size(178, 13)
         Me.Label37.TabIndex = 326
-        Me.Label37.Text = "Stipulated Penalties Action Number(s)"
+        Me.Label37.Text = "Stipulated Penalties Action Numbers"
         '
         'txtAFSCOProposedActionNumber
         '
@@ -765,7 +765,7 @@ Partial Class SscpEnforcement
         Me.lblDayZero.Name = "lblDayZero"
         Me.lblDayZero.Size = New System.Drawing.Size(152, 13)
         Me.lblDayZero.TabIndex = 5
-        Me.lblDayZero.Text = "Day Zero - AFS Required Date"
+        Me.lblDayZero.Text = "Day Zero - EPA Required Date"
         '
         'chbLON
         '

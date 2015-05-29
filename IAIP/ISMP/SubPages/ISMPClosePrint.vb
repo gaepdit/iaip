@@ -48,13 +48,9 @@ Public Class ISMPClosePrint
     Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
     Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
     Friend WithEvents MmiSave As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem10 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiBack As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem4 As System.Windows.Forms.MenuItem
     Friend WithEvents TBFCE As System.Windows.Forms.ToolBar
     Friend WithEvents TbbSave As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbBack As System.Windows.Forms.ToolBarButton
     Friend WithEvents GBFacilityData As System.Windows.Forms.GroupBox
     Friend WithEvents txtAIRSNumber As System.Windows.Forms.TextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
@@ -96,16 +92,9 @@ Public Class ISMPClosePrint
     Friend WithEvents llbEmissionLog As System.Windows.Forms.ListBox
     Friend WithEvents Label18 As System.Windows.Forms.Label
     Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents TbbPrint As System.Windows.Forms.ToolBarButton
     Friend WithEvents txtEmissionLog As System.Windows.Forms.TextBox
     Friend WithEvents txtTestLinksCount As System.Windows.Forms.TextBox
     Friend WithEvents Label7 As System.Windows.Forms.Label
-    Friend WithEvents mmiCut As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiCopy As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiPaste As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem3 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiPrintAFSForm As System.Windows.Forms.MenuItem
     Friend WithEvents mmiPrintTestReport As System.Windows.Forms.MenuItem
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
@@ -115,21 +104,10 @@ Public Class ISMPClosePrint
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.MenuItem1 = New System.Windows.Forms.MenuItem
         Me.MmiSave = New System.Windows.Forms.MenuItem
-        Me.MenuItem10 = New System.Windows.Forms.MenuItem
-        Me.MmiBack = New System.Windows.Forms.MenuItem
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem
-        Me.mmiCut = New System.Windows.Forms.MenuItem
-        Me.mmiCopy = New System.Windows.Forms.MenuItem
-        Me.mmiPaste = New System.Windows.Forms.MenuItem
         Me.MenuItem4 = New System.Windows.Forms.MenuItem
-        Me.MenuItem3 = New System.Windows.Forms.MenuItem
-        Me.mmiPrintAFSForm = New System.Windows.Forms.MenuItem
         Me.mmiPrintTestReport = New System.Windows.Forms.MenuItem
-        Me.mmiHelp = New System.Windows.Forms.MenuItem
         Me.TBFCE = New System.Windows.Forms.ToolBar
         Me.TbbSave = New System.Windows.Forms.ToolBarButton
-        Me.TbbPrint = New System.Windows.Forms.ToolBarButton
-        Me.TbbBack = New System.Windows.Forms.ToolBarButton
         Me.GBFacilityData = New System.Windows.Forms.GroupBox
         Me.txtAIRSNumber = New System.Windows.Forms.TextBox
         Me.Label1 = New System.Windows.Forms.Label
@@ -281,12 +259,12 @@ Public Class ISMPClosePrint
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.MenuItem2, Me.MenuItem4, Me.mmiHelp})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.MenuItem4})
         '
         'MenuItem1
         '
         Me.MenuItem1.Index = 0
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiSave, Me.MenuItem10, Me.MmiBack})
+        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiSave})
         Me.MenuItem1.Text = "File"
         '
         'MmiSave
@@ -294,67 +272,20 @@ Public Class ISMPClosePrint
         Me.MmiSave.Index = 0
         Me.MmiSave.Text = "Save"
         '
-        'MenuItem10
-        '
-        Me.MenuItem10.Index = 1
-        Me.MenuItem10.Text = "-"
-        '
-        'MmiBack
-        '
-        Me.MmiBack.Index = 2
-        Me.MmiBack.Text = "Back"
-        '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 1
-        Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiCut, Me.mmiCopy, Me.mmiPaste})
-        Me.MenuItem2.Text = "Edit"
-        '
-        'mmiCut
-        '
-        Me.mmiCut.Index = 0
-        Me.mmiCut.Text = "Cut"
-        '
-        'mmiCopy
-        '
-        Me.mmiCopy.Index = 1
-        Me.mmiCopy.Text = "Copy"
-        '
-        'mmiPaste
-        '
-        Me.mmiPaste.Index = 2
-        Me.mmiPaste.Text = "Paste"
-        '
         'MenuItem4
         '
         Me.MenuItem4.Index = 2
-        Me.MenuItem4.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem3})
+        Me.MenuItem4.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiPrintTestReport})
         Me.MenuItem4.Text = "Tools"
-        '
-        'MenuItem3
-        '
-        Me.MenuItem3.Index = 0
-        Me.MenuItem3.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiPrintAFSForm, Me.mmiPrintTestReport})
-        Me.MenuItem3.Text = "Print"
-        '
-        'mmiPrintAFSForm
-        '
-        Me.mmiPrintAFSForm.Index = 0
-        Me.mmiPrintAFSForm.Text = "AFS Form"
         '
         'mmiPrintTestReport
         '
-        Me.mmiPrintTestReport.Index = 1
-        Me.mmiPrintTestReport.Text = "Test Report"
-        '
-        'mmiHelp
-        '
-        Me.mmiHelp.Index = 3
-        Me.mmiHelp.Text = "Help"
+        Me.mmiPrintTestReport.Index = 0
+        Me.mmiPrintTestReport.Text = "Print Test Report"
         '
         'TBFCE
         '
-        Me.TBFCE.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TbbSave, Me.TbbPrint, Me.TbbBack})
+        Me.TBFCE.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TbbSave})
         Me.TBFCE.ButtonSize = New System.Drawing.Size(23, 22)
         Me.TBFCE.DropDownArrows = True
         Me.TBFCE.ImageList = Me.Image_List_All
@@ -363,24 +294,14 @@ Public Class ISMPClosePrint
         Me.TBFCE.ShowToolTips = True
         Me.TBFCE.Size = New System.Drawing.Size(792, 28)
         Me.TBFCE.TabIndex = 49
+        Me.TBFCE.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
         'TbbSave
         '
         Me.TbbSave.ImageIndex = 65
         Me.TbbSave.Name = "TbbSave"
+        Me.TbbSave.Text = "Save"
         Me.TbbSave.ToolTipText = "Save"
-        '
-        'TbbPrint
-        '
-        Me.TbbPrint.ImageIndex = 56
-        Me.TbbPrint.Name = "TbbPrint"
-        Me.TbbPrint.ToolTipText = "Print"
-        '
-        'TbbBack
-        '
-        Me.TbbBack.ImageIndex = 2
-        Me.TbbBack.Name = "TbbBack"
-        Me.TbbBack.ToolTipText = "Back"
         '
         'GBFacilityData
         '
@@ -1000,22 +921,10 @@ Public Class ISMPClosePrint
 
 #End Region
     Private Sub TBFCE_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBFCE.ButtonClick
-        Try
-
-            Select Case TBFCE.Buttons.IndexOf(e.Button)
-                Case 0
-                    Save()
-                Case 1
-                    Print()
-                Case 2
-                    Back()
-            End Select
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        Select Case TBFCE.Buttons.IndexOf(e.Button)
+            Case 0
+                Save()
+        End Select
     End Sub
 #Region "Functions and Subs"
     Sub Save()
@@ -1057,21 +966,6 @@ Public Class ISMPClosePrint
 
 
     End Sub
-    Sub Print()
-        Try
-
-            PrintOut = Nothing
-            If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
-            PrintOut.txtPrintType.Text = "ISMPAIRSForm"
-            PrintOut.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
-            PrintOut.Show()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
     Sub PrintTestReport()
         Try
 
@@ -1087,93 +981,7 @@ Public Class ISMPClosePrint
         End Try
 
     End Sub
-    Sub Back()
-        Try
-
-            Select Case txtOrigin.Text
-                Case "Facility Summary"
-                    ISMPCloseAndPrint = Nothing
-                    Me.Hide()
-                Case Else
-                    ISMPCloseAndPrint = Nothing
-                    CurrentConnection.Dispose()
-            End Select
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-
 #End Region
-
-
-
-
-
-
-
-
-    Private Sub ISMPClosePrint_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-
-            Back()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-
-    Private Sub mmiCut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCut.Click
-        Try
-
-            SendKeys.Send("^(X)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-
-    Private Sub mmiCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCopy.Click
-        Try
-
-            SendKeys.Send("^(C)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-
-    Private Sub mmiPaste_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPaste.Click
-        Try
-
-            SendKeys.Send("^(V)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-
-    Private Sub mmiPrintAFSForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPrintAFSForm.Click
-        Try
-
-            Print()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
 
     Private Sub mmiPrintTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPrintTestReport.Click
         Try
@@ -1187,31 +995,8 @@ Public Class ISMPClosePrint
 
     End Sub
 
-    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
-        OpenDocumentationUrl(Me)
-    End Sub
-
     Private Sub MmiSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiSave.Click
-        Try
-
-            Save()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        Save()
     End Sub
 
-    Private Sub MmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiBack.Click
-        Try
-
-            Back()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
 End Class

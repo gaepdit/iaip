@@ -190,9 +190,6 @@ Public Class ISMPManagersTools
     Friend WithEvents MenuItem4 As System.Windows.Forms.MenuItem
     Friend WithEvents MmiShowToolbar As System.Windows.Forms.MenuItem
     Friend WithEvents MmiHelp As System.Windows.Forms.MenuItem
-    Friend WithEvents cmPrint As System.Windows.Forms.ContextMenu
-    Friend WithEvents cmiPrintAFSForm As System.Windows.Forms.MenuItem
-    Friend WithEvents cmiPrintTestReport As System.Windows.Forms.MenuItem
     Friend WithEvents TBManagersTools As System.Windows.Forms.ToolBar
     Friend WithEvents TbbSave As System.Windows.Forms.ToolBarButton
     Friend WithEvents TbbFind As System.Windows.Forms.ToolBarButton
@@ -658,9 +655,6 @@ Public Class ISMPManagersTools
         Me.MenuItem4 = New System.Windows.Forms.MenuItem
         Me.MmiShowToolbar = New System.Windows.Forms.MenuItem
         Me.MmiHelp = New System.Windows.Forms.MenuItem
-        Me.cmPrint = New System.Windows.Forms.ContextMenu
-        Me.cmiPrintAFSForm = New System.Windows.Forms.MenuItem
-        Me.cmiPrintTestReport = New System.Windows.Forms.MenuItem
         Me.TBManagersTools = New System.Windows.Forms.ToolBar
         Me.TbbSave = New System.Windows.Forms.ToolBarButton
         Me.TbbFind = New System.Windows.Forms.ToolBarButton
@@ -1737,25 +1731,10 @@ Public Class ISMPManagersTools
         Me.MmiHelp.Index = 4
         Me.MmiHelp.Text = "Help"
         '
-        'cmPrint
-        '
-        Me.cmPrint.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.cmiPrintAFSForm, Me.cmiPrintTestReport})
-        '
-        'cmiPrintAFSForm
-        '
-        Me.cmiPrintAFSForm.Index = 0
-        Me.cmiPrintAFSForm.Text = "Print AFS Form"
-        '
-        'cmiPrintTestReport
-        '
-        Me.cmiPrintTestReport.Index = 1
-        Me.cmiPrintTestReport.Text = "Print Test Report"
-        '
         'TBManagersTools
         '
         Me.TBManagersTools.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TbbSave, Me.TbbFind, Me.TbbPrint, Me.TbbClear, Me.TbbBack, Me.TbbExit})
         Me.TBManagersTools.ButtonSize = New System.Drawing.Size(23, 22)
-        Me.TBManagersTools.ContextMenu = Me.cmPrint
         Me.TBManagersTools.DropDownArrows = True
         Me.TBManagersTools.ImageList = Me.Image_List_All
         Me.TBManagersTools.Location = New System.Drawing.Point(0, 0)
@@ -1776,7 +1755,6 @@ Public Class ISMPManagersTools
         '
         'TbbPrint
         '
-        Me.TbbPrint.DropDownMenu = Me.cmPrint
         Me.TbbPrint.ImageIndex = 56
         Me.TbbPrint.Name = "TbbPrint"
         Me.TbbPrint.Style = System.Windows.Forms.ToolBarButtonStyle.DropDownButton

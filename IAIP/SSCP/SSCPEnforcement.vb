@@ -2051,7 +2051,7 @@ Public Class SscpEnforcement
                 dgvStipulatedPenalties.Columns("StipulatedPenaltyComments").HeaderText = "Comments"
                 dgvStipulatedPenalties.Columns("StipulatedPenaltyComments").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
                 dgvStipulatedPenalties.Columns("StipulatedPenaltyComments").DisplayIndex = 1
-                dgvStipulatedPenalties.Columns("strAFSStipulatedPenaltyNumber").HeaderText = "AFS Action Number"
+                dgvStipulatedPenalties.Columns("strAFSStipulatedPenaltyNumber").HeaderText = "EPA Action Number"
                 dgvStipulatedPenalties.Columns("strAFSStipulatedPenaltyNumber").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
                 dgvStipulatedPenalties.Columns("strAFSStipulatedPenaltyNumber").DisplayIndex = 2
                 dgvStipulatedPenalties.Columns("strEnforcementKey").HeaderText = "Penalty #"

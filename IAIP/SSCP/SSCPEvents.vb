@@ -6150,7 +6150,7 @@ Public Class SSCPEvents
                 Exit Sub
             End If
 
-            ' Delete record from AFS and mark as deleted in SSCP item master
+            ' Delete record from AFSSSCPRECORDS and mark as deleted in SSCP item master
             Dim queryList As New List(Of String)
             Dim parametersList As New List(Of OracleParameter())
             Dim parameters As OracleParameter()
