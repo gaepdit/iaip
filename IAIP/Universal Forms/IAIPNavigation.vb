@@ -1234,6 +1234,13 @@ Public Class IAIPNavigation
         End If
     End Sub
 
+    Private Sub AddNavButtonIfUserHasPermission(ByVal permissionAllowed As String, _
+                                                ByVal buttonText As String, ByVal formName As String, _
+                                                ByVal category As NavButtonCategories)
+        AddNavButtonIfUserHasPermission(New String() {permissionAllowed}, _
+                                        buttonText, formName, category)
+    End Sub
+
     Private Sub AddNavButtonCategory(ByVal category As NavButtonCategories, ByVal name As String, Optional ByVal shortname As String = Nothing)
         If CurrentUser.Staff.ProgramName = name OrElse CurrentUser.Staff.UnitName = name Then
             AllTheNavButtonCategories.Insert(0, New NavButtonCategory(category, name, shortname))
@@ -1355,6 +1362,7 @@ Public Class IAIPNavigation
                                         "EDT Errors", "DmuEdtErrorMessages", NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(10, "District Tools", "IAIPDistrictSourceTool", NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(133, "Look Up Tables", "IAIPLookUpTables", NavButtonCategories.DMU)
+        AddNavButtonIfUserHasPermission("(118)", "Organization Editor", "IAIPListTool", NavButtonCategories.DMU)
         If (CurrentUser.UserID = "345") Then
             AddNavButtonIfAccountHasFormAccess(63, "Special Tools", "DMUDangerousTool", NavButtonCategories.DMU)
         End If

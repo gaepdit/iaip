@@ -22,18 +22,9 @@ Partial Class IAIPUserAdminTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPUserAdminTool))
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
-        Me.ToolToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.tsmOpenMaintenanceTool = New System.Windows.Forms.ToolStripMenuItem
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.pnl1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.pnl2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.pnl3 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
-        Me.tsbSave = New System.Windows.Forms.ToolStripButton
-        Me.tsbBack = New System.Windows.Forms.ToolStripButton
-        Me.tsbClear = New System.Windows.Forms.ToolStripButton
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.lblFirstName = New System.Windows.Forms.Label
         Me.lblLastName = New System.Windows.Forms.Label
         Me.lblPassword = New System.Windows.Forms.Label
@@ -125,9 +116,6 @@ Partial Class IAIPUserAdminTool
         Me.Label24 = New System.Windows.Forms.Label
         Me.txtSearchEmployeeID = New System.Windows.Forms.TextBox
         Me.Label22 = New System.Windows.Forms.Label
-        Me.MenuStrip1.SuspendLayout()
-        Me.StatusStrip1.SuspendLayout()
-        Me.ToolStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -140,102 +128,6 @@ Partial Class IAIPUserAdminTool
         Me.pnlSearch.SuspendLayout()
         CType(Me.dgvUserAdminTool, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(792, 24)
-        Me.MenuStrip1.TabIndex = 0
-        Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'ToolToolStripMenuItem
-        '
-        Me.ToolToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmOpenMaintenanceTool})
-        Me.ToolToolStripMenuItem.Name = "ToolToolStripMenuItem"
-        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(43, 20)
-        Me.ToolToolStripMenuItem.Text = "Tool"
-        '
-        'tsmOpenMaintenanceTool
-        '
-        Me.tsmOpenMaintenanceTool.Name = "tsmOpenMaintenanceTool"
-        Me.tsmOpenMaintenanceTool.Size = New System.Drawing.Size(225, 22)
-        Me.tsmOpenMaintenanceTool.Text = "Open IAIP Organization Tool"
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.pnl1, Me.pnl2, Me.pnl3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 544)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(792, 22)
-        Me.StatusStrip1.TabIndex = 1
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'pnl1
-        '
-        Me.pnl1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.pnl1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.pnl1.Name = "pnl1"
-        Me.pnl1.Size = New System.Drawing.Size(769, 17)
-        Me.pnl1.Spring = True
-        Me.pnl1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'pnl2
-        '
-        Me.pnl2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.pnl2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.pnl2.Name = "pnl2"
-        Me.pnl2.Size = New System.Drawing.Size(4, 17)
-        '
-        'pnl3
-        '
-        Me.pnl3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.pnl3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.pnl3.Name = "pnl3"
-        Me.pnl3.Size = New System.Drawing.Size(4, 17)
-        '
-        'ToolStrip1
-        '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbSave, Me.tsbBack, Me.tsbClear})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
-        Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(792, 25)
-        Me.ToolStrip1.TabIndex = 2
-        Me.ToolStrip1.Text = "ToolStrip1"
-        '
-        'tsbSave
-        '
-        Me.tsbSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbSave.Image = CType(resources.GetObject("tsbSave.Image"), System.Drawing.Image)
-        Me.tsbSave.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbSave.Name = "tsbSave"
-        Me.tsbSave.Size = New System.Drawing.Size(23, 22)
-        Me.tsbSave.Text = "ToolStripButton1"
-        '
-        'tsbBack
-        '
-        Me.tsbBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbBack.Image = CType(resources.GetObject("tsbBack.Image"), System.Drawing.Image)
-        Me.tsbBack.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbBack.Name = "tsbBack"
-        Me.tsbBack.Size = New System.Drawing.Size(23, 22)
-        Me.tsbBack.Text = "ToolStripButton2"
-        '
-        'tsbClear
-        '
-        Me.tsbClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbClear.Image = CType(resources.GetObject("tsbClear.Image"), System.Drawing.Image)
-        Me.tsbClear.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbClear.Name = "tsbClear"
-        Me.tsbClear.Size = New System.Drawing.Size(23, 22)
-        Me.tsbClear.Text = "ToolStripButton1"
         '
         'lblFirstName
         '
@@ -297,7 +189,7 @@ Partial Class IAIPUserAdminTool
         Me.Panel1.Controls.Add(Me.lblPassword)
         Me.Panel1.Controls.Add(Me.lblUserName)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel1.Location = New System.Drawing.Point(0, 49)
+        Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(792, 87)
         Me.Panel1.TabIndex = 10
@@ -373,7 +265,7 @@ Partial Class IAIPUserAdminTool
         '
         Me.SplitContainer1.BackColor = System.Drawing.Color.Blue
         Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitContainer1.Location = New System.Drawing.Point(0, 136)
+        Me.SplitContainer1.Location = New System.Drawing.Point(0, 87)
         Me.SplitContainer1.Name = "SplitContainer1"
         Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
         '
@@ -386,8 +278,8 @@ Partial Class IAIPUserAdminTool
         '
         Me.SplitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control
         Me.SplitContainer1.Panel2.Controls.Add(Me.pnlSearch)
-        Me.SplitContainer1.Size = New System.Drawing.Size(792, 408)
-        Me.SplitContainer1.SplitterDistance = 221
+        Me.SplitContainer1.Size = New System.Drawing.Size(792, 479)
+        Me.SplitContainer1.SplitterDistance = 257
         Me.SplitContainer1.TabIndex = 11
         '
         'TCUserData
@@ -398,7 +290,7 @@ Partial Class IAIPUserAdminTool
         Me.TCUserData.Location = New System.Drawing.Point(0, 0)
         Me.TCUserData.Name = "TCUserData"
         Me.TCUserData.SelectedIndex = 0
-        Me.TCUserData.Size = New System.Drawing.Size(792, 221)
+        Me.TCUserData.Size = New System.Drawing.Size(792, 257)
         Me.TCUserData.TabIndex = 0
         '
         'TPUserInformation
@@ -428,7 +320,7 @@ Partial Class IAIPUserAdminTool
         Me.TPUserInformation.Location = New System.Drawing.Point(4, 22)
         Me.TPUserInformation.Name = "TPUserInformation"
         Me.TPUserInformation.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPUserInformation.Size = New System.Drawing.Size(784, 195)
+        Me.TPUserInformation.Size = New System.Drawing.Size(784, 231)
         Me.TPUserInformation.TabIndex = 0
         Me.TPUserInformation.Text = "User Information"
         Me.TPUserInformation.UseVisualStyleBackColor = True
@@ -664,7 +556,7 @@ Partial Class IAIPUserAdminTool
         Me.TPPermission.Location = New System.Drawing.Point(4, 22)
         Me.TPPermission.Name = "TPPermission"
         Me.TPPermission.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPPermission.Size = New System.Drawing.Size(784, 195)
+        Me.TPPermission.Size = New System.Drawing.Size(784, 219)
         Me.TPPermission.TabIndex = 1
         Me.TPPermission.Text = "Permission"
         Me.TPPermission.UseVisualStyleBackColor = True
@@ -937,7 +829,7 @@ Partial Class IAIPUserAdminTool
         Me.txtCurrentPermissions.Name = "txtCurrentPermissions"
         Me.txtCurrentPermissions.ReadOnly = True
         Me.txtCurrentPermissions.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtCurrentPermissions.Size = New System.Drawing.Size(241, 170)
+        Me.txtCurrentPermissions.Size = New System.Drawing.Size(241, 194)
         Me.txtCurrentPermissions.TabIndex = 19
         '
         'txtPassword
@@ -1015,7 +907,7 @@ Partial Class IAIPUserAdminTool
         Me.pnlSearch.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlSearch.Location = New System.Drawing.Point(0, 0)
         Me.pnlSearch.Name = "pnlSearch"
-        Me.pnlSearch.Size = New System.Drawing.Size(792, 183)
+        Me.pnlSearch.Size = New System.Drawing.Size(792, 218)
         Me.pnlSearch.TabIndex = 0
         '
         'lblCount
@@ -1031,11 +923,35 @@ Partial Class IAIPUserAdminTool
         Me.dgvUserAdminTool.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvUserAdminTool.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvUserAdminTool.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvUserAdminTool.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvUserAdminTool.Location = New System.Drawing.Point(0, 61)
         Me.dgvUserAdminTool.Name = "dgvUserAdminTool"
         Me.dgvUserAdminTool.ReadOnly = True
-        Me.dgvUserAdminTool.Size = New System.Drawing.Size(792, 121)
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvUserAdminTool.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        Me.dgvUserAdminTool.Size = New System.Drawing.Size(792, 156)
         Me.dgvUserAdminTool.TabIndex = 9
         '
         'btnAll
@@ -1183,18 +1099,8 @@ Partial Class IAIPUserAdminTool
         Me.ClientSize = New System.Drawing.Size(792, 566)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.ToolStrip1)
-        Me.Controls.Add(Me.StatusStrip1)
-        Me.Controls.Add(Me.MenuStrip1)
-        Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "IAIPUserAdminTool"
         Me.Text = "IAIP Profile Management"
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
-        Me.ToolStrip1.ResumeLayout(False)
-        Me.ToolStrip1.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.SplitContainer1.Panel1.ResumeLayout(False)
@@ -1213,17 +1119,8 @@ Partial Class IAIPUserAdminTool
         Me.pnlSearch.PerformLayout()
         CType(Me.dgvUserAdminTool, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
-    Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents pnl1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents pnl2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents pnl3 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
-    Friend WithEvents tsbSave As System.Windows.Forms.ToolStripButton
-    Friend WithEvents tsbBack As System.Windows.Forms.ToolStripButton
     Friend WithEvents lblFirstName As System.Windows.Forms.Label
     Friend WithEvents lblLastName As System.Windows.Forms.Label
     Friend WithEvents lblPassword As System.Windows.Forms.Label
@@ -1301,8 +1198,6 @@ Partial Class IAIPUserAdminTool
     Friend WithEvents lblUserID As System.Windows.Forms.Label
     Friend WithEvents cboPermissionProgram As System.Windows.Forms.ComboBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents ToolToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsmOpenMaintenanceTool As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents lbl7 As System.Windows.Forms.Label
     Friend WithEvents lbl8 As System.Windows.Forms.Label
     Friend WithEvents lbl2 As System.Windows.Forms.Label
@@ -1312,7 +1207,6 @@ Partial Class IAIPUserAdminTool
     Friend WithEvents lbl6 As System.Windows.Forms.Label
     Friend WithEvents lbl1 As System.Windows.Forms.Label
     Friend WithEvents lblPermissions As System.Windows.Forms.Label
-    Friend WithEvents tsbClear As System.Windows.Forms.ToolStripButton
     Friend WithEvents lblCount As System.Windows.Forms.Label
     Friend WithEvents lbl10 As System.Windows.Forms.Label
     Friend WithEvents chb10 As System.Windows.Forms.CheckBox

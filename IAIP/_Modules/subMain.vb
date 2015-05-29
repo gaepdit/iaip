@@ -53,7 +53,6 @@ Module subMain
     Public EditFacilityLocation As IAIPEditFacilityLocation ' TODO DWW: Remove
     Public EditAirProgramPollutants As IAIPEditAirProgramPollutants
     Public EditSubParts As IAIPEditSubParts ' TODO DWW: Remove
-    Public ListTool As IAIPListTool ' TODO DWW: Remove
     Public ProfileUpdate As IAIPProfileUpdate
     Public FacilityPrintOut As IaipFacilitySummaryPrint ' TODO DWW: Remove
 #End Region

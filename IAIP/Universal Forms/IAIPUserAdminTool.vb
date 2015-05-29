@@ -18,25 +18,18 @@ Public Class IAIPUserAdminTool
     Private Sub IAIPUserAdminTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Try
-            pnl1.Text = "   "
-            pnl2.Text = UserName
-            pnl3.Text = OracleDate
-
             LoadDataSets()
             LoadCombos()
             LoadDataGrid("Self")
             lblUserID.Text = UserGCode
-            ' LoadUserData()
 
             mtbPhoneNumber.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals
             mtbFaxNumber.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals
 
             If AccountFormAccess(8, 4) = "1" Then
-                tsmOpenMaintenanceTool.Visible = True
                 cboPermissionBranch.Enabled = True
                 cboBranch.Enabled = True
             Else
-                tsmOpenMaintenanceTool.Visible = False
                 cboPermissionBranch.Enabled = False
                 cboBranch.Enabled = False
                 If AccountFormAccess(8, 3) = "1" Then
@@ -1550,18 +1543,6 @@ Public Class IAIPUserAdminTool
         Finally
         End Try
     End Sub
-    Private Sub tsbSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbSave.Click
-        Try
-            If lblUserID.Text <> "" And lblUserID.Text <> "numUserID" Then
-                UpdateUser()
-            Else
-                MsgBox("Select a user for the search tool below before making and changes and saving data.", MsgBoxStyle.Information, "IAIP User Admin Tool")
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
     Private Sub btnSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearch.Click
         Try
             LoadDataGrid("Search")
@@ -1604,21 +1585,6 @@ Public Class IAIPUserAdminTool
             cboSearchBranch.SelectedIndex = 0
             LoadSearchProgram(cboSearchBranch.SelectedValue)
             LoadSearchUnit(cboSearchProgram.SelectedValue)
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
-    Private Sub tsmOpenMaintenanceTool_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmOpenMaintenanceTool.Click
-        Try
-            If ListTool Is Nothing Then
-                If ListTool Is Nothing Then ListTool = New IAIPListTool
-            Else
-                ListTool.Dispose()
-                ListTool = New IAIPListTool
-            End If
-            ListTool.Show()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1790,24 +1756,6 @@ Public Class IAIPUserAdminTool
             If lblUserID.Text <> "" Then
                 UpdatePermissions(lblUserID.Text)
             End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
-    Private Sub tsbClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbClear.Click
-        Try
-            ClearData()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
-    Private Sub tsbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbBack.Click
-        Try
-            Me.Hide()
-
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
