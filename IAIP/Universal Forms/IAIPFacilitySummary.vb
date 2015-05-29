@@ -1164,11 +1164,14 @@ Public Class IAIPFacilitySummary
                 .Columns("RECEIVEDDATE").HeaderText = "Received"
                 .Columns("COMPLETEDATE").HeaderText = "Complete"
                 .Columns("STRCOMPLIANCESTATUS").HeaderText = "Compliance Status"
+                .Columns("STRPRECOMPLIANCESTATUS").HeaderText = "Pre-Compliance Status"
 
+                FormatTestReportsGrid()
                 .MakeColumnsLookLikeLinks(0)
                 .SanelyResizeColumns()
             End If
         End With
+
     End Sub
 
     Private Sub SetUpTestNotificationsGrid()
@@ -1204,13 +1207,57 @@ Public Class IAIPFacilitySummary
 
 #End Region
 
-#Region " DataGridView CellFormatting event "
+#Region " DataGridView CellFormatting "
 
     Private Sub DataGridView_CellFormatting(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellFormattingEventArgs)
         If TypeOf e.CellStyle.FormatProvider Is ICustomFormatter Then
             e.Value = TryCast(e.CellStyle.FormatProvider.GetFormat(GetType(ICustomFormatter)), ICustomFormatter).Format(e.CellStyle.Format, e.Value, e.CellStyle.FormatProvider)
             e.FormattingApplied = True
         End If
+    End Sub
+
+    Private Sub TestReportsGrid_CellFormatting(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) Handles TestReportsGrid.CellFormatting
+        If TestReportsGrid.Columns(e.ColumnIndex).Name = "STRPRECOMPLIANCESTATUS" Then
+            If e.Value.ToString = "True" Then
+                e.Value = "Potentially non-compliant"
+            Else
+                e.Value = ""
+            End If
+        End If
+    End Sub
+
+    Private Sub FormatTestReportsGrid()
+        With TestReportsGrid
+            .DefaultCellStyle.SelectionBackColor = .DefaultCellStyle.BackColor
+            .DefaultCellStyle.SelectionForeColor = Color.MidnightBlue
+            .AlternatingRowsDefaultCellStyle = .DefaultCellStyle
+        End With
+        For Each row As DataGridViewRow In TestReportsGrid.Rows
+            With row
+                .Cells("STRREFERENCENUMBER").Style.SelectionBackColor = SystemColors.Highlight
+                .Cells("STRREFERENCENUMBER").Style.SelectionForeColor = SystemColors.HighlightText
+                .Cells("STRREFERENCENUMBER").Style.ForeColor = SystemColors.HotTrack
+                If .Cells("STRCOMPLIANCESTATUS").Value.ToString = "Not In Compliance" Then
+                    .DefaultCellStyle.BackColor = Color.Pink
+                    .DefaultCellStyle.SelectionBackColor = Color.Pink
+                    .DefaultCellStyle.SelectionForeColor = Color.MidnightBlue
+                ElseIf .Cells("STATUS").Value.ToString = "Open" Then
+                    .DefaultCellStyle.SelectionForeColor = Color.MidnightBlue
+                    If (.Cells("STRPRECOMPLIANCESTATUS").Value.ToString = "Potentially non-compliant" _
+                        OrElse .Cells("STRPRECOMPLIANCESTATUS").Value.ToString = "True") Then
+                        .DefaultCellStyle.BackColor = Color.LemonChiffon
+                        .DefaultCellStyle.SelectionBackColor = Color.LemonChiffon
+                    Else
+                        .DefaultCellStyle.BackColor = Color.AliceBlue
+                        .DefaultCellStyle.SelectionBackColor = Color.AliceBlue
+                    End If
+                End If
+            End With
+        Next
+    End Sub
+
+    Private Sub TestReportsGrid_Sorted(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestReportsGrid.Sorted
+        FormatTestReportsGrid()
     End Sub
 
 #End Region

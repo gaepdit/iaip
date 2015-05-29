@@ -1154,7 +1154,7 @@ Me.SCTestReports.Panel2.AutoScroll = true
 Me.SCTestReports.Panel2.BackColor = System.Drawing.SystemColors.ControlLight
 Me.SCTestReports.Panel2.Controls.Add(Me.TCDocumentTypes)
 Me.SCTestReports.Size = New System.Drawing.Size(790, 715)
-Me.SCTestReports.SplitterDistance = 275
+Me.SCTestReports.SplitterDistance = 387
 Me.SCTestReports.TabIndex = 1
 '
 'GroupBox1
@@ -1218,7 +1218,7 @@ Me.GroupBox1.Controls.Add(Me.labReferenceNumber)
 Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
 Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
 Me.GroupBox1.Name = "GroupBox1"
-Me.GroupBox1.Size = New System.Drawing.Size(790, 275)
+Me.GroupBox1.Size = New System.Drawing.Size(790, 387)
 Me.GroupBox1.TabIndex = 0
 Me.GroupBox1.TabStop = false
 Me.GroupBox1.Text = "Report Information "
@@ -1236,11 +1236,11 @@ Me.lblMemoEntered.Text = "Memo Entered"
 '
 Me.lblPreComplianceStatus.AutoSize = true
 Me.lblPreComplianceStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline),System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0,Byte))
-Me.lblPreComplianceStatus.Location = New System.Drawing.Point(413, 310)
+Me.lblPreComplianceStatus.Location = New System.Drawing.Point(431, 310)
 Me.lblPreComplianceStatus.Name = "lblPreComplianceStatus"
-Me.lblPreComplianceStatus.Size = New System.Drawing.Size(345, 13)
+Me.lblPreComplianceStatus.Size = New System.Drawing.Size(327, 13)
 Me.lblPreComplianceStatus.TabIndex = 50
-Me.lblPreComplianceStatus.Text = "This test report was flagged as potentially be non-compliant"
+Me.lblPreComplianceStatus.Text = "This test report was flagged as potentially non-compliant"
 Me.lblPreComplianceStatus.Visible = false
 '
 'txtDaysfromTestToAPB
@@ -1796,7 +1796,7 @@ Me.TCDocumentTypes.Dock = System.Windows.Forms.DockStyle.Fill
 Me.TCDocumentTypes.Location = New System.Drawing.Point(0, 0)
 Me.TCDocumentTypes.Name = "TCDocumentTypes"
 Me.TCDocumentTypes.SelectedIndex = 0
-Me.TCDocumentTypes.Size = New System.Drawing.Size(790, 436)
+Me.TCDocumentTypes.Size = New System.Drawing.Size(790, 324)
 Me.TCDocumentTypes.TabIndex = 1
 '
 'TPOneStack
@@ -1832,7 +1832,7 @@ Me.TPOneStack.Controls.Add(Me.Label199)
 Me.TPOneStack.Location = New System.Drawing.Point(4, 22)
 Me.TPOneStack.Name = "TPOneStack"
 Me.TPOneStack.Padding = New System.Windows.Forms.Padding(3)
-Me.TPOneStack.Size = New System.Drawing.Size(782, 410)
+Me.TPOneStack.Size = New System.Drawing.Size(782, 298)
 Me.TPOneStack.TabIndex = 0
 Me.TPOneStack.Text = "One Stack"
 Me.TPOneStack.UseVisualStyleBackColor = true

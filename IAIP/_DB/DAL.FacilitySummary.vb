@@ -527,9 +527,9 @@ Namespace DAL
                     "SELECT STRREFERENCENUMBER , STATUS , STREMISSIONSOURCE , " & _
                     "  STRPOLLUTANTDESCRIPTION , STRREPORTTYPE , REVIEWINGENGINEER , " & _
                     "  TESTDATESTART , RECEIVEDDATE , COMPLETEDATE , " & _
-                    "  STRCOMPLIANCESTATUS " & _
+                    "  STRCOMPLIANCESTATUS , STRPRECOMPLIANCESTATUS " & _
                     "FROM AIRBRANCH.VW_ISMPWORKDATAGRID " & _
-                    "WHERE STRAIRSNUMBER = :AirsNumber " 
+                    "WHERE STRAIRSNUMBER = :AirsNumber "
             End Select
 
             Return query
