@@ -657,12 +657,6 @@
     <Compile Include="DMU\DMUDangerousTool.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ISMP\ISMPTestReportAdministrative.Designer.vb">
-      <DependentUpon>ISMPTestReportAdministrative.vb</DependentUpon>
-    </Compile>
-    <Compile Include="ISMP\ISMPTestReportAdministrative.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="ISMP\ISMPManagersTools.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -1252,10 +1246,6 @@
     <EmbeddedResource Include="DMU\DMUDangerousTool.resx">
       <SubType>Designer</SubType>
       <DependentUpon>DMUDangerousTool.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ISMP\ISMPTestReportAdministrative.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>ISMPTestReportAdministrative.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ISMP\ISMPManagersTools.resx">
       <DependentUpon>ISMPManagersTools.vb</DependentUpon>
