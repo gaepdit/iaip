@@ -579,7 +579,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'cmiPrintTestReport
         '
-        Me.cmiPrintTestReport.Index = 1
+        Me.cmiPrintTestReport.Index = 0
         Me.cmiPrintTestReport.Text = "Print Test Report"
         '
         'StatusStrip1
