@@ -51,7 +51,6 @@ Public Class IAIPUserAdminTool
                         Else
                             txtFirstName.ReadOnly = True
                             txtLastName.ReadOnly = True
-                            txtEmployeeID.ReadOnly = True
                             txtEmailAddress.ReadOnly = True
                             mtbPhoneNumber.ReadOnly = True
                             mtbFaxNumber.ReadOnly = True
@@ -833,7 +832,7 @@ Public Class IAIPUserAdminTool
     Sub CreateNewUser()
         Try
             Dim EmployeeStatus As String = "0"
-            Dim EmployeeId As String = "0"
+            Dim EmployeeId As String = "000"
 
             If txtFirstName.Text <> "" And txtLastName.Text <> "" Then
                 If txtUserName.Text <> "" And txtPassword.Text <> "" Then
@@ -889,11 +888,7 @@ Public Class IAIPUserAdminTool
                         End While
                         dr.Close()
 
-                        If txtEmployeeID.Text <> "" Then
-                            EmployeeId = txtEmployeeID.Text
-                        Else
-                            EmployeeId = "000"
-                        End If
+                        EmployeeId = "000"
 
                         SQL = "Insert into AIRBRANCH.EPDUSerProfiles " & _
                         "(numUserID, strEmployeeID, " & _
@@ -926,9 +921,9 @@ Public Class IAIPUserAdminTool
                         MsgBox("Successfully Done", MsgBoxStyle.Information, "IAIP User Admin Tool")
 
                     End If
-                Else
-                    MsgBox("Please enter a User Name and Password.", MsgBoxStyle.Exclamation, "IAIP User Admin Tool")
-                End If
+            Else
+                MsgBox("Please enter a User Name and Password.", MsgBoxStyle.Exclamation, "IAIP User Admin Tool")
+            End If
             Else
                 MsgBox("Please enter a First and Last name.", MsgBoxStyle.Exclamation, "IAIP User Admin Tool")
             End If
@@ -945,8 +940,8 @@ Public Class IAIPUserAdminTool
             Dim ResultDialog As DialogResult
 
             If lblEmailAddress.Text <> "Email: " & txtEmailAddress.Text Then
-                ResultDialog = MessageBox.Show("You are about to update a user and the email address are different." & vbCrLf & _
-                        "Are you sure you want to update the informaiton and not create a new user?", _
+                ResultDialog = MessageBox.Show("You are about to update a user and the email address is different." & vbCrLf & _
+                        "Are you sure you want to change the email address and not create a new user?", _
                    Me.Text, MessageBoxButtons.YesNoCancel, _
                    MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
 
@@ -960,11 +955,7 @@ Public Class IAIPUserAdminTool
 
             If txtFirstName.Text <> "" And txtLastName.Text <> "" Then
                 If txtUserName.Text <> "" And txtPassword.Text <> "" Then
-                    If txtEmployeeID.Text = "" Then
-                        EmployeeID = lblUserID.Text
-                    Else
-                        EmployeeID = txtEmployeeID.Text
-                    End If
+                    EmployeeID = "000"
 
                     If rdbActiveStatus.Checked = True Then
                         EmployeeStatus = "1"
@@ -1041,29 +1032,6 @@ Public Class IAIPUserAdminTool
     Sub LoadDataGrid(ByVal SearchType As String)
         Try
             Select Case SearchType
-                Case "All"
-                    SQL = "select " & _
-                    "AIRBRANCH.EPDUsers.numUserID, " & _
-                    "strUserName, strPassword,  " & _
-                    "strEmployeeId, strLastname,  " & _
-                    "strFirstName, strEmailAddress,  " & _
-                    "strPhone, strFax,  " & _
-                    "strBranchDesc,  " & _
-                    "strProgramDesc,  " & _
-                    "strUnitDesc,  " & _
-                    "strOffice,  " & _
-                    "case  " & _
-                    "when numEmployeeStatus = '1' then 'Active'  " & _
-                    "when numEmployeeStatus = '0' then 'Inactive'  " & _
-                    "else 'Inactive' " & _
-                    "End EmployeeStatus  " & _
-                    "from AIRBRANCH.EPDUsers, AIRBRANCH.EPDUserProfiles,  " & _
-                    "AIRBRANCH.LookupEPDBranches, AIRBRANCH.LookupEPDPrograms,  " & _
-                    "AIRBRANCH.LookUpEPDUnits  " & _
-                    "where AIRBRANCH.epdusers.numuserID = AIRBRANCH.EPDUserProfiles.numUserId  " & _
-                    "and AIRBRANCH.EPDUserProfiles.numBranch = AIRBRANCH.LookupEPDBranches.numBranchcode (+)  " & _
-                    "and AIRBRANCH.EPDUserProfiles.numProgram = AIRBRANCH.lookupEPDPrograms.numProgramcode (+)  " & _
-                    "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitcode (+) "
                 Case "Self"
                     SQL = "select " & _
                     "AIRBRANCH.EPDUsers.numUserID, " & _
@@ -1120,9 +1088,6 @@ Public Class IAIPUserAdminTool
                     End If
                     If cboSearchUnit.SelectedIndex > 0 Then
                         SQL = SQL & " and EPDUserProfiles.numUnit = '" & cboSearchUnit.SelectedValue & "' "
-                    End If
-                    If txtSearchEmployeeID.Text <> "" Then
-                        SQL = SQL & " and Upper(strEmployeeID) like '%" & Replace(txtSearchEmployeeID.Text.ToUpper, "'", "''") & "%' "
                     End If
                     If txtSearchFirstName.Text <> "" Then
                         SQL = SQL & " and Upper(strFirstname) like '%" & Replace(txtSearchFirstName.Text.ToUpper, "'", "''") & "%' "
@@ -1221,7 +1186,7 @@ Public Class IAIPUserAdminTool
             SQL = "select " & _
             "AIRBRANCH.epdusers.numuserID,  " & _
             "strUserName, strPassword,  " & _
-            "strEmployeeId, strLastname,  " & _
+            "strLastname,  " & _
             "strFirstName, strEmailAddress,  " & _
             "strPhone, strFax,  " & _
             "numBranch,  " & _
@@ -1240,25 +1205,14 @@ Public Class IAIPUserAdminTool
             dr = cmd.ExecuteReader
             While dr.Read
                 If IsDBNull(dr.Item("strFirstname")) Then
-                    lblFirstName.Text = "First Name: "
                     txtFirstName.Clear()
                 Else
-                    lblFirstName.Text = "First Name: " & dr.Item("strFirstName")
                     txtFirstName.Text = dr.Item("strFirstName")
                 End If
                 If IsDBNull(dr.Item("strlastname")) Then
-                    lblLastName.Text = "Last Name: "
                     txtLastName.Clear()
                 Else
-                    lblLastName.Text = "Last Name: " & dr.Item("strlastName")
                     txtLastName.Text = dr.Item("strLastName")
-                End If
-                If IsDBNull(dr.Item("strEmployeeID")) Then
-                    lblEmployeeID.Text = "Employee ID: "
-                    txtEmployeeID.Clear()
-                Else
-                    lblEmployeeID.Text = "Employee ID: " & dr.Item("strEmployeeID")
-                    txtEmployeeID.Text = dr.Item("strEmployeeID")
                 End If
                 If IsDBNull(dr.Item("strEmailAddress")) Then
                     lblEmailAddress.Text = "Email: "
@@ -1268,17 +1222,13 @@ Public Class IAIPUserAdminTool
                     txtEmailAddress.Text = dr.Item("strEmailAddress")
                 End If
                 If IsDBNull(dr.Item("strPhone")) Then
-                    lblPhoneNumber.Text = "Phone: "
                     mtbPhoneNumber.Clear()
                 Else
-                    lblPhoneNumber.Text = "Phone: (" & Mid(dr.Item("strPhone"), 1, 3) & ") " & Mid(dr.Item("strPhone"), 4, 3) & "-" & Mid(dr.Item("strPhone"), 7)
                     mtbPhoneNumber.Text = dr.Item("strPhone")
                 End If
                 If IsDBNull(dr.Item("strFax")) Then
-                    lblFaxNumber.Text = "Fax: "
                     mtbFaxNumber.Clear()
                 Else
-                    lblFaxNumber.Text = "Fax: (" & Mid(dr.Item("strFax"), 1, 3) & ") " & Mid(dr.Item("strFax"), 4, 3) & "-" & Mid(dr.Item("strFax"), 7)
                     mtbFaxNumber.Text = dr.Item("strFax")
                 End If
                 If IsDBNull(dr.Item("strUserName")) Then
@@ -1289,10 +1239,8 @@ Public Class IAIPUserAdminTool
                     txtUserName.Text = dr.Item("strUserName")
                 End If
                 If IsDBNull(dr.Item("strPassword")) Then
-                    lblPassword.Text = "Password: "
                     txtPassword.Clear()
                 Else
-                    lblPassword.Text = "Password: *****"
                     txtPassword.Text = EncryptDecrypt.DecryptText(dr.Item("strPassword"))
                 End If
                 If IsDBNull(dr.Item("strOffice")) Then
@@ -1374,21 +1322,14 @@ Public Class IAIPUserAdminTool
     Sub ClearData()
         Try
             lblUserID.Text = ""
-            lblFirstName.Text = "First Name: "
             txtFirstName.Clear()
-            lblLastName.Text = "Last Name: "
             txtLastName.Clear()
-            lblEmployeeID.Text = "Employee ID: "
-            txtEmployeeID.Clear()
             lblEmailAddress.Text = "Email: "
             txtEmailAddress.Clear()
-            lblPhoneNumber.Text = "Phone: "
             mtbPhoneNumber.Clear()
-            lblFaxNumber.Text = "Fax: "
             mtbFaxNumber.Clear()
             lblUserName.Text = "User Name: "
             txtUserName.Clear()
-            lblPassword.Text = "Password: "
             txtPassword.Clear()
             txtOfficeNumber.Text = ""
             rdbActiveStatus.Checked = False
@@ -1399,7 +1340,6 @@ Public Class IAIPUserAdminTool
             cboProgram.SelectedIndex = 0
             cboPermissionProgram.SelectedIndex = 0
             cboUnit.SelectedIndex = 0
-            'cboPermissionAccounts.SelectedIndex = 0
             txtCurrentPermissions.Clear()
 
             If cboBranch.Enabled = False Then
@@ -1551,14 +1491,6 @@ Public Class IAIPUserAdminTool
         Finally
         End Try
     End Sub
-    Private Sub btnAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAll.Click
-        Try
-            LoadDataGrid("All")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
     Private Sub dgvUserAdminTool_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvUserAdminTool.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvUserAdminTool.HitTest(e.X, e.Y)
@@ -1579,7 +1511,6 @@ Public Class IAIPUserAdminTool
     Private Sub btnReset_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReset.Click
         Try
 
-            txtSearchEmployeeID.Clear()
             txtSearchFirstName.Clear()
             txtSearchLastName.Clear()
             cboSearchBranch.SelectedIndex = 0
