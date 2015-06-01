@@ -729,9 +729,6 @@ Public Class SSPPApplicationLog
         End Try
 
     End Sub
-    Private Sub SSPPApplicationLog_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Me.Dispose()
-    End Sub
 #End Region
 
 #Region "Background worker / Search procedures"
@@ -782,8 +779,6 @@ Public Class SSPPApplicationLog
         SearchDate2b = DTPSearchDate2b.Text
 
         dsApplication = New DataSet
-        'dgvApplicationLog.DataSource = dsApplication
-        ' This line was causing a fatal error when an initial RunSearch returned no results
 
         Try
             If bgwApplicationLog.IsBusy = False Then

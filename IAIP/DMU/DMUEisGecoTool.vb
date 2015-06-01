@@ -10160,7 +10160,7 @@ Public Class DMUEisGecoTool
                     cmd.ExecuteNonQuery()
 
                     LoadUserFacilityInfo(txtWebUserEmail.Text)
-                    MsgBox("The facility has beed added to this user", MsgBoxStyle.Information, "Insert Success!")
+                    MsgBox("The facility has been added to this user", MsgBoxStyle.Information, "Insert Success!")
                 Else
                     MsgBox("The facility already exists for this user." & vbCrLf & "NO DATA SAVED", MsgBoxStyle.Exclamation, Me.Text)
                 End If
@@ -10263,6 +10263,10 @@ Public Class DMUEisGecoTool
 #End Region
 
     Private Sub btnReloadFSData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReloadFSData.Click
+        LoadFSData()
+    End Sub
+
+    Private Sub LoadFSData()
         Try
             If cboEILogYear.Text = "" Or cboEILogYear.Text.Length <> 4 Then
                 MsgBox("Please select a valid year from the EIS Year dropdown.", MsgBoxStyle.Exclamation, Me.Text)
@@ -10322,6 +10326,21 @@ Public Class DMUEisGecoTool
                     mtbEIModifyZipCode.Clear()
                 Else
                     mtbEIModifyZipCode.Text = dr.Item("strLocationAddressPostalCode")
+                End If
+                If IsDBNull(dr.Item("STRMAILINGADDRESSTEXT")) Then
+                    txtEIModifyMLocation.Clear()
+                Else
+                    txtEIModifyMLocation.Text = dr.Item("STRMAILINGADDRESSTEXT")
+                End If
+                If IsDBNull(dr.Item("STRMAILINGADDRESSCITYNAME")) Then
+                    txtEIModifyMCity.Clear()
+                Else
+                    txtEIModifyMCity.Text = dr.Item("STRMAILINGADDRESSCITYNAME")
+                End If
+                If IsDBNull(dr.Item("STRMAILINGADDRESSPOSTALCODE")) Then
+                    mtbEIModifyMZipCode.Clear()
+                Else
+                    mtbEIModifyMZipCode.Text = dr.Item("STRMAILINGADDRESSPOSTALCODE")
                 End If
             End While
             dr.Close()
@@ -11204,7 +11223,7 @@ Public Class DMUEisGecoTool
 
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "No Activity Count"
-            
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -12750,30 +12769,6 @@ Public Class DMUEisGecoTool
                 PointError = "False"
             End If
 
-            ' SQL = "insert into AIRBranch.EIS_QAAdmin " & _
-            '"(select " & _
-            '"'" & txtEILogSelectedYear.Text & "', '" & txtEILogSelectedAIRSNumber.Text & "', " & _
-            '"'" & QAStart & "', '" & QAPass & "', " & _
-            '"'1', '" & QAStatusDate & "', " & _
-            '"'" & Replace(StaffResponsible, "'", "''") & "', " & _
-            '"'" & QAComplete & "', '" & Replace(QAComments, "'", "''") & "', " & _
-            '"'1', '" & UserName & "', " & _
-            '"sysdate, sysdate, " & _
-            '"'" & Replace(FITracking, "'", "''") & "', " & _
-            '"'" & Replace(FIError, "'", "''") & "', " & _
-            '"'" & Replace(PointTracking, "'", "''") & "', " & _
-            '"'" & Replace(PointError, "'", "''") & "', '', '' " & _
-            '"from dual " & _
-            '"where not exists (select * from AIRBranch.EIS_QAAdmin " & _
-            '"where inventoryYear = '" & txtEILogSelectedYear.Text & "' " & _
-            '"and FacilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "')) "
-
-            ' cmd = New OracleCommand(SQL, conn)
-            ' If conn.State = ConnectionState.Closed Then
-            '     conn.Open()
-            ' End If
-            ' cmd.ExecuteReader()
-
             SQL = "Update AIRBRANCH.eis_QAAdmin set " & _
             "datDateQAStart = '" & QAStart & "', " & _
             "datDateQAPass = '" & QAPass & "', " & _
@@ -12821,78 +12816,105 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub btnEIModifyUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEIModifyUpdate.Click
-        Try
-            Dim FacilityName As String = ""
-            Dim MailingAddress As String = ""
-            Dim City As String = ""
-            Dim State As String = ""
-            Dim PostalCode As String = ""
+    Private Sub btnEIModifyUpdateLocation_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles btnEIModifyUpdateLocation.Click
 
-            If txtEIModifyFacilityName.Text <> "" Then
-                txtEIModifyFacilityName.Text = Apb.Facility.SanitizeFacilityNameForDb(txtEIModifyFacilityName.Text)
-                FacilityName = txtEIModifyFacilityName.Text
-            Else
-                FacilityName = ""
-            End If
-            If txtEIModifyLocation.Text <> "" Then
-                MailingAddress = txtEIModifyLocation.Text
-            Else
-                MailingAddress = ""
-            End If
-            If txtEIModifyCity.Text <> "" Then
-                City = txtEIModifyCity.Text
-            Else
-                City = ""
-            End If
-            If mtbEIModifyZipCode.Text <> "" Then
-                PostalCode = mtbEIModifyZipCode.Text
-            Else
-                PostalCode = ""
-            End If
+        If txtEILogSelectedAIRSNumber.Text = "" Then
+            MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
+            Exit Sub
+        End If
 
-            If txtEILogSelectedAIRSNumber.Text = "" Then
-                MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
-            End If
+        Dim Address As String = txtEIModifyLocation.Text
+        Dim City As String = txtEIModifyCity.Text
+        Dim PostalCode As String = mtbEIModifyZipCode.Text
 
-            If FacilityName <> "" Then
-                SQL = "Update airbranch.EIS_FacilitySite set " & _
-                "strFacilitySiteName = '" & Replace(FacilityName, "'", "''") & "' " & _
-                "where facilitysiteid = '" & txtEILogSelectedAIRSNumber.Text & "' "
+        If Address <> "" And City <> "" Then
+            Dim query As String = "Update airbranch.EIS_FacilitySiteAddress set " & _
+            " STRLOCATIONADDRESSTEXT = :Address, " & _
+            " STRLOCALITYNAME = :City, " & _
+            " STRLOCATIONADDRESSPOSTALCODE = :PostalCode " & _
+            " where facilitysiteid = :AirsNumber"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
+            Dim parameters As OracleParameter()
 
-            End If
-            If MailingAddress <> "" And City <> "" Then
-                SQL = "Update airbranch.EIS_FacilitySiteAddress set " & _
-                "strMailingAddressText = '" & Replace(MailingAddress, "'", "''") & "', " & _
-                "strMailingAddresscityname = '" & Replace(City, "'", "''") & "', " & _
-                "strMailingAddressPostalCode = '" & Replace(PostalCode, "'", "''") & "' " & _
-                "where facilitysiteid = '" & txtEILogSelectedAIRSNumber.Text & "' "
+            parameters = New OracleParameter() { _
+                New OracleParameter("Address", Address), _
+                New OracleParameter("City", City), _
+                New OracleParameter("PostalCode", PostalCode), _
+                New OracleParameter("AirsNumber", txtEILogSelectedAIRSNumber.Text) _
+            }
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
+            DB.RunCommand(query, parameters)
 
-                UpdateFacilityGEOCoord()
+            MsgBox("Data updated.", MsgBoxStyle.Information, Me.Text)
+        Else
+            MsgBox("No data saved." & vbCrLf & "BOTH LOCATION ADDRESS AND CITY ARE REQUIRED" & vbCrLf & vbCrLf & "Sorry for yelling.", MsgBoxStyle.Exclamation, Me.Text)
+        End If
+    End Sub
 
-                MsgBox("Data updated.", MsgBoxStyle.Information, Me.Text)
+    Private Sub btnEIModifyUpdateMailing_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles btnEIModifyUpdateMailing.Click
 
-            Else
-                MsgBox("No data saved." & vbCrLf & "BOTH MAILING ADDRESS AND CITY ARE REQUIRED", MsgBoxStyle.Exclamation, Me.Text)
-            End If
+        If txtEILogSelectedAIRSNumber.Text = "" Then
+            MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
+            Exit Sub
+        End If
 
+        Dim Address As String = txtEIModifyMLocation.Text
+        Dim City As String = txtEIModifyMCity.Text
+        Dim PostalCode As String = mtbEIModifyMZipCode.Text
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        If Address <> "" And City <> "" Then
+            Dim query As String = "Update airbranch.EIS_FacilitySiteAddress set " & _
+            " strMailingAddressText = :Address, " & _
+            " strMailingAddresscityname = :City, " & _
+            " strMailingAddressPostalCode = :PostalCode " & _
+            " where facilitysiteid = :AirsNumber"
+
+            Dim parameters As OracleParameter()
+
+            parameters = New OracleParameter() { _
+                New OracleParameter("Address", Address), _
+                New OracleParameter("City", City), _
+                New OracleParameter("PostalCode", PostalCode), _
+                New OracleParameter("AirsNumber", txtEILogSelectedAIRSNumber.Text) _
+            }
+
+            DB.RunCommand(query, parameters)
+
+            MsgBox("Data updated.", MsgBoxStyle.Information, Me.Text)
+        Else
+            MsgBox("No data saved." & vbCrLf & "BOTH MAILING ADDRESS AND CITY ARE REQUIRED" & vbCrLf & vbCrLf & "Sorry for yelling.", MsgBoxStyle.Exclamation, Me.Text)
+        End If
+    End Sub
+
+    Private Sub btnEIModifyUpdateName_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles btnEIModifyUpdateName.Click
+        If txtEILogSelectedAIRSNumber.Text = "" Then
+            MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
+            Exit Sub
+        End If
+
+        Dim FacilityName As String = txtEIModifyFacilityName.Text
+
+        If FacilityName <> "" Then
+            Dim query As String = "Update airbranch.EIS_FacilitySite set " & _
+            " strFacilitySiteName = :FacilityName " & _
+            " where facilitysiteid = :AirsNumber"
+
+            Dim parameters As OracleParameter()
+
+            parameters = New OracleParameter() { _
+                New OracleParameter("FacilityName", FacilityName), _
+                New OracleParameter("AirsNumber", txtEILogSelectedAIRSNumber.Text) _
+            }
+
+            DB.RunCommand(query, parameters)
+
+            MsgBox("Data updated.", MsgBoxStyle.Information, Me.Text)
+        Else
+            MsgBox("No data saved." & vbCrLf & "BOTH MAILING ADDRESS AND CITY ARE REQUIRED", MsgBoxStyle.Exclamation, Me.Text)
+        End If
     End Sub
 
     Sub UpdateFacilityGEOCoord()
@@ -12928,6 +12950,7 @@ Public Class DMUEisGecoTool
                 End If
                 cmd.ExecuteReader()
 
+                MsgBox("Data updated.", MsgBoxStyle.Information, Me.Text)
             Else
                 MsgBox("Latitude & Longitude data not saved." & vbCrLf & "Add both values to update.", _
                          MsgBoxStyle.Exclamation, Me.Text)
@@ -12939,36 +12962,19 @@ Public Class DMUEisGecoTool
     End Sub
 
     Private Sub btnUpdateLatLong_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateLatLong.Click
-        Try
-            If txtEILogSelectedAIRSNumber.Text = "" Then
-                MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
-            End If
-
-            UpdateFacilityGEOCoord()
-            MsgBox("Data updated.", MsgBoxStyle.Information, Me.Text)
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        UpdateFacilityGEOCoord()
     End Sub
 
     Private Sub btnEIModifyCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEIModifyCopy.Click
-        Try
-            If txtEILogSelectedAIRSNumber.Text = "" Then
-                MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
-            End If
-
-            txtEIModifyFacilityName.Text = txtEIModifyIAIPFacilityName.Text
-            txtEIModifyLocation.Text = txtEIModifyIAIPLocation.Text
-            txtEIModifyCity.Text = txtEIModifyIAIPCity.Text
-            mtbEIModifyZipCode.Text = mtbEIModifyIAIPZipCode.Text
-            mtbEIModifyLatitude.Text = mtbEIModifyIAIPLatitude.Text
-            mtbEIModifyLongitude.Text = mtbEIModifyIAIPLongitude.Text
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        txtEIModifyFacilityName.Text = txtEIModifyIAIPFacilityName.Text
+        txtEIModifyLocation.Text = txtEIModifyIAIPLocation.Text
+        txtEIModifyCity.Text = txtEIModifyIAIPCity.Text
+        mtbEIModifyMZipCode.Text = mtbEIModifyIAIPZipCode.Text
+        txtEIModifyMLocation.Text = txtEIModifyIAIPLocation.Text
+        txtEIModifyMCity.Text = txtEIModifyIAIPCity.Text
+        mtbEIModifyZipCode.Text = mtbEIModifyIAIPZipCode.Text
+        mtbEIModifyLatitude.Text = mtbEIModifyIAIPLatitude.Text
+        mtbEIModifyLongitude.Text = mtbEIModifyIAIPLongitude.Text
     End Sub
 
     Private Sub btnEISMailoutUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEISMailoutUpdate.Click
@@ -14179,689 +14185,15 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-
-    Private Sub mtbEILogAIRSNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles mtbEILogAIRSNumber.KeyPress
-        Try
-
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
-            Else
-                Exit Sub
-            End If
-
-            If cboEILogYear.Text = "" Or cboEILogYear.Text.Length <> 4 Then
-                MsgBox("Please select a valid year from the EIS Year dropdown.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
-            End If
-            If mtbEILogAIRSNumber.Text = "" Or mtbEILogAIRSNumber.Text.Length <> 8 Then
-                MsgBox("Please enter a valid AIRS # into the EIS AIRS #", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
-            End If
-            txtEILogSelectedYear.Text = cboEILogYear.Text
-            txtEILogSelectedAIRSNumber.Text = mtbEILogAIRSNumber.Text
-
-            LoadAdminData()
-
-            SQL = "select  " & _
-            "strFacilitySiteName " & _
-            "from AIRBRANCH.EIS_FacilitySite " & _
-            "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strFacilitySiteName")) Then
-                    txtEIModifyFacilityName.Clear()
-                    txtEILogFacilityName.Clear()
-                Else
-                    txtEIModifyFacilityName.Text = dr.Item("strFacilitySiteName")
-                    txtEILogFacilityName.Text = dr.Item("strFacilitySiteName")
-                End If
-            End While
-            dr.Close()
-
-            SQL = "select  " & _
-            "* " & _
-            "from AIRBRANCH.EIS_FacilitySiteAddress " & _
-            "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strLocationAddressText")) Then
-                    txtEIModifyLocation.Clear()
-                Else
-                    txtEIModifyLocation.Text = dr.Item("strLocationAddressText")
-                End If
-                If IsDBNull(dr.Item("strLocalityName")) Then
-                    txtEIModifyCity.Clear()
-                Else
-                    txtEIModifyCity.Text = dr.Item("strLocalityName")
-                End If
-                If IsDBNull(dr.Item("strLocationAddressPostalCode")) Then
-                    mtbEIModifyZipCode.Clear()
-                Else
-                    mtbEIModifyZipCode.Text = dr.Item("strLocationAddressPostalCode")
-                End If
-            End While
-            dr.Close()
-
-            SQL = "select  " & _
-            "* " & _
-            "from AIRBRANCH.EIS_FacilityGeoCoord " & _
-            "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("numLatitudeMeasure")) Then
-                    mtbEIModifyLatitude.Clear()
-                Else
-                    mtbEIModifyLatitude.Text = dr.Item("numLatitudeMeasure")
-                End If
-                If IsDBNull(dr.Item("numLongitudeMeasure")) Then
-                    mtbEIModifyLongitude.Clear()
-                Else
-                    mtbEIModifyLongitude.Text = dr.Item("numLongitudeMeasure")
-                End If
-            End While
-            dr.Close()
-
-            SQL = "select * " & _
-            "from AIRBRANCH.APBFacilityInformation " & _
-            "where strAIRSNumber = '0413" & txtEILogSelectedAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    txtEIModifyIAIPFacilityName.Clear()
-                Else
-                    txtEIModifyIAIPFacilityName.Text = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("strFacilityStreet1")) Then
-                    txtEIModifyIAIPLocation.Clear()
-                Else
-                    txtEIModifyIAIPLocation.Text = dr.Item("strFacilityStreet1")
-                End If
-                If IsDBNull(dr.Item("strFacilityCity")) Then
-                    txtEIModifyIAIPCity.Clear()
-                Else
-                    txtEIModifyIAIPCity.Text = dr.Item("strFacilityCity")
-                End If
-                If IsDBNull(dr.Item("strFacilityZipCode")) Then
-                    mtbEIModifyIAIPZipCode.Clear()
-                Else
-                    mtbEIModifyIAIPZipCode.Text = dr.Item("strFacilityZipCode")
-                End If
-                If IsDBNull(dr.Item("numFacilityLongitude")) Then
-                    mtbEIModifyIAIPLongitude.Clear()
-                Else
-                    mtbEIModifyIAIPLongitude.Text = dr.Item("numFacilityLongitude")
-                End If
-                If IsDBNull(dr.Item("numFacilityLatitude")) Then
-                    mtbEIModifyIAIPLatitude.Clear()
-                Else
-                    mtbEIModifyIAIPLatitude.Text = dr.Item("numFacilityLatitude")
-                End If
-            End While
-            dr.Close()
-
-            SQL = "Select * " & _
-            "from AIRBRANCH.EIS_Mailout " & _
-            "where intInventoryYear = '" & txtEILogSelectedYear.Text & "' " & _
-            "and FacilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    txtEISMailoutFacilityName.Clear()
-                Else
-                    txtEISMailoutFacilityName.Text = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("strContactCompanyName")) Then
-                    txtEISMailoutCompanyName.Clear()
-                Else
-                    txtEISMailoutCompanyName.Text = dr.Item("strContactCompanyName")
-                End If
-                If IsDBNull(dr.Item("strContactAddress1")) Then
-                    txtEISMailoutAddress.Clear()
-                Else
-                    txtEISMailoutAddress.Text = dr.Item("strContactAddress1")
-                End If
-                If IsDBNull(dr.Item("strContactAddress2")) Then
-                    txtEISMailoutAddress2.Clear()
-                Else
-                    txtEISMailoutAddress2.Text = dr.Item("strContactAddress2")
-                End If
-                If IsDBNull(dr.Item("strContactCity")) Then
-                    txtEISMailoutCity.Clear()
-                Else
-                    txtEISMailoutCity.Text = dr.Item("strContactCity")
-                End If
-                If IsDBNull(dr.Item("strContactState")) Then
-                    txtEISMailoutState.Clear()
-                Else
-                    txtEISMailoutState.Text = dr.Item("strContactState")
-                End If
-                If IsDBNull(dr.Item("strContactZipCode")) Then
-                    txtEISMailoutZipCode.Clear()
-                Else
-                    txtEISMailoutZipCode.Text = dr.Item("strContactZipCode")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    txtEISMailoutFirstName.Clear()
-                Else
-                    txtEISMailoutFirstName.Text = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    txtEISMailoutLastName.Clear()
-                Else
-                    txtEISMailoutLastName.Text = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    txtEISMailoutPrefix.Clear()
-                Else
-                    txtEISMailoutPrefix.Text = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactEmail")) Then
-                    txtEISMailoutEmail.Clear()
-                Else
-                    txtEISMailoutEmail.Text = dr.Item("strContactEmail")
-                End If
-                If IsDBNull(dr.Item("strComment")) Then
-                    txtEISMailoutComments.Clear()
-                Else
-                    txtEISMailoutComments.Text = dr.Item("strComment")
-                End If
-                If IsDBNull(dr.Item("UpdateUser")) Then
-                    txtEISMailoutUpdateUser.Clear()
-                Else
-                    txtEISMailoutUpdateUser.Text = dr.Item("UpdateUser")
-                End If
-                If IsDBNull(dr.Item("UpdateDateTime")) Then
-                    txtEISMailoutUpdateDateTime.Clear()
-                Else
-                    txtEISMailoutUpdateDateTime.Text = dr.Item("UpdateDateTime")
-                End If
-                If IsDBNull(dr.Item("CreateDateTime")) Then
-                    txtEISMailoutCreateDateTime.Clear()
-                Else
-                    txtEISMailoutCreateDateTime.Text = dr.Item("CreateDateTime")
-                End If
-            End While
-            dr.Close()
-
-            SQL = "select " & _
-            "strContactFirstName, strContactLastName, " & _
-            "strContactPrefix, strContactSuffix, " & _
-            "strContactTitle, strContactPhoneNumber1, " & _
-            "strContactPhoneNumber2, strContactFaxNumber, " & _
-            "strContactEmail, strContactCompanyName, " & _
-            "strContactAddress1, strContactAddress2, " & _
-            "strContactCity, strContactState, " & _
-            "strContactZipCode, strContactDescription, " & _
-            "datModifingDate, (strLastName||', '||strFirstName) as ModifingPerson " & _
-            "from AIRBRANCH.APBContactInformation, AIRBRANCH.EPDUserProfiles " & _
-            "where AIRBRANCH.APBContactInformation.strModifingPerson = " & _
-            "AIRBRANCH.EPDUserProfiles.numUserID  " & _
-            "and strContactKey = '0413" & txtEILogSelectedAIRSNumber.Text & "41' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    txtEISContactFirstName.Clear()
-                Else
-                    txtEISContactFirstName.Text = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    txtEISContactLastName.Clear()
-                Else
-                    txtEISContactLastName.Text = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    txtEISContactPrefix.Clear()
-                Else
-                    txtEISContactPrefix.Text = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactSuffix")) Then
-                    txtEISContactSuffix.Clear()
-                Else
-                    txtEISContactSuffix.Text = dr.Item("strContactSuffix")
-                End If
-                If IsDBNull(dr.Item("strContactTitle")) Then
-                    txtEISContactTitle.Clear()
-                Else
-                    txtEISContactTitle.Text = dr.Item("strContactTitle")
-                End If
-                If IsDBNull(dr.Item("strContactPhoneNumber1")) Then
-                    txtEISContactPhone.Clear()
-                Else
-                    txtEISContactPhone.Text = dr.Item("strContactPhoneNumber1")
-                End If
-                If IsDBNull(dr.Item("strContactPhoneNumber2")) Then
-                    txtEISContactPhone2.Clear()
-                Else
-                    txtEISContactPhone2.Text = dr.Item("strContactPhoneNumber2")
-                End If
-                If IsDBNull(dr.Item("strContactFaxNumber")) Then
-                    txtEISContactFax.Clear()
-                Else
-                    txtEISContactFax.Text = dr.Item("strContactFaxNumber")
-                End If
-                If IsDBNull(dr.Item("strContactEmail")) Then
-                    txtEISContactEmail.Clear()
-                Else
-                    txtEISContactEmail.Text = dr.Item("strContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactCompanyName")) Then
-                    txtEISContactCompanyName.Clear()
-                Else
-                    txtEISContactCompanyName.Text = dr.Item("strContactCompanyName")
-                End If
-                If IsDBNull(dr.Item("strContactAddress1")) Then
-                    txtEISContactAddress.Clear()
-                Else
-                    txtEISContactAddress.Text = dr.Item("strContactAddress1")
-                End If
-                If IsDBNull(dr.Item("strContactAddress2")) Then
-                    txtEISContactAddress2.Clear()
-                Else
-                    txtEISContactAddress2.Text = dr.Item("strContactAddress2")
-                End If
-                If IsDBNull(dr.Item("strContactCity")) Then
-                    txtEISContactCity.Clear()
-                Else
-                    txtEISContactCity.Text = dr.Item("strContactCity")
-                End If
-                If IsDBNull(dr.Item("strContactState")) Then
-                    txtEISContactState.Clear()
-                Else
-                    txtEISContactState.Text = dr.Item("strContactState")
-                End If
-                If IsDBNull(dr.Item("strContactZipCode")) Then
-                    txtEISContactZipCode.Clear()
-                Else
-                    txtEISContactZipCode.Text = dr.Item("strContactZipCode")
-                End If
-                If IsDBNull(dr.Item("strContactDescription")) Then
-                    txtEISContactDescription.Clear()
-                Else
-                    txtEISContactDescription.Text = dr.Item("strContactDescription")
-                End If
-                If IsDBNull(dr.Item("ModifingPerson")) Then
-                    txtEISContactUpdateUser.Clear()
-                Else
-                    txtEISContactUpdateUser.Text = dr.Item("ModifingPerson")
-                End If
-                If IsDBNull(dr.Item("datModifingDate")) Then
-                    txtEISContactUpdateDateTime.Clear()
-                Else
-                    txtEISContactUpdateDateTime.Text = dr.Item("datModifingDate")
-                End If
-
-            End While
-            dr.Close()
-
-            LoadQASpecificData()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
     Private Sub btnLoadEISLog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadEISLog.Click
         Try
             If mtbEISLogAIRSNumber.Text <> "" And cboEISStatisticsYear.Text.Length = 4 Then
                 mtbEILogAIRSNumber.Text = mtbEISLogAIRSNumber.Text
                 cboEILogYear.Text = cboEISStatisticsYear.Text
 
-                txtEILogSelectedYear.Text = cboEILogYear.Text
-                txtEILogSelectedAIRSNumber.Text = mtbEILogAIRSNumber.Text
-
-                LoadAdminData()
-
-                SQL = "select  " & _
-                "strFacilitySiteName " & _
-                "from AIRBRANCH.EIS_FacilitySite " & _
-                "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("strFacilitySiteName")) Then
-                        txtEIModifyFacilityName.Clear()
-                        txtEILogFacilityName.Clear()
-                    Else
-                        txtEIModifyFacilityName.Text = dr.Item("strFacilitySiteName")
-                        txtEILogFacilityName.Text = dr.Item("strFacilitySiteName")
-                    End If
-                End While
-                dr.Close()
-
-                SQL = "select  " & _
-                "* " & _
-                "from AIRBRANCH.EIS_FacilitySiteAddress " & _
-                "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("strLocationAddressText")) Then
-                        txtEIModifyLocation.Clear()
-                    Else
-                        txtEIModifyLocation.Text = dr.Item("strLocationAddressText")
-                    End If
-                    If IsDBNull(dr.Item("strLocalityName")) Then
-                        txtEIModifyCity.Clear()
-                    Else
-                        txtEIModifyCity.Text = dr.Item("strLocalityName")
-                    End If
-                    If IsDBNull(dr.Item("strLocationAddressPostalCode")) Then
-                        mtbEIModifyZipCode.Clear()
-                    Else
-                        mtbEIModifyZipCode.Text = dr.Item("strLocationAddressPostalCode")
-                    End If
-                End While
-                dr.Close()
-
-                SQL = "select  " & _
-                "* " & _
-                "from AIRBRANCH.EIS_FacilityGeoCoord " & _
-                "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("numLatitudeMeasure")) Then
-                        mtbEIModifyLatitude.Clear()
-                    Else
-                        mtbEIModifyLatitude.Text = dr.Item("numLatitudeMeasure")
-                    End If
-                    If IsDBNull(dr.Item("numLongitudeMeasure")) Then
-                        mtbEIModifyLongitude.Clear()
-                    Else
-                        mtbEIModifyLongitude.Text = dr.Item("numLongitudeMeasure")
-                    End If
-                End While
-                dr.Close()
-
-                SQL = "select * " & _
-                "from AIRBRANCH.APBFacilityInformation " & _
-                "where strAIRSNumber = '0413" & txtEILogSelectedAIRSNumber.Text & "' "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("strFacilityName")) Then
-                        txtEIModifyIAIPFacilityName.Clear()
-                    Else
-                        txtEIModifyIAIPFacilityName.Text = dr.Item("strFacilityName")
-                    End If
-                    If IsDBNull(dr.Item("strFacilityStreet1")) Then
-                        txtEIModifyIAIPLocation.Clear()
-                    Else
-                        txtEIModifyIAIPLocation.Text = dr.Item("strFacilityStreet1")
-                    End If
-                    If IsDBNull(dr.Item("strFacilityCity")) Then
-                        txtEIModifyIAIPCity.Clear()
-                    Else
-                        txtEIModifyIAIPCity.Text = dr.Item("strFacilityCity")
-                    End If
-                    If IsDBNull(dr.Item("strFacilityZipCode")) Then
-                        mtbEIModifyIAIPZipCode.Clear()
-                    Else
-                        mtbEIModifyIAIPZipCode.Text = dr.Item("strFacilityZipCode")
-                    End If
-                    If IsDBNull(dr.Item("numFacilityLongitude")) Then
-                        mtbEIModifyIAIPLongitude.Clear()
-                    Else
-                        mtbEIModifyIAIPLongitude.Text = dr.Item("numFacilityLongitude")
-                    End If
-                    If IsDBNull(dr.Item("numFacilityLatitude")) Then
-                        mtbEIModifyIAIPLatitude.Clear()
-                    Else
-                        mtbEIModifyIAIPLatitude.Text = dr.Item("numFacilityLatitude")
-                    End If
-                End While
-                dr.Close()
-
-                SQL = "Select * " & _
-                "from AIRBRANCH.EIS_Mailout " & _
-                "where intInventoryYear = '" & txtEILogSelectedYear.Text & "' " & _
-                "and FacilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "' "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("strFacilityName")) Then
-                        txtEISMailoutFacilityName.Clear()
-                    Else
-                        txtEISMailoutFacilityName.Text = dr.Item("strFacilityName")
-                    End If
-                    If IsDBNull(dr.Item("strContactCompanyName")) Then
-                        txtEISMailoutCompanyName.Clear()
-                    Else
-                        txtEISMailoutCompanyName.Text = dr.Item("strContactCompanyName")
-                    End If
-                    If IsDBNull(dr.Item("strContactAddress1")) Then
-                        txtEISMailoutAddress.Clear()
-                    Else
-                        txtEISMailoutAddress.Text = dr.Item("strContactAddress1")
-                    End If
-                    If IsDBNull(dr.Item("strContactAddress2")) Then
-                        txtEISMailoutAddress2.Clear()
-                    Else
-                        txtEISMailoutAddress2.Text = dr.Item("strContactAddress2")
-                    End If
-                    If IsDBNull(dr.Item("strContactCity")) Then
-                        txtEISMailoutCity.Clear()
-                    Else
-                        txtEISMailoutCity.Text = dr.Item("strContactCity")
-                    End If
-                    If IsDBNull(dr.Item("strContactState")) Then
-                        txtEISMailoutState.Clear()
-                    Else
-                        txtEISMailoutState.Text = dr.Item("strContactState")
-                    End If
-                    If IsDBNull(dr.Item("strContactZipCode")) Then
-                        txtEISMailoutZipCode.Clear()
-                    Else
-                        txtEISMailoutZipCode.Text = dr.Item("strContactZipCode")
-                    End If
-                    If IsDBNull(dr.Item("strContactFirstName")) Then
-                        txtEISMailoutFirstName.Clear()
-                    Else
-                        txtEISMailoutFirstName.Text = dr.Item("strContactFirstName")
-                    End If
-                    If IsDBNull(dr.Item("strContactLastName")) Then
-                        txtEISMailoutLastName.Clear()
-                    Else
-                        txtEISMailoutLastName.Text = dr.Item("strContactLastName")
-                    End If
-                    If IsDBNull(dr.Item("strContactPrefix")) Then
-                        txtEISMailoutPrefix.Clear()
-                    Else
-                        txtEISMailoutPrefix.Text = dr.Item("strContactPrefix")
-                    End If
-                    If IsDBNull(dr.Item("strContactEmail")) Then
-                        txtEISMailoutEmail.Clear()
-                    Else
-                        txtEISMailoutEmail.Text = dr.Item("strContactEmail")
-                    End If
-                    If IsDBNull(dr.Item("strComment")) Then
-                        txtEISMailoutComments.Clear()
-                    Else
-                        txtEISMailoutComments.Text = dr.Item("strComment")
-                    End If
-                    If IsDBNull(dr.Item("UpdateUser")) Then
-                        txtEISMailoutUpdateUser.Clear()
-                    Else
-                        txtEISMailoutUpdateUser.Text = dr.Item("UpdateUser")
-                    End If
-                    If IsDBNull(dr.Item("UpdateDateTime")) Then
-                        txtEISMailoutUpdateDateTime.Clear()
-                    Else
-                        txtEISMailoutUpdateDateTime.Text = dr.Item("UpdateDateTime")
-                    End If
-                    If IsDBNull(dr.Item("CreateDateTime")) Then
-                        txtEISMailoutCreateDateTime.Clear()
-                    Else
-                        txtEISMailoutCreateDateTime.Text = dr.Item("CreateDateTime")
-                    End If
-                End While
-                dr.Close()
-
-                SQL = "select " & _
-                "strContactFirstName, strContactLastName, " & _
-                "strContactPrefix, strContactSuffix, " & _
-                "strContactTitle, strContactPhoneNumber1, " & _
-                "strContactPhoneNumber2, strContactFaxNumber, " & _
-                "strContactEmail, strContactCompanyName, " & _
-                "strContactAddress1, strContactAddress2, " & _
-                "strContactCity, strContactState, " & _
-                "strContactZipCode, strContactDescription, " & _
-                "datModifingDate, (strLastName||', '||strFirstName) as ModifingPerson " & _
-                "from AIRBRANCH.APBContactInformation, AIRBRANCH.EPDUserProfiles " & _
-                "where AIRBRANCH.APBContactInformation.strModifingPerson = " & _
-                "AIRBRANCH.EPDUserProfiles.numUserID  " & _
-                "and strContactKey = '0413" & txtEILogSelectedAIRSNumber.Text & "41' "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("strContactFirstName")) Then
-                        txtEISContactFirstName.Clear()
-                    Else
-                        txtEISContactFirstName.Text = dr.Item("strContactFirstName")
-                    End If
-                    If IsDBNull(dr.Item("strContactLastName")) Then
-                        txtEISContactLastName.Clear()
-                    Else
-                        txtEISContactLastName.Text = dr.Item("strContactLastName")
-                    End If
-                    If IsDBNull(dr.Item("strContactPrefix")) Then
-                        txtEISContactPrefix.Clear()
-                    Else
-                        txtEISContactPrefix.Text = dr.Item("strContactPrefix")
-                    End If
-                    If IsDBNull(dr.Item("strContactSuffix")) Then
-                        txtEISContactSuffix.Clear()
-                    Else
-                        txtEISContactSuffix.Text = dr.Item("strContactSuffix")
-                    End If
-                    If IsDBNull(dr.Item("strContactTitle")) Then
-                        txtEISContactTitle.Clear()
-                    Else
-                        txtEISContactTitle.Text = dr.Item("strContactTitle")
-                    End If
-                    If IsDBNull(dr.Item("strContactPhoneNumber1")) Then
-                        txtEISContactPhone.Clear()
-                    Else
-                        txtEISContactPhone.Text = dr.Item("strContactPhoneNumber1")
-                    End If
-                    If IsDBNull(dr.Item("strContactPhoneNumber2")) Then
-                        txtEISContactPhone2.Clear()
-                    Else
-                        txtEISContactPhone2.Text = dr.Item("strContactPhoneNumber2")
-                    End If
-                    If IsDBNull(dr.Item("strContactFaxNumber")) Then
-                        txtEISContactFax.Clear()
-                    Else
-                        txtEISContactFax.Text = dr.Item("strContactFaxNumber")
-                    End If
-                    If IsDBNull(dr.Item("strContactEmail")) Then
-                        txtEISContactEmail.Clear()
-                    Else
-                        txtEISContactEmail.Text = dr.Item("strContactEmail")
-                    End If
-                    If IsDBNull(dr.Item("strContactCompanyName")) Then
-                        txtEISContactCompanyName.Clear()
-                    Else
-                        txtEISContactCompanyName.Text = dr.Item("strContactCompanyName")
-                    End If
-                    If IsDBNull(dr.Item("strContactAddress1")) Then
-                        txtEISContactAddress.Clear()
-                    Else
-                        txtEISContactAddress.Text = dr.Item("strContactAddress1")
-                    End If
-                    If IsDBNull(dr.Item("strContactAddress2")) Then
-                        txtEISContactAddress2.Clear()
-                    Else
-                        txtEISContactAddress2.Text = dr.Item("strContactAddress2")
-                    End If
-                    If IsDBNull(dr.Item("strContactCity")) Then
-                        txtEISContactCity.Clear()
-                    Else
-                        txtEISContactCity.Text = dr.Item("strContactCity")
-                    End If
-                    If IsDBNull(dr.Item("strContactState")) Then
-                        txtEISContactState.Clear()
-                    Else
-                        txtEISContactState.Text = dr.Item("strContactState")
-                    End If
-                    If IsDBNull(dr.Item("strContactZipCode")) Then
-                        txtEISContactZipCode.Clear()
-                    Else
-                        txtEISContactZipCode.Text = dr.Item("strContactZipCode")
-                    End If
-                    If IsDBNull(dr.Item("strContactDescription")) Then
-                        txtEISContactDescription.Clear()
-                    Else
-                        txtEISContactDescription.Text = dr.Item("strContactDescription")
-                    End If
-                    If IsDBNull(dr.Item("ModifingPerson")) Then
-                        txtEISContactUpdateUser.Clear()
-                    Else
-                        txtEISContactUpdateUser.Text = dr.Item("ModifingPerson")
-                    End If
-                    If IsDBNull(dr.Item("datModifingDate")) Then
-                        txtEISContactUpdateDateTime.Clear()
-                    Else
-                        txtEISContactUpdateDateTime.Text = dr.Item("datModifingDate")
-                    End If
-
-                End While
-                dr.Close()
-
-                LoadQASpecificData()
+                LoadFSData()
+                
                 TCDMUTools.SelectedIndex = 0
-
             End If
 
         Catch ex As Exception
@@ -15234,7 +14566,7 @@ Public Class DMUEisGecoTool
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
- 
+
 
     Private Sub btnViewEISEnrolled_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewEISEnrolled.Click
         Try
@@ -15540,7 +14872,7 @@ Public Class DMUEisGecoTool
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
- 
+
 
     Private Sub btnEISSummaryToExcel_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEISSummaryToExcel.Click
         Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
@@ -15589,4 +14921,43 @@ Public Class DMUEisGecoTool
         End Try
 
     End Sub
+
+#Region " Accept Button "
+
+    Private Sub AcceptButton_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles mtbEILogAIRSNumber.Leave, _
+    txtEIModifyFacilityName.Leave, _
+    txtEIModifyLocation.Leave, txtEIModifyCity.Leave, mtbEIModifyZipCode.Leave, _
+    txtEIModifyMLocation.Leave, txtEIModifyMCity.Leave, mtbEIModifyMZipCode.Leave, _
+    mtbEIModifyLatitude.Leave, mtbEIModifyLongitude.Leave
+        Me.AcceptButton = Nothing
+    End Sub
+
+    Private Sub mtbEILogAIRSNumber_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles mtbEILogAIRSNumber.Enter
+        Me.AcceptButton = btnReloadFSData
+    End Sub
+
+    Private Sub txtEIModifyFacilityName_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles txtEIModifyFacilityName.Enter
+        Me.AcceptButton = btnEIModifyUpdateName
+    End Sub
+
+    Private Sub EIModifyLocation_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles txtEIModifyLocation.Enter, txtEIModifyCity.Enter, mtbEIModifyZipCode.Enter
+        Me.AcceptButton = btnEIModifyUpdateLocation
+    End Sub
+
+    Private Sub EIModifyMailing_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles txtEIModifyMLocation.Enter, txtEIModifyMCity.Enter, mtbEIModifyMZipCode.Enter
+        Me.AcceptButton = btnEIModifyUpdateMailing
+    End Sub
+
+    Private Sub EIModifyLatitudeLongitude_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles mtbEIModifyLatitude.Enter, mtbEIModifyLongitude.Enter
+        Me.AcceptButton = btnUpdateLatLong
+    End Sub
+
+#End Region
+
 End Class

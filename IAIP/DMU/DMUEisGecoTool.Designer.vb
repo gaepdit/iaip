@@ -22,47 +22,53 @@ Partial Class DMUEisGecoTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+Dim DataGridViewCellStyle71 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+Dim DataGridViewCellStyle72 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+Dim DataGridViewCellStyle73 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+Dim DataGridViewCellStyle74 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+Dim DataGridViewCellStyle75 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+Dim DataGridViewCellStyle76 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+Dim DataGridViewCellStyle77 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+Dim DataGridViewCellStyle78 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+Dim DataGridViewCellStyle79 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+Dim DataGridViewCellStyle80 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+Dim DataGridViewCellStyle81 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+Dim DataGridViewCellStyle82 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+Dim DataGridViewCellStyle83 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+Dim DataGridViewCellStyle84 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
 Me.TCDMUTools = New System.Windows.Forms.TabControl
 Me.TPEISLog = New System.Windows.Forms.TabPage
 Me.TabControl6 = New System.Windows.Forms.TabControl
 Me.TPFacilitySite = New System.Windows.Forms.TabPage
-Me.btnUpdateLatLong = New System.Windows.Forms.Button
-Me.llbEIModifyMapTool = New System.Windows.Forms.LinkLabel
-Me.btnEIModifyUpdate = New System.Windows.Forms.Button
+Me.GroupBox4 = New System.Windows.Forms.GroupBox
+Me.txtEIModifyIAIPFacilityName = New System.Windows.Forms.TextBox
+Me.txtEIModifyIAIPLocation = New System.Windows.Forms.TextBox
+Me.txtEIModifyIAIPCity = New System.Windows.Forms.TextBox
+Me.mtbEIModifyIAIPZipCode = New System.Windows.Forms.MaskedTextBox
 Me.Label240 = New System.Windows.Forms.Label
+Me.Label238 = New System.Windows.Forms.Label
 Me.btnEIModifyCopy = New System.Windows.Forms.Button
+Me.mtbEIModifyIAIPLatitude = New System.Windows.Forms.MaskedTextBox
 Me.mtbEIModifyIAIPLongitude = New System.Windows.Forms.MaskedTextBox
 Me.Label237 = New System.Windows.Forms.Label
-Me.mtbEIModifyIAIPLatitude = New System.Windows.Forms.MaskedTextBox
-Me.Label238 = New System.Windows.Forms.Label
+Me.btnUpdateLatLong = New System.Windows.Forms.Button
+Me.btnEIModifyUpdateMailing = New System.Windows.Forms.Button
+Me.btnEIModifyUpdateName = New System.Windows.Forms.Button
+Me.Label62 = New System.Windows.Forms.Label
+Me.btnEIModifyUpdateLocation = New System.Windows.Forms.Button
 Me.mtbEIModifyLongitude = New System.Windows.Forms.MaskedTextBox
 Me.Label236 = New System.Windows.Forms.Label
 Me.mtbEIModifyLatitude = New System.Windows.Forms.MaskedTextBox
 Me.Label235 = New System.Windows.Forms.Label
-Me.Label63 = New System.Windows.Forms.Label
-Me.mtbEIModifyIAIPZipCode = New System.Windows.Forms.MaskedTextBox
-Me.txtEIModifyIAIPCity = New System.Windows.Forms.TextBox
-Me.txtEIModifyIAIPLocation = New System.Windows.Forms.TextBox
-Me.txtEIModifyIAIPFacilityName = New System.Windows.Forms.TextBox
+Me.mtbEIModifyMZipCode = New System.Windows.Forms.MaskedTextBox
 Me.mtbEIModifyZipCode = New System.Windows.Forms.MaskedTextBox
-Me.Label62 = New System.Windows.Forms.Label
+Me.txtEIModifyMCity = New System.Windows.Forms.TextBox
 Me.txtEIModifyCity = New System.Windows.Forms.TextBox
+Me.Label73 = New System.Windows.Forms.Label
 Me.Label61 = New System.Windows.Forms.Label
 Me.txtEIModifyLocation = New System.Windows.Forms.TextBox
+Me.txtEIModifyMLocation = New System.Windows.Forms.TextBox
+Me.Label63 = New System.Windows.Forms.Label
 Me.Label60 = New System.Windows.Forms.Label
 Me.Label59 = New System.Windows.Forms.Label
 Me.txtEIModifyFacilityName = New System.Windows.Forms.TextBox
@@ -955,6 +961,7 @@ Me.TCDMUTools.SuspendLayout
 Me.TPEISLog.SuspendLayout
 Me.TabControl6.SuspendLayout
 Me.TPFacilitySite.SuspendLayout
+Me.GroupBox4.SuspendLayout
 Me.TPEISMailout.SuspendLayout
 Me.Panel12.SuspendLayout
 Me.GroupBox2.SuspendLayout
@@ -1095,29 +1102,25 @@ Me.TabControl6.TabIndex = 1
 'TPFacilitySite
 '
 Me.TPFacilitySite.AutoScroll = true
+Me.TPFacilitySite.Controls.Add(Me.GroupBox4)
 Me.TPFacilitySite.Controls.Add(Me.btnUpdateLatLong)
-Me.TPFacilitySite.Controls.Add(Me.llbEIModifyMapTool)
-Me.TPFacilitySite.Controls.Add(Me.btnEIModifyUpdate)
-Me.TPFacilitySite.Controls.Add(Me.Label240)
-Me.TPFacilitySite.Controls.Add(Me.btnEIModifyCopy)
-Me.TPFacilitySite.Controls.Add(Me.mtbEIModifyIAIPLongitude)
-Me.TPFacilitySite.Controls.Add(Me.Label237)
-Me.TPFacilitySite.Controls.Add(Me.mtbEIModifyIAIPLatitude)
-Me.TPFacilitySite.Controls.Add(Me.Label238)
+Me.TPFacilitySite.Controls.Add(Me.btnEIModifyUpdateMailing)
+Me.TPFacilitySite.Controls.Add(Me.btnEIModifyUpdateName)
+Me.TPFacilitySite.Controls.Add(Me.Label62)
+Me.TPFacilitySite.Controls.Add(Me.btnEIModifyUpdateLocation)
 Me.TPFacilitySite.Controls.Add(Me.mtbEIModifyLongitude)
 Me.TPFacilitySite.Controls.Add(Me.Label236)
 Me.TPFacilitySite.Controls.Add(Me.mtbEIModifyLatitude)
 Me.TPFacilitySite.Controls.Add(Me.Label235)
-Me.TPFacilitySite.Controls.Add(Me.Label63)
-Me.TPFacilitySite.Controls.Add(Me.mtbEIModifyIAIPZipCode)
-Me.TPFacilitySite.Controls.Add(Me.txtEIModifyIAIPCity)
-Me.TPFacilitySite.Controls.Add(Me.txtEIModifyIAIPLocation)
-Me.TPFacilitySite.Controls.Add(Me.txtEIModifyIAIPFacilityName)
+Me.TPFacilitySite.Controls.Add(Me.mtbEIModifyMZipCode)
 Me.TPFacilitySite.Controls.Add(Me.mtbEIModifyZipCode)
-Me.TPFacilitySite.Controls.Add(Me.Label62)
+Me.TPFacilitySite.Controls.Add(Me.txtEIModifyMCity)
 Me.TPFacilitySite.Controls.Add(Me.txtEIModifyCity)
+Me.TPFacilitySite.Controls.Add(Me.Label73)
 Me.TPFacilitySite.Controls.Add(Me.Label61)
 Me.TPFacilitySite.Controls.Add(Me.txtEIModifyLocation)
+Me.TPFacilitySite.Controls.Add(Me.txtEIModifyMLocation)
+Me.TPFacilitySite.Controls.Add(Me.Label63)
 Me.TPFacilitySite.Controls.Add(Me.Label60)
 Me.TPFacilitySite.Controls.Add(Me.Label59)
 Me.TPFacilitySite.Controls.Add(Me.txtEIModifyFacilityName)
@@ -1130,106 +1133,174 @@ Me.TPFacilitySite.TabIndex = 0
 Me.TPFacilitySite.Text = "Modify Facility Site"
 Me.TPFacilitySite.UseVisualStyleBackColor = true
 '
-'btnUpdateLatLong
+'GroupBox4
 '
-Me.btnUpdateLatLong.AutoSize = true
-Me.btnUpdateLatLong.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-Me.btnUpdateLatLong.Location = New System.Drawing.Point(100, 238)
-Me.btnUpdateLatLong.Name = "btnUpdateLatLong"
-Me.btnUpdateLatLong.Size = New System.Drawing.Size(123, 23)
-Me.btnUpdateLatLong.TabIndex = 8
-Me.btnUpdateLatLong.Text = "Update Lat/Long Only"
-Me.btnUpdateLatLong.UseVisualStyleBackColor = true
+Me.GroupBox4.Controls.Add(Me.txtEIModifyIAIPFacilityName)
+Me.GroupBox4.Controls.Add(Me.txtEIModifyIAIPLocation)
+Me.GroupBox4.Controls.Add(Me.txtEIModifyIAIPCity)
+Me.GroupBox4.Controls.Add(Me.mtbEIModifyIAIPZipCode)
+Me.GroupBox4.Controls.Add(Me.Label240)
+Me.GroupBox4.Controls.Add(Me.Label238)
+Me.GroupBox4.Controls.Add(Me.btnEIModifyCopy)
+Me.GroupBox4.Controls.Add(Me.mtbEIModifyIAIPLatitude)
+Me.GroupBox4.Controls.Add(Me.mtbEIModifyIAIPLongitude)
+Me.GroupBox4.Controls.Add(Me.Label237)
+Me.GroupBox4.Location = New System.Drawing.Point(534, 27)
+Me.GroupBox4.Name = "GroupBox4"
+Me.GroupBox4.Padding = New System.Windows.Forms.Padding(7, 3, 7, 3)
+Me.GroupBox4.Size = New System.Drawing.Size(345, 190)
+Me.GroupBox4.TabIndex = 489
+Me.GroupBox4.TabStop = false
+Me.GroupBox4.Text = "IAIP Facility Information"
 '
-'llbEIModifyMapTool
+'txtEIModifyIAIPFacilityName
 '
-Me.llbEIModifyMapTool.AutoSize = true
-Me.llbEIModifyMapTool.Location = New System.Drawing.Point(309, 161)
-Me.llbEIModifyMapTool.Name = "llbEIModifyMapTool"
-Me.llbEIModifyMapTool.Size = New System.Drawing.Size(85, 13)
-Me.llbEIModifyMapTool.TabIndex = 6
-Me.llbEIModifyMapTool.TabStop = true
-Me.llbEIModifyMapTool.Text = "Online Map Tool"
+Me.txtEIModifyIAIPFacilityName.Location = New System.Drawing.Point(10, 19)
+Me.txtEIModifyIAIPFacilityName.Name = "txtEIModifyIAIPFacilityName"
+Me.txtEIModifyIAIPFacilityName.ReadOnly = true
+Me.txtEIModifyIAIPFacilityName.Size = New System.Drawing.Size(322, 20)
+Me.txtEIModifyIAIPFacilityName.TabIndex = 1
 '
-'btnEIModifyUpdate
+'txtEIModifyIAIPLocation
 '
-Me.btnEIModifyUpdate.AutoSize = true
-Me.btnEIModifyUpdate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-Me.btnEIModifyUpdate.Location = New System.Drawing.Point(100, 184)
-Me.btnEIModifyUpdate.Name = "btnEIModifyUpdate"
-Me.btnEIModifyUpdate.Size = New System.Drawing.Size(153, 23)
-Me.btnEIModifyUpdate.TabIndex = 7
-Me.btnEIModifyUpdate.Text = "Update Facility Site Info Only"
-Me.btnEIModifyUpdate.UseVisualStyleBackColor = true
+Me.txtEIModifyIAIPLocation.Location = New System.Drawing.Point(10, 45)
+Me.txtEIModifyIAIPLocation.Name = "txtEIModifyIAIPLocation"
+Me.txtEIModifyIAIPLocation.ReadOnly = true
+Me.txtEIModifyIAIPLocation.Size = New System.Drawing.Size(322, 20)
+Me.txtEIModifyIAIPLocation.TabIndex = 2
+'
+'txtEIModifyIAIPCity
+'
+Me.txtEIModifyIAIPCity.Location = New System.Drawing.Point(10, 71)
+Me.txtEIModifyIAIPCity.Name = "txtEIModifyIAIPCity"
+Me.txtEIModifyIAIPCity.ReadOnly = true
+Me.txtEIModifyIAIPCity.Size = New System.Drawing.Size(243, 20)
+Me.txtEIModifyIAIPCity.TabIndex = 3
+'
+'mtbEIModifyIAIPZipCode
+'
+Me.mtbEIModifyIAIPZipCode.Location = New System.Drawing.Point(259, 71)
+Me.mtbEIModifyIAIPZipCode.Mask = "00000-9999"
+Me.mtbEIModifyIAIPZipCode.Name = "mtbEIModifyIAIPZipCode"
+Me.mtbEIModifyIAIPZipCode.ReadOnly = true
+Me.mtbEIModifyIAIPZipCode.Size = New System.Drawing.Size(73, 20)
+Me.mtbEIModifyIAIPZipCode.TabIndex = 4
 '
 'Label240
 '
-Me.Label240.AutoSize = true
-Me.Label240.Location = New System.Drawing.Point(575, 189)
+Me.Label240.Location = New System.Drawing.Point(137, 149)
 Me.Label240.Name = "Label240"
-Me.Label240.Size = New System.Drawing.Size(266, 13)
+Me.Label240.Size = New System.Drawing.Size(195, 29)
 Me.Label240.TabIndex = 488
-Me.Label240.Text = "This does not save data only copies it over on this form"
-'
-'btnEIModifyCopy
-'
-Me.btnEIModifyCopy.AutoSize = true
-Me.btnEIModifyCopy.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-Me.btnEIModifyCopy.Location = New System.Drawing.Point(470, 184)
-Me.btnEIModifyCopy.Name = "btnEIModifyCopy"
-Me.btnEIModifyCopy.Size = New System.Drawing.Size(99, 23)
-Me.btnEIModifyCopy.TabIndex = 15
-Me.btnEIModifyCopy.Text = "Copy Data to EIS"
-Me.btnEIModifyCopy.UseVisualStyleBackColor = true
-'
-'mtbEIModifyIAIPLongitude
-'
-Me.mtbEIModifyIAIPLongitude.Location = New System.Drawing.Point(605, 158)
-Me.mtbEIModifyIAIPLongitude.Mask = "00.000000"
-Me.mtbEIModifyIAIPLongitude.Name = "mtbEIModifyIAIPLongitude"
-Me.mtbEIModifyIAIPLongitude.ReadOnly = true
-Me.mtbEIModifyIAIPLongitude.Size = New System.Drawing.Size(59, 20)
-Me.mtbEIModifyIAIPLongitude.TabIndex = 14
-'
-'Label237
-'
-Me.Label237.AutoSize = true
-Me.Label237.Location = New System.Drawing.Point(550, 162)
-Me.Label237.Name = "Label237"
-Me.Label237.Size = New System.Drawing.Size(54, 13)
-Me.Label237.TabIndex = 10
-Me.Label237.Text = "Longitude"
-'
-'mtbEIModifyIAIPLatitude
-'
-Me.mtbEIModifyIAIPLatitude.Location = New System.Drawing.Point(470, 158)
-Me.mtbEIModifyIAIPLatitude.Mask = "00.000000"
-Me.mtbEIModifyIAIPLatitude.Name = "mtbEIModifyIAIPLatitude"
-Me.mtbEIModifyIAIPLatitude.ReadOnly = true
-Me.mtbEIModifyIAIPLatitude.Size = New System.Drawing.Size(59, 20)
-Me.mtbEIModifyIAIPLatitude.TabIndex = 13
+Me.Label240.Text = "(Does not save data. Only copies it over on this form.)"
 '
 'Label238
 '
 Me.Label238.AutoSize = true
-Me.Label238.Location = New System.Drawing.Point(415, 162)
+Me.Label238.Location = New System.Drawing.Point(7, 100)
 Me.Label238.Name = "Label238"
 Me.Label238.Size = New System.Drawing.Size(45, 13)
 Me.Label238.TabIndex = 24
 Me.Label238.Text = "Latitude"
 '
+'btnEIModifyCopy
+'
+Me.btnEIModifyCopy.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+Me.btnEIModifyCopy.Location = New System.Drawing.Point(10, 149)
+Me.btnEIModifyCopy.Name = "btnEIModifyCopy"
+Me.btnEIModifyCopy.Size = New System.Drawing.Size(121, 23)
+Me.btnEIModifyCopy.TabIndex = 0
+Me.btnEIModifyCopy.Text = "← Copy Data to EIS"
+Me.btnEIModifyCopy.UseVisualStyleBackColor = true
+'
+'mtbEIModifyIAIPLatitude
+'
+Me.mtbEIModifyIAIPLatitude.Location = New System.Drawing.Point(54, 97)
+Me.mtbEIModifyIAIPLatitude.Mask = "00.000000"
+Me.mtbEIModifyIAIPLatitude.Name = "mtbEIModifyIAIPLatitude"
+Me.mtbEIModifyIAIPLatitude.ReadOnly = true
+Me.mtbEIModifyIAIPLatitude.Size = New System.Drawing.Size(59, 20)
+Me.mtbEIModifyIAIPLatitude.TabIndex = 5
+'
+'mtbEIModifyIAIPLongitude
+'
+Me.mtbEIModifyIAIPLongitude.Location = New System.Drawing.Point(194, 97)
+Me.mtbEIModifyIAIPLongitude.Mask = "00.000000"
+Me.mtbEIModifyIAIPLongitude.Name = "mtbEIModifyIAIPLongitude"
+Me.mtbEIModifyIAIPLongitude.ReadOnly = true
+Me.mtbEIModifyIAIPLongitude.Size = New System.Drawing.Size(59, 20)
+Me.mtbEIModifyIAIPLongitude.TabIndex = 6
+'
+'Label237
+'
+Me.Label237.AutoSize = true
+Me.Label237.Location = New System.Drawing.Point(138, 100)
+Me.Label237.Name = "Label237"
+Me.Label237.Size = New System.Drawing.Size(54, 13)
+Me.Label237.TabIndex = 10
+Me.Label237.Text = "Longitude"
+'
+'btnUpdateLatLong
+'
+Me.btnUpdateLatLong.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+Me.btnUpdateLatLong.Location = New System.Drawing.Point(124, 384)
+Me.btnUpdateLatLong.Name = "btnUpdateLatLong"
+Me.btnUpdateLatLong.Size = New System.Drawing.Size(136, 23)
+Me.btnUpdateLatLong.TabIndex = 12
+Me.btnUpdateLatLong.Text = "Update Lat/Lon"
+Me.btnUpdateLatLong.UseVisualStyleBackColor = true
+'
+'btnEIModifyUpdateMailing
+'
+Me.btnEIModifyUpdateMailing.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+Me.btnEIModifyUpdateMailing.Location = New System.Drawing.Point(124, 280)
+Me.btnEIModifyUpdateMailing.Name = "btnEIModifyUpdateMailing"
+Me.btnEIModifyUpdateMailing.Size = New System.Drawing.Size(136, 23)
+Me.btnEIModifyUpdateMailing.TabIndex = 9
+Me.btnEIModifyUpdateMailing.Text = "Update Mailing Address"
+Me.btnEIModifyUpdateMailing.UseVisualStyleBackColor = true
+'
+'btnEIModifyUpdateName
+'
+Me.btnEIModifyUpdateName.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+Me.btnEIModifyUpdateName.Location = New System.Drawing.Point(124, 72)
+Me.btnEIModifyUpdateName.Name = "btnEIModifyUpdateName"
+Me.btnEIModifyUpdateName.Size = New System.Drawing.Size(136, 23)
+Me.btnEIModifyUpdateName.TabIndex = 1
+Me.btnEIModifyUpdateName.Text = "Update Facility Name"
+Me.btnEIModifyUpdateName.UseVisualStyleBackColor = true
+'
+'Label62
+'
+Me.Label62.AutoSize = true
+Me.Label62.Location = New System.Drawing.Point(266, 389)
+Me.Label62.Name = "Label62"
+Me.Label62.Size = New System.Drawing.Size(177, 13)
+Me.Label62.TabIndex = 488
+Me.Label62.Text = "(Updates both EIS and IAIP lat/lon.)"
+'
+'btnEIModifyUpdateLocation
+'
+Me.btnEIModifyUpdateLocation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+Me.btnEIModifyUpdateLocation.Location = New System.Drawing.Point(124, 176)
+Me.btnEIModifyUpdateLocation.Name = "btnEIModifyUpdateLocation"
+Me.btnEIModifyUpdateLocation.Size = New System.Drawing.Size(136, 23)
+Me.btnEIModifyUpdateLocation.TabIndex = 5
+Me.btnEIModifyUpdateLocation.Text = "Update Facility Location"
+Me.btnEIModifyUpdateLocation.UseVisualStyleBackColor = true
+'
 'mtbEIModifyLongitude
 '
-Me.mtbEIModifyLongitude.Location = New System.Drawing.Point(235, 157)
+Me.mtbEIModifyLongitude.Location = New System.Drawing.Point(124, 358)
 Me.mtbEIModifyLongitude.Mask = "00.000000"
 Me.mtbEIModifyLongitude.Name = "mtbEIModifyLongitude"
 Me.mtbEIModifyLongitude.Size = New System.Drawing.Size(68, 20)
-Me.mtbEIModifyLongitude.TabIndex = 5
+Me.mtbEIModifyLongitude.TabIndex = 11
 '
 'Label236
 '
 Me.Label236.AutoSize = true
-Me.Label236.Location = New System.Drawing.Point(180, 161)
+Me.Label236.Location = New System.Drawing.Point(64, 361)
 Me.Label236.Name = "Label236"
 Me.Label236.Size = New System.Drawing.Size(54, 13)
 Me.Label236.TabIndex = 22
@@ -1237,109 +1308,100 @@ Me.Label236.Text = "Longitude"
 '
 'mtbEIModifyLatitude
 '
-Me.mtbEIModifyLatitude.Location = New System.Drawing.Point(100, 157)
+Me.mtbEIModifyLatitude.Location = New System.Drawing.Point(124, 332)
 Me.mtbEIModifyLatitude.Mask = "00.000000"
 Me.mtbEIModifyLatitude.Name = "mtbEIModifyLatitude"
-Me.mtbEIModifyLatitude.Size = New System.Drawing.Size(73, 20)
-Me.mtbEIModifyLatitude.TabIndex = 4
+Me.mtbEIModifyLatitude.Size = New System.Drawing.Size(68, 20)
+Me.mtbEIModifyLatitude.TabIndex = 10
 '
 'Label235
 '
 Me.Label235.AutoSize = true
-Me.Label235.Location = New System.Drawing.Point(45, 161)
+Me.Label235.Location = New System.Drawing.Point(73, 335)
 Me.Label235.Name = "Label235"
 Me.Label235.Size = New System.Drawing.Size(45, 13)
 Me.Label235.TabIndex = 20
 Me.Label235.Text = "Latitude"
 '
-'Label63
+'mtbEIModifyMZipCode
 '
-Me.Label63.AutoSize = true
-Me.Label63.Location = New System.Drawing.Point(467, 27)
-Me.Label63.Name = "Label63"
-Me.Label63.Size = New System.Drawing.Size(117, 13)
-Me.Label63.TabIndex = 19
-Me.Label63.Text = "IAIP Facility Information"
-'
-'mtbEIModifyIAIPZipCode
-'
-Me.mtbEIModifyIAIPZipCode.Location = New System.Drawing.Point(470, 132)
-Me.mtbEIModifyIAIPZipCode.Mask = "00000-9999"
-Me.mtbEIModifyIAIPZipCode.Name = "mtbEIModifyIAIPZipCode"
-Me.mtbEIModifyIAIPZipCode.ReadOnly = true
-Me.mtbEIModifyIAIPZipCode.Size = New System.Drawing.Size(73, 20)
-Me.mtbEIModifyIAIPZipCode.TabIndex = 12
-'
-'txtEIModifyIAIPCity
-'
-Me.txtEIModifyIAIPCity.Location = New System.Drawing.Point(470, 106)
-Me.txtEIModifyIAIPCity.Name = "txtEIModifyIAIPCity"
-Me.txtEIModifyIAIPCity.ReadOnly = true
-Me.txtEIModifyIAIPCity.Size = New System.Drawing.Size(322, 20)
-Me.txtEIModifyIAIPCity.TabIndex = 11
-'
-'txtEIModifyIAIPLocation
-'
-Me.txtEIModifyIAIPLocation.Location = New System.Drawing.Point(470, 80)
-Me.txtEIModifyIAIPLocation.Name = "txtEIModifyIAIPLocation"
-Me.txtEIModifyIAIPLocation.ReadOnly = true
-Me.txtEIModifyIAIPLocation.Size = New System.Drawing.Size(322, 20)
-Me.txtEIModifyIAIPLocation.TabIndex = 10
-'
-'txtEIModifyIAIPFacilityName
-'
-Me.txtEIModifyIAIPFacilityName.Location = New System.Drawing.Point(470, 54)
-Me.txtEIModifyIAIPFacilityName.Name = "txtEIModifyIAIPFacilityName"
-Me.txtEIModifyIAIPFacilityName.ReadOnly = true
-Me.txtEIModifyIAIPFacilityName.Size = New System.Drawing.Size(322, 20)
-Me.txtEIModifyIAIPFacilityName.TabIndex = 9
+Me.mtbEIModifyMZipCode.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludePromptAndLiterals
+Me.mtbEIModifyMZipCode.Location = New System.Drawing.Point(373, 254)
+Me.mtbEIModifyMZipCode.Mask = "00000-9999"
+Me.mtbEIModifyMZipCode.Name = "mtbEIModifyMZipCode"
+Me.mtbEIModifyMZipCode.Size = New System.Drawing.Size(73, 20)
+Me.mtbEIModifyMZipCode.TabIndex = 8
+Me.mtbEIModifyMZipCode.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
 '
 'mtbEIModifyZipCode
 '
 Me.mtbEIModifyZipCode.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludePromptAndLiterals
-Me.mtbEIModifyZipCode.Location = New System.Drawing.Point(100, 132)
+Me.mtbEIModifyZipCode.Location = New System.Drawing.Point(373, 150)
 Me.mtbEIModifyZipCode.Mask = "00000-9999"
 Me.mtbEIModifyZipCode.Name = "mtbEIModifyZipCode"
 Me.mtbEIModifyZipCode.Size = New System.Drawing.Size(73, 20)
-Me.mtbEIModifyZipCode.TabIndex = 3
+Me.mtbEIModifyZipCode.TabIndex = 4
 Me.mtbEIModifyZipCode.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
 '
-'Label62
+'txtEIModifyMCity
 '
-Me.Label62.AutoSize = true
-Me.Label62.Location = New System.Drawing.Point(45, 136)
-Me.Label62.Name = "Label62"
-Me.Label62.Size = New System.Drawing.Size(50, 13)
-Me.Label62.TabIndex = 13
-Me.Label62.Text = "Zip Code"
+Me.txtEIModifyMCity.Location = New System.Drawing.Point(124, 254)
+Me.txtEIModifyMCity.Name = "txtEIModifyMCity"
+Me.txtEIModifyMCity.Size = New System.Drawing.Size(243, 20)
+Me.txtEIModifyMCity.TabIndex = 7
 '
 'txtEIModifyCity
 '
-Me.txtEIModifyCity.Location = New System.Drawing.Point(100, 106)
+Me.txtEIModifyCity.Location = New System.Drawing.Point(124, 150)
 Me.txtEIModifyCity.Name = "txtEIModifyCity"
-Me.txtEIModifyCity.Size = New System.Drawing.Size(322, 20)
-Me.txtEIModifyCity.TabIndex = 2
+Me.txtEIModifyCity.Size = New System.Drawing.Size(243, 20)
+Me.txtEIModifyCity.TabIndex = 3
+'
+'Label73
+'
+Me.Label73.AutoSize = true
+Me.Label73.Location = New System.Drawing.Point(72, 257)
+Me.Label73.Name = "Label73"
+Me.Label73.Size = New System.Drawing.Size(46, 13)
+Me.Label73.TabIndex = 11
+Me.Label73.Text = "City/ZIP"
 '
 'Label61
 '
 Me.Label61.AutoSize = true
-Me.Label61.Location = New System.Drawing.Point(62, 109)
+Me.Label61.Location = New System.Drawing.Point(72, 153)
 Me.Label61.Name = "Label61"
-Me.Label61.Size = New System.Drawing.Size(24, 13)
+Me.Label61.Size = New System.Drawing.Size(46, 13)
 Me.Label61.TabIndex = 11
-Me.Label61.Text = "City"
+Me.Label61.Text = "City/ZIP"
 '
 'txtEIModifyLocation
 '
-Me.txtEIModifyLocation.Location = New System.Drawing.Point(100, 80)
+Me.txtEIModifyLocation.Location = New System.Drawing.Point(124, 124)
 Me.txtEIModifyLocation.Name = "txtEIModifyLocation"
 Me.txtEIModifyLocation.Size = New System.Drawing.Size(322, 20)
-Me.txtEIModifyLocation.TabIndex = 1
+Me.txtEIModifyLocation.TabIndex = 2
+'
+'txtEIModifyMLocation
+'
+Me.txtEIModifyMLocation.Location = New System.Drawing.Point(124, 228)
+Me.txtEIModifyMLocation.Name = "txtEIModifyMLocation"
+Me.txtEIModifyMLocation.Size = New System.Drawing.Size(322, 20)
+Me.txtEIModifyMLocation.TabIndex = 6
+'
+'Label63
+'
+Me.Label63.AutoSize = true
+Me.Label63.Location = New System.Drawing.Point(37, 231)
+Me.Label63.Name = "Label63"
+Me.Label63.Size = New System.Drawing.Size(81, 13)
+Me.Label63.TabIndex = 9
+Me.Label63.Text = "Mailing Address"
 '
 'Label60
 '
 Me.Label60.AutoSize = true
-Me.Label60.Location = New System.Drawing.Point(3, 83)
+Me.Label60.Location = New System.Drawing.Point(29, 127)
 Me.Label60.Name = "Label60"
 Me.Label60.Size = New System.Drawing.Size(89, 13)
 Me.Label60.TabIndex = 9
@@ -1348,7 +1410,7 @@ Me.Label60.Text = "Location Address"
 'Label59
 '
 Me.Label59.AutoSize = true
-Me.Label59.Location = New System.Drawing.Point(97, 27)
+Me.Label59.Location = New System.Drawing.Point(121, 17)
 Me.Label59.Name = "Label59"
 Me.Label59.Size = New System.Drawing.Size(83, 13)
 Me.Label59.TabIndex = 0
@@ -1356,7 +1418,7 @@ Me.Label59.Text = "EIS Facility Info "
 '
 'txtEIModifyFacilityName
 '
-Me.txtEIModifyFacilityName.Location = New System.Drawing.Point(100, 54)
+Me.txtEIModifyFacilityName.Location = New System.Drawing.Point(124, 46)
 Me.txtEIModifyFacilityName.Name = "txtEIModifyFacilityName"
 Me.txtEIModifyFacilityName.Size = New System.Drawing.Size(322, 20)
 Me.txtEIModifyFacilityName.TabIndex = 0
@@ -1364,7 +1426,7 @@ Me.txtEIModifyFacilityName.TabIndex = 0
 'Label58
 '
 Me.Label58.AutoSize = true
-Me.Label58.Location = New System.Drawing.Point(24, 57)
+Me.Label58.Location = New System.Drawing.Point(48, 49)
 Me.Label58.Name = "Label58"
 Me.Label58.Size = New System.Drawing.Size(70, 13)
 Me.Label58.TabIndex = 6
@@ -4953,23 +5015,23 @@ Me.Btn.Text = "View Data"
 '
 'dgvESDataCount
 '
-DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-DataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control
-DataGridViewCellStyle15.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
-DataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText
-DataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight
-DataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-Me.dgvESDataCount.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle15
+DataGridViewCellStyle71.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+DataGridViewCellStyle71.BackColor = System.Drawing.SystemColors.Control
+DataGridViewCellStyle71.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+DataGridViewCellStyle71.ForeColor = System.Drawing.SystemColors.WindowText
+DataGridViewCellStyle71.SelectionBackColor = System.Drawing.SystemColors.Highlight
+DataGridViewCellStyle71.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+DataGridViewCellStyle71.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+Me.dgvESDataCount.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle71
 Me.dgvESDataCount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-DataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Window
-DataGridViewCellStyle16.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
-DataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.ControlText
-DataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight
-DataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-DataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-Me.dgvESDataCount.DefaultCellStyle = DataGridViewCellStyle16
+DataGridViewCellStyle72.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+DataGridViewCellStyle72.BackColor = System.Drawing.SystemColors.Window
+DataGridViewCellStyle72.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+DataGridViewCellStyle72.ForeColor = System.Drawing.SystemColors.ControlText
+DataGridViewCellStyle72.SelectionBackColor = System.Drawing.SystemColors.Highlight
+DataGridViewCellStyle72.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+DataGridViewCellStyle72.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+Me.dgvESDataCount.DefaultCellStyle = DataGridViewCellStyle72
 Me.dgvESDataCount.Dock = System.Windows.Forms.DockStyle.Fill
 Me.dgvESDataCount.Location = New System.Drawing.Point(3, 55)
 Me.dgvESDataCount.Name = "dgvESDataCount"
@@ -8660,23 +8722,23 @@ Me.GroupBox1.Text = "View Data"
 '
 'dgvEIDataCount
 '
-DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-DataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control
-DataGridViewCellStyle17.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
-DataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText
-DataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight
-DataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-DataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-Me.dgvEIDataCount.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle17
+DataGridViewCellStyle73.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+DataGridViewCellStyle73.BackColor = System.Drawing.SystemColors.Control
+DataGridViewCellStyle73.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+DataGridViewCellStyle73.ForeColor = System.Drawing.SystemColors.WindowText
+DataGridViewCellStyle73.SelectionBackColor = System.Drawing.SystemColors.Highlight
+DataGridViewCellStyle73.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+DataGridViewCellStyle73.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+Me.dgvEIDataCount.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle73
 Me.dgvEIDataCount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-DataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Window
-DataGridViewCellStyle18.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
-DataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlText
-DataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight
-DataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-Me.dgvEIDataCount.DefaultCellStyle = DataGridViewCellStyle18
+DataGridViewCellStyle74.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+DataGridViewCellStyle74.BackColor = System.Drawing.SystemColors.Window
+DataGridViewCellStyle74.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+DataGridViewCellStyle74.ForeColor = System.Drawing.SystemColors.ControlText
+DataGridViewCellStyle74.SelectionBackColor = System.Drawing.SystemColors.Highlight
+DataGridViewCellStyle74.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+DataGridViewCellStyle74.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+Me.dgvEIDataCount.DefaultCellStyle = DataGridViewCellStyle74
 Me.dgvEIDataCount.Dock = System.Windows.Forms.DockStyle.Fill
 Me.dgvEIDataCount.Location = New System.Drawing.Point(3, 53)
 Me.dgvEIDataCount.Name = "dgvEIDataCount"
@@ -9591,23 +9653,23 @@ Me.cboEItype.TabIndex = 8
 '
 'dgvEIThreshold
 '
-DataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-DataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control
-DataGridViewCellStyle19.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
-DataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText
-DataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight
-DataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-DataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-Me.dgvEIThreshold.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle19
+DataGridViewCellStyle75.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+DataGridViewCellStyle75.BackColor = System.Drawing.SystemColors.Control
+DataGridViewCellStyle75.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+DataGridViewCellStyle75.ForeColor = System.Drawing.SystemColors.WindowText
+DataGridViewCellStyle75.SelectionBackColor = System.Drawing.SystemColors.Highlight
+DataGridViewCellStyle75.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+DataGridViewCellStyle75.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+Me.dgvEIThreshold.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle75
 Me.dgvEIThreshold.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-DataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Window
-DataGridViewCellStyle20.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
-DataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.ControlText
-DataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight
-DataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-DataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-Me.dgvEIThreshold.DefaultCellStyle = DataGridViewCellStyle20
+DataGridViewCellStyle76.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+DataGridViewCellStyle76.BackColor = System.Drawing.SystemColors.Window
+DataGridViewCellStyle76.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+DataGridViewCellStyle76.ForeColor = System.Drawing.SystemColors.ControlText
+DataGridViewCellStyle76.SelectionBackColor = System.Drawing.SystemColors.Highlight
+DataGridViewCellStyle76.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+DataGridViewCellStyle76.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+Me.dgvEIThreshold.DefaultCellStyle = DataGridViewCellStyle76
 Me.dgvEIThreshold.Location = New System.Drawing.Point(11, 252)
 Me.dgvEIThreshold.Name = "dgvEIThreshold"
 Me.dgvEIThreshold.ReadOnly = true
@@ -10021,23 +10083,23 @@ Me.dgvEIData.TabIndex = 39
 '
 'dgvEP
 '
-DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-DataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control
-DataGridViewCellStyle21.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
-DataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText
-DataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight
-DataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-DataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-Me.dgvEP.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle21
+DataGridViewCellStyle77.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+DataGridViewCellStyle77.BackColor = System.Drawing.SystemColors.Control
+DataGridViewCellStyle77.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+DataGridViewCellStyle77.ForeColor = System.Drawing.SystemColors.WindowText
+DataGridViewCellStyle77.SelectionBackColor = System.Drawing.SystemColors.Highlight
+DataGridViewCellStyle77.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+DataGridViewCellStyle77.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+Me.dgvEP.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle77
 Me.dgvEP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-DataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Window
-DataGridViewCellStyle22.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
-DataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.ControlText
-DataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight
-DataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-DataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-Me.dgvEP.DefaultCellStyle = DataGridViewCellStyle22
+DataGridViewCellStyle78.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+DataGridViewCellStyle78.BackColor = System.Drawing.SystemColors.Window
+DataGridViewCellStyle78.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+DataGridViewCellStyle78.ForeColor = System.Drawing.SystemColors.ControlText
+DataGridViewCellStyle78.SelectionBackColor = System.Drawing.SystemColors.Highlight
+DataGridViewCellStyle78.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+DataGridViewCellStyle78.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+Me.dgvEP.DefaultCellStyle = DataGridViewCellStyle78
 Me.dgvEP.Location = New System.Drawing.Point(525, 92)
 Me.dgvEP.Name = "dgvEP"
 Me.dgvEP.ReadOnly = true
@@ -10058,23 +10120,23 @@ Me.Label32.Text = "AIRS Number:"
 '
 'dgvER
 '
-DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-DataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Control
-DataGridViewCellStyle23.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
-DataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText
-DataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight
-DataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-Me.dgvER.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle23
+DataGridViewCellStyle79.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+DataGridViewCellStyle79.BackColor = System.Drawing.SystemColors.Control
+DataGridViewCellStyle79.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+DataGridViewCellStyle79.ForeColor = System.Drawing.SystemColors.WindowText
+DataGridViewCellStyle79.SelectionBackColor = System.Drawing.SystemColors.Highlight
+DataGridViewCellStyle79.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+DataGridViewCellStyle79.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+Me.dgvER.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle79
 Me.dgvER.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-DataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Window
-DataGridViewCellStyle24.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
-DataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.ControlText
-DataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight
-DataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-Me.dgvER.DefaultCellStyle = DataGridViewCellStyle24
+DataGridViewCellStyle80.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+DataGridViewCellStyle80.BackColor = System.Drawing.SystemColors.Window
+DataGridViewCellStyle80.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+DataGridViewCellStyle80.ForeColor = System.Drawing.SystemColors.ControlText
+DataGridViewCellStyle80.SelectionBackColor = System.Drawing.SystemColors.Highlight
+DataGridViewCellStyle80.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+DataGridViewCellStyle80.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+Me.dgvER.DefaultCellStyle = DataGridViewCellStyle80
 Me.dgvER.Location = New System.Drawing.Point(507, 92)
 Me.dgvER.Name = "dgvER"
 Me.dgvER.ReadOnly = true
@@ -10115,23 +10177,23 @@ Me.labReferenceNumber.TextAlign = System.Drawing.ContentAlignment.BottomLeft
 '
 'dgvEU
 '
-DataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-DataGridViewCellStyle25.BackColor = System.Drawing.SystemColors.Control
-DataGridViewCellStyle25.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
-DataGridViewCellStyle25.ForeColor = System.Drawing.SystemColors.WindowText
-DataGridViewCellStyle25.SelectionBackColor = System.Drawing.SystemColors.Highlight
-DataGridViewCellStyle25.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-DataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-Me.dgvEU.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle25
+DataGridViewCellStyle81.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+DataGridViewCellStyle81.BackColor = System.Drawing.SystemColors.Control
+DataGridViewCellStyle81.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+DataGridViewCellStyle81.ForeColor = System.Drawing.SystemColors.WindowText
+DataGridViewCellStyle81.SelectionBackColor = System.Drawing.SystemColors.Highlight
+DataGridViewCellStyle81.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+DataGridViewCellStyle81.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+Me.dgvEU.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle81
 Me.dgvEU.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-DataGridViewCellStyle26.BackColor = System.Drawing.SystemColors.Window
-DataGridViewCellStyle26.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
-DataGridViewCellStyle26.ForeColor = System.Drawing.SystemColors.ControlText
-DataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Highlight
-DataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-DataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-Me.dgvEU.DefaultCellStyle = DataGridViewCellStyle26
+DataGridViewCellStyle82.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+DataGridViewCellStyle82.BackColor = System.Drawing.SystemColors.Window
+DataGridViewCellStyle82.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+DataGridViewCellStyle82.ForeColor = System.Drawing.SystemColors.ControlText
+DataGridViewCellStyle82.SelectionBackColor = System.Drawing.SystemColors.Highlight
+DataGridViewCellStyle82.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+DataGridViewCellStyle82.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+Me.dgvEU.DefaultCellStyle = DataGridViewCellStyle82
 Me.dgvEU.Location = New System.Drawing.Point(491, 92)
 Me.dgvEU.Name = "dgvEU"
 Me.dgvEU.ReadOnly = true
@@ -10151,23 +10213,23 @@ Me.btnExcel.UseVisualStyleBackColor = true
 '
 'dgvEM
 '
-DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-DataGridViewCellStyle27.BackColor = System.Drawing.SystemColors.Control
-DataGridViewCellStyle27.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
-DataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.WindowText
-DataGridViewCellStyle27.SelectionBackColor = System.Drawing.SystemColors.Highlight
-DataGridViewCellStyle27.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-DataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-Me.dgvEM.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle27
+DataGridViewCellStyle83.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+DataGridViewCellStyle83.BackColor = System.Drawing.SystemColors.Control
+DataGridViewCellStyle83.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+DataGridViewCellStyle83.ForeColor = System.Drawing.SystemColors.WindowText
+DataGridViewCellStyle83.SelectionBackColor = System.Drawing.SystemColors.Highlight
+DataGridViewCellStyle83.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+DataGridViewCellStyle83.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+Me.dgvEM.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle83
 Me.dgvEM.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-DataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-DataGridViewCellStyle28.BackColor = System.Drawing.SystemColors.Window
-DataGridViewCellStyle28.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
-DataGridViewCellStyle28.ForeColor = System.Drawing.SystemColors.ControlText
-DataGridViewCellStyle28.SelectionBackColor = System.Drawing.SystemColors.Highlight
-DataGridViewCellStyle28.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-DataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-Me.dgvEM.DefaultCellStyle = DataGridViewCellStyle28
+DataGridViewCellStyle84.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+DataGridViewCellStyle84.BackColor = System.Drawing.SystemColors.Window
+DataGridViewCellStyle84.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+DataGridViewCellStyle84.ForeColor = System.Drawing.SystemColors.ControlText
+DataGridViewCellStyle84.SelectionBackColor = System.Drawing.SystemColors.Highlight
+DataGridViewCellStyle84.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+DataGridViewCellStyle84.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+Me.dgvEM.DefaultCellStyle = DataGridViewCellStyle84
 Me.dgvEM.Location = New System.Drawing.Point(541, 92)
 Me.dgvEM.Name = "dgvEM"
 Me.dgvEM.ReadOnly = true
@@ -10263,6 +10325,8 @@ Me.TPEISLog.ResumeLayout(false)
 Me.TabControl6.ResumeLayout(false)
 Me.TPFacilitySite.ResumeLayout(false)
 Me.TPFacilitySite.PerformLayout
+Me.GroupBox4.ResumeLayout(false)
+Me.GroupBox4.PerformLayout
 Me.TPEISMailout.ResumeLayout(false)
 Me.Panel12.ResumeLayout(false)
 Me.Panel12.PerformLayout
@@ -10978,12 +11042,9 @@ End Sub
     Friend WithEvents txtEIModifyFacilityName As System.Windows.Forms.TextBox
     Friend WithEvents Label58 As System.Windows.Forms.Label
     Friend WithEvents mtbEIModifyZipCode As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents Label62 As System.Windows.Forms.Label
     Friend WithEvents txtEIModifyCity As System.Windows.Forms.TextBox
     Friend WithEvents Label61 As System.Windows.Forms.Label
-    Friend WithEvents txtEIModifyLocation As System.Windows.Forms.TextBox
     Friend WithEvents Label60 As System.Windows.Forms.Label
-    Friend WithEvents Label63 As System.Windows.Forms.Label
     Friend WithEvents mtbEIModifyIAIPZipCode As System.Windows.Forms.MaskedTextBox
     Friend WithEvents txtEIModifyIAIPCity As System.Windows.Forms.TextBox
     Friend WithEvents txtEIModifyIAIPLocation As System.Windows.Forms.TextBox
@@ -11118,11 +11179,10 @@ End Sub
     Friend WithEvents Label238 As System.Windows.Forms.Label
     Friend WithEvents txtEILogStatusMgt As System.Windows.Forms.TextBox
     Friend WithEvents Label239 As System.Windows.Forms.Label
-    Friend WithEvents btnEIModifyUpdate As System.Windows.Forms.Button
+    Friend WithEvents btnEIModifyUpdateLocation As System.Windows.Forms.Button
     Friend WithEvents Label240 As System.Windows.Forms.Label
     Friend WithEvents btnEIModifyCopy As System.Windows.Forms.Button
     Friend WithEvents btnEILogUpdate As System.Windows.Forms.Button
-    Friend WithEvents llbEIModifyMapTool As System.Windows.Forms.LinkLabel
     Friend WithEvents btnRefreshMailoutData As System.Windows.Forms.Button
     Friend WithEvents TPEISStatistics As System.Windows.Forms.TabPage
     Friend WithEvents Panel17 As System.Windows.Forms.Panel
@@ -11326,4 +11386,14 @@ End Sub
     Friend WithEvents btnRemoveEISEnrolled As System.Windows.Forms.Button
     Friend WithEvents btnEISEnrollMailoutList As System.Windows.Forms.Button
     Friend WithEvents btnViewEISEnrolled As System.Windows.Forms.Button
+    Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
+    Friend WithEvents btnEIModifyUpdateMailing As System.Windows.Forms.Button
+    Friend WithEvents mtbEIModifyMZipCode As System.Windows.Forms.MaskedTextBox
+    Friend WithEvents txtEIModifyMCity As System.Windows.Forms.TextBox
+    Friend WithEvents txtEIModifyMLocation As System.Windows.Forms.TextBox
+    Friend WithEvents Label63 As System.Windows.Forms.Label
+    Friend WithEvents Label73 As System.Windows.Forms.Label
+    Friend WithEvents btnEIModifyUpdateName As System.Windows.Forms.Button
+    Friend WithEvents txtEIModifyLocation As System.Windows.Forms.TextBox
+    Friend WithEvents Label62 As System.Windows.Forms.Label
 End Class
