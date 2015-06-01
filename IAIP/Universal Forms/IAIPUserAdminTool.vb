@@ -918,7 +918,7 @@ Public Class IAIPUserAdminTool
 
                         LoadUserData()
 
-                        MsgBox("Successfully Done", MsgBoxStyle.Information, "IAIP User Admin Tool")
+                        MsgBox("Successfully Done. Please restart the IAIP and create an identical user in the testing environment.", MsgBoxStyle.Information, "IAIP User Admin Tool")
 
                     End If
             Else
