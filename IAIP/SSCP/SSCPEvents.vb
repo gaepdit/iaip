@@ -3008,7 +3008,7 @@ Public Class SSCPEvents
         Try
             ShowCorrectTab()
         Catch ex As Exception
-            ErrorReport(txtTrackingNumber.Text & vbCrLf & ex.ToString(), "SSCPEvents.SSCP_Reports_Shown")
+            ErrorReport(ex, txtTrackingNumber.Text, "SSCPEvents.SSCP_Reports_Shown")
         End Try
     End Sub
 
