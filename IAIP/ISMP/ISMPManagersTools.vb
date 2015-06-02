@@ -8631,7 +8631,7 @@ Public Class ISMPManagersTools
             txtEngineerStatistics.Text = txtEngineerStatistics.Text & Statement
 
         Catch ex As Exception
-            ErrorReport(SQL & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, SQL, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -8860,7 +8860,7 @@ Public Class ISMPManagersTools
             End While
 
         Catch ex As Exception
-            ErrorReport(Engineer & vbCrLf & SQL & vbCrLf & ex.ToString(), "ISMPManagersTools.EngineerOpenTestReports")
+            ErrorReport(ex, SQL, "ISMPManagersTools.EngineerOpenTestReports")
         Finally
 
         End Try

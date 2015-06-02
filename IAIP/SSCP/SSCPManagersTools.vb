@@ -3883,7 +3883,7 @@ Public Class SSCPManagersTools
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(SQL & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, SQL, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnPenaltySummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPenaltySummary.Click
@@ -4604,7 +4604,7 @@ Public Class SSCPManagersTools
             lblFilteredCount.Text = "Count: " & dgvFilteredFacilityList.Rows.Count.ToString
 
         Catch ex As Exception
-            ErrorReport(SQL & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, SQL, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnFacilitySearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFacilitySearch.Click

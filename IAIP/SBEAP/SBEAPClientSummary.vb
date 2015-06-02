@@ -20,7 +20,7 @@ Public Class SBEAPClientSummary
             ClientSummary = Nothing
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -35,7 +35,7 @@ Public Class SBEAPClientSummary
             LoadComboBoxes()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -62,7 +62,7 @@ Public Class SBEAPClientSummary
             daCounty.Fill(dsCounty, "CountyData")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadComboBoxes()
@@ -94,7 +94,7 @@ Public Class SBEAPClientSummary
             End With
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -525,7 +525,7 @@ Public Class SBEAPClientSummary
             LoadClientWork()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadContactData()
@@ -598,7 +598,7 @@ Public Class SBEAPClientSummary
             dgvContactInformation.Columns("strContactNotes").DisplayIndex = 14
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub SaveContactData()
@@ -809,7 +809,7 @@ Public Class SBEAPClientSummary
             LoadContactData()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub AddNewContactData()
@@ -1000,7 +1000,7 @@ Public Class SBEAPClientSummary
             ClearContactData()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub UpdateContactData()
@@ -1188,7 +1188,7 @@ Public Class SBEAPClientSummary
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ClearContactData()
@@ -1211,7 +1211,7 @@ Public Class SBEAPClientSummary
             txtContactLastModified.Clear()
             chbMainClientContact.Checked = False
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadContact()
@@ -1349,7 +1349,7 @@ Public Class SBEAPClientSummary
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub GetNextClientID()
@@ -1379,7 +1379,7 @@ Public Class SBEAPClientSummary
             'txtClientID.Text = CurrYear
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub SaveClientData()
@@ -1816,7 +1816,7 @@ Public Class SBEAPClientSummary
             MsgBox("Done", MsgBoxStyle.Information, "SBEAP")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub RefreshAIRSData()
@@ -2086,7 +2086,7 @@ Public Class SBEAPClientSummary
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 #End Region
@@ -2106,7 +2106,7 @@ Public Class SBEAPClientSummary
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnViewClientSummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewClientSummary.Click
@@ -2118,7 +2118,7 @@ Public Class SBEAPClientSummary
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -2131,7 +2131,7 @@ Public Class SBEAPClientSummary
                 txtMailingAddress.Text = "<Mailing Address 1>"
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtStreetAddress2_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtStreetAddress2.TextChanged
@@ -2142,7 +2142,7 @@ Public Class SBEAPClientSummary
                 txtMailingAddress2.Text = "<Mailing Address 2>"
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtCity_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtCity.TextChanged
@@ -2153,7 +2153,7 @@ Public Class SBEAPClientSummary
                 txtMailingCity.Text = "<Mailing City>"
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtState_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtState.TextChanged
@@ -2164,7 +2164,7 @@ Public Class SBEAPClientSummary
                 txtMailingState.Text = ""
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub mtbZipCode_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles mtbZipCode.TextChanged
@@ -2175,7 +2175,7 @@ Public Class SBEAPClientSummary
                 mtbMailingZipCode.Text = ""
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnAddContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddContact.Click
@@ -2184,7 +2184,7 @@ Public Class SBEAPClientSummary
             UpdateContactData()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub dgvContactInformation_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvContactInformation.MouseUp
@@ -2202,7 +2202,7 @@ Public Class SBEAPClientSummary
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -2213,7 +2213,7 @@ Public Class SBEAPClientSummary
                 LoadContact()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub tsbSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbSave.Click
@@ -2221,7 +2221,7 @@ Public Class SBEAPClientSummary
             SaveClientData()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -2234,7 +2234,7 @@ Public Class SBEAPClientSummary
                 LoadClientData()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -2244,7 +2244,7 @@ Public Class SBEAPClientSummary
             Me.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -2253,7 +2253,7 @@ Public Class SBEAPClientSummary
             RefreshAIRSData()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -2262,7 +2262,7 @@ Public Class SBEAPClientSummary
         Try
             ClearContactData()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -2270,7 +2270,7 @@ Public Class SBEAPClientSummary
         Try
             AddNewContactData()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -2311,7 +2311,7 @@ Public Class SBEAPClientSummary
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -2323,7 +2323,7 @@ Public Class SBEAPClientSummary
             mtbContactZipCode.Text = mtbZipCode.Text
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -2607,7 +2607,7 @@ Public Class SBEAPClientSummary
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -2617,7 +2617,7 @@ Public Class SBEAPClientSummary
             ClearClientSummary()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ClearClientSummary()
@@ -2698,7 +2698,7 @@ Public Class SBEAPClientSummary
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -2763,7 +2763,7 @@ Public Class SBEAPClientSummary
             dgvCaseLog.Columns("strCaseSummary").DisplayIndex = 4
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnOpenCase_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenCase.Click
@@ -2780,7 +2780,7 @@ Public Class SBEAPClientSummary
                 CaseWork.LoadCaseLogData()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -2797,7 +2797,7 @@ Public Class SBEAPClientSummary
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -2819,7 +2819,7 @@ Public Class SBEAPClientSummary
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -2829,7 +2829,7 @@ Public Class SBEAPClientSummary
             System.Diagnostics.Process.Start("http://www.osha.gov/pls/imis/sicsearch.html")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -2839,7 +2839,7 @@ Public Class SBEAPClientSummary
             System.Diagnostics.Process.Start("http://www.naics.com/search.htm")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 End Class

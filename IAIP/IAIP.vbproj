@@ -1162,6 +1162,9 @@
     <EmbeddedResource Include="SSPP\Sub Forms\SSPP_FeeContact.resx">
       <DependentUpon>SSPP_FeeContact.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Universal Forms\ExceptionDialog.resx">
+      <DependentUpon>ExceptionDialog.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Universal Forms\IaipAbout.resx">
       <DependentUpon>IaipAbout.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -1461,7 +1464,11 @@
     <Compile Include="SSPP\Sub Forms\SsppPermitRevocationDialog.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Universal Forms\ExceptionDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="_Classes\BooleanFormatProvider.vb" />
+    <Compile Include="_Classes\IaipExceptionManager.vb" />
     <Compile Include="_Data Classes\ApbFacilityId.vb" />
     <Compile Include="_Data Classes\Contact.vb" />
     <Compile Include="_Data Classes\DMU.EdtError.vb" />

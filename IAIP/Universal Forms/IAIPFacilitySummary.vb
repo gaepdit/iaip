@@ -1672,7 +1672,7 @@ Public Class IAIPFacilitySummary
             End If
 
         Catch ex As Exception
-            ErrorReport(mtbAIRSNumber.Text & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, mtbAIRSNumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 #Region "Contact Information"

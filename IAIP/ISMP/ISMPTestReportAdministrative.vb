@@ -681,7 +681,7 @@ Public Class ISMPTestReportAdministrative
             End If
 
         Catch ex As Exception
-            ErrorReport(txtReferenceNumber.Text & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, txtReferenceNumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try

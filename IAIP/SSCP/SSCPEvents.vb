@@ -3068,7 +3068,7 @@ Public Class SSCPEvents
             End If
 
         Catch ex As Exception
-            ErrorReport(temp & vbCrLf & ex.ToString(), "SSCPEvents.SSCP_Reports_Load")
+            ErrorReport(ex, temp, "SSCPEvents.SSCP_Reports_Load")
         Finally
 
         End Try
@@ -4218,7 +4218,7 @@ Public Class SSCPEvents
             End If
 
         Catch ex As Exception
-            ErrorReport(txtTrackingNumber.Text & vbCrLf & SQL & ex.ToString(), "SSCPEvents.SaveInspection")
+            ErrorReport(ex, txtTrackingNumber.Text & vbCrLf & SQL, "SSCPEvents.SaveInspection")
         Finally
 
         End Try
@@ -5112,7 +5112,7 @@ Public Class SSCPEvents
             End If
 
         Catch ex As Exception
-            ErrorReport(temp & vbCrLf & ex.ToString(), "SSCPEvents.LoadReport")
+            ErrorReport(ex, temp, "SSCPEvents.LoadReport")
         Finally
 
         End Try
@@ -6105,7 +6105,7 @@ Public Class SSCPEvents
                 MsgBox("Unable to load data.", MsgBoxStyle.Exclamation, "SSCP Events")
             End If
         Catch ex As Exception
-            ErrorReport(temp & vbCrLf & ex.ToString(), "SSCPEvents.LoadNotification")
+            ErrorReport(ex, temp, "SSCPEvents.LoadNotification")
         Finally
 
         End Try

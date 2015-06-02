@@ -263,7 +263,7 @@ Public Class IAIPFacilityLookUpTool
 
 
         Catch ex As Exception
-            ErrorReport(SQL.ToString & vbCrLf & ex.ToString(), "FacilityLookUpTool.SearchBy")
+            ErrorReport(ex, SQL, "FacilityLookUpTool.SearchBy")
         Finally
 
         End Try

@@ -15,7 +15,7 @@ Public Class SBEAPMiscTools
 
             TCMiscTools.TabPages.Remove(TPCaseWork)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -24,7 +24,7 @@ Public Class SBEAPMiscTools
 
             Me.Close()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -129,7 +129,7 @@ Public Class SBEAPMiscTools
             txtCount.Text = dgvMiscTools.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -165,7 +165,7 @@ Public Class SBEAPMiscTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -205,7 +205,7 @@ Public Class SBEAPMiscTools
             CRVCaseWork.Refresh()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 

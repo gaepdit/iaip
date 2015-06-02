@@ -451,7 +451,7 @@ Public Class SSCPEnforcementSelector
             txtEnforcementCount.Text = dgvSSCPEnforcement.RowCount
 
         Catch ex As Exception
-            ErrorReport(SQL & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, SQL, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try

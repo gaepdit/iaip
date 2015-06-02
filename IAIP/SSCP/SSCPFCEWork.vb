@@ -1540,7 +1540,7 @@ Public Class SSCPFCEWork
             End If
 
         Catch ex As Exception
-            ErrorReport(txtFCENumber.Text & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -1571,7 +1571,7 @@ Public Class SSCPFCEWork
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(txtFCENumber.Text & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -1596,7 +1596,7 @@ Public Class SSCPFCEWork
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(txtFCENumber.Text & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -1645,7 +1645,7 @@ Public Class SSCPFCEWork
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(txtFCENumber.Text & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -1697,7 +1697,7 @@ Public Class SSCPFCEWork
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(txtFCENumber.Text & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -1746,7 +1746,7 @@ Public Class SSCPFCEWork
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(txtFCENumber.Text & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -1780,7 +1780,7 @@ Public Class SSCPFCEWork
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(txtFCENumber.Text & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -1991,7 +1991,7 @@ Public Class SSCPFCEWork
             End If
 
         Catch ex As Exception
-            ErrorReport(txtFCENumber.Text & vbCrLf & txtAirsNumber.Text & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, txtFCENumber.Text & vbCrLf & txtAirsNumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
 

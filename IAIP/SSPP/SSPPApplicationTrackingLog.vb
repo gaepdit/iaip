@@ -5059,7 +5059,7 @@ Public Class SSPPApplicationTrackingLog
                 txtDistrict.BackColor = Color.Tomato
             End If
         Catch ex As Exception
-            ErrorReport(txtAIRSNumber.Text & vbCrLf & ex.ToString(), "SSPPPermitTracking.LoadBasicFacilityInfo")
+            ErrorReport(ex, txtAIRSNumber.Text, "SSPPPermitTracking.LoadBasicFacilityInfo")
         Finally
 
         End Try
@@ -6092,7 +6092,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(temp & vbCrLf & ex.ToString(), "SSPPPermitTracking.LoadApplicationData")
+            ErrorReport(ex, temp, "SSPPPermitTracking.LoadApplicationData")
         Finally
 
         End Try
@@ -8221,7 +8221,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(SQL & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, SQL, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -8517,7 +8517,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(SQL & vbCrLf & txtAIRSNumber.Text & vbCrLf & ex.ToString(), "SSPPPermitTracking.LinkApplications")
+            ErrorReport(ex, SQL & vbCrLf & txtAIRSNumber.Text, "SSPPPermitTracking.LinkApplications")
         Finally
 
         End Try
@@ -10152,7 +10152,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(SQL & vbCrLf & temp & vbCrLf & txtAIRSNumber.Text & vbCrLf & txtApplicationNumber.Text & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, SQL & vbCrLf & temp & vbCrLf & txtAIRSNumber.Text & vbCrLf & txtApplicationNumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try

@@ -3821,7 +3821,7 @@ Public Class PASPFeeAuditLog
             MsgBox("Audit Data Added", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString() & vbCrLf & SQL.ToString, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, SQL, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ClearEditData()
@@ -5005,7 +5005,7 @@ Public Class PASPFeeAuditLog
 
             MsgBox("Audit Data Saved", MsgBoxStyle.Information, Me.Text)
         Catch ex As Exception
-            ErrorReport(ex.ToString() & vbCrLf & SQL.ToString, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, SQL, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnSelectAuditToEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSelectAuditToEdit.Click

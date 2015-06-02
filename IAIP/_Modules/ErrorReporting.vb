@@ -1,124 +1,79 @@
 ﻿Imports Oracle.DataAccess.Client
-'Imports System.IO
 
 Module ErrorReporting
 
-    Public Sub ErrorReport(ByVal exc As System.Exception, ByVal ErrorLocation As String)
-        monitor.TrackException(exc, ErrorLocation)
-        ErrorReport(exc.ToString, ErrorLocation)
+    ''' <summary>
+    ''' Handles logging and reporting of errors.
+    ''' </summary>
+    ''' <param name="exc">The exception to be handled.</param>
+    ''' <param name="contextMessage">A string representing the context of the error.</param>
+    Public Sub ErrorReport(ByVal exc As System.Exception, ByVal contextMessage As String)
+        ErrorReport(exc, "", contextMessage)
     End Sub
 
-    Public Sub ErrorReport(ByVal ErrorMessage As String, ByVal ErrorLocation As String, Optional ByVal exc As System.Exception = Nothing)
-        If UserGCode = "" Then
-            UserGCode = "0"
-        End If
+    ''' <summary>
+    ''' Handles logging and reporting of errors.
+    ''' </summary>
+    ''' <param name="exc">The exception to be handled.</param>
+    ''' <param name="supplementalMessage">A string containing supplementary information to be logged.</param>
+    ''' <param name="contextMessage">A string representing the calling function.</param>
+    Public Sub ErrorReport(ByVal exc As System.Exception, ByVal supplementalMessage As String, ByVal contextMessage As String)
 
-        If ErrorMessage.Contains("ORA-12592") Then
-            MsgBox("There was a connectivity error with the database." & vbCrLf & "Please run the task that caused this error again to verify the data is correct." & vbCrLf & "If the error presists, try waiting until the internet connection improves or contact the Data Management Unit." & vbCrLf & _
-            "Please contact the Data Management Unit if this error is hindering your work." & vbCrLf & "Sorry for the inconvenience.", _
-            MsgBoxStyle.Information, "Integrated Air Information Platform - ERROR MESSAGE")
-            Exit Sub
-        End If
+        ' First, track the exception using our analytics program. This is more reliable.
+        monitor.TrackException(exc, contextMessage)
 
-        If ErrorMessage.Contains("ORA-12545") Or ErrorMessage.Contains("ORA-604") Or ErrorMessage.Contains("ORA-257") Then
-            MsgBox("There is no connection to the database at this time." & vbCrLf & "Verify that you currently have an internet connection." & vbCrLf & _
-            "Please contact the Data Management Unit if this error is hindering your work." & vbCrLf & "Sorry for the inconvenience.", _
-            MsgBoxStyle.Information, "Integrated Air Information Platform - ERROR MESSAGE")
-            Exit Sub
+        ' Second, try logging the error message to the IAIP database. This requires a connection so will sometimes fail.
+        Dim errorMessage As String = exc.Message
+        If Not String.IsNullOrEmpty(supplementalMessage) Then
+            errorMessage = errorMessage & Environment.NewLine & Environment.NewLine & supplementalMessage
         End If
-        If ErrorMessage.Contains("ORA-03114") Then
-            MsgBox("There is no connection to the database at this time." & vbCrLf & "Verify that you currently have an internet connection." & vbCrLf & _
-            "Please contact the Data Management Unit if this error is hindering your work." & vbCrLf & "Sorry for the inconvenience.", _
-            MsgBoxStyle.Information, "Integrated Air Information Platform - ERROR MESSAGE")
-            Exit Sub
-        End If
-        If ErrorMessage.Contains("ORA-1033") Or ErrorMessage.Contains("ORA-01033") Then
-            MsgBox("The database is currently undergoing a restart procedure." & vbCrLf & "Please wait 15 minutes and try again." & vbCrLf & _
-            "Please contact the Data Management Unit if this error is hindering your work." & vbCrLf & "Sorry for the inconvenience.", _
-            MsgBoxStyle.Information, "Integrated Air Information Platform - ERROR MESSAGE")
-            Exit Sub
-        End If
-        If ErrorMessage.Contains("ORA-12154") Then
-            MsgBox("This PC has a connection error." & vbCrLf & "Please contact the Data Management Unit for assistance." & vbCrLf & _
-             "Sorry for the inconvenience.", _
-            MsgBoxStyle.Information, "Integrated Air Information Platform - ERROR MESSAGE")
-            Exit Sub
-        End If
-        If ErrorMessage.Contains("Could not load file or assembly 'CrystalDecisions.") Then
+        LogError(errorMessage, contextMessage)
+
+        ' Third display a dialog to the user describing the error and next steps.
+        Dim WhatHappened As String = ""
+        Dim WhatUserCanDo As String = ""
+
+        If errorMessage.Contains("Could not load file or assembly 'CrystalDecisions.") Then
             App.ShowCrystalReportsSupportMessage()
             Exit Sub
         End If
-        If ErrorMessage.Contains("This BackgroundWorker is currently busy and cannot run multiple tasks concurrently") Then
-            MsgBox("The platform is running multiple processing threads and needs time to complete them." & vbCrLf & _
-                   "Please allow time for the process to run.", MsgBoxStyle.Information, "Integrated Air Information Platform - ERROR MESSAGE")
-            Exit Sub
+
+        If errorMessage.Contains("This BackgroundWorker is currently busy and cannot run multiple tasks concurrently") Then
+            WhatHappened = "The IAIP is running multiple processing threads and needs time to complete them. Please allow time for the process to run."
+            WhatUserCanDo = "• Wait for the process to finish before continuing." & Environment.NewLine & Environment.NewLine
+        ElseIf errorMessage.Contains("ORA-12571") Or errorMessage.Contains("ORA-01033") Or errorMessage.Contains("ORA-12545") Then
+            WhatHappened = "The IAIP experienced a connection error."
+            WhatUserCanDo = "• Try closing and reloading the form. " & Environment.NewLine & Environment.NewLine
+        ElseIf errorMessage.Contains("Exception of type 'System.OutOfMemoryException' was thrown") Then
+            WhatHappened = "This computer has run out of memory."
+            WhatUserCanDo = "• Try freeing up memory by closing other open computer applications." & Environment.NewLine & Environment.NewLine
+        Else
+            WhatHappened = "An error has occurred."
         End If
-        If ErrorMessage.Contains("ORA-03113") Or ErrorMessage.Contains("ORA-12637") Then
-            MsgBox("The platform experienced a connection error." & vbCrLf & "Try reloading the form" & vbCrLf & _
-                   "If the problem persists please contact the Data Management Unit.", MsgBoxStyle.Information, _
-                   "Integrated Air Information Platform - ERROR MESSAGE")
-            Exit Sub
-        End If
-        If ErrorMessage.Contains("ORA-12571") Or ErrorMessage.Contains("ORA-01033") Or ErrorMessage.Contains("ORA-12545") Then
-            MsgBox("The platform experienced a connection error." & vbCrLf & "Try reloading the form" & vbCrLf & _
-                   "If the problem persists please contact the Data Management Unit.", MsgBoxStyle.Information, _
-                   "Integrated Air Information Platform - ERROR MESSAGE")
-            Exit Sub
-        End If
-        If ErrorMessage.Contains("System.ComponentModel.Win32Exception: The system cannot find the file specified") Then
-            MsgBox("The platform is attempting to contact an external server." & vbCrLf & _
-                   "The server maybe unavailable at thit time." & vbCrLf & "Please try again.", MsgBoxStyle.Exclamation, _
-                   "Integrated Air Information Platform - ERROR MESSAGE")
-            Exit Sub
-        End If
-        If ErrorMessage.Contains("System.InvalidOperationException: Invalid operation. The connection is closed") Then
-            MsgBox("The connection to the database was temporarily lost." & vbCrLf & "Please try to reload the page." & vbCrLf & _
-                   "If the problem persists contact the Data Management Unit.", MsgBoxStyle.Exclamation, _
-                   "Integrated Air Information Platform - ERROR MESSAGE")
-            Exit Sub
-        End If
-        If ErrorMessage.Contains("Exception of type 'System.OutOfMemoryException' was thrown") Then
-            MsgBox("It appears that this computer has thrown a System.OutOfMemoryException. " & vbCrLf & _
-                   "Try freeing up memory by closing any un-needed open computer applications.", MsgBoxStyle.Exclamation, _
-                   "Integrated Air Information Platform - ERROR MESSAGE")
-            Exit Sub
-        End If
-        If ErrorMessage.Contains("Attempted to read or write protected memory") Then
-            MsgBox("There was a unique error." & vbCrLf & _
-                   "Try to perform your action again. If the error returns close out the IAIP application and try again." & vbCrLf & _
-                   "If this error persists contact the Data Management Unit", MsgBoxStyle.Information, _
-                   "Integrated Air Information Platform - ERROR MESSAGE")
-            Exit Sub
-        End If
+
+        WhatUserCanDo = WhatUserCanDo & "• Close and restart the IAIP and try repeating your last action." & Environment.NewLine & Environment.NewLine & _
+        "• If you continue to see this error, please email the DMU. Describe what you were doing and paste the error details below into your email."
+
+        IaipExceptionManager.ShowErrorDialog(exc, WhatHappened, WhatUserCanDo)
+    End Sub
+
+    Private Function LogError(ByVal errorMessage As String, ByVal errorLocation As String) As Boolean
+        If UserGCode = "" Then UserGCode = "0"
+
+        Dim query As String = "INSERT INTO AIRBRANCH.IAIPERRORLOG " & _
+            " (STRERRORNUMBER, STRUSER, STRERRORLOCATION, STRERRORMESSAGE, DATERRORDATE) " & _
+            " values (AIRBRANCH.IAIPERRORNUMBER.NEXTVAL, :UserID, :ErrorLocation, :ErrorMessage, SYSDATE) "
+        Dim parameters As OracleParameter() = New OracleParameter() { _
+            New OracleParameter("UserID", UserGCode), _
+            New OracleParameter("ErrorLocation", errorLocation), _
+            New OracleParameter("ErrorMessage", errorMessage) _
+        }
 
         Try
-
-            ErrorMessage = GetCurrentVersion.ToString & vbCrLf & ErrorMessage
-            Dim AbbrevErrorMess As String = Mid(ErrorMessage, 1, 4000)
-
-            Dim query As String = "INSERT INTO AIRBRANCH.IAIPERRORLOG " & _
-                " (STRERRORNUMBER,STRUSER,STRERRORLOCATION,STRERRORMESSAGE,DATERRORDATE) " & _
-                " values (AIRBRANCH.IAIPERRORNUMBER.NEXTVAL, :pGCode, :pErrorLoc, :pErrorMess, SYSDATE) "
-            Dim parameters As OracleParameter() = New OracleParameter() { _
-                New OracleParameter("pGCode", UserGCode), _
-                New OracleParameter("pErrorLoc", ErrorLocation), _
-                New OracleParameter("pErrorMess", AbbrevErrorMess) _
-            }
-            Dim result As Boolean = DB.RunCommand(query, parameters)
-
-            If result Then
-                MsgBox("An Error has occurred." & vbCrLf & "The error has been logged but has NOT been sent to the developers." & vbCrLf & _
-                "Please contact the Data Management Unit if this error is hindering your work." & vbCrLf & "Sorry for the inconvenience.", _
-                MsgBoxStyle.Information, "Integrated Air Information Platform - ERROR MESSAGE")
-            Else
-                MsgBox("An error has occurred but it was not possible to log the error." & vbCrLf & "Please contact the Data Management Unit with this problem." & vbCrLf & _
-                       ErrorMessage, MsgBoxStyle.Exclamation, "Integrated Air Information Platform - ERROR MESSAGE")
-            End If
+            Return DB.RunCommand(query, parameters)
         Catch ex As Exception
-            MsgBox("TAn error has occurred but it was not possible to log the error." & vbCrLf & "Please contact the Data Management Unit with this problem." & vbCrLf & _
-                   ErrorMessage, MsgBoxStyle.Exclamation, "Integrated Air Information Platform - ERROR MESSAGE")
+            Return False
         End Try
-
-    End Sub
+    End Function
 
 End Module
