@@ -41,9 +41,10 @@ Module ErrorReporting
         If errorMessage.Contains("This BackgroundWorker is currently busy and cannot run multiple tasks concurrently") Then
             WhatHappened = "The IAIP is running multiple processing threads and needs time to complete them. Please allow time for the process to run."
             WhatUserCanDo = "• Wait for the process to finish before continuing." & Environment.NewLine & Environment.NewLine
-        ElseIf errorMessage.Contains("ORA-12571") Or errorMessage.Contains("ORA-01033") Or errorMessage.Contains("ORA-12545") Then
-            WhatHappened = "The IAIP experienced a connection error."
-            WhatUserCanDo = "• Try closing and reloading the form. " & Environment.NewLine & Environment.NewLine
+        ElseIf errorMessage.Contains("ORA-") Then
+            WhatHappened = "The IAIP experienced a database connection error."
+            WhatUserCanDo = "• Check your Internet connection. " & Environment.NewLine & Environment.NewLine & _
+            "• If operating from a remote location, check your VPN connection. " & Environment.NewLine & Environment.NewLine
         ElseIf errorMessage.Contains("Exception of type 'System.OutOfMemoryException' was thrown") Then
             WhatHappened = "This computer has run out of memory."
             WhatUserCanDo = "• Try freeing up memory by closing other open computer applications." & Environment.NewLine & Environment.NewLine

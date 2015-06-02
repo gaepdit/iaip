@@ -194,6 +194,8 @@ Friend Class ExceptionDialog
     Const _intSpacing As Integer = 10
 
     Private Sub UserErrorDialog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
+
         '-- make sure our window is on top
         Me.TopMost = True
         Me.TopMost = False

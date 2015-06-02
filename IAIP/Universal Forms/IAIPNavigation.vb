@@ -1343,6 +1343,10 @@ Public Class IAIPNavigation
         DB.PingDBConnection(CurrentConnection)
     End Sub
 
+    Private Sub mmiThrowError_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiThrowError.Click
+        Throw New Exception("Unhandled exception testing")
+    End Sub
+
 #End Region
 
 End Class
