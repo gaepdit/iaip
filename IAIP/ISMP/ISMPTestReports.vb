@@ -10761,17 +10761,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
     End Sub
     Sub OpenMemo()
-        Try
-
-            ISMPMemoEdit = Nothing
-            If ISMPMemoEdit Is Nothing Then ISMPMemoEdit = New ISMPMemo
-            ISMPMemoEdit.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
-            ISMPMemoEdit.Show()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-
+        OpenFormTestMemo(Me.txtReferenceNumber.Text)
     End Sub
     Sub DeleteTestReport()
         Try

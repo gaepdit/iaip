@@ -7807,7 +7807,7 @@ Public Class DMUEisGecoTool
                 End If
                 dr = cmd.ExecuteReader
                 dr.Read()
-                facilityName = Apb.Facility.SanitizeFacilityNameForDb(dr("STRFACILITYNAME"))
+                facilityName = Apb.Facilities.Facility.SanitizeFacilityNameForDb(dr("STRFACILITYNAME"))
                 facilityLocationCity = dr("STRFACILITYCITY")
                 facilityLocastionZipcode = dr("STRFACILITYZIPCODE")
                 faciltyMailingAddress = dr("STRFACILITYSTREET1")
@@ -9629,7 +9629,7 @@ Public Class DMUEisGecoTool
     End Sub
 
     Private Sub btnSaveFacilitySiteInfo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveFacilitySiteInfo.Click
-        txtEISFacilityName.Text = Apb.Facility.SanitizeFacilityNameForDb(txtEISFacilityName.Text)
+        txtEISFacilityName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(txtEISFacilityName.Text)
         Dim facilityName As String = txtEISFacilityName.Text
         Dim FacilityAddress As String = txtLocalAddress.Text
         Dim facilityCity As String = txtLocalCity.Text
@@ -9711,7 +9711,7 @@ Public Class DMUEisGecoTool
                     If IsDBNull(dr.Item("strFacilityName")) Then
                         lblFaciltyName.Text = " - "
                     Else
-                        lblFaciltyName.Text = Apb.Facility.SanitizeFacilityNameForDb(dr.Item("strFacilityName"))
+                        lblFaciltyName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(dr.Item("strFacilityName"))
                     End If
                 End While
                 dr.Close()
@@ -12895,6 +12895,10 @@ Public Class DMUEisGecoTool
             Exit Sub
         End If
 
+        If txtEIModifyFacilityName.Text <> "" Then
+            txtEIModifyFacilityName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(txtEIModifyFacilityName.Text)
+        End If
+ 
         Dim FacilityName As String = txtEIModifyFacilityName.Text
 
         If FacilityName <> "" Then
@@ -12913,7 +12917,7 @@ Public Class DMUEisGecoTool
 
             MsgBox("Data updated.", MsgBoxStyle.Information, Me.Text)
         Else
-            MsgBox("No data saved." & vbCrLf & "BOTH MAILING ADDRESS AND CITY ARE REQUIRED", MsgBoxStyle.Exclamation, Me.Text)
+            MsgBox("No data saved.", MsgBoxStyle.Exclamation, Me.Text)
         End If
     End Sub
 

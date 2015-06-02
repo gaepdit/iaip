@@ -2153,13 +2153,7 @@ Public Class SSPPApplicationLog
     Private Sub StartNewApplication()
         Try
             If AccountFormAccess(3, 4) = "1" Then
-                If PermitTrackingLog Is Nothing Then
-                    PermitTrackingLog = New SSPPApplicationTrackingLog
-                    PermitTrackingLog.Show()
-                Else
-                    PermitTrackingLog.Show()
-                End If
-                PermitTrackingLog.BringToFront()
+                OpenFormNewPermitApplication()
             Else
                 MessageBox.Show("You do not have sufficient permissions to start a new application.")
             End If
@@ -2167,21 +2161,8 @@ Public Class SSPPApplicationLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub OpenApplication(ByVal app As String)
-        Try
-            If app <> "" Then
-                If PermitTrackingLog Is Nothing Then
-                    PermitTrackingLog = New SSPPApplicationTrackingLog
-                End If
-                PermitTrackingLog.Show()
-                PermitTrackingLog.txtApplicationNumber.Clear()
-                PermitTrackingLog.txtApplicationNumber.Text = app
-                PermitTrackingLog.LoadApplication()
-                PermitTrackingLog.BringToFront()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub OpenApplication(ByVal applicationNumber As String)
+        OpenFormPermitApplication(applicationNumber)
     End Sub
 #End Region
 

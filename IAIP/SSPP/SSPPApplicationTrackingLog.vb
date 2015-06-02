@@ -6891,7 +6891,7 @@ Public Class SSPPApplicationTrackingLog
                 End While
                 dr.Close()
 
-                txtFacilityName.Text = Apb.Facility.SanitizeFacilityNameForDb(txtFacilityName.Text)
+                txtFacilityName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(txtFacilityName.Text)
                 FacilityName = txtFacilityName.Text
                 FacilityAddress = Me.txtFacilityStreetAddress.Text
                 If cboFacilityCity.Text <> "" Then
@@ -8854,7 +8854,7 @@ Public Class SSPPApplicationTrackingLog
                 If IsDBNull(dr.Item("strFacilityName")) Then
                     FacilityName = "N/A"
                 Else
-                    FacilityName = Apb.Facility.SanitizeFacilityNameForDb(dr.Item("strFacilityName"))
+                    FacilityName = Apb.Facilities.Facility.SanitizeFacilityNameForDb(dr.Item("strFacilityName"))
                 End If
                 If IsDBNull(dr.Item("strFacilityStreet1")) Then
                     FacilityStreet1 = "N/A"
@@ -10977,20 +10977,6 @@ Public Class SSPPApplicationTrackingLog
             '    End If
             '     
             'End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-         
-    End Sub
-    Private Sub SSPPPermitTrackingLog_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-             
-
-            PermitTrackingLog = Nothing
-            Me.Hide()
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -14350,7 +14336,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
             End Select
 
-            If URL <> "" Then OpenUri(URL, Me)
+            If URL <> "" Then OpenUri(New Uri(URL), Me)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

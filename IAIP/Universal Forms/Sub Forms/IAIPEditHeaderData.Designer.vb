@@ -19,7 +19,7 @@ Partial Class IAIPEditHeaderData
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.FacilityDescription = New System.Windows.Forms.TextBox
         Me.FacilityDescriptionLabel = New System.Windows.Forms.Label
         Me.FacilityHistoryDataGridView = New System.Windows.Forms.DataGridView
@@ -69,17 +69,17 @@ Partial Class IAIPEditHeaderData
         Me.SaveChangesButton = New System.Windows.Forms.Button
         Me.CancelEditButton = New System.Windows.Forms.Button
         Me.EditData = New System.Windows.Forms.CheckBox
-        Me.AirProgramClassifications = New System.Windows.Forms.GroupBox
+        Me.AirProgramClassificationsGroupbox = New System.Windows.Forms.GroupBox
         CType(Me.FacilityHistoryDataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.AirProgramCodes.SuspendLayout()
         Me.NonattainmentStatuses.SuspendLayout()
-        Me.AirProgramClassifications.SuspendLayout()
+        Me.AirProgramClassificationsGroupbox.SuspendLayout()
         Me.SuspendLayout()
         '
         'FacilityDescription
         '
         Me.FacilityDescription.AcceptsReturn = True
-        Me.FacilityDescription.Location = New System.Drawing.Point(116, 274)
+        Me.FacilityDescription.Location = New System.Drawing.Point(116, 277)
         Me.FacilityDescription.MaxLength = 4000
         Me.FacilityDescription.Multiline = True
         Me.FacilityDescription.Name = "FacilityDescription"
@@ -90,7 +90,7 @@ Partial Class IAIPEditHeaderData
         '
         Me.FacilityDescriptionLabel.AutoSize = True
         Me.FacilityDescriptionLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FacilityDescriptionLabel.Location = New System.Drawing.Point(12, 277)
+        Me.FacilityDescriptionLabel.Location = New System.Drawing.Point(12, 280)
         Me.FacilityDescriptionLabel.Name = "FacilityDescriptionLabel"
         Me.FacilityDescriptionLabel.Size = New System.Drawing.Size(98, 13)
         Me.FacilityDescriptionLabel.TabIndex = 376
@@ -103,8 +103,8 @@ Partial Class IAIPEditHeaderData
         Me.FacilityHistoryDataGridView.AllowUserToDeleteRows = False
         Me.FacilityHistoryDataGridView.AllowUserToOrderColumns = True
         Me.FacilityHistoryDataGridView.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.FacilityHistoryDataGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.FacilityHistoryDataGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.FacilityHistoryDataGridView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -122,7 +122,7 @@ Partial Class IAIPEditHeaderData
         'Comments
         '
         Me.Comments.AcceptsReturn = True
-        Me.Comments.Location = New System.Drawing.Point(116, 300)
+        Me.Comments.Location = New System.Drawing.Point(116, 303)
         Me.Comments.MaxLength = 4000
         Me.Comments.Multiline = True
         Me.Comments.Name = "Comments"
@@ -133,7 +133,7 @@ Partial Class IAIPEditHeaderData
         '
         Me.CommentsLabel.AutoSize = True
         Me.CommentsLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CommentsLabel.Location = New System.Drawing.Point(12, 303)
+        Me.CommentsLabel.Location = New System.Drawing.Point(12, 306)
         Me.CommentsLabel.Name = "CommentsLabel"
         Me.CommentsLabel.Size = New System.Drawing.Size(59, 13)
         Me.CommentsLabel.TabIndex = 372
@@ -144,7 +144,7 @@ Partial Class IAIPEditHeaderData
         '
         Me.PermitRevocationDateLabel.AutoSize = True
         Me.PermitRevocationDateLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PermitRevocationDateLabel.Location = New System.Drawing.Point(217, 79)
+        Me.PermitRevocationDateLabel.Location = New System.Drawing.Point(222, 79)
         Me.PermitRevocationDateLabel.Name = "PermitRevocationDateLabel"
         Me.PermitRevocationDateLabel.Size = New System.Drawing.Size(91, 26)
         Me.PermitRevocationDateLabel.TabIndex = 4
@@ -154,7 +154,7 @@ Partial Class IAIPEditHeaderData
         '
         Me.StartupDateLabel.AutoSize = True
         Me.StartupDateLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.StartupDateLabel.Location = New System.Drawing.Point(12, 86)
+        Me.StartupDateLabel.Location = New System.Drawing.Point(222, 59)
         Me.StartupDateLabel.Name = "StartupDateLabel"
         Me.StartupDateLabel.Size = New System.Drawing.Size(70, 13)
         Me.StartupDateLabel.TabIndex = 370
@@ -166,7 +166,7 @@ Partial Class IAIPEditHeaderData
         Me.StartUpDate.Checked = False
         Me.StartUpDate.CustomFormat = "dd-MMM-yyyy"
         Me.StartUpDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.StartUpDate.Location = New System.Drawing.Point(89, 84)
+        Me.StartUpDate.Location = New System.Drawing.Point(320, 56)
         Me.StartUpDate.Name = "StartUpDate"
         Me.StartUpDate.ShowCheckBox = True
         Me.StartUpDate.Size = New System.Drawing.Size(121, 20)
@@ -209,11 +209,11 @@ Partial Class IAIPEditHeaderData
         '
         Me.OperationalStatusLabel.AutoSize = True
         Me.OperationalStatusLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.OperationalStatusLabel.Location = New System.Drawing.Point(217, 59)
+        Me.OperationalStatusLabel.Location = New System.Drawing.Point(12, 86)
         Me.OperationalStatusLabel.Name = "OperationalStatusLabel"
-        Me.OperationalStatusLabel.Size = New System.Drawing.Size(89, 13)
+        Me.OperationalStatusLabel.Size = New System.Drawing.Size(69, 13)
         Me.OperationalStatusLabel.TabIndex = 359
-        Me.OperationalStatusLabel.Text = "Operating Status:"
+        Me.OperationalStatusLabel.Text = "Oper. Status:"
         Me.OperationalStatusLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft
         '
         'OperationalDropDown
@@ -221,7 +221,7 @@ Partial Class IAIPEditHeaderData
         Me.OperationalDropDown.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.OperationalDropDown.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.OperationalDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.OperationalDropDown.Location = New System.Drawing.Point(320, 56)
+        Me.OperationalDropDown.Location = New System.Drawing.Point(89, 83)
         Me.OperationalDropDown.Name = "OperationalDropDown"
         Me.OperationalDropDown.Size = New System.Drawing.Size(121, 21)
         Me.OperationalDropDown.TabIndex = 3
@@ -261,7 +261,7 @@ Partial Class IAIPEditHeaderData
         Me.AirProgramCodes.Controls.Add(Me.ApcFederalSip)
         Me.AirProgramCodes.Controls.Add(Me.ApcSip)
         Me.AirProgramCodes.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.AirProgramCodes.Location = New System.Drawing.Point(12, 119)
+        Me.AirProgramCodes.Location = New System.Drawing.Point(12, 120)
         Me.AirProgramCodes.Name = "AirProgramCodes"
         Me.AirProgramCodes.Size = New System.Drawing.Size(246, 145)
         Me.AirProgramCodes.TabIndex = 8
@@ -419,7 +419,7 @@ Partial Class IAIPEditHeaderData
         'RmpIdLabel
         '
         Me.RmpIdLabel.AutoSize = True
-        Me.RmpIdLabel.Location = New System.Drawing.Point(455, 277)
+        Me.RmpIdLabel.Location = New System.Drawing.Point(455, 280)
         Me.RmpIdLabel.Name = "RmpIdLabel"
         Me.RmpIdLabel.Size = New System.Drawing.Size(48, 13)
         Me.RmpIdLabel.TabIndex = 163
@@ -429,7 +429,7 @@ Partial Class IAIPEditHeaderData
         '
         Me.RmpId.AllowPromptAsInput = False
         Me.RmpId.HidePromptOnLeave = True
-        Me.RmpId.Location = New System.Drawing.Point(509, 274)
+        Me.RmpId.Location = New System.Drawing.Point(509, 277)
         Me.RmpId.Mask = "0000-0000-0000"
         Me.RmpId.Name = "RmpId"
         Me.RmpId.Size = New System.Drawing.Size(85, 20)
@@ -473,7 +473,7 @@ Partial Class IAIPEditHeaderData
         Me.NonattainmentStatuses.Controls.Add(Me.Label97)
         Me.NonattainmentStatuses.Controls.Add(Me.Label96)
         Me.NonattainmentStatuses.Controls.Add(Me.Label94)
-        Me.NonattainmentStatuses.Location = New System.Drawing.Point(414, 119)
+        Me.NonattainmentStatuses.Location = New System.Drawing.Point(414, 120)
         Me.NonattainmentStatuses.Name = "NonattainmentStatuses"
         Me.NonattainmentStatuses.Size = New System.Drawing.Size(186, 145)
         Me.NonattainmentStatuses.TabIndex = 10
@@ -603,23 +603,23 @@ Partial Class IAIPEditHeaderData
         Me.EditData.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.EditData.UseVisualStyleBackColor = True
         '
-        'AirProgramClassifications
+        'AirProgramClassificationsGroupbox
         '
-        Me.AirProgramClassifications.Controls.Add(Me.NsrMajor)
-        Me.AirProgramClassifications.Controls.Add(Me.HapMajor)
-        Me.AirProgramClassifications.Location = New System.Drawing.Point(264, 119)
-        Me.AirProgramClassifications.Name = "AirProgramClassifications"
-        Me.AirProgramClassifications.Size = New System.Drawing.Size(144, 145)
-        Me.AirProgramClassifications.TabIndex = 9
-        Me.AirProgramClassifications.TabStop = False
-        Me.AirProgramClassifications.Text = "Air Program Classifications"
+        Me.AirProgramClassificationsGroupbox.Controls.Add(Me.NsrMajor)
+        Me.AirProgramClassificationsGroupbox.Controls.Add(Me.HapMajor)
+        Me.AirProgramClassificationsGroupbox.Location = New System.Drawing.Point(264, 120)
+        Me.AirProgramClassificationsGroupbox.Name = "AirProgramClassificationsGroupbox"
+        Me.AirProgramClassificationsGroupbox.Size = New System.Drawing.Size(144, 145)
+        Me.AirProgramClassificationsGroupbox.TabIndex = 9
+        Me.AirProgramClassificationsGroupbox.TabStop = False
+        Me.AirProgramClassificationsGroupbox.Text = "Air Program Classifications"
         '
         'IAIPEditHeaderData
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(612, 560)
-        Me.Controls.Add(Me.AirProgramClassifications)
+        Me.Controls.Add(Me.AirProgramClassificationsGroupbox)
         Me.Controls.Add(Me.EditData)
         Me.Controls.Add(Me.CancelEditButton)
         Me.Controls.Add(Me.RmpIdLabel)
@@ -659,8 +659,8 @@ Partial Class IAIPEditHeaderData
         Me.AirProgramCodes.PerformLayout()
         Me.NonattainmentStatuses.ResumeLayout(False)
         Me.NonattainmentStatuses.PerformLayout()
-        Me.AirProgramClassifications.ResumeLayout(False)
-        Me.AirProgramClassifications.PerformLayout()
+        Me.AirProgramClassificationsGroupbox.ResumeLayout(False)
+        Me.AirProgramClassificationsGroupbox.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -714,5 +714,5 @@ Partial Class IAIPEditHeaderData
     Friend WithEvents SaveChangesButton As System.Windows.Forms.Button
     Friend WithEvents CancelEditButton As System.Windows.Forms.Button
     Friend WithEvents EditData As System.Windows.Forms.CheckBox
-    Friend WithEvents AirProgramClassifications As System.Windows.Forms.GroupBox
+    Friend WithEvents AirProgramClassificationsGroupbox As System.Windows.Forms.GroupBox
 End Class

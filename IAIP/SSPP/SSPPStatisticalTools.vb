@@ -29,11 +29,6 @@ Public Class SSPPStatisticalTools
     Private Sub SSPPStatisticalTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Try
-
-
-            Panel1.Text = "Permitting Statistics and Tools"
-            Panel2.Text = UserName
-            Panel3.Text = OracleDate
             DTPPermitCountStart.Text = OracleDate
             DTPPermitCountEnd.Text = OracleDate
 
@@ -47,13 +42,8 @@ Public Class SSPPStatisticalTools
                 cboSSPPUnits.SelectedIndex = 0
             End If
             LoadSubPartData()
-
-
-            'Me.WindowState = FormWindowState.Maximized
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
 
@@ -2173,53 +2163,19 @@ Public Class SSPPStatisticalTools
     Private Sub btnViewAppLogCount_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewAppLogCount.Click
         Try
 
-
             If txtRecordNumber.Text <> "" Then
-                If txtRecordNumber.Text.Length = 8 Then
-                    If DAL.FacilityModule.AirsNumberExists(txtRecordNumber.Text) Then
-                        Dim parameters As New Generic.Dictionary(Of String, String)
-                        parameters("airsnumber") = txtRecordNumber.Text
-                        OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
-                    End If
+                If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtRecordNumber.Text) Then
+                    OpenFormFacilitySummary(txtRecordNumber.Text)
                 Else
-                    SQL = "select strApplicationNumber " & _
-                    "from AIRBRANCH.SSPPApplicationMaster " & _
-                    "where strApplicationNumber = '" & txtRecordNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    dr.Close()
-                    If recExist = True Then
-                        If PermitTrackingLog Is Nothing Then
-                            PermitTrackingLog = Nothing
-                            If PermitTrackingLog Is Nothing Then PermitTrackingLog = New SSPPApplicationTrackingLog
-                            PermitTrackingLog.Show()
-                        Else
-                            PermitTrackingLog.Show()
-                        End If
-                        PermitTrackingLog.txtApplicationNumber.Clear()
-                        PermitTrackingLog.txtApplicationNumber.Text = txtRecordNumber.Text
-                        PermitTrackingLog.LoadApplication()
-                        PermitTrackingLog.BringToFront()
-                        PermitTrackingLog.TPTrackingLog.Focus()
-                    Else
-                        MsgBox("Application Number is not in the system.", MsgBoxStyle.Information, "Statistical Tools Screen")
-                    End If
+                    OpenFormPermitApplication(txtRecordNumber.Text)
                 End If
-
             End If
 
             txtApplicationCount.Text = dgvApplicationCount.RowCount.ToString
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub lblViewSigModCount_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewSigModCount.LinkClicked
         Try
@@ -6873,22 +6829,6 @@ Public Class SSPPStatisticalTools
 
         End Try
     End Sub
-    Private Sub TBSSPPStatistics_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBSSPPStatistics.ButtonClick
-        Try
-
-            Select Case TBSSPPStatistics.Buttons.IndexOf(e.Button)
-                Case 0
-                    Me.Close()
-                Case Else
-
-            End Select
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
 
 #End Region
     Private Sub btnExportToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportToExcel.Click
@@ -6936,9 +6876,6 @@ Public Class SSPPStatisticalTools
 
 
         End Try
-    End Sub
-    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
-        OpenDocumentationUrl(Me)
     End Sub
 
 #Region "Subpart Tool"

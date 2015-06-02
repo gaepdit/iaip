@@ -1,5 +1,5 @@
 Imports Oracle.DataAccess.Client
-Imports Iaip.Apb.Facility
+Imports Iaip.Apb.Facilities
 Imports Iaip.DAL
 
 Public Class IAIPEditContacts

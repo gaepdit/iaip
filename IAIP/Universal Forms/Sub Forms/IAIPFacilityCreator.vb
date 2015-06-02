@@ -407,7 +407,7 @@ Public Class IAIPFacilityCreator
             If txtCDSFacilityName.Text = "" Then
                 FacilityName = "N/A"
             Else
-                txtCDSFacilityName.Text = Apb.Facility.SanitizeFacilityNameForDb(txtCDSFacilityName.Text)
+                txtCDSFacilityName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(txtCDSFacilityName.Text)
                 FacilityName = txtCDSFacilityName.Text
             End If
             If txtCDSStreetAddress.Text <> "" Then
@@ -1206,8 +1206,7 @@ Public Class IAIPFacilityCreator
             Dim MappingAddress As String = txtCDSStreetAddress.Text & ", " & txtCDSCity.Text & ", GA," & mtbCDSZipCode.Text
             Clipboard.SetDataObject(MappingAddress, True)
 
-            Dim url As String = "http://mapper.acme.com/"
-            OpenUri(url, Me)
+            OpenUri(New Uri("http://mapper.acme.com/"), Me)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1969,7 +1968,7 @@ Public Class IAIPFacilityCreator
             If txtCDSFacilityName.Text = "" Then
                 FacilityName = "N/A"
             Else
-                txtCDSFacilityName.Text = Apb.Facility.SanitizeFacilityNameForDb(txtCDSFacilityName.Text)
+                txtCDSFacilityName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(txtCDSFacilityName.Text)
                 FacilityName = txtCDSFacilityName.Text
             End If
 
@@ -2293,7 +2292,7 @@ Public Class IAIPFacilityCreator
     Private Sub AirsNumberToDelete_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AirsNumberToDelete.TextChanged
         FacilityLongDisplay.Text = ""
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToDelete.Text) Then
-            Dim fac As Apb.Facility = DAL.FacilityModule.GetFacility(AirsNumberToDelete.Text)
+            Dim fac As Apb.Facilities.Facility = DAL.FacilityModule.GetFacility(AirsNumberToDelete.Text)
             If fac IsNot Nothing Then
                 fac.HeaderData = DAL.FacilityHeaderDataModule.GetFacilityHeaderData(AirsNumberToDelete.Text)
                 If fac.HeaderData IsNot Nothing Then FacilityLongDisplay.Text = fac.LongDisplay

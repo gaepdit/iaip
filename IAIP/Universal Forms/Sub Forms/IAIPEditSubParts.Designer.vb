@@ -23,8 +23,6 @@ Partial Class IAIPEditSubParts
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPEditSubParts))
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.txtFacilityName = New System.Windows.Forms.TextBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
         Me.txtAIRSNumber = New System.Windows.Forms.TextBox
         Me.GBNSPS = New System.Windows.Forms.GroupBox
         Me.btnSaveNSPSSubpart = New System.Windows.Forms.Button
@@ -212,36 +210,22 @@ Partial Class IAIPEditSubParts
         '
         'txtFacilityName
         '
-        Me.txtFacilityName.Location = New System.Drawing.Point(91, 28)
+        Me.txtFacilityName.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtFacilityName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtFacilityName.Location = New System.Drawing.Point(129, 12)
         Me.txtFacilityName.Name = "txtFacilityName"
         Me.txtFacilityName.ReadOnly = True
-        Me.txtFacilityName.Size = New System.Drawing.Size(291, 20)
+        Me.txtFacilityName.Size = New System.Drawing.Size(291, 16)
         Me.txtFacilityName.TabIndex = 203
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 31)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(73, 13)
-        Me.Label1.TabIndex = 204
-        Me.Label1.Text = "Facility Name:"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(12, 57)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(75, 13)
-        Me.Label2.TabIndex = 206
-        Me.Label2.Text = "AIRS Number:"
         '
         'txtAIRSNumber
         '
-        Me.txtAIRSNumber.Location = New System.Drawing.Point(91, 54)
+        Me.txtAIRSNumber.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtAIRSNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtAIRSNumber.Location = New System.Drawing.Point(12, 12)
         Me.txtAIRSNumber.Name = "txtAIRSNumber"
         Me.txtAIRSNumber.ReadOnly = True
-        Me.txtAIRSNumber.Size = New System.Drawing.Size(111, 20)
+        Me.txtAIRSNumber.Size = New System.Drawing.Size(111, 16)
         Me.txtAIRSNumber.TabIndex = 205
         '
         'GBNSPS
@@ -253,7 +237,7 @@ Partial Class IAIPEditSubParts
         Me.GBNSPS.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GBNSPS.Location = New System.Drawing.Point(3, 3)
         Me.GBNSPS.Name = "GBNSPS"
-        Me.GBNSPS.Size = New System.Drawing.Size(693, 280)
+        Me.GBNSPS.Size = New System.Drawing.Size(693, 310)
         Me.GBNSPS.TabIndex = 207
         Me.GBNSPS.TabStop = False
         Me.GBNSPS.Text = "9 - NSPS (Part 60)"
@@ -312,7 +296,7 @@ Partial Class IAIPEditSubParts
         Me.GBNESHAP.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GBNESHAP.Location = New System.Drawing.Point(3, 3)
         Me.GBNESHAP.Name = "GBNESHAP"
-        Me.GBNESHAP.Size = New System.Drawing.Size(693, 280)
+        Me.GBNESHAP.Size = New System.Drawing.Size(693, 310)
         Me.GBNESHAP.TabIndex = 208
         Me.GBNESHAP.TabStop = False
         Me.GBNESHAP.Text = "8 - NESHAP (Part 61)"
@@ -371,7 +355,7 @@ Partial Class IAIPEditSubParts
         Me.GBMACT.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GBMACT.Location = New System.Drawing.Point(0, 0)
         Me.GBMACT.Name = "GBMACT"
-        Me.GBMACT.Size = New System.Drawing.Size(699, 286)
+        Me.GBMACT.Size = New System.Drawing.Size(699, 316)
         Me.GBMACT.TabIndex = 209
         Me.GBMACT.TabStop = False
         Me.GBMACT.Text = "M - MACT (Part 63) "
@@ -431,10 +415,10 @@ Partial Class IAIPEditSubParts
         Me.TCSupParts.Controls.Add(Me.TPPart61)
         Me.TCSupParts.Controls.Add(Me.TPPart63)
         Me.TCSupParts.Controls.Add(Me.TPEditSubParts)
-        Me.TCSupParts.Location = New System.Drawing.Point(0, 90)
+        Me.TCSupParts.Location = New System.Drawing.Point(0, 60)
         Me.TCSupParts.Name = "TCSupParts"
         Me.TCSupParts.SelectedIndex = 0
-        Me.TCSupParts.Size = New System.Drawing.Size(707, 312)
+        Me.TCSupParts.Size = New System.Drawing.Size(707, 342)
         Me.TCSupParts.TabIndex = 210
         '
         'TPSIP
@@ -442,7 +426,7 @@ Partial Class IAIPEditSubParts
         Me.TPSIP.Controls.Add(Me.GroupBox1)
         Me.TPSIP.Location = New System.Drawing.Point(4, 22)
         Me.TPSIP.Name = "TPSIP"
-        Me.TPSIP.Size = New System.Drawing.Size(699, 286)
+        Me.TPSIP.Size = New System.Drawing.Size(699, 316)
         Me.TPSIP.TabIndex = 4
         Me.TPSIP.Text = "0 - SIP"
         Me.TPSIP.UseVisualStyleBackColor = True
@@ -456,7 +440,7 @@ Partial Class IAIPEditSubParts
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(699, 286)
+        Me.GroupBox1.Size = New System.Drawing.Size(699, 316)
         Me.GroupBox1.TabIndex = 208
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "0 - SIP"
@@ -512,7 +496,7 @@ Partial Class IAIPEditSubParts
         Me.TPPart60.Location = New System.Drawing.Point(4, 22)
         Me.TPPart60.Name = "TPPart60"
         Me.TPPart60.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPPart60.Size = New System.Drawing.Size(699, 286)
+        Me.TPPart60.Size = New System.Drawing.Size(699, 316)
         Me.TPPart60.TabIndex = 0
         Me.TPPart60.Text = "9 - NSPS (Part 60)"
         Me.TPPart60.UseVisualStyleBackColor = True
@@ -523,7 +507,7 @@ Partial Class IAIPEditSubParts
         Me.TPPart61.Location = New System.Drawing.Point(4, 22)
         Me.TPPart61.Name = "TPPart61"
         Me.TPPart61.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPPart61.Size = New System.Drawing.Size(699, 286)
+        Me.TPPart61.Size = New System.Drawing.Size(699, 316)
         Me.TPPart61.TabIndex = 1
         Me.TPPart61.Text = "8 - NESHAP (Part 61) "
         Me.TPPart61.UseVisualStyleBackColor = True
@@ -533,7 +517,7 @@ Partial Class IAIPEditSubParts
         Me.TPPart63.Controls.Add(Me.GBMACT)
         Me.TPPart63.Location = New System.Drawing.Point(4, 22)
         Me.TPPart63.Name = "TPPart63"
-        Me.TPPart63.Size = New System.Drawing.Size(699, 286)
+        Me.TPPart63.Size = New System.Drawing.Size(699, 316)
         Me.TPPart63.TabIndex = 2
         Me.TPPart63.Text = "M - MACT (Part 63)"
         Me.TPPart63.UseVisualStyleBackColor = True
@@ -543,7 +527,7 @@ Partial Class IAIPEditSubParts
         Me.TPEditSubParts.Controls.Add(Me.TCMiscTools)
         Me.TPEditSubParts.Location = New System.Drawing.Point(4, 22)
         Me.TPEditSubParts.Name = "TPEditSubParts"
-        Me.TPEditSubParts.Size = New System.Drawing.Size(699, 286)
+        Me.TPEditSubParts.Size = New System.Drawing.Size(699, 316)
         Me.TPEditSubParts.TabIndex = 3
         Me.TPEditSubParts.Text = "Edit Sub Parts"
         Me.TPEditSubParts.UseVisualStyleBackColor = True
@@ -558,7 +542,7 @@ Partial Class IAIPEditSubParts
         Me.TCMiscTools.Location = New System.Drawing.Point(0, 0)
         Me.TCMiscTools.Name = "TCMiscTools"
         Me.TCMiscTools.SelectedIndex = 0
-        Me.TCMiscTools.Size = New System.Drawing.Size(699, 286)
+        Me.TCMiscTools.Size = New System.Drawing.Size(699, 316)
         Me.TCMiscTools.TabIndex = 1
         '
         'TPEditSIP
@@ -568,7 +552,7 @@ Partial Class IAIPEditSubParts
         Me.TPEditSIP.Location = New System.Drawing.Point(4, 22)
         Me.TPEditSIP.Name = "TPEditSIP"
         Me.TPEditSIP.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPEditSIP.Size = New System.Drawing.Size(691, 260)
+        Me.TPEditSIP.Size = New System.Drawing.Size(691, 290)
         Me.TPEditSIP.TabIndex = 0
         Me.TPEditSIP.Text = "Edit SIP Subparts"
         Me.TPEditSIP.UseVisualStyleBackColor = True
@@ -579,7 +563,7 @@ Partial Class IAIPEditSubParts
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel6.Location = New System.Drawing.Point(3, 126)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(685, 131)
+        Me.Panel6.Size = New System.Drawing.Size(685, 161)
         Me.Panel6.TabIndex = 1
         '
         'dgvSIP
@@ -589,7 +573,7 @@ Partial Class IAIPEditSubParts
         Me.dgvSIP.Location = New System.Drawing.Point(0, 0)
         Me.dgvSIP.Name = "dgvSIP"
         Me.dgvSIP.ReadOnly = True
-        Me.dgvSIP.Size = New System.Drawing.Size(685, 131)
+        Me.dgvSIP.Size = New System.Drawing.Size(685, 161)
         Me.dgvSIP.TabIndex = 0
         '
         'Panel5
@@ -986,9 +970,7 @@ Partial Class IAIPEditSubParts
         Me.AutoScroll = True
         Me.ClientSize = New System.Drawing.Size(707, 401)
         Me.Controls.Add(Me.TCSupParts)
-        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.txtAIRSNumber)
-        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.txtFacilityName)
         Me.Name = "IAIPEditSubParts"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
@@ -1031,8 +1013,6 @@ Partial Class IAIPEditSubParts
     End Sub
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents txtFacilityName As System.Windows.Forms.TextBox
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents txtAIRSNumber As System.Windows.Forms.TextBox
     Friend WithEvents GBNSPS As System.Windows.Forms.GroupBox
     Friend WithEvents GBNESHAP As System.Windows.Forms.GroupBox

@@ -779,28 +779,9 @@ Public Class SSCPComplianceLog
                 Dim parameters As New Dictionary(Of String, String)
                 parameters("airsnumber") = txtNewAIRSNumber.Text
                 OpenMultiForm("SscpEnforcement", -1, parameters)
-
-                'If SSCP_Enforcement Is Nothing Then
-                '    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = SSCPEnforcementAudit
-                '    SSCP_Enforcement.txtAIRSNumber.Text = txtNewAIRSNumber.Text
-                '    SSCP_Enforcement.Show()
-                'Else
-                '    SSCP_Enforcement.Close()
-                '    SSCP_Enforcement = Nothing
-                '    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                '    SSCP_Enforcement.BringToFront()
-                '    SSCP_Enforcement.txtAIRSNumber.Text = txtNewAIRSNumber.Text
-                '    SSCP_Enforcement.Show()
-                'End If
             Else
                 If rdbFCE.Checked = True Then
-
-                    SSCPFCE = Nothing
-                    If SSCPFCE Is Nothing Then SSCPFCE = New SSCPFCEWork
-                    SSCPFCE.txtAirsNumber.Text = Me.txtNewAIRSNumber.Text
-                    SSCPFCE.txtFacilityInformation.Text = txtNewAIRSNumber.Text
-                    SSCPFCE.txtOrigin.Text = "Work Entry"
-                    SSCPFCE.Show()
+                    OpenFormFceByID(Me.txtNewAIRSNumber.Text)
                 Else
                     If rdbPerformanceTest.Checked = True Then
                         If txtTrackingNumber.Text <> "" Then
@@ -888,13 +869,7 @@ Public Class SSCPComplianceLog
                                 dr2 = cmd2.ExecuteReader
                             End If
 
-
-
-                            SSCPReports = Nothing
-                            If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                            SSCPReports.txtTrackingNumber.Text = txtTrackingNumber.Text
-                            SSCPReports.txtOrigin.Text = "Work Entry 2"
-                            SSCPReports.Show()
+                            OpenFormSscpWorkItem(txtTrackingNumber.Text)
                         Else
                             MsgBox("Select a Work type and event type if needed.", MsgBoxStyle.Information, "Work Entry")
                         End If
@@ -1738,154 +1713,22 @@ Public Class SSCPComplianceLog
     End Sub
     Private Sub btnSelectWork_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSelectWork.Click
         Try
-
-
             If txtTestType.Text <> "" Then
-                If InStr(txtTestType.Text, "Annual Compliance Certification") > 0 Then
-                    If SSCPReports Is Nothing Then
-                        SSCPReports = Nothing
-                        If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                        SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
-                        SSCPReports.Show()
-                    Else
-                        SSCPReports.Close()
-                        SSCPReports = Nothing
-                        If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                        SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
-                        SSCPReports.Show()
-                    End If
-                ElseIf InStr(txtTestType.Text, "Enforcement") > 0 Then
-                    Dim enfNum As String = txtWorkNumber.Text
-                    If enfNum = "" Then Exit Sub
-                    If DAL.SSCP.EnforcementExists(enfNum) Then
-                        OpenMultiForm("SscpEnforcement", enfNum)
-                    Else
-                        MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
-                    End If
-
-                    'If SSCP_Enforcement Is Nothing Then
-                    '    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                    '    SSCP_Enforcement.txtAIRSNumber.Text = txtNewAIRSNumber.Text
-                    '    SSCP_Enforcement.txtEnforcementNumber.Text = txtWorkNumber.Text
-                    '    SSCP_Enforcement.Show()
-                    'Else
-                    '    SSCP_Enforcement.Close()
-                    '    SSCP_Enforcement = Nothing
-                    '    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                    '    SSCP_Enforcement.BringToFront()
-                    '    SSCP_Enforcement.txtAIRSNumber.Text = txtNewAIRSNumber.Text
-                    '    SSCP_Enforcement.txtEnforcementNumber.Text = txtWorkNumber.Text
-                    '    SSCP_Enforcement.Show()
-                    'End If
+                If InStr(txtTestType.Text, "Enforcement") > 0 Then
+                    OpenFormEnforcement(txtWorkNumber.Text)
                 ElseIf InStr(txtTestType.Text, "Full Compliance Evaluation") > 0 Then
-                    If SSCPFCE Is Nothing Then
-                        If SSCPFCE Is Nothing Then SSCPFCE = New SSCPFCEWork
-                        SSCPFCE.txtAirsNumber.Text = txtAIRSNumber.Text
-                        SSCPFCE.txtFacilityInformation.Text = txtAIRSNumber.Text
-                        SSCPFCE.Show()
-                        SSCPFCE.txtFCENumber.Text = txtWorkNumber.Text
-                    Else
-                        SSCPFCE.Clear()
-                        SSCPFCE = Nothing
-                        If SSCPFCE Is Nothing Then SSCPFCE = New SSCPFCEWork
-                        SSCPFCE.txtAirsNumber.Text = Me.txtAIRSNumber.Text
-                        SSCPFCE.txtFacilityInformation.Text = txtAIRSNumber.Text
-                        SSCPFCE.Show()
-                        SSCPFCE.txtFCENumber.Text = txtWorkNumber.Text
-                    End If
-                ElseIf InStr(txtTestType.Text, "Inspection") > 0 Then
-                    If SSCPReports Is Nothing Then
-                        SSCPReports = Nothing
-                        If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                        SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
-                        SSCPReports.Show()
-                    Else
-                        SSCPReports.Close()
-                        SSCPReports = Nothing
-                        If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                        SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
-                        SSCPReports.Show()
-                    End If
-                ElseIf InStr(txtTestType.Text, "Notification") > 0 Then
-                    If SSCPReports Is Nothing Then
-                        SSCPReports = Nothing
-                        If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                        SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
-                        SSCPReports.Show()
-                    Else
-                        SSCPReports.Close()
-                        SSCPReports = Nothing
-                        If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                        SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
-                        SSCPReports.Show()
-                    End If
-
-                ElseIf InStr(txtTestType.Text, "Performance Tests") > 0 Then
-                    Dim RefNum As String = ""
-                    Dim DocType As String = ""
-
-                    SQL = "Select " & _
-                    "AIRBRANCH.ISMPReportInformation.strReferenceNumber, AIRBRANCH.ISMPDocumentType.strDocumentType " & _
-                    "from AIRBRANCH.SSCPTestReports, AIRBRANCH.ISMPDocumentType, " & _
-                    "AIRBRANCH.ISMPReportInformation " & _
-                    "where AIRBRANCH.SSCPTestReports.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " & _
-                    "and AIRBRANCH.ISMPReportInformation.strDocumentType = AIRBRANCH.ISMPDocumentType.strKey " & _
-                    "and strTrackingNumber = '" & txtWorkNumber.Text & "' "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    If recExist = True Then
-                        RefNum = dr.Item("strReferenceNumber")
-                        DocType = dr.Item("strDocumentType")
-                    Else
-                        RefNum = ""
-                        DocType = ""
-                    End If
-                    dr.Close()
-                    If RefNum <> "" Then
-                        If DAL.ISMP.StackTestExists(RefNum) Then OpenMultiForm("ISMPTestReports", RefNum)
-                    Else
-                        If SSCPReports Is Nothing Then
-                            SSCPReports = Nothing
-                            If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                            SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
-                            SSCPReports.Show()
-                        Else
-                            SSCPReports.Close()
-                            SSCPReports = Nothing
-                            If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                            SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
-                            SSCPReports.Show()
-                        End If
-                    End If
-                ElseIf InStr(txtTestType.Text, "Report") > 0 Then
-                    If SSCPReports Is Nothing Then
-                        SSCPReports = Nothing
-                        If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                        SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
-                        SSCPReports.Show()
-                    Else
-                        SSCPReports.Close()
-                        SSCPReports = Nothing
-                        If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                        SSCPReports.txtTrackingNumber.Text = txtWorkNumber.Text
-                        SSCPReports.Show()
-                    End If
+                    OpenFormFceByID(New Apb.ApbFacilityId(txtAIRSNumber.Text), txtWorkNumber.Text)
+                Else
+                    OpenFormSscpWorkItem(txtWorkNumber.Text)
                 End If
             End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
     Private Sub txtNewAIRSNumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtNewAIRSNumber.TextChanged
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtNewAIRSNumber.Text) Then
-            Dim fac As Apb.Facility = DAL.FacilityModule.GetFacility(txtNewAIRSNumber.Text)
+            Dim fac As Apb.Facilities.Facility = DAL.FacilityModule.GetFacility(txtNewAIRSNumber.Text)
             txtFacilityInformation.Text = fac.LongDisplay
         Else
             txtFacilityInformation.Text = ""
@@ -2016,17 +1859,7 @@ Public Class SSCPComplianceLog
         End Try
     End Sub
     Private Sub btnOpenSummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenSummary.Click
-        Try
-            If Not DAL.FacilityModule.AirsNumberExists(txtAIRSNumber.Text) Then
-                MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
-                Exit Sub
-            End If
-            Dim parameters As New Generic.Dictionary(Of String, String)
-            parameters("airsnumber") = txtAIRSNumber.Text
-            OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenFormFacilitySummary(txtAIRSNumber.Text)
     End Sub
 
 #End Region

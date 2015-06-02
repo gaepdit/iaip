@@ -46,7 +46,7 @@
             If emailUriString.Length < 5000 Then
                 ' The OpenUri method is preferable, but is limited by URI length, which can be exceeded
                 ' if a lot of recipients are added
-                result = OpenUri(emailUriString)
+                result = OpenUri(New Uri(emailUriString))
             Else
                 ' Failover is to create an Outlook Email
                 result = CreateOutlookEmail(subject, body, recipientsTo, recipientsCC, recipientsBCC)

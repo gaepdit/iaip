@@ -1,4 +1,5 @@
-﻿Namespace Apb.SSCP
+﻿Imports Iaip.Apb.Facilities
+Namespace Apb.SSCP
 
     Public Class EnforcementInfo
 

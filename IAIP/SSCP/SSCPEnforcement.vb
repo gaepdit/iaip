@@ -3668,24 +3668,12 @@ Public Class SscpEnforcement
 
     End Sub
     Private Sub btnEditAirProgramPollutants_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditAirProgramPollutants.Click
-        Try
-            If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
-
-                If EditAirProgramPollutants IsNot Nothing Then EditAirProgramPollutants.Dispose()
-                EditAirProgramPollutants = Nothing
-                If EditAirProgramPollutants Is Nothing Then EditAirProgramPollutants = New IAIPEditAirProgramPollutants
-                EditAirProgramPollutants.txtAirsNumber.Text = Me.txtAIRSNumber.Text
-                EditAirProgramPollutants.txtEnforcementNumber.Text = txtEnforcementNumber.Text
-                EditAirProgramPollutants.Show()
-                EditAirProgramPollutants.TPEnforcementPollutants.Focus()
-            Else
-                MsgBox("Save this Enforcement Action atleast once before you try to add pollutants.", MsgBoxStyle.Information, "Enforcement")
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
+            Dim EditAirProgramPollutants As IAIPEditAirProgramPollutants = OpenSingleForm(IAIPEditAirProgramPollutants)
+            EditAirProgramPollutants.AirsNumberDisplay.Text = Me.txtAIRSNumber.Text
+        Else
+            MsgBox("Save this Enforcement Action at least once before you try to add pollutants.", MsgBoxStyle.Information, "Enforcement")
+        End If
     End Sub
 
 
@@ -3698,28 +3686,15 @@ Public Class SscpEnforcement
 
     End Sub
     Private Sub btnOpenEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenEvent.Click
-        Try
-
-            If txtTrackingNumber.Text <> "" Then
-                SSCPReports = Nothing
-                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                SSCPReports.txtTrackingNumber.Text = txtTrackingNumber.Text
-                SSCPReports.Show()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        OpenFormSscpWorkItem(txtTrackingNumber.Text)
     End Sub
     Private Sub btnSaveStipulatedPenalty_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SaveStipulatedPenaltyButton.Click
         If String.IsNullOrEmpty(txtStipulatedPenalty.Text) Then
             MsgBox("Enter a stipulated penalty amount first.")
-            Exit Sub
+        Else
+            SaveStipulatedPenalties()
+            ClearStipulatedPenaltyForm()
         End If
-
-        SaveStipulatedPenalties()
-        ClearStipulatedPenaltyForm()
     End Sub
     Private Sub DeletePenalty(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DeletePenaltyButton.Click
         If Not PresaveCheck() Then

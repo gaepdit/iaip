@@ -48,7 +48,7 @@ Namespace DAL.SSCP
                 .Address = address
             End With
 
-            Dim facility As New Apb.Facility
+            Dim facility As New Apb.Facilities.Facility
             With facility
                 .AirsNumber = DB.GetNullable(Of String)(row("STRAIRSNUMBER"))
                 .FacilityName = DB.GetNullable(Of String)(row("STRFACILITYNAME"))

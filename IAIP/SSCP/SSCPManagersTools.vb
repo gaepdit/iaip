@@ -2302,29 +2302,10 @@ Public Class SSCPManagersTools
 
     End Sub
     Private Sub llbCMSOpenFacilitySummary_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbCMSOpenFacilitySummary.LinkClicked
-        Try
-            Dim parameters As New Generic.Dictionary(Of String, String)
-            parameters("airsnumber") = txtCMSAIRSNumber.Text
-            OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        OpenFormFacilitySummary(txtCMSAIRSNumber.Text)
     End Sub
     Private Sub llbCMSOpenFacilitySummary2_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbCMSOpenFacilitySummary2.LinkClicked
-        Try
-            If Not DAL.FacilityModule.AirsNumberExists(txtCMSAIRSNumber2.Text) Then
-                MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
-                Exit Sub
-            End If
-            Dim parameters As New Generic.Dictionary(Of String, String)
-            parameters("airsnumber") = txtCMSAIRSNumber.Text
-            OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenFormFacilitySummary(txtCMSAIRSNumber2.Text)
     End Sub
     Private Sub btnAddToCmsUniverse_LinkClicked(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddToCmsUniverse.Click
         Try
@@ -2573,19 +2554,8 @@ Public Class SSCPManagersTools
         FilterPollutantSearch()
     End Sub
     Private Sub btnEditAirProgramPollutants_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditAirProgramPollutants.Click
-        Try
-            If txtAIRSNumber.Text <> "" Then
-
-                EditAirProgramPollutants = Nothing
-                If EditAirProgramPollutants Is Nothing Then EditAirProgramPollutants = New IAIPEditAirProgramPollutants
-                EditAirProgramPollutants.txtAirsNumber.Text = Me.txtAIRSNumber.Text
-                EditAirProgramPollutants.Show()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        Dim EditAirProgramPollutants As IAIPEditAirProgramPollutants = OpenSingleForm(IAIPEditAirProgramPollutants)
+        EditAirProgramPollutants.AirsNumberDisplay.Text = Me.txtAIRSNumber.Text
     End Sub
     Private Sub dgvPollutantFacilities_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvPollutantFacilities.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvPollutantFacilities.HitTest(e.X, e.Y)
@@ -4047,68 +4017,13 @@ Public Class SSCPManagersTools
         End Try
     End Sub
     Sub OpenFacilitySummary()
-        Try
-            If Not DAL.FacilityModule.AirsNumberExists(txtRecordNumber.Text) Then
-                MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
-                Exit Sub
-            End If
-            Dim parameters As New Generic.Dictionary(Of String, String)
-            parameters("airsnumber") = txtRecordNumber.Text
-            OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenFormFacilitySummary(txtRecordNumber.Text)
     End Sub
     Sub OpenEnforcement()
-        Try
-
-            Dim enfNum As String = txtRecordNumber.Text
-            If enfNum = "" Then Exit Sub
-            If DAL.SSCP.EnforcementExists(enfNum) Then
-                OpenMultiForm("SscpEnforcement", enfNum)
-            Else
-                MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        OpenFormEnforcement(txtRecordNumber.Text)
     End Sub
     Sub OpenSSCPWork()
-        Try
-
-            If txtRecordNumber.Text <> "" And IsNumeric(txtRecordNumber.Text) Then
-                SQL = "Select " & _
-                "strTrackingNumber " & _
-                "from AIRBRANCH.SSCPItemMaster " & _
-                "where strTrackingNumber = '" & txtRecordNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
-                    If SSCPReports Is Nothing Then
-                        SSCPReports = Nothing
-                        If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                        SSCPReports.txtTrackingNumber.Text = txtRecordNumber.Text
-                        SSCPReports.Show()
-                    Else
-                        SSCPReports.txtTrackingNumber.Text = txtRecordNumber.Text
-                        SSCPReports.Show()
-                    End If
-                Else
-                    MsgBox("Tracking Number is not in the system.", MsgBoxStyle.Information, "SSCP Managers Tools")
-                End If
-            Else
-                MsgBox("Tracking Number is not in the system.", MsgBoxStyle.Information, "SSCP Managers Tools")
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        OpenFormSscpWorkItem(txtRecordNumber.Text)
     End Sub
 
     Private Sub dgvCMSUniverse_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvCMSUniverse.MouseUp
@@ -6185,5 +6100,11 @@ Public Class SSCPManagersTools
 #End Region
 
 #End Region
+
+    Private Sub OpenFacilityButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OpenFacilityButton.Click
+        If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtAIRSNumber.Text) Then
+            OpenFormFacilitySummary(txtAIRSNumber.Text)
+        End If
+    End Sub
 
 End Class

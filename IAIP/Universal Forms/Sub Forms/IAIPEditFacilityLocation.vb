@@ -178,7 +178,7 @@ Public Class IAIPEditFacilityLocation
                 'If UserProgram = "5" Or (UserBranch = "1" And UserUnit = "---") _
                 '  Or (UserProgram = "3" And AccountArray(68, 3) = "1") Then
                 If txtFacilityName.Text <> "" Then
-                    txtFacilityName.Text = Apb.Facility.SanitizeFacilityNameForDb(txtFacilityName.Text)
+                    txtFacilityName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(txtFacilityName.Text)
                     If txtFacilityName.Text <> dsFacilityInformation.Tables("Current").Rows(0).Item(1).ToString() Then
                         FacilityName = Replace(txtFacilityName.Text, "'", "''")
                     Else
@@ -389,19 +389,6 @@ Public Class IAIPEditFacilityLocation
 
 #End Region
 #Region "Declaration"
-    Private Sub APBEditFacilityLocation_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-
-
-            EditFacilityLocation = Nothing
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
     Private Sub dgvFaciltiyInformaitonHistory_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvFaciltiyInformaitonHistory.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvFaciltiyInformaitonHistory.HitTest(e.X, e.Y)
 

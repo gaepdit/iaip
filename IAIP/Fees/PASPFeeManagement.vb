@@ -1824,7 +1824,7 @@ Public Class PASPFeeManagement
                     If IsDBNull(dr.Item("strFacilityName")) Then
                         lblFaciltyName.Text = " - "
                     Else
-                        lblFaciltyName.Text = Apb.Facility.SanitizeFacilityNameForDb(dr.Item("strFacilityName"))
+                        lblFaciltyName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(dr.Item("strFacilityName"))
                     End If
                 End While
                 dr.Close()
