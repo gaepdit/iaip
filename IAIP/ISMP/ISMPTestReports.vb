@@ -330,7 +330,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
 
         Catch ex As Exception
-            ErrorReport(SQL & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, SQL, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -10761,17 +10761,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
     End Sub
     Sub OpenMemo()
-        Try
-
-            ISMPMemoEdit = Nothing
-            If ISMPMemoEdit Is Nothing Then ISMPMemoEdit = New ISMPMemo
-            ISMPMemoEdit.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
-            ISMPMemoEdit.Show()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-
+        OpenFormTestMemo(Me.txtReferenceNumber.Text)
     End Sub
     Sub DeleteTestReport()
         Try
@@ -20838,9 +20828,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
         Catch ex As Exception
 
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
     End Sub
     Private Sub txtPollConcTwoStackStandard2B_Leave(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtPollConcTwoStackStandard2B.Leave
@@ -20896,9 +20884,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
         Catch ex As Exception
 
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
     End Sub
     Private Sub txtPollConcTwoStackStandard2C_Leave(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtPollConcTwoStackStandard2C.Leave
@@ -20954,9 +20940,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
         Catch ex As Exception
 
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
     End Sub
     Private Sub txtEmissRateTwoStackStandard1A_Leave(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtEmissRateTwoStackStandard1A.Leave
@@ -21073,9 +21057,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
         Catch ex As Exception
 
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
     End Sub
     Private Sub txtEmissRateTwoStackStandard1B_Leave(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtEmissRateTwoStackStandard1B.Leave
@@ -21191,9 +21173,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
         Catch ex As Exception
 
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
     End Sub
     Private Sub txtEmissRateTwoStackStandard1C_Leave(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtEmissRateTwoStackStandard1C.Leave
@@ -21309,9 +21289,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
         Catch ex As Exception
 
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
     End Sub
     Private Sub txtEmissRateTwoStackStandard2A_Leave(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtEmissRateTwoStackStandard2A.Leave
@@ -21427,9 +21405,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
         Catch ex As Exception
 
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
     End Sub
     Private Sub txtEmissRateTwoStackStandard2B_Leave(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtEmissRateTwoStackStandard2B.Leave
@@ -21545,9 +21521,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
         Catch ex As Exception
 
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
     End Sub
     Private Sub txtEmissRateTwoStackStandard2C_Leave(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtEmissRateTwoStackStandard2C.Leave
@@ -21663,9 +21637,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
         Catch ex As Exception
 
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
     End Sub
     Private Sub txtEmissRateTotalTwoStackStandard1_Leave(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtEmissRateTotalTwoStackStandard1.Leave

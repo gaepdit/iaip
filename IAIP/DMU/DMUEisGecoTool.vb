@@ -53,9 +53,7 @@ Public Class DMUEisGecoTool
             loadEISEnrollmentYear()
             loadEIType()
             loadEISType()
-            'loadEISYear()
             loadEISThresholdYear()
-            'loadcboEISAccessCodes()
             loadcboEISstatusCodes()
             LoadcboEISYESNO()
             FormatWebUsers()
@@ -348,129 +346,6 @@ Public Class DMUEisGecoTool
             dgvEISStats.AllowUserToResizeRows = True
             dgvEISStats.ColumnHeadersHeight = "35"
 
-            'Dim colSelect As New DataGridViewCheckBoxColumn
-            'dgvEISStats.Columns.Add(colSelect)
-            'dgvEISStats.Columns(0).HeaderText = " "
-            'dgvEISStats.Columns(0).Width = 50
-
-            'dgvEISStats.Columns.Add("FacilitySiteID", "AIRS No.")
-            'dgvEISStats.Columns("FacilitySiteID").DisplayIndex = 1
-            'dgvEISStats.Columns("FacilitySiteID").Visible = True
-
-            'dgvEISStats.Columns.Add("strFacilityName", "Facility Name")
-            'dgvEISStats.Columns("strFacilityName").DisplayIndex = 2
-            'dgvEISStats.Columns("strFacilityName").Width = 250
-            'dgvEISStats.Columns("strFacilityName").ReadOnly = True
-
-            'dgvEISStats.Columns.Add("InventoryYear", "EIS Year")
-            'dgvEISStats.Columns("InventoryYear").DisplayIndex = 3
-            'dgvEISStats.Columns("InventoryYear").Visible = True
-
-            'dgvEISStats.Columns.Add("EISStatus", "EIS Status")
-            'dgvEISStats.Columns("EISStatus").DisplayIndex = 4
-            'dgvEISStats.Columns("EISStatus").Visible = True
-
-            'dgvEISStats.Columns.Add("EISAccess", "EIS Access")
-            'dgvEISStats.Columns("EISAccess").DisplayIndex = 5
-            'dgvEISStats.Columns("EISAccess").Visible = True
-
-            'dgvEISStats.Columns.Add("strOptOut", "Opt Out")
-            'dgvEISStats.Columns("strOptOut").DisplayIndex = 6
-            'dgvEISStats.Columns("strOptOut").Visible = True
-
-            'dgvEISStats.Columns.Add("strMailOut", "Mailout")
-            'dgvEISStats.Columns("strMailOut").DisplayIndex = 7
-            'dgvEISStats.Columns("strMailOut").Visible = True
-
-            'dgvEISStats.Columns.Add("ContactEmail", "Contact Email")
-            'dgvEISStats.Columns("ContactEmail").DisplayIndex = 8
-            'dgvEISStats.Columns("ContactEmail").Visible = True
-
-            'dgvEISStats.Columns.Add("strContactPrefix", "Contact Prefix")
-            'dgvEISStats.Columns("strContactPrefix").DisplayIndex = 9
-            'dgvEISStats.Columns("strContactPrefix").Visible = True
-
-            'dgvEISStats.Columns.Add("strContactFirstName", "Contact First Name")
-            'dgvEISStats.Columns("strContactFirstName").DisplayIndex = 10
-            'dgvEISStats.Columns("strContactFirstName").Visible = True
-
-            'dgvEISStats.Columns.Add("strContactLastName", "Contact Last Name")
-            'dgvEISStats.Columns("strContactLastName").DisplayIndex = 11
-            'dgvEISStats.Columns("strContactLastName").Visible = True
-
-            'dgvEISStats.Columns.Add("strDMUResponsibleStaff", "QA Reviewer")
-            'dgvEISStats.Columns("strDMUResponsibleStaff").DisplayIndex = 12
-            'dgvEISStats.Columns("strDMUResponsibleStaff").Visible = True
-
-            'dgvEISStats.Columns.Add("strEnrollment", "Enrollment")
-            'dgvEISStats.Columns("strEnrollment").DisplayIndex = 13
-            'dgvEISStats.Columns("strEnrollment").Visible = True
-
-            'dgvEISStats.Columns.Add("strDesc", "QA Status")
-            'dgvEISStats.Columns("strDesc").DisplayIndex = 14
-            'dgvEISStats.Columns("strDesc").Visible = True
-
-            'dgvEISStats.Columns.Add("datQAStatus", "QA Status Data")
-            'dgvEISStats.Columns("datQAStatus").DisplayIndex = 15
-            'dgvEISStats.Columns("datQAStatus").Visible = True
-            'dgvEISStats.Columns("datQAStatus").DefaultCellStyle.Format = "dd-MMM-yyyy"
-
-            'dgvEISStats.Columns.Add("IAIPContactPrefix", "IAIP Contact Prefix")
-            'dgvEISStats.Columns("IAIPContactPrefix").DisplayIndex = 16
-            'dgvEISStats.Columns("IAIPContactPrefix").Visible = True
-
-            'dgvEISStats.Columns.Add("IAIPContactFirstname", "IAIP Contact First Name")
-            'dgvEISStats.Columns("IAIPContactFirstname").DisplayIndex = 17
-            'dgvEISStats.Columns("IAIPContactFirstname").Visible = True
-
-            'dgvEISStats.Columns.Add("IAIPContactLastName", "IAIP Contact Last Name")
-            'dgvEISStats.Columns("IAIPContactLastName").DisplayIndex = 18
-            'dgvEISStats.Columns("IAIPContactLastName").Visible = True
-
-            'dgvEISStats.Columns.Add("IAIPContactEmail", "IAIP Contact Email")
-            'dgvEISStats.Columns("IAIPContactEmail").DisplayIndex = 19
-            'dgvEISStats.Columns("IAIPContactEmail").Visible = True
-
-            'dgvEISStats.Columns.Add("strContactCompanyName", "Contact Co. Name")
-            'dgvEISStats.Columns("strContactCompanyName").DisplayIndex = 20
-            'dgvEISStats.Columns("strContactCompanyName").Visible = True
-
-            'dgvEISStats.Columns.Add("strContactAddress1", "Contact Address")
-            'dgvEISStats.Columns("strContactAddress1").DisplayIndex = 21
-            'dgvEISStats.Columns("strContactAddress1").Visible = True
-
-            'dgvEISStats.Columns.Add("strContactAddress2", "Contact Address 2")
-            'dgvEISStats.Columns("strContactAddress2").DisplayIndex = 22
-            'dgvEISStats.Columns("strContactAddress2").Visible = True
-
-            'dgvEISStats.Columns.Add("strContactCity", "Contact City")
-            'dgvEISStats.Columns("strContactCity").DisplayIndex = 23
-            'dgvEISStats.Columns("strContactCity").Visible = True
-
-            'dgvEISStats.Columns.Add("strContactState", "Contact State")
-            'dgvEISStats.Columns("strContactState").DisplayIndex = 24
-            'dgvEISStats.Columns("strContactState").Visible = True
-
-            'dgvEISStats.Columns.Add("strContactZipCode", "Contact Zip Code")
-            'dgvEISStats.Columns("strContactZipCode").DisplayIndex = 25
-            'dgvEISStats.Columns("strContactZipCode").Visible = True
-
-            'dgvEISStats.Columns.Add("strContactFirstname", "Contact First Name")
-            'dgvEISStats.Columns("strContactFirstname").DisplayIndex = 26
-            'dgvEISStats.Columns("strContactFirstname").Visible = True
-
-            'dgvEISStats.Columns.Add("strContactLastName", "Contact Last Name")
-            'dgvEISStats.Columns("strContactLastName").DisplayIndex = 27
-            'dgvEISStats.Columns("strContactLastName").Visible = True
-
-            'dgvEISStats.Columns.Add("strContactPrefix", "Contact Prefix")
-            'dgvEISStats.Columns("strContactPrefix").DisplayIndex = 28
-            'dgvEISStats.Columns("strContactPrefix").Visible = True
-
-            'dgvEISStats.Columns.Add("strContactEmail", "Contact Email")
-            'dgvEISStats.Columns("strContactEmail").DisplayIndex = 29
-            'dgvEISStats.Columns("strContactEmail").Visible = True
-
             Dim colSelect As New DataGridViewCheckBoxColumn
             dgvEISStats.Columns.Add(colSelect)
             dgvEISStats.Columns(0).HeaderText = " "
@@ -580,18 +455,16 @@ Public Class DMUEisGecoTool
             dgvEISStats.Columns("EISLastName").DisplayIndex = 25
             dgvEISStats.Columns("EISLastName").Visible = True
 
+            dgvEISStats.Columns.Add("DATFINALIZE", "Date Submitted")
+            dgvEISStats.Columns("DATFINALIZE").DisplayIndex = 26
+            dgvEISStats.Columns("DATFINALIZE").Visible = True
+
         Catch ex As Exception
 
         End Try
     End Sub
 #End Region
-    Private Sub DEVDataManagementTools_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-            Me.Dispose()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
+
 #Region "Web Application Users"
     Private Sub btnActivateEmail_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnActivateEmail.Click
         Try
@@ -605,6 +478,7 @@ Public Class DMUEisGecoTool
     End Sub
 
 #End Region
+
 #Region "Mahesh Code for Web App Users"
     Function LoadComboBoxes() As DataTable
         Dim dtairs As New DataTable
@@ -629,18 +503,18 @@ Public Class DMUEisGecoTool
             da.Fill(ds, "facilityInfo")
 
             dtairs.Columns.Add("strairsnumber", GetType(System.String))
-            dtAIRS.Columns.Add("strfacilityname", GetType(System.String))
+            dtairs.Columns.Add("strfacilityname", GetType(System.String))
 
-            drNewRow = dtAIRS.NewRow()
+            drNewRow = dtairs.NewRow()
             drNewRow("strfacilityname") = " "
             drNewRow("strairsnumber") = " "
-            dtAIRS.Rows.Add(drNewRow)
+            dtairs.Rows.Add(drNewRow)
 
             For Each drDSRow In ds.Tables("facilityInfo").Rows()
-                drNewRow = dtAIRS.NewRow()
+                drNewRow = dtairs.NewRow()
                 drNewRow("strairsnumber") = drDSRow("strairsnumber")
                 drNewRow("strfacilityname") = drDSRow("strfacilityname")
-                dtAIRS.Rows.Add(drNewRow)
+                dtairs.Rows.Add(drNewRow)
             Next
 
             Return dtairs
@@ -649,9 +523,9 @@ Public Class DMUEisGecoTool
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             Return Nothing
         Finally
-           
+
         End Try
-         
+
     End Function
     Sub LoadComboBoxesEmail()
         Dim dtAIRS As New DataTable
@@ -661,7 +535,7 @@ Public Class DMUEisGecoTool
         Dim SQL As String
 
         Try
-            
+
 
             SQL = "Select numuserid, struseremail " _
             + "from AIRBRANCH.OlapUserLogin " _
@@ -705,13 +579,13 @@ Public Class DMUEisGecoTool
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-           
+
         End Try
-         
+
 
     End Sub
-    
-    
+
+
     Private Sub lblViewFacility_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewFacility.LinkClicked
         Try
 
@@ -939,30 +813,16 @@ Public Class DMUEisGecoTool
     End Sub
     Private Sub Back()
         Try
-            
+
             Me.Hide()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-           
+
         End Try
-         
+
     End Sub
- 
-    
-#End Region
-#Region "Fee Password Reset"
-    Private Sub SetPassword_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-            
-            Me.Dispose()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-          
-        End Try
-         
-    End Sub
+
 
 #End Region
 
@@ -3892,80 +3752,6 @@ Public Class DMUEisGecoTool
 
         End Try
     End Sub
-    'Private Sub UpdateESData()
-    '    Dim ConfirmationNumber As String = txtConfirmationNumber.Text
-    '    Dim ConfirmationNbr As String = txtConfirmationNbr.Text
-    '    Dim dr As OracleDataReader
-    '    Dim ESFacilityName As String = txtESFacilityName.Text
-    '    Dim ESFacilityAddress As String = txtFACILITYADDRESS.Text
-    '    Dim ESFacilityCity As String = txtFACILITYCITY.Text
-    '    Dim ESFacilityState As String = txtFACILITYSTATE.Text
-    '    Dim ESFacilityZip As String = txtFACILITYZIP.Text
-    '    Dim ESFacilityCounty As String = txtCOUNTY.Text
-    '    Dim XCOORDINATE As String = txtXCOORDINATE.Text
-    '    Dim YCOORDINATE As String = txtYCOORDINATE.Text
-    '    Dim HORIZONTALCOLLECTIONCODE As String = txtHORIZONTALCOLLECTIONCODE.Text
-    '    Dim HORIZONTALACCURACYMEASURE As String = txtHORIZONTALACCURACYMEASURE.Text
-    '    Dim HORIZONTALREFERENCECODE As String = txtHORIZONTALREFERENCECODE.Text
-    '    Dim ESPrefix As String = txtESprefix.Text
-    '    Dim ESContactPhoneNo As String = txtPhone.Text
-    '    Dim ESContactFaxNo As String = txtFax.Text
-    '    Dim ESFirstName As String = txtESContactFirstName.Text
-    '    Dim ESLastName As String = txtESContactLastName.Text
-    '    Dim ESCompanyName As String = txtCompany.Text
-    '    Dim ESContactAddress1 As String = txtAddress1.Text
-    '    Dim ESContactAddress2 As String = txtAddress2.Text
-    '    Dim ESContactCity As String = txtCity.Text
-    '    Dim EScontactState As String = txtState.Text
-    '    Dim ESContactZip As String = txtZip.Text
-    '    '  Dim ESContactEmail As String = txtEmail.Text
-    '    Dim VOCEmission As String = txtVOCEmission.Text
-    '    Dim NOXEmission As String = txtNOXEmission.Text
-    '    Dim FirstDateConfimed As String = txtFirstConfirmedDate.Text
-
-    '    Try
-    '        SQL = "update AIRBRANCH.esSchema " & _
-    '        "set STRFACILITYADDRESS = '" & ESFacilityAddress & "', " & _
-    '        "STRFACILITYCITY = '" & ESFacilityCity & "', " & _
-    '        "STRFACILITYSTATE = '" & ESFacilityState & "', " & _
-    '        "STRFACILITYZIP = '" & ESFacilityZip & "', " & _
-    '        "STRCOUNTY = '" & ESFacilityCounty & "', " & _
-    '        "DBLXCOORDINATE = '" & XCOORDINATE & "', " & _
-    '        "DBLYCOORDINATE = '" & YCOORDINATE & "', " & _
-    '        "STRHORIZONTALCOLLECTIONCODE = '" & HORIZONTALCOLLECTIONCODE & "', " & _
-    '        "STRHORIZONTALACCURACYMEASURE = '" & HORIZONTALACCURACYMEASURE & "', " & _
-    '        "STRHORIZONTALREFERENCECODE = '" & HORIZONTALREFERENCECODE & "', " & _
-    '        "STRCONTACTFIRSTNAME = '" & ESFirstName & "', " & _
-    '        "STRCONTACTLASTNAME = '" & ESLastName & "', " & _
-    '        "STRCONTACTPREFIX = '" & ESPrefix & "', " & _
-    '        "STRCONTACTCOMPANY = '" & ESCompanyName & "', " & _
-    '        "STRCONTACTADDRESS1 = '" & ESContactAddress1 & "', " & _
-    '        "STRCONTACTADDRESS2 = '" & ESContactAddress2 & "', " & _
-    '        "STRCONTACTCITY = '" & ESContactCity & "', " & _
-    '        "STRCONTACTSTATE = '" & EScontactState & "', " & _
-    '        "STRCONTACTZIP = '" & ESContactZip & "', " & _
-    '        "STRCONTACTPHONENUMBER = '" & ESContactPhoneNo & "', " & _
-    '        "STRCONTACTFAXNUMBER = '" & ESContactFaxNo & "', " & _
-    '        "STRCONTACTEMAIL = '" & ESContactEmail & "', " & _
-    '        "DBLVOCEMISSION = '" & VOCEmission & "', " & _
-    '        "DBLNOXEMISSION = '" & NOXEmission & "', " & _
-    '        "STRCONFIRMATIONNBR = '" & ESContactZip & "', " & _
-    '        "sTRDATEFIRSTCONFIRM = '" & FirstDateConfimed & "'" & _
-    '        "where strConfirmationNbr = '" & ConfirmationNbr & "' "
-
-    '        cmd = New OracleCommand(SQL, conn)
-    '        If conn.State = ConnectionState.Closed Then
-    '            conn.Open()
-    '        End If
-    '        dr = cmd.ExecuteReader
-    '        dr.Close()
-
-    '    Catch ex As Exception
-    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    Finally
-
-    '    End Try
-    'End Sub
     Private Sub btnSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSave.Click
         Try
             SaveESMailOut()
@@ -3988,16 +3774,6 @@ Public Class DMUEisGecoTool
     Private Sub btnExporttoExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExporttoExcel.Click
         Try
             ExportEStoExcel()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-    Private Sub btnESUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnESUpdate.Click
-        Try
-            'UpdateESData()
-            MsgBox("The info has been updated!")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -6506,10 +6282,6 @@ Public Class DMUEisGecoTool
     End Sub
 #End Region
 
-    Private Sub MmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        OpenDocumentationUrl(Me)
-    End Sub
- 
     Private Sub lblViewEmailData_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewEmailData.LinkClicked
         Try
             LoadUserInfo(txtWebUserEmail.Text)
@@ -8035,7 +7807,7 @@ Public Class DMUEisGecoTool
                 End If
                 dr = cmd.ExecuteReader
                 dr.Read()
-                facilityName = Apb.Facility.SanitizeFacilityNameForDb(dr("STRFACILITYNAME"))
+                facilityName = Apb.Facilities.Facility.SanitizeFacilityNameForDb(dr("STRFACILITYNAME"))
                 facilityLocationCity = dr("STRFACILITYCITY")
                 facilityLocastionZipcode = dr("STRFACILITYZIPCODE")
                 faciltyMailingAddress = dr("STRFACILITYSTREET1")
@@ -8610,148 +8382,6 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    'Private Sub loadcboEISAccessCodes()
-
-    '    Dim SQL As String
-    '    Dim EISAccessCode As String
-    '    cboEISAccessCode.Items.Add("- Select EIS Access Code -")
-
-    '    Try
-    '        SQL = "Select distinct EISLK_EISACCESSCODE.EISACCESSCODE,EISLK_EISACCESSCODE.STRDESC " & _
-    '        "from AIRBRANCH.EISLK_EISACCESSCODE " & _
-    '        "order by EISACCESSCODE desc "
-
-    '        cmd = New OracleCommand(SQL, conn)
-    '        If conn.State = ConnectionState.Closed Then
-    '            conn.Open()
-    '        End If
-
-    '        dr = cmd.ExecuteReader
-    '        While dr.Read
-    '            EISAccessCode = dr("EISACCESSCODE")
-    '            cboEISAccessCode.Items.Add(EISAccessCode)
-    '        End While
-
-    '        cboEISAccessCode.SelectedIndex = 0
-
-    '    Catch ex As Exception
-    '        '  ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    Finally
-
-    '    End Try
-    'End Sub
-
-    'Private Sub loadcboEISAccessCodes()
-    '    Dim dtCode As New DataTable
-    '    Dim dscode As DataSet
-    '    Dim dacode As OracleDataAdapter
-
-
-    '    Dim drDSRow As DataRow
-    '    Dim DrNewRow As DataRow
-    '    Dim SQL As String
-
-    '    cboEISAccessCode.Items.Add("- Select EIS Access Code -")
-
-    '    Try
-    '        SQL = "Select distinct EISLK_EISACCESSCODE.EISACCESSCODE,EISLK_EISACCESSCODE.STRDESC " & _
-    '        "from AIRBRANCH.EISLK_EISACCESSCODE "
-    '        dscode = New DataSet
-    '        dacode = New OracleDataAdapter(SQL, conn)
-    '        If conn.State = ConnectionState.Closed Then
-    '            conn.Open()
-    '        End If
-
-    '        dacode.Fill(dscode, "EISAccessCodes")
-
-    '        dtCode.Columns.Add("EISACCESSCODE", GetType(System.String))
-    '        dtCode.Columns.Add("STRDESC", GetType(System.String))
-    '        DrNewRow = dtCode.NewRow()
-    '        DrNewRow("EISACCESSCODE") = ""
-    '        DrNewRow("STRDESC") = ""
-    '        dtCode.Rows.Add(DrNewRow)
-    '        For Each drDSRow In dscode.Tables("EISAccessCodes").Rows()
-    '            DrNewRow = dtCode.NewRow()
-    '            DrNewROw("EISACCESSCODE") = drDSRow("EISACCESSCODE")
-    '            DrNewROw("strdesc") = drDSRow("strdesc")
-
-    '        Next
-    '        Dim temp As String
-    '        temp = dtCode.Rows.Count
-
-    '        With cboEISAccessCode
-    '            .DataSource = dtCode
-    '            .DisplayMember = "STRDESC"
-    '            .ValueMember = "EISACCESSCODE"
-    '            .SelectedIndex = 0
-    '        End With
-
-    '    Catch ex As Exception
-    '        '  ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    Finally
-
-    '    End Try
-    'End Sub
-
-    Private Sub loadcboEISAccessCodes()
-        Dim dtCode As New DataTable
-        Dim dscode As DataSet
-        Dim dacode As OracleDataAdapter
-
-
-        Dim drDSRow As DataRow
-        Dim DrNewRow As DataRow
-        Dim SQL As String
-
-        Try
-            SQL = "Select distinct EISLK_EISACCESSCODE.EISACCESSCODE,EISLK_EISACCESSCODE.STRDESC " & _
-            "from AIRBRANCH.EISLK_EISACCESSCODE "
-            dscode = New DataSet
-            dacode = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dacode.Fill(dscode, "EISAccessCodes")
-
-            dtCode.Columns.Add("EISACCESSCODE", GetType(System.String))
-            dtCode.Columns.Add("STRDESC", GetType(System.String))
-            DrNewRow = dtCode.NewRow()
-            DrNewRow("EISACCESSCODE") = ""
-            DrNewRow("STRDESC") = "- Select EIS Access Code -"
-            dtCode.Rows.Add(DrNewRow)
-
-            For Each drDSRow In dscode.Tables("EISAccessCodes").Rows()
-                DrNewRow = dtCode.NewRow()
-                DrNewRow("EISACCESSCODE") = drDSRow("EISACCESSCODE")
-                DrNewRow("strdesc") = drDSRow("strdesc")
-                dtCode.Rows.Add(DrNewRow)
-            Next
-            Dim temp As String
-            temp = dtCode.Rows.Count
-
-            With cboEISAccessCode
-                .DataSource = dtCode
-                .DisplayMember = "STRDESC"
-                .ValueMember = "EISACCESSCODE"
-                .SelectedIndex = 0
-            End With
-
-            With cboEILogAccessCode
-                .DataSource = dtCode
-                .DisplayMember = "STRDESC"
-                .ValueMember = "EISACCESSCODE"
-                .SelectedIndex = 0
-            End With
-
-        Catch ex As Exception
-            '  ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-
-
     Private Sub btnEISBulkEnrollment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEISBulkEnrollment.Click
         Try
             If cboEISMailoutEnrollmentYear.Text = "" Then
@@ -8950,9 +8580,6 @@ Public Class DMUEisGecoTool
             cboEISMailoutYear.Items.Clear()
             loadEIMailOutYear()
             cboEISMailoutYear.Text = ""
-
-
-
         Catch ex As Exception
             'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -9251,10 +8878,6 @@ Public Class DMUEisGecoTool
         Finally
 
         End Try
-    End Sub
-
-    Private Sub TabControl1_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TabControl1.SelectedIndexChanged
-
     End Sub
 
     Private Sub lblViewEISmailoutlist_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewEISmailoutlist.LinkClicked
@@ -9574,9 +9197,6 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub btnSaveEISThresholds_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveEISThresholds.Click
-
-    End Sub
     Private Sub btnaddNewEISType_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnaddNewEISType.Click
         Dim EIStype2 As String = txtNewEISType.Text
         Dim EIStypeYear As String = "2010"
@@ -9784,7 +9404,7 @@ Public Class DMUEisGecoTool
                 MsgBox("there is no info available", MsgBoxStyle.Information, "EIS Tools")
             End If
         Catch ex As Exception
-            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -9808,7 +9428,7 @@ Public Class DMUEisGecoTool
 
 
         Catch ex As Exception
-            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -9853,20 +9473,9 @@ Public Class DMUEisGecoTool
 
 
         Catch ex As Exception
-            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    'Sub FormatWebUsers()
-    '    Try
-    '        dgvUsers.RowHeadersVisible = False
-    '        dgvUsers.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-    '        dgvUsers.AllowUserToResizeColumns = True
-    '        dgvUsers.AllowUserToAddRows = False
-    '        dgvUsers.AllowUserToDeleteRows = False
-    '        dgvUsers.AllowUserToOrderColumns = True
-    '        dgvUsers.AllowUserToResizeRows = True
-    '        dgvUsers.ColumnHeadersHeight = "35"
-
 
     Private Sub btnViewFacilitySiteInfo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewFacilitySiteInfo.Click
         Dim FacilitySiteID As String = txtFacilitySiteID.Text
@@ -9877,7 +9486,7 @@ Public Class DMUEisGecoTool
                 viewEISFacilitySiteInfo()
             End If
         Catch ex As Exception
-            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -10013,14 +9622,14 @@ Public Class DMUEisGecoTool
                 MsgBox("there is no info available in Facility Site Address table", MsgBoxStyle.Information, "Facility Sites")
             End If
         Catch ex As Exception
-            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
 
     Private Sub btnSaveFacilitySiteInfo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveFacilitySiteInfo.Click
-        txtEISFacilityName.Text = Apb.Facility.SanitizeFacilityNameForDb(txtEISFacilityName.Text)
+        txtEISFacilityName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(txtEISFacilityName.Text)
         Dim facilityName As String = txtEISFacilityName.Text
         Dim FacilityAddress As String = txtLocalAddress.Text
         Dim facilityCity As String = txtLocalCity.Text
@@ -10102,7 +9711,7 @@ Public Class DMUEisGecoTool
                     If IsDBNull(dr.Item("strFacilityName")) Then
                         lblFaciltyName.Text = " - "
                     Else
-                        lblFaciltyName.Text = Apb.Facility.SanitizeFacilityNameForDb(dr.Item("strFacilityName"))
+                        lblFaciltyName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(dr.Item("strFacilityName"))
                     End If
                 End While
                 dr.Close()
@@ -10551,7 +10160,7 @@ Public Class DMUEisGecoTool
                     cmd.ExecuteNonQuery()
 
                     LoadUserFacilityInfo(txtWebUserEmail.Text)
-                    MsgBox("The facility has beed added to this user", MsgBoxStyle.Information, "Insert Success!")
+                    MsgBox("The facility has been added to this user", MsgBoxStyle.Information, "Insert Success!")
                 Else
                     MsgBox("The facility already exists for this user." & vbCrLf & "NO DATA SAVED", MsgBoxStyle.Exclamation, Me.Text)
                 End If
@@ -10654,6 +10263,10 @@ Public Class DMUEisGecoTool
 #End Region
 
     Private Sub btnReloadFSData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReloadFSData.Click
+        LoadFSData()
+    End Sub
+
+    Private Sub LoadFSData()
         Try
             If cboEILogYear.Text = "" Or cboEILogYear.Text.Length <> 4 Then
                 MsgBox("Please select a valid year from the EIS Year dropdown.", MsgBoxStyle.Exclamation, Me.Text)
@@ -10713,6 +10326,21 @@ Public Class DMUEisGecoTool
                     mtbEIModifyZipCode.Clear()
                 Else
                     mtbEIModifyZipCode.Text = dr.Item("strLocationAddressPostalCode")
+                End If
+                If IsDBNull(dr.Item("STRMAILINGADDRESSTEXT")) Then
+                    txtEIModifyMLocation.Clear()
+                Else
+                    txtEIModifyMLocation.Text = dr.Item("STRMAILINGADDRESSTEXT")
+                End If
+                If IsDBNull(dr.Item("STRMAILINGADDRESSCITYNAME")) Then
+                    txtEIModifyMCity.Clear()
+                Else
+                    txtEIModifyMCity.Text = dr.Item("STRMAILINGADDRESSCITYNAME")
+                End If
+                If IsDBNull(dr.Item("STRMAILINGADDRESSPOSTALCODE")) Then
+                    mtbEIModifyMZipCode.Clear()
+                Else
+                    mtbEIModifyMZipCode.Text = dr.Item("STRMAILINGADDRESSPOSTALCODE")
                 End If
             End While
             dr.Close()
@@ -11139,109 +10767,6 @@ Public Class DMUEisGecoTool
     End Sub
     Sub LoadQASpecificData()
         Try
-            'dtpQAStarted.Text = OracleDate
-            'dtpQAPassed.Text = OracleDate
-            'dtpQAPassed.Checked = False
-            'cboEISQAStatus.Text = ""
-            'cboEISQAStaff.Text = ""
-            'dtpQAStatus.Text = OracleDate
-            'dtpQACompleted.Text = OracleDate
-            'dtpQACompleted.Checked = False
-            'txtQAComments.Clear()
-            'txtFITrackingNumber.Text = ""
-            'txtPointTrackingNumber.Text = ""
-            'chbFIErrors.Checked = False
-            'chbPointErrors.Checked = False
-            'pnlQAProcess.Enabled = False
-
-            'SQL = "Select * " & _
-            '"from AIRBRANCH.EIS_QAAdmin " & _
-            '"where inventoryYear = '" & cboEILogYear.Text & "' " & _
-            '"and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
-            'cmd = New OracleCommand(SQL, conn)
-            'If conn.State = ConnectionState.Closed Then
-            '    conn.Open()
-            'End If
-            'dr = cmd.ExecuteReader
-            'While dr.Read
-            '    If IsDBNull(dr.Item("datDateQAStart")) Then
-            '        dtpQAStarted.Text = OracleDate
-            '    Else
-            '        dtpQAStarted.Text = dr.Item("datDateQAStart")
-            '    End If
-            '    If IsDBNull(dr.Item("datDateQAPass")) Then
-            '        dtpQAPassed.Text = OracleDate
-            '        dtpQAPassed.Checked = False
-            '    Else
-            '        dtpQAPassed.Text = dr.Item("datDateQAPass")
-            '        dtpQAPassed.Checked = True
-            '    End If
-            '    If IsDBNull(dr.Item("QAStatusCode")) Then
-            '        cboEISQAStatus.Text = ""
-            '    Else
-            '        cboEISQAStatus.SelectedValue = dr.Item("QAStatusCode")
-            '    End If
-            '    If IsDBNull(dr.Item("datQAStatus")) Then
-            '        dtpQAStatus.Text = OracleDate
-            '    Else
-            '        dtpQAStatus.Text = dr.Item("datQAStatus")
-            '    End If
-            '    If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-            '        cboEISQAStaff.Text = ""
-            '    Else
-            '        cboEISQAStaff.Text = dr.Item("strDMUResponsibleStaff")
-            '    End If
-            '    If IsDBNull(dr.Item("datQAComplete")) Then
-            '        dtpQACompleted.Text = OracleDate
-            '        dtpQACompleted.Checked = False
-            '    Else
-            '        dtpQACompleted.Text = dr.Item("datQAComplete")
-            '        dtpQACompleted.Checked = True
-            '    End If
-            '    If IsDBNull(dr.Item("strComment")) Then
-            '        txtQAComments.Clear()
-            '    Else
-            '        txtQAComments.Text = dr.Item("strComment")
-            '    End If
-            '    If IsDBNull(dr.Item("strFITrackingNumber")) Then
-            '        txtFITrackingNumber.Text = ""
-            '        txtAllFITrackingNumbers.Clear()
-            '    Else
-            '        txtFITrackingNumber.Text = ""
-            '        txtAllFITrackingNumbers.Text = dr.Item("strFITrackingNumber")
-            '    End If
-            '    If IsDBNull(dr.Item("strPointTrackingNumber")) Then
-            '        txtPointTrackingNumber.Text = ""
-            '        txtAllPointTrackingNumbers.Clear()
-            '    Else
-            '        txtPointTrackingNumber.Text = ""
-            '        txtAllPointTrackingNumbers.Text = dr.Item("strPointTrackingNumber")
-            '    End If
-            '    If IsDBNull(dr.Item("strFIError")) Then
-            '        chbFIErrors.Checked = False
-            '    Else
-            '        If dr.Item("strFIError") = "True" Then
-            '            chbFIErrors.Checked = True
-            '        Else
-            '            chbFIErrors.Checked = False
-            '        End If
-            '    End If
-            '    If IsDBNull(dr.Item("strPointError")) Then
-            '        chbPointErrors.Checked = False
-            '    Else
-            '        If dr.Item("strpointError") = "True" Then
-            '            chbPointErrors.Checked = True
-            '        Else
-            '            chbPointErrors.Checked = False
-            '        End If
-            '    End If
-            'End While
-            'dr.Close()
-
-            'If cboEILogStatusCode.SelectedValue >= 4 Then
-            '    pnlQAProcess.Enabled = True
-            'End If
-
             dtpQAStarted.Text = OracleDate
             dtpQAPassed.Text = OracleDate
             dtpQAPassed.Checked = False
@@ -11372,432 +10897,278 @@ Public Class DMUEisGecoTool
         Try
             Dim CurrentTabPage As TabPage = TCEISStats.SelectedTab
 
-            Select Case CurrentTabPage.Name.ToString
-                Case "TPEISStatSummary"
-                    txtSelectedEISStatYear.Text = cboEISStatisticsYear.Text
+            txtSelectedEISStatYear.Text = cboEISStatisticsYear.Text
 
-                    If txtSelectedEISStatYear.Text.Length <> 4 Then
-                        MsgBox("Please select a valid Year from the dropdown first.", MsgBoxStyle.Exclamation, Me.Text)
-                        Exit Sub
-                    End If
+            If txtSelectedEISStatYear.Text.Length <> 4 Then
+                MsgBox("Please select a valid Year from the dropdown first.", MsgBoxStyle.Exclamation, Me.Text)
+                Exit Sub
+            End If
 
-                    SQL = "select * from " & _
-                     "(select count(*) as EISUniverse " & _
-                     "from AIRbranch.EIS_Admin " & _
-                     "where active = '1' " & _
-                     "and inventoryyear = '" & cboEISStatisticsYear.Text & "'), " & _
-                     "(select count(*) as EISMailout " & _
-                     "from AIRbranch.EIS_Admin " & _
-                     "where active = '1' " & _
-                     "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " & _
-                     "and strMailout = '1' ), " & _
-                     "(select count(*) as EISEnrollment " & _
-                     "from AIRbranch.EIS_Admin " & _
-                     "where active = '1' " & _
-                     "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " & _
-                     "and strEnrollment = '1' ),  " & _
-                     "(select count(*) as EISUNEnrollment " & _
-                     "from AIRbranch.EIS_Admin " & _
-                     "where active = '1' " & _
-                     "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " & _
-                     "and strMailout = '1' " & _
-                     "and (strEnrollment = '0')),   " & _
-                     "(select count(*) as EISNoActivity " & _
-                     "from AIRbranch.EIS_Admin " & _
-                     "where active = '1' " & _
-                     "and inventoryyear = '" & cboEISStatisticsYear.Text & "' " & _
-                     "and strOptOut is null and strEnrollment = '1'), " & _
-                     "(select count(*) as EISOptsIn " & _
-                     "from AIRbranch.EIS_Admin " & _
-                     "where active = '1' " & _
-                     "and inventoryyear = '" & cboEISStatisticsYear.Text & "' " & _
-                     "and strOptOut = '0' and strEnrollment = '1'), " & _
-                     "(select count(*) as EISOptsOut " & _
-                     "from AIRbranch.EIS_Admin " & _
-                     "where active = '1' " & _
-                     "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " & _
-                     "and strMailout = '1' " & _
-                     "and strEnrollment = '1' " & _
-                     "and (strOptOut = '1') and strEnrollment = '1' ), " & _
-                     "(select count(*) as EISSubmittal  " & _
-                     "from AIRbranch.EIS_Admin " & _
-                     "where active = '1' " & _
-                     "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " & _
-                     "and strEnrollment = '1' " & _
-                     "and eisstatuscode >= '3' " & _
-                     "and (strOptOut = '0' )), " & _
-                     "(select count(*) as EISInProgress " & _
-                     "from AIRBranch.EIS_Admin " & _
-                     "where active = '1' " & _
-                     "and inventoryYear = '" & cboEISStatisticsYear.Text & "' " & _
-                     "and strEnrollment = '1' " & _
-                     "and eisStatuscode = '2' and strEnrollment = '1' " & _
-                     "and (strOptOut = '0')), " & _
-                     "(select count(*) as EISQABegan   " & _
-                     "from AIRbranch.EIS_Admin " & _
-                     "where active = '1' " & _
-                     "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " & _
-                     "and strMailout = '1' " & _
-                     "and strEnrollment = '1' " & _
-                     "and EISAccesscode = '2'  " & _
-                     "and eisstatuscode = '4' " & _
-                     "and (strOptOut = '0' )), " & _
-                     "(select count(*) as EISEPASubmitted   " & _
-                     "from AIRbranch.EIS_Admin " & _
-                     "where active = '1' " & _
-                     "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " & _
-                     "and strMailout = '1' " & _
-                     "and strEnrollment = '1' " & _
-                     "and EISAccesscode = '0'  " & _
-                     "and eisstatuscode = '5' " & _
-                     "and (strOptOut = '0' )), " & _
-                     "(select count(*) as EISFinalized " & _
-                     "from AIRbranch.EIS_Admin " & _
-                     "where active = '1' " & _
-                     "and inventoryYear = '" & cboEISStatisticsYear.Text & "' " & _
-                     "and strEnrollment = '1' " & _
-                     "and (EISStatusCode = '3' OR EISStatusCode = '4' OR EISStatusCode = '5')), " & _
-             "( select count(*) as QASubmittedToDo " & _
-             "from AIRbranch.EIS_Admin  " & _
-             "where active = '1'  " & _
-             "and inventoryyear = '" & cboEISStatisticsYear.Text & "'   " & _
-             "and strEnrollment = '1'  " & _
-             "and eisstatuscode >= 3 " & _
-             "and (strOptOut = '0' ) " & _
-             "and  NOT  exists (Select * from AIRBranch.EIS_QAAdmin " & _
-             "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
-             "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID) ), " & _
-             "( select count(*) as QAOptOutToDo " & _
-             "from AIRbranch.EIS_Admin  " & _
-             "where active = '1'  " & _
-             "and inventoryyear = '" & cboEISStatisticsYear.Text & "'   " & _
-             "and strEnrollment = '1'  " & _
-             "and (eisstatuscode = 3 or eisstatuscode = 4) " & _
-             "and (strOptOut = '1' or strOptout is null ) " & _
-             "and  NOT  exists (Select * from AIRBranch.EIS_QAAdmin " & _
-             "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
-             "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID) ), " & _
-             "( select count(*) as QASubmittedBegan   " & _
-             "from AIRbranch.EIS_Admin  " & _
-             "where active = '1'  " & _
-             "and inventoryyear = '" & cboEISStatisticsYear.Text & "'   " & _
-             "and strEnrollment = '1'  " & _
-             "and eisstatuscode >= 3   " & _
-             "and (strOptOut = '0' ) " & _
-             "and    exists (Select * from AIRBranch.EIS_QAAdmin " & _
-             "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
-             "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
-             "and datQAComplete is null ) ), " & _
-             "( select count(*) as QAOptOutBegan   " & _
-             "from AIRbranch.EIS_Admin  " & _
-             "where active = '1'  " & _
-             "and inventoryyear = '" & cboEISStatisticsYear.Text & "'   " & _
-             "and strEnrollment = '1'  " & _
-             "and (eisstatuscode = '3' or eisstatuscode = '4')   " & _
-             "and (strOptOut = '1' or strOptout is null) " & _
-             "and  (not  exists (Select * from AIRBranch.EIS_QAAdmin " & _
-             "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
-             "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
-             "and datQAComplete is null )   " & _
-             "or  exists (Select * from AIRBranch.EIS_QAAdmin " & _
-             "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
-             "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
-             "and datQAComplete is null ))), " & _
-             "( select count(*) as QASubmittedToEPA  " & _
-             "from AIRbranch.EIS_Admin  " & _
-             "where active = '1'  " & _
-             "and inventoryyear = '" & cboEISStatisticsYear.Text & "'   " & _
-             "and strEnrollment = '1'  " & _
+            SQL = "select * from " & _
+             "(select count(*) as EISUniverse " & _
+             "from AIRbranch.EIS_Admin " & _
+             "where active = '1' " & _
+             "and inventoryyear = '" & cboEISStatisticsYear.Text & "'), " & _
+             "(select count(*) as EISMailout " & _
+             "from AIRbranch.EIS_Admin " & _
+             "where active = '1' " & _
+             "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " & _
+             "and strMailout = '1' ), " & _
+             "(select count(*) as EISEnrollment " & _
+             "from AIRbranch.EIS_Admin " & _
+             "where active = '1' " & _
+             "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " & _
+             "and strEnrollment = '1' ),  " & _
+             "(select count(*) as EISUNEnrollment " & _
+             "from AIRbranch.EIS_Admin " & _
+             "where active = '1' " & _
+             "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " & _
+             "and strMailout = '1' " & _
+             "and (strEnrollment = '0')),   " & _
+             "(select count(*) as EISNoActivity " & _
+             "from AIRbranch.EIS_Admin " & _
+             "where active = '1' " & _
+             "and inventoryyear = '" & cboEISStatisticsYear.Text & "' " & _
+             "and strOptOut is null and strEnrollment = '1'), " & _
+             "(select count(*) as EISOptsIn " & _
+             "from AIRbranch.EIS_Admin " & _
+             "where active = '1' " & _
+             "and inventoryyear = '" & cboEISStatisticsYear.Text & "' " & _
+             "and strOptOut = '0' and strEnrollment = '1'), " & _
+             "(select count(*) as EISOptsOut " & _
+             "from AIRbranch.EIS_Admin " & _
+             "where active = '1' " & _
+             "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " & _
+             "and strMailout = '1' " & _
+             "and strEnrollment = '1' " & _
+             "and (strOptOut = '1') and strEnrollment = '1' ), " & _
+             "(select count(*) as EISSubmittal  " & _
+             "from AIRbranch.EIS_Admin " & _
+             "where active = '1' " & _
+             "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " & _
+             "and strEnrollment = '1' " & _
              "and eisstatuscode >= '3' " & _
-             "and (strOptOut = '0' ) " & _
-             "and    exists (Select * from AIRBranch.EIS_QAAdmin " & _
-             "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
-             "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
-              "and datQAComplete is not null ) ),  " & _
-             "( select count(*) as QAOptOutToEPA  " & _
-             "from AIRbranch.EIS_Admin  " & _
-             "where active = '1'  " & _
-             "and inventoryyear = '" & cboEISStatisticsYear.Text & "'   " & _
-             "and strEnrollment = '1'  " & _
-             "and eisstatuscode = '5'  " & _
-             "and (strOptOut = '1' or strOptout is null ) " & _
-             "and  (not  exists (Select * from AIRBranch.EIS_QAAdmin " & _
-             "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
-             "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID) " & _
-             "OR " & _
-             "exists (Select * from AIRBranch.EIS_QAAdmin " & _
-             "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
-             "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
-              "and datQAComplete is not null )" & _
-              " ) ), " & _
-              "(select count(*) as FIPassed " & _
-              "from airbranch.EIS_Admin, AIRBranch.EIS_QAAdmin " & _
-              "where EIS_Admin.InventoryYear = EIS_QAAdmin.inventoryYEar " & _
-              "and EIS_Admin.facilitysiteID = EIS_QAAdmin.facilitysiteID " & _
-              "and eis_qaAdmin.qaStatusCode = '2' " & _
-              "and eis_admin.inventoryyear = '" & cboEISStatisticsYear.Text & "' ) "
+             "and (strOptOut = '0' )), " & _
+             "(select count(*) as EISInProgress " & _
+             "from AIRBranch.EIS_Admin " & _
+             "where active = '1' " & _
+             "and inventoryYear = '" & cboEISStatisticsYear.Text & "' " & _
+             "and strEnrollment = '1' " & _
+             "and eisStatuscode = '2' and strEnrollment = '1' " & _
+             "and (strOptOut = '0')), " & _
+             "(select count(*) as EISQABegan   " & _
+             "from AIRbranch.EIS_Admin " & _
+             "where active = '1' " & _
+             "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " & _
+             "and strMailout = '1' " & _
+             "and strEnrollment = '1' " & _
+             "and EISAccesscode = '2'  " & _
+             "and eisstatuscode = '4' " & _
+             "and (strOptOut = '0' )), " & _
+             "(select count(*) as EISEPASubmitted   " & _
+             "from AIRbranch.EIS_Admin " & _
+             "where active = '1' " & _
+             "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " & _
+             "and strMailout = '1' " & _
+             "and strEnrollment = '1' " & _
+             "and EISAccesscode = '0'  " & _
+             "and eisstatuscode = '5' " & _
+             "and (strOptOut = '0' )), " & _
+             "(select count(*) as EISFinalized " & _
+             "from AIRbranch.EIS_Admin " & _
+             "where active = '1' " & _
+             "and inventoryYear = '" & cboEISStatisticsYear.Text & "' " & _
+             "and strEnrollment = '1' " & _
+             "and (EISStatusCode = '3' OR EISStatusCode = '4' OR EISStatusCode = '5')), " & _
+     "( select count(*) as QASubmittedToDo " & _
+     "from AIRbranch.EIS_Admin  " & _
+     "where active = '1'  " & _
+     "and inventoryyear = '" & cboEISStatisticsYear.Text & "'   " & _
+     "and strEnrollment = '1'  " & _
+     "and eisstatuscode >= 3 " & _
+     "and (strOptOut = '0' ) " & _
+     "and  NOT  exists (Select * from AIRBranch.EIS_QAAdmin " & _
+     "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
+     "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID) ), " & _
+     "( select count(*) as QAOptOutToDo " & _
+     "from AIRbranch.EIS_Admin  " & _
+     "where active = '1'  " & _
+     "and inventoryyear = '" & cboEISStatisticsYear.Text & "'   " & _
+     "and strEnrollment = '1'  " & _
+     "and (eisstatuscode = 3 or eisstatuscode = 4) " & _
+     "and (strOptOut = '1' or strOptout is null ) " & _
+     "and  NOT  exists (Select * from AIRBranch.EIS_QAAdmin " & _
+     "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
+     "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID) ), " & _
+     "( select count(*) as QASubmittedBegan   " & _
+     "from AIRbranch.EIS_Admin  " & _
+     "where active = '1'  " & _
+     "and inventoryyear = '" & cboEISStatisticsYear.Text & "'   " & _
+     "and strEnrollment = '1'  " & _
+     "and eisstatuscode >= 3   " & _
+     "and (strOptOut = '0' ) " & _
+     "and    exists (Select * from AIRBranch.EIS_QAAdmin " & _
+     "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
+     "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
+     "and datQAComplete is null ) ), " & _
+     "( select count(*) as QAOptOutBegan   " & _
+     "from AIRbranch.EIS_Admin  " & _
+     "where active = '1'  " & _
+     "and inventoryyear = '" & cboEISStatisticsYear.Text & "'   " & _
+     "and strEnrollment = '1'  " & _
+     "and (eisstatuscode = '3' or eisstatuscode = '4')   " & _
+     "and (strOptOut = '1' or strOptout is null) " & _
+     "and  (not  exists (Select * from AIRBranch.EIS_QAAdmin " & _
+     "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
+     "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
+     "and datQAComplete is null )   " & _
+     "or  exists (Select * from AIRBranch.EIS_QAAdmin " & _
+     "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
+     "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
+     "and datQAComplete is null ))), " & _
+     "( select count(*) as QASubmittedToEPA  " & _
+     "from AIRbranch.EIS_Admin  " & _
+     "where active = '1'  " & _
+     "and inventoryyear = '" & cboEISStatisticsYear.Text & "'   " & _
+     "and strEnrollment = '1'  " & _
+     "and eisstatuscode >= '3' " & _
+     "and (strOptOut = '0' ) " & _
+     "and    exists (Select * from AIRBranch.EIS_QAAdmin " & _
+     "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
+     "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
+      "and datQAComplete is not null ) ),  " & _
+     "( select count(*) as QAOptOutToEPA  " & _
+     "from AIRbranch.EIS_Admin  " & _
+     "where active = '1'  " & _
+     "and inventoryyear = '" & cboEISStatisticsYear.Text & "'   " & _
+     "and strEnrollment = '1'  " & _
+     "and eisstatuscode = '5'  " & _
+     "and (strOptOut = '1' or strOptout is null ) " & _
+     "and  (not  exists (Select * from AIRBranch.EIS_QAAdmin " & _
+     "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
+     "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID) " & _
+     "OR " & _
+     "exists (Select * from AIRBranch.EIS_QAAdmin " & _
+     "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
+     "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
+      "and datQAComplete is not null )" & _
+      " ) ), " & _
+      "(select count(*) as FIPassed " & _
+      "from airbranch.EIS_Admin, AIRBranch.EIS_QAAdmin " & _
+      "where EIS_Admin.InventoryYear = EIS_QAAdmin.inventoryYEar " & _
+      "and EIS_Admin.facilitysiteID = EIS_QAAdmin.facilitysiteID " & _
+      "and eis_qaAdmin.qaStatusCode = '2' " & _
+      "and eis_admin.inventoryyear = '" & cboEISStatisticsYear.Text & "' ) "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        If IsDBNull(dr.Item("EISUniverse")) Then
-                            txtEISActiveEIUniverse.Clear()
-                        Else
-                            txtEISActiveEIUniverse.Text = dr.Item("EISUniverse")
-                        End If
-                        If IsDBNull(dr.Item("EISMailout")) Then
-                            txtEISMailout.Clear()
-                        Else
-                            txtEISMailout.Text = dr.Item("EISMailout")
-                        End If
-                        If IsDBNull(dr.Item("EISEnrollment")) Then
-                            txtEISEnrolled.Clear()
-                        Else
-                            txtEISEnrolled.Text = dr.Item("EISEnrollment")
-                        End If
-                        If IsDBNull(dr.Item("EISUnenrollment")) Then
-                            txtEISUnenrolled.Clear()
-                        Else
-                            txtEISUnenrolled.Text = dr.Item("EISUnenrollment")
-                        End If
-                        If IsDBNull(dr.Item("EISNoActivity")) Then
-                            txtEISNoActivity.Clear()
-                        Else
-                            txtEISNoActivity.Text = dr.Item("EISNoActivity")
-                        End If
-                        If IsDBNull(dr.Item("EISOptsIn")) Then
-                            txtEISOptedIn.Clear()
-                        Else
-                            txtEISOptedIn.Text = dr.Item("EISOptsIn")
-                        End If
-                        If IsDBNull(dr.Item("EISOptsOut")) Then
-                            txtEISOptedOut.Clear()
-                        Else
-                            txtEISOptedOut.Text = dr.Item("EISOptsOut")
-                        End If
-                        If IsDBNull(dr.Item("EISInProgress")) Then
-                            txtEISInProgress.Clear()
-                        Else
-                            txtEISInProgress.Text = dr.Item("EISInProgress")
-                        End If
-                        If IsDBNull(dr.Item("EISSubmittal")) Then
-                            txtEISSubmitted.Clear()
-                        Else
-                            txtEISSubmitted.Text = dr.Item("EISSubmittal")
-                        End If
-                        If IsDBNull(dr.Item("EISQABegan")) Then
-                            txtEISQABegan.Clear()
-                        Else
-                            txtEISQABegan.Text = dr.Item("EISQABegan")
-                        End If
+            cmd = New OracleCommand(SQL, CurrentConnection)
+            If CurrentConnection.State = ConnectionState.Closed Then
+                CurrentConnection.Open()
+            End If
+            dr = cmd.ExecuteReader
+            While dr.Read
+                If IsDBNull(dr.Item("EISUniverse")) Then
+                    txtEISActiveEIUniverse.Clear()
+                Else
+                    txtEISActiveEIUniverse.Text = dr.Item("EISUniverse")
+                End If
+                If IsDBNull(dr.Item("EISMailout")) Then
+                    txtEISMailout.Clear()
+                Else
+                    txtEISMailout.Text = dr.Item("EISMailout")
+                End If
+                If IsDBNull(dr.Item("EISEnrollment")) Then
+                    txtEISEnrolled.Clear()
+                Else
+                    txtEISEnrolled.Text = dr.Item("EISEnrollment")
+                End If
+                If IsDBNull(dr.Item("EISUnenrollment")) Then
+                    txtEISUnenrolled.Clear()
+                Else
+                    txtEISUnenrolled.Text = dr.Item("EISUnenrollment")
+                End If
+                If IsDBNull(dr.Item("EISNoActivity")) Then
+                    txtEISNoActivity.Clear()
+                Else
+                    txtEISNoActivity.Text = dr.Item("EISNoActivity")
+                End If
+                If IsDBNull(dr.Item("EISOptsIn")) Then
+                    txtEISOptedIn.Clear()
+                Else
+                    txtEISOptedIn.Text = dr.Item("EISOptsIn")
+                End If
+                If IsDBNull(dr.Item("EISOptsOut")) Then
+                    txtEISOptedOut.Clear()
+                Else
+                    txtEISOptedOut.Text = dr.Item("EISOptsOut")
+                End If
+                If IsDBNull(dr.Item("EISInProgress")) Then
+                    txtEISInProgress.Clear()
+                Else
+                    txtEISInProgress.Text = dr.Item("EISInProgress")
+                End If
+                If IsDBNull(dr.Item("EISSubmittal")) Then
+                    txtEISSubmitted.Clear()
+                Else
+                    txtEISSubmitted.Text = dr.Item("EISSubmittal")
+                End If
+                If IsDBNull(dr.Item("EISQABegan")) Then
+                    txtEISQABegan.Clear()
+                Else
+                    txtEISQABegan.Text = dr.Item("EISQABegan")
+                End If
 
-                        If IsDBNull(dr.Item("EISFinalized")) Then
-                            txtEISFinalized.Clear()
-                        Else
-                            txtEISFinalized.Text = dr.Item("EISFinalized")
-                        End If
+                If IsDBNull(dr.Item("EISFinalized")) Then
+                    txtEISFinalized.Clear()
+                Else
+                    txtEISFinalized.Text = dr.Item("EISFinalized")
+                End If
 
-                        If IsDBNull(dr.Item("QASubmittedToDo")) Then
-                            txtEISSubmittedToDo.Clear()
-                        Else
-                            txtEISSubmittedToDo.Text = dr.Item("QASubmittedToDO")
-                        End If
-                        If IsDBNull(dr.Item("QASubmittedBegan")) Then
-                            txtEISSubmittedBegan.Clear()
-                        Else
-                            txtEISSubmittedBegan.Text = dr.Item("QASubmittedBegan")
-                        End If
-                        If IsDBNull(dr.Item("QASubmittedToEPA")) Then
-                            txtEISSubmittedToEPA.Clear()
-                        Else
-                            txtEISSubmittedToEPA.Text = dr.Item("QASubmittedToEPA")
-                        End If
+                If IsDBNull(dr.Item("QASubmittedToDo")) Then
+                    txtEISSubmittedToDo.Clear()
+                Else
+                    txtEISSubmittedToDo.Text = dr.Item("QASubmittedToDO")
+                End If
+                If IsDBNull(dr.Item("QASubmittedBegan")) Then
+                    txtEISSubmittedBegan.Clear()
+                Else
+                    txtEISSubmittedBegan.Text = dr.Item("QASubmittedBegan")
+                End If
+                If IsDBNull(dr.Item("QASubmittedToEPA")) Then
+                    txtEISSubmittedToEPA.Clear()
+                Else
+                    txtEISSubmittedToEPA.Text = dr.Item("QASubmittedToEPA")
+                End If
 
-                        If IsDBNull(dr.Item("QAOptOutToDo")) Then
-                            txtEISOpOutToDo.Clear()
-                        Else
-                            txtEISOpOutToDo.Text = dr.Item("QAOptOutToDo")
-                        End If
-                        If IsDBNull(dr.Item("QAOptOutBegan")) Then
-                            txtEISOpOutBegan.Clear()
-                        Else
-                            txtEISOpOutBegan.Text = dr.Item("QAOptOutBegan")
-                        End If
-                        If IsDBNull(dr.Item("QAOptOutToEPA")) Then
-                            txtEISOpOutToEPA.Clear()
-                        Else
-                            txtEISOpOutToEPA.Text = dr.Item("QAOptOutToEPA")
-                        End If
-                        If IsDBNull(dr.Item("FIPassed")) Then
-                            txtEISFIPassed.Clear()
-                        Else
-                            txtEISFIPassed.Text = dr.Item("FIPassed")
-                        End If
-                    End While
-                    dr.Close()
-                Case "TPEISStatMailout"
-                    txtSelectedEISMailout.Text = cboEISStatisticsYear.Text
-                Case "TPEISEnrollment"
-                    txtEISStatsEnrollmentYear.Text = cboEISStatisticsYear.Text
-
-                    ' If txtEISStatsEnrollmentYear.Text.Length <> 4 Then
-                    '     MsgBox("Please select a valid Year from the dropdown first.", MsgBoxStyle.Exclamation, Me.Text)
-                    '     Exit Sub
-                    ' End If
-
-                    ' Dim dgvRow As New DataGridViewRow
-                    ' dgvEISStats.Rows.Clear()
-                    ' SQL = "select " & _
-                    ' "'False' as ID, " & _
-                    ' " AIRBRANCH.EIS_Admin.facilitysiteid, " & _
-                    '"AIRBRANCH.APBFacilityInformation.strFacilityname, " & _
-                    '"AIRBRANCH.EIS_Admin.inventoryyear, " & _
-                    '"AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
-                    '"AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
-                    '"case " & _
-                    '"when strOptOut = '1' then 'Yes' " & _
-                    '"when strOptOut = '0' then 'No' " & _
-                    '"else '-' " & _
-                    '"End strOptOut, " & _
-                    '"case " & _
-                    '"when strMailout = '1' then 'Yes' " & _
-                    '"else 'No' " & _
-                    '"end strMailout, " & _
-                    '"case " & _
-                    '"when strEnrollment = '1' then 'Yes' " & _
-                    '"when strEnrollment = '0' then 'No' " & _
-                    '"else '-' " & _
-                    '"end strEnrollment, " & _
-                    '"case " & _
-                    '"when strContactEmail is null then '-' " & _
-                    '"else strContactEmail " & _
-                    '"end ContactEmail, " & _
-                    '"case " & _
-                    '"When strContactPrefix is null then '-' " & _
-                    '"else strContactPrefix " & _
-                    '"end strContactPrefix, " & _
-                    '"case " & _
-                    '"when strContactFirstName is null then '-' " & _
-                    '"else strContactFirstName " & _
-                    '"end strContactFirstName, " & _
-                    '"case " & _
-                    '"When strContactLastName is null then '-' " & _
-                    '"else strContactLastName " & _
-                    '"end strContactLastName, " & _
-                    '"case " & _
-                    '"when strDMUResponsibleStaff is null then '-' " & _
-                    '"else strDMUResponsibleStaff " & _
-                    '"end strDMUResponsibleStaff " & _
-                    '"from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
-                    '"airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-                    '"AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin " & _
-                    '"where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
-                    '"and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
-                    '"and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
-                    '"and AIRBranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_QAAdmin.FacilitySiteID (+) " & _
-                    '"and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
-                    '"and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
-                    '"and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
-                    '"and AIRBranch.EIS_Admin.Active = '1' " & _
-                    '"and AIRbranch.EIS_Admin.inventoryyear = '" & txtEISStatsEnrollmentYear.Text & "'"
-
-                    ' dgvEISStats.Rows.Clear()
-                    ' ds = New DataSet
-
-                    ' cmd = New OracleCommand(SQL, conn)
-                    ' If conn.State = ConnectionState.Closed Then
-                    '     conn.Open()
-                    ' End If
-                    ' dr = cmd.ExecuteReader
-                    ' While dr.Read
-                    '     dgvRow = New DataGridViewRow
-                    '     dgvRow.CreateCells(dgvEISStats)
-                    '     If IsDBNull(dr.Item("ID")) Then
-                    '         dgvRow.Cells(0).Value = ""
-                    '     Else
-                    '         dgvRow.Cells(0).Value = dr.Item("ID")
-                    '     End If
-
-                    '     If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    '         dgvRow.Cells(1).Value = ""
-                    '     Else
-                    '         dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                    '     End If
-                    '     If IsDBNull(dr.Item("strFacilityName")) Then
-                    '         dgvRow.Cells(2).Value = ""
-                    '     Else
-                    '         dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                    '     End If
-                    '     If IsDBNull(dr.Item("InventoryYear")) Then
-                    '         dgvRow.Cells(3).Value = ""
-                    '     Else
-                    '         dgvRow.Cells(3).Value = dr.Item("InventoryYear")
-                    '     End If
-                    '     If IsDBNull(dr.Item("EISStatus")) Then
-                    '         dgvRow.Cells(4).Value = ""
-                    '     Else
-                    '         dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                    '     End If
-                    '     If IsDBNull(dr.Item("EISAccess")) Then
-                    '         dgvRow.Cells(5).Value = ""
-                    '     Else
-                    '         dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                    '     End If
-                    '     If IsDBNull(dr.Item("strOptOut")) Then
-                    '         dgvRow.Cells(6).Value = ""
-                    '     Else
-                    '         dgvRow.Cells(6).Value = dr.Item("strOptOut")
-                    '     End If
-
-                    '     If IsDBNull(dr.Item("strMailout")) Then
-                    '         dgvRow.Cells(7).Value = ""
-                    '     Else
-                    '         dgvRow.Cells(7).Value = dr.Item("strMailout")
-                    '     End If
-                    '     If IsDBNull(dr.Item("ContactEmail")) Then
-                    '         dgvRow.Cells(8).Value = ""
-                    '     Else
-                    '         dgvRow.Cells(8).Value = dr.Item("ContactEmail")
-                    '     End If
-                    '     If IsDBNull(dr.Item("strContactPrefix")) Then
-                    '         dgvRow.Cells(9).Value = ""
-                    '     Else
-                    '         dgvRow.Cells(9).Value = dr.Item("strContactPrefix")
-                    '     End If
-                    '     If IsDBNull(dr.Item("strContactFirstName")) Then
-                    '         dgvRow.Cells(10).Value = ""
-                    '     Else
-                    '         dgvRow.Cells(10).Value = dr.Item("strContactFirstName")
-                    '     End If
-                    '     If IsDBNull(dr.Item("strContactLastName")) Then
-                    '         dgvRow.Cells(11).Value = ""
-                    '     Else
-                    '         dgvRow.Cells(11).Value = dr.Item("strContactLastName")
-                    '     End If
-                    '     If IsDBNull(dr.Item("strEnrollment")) Then
-                    '         dgvRow.Cells(13).Value = ""
-                    '     Else
-                    '         dgvRow.Cells(13).Value = dr.Item("strEnrollment")
-                    '     End If
-
-
-                    '     dgvEISStats.Rows.Add(dgvRow)
-                    ' End While
-                    ' dr.Close()
-
-                    ' txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-
-            End Select
+                If IsDBNull(dr.Item("QAOptOutToDo")) Then
+                    txtEISOpOutToDo.Clear()
+                Else
+                    txtEISOpOutToDo.Text = dr.Item("QAOptOutToDo")
+                End If
+                If IsDBNull(dr.Item("QAOptOutBegan")) Then
+                    txtEISOpOutBegan.Clear()
+                Else
+                    txtEISOpOutBegan.Text = dr.Item("QAOptOutBegan")
+                End If
+                If IsDBNull(dr.Item("QAOptOutToEPA")) Then
+                    txtEISOpOutToEPA.Clear()
+                Else
+                    txtEISOpOutToEPA.Text = dr.Item("QAOptOutToEPA")
+                End If
+                If IsDBNull(dr.Item("FIPassed")) Then
+                    txtEISFIPassed.Clear()
+                Else
+                    txtEISFIPassed.Text = dr.Item("FIPassed")
+                End If
+            End While
+            dr.Close()
+            txtSelectedEISMailout.Text = cboEISStatisticsYear.Text
+            txtEISStatsEnrollmentYear.Text = cboEISStatisticsYear.Text
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-  
     Private Sub llbEISEIUniverse_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISEIUniverse.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
@@ -11807,179 +11178,6 @@ Public Class DMUEisGecoTool
 
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "Active EIS Universe Count"
-
-            Exit Sub
-
-            'Dim dgvRow As New DataGridViewRow
-
-            SQL = "select distinct " & _
-            "'False' as ID, " & _
-            " AIRBRANCH.EIS_Admin.facilitysiteid, " & _
-           "AIRBRANCH.APBFacilityInformation.strFacilityname, " & _
-           "AIRBRANCH.EIS_Admin.inventoryyear, " & _
-           "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
-           "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
-           "case " & _
-           "when strOptOut = '1' then 'Yes' " & _
-           "when strOptOut = '0' then 'No' " & _
-           "else '' " & _
-           "End strOptOut, " & _
-           "case " & _
-           "when strMailout = '1' then 'Yes' " & _
-           "else 'No' " & _
-           "end strMailout, " & _
-           "case " & _
-           "when EIS_Mailout.strContactEmail is null then '-' " & _
-           "else EIS_Mailout.strContactEmail " & _
-           "end ContactEmail, " & _
-             "case " & _
-                   "When EIS_Mailout.strContactPrefix is null then '-' " & _
-                   "else EIS_Mailout.strContactPrefix " & _
-                   "end strContactPrefix, " & _
-                   "case " & _
-                   "when EIS_Mailout.strContactFirstName is null then '-' " & _
-                   "else EIS_Mailout.strContactFirstName " & _
-                   "end strContactFirstName, " & _
-                   "case " & _
-                   "When EIS_Mailout.strContactLastName is null then '-' " & _
-                   "else EIS_Mailout.strContactLastName " & _
-                   "end strContactLastName, " & _
-            "case " & _
-            "when strDMUResponsibleStaff is null then '-' " & _
-            "else strDMUResponsibleStaff " & _
-            "end strDMUResponsibleStaff, " & _
-            "case when APBContactInformation.strContactEmail is null and strKey = '41' then '-' " & _
-                  "else APBContactInformation.strContactEmail  end IAIPContactEmail, " & _
-            "case When APBContactInformation.strContactPrefix is null and strKey = '41' then '-' " & _
-                  "else APBContactInformation.strContactPrefix   end IAIPContactPrefix, " & _
-            "case when APBContactInformation.strContactFirstName is null and strKey = '41' " & _
-                "then '-' else APBContactInformation.strContactFirstName  end IAIPContactFirstName, " & _
-            "case When APBContactInformation.strContactLastName is null and strKey = '41' " & _
-                "then '-' else APBContactInformation.strContactLastName  end IAIPContactLastName " & _
-           "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
-           "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin,  " & _
-           "airbranch.APBContactInformation " & _
-           "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
-           "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode (+) " & _
-           "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode (+) " & _
-           "and AIRBranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_QAAdmin.FacilitySiteID (+) " & _
-            "and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
-           "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
-           "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear  (+) " & _
-           "and  '0413'||AIRBranch.EIS_Admin.FacilitySiteID||'41' =  airbranch.APBContactInformation.strContactkey (+) " & _
-            "and AIRBranch.EIS_Admin.Active = '1' " & _
-            "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
- "order by AIRBRANCH.EIS_Admin.facilitysiteid "
-
-            dgvEISStats.Rows.Clear()
-            ds = New DataSet
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEISStats)
-                If IsDBNull(dr.Item("ID")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("ID")
-                End If
-
-                If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("InventoryYear")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = dr.Item("InventoryYear")
-                End If
-                If IsDBNull(dr.Item("EISStatus")) Then
-                    dgvRow.Cells(4).Value = ""
-                Else
-                    dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                End If
-                If IsDBNull(dr.Item("EISAccess")) Then
-                    dgvRow.Cells(5).Value = ""
-                Else
-                    dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                End If
-
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    dgvRow.Cells(6).Value = ""
-                Else
-                    dgvRow.Cells(6).Value = dr.Item("strOptOut")
-                End If
-                If IsDBNull(dr.Item("strMailout")) Then
-                    dgvRow.Cells(7).Value = ""
-                Else
-                    dgvRow.Cells(7).Value = dr.Item("strMailout")
-                End If
-                If IsDBNull(dr.Item("ContactEmail")) Then
-                    dgvRow.Cells(8).Value = ""
-                Else
-                    dgvRow.Cells(8).Value = dr.Item("ContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    dgvRow.Cells(9).Value = ""
-                Else
-                    dgvRow.Cells(9).Value = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    dgvRow.Cells(10).Value = ""
-                Else
-                    dgvRow.Cells(10).Value = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    dgvRow.Cells(11).Value = ""
-                Else
-                    dgvRow.Cells(11).Value = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-                    dgvRow.Cells(12).Value = ""
-                Else
-                    dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
-                End If
-
-                If IsDBNull(dr.Item("IAIPContactPrefix")) Then
-                    dgvRow.Cells(16).Value = ""
-                Else
-                    dgvRow.Cells(16).Value = dr.Item("IAIPContactPrefix")
-                End If
-                If IsDBNull(dr.Item("IAIPContactFirstname")) Then
-                    dgvRow.Cells(17).Value = ""
-                Else
-                    dgvRow.Cells(17).Value = dr.Item("IAIPContactFirstname")
-                End If
-                If IsDBNull(dr.Item("IAIPContactLastName")) Then
-                    dgvRow.Cells(18).Value = ""
-                Else
-                    dgvRow.Cells(18).Value = dr.Item("IAIPContactLastName")
-                End If
-                If IsDBNull(dr.Item("IAIPContactEmail")) Then
-                    dgvRow.Cells(19).Value = ""
-                Else
-                    dgvRow.Cells(19).Value = dr.Item("IAIPContactEmail")
-                End If
-
-                dgvEISStats.Rows.Add(dgvRow)
-            End While
-            dr.Close()
-
-
-            txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "Active EIS Universe Count"
-
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -11996,177 +11194,6 @@ Public Class DMUEisGecoTool
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "Mailout Total Count"
 
-
-
-            Exit Sub
-
-
-            'Dim dgvRow As New DataGridViewRow
-
-            SQL = "select distinct " & _
-            "'False' as ID, " & _
-            " AIRBRANCH.EIS_Admin.facilitysiteid, " & _
-           "AIRBRANCH.APBFacilityInformation.strFacilityname, " & _
-           "AIRBRANCH.EIS_Admin.inventoryyear, " & _
-           "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
-           "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
-           "case " & _
-           "when strOptOut = '1' then 'Yes' " & _
-           "when strOptOut = '0' then 'No' " & _
-           "else '' " & _
-           "End strOptOut, " & _
-           "case " & _
-           "when strMailout = '1' then 'Yes' " & _
-           "else 'No' " & _
-           "end strMailout, " & _
-           "case " & _
-           "when EIS_Mailout.strContactEmail is null then '-' " & _
-           "else EIS_Mailout.strContactEmail " & _
-           "end ContactEmail, " & _
-             "case " & _
-                   "When EIS_Mailout.strContactPrefix is null then '-' " & _
-                   "else EIS_Mailout.strContactPrefix " & _
-                   "end strContactPrefix, " & _
-                   "case " & _
-                   "when EIS_Mailout.strContactFirstName is null then '-' " & _
-                   "else EIS_Mailout.strContactFirstName " & _
-                   "end strContactFirstName, " & _
-                   "case " & _
-                   "When EIS_Mailout.strContactLastName is null then '-' " & _
-                   "else EIS_Mailout.strContactLastName " & _
-                   "end strContactLastName, " & _
-           "case " & _
-          "when strDMUResponsibleStaff is null then '-' " & _
-           "else strDMUResponsibleStaff " & _
-            "end strDMUResponsibleStaff, " & _
-            "case when AIRBranch.APBContactInformation.strContactEmail is null and strKey = '41' then '-' else AIRBranch.APBContactInformation.strContactEmail  end IAIPContactEmail, " & _
-"case When AIRBranch.APBContactInformation.strContactPrefix is null and strKey = '41' then '-' else AIRBranch.APBContactInformation.strContactPrefix   end IAIPContactPrefix, " & _
-"case when AIRBranch.APBContactInformation.strContactFirstName is null and strKey = '41' then '-' else AIRBranch.APBContactInformation.strContactFirstName  end IAIPContactFirstName, " & _
-"case When AIRBranch.APBContactInformation.strContactLastName is null and strKey = '41' then '-' else AIRBranch.APBContactInformation.strContactLastName   end IAIPContactLastName " & _
-           "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
-           "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin,  " & _
-           "AIRBranch.APBContactInformation " & _
-           "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
-           "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
-           "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
-           "and AIRBranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_QAAdmin.FacilitySiteID (+) " & _
-"and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
-           "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
-               "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
-               "and  '0413'||AIRBranch.EIS_Admin.FacilitySiteID||'41' =  airbranch.APBContactInformation.strContactkey (+) " & _
-            "and AIRBranch.EIS_Admin.Active = '1' " & _
-           "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
-           "and strMailout = '1' " & _
- "order by AIRBRANCH.EIS_Admin.facilitysiteid "
-
-            dgvEISStats.Rows.Clear()
-            ds = New DataSet
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEISStats)
-                If IsDBNull(dr.Item("ID")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("ID")
-                End If
-
-                If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("InventoryYear")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = dr.Item("InventoryYear")
-                End If
-                If IsDBNull(dr.Item("EISStatus")) Then
-                    dgvRow.Cells(4).Value = ""
-                Else
-                    dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                End If
-                If IsDBNull(dr.Item("EISAccess")) Then
-                    dgvRow.Cells(5).Value = ""
-                Else
-                    dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                End If
-
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    dgvRow.Cells(6).Value = ""
-                Else
-                    dgvRow.Cells(6).Value = dr.Item("strOptOut")
-                End If
-                If IsDBNull(dr.Item("strMailout")) Then
-                    dgvRow.Cells(7).Value = ""
-                Else
-                    dgvRow.Cells(7).Value = dr.Item("strMailout")
-                End If
-
-
-                If IsDBNull(dr.Item("ContactEmail")) Then
-                    dgvRow.Cells(8).Value = ""
-                Else
-                    dgvRow.Cells(8).Value = dr.Item("ContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    dgvRow.Cells(9).Value = ""
-                Else
-                    dgvRow.Cells(9).Value = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    dgvRow.Cells(10).Value = ""
-                Else
-                    dgvRow.Cells(10).Value = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    dgvRow.Cells(11).Value = ""
-                Else
-                    dgvRow.Cells(11).Value = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-                    dgvRow.Cells(12).Value = ""
-                Else
-                    dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
-                End If
-                If IsDBNull(dr.Item("IAIPContactPrefix")) Then
-                    dgvRow.Cells(16).Value = ""
-                Else
-                    dgvRow.Cells(16).Value = dr.Item("IAIPContactPrefix")
-                End If
-                If IsDBNull(dr.Item("IAIPContactFirstname")) Then
-                    dgvRow.Cells(17).Value = ""
-                Else
-                    dgvRow.Cells(17).Value = dr.Item("IAIPContactFirstname")
-                End If
-                If IsDBNull(dr.Item("IAIPContactLastName")) Then
-                    dgvRow.Cells(18).Value = ""
-                Else
-                    dgvRow.Cells(18).Value = dr.Item("IAIPContactLastName")
-                End If
-                If IsDBNull(dr.Item("IAIPContactEmail")) Then
-                    dgvRow.Cells(19).Value = ""
-                Else
-                    dgvRow.Cells(19).Value = dr.Item("IAIPContactEmail")
-                End If
-
-                dgvEISStats.Rows.Add(dgvRow)
-            End While
-            dr.Close()
-
-            txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "Mailout Total Count"
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -12179,146 +11206,6 @@ Public Class DMUEisGecoTool
             End If
 
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "", "", "", "")
-
-            txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "Enrolled Count"
-
-            Exit Sub
-
-           
-            'Dim dgvRow As New DataGridViewRow
-
-            SQL = "select distinct " & _
-       "'False' as ID, " & _
-       " AIRBRANCH.EIS_Admin.facilitysiteid, " & _
-      "AIRBRANCH.APBFacilityInformation.strFacilityname, " & _
-      "AIRBRANCH.EIS_Admin.inventoryyear, " & _
-      "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
-      "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
-      "case " & _
-      "when strOptOut = '1' then 'Yes' " & _
-      "when strOptOut = '0' then 'No' " & _
-      "else '' " & _
-      "End strOptOut, " & _
-      "case " & _
-      "when strMailout = '1' then 'Yes' " & _
-      "else 'No' " & _
-      "end strMailout, " & _
-      "case " & _
-      "when strContactEmail is null then '-' " & _
-      "else strContactEmail " & _
-      "end ContactEmail, " & _
-        "case " & _
-                   "When strContactPrefix is null then '-' " & _
-                   "else strContactPrefix " & _
-                   "end strContactPrefix, " & _
-                   "case " & _
-                   "when strContactFirstName is null then '-' " & _
-                   "else strContactFirstName " & _
-                   "end strContactFirstName, " & _
-                   "case " & _
-                   "When strContactLastName is null then '-' " & _
-                   "else strContactLastName " & _
-                   "end strContactLastName, " & _
-      "case " & _
-        "when strDMUResponsibleStaff is null then '-' " & _
-        "else strDMUResponsibleStaff " & _
-        "end strDMUResponsibleStaff  " & _
-      "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
-      "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-      "AIRbranch.EIS_Mailout, AIRBranch.EIS_QAAdmin " & _
-      "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
-      "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
-      "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
-      "and AIRBranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_QAAdmin.FacilitySiteID (+) " & _
-"and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
-      "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
-        "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
-       "and AIRBranch.EIS_Admin.Active = '1' " & _
-      "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
-             "and strEnrollment = '1' " & _
- "order by AIRBRANCH.EIS_Admin.facilitysiteid "
-
-            dgvEISStats.Rows.Clear()
-            ds = New DataSet
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEISStats)
-                If IsDBNull(dr.Item("ID")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("ID")
-                End If
-
-                If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("InventoryYear")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = dr.Item("InventoryYear")
-                End If
-                If IsDBNull(dr.Item("EISStatus")) Then
-                    dgvRow.Cells(4).Value = ""
-                Else
-                    dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                End If
-                If IsDBNull(dr.Item("EISAccess")) Then
-                    dgvRow.Cells(5).Value = ""
-                Else
-                    dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                End If
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    dgvRow.Cells(6).Value = ""
-                Else
-                    dgvRow.Cells(6).Value = dr.Item("strOptOut")
-                End If
-                If IsDBNull(dr.Item("strMailout")) Then
-                    dgvRow.Cells(7).Value = ""
-                Else
-                    dgvRow.Cells(7).Value = dr.Item("strMailout")
-                End If
-                If IsDBNull(dr.Item("ContactEmail")) Then
-                    dgvRow.Cells(8).Value = ""
-                Else
-                    dgvRow.Cells(8).Value = dr.Item("ContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    dgvRow.Cells(9).Value = ""
-                Else
-                    dgvRow.Cells(9).Value = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    dgvRow.Cells(10).Value = ""
-                Else
-                    dgvRow.Cells(10).Value = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    dgvRow.Cells(11).Value = ""
-                Else
-                    dgvRow.Cells(11).Value = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-                    dgvRow.Cells(12).Value = ""
-                Else
-                    dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
-                End If
-                dgvEISStats.Rows.Add(dgvRow)
-            End While
-            dr.Close()
 
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "Enrolled Count"
@@ -12337,153 +11224,8 @@ Public Class DMUEisGecoTool
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "No Activity Count"
 
-            Exit Sub
-
-            'Dim dgvRow As New DataGridViewRow
-
-            SQL = "select distinct " & _
-        "'False' as ID, " & _
-        " AIRBRANCH.EIS_Admin.facilitysiteid, " & _
-              "AIRBRANCH.APBFacilityInformation.strFacilityname, " & _
-              "AIRBRANCH.EIS_Admin.inventoryyear, " & _
-              "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
-              "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
-              "case " & _
-              "when strOptOut = '1' then 'Yes' " & _
-              "when strOptOut = '0' then 'No' " & _
-              "else '' " & _
-              "End strOptOut, " & _
-              "case " & _
-              "when strMailout = '1' then 'Yes' " & _
-              "else 'No' " & _
-              "end strMailout, " & _
-              "case " & _
-              "when strContactEmail is null then '-' " & _
-              "else strContactEmail " & _
-              "end ContactEmail, " & _
-                "case " & _
-                   "When strContactPrefix is null then '-' " & _
-                   "else strContactPrefix " & _
-                   "end strContactPrefix, " & _
-                   "case " & _
-                   "when strContactFirstName is null then '-' " & _
-                   "else strContactFirstName " & _
-                   "end strContactFirstName, " & _
-                   "case " & _
-                   "When strContactLastName is null then '-' " & _
-                   "else strContactLastName " & _
-                   "end strContactLastName, " & _
-              "case " & _
-"when strDMUResponsibleStaff is null then '-' " & _
-"else strDMUResponsibleStaff " & _
-"end strDMUResponsibleStaff  " & _
-              "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
-              "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-              "AIRbranch.EIS_Mailout, AIRBranch.EIS_QAAdmin " & _
-              "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
-              "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
-              "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
-              "and AIRBranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_QAAdmin.FacilitySiteID (+) " & _
-                 "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
-"and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
-              "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
-              "" & _
-              "and AIRBranch.EIS_Admin.Active = '1' " & _
-              "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
-              "and strOptOut is null " & _
-               "and strEnrollment = '1' " & _
- "order by AIRBRANCH.EIS_Admin.facilitysiteid "
-
-
-            dgvEISStats.Rows.Clear()
-            ds = New DataSet
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEISStats)
-                If IsDBNull(dr.Item("ID")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("ID")
-                End If
-
-                If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("InventoryYear")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = dr.Item("InventoryYear")
-                End If
-                If IsDBNull(dr.Item("EISStatus")) Then
-                    dgvRow.Cells(4).Value = ""
-                Else
-                    dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                End If
-                If IsDBNull(dr.Item("EISAccess")) Then
-                    dgvRow.Cells(5).Value = ""
-                Else
-                    dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                End If
-
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    dgvRow.Cells(6).Value = ""
-                Else
-                    dgvRow.Cells(6).Value = dr.Item("strOptOut")
-                End If
-                If IsDBNull(dr.Item("strMailout")) Then
-                    dgvRow.Cells(7).Value = ""
-                Else
-                    dgvRow.Cells(7).Value = dr.Item("strMailout")
-                End If
-
-
-                If IsDBNull(dr.Item("ContactEmail")) Then
-                    dgvRow.Cells(8).Value = ""
-                Else
-                    dgvRow.Cells(8).Value = dr.Item("ContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    dgvRow.Cells(9).Value = ""
-                Else
-                    dgvRow.Cells(9).Value = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    dgvRow.Cells(10).Value = ""
-                Else
-                    dgvRow.Cells(10).Value = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    dgvRow.Cells(11).Value = ""
-                Else
-                    dgvRow.Cells(11).Value = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-                    dgvRow.Cells(12).Value = ""
-                Else
-                    dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
-                End If
-                dgvEISStats.Rows.Add(dgvRow)
-            End While
-            dr.Close()
-
-            txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "No Activity Count"
-
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub llbEISUnenrolled_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISUnenrolled.LinkClicked
@@ -12494,152 +11236,6 @@ Public Class DMUEisGecoTool
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "0", "1", "", "", "", "")
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "Unenrolled Count"
-
-
-            Exit Sub
-
-            'Dim dgvRow As New DataGridViewRow
-
-            SQL = "select distinct " & _
-             "'False' as ID, " & _
-             " AIRBRANCH.EIS_Admin.facilitysiteid, " & _
-            "AIRBRANCH.APBFacilityInformation.strFacilityname, " & _
-            "AIRBRANCH.EIS_Admin.inventoryyear, " & _
-            "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
-            "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
-            "case " & _
-            "when strOptOut = '1' then 'Yes' " & _
-            "when strOptOut = '0' then 'No' " & _
-            "else '' " & _
-            "End strOptOut, " & _
-            "case " & _
-            "when strMailout = '1' then 'Yes' " & _
-            "else 'No' " & _
-            "end strMailout, " & _
-            "case " & _
-            "when strContactEmail is null then '-' " & _
-            "else strContactEmail " & _
-            "end ContactEmail, " & _
-              "case " & _
-                   "When strContactPrefix is null then '-' " & _
-                   "else strContactPrefix " & _
-                   "end strContactPrefix, " & _
-                   "case " & _
-                   "when strContactFirstName is null then '-' " & _
-                   "else strContactFirstName " & _
-                   "end strContactFirstName, " & _
-                   "case " & _
-                   "When strContactLastName is null then '-' " & _
-                   "else strContactLastName " & _
-                   "end strContactLastName, " & _
-            "case " & _
-            "when strDMUResponsibleStaff is null then '-' " & _
-            "else strDMUResponsibleStaff " & _
-            "end strDMUResponsibleStaff  " & _
-            "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
-            "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-            "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin " & _
-            "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
-            "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
-            "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
-            "and AIRBranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_QAAdmin.FacilitySiteID (+) " & _
-"and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
-            "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
-              "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
-             "and AIRBranch.EIS_Admin.Active = '1' " & _
-            "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
-              "and strMailout = '1' " & _
-              "and (strEnrollment = '0') " & _
- "order by AIRBRANCH.EIS_Admin.facilitysiteid "
-
-            dgvEISStats.Rows.Clear()
-            ds = New DataSet
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEISStats)
-                If IsDBNull(dr.Item("ID")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("ID")
-                End If
-
-                If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("InventoryYear")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = dr.Item("InventoryYear")
-                End If
-                If IsDBNull(dr.Item("EISStatus")) Then
-                    dgvRow.Cells(4).Value = ""
-                Else
-                    dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                End If
-                If IsDBNull(dr.Item("EISAccess")) Then
-                    dgvRow.Cells(5).Value = ""
-                Else
-                    dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                End If
-
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    dgvRow.Cells(6).Value = ""
-                Else
-                    dgvRow.Cells(6).Value = dr.Item("strOptOut")
-                End If
-                If IsDBNull(dr.Item("strMailout")) Then
-                    dgvRow.Cells(7).Value = ""
-                Else
-                    dgvRow.Cells(7).Value = dr.Item("strMailout")
-                End If
-
-
-                If IsDBNull(dr.Item("ContactEmail")) Then
-                    dgvRow.Cells(8).Value = ""
-                Else
-                    dgvRow.Cells(8).Value = dr.Item("ContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    dgvRow.Cells(9).Value = ""
-                Else
-                    dgvRow.Cells(9).Value = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    dgvRow.Cells(10).Value = ""
-                Else
-                    dgvRow.Cells(10).Value = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    dgvRow.Cells(11).Value = ""
-                Else
-                    dgvRow.Cells(11).Value = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-                    dgvRow.Cells(12).Value = ""
-                Else
-                    dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
-                End If
-                dgvEISStats.Rows.Add(dgvRow)
-            End While
-            dr.Close()
-
-
-            txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "Unenrolled Count"
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -12654,156 +11250,6 @@ Public Class DMUEisGecoTool
 
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "In Progress Count"
-
-            Exit Sub
-
-
-
-
-
-            'Dim dgvRow As New DataGridViewRow
-
-            SQL = "select distinct " & _
-       "'False' as ID, " & _
-       " AIRBRANCH.EIS_Admin.facilitysiteid, " & _
-       "AIRBRANCH.APBFacilityInformation.strFacilityname, " & _
-        "AIRBRANCH.EIS_Admin.inventoryyear, " & _
-        "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
-        "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
-        "case " & _
-        "when strOptOut = '1' then 'Yes' " & _
-        "when strOptOut = '0' then 'No' " & _
-        "else '' " & _
-        "End strOptOut, " & _
-        "case " & _
-        "when strMailout = '1' then 'Yes' " & _
-        "else 'No' " & _
-        "end strMailout, " & _
-        "case " & _
-        "when strContactEmail is null then '-' " & _
-        "else strContactEmail " & _
-        "end ContactEmail, " & _
-          "case " & _
-                   "When strContactPrefix is null then '-' " & _
-                   "else strContactPrefix " & _
-                   "end strContactPrefix, " & _
-                   "case " & _
-                   "when strContactFirstName is null then '-' " & _
-                   "else strContactFirstName " & _
-                   "end strContactFirstName, " & _
-                   "case " & _
-                   "When strContactLastName is null then '-' " & _
-                   "else strContactLastName " & _
-                   "end strContactLastName, " & _
-        "case " & _
-        "when strDMUResponsibleStaff is null then '-' " & _
-        "else strDMUResponsibleStaff " & _
-        "end strDMUResponsibleStaff  " & _
-        "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
-        "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-        "AIRbranch.EIS_Mailout, AIRBranch.EIS_QAAdmin " & _
-        "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
-             "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
-             "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
-             "and AIRBranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_QAAdmin.FacilitySiteID (+) " & _
-"and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
-                 "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
-                    "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
-             "and AIRBranch.EIS_Admin.Active = '1' " & _
-             "and airbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
-             "and airbranch.EIS_Admin.strEnrollment = '1' " & _
-             "and airbranch.EIS_Admin.eisStatuscode = '2' " & _
-             "and (strOptOut = '0' )" & _
-              "and strEnrollment = '1' " & _
- "order by AIRBRANCH.EIS_Admin.facilitysiteid "
-
-
-
-            dgvEISStats.Rows.Clear()
-            ds = New DataSet
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEISStats)
-                If IsDBNull(dr.Item("ID")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("ID")
-                End If
-
-                If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("InventoryYear")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = dr.Item("InventoryYear")
-                End If
-                If IsDBNull(dr.Item("EISStatus")) Then
-                    dgvRow.Cells(4).Value = ""
-                Else
-                    dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                End If
-                If IsDBNull(dr.Item("EISAccess")) Then
-                    dgvRow.Cells(5).Value = ""
-                Else
-                    dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                End If
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    dgvRow.Cells(6).Value = ""
-                Else
-                    dgvRow.Cells(6).Value = dr.Item("strOptOut")
-                End If
-                If IsDBNull(dr.Item("strMailout")) Then
-                    dgvRow.Cells(7).Value = ""
-                Else
-                    dgvRow.Cells(7).Value = dr.Item("strMailout")
-                End If
-                If IsDBNull(dr.Item("ContactEmail")) Then
-                    dgvRow.Cells(8).Value = ""
-                Else
-                    dgvRow.Cells(8).Value = dr.Item("ContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    dgvRow.Cells(9).Value = ""
-                Else
-                    dgvRow.Cells(9).Value = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    dgvRow.Cells(10).Value = ""
-                Else
-                    dgvRow.Cells(10).Value = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    dgvRow.Cells(11).Value = ""
-                Else
-                    dgvRow.Cells(11).Value = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-                    dgvRow.Cells(12).Value = ""
-                Else
-                    dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
-                End If
-                dgvEISStats.Rows.Add(dgvRow)
-            End While
-            dr.Close()
-
-
-            txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "In Progress Count"
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -12819,153 +11265,6 @@ Public Class DMUEisGecoTool
 
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "Opted-In Count"
-
-            Exit Sub
-
-            'Dim dgvRow As New DataGridViewRow
- 
-
-            'added contact email and name
-            SQL = "select distinct " & _
-       "'False' as ID, " & _
-       " AIRBRANCH.EIS_Admin.facilitysiteid, " & _
-       "AIRBRANCH.APBFacilityInformation.strFacilityname, " & _
-            "AIRBRANCH.EIS_Admin.inventoryyear, " & _
-            "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
-            "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
-            "case " & _
-            "when strOptOut = '1' then 'Yes' " & _
-            "when strOptOut = '0' then 'No' " & _
-            "else '' " & _
-            "End strOptOut, " & _
-            "case " & _
-            "when strMailout = '1' then 'Yes' " & _
-            "else 'No' " & _
-            "end strMailout, " & _
-            "case " & _
-            "when strContactEmail is null then '-' " & _
-            "else strContactEmail " & _
-            "end ContactEmail, " & _
-              "case " & _
-                   "When strContactPrefix is null then '-' " & _
-                   "else strContactPrefix " & _
-                   "end strContactPrefix, " & _
-                   "case " & _
-                   "when strContactFirstName is null then '-' " & _
-                   "else strContactFirstName " & _
-                   "end strContactFirstName, " & _
-                   "case " & _
-                   "When strContactLastName is null then '-' " & _
-                   "else strContactLastName " & _
-                   "end strContactLastName, " & _
-            "case " & _
-            "when strDMUResponsibleStaff is null then '-' " & _
-            "else strDMUResponsibleStaff " & _
-            "end strDMUResponsibleStaff  " & _
-            "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
-            "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-            "AIRbranch.EIS_Mailout, AIRBranch.EIS_QAAdmin " & _
-            "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
-            "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
-            "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
-            "and AIRBranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_QAAdmin.FacilitySiteID (+) " & _
-"and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
-            "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
-            "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
-              "and AIRBranch.EIS_Admin.Active = '1' " & _
-             "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
-             "and (strOptOut = '0')  " & _
-              "and strEnrollment = '1' " & _
- "order by AIRBRANCH.EIS_Admin.facilitysiteid "
-
-
-            dgvEISStats.Rows.Clear()
-            ds = New DataSet
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEISStats)
-                If IsDBNull(dr.Item("ID")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("ID")
-                End If
-
-                If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("InventoryYear")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = dr.Item("InventoryYear")
-                End If
-                If IsDBNull(dr.Item("EISStatus")) Then
-                    dgvRow.Cells(4).Value = ""
-                Else
-                    dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                End If
-                If IsDBNull(dr.Item("EISAccess")) Then
-                    dgvRow.Cells(5).Value = ""
-                Else
-                    dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                End If
-
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    dgvRow.Cells(6).Value = ""
-                Else
-                    dgvRow.Cells(6).Value = dr.Item("strOptOut")
-                End If
-                If IsDBNull(dr.Item("strMailout")) Then
-                    dgvRow.Cells(7).Value = ""
-                Else
-                    dgvRow.Cells(7).Value = dr.Item("strMailout")
-                End If
-
-
-                If IsDBNull(dr.Item("ContactEmail")) Then
-                    dgvRow.Cells(8).Value = ""
-                Else
-                    dgvRow.Cells(8).Value = dr.Item("ContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    dgvRow.Cells(9).Value = ""
-                Else
-                    dgvRow.Cells(9).Value = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    dgvRow.Cells(10).Value = ""
-                Else
-                    dgvRow.Cells(10).Value = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    dgvRow.Cells(11).Value = ""
-                Else
-                    dgvRow.Cells(11).Value = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-                    dgvRow.Cells(12).Value = ""
-                Else
-                    dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
-                End If
-                dgvEISStats.Rows.Add(dgvRow)
-            End While
-            dr.Close()
-
-            txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "Opted-In Count"
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -12981,153 +11280,6 @@ Public Class DMUEisGecoTool
 
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "Opted-Out Count"
-
-            Exit Sub
-
-            'Dim dgvRow As New DataGridViewRow
-
-            'added contact email and name
-            SQL = "select distinct " & _
-          "'False' as ID, " & _
-          " AIRBRANCH.EIS_Admin.facilitysiteid, " & _
-               "AIRBRANCH.APBFacilityInformation.strFacilityname, " & _
-               "AIRBRANCH.EIS_Admin.inventoryyear, " & _
-               "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
-               "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
-                          "case " & _
-               "when strOptOutreason is null then 'No' " & _
-               "when strOptoutReason = '1' then 'Did not Operate' " & _
-               "when strOptOutReason = '2' then 'Pollutant below Threshold' " & _
-               "end strOptOut, " & _
-               "case " & _
-               "when strMailout = '1' then 'Yes' " & _
-               "else 'No' " & _
-               "end strMailout, " & _
-               "case " & _
-               "when strContactEmail is null then '-' " & _
-               "else strContactEmail " & _
-               "end ContactEmail, " & _
-                 "case " & _
-                     "When strContactPrefix is null then '-' " & _
-                     "else strContactPrefix " & _
-                     "end strContactPrefix, " & _
-                     "case " & _
-                     "when strContactFirstName is null then '-' " & _
-                     "else strContactFirstName " & _
-                     "end strContactFirstName, " & _
-                     "case " & _
-                     "When strContactLastName is null then '-' " & _
-                     "else strContactLastName " & _
-                     "end strContactLastName, " & _
-               "case " & _
-  "when strDMUResponsibleStaff is null then '-' " & _
-  "else strDMUResponsibleStaff " & _
-  "end strDMUResponsibleStaff  " & _
-               "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
-               "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-               "AIRbranch.EIS_Mailout, AIRBranch.EIS_QAAdmin " & _
-               "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
-               "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
-               "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
-               "and AIRBranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_QAAdmin.FacilitySiteID (+) " & _
-  "and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
-               "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
-                  "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
-                "and AIRBranch.EIS_Admin.Active = '1' " & _
-                "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
-                "and strOptOut = '1'  " & _
-               "and strEnrollment = '1' " & _
- "order by AIRBRANCH.EIS_Admin.facilitysiteid "
-
-
-            dgvEISStats.Rows.Clear()
-            ds = New DataSet
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEISStats)
-                If IsDBNull(dr.Item("ID")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("ID")
-                End If
-
-                If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("InventoryYear")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = dr.Item("InventoryYear")
-                End If
-                If IsDBNull(dr.Item("EISStatus")) Then
-                    dgvRow.Cells(4).Value = ""
-                Else
-                    dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                End If
-                If IsDBNull(dr.Item("EISAccess")) Then
-                    dgvRow.Cells(5).Value = ""
-                Else
-                    dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                End If
-
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    dgvRow.Cells(6).Value = False
-                Else
-                    dgvRow.Cells(6).Value = dr.Item("strOptOut")
-                End If
-                If IsDBNull(dr.Item("strMailout")) Then
-                    dgvRow.Cells(7).Value = ""
-                Else
-                    dgvRow.Cells(7).Value = dr.Item("strMailout")
-                End If
-
-
-                If IsDBNull(dr.Item("ContactEmail")) Then
-                    dgvRow.Cells(8).Value = ""
-                Else
-                    dgvRow.Cells(8).Value = dr.Item("ContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    dgvRow.Cells(9).Value = ""
-                Else
-                    dgvRow.Cells(9).Value = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    dgvRow.Cells(10).Value = ""
-                Else
-                    dgvRow.Cells(10).Value = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    dgvRow.Cells(11).Value = ""
-                Else
-                    dgvRow.Cells(11).Value = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-                    dgvRow.Cells(12).Value = ""
-                Else
-                    dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
-                End If
-                dgvEISStats.Rows.Add(dgvRow)
-            End While
-            dr.Close()
-
-
-            txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "Opted-Out Count"
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -13143,152 +11295,6 @@ Public Class DMUEisGecoTool
 
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "In Progress Count"
-
-            Exit Sub
- 
-
-
-
-            'Dim dgvRow As New DataGridViewRow
-
-         
-            SQL = "select distinct " & _
-       "'False' as ID, " & _
-       " AIRBRANCH.EIS_Admin.facilitysiteid, " & _
-         "AIRBRANCH.APBFacilityInformation.strFacilityname, " & _
-    "AIRBRANCH.EIS_Admin.inventoryyear, " & _
-    "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
-    "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
-    "case " & _
-    "when strOptOut = '1' then 'Yes' " & _
-    "when strOptOut = '0' then 'No' " & _
-    "else '' " & _
-    "End strOptOut, " & _
-    "case " & _
-    "when strMailout = '1' then 'Yes' " & _
-    "else 'No' " & _
-    "end strMailout, " & _
-    "case " & _
-    "when strContactEmail is null then '-' " & _
-    "else strContactEmail " & _
-    "end ContactEmail, " & _
-      "case " & _
-                   "When strContactPrefix is null then '-' " & _
-                   "else strContactPrefix " & _
-                   "end strContactPrefix, " & _
-                   "case " & _
-                   "when strContactFirstName is null then '-' " & _
-                   "else strContactFirstName " & _
-                   "end strContactFirstName, " & _
-                   "case " & _
-                   "When strContactLastName is null then '-' " & _
-                   "else strContactLastName " & _
-                   "end strContactLastName, " & _
-    "case " & _
-        "when strDMUResponsibleStaff is null then '-' " & _
-        "else strDMUResponsibleStaff " & _
-        "end strDMUResponsibleStaff  " & _
-    "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
-    "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-    "AIRbranch.EIS_Mailout, AIRBranch.EIS_QAAdmin " & _
-    "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
-    "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
-    "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
-    "and AIRBranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_QAAdmin.FacilitySiteID (+) " & _
-"and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
-    "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
-       "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
-     "and AIRBranch.EIS_Admin.Active = '1' " & _
-    "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
-             "and strEnrollment = '1' " & _
-             "and AIRBranch.EIS_Admin.eisstatuscode >= 3 " & _
-             "and (strOptOut = '0')  " & _
- "order by AIRBRANCH.EIS_Admin.facilitysiteid "
-
-            dgvEISStats.Rows.Clear()
-            ds = New DataSet
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEISStats)
-                If IsDBNull(dr.Item("ID")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("ID")
-                End If
-
-                If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("InventoryYear")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = dr.Item("InventoryYear")
-                End If
-                If IsDBNull(dr.Item("EISStatus")) Then
-                    dgvRow.Cells(4).Value = ""
-                Else
-                    dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                End If
-                If IsDBNull(dr.Item("EISAccess")) Then
-                    dgvRow.Cells(5).Value = ""
-                Else
-                    dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                End If
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    dgvRow.Cells(6).Value = ""
-                Else
-                    dgvRow.Cells(6).Value = dr.Item("strOptOut")
-                End If
-                If IsDBNull(dr.Item("strMailout")) Then
-                    dgvRow.Cells(7).Value = ""
-                Else
-                    dgvRow.Cells(7).Value = dr.Item("strMailout")
-                End If
-                If IsDBNull(dr.Item("ContactEmail")) Then
-                    dgvRow.Cells(8).Value = ""
-                Else
-                    dgvRow.Cells(8).Value = dr.Item("ContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    dgvRow.Cells(9).Value = ""
-                Else
-                    dgvRow.Cells(9).Value = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    dgvRow.Cells(10).Value = ""
-                Else
-                    dgvRow.Cells(10).Value = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    dgvRow.Cells(11).Value = ""
-                Else
-                    dgvRow.Cells(11).Value = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-                    dgvRow.Cells(12).Value = ""
-                Else
-                    dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
-                End If
-                dgvEISStats.Rows.Add(dgvRow)
-            End While
-            dr.Close()
-
-            txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "Submitted Count"
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -13305,149 +11311,6 @@ Public Class DMUEisGecoTool
 
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "Finalized Count"
-
-            Exit Sub
-
-            'Dim dgvRow As New DataGridViewRow
- 
-            SQL = "select distinct " & _
-      "'False' as ID, " & _
-      " AIRBRANCH.EIS_Admin.facilitysiteid, " & _
-     "AIRBRANCH.APBFacilityInformation.strFacilityname, " & _
-"AIRBRANCH.EIS_Admin.inventoryyear, " & _
-"AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
-"AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
-      "case " & _
-            "when strOptOutreason is null then 'No' " & _
-            "when strOptoutReason = '1' then 'Did not Operate' " & _
-            "when strOptOutReason = '2' then 'Pollutant below Threshold' " & _
-            "end strOptOut, " & _
-"case " & _
-"when strMailout = '1' then 'Yes' " & _
-"else 'No' " & _
-"end strMailout, " & _
-"case " & _
-"when strContactEmail is null then '-' " & _
-"else strContactEmail " & _
-"end ContactEmail, " & _
- "case " & _
-                  "When strContactPrefix is null then '-' " & _
-                  "else strContactPrefix " & _
-                  "end strContactPrefix, " & _
-                  "case " & _
-                  "when strContactFirstName is null then '-' " & _
-                  "else strContactFirstName " & _
-                  "end strContactFirstName, " & _
-                  "case " & _
-                  "When strContactLastName is null then '-' " & _
-                  "else strContactLastName " & _
-                  "end strContactLastName, " & _
-"case " & _
-"when strDMUResponsibleStaff is null then '-' " & _
-"else strDMUResponsibleStaff " & _
-"end strDMUResponsibleStaff  " & _
-"from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
-"airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-"AIRbranch.EIS_Mailout, AIRBranch.EIS_QAAdmin " & _
-"where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
-"and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
-"and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
-"and AIRBranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_QAAdmin.FacilitySiteID (+) " & _
-"and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
-"and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
-  "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
-"and AIRBranch.EIS_Admin.Active = '1' " & _
-"and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
-             "and strEnrollment = '1' " & _
-           "and (AIRBranch.EIS_Admin.eisstatuscode = '3' " & _
-            "or AIRBranch.EIS_Admin.eisstatuscode = '4' or AIRBranch.EIS_Admin.eisstatuscode = '5') " & _
- "order by AIRBRANCH.EIS_Admin.facilitysiteid "
-
-            dgvEISStats.Rows.Clear()
-            ds = New DataSet
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEISStats)
-                If IsDBNull(dr.Item("ID")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("ID")
-                End If
-
-                If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("InventoryYear")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = dr.Item("InventoryYear")
-                End If
-                If IsDBNull(dr.Item("EISStatus")) Then
-                    dgvRow.Cells(4).Value = ""
-                Else
-                    dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                End If
-                If IsDBNull(dr.Item("EISAccess")) Then
-                    dgvRow.Cells(5).Value = ""
-                Else
-                    dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                End If
-
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    dgvRow.Cells(6).Value = ""
-                Else
-                    dgvRow.Cells(6).Value = dr.Item("strOptOut")
-                End If
-                If IsDBNull(dr.Item("strMailout")) Then
-                    dgvRow.Cells(7).Value = ""
-                Else
-                    dgvRow.Cells(7).Value = dr.Item("strMailout")
-                End If
-                If IsDBNull(dr.Item("ContactEmail")) Then
-                    dgvRow.Cells(8).Value = ""
-                Else
-                    dgvRow.Cells(8).Value = dr.Item("ContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    dgvRow.Cells(9).Value = ""
-                Else
-                    dgvRow.Cells(9).Value = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    dgvRow.Cells(10).Value = ""
-                Else
-                    dgvRow.Cells(10).Value = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    dgvRow.Cells(11).Value = ""
-                Else
-                    dgvRow.Cells(11).Value = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-                    dgvRow.Cells(12).Value = ""
-                Else
-                    dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
-                End If
-                dgvEISStats.Rows.Add(dgvRow)
-            End While
-            dr.Close()
-
-            txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "Finalized Count"
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -13463,148 +11326,6 @@ Public Class DMUEisGecoTool
 
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "In Progress Count"
-
-            Exit Sub
-
-            'Dim dgvRow As New DataGridViewRow
-
-            SQL = "select " & _
-      "'False' as ID, " & _
-      " AIRBRANCH.EIS_Admin.facilitysiteid, " & _
-     "AIRBRANCH.APBFacilityInformation.strFacilityname, " & _
-"AIRBRANCH.EIS_Admin.inventoryyear, " & _
-"AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
-"AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
-"case " & _
-"when strOptOut = '1' then 'Yes' " & _
-"when strOptOut = '0' then 'No' " & _
-"else '' " & _
-"End strOptOut, " & _
-"case " & _
-"when strMailout = '1' then 'Yes' " & _
-"else 'No' " & _
-"end strMailout, " & _
-"case " & _
-"when strContactEmail is null then '-' " & _
-"else strContactEmail " & _
-"end ContactEmail, " & _
-  "case " & _
-                   "When strContactPrefix is null then '-' " & _
-                   "else strContactPrefix " & _
-                   "end strContactPrefix, " & _
-                   "case " & _
-                   "when strContactFirstName is null then '-' " & _
-                   "else strContactFirstName " & _
-                   "end strContactFirstName, " & _
-                   "case " & _
-                   "When strContactLastName is null then '-' " & _
-                   "else strContactLastName " & _
-                   "end strContactLastName, " & _
-"case " & _
-"when strDMUResponsibleStaff is null then '-' " & _
-"else strDMUResponsibleStaff " & _
-"end strDMUResponsibleStaff  " & _
-"from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
-"airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-"AIRbranch.EIS_Mailout, AIRBranch.EIS_QAAdmin " & _
-"where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
-"and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
-"and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
-"and AIRBranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_QAAdmin.FacilitySiteID (+) " & _
-"and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
-"and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
-"and AIRBranch.EIS_Admin.Active = '1' " & _
-"and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
-           "and strMailout = '1' " & _
-            "and strEnrollment = '1' " & _
-            "and  AIRBranch.EIS_Admin.EISAccesscode = '2'  " & _
-            "and AIRBranch.EIS_Admin.eisstatuscode = '4'" & _
-            "and (strOptOut = '0' and strOptout is null)  "
-
-            dgvEISStats.Rows.Clear()
-            ds = New DataSet
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEISStats)
-                If IsDBNull(dr.Item("ID")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("ID")
-                End If
-
-                If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("InventoryYear")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = dr.Item("InventoryYear")
-                End If
-                If IsDBNull(dr.Item("EISStatus")) Then
-                    dgvRow.Cells(4).Value = ""
-                Else
-                    dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                End If
-                If IsDBNull(dr.Item("EISAccess")) Then
-                    dgvRow.Cells(5).Value = ""
-                Else
-                    dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                End If
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    dgvRow.Cells(6).Value = ""
-                Else
-                    dgvRow.Cells(6).Value = dr.Item("strOptOut")
-                End If
-                If IsDBNull(dr.Item("strMailout")) Then
-                    dgvRow.Cells(7).Value = ""
-                Else
-                    dgvRow.Cells(7).Value = dr.Item("strMailout")
-                End If
-                If IsDBNull(dr.Item("ContactEmail")) Then
-                    dgvRow.Cells(8).Value = ""
-                Else
-                    dgvRow.Cells(8).Value = dr.Item("ContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    dgvRow.Cells(9).Value = ""
-                Else
-                    dgvRow.Cells(9).Value = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    dgvRow.Cells(10).Value = ""
-                Else
-                    dgvRow.Cells(10).Value = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    dgvRow.Cells(11).Value = ""
-                Else
-                    dgvRow.Cells(11).Value = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-                    dgvRow.Cells(12).Value = ""
-                Else
-                    dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
-                End If
-                dgvEISStats.Rows.Add(dgvRow)
-            End While
-            dr.Close()
-
-
-            txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -13621,166 +11342,6 @@ Public Class DMUEisGecoTool
 
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "QA Submitted, EPA Submitted Count"
-
-            Exit Sub
-
-            'Dim dgvRow As New DataGridViewRow
-
-            SQL = "select distinct " & _
-      "'False' as ID, " & _
-      " AIRBRANCH.EIS_Admin.facilitysiteid, " & _
-     "AIRBRANCH.APBFacilityInformation.strFacilityname, " & _
-"AIRBRANCH.EIS_Admin.inventoryyear, " & _
-"AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
-"AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
-"case " & _
-"when strOptOut = '1' then 'Yes' " & _
-"when strOptOut = '0' then 'No' " & _
-"else '' " & _
-"End strOptOut, " & _
-"case " & _
-"when strMailout = '1' then 'Yes' " & _
-"else 'No' " & _
-"end strMailout, " & _
-"case " & _
-"when strContactEmail is null then '-' " & _
-"else strContactEmail " & _
-"end ContactEmail, " & _
-  "case " & _
-                   "When strContactPrefix is null then '-' " & _
-                   "else strContactPrefix " & _
-                   "end strContactPrefix, " & _
-                   "case " & _
-                   "when strContactFirstName is null then '-' " & _
-                   "else strContactFirstName " & _
-                   "end strContactFirstName, " & _
-                   "case " & _
-                   "When strContactLastName is null then '-' " & _
-                   "else strContactLastName " & _
-                   "end strContactLastName, " & _
-"case " & _
-"when strDMUResponsibleStaff is null then '-' " & _
-"else strDMUResponsibleStaff " & _
-"end strDMUResponsibleStaff,  " & _
-"AIRBranch.EISLK_QAStatus.strDesc,  " & _
-            "datQAStatus " & _
-"from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
-"airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-"AIRbranch.EIS_Mailout, AIRBranch.EIS_QAAdmin, AIRbranch.EISLK_QAStatus  " & _
-"where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
-"and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
-"and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
-"and AIRBranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_QAAdmin.FacilitySiteID (+) " & _
-"and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
-"and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
-           "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
-"and AIRBranch.EIS_QAAdmin.QAStatusCode = AIRBranch.EISLK_QAStatus.qastatuscode " & _
-"and AIRBranch.EIS_Admin.Active = '1' " & _
-"and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
-            "and strEnrollment = '1' " & _
-          "and AIRbranch.EIS_Admin.eisstatuscode >= 3  " & _
- "and (strOptOut = '0' ) " & _
- "and    exists (Select * from AIRBranch.EIS_QAAdmin " & _
- "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
- "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
- "and datQAComplete is not null )  " & _
- "order by AIRBRANCH.EIS_Admin.facilitysiteid "
-
-            dgvEISStats.Rows.Clear()
-            ds = New DataSet
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEISStats)
-                If IsDBNull(dr.Item("ID")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("ID")
-                End If
-
-                If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("InventoryYear")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = dr.Item("InventoryYear")
-                End If
-                If IsDBNull(dr.Item("EISStatus")) Then
-                    dgvRow.Cells(4).Value = ""
-                Else
-                    dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                End If
-                If IsDBNull(dr.Item("EISAccess")) Then
-                    dgvRow.Cells(5).Value = ""
-                Else
-                    dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                End If
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    dgvRow.Cells(6).Value = ""
-                Else
-                    dgvRow.Cells(6).Value = dr.Item("strOptOut")
-                End If
-                If IsDBNull(dr.Item("strMailout")) Then
-                    dgvRow.Cells(7).Value = ""
-                Else
-                    dgvRow.Cells(7).Value = dr.Item("strMailout")
-                End If
-                If IsDBNull(dr.Item("ContactEmail")) Then
-                    dgvRow.Cells(8).Value = ""
-                Else
-                    dgvRow.Cells(8).Value = dr.Item("ContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    dgvRow.Cells(9).Value = ""
-                Else
-                    dgvRow.Cells(9).Value = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    dgvRow.Cells(10).Value = ""
-                Else
-                    dgvRow.Cells(10).Value = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    dgvRow.Cells(11).Value = ""
-                Else
-                    dgvRow.Cells(11).Value = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-                    dgvRow.Cells(12).Value = ""
-                Else
-                    dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
-                End If
-
-                If IsDBNull(dr.Item("strDesc")) Then
-                    dgvRow.Cells(14).Value = ""
-                Else
-                    dgvRow.Cells(14).Value = dr.Item("strDesc")
-                End If
-                If IsDBNull(dr.Item("datQAStatus")) Then
-                    dgvRow.Cells(15).Value = ""
-                Else
-                    dgvRow.Cells(15).Value = dr.Item("datQAStatus")
-                End If
-                dgvEISStats.Rows.Add(dgvRow)
-            End While
-            dr.Close()
-
-            txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "QA Submitted, EPA Submitted Count"
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -14033,7 +11594,6 @@ Public Class DMUEisGecoTool
             Else
                 MsgBox("Please select a valid year from the dropdown and a valid contact from the resulting list." & vbCrLf & _
                        "NO DATA UPDATED", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
             End If
 
         Catch ex As Exception
@@ -14041,45 +11601,6 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub btnEISStatsDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEISStatsDelete.Click
-        Try
-            If txtSelectedEISMailout.Text <> "" And txtEISStatsMailoutAIRSNumber.Text <> "" Then
-                'SQL = "UPdate AIRBRANCH.EIS_Mailout set " & _
-                '"strFacilityName = '" & txtEISStatsMailoutFacilityName.Text & "', " & _
-                '"strContactCompanyName = '" & txtEISStatsMailoutCompanyName.Text & "', " & _
-                '"strContactAddress1 = '" & txtEISStatsMailoutAddress1.Text & "', " & _
-                '"strContactAddress2 = '" & txtEISStatsMailoutAddress2.Text & "', " & _
-                '"strContactCity = '" & txtEISStatsMailoutCity.Text & "', " & _
-                '"strContactState = '" & txtEISStatsMailoutState.Text & "', " & _
-                '"strContactZipCode = '" & txtEISStatsMailoutZipCode.Text & "', " & _
-                '"strContactFirstName = '" & txtEISStatsMailoutFirstName.Text & "', " & _
-                '"strContactLastName = '" & txtEISStatsMailoutLastName.Text & "', " & _
-                '"strContactPrefix = '" & txtEISStatsMailoutPrefix.Text & "', " & _
-                '"strContactEmail = '" & txtEISStatsMailoutEmailAddress.Text & "', " & _
-                '"strComment = '" & txtEISStatsMailoutComments.Text & "', " & _
-                '"updateDateTime = sysdate " & _
-                '"where intInventoryYear = '" & txtSelectedEISStatYear.Text & "' " & _
-                '"and FacilitySiteID = '" & txtEISStatsMailoutAIRSNumber.Text & "' "
-
-                'cmd = New OracleCommand(SQL, conn)
-                'If conn.State = ConnectionState.Closed Then
-                '    conn.Open()
-                'End If
-                'cmd.ExecuteNonQuery()
-
-                MsgBox("DELETE CODE NOT HERE", MsgBoxStyle.Information, Me.Text)
-            Else
-                MsgBox("Please select a valid year from the dropdown and a valid contact from the resulting list." & vbCrLf & _
-                       "NO DATA UPDATED", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-  
     Private Sub btnEISStatsEnrollment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEISStatsEnrollment.Click
         Try
             Dim EISConfirm As String = ""
@@ -14910,7 +12431,7 @@ Public Class DMUEisGecoTool
             recExist = dr.Read
 
             If recExist = False Then
-                MsgBox("The faciltiy is not currently in the EIS universe for the selected year." & vbCrLf & _
+                MsgBox("The facility is not currently in the EIS universe for the selected year." & vbCrLf & _
                        "Use the Add New Facility to Year." & vbCrLf & vbCrLf & "NO DATA SAVED", MsgBoxStyle.Information, Me.Text)
 
                 Exit Sub
@@ -15120,62 +12641,6 @@ Public Class DMUEisGecoTool
 
             cmd.ExecuteNonQuery()
 
-            'If rdbEILogMailoutYes.Checked = True Then
-            '    Mailout = "1"
-            'Else
-            '    If rdbEILogMailoutNo.Checked = True Then
-            '        Mailout = "0"
-            '    Else
-            '        Mailout = ""
-            '    End If
-            'End If
-            'If rdbEILogEnrolledYes.Checked = True Then
-            '    Enrollment = "1"
-            'Else
-            '    If rdbEILogEnrolledNo.Checked = True Then
-            '        Enrollment = "0"
-            '    Else
-            '        Enrollment = "0"
-            '    End If
-            'End If
-            'If rdbEILogOpOutYes.Checked = True Then
-            '    OptOut = "1"
-            'Else
-            '    If rdbEILogOpOutNo.Checked = True Then
-            '        OptOut = "0"
-            '    Else
-            '        OptOut = ""
-            '    End If
-            'End If
-            'EISStatus = cboEILogStatusCode.SelectedValue
-            'EISAccess = cboEILogAccessCode.SelectedValue
-            'If rdbEILogActiveYes.Checked = True Then
-            '    ActiveStatus = "1"
-            'Else
-            '    ActiveStatus = "0"
-            'End If
-
-            'SQL = "Insert into AIRBranch.EIS_Admin " & _
-            '"(select " & _
-            '"'" & cboEILogYear.Text & "', '" & mtbEILogAIRSNumber.Text & "', " & _
-            '"'" & EISStatus & "', sysdate, " & _
-            '"'" & EISAccess & "', '" & OptOut & "', " & _
-            '"'', '', '', " & _
-            '"'" & Mailout & "', '" & Enrollment & "', " & _
-            '"'" & dtpEILogDateEnrolled.Text & "', " & _
-            '"'" & Replace(txtEILogComments.Text, "'", "''") & "', " & _
-            '"'" & ActiveStatus & "', '" & Replace(UserName, "'", "''") & "', " & _
-            '"sysdate, sysdate, '' from dual " & _
-            '"where not exists (Select * from AIRBranch.EIS_Admin " & _
-            '"where inventoryyear = '" & cboEILogYear.Text & "' " & _
-            '"and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "')) "
-
-            'cmd = New OracleCommand(SQL, conn)
-            'If conn.State = ConnectionState.Closed Then
-            '    conn.Open()
-            'End If
-            'cmd.ExecuteReader()
-
             LoadAdminData()
             MsgBox("New Facility Added", MsgBoxStyle.Information, Me.Text)
 
@@ -15304,30 +12769,6 @@ Public Class DMUEisGecoTool
                 PointError = "False"
             End If
 
-            ' SQL = "insert into AIRBranch.EIS_QAAdmin " & _
-            '"(select " & _
-            '"'" & txtEILogSelectedYear.Text & "', '" & txtEILogSelectedAIRSNumber.Text & "', " & _
-            '"'" & QAStart & "', '" & QAPass & "', " & _
-            '"'1', '" & QAStatusDate & "', " & _
-            '"'" & Replace(StaffResponsible, "'", "''") & "', " & _
-            '"'" & QAComplete & "', '" & Replace(QAComments, "'", "''") & "', " & _
-            '"'1', '" & UserName & "', " & _
-            '"sysdate, sysdate, " & _
-            '"'" & Replace(FITracking, "'", "''") & "', " & _
-            '"'" & Replace(FIError, "'", "''") & "', " & _
-            '"'" & Replace(PointTracking, "'", "''") & "', " & _
-            '"'" & Replace(PointError, "'", "''") & "', '', '' " & _
-            '"from dual " & _
-            '"where not exists (select * from AIRBranch.EIS_QAAdmin " & _
-            '"where inventoryYear = '" & txtEILogSelectedYear.Text & "' " & _
-            '"and FacilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "')) "
-
-            ' cmd = New OracleCommand(SQL, conn)
-            ' If conn.State = ConnectionState.Closed Then
-            '     conn.Open()
-            ' End If
-            ' cmd.ExecuteReader()
-
             SQL = "Update AIRBRANCH.eis_QAAdmin set " & _
             "datDateQAStart = '" & QAStart & "', " & _
             "datDateQAPass = '" & QAPass & "', " & _
@@ -15375,78 +12816,109 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub btnEIModifyUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEIModifyUpdate.Click
-        Try
-            Dim FacilityName As String = ""
-            Dim MailingAddress As String = ""
-            Dim City As String = ""
-            Dim State As String = ""
-            Dim PostalCode As String = ""
+    Private Sub btnEIModifyUpdateLocation_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles btnEIModifyUpdateLocation.Click
 
-            If txtEIModifyFacilityName.Text <> "" Then
-                txtEIModifyFacilityName.Text = Apb.Facility.SanitizeFacilityNameForDb(txtEIModifyFacilityName.Text)
-                FacilityName = txtEIModifyFacilityName.Text
-            Else
-                FacilityName = ""
-            End If
-            If txtEIModifyLocation.Text <> "" Then
-                MailingAddress = txtEIModifyLocation.Text
-            Else
-                MailingAddress = ""
-            End If
-            If txtEIModifyCity.Text <> "" Then
-                City = txtEIModifyCity.Text
-            Else
-                City = ""
-            End If
-            If mtbEIModifyZipCode.Text <> "" Then
-                PostalCode = mtbEIModifyZipCode.Text
-            Else
-                PostalCode = ""
-            End If
+        If txtEILogSelectedAIRSNumber.Text = "" Then
+            MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
+            Exit Sub
+        End If
 
-            If txtEILogSelectedAIRSNumber.Text = "" Then
-                MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
-            End If
+        Dim Address As String = txtEIModifyLocation.Text
+        Dim City As String = txtEIModifyCity.Text
+        Dim PostalCode As String = mtbEIModifyZipCode.Text
 
-            If FacilityName <> "" Then
-                SQL = "Update airbranch.EIS_FacilitySite set " & _
-                "strFacilitySiteName = '" & Replace(FacilityName, "'", "''") & "' " & _
-                "where facilitysiteid = '" & txtEILogSelectedAIRSNumber.Text & "' "
+        If Address <> "" And City <> "" Then
+            Dim query As String = "Update airbranch.EIS_FacilitySiteAddress set " & _
+            " STRLOCATIONADDRESSTEXT = :Address, " & _
+            " STRLOCALITYNAME = :City, " & _
+            " STRLOCATIONADDRESSPOSTALCODE = :PostalCode " & _
+            " where facilitysiteid = :AirsNumber"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
+            Dim parameters As OracleParameter()
 
-            End If
-            If MailingAddress <> "" And City <> "" Then
-                SQL = "Update airbranch.EIS_FacilitySiteAddress set " & _
-                "strMailingAddressText = '" & Replace(MailingAddress, "'", "''") & "', " & _
-                "strMailingAddresscityname = '" & Replace(City, "'", "''") & "', " & _
-                "strMailingAddressPostalCode = '" & Replace(PostalCode, "'", "''") & "' " & _
-                "where facilitysiteid = '" & txtEILogSelectedAIRSNumber.Text & "' "
+            parameters = New OracleParameter() { _
+                New OracleParameter("Address", Address), _
+                New OracleParameter("City", City), _
+                New OracleParameter("PostalCode", PostalCode), _
+                New OracleParameter("AirsNumber", txtEILogSelectedAIRSNumber.Text) _
+            }
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
+            DB.RunCommand(query, parameters)
 
-                UpdateFacilityGEOCoord()
+            MsgBox("Data updated.", MsgBoxStyle.Information, Me.Text)
+        Else
+            MsgBox("No data saved." & vbCrLf & "BOTH LOCATION ADDRESS AND CITY ARE REQUIRED" & vbCrLf & vbCrLf & "Sorry for yelling.", MsgBoxStyle.Exclamation, Me.Text)
+        End If
+    End Sub
 
-                MsgBox("Data updated.", MsgBoxStyle.Information, Me.Text)
+    Private Sub btnEIModifyUpdateMailing_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles btnEIModifyUpdateMailing.Click
 
-            Else
-                MsgBox("No data saved." & vbCrLf & "BOTH MAILING ADDRESS AND CITY ARE REQUIRED", MsgBoxStyle.Exclamation, Me.Text)
-            End If
+        If txtEILogSelectedAIRSNumber.Text = "" Then
+            MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
+            Exit Sub
+        End If
 
+        Dim Address As String = txtEIModifyMLocation.Text
+        Dim City As String = txtEIModifyMCity.Text
+        Dim PostalCode As String = mtbEIModifyMZipCode.Text
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        If Address <> "" And City <> "" Then
+            Dim query As String = "Update airbranch.EIS_FacilitySiteAddress set " & _
+            " strMailingAddressText = :Address, " & _
+            " strMailingAddresscityname = :City, " & _
+            " strMailingAddressPostalCode = :PostalCode " & _
+            " where facilitysiteid = :AirsNumber"
+
+            Dim parameters As OracleParameter()
+
+            parameters = New OracleParameter() { _
+                New OracleParameter("Address", Address), _
+                New OracleParameter("City", City), _
+                New OracleParameter("PostalCode", PostalCode), _
+                New OracleParameter("AirsNumber", txtEILogSelectedAIRSNumber.Text) _
+            }
+
+            DB.RunCommand(query, parameters)
+
+            MsgBox("Data updated.", MsgBoxStyle.Information, Me.Text)
+        Else
+            MsgBox("No data saved." & vbCrLf & "BOTH MAILING ADDRESS AND CITY ARE REQUIRED" & vbCrLf & vbCrLf & "Sorry for yelling.", MsgBoxStyle.Exclamation, Me.Text)
+        End If
+    End Sub
+
+    Private Sub btnEIModifyUpdateName_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles btnEIModifyUpdateName.Click
+        If txtEILogSelectedAIRSNumber.Text = "" Then
+            MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
+            Exit Sub
+        End If
+
+        If txtEIModifyFacilityName.Text <> "" Then
+            txtEIModifyFacilityName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(txtEIModifyFacilityName.Text)
+        End If
+ 
+        Dim FacilityName As String = txtEIModifyFacilityName.Text
+
+        If FacilityName <> "" Then
+            Dim query As String = "Update airbranch.EIS_FacilitySite set " & _
+            " strFacilitySiteName = :FacilityName " & _
+            " where facilitysiteid = :AirsNumber"
+
+            Dim parameters As OracleParameter()
+
+            parameters = New OracleParameter() { _
+                New OracleParameter("FacilityName", FacilityName), _
+                New OracleParameter("AirsNumber", txtEILogSelectedAIRSNumber.Text) _
+            }
+
+            DB.RunCommand(query, parameters)
+
+            MsgBox("Data updated.", MsgBoxStyle.Information, Me.Text)
+        Else
+            MsgBox("No data saved.", MsgBoxStyle.Exclamation, Me.Text)
+        End If
     End Sub
 
     Sub UpdateFacilityGEOCoord()
@@ -15482,6 +12954,7 @@ Public Class DMUEisGecoTool
                 End If
                 cmd.ExecuteReader()
 
+                MsgBox("Data updated.", MsgBoxStyle.Information, Me.Text)
             Else
                 MsgBox("Latitude & Longitude data not saved." & vbCrLf & "Add both values to update.", _
                          MsgBoxStyle.Exclamation, Me.Text)
@@ -15493,36 +12966,19 @@ Public Class DMUEisGecoTool
     End Sub
 
     Private Sub btnUpdateLatLong_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateLatLong.Click
-        Try
-            If txtEILogSelectedAIRSNumber.Text = "" Then
-                MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
-            End If
-
-            UpdateFacilityGEOCoord()
-            MsgBox("Data updated.", MsgBoxStyle.Information, Me.Text)
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        UpdateFacilityGEOCoord()
     End Sub
 
     Private Sub btnEIModifyCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEIModifyCopy.Click
-        Try
-            If txtEILogSelectedAIRSNumber.Text = "" Then
-                MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
-            End If
-
-            txtEIModifyFacilityName.Text = txtEIModifyIAIPFacilityName.Text
-            txtEIModifyLocation.Text = txtEIModifyIAIPLocation.Text
-            txtEIModifyCity.Text = txtEIModifyIAIPCity.Text
-            mtbEIModifyZipCode.Text = mtbEIModifyIAIPZipCode.Text
-            mtbEIModifyLatitude.Text = mtbEIModifyIAIPLatitude.Text
-            mtbEIModifyLongitude.Text = mtbEIModifyIAIPLongitude.Text
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        txtEIModifyFacilityName.Text = txtEIModifyIAIPFacilityName.Text
+        txtEIModifyLocation.Text = txtEIModifyIAIPLocation.Text
+        txtEIModifyCity.Text = txtEIModifyIAIPCity.Text
+        mtbEIModifyMZipCode.Text = mtbEIModifyIAIPZipCode.Text
+        txtEIModifyMLocation.Text = txtEIModifyIAIPLocation.Text
+        txtEIModifyMCity.Text = txtEIModifyIAIPCity.Text
+        mtbEIModifyZipCode.Text = mtbEIModifyIAIPZipCode.Text
+        mtbEIModifyLatitude.Text = mtbEIModifyIAIPLatitude.Text
+        mtbEIModifyLongitude.Text = mtbEIModifyIAIPLongitude.Text
     End Sub
 
     Private Sub btnEISMailoutUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEISMailoutUpdate.Click
@@ -15572,155 +13028,6 @@ Public Class DMUEisGecoTool
 
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "QA Submitted, To-Do Count"
-
-            Exit Sub
-
-            'Dim dgvRow As New DataGridViewRow
-
-            SQL = "select distinct " & _
-            "'False' as ID, " & _
-            " AIRBRANCH.EIS_Admin.facilitysiteid, " & _
-           "AIRBRANCH.APBFacilityInformation.strFacilityname, " & _
-           "AIRBRANCH.EIS_Admin.inventoryyear, " & _
-           "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
-           "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
-           "case " & _
-           "when strOptOut = '1' then 'Yes' " & _
-           "when strOptOut = '0' then 'No' " & _
-           "else '' " & _
-           "End strOptOut, " & _
-           "case " & _
-           "when strMailout = '1' then 'Yes' " & _
-           "else 'No' " & _
-           "end strMailout, " & _
-           "case " & _
-           "when strContactEmail is null then '-' " & _
-           "else strContactEmail " & _
-           "end ContactEmail, " & _
-             "case " & _
-                   "When strContactPrefix is null then '-' " & _
-                   "else strContactPrefix " & _
-                   "end strContactPrefix, " & _
-                   "case " & _
-                   "when strContactFirstName is null then '-' " & _
-                   "else strContactFirstName " & _
-                   "end strContactFirstName, " & _
-                   "case " & _
-                   "When strContactLastName is null then '-' " & _
-                   "else strContactLastName " & _
-                   "end strContactLastName, " & _
-           "case " & _
-          "when strDMUResponsibleStaff is null then '-' " & _
-           "else strDMUResponsibleStaff " & _
-            "end strDMUResponsibleStaff " & _
-           "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
-           "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin " & _
-           "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
-           "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
-           "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
-           "and AIRBranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_QAAdmin.FacilitySiteID (+) " & _
-"and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
-           "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
-           "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
-            "and AIRBranch.EIS_Admin.Active = '1' " & _
-           "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
-          "and AIRbranch.EIS_Admin.strEnrollment = '1'  " & _
- "and AIRbranch.EIS_Admin.eisstatuscode >= 3 " & _
- "and (strOptOut = '0' ) " & _
- "and  NOT  exists (Select * from AIRBranch.EIS_QAAdmin " & _
- "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
- "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID)    " & _
- "order by AIRBRANCH.EIS_Admin.facilitysiteid "
-
-
-            dgvEISStats.Rows.Clear()
-            ds = New DataSet
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEISStats)
-                If IsDBNull(dr.Item("ID")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("ID")
-                End If
-
-                If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("InventoryYear")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = dr.Item("InventoryYear")
-                End If
-                If IsDBNull(dr.Item("EISStatus")) Then
-                    dgvRow.Cells(4).Value = False
-                Else
-                    dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                End If
-                If IsDBNull(dr.Item("EISAccess")) Then
-                    dgvRow.Cells(5).Value = False
-                Else
-                    dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                End If
-
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    dgvRow.Cells(6).Value = False
-                Else
-                    dgvRow.Cells(6).Value = dr.Item("strOptOut")
-                End If
-                If IsDBNull(dr.Item("strMailout")) Then
-                    dgvRow.Cells(7).Value = False
-                Else
-                    dgvRow.Cells(7).Value = dr.Item("strMailout")
-                End If
-
-
-                If IsDBNull(dr.Item("ContactEmail")) Then
-                    dgvRow.Cells(8).Value = ""
-                Else
-                    dgvRow.Cells(8).Value = dr.Item("ContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    dgvRow.Cells(9).Value = ""
-                Else
-                    dgvRow.Cells(9).Value = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    dgvRow.Cells(10).Value = ""
-                Else
-                    dgvRow.Cells(10).Value = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    dgvRow.Cells(11).Value = ""
-                Else
-                    dgvRow.Cells(11).Value = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-                    dgvRow.Cells(12).Value = ""
-                Else
-                    dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
-                End If
-                dgvEISStats.Rows.Add(dgvRow)
-            End While
-            dr.Close()
-
-            txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "QA Submitted, To-Do Count"
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -15735,156 +13042,8 @@ Public Class DMUEisGecoTool
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "0", _
                       " and EISStatusCode >= 3 ", "", " and QAStatusCode is not null and datQAComplete is null ")
 
-
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "QA Submitted, Started Count"
-
-            Exit Sub
-
-            'Dim dgvRow As New DataGridViewRow
-
-            SQL = "select distinct " & _
-            "'False' as ID, " & _
-            " AIRBRANCH.EIS_Admin.facilitysiteid, " & _
-           "AIRBRANCH.APBFacilityInformation.strFacilityname, " & _
-           "AIRBRANCH.EIS_Admin.inventoryyear, " & _
-           "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
-           "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
-           "case " & _
-           "when strOptOut = '1' then 'Yes' " & _
-           "when strOptOut = '0' then 'No' " & _
-           "else '' " & _
-           "End strOptOut, " & _
-           "case " & _
-           "when strMailout = '1' then 'Yes' " & _
-           "else 'No' " & _
-           "end strMailout, " & _
-           "case " & _
-           "when strContactEmail is null then '-' " & _
-           "else strContactEmail " & _
-           "end ContactEmail, " & _
-             "case " & _
-                   "When strContactPrefix is null then '-' " & _
-                   "else strContactPrefix " & _
-                   "end strContactPrefix, " & _
-                   "case " & _
-                   "when strContactFirstName is null then '-' " & _
-                   "else strContactFirstName " & _
-                   "end strContactFirstName, " & _
-                   "case " & _
-                   "When strContactLastName is null then '-' " & _
-                   "else strContactLastName " & _
-                   "end strContactLastName, " & _
-           "case " & _
-          "when strDMUResponsibleStaff is null then '-' " & _
-           "else strDMUResponsibleStaff " & _
-            "end strDMUResponsibleStaff " & _
-           "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
-           "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin " & _
-           "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
-           "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
-           "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
-           "and AIRBranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_QAAdmin.FacilitySiteID (+) " & _
-"and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
-           "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
-                      "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
-            "and AIRBranch.EIS_Admin.Active = '1' " & _
-           "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
-                     "and AIRbranch.EIS_Admin.strEnrollment = '1'  " & _
- "and AIRbranch.EIS_Admin.eisstatuscode >= 3  " & _
- "and (strOptOut = '0' ) " & _
- "and    exists (Select * from AIRBranch.EIS_QAAdmin " & _
- "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
- "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
- "and datQAComplete is null )  " & _
- "order by AIRBRANCH.EIS_Admin.facilitysiteid "
-
-            dgvEISStats.Rows.Clear()
-            ds = New DataSet
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEISStats)
-                If IsDBNull(dr.Item("ID")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("ID")
-                End If
-
-                If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("InventoryYear")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = dr.Item("InventoryYear")
-                End If
-                If IsDBNull(dr.Item("EISStatus")) Then
-                    dgvRow.Cells(4).Value = False
-                Else
-                    dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                End If
-                If IsDBNull(dr.Item("EISAccess")) Then
-                    dgvRow.Cells(5).Value = False
-                Else
-                    dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                End If
-
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    dgvRow.Cells(6).Value = False
-                Else
-                    dgvRow.Cells(6).Value = dr.Item("strOptOut")
-                End If
-                If IsDBNull(dr.Item("strMailout")) Then
-                    dgvRow.Cells(7).Value = False
-                Else
-                    dgvRow.Cells(7).Value = dr.Item("strMailout")
-                End If
-                If IsDBNull(dr.Item("ContactEmail")) Then
-                    dgvRow.Cells(8).Value = ""
-                Else
-                    dgvRow.Cells(8).Value = dr.Item("ContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    dgvRow.Cells(9).Value = ""
-                Else
-                    dgvRow.Cells(9).Value = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    dgvRow.Cells(10).Value = ""
-                Else
-                    dgvRow.Cells(10).Value = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    dgvRow.Cells(11).Value = ""
-                Else
-                    dgvRow.Cells(11).Value = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-                    dgvRow.Cells(12).Value = ""
-                Else
-                    dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
-                End If
-                dgvEISStats.Rows.Add(dgvRow)
-            End While
-            dr.Close()
-
-            txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "QA Submitted, Started Count"
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -15902,155 +13061,6 @@ Public Class DMUEisGecoTool
 
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "QA Submitted, Started Count"
-
-            Exit Sub
-
-
-            'Dim dgvRow As New DataGridViewRow
-
-            SQL = "select distinct " & _
-            "'False' as ID, " & _
-            " AIRBRANCH.EIS_Admin.facilitysiteid, " & _
-           "AIRBRANCH.APBFacilityInformation.strFacilityname, " & _
-           "AIRBRANCH.EIS_Admin.inventoryyear, " & _
-           "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
-           "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
-           "case " & _
-           "when strOptOut = '1' then 'Yes' " & _
-           "when strOptOut = '0' then 'No' " & _
-           "else '' " & _
-           "End strOptOut, " & _
-           "case " & _
-           "when strMailout = '1' then 'Yes' " & _
-           "else 'No' " & _
-           "end strMailout, " & _
-           "case " & _
-           "when strContactEmail is null then '-' " & _
-           "else strContactEmail " & _
-           "end ContactEmail, " & _
-             "case " & _
-                   "When strContactPrefix is null then '-' " & _
-                   "else strContactPrefix " & _
-                   "end strContactPrefix, " & _
-                   "case " & _
-                   "when strContactFirstName is null then '-' " & _
-                   "else strContactFirstName " & _
-                   "end strContactFirstName, " & _
-                   "case " & _
-                   "When strContactLastName is null then '-' " & _
-                   "else strContactLastName " & _
-                   "end strContactLastName, " & _
-           "case " & _
-          "when strDMUResponsibleStaff is null then '-' " & _
-           "else strDMUResponsibleStaff " & _
-            "end strDMUResponsibleStaff " & _
-           "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
-           "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin " & _
-           "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
-           "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
-           "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
-           "and AIRBranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_QAAdmin.FacilitySiteID (+) " & _
-"and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
-           "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
-                      "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
-            "and AIRBranch.EIS_Admin.Active = '1' " & _
-           "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
-                     "and AIRbranch.EIS_Admin.strEnrollment = '1'  " & _
- "and AIRbranch.EIS_Admin.eisstatuscode >= 3  " & _
- "and (strOptOut = '0' ) " & _
- "and    exists (Select * from AIRBranch.EIS_QAAdmin " & _
- "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
- "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
- "and datQAComplete is null )  " & _
- "and strFIError = 'True' and (strPointError = 'False' or strPointError is null) " & _
- "order by AIRBRANCH.EIS_Admin.facilitysiteid "
-
-            dgvEISStats.Rows.Clear()
-            ds = New DataSet
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEISStats)
-                If IsDBNull(dr.Item("ID")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("ID")
-                End If
-
-                If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("InventoryYear")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = dr.Item("InventoryYear")
-                End If
-                If IsDBNull(dr.Item("EISStatus")) Then
-                    dgvRow.Cells(4).Value = False
-                Else
-                    dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                End If
-                If IsDBNull(dr.Item("EISAccess")) Then
-                    dgvRow.Cells(5).Value = False
-                Else
-                    dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                End If
-
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    dgvRow.Cells(6).Value = False
-                Else
-                    dgvRow.Cells(6).Value = dr.Item("strOptOut")
-                End If
-                If IsDBNull(dr.Item("strMailout")) Then
-                    dgvRow.Cells(7).Value = False
-                Else
-                    dgvRow.Cells(7).Value = dr.Item("strMailout")
-                End If
-                If IsDBNull(dr.Item("ContactEmail")) Then
-                    dgvRow.Cells(8).Value = ""
-                Else
-                    dgvRow.Cells(8).Value = dr.Item("ContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    dgvRow.Cells(9).Value = ""
-                Else
-                    dgvRow.Cells(9).Value = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    dgvRow.Cells(10).Value = ""
-                Else
-                    dgvRow.Cells(10).Value = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    dgvRow.Cells(11).Value = ""
-                Else
-                    dgvRow.Cells(11).Value = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-                    dgvRow.Cells(12).Value = ""
-                Else
-                    dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
-                End If
-                dgvEISStats.Rows.Add(dgvRow)
-            End While
-            dr.Close()
-
-            txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "QA Submitted, Started Count"
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -16068,154 +13078,6 @@ Public Class DMUEisGecoTool
 
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "QA Submitted, Started Count"
-
-            Exit Sub
-
-            'Dim dgvRow As New DataGridViewRow
-
-            SQL = "select distinct " & _
-            "'False' as ID, " & _
-            " AIRBRANCH.EIS_Admin.facilitysiteid, " & _
-           "AIRBRANCH.APBFacilityInformation.strFacilityname, " & _
-           "AIRBRANCH.EIS_Admin.inventoryyear, " & _
-           "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
-           "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
-           "case " & _
-           "when strOptOut = '1' then 'Yes' " & _
-           "when strOptOut = '0' then 'No' " & _
-           "else '' " & _
-           "End strOptOut, " & _
-           "case " & _
-           "when strMailout = '1' then 'Yes' " & _
-           "else 'No' " & _
-           "end strMailout, " & _
-           "case " & _
-           "when strContactEmail is null then '-' " & _
-           "else strContactEmail " & _
-           "end ContactEmail, " & _
-             "case " & _
-                   "When strContactPrefix is null then '-' " & _
-                   "else strContactPrefix " & _
-                   "end strContactPrefix, " & _
-                   "case " & _
-                   "when strContactFirstName is null then '-' " & _
-                   "else strContactFirstName " & _
-                   "end strContactFirstName, " & _
-                   "case " & _
-                   "When strContactLastName is null then '-' " & _
-                   "else strContactLastName " & _
-                   "end strContactLastName, " & _
-           "case " & _
-          "when strDMUResponsibleStaff is null then '-' " & _
-           "else strDMUResponsibleStaff " & _
-            "end strDMUResponsibleStaff " & _
-           "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
-           "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin " & _
-           "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
-           "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
-           "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
-           "and AIRBranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_QAAdmin.FacilitySiteID (+) " & _
-"and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
-           "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
-                      "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
-            "and AIRBranch.EIS_Admin.Active = '1' " & _
-           "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
-                     "and AIRbranch.EIS_Admin.strEnrollment = '1'  " & _
- "and AIRbranch.EIS_Admin.eisstatuscode >= 3  " & _
- "and (strOptOut = '0' ) " & _
- "and    exists (Select * from AIRBranch.EIS_QAAdmin " & _
- "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
- "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
- "and datQAComplete is null )  " & _
- "and (strFIError = 'False' or strFIError is null) and strPointError = 'True' " & _
- "order by AIRBRANCH.EIS_Admin.facilitysiteid "
-
-            dgvEISStats.Rows.Clear()
-            ds = New DataSet
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEISStats)
-                If IsDBNull(dr.Item("ID")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("ID")
-                End If
-
-                If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("InventoryYear")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = dr.Item("InventoryYear")
-                End If
-                If IsDBNull(dr.Item("EISStatus")) Then
-                    dgvRow.Cells(4).Value = False
-                Else
-                    dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                End If
-                If IsDBNull(dr.Item("EISAccess")) Then
-                    dgvRow.Cells(5).Value = False
-                Else
-                    dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                End If
-
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    dgvRow.Cells(6).Value = False
-                Else
-                    dgvRow.Cells(6).Value = dr.Item("strOptOut")
-                End If
-                If IsDBNull(dr.Item("strMailout")) Then
-                    dgvRow.Cells(7).Value = False
-                Else
-                    dgvRow.Cells(7).Value = dr.Item("strMailout")
-                End If
-                If IsDBNull(dr.Item("ContactEmail")) Then
-                    dgvRow.Cells(8).Value = ""
-                Else
-                    dgvRow.Cells(8).Value = dr.Item("ContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    dgvRow.Cells(9).Value = ""
-                Else
-                    dgvRow.Cells(9).Value = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    dgvRow.Cells(10).Value = ""
-                Else
-                    dgvRow.Cells(10).Value = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    dgvRow.Cells(11).Value = ""
-                Else
-                    dgvRow.Cells(11).Value = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-                    dgvRow.Cells(12).Value = ""
-                Else
-                    dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
-                End If
-                dgvEISStats.Rows.Add(dgvRow)
-            End While
-            dr.Close()
-
-            txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "QA Submitted, Started Count"
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -16232,155 +13094,6 @@ Public Class DMUEisGecoTool
 
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "QA Submitted, Started Count"
-
-            Exit Sub
-
-
-            'Dim dgvRow As New DataGridViewRow
-
-            SQL = "select distinct " & _
-            "'False' as ID, " & _
-            " AIRBRANCH.EIS_Admin.facilitysiteid, " & _
-           "AIRBRANCH.APBFacilityInformation.strFacilityname, " & _
-           "AIRBRANCH.EIS_Admin.inventoryyear, " & _
-           "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
-           "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
-           "case " & _
-           "when strOptOut = '1' then 'Yes' " & _
-           "when strOptOut = '0' then 'No' " & _
-           "else '' " & _
-           "End strOptOut, " & _
-           "case " & _
-           "when strMailout = '1' then 'Yes' " & _
-           "else 'No' " & _
-           "end strMailout, " & _
-           "case " & _
-           "when strContactEmail is null then '-' " & _
-           "else strContactEmail " & _
-           "end ContactEmail, " & _
-             "case " & _
-                   "When strContactPrefix is null then '-' " & _
-                   "else strContactPrefix " & _
-                   "end strContactPrefix, " & _
-                   "case " & _
-                   "when strContactFirstName is null then '-' " & _
-                   "else strContactFirstName " & _
-                   "end strContactFirstName, " & _
-                   "case " & _
-                   "When strContactLastName is null then '-' " & _
-                   "else strContactLastName " & _
-                   "end strContactLastName, " & _
-           "case " & _
-          "when strDMUResponsibleStaff is null then '-' " & _
-           "else strDMUResponsibleStaff " & _
-            "end strDMUResponsibleStaff " & _
-           "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
-           "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin " & _
-           "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
-           "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
-           "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
-           "and AIRBranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_QAAdmin.FacilitySiteID (+) " & _
-"and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
-           "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
-                      "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
-            "and AIRBranch.EIS_Admin.Active = '1' " & _
-           "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
-                     "and AIRbranch.EIS_Admin.strEnrollment = '1'  " & _
- "and AIRbranch.EIS_Admin.eisstatuscode >= 3  " & _
- "and (strOptOut = '0' ) " & _
- "and    exists (Select * from AIRBranch.EIS_QAAdmin " & _
- "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
- "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
- "and datQAComplete is null )  " & _
- "and (strFIError = 'True' ) and (strPointError = 'True' ) " & _
- "order by AIRBRANCH.EIS_Admin.facilitysiteid "
-
-            dgvEISStats.Rows.Clear()
-            ds = New DataSet
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEISStats)
-                If IsDBNull(dr.Item("ID")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("ID")
-                End If
-
-                If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("InventoryYear")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = dr.Item("InventoryYear")
-                End If
-                If IsDBNull(dr.Item("EISStatus")) Then
-                    dgvRow.Cells(4).Value = False
-                Else
-                    dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                End If
-                If IsDBNull(dr.Item("EISAccess")) Then
-                    dgvRow.Cells(5).Value = False
-                Else
-                    dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                End If
-
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    dgvRow.Cells(6).Value = False
-                Else
-                    dgvRow.Cells(6).Value = dr.Item("strOptOut")
-                End If
-                If IsDBNull(dr.Item("strMailout")) Then
-                    dgvRow.Cells(7).Value = False
-                Else
-                    dgvRow.Cells(7).Value = dr.Item("strMailout")
-                End If
-                If IsDBNull(dr.Item("ContactEmail")) Then
-                    dgvRow.Cells(8).Value = ""
-                Else
-                    dgvRow.Cells(8).Value = dr.Item("ContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    dgvRow.Cells(9).Value = ""
-                Else
-                    dgvRow.Cells(9).Value = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    dgvRow.Cells(10).Value = ""
-                Else
-                    dgvRow.Cells(10).Value = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    dgvRow.Cells(11).Value = ""
-                Else
-                    dgvRow.Cells(11).Value = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-                    dgvRow.Cells(12).Value = ""
-                Else
-                    dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
-                End If
-                dgvEISStats.Rows.Add(dgvRow)
-            End While
-            dr.Close()
-
-            txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "QA Submitted, Started Count"
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -16398,160 +13111,10 @@ Public Class DMUEisGecoTool
 
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "QA Submitted, Started Count"
-
-            Exit Sub
-
-            'Dim dgvRow As New DataGridViewRow
-
-            SQL = "select distinct " & _
-            "'False' as ID, " & _
-            " AIRBRANCH.EIS_Admin.facilitysiteid, " & _
-           "AIRBRANCH.APBFacilityInformation.strFacilityname, " & _
-           "AIRBRANCH.EIS_Admin.inventoryyear, " & _
-           "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
-           "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
-           "case " & _
-           "when strOptOut = '1' then 'Yes' " & _
-           "when strOptOut = '0' then 'No' " & _
-           "else '' " & _
-           "End strOptOut, " & _
-           "case " & _
-           "when strMailout = '1' then 'Yes' " & _
-           "else 'No' " & _
-           "end strMailout, " & _
-           "case " & _
-           "when strContactEmail is null then '-' " & _
-           "else strContactEmail " & _
-           "end ContactEmail, " & _
-             "case " & _
-                   "When strContactPrefix is null then '-' " & _
-                   "else strContactPrefix " & _
-                   "end strContactPrefix, " & _
-                   "case " & _
-                   "when strContactFirstName is null then '-' " & _
-                   "else strContactFirstName " & _
-                   "end strContactFirstName, " & _
-                   "case " & _
-                   "When strContactLastName is null then '-' " & _
-                   "else strContactLastName " & _
-                   "end strContactLastName, " & _
-           "case " & _
-          "when strDMUResponsibleStaff is null then '-' " & _
-           "else strDMUResponsibleStaff " & _
-            "end strDMUResponsibleStaff " & _
-           "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
-           "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin " & _
-           "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
-           "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
-           "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
-           "and AIRBranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_QAAdmin.FacilitySiteID (+) " & _
-"and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
-           "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
-                      "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
-            "and AIRBranch.EIS_Admin.Active = '1' " & _
-           "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
-                     "and AIRbranch.EIS_Admin.strEnrollment = '1'  " & _
- "and AIRbranch.EIS_Admin.eisstatuscode >= 3  " & _
- "and (strOptOut = '0' ) " & _
- "and    exists (Select * from AIRBranch.EIS_QAAdmin " & _
- "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
- "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
- "and datQAComplete is null )  " & _
- "and (strFIError = 'False' or strFIError is null) and (strPointError = 'False' or strPointError is null) " & _
- "order by AIRBRANCH.EIS_Admin.facilitysiteid "
-
-            dgvEISStats.Rows.Clear()
-            ds = New DataSet
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEISStats)
-                If IsDBNull(dr.Item("ID")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("ID")
-                End If
-
-                If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("InventoryYear")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = dr.Item("InventoryYear")
-                End If
-                If IsDBNull(dr.Item("EISStatus")) Then
-                    dgvRow.Cells(4).Value = False
-                Else
-                    dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                End If
-                If IsDBNull(dr.Item("EISAccess")) Then
-                    dgvRow.Cells(5).Value = False
-                Else
-                    dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                End If
-
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    dgvRow.Cells(6).Value = False
-                Else
-                    dgvRow.Cells(6).Value = dr.Item("strOptOut")
-                End If
-                If IsDBNull(dr.Item("strMailout")) Then
-                    dgvRow.Cells(7).Value = False
-                Else
-                    dgvRow.Cells(7).Value = dr.Item("strMailout")
-                End If
-                If IsDBNull(dr.Item("ContactEmail")) Then
-                    dgvRow.Cells(8).Value = ""
-                Else
-                    dgvRow.Cells(8).Value = dr.Item("ContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    dgvRow.Cells(9).Value = ""
-                Else
-                    dgvRow.Cells(9).Value = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    dgvRow.Cells(10).Value = ""
-                Else
-                    dgvRow.Cells(10).Value = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    dgvRow.Cells(11).Value = ""
-                Else
-                    dgvRow.Cells(11).Value = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-                    dgvRow.Cells(12).Value = ""
-                Else
-                    dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
-                End If
-                dgvEISStats.Rows.Add(dgvRow)
-            End While
-            dr.Close()
-
-            txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "QA Submitted, Started Count"
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-
-
 
     Private Sub llbEISStatsOptedOutToDo_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISStatsOptedOutToDo.LinkClicked
         Try
@@ -16564,154 +13127,6 @@ Public Class DMUEisGecoTool
 
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "QA Opted-Out, To-do Count"
-
-            Exit Sub
-
-
-            'Dim dgvRow As New DataGridViewRow
-
-            SQL = "select distinct " & _
-           "'False' as ID, " & _
-           " AIRBRANCH.EIS_Admin.facilitysiteid, " & _
-          "AIRBRANCH.APBFacilityInformation.strFacilityname, " & _
-          "AIRBRANCH.EIS_Admin.inventoryyear, " & _
-          "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
-          "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
-                 "case " & _
-            "when strOptOutreason is null then 'No' " & _
-            "when strOptoutReason = '1' then 'Did not Operate' " & _
-            "when strOptOutReason = '2' then 'Pollutant below Threshold' " & _
-            "end strOptOut, " & _
-          "case " & _
-          "when strMailout = '1' then 'Yes' " & _
-          "else 'No' " & _
-          "end strMailout, " & _
-          "case " & _
-          "when strContactEmail is null then '-' " & _
-          "else strContactEmail " & _
-          "end ContactEmail, " & _
-            "case " & _
-                  "When strContactPrefix is null then '-' " & _
-                  "else strContactPrefix " & _
-                  "end strContactPrefix, " & _
-                  "case " & _
-                  "when strContactFirstName is null then '-' " & _
-                  "else strContactFirstName " & _
-                  "end strContactFirstName, " & _
-                  "case " & _
-                  "When strContactLastName is null then '-' " & _
-                  "else strContactLastName " & _
-                  "end strContactLastName, " & _
-          "case " & _
-         "when strDMUResponsibleStaff is null then '-' " & _
-          "else strDMUResponsibleStaff " & _
-           "end strDMUResponsibleStaff " & _
-          "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
-          "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-          "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin " & _
-          "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
-          "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
-          "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
-          "and AIRBranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_QAAdmin.FacilitySiteID (+) " & _
-          "and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
-          "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
-          "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
-          "and AIRBranch.EIS_Admin.Active = '1' " & _
-          "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
-          "and AIRbranch.EIS_Admin.strEnrollment = '1'  " & _
-          "and (AIRbranch.EIS_Admin.eisstatuscode = '3' or AIRbranch.EIS_Admin.eisstatuscode = 4) " & _
-          "and (strOptOut = '1' or stroptout is null ) " & _
-          "and  NOT  exists (Select * from AIRBranch.EIS_QAAdmin " & _
-          "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
-          "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID) "
-
-            dgvEISStats.Rows.Clear()
-            ds = New DataSet
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEISStats)
-                If IsDBNull(dr.Item("ID")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("ID")
-                End If
-
-                If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("InventoryYear")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = dr.Item("InventoryYear")
-                End If
-                If IsDBNull(dr.Item("EISStatus")) Then
-                    dgvRow.Cells(4).Value = False
-                Else
-                    dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                End If
-                If IsDBNull(dr.Item("EISAccess")) Then
-                    dgvRow.Cells(5).Value = False
-                Else
-                    dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                End If
-
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    dgvRow.Cells(6).Value = False
-                Else
-                    dgvRow.Cells(6).Value = dr.Item("strOptOut")
-                End If
-                If IsDBNull(dr.Item("strMailout")) Then
-                    dgvRow.Cells(7).Value = False
-                Else
-                    dgvRow.Cells(7).Value = dr.Item("strMailout")
-                End If
-
-
-                If IsDBNull(dr.Item("ContactEmail")) Then
-                    dgvRow.Cells(8).Value = ""
-                Else
-                    dgvRow.Cells(8).Value = dr.Item("ContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    dgvRow.Cells(9).Value = ""
-                Else
-                    dgvRow.Cells(9).Value = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    dgvRow.Cells(10).Value = ""
-                Else
-                    dgvRow.Cells(10).Value = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    dgvRow.Cells(11).Value = ""
-                Else
-                    dgvRow.Cells(11).Value = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-                    dgvRow.Cells(12).Value = ""
-                Else
-                    dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
-                End If
-                dgvEISStats.Rows.Add(dgvRow)
-            End While
-            dr.Close()
-
-            txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "QA Opted-Out, To-do Count"
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -16728,161 +13143,6 @@ Public Class DMUEisGecoTool
 
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "QA Opted-Out, Started Count"
-
-            Exit Sub
-
-
-            'Dim dgvRow As New DataGridViewRow
-
-            SQL = "select distinct " & _
-            "'False' as ID, " & _
-            " AIRBRANCH.EIS_Admin.facilitysiteid, " & _
-           "AIRBRANCH.APBFacilityInformation.strFacilityname, " & _
-           "AIRBRANCH.EIS_Admin.inventoryyear, " & _
-           "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
-           "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
-           "case " & _
-           "when strOptOut = '1' then 'Yes' " & _
-           "when strOptOut = '0' then 'No' " & _
-           "else '' " & _
-           "End strOptOut, " & _
-           "case " & _
-           "when strMailout = '1' then 'Yes' " & _
-           "else 'No' " & _
-           "end strMailout, " & _
-           "case " & _
-           "when strContactEmail is null then '-' " & _
-           "else strContactEmail " & _
-           "end ContactEmail, " & _
-             "case " & _
-                   "When strContactPrefix is null then '-' " & _
-                   "else strContactPrefix " & _
-                   "end strContactPrefix, " & _
-                   "case " & _
-                   "when strContactFirstName is null then '-' " & _
-                   "else strContactFirstName " & _
-                   "end strContactFirstName, " & _
-                   "case " & _
-                   "When strContactLastName is null then '-' " & _
-                   "else strContactLastName " & _
-                   "end strContactLastName, " & _
-           "case " & _
-          "when strDMUResponsibleStaff is null then '-' " & _
-           "else strDMUResponsibleStaff " & _
-            "end strDMUResponsibleStaff " & _
-           "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
-           "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin " & _
-           "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
-           "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
-           "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
-           "and AIRBranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_QAAdmin.FacilitySiteID (+) " & _
-"and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
-           "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
-                      "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
-            "and AIRBranch.EIS_Admin.Active = '1' " & _
-           "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
-          "and AIRbranch.EIS_Admin.strEnrollment = '1'  " & _
-   "and (AIRbranch.EIS_Admin.eisstatuscode = '3' or AIRbranch.EIS_Admin.eisstatuscode = '4')   " & _
- "and (strOptOut = '1' or strOptout is null) " & _
- "and  (not  exists (Select * from AIRBranch.EIS_QAAdmin " & _
- "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
- "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
- "and datQAComplete is null )   " & _
- "or  exists (Select * from AIRBranch.EIS_QAAdmin " & _
- "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
- "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
- "and datQAComplete is null ))"
-
-
-
-            dgvEISStats.Rows.Clear()
-            ds = New DataSet
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEISStats)
-                If IsDBNull(dr.Item("ID")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("ID")
-                End If
-
-                If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("InventoryYear")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = dr.Item("InventoryYear")
-                End If
-                If IsDBNull(dr.Item("EISStatus")) Then
-                    dgvRow.Cells(4).Value = False
-                Else
-                    dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                End If
-                If IsDBNull(dr.Item("EISAccess")) Then
-                    dgvRow.Cells(5).Value = False
-                Else
-                    dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                End If
-
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    dgvRow.Cells(6).Value = False
-                Else
-                    dgvRow.Cells(6).Value = dr.Item("strOptOut")
-                End If
-                If IsDBNull(dr.Item("strMailout")) Then
-                    dgvRow.Cells(7).Value = False
-                Else
-                    dgvRow.Cells(7).Value = dr.Item("strMailout")
-                End If
-
-
-                If IsDBNull(dr.Item("ContactEmail")) Then
-                    dgvRow.Cells(8).Value = ""
-                Else
-                    dgvRow.Cells(8).Value = dr.Item("ContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    dgvRow.Cells(9).Value = ""
-                Else
-                    dgvRow.Cells(9).Value = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    dgvRow.Cells(10).Value = ""
-                Else
-                    dgvRow.Cells(10).Value = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    dgvRow.Cells(11).Value = ""
-                Else
-                    dgvRow.Cells(11).Value = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-                    dgvRow.Cells(12).Value = ""
-                Else
-                    dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
-                End If
-                dgvEISStats.Rows.Add(dgvRow)
-            End While
-            dr.Close()
-
-            txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "QA Opted-Out, Started Count"
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -16899,174 +13159,6 @@ Public Class DMUEisGecoTool
 
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "QA Submitted, EPA Submitted Count"
-
-            Exit Sub
-
-            'Dim dgvRow As New DataGridViewRow
-
-            SQL = "select distinct " & _
-            "'False' as ID, " & _
-            " AIRBRANCH.EIS_Admin.facilitysiteid, " & _
-           "AIRBRANCH.APBFacilityInformation.strFacilityname, " & _
-           "AIRBRANCH.EIS_Admin.inventoryyear, " & _
-           "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
-           "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
-           "case " & _
-           "when strOptOut = '1' then 'Yes' " & _
-           "when strOptOut = '0' then 'No' " & _
-           "else '' " & _
-           "End strOptOut, " & _
-           "case " & _
-           "when strMailout = '1' then 'Yes' " & _
-           "else 'No' " & _
-           "end strMailout, " & _
-           "case " & _
-           "when strContactEmail is null then '-' " & _
-           "else strContactEmail " & _
-           "end ContactEmail, " & _
-             "case " & _
-                   "When strContactPrefix is null then '-' " & _
-                   "else strContactPrefix " & _
-                   "end strContactPrefix, " & _
-                   "case " & _
-                   "when strContactFirstName is null then '-' " & _
-                   "else strContactFirstName " & _
-                   "end strContactFirstName, " & _
-                   "case " & _
-                   "When strContactLastName is null then '-' " & _
-                   "else strContactLastName " & _
-                   "end strContactLastName, " & _
-           "case " & _
-          "when strDMUResponsibleStaff is null then '-' " & _
-           "else strDMUResponsibleStaff " & _
-            "end strDMUResponsibleStaff " & _
-           "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
-           "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin " & _
-           "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
-           "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
-           "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
-           "and AIRBranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_QAAdmin.FacilitySiteID (+) " & _
-"and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
-           "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
-                      "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
-            "and AIRBranch.EIS_Admin.Active = '1' " & _
-           "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
-          "and AIRbranch.EIS_Admin.strEnrollment = '1'  " & _
- "and AIRbranch.EIS_Admin.eisstatuscode = '5' " & _
- "and (strOptOut = '1' or strOptout is null ) " & _
- "and  (not  exists (Select * from AIRBranch.EIS_QAAdmin " & _
- "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
- "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
-  "and datQAComplete is not null " & _
-  "or " & _
- "exists (Select * from AIRBranch.EIS_QAAdmin " & _
- "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
- "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
-  "and datQAComplete is not null )" & _
-  " )) "
-
-
-            '           "and eisstatuscode = '5'  " & _
-            '"and (strOptOut = '1' or strOptout is null ) " & _
-            '"and  (not  exists (Select * from AIRBranch.EIS_QAAdmin " & _
-            '"where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
-            '"and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID) " & _
-            '"OR " & _
-            '"exists (Select * from AIRBranch.EIS_QAAdmin " & _
-            '"where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
-            '"and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
-            ' "and datQAComplete is not null )" & _
-            ' " ) ) "
-
-
-            dgvEISStats.Rows.Clear()
-            ds = New DataSet
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEISStats)
-                If IsDBNull(dr.Item("ID")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("ID")
-                End If
-
-                If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("InventoryYear")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = dr.Item("InventoryYear")
-                End If
-                If IsDBNull(dr.Item("EISStatus")) Then
-                    dgvRow.Cells(4).Value = False
-                Else
-                    dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                End If
-                If IsDBNull(dr.Item("EISAccess")) Then
-                    dgvRow.Cells(5).Value = False
-                Else
-                    dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                End If
-
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    dgvRow.Cells(6).Value = False
-                Else
-                    dgvRow.Cells(6).Value = dr.Item("strOptOut")
-                End If
-                If IsDBNull(dr.Item("strMailout")) Then
-                    dgvRow.Cells(7).Value = False
-                Else
-                    dgvRow.Cells(7).Value = dr.Item("strMailout")
-                End If
-
-
-                If IsDBNull(dr.Item("ContactEmail")) Then
-                    dgvRow.Cells(8).Value = ""
-                Else
-                    dgvRow.Cells(8).Value = dr.Item("ContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    dgvRow.Cells(9).Value = ""
-                Else
-                    dgvRow.Cells(9).Value = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    dgvRow.Cells(10).Value = ""
-                Else
-                    dgvRow.Cells(10).Value = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    dgvRow.Cells(11).Value = ""
-                Else
-                    dgvRow.Cells(11).Value = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-                    dgvRow.Cells(12).Value = ""
-                Else
-                    dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
-                End If
-                dgvEISStats.Rows.Add(dgvRow)
-            End While
-            dr.Close()
-
-            txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "QA Opted-Out, EPA Submitted Count"
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -17644,9 +13736,7 @@ Public Class DMUEisGecoTool
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeletePollutant_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeletePollutant.Click
 
-    End Sub
     Sub LoadEISYear()
         Try
             SQL = "Select " & _
@@ -17828,14 +13918,6 @@ Public Class DMUEisGecoTool
             Else
                 MsgBox("EIS Year does not currently exists." & vbCrLf & "No data Saved", MsgBoxStyle.Information, Me.Text)
             End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnDeleteEISYear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteEISYear.Click
-        Try
-
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -18107,701 +14189,16 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-
-    Private Sub mtbEILogAIRSNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles mtbEILogAIRSNumber.KeyPress
-        Try
-
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
-            Else
-                Exit Sub
-            End If
-
-            If cboEILogYear.Text = "" Or cboEILogYear.Text.Length <> 4 Then
-                MsgBox("Please select a valid year from the EIS Year dropdown.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
-            End If
-            If mtbEILogAIRSNumber.Text = "" Or mtbEILogAIRSNumber.Text.Length <> 8 Then
-                MsgBox("Please enter a valid AIRS # into the EIS AIRS #", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
-            End If
-            txtEILogSelectedYear.Text = cboEILogYear.Text
-            txtEILogSelectedAIRSNumber.Text = mtbEILogAIRSNumber.Text
-
-            LoadAdminData()
-
-            SQL = "select  " & _
-            "strFacilitySiteName " & _
-            "from AIRBRANCH.EIS_FacilitySite " & _
-            "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strFacilitySiteName")) Then
-                    txtEIModifyFacilityName.Clear()
-                    txtEILogFacilityName.Clear()
-                Else
-                    txtEIModifyFacilityName.Text = dr.Item("strFacilitySiteName")
-                    txtEILogFacilityName.Text = dr.Item("strFacilitySiteName")
-                End If
-            End While
-            dr.Close()
-
-            SQL = "select  " & _
-            "* " & _
-            "from AIRBRANCH.EIS_FacilitySiteAddress " & _
-            "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strLocationAddressText")) Then
-                    txtEIModifyLocation.Clear()
-                Else
-                    txtEIModifyLocation.Text = dr.Item("strLocationAddressText")
-                End If
-                If IsDBNull(dr.Item("strLocalityName")) Then
-                    txtEIModifyCity.Clear()
-                Else
-                    txtEIModifyCity.Text = dr.Item("strLocalityName")
-                End If
-                If IsDBNull(dr.Item("strLocationAddressPostalCode")) Then
-                    mtbEIModifyZipCode.Clear()
-                Else
-                    mtbEIModifyZipCode.Text = dr.Item("strLocationAddressPostalCode")
-                End If
-            End While
-            dr.Close()
-
-            SQL = "select  " & _
-            "* " & _
-            "from AIRBRANCH.EIS_FacilityGeoCoord " & _
-            "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("numLatitudeMeasure")) Then
-                    mtbEIModifyLatitude.Clear()
-                Else
-                    mtbEIModifyLatitude.Text = dr.Item("numLatitudeMeasure")
-                End If
-                If IsDBNull(dr.Item("numLongitudeMeasure")) Then
-                    mtbEIModifyLongitude.Clear()
-                Else
-                    mtbEIModifyLongitude.Text = dr.Item("numLongitudeMeasure")
-                End If
-            End While
-            dr.Close()
-
-            SQL = "select * " & _
-            "from AIRBRANCH.APBFacilityInformation " & _
-            "where strAIRSNumber = '0413" & txtEILogSelectedAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    txtEIModifyIAIPFacilityName.Clear()
-                Else
-                    txtEIModifyIAIPFacilityName.Text = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("strFacilityStreet1")) Then
-                    txtEIModifyIAIPLocation.Clear()
-                Else
-                    txtEIModifyIAIPLocation.Text = dr.Item("strFacilityStreet1")
-                End If
-                If IsDBNull(dr.Item("strFacilityCity")) Then
-                    txtEIModifyIAIPCity.Clear()
-                Else
-                    txtEIModifyIAIPCity.Text = dr.Item("strFacilityCity")
-                End If
-                If IsDBNull(dr.Item("strFacilityZipCode")) Then
-                    mtbEIModifyIAIPZipCode.Clear()
-                Else
-                    mtbEIModifyIAIPZipCode.Text = dr.Item("strFacilityZipCode")
-                End If
-                If IsDBNull(dr.Item("numFacilityLongitude")) Then
-                    mtbEIModifyIAIPLongitude.Clear()
-                Else
-                    mtbEIModifyIAIPLongitude.Text = dr.Item("numFacilityLongitude")
-                End If
-                If IsDBNull(dr.Item("numFacilityLatitude")) Then
-                    mtbEIModifyIAIPLatitude.Clear()
-                Else
-                    mtbEIModifyIAIPLatitude.Text = dr.Item("numFacilityLatitude")
-                End If
-            End While
-            dr.Close()
-
-            SQL = "Select * " & _
-            "from AIRBRANCH.EIS_Mailout " & _
-            "where intInventoryYear = '" & txtEILogSelectedYear.Text & "' " & _
-            "and FacilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    txtEISMailoutFacilityName.Clear()
-                Else
-                    txtEISMailoutFacilityName.Text = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("strContactCompanyName")) Then
-                    txtEISMailoutCompanyName.Clear()
-                Else
-                    txtEISMailoutCompanyName.Text = dr.Item("strContactCompanyName")
-                End If
-                If IsDBNull(dr.Item("strContactAddress1")) Then
-                    txtEISMailoutAddress.Clear()
-                Else
-                    txtEISMailoutAddress.Text = dr.Item("strContactAddress1")
-                End If
-                If IsDBNull(dr.Item("strContactAddress2")) Then
-                    txtEISMailoutAddress2.Clear()
-                Else
-                    txtEISMailoutAddress2.Text = dr.Item("strContactAddress2")
-                End If
-                If IsDBNull(dr.Item("strContactCity")) Then
-                    txtEISMailoutCity.Clear()
-                Else
-                    txtEISMailoutCity.Text = dr.Item("strContactCity")
-                End If
-                If IsDBNull(dr.Item("strContactState")) Then
-                    txtEISMailoutState.Clear()
-                Else
-                    txtEISMailoutState.Text = dr.Item("strContactState")
-                End If
-                If IsDBNull(dr.Item("strContactZipCode")) Then
-                    txtEISMailoutZipCode.Clear()
-                Else
-                    txtEISMailoutZipCode.Text = dr.Item("strContactZipCode")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    txtEISMailoutFirstName.Clear()
-                Else
-                    txtEISMailoutFirstName.Text = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    txtEISMailoutLastName.Clear()
-                Else
-                    txtEISMailoutLastName.Text = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    txtEISMailoutPrefix.Clear()
-                Else
-                    txtEISMailoutPrefix.Text = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactEmail")) Then
-                    txtEISMailoutEmail.Clear()
-                Else
-                    txtEISMailoutEmail.Text = dr.Item("strContactEmail")
-                End If
-                If IsDBNull(dr.Item("strComment")) Then
-                    txtEISMailoutComments.Clear()
-                Else
-                    txtEISMailoutComments.Text = dr.Item("strComment")
-                End If
-                If IsDBNull(dr.Item("UpdateUser")) Then
-                    txtEISMailoutUpdateUser.Clear()
-                Else
-                    txtEISMailoutUpdateUser.Text = dr.Item("UpdateUser")
-                End If
-                If IsDBNull(dr.Item("UpdateDateTime")) Then
-                    txtEISMailoutUpdateDateTime.Clear()
-                Else
-                    txtEISMailoutUpdateDateTime.Text = dr.Item("UpdateDateTime")
-                End If
-                If IsDBNull(dr.Item("CreateDateTime")) Then
-                    txtEISMailoutCreateDateTime.Clear()
-                Else
-                    txtEISMailoutCreateDateTime.Text = dr.Item("CreateDateTime")
-                End If
-            End While
-            dr.Close()
-
-            SQL = "select " & _
-            "strContactFirstName, strContactLastName, " & _
-            "strContactPrefix, strContactSuffix, " & _
-            "strContactTitle, strContactPhoneNumber1, " & _
-            "strContactPhoneNumber2, strContactFaxNumber, " & _
-            "strContactEmail, strContactCompanyName, " & _
-            "strContactAddress1, strContactAddress2, " & _
-            "strContactCity, strContactState, " & _
-            "strContactZipCode, strContactDescription, " & _
-            "datModifingDate, (strLastName||', '||strFirstName) as ModifingPerson " & _
-            "from AIRBRANCH.APBContactInformation, AIRBRANCH.EPDUserProfiles " & _
-            "where AIRBRANCH.APBContactInformation.strModifingPerson = " & _
-            "AIRBRANCH.EPDUserProfiles.numUserID  " & _
-            "and strContactKey = '0413" & txtEILogSelectedAIRSNumber.Text & "41' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    txtEISContactFirstName.Clear()
-                Else
-                    txtEISContactFirstName.Text = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    txtEISContactLastName.Clear()
-                Else
-                    txtEISContactLastName.Text = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    txtEISContactPrefix.Clear()
-                Else
-                    txtEISContactPrefix.Text = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactSuffix")) Then
-                    txtEISContactSuffix.Clear()
-                Else
-                    txtEISContactSuffix.Text = dr.Item("strContactSuffix")
-                End If
-                If IsDBNull(dr.Item("strContactTitle")) Then
-                    txtEISContactTitle.Clear()
-                Else
-                    txtEISContactTitle.Text = dr.Item("strContactTitle")
-                End If
-                If IsDBNull(dr.Item("strContactPhoneNumber1")) Then
-                    txtEISContactPhone.Clear()
-                Else
-                    txtEISContactPhone.Text = dr.Item("strContactPhoneNumber1")
-                End If
-                If IsDBNull(dr.Item("strContactPhoneNumber2")) Then
-                    txtEISContactPhone2.Clear()
-                Else
-                    txtEISContactPhone2.Text = dr.Item("strContactPhoneNumber2")
-                End If
-                If IsDBNull(dr.Item("strContactFaxNumber")) Then
-                    txtEISContactFax.Clear()
-                Else
-                    txtEISContactFax.Text = dr.Item("strContactFaxNumber")
-                End If
-                If IsDBNull(dr.Item("strContactEmail")) Then
-                    txtEISContactEmail.Clear()
-                Else
-                    txtEISContactEmail.Text = dr.Item("strContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactCompanyName")) Then
-                    txtEISContactCompanyName.Clear()
-                Else
-                    txtEISContactCompanyName.Text = dr.Item("strContactCompanyName")
-                End If
-                If IsDBNull(dr.Item("strContactAddress1")) Then
-                    txtEISContactAddress.Clear()
-                Else
-                    txtEISContactAddress.Text = dr.Item("strContactAddress1")
-                End If
-                If IsDBNull(dr.Item("strContactAddress2")) Then
-                    txtEISContactAddress2.Clear()
-                Else
-                    txtEISContactAddress2.Text = dr.Item("strContactAddress2")
-                End If
-                If IsDBNull(dr.Item("strContactCity")) Then
-                    txtEISContactCity.Clear()
-                Else
-                    txtEISContactCity.Text = dr.Item("strContactCity")
-                End If
-                If IsDBNull(dr.Item("strContactState")) Then
-                    txtEISContactState.Clear()
-                Else
-                    txtEISContactState.Text = dr.Item("strContactState")
-                End If
-                If IsDBNull(dr.Item("strContactZipCode")) Then
-                    txtEISContactZipCode.Clear()
-                Else
-                    txtEISContactZipCode.Text = dr.Item("strContactZipCode")
-                End If
-                If IsDBNull(dr.Item("strContactDescription")) Then
-                    txtEISContactDescription.Clear()
-                Else
-                    txtEISContactDescription.Text = dr.Item("strContactDescription")
-                End If
-                If IsDBNull(dr.Item("ModifingPerson")) Then
-                    txtEISContactUpdateUser.Clear()
-                Else
-                    txtEISContactUpdateUser.Text = dr.Item("ModifingPerson")
-                End If
-                If IsDBNull(dr.Item("datModifingDate")) Then
-                    txtEISContactUpdateDateTime.Clear()
-                Else
-                    txtEISContactUpdateDateTime.Text = dr.Item("datModifingDate")
-                End If
-
-            End While
-            dr.Close()
-
-            LoadQASpecificData()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
     Private Sub btnLoadEISLog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadEISLog.Click
         Try
             If mtbEISLogAIRSNumber.Text <> "" And cboEISStatisticsYear.Text.Length = 4 Then
                 mtbEILogAIRSNumber.Text = mtbEISLogAIRSNumber.Text
                 cboEILogYear.Text = cboEISStatisticsYear.Text
 
-                txtEILogSelectedYear.Text = cboEILogYear.Text
-                txtEILogSelectedAIRSNumber.Text = mtbEILogAIRSNumber.Text
-
-                LoadAdminData()
-
-                SQL = "select  " & _
-                "strFacilitySiteName " & _
-                "from AIRBRANCH.EIS_FacilitySite " & _
-                "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("strFacilitySiteName")) Then
-                        txtEIModifyFacilityName.Clear()
-                        txtEILogFacilityName.Clear()
-                    Else
-                        txtEIModifyFacilityName.Text = dr.Item("strFacilitySiteName")
-                        txtEILogFacilityName.Text = dr.Item("strFacilitySiteName")
-                    End If
-                End While
-                dr.Close()
-
-                SQL = "select  " & _
-                "* " & _
-                "from AIRBRANCH.EIS_FacilitySiteAddress " & _
-                "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("strLocationAddressText")) Then
-                        txtEIModifyLocation.Clear()
-                    Else
-                        txtEIModifyLocation.Text = dr.Item("strLocationAddressText")
-                    End If
-                    If IsDBNull(dr.Item("strLocalityName")) Then
-                        txtEIModifyCity.Clear()
-                    Else
-                        txtEIModifyCity.Text = dr.Item("strLocalityName")
-                    End If
-                    If IsDBNull(dr.Item("strLocationAddressPostalCode")) Then
-                        mtbEIModifyZipCode.Clear()
-                    Else
-                        mtbEIModifyZipCode.Text = dr.Item("strLocationAddressPostalCode")
-                    End If
-                End While
-                dr.Close()
-
-                SQL = "select  " & _
-                "* " & _
-                "from AIRBRANCH.EIS_FacilityGeoCoord " & _
-                "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("numLatitudeMeasure")) Then
-                        mtbEIModifyLatitude.Clear()
-                    Else
-                        mtbEIModifyLatitude.Text = dr.Item("numLatitudeMeasure")
-                    End If
-                    If IsDBNull(dr.Item("numLongitudeMeasure")) Then
-                        mtbEIModifyLongitude.Clear()
-                    Else
-                        mtbEIModifyLongitude.Text = dr.Item("numLongitudeMeasure")
-                    End If
-                End While
-                dr.Close()
-
-                SQL = "select * " & _
-                "from AIRBRANCH.APBFacilityInformation " & _
-                "where strAIRSNumber = '0413" & txtEILogSelectedAIRSNumber.Text & "' "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("strFacilityName")) Then
-                        txtEIModifyIAIPFacilityName.Clear()
-                    Else
-                        txtEIModifyIAIPFacilityName.Text = dr.Item("strFacilityName")
-                    End If
-                    If IsDBNull(dr.Item("strFacilityStreet1")) Then
-                        txtEIModifyIAIPLocation.Clear()
-                    Else
-                        txtEIModifyIAIPLocation.Text = dr.Item("strFacilityStreet1")
-                    End If
-                    If IsDBNull(dr.Item("strFacilityCity")) Then
-                        txtEIModifyIAIPCity.Clear()
-                    Else
-                        txtEIModifyIAIPCity.Text = dr.Item("strFacilityCity")
-                    End If
-                    If IsDBNull(dr.Item("strFacilityZipCode")) Then
-                        mtbEIModifyIAIPZipCode.Clear()
-                    Else
-                        mtbEIModifyIAIPZipCode.Text = dr.Item("strFacilityZipCode")
-                    End If
-                    If IsDBNull(dr.Item("numFacilityLongitude")) Then
-                        mtbEIModifyIAIPLongitude.Clear()
-                    Else
-                        mtbEIModifyIAIPLongitude.Text = dr.Item("numFacilityLongitude")
-                    End If
-                    If IsDBNull(dr.Item("numFacilityLatitude")) Then
-                        mtbEIModifyIAIPLatitude.Clear()
-                    Else
-                        mtbEIModifyIAIPLatitude.Text = dr.Item("numFacilityLatitude")
-                    End If
-                End While
-                dr.Close()
-
-                SQL = "Select * " & _
-                "from AIRBRANCH.EIS_Mailout " & _
-                "where intInventoryYear = '" & txtEILogSelectedYear.Text & "' " & _
-                "and FacilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "' "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("strFacilityName")) Then
-                        txtEISMailoutFacilityName.Clear()
-                    Else
-                        txtEISMailoutFacilityName.Text = dr.Item("strFacilityName")
-                    End If
-                    If IsDBNull(dr.Item("strContactCompanyName")) Then
-                        txtEISMailoutCompanyName.Clear()
-                    Else
-                        txtEISMailoutCompanyName.Text = dr.Item("strContactCompanyName")
-                    End If
-                    If IsDBNull(dr.Item("strContactAddress1")) Then
-                        txtEISMailoutAddress.Clear()
-                    Else
-                        txtEISMailoutAddress.Text = dr.Item("strContactAddress1")
-                    End If
-                    If IsDBNull(dr.Item("strContactAddress2")) Then
-                        txtEISMailoutAddress2.Clear()
-                    Else
-                        txtEISMailoutAddress2.Text = dr.Item("strContactAddress2")
-                    End If
-                    If IsDBNull(dr.Item("strContactCity")) Then
-                        txtEISMailoutCity.Clear()
-                    Else
-                        txtEISMailoutCity.Text = dr.Item("strContactCity")
-                    End If
-                    If IsDBNull(dr.Item("strContactState")) Then
-                        txtEISMailoutState.Clear()
-                    Else
-                        txtEISMailoutState.Text = dr.Item("strContactState")
-                    End If
-                    If IsDBNull(dr.Item("strContactZipCode")) Then
-                        txtEISMailoutZipCode.Clear()
-                    Else
-                        txtEISMailoutZipCode.Text = dr.Item("strContactZipCode")
-                    End If
-                    If IsDBNull(dr.Item("strContactFirstName")) Then
-                        txtEISMailoutFirstName.Clear()
-                    Else
-                        txtEISMailoutFirstName.Text = dr.Item("strContactFirstName")
-                    End If
-                    If IsDBNull(dr.Item("strContactLastName")) Then
-                        txtEISMailoutLastName.Clear()
-                    Else
-                        txtEISMailoutLastName.Text = dr.Item("strContactLastName")
-                    End If
-                    If IsDBNull(dr.Item("strContactPrefix")) Then
-                        txtEISMailoutPrefix.Clear()
-                    Else
-                        txtEISMailoutPrefix.Text = dr.Item("strContactPrefix")
-                    End If
-                    If IsDBNull(dr.Item("strContactEmail")) Then
-                        txtEISMailoutEmail.Clear()
-                    Else
-                        txtEISMailoutEmail.Text = dr.Item("strContactEmail")
-                    End If
-                    If IsDBNull(dr.Item("strComment")) Then
-                        txtEISMailoutComments.Clear()
-                    Else
-                        txtEISMailoutComments.Text = dr.Item("strComment")
-                    End If
-                    If IsDBNull(dr.Item("UpdateUser")) Then
-                        txtEISMailoutUpdateUser.Clear()
-                    Else
-                        txtEISMailoutUpdateUser.Text = dr.Item("UpdateUser")
-                    End If
-                    If IsDBNull(dr.Item("UpdateDateTime")) Then
-                        txtEISMailoutUpdateDateTime.Clear()
-                    Else
-                        txtEISMailoutUpdateDateTime.Text = dr.Item("UpdateDateTime")
-                    End If
-                    If IsDBNull(dr.Item("CreateDateTime")) Then
-                        txtEISMailoutCreateDateTime.Clear()
-                    Else
-                        txtEISMailoutCreateDateTime.Text = dr.Item("CreateDateTime")
-                    End If
-                End While
-                dr.Close()
-
-                SQL = "select " & _
-                "strContactFirstName, strContactLastName, " & _
-                "strContactPrefix, strContactSuffix, " & _
-                "strContactTitle, strContactPhoneNumber1, " & _
-                "strContactPhoneNumber2, strContactFaxNumber, " & _
-                "strContactEmail, strContactCompanyName, " & _
-                "strContactAddress1, strContactAddress2, " & _
-                "strContactCity, strContactState, " & _
-                "strContactZipCode, strContactDescription, " & _
-                "datModifingDate, (strLastName||', '||strFirstName) as ModifingPerson " & _
-                "from AIRBRANCH.APBContactInformation, AIRBRANCH.EPDUserProfiles " & _
-                "where AIRBRANCH.APBContactInformation.strModifingPerson = " & _
-                "AIRBRANCH.EPDUserProfiles.numUserID  " & _
-                "and strContactKey = '0413" & txtEILogSelectedAIRSNumber.Text & "41' "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("strContactFirstName")) Then
-                        txtEISContactFirstName.Clear()
-                    Else
-                        txtEISContactFirstName.Text = dr.Item("strContactFirstName")
-                    End If
-                    If IsDBNull(dr.Item("strContactLastName")) Then
-                        txtEISContactLastName.Clear()
-                    Else
-                        txtEISContactLastName.Text = dr.Item("strContactLastName")
-                    End If
-                    If IsDBNull(dr.Item("strContactPrefix")) Then
-                        txtEISContactPrefix.Clear()
-                    Else
-                        txtEISContactPrefix.Text = dr.Item("strContactPrefix")
-                    End If
-                    If IsDBNull(dr.Item("strContactSuffix")) Then
-                        txtEISContactSuffix.Clear()
-                    Else
-                        txtEISContactSuffix.Text = dr.Item("strContactSuffix")
-                    End If
-                    If IsDBNull(dr.Item("strContactTitle")) Then
-                        txtEISContactTitle.Clear()
-                    Else
-                        txtEISContactTitle.Text = dr.Item("strContactTitle")
-                    End If
-                    If IsDBNull(dr.Item("strContactPhoneNumber1")) Then
-                        txtEISContactPhone.Clear()
-                    Else
-                        txtEISContactPhone.Text = dr.Item("strContactPhoneNumber1")
-                    End If
-                    If IsDBNull(dr.Item("strContactPhoneNumber2")) Then
-                        txtEISContactPhone2.Clear()
-                    Else
-                        txtEISContactPhone2.Text = dr.Item("strContactPhoneNumber2")
-                    End If
-                    If IsDBNull(dr.Item("strContactFaxNumber")) Then
-                        txtEISContactFax.Clear()
-                    Else
-                        txtEISContactFax.Text = dr.Item("strContactFaxNumber")
-                    End If
-                    If IsDBNull(dr.Item("strContactEmail")) Then
-                        txtEISContactEmail.Clear()
-                    Else
-                        txtEISContactEmail.Text = dr.Item("strContactEmail")
-                    End If
-                    If IsDBNull(dr.Item("strContactCompanyName")) Then
-                        txtEISContactCompanyName.Clear()
-                    Else
-                        txtEISContactCompanyName.Text = dr.Item("strContactCompanyName")
-                    End If
-                    If IsDBNull(dr.Item("strContactAddress1")) Then
-                        txtEISContactAddress.Clear()
-                    Else
-                        txtEISContactAddress.Text = dr.Item("strContactAddress1")
-                    End If
-                    If IsDBNull(dr.Item("strContactAddress2")) Then
-                        txtEISContactAddress2.Clear()
-                    Else
-                        txtEISContactAddress2.Text = dr.Item("strContactAddress2")
-                    End If
-                    If IsDBNull(dr.Item("strContactCity")) Then
-                        txtEISContactCity.Clear()
-                    Else
-                        txtEISContactCity.Text = dr.Item("strContactCity")
-                    End If
-                    If IsDBNull(dr.Item("strContactState")) Then
-                        txtEISContactState.Clear()
-                    Else
-                        txtEISContactState.Text = dr.Item("strContactState")
-                    End If
-                    If IsDBNull(dr.Item("strContactZipCode")) Then
-                        txtEISContactZipCode.Clear()
-                    Else
-                        txtEISContactZipCode.Text = dr.Item("strContactZipCode")
-                    End If
-                    If IsDBNull(dr.Item("strContactDescription")) Then
-                        txtEISContactDescription.Clear()
-                    Else
-                        txtEISContactDescription.Text = dr.Item("strContactDescription")
-                    End If
-                    If IsDBNull(dr.Item("ModifingPerson")) Then
-                        txtEISContactUpdateUser.Clear()
-                    Else
-                        txtEISContactUpdateUser.Text = dr.Item("ModifingPerson")
-                    End If
-                    If IsDBNull(dr.Item("datModifingDate")) Then
-                        txtEISContactUpdateDateTime.Clear()
-                    Else
-                        txtEISContactUpdateDateTime.Text = dr.Item("datModifingDate")
-                    End If
-
-                End While
-                dr.Close()
-
-                LoadQASpecificData()
+                LoadFSData()
+                
                 TCDMUTools.SelectedIndex = 0
-
             End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-
-
-    Private Sub btnCopyAIRSNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCopyAIRSNumber.Click
-        Try
-            Clipboard.SetDataObject(Replace(mtbEILogAIRSNumber.Text, "-", ""), True)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -18819,168 +14216,6 @@ Public Class DMUEisGecoTool
 
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "QA Submitted, EPA Submitted Count"
-
-            Exit Sub
-
-            'Dim dgvRow As New DataGridViewRow
-
-            SQL = "select distinct " & _
-      "'False' as ID, " & _
-      " AIRBRANCH.EIS_Admin.facilitysiteid, " & _
-     "AIRBRANCH.APBFacilityInformation.strFacilityname, " & _
-"AIRBRANCH.EIS_Admin.inventoryyear, " & _
-"AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
-"AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
-"case " & _
-"when strOptOut = '1' then 'Yes' " & _
-"when strOptOut = '0' then 'No' " & _
-"else '' " & _
-"End strOptOut, " & _
-"case " & _
-"when strMailout = '1' then 'Yes' " & _
-"else 'No' " & _
-"end strMailout, " & _
-"case " & _
-"when strContactEmail is null then '-' " & _
-"else strContactEmail " & _
-"end ContactEmail, " & _
-  "case " & _
-                   "When strContactPrefix is null then '-' " & _
-                   "else strContactPrefix " & _
-                   "end strContactPrefix, " & _
-                   "case " & _
-                   "when strContactFirstName is null then '-' " & _
-                   "else strContactFirstName " & _
-                   "end strContactFirstName, " & _
-                   "case " & _
-                   "When strContactLastName is null then '-' " & _
-                   "else strContactLastName " & _
-                   "end strContactLastName, " & _
-"case " & _
-"when strDMUResponsibleStaff is null then '-' " & _
-"else strDMUResponsibleStaff " & _
-"end strDMUResponsibleStaff,  " & _
-"AIRBranch.EISLK_QAStatus.strDesc,  " & _
-            "datQAStatus " & _
-"from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
-"airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-"AIRbranch.EIS_Mailout, AIRBranch.EIS_QAAdmin, AIRbranch.EISLK_QAStatus  " & _
-"where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
-"and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
-"and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
-"and AIRBranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_QAAdmin.FacilitySiteID (+) " & _
-"and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
-"and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
-           "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
-"and AIRBranch.EIS_QAAdmin.QAStatusCode = AIRBranch.EISLK_QAStatus.qastatuscode " & _
-"and AIRBranch.EIS_Admin.Active = '1' " & _
-"and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
-            "and strEnrollment = '1' " & _
-          "and AIRbranch.EIS_Admin.eisstatuscode >= 3  " & _
- "and (strOptOut = '0' ) " & _
- "and eis_qaadmin.qastatuscode  = '2'" & _
- "and    exists (Select * from AIRBranch.EIS_QAAdmin " & _
- "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
- "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
- "and eis_qaAdmin.qaStatusCode = '2') " & _
- "order by AIRBRANCH.EIS_Admin.facilitysiteid "
-            ' "and datQAComplete is not null )  "
-
-            dgvEISStats.Rows.Clear()
-            ds = New DataSet
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEISStats)
-                If IsDBNull(dr.Item("ID")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("ID")
-                End If
-
-                If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("InventoryYear")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = dr.Item("InventoryYear")
-                End If
-                If IsDBNull(dr.Item("EISStatus")) Then
-                    dgvRow.Cells(4).Value = ""
-                Else
-                    dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                End If
-                If IsDBNull(dr.Item("EISAccess")) Then
-                    dgvRow.Cells(5).Value = ""
-                Else
-                    dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                End If
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    dgvRow.Cells(6).Value = ""
-                Else
-                    dgvRow.Cells(6).Value = dr.Item("strOptOut")
-                End If
-                If IsDBNull(dr.Item("strMailout")) Then
-                    dgvRow.Cells(7).Value = ""
-                Else
-                    dgvRow.Cells(7).Value = dr.Item("strMailout")
-                End If
-                If IsDBNull(dr.Item("ContactEmail")) Then
-                    dgvRow.Cells(8).Value = ""
-                Else
-                    dgvRow.Cells(8).Value = dr.Item("ContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    dgvRow.Cells(9).Value = ""
-                Else
-                    dgvRow.Cells(9).Value = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    dgvRow.Cells(10).Value = ""
-                Else
-                    dgvRow.Cells(10).Value = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    dgvRow.Cells(11).Value = ""
-                Else
-                    dgvRow.Cells(11).Value = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-                    dgvRow.Cells(12).Value = ""
-                Else
-                    dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
-                End If
-
-                If IsDBNull(dr.Item("strDesc")) Then
-                    dgvRow.Cells(14).Value = ""
-                Else
-                    dgvRow.Cells(14).Value = dr.Item("strDesc")
-                End If
-                If IsDBNull(dr.Item("datQAStatus")) Then
-                    dgvRow.Cells(15).Value = ""
-                Else
-                    dgvRow.Cells(15).Value = dr.Item("datQAStatus")
-                End If
-                dgvEISStats.Rows.Add(dgvRow)
-            End While
-            dr.Close()
-
-            txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "QA Submitted, EPA Submitted Count"
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -19306,7 +14541,6 @@ Public Class DMUEisGecoTool
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "EIS Mailout Count (Generated)"
 
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -19336,7 +14570,7 @@ Public Class DMUEisGecoTool
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
- 
+
 
     Private Sub btnViewEISEnrolled_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewEISEnrolled.Click
         Try
@@ -19448,7 +14682,7 @@ Public Class DMUEisGecoTool
             "EISADDRESS2, EISCITY, " & _
             "EISSTATE, EISZIPCODE, " & _
             "EISPREFIX, EISFIRSTNAME, " & _
-            "EISLASTNAME " & _
+            "EISLASTNAME, DATFINALIZE " & _
             "from AIRBranch.VW_EIS_Stats " & _
             "where inventoryyear = '" & EISYear & "' " & _
             "and Active = '" & EISActive & "' "
@@ -19627,6 +14861,12 @@ Public Class DMUEisGecoTool
                     dgvRow.Cells(25).Value = dr.Item("EISLASTNAME")
                 End If
 
+                If IsDBNull(dr.Item("DATFINALIZE")) Then
+                    dgvRow.Cells(26).Value = ""
+                Else
+                    dgvRow.Cells(26).Value = dr.Item("DATFINALIZE")
+                End If
+
                 dgvEISStats.Rows.Add(dgvRow)
 
             End While
@@ -19636,7 +14876,7 @@ Public Class DMUEisGecoTool
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
- 
+
 
     Private Sub btnEISSummaryToExcel_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEISSummaryToExcel.Click
         Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
@@ -19685,4 +14925,43 @@ Public Class DMUEisGecoTool
         End Try
 
     End Sub
+
+#Region " Accept Button "
+
+    Private Sub AcceptButton_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles mtbEILogAIRSNumber.Leave, _
+    txtEIModifyFacilityName.Leave, _
+    txtEIModifyLocation.Leave, txtEIModifyCity.Leave, mtbEIModifyZipCode.Leave, _
+    txtEIModifyMLocation.Leave, txtEIModifyMCity.Leave, mtbEIModifyMZipCode.Leave, _
+    mtbEIModifyLatitude.Leave, mtbEIModifyLongitude.Leave
+        Me.AcceptButton = Nothing
+    End Sub
+
+    Private Sub mtbEILogAIRSNumber_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles mtbEILogAIRSNumber.Enter
+        Me.AcceptButton = btnReloadFSData
+    End Sub
+
+    Private Sub txtEIModifyFacilityName_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles txtEIModifyFacilityName.Enter
+        Me.AcceptButton = btnEIModifyUpdateName
+    End Sub
+
+    Private Sub EIModifyLocation_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles txtEIModifyLocation.Enter, txtEIModifyCity.Enter, mtbEIModifyZipCode.Enter
+        Me.AcceptButton = btnEIModifyUpdateLocation
+    End Sub
+
+    Private Sub EIModifyMailing_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles txtEIModifyMLocation.Enter, txtEIModifyMCity.Enter, mtbEIModifyMZipCode.Enter
+        Me.AcceptButton = btnEIModifyUpdateMailing
+    End Sub
+
+    Private Sub EIModifyLatitudeLongitude_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles mtbEIModifyLatitude.Enter, mtbEIModifyLongitude.Enter
+        Me.AcceptButton = btnUpdateLatLong
+    End Sub
+
+#End Region
+
 End Class

@@ -80,6 +80,7 @@ Partial Class IAIPNavigation
         Me.ListChangerPanel = New System.Windows.Forms.Panel
         Me.pnlContextSubView = New System.Windows.Forms.Panel
         Me.dgvWorkViewer = New System.Windows.Forms.DataGridView
+        Me.mmiThrowError = New System.Windows.Forms.MenuItem
         Me.grpQuickAccess.SuspendLayout()
         Me.SbeapQuickAccessPanel.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -146,7 +147,7 @@ Partial Class IAIPNavigation
         'mmiTesting
         '
         Me.mmiTesting.Index = 3
-        Me.mmiTesting.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiPing})
+        Me.mmiTesting.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiPing, Me.mmiThrowError})
         Me.mmiTesting.Text = "Testing"
         Me.mmiTesting.Visible = False
         '
@@ -719,6 +720,11 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 187)
         Me.dgvWorkViewer.TabIndex = 4
         '
+        'mmiThrowError
+        '
+        Me.mmiThrowError.Index = 1
+        Me.mmiThrowError.Text = "Throw error"
+        '
         'IAIPNavigation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -812,4 +818,5 @@ Partial Class IAIPNavigation
     Private WithEvents bgrUserPermissions As System.ComponentModel.BackgroundWorker
     Friend WithEvents dgvWorkViewer As System.Windows.Forms.DataGridView
     Friend WithEvents ListChangerPanel As System.Windows.Forms.Panel
+    Friend WithEvents mmiThrowError As System.Windows.Forms.MenuItem
 End Class

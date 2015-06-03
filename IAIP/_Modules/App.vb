@@ -21,7 +21,17 @@ Module App
         OpenUri(ChangelogUrl, objectSender)
     End Sub
 
-    Public Function OpenUri(ByVal uriString As String, Optional ByVal objectSender As Object = Nothing) As Boolean
+    Public Sub OpenMapUrl(ByVal addressString As String, Optional ByVal objectSender As Form = Nothing)
+        monitor.TrackFeature("Url.OpenMap")
+        OpenUri(New Uri(MapUrlFragment & addressString), objectSender)
+    End Sub
+
+    Public Sub OpenPermitSearchUrl(ByVal airsNumber As Apb.ApbFacilityId, Optional ByVal objectSender As Form = Nothing)
+        monitor.TrackFeature("Url.OpenPermitSearch")
+        OpenUri(New Uri(PermitSearchUrlFragment & airsNumber.ToString), objectSender)
+    End Sub
+
+    Private Function OpenUri(ByVal uriString As String, Optional ByVal objectSender As Object = Nothing) As Boolean
         ' Reference: http://code.logos.com/blog/2008/01/using_processstart_to_link_to.html
         Try
             If objectSender IsNot Nothing Then objectSender.Cursor = Cursors.AppStarting

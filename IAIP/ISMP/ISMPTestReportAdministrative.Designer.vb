@@ -81,10 +81,8 @@ Partial Class ISMPTestReportAdministrative
         Me.mmiAddTestingFirm = New System.Windows.Forms.MenuItem
         Me.mmiAddPollutant = New System.Windows.Forms.MenuItem
         Me.mmiRefreshLists = New System.Windows.Forms.MenuItem
-        Me.MmiHelp = New System.Windows.Forms.MenuItem
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.cmPrint = New System.Windows.Forms.ContextMenu
-        Me.cmiPrintAFSForm = New System.Windows.Forms.MenuItem
         Me.cmiPrintTestReport = New System.Windows.Forms.MenuItem
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
         Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
@@ -97,8 +95,6 @@ Partial Class ISMPTestReportAdministrative
         Me.TbbAddMemo = New System.Windows.Forms.ToolBarButton
         Me.TbbClear = New System.Windows.Forms.ToolBarButton
         Me.TbbDelete = New System.Windows.Forms.ToolBarButton
-        Me.TbbBack = New System.Windows.Forms.ToolBarButton
-        Me.TbbExit = New System.Windows.Forms.ToolBarButton
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.btnLoadCombos = New System.Windows.Forms.Button
         Me.btnSearchForAIRS = New System.Windows.Forms.Button
@@ -185,7 +181,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.MenuItem2, Me.MenuItem3, Me.MenuItem4, Me.MmiHelp})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.MenuItem2, Me.MenuItem3, Me.MenuItem4})
         '
         'MenuItem1
         '
@@ -487,11 +483,6 @@ Partial Class ISMPTestReportAdministrative
         Me.mmiRefreshLists.Index = 5
         Me.mmiRefreshLists.Text = "Refresh List(s)"
         '
-        'MmiHelp
-        '
-        Me.MmiHelp.Index = 4
-        Me.MmiHelp.Text = "Help"
-        '
         'Image_List_All
         '
         Me.Image_List_All.ImageStream = CType(resources.GetObject("Image_List_All.ImageStream"), System.Windows.Forms.ImageListStreamer)
@@ -584,16 +575,11 @@ Partial Class ISMPTestReportAdministrative
         '
         'cmPrint
         '
-        Me.cmPrint.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.cmiPrintAFSForm, Me.cmiPrintTestReport})
-        '
-        'cmiPrintAFSForm
-        '
-        Me.cmiPrintAFSForm.Index = 0
-        Me.cmiPrintAFSForm.Text = "Print AFS Form"
+        Me.cmPrint.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.cmiPrintTestReport})
         '
         'cmiPrintTestReport
         '
-        Me.cmiPrintTestReport.Index = 1
+        Me.cmiPrintTestReport.Index = 0
         Me.cmiPrintTestReport.Text = "Print Test Report"
         '
         'StatusStrip1
@@ -638,7 +624,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'TBFacilityInfo
         '
-        Me.TBFacilityInfo.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TbbSave, Me.TbbFind, Me.TbbForward, Me.TbbAddMemo, Me.TbbClear, Me.TbbDelete, Me.TbbBack, Me.TbbExit})
+        Me.TBFacilityInfo.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TbbSave, Me.TbbFind, Me.TbbForward, Me.TbbAddMemo, Me.TbbClear, Me.TbbDelete})
         Me.TBFacilityInfo.ButtonSize = New System.Drawing.Size(23, 22)
         Me.TBFacilityInfo.ContextMenu = Me.cmPrint
         Me.TBFacilityInfo.DropDownArrows = True
@@ -678,17 +664,6 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.TbbDelete.ImageIndex = 13
         Me.TbbDelete.Name = "TbbDelete"
-        '
-        'TbbBack
-        '
-        Me.TbbBack.ImageIndex = 2
-        Me.TbbBack.Name = "TbbBack"
-        '
-        'TbbExit
-        '
-        Me.TbbExit.ImageIndex = 81
-        Me.TbbExit.Name = "TbbExit"
-        Me.TbbExit.Visible = False
         '
         'GroupBox1
         '
@@ -1508,10 +1483,8 @@ Partial Class ISMPTestReportAdministrative
     Friend WithEvents mmiAddTestingFirm As System.Windows.Forms.MenuItem
     Friend WithEvents mmiAddPollutant As System.Windows.Forms.MenuItem
     Friend WithEvents mmiRefreshLists As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents cmPrint As System.Windows.Forms.ContextMenu
-    Friend WithEvents cmiPrintAFSForm As System.Windows.Forms.MenuItem
     Friend WithEvents cmiPrintTestReport As System.Windows.Forms.MenuItem
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
@@ -1524,8 +1497,6 @@ Partial Class ISMPTestReportAdministrative
     Friend WithEvents TbbAddMemo As System.Windows.Forms.ToolBarButton
     Friend WithEvents TbbClear As System.Windows.Forms.ToolBarButton
     Friend WithEvents TbbDelete As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbBack As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbExit As System.Windows.Forms.ToolBarButton
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents DTPDateReceived As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label21 As System.Windows.Forms.Label

@@ -22,9 +22,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -101,9 +99,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -114,9 +110,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -141,9 +135,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -184,9 +176,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -205,19 +195,10 @@ Public Class SSCPEnforcementSelector
     Sub OpenEnforcement()
         Try
 
-
             If txtFacilityName.Text <> "" And txtFacilityName.Text <> "Invalid AIRS Number" Then
 
                 If txtEnforcementNumber.Text <> "" Then
-
-                    Dim enfNum As String = txtEnforcementNumber.Text
-                    If DAL.SSCP.EnforcementExists(enfNum) Then
-                        OpenMultiForm("SscpEnforcement", enfNum)
-                    Else
-                        MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
-                        Exit Sub
-                    End If
-
+                    OpenFormEnforcement(txtEnforcementNumber.Text)
                 Else
 
                     Dim parameters As New Dictionary(Of String, String)
@@ -426,9 +407,7 @@ Public Class SSCPEnforcementSelector
             dgvSSCPEnforcement.DataSource = dsSSCPEnforcement
             dgvSSCPEnforcement.DataMember = "SSCPEnforcement"
 
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
             dgvSSCPEnforcement.RowHeadersVisible = False
             dgvSSCPEnforcement.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -463,11 +442,9 @@ Public Class SSCPEnforcementSelector
             txtEnforcementCount.Text = dgvSSCPEnforcement.RowCount
 
         Catch ex As Exception
-            ErrorReport(SQL & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, SQL, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -478,9 +455,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -498,9 +473,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -511,9 +484,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -560,9 +531,7 @@ Public Class SSCPEnforcementSelector
                 ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             End If
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub

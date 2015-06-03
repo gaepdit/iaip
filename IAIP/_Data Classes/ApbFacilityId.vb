@@ -1,6 +1,7 @@
 ﻿Namespace Apb
 
-    Public Structure ApbFacilityId
+    Public Class ApbFacilityId
+        Implements IEquatable(Of ApbFacilityId)
 
 #Region " Constructor "
 
@@ -20,22 +21,36 @@
 
 #Region " Properties "
 
+        ''' <summary>
+        ''' Displays APB facility ID as an eight-character string in the form "00000000"
+        ''' </summary>
+        ''' <remarks>Equivalent to ShortString property</remarks>
         Public Overrides Function ToString() As String
             Return _value
         End Function
 
+        ''' <summary>
+        ''' Displays APB facility ID as an eight-character string in the form "00000000"
+        ''' </summary>
+        ''' <remarks>Equivalent to ToString method</remarks>
         Public ReadOnly Property ShortString() As String
             Get
                 Return _value
             End Get
         End Property
 
+        ''' <summary>
+        ''' Displays APB facility ID as a nine-character string in the form "000-00000"
+        ''' </summary>
         Public ReadOnly Property FormattedString() As String
             Get
                 Return Mid(_value, 1, 3) & "-" & Mid(_value, 4, 5)
             End Get
         End Property
 
+        ''' <summary>
+        ''' Displays APB facility ID as a 12-character string in the form "041300000000"
+        ''' </summary>
         Public ReadOnly Property DbFormattedString() As String
             Get
                 Return "0413" & Me.ShortString
@@ -56,6 +71,26 @@
 
 #End Region
 
+#Region " IEquatable Interface implementation "
+
+        Public Overloads Function Equals(ByVal other As ApbFacilityId) As Boolean _
+        Implements IEquatable(Of ApbFacilityId).Equals
+            If other Is Nothing Then Return False
+            Return Me.ToString.Equals(other.ToString)
+        End Function
+
+        Public Overrides Function Equals(ByVal obj As Object) As Boolean
+            If obj Is Nothing Then Return MyBase.Equals(obj)
+            If TypeOf obj Is ApbFacilityId Then Return Equals(DirectCast(obj, ApbFacilityId))
+            Return False
+        End Function
+
+        Public Overrides Function GetHashCode() As Integer
+            Return Me.ToString.GetHashCode()
+        End Function
+
+#End Region
+
 #Region " Validate/normalize AIRS number "
 
         ''' <summary>
@@ -69,25 +104,20 @@
             If airsNumber Is Nothing Then Return False
             ' Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000
             ' (with or without the dashes)
-            If airsNumber Is Nothing Then Return False
             Dim rgx As New System.Text.RegularExpressions.Regex("^(04-?13-?)?\d{3}-?\d{5}$")
             Return rgx.IsMatch(airsNumber)
         End Function
 
         ''' <summary>
-        ''' Converts a string representation of an AIRS number to the "00000000" form. If 'expand' is True, then 
-        ''' the AIRS number is expanded to the "041300000000" form.
+        ''' Converts a string representation of an AIRS number to the "00000000" form.
         ''' </summary>
         ''' <param name="airsNumber">The AIRS number to convert.</param>
-        ''' <returns>A string representation of an AIRS number in the "00000000" or "041300000000" form.</returns>
+        ''' <returns>A string representation of an AIRS number in the form "00000000".</returns>
         <DebuggerStepThrough()> _
         Private Function GetNormalizedAirsNumber(ByVal airsNumber As String) As String
             ' Converts a string representation of an AIRS number to the "00000000" form 
             ' (eight numerals, no dashes).
             '
-            ' If 'expand' is True, then the AIRS number is expanded to the "041300000000"
-            ' form (12 numerals, no dashes, beginning with "0413").
-
             ' Remove spaces, dashes, and leading '0413'
             airsNumber = airsNumber.Replace("-", "").Replace(" ", "")
             If airsNumber.Length = 12 Then airsNumber = airsNumber.Remove(0, 4)
@@ -97,7 +127,9 @@
 
 #End Region
 
-    End Structure
+    End Class
+
+#Region " Invalid AIRS number exception "
 
     Public Class InvalidAirsNumberException
         Inherits Exception
@@ -117,7 +149,8 @@
             MyBase.New(String.Format("{0} - {1}", _
                 invalidAirsNumberMessage, auxMessage), inner)
         End Sub
-
     End Class
+
+#End Region
 
 End Namespace

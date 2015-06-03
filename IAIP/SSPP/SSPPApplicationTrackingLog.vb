@@ -5059,7 +5059,7 @@ Public Class SSPPApplicationTrackingLog
                 txtDistrict.BackColor = Color.Tomato
             End If
         Catch ex As Exception
-            ErrorReport(txtAIRSNumber.Text & vbCrLf & ex.ToString(), "SSPPPermitTracking.LoadBasicFacilityInfo")
+            ErrorReport(ex, txtAIRSNumber.Text, "SSPPPermitTracking.LoadBasicFacilityInfo")
         Finally
 
         End Try
@@ -6092,7 +6092,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(temp & vbCrLf & ex.ToString(), "SSPPPermitTracking.LoadApplicationData")
+            ErrorReport(ex, temp, "SSPPPermitTracking.LoadApplicationData")
         Finally
 
         End Try
@@ -6891,7 +6891,7 @@ Public Class SSPPApplicationTrackingLog
                 End While
                 dr.Close()
 
-                txtFacilityName.Text = Apb.Facility.SanitizeFacilityNameForDb(txtFacilityName.Text)
+                txtFacilityName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(txtFacilityName.Text)
                 FacilityName = txtFacilityName.Text
                 FacilityAddress = Me.txtFacilityStreetAddress.Text
                 If cboFacilityCity.Text <> "" Then
@@ -8221,7 +8221,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(SQL & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, SQL, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -8517,7 +8517,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(SQL & vbCrLf & txtAIRSNumber.Text & vbCrLf & ex.ToString(), "SSPPPermitTracking.LinkApplications")
+            ErrorReport(ex, SQL & vbCrLf & txtAIRSNumber.Text, "SSPPPermitTracking.LinkApplications")
         Finally
 
         End Try
@@ -8775,21 +8775,7 @@ Public Class SSPPApplicationTrackingLog
                     ActionNumber = dr.Item("strAFSActionNumber")
                 End While
                 dr.Close()
-
-                'This was removed when AFS went to 5 digits. 
-                'Select Case ActionNumber.Length
-                '    Case 0
-                '        ActionNumber = "001"
-                '    Case 1
-                '        ActionNumber = "00" & ActionNumber
-                '    Case 2
-                '        ActionNumber = "0" & ActionNumber
-                '    Case 3
-                '        ActionNumber = ActionNumber
-                '    Case Else
-                '        ActionNumber = ActionNumber
-                'End Select
-
+                
                 SQL = "Insert into AIRBRANCH.AFSSSPPRecords " & _
                 "(strApplicationNumber, strAFSActionNumber, " & _
                 "strUpDateStatus, strModifingPerson, " & _
@@ -8806,20 +8792,6 @@ Public Class SSPPApplicationTrackingLog
                 dr.Close()
 
                 ActionNumber = CInt(ActionNumber) + 1
-
-                'This was removed when AFS went to 5 digits. 
-                'Select Case ActionNumber.Length
-                '    Case 0
-                '        ActionNumber = "001"
-                '    Case 1
-                '        ActionNumber = "00" & ActionNumber
-                '    Case 2
-                '        ActionNumber = "0" & ActionNumber
-                '    Case 3
-                '        ActionNumber = ActionNumber
-                '    Case Else
-                '        ActionNumber = ActionNumber
-                'End Select
 
                 SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                 "strAFSActionNumber = '" & ActionNumber & "' " & _
@@ -8882,7 +8854,7 @@ Public Class SSPPApplicationTrackingLog
                 If IsDBNull(dr.Item("strFacilityName")) Then
                     FacilityName = "N/A"
                 Else
-                    FacilityName = Apb.Facility.SanitizeFacilityNameForDb(dr.Item("strFacilityName"))
+                    FacilityName = Apb.Facilities.Facility.SanitizeFacilityNameForDb(dr.Item("strFacilityName"))
                 End If
                 If IsDBNull(dr.Item("strFacilityStreet1")) Then
                     FacilityStreet1 = "N/A"
@@ -10180,7 +10152,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(SQL & vbCrLf & temp & vbCrLf & txtAIRSNumber.Text & vbCrLf & txtApplicationNumber.Text & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, SQL & vbCrLf & temp & vbCrLf & txtAIRSNumber.Text & vbCrLf & txtApplicationNumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -11005,20 +10977,6 @@ Public Class SSPPApplicationTrackingLog
             '    End If
             '     
             'End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-         
-    End Sub
-    Private Sub SSPPPermitTrackingLog_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-             
-
-            PermitTrackingLog = Nothing
-            Me.Hide()
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -14378,7 +14336,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
             End Select
 
-            If URL <> "" Then OpenUri(URL, Me)
+            If URL <> "" Then OpenUri(New Uri(URL), Me)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

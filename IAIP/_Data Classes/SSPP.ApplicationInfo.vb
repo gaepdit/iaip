@@ -1,4 +1,5 @@
-﻿Namespace Apb.SSPP
+﻿Imports Iaip.Apb.Facilities
+Namespace Apb.SSPP
 
     Public Class ApplicationInfo
         Public Property Facility() As Facility

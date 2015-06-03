@@ -52,7 +52,7 @@ Public Class SSCPEvents
     Friend WithEvents lblACCAllDeviationsReported As System.Windows.Forms.Label
     Friend WithEvents rdbACCResubmittalRequestedUnknown As System.Windows.Forms.RadioButton
     Friend WithEvents rdbACCAllDeviationsReportedUnknown As System.Windows.Forms.RadioButton
-    Dim facility As Apb.Facility
+    Dim facility As Apb.Facilities.Facility
 
 #Region " Windows Form Designer generated code "
 
@@ -94,7 +94,6 @@ Public Class SSCPEvents
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents TPInspection As System.Windows.Forms.TabPage
     Friend WithEvents Label12 As System.Windows.Forms.Label
-    Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents Label14 As System.Windows.Forms.Label
     Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents Label17 As System.Windows.Forms.Label
@@ -116,7 +115,6 @@ Public Class SSCPEvents
     Friend WithEvents Panel19 As System.Windows.Forms.Panel
     Friend WithEvents Label64 As System.Windows.Forms.Label
     Friend WithEvents TCItems As System.Windows.Forms.TabControl
-    Friend WithEvents txtPlannedInspectionDate As System.Windows.Forms.TextBox
     Friend WithEvents tbToolbar As System.Windows.Forms.ToolBar
     Friend WithEvents rdbInspectionFacilityOperatingYes As System.Windows.Forms.RadioButton
     Friend WithEvents rdbInspectionFacilityOperatingNo As System.Windows.Forms.RadioButton
@@ -203,7 +201,6 @@ Public Class SSCPEvents
     Friend WithEvents dtpNotificationDate2 As System.Windows.Forms.DateTimePicker
     Friend WithEvents txtNotificationComments As System.Windows.Forms.TextBox
     Friend WithEvents dtpNotificationDate As System.Windows.Forms.DateTimePicker
-    Friend WithEvents txtOrigin As System.Windows.Forms.TextBox
     Friend WithEvents txtWeatherConditions As System.Windows.Forms.TextBox
     Friend WithEvents Splitter3 As System.Windows.Forms.Splitter
     Friend WithEvents PanelSSCPCompliance As System.Windows.Forms.Panel
@@ -257,8 +254,6 @@ Public Class SSCPEvents
     Friend WithEvents rdbNotificationFollowUpNo As System.Windows.Forms.RadioButton
     Friend WithEvents Label72 As System.Windows.Forms.Label
     Friend WithEvents Label73 As System.Windows.Forms.Label
-    Friend WithEvents lblInspectionScheduleLink As System.Windows.Forms.LinkLabel
-    Friend WithEvents lblInspectionLinked As System.Windows.Forms.Label
     Friend WithEvents chbEventComplete As System.Windows.Forms.CheckBox
     Friend WithEvents DTPEventCompleteDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents txtEnforcementNumber As System.Windows.Forms.TextBox
@@ -386,8 +381,6 @@ Public Class SSCPEvents
         Me.txtTestReportDueDate = New System.Windows.Forms.TextBox
         Me.TPInspection = New System.Windows.Forms.TabPage
         Me.Panel11 = New System.Windows.Forms.Panel
-        Me.lblInspectionLinked = New System.Windows.Forms.Label
-        Me.lblInspectionScheduleLink = New System.Windows.Forms.LinkLabel
         Me.Panel21 = New System.Windows.Forms.Panel
         Me.rdbInspectionFollowUpYes = New System.Windows.Forms.RadioButton
         Me.rdbInspectionFollowUpNo = New System.Windows.Forms.RadioButton
@@ -395,8 +388,6 @@ Public Class SSCPEvents
         Me.Label17 = New System.Windows.Forms.Label
         Me.Label16 = New System.Windows.Forms.Label
         Me.Label14 = New System.Windows.Forms.Label
-        Me.txtPlannedInspectionDate = New System.Windows.Forms.TextBox
-        Me.Label13 = New System.Windows.Forms.Label
         Me.Label12 = New System.Windows.Forms.Label
         Me.DTPInspectionDateStart = New System.Windows.Forms.DateTimePicker
         Me.cboInspectionComplianceStatus = New System.Windows.Forms.ComboBox
@@ -512,7 +503,6 @@ Public Class SSCPEvents
         Me.Label39 = New System.Windows.Forms.Label
         Me.SplitterACC = New System.Windows.Forms.Splitter
         Me.DGRACCResubmittal = New System.Windows.Forms.DataGrid
-        Me.txtOrigin = New System.Windows.Forms.TextBox
         Me.Button1 = New System.Windows.Forms.Button
         Me.TextBox6 = New System.Windows.Forms.TextBox
         Me.ListView1 = New System.Windows.Forms.ListView
@@ -1620,15 +1610,11 @@ Public Class SSCPEvents
         'Panel11
         '
         Me.Panel11.AutoScroll = True
-        Me.Panel11.Controls.Add(Me.lblInspectionLinked)
-        Me.Panel11.Controls.Add(Me.lblInspectionScheduleLink)
         Me.Panel11.Controls.Add(Me.Panel21)
         Me.Panel11.Controls.Add(Me.Label34)
         Me.Panel11.Controls.Add(Me.Label17)
         Me.Panel11.Controls.Add(Me.Label16)
         Me.Panel11.Controls.Add(Me.Label14)
-        Me.Panel11.Controls.Add(Me.txtPlannedInspectionDate)
-        Me.Panel11.Controls.Add(Me.Label13)
         Me.Panel11.Controls.Add(Me.Label12)
         Me.Panel11.Controls.Add(Me.DTPInspectionDateStart)
         Me.Panel11.Controls.Add(Me.cboInspectionComplianceStatus)
@@ -1654,29 +1640,6 @@ Public Class SSCPEvents
         Me.Panel11.Name = "Panel11"
         Me.Panel11.Size = New System.Drawing.Size(784, 367)
         Me.Panel11.TabIndex = 81
-        '
-        'lblInspectionLinked
-        '
-        Me.lblInspectionLinked.AutoSize = True
-        Me.lblInspectionLinked.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblInspectionLinked.ForeColor = System.Drawing.Color.Tomato
-        Me.lblInspectionLinked.Location = New System.Drawing.Point(464, 88)
-        Me.lblInspectionLinked.Name = "lblInspectionLinked"
-        Me.lblInspectionLinked.Size = New System.Drawing.Size(89, 13)
-        Me.lblInspectionLinked.TabIndex = 85
-        Me.lblInspectionLinked.Text = "Inspection Linked"
-        Me.lblInspectionLinked.Visible = False
-        '
-        'lblInspectionScheduleLink
-        '
-        Me.lblInspectionScheduleLink.AutoSize = True
-        Me.lblInspectionScheduleLink.Location = New System.Drawing.Point(464, 72)
-        Me.lblInspectionScheduleLink.Name = "lblInspectionScheduleLink"
-        Me.lblInspectionScheduleLink.Size = New System.Drawing.Size(236, 13)
-        Me.lblInspectionScheduleLink.TabIndex = 84
-        Me.lblInspectionScheduleLink.TabStop = True
-        Me.lblInspectionScheduleLink.Text = "Link Inspection Report with Inspection Schedule"
-        Me.lblInspectionScheduleLink.Visible = False
         '
         'Panel21
         '
@@ -1738,24 +1701,6 @@ Public Class SSCPEvents
         Me.Label14.Size = New System.Drawing.Size(88, 13)
         Me.Label14.TabIndex = 7
         Me.Label14.Text = "Inspection Time: "
-        '
-        'txtPlannedInspectionDate
-        '
-        Me.txtPlannedInspectionDate.Location = New System.Drawing.Point(624, 24)
-        Me.txtPlannedInspectionDate.Name = "txtPlannedInspectionDate"
-        Me.txtPlannedInspectionDate.ReadOnly = True
-        Me.txtPlannedInspectionDate.Size = New System.Drawing.Size(152, 20)
-        Me.txtPlannedInspectionDate.TabIndex = 6
-        Me.txtPlannedInspectionDate.Visible = False
-        '
-        'Label13
-        '
-        Me.Label13.Location = New System.Drawing.Point(464, 24)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(152, 30)
-        Me.Label13.TabIndex = 5
-        Me.Label13.Text = "Engineer Planned Inspection Date:"
-        Me.Label13.Visible = False
         '
         'Label12
         '
@@ -2917,14 +2862,6 @@ Public Class SSCPEvents
         Me.DGRACCResubmittal.TabIndex = 18
         Me.DGRACCResubmittal.TabStop = False
         '
-        'txtOrigin
-        '
-        Me.txtOrigin.Location = New System.Drawing.Point(40, 552)
-        Me.txtOrigin.Name = "txtOrigin"
-        Me.txtOrigin.Size = New System.Drawing.Size(16, 20)
-        Me.txtOrigin.TabIndex = 228
-        Me.txtOrigin.Visible = False
-        '
         'Button1
         '
         Me.Button1.Location = New System.Drawing.Point(192, 144)
@@ -2977,7 +2914,6 @@ Public Class SSCPEvents
         Me.ClientSize = New System.Drawing.Size(792, 595)
         Me.Controls.Add(Me.PanelSSCPCompliance)
         Me.Controls.Add(Me.Splitter3)
-        Me.Controls.Add(Me.txtOrigin)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.tbToolbar)
         Me.Menu = Me.MainMenu1
@@ -3041,20 +2977,16 @@ Public Class SSCPEvents
 
 #End Region
 
+#Region " Form load "
+
     Private Sub SSCP_Reports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
-        Dim temp As String = ""
-
         Try
-            temp = txtTrackingNumber.Text
-
             tbbPrint.Enabled = False
             tbbPrint.Visible = False
 
             DefaultDateTimePickers()
             Loadcombos()
-
-            ShowCorrectTab()
 
             If AccountFormAccess(49, 2) = "1" Or AccountFormAccess(49, 3) = "1" Or AccountFormAccess(49, 4) = "1" Then
                 tbToolbar.Visible = True
@@ -3068,12 +3000,19 @@ Public Class SSCPEvents
             End If
 
         Catch ex As Exception
-            ErrorReport(temp & vbCrLf & ex.ToString(), "SSCPEvents.SSCP_Reports_Load")
-        Finally
-
+            ErrorReport(ex, "SSCPEvents.SSCP_Reports_Load")
         End Try
-
     End Sub
+
+    Private Sub SSCPEvents_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
+        Try
+            ShowCorrectTab()
+        Catch ex As Exception
+            ErrorReport(ex, txtTrackingNumber.Text, "SSCPEvents.SSCP_Reports_Shown")
+        End Try
+    End Sub
+
+#End Region
 
 #Region "Page Load Functions"
 
@@ -3275,7 +3214,7 @@ Public Class SSCPEvents
         cboInspectionReason.Items.Add("Complaint Investigation")
         cboInspectionReason.Items.Add("Joint EPD/EPA")
         cboInspectionReason.Items.Add("Multimedia")
-
+        cboInspectionReason.Items.Add("Follow Up")
 
     End Sub
     Sub FillNotificationCombos()
@@ -3500,29 +3439,6 @@ Public Class SSCPEvents
 
         DTPTestReportNewDueDate.Text = Date.Today
 
-    End Sub
-    Sub CheckforInspectionLink()
-        SQL = "Select datScheduleDateStart, datScheduleDateEnd " & _
-        "from AIRBRANCH.SSCPInspectionTracking " & _
-        "where SSCPTrackingNumber = '" & txtTrackingNumber.Text & "' "
-
-        cmd = New OracleCommand(SQL, CurrentConnection)
-        If CurrentConnection.State = ConnectionState.Closed Then
-            CurrentConnection.Open()
-        End If
-
-        dr = cmd.ExecuteReader
-        recExist = dr.Read
-        If recExist = True Then
-            'lblInspectionLinked.Visible = True
-            If dr.Item("datScheduleDateStart") = dr.Item("datScheduleDateEnd") Then
-                txtPlannedInspectionDate.Text = Format(dr.Item("datScheduleDateStart"), "dd-MMM-yyyy")
-            Else
-                txtPlannedInspectionDate.Text = Format(dr.Item("datScheduleDateStart"), "dd-MMM-yyyy") & " --> " & Format(dr.Item("datScheduleDateEnd"), "dd-MMM-yyyy")
-            End If
-        Else
-            'lblInspectionLinked.Visible = False
-        End If
     End Sub
     Sub CheckCompleteDate()
         Dim Completedate As String = ""
@@ -3827,28 +3743,17 @@ Public Class SSCPEvents
 #Region "Opening Enforcement Actions"
     Private Sub OpenEnforcement()
         Try
-
             If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" And txtFacilityInformation.Text <> "" Then
-                Dim enfNum As String = txtEnforcementNumber.Text
-                If DAL.SSCP.EnforcementExists(enfNum) Then
-                    OpenMultiForm("SscpEnforcement", enfNum)
-                Else
-                    MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
-                End If
+                OpenFormEnforcement(txtEnforcementNumber.Text)
             Else
                 Dim parameters As New Dictionary(Of String, String)
                 parameters("airsnumber") = txtAIRSNumber.Text
                 If txtTrackingNumber.Text <> "" Then parameters("trackingnumber") = txtTrackingNumber.Text
                 OpenSingleForm(SSCPEnforcementSelector, parameters:=parameters, closeFirst:=True)
             End If
-
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
 
 #End Region
@@ -4218,7 +4123,7 @@ Public Class SSCPEvents
             End If
 
         Catch ex As Exception
-            ErrorReport(txtTrackingNumber.Text & vbCrLf & SQL & ex.ToString(), "SSCPEvents.SaveInspection")
+            ErrorReport(ex, txtTrackingNumber.Text & vbCrLf & SQL, "SSCPEvents.SaveInspection")
         Finally
 
         End Try
@@ -5112,7 +5017,7 @@ Public Class SSCPEvents
             End If
 
         Catch ex As Exception
-            ErrorReport(temp & vbCrLf & ex.ToString(), "SSCPEvents.LoadReport")
+            ErrorReport(ex, temp, "SSCPEvents.LoadReport")
         Finally
 
         End Try
@@ -5336,9 +5241,6 @@ Public Class SSCPEvents
                     dtpInspectionTimeStart.Text = dr.Item("DatINspectionDateStart")
                     DTPInspectionDateEnd.Text = dr.Item("datinspectionDateEnd")
                     dtpInspectionTimeEnd.Text = dr.Item("datinspectionDateEnd")
-
-                    'CheckforInspectionLink()
-                Else
 
                 End If  'If recExist = True Then
             End If   'If txtTrackingNumber.Text <> "" Then
@@ -6105,7 +6007,7 @@ Public Class SSCPEvents
                 MsgBox("Unable to load data.", MsgBoxStyle.Exclamation, "SSCP Events")
             End If
         Catch ex As Exception
-            ErrorReport(temp & vbCrLf & ex.ToString(), "SSCPEvents.LoadNotification")
+            ErrorReport(ex, temp, "SSCPEvents.LoadNotification")
         Finally
 
         End Try
@@ -6150,7 +6052,7 @@ Public Class SSCPEvents
                 Exit Sub
             End If
 
-            ' Delete record from AFS and mark as deleted in SSCP item master
+            ' Delete record from AFSSSCPRECORDS and mark as deleted in SSCP item master
             Dim queryList As New List(Of String)
             Dim parametersList As New List(Of OracleParameter())
             Dim parameters As OracleParameter()
@@ -7060,32 +6962,6 @@ Public Class SSCPEvents
     End Sub
 
 
-    Private Sub lblInspectionScheduleLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblInspectionScheduleLink.LinkClicked
-        Try
-
-            If txtTrackingNumber.Text <> "" Then
-                If SSCPInspectionscheduleTool Is Nothing Then
-                    SSCPInspectionscheduleTool = New SSCPInspectionscheduleLink
-                Else
-                    SSCPInspectionscheduleTool.Dispose()
-                    SSCPInspectionscheduleTool = Nothing
-                    If SSCPInspectionscheduleTool Is Nothing Then SSCPInspectionscheduleTool = New SSCPInspectionscheduleLink
-                End If
-
-                SSCPInspectionscheduleTool.txtAIRSNumber.Text = txtAIRSNumber.Text
-                SSCPInspectionscheduleTool.txtInspectionTrackingNumber.Text = txtTrackingNumber.Text
-                SSCPInspectionscheduleTool.Show()
-            Else
-                MsgBox("There must be a Tracking Number before you can link the Scheduled Inspection.", MsgBoxStyle.Information, "SSCP Event")
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-    End Sub
     Private Sub chbEventComplete_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbEventComplete.CheckedChanged
         Try
 

@@ -127,9 +127,7 @@ Public Class SSCPFCEWork
             End If
             dr.Close()
 
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -174,9 +172,7 @@ Public Class SSCPFCEWork
             daFCE.Fill(dsFCE, "FCEdata")
             daStaff.Fill(dsStaff, "Staff")
 
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1468,9 +1464,7 @@ Public Class SSCPFCEWork
                     End If
                 End If
                 dr.Close()
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
 
             End If
 
@@ -1546,7 +1540,7 @@ Public Class SSCPFCEWork
             End If
 
         Catch ex As Exception
-            ErrorReport(txtFCENumber.Text & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -1577,7 +1571,7 @@ Public Class SSCPFCEWork
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(txtFCENumber.Text & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -1602,7 +1596,7 @@ Public Class SSCPFCEWork
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(txtFCENumber.Text & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -1651,7 +1645,7 @@ Public Class SSCPFCEWork
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(txtFCENumber.Text & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -1703,7 +1697,7 @@ Public Class SSCPFCEWork
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(txtFCENumber.Text & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -1752,7 +1746,7 @@ Public Class SSCPFCEWork
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(txtFCENumber.Text & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -1786,7 +1780,7 @@ Public Class SSCPFCEWork
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(txtFCENumber.Text & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -1797,14 +1791,8 @@ Public Class SSCPFCEWork
         End Set
     End Property
     Private Sub SSCPFCECheckList_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-
-            SSCPFCE = Nothing
-            Me.Dispose()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        SSCPFCE = Nothing
+        Me.Dispose()
     End Sub
 
 #End Region
@@ -1920,20 +1908,6 @@ Public Class SSCPFCEWork
                         End While
                         dr.Close()
 
-                        'This was removed when AFS went to 5 digits. 
-                        'Select Case ActionNumber.Length
-                        '    Case 0
-                        '        ActionNumber = "001"
-                        '    Case 1
-                        '        ActionNumber = "00" & ActionNumber
-                        '    Case 2
-                        '        ActionNumber = "0" & ActionNumber
-                        '    Case 3
-                        '        ActionNumber = ActionNumber
-                        '    Case Else
-                        '        ActionNumber = ActionNumber
-                        'End Select
-
                         SQL = "Insert into AIRBRANCH.AFSSSCPFCERecords " & _
                         "(strFCENumber, strAFSActionNumber, " & _
                         "strUpDateStatus, strModifingPerson, " & _
@@ -1950,20 +1924,6 @@ Public Class SSCPFCEWork
                         dr.Close()
 
                         ActionNumber = CStr(CInt(ActionNumber) + 1)
-
-                        'This was removed when AFS went to 5 digits. 
-                        'Select Case ActionNumber.Length
-                        '    Case 0
-                        '        ActionNumber = "001"
-                        '    Case 1
-                        '        ActionNumber = "00" & ActionNumber
-                        '    Case 2
-                        '        ActionNumber = "0" & ActionNumber
-                        '    Case 3
-                        '        ActionNumber = ActionNumber
-                        '    Case Else
-                        '        ActionNumber = ActionNumber
-                        'End Select
 
                         SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                         "strAFSActionNUmber = '" & ActionNumber & "' " & _
@@ -2014,9 +1974,7 @@ Public Class SSCPFCEWork
                     End If
                 End If
 
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
 
                 txtFCENumber.Text = FCENumber
                 LoadFCEDataset()
@@ -2027,7 +1985,7 @@ Public Class SSCPFCEWork
             End If
 
         Catch ex As Exception
-            ErrorReport(txtFCENumber.Text & vbCrLf & txtAirsNumber.Text & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, txtFCENumber.Text & vbCrLf & txtAirsNumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
 
@@ -2066,79 +2024,19 @@ Public Class SSCPFCEWork
 
 #Region "Open Subborting Documents"
     Private Sub llbFCEInspections_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFCEInspections.LinkClicked
-        Try
-
-            If txtInspectionTrackingNumber.Text <> "" Then
-                SSCPReports = Nothing
-                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                SSCPReports.txtTrackingNumber.Text = txtInspectionTrackingNumber.Text
-                SSCPReports.txtOrigin.Text = "FCE Checklist"
-                SSCPReports.Show()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        OpenFormSscpWorkItem(txtInspectionTrackingNumber.Text)
     End Sub
     Private Sub llbFCEACC_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFCEACC.LinkClicked
-        Try
-
-            If txtACCTrackingNumber.Text <> "" Then
-                SSCPReports = Nothing
-                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                SSCPReports.txtTrackingNumber.Text = txtACCTrackingNumber.Text
-                SSCPReports.txtOrigin.Text = "FCE Checklist"
-                SSCPReports.Show()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        OpenFormSscpWorkItem(txtACCTrackingNumber.Text)
     End Sub
     Private Sub llbFCEReports_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFCEReports.LinkClicked
-        Try
-
-            If txtReportTrackingNumber.Text <> "" Then
-                SSCPReports = Nothing
-                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                SSCPReports.txtTrackingNumber.Text = txtReportTrackingNumber.Text
-                SSCPReports.txtOrigin.Text = "FCE Checklist"
-                SSCPReports.Show()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        OpenFormSscpWorkItem(txtReportTrackingNumber.Text)
     End Sub
     Private Sub llbPerformanceTests_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbPerformanceTests.LinkClicked
-        Try
-
-            If txtPerformanceTests.Text <> "" Then
-                SSCPReports = Nothing
-                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                SSCPReports.txtTrackingNumber.Text = txtPerformanceTests.Text
-                SSCPReports.txtOrigin.Text = "FCE Checklist"
-                SSCPReports.Show()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        OpenFormSscpWorkItem(txtPerformanceTests.Text)
     End Sub
     Private Sub llbNotification_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbNotification.LinkClicked
-        Try
-
-            If txtNotificationTrackingNumber.Text <> "" Then
-                SSCPReports = Nothing
-                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                SSCPReports.txtTrackingNumber.Text = txtNotificationTrackingNumber.Text
-                SSCPReports.txtOrigin.Text = "FCE Checklist"
-                SSCPReports.Show()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        OpenFormSscpWorkItem(txtNotificationTrackingNumber.Text)
     End Sub
     Private Sub llbISMPSummaryReports_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbISMPSummaryReports.LinkClicked
         Dim temp As String = ""
@@ -2172,21 +2070,7 @@ Public Class SSCPFCEWork
 
     End Sub
     Private Sub llbFCEEnforcement_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFCEEnforcement.LinkClicked
-        Try
-
-            If txtEnforcement.Text <> "" Then
-                Dim enfNum As String = txtEnforcement.Text
-                If DAL.SSCP.EnforcementExists(enfNum) Then
-                    OpenMultiForm("SscpEnforcement", enfNum)
-                Else
-                    MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
-                End If
-
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        OpenFormEnforcement(txtEnforcement.Text)
     End Sub
 #End Region
 
