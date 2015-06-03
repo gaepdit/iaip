@@ -80,6 +80,19 @@
         Dim address As String = ConcatNonEmptyStrings(Constants.vbNewLine, str2)
         Return address
     End Function
+
+    Public Function ToLinearString() As String
+        Dim str As String() = {Me.City, Me.State}
+        Dim cityState As String = ConcatNonEmptyStrings(", ", str)
+        Dim zip As String = Me.PostalCode
+        If zip.Length = 9 AndAlso IsNumeric(zip) Then
+            zip = zip.Insert(5, "-")
+        End If
+        Dim str2 As String() = {Me.Street, Me.Street2, cityState & " " & zip}
+        Dim address As String = ConcatNonEmptyStrings(", ", str2)
+        Return address
+    End Function
+
 End Class
 
 Public Class Location

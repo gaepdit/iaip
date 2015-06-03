@@ -258,7 +258,7 @@ Public Class SBEAPClientSearchTool
             End Select
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -274,7 +274,7 @@ Public Class SBEAPClientSearchTool
                 ClientSearch("HistoricalCompanyName")
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -283,7 +283,7 @@ Public Class SBEAPClientSearchTool
         Try
             ClientSearch("StreetAddress")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -292,7 +292,7 @@ Public Class SBEAPClientSearchTool
         Try
             ClientSearch("City")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -301,7 +301,7 @@ Public Class SBEAPClientSearchTool
         Try
             ClientSearch("ZipCode")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -310,7 +310,7 @@ Public Class SBEAPClientSearchTool
         Try
             ClientSearch("County")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -319,7 +319,7 @@ Public Class SBEAPClientSearchTool
         Try
             ClientSearch("SIC")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -328,7 +328,7 @@ Public Class SBEAPClientSearchTool
         Try
             ClientSearch("NAICS")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -337,7 +337,7 @@ Public Class SBEAPClientSearchTool
         Try
             ClientSearch("AIRSNumber")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -350,7 +350,7 @@ Public Class SBEAPClientSearchTool
                 ClientSearch("EmployeeGreater")
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -372,7 +372,7 @@ Public Class SBEAPClientSearchTool
                 UseSelection.Enabled = True
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 

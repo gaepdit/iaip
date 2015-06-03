@@ -1,5 +1,21 @@
 % IAIP Change Log
 
+## Version 3.8.0 <span>(2015-06-03)</span>
+
+**Not-enough-contrast edition**
+
++ NEW: Overhauled the Facility Summary:
+    + Improved data presentation
+    + Streamlined the user interface
+    + Cleaned up code to make it faster and more efficient
+    + Added ability to open multiple facilities simultaneously
++ NEW: *SSCP* -- Display air program in compliance manager tools pollutant bubble-up form (#124)
++ NEW: *SSCP* -- Added "Follow Up" to list of available inspection reasons for GEOS compatibility (#285)
++ NEW: *EIS* -- Added Date Submitted column to EIS Statistics (#324)
++ NEW: *EIS* -- EIS tools can modify both facility location and mailing address (fix #241)
++ NEW: Better tracking of IAIP errors and crashes to help us fix these in the future
++ Also... lots of fixes and code cleanup throughout
+
 ## Version 3.7.3 <span>(2015-05-21)</span>
 
 + NEW: *SSPP* -- App Log can now search for permit applications with confidential info (#296); yw Eric

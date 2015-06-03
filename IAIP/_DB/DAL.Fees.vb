@@ -100,7 +100,7 @@ Namespace DAL
 
         End Function
 
-        Public Function UpdateFeeMailoutFacility(ByVal facility As Apb.Facility, ByVal airsNumber As String, ByVal feeYear As String) As Boolean
+        Public Function UpdateFeeMailoutFacility(ByVal facility As Apb.Facilities.Facility, ByVal airsNumber As String, ByVal feeYear As String) As Boolean
             Try
 
                 Dim query As String = "UPDATE AIRBRANCH.FS_MAILOUT " & _

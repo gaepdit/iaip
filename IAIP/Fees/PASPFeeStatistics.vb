@@ -3076,93 +3076,18 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
     Private Sub btnFeeFacilitySummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFeeFacilitySummary.Click
-        Try
-            If txtFeeAIRSNumber.Text <> "" Then
-                If Not DAL.FacilityModule.AirsNumberExists(txtFeeAIRSNumber.Text) Then
-                    MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
-                    Exit Sub
-                End If
-                Dim parameters As New Generic.Dictionary(Of String, String)
-                parameters("airsnumber") = txtFeeAIRSNumber.Text
-                OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenFormFacilitySummary(txtFeeAIRSNumber.Text)
     End Sub
     Private Sub btnFeeViewComplianceEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFeeViewComplianceEvent.Click
         Try
             If txtFeeComplianceEvent.Text <> "" Then
                 Select Case txtFeeComplianceEventType.Text
                     Case "FCE"
-                        If SSCPFCE Is Nothing Then
-                            If SSCPFCE Is Nothing Then SSCPFCE = New SSCPFCEWork
-                            SSCPFCE.txtAirsNumber.Text = txtFeeAIRSNumber.Text
-                            SSCPFCE.txtFacilityInformation.Text = txtFeeAIRSNumber.Text
-                            SSCPFCE.Show()
-                            SSCPFCE.txtFCENumber.Text = txtFeeComplianceEvent.Text
-                        Else
-                            SSCPFCE.Clear()
-                            SSCPFCE = Nothing
-                            If SSCPFCE Is Nothing Then SSCPFCE = New SSCPFCEWork
-                            SSCPFCE.txtAirsNumber.Text = Me.txtFeeAIRSNumber.Text
-                            SSCPFCE.txtFacilityInformation.Text = txtFeeAIRSNumber.Text
-                            SSCPFCE.Show()
-                            SSCPFCE.txtFCENumber.Text = txtFeeComplianceEvent.Text
-                        End If
-
+                        OpenFormFceByID(New Apb.ApbFacilityId(txtFeeAIRSNumber.Text), txtFeeComplianceEvent.Text)
                     Case "Enforcement"
-                        Dim enfNum As String = txtFeeComplianceEvent.Text
-                        If enfNum = "" Then Exit Sub
-                        If DAL.SSCP.EnforcementExists(enfNum) Then
-                            OpenMultiForm("SscpEnforcement", enfNum)
-                        Else
-                            MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
-                        End If
-
+                        OpenFormEnforcement(txtFeeComplianceEvent.Text)
                     Case Else
-                        Dim RefNum As String = ""
-                        Dim DocType As String = ""
-
-                        SQL = "Select " & _
-                        "AIRBRANCH.ISMPReportInformation.strReferenceNumber, AIRBRANCH.ISMPDocumentType.strDocumentType " & _
-                        "from AIRBRANCH.SSCPTestReports, AIRBRANCH.ISMPDocumentType, " & _
-                        "AIRBRANCH.ISMPReportInformation " & _
-                        "where AIRBRANCH.SSCPTestReports.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " & _
-                        "and AIRBRANCH.ISMPReportInformation.strDocumentType = AIRBRANCH.ISMPDocumentType.strKey " & _
-                        "and strTrackingNumber = '" & txtFeeComplianceEvent.Text & "' "
-
-                        cmd = New OracleCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        recExist = dr.Read
-                        If recExist = True Then
-                            RefNum = dr.Item("strReferenceNumber")
-                            DocType = dr.Item("strDocumentType")
-                        Else
-                            RefNum = ""
-                            DocType = ""
-                        End If
-                        dr.Close()
-                        If RefNum <> "" Then
-                            If DAL.ISMP.StackTestExists(RefNum) Then OpenMultiForm("ISMPTestReports", RefNum)
-                        Else
-                            If SSCPReports Is Nothing Then
-                                SSCPReports = Nothing
-                                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                                SSCPReports.txtTrackingNumber.Text = txtFeeComplianceEvent.Text
-                                SSCPReports.Show()
-                            Else
-                                SSCPReports.Close()
-                                SSCPReports = Nothing
-                                If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                                SSCPReports.txtTrackingNumber.Text = txtFeeComplianceEvent.Text
-                                SSCPReports.Show()
-                            End If
-                        End If
+                        OpenFormSscpWorkItem(txtFeeComplianceEvent.Text)
                 End Select
             End If
         Catch ex As Exception
@@ -3170,45 +3095,10 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
     Private Sub btnFeeViewPermittingEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFeeViewPermittingEvent.Click
-        Try
-            If txtFeePermittingEvent.Text <> "" Then
-                If PermitTrackingLog Is Nothing Then
-                    PermitTrackingLog = Nothing
-                    If PermitTrackingLog Is Nothing Then PermitTrackingLog = New SSPPApplicationTrackingLog
-                    PermitTrackingLog.Show()
-                Else
-                    PermitTrackingLog.Show()
-                End If
-                PermitTrackingLog.txtApplicationNumber.Clear()
-                PermitTrackingLog.txtApplicationNumber.Text = txtFeePermittingEvent.Text
-                PermitTrackingLog.LoadApplication()
-                PermitTrackingLog.BringToFront()
-                PermitTrackingLog.TPTrackingLog.Focus()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenFormPermitApplication(txtFeePermittingEvent.Text)
     End Sub
     Private Sub btnFeePendingPermittingEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFeePendingPermittingEvent.Click
-        Try
-            If txtFeePendingPermit.Text <> "" And txtFeePendingPermit.Text <> "No" Then
-                If PermitTrackingLog Is Nothing Then
-                    PermitTrackingLog = Nothing
-                    If PermitTrackingLog Is Nothing Then PermitTrackingLog = New SSPPApplicationTrackingLog
-                    PermitTrackingLog.Show()
-                Else
-                    PermitTrackingLog.Show()
-                End If
-                PermitTrackingLog.txtApplicationNumber.Clear()
-                PermitTrackingLog.txtApplicationNumber.Text = txtFeePendingPermit.Text
-                PermitTrackingLog.LoadApplication()
-                PermitTrackingLog.BringToFront()
-                PermitTrackingLog.TPTrackingLog.Focus()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenFormPermitApplication(txtFeePendingPermit.Text)
     End Sub
     Private Sub btnViewData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewData.Click
         Try
@@ -3438,9 +3328,7 @@ Public Class PASPFeeStatistics
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
 
@@ -3467,9 +3355,7 @@ Public Class PASPFeeStatistics
 
             da.Fill(ds, "facilityInfo")
 
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
             dtAIRS.Columns.Add("strairsnumber", GetType(System.String))
             dtAIRS.Columns.Add("strfacilityname", GetType(System.String))
@@ -3506,9 +3392,7 @@ Public Class PASPFeeStatistics
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -3540,9 +3424,7 @@ Public Class PASPFeeStatistics
         Catch ex As Exception
             ErrorReport(ex, "PASPFeeReports.LoadComboBoxesD(Sub1)")
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
 
@@ -3568,9 +3450,7 @@ Public Class PASPFeeStatistics
         Catch ex As Exception
             ErrorReport(ex, "PASPFeeReports.LoadComboBoxesD(Sub2)")
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
 
         End Try
     End Sub
@@ -3594,9 +3474,7 @@ Public Class PASPFeeStatistics
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -3913,9 +3791,7 @@ Public Class PASPFeeStatistics
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
         progress1.progress = 0
@@ -3941,9 +3817,7 @@ Public Class PASPFeeStatistics
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -4430,9 +4304,7 @@ Public Class PASPFeeStatistics
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub

@@ -24,19 +24,10 @@ Partial Class IAIPListTool
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPListTool))
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
-        Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton
         Me.tsbClear = New System.Windows.Forms.ToolStripButton
-        Me.ToolStripButton2 = New System.Windows.Forms.ToolStripButton
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.pnl1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.pnl2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.pnl3 = New System.Windows.Forms.ToolStripStatusLabel
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
-        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.tsbRefreshForm = New System.Windows.Forms.ToolStripMenuItem
-        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer
         Me.SplitContainer4 = New System.Windows.Forms.SplitContainer
         Me.btnClearBranch = New System.Windows.Forms.Button
@@ -103,7 +94,6 @@ Partial Class IAIPListTool
         Me.btnUnselectAllForms = New System.Windows.Forms.Button
         Me.Label9 = New System.Windows.Forms.Label
         Me.ToolStrip1.SuspendLayout()
-        Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -137,21 +127,12 @@ Partial Class IAIPListTool
         '
         'ToolStrip1
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButton1, Me.tsbClear, Me.ToolStripButton2})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbClear})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(792, 25)
         Me.ToolStrip1.TabIndex = 5
         Me.ToolStrip1.Text = "ToolStrip1"
-        '
-        'ToolStripButton1
-        '
-        Me.ToolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.ToolStripButton1.Image = CType(resources.GetObject("ToolStripButton1.Image"), System.Drawing.Image)
-        Me.ToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ToolStripButton1.Name = "ToolStripButton1"
-        Me.ToolStripButton1.Size = New System.Drawing.Size(23, 22)
-        Me.ToolStripButton1.Text = "ToolStripButton1"
         '
         'tsbClear
         '
@@ -162,67 +143,14 @@ Partial Class IAIPListTool
         Me.tsbClear.Size = New System.Drawing.Size(23, 22)
         Me.tsbClear.Text = "ToolStripButton3"
         '
-        'ToolStripButton2
-        '
-        Me.ToolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.ToolStripButton2.Image = CType(resources.GetObject("ToolStripButton2.Image"), System.Drawing.Image)
-        Me.ToolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ToolStripButton2.Name = "ToolStripButton2"
-        Me.ToolStripButton2.Size = New System.Drawing.Size(23, 22)
-        Me.ToolStripButton2.Text = "ToolStripButton2"
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.pnl1, Me.pnl2, Me.pnl3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 544)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(792, 22)
-        Me.StatusStrip1.TabIndex = 4
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'pnl1
-        '
-        Me.pnl1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.pnl1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.pnl1.Name = "pnl1"
-        Me.pnl1.Size = New System.Drawing.Size(769, 17)
-        Me.pnl1.Spring = True
-        Me.pnl1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'pnl2
-        '
-        Me.pnl2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.pnl2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.pnl2.Name = "pnl2"
-        Me.pnl2.Size = New System.Drawing.Size(4, 17)
-        '
-        'pnl3
-        '
-        Me.pnl3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.pnl3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.pnl3.Name = "pnl3"
-        Me.pnl3.Size = New System.Drawing.Size(4, 17)
-        '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.ToolToolStripMenuItem, Me.EditToolStripMenuItem, Me.HelpToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(792, 24)
         Me.MenuStrip1.TabIndex = 3
         Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'FileToolStripMenuItem
-        '
-        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.FileToolStripMenuItem.Text = "File"
         '
         'ToolToolStripMenuItem
         '
@@ -236,18 +164,6 @@ Partial Class IAIPListTool
         Me.tsbRefreshForm.Name = "tsbRefreshForm"
         Me.tsbRefreshForm.Size = New System.Drawing.Size(144, 22)
         Me.tsbRefreshForm.Text = "Refresh Form"
-        '
-        'EditToolStripMenuItem
-        '
-        Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
-        Me.EditToolStripMenuItem.Text = "Edit"
-        '
-        'HelpToolStripMenuItem
-        '
-        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
-        Me.HelpToolStripMenuItem.Text = "Help"
         '
         'SplitContainer1
         '
@@ -263,8 +179,8 @@ Partial Class IAIPListTool
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.dgvAccounts)
-        Me.SplitContainer1.Size = New System.Drawing.Size(778, 463)
-        Me.SplitContainer1.SplitterDistance = 344
+        Me.SplitContainer1.Size = New System.Drawing.Size(778, 485)
+        Me.SplitContainer1.SplitterDistance = 360
         Me.SplitContainer1.SplitterWidth = 10
         Me.SplitContainer1.TabIndex = 6
         '
@@ -309,8 +225,8 @@ Partial Class IAIPListTool
         'SplitContainer4.Panel2
         '
         Me.SplitContainer4.Panel2.Controls.Add(Me.SplitContainer2)
-        Me.SplitContainer4.Size = New System.Drawing.Size(778, 344)
-        Me.SplitContainer4.SplitterDistance = 109
+        Me.SplitContainer4.Size = New System.Drawing.Size(778, 360)
+        Me.SplitContainer4.SplitterDistance = 114
         Me.SplitContainer4.SplitterWidth = 10
         Me.SplitContainer4.TabIndex = 0
         '
@@ -599,7 +515,7 @@ Partial Class IAIPListTool
         'SplitContainer2.Panel2
         '
         Me.SplitContainer2.Panel2.Controls.Add(Me.SplitContainer3)
-        Me.SplitContainer2.Size = New System.Drawing.Size(778, 225)
+        Me.SplitContainer2.Size = New System.Drawing.Size(778, 236)
         Me.SplitContainer2.SplitterDistance = 259
         Me.SplitContainer2.SplitterWidth = 10
         Me.SplitContainer2.TabIndex = 1
@@ -611,7 +527,7 @@ Partial Class IAIPListTool
         Me.dgvBranch.Location = New System.Drawing.Point(0, 0)
         Me.dgvBranch.Name = "dgvBranch"
         Me.dgvBranch.ReadOnly = True
-        Me.dgvBranch.Size = New System.Drawing.Size(259, 225)
+        Me.dgvBranch.Size = New System.Drawing.Size(259, 236)
         Me.dgvBranch.TabIndex = 1
         '
         'SplitContainer3
@@ -627,7 +543,7 @@ Partial Class IAIPListTool
         'SplitContainer3.Panel2
         '
         Me.SplitContainer3.Panel2.Controls.Add(Me.dgvUnit)
-        Me.SplitContainer3.Size = New System.Drawing.Size(509, 225)
+        Me.SplitContainer3.Size = New System.Drawing.Size(509, 236)
         Me.SplitContainer3.SplitterDistance = 249
         Me.SplitContainer3.SplitterWidth = 10
         Me.SplitContainer3.TabIndex = 0
@@ -639,7 +555,7 @@ Partial Class IAIPListTool
         Me.dgvProgram.Location = New System.Drawing.Point(0, 0)
         Me.dgvProgram.Name = "dgvProgram"
         Me.dgvProgram.ReadOnly = True
-        Me.dgvProgram.Size = New System.Drawing.Size(249, 225)
+        Me.dgvProgram.Size = New System.Drawing.Size(249, 236)
         Me.dgvProgram.TabIndex = 1
         '
         'dgvUnit
@@ -649,7 +565,7 @@ Partial Class IAIPListTool
         Me.dgvUnit.Location = New System.Drawing.Point(0, 0)
         Me.dgvUnit.Name = "dgvUnit"
         Me.dgvUnit.ReadOnly = True
-        Me.dgvUnit.Size = New System.Drawing.Size(250, 225)
+        Me.dgvUnit.Size = New System.Drawing.Size(250, 236)
         Me.dgvUnit.TabIndex = 0
         '
         'dgvAccounts
@@ -659,7 +575,7 @@ Partial Class IAIPListTool
         Me.dgvAccounts.Location = New System.Drawing.Point(0, 0)
         Me.dgvAccounts.Name = "dgvAccounts"
         Me.dgvAccounts.ReadOnly = True
-        Me.dgvAccounts.Size = New System.Drawing.Size(778, 109)
+        Me.dgvAccounts.Size = New System.Drawing.Size(778, 115)
         Me.dgvAccounts.TabIndex = 2
         '
         'TCOrganizationTool
@@ -670,7 +586,7 @@ Partial Class IAIPListTool
         Me.TCOrganizationTool.Location = New System.Drawing.Point(0, 49)
         Me.TCOrganizationTool.Name = "TCOrganizationTool"
         Me.TCOrganizationTool.SelectedIndex = 0
-        Me.TCOrganizationTool.Size = New System.Drawing.Size(792, 495)
+        Me.TCOrganizationTool.Size = New System.Drawing.Size(792, 517)
         Me.TCOrganizationTool.TabIndex = 7
         '
         'TPAccounts
@@ -679,7 +595,7 @@ Partial Class IAIPListTool
         Me.TPAccounts.Location = New System.Drawing.Point(4, 22)
         Me.TPAccounts.Name = "TPAccounts"
         Me.TPAccounts.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPAccounts.Size = New System.Drawing.Size(784, 469)
+        Me.TPAccounts.Size = New System.Drawing.Size(784, 491)
         Me.TPAccounts.TabIndex = 0
         Me.TPAccounts.Text = "Add/Edit Accounts"
         Me.TPAccounts.UseVisualStyleBackColor = True
@@ -987,14 +903,11 @@ Partial Class IAIPListTool
         Me.ClientSize = New System.Drawing.Size(792, 566)
         Me.Controls.Add(Me.TCOrganizationTool)
         Me.Controls.Add(Me.ToolStrip1)
-        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Name = "IAIPListTool"
         Me.Text = "IAIP Organization Tool"
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.SplitContainer1.Panel1.ResumeLayout(False)
@@ -1035,17 +948,8 @@ Partial Class IAIPListTool
 
     End Sub
     Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
-    Friend WithEvents ToolStripButton1 As System.Windows.Forms.ToolStripButton
-    Friend WithEvents ToolStripButton2 As System.Windows.Forms.ToolStripButton
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents pnl1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents pnl2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents pnl3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
-    Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents EditToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
     Friend WithEvents SplitContainer4 As System.Windows.Forms.SplitContainer
     Friend WithEvents btnAddBranch As System.Windows.Forms.Button

@@ -1,7 +1,7 @@
 ﻿Imports Oracle.ManagedDataAccess.Client
 Imports CrystalDecisions.Shared
 Imports CrystalDecisions.CrystalReports.Engine
-Imports Iaip.Apb.Facility
+Imports Iaip.Apb.Facilities
 
 Public Class PASPFeeAuditLog
     Dim SQL As String
@@ -10,7 +10,7 @@ Public Class PASPFeeAuditLog
     Dim dtairs As New DataTable
 
     Dim tempContact As Contact
-    Dim tempFacility As Apb.Facility
+    Dim tempFacility As Facility
 
 #Region " Properties "
 
@@ -2418,8 +2418,8 @@ Public Class PASPFeeAuditLog
         tempFacility = MailoutGetFacilityFromForm()
     End Sub
 
-    Private Function MailoutGetFacilityFromForm() As Apb.Facility
-        Dim facility As New Apb.Facility
+    Private Function MailoutGetFacilityFromForm() As Facility
+        Dim facility As New Facility
 
         With facility
             .FacilityName = txtInitialFacilityName.Text
@@ -2434,7 +2434,7 @@ Public Class PASPFeeAuditLog
                 End With
             End With
             .Comment = txtInitialFacilityComment.Text
-            .HeaderData = New Apb.FacilityHeaderData
+            .HeaderData = New FacilityHeaderData
             With .HeaderData
                 .OperationalStatus = cboInitialOpStatus.SelectedValue
                 .Classification = cboInitialClassification.SelectedValue
@@ -2529,7 +2529,7 @@ Public Class PASPFeeAuditLog
         End With
     End Sub
 
-    Private Sub MailoutFillFacilityFrom(ByVal facility As Apb.Facility)
+    Private Sub MailoutFillFacilityFrom(ByVal facility As Facility)
         With facility
             txtInitialFacilityName.Text = .FacilityName
             txtInitailFacilityAddress.Text = .FacilityLocation.Address.Street
@@ -2562,7 +2562,7 @@ Public Class PASPFeeAuditLog
         Try
 
             MailoutEditingToggle(True, False)
-            Dim facility As Apb.Facility = DAL.GetFacility(Me.AirsNumber)
+            Dim facility As Facility = DAL.GetFacility(Me.AirsNumber)
             facility.RetrieveHeaderData()
 
             MailoutFillFacilityFrom(facility)
@@ -2613,7 +2613,7 @@ Public Class PASPFeeAuditLog
             Exit Sub
         End If
 
-        Dim facility As Apb.Facility = MailoutGetFacilityFromForm()
+        Dim facility As Facility = MailoutGetFacilityFromForm()
         Dim result As Boolean = DAL.UpdateFeeMailoutFacility(facility, ExpandedAirsNumber, FeeYear)
 
         If result Then
@@ -3821,7 +3821,7 @@ Public Class PASPFeeAuditLog
             MsgBox("Audit Data Added", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString() & vbCrLf & SQL.ToString, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, SQL, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ClearEditData()
@@ -5005,7 +5005,7 @@ Public Class PASPFeeAuditLog
 
             MsgBox("Audit Data Saved", MsgBoxStyle.Information, Me.Text)
         Catch ex As Exception
-            ErrorReport(ex.ToString() & vbCrLf & SQL.ToString, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, SQL, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnSelectAuditToEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSelectAuditToEdit.Click

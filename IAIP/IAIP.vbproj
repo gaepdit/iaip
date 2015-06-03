@@ -54,11 +54,11 @@
     <SupportUrl>http://dmu.georgiaair.org/iaip/</SupportUrl>
     <ProductName>Integrated Air Information Platform</ProductName>
     <PublisherName>State of Georgia</PublisherName>
-    <MinimumRequiredVersion>3.6.10.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>3.8.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>IAIP-install.html</WebPage>
-    <ApplicationRevision>75</ApplicationRevision>
-    <ApplicationVersion>3.7.3.%2a</ApplicationVersion>
+    <ApplicationRevision>83</ApplicationRevision>
+    <ApplicationVersion>3.8.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -433,18 +433,6 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\APB\crAPBPhoneList.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crAPBPhoneList.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\APB\crOrganizationChart.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crOrganizationChart.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Crystal Reports\Letterhead.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -714,9 +702,6 @@
     <Compile Include="ISMP\SubPages\ISMPAddTestingFirms.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ISMP\SubPages\ISMPClosePrint.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
@@ -754,9 +739,6 @@
       <DependentUpon>SSCPEnforcementSelector.vb</DependentUpon>
     </Compile>
     <Compile Include="SSCP\SubPages\SSCPEnforcementSelector.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SSCP\SubPages\SSCPInspectionScheduleLink.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SSCP\SubPages\SSCPWorkEntry.vb">
@@ -1124,14 +1106,6 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CRTitleVRenewal10.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\APB\crAPBPhoneList.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crAPBPhoneList.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\APB\crOrganizationChart.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crOrganizationChart.vb</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Letterhead.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Letterhead.vb</LastGenOutput>
@@ -1205,6 +1179,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SSPP\Sub Forms\SSPP_FeeContact.resx">
       <DependentUpon>SSPP_FeeContact.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universal Forms\ExceptionDialog.resx">
+      <DependentUpon>ExceptionDialog.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Universal Forms\IaipAbout.resx">
       <DependentUpon>IaipAbout.vb</DependentUpon>
@@ -1321,10 +1298,6 @@
       <DependentUpon>ISMPAddTestingFirms.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ISMP\SubPages\ISMPClosePrint.resx">
-      <DependentUpon>ISMPClosePrint.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <SubType>Designer</SubType>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
@@ -1353,10 +1326,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SubPages\SSCPEnforcementSelector.resx">
       <DependentUpon>SSCPEnforcementSelector.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SSCP\SubPages\SSCPInspectionScheduleLink.resx">
-      <DependentUpon>SSCPInspectionScheduleLink.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SubPages\SSCPWorkEntry.resx">
@@ -1463,6 +1432,8 @@
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </Content>
     <None Include="packages.config" />
+    <None Include="Resources\Erase.png" />
+    <None Include="Resources\Find_VS.png" />
     <None Include="Resources\saveHS.png" />
     <None Include="Resources\Seal_of_Georgia_gold.ico" />
     <None Include="Resources\Seal_of_Georgia_red_small.ico" />
@@ -1491,13 +1462,19 @@
     <Compile Include="SSPP\Sub Forms\SsppPermitRevocationDialog.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Universal Forms\ExceptionDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="_Classes\BooleanFormatProvider.vb" />
+    <Compile Include="_Classes\IaipExceptionManager.vb" />
     <Compile Include="_Data Classes\ApbFacilityId.vb" />
     <Compile Include="_Data Classes\Contact.vb" />
     <Compile Include="_Data Classes\DMU.EdtError.vb" />
+    <Compile Include="_Data Classes\FacilityEnums.vb" />
     <Compile Include="_Data Classes\FacilityHeaderData.vb" />
     <Compile Include="_Data Classes\SSPP.Permit.vb" />
     <Compile Include="_DB\DAL.DMU.EdtError.vb" />
+    <Compile Include="_DB\DAL.FacilitySummary.vb" />
     <Compile Include="_DB\DAL.ISMP.StackTest.vb">
       <SubType>Code</SubType>
     </Compile>
@@ -1655,6 +1632,7 @@
     <Compile Include="_Modules\Email.vb" />
     <Compile Include="_Modules\FileSystem.vb" />
     <Compile Include="_Modules\FormHandler.vb" />
+    <Compile Include="_Modules\FormHelpers.vb" />
     <Compile Include="_Modules\FormSettings.vb" />
     <Compile Include="_Modules\General.vb" />
     <Compile Include="_Modules\MD5.vb" />

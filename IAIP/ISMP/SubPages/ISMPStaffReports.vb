@@ -508,15 +508,11 @@ Public Class ISMPStaffReports
                 Catch ex As Exception
                     ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
                 Finally
-                    If CurrentConnection.State = ConnectionState.Open Then
-                        'conn.close()
-                    End If
+
                 End Try
                 ' 
 
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
 
                 If MedianArrayByDateOpen.GetLength(0) Mod 2 = 0 Then
                     OpenMedianByDate = (MedianArrayByDateOpen((MedianArrayByDateOpen.GetLength(0) / 2) - 1) + MedianArrayByDateOpen((MedianArrayByDateOpen.GetLength(0) / 2))) / 2
@@ -622,9 +618,7 @@ Public Class ISMPStaffReports
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub
@@ -646,9 +640,7 @@ Public Class ISMPStaffReports
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
         End Try
 
     End Sub

@@ -978,20 +978,13 @@ Public Class IAIPEditSubParts
 
     End Sub
 #End Region
+
 #Region "Declarations"
+
     Private Sub txtAIRSNumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtAIRSNumber.TextChanged
-        Try
-
-
-            LoadInformation()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        LoadInformation()
     End Sub
+
     Private Sub btnSaveSIPSubpart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveSIPSubpart.Click
         Try
 

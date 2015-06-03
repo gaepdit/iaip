@@ -19,22 +19,7 @@ Partial Class SSPPStatisticalTools
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSPPStatisticalTools))
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem
-        Me.mmiExit = New System.Windows.Forms.MenuItem
-        Me.MmiView = New System.Windows.Forms.MenuItem
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem
-        Me.mmiHelp = New System.Windows.Forms.MenuItem
-        Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
-        Me.TBSSPPStatistics = New System.Windows.Forms.ToolBar
-        Me.tbbBack = New System.Windows.Forms.ToolBarButton
         Me.TCSSPPStatistics = New System.Windows.Forms.TabControl
         Me.TPPermittingStats = New System.Windows.Forms.TabPage
         Me.TCPermitCounts = New System.Windows.Forms.TabControl
@@ -298,7 +283,6 @@ Partial Class SSPPStatisticalTools
         Me.btnEditMACT = New System.Windows.Forms.Button
         Me.txtMACTCode = New System.Windows.Forms.TextBox
         Me.Label80 = New System.Windows.Forms.Label
-        Me.StatusStrip1.SuspendLayout()
         Me.TCSSPPStatistics.SuspendLayout()
         Me.TPPermittingStats.SuspendLayout()
         Me.TCPermitCounts.SuspendLayout()
@@ -336,188 +320,6 @@ Partial Class SSPPStatisticalTools
         Me.Panel9.SuspendLayout()
         Me.SuspendLayout()
         '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.Panel1, Me.Panel2, Me.Panel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 652)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(922, 22)
-        Me.StatusStrip1.TabIndex = 256
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'ToolStripProgressBar1
-        '
-        Me.ToolStripProgressBar1.Name = "ToolStripProgressBar1"
-        Me.ToolStripProgressBar1.Size = New System.Drawing.Size(100, 16)
-        '
-        'Panel1
-        '
-        Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(797, 17)
-        Me.Panel1.Spring = True
-        Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Panel2
-        '
-        Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(4, 17)
-        '
-        'Panel3
-        '
-        Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(4, 17)
-        '
-        'MainMenu1
-        '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.MmiView, Me.MenuItem2, Me.mmiHelp})
-        '
-        'MenuItem1
-        '
-        Me.MenuItem1.Index = 0
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiExit})
-        Me.MenuItem1.Text = "File"
-        '
-        'mmiExit
-        '
-        Me.mmiExit.Index = 0
-        Me.mmiExit.Text = "Exit"
-        '
-        'MmiView
-        '
-        Me.MmiView.Index = 1
-        Me.MmiView.Text = "View"
-        Me.MmiView.Visible = False
-        '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 2
-        Me.MenuItem2.Text = "Tools"
-        '
-        'mmiHelp
-        '
-        Me.mmiHelp.Index = 3
-        Me.mmiHelp.Text = "Help"
-        '
-        'Image_List_All
-        '
-        Me.Image_List_All.ImageStream = CType(resources.GetObject("Image_List_All.ImageStream"), System.Windows.Forms.ImageListStreamer)
-        Me.Image_List_All.TransparentColor = System.Drawing.Color.Transparent
-        Me.Image_List_All.Images.SetKeyName(0, "")
-        Me.Image_List_All.Images.SetKeyName(1, "")
-        Me.Image_List_All.Images.SetKeyName(2, "")
-        Me.Image_List_All.Images.SetKeyName(3, "")
-        Me.Image_List_All.Images.SetKeyName(4, "")
-        Me.Image_List_All.Images.SetKeyName(5, "")
-        Me.Image_List_All.Images.SetKeyName(6, "")
-        Me.Image_List_All.Images.SetKeyName(7, "")
-        Me.Image_List_All.Images.SetKeyName(8, "")
-        Me.Image_List_All.Images.SetKeyName(9, "")
-        Me.Image_List_All.Images.SetKeyName(10, "")
-        Me.Image_List_All.Images.SetKeyName(11, "")
-        Me.Image_List_All.Images.SetKeyName(12, "")
-        Me.Image_List_All.Images.SetKeyName(13, "")
-        Me.Image_List_All.Images.SetKeyName(14, "")
-        Me.Image_List_All.Images.SetKeyName(15, "")
-        Me.Image_List_All.Images.SetKeyName(16, "")
-        Me.Image_List_All.Images.SetKeyName(17, "")
-        Me.Image_List_All.Images.SetKeyName(18, "")
-        Me.Image_List_All.Images.SetKeyName(19, "")
-        Me.Image_List_All.Images.SetKeyName(20, "")
-        Me.Image_List_All.Images.SetKeyName(21, "")
-        Me.Image_List_All.Images.SetKeyName(22, "")
-        Me.Image_List_All.Images.SetKeyName(23, "")
-        Me.Image_List_All.Images.SetKeyName(24, "")
-        Me.Image_List_All.Images.SetKeyName(25, "")
-        Me.Image_List_All.Images.SetKeyName(26, "")
-        Me.Image_List_All.Images.SetKeyName(27, "")
-        Me.Image_List_All.Images.SetKeyName(28, "")
-        Me.Image_List_All.Images.SetKeyName(29, "")
-        Me.Image_List_All.Images.SetKeyName(30, "")
-        Me.Image_List_All.Images.SetKeyName(31, "")
-        Me.Image_List_All.Images.SetKeyName(32, "")
-        Me.Image_List_All.Images.SetKeyName(33, "")
-        Me.Image_List_All.Images.SetKeyName(34, "")
-        Me.Image_List_All.Images.SetKeyName(35, "")
-        Me.Image_List_All.Images.SetKeyName(36, "")
-        Me.Image_List_All.Images.SetKeyName(37, "")
-        Me.Image_List_All.Images.SetKeyName(38, "")
-        Me.Image_List_All.Images.SetKeyName(39, "")
-        Me.Image_List_All.Images.SetKeyName(40, "")
-        Me.Image_List_All.Images.SetKeyName(41, "")
-        Me.Image_List_All.Images.SetKeyName(42, "")
-        Me.Image_List_All.Images.SetKeyName(43, "")
-        Me.Image_List_All.Images.SetKeyName(44, "")
-        Me.Image_List_All.Images.SetKeyName(45, "")
-        Me.Image_List_All.Images.SetKeyName(46, "")
-        Me.Image_List_All.Images.SetKeyName(47, "")
-        Me.Image_List_All.Images.SetKeyName(48, "")
-        Me.Image_List_All.Images.SetKeyName(49, "")
-        Me.Image_List_All.Images.SetKeyName(50, "")
-        Me.Image_List_All.Images.SetKeyName(51, "")
-        Me.Image_List_All.Images.SetKeyName(52, "")
-        Me.Image_List_All.Images.SetKeyName(53, "")
-        Me.Image_List_All.Images.SetKeyName(54, "")
-        Me.Image_List_All.Images.SetKeyName(55, "")
-        Me.Image_List_All.Images.SetKeyName(56, "")
-        Me.Image_List_All.Images.SetKeyName(57, "")
-        Me.Image_List_All.Images.SetKeyName(58, "")
-        Me.Image_List_All.Images.SetKeyName(59, "")
-        Me.Image_List_All.Images.SetKeyName(60, "")
-        Me.Image_List_All.Images.SetKeyName(61, "")
-        Me.Image_List_All.Images.SetKeyName(62, "")
-        Me.Image_List_All.Images.SetKeyName(63, "")
-        Me.Image_List_All.Images.SetKeyName(64, "")
-        Me.Image_List_All.Images.SetKeyName(65, "")
-        Me.Image_List_All.Images.SetKeyName(66, "")
-        Me.Image_List_All.Images.SetKeyName(67, "")
-        Me.Image_List_All.Images.SetKeyName(68, "")
-        Me.Image_List_All.Images.SetKeyName(69, "")
-        Me.Image_List_All.Images.SetKeyName(70, "")
-        Me.Image_List_All.Images.SetKeyName(71, "")
-        Me.Image_List_All.Images.SetKeyName(72, "")
-        Me.Image_List_All.Images.SetKeyName(73, "")
-        Me.Image_List_All.Images.SetKeyName(74, "")
-        Me.Image_List_All.Images.SetKeyName(75, "")
-        Me.Image_List_All.Images.SetKeyName(76, "")
-        Me.Image_List_All.Images.SetKeyName(77, "")
-        Me.Image_List_All.Images.SetKeyName(78, "")
-        Me.Image_List_All.Images.SetKeyName(79, "")
-        Me.Image_List_All.Images.SetKeyName(80, "")
-        Me.Image_List_All.Images.SetKeyName(81, "")
-        Me.Image_List_All.Images.SetKeyName(82, "")
-        Me.Image_List_All.Images.SetKeyName(83, "")
-        Me.Image_List_All.Images.SetKeyName(84, "")
-        '
-        'TBSSPPStatistics
-        '
-        Me.TBSSPPStatistics.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.tbbBack})
-        Me.TBSSPPStatistics.DropDownArrows = True
-        Me.TBSSPPStatistics.ImageList = Me.Image_List_All
-        Me.TBSSPPStatistics.Location = New System.Drawing.Point(0, 0)
-        Me.TBSSPPStatistics.Name = "TBSSPPStatistics"
-        Me.TBSSPPStatistics.ShowToolTips = True
-        Me.TBSSPPStatistics.Size = New System.Drawing.Size(922, 28)
-        Me.TBSSPPStatistics.TabIndex = 272
-        '
-        'tbbBack
-        '
-        Me.tbbBack.ImageIndex = 2
-        Me.tbbBack.Name = "tbbBack"
-        Me.tbbBack.ToolTipText = "Back"
-        '
         'TCSSPPStatistics
         '
         Me.TCSSPPStatistics.Controls.Add(Me.TPPermittingStats)
@@ -527,7 +329,7 @@ Partial Class SSPPStatisticalTools
         Me.TCSSPPStatistics.Location = New System.Drawing.Point(3, 3)
         Me.TCSSPPStatistics.Name = "TCSSPPStatistics"
         Me.TCSSPPStatistics.SelectedIndex = 0
-        Me.TCSSPPStatistics.Size = New System.Drawing.Size(516, 592)
+        Me.TCSSPPStatistics.Size = New System.Drawing.Size(516, 642)
         Me.TCSSPPStatistics.TabIndex = 273
         '
         'TPPermittingStats
@@ -537,7 +339,7 @@ Partial Class SSPPStatisticalTools
         Me.TPPermittingStats.Location = New System.Drawing.Point(4, 22)
         Me.TPPermittingStats.Name = "TPPermittingStats"
         Me.TPPermittingStats.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPPermittingStats.Size = New System.Drawing.Size(508, 566)
+        Me.TPPermittingStats.Size = New System.Drawing.Size(508, 616)
         Me.TPPermittingStats.TabIndex = 0
         Me.TPPermittingStats.Text = "Application Count(s)"
         Me.TPPermittingStats.UseVisualStyleBackColor = True
@@ -549,7 +351,7 @@ Partial Class SSPPStatisticalTools
         Me.TCPermitCounts.Location = New System.Drawing.Point(3, 167)
         Me.TCPermitCounts.Name = "TCPermitCounts"
         Me.TCPermitCounts.SelectedIndex = 0
-        Me.TCPermitCounts.Size = New System.Drawing.Size(502, 396)
+        Me.TCPermitCounts.Size = New System.Drawing.Size(502, 446)
         Me.TCPermitCounts.TabIndex = 4
         '
         'TPPermitsIssued
@@ -558,7 +360,7 @@ Partial Class SSPPStatisticalTools
         Me.TPPermitsIssued.Location = New System.Drawing.Point(4, 22)
         Me.TPPermitsIssued.Name = "TPPermitsIssued"
         Me.TPPermitsIssued.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPPermitsIssued.Size = New System.Drawing.Size(494, 370)
+        Me.TPPermitsIssued.Size = New System.Drawing.Size(494, 420)
         Me.TPPermitsIssued.TabIndex = 0
         Me.TPPermitsIssued.Text = "Applications Processed *"
         Me.TPPermitsIssued.UseVisualStyleBackColor = True
@@ -617,7 +419,7 @@ Partial Class SSPPStatisticalTools
         Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox2.Location = New System.Drawing.Point(3, 3)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(488, 364)
+        Me.GroupBox2.Size = New System.Drawing.Size(488, 414)
         Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
         '
@@ -1161,7 +963,7 @@ Partial Class SSPPStatisticalTools
         Me.TPOpenApplications.Location = New System.Drawing.Point(4, 22)
         Me.TPOpenApplications.Name = "TPOpenApplications"
         Me.TPOpenApplications.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPOpenApplications.Size = New System.Drawing.Size(508, 566)
+        Me.TPOpenApplications.Size = New System.Drawing.Size(508, 616)
         Me.TPOpenApplications.TabIndex = 1
         Me.TPOpenApplications.Text = "Open Applications"
         Me.TPOpenApplications.UseVisualStyleBackColor = True
@@ -1174,7 +976,7 @@ Partial Class SSPPStatisticalTools
         Me.TabControl1.Location = New System.Drawing.Point(3, 3)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(502, 560)
+        Me.TabControl1.Size = New System.Drawing.Size(502, 610)
         Me.TabControl1.TabIndex = 0
         '
         'TPAllOpenApplications
@@ -1214,7 +1016,7 @@ Partial Class SSPPStatisticalTools
         Me.TPAllOpenApplications.Location = New System.Drawing.Point(4, 22)
         Me.TPAllOpenApplications.Name = "TPAllOpenApplications"
         Me.TPAllOpenApplications.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPAllOpenApplications.Size = New System.Drawing.Size(494, 534)
+        Me.TPAllOpenApplications.Size = New System.Drawing.Size(494, 584)
         Me.TPAllOpenApplications.TabIndex = 0
         Me.TPAllOpenApplications.Text = "All Open Application(s)"
         Me.TPAllOpenApplications.UseVisualStyleBackColor = True
@@ -1517,7 +1319,7 @@ Partial Class SSPPStatisticalTools
         Me.TPAgeofOpenApplications.Location = New System.Drawing.Point(4, 22)
         Me.TPAgeofOpenApplications.Name = "TPAgeofOpenApplications"
         Me.TPAgeofOpenApplications.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPAgeofOpenApplications.Size = New System.Drawing.Size(494, 534)
+        Me.TPAgeofOpenApplications.Size = New System.Drawing.Size(494, 562)
         Me.TPAgeofOpenApplications.TabIndex = 1
         Me.TPAgeofOpenApplications.Text = "Age of Open Application(s)"
         Me.TPAgeofOpenApplications.UseVisualStyleBackColor = True
@@ -1958,7 +1760,7 @@ Partial Class SSPPStatisticalTools
         Me.TPEPAReport.Controls.Add(Me.GroupBox6)
         Me.TPEPAReport.Location = New System.Drawing.Point(4, 22)
         Me.TPEPAReport.Name = "TPEPAReport"
-        Me.TPEPAReport.Size = New System.Drawing.Size(508, 566)
+        Me.TPEPAReport.Size = New System.Drawing.Size(508, 616)
         Me.TPEPAReport.TabIndex = 2
         Me.TPEPAReport.Text = "Semi-Annual EPA Report"
         Me.TPEPAReport.UseVisualStyleBackColor = True
@@ -2033,7 +1835,7 @@ Partial Class SSPPStatisticalTools
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel4.Location = New System.Drawing.Point(0, 0)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(508, 349)
+        Me.Panel4.Size = New System.Drawing.Size(508, 399)
         Me.Panel4.TabIndex = 14
         '
         'llbViewEPA6c
@@ -2612,7 +2414,7 @@ Partial Class SSPPStatisticalTools
         '
         Me.GroupBox6.Controls.Add(Me.txtEPAReportText)
         Me.GroupBox6.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GroupBox6.Location = New System.Drawing.Point(0, 349)
+        Me.GroupBox6.Location = New System.Drawing.Point(0, 399)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Size = New System.Drawing.Size(508, 217)
         Me.GroupBox6.TabIndex = 5
@@ -2642,7 +2444,7 @@ Partial Class SSPPStatisticalTools
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox1.Location = New System.Drawing.Point(519, 3)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(392, 592)
+        Me.GroupBox1.Size = New System.Drawing.Size(392, 642)
         Me.GroupBox1.TabIndex = 274
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "View Application(s)"
@@ -2687,7 +2489,7 @@ Partial Class SSPPStatisticalTools
         Me.dgvApplicationCount.Location = New System.Drawing.Point(6, 51)
         Me.dgvApplicationCount.Name = "dgvApplicationCount"
         Me.dgvApplicationCount.ReadOnly = True
-        Me.dgvApplicationCount.Size = New System.Drawing.Size(383, 558)
+        Me.dgvApplicationCount.Size = New System.Drawing.Size(383, 608)
         Me.dgvApplicationCount.TabIndex = 2
         '
         'txtRecordNumber
@@ -2712,10 +2514,10 @@ Partial Class SSPPStatisticalTools
         Me.TCSSPPTools.Controls.Add(Me.TPReports)
         Me.TCSSPPTools.Controls.Add(Me.TPSubpart)
         Me.TCSSPPTools.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCSSPPTools.Location = New System.Drawing.Point(0, 28)
+        Me.TCSSPPTools.Location = New System.Drawing.Point(0, 0)
         Me.TCSSPPTools.Name = "TCSSPPTools"
         Me.TCSSPPTools.SelectedIndex = 0
-        Me.TCSSPPTools.Size = New System.Drawing.Size(922, 624)
+        Me.TCSSPPTools.Size = New System.Drawing.Size(922, 674)
         Me.TCSSPPTools.TabIndex = 275
         '
         'TPReports
@@ -2725,7 +2527,7 @@ Partial Class SSPPStatisticalTools
         Me.TPReports.Location = New System.Drawing.Point(4, 22)
         Me.TPReports.Name = "TPReports"
         Me.TPReports.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPReports.Size = New System.Drawing.Size(914, 598)
+        Me.TPReports.Size = New System.Drawing.Size(914, 648)
         Me.TPReports.TabIndex = 0
         Me.TPReports.Text = "Reports and Statistics"
         Me.TPReports.UseVisualStyleBackColor = True
@@ -2736,7 +2538,7 @@ Partial Class SSPPStatisticalTools
         Me.TPSubpart.Location = New System.Drawing.Point(4, 22)
         Me.TPSubpart.Name = "TPSubpart"
         Me.TPSubpart.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPSubpart.Size = New System.Drawing.Size(914, 598)
+        Me.TPSubpart.Size = New System.Drawing.Size(914, 626)
         Me.TPSubpart.TabIndex = 1
         Me.TPSubpart.Text = "Sub-part editor"
         Me.TPSubpart.UseVisualStyleBackColor = True
@@ -2751,7 +2553,7 @@ Partial Class SSPPStatisticalTools
         Me.TCMiscTools.Location = New System.Drawing.Point(3, 3)
         Me.TCMiscTools.Name = "TCMiscTools"
         Me.TCMiscTools.SelectedIndex = 0
-        Me.TCMiscTools.Size = New System.Drawing.Size(908, 592)
+        Me.TCMiscTools.Size = New System.Drawing.Size(908, 620)
         Me.TCMiscTools.TabIndex = 2
         '
         'TPEditSIP
@@ -2761,7 +2563,7 @@ Partial Class SSPPStatisticalTools
         Me.TPEditSIP.Location = New System.Drawing.Point(4, 22)
         Me.TPEditSIP.Name = "TPEditSIP"
         Me.TPEditSIP.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPEditSIP.Size = New System.Drawing.Size(900, 566)
+        Me.TPEditSIP.Size = New System.Drawing.Size(900, 594)
         Me.TPEditSIP.TabIndex = 0
         Me.TPEditSIP.Text = "Edit SIP Subparts"
         Me.TPEditSIP.UseVisualStyleBackColor = True
@@ -2772,7 +2574,7 @@ Partial Class SSPPStatisticalTools
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel6.Location = New System.Drawing.Point(3, 126)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(894, 437)
+        Me.Panel6.Size = New System.Drawing.Size(894, 465)
         Me.Panel6.TabIndex = 1
         '
         'dgvSIP
@@ -2782,7 +2584,7 @@ Partial Class SSPPStatisticalTools
         Me.dgvSIP.Location = New System.Drawing.Point(0, 0)
         Me.dgvSIP.Name = "dgvSIP"
         Me.dgvSIP.ReadOnly = True
-        Me.dgvSIP.Size = New System.Drawing.Size(894, 437)
+        Me.dgvSIP.Size = New System.Drawing.Size(894, 465)
         Me.dgvSIP.TabIndex = 0
         '
         'Panel5
@@ -3178,13 +2980,8 @@ Partial Class SSPPStatisticalTools
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(922, 674)
         Me.Controls.Add(Me.TCSSPPTools)
-        Me.Controls.Add(Me.TBSSPPStatistics)
-        Me.Controls.Add(Me.StatusStrip1)
-        Me.Menu = Me.MainMenu1
         Me.Name = "SSPPStatisticalTools"
         Me.Text = "SSPP Reports and Statistical Tools"
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         Me.TCSSPPStatistics.ResumeLayout(False)
         Me.TPPermittingStats.ResumeLayout(False)
         Me.TCPermitCounts.ResumeLayout(False)
@@ -3234,23 +3031,8 @@ Partial Class SSPPStatisticalTools
         Me.Panel9.ResumeLayout(False)
         Me.Panel9.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents ToolStripProgressBar1 As System.Windows.Forms.ToolStripProgressBar
-    Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiExit As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiView As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
-    Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
-    Friend WithEvents TBSSPPStatistics As System.Windows.Forms.ToolBar
-    Friend WithEvents tbbBack As System.Windows.Forms.ToolBarButton
     Friend WithEvents TCSSPPStatistics As System.Windows.Forms.TabControl
     Friend WithEvents TPPermittingStats As System.Windows.Forms.TabPage
     Friend WithEvents TPOpenApplications As System.Windows.Forms.TabPage

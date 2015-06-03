@@ -823,7 +823,7 @@ Public Class ISMPMonitoringLog
             End If
 
         Catch ex As Exception
-            ErrorReport(SQL & vbCrLf & ex.ToString(), "ISMPTestReportViewer.LoadDataSet")
+            ErrorReport(ex, SQL, "ISMPTestReportViewer.LoadDataSet")
         Finally
 
         End Try

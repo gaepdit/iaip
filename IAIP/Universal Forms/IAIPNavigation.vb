@@ -224,26 +224,7 @@ Public Class IAIPNavigation
 #Region " Quick Access Tool procedures "
 
     Private Sub OpenApplication()
-        Try
-            Dim id As String = txtOpenApplication.Text
-            If id = "" Then Exit Sub
-
-            If DAL.SSPP.ApplicationExists(id) Then
-                If PermitTrackingLog IsNot Nothing AndAlso Not PermitTrackingLog.IsDisposed Then
-                    PermitTrackingLog.Dispose()
-                End If
-
-                PermitTrackingLog = New SSPPApplicationTrackingLog
-                PermitTrackingLog.Show()
-                PermitTrackingLog.txtApplicationNumber.Text = txtOpenApplication.Text
-                PermitTrackingLog.LoadApplication()
-                PermitTrackingLog.TPTrackingLog.Focus()
-            Else
-                MsgBox("Application number is not in the system.", MsgBoxStyle.Information, Me.Text)
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenFormPermitApplication(txtOpenApplication.Text)
     End Sub
 
     Private Sub OpenTestReport()
@@ -276,63 +257,15 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub OpenEnforcement()
-        Try
-            Dim id As String = txtOpenEnforcement.Text
-            If id = "" Then Exit Sub
-            If DAL.SSCP.EnforcementExists(id) Then
-                OpenMultiForm("SscpEnforcement", id)
-            Else
-                MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenFormEnforcement(txtOpenEnforcement.Text)
     End Sub
 
     Private Sub OpenSscpItem()
-        Try
-            Dim id As String = txtOpenSscpItem.Text
-            If id = "" Then Exit Sub
-
-            If DAL.SSCP.WorkItemExists(id) Then
-                Dim refNum As String = ""
-                If DAL.SSCP.WorkItemIsAStackTest(id, refNum) Then
-                    OpenMultiForm("ISMPTestReports", refNum)
-                Else
-                    If SSCPReports IsNot Nothing AndAlso Not SSCPReports.IsDisposed Then
-                        SSCPReports.Dispose()
-                    End If
-                    SSCPReports = New SSCPEvents
-                    SSCPReports.txtTrackingNumber.Text = id
-                    SSCPReports.Show()
-                End If
-            Else
-                MsgBox("Tracking number is not in the system.", MsgBoxStyle.Information, Me.Text)
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenFormSscpWorkItem(txtOpenSscpItem.Text)
     End Sub
 
     Private Sub OpenFacilitySummary()
-        If txtOpenFacilitySummary.TextLength = 0 Then
-            OpenSingleForm(IAIPFacilitySummary)
-            Exit Sub
-        End If
-
-        If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(txtOpenFacilitySummary.Text) Then
-            MsgBox("AIRS number is not valid.", MsgBoxStyle.Information, "Navigation Screen")
-            Exit Sub
-        End If
-
-        If Not DAL.FacilityModule.AirsNumberExists(txtOpenFacilitySummary.Text) Then
-            MsgBox("AIRS number does not exist.", MsgBoxStyle.Information, "Navigation Screen")
-            Exit Sub
-        End If
-
-        Dim parameters As New Generic.Dictionary(Of String, String)
-        parameters("airsnumber") = txtOpenFacilitySummary.Text
-        OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
+        OpenFormFacilitySummary(txtOpenFacilitySummary.Text)
     End Sub
 
     Private Sub OpenTestLog()
@@ -691,10 +624,6 @@ Public Class IAIPNavigation
 
             dgvWorkViewer.SanelyResizeColumns()
             dgvWorkViewer.MakeColumnsLookLikeLinks(0)
-            'Try
-            '    dgvWorkViewer.Columns("AIRSNumber").DefaultCellStyle.Format = "000-00000"
-            'Catch e As Exception
-            'End Try
 
         End If
     End Sub
@@ -909,15 +838,10 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub dgvWorkViewer_CellFormatting(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) Handles dgvWorkViewer.CellFormatting
-        If e IsNot Nothing Then
-            Try
-                If dgvWorkViewer.Columns(e.ColumnIndex).HeaderText = "AIRS #" Then
-                    Dim text As String = e.Value.ToString
-                    e.Value = String.Format("{0}-{1}", text.Substring(0, 3), text.Substring(3))
-                End If
-            Catch ex As Exception
-
-            End Try
+        If e IsNot Nothing AndAlso e.Value IsNot Nothing _
+        AndAlso dgvWorkViewer.Columns(e.ColumnIndex).HeaderText = "AIRS #" _
+        AndAlso Apb.ApbFacilityId.IsValidAirsNumberFormat(e.Value) Then
+            e.Value = New Apb.ApbFacilityId(e.Value).FormattedString
         End If
     End Sub
 
@@ -958,8 +882,6 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub bgrLoadWorkViewer_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgrLoadWorkViewer.RunWorkerCompleted
-        'cboWorkViewerContext.Enabled = True
-        'btnChangeWorkViewerContext.Enabled = True
         pnlCurrentList.Enabled = True
         btnChangeWorkViewerContext.Text = "Load"
 
@@ -1234,6 +1156,13 @@ Public Class IAIPNavigation
         End If
     End Sub
 
+    Private Sub AddNavButtonIfUserHasPermission(ByVal permissionAllowed As String, _
+                                                ByVal buttonText As String, ByVal formName As String, _
+                                                ByVal category As NavButtonCategories)
+        AddNavButtonIfUserHasPermission(New String() {permissionAllowed}, _
+                                        buttonText, formName, category)
+    End Sub
+
     Private Sub AddNavButtonCategory(ByVal category As NavButtonCategories, ByVal name As String, Optional ByVal shortname As String = Nothing)
         If CurrentUser.Staff.ProgramName = name OrElse CurrentUser.Staff.UnitName = name Then
             AllTheNavButtonCategories.Insert(0, New NavButtonCategory(category, name, shortname))
@@ -1355,6 +1284,7 @@ Public Class IAIPNavigation
                                         "EDT Errors", "DmuEdtErrorMessages", NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(10, "District Tools", "IAIPDistrictSourceTool", NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(133, "Look Up Tables", "IAIPLookUpTables", NavButtonCategories.DMU)
+        AddNavButtonIfUserHasPermission("(118)", "Organization Editor", "IAIPListTool", NavButtonCategories.DMU)
         If (CurrentUser.UserID = "345") Then
             AddNavButtonIfAccountHasFormAccess(63, "Special Tools", "DMUDangerousTool", NavButtonCategories.DMU)
         End If
@@ -1411,6 +1341,10 @@ Public Class IAIPNavigation
 
     Private Sub mmiPing_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPing.Click
         DB.PingDBConnection(CurrentConnection)
+    End Sub
+
+    Private Sub mmiThrowError_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiThrowError.Click
+        Throw New Exception("Unhandled exception testing")
     End Sub
 
 #End Region

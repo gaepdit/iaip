@@ -27,12 +27,7 @@
             Loop
         Catch ex As Exception
             ErrorReport(ex, "MRFunctions.DisplayReport")
-        Finally
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
-
     End Sub
 
 #End Region

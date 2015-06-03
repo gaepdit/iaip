@@ -14,8 +14,7 @@ Namespace DAL.SSPP
                 " AND STRPERMITNUMBER = :permitnumber "
             Dim parameter As New OracleParameter("permitnumber", permitNumber)
 
-            Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
-            Return Convert.ToBoolean(result)
+            Return DB.GetBoolean(query, parameter)
         End Function
 
         Public Function GetPermit(ByVal permitNumber As String) As Permit

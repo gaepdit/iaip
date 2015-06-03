@@ -37,7 +37,6 @@ Partial Class SSCPFCEWork
         Me.TBFCE = New System.Windows.Forms.ToolBar
         Me.TbbSave = New System.Windows.Forms.ToolBarButton
         Me.TbbPring = New System.Windows.Forms.ToolBarButton
-        Me.txtOrigin = New System.Windows.Forms.TextBox
         Me.txtAirsNumber = New System.Windows.Forms.TextBox
         Me.ReviewDataTabs = New System.Windows.Forms.TabControl
         Me.TPInspections = New System.Windows.Forms.TabPage
@@ -344,14 +343,6 @@ Partial Class SSCPFCEWork
         '
         Me.TbbPring.ImageIndex = 19
         Me.TbbPring.Name = "TbbPring"
-        '
-        'txtOrigin
-        '
-        Me.txtOrigin.Location = New System.Drawing.Point(19, 47)
-        Me.txtOrigin.Name = "txtOrigin"
-        Me.txtOrigin.Size = New System.Drawing.Size(10, 20)
-        Me.txtOrigin.TabIndex = 240
-        Me.txtOrigin.Visible = False
         '
         'txtAirsNumber
         '
@@ -1161,7 +1152,6 @@ Partial Class SSCPFCEWork
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(877, 642)
         Me.Controls.Add(Me.TabControlFCE)
-        Me.Controls.Add(Me.txtOrigin)
         Me.Controls.Add(Me.txtAirsNumber)
         Me.Controls.Add(Me.TBFCE)
         Me.Controls.Add(Me.StatusStrip1)
@@ -1229,7 +1219,6 @@ Partial Class SSCPFCEWork
     Friend WithEvents TBFCE As System.Windows.Forms.ToolBar
     Friend WithEvents TbbSave As System.Windows.Forms.ToolBarButton
     Friend WithEvents TbbPrint As System.Windows.Forms.ToolBarButton
-    Friend WithEvents txtOrigin As System.Windows.Forms.TextBox
     Friend WithEvents txtAirsNumber As System.Windows.Forms.TextBox
     Friend WithEvents ReviewDataTabs As System.Windows.Forms.TabControl
     Friend WithEvents TPInspections As System.Windows.Forms.TabPage

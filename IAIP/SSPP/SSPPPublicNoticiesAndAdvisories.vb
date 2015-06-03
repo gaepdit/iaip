@@ -742,43 +742,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
     End Sub
     Sub OpenApplication()
-        Try
-
-            If txtApplicationNumber.Text <> "" Then
-                SQL = "select strApplicationNumber " & _
-                "from AIRBRANCH.SSPPApplicationMaster " & _
-                "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
-                    If PermitTrackingLog Is Nothing Then
-                        PermitTrackingLog = Nothing
-                        If PermitTrackingLog Is Nothing Then PermitTrackingLog = New SSPPApplicationTrackingLog
-                        PermitTrackingLog.Show()
-                    Else
-                        PermitTrackingLog.Show()
-                    End If
-                    PermitTrackingLog.txtApplicationNumber.Clear()
-                    PermitTrackingLog.txtApplicationNumber.Text = txtApplicationNumber.Text
-                    PermitTrackingLog.LoadApplication()
-                    PermitTrackingLog.BringToFront()
-                    PermitTrackingLog.TPTrackingLog.Focus()
-                Else
-                    MsgBox("Application Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".OpenApplication")
-        Finally
-
-        End Try
-
+        OpenFormPermitApplication(txtApplicationNumber.Text)
     End Sub
     Sub PreviewReport()
         Dim SQLLine As String = ""

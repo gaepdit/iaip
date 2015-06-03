@@ -132,7 +132,7 @@ Public Class SSPPApplicationLog
             'cboFieldType1.Items.Add("Engineer Unit Code")
             cboFieldType1.Items.Add("EPA 45-day Waived")
             cboFieldType1.Items.Add("EPA 45-day Ends")
-            cboFieldType1.Items.Add("Facilty City")
+            cboFieldType1.Items.Add("Facility City")
             cboFieldType1.Items.Add("Facility County")
             cboFieldType1.Items.Add("Facility Name")
             cboFieldType1.Items.Add("Facility Street")
@@ -190,7 +190,7 @@ Public Class SSPPApplicationLog
             'cboFieldType2.Items.Add("Engineer Unit Code")
             cboFieldType2.Items.Add("EPA 45-day Waived")
             cboFieldType2.Items.Add("EPA 45-day Ends")
-            cboFieldType2.Items.Add("Facilty City")
+            cboFieldType2.Items.Add("Facility City")
             cboFieldType2.Items.Add("Facility County")
             cboFieldType2.Items.Add("Facility Name")
             cboFieldType2.Items.Add("Facility Street")
@@ -248,7 +248,7 @@ Public Class SSPPApplicationLog
             'cboSort1.Items.Add("Engineer Unit Code")
             cboSort1.Items.Add("EPA 45-day Waived")
             cboSort1.Items.Add("EPA 45-day Ends")
-            cboSort1.Items.Add("Facilty City")
+            cboSort1.Items.Add("Facility City")
             cboSort1.Items.Add("Facility County")
             cboSort1.Items.Add("Facility Name")
             cboSort1.Items.Add("Facility Street")
@@ -304,7 +304,7 @@ Public Class SSPPApplicationLog
             'cboSort2.Items.Add("Engineer Unit Code")
             cboSort2.Items.Add("EPA 45-day Waived")
             cboSort2.Items.Add("EPA 45-day Ends")
-            cboSort2.Items.Add("Facilty City")
+            cboSort2.Items.Add("Facility City")
             cboSort2.Items.Add("Facility County")
             cboSort2.Items.Add("Facility Name")
             cboSort2.Items.Add("Facility Street")
@@ -729,9 +729,6 @@ Public Class SSPPApplicationLog
         End Try
 
     End Sub
-    Private Sub SSPPApplicationLog_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Me.Dispose()
-    End Sub
 #End Region
 
 #Region "Background worker / Search procedures"
@@ -782,8 +779,6 @@ Public Class SSPPApplicationLog
         SearchDate2b = DTPSearchDate2b.Text
 
         dsApplication = New DataSet
-        'dgvApplicationLog.DataSource = dsApplication
-        ' This line was causing a fatal error when an initial RunSearch returned no results
 
         Try
             If bgwApplicationLog.IsBusy = False Then
@@ -1306,7 +1301,7 @@ Public Class SSPPApplicationLog
                     SQLSearch1 = " datEPAWaived between '" & SearchDate1 & "' and '" & SearchDate1b & "' "
                 Case "EPA 45-day Ends"
                     SQLSearch1 = " datEPAEnds between '" & SearchDate1 & "' and '" & SearchDate1b & "' "
-                Case "Facilty City"
+                Case "Facility City"
                     SQLSearch1 = " Upper(strFacilityCity) like Upper('%" & Replace(SearchText1, "'", "''") & "%') "
                 Case "Facility County"
                     SQLSearch1 = " Upper(strCountyName) like Upper('%" & Replace(SearchText1, "'", "''") & "%') "
@@ -1539,7 +1534,7 @@ Public Class SSPPApplicationLog
                     SQLSearch2 = " datEPAWaived between '" & SearchDate2 & "' and '" & SearchDate2b & "'  "
                 Case "EPA 45-day Ends"
                     SQLSearch2 = " datEPAEnds between '" & SearchDate2 & "' and '" & SearchDate2b & "'  "
-                Case "Facilty City"
+                Case "Facility City"
                     SQLSearch2 = " Upper(strFacilityCity) like Upper('%" & Replace(SearchText2, "'", "''") & "%') "
                 Case "Facility County"
                     SQLSearch2 = " Upper(strCountyName) like Upper('%" & Replace(SearchText2, "'", "''") & "%') "
@@ -1754,7 +1749,7 @@ Public Class SSPPApplicationLog
                     SQLOrder = SQLOrder & " datEPAWaived " & temp
                 Case "EPA 45-day Ends"
                     SQLOrder = SQLOrder & " datEPAEnds " & temp
-                Case "Facilty City"
+                Case "Facility City"
                     SQLOrder = SQLOrder & " strFacilityCity " & temp
                 Case "Facility County"
                     SQLOrder = SQLOrder & " strCountyName " & temp
@@ -1880,7 +1875,7 @@ Public Class SSPPApplicationLog
                     SQLOrder = SQLOrder & " datEPAWaived " & temp
                 Case "EPA 45-day Ends"
                     SQLOrder = SQLOrder & " datEPAEnds " & temp
-                Case "Facilty City"
+                Case "Facility City"
                     SQLOrder = SQLOrder & " strFacilityCity " & temp
                 Case "Facility County"
                     SQLOrder = SQLOrder & " strCountyName " & temp
@@ -2120,7 +2115,7 @@ Public Class SSPPApplicationLog
             dgvApplicationLog.Columns("datFinalizedDate").Visible = False
             dgvApplicationLog.Columns("datWithdrawn").Visible = False
             dgvApplicationLog.Columns("datApplicationStarted").Visible = False
-            dgvApplicationLog.Columns("strAFSGCode").HeaderText = "AFS G Code"
+            dgvApplicationLog.Columns("strAFSGCode").HeaderText = "EPA G Code"
             dgvApplicationLog.Columns("strAFSGCode").DisplayIndex = 54
             dgvApplicationLog.Columns("strAFSGCode").Visible = False
             dgvApplicationLog.Columns("strSubpart").HeaderText = "Subpart"
@@ -2158,13 +2153,7 @@ Public Class SSPPApplicationLog
     Private Sub StartNewApplication()
         Try
             If AccountFormAccess(3, 4) = "1" Then
-                If PermitTrackingLog Is Nothing Then
-                    PermitTrackingLog = New SSPPApplicationTrackingLog
-                    PermitTrackingLog.Show()
-                Else
-                    PermitTrackingLog.Show()
-                End If
-                PermitTrackingLog.BringToFront()
+                OpenFormNewPermitApplication()
             Else
                 MessageBox.Show("You do not have sufficient permissions to start a new application.")
             End If
@@ -2172,21 +2161,8 @@ Public Class SSPPApplicationLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub OpenApplication(ByVal app As String)
-        Try
-            If app <> "" Then
-                If PermitTrackingLog Is Nothing Then
-                    PermitTrackingLog = New SSPPApplicationTrackingLog
-                End If
-                PermitTrackingLog.Show()
-                PermitTrackingLog.txtApplicationNumber.Clear()
-                PermitTrackingLog.txtApplicationNumber.Text = app
-                PermitTrackingLog.LoadApplication()
-                PermitTrackingLog.BringToFront()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub OpenApplication(ByVal applicationNumber As String)
+        OpenFormPermitApplication(applicationNumber)
     End Sub
 #End Region
 
@@ -2515,7 +2491,7 @@ Public Class SSPPApplicationLog
                     cboNESHAP1.Visible = False
                     cboNSPS1.Visible = False
                     cboMACT1.Visible = False
-                Case "Facilty City"
+                Case "Facility City"
                     txtSearchText1.Visible = True
                     DTPSearchDate1.Visible = False
                     DTPSearchDate1b.Visible = False
@@ -3186,7 +3162,7 @@ Public Class SSPPApplicationLog
                     cboNESHAP2.Visible = False
                     cboNSPS2.Visible = False
                     cboMACT2.Visible = False
-                Case "Facilty City"
+                Case "Facility City"
                     txtSearchText2.Visible = True
                     DTPSearchDate2.Visible = False
                     DTPSearchDate2b.Visible = False

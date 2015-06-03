@@ -22,38 +22,13 @@ Partial Class IAIPUserAdminTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPUserAdminTool))
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
-        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.tsmOpenMaintenanceTool = New System.Windows.Forms.ToolStripMenuItem
-        Me.tsbViewOrgChart = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiViewPhoneList = New System.Windows.Forms.ToolStripMenuItem
-        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.HelpOnlineToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.pnl1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.pnl2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.pnl3 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
-        Me.tsbSave = New System.Windows.Forms.ToolStripButton
-        Me.tsbBack = New System.Windows.Forms.ToolStripButton
-        Me.tsbClear = New System.Windows.Forms.ToolStripButton
-        Me.lblFirstName = New System.Windows.Forms.Label
-        Me.lblLastName = New System.Windows.Forms.Label
-        Me.lblPassword = New System.Windows.Forms.Label
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.lblUserName = New System.Windows.Forms.Label
-        Me.lblEmployeeID = New System.Windows.Forms.Label
-        Me.Panel1 = New System.Windows.Forms.Panel
         Me.lblPermissions = New System.Windows.Forms.Label
-        Me.lblUserID = New System.Windows.Forms.Label
-        Me.lblFaxNumber = New System.Windows.Forms.Label
-        Me.lblPhoneNumber = New System.Windows.Forms.Label
-        Me.lblEmailAddress = New System.Windows.Forms.Label
         Me.btnCreateNewUser = New System.Windows.Forms.Button
         Me.btnSave = New System.Windows.Forms.Button
-        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer
         Me.TCUserData = New System.Windows.Forms.TabControl
         Me.TPUserInformation = New System.Windows.Forms.TabPage
         Me.Panel3 = New System.Windows.Forms.Panel
@@ -66,7 +41,6 @@ Partial Class IAIPUserAdminTool
         Me.cboProgram = New System.Windows.Forms.ComboBox
         Me.cboBranch = New System.Windows.Forms.ComboBox
         Me.txtEmailAddress = New System.Windows.Forms.TextBox
-        Me.txtEmployeeID = New System.Windows.Forms.TextBox
         Me.txtLastName = New System.Windows.Forms.TextBox
         Me.txtFirstName = New System.Windows.Forms.TextBox
         Me.Label16 = New System.Windows.Forms.Label
@@ -74,7 +48,6 @@ Partial Class IAIPUserAdminTool
         Me.Label14 = New System.Windows.Forms.Label
         Me.Label13 = New System.Windows.Forms.Label
         Me.Label12 = New System.Windows.Forms.Label
-        Me.Label11 = New System.Windows.Forms.Label
         Me.Label10 = New System.Windows.Forms.Label
         Me.Label9 = New System.Windows.Forms.Label
         Me.Label8 = New System.Windows.Forms.Label
@@ -115,8 +88,6 @@ Partial Class IAIPUserAdminTool
         Me.Label18 = New System.Windows.Forms.Label
         Me.pnlSearch = New System.Windows.Forms.Panel
         Me.lblCount = New System.Windows.Forms.Label
-        Me.dgvUserAdminTool = New System.Windows.Forms.DataGridView
-        Me.btnAll = New System.Windows.Forms.Button
         Me.btnReset = New System.Windows.Forms.Button
         Me.btnSearch = New System.Windows.Forms.Button
         Me.cboSearchUnit = New System.Windows.Forms.ComboBox
@@ -129,15 +100,9 @@ Partial Class IAIPUserAdminTool
         Me.txtSearchFirstName = New System.Windows.Forms.TextBox
         Me.Label23 = New System.Windows.Forms.Label
         Me.Label24 = New System.Windows.Forms.Label
-        Me.txtSearchEmployeeID = New System.Windows.Forms.TextBox
-        Me.Label22 = New System.Windows.Forms.Label
-        Me.MenuStrip1.SuspendLayout()
-        Me.StatusStrip1.SuspendLayout()
-        Me.ToolStrip1.SuspendLayout()
-        Me.Panel1.SuspendLayout()
-        Me.SplitContainer1.Panel1.SuspendLayout()
-        Me.SplitContainer1.Panel2.SuspendLayout()
-        Me.SplitContainer1.SuspendLayout()
+        Me.dgvUserAdminTool = New System.Windows.Forms.DataGridView
+        Me.lblUserID = New System.Windows.Forms.Label
+        Me.lblEmailAddress = New System.Windows.Forms.Label
         Me.TCUserData.SuspendLayout()
         Me.TPUserInformation.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -147,304 +112,56 @@ Partial Class IAIPUserAdminTool
         CType(Me.dgvUserAdminTool, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.ToolToolStripMenuItem, Me.EditToolStripMenuItem, Me.HelpToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(792, 24)
-        Me.MenuStrip1.TabIndex = 0
-        Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'FileToolStripMenuItem
-        '
-        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.FileToolStripMenuItem.Text = "File"
-        Me.FileToolStripMenuItem.Visible = False
-        '
-        'ToolToolStripMenuItem
-        '
-        Me.ToolToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmOpenMaintenanceTool, Me.tsbViewOrgChart, Me.mmiViewPhoneList})
-        Me.ToolToolStripMenuItem.Name = "ToolToolStripMenuItem"
-        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(43, 20)
-        Me.ToolToolStripMenuItem.Text = "Tool"
-        '
-        'tsmOpenMaintenanceTool
-        '
-        Me.tsmOpenMaintenanceTool.Name = "tsmOpenMaintenanceTool"
-        Me.tsmOpenMaintenanceTool.Size = New System.Drawing.Size(245, 22)
-        Me.tsmOpenMaintenanceTool.Text = "Open IAIP Organization Tool"
-        '
-        'tsbViewOrgChart
-        '
-        Me.tsbViewOrgChart.Name = "tsbViewOrgChart"
-        Me.tsbViewOrgChart.Size = New System.Drawing.Size(245, 22)
-        Me.tsbViewOrgChart.Text = "View Current Organization Chart"
-        '
-        'mmiViewPhoneList
-        '
-        Me.mmiViewPhoneList.Name = "mmiViewPhoneList"
-        Me.mmiViewPhoneList.Size = New System.Drawing.Size(245, 22)
-        Me.mmiViewPhoneList.Text = "View Current Phone List"
-        '
-        'EditToolStripMenuItem
-        '
-        Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
-        Me.EditToolStripMenuItem.Text = "Edit"
-        Me.EditToolStripMenuItem.Visible = False
-        '
-        'HelpToolStripMenuItem
-        '
-        Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpOnlineToolStripMenuItem})
-        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
-        Me.HelpToolStripMenuItem.Text = "Help"
-        '
-        'HelpOnlineToolStripMenuItem
-        '
-        Me.HelpOnlineToolStripMenuItem.Name = "HelpOnlineToolStripMenuItem"
-        Me.HelpOnlineToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1
-        Me.HelpOnlineToolStripMenuItem.Size = New System.Drawing.Size(156, 22)
-        Me.HelpOnlineToolStripMenuItem.Text = "Help Online"
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.pnl1, Me.pnl2, Me.pnl3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 544)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(792, 22)
-        Me.StatusStrip1.TabIndex = 1
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'pnl1
-        '
-        Me.pnl1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.pnl1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.pnl1.Name = "pnl1"
-        Me.pnl1.Size = New System.Drawing.Size(769, 17)
-        Me.pnl1.Spring = True
-        Me.pnl1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'pnl2
-        '
-        Me.pnl2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.pnl2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.pnl2.Name = "pnl2"
-        Me.pnl2.Size = New System.Drawing.Size(4, 17)
-        '
-        'pnl3
-        '
-        Me.pnl3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.pnl3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.pnl3.Name = "pnl3"
-        Me.pnl3.Size = New System.Drawing.Size(4, 17)
-        '
-        'ToolStrip1
-        '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbSave, Me.tsbBack, Me.tsbClear})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
-        Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(792, 25)
-        Me.ToolStrip1.TabIndex = 2
-        Me.ToolStrip1.Text = "ToolStrip1"
-        '
-        'tsbSave
-        '
-        Me.tsbSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbSave.Image = CType(resources.GetObject("tsbSave.Image"), System.Drawing.Image)
-        Me.tsbSave.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbSave.Name = "tsbSave"
-        Me.tsbSave.Size = New System.Drawing.Size(23, 22)
-        Me.tsbSave.Text = "ToolStripButton1"
-        '
-        'tsbBack
-        '
-        Me.tsbBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbBack.Image = CType(resources.GetObject("tsbBack.Image"), System.Drawing.Image)
-        Me.tsbBack.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbBack.Name = "tsbBack"
-        Me.tsbBack.Size = New System.Drawing.Size(23, 22)
-        Me.tsbBack.Text = "ToolStripButton2"
-        '
-        'tsbClear
-        '
-        Me.tsbClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbClear.Image = CType(resources.GetObject("tsbClear.Image"), System.Drawing.Image)
-        Me.tsbClear.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbClear.Name = "tsbClear"
-        Me.tsbClear.Size = New System.Drawing.Size(23, 22)
-        Me.tsbClear.Text = "ToolStripButton1"
-        '
-        'lblFirstName
-        '
-        Me.lblFirstName.AutoSize = True
-        Me.lblFirstName.Location = New System.Drawing.Point(2, 4)
-        Me.lblFirstName.Name = "lblFirstName"
-        Me.lblFirstName.Size = New System.Drawing.Size(60, 13)
-        Me.lblFirstName.TabIndex = 3
-        Me.lblFirstName.Text = "First Name:"
-        '
-        'lblLastName
-        '
-        Me.lblLastName.AutoSize = True
-        Me.lblLastName.Location = New System.Drawing.Point(3, 21)
-        Me.lblLastName.Name = "lblLastName"
-        Me.lblLastName.Size = New System.Drawing.Size(61, 13)
-        Me.lblLastName.TabIndex = 4
-        Me.lblLastName.Text = "Last Name:"
-        '
-        'lblPassword
-        '
-        Me.lblPassword.AutoSize = True
-        Me.lblPassword.Location = New System.Drawing.Point(507, 21)
-        Me.lblPassword.Name = "lblPassword"
-        Me.lblPassword.Size = New System.Drawing.Size(56, 13)
-        Me.lblPassword.TabIndex = 6
-        Me.lblPassword.Text = "Password:"
-        '
         'lblUserName
         '
         Me.lblUserName.AutoSize = True
-        Me.lblUserName.Location = New System.Drawing.Point(507, 4)
+        Me.lblUserName.Location = New System.Drawing.Point(12, 9)
         Me.lblUserName.Name = "lblUserName"
         Me.lblUserName.Size = New System.Drawing.Size(63, 13)
         Me.lblUserName.TabIndex = 7
         Me.lblUserName.Text = "User Name:"
         '
-        'lblEmployeeID
-        '
-        Me.lblEmployeeID.AutoSize = True
-        Me.lblEmployeeID.Location = New System.Drawing.Point(3, 38)
-        Me.lblEmployeeID.Name = "lblEmployeeID"
-        Me.lblEmployeeID.Size = New System.Drawing.Size(70, 13)
-        Me.lblEmployeeID.TabIndex = 8
-        Me.lblEmployeeID.Text = "Employee ID:"
-        '
-        'Panel1
-        '
-        Me.Panel1.Controls.Add(Me.lblPermissions)
-        Me.Panel1.Controls.Add(Me.lblUserID)
-        Me.Panel1.Controls.Add(Me.lblFaxNumber)
-        Me.Panel1.Controls.Add(Me.lblPhoneNumber)
-        Me.Panel1.Controls.Add(Me.lblEmailAddress)
-        Me.Panel1.Controls.Add(Me.btnCreateNewUser)
-        Me.Panel1.Controls.Add(Me.btnSave)
-        Me.Panel1.Controls.Add(Me.lblFirstName)
-        Me.Panel1.Controls.Add(Me.lblLastName)
-        Me.Panel1.Controls.Add(Me.lblEmployeeID)
-        Me.Panel1.Controls.Add(Me.lblPassword)
-        Me.Panel1.Controls.Add(Me.lblUserName)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel1.Location = New System.Drawing.Point(0, 49)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(792, 87)
-        Me.Panel1.TabIndex = 10
-        '
         'lblPermissions
         '
         Me.lblPermissions.AutoSize = True
-        Me.lblPermissions.Location = New System.Drawing.Point(507, 56)
+        Me.lblPermissions.Location = New System.Drawing.Point(286, 70)
         Me.lblPermissions.Name = "lblPermissions"
-        Me.lblPermissions.Size = New System.Drawing.Size(0, 13)
+        Me.lblPermissions.Size = New System.Drawing.Size(61, 13)
         Me.lblPermissions.TabIndex = 36
+        Me.lblPermissions.Text = "permissions"
         Me.lblPermissions.Visible = False
-        '
-        'lblUserID
-        '
-        Me.lblUserID.AutoSize = True
-        Me.lblUserID.Location = New System.Drawing.Point(507, 38)
-        Me.lblUserID.Name = "lblUserID"
-        Me.lblUserID.Size = New System.Drawing.Size(60, 13)
-        Me.lblUserID.TabIndex = 35
-        Me.lblUserID.Text = "numUserID"
-        Me.lblUserID.Visible = False
-        '
-        'lblFaxNumber
-        '
-        Me.lblFaxNumber.AutoSize = True
-        Me.lblFaxNumber.Location = New System.Drawing.Point(252, 38)
-        Me.lblFaxNumber.Name = "lblFaxNumber"
-        Me.lblFaxNumber.Size = New System.Drawing.Size(37, 13)
-        Me.lblFaxNumber.TabIndex = 34
-        Me.lblFaxNumber.Text = "Fax #:"
-        '
-        'lblPhoneNumber
-        '
-        Me.lblPhoneNumber.AutoSize = True
-        Me.lblPhoneNumber.Location = New System.Drawing.Point(252, 21)
-        Me.lblPhoneNumber.Name = "lblPhoneNumber"
-        Me.lblPhoneNumber.Size = New System.Drawing.Size(51, 13)
-        Me.lblPhoneNumber.TabIndex = 33
-        Me.lblPhoneNumber.Text = "Phone #:"
-        '
-        'lblEmailAddress
-        '
-        Me.lblEmailAddress.AutoSize = True
-        Me.lblEmailAddress.Location = New System.Drawing.Point(252, 4)
-        Me.lblEmailAddress.Name = "lblEmailAddress"
-        Me.lblEmailAddress.Size = New System.Drawing.Size(35, 13)
-        Me.lblEmailAddress.TabIndex = 32
-        Me.lblEmailAddress.Text = "Email:"
         '
         'btnCreateNewUser
         '
         Me.btnCreateNewUser.AutoSize = True
         Me.btnCreateNewUser.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnCreateNewUser.Location = New System.Drawing.Point(113, 56)
+        Me.btnCreateNewUser.Location = New System.Drawing.Point(116, 65)
         Me.btnCreateNewUser.Name = "btnCreateNewUser"
         Me.btnCreateNewUser.Size = New System.Drawing.Size(98, 23)
-        Me.btnCreateNewUser.TabIndex = 1
+        Me.btnCreateNewUser.TabIndex = 2
         Me.btnCreateNewUser.Text = "Create New User"
         Me.btnCreateNewUser.UseVisualStyleBackColor = True
         '
         'btnSave
         '
         Me.btnSave.AutoSize = True
-        Me.btnSave.Location = New System.Drawing.Point(6, 56)
+        Me.btnSave.Location = New System.Drawing.Point(12, 65)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(98, 23)
-        Me.btnSave.TabIndex = 0
+        Me.btnSave.TabIndex = 1
         Me.btnSave.Text = "Save"
         Me.btnSave.UseVisualStyleBackColor = True
         '
-        'SplitContainer1
-        '
-        Me.SplitContainer1.BackColor = System.Drawing.Color.Blue
-        Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitContainer1.Location = New System.Drawing.Point(0, 136)
-        Me.SplitContainer1.Name = "SplitContainer1"
-        Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
-        '
-        'SplitContainer1.Panel1
-        '
-        Me.SplitContainer1.Panel1.BackColor = System.Drawing.SystemColors.Control
-        Me.SplitContainer1.Panel1.Controls.Add(Me.TCUserData)
-        '
-        'SplitContainer1.Panel2
-        '
-        Me.SplitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control
-        Me.SplitContainer1.Panel2.Controls.Add(Me.pnlSearch)
-        Me.SplitContainer1.Size = New System.Drawing.Size(792, 408)
-        Me.SplitContainer1.SplitterDistance = 221
-        Me.SplitContainer1.TabIndex = 11
-        '
         'TCUserData
         '
+        Me.TCUserData.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TCUserData.Controls.Add(Me.TPUserInformation)
         Me.TCUserData.Controls.Add(Me.TPPermission)
-        Me.TCUserData.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCUserData.Location = New System.Drawing.Point(0, 0)
+        Me.TCUserData.Location = New System.Drawing.Point(0, 94)
         Me.TCUserData.Name = "TCUserData"
         Me.TCUserData.SelectedIndex = 0
-        Me.TCUserData.Size = New System.Drawing.Size(792, 221)
+        Me.TCUserData.Size = New System.Drawing.Size(739, 224)
         Me.TCUserData.TabIndex = 0
         '
         'TPUserInformation
@@ -457,7 +174,6 @@ Partial Class IAIPUserAdminTool
         Me.TPUserInformation.Controls.Add(Me.cboProgram)
         Me.TPUserInformation.Controls.Add(Me.cboBranch)
         Me.TPUserInformation.Controls.Add(Me.txtEmailAddress)
-        Me.TPUserInformation.Controls.Add(Me.txtEmployeeID)
         Me.TPUserInformation.Controls.Add(Me.txtLastName)
         Me.TPUserInformation.Controls.Add(Me.txtFirstName)
         Me.TPUserInformation.Controls.Add(Me.Label16)
@@ -465,7 +181,6 @@ Partial Class IAIPUserAdminTool
         Me.TPUserInformation.Controls.Add(Me.Label14)
         Me.TPUserInformation.Controls.Add(Me.Label13)
         Me.TPUserInformation.Controls.Add(Me.Label12)
-        Me.TPUserInformation.Controls.Add(Me.Label11)
         Me.TPUserInformation.Controls.Add(Me.Label10)
         Me.TPUserInformation.Controls.Add(Me.Label9)
         Me.TPUserInformation.Controls.Add(Me.Label8)
@@ -474,26 +189,25 @@ Partial Class IAIPUserAdminTool
         Me.TPUserInformation.Location = New System.Drawing.Point(4, 22)
         Me.TPUserInformation.Name = "TPUserInformation"
         Me.TPUserInformation.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPUserInformation.Size = New System.Drawing.Size(784, 195)
+        Me.TPUserInformation.Size = New System.Drawing.Size(725, 198)
         Me.TPUserInformation.TabIndex = 0
         Me.TPUserInformation.Text = "User Information"
         Me.TPUserInformation.UseVisualStyleBackColor = True
         '
         'Panel3
         '
-        Me.Panel3.AutoSize = True
         Me.Panel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel3.Controls.Add(Me.rdbInactiveStatus)
         Me.Panel3.Controls.Add(Me.rdbActiveStatus)
-        Me.Panel3.Location = New System.Drawing.Point(131, 87)
+        Me.Panel3.Location = New System.Drawing.Point(384, 3)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(128, 23)
-        Me.Panel3.TabIndex = 26
+        Me.Panel3.Size = New System.Drawing.Size(141, 26)
+        Me.Panel3.TabIndex = 6
         '
         'rdbInactiveStatus
         '
         Me.rdbInactiveStatus.AutoSize = True
-        Me.rdbInactiveStatus.Location = New System.Drawing.Point(62, 3)
+        Me.rdbInactiveStatus.Location = New System.Drawing.Point(70, 4)
         Me.rdbInactiveStatus.Name = "rdbInactiveStatus"
         Me.rdbInactiveStatus.Size = New System.Drawing.Size(63, 17)
         Me.rdbInactiveStatus.TabIndex = 1
@@ -503,7 +217,7 @@ Partial Class IAIPUserAdminTool
         'rdbActiveStatus
         '
         Me.rdbActiveStatus.AutoSize = True
-        Me.rdbActiveStatus.Location = New System.Drawing.Point(3, 3)
+        Me.rdbActiveStatus.Location = New System.Drawing.Point(9, 4)
         Me.rdbActiveStatus.Name = "rdbActiveStatus"
         Me.rdbActiveStatus.Size = New System.Drawing.Size(55, 17)
         Me.rdbActiveStatus.TabIndex = 0
@@ -512,26 +226,26 @@ Partial Class IAIPUserAdminTool
         '
         'txtOfficeNumber
         '
-        Me.txtOfficeNumber.Location = New System.Drawing.Point(414, 88)
+        Me.txtOfficeNumber.Location = New System.Drawing.Point(90, 136)
         Me.txtOfficeNumber.Name = "txtOfficeNumber"
-        Me.txtOfficeNumber.Size = New System.Drawing.Size(181, 20)
-        Me.txtOfficeNumber.TabIndex = 6
+        Me.txtOfficeNumber.Size = New System.Drawing.Size(139, 20)
+        Me.txtOfficeNumber.TabIndex = 5
         '
         'mtbPhoneNumber
         '
-        Me.mtbPhoneNumber.Location = New System.Drawing.Point(414, 34)
+        Me.mtbPhoneNumber.Location = New System.Drawing.Point(90, 84)
         Me.mtbPhoneNumber.Mask = "(999) 000-0000 ext.00000"
         Me.mtbPhoneNumber.Name = "mtbPhoneNumber"
         Me.mtbPhoneNumber.Size = New System.Drawing.Size(139, 20)
-        Me.mtbPhoneNumber.TabIndex = 4
+        Me.mtbPhoneNumber.TabIndex = 3
         '
         'mtbFaxNumber
         '
-        Me.mtbFaxNumber.Location = New System.Drawing.Point(414, 60)
+        Me.mtbFaxNumber.Location = New System.Drawing.Point(90, 110)
         Me.mtbFaxNumber.Mask = "(999) 000-0000 ext.00000"
         Me.mtbFaxNumber.Name = "mtbFaxNumber"
         Me.mtbFaxNumber.Size = New System.Drawing.Size(139, 20)
-        Me.mtbFaxNumber.TabIndex = 5
+        Me.mtbFaxNumber.TabIndex = 4
         '
         'cboUnit
         '
@@ -539,9 +253,9 @@ Partial Class IAIPUserAdminTool
         Me.cboUnit.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboUnit.FormattingEnabled = True
-        Me.cboUnit.Location = New System.Drawing.Point(546, 121)
+        Me.cboUnit.Location = New System.Drawing.Point(353, 83)
         Me.cboUnit.Name = "cboUnit"
-        Me.cboUnit.Size = New System.Drawing.Size(225, 21)
+        Me.cboUnit.Size = New System.Drawing.Size(172, 21)
         Me.cboUnit.TabIndex = 9
         '
         'cboProgram
@@ -550,9 +264,9 @@ Partial Class IAIPUserAdminTool
         Me.cboProgram.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboProgram.FormattingEnabled = True
-        Me.cboProgram.Location = New System.Drawing.Point(258, 121)
+        Me.cboProgram.Location = New System.Drawing.Point(353, 58)
         Me.cboProgram.Name = "cboProgram"
-        Me.cboProgram.Size = New System.Drawing.Size(250, 21)
+        Me.cboProgram.Size = New System.Drawing.Size(172, 21)
         Me.cboProgram.TabIndex = 8
         '
         'cboBranch
@@ -561,35 +275,28 @@ Partial Class IAIPUserAdminTool
         Me.cboBranch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboBranch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboBranch.FormattingEnabled = True
-        Me.cboBranch.Location = New System.Drawing.Point(54, 121)
+        Me.cboBranch.Location = New System.Drawing.Point(353, 32)
         Me.cboBranch.Name = "cboBranch"
-        Me.cboBranch.Size = New System.Drawing.Size(150, 21)
+        Me.cboBranch.Size = New System.Drawing.Size(172, 21)
         Me.cboBranch.TabIndex = 7
         '
         'txtEmailAddress
         '
-        Me.txtEmailAddress.Location = New System.Drawing.Point(414, 6)
+        Me.txtEmailAddress.Location = New System.Drawing.Point(90, 58)
         Me.txtEmailAddress.Name = "txtEmailAddress"
         Me.txtEmailAddress.Size = New System.Drawing.Size(181, 20)
-        Me.txtEmailAddress.TabIndex = 3
-        '
-        'txtEmployeeID
-        '
-        Me.txtEmployeeID.Location = New System.Drawing.Point(76, 60)
-        Me.txtEmployeeID.Name = "txtEmployeeID"
-        Me.txtEmployeeID.Size = New System.Drawing.Size(181, 20)
-        Me.txtEmployeeID.TabIndex = 2
+        Me.txtEmailAddress.TabIndex = 2
         '
         'txtLastName
         '
-        Me.txtLastName.Location = New System.Drawing.Point(76, 34)
+        Me.txtLastName.Location = New System.Drawing.Point(90, 32)
         Me.txtLastName.Name = "txtLastName"
         Me.txtLastName.Size = New System.Drawing.Size(180, 20)
         Me.txtLastName.TabIndex = 1
         '
         'txtFirstName
         '
-        Me.txtFirstName.Location = New System.Drawing.Point(76, 6)
+        Me.txtFirstName.Location = New System.Drawing.Point(90, 6)
         Me.txtFirstName.Name = "txtFirstName"
         Me.txtFirstName.Size = New System.Drawing.Size(180, 20)
         Me.txtFirstName.TabIndex = 0
@@ -597,25 +304,25 @@ Partial Class IAIPUserAdminTool
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(335, 92)
+        Me.Label16.Location = New System.Drawing.Point(8, 139)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(48, 13)
+        Me.Label16.Size = New System.Drawing.Size(58, 13)
         Me.Label16.TabIndex = 14
-        Me.Label16.Text = "Office #:"
+        Me.Label16.Text = "Office No.:"
         '
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(8, 92)
+        Me.Label15.Location = New System.Drawing.Point(298, 9)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(117, 13)
+        Me.Label15.Size = New System.Drawing.Size(89, 13)
         Me.Label15.TabIndex = 13
-        Me.Label15.Text = "State Employee Status:"
+        Me.Label15.Text = "Employee Status:"
         '
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(8, 125)
+        Me.Label14.Location = New System.Drawing.Point(298, 35)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(44, 13)
         Me.Label14.TabIndex = 12
@@ -624,7 +331,7 @@ Partial Class IAIPUserAdminTool
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(209, 125)
+        Me.Label13.Location = New System.Drawing.Point(298, 61)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(49, 13)
         Me.Label13.TabIndex = 11
@@ -633,25 +340,16 @@ Partial Class IAIPUserAdminTool
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(517, 125)
+        Me.Label12.Location = New System.Drawing.Point(298, 87)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(29, 13)
         Me.Label12.TabIndex = 10
         Me.Label12.Text = "Unit:"
         '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(3, 64)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(70, 13)
-        Me.Label11.TabIndex = 9
-        Me.Label11.Text = "Employee ID:"
-        '
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(335, 10)
+        Me.Label10.Location = New System.Drawing.Point(8, 61)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(76, 13)
         Me.Label10.TabIndex = 8
@@ -660,25 +358,25 @@ Partial Class IAIPUserAdminTool
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(335, 38)
+        Me.Label9.Location = New System.Drawing.Point(8, 87)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(51, 13)
+        Me.Label9.Size = New System.Drawing.Size(41, 13)
         Me.Label9.TabIndex = 7
-        Me.Label9.Text = "Phone #:"
+        Me.Label9.Text = "Phone:"
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(335, 64)
+        Me.Label8.Location = New System.Drawing.Point(8, 113)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(37, 13)
+        Me.Label8.Size = New System.Drawing.Size(27, 13)
         Me.Label8.TabIndex = 6
-        Me.Label8.Text = "Fax #:"
+        Me.Label8.Text = "Fax:"
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(3, 38)
+        Me.Label7.Location = New System.Drawing.Point(8, 35)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(61, 13)
         Me.Label7.TabIndex = 5
@@ -687,7 +385,7 @@ Partial Class IAIPUserAdminTool
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(4, 10)
+        Me.Label3.Location = New System.Drawing.Point(8, 9)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(60, 13)
         Me.Label3.TabIndex = 4
@@ -710,9 +408,9 @@ Partial Class IAIPUserAdminTool
         Me.TPPermission.Location = New System.Drawing.Point(4, 22)
         Me.TPPermission.Name = "TPPermission"
         Me.TPPermission.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPPermission.Size = New System.Drawing.Size(784, 195)
+        Me.TPPermission.Size = New System.Drawing.Size(731, 198)
         Me.TPPermission.TabIndex = 1
-        Me.TPPermission.Text = "Permission"
+        Me.TPPermission.Text = "Permissions"
         Me.TPPermission.UseVisualStyleBackColor = True
         '
         'cboPermissionProgram
@@ -721,15 +419,15 @@ Partial Class IAIPUserAdminTool
         Me.cboPermissionProgram.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboPermissionProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboPermissionProgram.FormattingEnabled = True
-        Me.cboPermissionProgram.Location = New System.Drawing.Point(51, 84)
+        Me.cboPermissionProgram.Location = New System.Drawing.Point(76, 84)
         Me.cboPermissionProgram.Name = "cboPermissionProgram"
-        Me.cboPermissionProgram.Size = New System.Drawing.Size(215, 21)
+        Me.cboPermissionProgram.Size = New System.Drawing.Size(190, 21)
         Me.cboPermissionProgram.TabIndex = 3
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(3, 88)
+        Me.Label1.Location = New System.Drawing.Point(8, 87)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(49, 13)
         Me.Label1.TabIndex = 35
@@ -778,7 +476,7 @@ Partial Class IAIPUserAdminTool
         Me.chb10.Location = New System.Drawing.Point(3, 166)
         Me.chb10.Name = "chb10"
         Me.chb10.Size = New System.Drawing.Size(15, 14)
-        Me.chb10.TabIndex = 38
+        Me.chb10.TabIndex = 9
         Me.chb10.UseVisualStyleBackColor = True
         Me.chb10.Visible = False
         '
@@ -797,7 +495,7 @@ Partial Class IAIPUserAdminTool
         Me.chb9.Location = New System.Drawing.Point(3, 148)
         Me.chb9.Name = "chb9"
         Me.chb9.Size = New System.Drawing.Size(15, 14)
-        Me.chb9.TabIndex = 36
+        Me.chb9.TabIndex = 8
         Me.chb9.UseVisualStyleBackColor = True
         Me.chb9.Visible = False
         '
@@ -879,7 +577,7 @@ Partial Class IAIPUserAdminTool
         Me.chb1.Location = New System.Drawing.Point(3, 4)
         Me.chb1.Name = "chb1"
         Me.chb1.Size = New System.Drawing.Size(15, 14)
-        Me.chb1.TabIndex = 15
+        Me.chb1.TabIndex = 0
         Me.chb1.UseVisualStyleBackColor = True
         Me.chb1.Visible = False
         '
@@ -889,7 +587,7 @@ Partial Class IAIPUserAdminTool
         Me.chb2.Location = New System.Drawing.Point(3, 22)
         Me.chb2.Name = "chb2"
         Me.chb2.Size = New System.Drawing.Size(15, 14)
-        Me.chb2.TabIndex = 16
+        Me.chb2.TabIndex = 1
         Me.chb2.UseVisualStyleBackColor = True
         Me.chb2.Visible = False
         '
@@ -899,7 +597,7 @@ Partial Class IAIPUserAdminTool
         Me.chb8.Location = New System.Drawing.Point(3, 130)
         Me.chb8.Name = "chb8"
         Me.chb8.Size = New System.Drawing.Size(15, 14)
-        Me.chb8.TabIndex = 22
+        Me.chb8.TabIndex = 7
         Me.chb8.UseVisualStyleBackColor = True
         Me.chb8.Visible = False
         '
@@ -909,7 +607,7 @@ Partial Class IAIPUserAdminTool
         Me.chb3.Location = New System.Drawing.Point(3, 40)
         Me.chb3.Name = "chb3"
         Me.chb3.Size = New System.Drawing.Size(15, 14)
-        Me.chb3.TabIndex = 17
+        Me.chb3.TabIndex = 2
         Me.chb3.UseVisualStyleBackColor = True
         Me.chb3.Visible = False
         '
@@ -919,7 +617,7 @@ Partial Class IAIPUserAdminTool
         Me.chb7.Location = New System.Drawing.Point(3, 112)
         Me.chb7.Name = "chb7"
         Me.chb7.Size = New System.Drawing.Size(15, 14)
-        Me.chb7.TabIndex = 21
+        Me.chb7.TabIndex = 6
         Me.chb7.UseVisualStyleBackColor = True
         Me.chb7.Visible = False
         '
@@ -929,7 +627,7 @@ Partial Class IAIPUserAdminTool
         Me.chb4.Location = New System.Drawing.Point(3, 58)
         Me.chb4.Name = "chb4"
         Me.chb4.Size = New System.Drawing.Size(15, 14)
-        Me.chb4.TabIndex = 18
+        Me.chb4.TabIndex = 3
         Me.chb4.UseVisualStyleBackColor = True
         Me.chb4.Visible = False
         '
@@ -939,7 +637,7 @@ Partial Class IAIPUserAdminTool
         Me.chb6.Location = New System.Drawing.Point(3, 94)
         Me.chb6.Name = "chb6"
         Me.chb6.Size = New System.Drawing.Size(15, 14)
-        Me.chb6.TabIndex = 20
+        Me.chb6.TabIndex = 5
         Me.chb6.UseVisualStyleBackColor = True
         Me.chb6.Visible = False
         '
@@ -949,7 +647,7 @@ Partial Class IAIPUserAdminTool
         Me.chb5.Location = New System.Drawing.Point(3, 76)
         Me.chb5.Name = "chb5"
         Me.chb5.Size = New System.Drawing.Size(15, 14)
-        Me.chb5.TabIndex = 19
+        Me.chb5.TabIndex = 4
         Me.chb5.UseVisualStyleBackColor = True
         Me.chb5.Visible = False
         '
@@ -957,41 +655,41 @@ Partial Class IAIPUserAdminTool
         '
         Me.btnClearAllPermissions.AutoSize = True
         Me.btnClearAllPermissions.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnClearAllPermissions.Location = New System.Drawing.Point(51, 109)
+        Me.btnClearAllPermissions.Location = New System.Drawing.Point(535, 147)
         Me.btnClearAllPermissions.Name = "btnClearAllPermissions"
         Me.btnClearAllPermissions.Size = New System.Drawing.Size(113, 23)
-        Me.btnClearAllPermissions.TabIndex = 4
+        Me.btnClearAllPermissions.TabIndex = 7
         Me.btnClearAllPermissions.Text = "Clear All Permissions"
         Me.btnClearAllPermissions.UseVisualStyleBackColor = True
         '
         'Label28
         '
         Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(532, 3)
+        Me.Label28.Location = New System.Drawing.Point(535, 9)
         Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(97, 13)
+        Me.Label28.Size = New System.Drawing.Size(102, 13)
         Me.Label28.TabIndex = 20
-        Me.Label28.Text = "Current Permission:"
+        Me.Label28.Text = "Current Permissions:"
         '
         'txtCurrentPermissions
         '
         Me.txtCurrentPermissions.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtCurrentPermissions.Location = New System.Drawing.Point(535, 19)
+        Me.txtCurrentPermissions.Location = New System.Drawing.Point(535, 25)
         Me.txtCurrentPermissions.Multiline = True
         Me.txtCurrentPermissions.Name = "txtCurrentPermissions"
         Me.txtCurrentPermissions.ReadOnly = True
         Me.txtCurrentPermissions.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtCurrentPermissions.Size = New System.Drawing.Size(241, 170)
-        Me.txtCurrentPermissions.TabIndex = 19
+        Me.txtCurrentPermissions.Size = New System.Drawing.Size(188, 116)
+        Me.txtCurrentPermissions.TabIndex = 6
         '
         'txtPassword
         '
-        Me.txtPassword.Location = New System.Drawing.Point(100, 32)
+        Me.txtPassword.Location = New System.Drawing.Point(76, 32)
         Me.txtPassword.Name = "txtPassword"
         Me.txtPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.txtPassword.Size = New System.Drawing.Size(125, 20)
+        Me.txtPassword.Size = New System.Drawing.Size(190, 20)
         Me.txtPassword.TabIndex = 1
         '
         'cboPermissionBranch
@@ -1000,22 +698,22 @@ Partial Class IAIPUserAdminTool
         Me.cboPermissionBranch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboPermissionBranch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboPermissionBranch.FormattingEnabled = True
-        Me.cboPermissionBranch.Location = New System.Drawing.Point(51, 58)
+        Me.cboPermissionBranch.Location = New System.Drawing.Point(76, 58)
         Me.cboPermissionBranch.Name = "cboPermissionBranch"
-        Me.cboPermissionBranch.Size = New System.Drawing.Size(215, 21)
+        Me.cboPermissionBranch.Size = New System.Drawing.Size(190, 21)
         Me.cboPermissionBranch.TabIndex = 2
         '
         'txtUserName
         '
-        Me.txtUserName.Location = New System.Drawing.Point(65, 6)
+        Me.txtUserName.Location = New System.Drawing.Point(76, 6)
         Me.txtUserName.Name = "txtUserName"
-        Me.txtUserName.Size = New System.Drawing.Size(160, 20)
+        Me.txtUserName.Size = New System.Drawing.Size(189, 20)
         Me.txtUserName.TabIndex = 0
         '
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(3, 62)
+        Me.Label21.Location = New System.Drawing.Point(8, 61)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(44, 13)
         Me.Label21.TabIndex = 12
@@ -1024,7 +722,7 @@ Partial Class IAIPUserAdminTool
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(38, 35)
+        Me.Label17.Location = New System.Drawing.Point(8, 35)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(56, 13)
         Me.Label17.TabIndex = 8
@@ -1033,7 +731,7 @@ Partial Class IAIPUserAdminTool
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(3, 10)
+        Me.Label18.Location = New System.Drawing.Point(8, 9)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(63, 13)
         Me.Label18.TabIndex = 9
@@ -1041,9 +739,9 @@ Partial Class IAIPUserAdminTool
         '
         'pnlSearch
         '
+        Me.pnlSearch.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlSearch.Controls.Add(Me.lblCount)
-        Me.pnlSearch.Controls.Add(Me.dgvUserAdminTool)
-        Me.pnlSearch.Controls.Add(Me.btnAll)
         Me.pnlSearch.Controls.Add(Me.btnReset)
         Me.pnlSearch.Controls.Add(Me.btnSearch)
         Me.pnlSearch.Controls.Add(Me.cboSearchUnit)
@@ -1056,61 +754,37 @@ Partial Class IAIPUserAdminTool
         Me.pnlSearch.Controls.Add(Me.txtSearchFirstName)
         Me.pnlSearch.Controls.Add(Me.Label23)
         Me.pnlSearch.Controls.Add(Me.Label24)
-        Me.pnlSearch.Controls.Add(Me.txtSearchEmployeeID)
-        Me.pnlSearch.Controls.Add(Me.Label22)
-        Me.pnlSearch.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlSearch.Location = New System.Drawing.Point(0, 0)
+        Me.pnlSearch.Location = New System.Drawing.Point(0, 334)
         Me.pnlSearch.Name = "pnlSearch"
-        Me.pnlSearch.Size = New System.Drawing.Size(792, 183)
-        Me.pnlSearch.TabIndex = 0
+        Me.pnlSearch.Size = New System.Drawing.Size(737, 62)
+        Me.pnlSearch.TabIndex = 3
         '
         'lblCount
         '
         Me.lblCount.AutoSize = True
-        Me.lblCount.Location = New System.Drawing.Point(732, 11)
+        Me.lblCount.Location = New System.Drawing.Point(585, 11)
         Me.lblCount.Name = "lblCount"
-        Me.lblCount.Size = New System.Drawing.Size(0, 13)
+        Me.lblCount.Size = New System.Drawing.Size(41, 13)
         Me.lblCount.TabIndex = 27
-        '
-        'dgvUserAdminTool
-        '
-        Me.dgvUserAdminTool.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.dgvUserAdminTool.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvUserAdminTool.Location = New System.Drawing.Point(0, 61)
-        Me.dgvUserAdminTool.Name = "dgvUserAdminTool"
-        Me.dgvUserAdminTool.ReadOnly = True
-        Me.dgvUserAdminTool.Size = New System.Drawing.Size(792, 121)
-        Me.dgvUserAdminTool.TabIndex = 9
-        '
-        'btnAll
-        '
-        Me.btnAll.AutoSize = True
-        Me.btnAll.Location = New System.Drawing.Point(667, 6)
-        Me.btnAll.Name = "btnAll"
-        Me.btnAll.Size = New System.Drawing.Size(58, 23)
-        Me.btnAll.TabIndex = 5
-        Me.btnAll.Text = "Show All"
-        Me.btnAll.UseVisualStyleBackColor = True
+        Me.lblCount.Text = "Count: "
         '
         'btnReset
         '
         Me.btnReset.AutoSize = True
-        Me.btnReset.Location = New System.Drawing.Point(593, 6)
+        Me.btnReset.Location = New System.Drawing.Point(521, 6)
         Me.btnReset.Name = "btnReset"
         Me.btnReset.Size = New System.Drawing.Size(58, 23)
-        Me.btnReset.TabIndex = 4
+        Me.btnReset.TabIndex = 8
         Me.btnReset.Text = "Reset"
         Me.btnReset.UseVisualStyleBackColor = True
         '
         'btnSearch
         '
         Me.btnSearch.AutoSize = True
-        Me.btnSearch.Location = New System.Drawing.Point(519, 6)
+        Me.btnSearch.Location = New System.Drawing.Point(457, 6)
         Me.btnSearch.Name = "btnSearch"
         Me.btnSearch.Size = New System.Drawing.Size(58, 23)
-        Me.btnSearch.TabIndex = 3
+        Me.btnSearch.TabIndex = 7
         Me.btnSearch.Text = "Search"
         Me.btnSearch.UseVisualStyleBackColor = True
         '
@@ -1120,10 +794,10 @@ Partial Class IAIPUserAdminTool
         Me.cboSearchUnit.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboSearchUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSearchUnit.FormattingEnabled = True
-        Me.cboSearchUnit.Location = New System.Drawing.Point(543, 34)
+        Me.cboSearchUnit.Location = New System.Drawing.Point(457, 35)
         Me.cboSearchUnit.Name = "cboSearchUnit"
-        Me.cboSearchUnit.Size = New System.Drawing.Size(225, 21)
-        Me.cboSearchUnit.TabIndex = 8
+        Me.cboSearchUnit.Size = New System.Drawing.Size(138, 21)
+        Me.cboSearchUnit.TabIndex = 6
         '
         'cboSearchProgram
         '
@@ -1131,10 +805,10 @@ Partial Class IAIPUserAdminTool
         Me.cboSearchProgram.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboSearchProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSearchProgram.FormattingEnabled = True
-        Me.cboSearchProgram.Location = New System.Drawing.Point(255, 34)
+        Me.cboSearchProgram.Location = New System.Drawing.Point(277, 35)
         Me.cboSearchProgram.Name = "cboSearchProgram"
-        Me.cboSearchProgram.Size = New System.Drawing.Size(250, 21)
-        Me.cboSearchProgram.TabIndex = 7
+        Me.cboSearchProgram.Size = New System.Drawing.Size(139, 21)
+        Me.cboSearchProgram.TabIndex = 5
         '
         'cboSearchBranch
         '
@@ -1142,15 +816,15 @@ Partial Class IAIPUserAdminTool
         Me.cboSearchBranch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboSearchBranch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSearchBranch.FormattingEnabled = True
-        Me.cboSearchBranch.Location = New System.Drawing.Point(55, 34)
+        Me.cboSearchBranch.Location = New System.Drawing.Point(76, 35)
         Me.cboSearchBranch.Name = "cboSearchBranch"
-        Me.cboSearchBranch.Size = New System.Drawing.Size(150, 21)
-        Me.cboSearchBranch.TabIndex = 6
+        Me.cboSearchBranch.Size = New System.Drawing.Size(129, 21)
+        Me.cboSearchBranch.TabIndex = 4
         '
         'Label25
         '
         Me.Label25.AutoSize = True
-        Me.Label25.Location = New System.Drawing.Point(9, 38)
+        Me.Label25.Location = New System.Drawing.Point(26, 38)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(44, 13)
         Me.Label25.TabIndex = 24
@@ -1159,7 +833,7 @@ Partial Class IAIPUserAdminTool
         'Label26
         '
         Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(206, 38)
+        Me.Label26.Location = New System.Drawing.Point(222, 38)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(49, 13)
         Me.Label26.TabIndex = 23
@@ -1168,7 +842,7 @@ Partial Class IAIPUserAdminTool
         'Label27
         '
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(514, 38)
+        Me.Label27.Location = New System.Drawing.Point(422, 38)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(29, 13)
         Me.Label27.TabIndex = 22
@@ -1176,22 +850,22 @@ Partial Class IAIPUserAdminTool
         '
         'txtSearchLastName
         '
-        Me.txtSearchLastName.Location = New System.Drawing.Point(231, 7)
+        Me.txtSearchLastName.Location = New System.Drawing.Point(76, 8)
         Me.txtSearchLastName.Name = "txtSearchLastName"
-        Me.txtSearchLastName.Size = New System.Drawing.Size(100, 20)
-        Me.txtSearchLastName.TabIndex = 1
+        Me.txtSearchLastName.Size = New System.Drawing.Size(129, 20)
+        Me.txtSearchLastName.TabIndex = 0
         '
         'txtSearchFirstName
         '
-        Me.txtSearchFirstName.Location = New System.Drawing.Point(405, 7)
+        Me.txtSearchFirstName.Location = New System.Drawing.Point(277, 8)
         Me.txtSearchFirstName.Name = "txtSearchFirstName"
-        Me.txtSearchFirstName.Size = New System.Drawing.Size(100, 20)
-        Me.txtSearchFirstName.TabIndex = 2
+        Me.txtSearchFirstName.Size = New System.Drawing.Size(139, 20)
+        Me.txtSearchFirstName.TabIndex = 1
         '
         'Label23
         '
         Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(343, 11)
+        Me.Label23.Location = New System.Drawing.Point(211, 11)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(60, 13)
         Me.Label23.TabIndex = 15
@@ -1200,52 +874,84 @@ Partial Class IAIPUserAdminTool
         'Label24
         '
         Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(167, 11)
+        Me.Label24.Location = New System.Drawing.Point(9, 11)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(61, 13)
         Me.Label24.TabIndex = 16
         Me.Label24.Text = "Last Name:"
         '
-        'txtSearchEmployeeID
+        'dgvUserAdminTool
         '
-        Me.txtSearchEmployeeID.Location = New System.Drawing.Point(78, 7)
-        Me.txtSearchEmployeeID.Name = "txtSearchEmployeeID"
-        Me.txtSearchEmployeeID.Size = New System.Drawing.Size(83, 20)
-        Me.txtSearchEmployeeID.TabIndex = 0
+        Me.dgvUserAdminTool.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvUserAdminTool.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvUserAdminTool.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvUserAdminTool.DefaultCellStyle = DataGridViewCellStyle2
+        Me.dgvUserAdminTool.Location = New System.Drawing.Point(0, 396)
+        Me.dgvUserAdminTool.Name = "dgvUserAdminTool"
+        Me.dgvUserAdminTool.ReadOnly = True
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvUserAdminTool.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        Me.dgvUserAdminTool.Size = New System.Drawing.Size(737, 165)
+        Me.dgvUserAdminTool.TabIndex = 4
         '
-        'Label22
+        'lblUserID
         '
-        Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(6, 11)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(70, 13)
-        Me.Label22.TabIndex = 9
-        Me.Label22.Text = "Employee ID:"
+        Me.lblUserID.AutoSize = True
+        Me.lblUserID.Location = New System.Drawing.Point(220, 70)
+        Me.lblUserID.Name = "lblUserID"
+        Me.lblUserID.Size = New System.Drawing.Size(60, 13)
+        Me.lblUserID.TabIndex = 35
+        Me.lblUserID.Text = "numUserID"
+        Me.lblUserID.Visible = False
+        '
+        'lblEmailAddress
+        '
+        Me.lblEmailAddress.AutoSize = True
+        Me.lblEmailAddress.Location = New System.Drawing.Point(12, 35)
+        Me.lblEmailAddress.Name = "lblEmailAddress"
+        Me.lblEmailAddress.Size = New System.Drawing.Size(79, 13)
+        Me.lblEmailAddress.TabIndex = 36
+        Me.lblEmailAddress.Text = "Email Address: "
         '
         'IAIPUserAdminTool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(792, 566)
-        Me.Controls.Add(Me.SplitContainer1)
-        Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.ToolStrip1)
-        Me.Controls.Add(Me.StatusStrip1)
-        Me.Controls.Add(Me.MenuStrip1)
-        Me.MainMenuStrip = Me.MenuStrip1
+        Me.ClientSize = New System.Drawing.Size(737, 561)
+        Me.Controls.Add(Me.lblEmailAddress)
+        Me.Controls.Add(Me.lblPermissions)
+        Me.Controls.Add(Me.TCUserData)
+        Me.Controls.Add(Me.lblUserID)
+        Me.Controls.Add(Me.pnlSearch)
+        Me.Controls.Add(Me.btnCreateNewUser)
+        Me.Controls.Add(Me.dgvUserAdminTool)
+        Me.Controls.Add(Me.btnSave)
+        Me.Controls.Add(Me.lblUserName)
+        Me.MinimumSize = New System.Drawing.Size(711, 526)
         Me.Name = "IAIPUserAdminTool"
         Me.Text = "IAIP Profile Management"
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
-        Me.ToolStrip1.ResumeLayout(False)
-        Me.ToolStrip1.PerformLayout()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
-        Me.SplitContainer1.Panel1.ResumeLayout(False)
-        Me.SplitContainer1.Panel2.ResumeLayout(False)
-        Me.SplitContainer1.ResumeLayout(False)
         Me.TCUserData.ResumeLayout(False)
         Me.TPUserInformation.ResumeLayout(False)
         Me.TPUserInformation.PerformLayout()
@@ -1262,30 +968,12 @@ Partial Class IAIPUserAdminTool
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
-    Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents EditToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents pnl1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents pnl2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents pnl3 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
-    Friend WithEvents tsbSave As System.Windows.Forms.ToolStripButton
-    Friend WithEvents tsbBack As System.Windows.Forms.ToolStripButton
-    Friend WithEvents lblFirstName As System.Windows.Forms.Label
-    Friend WithEvents lblLastName As System.Windows.Forms.Label
-    Friend WithEvents lblPassword As System.Windows.Forms.Label
     Friend WithEvents lblUserName As System.Windows.Forms.Label
-    Friend WithEvents lblEmployeeID As System.Windows.Forms.Label
-    Friend WithEvents Panel1 As System.Windows.Forms.Panel
-    Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
     Friend WithEvents TCUserData As System.Windows.Forms.TabControl
     Friend WithEvents TPUserInformation As System.Windows.Forms.TabPage
     Friend WithEvents TPPermission As System.Windows.Forms.TabPage
     Friend WithEvents pnlSearch As System.Windows.Forms.Panel
     Friend WithEvents txtEmailAddress As System.Windows.Forms.TextBox
-    Friend WithEvents txtEmployeeID As System.Windows.Forms.TextBox
     Friend WithEvents txtLastName As System.Windows.Forms.TextBox
     Friend WithEvents txtFirstName As System.Windows.Forms.TextBox
     Friend WithEvents Label16 As System.Windows.Forms.Label
@@ -1293,7 +981,6 @@ Partial Class IAIPUserAdminTool
     Friend WithEvents Label14 As System.Windows.Forms.Label
     Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents Label12 As System.Windows.Forms.Label
-    Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents Label8 As System.Windows.Forms.Label
@@ -1315,8 +1002,6 @@ Partial Class IAIPUserAdminTool
     Friend WithEvents Label21 As System.Windows.Forms.Label
     Friend WithEvents Label17 As System.Windows.Forms.Label
     Friend WithEvents Label18 As System.Windows.Forms.Label
-    Friend WithEvents txtSearchEmployeeID As System.Windows.Forms.TextBox
-    Friend WithEvents Label22 As System.Windows.Forms.Label
     Friend WithEvents cboSearchUnit As System.Windows.Forms.ComboBox
     Friend WithEvents cboSearchProgram As System.Windows.Forms.ComboBox
     Friend WithEvents cboSearchBranch As System.Windows.Forms.ComboBox
@@ -1327,7 +1012,6 @@ Partial Class IAIPUserAdminTool
     Friend WithEvents txtSearchFirstName As System.Windows.Forms.TextBox
     Friend WithEvents Label23 As System.Windows.Forms.Label
     Friend WithEvents Label24 As System.Windows.Forms.Label
-    Friend WithEvents btnAll As System.Windows.Forms.Button
     Friend WithEvents btnReset As System.Windows.Forms.Button
     Friend WithEvents btnSearch As System.Windows.Forms.Button
     Friend WithEvents Label28 As System.Windows.Forms.Label
@@ -1343,15 +1027,9 @@ Partial Class IAIPUserAdminTool
     Friend WithEvents chb3 As System.Windows.Forms.CheckBox
     Friend WithEvents chb2 As System.Windows.Forms.CheckBox
     Friend WithEvents btnClearAllPermissions As System.Windows.Forms.Button
-    Friend WithEvents lblFaxNumber As System.Windows.Forms.Label
-    Friend WithEvents lblPhoneNumber As System.Windows.Forms.Label
-    Friend WithEvents lblEmailAddress As System.Windows.Forms.Label
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
-    Friend WithEvents lblUserID As System.Windows.Forms.Label
     Friend WithEvents cboPermissionProgram As System.Windows.Forms.ComboBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents ToolToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsmOpenMaintenanceTool As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents lbl7 As System.Windows.Forms.Label
     Friend WithEvents lbl8 As System.Windows.Forms.Label
     Friend WithEvents lbl2 As System.Windows.Forms.Label
@@ -1361,13 +1039,11 @@ Partial Class IAIPUserAdminTool
     Friend WithEvents lbl6 As System.Windows.Forms.Label
     Friend WithEvents lbl1 As System.Windows.Forms.Label
     Friend WithEvents lblPermissions As System.Windows.Forms.Label
-    Friend WithEvents tsbClear As System.Windows.Forms.ToolStripButton
     Friend WithEvents lblCount As System.Windows.Forms.Label
-    Friend WithEvents HelpOnlineToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsbViewOrgChart As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiViewPhoneList As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents lbl10 As System.Windows.Forms.Label
     Friend WithEvents chb10 As System.Windows.Forms.CheckBox
     Friend WithEvents lbl9 As System.Windows.Forms.Label
     Friend WithEvents chb9 As System.Windows.Forms.CheckBox
+    Friend WithEvents lblUserID As System.Windows.Forms.Label
+    Friend WithEvents lblEmailAddress As System.Windows.Forms.Label
 End Class

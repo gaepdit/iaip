@@ -3085,27 +3085,7 @@ Public Class SSPPTitleVTools
 
     End Sub
     Private Sub btnViewApplication_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewApplication.Click
-        Try
-
-            If txtWebPublisherApplicationNumber.Text <> "" Then
-                If PermitTrackingLog Is Nothing Then
-                    PermitTrackingLog = Nothing
-                    If PermitTrackingLog Is Nothing Then PermitTrackingLog = New SSPPApplicationTrackingLog
-                    PermitTrackingLog.Show()
-                Else
-                    PermitTrackingLog.Show()
-                End If
-                PermitTrackingLog.txtApplicationNumber.Clear()
-                PermitTrackingLog.txtApplicationNumber.Text = txtWebPublisherApplicationNumber.Text
-                PermitTrackingLog.LoadApplication()
-                PermitTrackingLog.BringToFront()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        OpenFormPermitApplication(txtWebPublisherApplicationNumber.Text)
     End Sub
     Private Sub btnReloadGrid_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReloadGrid.Click
         Try

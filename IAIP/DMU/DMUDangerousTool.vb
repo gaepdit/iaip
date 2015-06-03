@@ -129,8 +129,7 @@ Public Class DMUDangerousTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".btnDeleteEnforcement_Click")
-        Finally
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -508,10 +507,9 @@ Public Class DMUDangerousTool
 
             cmd.ExecuteNonQuery()
 
+            MsgBox("done")
         Catch ex As Exception
             MsgBox(ex.ToString())
-        Finally
-            MsgBox("done")
         End Try
     End Sub
 

@@ -1910,21 +1910,38 @@ Public Class SSCPManagersTools
                 End If
             End If
             If PollutantLine <> "" Then
-                PollutantLine = "and (" & PollutantLine & ") "
+                PollutantLine = "where (" & PollutantLine & ") "
             Else
                 PollutantLine = ""
             End If
 
-            SQL = "Select " & _
-            "substr(AIRBRANCH.APBAirProgramPollutants.strAIRSnumber, 5) as AIRSNumber, " & _
-            "strFacilityName, " & _
-            "(strComplianceStatus|| ' - ' ||strComplianceDesc) as PollutantStatus, " & _
-            "strPollutantDescription " & _
-            "from AIRBRANCH.APBAirProgramPollutants, AIRBRANCH.APBFacilityInformation, " & _
-            "AIRBRANCH.LookUpComplianceStatus, AIRBRANCH.LookUPPollutants " & _
-            "where AIRBRANCH.APBAirProgramPollutants.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber " & _
-            "and AIRBRANCH.APBAirProgramPollutants.strComplianceStatus  = AIRBRANCH.LookUpComplianceStatus.strComplianceCode " & _
-            "and AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.APBAirProgramPollutants.strPollutantKey " & _
+            SQL = _
+            "SELECT SUBSTR( pp.STRAIRSNUMBER, 5 ) AS AIRSNumber , " & _
+            "  fi.STRFACILITYNAME ,( pp.STRCOMPLIANCESTATUS || ' - ' || " & _
+            "  lc.STRCOMPLIANCEDESC ) AS PollutantStatus , " & _
+            "  lp.STRPOLLUTANTDESCRIPTION , CASE                    WHEN SUBSTR( " & _
+            "      strAirPollutantKey, 13, 1 ) = '0'         THEN 'SIP'     WHEN SUBSTR( " & _
+            "      strAirPollutantKey, 13, 1 ) = '1'         THEN 'Fed SIP' WHEN " & _
+            "      SUBSTR( strAirPollutantKey, 13, 1 ) = '3' THEN " & _
+            "      'Non-Fed SIP'                WHEN SUBSTR( strAirPollutantKey, 13, 1 ) = " & _
+            "      '4'                                       THEN 'CFC'       WHEN SUBSTR( strAirPollutantKey, 13, 1 ) = " & _
+            "      '6'                                       THEN 'PSD'       WHEN SUBSTR( strAirPollutantKey, 13, 1 ) = " & _
+            "      '7'                                       THEN 'NSR'       WHEN SUBSTR( strAirPollutantKey, 13, 1 ) = " & _
+            "      '8'                                       THEN 'NESHAP'    WHEN SUBSTR( strAirPollutantKey, 13, 1 " & _
+            "      ) = '9'                                   THEN 'NSPS'      WHEN SUBSTR( strAirPollutantKey, 13 " & _
+            "      , 1 ) = 'A'                               THEN 'Acid Rain' WHEN SUBSTR( " & _
+            "      strAirPollutantKey, 13, 1 ) = 'F'         THEN 'FESOP'     WHEN " & _
+            "      SUBSTR( strAirPollutantKey, 13, 1 ) = 'I' THEN " & _
+            "      'Native American'   WHEN SUBSTR( strAirPollutantKey, 13, 1 " & _
+            "      ) = 'M'   THEN 'MACT' WHEN SUBSTR( strAirPollutantKey, 13, " & _
+            "      1 ) = 'V' THEN 'Title V' ELSE '' END AirProgram " & _
+            "FROM AIRBRANCH.APBAIRPROGRAMPOLLUTANTS pp " & _
+            "INNER JOIN AIRBRANCH.LOOKUPCOMPLIANCESTATUS lc " & _
+            "ON lc.STRCOMPLIANCECODE = pp.STRCOMPLIANCESTATUS " & _
+            "INNER JOIN AIRBRANCH.LOOKUPPOLLUTANTS lp " & _
+            "ON lp.STRPOLLUTANTCODE = pp.STRPOLLUTANTKEY " & _
+            "INNER JOIN AIRBRANCH.APBFACILITYINFORMATION fi " & _
+            "ON pp.STRAIRSNUMBER = fi.STRAIRSNUMBER " & _
             PollutantLine
 
             dsPollutantList = New DataSet
@@ -1935,9 +1952,7 @@ Public Class SSCPManagersTools
             daPollutantList.Fill(dsPollutantList, "PollutantList")
             dgvPollutantFacilities.DataSource = dsPollutantList
             dgvPollutantFacilities.DataMember = "PollutantList"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvPollutantFacilities.RowHeadersVisible = False
             dgvPollutantFacilities.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvPollutantFacilities.AllowUserToResizeColumns = True
@@ -1945,18 +1960,19 @@ Public Class SSCPManagersTools
             dgvPollutantFacilities.AllowUserToDeleteRows = False
             dgvPollutantFacilities.AllowUserToOrderColumns = True
             dgvPollutantFacilities.AllowUserToResizeRows = True
+
             dgvPollutantFacilities.Columns("AIRSNumber").HeaderText = "AIRS #"
             dgvPollutantFacilities.Columns("AIRSNumber").DisplayIndex = 0
-            dgvPollutantFacilities.Columns("AIRSNumber").Width = 100
             dgvPollutantFacilities.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvPollutantFacilities.Columns("strFacilityName").DisplayIndex = 1
-            dgvPollutantFacilities.Columns("strFacilityName").Width = 250
             dgvPollutantFacilities.Columns("strPollutantDescription").HeaderText = "Pollutant"
             dgvPollutantFacilities.Columns("strPollutantDescription").DisplayIndex = 2
-            dgvPollutantFacilities.Columns("strPollutantDescription").Width = 200
             dgvPollutantFacilities.Columns("PollutantStatus").HeaderText = "Status"
             dgvPollutantFacilities.Columns("PollutantStatus").DisplayIndex = 3
-            dgvPollutantFacilities.Columns("PollutantStatus").Width = 400
+            dgvPollutantFacilities.Columns("AirProgram").HeaderText = "Air Program"
+            dgvPollutantFacilities.Columns("AirProgram").DisplayIndex = 4
+
+            dgvPollutantFacilities.SanelyResizeColumns()
 
             txtPollutantCount.Text = dgvPollutantFacilities.RowCount.ToString
 
@@ -2286,29 +2302,10 @@ Public Class SSCPManagersTools
 
     End Sub
     Private Sub llbCMSOpenFacilitySummary_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbCMSOpenFacilitySummary.LinkClicked
-        Try
-            Dim parameters As New Generic.Dictionary(Of String, String)
-            parameters("airsnumber") = txtCMSAIRSNumber.Text
-            OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        OpenFormFacilitySummary(txtCMSAIRSNumber.Text)
     End Sub
     Private Sub llbCMSOpenFacilitySummary2_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbCMSOpenFacilitySummary2.LinkClicked
-        Try
-            If Not DAL.FacilityModule.AirsNumberExists(txtCMSAIRSNumber2.Text) Then
-                MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
-                Exit Sub
-            End If
-            Dim parameters As New Generic.Dictionary(Of String, String)
-            parameters("airsnumber") = txtCMSAIRSNumber.Text
-            OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenFormFacilitySummary(txtCMSAIRSNumber2.Text)
     End Sub
     Private Sub btnAddToCmsUniverse_LinkClicked(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddToCmsUniverse.Click
         Try
@@ -2554,28 +2551,11 @@ Public Class SSCPManagersTools
         End Try
     End Sub
     Private Sub btnViewFacilities_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewFacilities.Click
-        Try
-
-            FilterPollutantSearch()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        FilterPollutantSearch()
     End Sub
     Private Sub btnEditAirProgramPollutants_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditAirProgramPollutants.Click
-        Try
-            If txtAIRSNumber.Text <> "" Then
-
-                EditAirProgramPollutants = Nothing
-                If EditAirProgramPollutants Is Nothing Then EditAirProgramPollutants = New IAIPEditAirProgramPollutants
-                EditAirProgramPollutants.txtAirsNumber.Text = Me.txtAIRSNumber.Text
-                EditAirProgramPollutants.Show()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        Dim EditAirProgramPollutants As IAIPEditAirProgramPollutants = OpenSingleForm(IAIPEditAirProgramPollutants)
+        EditAirProgramPollutants.AirsNumberDisplay.Text = Me.txtAIRSNumber.Text
     End Sub
     Private Sub dgvPollutantFacilities_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvPollutantFacilities.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvPollutantFacilities.HitTest(e.X, e.Y)
@@ -2665,9 +2645,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -2745,9 +2723,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -2829,9 +2805,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -2914,9 +2888,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -3001,9 +2973,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -3090,9 +3060,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -3180,9 +3148,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -3266,9 +3232,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -3352,9 +3316,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -3439,9 +3401,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -3528,9 +3488,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -3615,9 +3573,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -3702,9 +3658,7 @@ Public Class SSCPManagersTools
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatisticalReports.DataSource = dsStatisticalReport
             dgvStatisticalReports.DataMember = "TotalFacilities"
-            If CurrentConnection.State = ConnectionState.Open Then
-                'conn.close()
-            End If
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -3899,7 +3853,7 @@ Public Class SSCPManagersTools
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(SQL & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, SQL, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnPenaltySummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPenaltySummary.Click
@@ -3952,9 +3906,7 @@ Public Class SSCPManagersTools
                 daEnforcementPenalties.Fill(dsEnforcementPenalties, "EnforcementPenalties")
                 dgvStatisticalReports.DataSource = dsEnforcementPenalties
                 dgvStatisticalReports.DataMember = "EnforcementPenalties"
-                If CurrentConnection.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
+
                 dgvStatisticalReports.RowHeadersVisible = False
                 dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -4065,68 +4017,13 @@ Public Class SSCPManagersTools
         End Try
     End Sub
     Sub OpenFacilitySummary()
-        Try
-            If Not DAL.FacilityModule.AirsNumberExists(txtRecordNumber.Text) Then
-                MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
-                Exit Sub
-            End If
-            Dim parameters As New Generic.Dictionary(Of String, String)
-            parameters("airsnumber") = txtRecordNumber.Text
-            OpenSingleForm(IAIPFacilitySummary, parameters:=parameters, closeFirst:=True)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenFormFacilitySummary(txtRecordNumber.Text)
     End Sub
     Sub OpenEnforcement()
-        Try
-
-            Dim enfNum As String = txtRecordNumber.Text
-            If enfNum = "" Then Exit Sub
-            If DAL.SSCP.EnforcementExists(enfNum) Then
-                OpenMultiForm("SscpEnforcement", enfNum)
-            Else
-                MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        OpenFormEnforcement(txtRecordNumber.Text)
     End Sub
     Sub OpenSSCPWork()
-        Try
-
-            If txtRecordNumber.Text <> "" And IsNumeric(txtRecordNumber.Text) Then
-                SQL = "Select " & _
-                "strTrackingNumber " & _
-                "from AIRBRANCH.SSCPItemMaster " & _
-                "where strTrackingNumber = '" & txtRecordNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
-                    If SSCPReports Is Nothing Then
-                        SSCPReports = Nothing
-                        If SSCPReports Is Nothing Then SSCPReports = New SSCPEvents
-                        SSCPReports.txtTrackingNumber.Text = txtRecordNumber.Text
-                        SSCPReports.Show()
-                    Else
-                        SSCPReports.txtTrackingNumber.Text = txtRecordNumber.Text
-                        SSCPReports.Show()
-                    End If
-                Else
-                    MsgBox("Tracking Number is not in the system.", MsgBoxStyle.Information, "SSCP Managers Tools")
-                End If
-            Else
-                MsgBox("Tracking Number is not in the system.", MsgBoxStyle.Information, "SSCP Managers Tools")
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        OpenFormSscpWorkItem(txtRecordNumber.Text)
     End Sub
 
     Private Sub dgvCMSUniverse_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvCMSUniverse.MouseUp
@@ -4622,7 +4519,7 @@ Public Class SSCPManagersTools
             lblFilteredCount.Text = "Count: " & dgvFilteredFacilityList.Rows.Count.ToString
 
         Catch ex As Exception
-            ErrorReport(SQL & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, SQL, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnFacilitySearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFacilitySearch.Click
@@ -6203,5 +6100,11 @@ Public Class SSCPManagersTools
 #End Region
 
 #End Region
+
+    Private Sub OpenFacilityButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OpenFacilityButton.Click
+        If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtAIRSNumber.Text) Then
+            OpenFormFacilitySummary(txtAIRSNumber.Text)
+        End If
+    End Sub
 
 End Class
