@@ -38,25 +38,25 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <PublishUrl>ftp://167.195.92.4/dmu.georgiaair.org/iaip/beta/</PublishUrl>
+    <PublishUrl>ftp://167.195.92.4/dmu.georgiaair.org/iaip/install/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
+    <UpdateMode>Background</UpdateMode>
     <UpdateInterval>1</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>true</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://dmu.georgiaair.org/iaip/beta/</InstallUrl>
+    <InstallUrl>http://dmu.georgiaair.org/iaip/install/</InstallUrl>
     <SupportUrl>http://dmu.georgiaair.org/iaip/</SupportUrl>
     <ProductName>Integrated Air Information Platform</ProductName>
     <PublisherName>State of Georgia</PublisherName>
-    <MinimumRequiredVersion>3.7.3.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>3.8.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>IAIP-install.html</WebPage>
-    <ApplicationRevision>82</ApplicationRevision>
-    <ApplicationVersion>3.7.4.%2a</ApplicationVersion>
+    <ApplicationRevision>83</ApplicationRevision>
+    <ApplicationVersion>3.8.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
