@@ -22,6 +22,11 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -132,11 +137,20 @@
     <None Include="assets\head.html" />
     <Content Include="assets\installer-style.css" />
     <Content Include="changelog.html" />
+    <Content Include="changelog.min.html">
+      <DependentUpon>changelog.html</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="index.html" />
     <Content Include="assets\dmu-logo.png" />
     <Content Include="assets\style.css" />
+    <Content Include="index.min.html">
+      <DependentUpon>index.html</DependentUpon>
+    </Content>
     <Content Include="install\index.html" />
+    <Content Include="install\index.min.html">
+      <DependentUpon>index.html</DependentUpon>
+    </Content>
     <Content Include="install\screenshots\details-CR-license.png" />
     <Content Include="install\screenshots\details-IAIP-final-circled.png" />
     <Content Include="install\screenshots\details-IAIP-final.png" />

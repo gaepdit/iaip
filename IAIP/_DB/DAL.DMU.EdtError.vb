@@ -1,4 +1,4 @@
-﻿Imports Oracle.DataAccess.Client
+﻿Imports Oracle.ManagedDataAccess.Client
 Imports Iaip.DMU
 Imports System.Collections.Generic
 
