@@ -1,5 +1,9 @@
 % IAIP Change Log
 
+## Version 3.8.1 <span>(2015-06-04)</span>
+
+- FIX: Facility Summary crash on fees tab if no fees paid (#346); thx Sherry
+
 ## Version 3.8.0 <span>(2015-06-03)</span>
 
 **Not-enough-contrast edition**
