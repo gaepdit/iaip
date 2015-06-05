@@ -42,7 +42,7 @@
         End If
     End Function
 
-    Public Function NothingifyEmptyString(ByVal s As String) As String
+    Public Function RealStringOrNothing(ByVal s As String) As String
         If String.IsNullOrEmpty(s) Then
             Return Nothing
         Else

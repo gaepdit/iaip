@@ -773,6 +773,8 @@ Public Class IAIPFacilitySummary
 
     Private Sub BindingFormatTons(ByVal sender As Object, ByVal cevent As ConvertEventArgs)
         Dim num As Decimal = 0
+        cevent.Value = DB.GetNullable(Of String)(cevent.Value)
+
         If Decimal.TryParse(cevent.Value, num) Then
             cevent.Value = num.ToString("N0") & " ton"
             If num <> 1 Then cevent.Value = cevent.Value & "s"
@@ -781,6 +783,8 @@ Public Class IAIPFacilitySummary
 
     Private Sub BindingFormatDollars(ByVal sender As Object, ByVal cevent As ConvertEventArgs)
         Dim num As Decimal = 0
+        cevent.Value = DB.GetNullable(Of String)(cevent.Value)
+
         If Decimal.TryParse(cevent.Value, num) Then
             cevent.Value = "$" & num.ToString("N0")
         End If
@@ -788,6 +792,8 @@ Public Class IAIPFacilitySummary
 
     Private Sub BindingFormatDollarsPerTon(ByVal sender As Object, ByVal cevent As ConvertEventArgs)
         Dim num As Decimal = 0
+        cevent.Value = DB.GetNullable(Of String)(cevent.Value)
+
         If Decimal.TryParse(cevent.Value, num) Then
             cevent.Value = "$" & num.ToString("N2") & " /ton"
         End If

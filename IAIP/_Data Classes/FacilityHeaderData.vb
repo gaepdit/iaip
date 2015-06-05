@@ -43,7 +43,7 @@ Namespace Apb.Facilities
                 Return _sic
             End Get
             Set(ByVal value As String)
-                _sic = NothingifyEmptyString(value)
+                _sic = RealStringOrNothing(value)
             End Set
         End Property
         Private _sic As String
@@ -73,7 +73,7 @@ Namespace Apb.Facilities
                 Return _naics
             End Get
             Set(ByVal value As String)
-                _naics = NothingifyEmptyString(value)
+                _naics = RealStringOrNothing(value)
             End Set
         End Property
         Private _naics As String
@@ -97,7 +97,7 @@ Namespace Apb.Facilities
                 Return _facilityDescription
             End Get
             Set(ByVal value As String)
-                _facilityDescription = NothingifyEmptyString(value)
+                _facilityDescription = RealStringOrNothing(value)
             End Set
         End Property
         Private _facilityDescription As String
@@ -107,7 +107,7 @@ Namespace Apb.Facilities
                 Return _headerUpdateComment
             End Get
             Set(ByVal value As String)
-                _headerUpdateComment = NothingifyEmptyString(value)
+                _headerUpdateComment = RealStringOrNothing(value)
             End Set
         End Property
         Private _headerUpdateComment As String
