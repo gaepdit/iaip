@@ -928,7 +928,6 @@
     <EmbeddedResource Include="SSCP\SSCPEnforcement.resx">
       <DependentUpon>SSCPEnforcement.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FCE_ACC.rdlc" />
     <EmbeddedResource Include="Crystal Reports\Oracle 10.1\crFS_Invoice.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crFS_Invoice.vb</LastGenOutput>
