@@ -55,36 +55,37 @@ Module subMain
 #End Region
 
 #Region " All Forms "
+    ' TODO DWW: Remove global form variables
 
 #Region " Universal Screens "
-    Public PrintOut As IAIPPrintOut ' TODO DWW: Remove
-    Public ProfileUpdate As IAIPProfileUpdate ' TODO DWW: Remove
+    Public PrintOut As IAIPPrintOut
+    Public ProfileUpdate As IAIPProfileUpdate
 #End Region
 
 #Region " ISMP Screens "
-    Public ISMPMemoEdit As ISMPMemo ' TODO DWW: Remove
-    Public ISMPNotificationLogForm As ISMPNotificationLog ' TODO DWW: Remove
-    Public ISMPAddPollutant As ISMPAddPollutants ' TODO DWW: Remove
-    Public ISMPAddTestingFirm As ISMPAddTestingFirms ' TODO DWW: Remove
-    Public ISMPConfidential As ISMPConfidentialData ' TODO DWW: Remove
-    Public TestFirmComments As ISMPTestFirmComments ' TODO DWW: Remove
-    Public StaffReports As ISMPStaffReports ' TODO DWW: Remove
+    Public ISMPMemoEdit As ISMPMemo
+    Public ISMPNotificationLogForm As ISMPNotificationLog
+    Public ISMPAddPollutant As ISMPAddPollutants
+    Public ISMPAddTestingFirm As ISMPAddTestingFirms
+    Public ISMPConfidential As ISMPConfidentialData
+    Public TestFirmComments As ISMPTestFirmComments
+    Public StaffReports As ISMPStaffReports
 #End Region
 
 #Region " SSCP Screens "
-    Public SSCP_Work As SSCPComplianceLog ' TODO DWW: Remove
-    Public SSCPFCE As SSCPFCEWork ' TODO DWW: Remove
-    Public SSCPEngWork As SSCPWorkEnTry ' TODO DWW: Remove
+    Public SSCP_Work As SSCPComplianceLog
+    Public SSCPFCE As SSCPFCEWork
+    Public SSCPEngWork As SSCPWorkEnTry
 #End Region
 
 #Region " SSPP Screens "
-    Public AttainmentStatus As SSPPAttainmentStatus ' TODO DWW: Remove
-    Public FeeContact As SSPP_FeeContact ' TODO DWW: Remove
+    Public AttainmentStatus As SSPPAttainmentStatus
+    Public FeeContact As SSPP_FeeContact
 #End Region
 
 #Region " SBEAP Screens "
-    Public ClientSummary As SBEAPClientSummary ' TODO DWW: Remove
-    Public CaseWork As SBEAPCaseWork ' TODO DWW: Remove
+    Public ClientSummary As SBEAPClientSummary
+    Public CaseWork As SBEAPCaseWork
 #End Region
 
 #End Region

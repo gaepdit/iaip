@@ -1,6 +1,7 @@
 IAIP Notes for Developers
 =========================
 
+
 Source Code
 -----------
 
@@ -33,8 +34,6 @@ There are some items in the `common-libraries` directory that are not used by th
 + Oracle (ODAC xcopy and instantclient)
 + [Telerik -- Analytics](https://platform.telerik.com/#downloads/analytics) (Application monitor)
 
-To build the IAIP Documentation, you must have [Pandoc](http://johnmacfarlane.net/pandoc/installing.html) installed. A script is run as part of the pre-build events.
-
 
 Branches
 --------
@@ -47,6 +46,7 @@ There are two main branches in the repository: `default` and `stable`
 To get the latest release version, run `hg update stable`. To get the latest development version, run `hg update default`.
 
 Other branches may be created for work on bugs or new features that are experimental or will take a long time to complete so that these don't intefere with regular releases. Feature branch names should be prefixed with `feat/` followed by a short descriptive name, e.g., `feat/new-permit-search`. Bug fix branches should be prefixed `bug/` followed by the issue number and an optional brief description, e.g., `bug/299-permit-search-error`.
+
 
 Tips
 ----
