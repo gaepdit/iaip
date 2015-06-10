@@ -22,7 +22,6 @@ Module Analytics
             .Start()
             .TrackFeatureStart("Runtime")
             .TrackFeatureStart("Startup.Loading")
-            .TrackFeature("Main.DMU_install")
         End With
 
         ' Add additional installation meta data for analytics
