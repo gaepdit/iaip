@@ -2,6 +2,7 @@ Imports Oracle.DataAccess.Client
 
 Imports CrystalDecisions.Shared
 Imports CrystalDecisions.CrystalReports.Engine
+Imports CrystalDecisions.Windows.Forms
 
 Public Class IAIPPrintOut
     Dim SQL As String
@@ -29,6 +30,8 @@ Public Class IAIPPrintOut
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
+
+        CRViewerTabs(CRViewer, False)
     End Sub
 #Region "Page Load Functions"
     Private Sub LoadCorrectReport()
@@ -15605,6 +15608,26 @@ Public Class IAIPPrintOut
 
     Private Sub IAIPPrintOut_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         PrintOut = Nothing
+    End Sub
+
+    Private Sub CRViewerTabs(ByVal viewer As CrystalReportViewer, ByVal visible As Boolean)
+        ' http://bloggingabout.net/blogs/jschreuder/archive/2005/08/03/8760.aspx
+        If viewer IsNot Nothing Then
+            For Each control As Control In viewer.Controls
+                If TypeOf control Is PageView Then
+                    Dim tab As TabControl = DirectCast(DirectCast(control, PageView).Controls(0), TabControl)
+                    If Not visible Then
+                        tab.ItemSize = New Size(0, 1)
+                        tab.SizeMode = TabSizeMode.Fixed
+                        tab.Appearance = TabAppearance.Buttons
+                    Else
+                        tab.ItemSize = New Size(67, 18)
+                        tab.SizeMode = TabSizeMode.Normal
+                        tab.Appearance = TabAppearance.Normal
+                    End If
+                End If
+            Next
+        End If
     End Sub
 
 End Class
