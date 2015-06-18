@@ -2,6 +2,7 @@ Imports Oracle.DataAccess.Client
 
 Imports CrystalDecisions.Shared
 Imports CrystalDecisions.CrystalReports.Engine
+Imports CrystalDecisions.Windows.Forms
 
 Public Class IAIPPrintOut
     Dim SQL As String
@@ -29,6 +30,8 @@ Public Class IAIPPrintOut
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
+
+        CRViewerTabs(CRViewer, False)
     End Sub
 #Region "Page Load Functions"
     Private Sub LoadCorrectReport()
@@ -41,8 +44,7 @@ Public Class IAIPPrintOut
         Try
              
 
-            If txtPrintType.Text = "Letter" Or txtPrintType.Text = "BasicFacilityReport" Then 'Or _
-                'txtPrintType.Text = "FullFacilityReport" Then
+            If txtPrintType.Text = "Letter" Or txtPrintType.Text = "BasicFacilityReport" Then 
 
                 rpt = New crAPBPrintOut2
                 monitor.TrackFeature("Report." & rpt.ResourceName)
@@ -275,14 +277,6 @@ Public Class IAIPPrintOut
                         ds.EnforceConstraints = False
                         da.Fill(ds, "APBContactInformation")
 
-                        'SQL = "select " & _
-                        '"* " & _
-                        '"from AIRBRANCH.VW_Report_SSPP " & _
-                        '"where strAIRSnumber = '0413" & txtAIRSNumber.Text & "' " & _
-                        '"and (datFinalizedDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "' " & _
-                        '"or datReceivedDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "') " & _
-                        '"order by datReceivedDate desc "
-
                         SQL = "select " & _
                         "* " & _
                         "from AIRBRANCH.VW_Report_SSPP " & _
@@ -299,14 +293,6 @@ Public Class IAIPPrintOut
                         End If
                         ds.EnforceConstraints = False
                         da.Fill(ds, "VW_Report_SSPP")
-
-                        'SQL = "select " & _
-                        '"count(*) as PermitCount " & _
-                        '"from AIRBRANCH.VW_Report_SSPP " & _
-                        '"where strAIRSnumber = '0413" & txtAIRSNumber.Text & "' " & _
-                        '"and (datFinalizedDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "' " & _
-                        '"or datReceivedDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "') " & _
-                        '"order by datReceivedDate desc "
 
                         SQL = "select " & _
                         "count(*) as PermitCount " & _
@@ -332,12 +318,6 @@ Public Class IAIPPrintOut
                         End While
                         dr.Close()
 
-                        'SQL = "select * from " & _
-                        '"AIRBRANCH.VW_REPORT_ISMP " & _
-                        '"where strAIRSnumber = '0413" & txtAIRSNumber.Text & "' " & _
-                        '"and (datReceivedDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "') " & _
-                        '"order by datReceivedDate desc, strReferenceNumber desc  "
-
                         SQL = "select * from " & _
                         "AIRBRANCH.VW_REPORT_ISMP " & _
                         "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "' " & _
@@ -353,12 +333,6 @@ Public Class IAIPPrintOut
                         End If
                         ds.EnforceConstraints = False
                         da.Fill(ds, "VW_REPORT_ISMP")
-
-                        'SQL = "select count(*) as MonitoringCount " & _
-                        '"from AIRBRANCH.VW_REPORT_ISMP " & _
-                        '"where strAIRSnumber = '0413" & txtAIRSNumber.Text & "' " & _
-                        '"and (datReceivedDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "') " & _
-                        '"order by datReceivedDate desc, strReferenceNumber desc  "
 
                         SQL = "select count(*) as MonitoringCount " & _
                         "from AIRBRANCH.VW_REPORT_ISMP " & _
@@ -401,14 +375,6 @@ Public Class IAIPPrintOut
                         End If
                         ds.EnforceConstraints = False
                         da.Fill(ds, "VW_REPORT_Enforcement")
-
-                        'SQL = "Select count(*) as EnforcementCount " & _
-                        '"From AIRBRANCH.VW_REPORT_Enforcement " & _
-                        '"where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
-                        '"and ((datDiscoveryDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "') " & _
-                        '"or (datDayZero between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "') " & _
-                        '"or (datEnforcementFinalized between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "')) " & _
-                        '"order by datDiscoveryDate desc "
 
                         SQL = "Select count(*) as EnforcementCount " & _
                         "From AIRBRANCH.VW_REPORT_Enforcement " & _
@@ -469,13 +435,6 @@ Public Class IAIPPrintOut
                         End While
                         dr.Close()
 
-                        'SQL = "Select * " & _
-                        '"From AIRBRANCH.VW_REPORT_SSCP_EVENT " & _
-                        '"where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
-                        '"and (datReceivedDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "' " & _
-                        '"or datCompleteDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "') " & _
-                        '"order by datReceivedDate desc "
-
                         SQL = "Select * " & _
                         "From AIRBRANCH.VW_REPORT_SSCP_EVENT " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
@@ -491,13 +450,6 @@ Public Class IAIPPrintOut
                         End If
                         ds.EnforceConstraints = False
                         da.Fill(ds, "VW_REPORT_SSCP_EVENT")
-
-                        'SQL = "Select count(*) as ComplianceCount " & _
-                        '"From AIRBRANCH.VW_REPORT_SSCP_EVENT " & _
-                        '"where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
-                        '"and (datReceivedDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "' " & _
-                        '"or datCompleteDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "') " & _
-                        '"order by datReceivedDate desc "
 
                         SQL = "Select count(*) as ComplianceCount " & _
                         "From AIRBRANCH.VW_REPORT_SSCP_EVENT " & _
@@ -1157,65 +1109,6 @@ Public Class IAIPPrintOut
                     CRViewer.ParameterFieldInfo = ParameterFields
                     CRViewer.ReportSource = rpt
                     CRViewer.Refresh()
-
-                    'da = New OracleDataAdapter(SQL, Conn)
-                    'If Conn.State = ConnectionState.Closed Then
-                    '    Conn.Open()
-                    'End If
-                    'ds.EnforceConstraints = False
-                    'da.Fill(ds, "LookUpAPBManagementType")
-
-                    'Select Case txtOther.Text
-                    '    Case "SSPP Confirm"
-                    '        SQL = "Select * " & _
-                    '        "from AIRBRANCH.VW_SSPP_Acknowledge " & _
-                    '        "where strApplicationNumber = '" & txtAIRSNumber.Text & "' "
-
-                    '        da = New OracleDataAdapter(SQL, Conn)
-                    '        If Conn.State = ConnectionState.Closed Then
-                    '            Conn.Open()
-                    '        End If
-                    '        ds.EnforceConstraints = False
-                    '        da.Fill(ds, "VW_SSPP_Acknowledge")
-
-                    '    Case Else
-
-                    'End Select
-
-                    'Commentted out for testing purposes. 
-                    'rpt = New crAPBPrintOut
-
-                    'SQL = "select " & _
-                    '"strDirector, strCommissioner " & _
-                    '"from AIRBRANCH.LookUpAPBManagement "
-
-                    'da = New OracleDataAdapter(SQL, Conn)
-                    'If Conn.State = ConnectionState.Closed Then
-                    '    Conn.Open()
-                    'End If
-                    'ds.EnforceConstraints = False
-                    'da.Fill(ds, "LookUpAPBManagement")
-
-                    'Select Case txtOther.Text
-                    '    Case "SSPP Confirm"
-                    '        SQL = "Select * " & _
-                    '        "from AIRBRANCH.VW_SSPP_Acknowledge " & _
-                    '        "where strApplicationNumber = '" & txtAIRSNumber.Text & "' "
-
-                    '        da = New OracleDataAdapter(SQL, Conn)
-                    '        If Conn.State = ConnectionState.Closed Then
-                    '            Conn.Open()
-                    '        End If
-                    '        ds.EnforceConstraints = False
-                    '        da.Fill(ds, "VW_SSPP_Acknowledge")
-
-                    '    Case Else
-
-                    'End Select
-
-                    'rpt.SetDataSource(ds)
-                    'CRViewer.ReportSource = rpt
-                    'CRViewer.Refresh()
 
                 Case Else
 
@@ -15615,677 +15508,7 @@ Public Class IAIPPrintOut
     End Sub
 
 #End Region
-#Region "SSCP"
-    'Sub LoadSSCPFCEReport()
-    '    Dim Commissioner As String = ""
-    '    Dim Director As String = ""
-    '    Dim ProgramManager As String = ""
-    '    Dim FiscalYear As String = ""
-    '    Dim AIRSNumber As String = ""
-    '    Dim FacilityName As String = ""
-    '    Dim FacilityAddress As String = ""
-    '    Dim Engineer As String = ""
-    '    Dim UserUnit As String = ""
-    '    Dim UserAFSGCode As String = ""
-    '    Dim AirProgramCode As String = ""
-    '    Dim FCECompleteDate As String = ""
-    '    Dim FCEComment As String = ""
 
-    '    Dim FCEInspections As String = ""
-    '    Dim FCEPerformanceTests As String = ""
-    '    Dim FCEReports As String = ""
-    '    Dim FCEAnnualCertifications As String = ""
-
-    '    Dim rpt As New CRFCE2
-    '    Dim temp As String = ""
-
-    '    Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
-    '    Dim ParameterField As CrystalDecisions.Shared.ParameterField
-    '    Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '    Try
-    '        'Do this just once at the start
-    '        ParameterFields = New CrystalDecisions.Shared.ParameterFields
-
-    '        SQL = "Select " & _
-    '        "strCommissioner, strDirector, " & _
-    '        "STRSSCPPROGRAMMANG, AIRBRANCH.APBFacilityInformation.strAIRSNumber, " & _
-    '        "strFacilitYname, strFacilityStreet1, strFirstName, " & _
-    '        "strLastName, strUnitDesc, " & _
-    '        "'G36' as strAFSGCode, " & _
-    '        "strAirProgramCodes, strFCEYear, datFCECompleted, " & _
-    '        "strFCEComments " & _
-    '        "from AIRBRANCH.SSCPFCE, AIRBRANCH.SSCPFCEMaster, " & _
-    '        "AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBHeaderData, " & _
-    '        "AIRBRANCH.EPDUserProfiles, AIRBRANCH.LookUpEPDUnits, " & _
-    '        "AIRBRANCH.LookUpAPBManagement " & _
-    '        "Where AIRBRANCH.SSCPFCE.strFCENumber = AIRBRANCH.SSCPFCEMaster.strFCENumber " & _
-    '        "and AIRBRANCH.APBHeaderData.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " & _
-    '        "and AIRBRANCH.SSCPFCEMaster.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber " & _
-    '        "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " & _
-    '        "and strReviewer = numUserID  " & _
-    '        "and AIRBRANCH.SSCPFCE.strFCENumber = '" & txtOther.Text & "' "
-
-    '        cmd = New OracleCommand(SQL, Conn)
-
-    '        If Conn.State = ConnectionState.Closed Then
-    '            Conn.Open()
-    '        End If
-
-    '        dr = cmd.ExecuteReader
-    '        recExist = dr.Read
-    '        If recExist = True Then
-    '            If IsDBNull(dr.Item("strFCEYear")) Then
-    '                FiscalYear = "N/A"
-    '            Else
-    '                FiscalYear = dr.Item("strFCEYear")
-    '            End If
-    '            If IsDBNull(dr.Item("strCommissioner")) Then
-    '                Commissioner = "N/A"
-    '            Else
-    '                Commissioner = dr.Item("strCommissioner")
-    '            End If
-    '            If IsDBNull(dr.Item("strDirector")) Then
-    '                Director = "N/A"
-    '            Else
-    '                Director = dr.Item("strDirector")
-    '            End If
-    '            If IsDBNull(dr.Item("STRSSCPPROGRAMMANG")) Then
-    '                ProgramManager = "N/A"
-    '            Else
-    '                ProgramManager = dr.Item("STRSSCPPROGRAMMANG")
-    '            End If
-    '            If IsDBNull(dr.Item("strAIRSNumber")) Then
-    '                AIRSNumber = "N/A"
-    '            Else
-    '                AIRSNumber = Mid(dr.Item("strAIRSNumber"), 5)
-    '            End If
-    '            If IsDBNull(dr.Item("strFacilityName")) Then
-    '                FacilityName = "N/A"
-    '            Else
-    '                FacilityName = dr.Item("strFacilityname")
-    '            End If
-    '            If IsDBNull(dr.Item("strFacilityStreet1")) Then
-    '                FacilityAddress = "N/A"
-    '            Else
-    '                FacilityAddress = dr.Item("strFacilityStreet1")
-    '            End If
-    '            If IsDBNull(dr.Item("strFirstName")) Then
-    '                Engineer = ""
-    '            Else
-    '                Engineer = dr.Item("strFirstName")
-    '            End If
-    '            If IsDBNull(dr.Item("strLastName")) Then
-    '                Engineer = Engineer
-    '            Else
-    '                Engineer = Engineer & " " & dr.Item("strLastName")
-    '            End If
-    '            If IsDBNull(dr.Item("strUnitDesc")) Then
-    '                UserUnit = "N/A"
-    '            Else
-    '                UserUnit = dr.Item("strUnitDesc")
-    '            End If
-    '            If IsDBNull(dr.Item("strAFSGCode")) Then
-    '                UserAFSGCode = "N/A"
-    '            Else
-    '                UserAFSGCode = dr.Item("strAFSGCode")
-    '            End If
-    '            If IsDBNull(dr.Item("strAirProgramCodes")) Then
-    '                AirProgramCode = "N/A"
-    '            Else
-    '                AirProgramCode = dr.Item("strAirProgramCodes")
-    '            End If
-    '            If IsDBNull(dr.Item("datFCECompleted")) Then
-    '                FCECompleteDate = "N/A"
-    '            Else
-    '                FCECompleteDate = Format(dr.Item("datFCECompleted"), "dd-MMM-yyyy")
-    '            End If
-    '            If IsDBNull(dr.Item("strFCEComments")) Then
-    '                FCEComment = "N/A"
-    '            Else
-    '                FCEComment = dr.Item("strFCEComments")
-    '            End If
-    '        End If
-
-    '        dr.Close()
-
-    '        If recExist = True Then
-    '            FCEInspections = ""
-
-    '            'FCE Inspections
-    '            SQL = "Select AIRBRANCH.SSCPInspections.strTrackingNumber, " & _
-    '            "datInspectionDateStart, " & _
-    '            "Case " & _
-    '            "     When strInspectionFollowUp = 'True' Then 'True' " & _
-    '            "else 'No' " & _
-    '            "End as InspectionFollowUp, " & _
-    '            "strinspectionComments  " & _
-    '            "from AIRBRANCH.SSCPInspections, AIRBRANCH.SSCPItemMaster,  " & _
-    '            "AIRBRANCH.SSCPFCEMaster, AIRBRANCH.SSCPFCE   " & _
-    '            "where AIRBRANCH.SSCPItemMaster.strTrackingNumber = AIRBRANCH.SSCPInspections.strTrackingNumber  " & _
-    '            "and AIRBRANCH.SSCPItemMaster.strAIRSNumber = AIRBRANCH.SSCPFCEMaster.strAIRSnumber  " & _
-    '            "and AIRBRANCH.SSCPFCEMaster.strFCENumber = AIRBRANCH.SSCPFCE.strFCENumber  " & _
-    '            "and AIRBRANCH.SSCPItemMaster.datCompleteDate <= AIRBRANCH.SSCPFCE.datFCECompleted   " & _
-    '            "and AIRBRANCH.SSCPItemMaster.datCompleteDate >= (SSCPFCE.datFCECompleted - 365) " & _
-    '             "and (strDelete is Null or strDelete <> 'True') " & _
-    '            "and AIRBRANCH.SSCPFCEMaster.strFCENumber = '" & txtOther.Text & "' "
-
-    '            cmd = New OracleCommand(SQL, Conn)
-
-    '            If Conn.State = ConnectionState.Closed Then
-    '                Conn.Open()
-    '            End If
-
-    '            dr = cmd.ExecuteReader
-    '            recExist = dr.Read
-    '            dr.Close()
-
-    '            If recExist = True Then
-    '                cmd = New OracleCommand(SQL, Conn)
-
-    '                If Conn.State = ConnectionState.Closed Then
-    '                    Conn.Open()
-    '                End If
-
-    '                dr = cmd.ExecuteReader
-    '                While dr.Read
-
-    '                    FCEInspections = FCEInspections & "GA EPD Tracking Number:  " & vbTab & dr.Item("strTrackingNumber") & vbCrLf & _
-    '                                                      "Inspection Date:         " & vbTab & vbTab & Format(dr.Item("datInspectionDateStart"), "dd-MMM-yyyy") & vbCrLf & _
-    '                                                      "Follow Up Action Taken:  " & vbTab & dr.Item("InspectionFollowUp") & vbCrLf & _
-    '                                                      "Comments:                " & vbCrLf & vbTab & vbTab & vbTab & dr.Item("strInspectionComments") & vbCrLf & vbCrLf
-
-    '                End While
-    '            Else
-    '                FCEInspections = "N/A"
-
-    '            End If
-
-    '            'Performance Tests
-    '            SQL = "Select AIRBRANCH.SSCPTestReports.strTrackingNumber, " & _
-    '            "AIRBRANCH.SSCPTestREports.strReferenceNumber,  " & _
-    '            "Case  " & _
-    '            "	When strTestReportFollowUp = 'True' then 'True'  " & _
-    '            "Else 'No' " & _
-    '            "End as TestReportFollowUp,  " & _
-    '            "strTestReportComments   " & _
-    '            "from AIRBRANCH.SSCPTestREports, AIRBRANCH.SSCPItemMaster,   " & _
-    '            "AIRBRANCH.SSCPFCEMaster, AIRBRANCH.SSCPFCE    " & _
-    '            "where AIRBRANCH.SSCPItemMaster.strTrackingNumber = AIRBRANCH.SSCPTestREports.strTrackingNumber   " & _
-    '            "and AIRBRANCH.SSCPItemMaster.strAIRSNumber = AIRBRANCH.SSCPFCEMaster.strAIRSnumber   " & _
-    '            "and AIRBRANCH.SSCPFCEMaster.strFCENumber = AIRBRANCH.SSCPFCE.strFCENumber   " & _
-    '            "and AIRBRANCH.SSCPItemMaster.datCompleteDate <= AIRBRANCH.SSCPFCE.datFCECompleted  " & _
-    '            "and AIRBRANCH.SSCPItemMaster.datCompleteDate >= (SSCPFCE.datFCECompleted - 365)  " & _
-    '             "and (strDelete is Null or strDelete <> 'True') " & _
-    '            "and AIRBRANCH.SSCPFCEMaster.strFCENumber = '" & txtOther.Text & "' "
-
-
-    '            SQL = "Select AIRBRANCH.SSCPTestReports.strTrackingNumber, " & _
-    '            "AIRBRANCH.SSCPTestREports.strReferenceNumber,   " & _
-    '            "Case   " & _
-    '            "         When strTestReportFollowUp = 'True' then 'True'   " & _
-    '            "Else 'No' " & _
-    '            "End as TestReportFollowUp,   " & _
-    '            "strTestReportComments,  " & _
-    '            "strEmissionSource, strPollutantDescription,  " & _
-    '            "AIRBRANCH.ISMPReportType.strReportType,  " & _
-    '            "AIRBRANCH.ISMPDocumentType.strDocumentType, mmoCommentArea     " & _
-    '            "from AIRBRANCH.SSCPTestREports, AIRBRANCH.SSCPItemMaster,    " & _
-    '            "AIRBRANCH.SSCPFCEMaster, AIRBRANCH.SSCPFCE,  " & _
-    '            "AIRBRANCH.ISMPReportInformation, AIRBRANCH.LookUPPollutants,  " & _
-    '            "AIRBRANCH.ISMPReportType, AIRBRANCH.ISMPDocumentType  " & _
-    '            "where AIRBRANCH.SSCPItemMaster.strTrackingNumber = AIRBRANCH.SSCPTestREports.strTrackingNumber    " & _
-    '            "and AIRBRANCH.SSCPItemMaster.strAIRSNumber = AIRBRANCH.SSCPFCEMaster.strAIRSnumber    " & _
-    '            "and AIRBRANCH.SSCPFCEMaster.strFCENumber = AIRBRANCH.SSCPFCE.strFCENumber    " & _
-    '            "and AIRBRANCH.SSCPItemMaster.datCompleteDate <= AIRBRANCH.SSCPFCE.datFCECompleted   " & _
-    '            "and AIRBRANCH.SSCPItemMaster.datCompleteDate >= (SSCPFCE.datFCECompleted - 365)  " & _
-    '            "and (AIRBRANCH.SSCPItemMaster.strDelete is Null or AIRBRANCH.SSCPItemMaster.strDelete <> 'True')  " & _
-    '            "and AIRBRANCH.SSCPTestReports.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " & _
-    '            "and AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPollutant  " & _
-    '            "and AIRBRANCH.ISMPReportInformation.strReportType = AIRBRANCH.ISMPReportType.strKey  " & _
-    '            "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType  " & _
-    '            "and AIRBRANCH.SSCPFCEMaster.strFCENumber = '" & txtOther.Text & "' "
-
-
-    '            If Conn.State = ConnectionState.Closed Then
-    '                Conn.Open()
-    '            End If
-
-    '            dr = cmd.ExecuteReader
-    '            recExist = dr.Read
-    '            dr.Close()
-
-    '            If recExist = True Then
-    '                cmd = New OracleCommand(SQL, Conn)
-
-    '                If Conn.State = ConnectionState.Closed Then
-    '                    Conn.Open()
-    '                End If
-
-    '                dr = cmd.ExecuteReader
-    '                While dr.Read
-    '                    FCEPerformanceTests = FCEPerformanceTests & "GA EPD Reference Number:  " & dr.Item("strReferenceNumber") & vbCrLf & _
-    '                                                                "Follow Up Action Taken:   " & vbTab & dr.Item("TestReportFollowUp") & vbCrLf & _
-    '                                                                "SSCP Comments: " & vbCrLf & vbTab & vbTab & vbTab & dr.Item("strTestReportComments") & vbCrLf & vbCrLf & _
-    '                                                                "Test Type:                " & vbTab & dr.Item("strReportType") & " - " & dr.Item("strDocumentType") & vbCrLf & _
-    '                                                                "Emission Source:          " & vbTab & dr.Item("strEmissionSource") & vbCrLf & _
-    '                                                                "Pollutant:                " & vbTab & vbTab & dr.Item("strPollutantDescription") & vbCrLf & _
-    '                                                                "ISMP Comments:" & vbCrLf & vbTab & vbTab & dr.Item("mmoCommentArea") & vbCrLf & vbCrLf
-    '                End While
-    '            Else
-    '                FCEPerformanceTests = "N/A"
-    '            End If
-
-    '            'Reports
-    '            'SQL = "Select AIRBRANCH.SSCPREports.strTrackingNumber, " & _
-    '            '"strReportPeriod, datCompleteDate, " & _
-    '            '"Case " & _
-    '            '"     When strEnforcementNeeded = 'True' Then 'True' " & _
-    '            '"else 'N0' " & _
-    '            '"End as ReportFollowUp, " & _
-    '            '"strGeneralComments  " & _
-    '            '"from AIRBRANCH.SSCPREports, AIRBRANCH.SSCPItemMaster,  " & _
-    '            '"AIRBRANCH.SSCPFCEMaster, AIRBRANCH.SSCPFCE   " & _
-    '            '"where AIRBRANCH.SSCPItemMaster.strTrackingNumber = AIRBRANCH.SSCPREports.strTrackingNumber  " & _
-    '            '"and AIRBRANCH.SSCPItemMaster.strAIRSNumber = AIRBRANCH.SSCPFCEMaster.strAIRSnumber  " & _
-    '            '"and AIRBRANCH.SSCPFCEMaster.strFCENumber = AIRBRANCH.SSCPFCE.strFCENumber  " & _
-    '            '"and AIRBRANCH.SSCPItemMaster.datCompleteDate <= AIRBRANCH.SSCPFCE.datFCECompleted   " & _
-    '            '"and AIRBRANCH.SSCPItemMaster.datCompleteDate >= (SSCPFCE.datFCECompleted - 365) " & _
-    '            ' "and (strDelete is Null or strDelete <> 'True') " & _
-    '            '"and AIRBRANCH.SSCPFCEMaster.strFCENumber = '" & txtOther.Text & "' "
-
-    '            SQL = "Select " & _
-    '            "(AIRBRANCH.SSCPReportsHistory.strTrackingNumber||'-'||strSubmittalNumber) as strTrackingNumber, " & _
-    '            "strReportPeriod, datCompleteDate, " & _
-    '            "Case " & _
-    '            "     When strEnforcementNeeded = 'True' Then 'True' " & _
-    '            "else 'N0' " & _
-    '            "End as ReportFollowUp, " & _
-    '            "strGeneralComments  " & _
-    '            "from AIRBRANCH.SSCPReportsHistory, AIRBRANCH.SSCPItemMaster,  " & _
-    '            "AIRBRANCH.SSCPFCEMaster, AIRBRANCH.SSCPFCE   " & _
-    '            "where AIRBRANCH.SSCPItemMaster.strTrackingNumber = AIRBRANCH.SSCPReportsHistory.strTrackingNumber  " & _
-    '            "and AIRBRANCH.SSCPItemMaster.strAIRSNumber = AIRBRANCH.SSCPFCEMaster.strAIRSnumber  " & _
-    '            "and AIRBRANCH.SSCPFCEMaster.strFCENumber = AIRBRANCH.SSCPFCE.strFCENumber  " & _
-    '            "and AIRBRANCH.SSCPItemMaster.datCompleteDate <= AIRBRANCH.SSCPFCE.datFCECompleted   " & _
-    '            "and AIRBRANCH.SSCPItemMaster.datCompleteDate >= (SSCPFCE.datFCECompleted - 365) " & _
-    '            "and (strDelete is Null or strDelete <> 'True') " & _
-    '            "and AIRBRANCH.SSCPFCEMaster.strFCENumber = '" & txtOther.Text & "' " & _
-    '            "order by datCompleteDate, strTrackingnumber desc "
-
-    '            cmd = New OracleCommand(SQL, Conn)
-
-    '            If Conn.State = ConnectionState.Closed Then
-    '                Conn.Open()
-    '            End If
-
-    '            dr = cmd.ExecuteReader
-    '            recExist = dr.Read
-    '            dr.Close()
-
-    '            If recExist = True Then
-    '                cmd = New OracleCommand(SQL, Conn)
-
-    '                If Conn.State = ConnectionState.Closed Then
-    '                    Conn.Open()
-    '                End If
-
-    '                dr = cmd.ExecuteReader
-    '                While dr.Read
-    '                    FCEReports = FCEReports & "GA EPD Tracking Number:  " & vbTab & dr.Item("strTrackingNumber") & vbCrLf & _
-    '                                              "Type of Report:          " & vbTab & vbTab & dr.Item("strReportPeriod") & vbCrLf & _
-    '                                              "Date Report Completed:   " & vbTab & Format(dr.Item("datCompleteDate"), "dd-MMM-yyyy") & vbCrLf & _
-    '                                              "Follow Up Action Taken:  " & vbTab & dr.Item("ReportFollowUp") & vbCrLf & _
-    '                                              "Comments:                " & vbCrLf & vbTab & vbTab & vbTab & dr.Item("strGeneralComments") & vbCrLf & vbCrLf
-    '                End While
-    '            Else
-    '                FCEReports = "N/A"
-    '            End If
-
-    '            'ACCs 
-    '            'Changed the code to include submittals. 
-    '            'SQL = "Select AIRBRANCH.SSCPACCS.strTrackingNumber, " & _
-    '            '"datReceivedDate, datCompleteDate, " & _
-    '            '"Case " & _
-    '            '"     When strEnforcementNeeded = 'True' Then 'True' " & _
-    '            '"else 'No' " & _
-    '            '"End as ACCFollowUp, " & _
-    '            '"strComments  " & _
-    '            '"from AIRBRANCH.SSCPACCS, AIRBRANCH.SSCPItemMaster,  " & _
-    '            '"AIRBRANCH.SSCPFCEMaster, AIRBRANCH.SSCPFCE   " & _
-    '            '"where AIRBRANCH.SSCPItemMaster.strTrackingNumber = AIRBRANCH.SSCPACCS.strTrackingNumber  " & _
-    '            '"and AIRBRANCH.SSCPItemMaster.strAIRSNumber = AIRBRANCH.SSCPFCEMaster.strAIRSnumber  " & _
-    '            '"and AIRBRANCH.SSCPFCEMaster.strFCENumber = AIRBRANCH.SSCPFCE.strFCENumber  " & _
-    '            '"and AIRBRANCH.SSCPItemMaster.datCompleteDate <= AIRBRANCH.SSCPFCE.datFCECompleted   " & _
-    '            '"and AIRBRANCH.SSCPItemMaster.datCompleteDate >= (SSCPFCE.datFCECompleted - 365) " & _
-    '            ' "and (strDelete is Null or strDelete <> 'True') " & _
-    '            '"and AIRBRANCH.SSCPFCEMaster.strFCENumber = '" & txtOther.Text & "' "
-
-    '            SQL = "Select " & _
-    '            "AIRBranch.SSCPACCSHistory.strTrackingNumber||'-'||strSubmittalNumber as strTrackingNumber, " & _
-    '            "datReceivedDate, datCompleteDate, " & _
-    '            "Case " & _
-    '            "     When strEnforcementNeeded = 'True' Then 'True' " & _
-    '            "else 'No' " & _
-    '            "End as ACCFollowUp, " & _
-    '            "strComments  " & _
-    '            "from AIRBRANCH.SSCPACCSHistory, AIRBRANCH.SSCPItemMaster,  " & _
-    '            "AIRBRANCH.SSCPFCEMaster, AIRBRANCH.SSCPFCE   " & _
-    '            "where AIRBRANCH.SSCPItemMaster.strTrackingNumber = AIRBRANCH.SSCPACCSHistory.strTrackingNumber  " & _
-    '            "and AIRBRANCH.SSCPItemMaster.strAIRSNumber = AIRBRANCH.SSCPFCEMaster.strAIRSnumber  " & _
-    '            "and AIRBRANCH.SSCPFCEMaster.strFCENumber = AIRBRANCH.SSCPFCE.strFCENumber  " & _
-    '            "and AIRBRANCH.SSCPItemMaster.datCompleteDate <= AIRBRANCH.SSCPFCE.datFCECompleted   " & _
-    '            "and AIRBRANCH.SSCPItemMaster.datCompleteDate >= (SSCPFCE.datFCECompleted - 365) " & _
-    '            "and (strDelete is Null or strDelete <> 'True') " & _
-    '            "and AIRBRANCH.SSCPFCEMaster.strFCENumber = '" & txtOther.Text & "' " & _
-    '            "order by datCompleteDate, strTrackingNumber desc "
-
-    '            cmd = New OracleCommand(SQL, Conn)
-
-    '            If Conn.State = ConnectionState.Closed Then
-    '                Conn.Open()
-    '            End If
-
-    '            dr = cmd.ExecuteReader
-    '            recExist = dr.Read
-    '            dr.Close()
-
-    '            If recExist = True Then
-    '                cmd = New OracleCommand(SQL, Conn)
-
-    '                If Conn.State = ConnectionState.Closed Then
-    '                    Conn.Open()
-    '                End If
-
-    '                dr = cmd.ExecuteReader
-    '                While dr.Read
-    '                    FCEAnnualCertifications = FCEAnnualCertifications & "GA EPD Tracking Number:  " & vbTab & dr.Item("strTrackingNumber") & vbCrLf & _
-    '                                                                      "Date Received:             " & vbTab & vbTab & Format(dr.Item("datReceivedDate"), "dd-MMM-yyyy") & vbCrLf & _
-    '                                                                      "Date Report Completed:     " & vbTab & Format(dr.Item("datCompleteDate"), "dd-MMM-yyyy") & vbCrLf & _
-    '                                                                      "Follow Up Action Taken:  " & vbTab & dr.Item("ACCFollowUp") & vbCrLf & _
-    '                                                                      "Comments:                " & vbCrLf & vbTab & vbTab & vbTab & dr.Item("strComments") & vbCrLf & vbCrLf
-    '                End While
-    '            Else
-    '                FCEAnnualCertifications = "N/A"
-    '            End If
-
-    '            'Do this at the beginning of every new entry 
-    '            ParameterField = New CrystalDecisions.Shared.ParameterField
-    '            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '            ParameterField.ParameterFieldName = "Commissioner"
-    '            spValue.Value = Commissioner
-    '            ParameterField.CurrentValues.Add(spValue)
-    '            ParameterFields.Add(ParameterField)
-
-    '            'Do this at the beginning of every new entry 
-    '            ParameterField = New CrystalDecisions.Shared.ParameterField
-    '            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '            ParameterField.ParameterFieldName = "Director"
-    '            spValue.Value = Director
-    '            ParameterField.CurrentValues.Add(spValue)
-    '            ParameterFields.Add(ParameterField)
-
-    '            'Do this at the beginning of every new entry 
-    '            ParameterField = New CrystalDecisions.Shared.ParameterField
-    '            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '            ParameterField.ParameterFieldName = "FiscalYear"
-    '            spValue.Value = "Sep 30, " & FiscalYear
-    '            ParameterField.CurrentValues.Add(spValue)
-    '            ParameterFields.Add(ParameterField)
-
-    '            'Do this at the beginning of every new entry 
-    '            ParameterField = New CrystalDecisions.Shared.ParameterField
-    '            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '            ParameterField.ParameterFieldName = "AIRSNumber"
-    '            spValue.Value = AIRSNumber
-    '            ParameterField.CurrentValues.Add(spValue)
-    '            ParameterFields.Add(ParameterField)
-
-    '            'Do this at the beginning of every new entry 
-    '            ParameterField = New CrystalDecisions.Shared.ParameterField
-    '            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '            ParameterField.ParameterFieldName = "FacilityName"
-    '            spValue.Value = FacilityName
-    '            ParameterField.CurrentValues.Add(spValue)
-    '            ParameterFields.Add(ParameterField)
-
-    '            'Do this at the beginning of every new entry 
-    '            ParameterField = New CrystalDecisions.Shared.ParameterField
-    '            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '            ParameterField.ParameterFieldName = "FacilityAddress"
-    '            spValue.Value = FacilityAddress
-    '            ParameterField.CurrentValues.Add(spValue)
-    '            ParameterFields.Add(ParameterField)
-
-    '            'Do this at the beginning of every new entry 
-    '            ParameterField = New CrystalDecisions.Shared.ParameterField
-    '            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '            ParameterField.ParameterFieldName = "ComplianceEngineer"
-    '            spValue.Value = Engineer
-    '            ParameterField.CurrentValues.Add(spValue)
-    '            ParameterFields.Add(ParameterField)
-
-    '            'Do this at the beginning of every new entry 
-    '            ParameterField = New CrystalDecisions.Shared.ParameterField
-    '            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '            ParameterField.ParameterFieldName = "Unit"
-    '            spValue.Value = UserUnit
-    '            ParameterField.CurrentValues.Add(spValue)
-    '            ParameterFields.Add(ParameterField)
-
-    '            'Do this at the beginning of every new entry 
-    '            ParameterField = New CrystalDecisions.Shared.ParameterField
-    '            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '            ParameterField.ParameterFieldName = "GCode"
-    '            spValue.Value = UserAFSGCode
-    '            ParameterField.CurrentValues.Add(spValue)
-    '            ParameterFields.Add(ParameterField)
-
-    '            If Mid(AirProgramCode, 1, 1) = "1" Then
-    '                'Do this at the beginning of every new entry 
-    '                ParameterField = New CrystalDecisions.Shared.ParameterField
-    '                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '                ParameterField.ParameterFieldName = "SIPSource"
-    '                spValue.Value = "SIP Subject"
-    '                ParameterField.CurrentValues.Add(spValue)
-    '                ParameterFields.Add(ParameterField)
-    '            Else
-    '                'Do this at the beginning of every new entry 
-    '                ParameterField = New CrystalDecisions.Shared.ParameterField
-    '                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '                ParameterField.ParameterFieldName = "SIPSource"
-    '                spValue.Value = "N/A"
-    '                ParameterField.CurrentValues.Add(spValue)
-    '                ParameterFields.Add(ParameterField)
-    '            End If
-
-    '            If Mid(AirProgramCode, 5, 1) = "1" Then
-    '                'Do this at the beginning of every new entry 
-    '                ParameterField = New CrystalDecisions.Shared.ParameterField
-    '                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '                ParameterField.ParameterFieldName = "PSDSource"
-    '                spValue.Value = "PSD Subject"
-    '                ParameterField.CurrentValues.Add(spValue)
-    '                ParameterFields.Add(ParameterField)
-    '            Else
-    '                'Do this at the beginning of every new entry 
-    '                ParameterField = New CrystalDecisions.Shared.ParameterField
-    '                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '                ParameterField.ParameterFieldName = "PSDSource"
-    '                spValue.Value = "N/A"
-    '                ParameterField.CurrentValues.Add(spValue)
-    '                ParameterFields.Add(ParameterField)
-    '            End If
-
-    '            If Mid(AirProgramCode, 7, 1) = "1" Then
-    '                'Do this at the beginning of every new entry 
-    '                ParameterField = New CrystalDecisions.Shared.ParameterField
-    '                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '                ParameterField.ParameterFieldName = "MACT61Source"
-    '                spValue.Value = "MACT 61 Subject"
-    '                ParameterField.CurrentValues.Add(spValue)
-    '                ParameterFields.Add(ParameterField)
-    '            Else
-    '                'Do this at the beginning of every new entry 
-    '                ParameterField = New CrystalDecisions.Shared.ParameterField
-    '                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '                ParameterField.ParameterFieldName = "MACT61Source"
-    '                spValue.Value = "N/A"
-    '                ParameterField.CurrentValues.Add(spValue)
-    '                ParameterFields.Add(ParameterField)
-    '            End If
-
-    '            If Mid(AirProgramCode, 8, 1) = "1" Then
-    '                'Do this at the beginning of every new entry 
-    '                ParameterField = New CrystalDecisions.Shared.ParameterField
-    '                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '                ParameterField.ParameterFieldName = "NSPSSource"
-    '                spValue.Value = "NSPS Subject"
-    '                ParameterField.CurrentValues.Add(spValue)
-    '                ParameterFields.Add(ParameterField)
-    '            Else
-    '                'Do this at the beginning of every new entry 
-    '                ParameterField = New CrystalDecisions.Shared.ParameterField
-    '                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '                ParameterField.ParameterFieldName = "NSPSSource"
-    '                spValue.Value = "N/A"
-    '                ParameterField.CurrentValues.Add(spValue)
-    '                ParameterFields.Add(ParameterField)
-    '            End If
-
-    '            If Mid(AirProgramCode, 12, 1) = "1" Then
-    '                'Do this at the beginning of every new entry 
-    '                ParameterField = New CrystalDecisions.Shared.ParameterField
-    '                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '                ParameterField.ParameterFieldName = "MACT63Source"
-    '                spValue.Value = "MACT 63 Subject"
-    '                ParameterField.CurrentValues.Add(spValue)
-    '                ParameterFields.Add(ParameterField)
-    '            Else
-    '                'Do this at the beginning of every new entry 
-    '                ParameterField = New CrystalDecisions.Shared.ParameterField
-    '                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '                ParameterField.ParameterFieldName = "MACT63Source"
-    '                spValue.Value = "N/A"
-    '                ParameterField.CurrentValues.Add(spValue)
-    '                ParameterFields.Add(ParameterField)
-    '            End If
-
-    '            If Mid(AirProgramCode, 13, 1) = "1" Then
-    '                'Do this at the beginning of every new entry 
-    '                ParameterField = New CrystalDecisions.Shared.ParameterField
-    '                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '                ParameterField.ParameterFieldName = "TitleVSource"
-    '                spValue.Value = "Title V Subject"
-    '                ParameterField.CurrentValues.Add(spValue)
-    '                ParameterFields.Add(ParameterField)
-    '            Else
-    '                'Do this at the beginning of every new entry 
-    '                ParameterField = New CrystalDecisions.Shared.ParameterField
-    '                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '                ParameterField.ParameterFieldName = "TitleVSource"
-    '                spValue.Value = "N/A"
-    '                ParameterField.CurrentValues.Add(spValue)
-    '                ParameterFields.Add(ParameterField)
-    '            End If
-
-    '            'Do this at the beginning of every new entry 
-    '            ParameterField = New CrystalDecisions.Shared.ParameterField
-    '            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '            ParameterField.ParameterFieldName = "FCECompleteDate"
-    '            spValue.Value = FCECompleteDate
-    '            ParameterField.CurrentValues.Add(spValue)
-    '            ParameterFields.Add(ParameterField)
-
-    '            'Do this at the beginning of every new entry 
-    '            ParameterField = New CrystalDecisions.Shared.ParameterField
-    '            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '            ParameterField.ParameterFieldName = "FCEComments"
-    '            spValue.Value = FCEComment
-    '            ParameterField.CurrentValues.Add(spValue)
-    '            ParameterFields.Add(ParameterField)
-
-    '            'Do this at the beginning of every new entry 
-    '            ParameterField = New CrystalDecisions.Shared.ParameterField
-    '            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '            ParameterField.ParameterFieldName = "Inspections"
-    '            spValue.Value = FCEInspections
-    '            ParameterField.CurrentValues.Add(spValue)
-    '            ParameterFields.Add(ParameterField)
-
-    '            'Do this at the beginning of every new entry 
-    '            ParameterField = New CrystalDecisions.Shared.ParameterField
-    '            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '            ParameterField.ParameterFieldName = "PerformanceTests"
-    '            spValue.Value = FCEPerformanceTests
-    '            ParameterField.CurrentValues.Add(spValue)
-    '            ParameterFields.Add(ParameterField)
-
-    '            'Do this at the beginning of every new entry 
-    '            ParameterField = New CrystalDecisions.Shared.ParameterField
-    '            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '            ParameterField.ParameterFieldName = "Reports"
-    '            spValue.Value = FCEReports
-    '            ParameterField.CurrentValues.Add(spValue)
-    '            ParameterFields.Add(ParameterField)
-
-    '            'Do this at the beginning of every new entry 
-    '            ParameterField = New CrystalDecisions.Shared.ParameterField
-    '            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-    '            ParameterField.ParameterFieldName = "AnnualCertifications"
-    '            spValue.Value = FCEAnnualCertifications
-    '            ParameterField.CurrentValues.Add(spValue)
-    '            ParameterFields.Add(ParameterField)
-
-    '            'Load Variables into the Fields
-    '            CRViewer.ParameterFieldInfo = ParameterFields
-
-    '            'Display the Report
-    '            CRViewer.ReportSource = rpt
-
-    '        Else
-    '            MsgBox("Unable to Print at this time.", MsgBoxStyle.Information, "Print Out")
-    '            PrintOut.Close()
-    '        End If
-
-    '    Catch ex As Exception
-    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    Finally
-
-    '    End Try
-
-
-
-    'End Sub
-
-#End Region
 #Region "SSPP"
     Sub PrintOutTitleVRenewals()
         Dim Commissioner As String = ""
@@ -16379,12 +15602,32 @@ Public Class IAIPPrintOut
         Finally
 
         End Try
-         
+
     End Sub
 #End Region
 
     Private Sub IAIPPrintOut_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         PrintOut = Nothing
+    End Sub
+
+    Private Sub CRViewerTabs(ByVal viewer As CrystalReportViewer, ByVal visible As Boolean)
+        ' http://bloggingabout.net/blogs/jschreuder/archive/2005/08/03/8760.aspx
+        If viewer IsNot Nothing Then
+            For Each control As Control In viewer.Controls
+                If TypeOf control Is PageView Then
+                    Dim tab As TabControl = DirectCast(DirectCast(control, PageView).Controls(0), TabControl)
+                    If Not visible Then
+                        tab.ItemSize = New Size(0, 1)
+                        tab.SizeMode = TabSizeMode.Fixed
+                        tab.Appearance = TabAppearance.Buttons
+                    Else
+                        tab.ItemSize = New Size(67, 18)
+                        tab.SizeMode = TabSizeMode.Normal
+                        tab.Appearance = TabAppearance.Normal
+                    End If
+                End If
+            Next
+        End If
     End Sub
 
 End Class

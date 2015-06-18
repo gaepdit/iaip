@@ -10760,53 +10760,31 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
         End Try
 
     End Sub
+
     Sub OpenMemo()
         OpenFormTestMemo(Me.txtReferenceNumber.Text)
     End Sub
-    Sub DeleteTestReport()
-        Try
-            Dim RefNum As String = txtReferenceNumber.Text
-            Dim temp As String = ""
-            
-            If MessageBox.Show("Are you sure you want to delete test report no. " & RefNum & "?", "Confirm Delete", _
-                               MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) _
-                               = Windows.Forms.DialogResult.No Then
-                Exit Sub
-            End If
 
-            If DAL.ISMP.StackTestExists(RefNum) Then
-                Dim parameter As New OracleParameter("ref", RefNum)
+    Sub ClearTestReportData()
+        Dim diag As DialogResult = MessageBox.Show("This will clear all data from this test repot. Are you sure you want to proceed?", "Delete all data", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
 
-                SQL = "Update AIRBRANCH.ISMPReportInformation set " & _
-                    " strDelete = 'DELETE' where strReferenceNumber = :ref"
-                DB.RunCommand(SQL, parameter)
+        If diag = Windows.Forms.DialogResult.Yes Then
+            Dim result As Boolean = DAL.ISMP.ClearStackTestData(txtReferenceNumber.Text)
 
-                DeletedTestFlag.Visible = True
+            If result Then
+                MessageBox.Show("The test report data has been cleared. " & _
+                                "A new document type can now be selected.", "Success", MessageBoxButtons.OK)
 
-                SQL = "SELECT STRTRACKINGNUMBER FROM AIRBRANCH.SSCPTESTREPORTS WHERE STRREFERENCENUMBER = :ref"
-                Dim trackingNumber As String = DB.GetSingleValue(Of String)(SQL, parameter)
-
-                If trackingNumber IsNot Nothing Then
-                    parameter = New OracleParameter("trackingnum", trackingNumber)
-                    SQL = " UPDATE AIRBRANCH.SSCPITEMMASTER SET STRDELETE = '" & Boolean.TrueString & "' " & _
-                    " WHERE STRTRACKINGNUMBER = :trackingnum "
-                    DB.RunCommand(SQL, parameter)
-                End If
-
-                MessageBox.Show("Test no. " & RefNum & " deleted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.None)
+                Dim temp As String = txtReferenceNumber.Text
+                ClearAll()
+                txtReferenceNumber.Text = temp
+                LoadData(txtReferenceNumber.Text)
             Else
-                MessageBox.Show("Stack test " & RefNum & " does not exist.", "No such thing", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("There was an error deleting the data.", "Error", MessageBoxButtons.OK)
             End If
-
-            temp = txtReferenceNumber.Text
-
-            ClearAll()
-            txtReferenceNumber.Text = temp
-            LoadData(txtReferenceNumber.Text)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        End If
     End Sub
+
     Sub SaveStackTest()
         Try
             Dim Pollutant As String = "00001"
@@ -17811,7 +17789,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
     End Sub
     Private Sub tsbDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbDelete.Click
         Try
-            DeleteTestReport()
+            ClearTestReportData()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally

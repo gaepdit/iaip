@@ -1124,7 +1124,6 @@ Me.tsbDelete.ImageTransparentColor = System.Drawing.Color.Magenta
 Me.tsbDelete.Name = "tsbDelete"
 Me.tsbDelete.Size = New System.Drawing.Size(23, 22)
 Me.tsbDelete.Text = "Delete Test Report Data"
-Me.tsbDelete.Visible = false
 '
 'tsbConfidentialData
 '
@@ -3409,7 +3408,7 @@ Me.TPLoadingRack.Controls.Add(Me.Label170)
 Me.TPLoadingRack.Location = New System.Drawing.Point(4, 22)
 Me.TPLoadingRack.Name = "TPLoadingRack"
 Me.TPLoadingRack.Padding = New System.Windows.Forms.Padding(3)
-Me.TPLoadingRack.Size = New System.Drawing.Size(782, 410)
+Me.TPLoadingRack.Size = New System.Drawing.Size(782, 298)
 Me.TPLoadingRack.TabIndex = 1
 Me.TPLoadingRack.Text = "Loading Rack"
 Me.TPLoadingRack.UseVisualStyleBackColor = true
@@ -3853,7 +3852,7 @@ Me.TPPondTreatment.Controls.Add(Me.cboMaximumExpectedOperatingCapacityUnitsPond)
 Me.TPPondTreatment.Controls.Add(Me.Label151)
 Me.TPPondTreatment.Location = New System.Drawing.Point(4, 22)
 Me.TPPondTreatment.Name = "TPPondTreatment"
-Me.TPPondTreatment.Size = New System.Drawing.Size(782, 410)
+Me.TPPondTreatment.Size = New System.Drawing.Size(782, 298)
 Me.TPPondTreatment.TabIndex = 2
 Me.TPPondTreatment.Text = "Pulping Process Condensate"
 Me.TPPondTreatment.UseVisualStyleBackColor = true
@@ -4366,7 +4365,7 @@ Me.TPGasConcentration.Controls.Add(Me.Label132)
 Me.TPGasConcentration.Controls.Add(Me.Label133)
 Me.TPGasConcentration.Location = New System.Drawing.Point(4, 22)
 Me.TPGasConcentration.Name = "TPGasConcentration"
-Me.TPGasConcentration.Size = New System.Drawing.Size(782, 410)
+Me.TPGasConcentration.Size = New System.Drawing.Size(782, 298)
 Me.TPGasConcentration.TabIndex = 3
 Me.TPGasConcentration.Text = "Gas Concentration"
 Me.TPGasConcentration.UseVisualStyleBackColor = true
@@ -4874,7 +4873,7 @@ Me.TPFlare.Controls.Add(Me.Label107)
 Me.TPFlare.Controls.Add(Me.Label108)
 Me.TPFlare.Location = New System.Drawing.Point(4, 22)
 Me.TPFlare.Name = "TPFlare"
-Me.TPFlare.Size = New System.Drawing.Size(782, 410)
+Me.TPFlare.Size = New System.Drawing.Size(782, 298)
 Me.TPFlare.TabIndex = 4
 Me.TPFlare.Text = "Flare"
 Me.TPFlare.UseVisualStyleBackColor = true
@@ -5295,7 +5294,7 @@ Me.Label108.TextAlign = System.Drawing.ContentAlignment.BottomLeft
 Me.TPPEMS.AutoScroll = true
 Me.TPPEMS.Location = New System.Drawing.Point(4, 22)
 Me.TPPEMS.Name = "TPPEMS"
-Me.TPPEMS.Size = New System.Drawing.Size(782, 410)
+Me.TPPEMS.Size = New System.Drawing.Size(782, 298)
 Me.TPPEMS.TabIndex = 5
 Me.TPPEMS.Text = "PEM"
 Me.TPPEMS.UseVisualStyleBackColor = true
@@ -5308,7 +5307,7 @@ Me.TPMethodNine.Controls.Add(Me.Label79)
 Me.TPMethodNine.Controls.Add(Me.TCMethodNine)
 Me.TPMethodNine.Location = New System.Drawing.Point(4, 22)
 Me.TPMethodNine.Name = "TPMethodNine"
-Me.TPMethodNine.Size = New System.Drawing.Size(782, 410)
+Me.TPMethodNine.Size = New System.Drawing.Size(782, 298)
 Me.TPMethodNine.TabIndex = 6
 Me.TPMethodNine.Text = "Method 9"
 Me.TPMethodNine.UseVisualStyleBackColor = true
@@ -6276,7 +6275,7 @@ Me.TPMemorandum.Controls.Add(Me.Label117)
 Me.TPMemorandum.Controls.Add(Me.TCMemorandum)
 Me.TPMemorandum.Location = New System.Drawing.Point(4, 22)
 Me.TPMemorandum.Name = "TPMemorandum"
-Me.TPMemorandum.Size = New System.Drawing.Size(782, 410)
+Me.TPMemorandum.Size = New System.Drawing.Size(782, 298)
 Me.TPMemorandum.TabIndex = 7
 Me.TPMemorandum.Text = "Memorandum"
 Me.TPMemorandum.UseVisualStyleBackColor = true
@@ -6752,7 +6751,7 @@ Me.TPRata.Controls.Add(Me.txtApplicableStandardRata)
 Me.TPRata.Controls.Add(Me.Label173)
 Me.TPRata.Location = New System.Drawing.Point(4, 22)
 Me.TPRata.Name = "TPRata"
-Me.TPRata.Size = New System.Drawing.Size(782, 410)
+Me.TPRata.Size = New System.Drawing.Size(782, 298)
 Me.TPRata.TabIndex = 8
 Me.TPRata.Text = "RATA"
 Me.TPRata.UseVisualStyleBackColor = true
@@ -7764,7 +7763,7 @@ Me.TPTwoStack.Controls.Add(Me.cboAllowableEmissionRateUnits1TwoStack)
 Me.TPTwoStack.Controls.Add(Me.cboMaximumExpectedOperatingCapacityUnitsTwoStack)
 Me.TPTwoStack.Location = New System.Drawing.Point(4, 22)
 Me.TPTwoStack.Name = "TPTwoStack"
-Me.TPTwoStack.Size = New System.Drawing.Size(782, 410)
+Me.TPTwoStack.Size = New System.Drawing.Size(782, 298)
 Me.TPTwoStack.TabIndex = 9
 Me.TPTwoStack.Text = "Two Stack"
 Me.TPTwoStack.UseVisualStyleBackColor = true
@@ -9580,7 +9579,7 @@ Me.TPMethodTwentyTwo.Controls.Add(Me.cboMaximumExpectedOperatingCapacityUnitsMet
 Me.TPMethodTwentyTwo.Controls.Add(Me.Label222)
 Me.TPMethodTwentyTwo.Location = New System.Drawing.Point(4, 22)
 Me.TPMethodTwentyTwo.Name = "TPMethodTwentyTwo"
-Me.TPMethodTwentyTwo.Size = New System.Drawing.Size(782, 410)
+Me.TPMethodTwentyTwo.Size = New System.Drawing.Size(782, 298)
 Me.TPMethodTwentyTwo.TabIndex = 10
 Me.TPMethodTwentyTwo.Text = "Method 22"
 Me.TPMethodTwentyTwo.UseVisualStyleBackColor = true
@@ -9819,7 +9818,7 @@ Me.TPSSCPWork.Controls.Add(Me.Label326)
 Me.TPSSCPWork.Controls.Add(Me.txtTestReportDueDate)
 Me.TPSSCPWork.Location = New System.Drawing.Point(4, 22)
 Me.TPSSCPWork.Name = "TPSSCPWork"
-Me.TPSSCPWork.Size = New System.Drawing.Size(782, 410)
+Me.TPSSCPWork.Size = New System.Drawing.Size(782, 298)
 Me.TPSSCPWork.TabIndex = 11
 Me.TPSSCPWork.Text = "Compliance Work"
 Me.TPSSCPWork.UseVisualStyleBackColor = true

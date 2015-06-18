@@ -1086,7 +1086,7 @@ Public Class ISMPTestReportAdministrative
                 SQL = "select " & _
                 "strTrackingNumber " & _
                 "from AIRBRANCH.SSCPTestReports " & _
-                "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
+                "where strReferenceNumber = '" & RefNum & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then

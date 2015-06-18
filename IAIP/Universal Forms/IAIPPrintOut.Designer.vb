@@ -79,11 +79,13 @@ Partial Class IAIPPrintOut
         '
         Me.CRViewer.ActiveViewIndex = -1
         Me.CRViewer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.CRViewer.DisplayGroupTree = False
         Me.CRViewer.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.CRViewer.EnableDrillDown = False
         Me.CRViewer.Location = New System.Drawing.Point(0, 0)
-        Me.CRViewer.Margin = New System.Windows.Forms.Padding(2)
         Me.CRViewer.Name = "CRViewer"
         Me.CRViewer.SelectionFormula = ""
+        Me.CRViewer.ShowCloseButton = False
         Me.CRViewer.ShowGroupTreeButton = False
         Me.CRViewer.ShowRefreshButton = False
         Me.CRViewer.Size = New System.Drawing.Size(792, 545)
