@@ -72,12 +72,6 @@ Public Class IAIPEditHeaderData
 
         Dim currentData As DataRow = DAL.FacilityHeaderDataModule.GetFacilityHeaderDataAsDataRow(AirsNumber)
 
-        If FacilityHeaderDataHistory IsNot Nothing AndAlso FacilityHeaderDataHistory.Rows.Count > 0 Then
-            currentData(0) = FacilityHeaderDataHistory.Compute("Max(STRKEY)", String.Empty) + 1
-        Else
-            currentData(0) = 1
-        End If
-
         FacilityHeaderDataHistory.ImportRow(currentData)
 
         BindFacilityHistoryDisplay(FacilityHeaderDataHistory)
@@ -92,29 +86,47 @@ Public Class IAIPEditHeaderData
     Private Sub BindFacilityHistoryDisplay(ByVal dt As DataTable)
         FacilityHistoryDataGridView.DataSource = dt
 
-        FacilityHistoryDataGridView.Columns("STRKEY").Visible = False
-
-        FacilityHistoryDataGridView.Columns("USERNAME").HeaderText = "Modified By"
-        FacilityHistoryDataGridView.Columns("MODIFINGDATE").HeaderText = "Date Modified"
+        FacilityHistoryDataGridView.Columns("WhoModified").HeaderText = "Modified By"
+        FacilityHistoryDataGridView.Columns("WhoModified").DisplayIndex = 0
+        FacilityHistoryDataGridView.Columns("DATMODIFINGDATE").HeaderText = "Date Modified"
+        FacilityHistoryDataGridView.Columns("DATMODIFINGDATE").DisplayIndex = 1
+        FacilityHistoryDataGridView.Columns("DATMODIFINGDATE").DefaultCellStyle.Format = DateFormat
         FacilityHistoryDataGridView.Columns("STRMODIFINGLOCATION").HeaderText = "Modified From"
+        FacilityHistoryDataGridView.Columns("STRMODIFINGLOCATION").DisplayIndex = 2
         FacilityHistoryDataGridView.Columns("STROPERATIONALSTATUS").HeaderText = "Operating Status"
         FacilityHistoryDataGridView.Columns("STRCLASS").HeaderText = "Classification"
         FacilityHistoryDataGridView.Columns("STRCOMMENTS").HeaderText = "Comments"
         FacilityHistoryDataGridView.Columns("DATSTARTUPDATE").HeaderText = "Start Up Date"
+        FacilityHistoryDataGridView.Columns("DATSTARTUPDATE").DefaultCellStyle.Format = DateFormat
         FacilityHistoryDataGridView.Columns("DATSHUTDOWNDATE").HeaderText = "Shut Down Date"
+        FacilityHistoryDataGridView.Columns("DATSHUTDOWNDATE").DefaultCellStyle.Format = DateFormat
         FacilityHistoryDataGridView.Columns("STRPLANTDESCRIPTION").HeaderText = "Plant Description"
         FacilityHistoryDataGridView.Columns("STRSICCODE").HeaderText = "SIC Code"
         FacilityHistoryDataGridView.Columns("STRNAICSCODE").HeaderText = "NAICS Code"
         FacilityHistoryDataGridView.Columns("STRRMPID").HeaderText = "RMP ID"
+        FacilityHistoryDataGridView.Columns("STRCMSMEMBER").HeaderText = "CMS"
 
+        FacilityHistoryDataGridView.Columns("STRKEY").Visible = False
+        FacilityHistoryDataGridView.Columns("STRAIRSNUMBER").Visible = False
         FacilityHistoryDataGridView.Columns("STRAIRPROGRAMCODES").Visible = False
         FacilityHistoryDataGridView.Columns("STRSTATEPROGRAMCODES").Visible = False
         FacilityHistoryDataGridView.Columns("STRATTAINMENTSTATUS").Visible = False
+        FacilityHistoryDataGridView.Columns("STRDISTRICTOFFICE").Visible = False
+        FacilityHistoryDataGridView.Columns("STRLASTNAME").Visible = False
+        FacilityHistoryDataGridView.Columns("STRFIRSTNAME").Visible = False
+        FacilityHistoryDataGridView.Columns("STRMODIFINGPERSON").Visible = False
 
-        FacilityHistoryDataGridView.Sort(FacilityHistoryDataGridView.Columns(0), System.ComponentModel.ListSortDirection.Descending)
+        FacilityHistoryDataGridView.Sort(FacilityHistoryDataGridView.Columns("DATMODIFINGDATE"), System.ComponentModel.ListSortDirection.Descending)
         FacilityHistoryDataGridView.SanelyResizeColumns()
 
         AddHandler FacilityHistoryDataGridView.CurrentCellChanged, AddressOf FacilityHistoryDataGridView_CurrentCellChanged
+    End Sub
+
+    Private Sub FacilityHistoryDataGridView_CellFormatting(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) _
+    Handles FacilityHistoryDataGridView.CellFormatting
+        If e.ColumnIndex = 16 Then
+            e.Value = DirectCast(CType(e.Value, Integer), HeaderDataModificationLocation).GetDescription
+        End If
     End Sub
 
     Private Sub CheckEditingPermissions()
@@ -325,10 +337,11 @@ Public Class IAIPEditHeaderData
             If EditData.Checked Then
                 ModifiedDescDisplay.Text = "Editing current facility data"
             Else
-                ModifiedDescDisplay.Text = "Modification by " & .WhoModified & _
-                    " on " & .DateDataModified & _
-                    If(String.IsNullOrEmpty(.WhereModified), "", " from " & .WhereModified) & _
-                    "."
+                ModifiedDescDisplay.Text = "Modification by " & .WhoModified & " on " & String.Format(DateStringFormat, .DateDataModified)
+                If Not (String.IsNullOrEmpty(.WhereModified)) AndAlso .WhereModified <> HeaderDataModificationLocation.Unspecified Then
+                    ModifiedDescDisplay.Text = ModifiedDescDisplay.Text & " from " & .WhereModified.GetDescription
+                End If
+                ModifiedDescDisplay.Text = ModifiedDescDisplay.Text & "."
             End If
 
         End With
@@ -566,7 +579,7 @@ Public Class IAIPEditHeaderData
 
                 ' Add to datagridview
                 Dim currentData As DataRow = DAL.FacilityHeaderDataModule.GetFacilityHeaderDataAsDataRow(AirsNumber)
-                currentData(0) = FacilityHeaderDataHistory.Compute("Max(STRKEY)", String.Empty) + 1
+
                 FacilityHeaderDataHistory.ImportRow(currentData)
                 FacilityHistoryDataGridView.Rows(0).Selected = True
 
