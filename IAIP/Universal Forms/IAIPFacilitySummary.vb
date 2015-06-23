@@ -17,13 +17,7 @@ Public Class IAIPFacilitySummary
             If _airsNumber Is Nothing AndAlso value Is Nothing Then Return
             'If _airsNumber IsNot Nothing AndAlso _airsNumber.Equals(value) Then Return
             _airsNumber = value
-            ClearAllData()
-            If _airsNumber Is Nothing Then
-                AirsNumberEntry.Focus()
-            Else
-                LoadBasicFacilityAndHeaderData()
-                FSMainTabControl.Focus()
-            End If
+            ReloadAllData()
         End Set
     End Property
 
@@ -125,6 +119,16 @@ Public Class IAIPFacilitySummary
 
     Private Sub AddDataTable(ByVal whichTable As FacilityDataTable)
         FacilitySummaryDataSet.Tables.Add(whichTable.ToString)
+    End Sub
+
+    Private Sub ReloadAllData()
+        ClearAllData()
+        If _airsNumber Is Nothing Then
+            AirsNumberEntry.Focus()
+        Else
+            LoadBasicFacilityAndHeaderData()
+            FSMainTabControl.Focus()
+        End If
     End Sub
 
 #End Region
@@ -363,7 +367,9 @@ Public Class IAIPFacilitySummary
             editHeaderDataDialog.ShowDialog()
 
             If editHeaderDataDialog.SomethingWasSaved Then
-                LoadFeesData()
+                ReloadAllData()
+                FSMainTabControl.SelectedTab = FSHeaderData
+                FSMainTabControl.Focus()
             End If
 
             editHeaderDataDialog.Dispose()
