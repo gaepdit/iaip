@@ -57,8 +57,8 @@
     <MinimumRequiredVersion>3.8.2.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>install.html</WebPage>
-    <ApplicationRevision>88</ApplicationRevision>
-    <ApplicationVersion>3.8.2.%2a</ApplicationVersion>
+    <ApplicationRevision>90</ApplicationRevision>
+    <ApplicationVersion>4.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
