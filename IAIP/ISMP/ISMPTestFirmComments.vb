@@ -561,7 +561,7 @@ Public Class ISMPTestFirmComments
         Try
             Dim facilityLookupDialog As New IAIPFacilityLookUpTool
             facilityLookupDialog.ShowDialog()
-            If facilityLookupDialog.DialogResult = Windows.Forms.DialogResult.OK _
+            If facilityLookupDialog.DialogResult = DialogResult.OK _
             AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
                 Me.ValueFromFacilityLookUp = facilityLookupDialog.SelectedAirsNumber
                 Me.ValueFromFacilityLookUp2 = facilityLookupDialog.SelectedFacilityName

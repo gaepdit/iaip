@@ -1312,7 +1312,7 @@ Public Class IAIPFacilitySummary
     Private Sub OpenFacilityLookupTool()
         Dim facilityLookupDialog As New IAIPFacilityLookUpTool
         facilityLookupDialog.ShowDialog()
-        If facilityLookupDialog.DialogResult = Windows.Forms.DialogResult.OK _
+        If facilityLookupDialog.DialogResult = DialogResult.OK _
         AndAlso Apb.ApbFacilityId.IsValidAirsNumberFormat(facilityLookupDialog.SelectedAirsNumber) Then
             Me.AirsNumber = facilityLookupDialog.SelectedAirsNumber
         End If

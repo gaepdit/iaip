@@ -7379,7 +7379,7 @@ Public Class SSPPApplicationTrackingLog
 
                     Dim dresult As DialogResult = MessageBox.Show("Do you want to update Facility Information with this Application?", _
                                                   "Permit Tracking Log", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                    If dresult = Windows.Forms.DialogResult.Yes Then
+                    If dresult = DialogResult.Yes Then
                         UpdateAPBTables()
                     End If
 
@@ -10381,11 +10381,11 @@ Public Class SSPPApplicationTrackingLog
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                 End Select
                 Select Case ResultDoc
-                    Case Windows.Forms.DialogResult.Yes
+                    Case DialogResult.Yes
                         Flag = "10"
-                    Case Windows.Forms.DialogResult.No
+                    Case DialogResult.No
                         Flag = "00"
-                    Case Windows.Forms.DialogResult.Cancel
+                    Case DialogResult.Cancel
                         Flag = "00"
                     Case Else
                         Flag = "00"
@@ -10476,11 +10476,11 @@ Public Class SSPPApplicationTrackingLog
                             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                     End Select
                     Select Case ResultPDF
-                        Case Windows.Forms.DialogResult.Yes
+                        Case DialogResult.Yes
                             Flag = Mid(Flag, 1, 1) & "1"
-                        Case Windows.Forms.DialogResult.No
+                        Case DialogResult.No
                             Flag = Mid(Flag, 1, 1) & "0"
-                        Case Windows.Forms.DialogResult.Cancel
+                        Case DialogResult.Cancel
                             Flag = Mid(Flag, 1, 1) & "0"
                         Case Else
                             Flag = Mid(Flag, 1, 1) & "0"
@@ -10631,7 +10631,7 @@ Public Class SSPPApplicationTrackingLog
                         path.FilterIndex = 1
                         path.DefaultExt = ".doc"
 
-                        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+                        If path.ShowDialog = DialogResult.OK Then
                             DestFilePath = path.FileName.ToString
                         Else
                             DestFilePath = "N/A"
@@ -10666,7 +10666,7 @@ Public Class SSPPApplicationTrackingLog
                         path.FilterIndex = 1
                         path.DefaultExt = ".pdf"
 
-                        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+                        If path.ShowDialog = DialogResult.OK Then
                             DestFilePath = path.FileName.ToString
                         Else
                             DestFilePath = "N/A"
@@ -10702,7 +10702,7 @@ Public Class SSPPApplicationTrackingLog
                         path.FilterIndex = 1
                         path.DefaultExt = ".doc"
 
-                        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+                        If path.ShowDialog = DialogResult.OK Then
                             DestFilePath = path.FileName.ToString
                         Else
                             DestFilePath = "N/A"
@@ -10736,7 +10736,7 @@ Public Class SSPPApplicationTrackingLog
                         path.FilterIndex = 1
                         path.DefaultExt = ".pdf"
 
-                        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+                        If path.ShowDialog = DialogResult.OK Then
                             DestFilePath = path.FileName.ToString
                         Else
                             DestFilePath = "N/A"

@@ -2612,7 +2612,7 @@ Public Class PASPDepositsAmendments
                 MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
 
             Select Case Result
-                Case Windows.Forms.DialogResult.Yes
+                Case DialogResult.Yes
 
                 Case Else
                     Exit Sub
@@ -3216,7 +3216,7 @@ Public Class PASPDepositsAmendments
                 MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
 
             Select Case Result
-                Case Windows.Forms.DialogResult.Yes
+                Case DialogResult.Yes
                     SQL = "Update AIRBRANCH.FS_Transactions set " & _
                     "active = '0' " & _
                     "where TransactionId = '" & txtTransactionID.Text & "' "

@@ -464,7 +464,7 @@ Public Class ISMPNotificationLog
                              "Do you still want to create this Test Notification?", "Test Notification Warning", _
                          MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1)
                         Select Case result
-                            Case Windows.Forms.DialogResult.No
+                            Case DialogResult.No
                                 Exit Sub
                             Case "7"
                                 Exit Sub

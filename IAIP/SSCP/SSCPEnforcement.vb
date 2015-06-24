@@ -3333,7 +3333,7 @@ Public Class SscpEnforcement
                     MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
 
                 Select Case Result
-                    Case Windows.Forms.DialogResult.Yes
+                    Case DialogResult.Yes
                         SQL = "Select strAIRSNumber " & _
                         "from AIRBRANCH.SSCP_AuditedEnforcement " & _
                         "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
@@ -3442,9 +3442,9 @@ Public Class SscpEnforcement
                         MsgBox("Enforcement Deleted.", MsgBoxStyle.Information, "Enforcement")
                         ClearEnforcement()
 
-                    Case Windows.Forms.DialogResult.No
+                    Case DialogResult.No
                         SQL = ""
-                    Case Windows.Forms.DialogResult.Cancel
+                    Case DialogResult.Cancel
                         SQL = ""
                     Case Else
                         SQL = ""
@@ -3868,7 +3868,7 @@ Public Class SscpEnforcement
                 "Do you want to submit this enforcement to EPA without an initating action?", "Enforcement", _
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
                 Select Case result
-                    Case Windows.Forms.DialogResult.No
+                    Case DialogResult.No
                         Exit Sub
                 End Select
             End If

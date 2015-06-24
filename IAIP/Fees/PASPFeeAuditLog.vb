@@ -2782,7 +2782,7 @@ Public Class PASPFeeAuditLog
                                             MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
 
                 Select Case ResultDoc
-                    Case Windows.Forms.DialogResult.No
+                    Case DialogResult.No
                         MsgBox("NO DATA SAVED.", MsgBoxStyle.Exclamation, Me.Text)
                         Exit Sub
                 End Select
@@ -3080,7 +3080,7 @@ Public Class PASPFeeAuditLog
                         "invoice #: " & txtInvoiceID.Text & "." & vbCrLf & "OK - Add additional Transaction" & vbCrLf & _
                         "Cancel - Do nothing.", Me.Text, MessageBoxButtons.OKCancel, MessageBoxIcon.Information)
                 Select Case TransactionCheck
-                    Case Windows.Forms.DialogResult.OK
+                    Case DialogResult.OK
 
                     Case Else
                         MsgBox("No data was saved", MsgBoxStyle.Information, Me.Text)

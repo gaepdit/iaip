@@ -244,8 +244,8 @@ Friend Class ExceptionDialog
             With ErrorDetails
                 .Location = New System.Drawing.Point(MoreHeading.Left, btnMore.Top + btnMore.Height + _intSpacing)
                 .Height = Me.ClientSize.Height - ErrorDetails.Top - _intSpacing - btnOK.Height - _intSpacing
-                .Anchor = Windows.Forms.AnchorStyles.Top Or Windows.Forms.AnchorStyles.Bottom _
-                            Or Windows.Forms.AnchorStyles.Left Or Windows.Forms.AnchorStyles.Right
+                .Anchor = AnchorStyles.Top Or AnchorStyles.Bottom _
+                            Or AnchorStyles.Left Or AnchorStyles.Right
                 .Visible = True
             End With
             btnMore.Text = "<<"
@@ -255,7 +255,7 @@ Friend Class ExceptionDialog
             Me.SuspendLayout()
             btnMore.Text = ">>"
             Me.ClientSize = New Size(Me.ClientSize.Width, btnMore.Top + btnMore.Height + _intSpacing + btnOK.Height + _intSpacing)
-            ErrorDetails.Anchor = Windows.Forms.AnchorStyles.None
+            ErrorDetails.Anchor = AnchorStyles.None
             ErrorDetails.Visible = False
             btnCopy.Visible = False
             Me.ResumeLayout()

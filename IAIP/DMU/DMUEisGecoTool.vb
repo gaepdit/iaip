@@ -6395,7 +6395,7 @@ Public Class DMUEisGecoTool
                 Dim intAnswer As DialogResult
                 intAnswer = MessageBox.Show("Remove the enrollment?", "EI Enrollment", MessageBoxButtons.OKCancel, MessageBoxIcon.Information)
                 Select Case intAnswer
-                    Case Windows.Forms.DialogResult.OK
+                    Case DialogResult.OK
                         sql = "delete from AIRBRANCH.EISI " & _
                         "where EISI.STRINVENTORYYEAR = '" & EIYear & "'"
                         cmd = New OracleCommand(sql, CurrentConnection)
@@ -6532,7 +6532,7 @@ Public Class DMUEisGecoTool
             Dim intAnswer As DialogResult
             intAnswer = MessageBox.Show("Remove this facility (" & AirsNo & ") for " & EIYear & "?", "EI Enrollment", MessageBoxButtons.OKCancel, MessageBoxIcon.Information)
             Select Case intAnswer
-                Case Windows.Forms.DialogResult.OK
+                Case DialogResult.OK
                     sql = "Select " & _
                     "case " & _
                     "when strOptOut is null then 'Delete' " & _
@@ -6993,8 +6993,8 @@ Public Class DMUEisGecoTool
                 Dim intAnswer As DialogResult
                 intAnswer = MessageBox.Show("Remove the enrollment?", "ES Enrollment", MessageBoxButtons.OKCancel, MessageBoxIcon.Information)
                 Select Case intAnswer
-                    Case Windows.Forms.DialogResult.OK
-                        sql = "delete from AIRBRANCH.ESSCHEMA " & _
+                    Case DialogResult.OK
+                        sql = "delete from AIRBRANCH.ESSCHEMA " &
                         "where ESSCHEMA.INTESYEAR = '" & ESYear & "'"
                         cmd = New OracleCommand(sql, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -7036,8 +7036,8 @@ Public Class DMUEisGecoTool
 
         Try
 
-            SQL = "Select AIRBRANCH.ESSCHEMA.INTESYEAR " & _
-          "FROM AIRBRANCH.ESSCHEMA " & _
+            SQL = "Select AIRBRANCH.ESSCHEMA.INTESYEAR " &
+          "FROM AIRBRANCH.ESSCHEMA " &
           "where  ESSCHEMA.INTESYEAR = '" & ESYear & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -7051,8 +7051,8 @@ Public Class DMUEisGecoTool
             If recExist = True Then
 
 
-                SQL = "Select AIRBRANCH.APBFACILITYINFORMATION.STRFACILITYNAME " & _
-               "FROM AIRBRANCH.APBFACILITYINFORMATION " & _
+                SQL = "Select AIRBRANCH.APBFACILITYINFORMATION.STRFACILITYNAME " &
+               "FROM AIRBRANCH.APBFACILITYINFORMATION " &
                "where  APBFACILITYINFORMATION.STRAIRSNUMBER = '" & AirsNo & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -7066,9 +7066,9 @@ Public Class DMUEisGecoTool
                 If recExist = True Then
                     facilityName = dr("STRFACILITYNAME")
 
-                    SQL = "Select * " & _
-                             "FROM AIRBRANCH.ESSCHEMA " & _
-                             "where ESSCHEMA.INTESYEAR = '" & ESYear & "' " & _
+                    SQL = "Select * " &
+                             "FROM AIRBRANCH.ESSCHEMA " &
+                             "where ESSCHEMA.INTESYEAR = '" & ESYear & "' " &
                              " And ESSCHEMA.STRAIRSNUMBER = '" & AirsNo & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -7081,19 +7081,19 @@ Public Class DMUEisGecoTool
                     If recExist = True Then
                         MsgBox("This facility (" & AirsNo & ") is already enrolled for " & ESYear & ".", MsgBoxStyle.Information, "ES Enrollment")
                     Else
-                        SQL2 = "Insert into AIRBRANCH.ESSCHEMA " & _
-                        "(ESSCHEMA.STRAIRSNUMBER, " & _
-                        "ESSCHEMA.STRFACILITYNAME, " & _
-                        "ESSCHEMA.DATTRANSACTION, " & _
-                        "ESSCHEMA.INTESYEAR, " & _
-                        "ESSCHEMA.NUMUSERID, " & _
-                        "ESSCHEMA.STRAIRSYEAR) " & _
-                        "values " & _
-                        "('" & Replace(AirsNo, "'", "''") & "', " & _
-                        "'" & Replace(facilityName, "'", "''") & "', " & _
-                        "'" & OracleDate & "', " & _
-                        "'" & Replace(ESYear, "'", "''") & "', " & _
-                        "'3', " & _
+                        SQL2 = "Insert into AIRBRANCH.ESSCHEMA " &
+                        "(ESSCHEMA.STRAIRSNUMBER, " &
+                        "ESSCHEMA.STRFACILITYNAME, " &
+                        "ESSCHEMA.DATTRANSACTION, " &
+                        "ESSCHEMA.INTESYEAR, " &
+                        "ESSCHEMA.NUMUSERID, " &
+                        "ESSCHEMA.STRAIRSYEAR) " &
+                        "values " &
+                        "('" & Replace(AirsNo, "'", "''") & "', " &
+                        "'" & Replace(facilityName, "'", "''") & "', " &
+                        "'" & OracleDate & "', " &
+                        "'" & Replace(ESYear, "'", "''") & "', " &
+                        "'3', " &
                         "'" & airsYear & "' )"
 
                         cmd2 = New OracleCommand(SQL2, CurrentConnection)
@@ -7130,9 +7130,9 @@ Public Class DMUEisGecoTool
             Dim intAnswer As DialogResult
             intAnswer = MessageBox.Show("Remove this facility (" & AirsNo & ") for " & ESYear & "?", "ES Enrollment", MessageBoxButtons.OKCancel, MessageBoxIcon.Information)
             Select Case intAnswer
-                Case Windows.Forms.DialogResult.OK
-                    sql = "delete from AIRBRANCH.ESSCHEMA " & _
-                    "where ESSCHEMA.INTESYEAR = '" & ESYear & "'" & _
+                Case DialogResult.OK
+                    sql = "delete from AIRBRANCH.ESSCHEMA " &
+                    "where ESSCHEMA.INTESYEAR = '" & ESYear & "'" &
                     " And ESSCHEMA.STRAIRSNUMBER = '" & AirsNo & "'"
                     cmd = New OracleCommand(sql, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -7157,9 +7157,9 @@ Public Class DMUEisGecoTool
         Dim airsYear As String = AirsNo & ESYear
 
         Try
-            SQL = "Select strAIRSYear as RowCount " & _
-            "FROM AIRBRANCH.ESSCHEMA " & _
-            "where AIRBRANCH.ESSCHEMA.INTESYEAR = '" & ESYear & "' " & _
+            SQL = "Select strAIRSYear as RowCount " &
+            "FROM AIRBRANCH.ESSCHEMA " &
+            "where AIRBRANCH.ESSCHEMA.INTESYEAR = '" & ESYear & "' " &
             " And AIRBRANCH.ESSCHEMA.STRAIRSNUMBER = '" & AirsNo & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -7192,10 +7192,10 @@ Public Class DMUEisGecoTool
                 MsgBox("Please choose a year to view!", MsgBoxStyle.Information, "ES Enrollment")
 
             Else
-                SQL = "SELECT AIRBRANCH.ESSCHEMA.STRAIRSNUMBER, " & _
-        "AIRBRANCH.ESSCHEMA.STRFACILITYNAME, " & _
-        "AIRBRANCH.ESSCHEMA.DATTRANSACTION " & _
-        "from AIRBRANCH.ESSCHEMA " & _
+                SQL = "SELECT AIRBRANCH.ESSCHEMA.STRAIRSNUMBER, " &
+        "AIRBRANCH.ESSCHEMA.STRFACILITYNAME, " &
+        "AIRBRANCH.ESSCHEMA.DATTRANSACTION " &
+        "from AIRBRANCH.ESSCHEMA " &
         "where AIRBRANCH.ESSCHEMA.INTESYEAR = '" & year & "'"
 
                 dsViewCount = New DataSet
@@ -7240,22 +7240,22 @@ Public Class DMUEisGecoTool
             Dim year As String = txtESYear.Text
             Dim intyear As Integer = Int(year)
 
-            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " & _
-            "AIRBRANCH.esSchema.STRFACILITYNAME, " & _
-            "AIRBRANCH.esSchema.STRCONTACTFIRSTNAME, " & _
-            "AIRBRANCH.esSchema.STRCONTACTLASTNAME, " & _
-            "AIRBRANCH.esSchema.STRCONTACTCOMPANY, " & _
-            "AIRBRANCH.esSchema.STRCONTACTEMAIL, " & _
-            "AIRBRANCH.esSchema.STRCONTACTPHONENUMBER " & _
-            "from (Select AIRBRANCH.ESSCHEMA.STRAIRSNUMBER AS SchemaAIRS, " & _
-            "AIRBRANCH.ESMAILOUT.STRAIRSNUMBER AS MailoutAIRS" & _
-            " From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA" & _
-            " Where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " & _
-            "AND ESSCHEMA.INTESYEAR=  '" & intyear & "' " & _
-            "AND AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " & _
-            "dt_NotInMailout, " & _
-            "AIRBRANCH.ESSCHEMA " & _
-            "Where AIRBRANCH.ESSCHEMA.STRAIRSNUMBER = SchemaAIRS " & _
+            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " &
+            "AIRBRANCH.esSchema.STRFACILITYNAME, " &
+            "AIRBRANCH.esSchema.STRCONTACTFIRSTNAME, " &
+            "AIRBRANCH.esSchema.STRCONTACTLASTNAME, " &
+            "AIRBRANCH.esSchema.STRCONTACTCOMPANY, " &
+            "AIRBRANCH.esSchema.STRCONTACTEMAIL, " &
+            "AIRBRANCH.esSchema.STRCONTACTPHONENUMBER " &
+            "from (Select AIRBRANCH.ESSCHEMA.STRAIRSNUMBER AS SchemaAIRS, " &
+            "AIRBRANCH.ESMAILOUT.STRAIRSNUMBER AS MailoutAIRS" &
+            " From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA" &
+            " Where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " &
+            "AND ESSCHEMA.INTESYEAR=  '" & intyear & "' " &
+            "AND AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " &
+            "dt_NotInMailout, " &
+            "AIRBRANCH.ESSCHEMA " &
+            "Where AIRBRANCH.ESSCHEMA.STRAIRSNUMBER = SchemaAIRS " &
             "AND MailoutAIRS is NULL"
 
             dsViewCount = New DataSet
@@ -7309,12 +7309,12 @@ Public Class DMUEisGecoTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT AIRBRANCH.ESMAILOUT.STRAIRSNUMBER, " & _
-            "AIRBRANCH.ESMAILOUT.STRFACILITYNAME " & _
-            "from AIRBRANCH.esSchema, AIRBRANCH.esmailout " & _
-            "where AIRBRANCH.esMailOut.strESyear = '" & intYear & "' " & _
-            "and AIRBRANCH.esSchema.STRAIRSYEAR is null " & _
-            "and AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " & _
+            SQL = "SELECT AIRBRANCH.ESMAILOUT.STRAIRSNUMBER, " &
+            "AIRBRANCH.ESMAILOUT.STRFACILITYNAME " &
+            "from AIRBRANCH.esSchema, AIRBRANCH.esmailout " &
+            "where AIRBRANCH.esMailOut.strESyear = '" & intYear & "' " &
+            "and AIRBRANCH.esSchema.STRAIRSYEAR is null " &
+            "and AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " &
             "order by AIRBRANCH.ESMAILOUT.STRFACILITYNAME"
 
             dsViewCount = New DataSet
@@ -7354,20 +7354,20 @@ Public Class DMUEisGecoTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT AIRBRANCH.esMailOut.STRAIRSNUMBER, " & _
-             "AIRBRANCH.esMailOut.STRFACILITYNAME, " & _
-             "AIRBRANCH.esMailOut.STRCONTACTFIRSTNAME, " & _
-             "AIRBRANCH.esMailOut.STRCONTACTLASTNAME, " & _
-             "AIRBRANCH.esMailOut.STRCONTACTCOMPANYname, " & _
-             "AIRBRANCH.esMailOut.STRCONTACTADDRESS1, " & _
-             "AIRBRANCH.esMailOut.STRCONTACTCITY, " & _
-             "AIRBRANCH.esMailOut.STRCONTACTSTATE, " & _
-             "AIRBRANCH.esMailOut.STRCONTACTZIPCODE, " & _
-             "AIRBRANCH.esMailOut.STRCONTACTEMAIL " & _
-            "from  AIRBRANCH.esmailout, AIRBRANCH.ESSchema " & _
-            "where AIRBRANCH.esmailout.strESYEAR = '" & intYear & "' " & _
-            "and AIRBRANCH.esmailout.STRAIRSYEAR = AIRBRANCH.ESSchema.STRAIRSYEAR(+) " & _
-            "and AIRBRANCH.ESSchema.strOptOut is NULL " & _
+            SQL = "SELECT AIRBRANCH.esMailOut.STRAIRSNUMBER, " &
+             "AIRBRANCH.esMailOut.STRFACILITYNAME, " &
+             "AIRBRANCH.esMailOut.STRCONTACTFIRSTNAME, " &
+             "AIRBRANCH.esMailOut.STRCONTACTLASTNAME, " &
+             "AIRBRANCH.esMailOut.STRCONTACTCOMPANYname, " &
+             "AIRBRANCH.esMailOut.STRCONTACTADDRESS1, " &
+             "AIRBRANCH.esMailOut.STRCONTACTCITY, " &
+             "AIRBRANCH.esMailOut.STRCONTACTSTATE, " &
+             "AIRBRANCH.esMailOut.STRCONTACTZIPCODE, " &
+             "AIRBRANCH.esMailOut.STRCONTACTEMAIL " &
+            "from  AIRBRANCH.esmailout, AIRBRANCH.ESSchema " &
+            "where AIRBRANCH.esmailout.strESYEAR = '" & intYear & "' " &
+            "and AIRBRANCH.esmailout.STRAIRSYEAR = AIRBRANCH.ESSchema.STRAIRSYEAR(+) " &
+            "and AIRBRANCH.ESSchema.strOptOut is NULL " &
             "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
@@ -7423,14 +7423,14 @@ Public Class DMUEisGecoTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " & _
-                "AIRBRANCH.esSchema.STRFACILITYNAME " & _
-                "from AIRBRANCH.ESSchema " & _
-                " where  not exists (select * from AIRBRANCH.ESMAILOUT " & _
-                " where AIRBRANCH.ESSchema.STRAIRSNUMBER = AIRBRANCH.ESMAILOUT.STRAIRSNUMBER" & _
-                " and ESSchema.INTESYEAR = ESMAILOUT.strESYEAR) " & _
-                " and AIRBRANCH.ESSchema.INTESYEAR = '" & intYear & "' " & _
-                " and AIRBRANCH.ESSchema.STROPTOUT is null   " & _
+            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " &
+                "AIRBRANCH.esSchema.STRFACILITYNAME " &
+                "from AIRBRANCH.ESSchema " &
+                " where  not exists (select * from AIRBRANCH.ESMAILOUT " &
+                " where AIRBRANCH.ESSchema.STRAIRSNUMBER = AIRBRANCH.ESMAILOUT.STRAIRSNUMBER" &
+                " and ESSchema.INTESYEAR = ESMAILOUT.strESYEAR) " &
+                " and AIRBRANCH.ESSchema.INTESYEAR = '" & intYear & "' " &
+                " and AIRBRANCH.ESSchema.STROPTOUT is null   " &
                 "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
 
@@ -7470,8 +7470,8 @@ Public Class DMUEisGecoTool
             Dim EItype As String = cboEItype.SelectedItem
             Dim EItypeYear As String = lblEITypeYear.Text
 
-            SQL = "SELECT AIRBRANCH.EITHRESHOLDYEARS.STREITYPE " & _
-                   "from  AIRBRANCH.EITHRESHOLDYEARS  " & _
+            SQL = "SELECT AIRBRANCH.EITHRESHOLDYEARS.STREITYPE " &
+                   "from  AIRBRANCH.EITHRESHOLDYEARS  " &
           "where AIRBRANCH.EITHRESHOLDYEARS.STRYEAR = '" & EItypeYear & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -7486,11 +7486,11 @@ Public Class DMUEisGecoTool
                 End If
                 EItype = cboEItype.SelectedItem
             End While
-            SQL = "SELECT AIRBRANCH.EITHRESHOLDS.STRPOLLUTANT, " & _
-            "AIRBRANCH.EITHRESHOLDS.NUMTHRESHOLD, " & _
-                "AIRBRANCH.EITHRESHOLDS.NUMTHRESHOLDNAA " & _
-            "from  AIRBRANCH.EITHRESHOLDS  " & _
-            "where AIRBRANCH.EITHRESHOLDS.STRTYPE = '" & EItype & "' " & _
+            SQL = "SELECT AIRBRANCH.EITHRESHOLDS.STRPOLLUTANT, " &
+            "AIRBRANCH.EITHRESHOLDS.NUMTHRESHOLD, " &
+                "AIRBRANCH.EITHRESHOLDS.NUMTHRESHOLDNAA " &
+            "from  AIRBRANCH.EITHRESHOLDS  " &
+            "where AIRBRANCH.EITHRESHOLDS.STRTYPE = '" & EItype & "' " &
              " order by AIRBRANCH.EITHRESHOLDS.STRPOLLUTANT"
 
             dsViewCount = New DataSet
@@ -7538,8 +7538,8 @@ Public Class DMUEisGecoTool
 
         Try
 
-            SQL = "Select AIRBRANCH.EITHRESHOLDYEARS.STRYEAR " & _
-          "FROM AIRBRANCH.EITHRESHOLDYEARS " & _
+            SQL = "Select AIRBRANCH.EITHRESHOLDYEARS.STRYEAR " &
+          "FROM AIRBRANCH.EITHRESHOLDYEARS " &
           "where  EITHRESHOLDYEARS.STRYEAR = '" & EItypeYear & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -7550,8 +7550,8 @@ Public Class DMUEisGecoTool
             recExist = dr.Read
 
             If recExist = True Then
-                SQL = "Update AIRBRANCH.EITHRESHOLDYEARS set " & _
-                "STREITYPE = '" & EItype & "' " & _
+                SQL = "Update AIRBRANCH.EITHRESHOLDYEARS set " &
+                "STREITYPE = '" & EItype & "' " &
                 "where AIRBRANCH.EITHRESHOLDYEARS.STRYEAR = '" & EItypeYear & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -7564,9 +7564,9 @@ Public Class DMUEisGecoTool
 
             Else
 
-                SQL = "Insert into AIRBRANCH.EITHRESHOLDYEARS " & _
-                 "(STRYEAR, STREITYPE ) " & _
-                 "values " & _
+                SQL = "Insert into AIRBRANCH.EITHRESHOLDYEARS " &
+                 "(STRYEAR, STREITYPE ) " &
+                 "values " &
                  "('" & EItypeYear & "', '" & EItype & "') "
 
                 MsgBox("The info has been inserted", MsgBoxStyle.Information, "EI Tools")
@@ -7588,8 +7588,8 @@ Public Class DMUEisGecoTool
             If txtNewEIType.Text = "" Then
                 MsgBox("Please enter new EI type!", MsgBoxStyle.Information, "EI Tools")
             Else
-                SQL = "Select AIRBRANCH.EITHRESHOLDS.STRTYPE " & _
-                                " FROM AIRBRANCH.EITHRESHOLDS " & _
+                SQL = "Select AIRBRANCH.EITHRESHOLDS.STRTYPE " &
+                                " FROM AIRBRANCH.EITHRESHOLDS " &
                                 "where   AIRBRANCH.EITHRESHOLDS.STRTYPE = '" & Replace(EItype2, "'", "''") & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -7603,7 +7603,7 @@ Public Class DMUEisGecoTool
                 If recExist = True Then
                     MsgBox("EI type already exist. Please enter new type! ", MsgBoxStyle.Information, "EI Tools")
                 Else
-                    SQL = "Select distinct(AIRBRANCH.EITHRESHOLDS.STRPOLLUTANT) as Pollutant " & _
+                    SQL = "Select distinct(AIRBRANCH.EITHRESHOLDS.STRPOLLUTANT) as Pollutant " &
                    " FROM AIRBRANCH.EITHRESHOLDS "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -7620,10 +7620,10 @@ Public Class DMUEisGecoTool
                         End If
 
                         If temp <> "" Then
-                            SQL = "Insert into AIRBranch.EIThresholds " & _
-                                "Values " & _
-                                "('" & Replace(temp, "'", "''") & "', " & _
-                                "'', '', '" & Replace(EItype2, "'", "''") & "', " & _
+                            SQL = "Insert into AIRBranch.EIThresholds " &
+                                "Values " &
+                                "('" & Replace(temp, "'", "''") & "', " &
+                                "'', '', '" & Replace(EItype2, "'", "''") & "', " &
                                 "(Select max(PollutantID) + 1 from AIRBranch.EIThresholds) ) "
                             cmd2 = New OracleCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
@@ -7646,8 +7646,8 @@ Public Class DMUEisGecoTool
 
 
 
-                SQL = "Select * " & _
-                    " FROM AIRBRANCH.EITHRESHOLDS " & _
+                SQL = "Select * " &
+                    " FROM AIRBRANCH.EITHRESHOLDS " &
                     "where   AIRBRANCH.EITHRESHOLDS.STRTYPE = '" & Replace(EItype2, "'", "''") & "' "
 
                 dsViewCount = New DataSet
@@ -7711,8 +7711,8 @@ Public Class DMUEisGecoTool
         Try
             Dim EItype2 As String = cboEIType2.SelectedItem
 
-            SQL = "Select * " & _
-                " FROM AIRBRANCH.EITHRESHOLDS " & _
+            SQL = "Select * " &
+                " FROM AIRBRANCH.EITHRESHOLDS " &
                 "where   AIRBRANCH.EITHRESHOLDS.STRTYPE = '" & Replace(EItype2, "'", "''") & "' "
 
 
@@ -7751,7 +7751,7 @@ Public Class DMUEisGecoTool
 
         End Try
     End Sub
-  
+
     Private Sub btnaddEISfaciity_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnaddEISfaciity.Click
         Try
             addonefacilityEIS()
@@ -7784,8 +7784,8 @@ Public Class DMUEisGecoTool
 
         Try
             'Checks to see if AIRS No. is in IAIP
-            SQL = "Select AIRBRANCH.APBFACILITYINFORMATION.STRFACILITYNAME " & _
-                           "FROM AIRBRANCH.APBFACILITYINFORMATION " & _
+            SQL = "Select AIRBRANCH.APBFACILITYINFORMATION.STRFACILITYNAME " &
+                           "FROM AIRBRANCH.APBFACILITYINFORMATION " &
                            "where  APBFACILITYINFORMATION.STRAIRSNUMBER = '" & airsno & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -7797,8 +7797,8 @@ Public Class DMUEisGecoTool
 
             If recExist = True Then
 
-                SQL = "Select * " & _
-                           "FROM AIRBRANCH.APBFACILITYINFORMATION " & _
+                SQL = "Select * " &
+                           "FROM AIRBRANCH.APBFACILITYINFORMATION " &
                            "where  APBFACILITYINFORMATION.STRAIRSNUMBER = '" & airsno & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -7824,8 +7824,8 @@ Public Class DMUEisGecoTool
 
 
                 'Check to see if AirsNo is in EIS Admin - previous FI submittal
-                SQL = "Select AIRBRANCH.EIS_Admin.FACILITYSITEID " & _
-                      "FROM AIRBRANCH.EIS_Admin " & _
+                SQL = "Select AIRBRANCH.EIS_Admin.FACILITYSITEID " &
+                      "FROM AIRBRANCH.EIS_Admin " &
                       "where  EIS_Admin.FACILITYSITEID = '" & facilitySiteID & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -7836,9 +7836,9 @@ Public Class DMUEisGecoTool
                 recExist = dr.Read
                 If recExist = True Then
                     'Check to see if AIRS No is enrolled for the year by checking strenrollment =1
-                    SQL = "Select FACILITYSITEID, strenrollment " & _
-                            "FROM AIRBRANCH.EIS_Admin " & _
-                            "where INVENTORYYEAR = '" & EISYear & "' " & _
+                    SQL = "Select FACILITYSITEID, strenrollment " &
+                            "FROM AIRBRANCH.EIS_Admin " &
+                            "where INVENTORYYEAR = '" & EISYear & "' " &
                             " And FACILITYSITEID = '" & facilitySiteID & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -7855,16 +7855,16 @@ Public Class DMUEisGecoTool
                                 MsgBox("This facility (" & facilitySiteID & ") is already enrolled for " & EISYear & ".", MsgBoxStyle.Information, "EIS Enrollment")
                             Case 0
                                 'update enrollment =1 and then msgbox
-                                SQL = "Update AIRBRANCH.EIS_ADMIN set " & _
-                                      "INVENTORYYEAR = '" & EISYear & "', " & _
-                                      "FACILITYSITEID = '" & facilitySiteID & "', " & _
-                                      "STRENROLLMENT = '1', " & _
-                                      "EISSTATUSCODE = '1', " & _
-                                      "STRMAILOUT = '1', " & _
-                                      "UpdateUser = '" & UserGCode & "', " & _
-                                      "DATEISSTATUS = '" & OracleDate & "', " & _
-                                      "UpdateDateTime = '" & OracleDate & "' " & _
-                                      "where FACILITYSITEID = '" & facilitySiteID & "' " & _
+                                SQL = "Update AIRBRANCH.EIS_ADMIN set " &
+                                      "INVENTORYYEAR = '" & EISYear & "', " &
+                                      "FACILITYSITEID = '" & facilitySiteID & "', " &
+                                      "STRENROLLMENT = '1', " &
+                                      "EISSTATUSCODE = '1', " &
+                                      "STRMAILOUT = '1', " &
+                                      "UpdateUser = '" & UserGCode & "', " &
+                                      "DATEISSTATUS = '" & OracleDate & "', " &
+                                      "UpdateDateTime = '" & OracleDate & "' " &
+                                      "where FACILITYSITEID = '" & facilitySiteID & "' " &
                                       " And INVENTORYYEAR = '" & EISYear & "' "
 
                                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -7878,27 +7878,27 @@ Public Class DMUEisGecoTool
 
                     Else
                         ' insert into EIS_admin table with EISaccesscode=1, EISStatus=1, Enrollment=1 and strmailout=1
-                        SQL2 = "Insert into AIRBRANCH.EIS_Admin " & _
-                        "(EIS_Admin.INVENTORYYEAR, " & _
-                        "EIS_Admin.FACILITYSITEID, " & _
-                        "EIS_Admin.UPDATEDATETIME, " & _
-                        "EIS_Admin.UPDATEUSER, " & _
-                        "EIS_Admin.EISSTATUSCODE, " & _
-                        "EIS_Admin.DATEISSTATUS, " & _
-                        "EIS_Admin.STRMAILOUT, " & _
-                        "EIS_Admin.strEnrollment, " & _
-                        "EIS_Admin.ACTIVE, " & _
-                        "EIS_Admin.CREATEDATETIME) " & _
-                        "values " & _
-                        "('" & Replace(EISYear, "'", "''") & "', " & _
-                        "'" & Replace(facilitySiteID, "'", "''") & "', " & _
-                        "'" & OracleDate & "', " & _
-                        "'" & Replace(UpdateUser, "'", "''") & "', " & _
-                        "'1', " & _
-                        "'" & OracleDate & "', " & _
-                        "'1', " & _
-                        "'1', " & _
-                        "'1', " & _
+                        SQL2 = "Insert into AIRBRANCH.EIS_Admin " &
+                        "(EIS_Admin.INVENTORYYEAR, " &
+                        "EIS_Admin.FACILITYSITEID, " &
+                        "EIS_Admin.UPDATEDATETIME, " &
+                        "EIS_Admin.UPDATEUSER, " &
+                        "EIS_Admin.EISSTATUSCODE, " &
+                        "EIS_Admin.DATEISSTATUS, " &
+                        "EIS_Admin.STRMAILOUT, " &
+                        "EIS_Admin.strEnrollment, " &
+                        "EIS_Admin.ACTIVE, " &
+                        "EIS_Admin.CREATEDATETIME) " &
+                        "values " &
+                        "('" & Replace(EISYear, "'", "''") & "', " &
+                        "'" & Replace(facilitySiteID, "'", "''") & "', " &
+                        "'" & OracleDate & "', " &
+                        "'" & Replace(UpdateUser, "'", "''") & "', " &
+                        "'1', " &
+                        "'" & OracleDate & "', " &
+                        "'1', " &
+                        "'1', " &
+                        "'1', " &
                         "'" & OracleDate & "' )"
 
                         cmd2 = New OracleCommand(SQL2, CurrentConnection)
@@ -7913,21 +7913,21 @@ Public Class DMUEisGecoTool
                 Else
                     ' Inserts facility into the FI components - 5 tables
                     ' insert into EIS_FacilitySite table
-                    SQL2 = "Insert into AIRBRANCH.EIS_FACILITYSITE " & _
-                   "(EIS_FACILITYSITE.FACILITYSITEID, " & _
-                   "EIS_FACILITYSITE.STRFACILITYSITENAME, " & _
-                   "EIS_FACILITYSITE.STRFACILITYSITESTATUSCODE, " & _
-                   "EIS_FACILITYSITE.UPDATEDATETIME, " & _
-                   "EIS_FACILITYSITE.UPDATEUSER, " & _
-                   "EIS_FACILITYSITE.ACTIVE, " & _
-                   "EIS_FACILITYSITE.CREATEDATETIME) " & _
-                   "values " & _
-                   "('" & Replace(facilitySiteID, "'", "''") & "', " & _
-                   "'" & Replace(facilityName, "'", "''") & "', " & _
-                   "'OP', " & _
-                   "'" & OracleDate & "', " & _
-                   "'" & Replace(UpdateUser, "'", "''") & "', " & _
-                   "'1', " & _
+                    SQL2 = "Insert into AIRBRANCH.EIS_FACILITYSITE " &
+                   "(EIS_FACILITYSITE.FACILITYSITEID, " &
+                   "EIS_FACILITYSITE.STRFACILITYSITENAME, " &
+                   "EIS_FACILITYSITE.STRFACILITYSITESTATUSCODE, " &
+                   "EIS_FACILITYSITE.UPDATEDATETIME, " &
+                   "EIS_FACILITYSITE.UPDATEUSER, " &
+                   "EIS_FACILITYSITE.ACTIVE, " &
+                   "EIS_FACILITYSITE.CREATEDATETIME) " &
+                   "values " &
+                   "('" & Replace(facilitySiteID, "'", "''") & "', " &
+                   "'" & Replace(facilityName, "'", "''") & "', " &
+                   "'OP', " &
+                   "'" & OracleDate & "', " &
+                   "'" & Replace(UpdateUser, "'", "''") & "', " &
+                   "'1', " &
                    "'" & OracleDate & "' )"
                     cmd2 = New OracleCommand(SQL2, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -7938,25 +7938,25 @@ Public Class DMUEisGecoTool
 
                     ' insert into EIS_admin table
                     'EISACCESSCODE needs to be changed to 1 once the EI components are in place - BCG
-                    SQL2 = "Insert into AIRBRANCH.EIS_Admin " & _
-                    "(EIS_Admin.INVENTORYYEAR, " & _
-                    "EIS_Admin.FACILITYSITEID, " & _
-                    "EIS_Admin.EISSTATUSCODE, " & _
-                    "EIS_Admin.EISACCESSCODE, " & _
-                    "EIS_Admin.STRENROLLMENT, " & _
-                    "EIS_Admin.UPDATEDATETIME, " & _
-                    "EIS_Admin.UPDATEUSER, " & _
-                    "EIS_Admin.ACTIVE, " & _
-                    "EIS_Admin.CREATEDATETIME) " & _
-                    "values " & _
-                    "('" & Replace(EISYear, "'", "''") & "', " & _
-                    "'" & Replace(facilitySiteID, "'", "''") & "', " & _
-                    "'1', " & _
-                    "'1', " & _
-                    "'1', " & _
-                    "'" & OracleDate & "', " & _
-                    "'" & Replace(UpdateUser, "'", "''") & "', " & _
-                    "'1', " & _
+                    SQL2 = "Insert into AIRBRANCH.EIS_Admin " &
+                    "(EIS_Admin.INVENTORYYEAR, " &
+                    "EIS_Admin.FACILITYSITEID, " &
+                    "EIS_Admin.EISSTATUSCODE, " &
+                    "EIS_Admin.EISACCESSCODE, " &
+                    "EIS_Admin.STRENROLLMENT, " &
+                    "EIS_Admin.UPDATEDATETIME, " &
+                    "EIS_Admin.UPDATEUSER, " &
+                    "EIS_Admin.ACTIVE, " &
+                    "EIS_Admin.CREATEDATETIME) " &
+                    "values " &
+                    "('" & Replace(EISYear, "'", "''") & "', " &
+                    "'" & Replace(facilitySiteID, "'", "''") & "', " &
+                    "'1', " &
+                    "'1', " &
+                    "'1', " &
+                    "'" & OracleDate & "', " &
+                    "'" & Replace(UpdateUser, "'", "''") & "', " &
+                    "'1', " &
                     "'" & OracleDate & "' )"
 
                     cmd2 = New OracleCommand(SQL2, CurrentConnection)
@@ -7967,34 +7967,34 @@ Public Class DMUEisGecoTool
                     dr2.Close()
 
                     'insert into EIS_FacilitySiteAddress table
-                    SQL2 = "Insert into AIRBRANCH.EIS_FACILITYSITEADDRESS " & _
-                  "(EIS_FACILITYSITEADDRESS.FACILITYSITEID, " & _
-                  "EIS_FACILITYSITEADDRESS.STRMAILINGADDRESSTEXT, " & _
-                  "EIS_FACILITYSITEADDRESS.STRMAILINGADDRESSCITYNAME, " & _
-                  "EIS_FACILITYSITEADDRESS.STRMAILINGADDRESSSTATECODE, " & _
-                  "EIS_FACILITYSITEADDRESS.STRMAILINGADDRESSPOSTALCODE, " & _
-                  "EIS_FACILITYSITEADDRESS.STRLOCATIONADDRESSTEXT, " & _
-                  "EIS_FACILITYSITEADDRESS.STRLOCALITYNAME, " & _
-                  "EIS_FACILITYSITEADDRESS.STRLOCATIONADDRESSPOSTALCODE, " & _
-                  "EIS_FACILITYSITEADDRESS.UPDATEDATETIME, " & _
-                  "EIS_FACILITYSITEADDRESS.UPDATEUSER, " & _
-                  "EIS_FACILITYSITEADDRESS.ACTIVE, " & _
-                  "EIS_FACILITYSITEADDRESS.CREATEDATETIME) " & _
-                  "values " & _
-                  "('" & Replace(facilitySiteID, "'", "''") & "', " & _
-                  " '" & Replace(faciltyMailingAddress, " '", "''") & "', " & _
-                  " '" & Replace(facilityMailingCity, "'", "''") & "', " & _
-                  " '" & Replace(facilityMailingState, " '", "''") & "', " & _
-                  " '" & Replace(faciityMailingZipcode, "'", "''") & "', " & _
-                  " '" & Replace(facilityLocationCity, " '", "''") & "', " & _
-                  "'GA', " & _
-                  "'" & Replace(facilityLocastionZipcode, "'", "''") & "', " & _
-                  "'" & OracleDate & "', " & _
-                  "'" & Replace(UpdateUser, "'", "''") & "', " & _
-                  "'1', " & _
+                    SQL2 = "Insert into AIRBRANCH.EIS_FACILITYSITEADDRESS " &
+                  "(EIS_FACILITYSITEADDRESS.FACILITYSITEID, " &
+                  "EIS_FACILITYSITEADDRESS.STRMAILINGADDRESSTEXT, " &
+                  "EIS_FACILITYSITEADDRESS.STRMAILINGADDRESSCITYNAME, " &
+                  "EIS_FACILITYSITEADDRESS.STRMAILINGADDRESSSTATECODE, " &
+                  "EIS_FACILITYSITEADDRESS.STRMAILINGADDRESSPOSTALCODE, " &
+                  "EIS_FACILITYSITEADDRESS.STRLOCATIONADDRESSTEXT, " &
+                  "EIS_FACILITYSITEADDRESS.STRLOCALITYNAME, " &
+                  "EIS_FACILITYSITEADDRESS.STRLOCATIONADDRESSPOSTALCODE, " &
+                  "EIS_FACILITYSITEADDRESS.UPDATEDATETIME, " &
+                  "EIS_FACILITYSITEADDRESS.UPDATEUSER, " &
+                  "EIS_FACILITYSITEADDRESS.ACTIVE, " &
+                  "EIS_FACILITYSITEADDRESS.CREATEDATETIME) " &
+                  "values " &
+                  "('" & Replace(facilitySiteID, "'", "''") & "', " &
+                  " '" & Replace(faciltyMailingAddress, " '", "''") & "', " &
+                  " '" & Replace(facilityMailingCity, "'", "''") & "', " &
+                  " '" & Replace(facilityMailingState, " '", "''") & "', " &
+                  " '" & Replace(faciityMailingZipcode, "'", "''") & "', " &
+                  " '" & Replace(facilityLocationCity, " '", "''") & "', " &
+                  "'GA', " &
+                  "'" & Replace(facilityLocastionZipcode, "'", "''") & "', " &
+                  "'" & OracleDate & "', " &
+                  "'" & Replace(UpdateUser, "'", "''") & "', " &
+                  "'1', " &
                   "'" & OracleDate & "' )"
 
-                 
+
                     cmd2 = New OracleCommand(SQL2, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
@@ -8003,19 +8003,19 @@ Public Class DMUEisGecoTool
                     dr2.Close()
 
                     ' insert into EIS_FacilityIdentification table
-                    SQL2 = "Insert into AIRBRANCH.EIS_FACILITYIDENTIFICATION " & _
-                  "(EIS_FACILITYIDENTIFICATION.FACILITYSITEID, " & _
-                  "EIS_FACILITYIDENTIFICATION.STRSTATEANDCOUNTYFIPSCODE, " & _
-                   "EIS_FACILITYIDENTIFICATION.UPDATEDATETIME, " & _
-                  "EIS_FACILITYIDENTIFICATION.UPDATEUSER, " & _
-                  "EIS_FACILITYIDENTIFICATION.ACTIVE, " & _
-                  "EIS_FACILITYIDENTIFICATION.CREATEDATETIME) " & _
-                  "values " & _
-                  "('" & Replace(facilitySiteID, "'", "''") & "', " & _
-                  "'" & Replace(FIPScode, "'", "''") & "', " & _
-                  "'" & OracleDate & "', " & _
-                  "'" & Replace(UpdateUser, "'", "''") & "', " & _
-                  "'1', " & _
+                    SQL2 = "Insert into AIRBRANCH.EIS_FACILITYIDENTIFICATION " &
+                  "(EIS_FACILITYIDENTIFICATION.FACILITYSITEID, " &
+                  "EIS_FACILITYIDENTIFICATION.STRSTATEANDCOUNTYFIPSCODE, " &
+                   "EIS_FACILITYIDENTIFICATION.UPDATEDATETIME, " &
+                  "EIS_FACILITYIDENTIFICATION.UPDATEUSER, " &
+                  "EIS_FACILITYIDENTIFICATION.ACTIVE, " &
+                  "EIS_FACILITYIDENTIFICATION.CREATEDATETIME) " &
+                  "values " &
+                  "('" & Replace(facilitySiteID, "'", "''") & "', " &
+                  "'" & Replace(FIPScode, "'", "''") & "', " &
+                  "'" & OracleDate & "', " &
+                  "'" & Replace(UpdateUser, "'", "''") & "', " &
+                  "'1', " &
                   "'" & OracleDate & "' )"
 
                     cmd2 = New OracleCommand(SQL2, CurrentConnection)
@@ -8026,27 +8026,27 @@ Public Class DMUEisGecoTool
                     dr2.Close()
 
                     ' insert into EIS_FACILITYGEOCOORD table
-                    SQL2 = "Insert into AIRBRANCH.EIS_FACILITYGEOCOORD " & _
-                  "(EIS_FACILITYGEOCOORD.FACILITYSITEID, " & _
-                  "EIS_FACILITYGEOCOORD.NUMLATITUDEMEASURE, " & _
-                  "EIS_FACILITYGEOCOORD.NUMLONGITUDEMEASURE, " & _
-                  "EIS_FACILITYGEOCOORD.INTHORACCURACYMEASURE, " & _
-                  "EIS_FACILITYGEOCOORD.STRHORCOLLMETCODE, " & _
-                  "EIS_FACILITYGEOCOORD.STRHORREFDATUMCODE, " & _
-                  "EIS_FACILITYGEOCOORD.UPDATEDATETIME, " & _
-                  "EIS_FACILITYGEOCOORD.UPDATEUSER, " & _
-                  "EIS_FACILITYGEOCOORD.ACTIVE, " & _
-                  "EIS_FACILITYGEOCOORD.CREATEDATETIME) " & _
-                  "values " & _
-                  "('" & Replace(facilitySiteID, "'", "''") & "', " & _
-                   "'" & facilityLatitude & "', " & _
-                  "'" & facilityLongitude & "', " & _
-                  "'" & HorizontalAccuracyMeasure & "', " & _
-                  "'" & HorizontalCollectionCode & "', " & _
-                  "'" & HorizontalReferenceCode & "', " & _
-                  "'" & OracleDate & "', " & _
-                  "'" & Replace(UpdateUser, "'", "''") & "', " & _
-                  "'1', " & _
+                    SQL2 = "Insert into AIRBRANCH.EIS_FACILITYGEOCOORD " &
+                  "(EIS_FACILITYGEOCOORD.FACILITYSITEID, " &
+                  "EIS_FACILITYGEOCOORD.NUMLATITUDEMEASURE, " &
+                  "EIS_FACILITYGEOCOORD.NUMLONGITUDEMEASURE, " &
+                  "EIS_FACILITYGEOCOORD.INTHORACCURACYMEASURE, " &
+                  "EIS_FACILITYGEOCOORD.STRHORCOLLMETCODE, " &
+                  "EIS_FACILITYGEOCOORD.STRHORREFDATUMCODE, " &
+                  "EIS_FACILITYGEOCOORD.UPDATEDATETIME, " &
+                  "EIS_FACILITYGEOCOORD.UPDATEUSER, " &
+                  "EIS_FACILITYGEOCOORD.ACTIVE, " &
+                  "EIS_FACILITYGEOCOORD.CREATEDATETIME) " &
+                  "values " &
+                  "('" & Replace(facilitySiteID, "'", "''") & "', " &
+                   "'" & facilityLatitude & "', " &
+                  "'" & facilityLongitude & "', " &
+                  "'" & HorizontalAccuracyMeasure & "', " &
+                  "'" & HorizontalCollectionCode & "', " &
+                  "'" & HorizontalReferenceCode & "', " &
+                  "'" & OracleDate & "', " &
+                  "'" & Replace(UpdateUser, "'", "''") & "', " &
+                  "'1', " &
                   "'" & OracleDate & "' )"
 
                     cmd2 = New OracleCommand(SQL2, CurrentConnection)
@@ -8057,17 +8057,17 @@ Public Class DMUEisGecoTool
                     dr2.Close()
 
                     ' insert into EIS_FACILITYSITEAFFINDIV table
-                    SQL2 = "Insert into AIRBRANCH.EIS_FACILITYSITEAFFINDIV " & _
-                  "(EIS_FACILITYSITEAFFINDIV.FACILITYSITEID, " & _
-                  "EIS_FACILITYSITEAFFINDIV.UPDATEDATETIME, " & _
-                  "EIS_FACILITYSITEAFFINDIV.UPDATEUSER, " & _
-                  "EIS_FACILITYSITEAFFINDIV.ACTIVE, " & _
-                  "EIS_FACILITYSITEAFFINDIV.CREATEDATETIME) " & _
-                  "values " & _
-                  "('" & Replace(facilitySiteID, "'", "''") & "', " & _
-                  "'" & OracleDate & "', " & _
-                  "'" & Replace(UpdateUser, "'", "''") & "', " & _
-                  "'1', " & _
+                    SQL2 = "Insert into AIRBRANCH.EIS_FACILITYSITEAFFINDIV " &
+                  "(EIS_FACILITYSITEAFFINDIV.FACILITYSITEID, " &
+                  "EIS_FACILITYSITEAFFINDIV.UPDATEDATETIME, " &
+                  "EIS_FACILITYSITEAFFINDIV.UPDATEUSER, " &
+                  "EIS_FACILITYSITEAFFINDIV.ACTIVE, " &
+                  "EIS_FACILITYSITEAFFINDIV.CREATEDATETIME) " &
+                  "values " &
+                  "('" & Replace(facilitySiteID, "'", "''") & "', " &
+                  "'" & OracleDate & "', " &
+                  "'" & Replace(UpdateUser, "'", "''") & "', " &
+                  "'1', " &
                   "'" & OracleDate & "' )"
 
                     cmd2 = New OracleCommand(SQL2, CurrentConnection)
@@ -8102,17 +8102,17 @@ Public Class DMUEisGecoTool
         Dim sql As String
         Try
 
-            sql = "Update AIRBRANCH.EIS_ADMIN set " & _
-             "INVENTORYYEAR = '" & EISYear & "', " & _
-             "FACILITYSITEID = '" & FacilitySiteID & "', " & _
-             "EISACCESSCODE = '" & EISAccessCode & "', " & _
-             "EISSTATUSCODE = '" & EISSTATUSCODE & "', " & _
-             "STRENROLLMENT = '" & enrollment & "', " & _
-             "Active = '" & active & "', " & _
-             "UpdateUser = '" & UserGCode & "', " & _
-             "DATEISSTATUS = '" & OracleDate & "', " & _
-             "UpdateDateTime = '" & OracleDate & "' " & _
-             "where FACILITYSITEID = '" & FacilitySiteID & "' " & _
+            sql = "Update AIRBRANCH.EIS_ADMIN set " &
+             "INVENTORYYEAR = '" & EISYear & "', " &
+             "FACILITYSITEID = '" & FacilitySiteID & "', " &
+             "EISACCESSCODE = '" & EISAccessCode & "', " &
+             "EISSTATUSCODE = '" & EISSTATUSCODE & "', " &
+             "STRENROLLMENT = '" & enrollment & "', " &
+             "Active = '" & active & "', " &
+             "UpdateUser = '" & UserGCode & "', " &
+             "DATEISSTATUS = '" & OracleDate & "', " &
+             "UpdateDateTime = '" & OracleDate & "' " &
+             "where FACILITYSITEID = '" & FacilitySiteID & "' " &
              " And INVENTORYYEAR = '" & EISYear & "' "
 
             cmd = New OracleCommand(sql, CurrentConnection)
@@ -8140,10 +8140,10 @@ Public Class DMUEisGecoTool
         Dim SQL As String
 
         Try
-            SQL = "Select FACILITYSITEID, EISACCESSCODE " & _
-                  "FROM AIRBRANCH.EIS_Admin " & _
-                  "where INVENTORYYEAR = '" & EISYear & "' " & _
-                  " And FACILITYSITEID = '" & FacilitySiteID & "' " & _
+            SQL = "Select FACILITYSITEID, EISACCESSCODE " &
+                  "FROM AIRBRANCH.EIS_Admin " &
+                  "where INVENTORYYEAR = '" & EISYear & "' " &
+                  " And FACILITYSITEID = '" & FacilitySiteID & "' " &
                   " And STRENROLLMENT = '" & enrollment & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -8174,8 +8174,8 @@ Public Class DMUEisGecoTool
         Dim SQL As String
 
         Try
-            SQL = "Select FACILITYSITEID " & _
-                                   "FROM AIRBRANCH.EIS_Admin " & _
+            SQL = "Select FACILITYSITEID " &
+                                   "FROM AIRBRANCH.EIS_Admin " &
                                    "where FACILITYSITEID = '" & FacilitySiteID & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -8203,8 +8203,8 @@ Public Class DMUEisGecoTool
         Dim SQL As String
         Dim EIStype As String
         Try
-            SQL = "Select distinct EITHRESHOLDS.STRTYPE " & _
-            "from AIRBRANCH.EITHRESHOLDS " & _
+            SQL = "Select distinct EITHRESHOLDS.STRTYPE " &
+            "from AIRBRANCH.EITHRESHOLDS " &
             "order by STRTYPE desc "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -8214,11 +8214,11 @@ Public Class DMUEisGecoTool
             dr = cmd.ExecuteReader
             While dr.Read
                 EIStype = dr("STRTYPE")
-                cboEIStype.Items.Add(EIStype)
+                cboEISType.Items.Add(EIStype)
                 cboEISType2.Items.Add(EIStype)
             End While
 
-            cboEIStype.SelectedIndex = 0
+            cboEISType.SelectedIndex = 0
             cboEISType2.SelectedIndex = 0
 
         Catch ex As Exception
@@ -8237,8 +8237,8 @@ Public Class DMUEisGecoTool
                 CurrentConnection.Open()
             End If
 
-            SQL = "Select distinct INVENTORYYEAR " & _
-                      "from AIRBRANCH.EIS_Admin  " & _
+            SQL = "Select distinct INVENTORYYEAR " &
+                      "from AIRBRANCH.EIS_Admin  " &
                       "order by INVENTORYYEAR desc"
             Dim cmd As New OracleCommand(SQL, CurrentConnection)
 
@@ -8260,8 +8260,8 @@ Public Class DMUEisGecoTool
         Dim SQL As String
         Dim year As String
         Try
-            SQL = "Select distinct strYear " & _
-            "from AIRBRANCH.EITHRESHOLDYEARS " & _
+            SQL = "Select distinct strYear " &
+            "from AIRBRANCH.EITHRESHOLDYEARS " &
             "order by strYear desc "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -8308,7 +8308,7 @@ Public Class DMUEisGecoTool
         Dim SQL As String
 
         Try
-            SQL = "Select distinct  EISSTATUSCODE, STRDESC " & _
+            SQL = "Select distinct  EISSTATUSCODE, STRDESC " &
             "from AIRBRANCH.EISLK_EISSTATUSCODE "
 
             dscode = New DataSet
@@ -8342,8 +8342,8 @@ Public Class DMUEisGecoTool
                 .SelectedIndex = 0
             End With
 
-            SQL = "select strDesc, EISAccessCode " & _
-            " from AIRBranch.EISLK_EISAccesscode  " & _
+            SQL = "select strDesc, EISAccessCode " &
+            " from AIRBranch.EISLK_EISAccesscode  " &
             "order by strDesc"
 
             dscode = New DataSet
@@ -8411,9 +8411,9 @@ Public Class DMUEisGecoTool
 
 
         Try
-            SQL = "Select * " & _
-            "FROM AIRBRANCH.EIS_ADMIN " & _
-            "where INVENTORYYEAR = '" & EISYear & "'" & _
+            SQL = "Select * " &
+            "FROM AIRBRANCH.EIS_ADMIN " &
+            "where INVENTORYYEAR = '" & EISYear & "'" &
             " and active ='1' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -8424,10 +8424,10 @@ Public Class DMUEisGecoTool
             recExist = dr.Read
 
             If recExist = True Then
-                SQL = "Select * " & _
-            "FROM AIRBRANCH.EIS_ADMIN " & _
-            "where INVENTORYYEAR = '" & EISYear & "'" & _
-            " and strenrollment = '1'" & _
+                SQL = "Select * " &
+            "FROM AIRBRANCH.EIS_ADMIN " &
+            "where INVENTORYYEAR = '" & EISYear & "'" &
+            " and strenrollment = '1'" &
             " and active ='1'"
 
 
@@ -8441,9 +8441,9 @@ Public Class DMUEisGecoTool
                 If recExist2 = True Then
                     MsgBox("That year " & EISYear & " is already enrolled.", MsgBoxStyle.Information, "EIS Enrollment")
                 Else
-                    SQL = "Select EIS_MAILOUT.FACILITYSITEID, EIS_MAILOUT.STRFACILITYNAME " & _
-               "FROM AIRBRANCH.EIS_MAILOUT " & _
-               "where EIS_MAILOUT.INTINVENTORYYEAR = '" & EISYear & "'" & _
+                    SQL = "Select EIS_MAILOUT.FACILITYSITEID, EIS_MAILOUT.STRFACILITYNAME " &
+               "FROM AIRBRANCH.EIS_MAILOUT " &
+               "where EIS_MAILOUT.INTINVENTORYYEAR = '" & EISYear & "'" &
                " and active '1'"
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -8453,10 +8453,10 @@ Public Class DMUEisGecoTool
                     dr = cmd.ExecuteReader
                     dr.Read()
                     'Update strenrollment =1, EISstatuscode=1, and active =1 to EIS_admin table
-                    SQL = "SELECT FACILITYSITEID " & _
-                                          "from AIRBRANCH.EIS_ADMIN " & _
-                                          "where EIS_ADMIN.INVENTORYYEAR = '" & EISYear & "'" & _
-                                          " order by FACILITYSITEID " & _
+                    SQL = "SELECT FACILITYSITEID " &
+                                          "from AIRBRANCH.EIS_ADMIN " &
+                                          "where EIS_ADMIN.INVENTORYYEAR = '" & EISYear & "'" &
+                                          " order by FACILITYSITEID " &
                                           " and active = '1' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -8474,15 +8474,15 @@ Public Class DMUEisGecoTool
                             facilitySiteID = dr("FACILITYSITEID")
                         End If
 
-                        SQL2 = "Update AIRBRANCH.EIS_ADMIN set " & _
-            "EISACCESSCODE = '" & EISAccessCode & "', " & _
-            "EISSTATUSCODE = '" & EISSTATUSCODE & "', " & _
-            "STRENROLLMENT = '" & enrollment & "', " & _
-            "Active = '" & active & "', " & _
-            "UpdateUser = '" & UserGCode & "', " & _
-            "DATEISSTATUS = '" & OracleDate & "', " & _
-            "UpdateDateTime = '" & OracleDate & "' " & _
-            "where FACILITYSITEID = '" & facilitySiteID & "' " & _
+                        SQL2 = "Update AIRBRANCH.EIS_ADMIN set " &
+            "EISACCESSCODE = '" & EISAccessCode & "', " &
+            "EISSTATUSCODE = '" & EISSTATUSCODE & "', " &
+            "STRENROLLMENT = '" & enrollment & "', " &
+            "Active = '" & active & "', " &
+            "UpdateUser = '" & UserGCode & "', " &
+            "DATEISSTATUS = '" & OracleDate & "', " &
+            "UpdateDateTime = '" & OracleDate & "' " &
+            "where FACILITYSITEID = '" & facilitySiteID & "' " &
             " And INVENTORYYEAR = '" & EISYear & "' "
                         cmd2 = New OracleCommand(SQL2, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -8521,7 +8521,7 @@ Public Class DMUEisGecoTool
                 Dim intAnswer As DialogResult
                 intAnswer = MessageBox.Show("Remove the enrollment?", "EIS Enrollment", MessageBoxButtons.OKCancel, MessageBoxIcon.Information)
                 Select Case intAnswer
-                    Case Windows.Forms.DialogResult.OK
+                    Case DialogResult.OK
                         sql = "SELECT FACILITYSITEID " & _
                        "from AIRBRANCH.EIS_ADMIN " & _
                        "where EIS_ADMIN.INVENTORYYEAR = '" & EISYear & "'" & _

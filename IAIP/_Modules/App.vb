@@ -124,7 +124,7 @@ Module App
                     dr = MessageBox.Show("An update is available (" & _
                                          info.AvailableVersion.ToString & "). Would you like to install it now?", _
                                          "Update Available", MessageBoxButtons.YesNo)
-                    If (Not System.Windows.Forms.DialogResult.Yes = dr) Then doUpdate = False
+                    If (Not DialogResult.Yes = dr) Then doUpdate = False
                 Else
                     ' Display a message that the app MUST reboot. Display the minimum required version.
                     MessageBox.Show("A mandatory update will now be installed (" & info.AvailableVersion.ToString & "). ", _

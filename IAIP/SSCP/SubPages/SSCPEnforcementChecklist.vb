@@ -1337,7 +1337,7 @@ Public Class SSCPEnforcementChecklist
               "Enforcement Linking Tool", MessageBoxButtons.YesNoCancel, _
                 MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
 
-            If Result = Windows.Forms.DialogResult.Yes Then Me.Close()
+            If Result = DialogResult.Yes Then Me.Close()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

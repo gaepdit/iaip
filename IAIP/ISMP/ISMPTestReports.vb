@@ -10770,7 +10770,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             
             If MessageBox.Show("Are you sure you want to delete test report no. " & RefNum & "?", "Confirm Delete", _
                                MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) _
-                               = Windows.Forms.DialogResult.No Then
+                               = DialogResult.No Then
                 Exit Sub
             End If
 

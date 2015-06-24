@@ -1035,7 +1035,7 @@ Public Class ISMPTestReportAdministrative
         Try
             If MessageBox.Show("Are you sure you want to delete these test reports?", "Confirm Delete", _
                                MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) _
-                               = Windows.Forms.DialogResult.No Then
+                               = DialogResult.No Then
                 Exit Sub
             End If
 
@@ -2142,7 +2142,7 @@ Public Class ISMPTestReportAdministrative
         Try
             Dim facilityLookupDialog As New IAIPFacilityLookUpTool
             facilityLookupDialog.ShowDialog()
-            If facilityLookupDialog.DialogResult = Windows.Forms.DialogResult.OK _
+            If facilityLookupDialog.DialogResult = DialogResult.OK _
             AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
                 Me.ValueFromFacilityLookUp = facilityLookupDialog.SelectedAirsNumber
             End If

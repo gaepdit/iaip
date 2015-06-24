@@ -1684,7 +1684,7 @@ Public Class IAIPFacilityCreator
             Dim result As DialogResult
             result = MessageBox.Show("Are you sure you want to completely remove this facility from the database? The data will not be recoverable.", "Confirm facility deletion", _
                                       MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
-            If result = Windows.Forms.DialogResult.No Then
+            If result = DialogResult.No Then
                 Exit Sub
             End If
 
@@ -2275,7 +2275,7 @@ Public Class IAIPFacilityCreator
             Dim result As DialogResult
             result = MessageBox.Show("Are you sure you want to completely remove this facility from the database? The data will not be recoverable.", "Confirm facility deletion", _
                                       MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
-            If result = Windows.Forms.DialogResult.No Then
+            If result = DialogResult.No Then
                 Exit Sub
             End If
 

@@ -55,7 +55,7 @@ Public Class SsppPermitRevocationDialog
             PermitsToRevoke.AddRange(ActivePermitsCheckedListBox.CheckedItems.OfType(Of Permit))
         End If
 
-        Me.DialogResult = System.Windows.Forms.DialogResult.OK
+        Me.DialogResult = DialogResult.OK
         Me.Close()
     End Sub
 

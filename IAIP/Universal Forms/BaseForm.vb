@@ -84,12 +84,12 @@ Public Class BaseForm
             formSettings(FormSetting.WindowState.ToString) = Me.WindowState.ToString
         End If
 
-        If Me.WindowState = FormWindowState.Normal AndAlso Me.SizeGripStyle <> Windows.Forms.SizeGripStyle.Hide Then
-            Dim pointConverter As System.ComponentModel.TypeConverter = _
+        If Me.WindowState = FormWindowState.Normal AndAlso Me.SizeGripStyle <> SizeGripStyle.Hide Then
+            Dim pointConverter As System.ComponentModel.TypeConverter =
                 System.ComponentModel.TypeDescriptor.GetConverter(GetType(Point))
             formSettings(FormSetting.Location.ToString) = pointConverter.ConvertToString(Me.Location)
 
-            Dim sizeConverter As System.ComponentModel.TypeConverter = _
+            Dim sizeConverter As System.ComponentModel.TypeConverter =
                 System.ComponentModel.TypeDescriptor.GetConverter(GetType(Size))
             formSettings(FormSetting.Size.ToString) = sizeConverter.ConvertToString(Me.Size)
         End If

@@ -509,7 +509,7 @@ Partial Class IAIPFacilityLookUpTool
         '
         'btnUseAIRSNumber
         '
-        Me.btnUseAIRSNumber.DialogResult = System.Windows.Forms.DialogResult.OK
+        Me.btnUseAIRSNumber.DialogResult = DialogResult.OK
         Me.btnUseAIRSNumber.Enabled = False
         Me.btnUseAIRSNumber.Location = New System.Drawing.Point(306, 138)
         Me.btnUseAIRSNumber.Name = "btnUseAIRSNumber"
@@ -519,7 +519,7 @@ Partial Class IAIPFacilityLookUpTool
         '
         'btnCancel
         '
-        Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.btnCancel.DialogResult = DialogResult.Cancel
         Me.btnCancel.Location = New System.Drawing.Point(382, 138)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(70, 46)

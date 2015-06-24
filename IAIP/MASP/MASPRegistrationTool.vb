@@ -576,7 +576,7 @@ Public Class MASPRegistrationTool
             resultcode = MessageBox.Show("This will create a new Event." & vbCrLf & _
                   "Click Ok to create a new event.", Me.Text, _
                   MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-            If resultcode = Windows.Forms.DialogResult.OK Then
+            If resultcode = DialogResult.OK Then
                 Dim newEventId As Decimal = Insert_RES_Event(cboEventStatus.SelectedValue, txtEventTitle.Text, txtEventDescription.Text, _
                                  DTPEventDate.Text, EndDate, txtEventVenue.Text, _
                                  txtEventAddress.Text, txtEventCity.Text, mtbEventState.Text, _

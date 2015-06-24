@@ -5392,7 +5392,7 @@ Public Class IAIPQueryGenerator
             path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
             path.DefaultExt = ".txt"
 
-            If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+            If path.ShowDialog = DialogResult.OK Then
                 DestFilePath = path.FileName.ToString
             Else
                 DestFilePath = "N/A"
@@ -5453,7 +5453,7 @@ Public Class IAIPQueryGenerator
             path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
             path.DefaultExt = ".txt"
 
-            If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+            If path.ShowDialog = DialogResult.OK Then
                 DestFilePath = path.FileName.ToString
             Else
                 DestFilePath = "N/A"
