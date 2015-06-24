@@ -80,7 +80,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>7570B1A8066E9505C4C50D0642D02E5FEDE71703</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>B17B34EE8061B524F7D2064113D7144F79C898CB</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>IAIP Framework_TemporaryKey.pfx</ManifestKeyFile>
