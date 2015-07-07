@@ -1698,7 +1698,7 @@ Public Class PASPFeeManagement
             SQL = "Update AIRBRANCH.FS_Admin set " & _
             " datMailoutSent = '" & dtpDateMailoutSent.Text & "', " & _
             " numcurrentstatus = 4, " & _
-            " STRINITIALMAILOUT = 1 , " & _
+            " STRINITIALMAILOUT = '1' , " & _
             " strMailOutSent = '1' " & _
             " where numFeeYear = '" & cboAvailableFeeYears.Text & "' " & _
             " and datMailoutSent is null " & _
