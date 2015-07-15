@@ -1,4 +1,4 @@
-﻿Imports Oracle.DataAccess.Client
+﻿Imports Oracle.ManagedDataAccess.Client
 Imports CrystalDecisions.Shared
 Imports CrystalDecisions.CrystalReports.Engine
 
@@ -3783,7 +3783,7 @@ Public Class PASPFeeStatistics
 
             CRFeesReports.ReportSource = rpt
             DisplayReport(CRFeesReports, "Overall Fee Balance")
-            CRFeesReports.DisplayGroupTree = False
+            CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
             CRFeesReports.ShowGroupTreeButton = False
             CRFeesReports.Refresh()
 
@@ -3881,7 +3881,7 @@ Public Class PASPFeeStatistics
             'rpt.SetDatabaseLogon("AIRBranch_App_User", SimpleCrypt("çòáðò±ì"))
             CRFeesReports.ReportSource = rpt
             DisplayReport(CRFeesReports, "Payments by Date - " & Format(DateTimePicker1.Value, "dd-MMM-yyyy") & " --> " & Format(DateTimePicker2.Value, "dd-MMM-yyyy"))
-            CRFeesReports.DisplayGroupTree = False
+            CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
             CRFeesReports.ShowGroupTreeButton = False
             CRFeesReports.Refresh()
 
@@ -3952,7 +3952,7 @@ Public Class PASPFeeStatistics
             'rpt.SetDatabaseLogon("AIRBranch_App_User", SimpleCrypt("çòáðò±ì"))
             CRFeesReports.ReportSource = rpt
             DisplayReport(CRFeesReports, "Payments by Date - " & Format(DateTimePicker1.Value, "dd-MMM-yyyy") & " --> " & Format(DateTimePicker2.Value, "dd-MMM-yyyy"))
-            CRFeesReports.DisplayGroupTree = False
+            CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
             CRFeesReports.ShowGroupTreeButton = False
             CRFeesReports.Refresh()
 
@@ -3986,7 +3986,7 @@ Public Class PASPFeeStatistics
             rpt.SetDataSource(ds)
 
             CRFeesReports.ReportSource = rpt
-            CRFeesReports.DisplayGroupTree = False
+            CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
             CRFeesReports.ShowGroupTreeButton = False
             CRFeesReports.Refresh()
 
@@ -4021,7 +4021,7 @@ Public Class PASPFeeStatistics
 
             CRFeesReports.ReportSource = rpt
             DisplayReport(CRFeesReports, "Total Fee by Year")
-            CRFeesReports.DisplayGroupTree = False
+            CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
             CRFeesReports.ShowGroupTreeButton = False
             CRFeesReports.Refresh()
 
@@ -4090,7 +4090,7 @@ Public Class PASPFeeStatistics
 
             CRFeesReports.ReportSource = rpt
             DisplayReport(CRFeesReports, "Variance Report")
-            CRFeesReports.DisplayGroupTree = False
+            CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
             CRFeesReports.ShowGroupTreeButton = False
             CRFeesReports.Refresh()
 
@@ -4234,7 +4234,7 @@ Public Class PASPFeeStatistics
             'rpt.SetDatabaseLogon("AIRBranch_App_User", SimpleCrypt("çòáðò±ì"))
             CRFeesReports.ReportSource = rpt
             DisplayReport(CRFeesReports, header)
-            CRFeesReports.DisplayGroupTree = False
+            CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
             CRFeesReports.ShowGroupTreeButton = False
             CRFeesReports.Refresh()
 
@@ -4275,7 +4275,7 @@ Public Class PASPFeeStatistics
             rpt.SetDataSource(ds)
 
             CRFeesReports.ReportSource = rpt
-            CRFeesReports.DisplayGroupTree = True
+            CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
             CRFeesReports.ShowGroupTreeButton = True
             CRFeesReports.Refresh()
 
@@ -4552,7 +4552,7 @@ Public Class PASPFeeStatistics
             CRFeesReports.ReportSource = rpt
             DisplayReport(CRFeesReports, "Facility Comments")
             CRFeesReports.ReportSource = rpt
-            CRFeesReports.DisplayGroupTree = False
+            CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
             CRFeesReports.ShowGroupTreeButton = False
             CRFeesReports.Refresh()
 
@@ -4586,7 +4586,7 @@ Public Class PASPFeeStatistics
 
             CRFeesReports.ReportSource = rpt
             DisplayReport(CRFeesReports, "Facility Info")
-            CRFeesReports.DisplayGroupTree = False
+            CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
             CRFeesReports.ShowGroupTreeButton = False
             CRFeesReports.Refresh()
 
@@ -4618,7 +4618,7 @@ Public Class PASPFeeStatistics
 
             CRFeesReports.ReportSource = rpt
             DisplayReport(CRFeesReports, "Training Registrants")
-            CRFeesReports.DisplayGroupTree = False
+            CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
             CRFeesReports.ShowGroupTreeButton = False
             CRFeesReports.Refresh()
 

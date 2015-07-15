@@ -1,5 +1,5 @@
 'Imports System.DateTime
-Imports Oracle.DataAccess.Client
+Imports Oracle.ManagedDataAccess.Client
 Imports System.Windows.Forms
 'Imports Microsoft.Office.Core
 Imports System.IO
@@ -9166,7 +9166,7 @@ Public Class ISMPManagersTools
             path.FilterIndex = 2
             path.RestoreDirectory = True
 
-            If path.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            If path.ShowDialog() = DialogResult.OK Then
                 myStream = path.OpenFile()
                 If Not (myStream Is Nothing) Then
                     If path.ValidateNames() Then
@@ -9430,7 +9430,7 @@ Public Class ISMPManagersTools
                 path.FilterIndex = 1
                 path.DefaultExt = ".xls"
 
-                If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+                If path.ShowDialog = DialogResult.OK Then
                     DestFilePath = path.FileName.ToString
                 Else
                     DestFilePath = "N/A"
@@ -9964,7 +9964,7 @@ Public Class ISMPManagersTools
         Try
             Dim facilityLookupDialog As New IAIPFacilityLookUpTool
             facilityLookupDialog.ShowDialog()
-            If facilityLookupDialog.DialogResult = Windows.Forms.DialogResult.OK _
+            If facilityLookupDialog.DialogResult = DialogResult.OK _
             AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
                 Me.ValueFromFacilityLookUp = facilityLookupDialog.SelectedAirsNumber
                 Me.ValueFromFacilityLookUp2 = facilityLookupDialog.SelectedFacilityName

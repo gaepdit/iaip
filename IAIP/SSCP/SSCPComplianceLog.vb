@@ -1,4 +1,4 @@
-Imports Oracle.DataAccess.Client
+Imports Oracle.ManagedDataAccess.Client
 Imports System.Collections.Generic
 
 
@@ -907,7 +907,7 @@ Public Class SSCPComplianceLog
                         DeleteStatus = MessageBox.Show("Should this Work Item be deleted?", _
                                       "Work Entry Delete", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1)
                         Select Case DeleteStatus
-                            Case Windows.Forms.DialogResult.Yes
+                            Case DialogResult.Yes
                                 SQL = "Update AIRBRANCH.SSCPItemMaster set " & _
                                 "strDelete = 'True' " & _
                                 "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
@@ -921,9 +921,9 @@ Public Class SSCPComplianceLog
 
                                 LoaddgvWork()
 
-                            Case Windows.Forms.DialogResult.No
+                            Case DialogResult.No
                                 SQL = ""
-                            Case Windows.Forms.DialogResult.Cancel
+                            Case DialogResult.Cancel
                                 SQL = ""
                             Case Else
                                 SQL = ""
@@ -934,7 +934,7 @@ Public Class SSCPComplianceLog
 
                     DeleteStatus = MessageBox.Show("Should this Enforcement Item be deleted? (This cannot be undone!)", _
                                      "Work Entry Delete", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1)
-                    If DeleteStatus = Windows.Forms.DialogResult.Yes Then
+                    If DeleteStatus = DialogResult.Yes Then
 
                         SQL = "Delete AIRBRANCH.SSCPEnforcementLetter " & _
                         "where strEnforcementNumber = '" & txtWorkNumber.Text & "' "
@@ -994,7 +994,7 @@ Public Class SSCPComplianceLog
                         DeleteStatus = MessageBox.Show("Should this Enforcement Item be deleted? (This cannot be undone!)", _
                                      "Work Entry Delete", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1)
                         Select Case DeleteStatus
-                            Case Windows.Forms.DialogResult.Yes
+                            Case DialogResult.Yes
                                 SQL = "Select strAIRSNumber " & _
                                 "from AIRBRANCH.SSCP_AuditedEnforcement " & _
                                 "where strEnforcementNumber = '" & txtWorkNumber.Text & "' "
@@ -1154,9 +1154,9 @@ Public Class SSCPComplianceLog
                                 LoadDefaultSettings()
                                 LoaddgvWork()
                                 MsgBox("Enforcement Deleted", MsgBoxStyle.Information, "Compliance Log")
-                            Case Windows.Forms.DialogResult.No
+                            Case DialogResult.No
                                 SQL = ""
-                            Case Windows.Forms.DialogResult.Cancel
+                            Case DialogResult.Cancel
                                 SQL = ""
                             Case Else
                                 SQL = ""
@@ -1189,7 +1189,7 @@ Public Class SSCPComplianceLog
                         DeleteStatus = MessageBox.Show("Should this FCE be deleted? (This cannot be undone!)", _
                                      "Work Entry Delete", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1)
                         Select Case DeleteStatus
-                            Case Windows.Forms.DialogResult.Yes
+                            Case DialogResult.Yes
                                 SQL = "Select strAIRSNumber " & _
                                 "from AIRBRANCH.SSCPItemMaster " & _
                                 "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
@@ -1299,9 +1299,9 @@ Public Class SSCPComplianceLog
                                 LoadDefaultSettings()
                                 LoaddgvWork()
                                 MsgBox("FCE Deleted.", MsgBoxStyle.Information, "Compliance Log")
-                            Case Windows.Forms.DialogResult.No
+                            Case DialogResult.No
                                 SQL = ""
-                            Case Windows.Forms.DialogResult.Cancel
+                            Case DialogResult.Cancel
                                 SQL = ""
                             Case Else
                                 SQL = ""
@@ -1323,7 +1323,7 @@ Public Class SSCPComplianceLog
                         DeleteStatus = MessageBox.Show("Should this Work Item be deleted?", _
                                       "Work Entry Delete", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1)
                         Select Case DeleteStatus
-                            Case Windows.Forms.DialogResult.Yes
+                            Case DialogResult.Yes
                                 SQL = "Update AIRBRANCH.SSCPItemMaster set " & _
                                 "strDelete = 'True' " & _
                                 "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
@@ -1337,9 +1337,9 @@ Public Class SSCPComplianceLog
 
                                 LoaddgvWork()
 
-                            Case Windows.Forms.DialogResult.No
+                            Case DialogResult.No
                                 SQL = ""
-                            Case Windows.Forms.DialogResult.Cancel
+                            Case DialogResult.Cancel
                                 SQL = ""
                             Case Else
                                 SQL = ""
@@ -1361,7 +1361,7 @@ Public Class SSCPComplianceLog
                         DeleteStatus = MessageBox.Show("Should this Work Item be deleted?", _
                                       "Work Entry Delete", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1)
                         Select Case DeleteStatus
-                            Case Windows.Forms.DialogResult.Yes
+                            Case DialogResult.Yes
                                 SQL = "Update AIRBRANCH.SSCPItemMaster set " & _
                                 "strDelete = 'True' " & _
                                 "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
@@ -1375,9 +1375,9 @@ Public Class SSCPComplianceLog
 
                                 LoaddgvWork()
 
-                            Case Windows.Forms.DialogResult.No
+                            Case DialogResult.No
                                 SQL = ""
-                            Case Windows.Forms.DialogResult.Cancel
+                            Case DialogResult.Cancel
                                 SQL = ""
                             Case Else
                                 SQL = ""
@@ -1401,7 +1401,7 @@ Public Class SSCPComplianceLog
                     '    DeleteStatus = MessageBox.Show("Should this Work Item be deleted?", _
                     '                  "Work Entry Delete", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1)
                     '    Select Case DeleteStatus
-                    '        Case Windows.Forms.DialogResult.Yes
+                    '        Case DialogResult.Yes
                     '            SQL = "Update AIRBRANCH.SSCPItemMaster set " & _
                     '            "strDelete = 'True' " & _
                     '            "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
@@ -1415,9 +1415,9 @@ Public Class SSCPComplianceLog
 
                     '            LoaddgvWork()
 
-                    '        Case Windows.Forms.DialogResult.No
+                    '        Case DialogResult.No
                     '            SQL = ""
-                    '        Case Windows.Forms.DialogResult.Cancel
+                    '        Case DialogResult.Cancel
                     '            SQL = ""
                     '        Case Else
                     '            SQL = ""
@@ -1439,7 +1439,7 @@ Public Class SSCPComplianceLog
                         DeleteStatus = MessageBox.Show("Should this Work Item be deleted?", _
                                       "Work Entry Delete", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1)
                         Select Case DeleteStatus
-                            Case Windows.Forms.DialogResult.Yes
+                            Case DialogResult.Yes
                                 SQL = "Update AIRBRANCH.SSCPItemMaster set " & _
                                 "strDelete = 'True' " & _
                                 "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
@@ -1453,9 +1453,9 @@ Public Class SSCPComplianceLog
 
                                 LoaddgvWork()
 
-                            Case Windows.Forms.DialogResult.No
+                            Case DialogResult.No
                                 SQL = ""
-                            Case Windows.Forms.DialogResult.Cancel
+                            Case DialogResult.Cancel
                                 SQL = ""
                             Case Else
                                 SQL = ""
@@ -1807,7 +1807,7 @@ Public Class SSCPComplianceLog
         Try
             Dim facilityLookupDialog As New IAIPFacilityLookUpTool
             facilityLookupDialog.ShowDialog()
-            If facilityLookupDialog.DialogResult = Windows.Forms.DialogResult.OK _
+            If facilityLookupDialog.DialogResult = DialogResult.OK _
             AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
                 Me.ValueFromFacilityLookUp = facilityLookupDialog.SelectedAirsNumber
                 Me.ValueFromFacilityLookUp2 = facilityLookupDialog.SelectedFacilityName

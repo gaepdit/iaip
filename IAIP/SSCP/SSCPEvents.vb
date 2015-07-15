@@ -1,4 +1,4 @@
-Imports Oracle.DataAccess.Client
+Imports Oracle.ManagedDataAccess.Client
 Imports System.Collections.Generic
 
 
@@ -6033,7 +6033,7 @@ Public Class SSCPEvents
                                "Confirm Deletion", _
                                MessageBoxButtons.YesNo, _
                                MessageBoxIcon.Warning, _
-                               MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.No Then
+                               MessageBoxDefaultButton.Button2) = DialogResult.No Then
                 Exit Sub
             End If
 

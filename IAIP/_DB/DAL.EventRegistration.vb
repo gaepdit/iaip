@@ -1,6 +1,6 @@
 ﻿Imports System.Collections.Generic
-Imports Oracle.DataAccess.Client
-Imports Oracle.DataAccess.Types
+Imports Oracle.ManagedDataAccess.Client
+Imports Oracle.ManagedDataAccess.Types
 Imports Iaip.Apb.Res
 
 Namespace DAL

@@ -23,73 +23,76 @@ Partial Class SSPPPublicNoticiesAndAdvisories
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSPPPublicNoticiesAndAdvisories))
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
-        Me.mmiFile = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiHelp = New System.Windows.Forms.ToolStripMenuItem
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
-        Me.tsbBack = New System.Windows.Forms.ToolStripButton
-        Me.TCPublicNotices = New System.Windows.Forms.TabControl
-        Me.TPPreview = New System.Windows.Forms.TabPage
-        Me.SCPreviewAndGenerate = New System.Windows.Forms.SplitContainer
-        Me.dgvPublicNotice = New System.Windows.Forms.DataGridView
-        Me.SCGenerate = New System.Windows.Forms.SplitContainer
-        Me.btnClearPreview = New System.Windows.Forms.Button
-        Me.Panel4 = New System.Windows.Forms.Panel
-        Me.rdbPublicNotice = New System.Windows.Forms.RadioButton
-        Me.rdbPublicAdvisories = New System.Windows.Forms.RadioButton
-        Me.btnRemoveFromApplicationList = New System.Windows.Forms.Button
-        Me.txtPreviewCount = New System.Windows.Forms.TextBox
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.btnGeneratePublicNotice = New System.Windows.Forms.Button
-        Me.btnPreview = New System.Windows.Forms.Button
-        Me.btnAddToApplicationList = New System.Windows.Forms.Button
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.txtApplicationNumberEditor = New System.Windows.Forms.TextBox
-        Me.lsbApplicationList = New System.Windows.Forms.ListBox
-        Me.TPPublishDocument = New System.Windows.Forms.TabPage
-        Me.SCPublicNoticeTab = New System.Windows.Forms.SplitContainer
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.lsbPublicNoticies = New System.Windows.Forms.ListBox
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.lsbPublicAdvisories = New System.Windows.Forms.ListBox
-        Me.lblFileName = New System.Windows.Forms.Label
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.DTPPADeadline = New System.Windows.Forms.DateTimePicker
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.txtApplicationNumber = New System.Windows.Forms.TextBox
-        Me.btnPublishPDF = New System.Windows.Forms.Button
-        Me.btnOpenApplication = New System.Windows.Forms.Button
-        Me.btnGeneratePNReport = New System.Windows.Forms.Button
-        Me.txtPublicNoticeDocument = New System.Windows.Forms.RichTextBox
-        Me.CRVPublicNotices = New CrystalDecisions.Windows.Forms.CrystalReportViewer
-        Me.TPOldDocuments = New System.Windows.Forms.TabPage
-        Me.btnSavePAPNChanges = New System.Windows.Forms.Button
-        Me.lblPAPNExpiresDate2 = New System.Windows.Forms.Label
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.lblPAPNDocumentName = New System.Windows.Forms.Label
-        Me.btnOpenPAPN = New System.Windows.Forms.Button
-        Me.rtbPAPNDocument2 = New System.Windows.Forms.RichTextBox
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.cboPAPNReports = New System.Windows.Forms.ComboBox
-        Me.btnViewOldPDFs = New System.Windows.Forms.Button
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.mmiFile = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiHelp = New System.Windows.Forms.ToolStripMenuItem()
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.tsbBack = New System.Windows.Forms.ToolStripButton()
+        Me.TCPublicNotices = New System.Windows.Forms.TabControl()
+        Me.TPPreview = New System.Windows.Forms.TabPage()
+        Me.SCPreviewAndGenerate = New System.Windows.Forms.SplitContainer()
+        Me.dgvPublicNotice = New System.Windows.Forms.DataGridView()
+        Me.SCGenerate = New System.Windows.Forms.SplitContainer()
+        Me.btnClearPreview = New System.Windows.Forms.Button()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.rdbPublicNotice = New System.Windows.Forms.RadioButton()
+        Me.rdbPublicAdvisories = New System.Windows.Forms.RadioButton()
+        Me.btnRemoveFromApplicationList = New System.Windows.Forms.Button()
+        Me.txtPreviewCount = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.btnGeneratePublicNotice = New System.Windows.Forms.Button()
+        Me.btnPreview = New System.Windows.Forms.Button()
+        Me.btnAddToApplicationList = New System.Windows.Forms.Button()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.txtApplicationNumberEditor = New System.Windows.Forms.TextBox()
+        Me.lsbApplicationList = New System.Windows.Forms.ListBox()
+        Me.TPPublishDocument = New System.Windows.Forms.TabPage()
+        Me.SCPublicNoticeTab = New System.Windows.Forms.SplitContainer()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.lsbPublicNoticies = New System.Windows.Forms.ListBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.lsbPublicAdvisories = New System.Windows.Forms.ListBox()
+        Me.lblFileName = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.DTPPADeadline = New System.Windows.Forms.DateTimePicker()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.txtApplicationNumber = New System.Windows.Forms.TextBox()
+        Me.btnPublishPDF = New System.Windows.Forms.Button()
+        Me.btnOpenApplication = New System.Windows.Forms.Button()
+        Me.btnGeneratePNReport = New System.Windows.Forms.Button()
+        Me.txtPublicNoticeDocument = New System.Windows.Forms.RichTextBox()
+        Me.CRVPublicNotices = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
+        Me.TPOldDocuments = New System.Windows.Forms.TabPage()
+        Me.btnSavePAPNChanges = New System.Windows.Forms.Button()
+        Me.lblPAPNExpiresDate2 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.lblPAPNDocumentName = New System.Windows.Forms.Label()
+        Me.btnOpenPAPN = New System.Windows.Forms.Button()
+        Me.rtbPAPNDocument2 = New System.Windows.Forms.RichTextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.cboPAPNReports = New System.Windows.Forms.ComboBox()
+        Me.btnViewOldPDFs = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.TCPublicNotices.SuspendLayout()
         Me.TPPreview.SuspendLayout()
+        CType(Me.SCPreviewAndGenerate, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SCPreviewAndGenerate.Panel1.SuspendLayout()
         Me.SCPreviewAndGenerate.Panel2.SuspendLayout()
         Me.SCPreviewAndGenerate.SuspendLayout()
         CType(Me.dgvPublicNotice, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.SCGenerate, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SCGenerate.Panel1.SuspendLayout()
         Me.SCGenerate.Panel2.SuspendLayout()
         Me.SCGenerate.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.TPPublishDocument.SuspendLayout()
+        CType(Me.SCPublicNoticeTab, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SCPublicNoticeTab.Panel1.SuspendLayout()
         Me.SCPublicNoticeTab.Panel2.SuspendLayout()
         Me.SCPublicNoticeTab.SuspendLayout()
@@ -129,8 +132,8 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         'Panel1
         '
         Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(769, 17)
@@ -140,8 +143,8 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         'Panel2
         '
         Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(4, 17)
@@ -150,8 +153,8 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         'Panel3
         '
         Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(4, 17)
@@ -380,7 +383,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.lsbApplicationList.ItemHeight = 14
         Me.lsbApplicationList.Location = New System.Drawing.Point(0, 0)
         Me.lsbApplicationList.Name = "lsbApplicationList"
-        Me.lsbApplicationList.Size = New System.Drawing.Size(452, 228)
+        Me.lsbApplicationList.Size = New System.Drawing.Size(452, 230)
         Me.lsbApplicationList.TabIndex = 1
         '
         'TPPublishDocument
@@ -551,7 +554,8 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.CRVPublicNotices.ActiveViewIndex = -1
         Me.CRVPublicNotices.AutoScroll = True
         Me.CRVPublicNotices.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CRVPublicNotices.DisplayGroupTree = False
+        Me.CRVPublicNotices.CachedPageNumberPerDoc = 10
+        Me.CRVPublicNotices.Cursor = System.Windows.Forms.Cursors.Default
         Me.CRVPublicNotices.DisplayStatusBar = False
         Me.CRVPublicNotices.DisplayToolbar = False
         Me.CRVPublicNotices.EnableDrillDown = False
@@ -560,6 +564,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.CRVPublicNotices.SelectionFormula = ""
         Me.CRVPublicNotices.Size = New System.Drawing.Size(524, 243)
         Me.CRVPublicNotices.TabIndex = 15
+        Me.CRVPublicNotices.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
         Me.CRVPublicNotices.ViewTimeSelectionFormula = ""
         Me.CRVPublicNotices.Visible = False
         '
@@ -687,11 +692,13 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.TPPreview.ResumeLayout(False)
         Me.SCPreviewAndGenerate.Panel1.ResumeLayout(False)
         Me.SCPreviewAndGenerate.Panel2.ResumeLayout(False)
+        CType(Me.SCPreviewAndGenerate, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SCPreviewAndGenerate.ResumeLayout(False)
         CType(Me.dgvPublicNotice, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SCGenerate.Panel1.ResumeLayout(False)
         Me.SCGenerate.Panel1.PerformLayout()
         Me.SCGenerate.Panel2.ResumeLayout(False)
+        CType(Me.SCGenerate, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SCGenerate.ResumeLayout(False)
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
@@ -699,6 +706,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.SCPublicNoticeTab.Panel1.ResumeLayout(False)
         Me.SCPublicNoticeTab.Panel1.PerformLayout()
         Me.SCPublicNoticeTab.Panel2.ResumeLayout(False)
+        CType(Me.SCPublicNoticeTab, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SCPublicNoticeTab.ResumeLayout(False)
         Me.TPOldDocuments.ResumeLayout(False)
         Me.TPOldDocuments.PerformLayout()

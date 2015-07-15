@@ -134,7 +134,7 @@ Partial Class IaipAbout
         '
         'btnClose
         '
-        Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.btnClose.DialogResult = DialogResult.Cancel
         Me.btnClose.Location = New System.Drawing.Point(315, 293)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(75, 23)

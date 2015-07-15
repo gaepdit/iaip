@@ -1,4 +1,4 @@
-﻿Imports Oracle.DataAccess.Client
+﻿Imports Oracle.ManagedDataAccess.Client
 Imports System.Collections.Generic
 
 Public Class PASPFeeManagement
@@ -1043,7 +1043,7 @@ Public Class PASPFeeManagement
                 MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
 
             Select Case Result
-                Case Windows.Forms.DialogResult.Yes
+                Case DialogResult.Yes
 
                 Case Else
                     Exit Sub
@@ -1381,7 +1381,7 @@ Public Class PASPFeeManagement
             vbNewLine & vbNewLine & _
             "Are you sure you want to proceed?", _
             "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2)
-        If confirm = Windows.Forms.DialogResult.No Then
+        If confirm = DialogResult.No Then
             Exit Sub
         End If
 
@@ -1690,7 +1690,7 @@ Public Class PASPFeeManagement
     Private Sub btnSetMailoutDate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSetMailoutDate.Click
         Dim confirm As DialogResult = MessageBox.Show("Are you sure you want to set the initial mailout date for all sources in the mailout list?", _
             "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1)
-        If confirm = Windows.Forms.DialogResult.No Then
+        If confirm = DialogResult.No Then
             Exit Sub
         End If
 
