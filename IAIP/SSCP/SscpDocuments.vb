@@ -6,7 +6,7 @@ Imports Iaip.Apb.SSCP
 Imports Iaip.DAL.SSCP
 Imports Iaip.DAL.Documents
 
-Imports Oracle.DataAccess.Types
+Imports Oracle.ManagedDataAccess.Types
 
 Public Class SscpDocuments
 
@@ -267,7 +267,7 @@ Public Class SscpDocuments
             .Filter = String.Join("|", FileOpenFilters.ToArray) _
         }
 
-        If openFileDialog.ShowDialog = Windows.Forms.DialogResult.OK _
+        If openFileDialog.ShowDialog = DialogResult.OK _
         AndAlso openFileDialog.FileName <> "" Then
 
             ClearNewDocument()
@@ -386,10 +386,10 @@ Public Class SscpDocuments
 
     Private Sub btnDocumentDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDocumentDelete.Click
         Dim m As String = String.Format(GetDocumentMessage(DocumentMessageType.ConfirmDelete), lblDocumentName.Text)
-        Dim response As Windows.Forms.DialogResult = _
+        Dim response As DialogResult = _
             MessageBox.Show(m, "Delete File?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
 
-        If response = Windows.Forms.DialogResult.Yes Then
+        If response = DialogResult.Yes Then
             Dim deleted As Boolean = DeleteDocument(dgvDocumentList.CurrentRow.Cells("BinaryFileId").Value)
 
             If deleted Then

@@ -537,7 +537,7 @@ Partial Class SBEAPClientSearchTool
         '
         'UseSelection
         '
-        Me.UseSelection.DialogResult = System.Windows.Forms.DialogResult.OK
+        Me.UseSelection.DialogResult = DialogResult.OK
         Me.UseSelection.Enabled = False
         Me.UseSelection.Location = New System.Drawing.Point(286, 117)
         Me.UseSelection.Name = "UseSelection"
@@ -565,7 +565,7 @@ Partial Class SBEAPClientSearchTool
         '
         'Cancel
         '
-        Me.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.Cancel.DialogResult = DialogResult.Cancel
         Me.Cancel.Location = New System.Drawing.Point(357, 117)
         Me.Cancel.Name = "Cancel"
         Me.Cancel.Size = New System.Drawing.Size(65, 46)

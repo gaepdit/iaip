@@ -1,4 +1,4 @@
-Imports Oracle.DataAccess.Client
+Imports Oracle.ManagedDataAccess.Client
 Imports System.Data
 Imports System.IO
 'Imports System.Text
@@ -5647,7 +5647,7 @@ Public Class SSCPManagersTools
                 MessageBox.Show("Warning: This may take a VERY, VERY long time. The IAIP will be unresponsive until finished. " & _
                                 "Are you sure you want to proceed?", "Confirm Patience", _
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
-            If DialogResult = Windows.Forms.DialogResult.Cancel Then
+            If DialogResult = DialogResult.Cancel Then
                 Exit Sub
             End If
 
@@ -5657,7 +5657,7 @@ Public Class SSCPManagersTools
                         MessageBox.Show("Warning: This will delete all facility assignments for " & mtbNewYear.Text & _
                                         ". Are you sure you want to proceed?", "Confirm Delete", _
                                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
-                    If dialogResult = Windows.Forms.DialogResult.Yes Then
+                    If dialogResult = DialogResult.Yes Then
                         Dim deleteResult As Boolean = DAL.SSCP.DeleteAssignmentYear(targetYear)
                         If Not deleteResult Then
                             MsgBox("There was an error when attempting to clear data from target year. " & _
@@ -5671,7 +5671,7 @@ Public Class SSCPManagersTools
                         MessageBox.Show("Warning: This will merge data from " & oldYear & " into " & targetYear & _
                                         ". Are you sure you want to proceed?", "Confirm Merge", _
                                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
-                    If dialogResult = Windows.Forms.DialogResult.No Then
+                    If dialogResult = DialogResult.No Then
                         Exit Sub
                     End If
                 End If

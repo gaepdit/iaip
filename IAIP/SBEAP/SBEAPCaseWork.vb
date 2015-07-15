@@ -1,4 +1,4 @@
-Imports Oracle.DataAccess.Client
+Imports Oracle.ManagedDataAccess.Client
 
 Public Class SBEAPCaseWork
     Dim SQL, SQL2 As String
@@ -2219,7 +2219,7 @@ Public Class SBEAPCaseWork
         Try
             Dim clientSearchDialog As New SBEAPClientSearchTool
             clientSearchDialog.ShowDialog()
-            If clientSearchDialog.DialogResult = Windows.Forms.DialogResult.OK Then
+            If clientSearchDialog.DialogResult = DialogResult.OK Then
                 Me.ValueFromClientLookUp = clientSearchDialog.SelectedClientID
                 LoadClientInfo()
             End If
@@ -2389,7 +2389,7 @@ Public Class SBEAPCaseWork
                     MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
 
                 Select Case Result
-                    Case Windows.Forms.DialogResult.Yes
+                    Case DialogResult.Yes
                         Select Case txtActionType.Text
                             Case "Compliance Assistance"
 
@@ -2545,7 +2545,7 @@ Public Class SBEAPCaseWork
                     MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
 
                 Select Case Result
-                    Case Windows.Forms.DialogResult.Yes
+                    Case DialogResult.Yes
                         Do While ActionID <> "Done"
                             ActionID = "Done"
 

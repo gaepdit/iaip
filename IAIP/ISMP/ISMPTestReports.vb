@@ -1,4 +1,4 @@
-Imports Oracle.DataAccess.Client
+Imports Oracle.ManagedDataAccess.Client
 Imports System.IO
 
 Public Class ISMPTestReports
@@ -10768,7 +10768,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
     Sub ClearTestReportData()
         Dim diag As DialogResult = MessageBox.Show("This will clear all data from this test repot. Are you sure you want to proceed?", "Delete all data", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
 
-        If diag = Windows.Forms.DialogResult.Yes Then
+        If diag = DialogResult.Yes Then
             Dim result As Boolean = DAL.ISMP.ClearStackTestData(txtReferenceNumber.Text)
 
             If result Then

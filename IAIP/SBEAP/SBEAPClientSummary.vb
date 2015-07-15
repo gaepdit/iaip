@@ -1,4 +1,4 @@
-Imports Oracle.DataAccess.Client
+Imports Oracle.ManagedDataAccess.Client
 
 Public Class SBEAPClientSummary
     Dim SQL As String
@@ -1664,7 +1664,7 @@ Public Class SBEAPClientSummary
                         MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
 
                     Select Case Result
-                        Case Windows.Forms.DialogResult.Yes
+                        Case DialogResult.Yes
                         Case Else
                             Exit Sub
                     End Select
@@ -2078,7 +2078,7 @@ Public Class SBEAPClientSummary
                     MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
 
                 Select Case Result
-                    Case Windows.Forms.DialogResult.Yes
+                    Case DialogResult.Yes
 
 
                 End Select
@@ -2229,7 +2229,7 @@ Public Class SBEAPClientSummary
         Try
             Dim clientSearchDialog As New SBEAPClientSearchTool
             clientSearchDialog.ShowDialog()
-            If clientSearchDialog.DialogResult = Windows.Forms.DialogResult.OK Then
+            If clientSearchDialog.DialogResult = DialogResult.OK Then
                 Me.ValueFromClientLookUp = clientSearchDialog.SelectedClientID
                 LoadClientData()
             End If
@@ -2283,7 +2283,7 @@ Public Class SBEAPClientSummary
                     MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
 
                 Select Case Result
-                    Case Windows.Forms.DialogResult.Yes
+                    Case DialogResult.Yes
                         SQL = "Delete AIRBRANCH.SBEAPClientLink " & _
                         "where ClientContactID = '" & txtContactID.Text & "' "
 
@@ -2343,7 +2343,7 @@ Public Class SBEAPClientSummary
                     MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
 
                 Select Case Result
-                    Case Windows.Forms.DialogResult.Yes
+                    Case DialogResult.Yes
                         Do While CaseID <> "Done"
                             CaseID = "Done"
 

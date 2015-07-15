@@ -1,4 +1,4 @@
-Imports Oracle.DataAccess.Client
+Imports Oracle.ManagedDataAccess.Client
 
 
 Public Class IAIPUserAdminTool
@@ -946,7 +946,7 @@ Public Class IAIPUserAdminTool
                    MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
 
                 Select Case ResultDialog
-                    Case Windows.Forms.DialogResult.Yes
+                    Case DialogResult.Yes
 
                     Case Else
                         Exit Sub

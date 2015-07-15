@@ -1,4 +1,4 @@
-Imports Oracle.DataAccess.Client
+Imports Oracle.ManagedDataAccess.Client
 'Imports System.Runtime.InteropServices
 
 Public Class ISMPMemo

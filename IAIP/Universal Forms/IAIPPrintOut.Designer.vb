@@ -19,15 +19,15 @@ Partial Class IAIPPrintOut
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.txtOther = New System.Windows.Forms.TextBox
-        Me.txtAIRSNumber = New System.Windows.Forms.TextBox
-        Me.txtPrintType = New System.Windows.Forms.TextBox
-        Me.txtReferenceNumber = New System.Windows.Forms.TextBox
-        Me.txtProgram = New System.Windows.Forms.TextBox
-        Me.CRViewer = New CrystalDecisions.Windows.Forms.CrystalReportViewer
-        Me.txtSQLLine = New System.Windows.Forms.TextBox
-        Me.txtEndDate = New System.Windows.Forms.TextBox
-        Me.txtStartDate = New System.Windows.Forms.TextBox
+        Me.txtOther = New System.Windows.Forms.TextBox()
+        Me.txtAIRSNumber = New System.Windows.Forms.TextBox()
+        Me.txtPrintType = New System.Windows.Forms.TextBox()
+        Me.txtReferenceNumber = New System.Windows.Forms.TextBox()
+        Me.txtProgram = New System.Windows.Forms.TextBox()
+        Me.CRViewer = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
+        Me.txtSQLLine = New System.Windows.Forms.TextBox()
+        Me.txtEndDate = New System.Windows.Forms.TextBox()
+        Me.txtStartDate = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'txtOther
@@ -79,7 +79,8 @@ Partial Class IAIPPrintOut
         '
         Me.CRViewer.ActiveViewIndex = -1
         Me.CRViewer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CRViewer.DisplayGroupTree = False
+        Me.CRViewer.CachedPageNumberPerDoc = 10
+        Me.CRViewer.Cursor = System.Windows.Forms.Cursors.Default
         Me.CRViewer.Dock = System.Windows.Forms.DockStyle.Fill
         Me.CRViewer.EnableDrillDown = False
         Me.CRViewer.Location = New System.Drawing.Point(0, 0)
@@ -90,6 +91,7 @@ Partial Class IAIPPrintOut
         Me.CRViewer.ShowRefreshButton = False
         Me.CRViewer.Size = New System.Drawing.Size(792, 545)
         Me.CRViewer.TabIndex = 249
+        Me.CRViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
         Me.CRViewer.ViewTimeSelectionFormula = ""
         '
         'txtSQLLine

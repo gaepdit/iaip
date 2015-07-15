@@ -1,4 +1,4 @@
-﻿Imports Oracle.DataAccess.Client
+﻿Imports Oracle.ManagedDataAccess.Client
 
 Public Class SBEAPPhoneLog
     Dim SQL, SQL2 As String
@@ -202,7 +202,7 @@ Public Class SBEAPPhoneLog
     End Sub
     Sub SavePhoneLog()
         Try
-            Dim Result As DialogResult = Windows.Forms.DialogResult.Yes
+            Dim Result As DialogResult = DialogResult.Yes
             Dim Staff As String = ""
             Dim ClientID As String = ""
             Dim CloseDate As String = ""
@@ -219,7 +219,7 @@ Public Class SBEAPPhoneLog
                                  "Case Update", MessageBoxButtons.YesNoCancel, _
                                    MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
             End If
-            If Result = Windows.Forms.DialogResult.Yes Then
+            If Result = DialogResult.Yes Then
                 If cboStaffResponsible.Text <> "" Then
                     Staff = cboStaffResponsible.SelectedValue
                 Else
@@ -488,7 +488,7 @@ Public Class SBEAPPhoneLog
         Try
             Dim clientSearchDialog As New SBEAPClientSearchTool
             clientSearchDialog.ShowDialog()
-            If clientSearchDialog.DialogResult = Windows.Forms.DialogResult.OK Then
+            If clientSearchDialog.DialogResult = DialogResult.OK Then
                 Me.ValueFromClientLookUp = clientSearchDialog.SelectedClientID
                 LoadClientInfo()
             End If

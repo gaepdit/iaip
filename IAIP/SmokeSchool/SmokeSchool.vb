@@ -1,5 +1,5 @@
 ﻿Imports System.Collections.Generic
-Imports Oracle.DataAccess.Client
+Imports Oracle.ManagedDataAccess.Client
 Imports CrystalDecisions.Shared
 
 Public Class SmokeSchool
@@ -1978,7 +1978,7 @@ Public Class SmokeSchool
                                   "Smoke School", MessageBoxButtons.YesNoCancel, _
                                     MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                                 Select Case Result
-                                    Case Windows.Forms.DialogResult.Yes
+                                    Case DialogResult.Yes
                                         SQL = "update airbranch.SmokeSchoolScores " & _
                                         "set strPassFailNoShow = '" & PassFailNoShow & "', " & _
                                         "strQuizScore = '" & QuizScore & "', " & _
@@ -2086,7 +2086,7 @@ Public Class SmokeSchool
                           "Smoke School", MessageBoxButtons.YesNoCancel, _
                             MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                         Select Case Result
-                            Case Windows.Forms.DialogResult.Yes
+                            Case DialogResult.Yes
                                 SQL = "Delete AIRBRANCH.SmokeSchoolScores " & _
                                 "where strScoreKey = '" & Replace(txtScoreKey.Text, "'", "''") & "' "
 

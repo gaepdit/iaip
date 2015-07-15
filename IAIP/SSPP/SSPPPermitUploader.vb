@@ -1,4 +1,4 @@
-Imports Oracle.DataAccess.Client
+Imports Oracle.ManagedDataAccess.Client
 Imports System.IO
 Imports System
 Imports System.Data
@@ -470,11 +470,11 @@ Public Class SSPPPermitUploader
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                 End Select
                 Select Case ResultDoc
-                    Case Windows.Forms.DialogResult.Yes
+                    Case DialogResult.Yes
                         Flag = "10"
-                    Case Windows.Forms.DialogResult.No
+                    Case DialogResult.No
                         Flag = "00"
-                    Case Windows.Forms.DialogResult.Cancel
+                    Case DialogResult.Cancel
                         Flag = "00"
                     Case Else
                         Flag = "00"
@@ -566,11 +566,11 @@ Public Class SSPPPermitUploader
                             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                     End Select
                     Select Case ResultPDF
-                        Case Windows.Forms.DialogResult.Yes
+                        Case DialogResult.Yes
                             Flag = Mid(Flag, 1, 1) & "1"
-                        Case Windows.Forms.DialogResult.No
+                        Case DialogResult.No
                             Flag = Mid(Flag, 1, 1) & "0"
-                        Case Windows.Forms.DialogResult.Cancel
+                        Case DialogResult.Cancel
                             Flag = Mid(Flag, 1, 1) & "0"
                         Case Else
                             Flag = Mid(Flag, 1, 1) & "0"
@@ -1268,7 +1268,7 @@ Public Class SSPPPermitUploader
                         "It will not be recoverable if you delete it.", "Permit Delete", _
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                 Select Case ResultDoc
-                    Case Windows.Forms.DialogResult.Yes
+                    Case DialogResult.Yes
                         SQL = "Delete AIRBRANCH.APBPermits " & _
                         "where strFileName = '" & FileType & "-" & txtApplicationNumber.Text & "' "
 
@@ -1280,9 +1280,9 @@ Public Class SSPPPermitUploader
                         dr.Close()
                         FindApplicationInformation()
 
-                    Case Windows.Forms.DialogResult.No
+                    Case DialogResult.No
 
-                    Case Windows.Forms.DialogResult.Cancel
+                    Case DialogResult.Cancel
 
                     Case Else
 
@@ -3342,7 +3342,7 @@ Public Class SSPPPermitUploader
             dialog.Filter = "Word files (*.docx, *.doc)|*.docx;*.doc|PDF files (*.pdf)|*.pdf|All files (*.*)|*.*"
             dialog.FilterIndex = 3
 
-            If dialog.ShowDialog = Windows.Forms.DialogResult.OK Then
+            If dialog.ShowDialog = DialogResult.OK Then
                 If File.Exists(dialog.FileName) Then
 
                     If Not Path.GetDirectoryName(dialog.FileName) = dialog.InitialDirectory Then
@@ -3421,7 +3421,7 @@ Public Class SSPPPermitUploader
                         path.DefaultExt = ".doc"
                         'path.DefaultExt = ".docx"
 
-                        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+                        If path.ShowDialog = DialogResult.OK Then
                             DestFilePath = path.FileName.ToString
                         Else
                             DestFilePath = "N/A"
@@ -3455,7 +3455,7 @@ Public Class SSPPPermitUploader
                         path.FilterIndex = 1
                         path.DefaultExt = ".pdf"
 
-                        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+                        If path.ShowDialog = DialogResult.OK Then
                             DestFilePath = path.FileName.ToString
                         Else
                             DestFilePath = "N/A"
@@ -3490,7 +3490,7 @@ Public Class SSPPPermitUploader
                         path.FilterIndex = 1
                         path.DefaultExt = ".doc"
 
-                        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+                        If path.ShowDialog = DialogResult.OK Then
                             DestFilePath = path.FileName.ToString
                         Else
                             DestFilePath = "N/A"
@@ -3523,7 +3523,7 @@ Public Class SSPPPermitUploader
                         path.FilterIndex = 1
                         path.DefaultExt = ".pdf"
 
-                        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+                        If path.ShowDialog = DialogResult.OK Then
                             DestFilePath = path.FileName.ToString
                         Else
                             DestFilePath = "N/A"

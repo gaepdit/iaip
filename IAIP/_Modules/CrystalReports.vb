@@ -4,11 +4,10 @@
 
     Public Sub DisplayReport(ByVal crReport As Object, ByVal TabText As String)
         Try
-            crReport.DisplayGroupTree = True
+            crReport.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
             crReport.DisplayToolbar = True
             crReport.showrefreshbutton = False
             crReport.visible = True
-            crReport.DisplayGroupTree = True
 
             Dim I As Integer
             Do While I < crReport.Controls.Count
