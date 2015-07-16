@@ -22,87 +22,87 @@ Partial Class IAIPUserAdminTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Me.lblUserName = New System.Windows.Forms.Label
-        Me.lblPermissions = New System.Windows.Forms.Label
-        Me.btnCreateNewUser = New System.Windows.Forms.Button
-        Me.btnSave = New System.Windows.Forms.Button
-        Me.TCUserData = New System.Windows.Forms.TabControl
-        Me.TPUserInformation = New System.Windows.Forms.TabPage
-        Me.Panel3 = New System.Windows.Forms.Panel
-        Me.rdbInactiveStatus = New System.Windows.Forms.RadioButton
-        Me.rdbActiveStatus = New System.Windows.Forms.RadioButton
-        Me.txtOfficeNumber = New System.Windows.Forms.TextBox
-        Me.mtbPhoneNumber = New System.Windows.Forms.MaskedTextBox
-        Me.mtbFaxNumber = New System.Windows.Forms.MaskedTextBox
-        Me.cboUnit = New System.Windows.Forms.ComboBox
-        Me.cboProgram = New System.Windows.Forms.ComboBox
-        Me.cboBranch = New System.Windows.Forms.ComboBox
-        Me.txtEmailAddress = New System.Windows.Forms.TextBox
-        Me.txtLastName = New System.Windows.Forms.TextBox
-        Me.txtFirstName = New System.Windows.Forms.TextBox
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.TPPermission = New System.Windows.Forms.TabPage
-        Me.cboPermissionProgram = New System.Windows.Forms.ComboBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.Panel4 = New System.Windows.Forms.Panel
-        Me.lbl10 = New System.Windows.Forms.Label
-        Me.chb10 = New System.Windows.Forms.CheckBox
-        Me.lbl9 = New System.Windows.Forms.Label
-        Me.chb9 = New System.Windows.Forms.CheckBox
-        Me.lbl7 = New System.Windows.Forms.Label
-        Me.lbl8 = New System.Windows.Forms.Label
-        Me.lbl2 = New System.Windows.Forms.Label
-        Me.lbl3 = New System.Windows.Forms.Label
-        Me.lbl4 = New System.Windows.Forms.Label
-        Me.lbl5 = New System.Windows.Forms.Label
-        Me.lbl6 = New System.Windows.Forms.Label
-        Me.lbl1 = New System.Windows.Forms.Label
-        Me.chb1 = New System.Windows.Forms.CheckBox
-        Me.chb2 = New System.Windows.Forms.CheckBox
-        Me.chb8 = New System.Windows.Forms.CheckBox
-        Me.chb3 = New System.Windows.Forms.CheckBox
-        Me.chb7 = New System.Windows.Forms.CheckBox
-        Me.chb4 = New System.Windows.Forms.CheckBox
-        Me.chb6 = New System.Windows.Forms.CheckBox
-        Me.chb5 = New System.Windows.Forms.CheckBox
-        Me.btnClearAllPermissions = New System.Windows.Forms.Button
-        Me.Label28 = New System.Windows.Forms.Label
-        Me.txtCurrentPermissions = New System.Windows.Forms.TextBox
-        Me.txtPassword = New System.Windows.Forms.TextBox
-        Me.cboPermissionBranch = New System.Windows.Forms.ComboBox
-        Me.txtUserName = New System.Windows.Forms.TextBox
-        Me.Label21 = New System.Windows.Forms.Label
-        Me.Label17 = New System.Windows.Forms.Label
-        Me.Label18 = New System.Windows.Forms.Label
-        Me.pnlSearch = New System.Windows.Forms.Panel
-        Me.lblCount = New System.Windows.Forms.Label
-        Me.btnReset = New System.Windows.Forms.Button
-        Me.btnSearch = New System.Windows.Forms.Button
-        Me.cboSearchUnit = New System.Windows.Forms.ComboBox
-        Me.cboSearchProgram = New System.Windows.Forms.ComboBox
-        Me.cboSearchBranch = New System.Windows.Forms.ComboBox
-        Me.Label25 = New System.Windows.Forms.Label
-        Me.Label26 = New System.Windows.Forms.Label
-        Me.Label27 = New System.Windows.Forms.Label
-        Me.txtSearchLastName = New System.Windows.Forms.TextBox
-        Me.txtSearchFirstName = New System.Windows.Forms.TextBox
-        Me.Label23 = New System.Windows.Forms.Label
-        Me.Label24 = New System.Windows.Forms.Label
-        Me.dgvUserAdminTool = New System.Windows.Forms.DataGridView
-        Me.lblUserID = New System.Windows.Forms.Label
-        Me.lblEmailAddress = New System.Windows.Forms.Label
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.lblUserName = New System.Windows.Forms.Label()
+        Me.lblPermissions = New System.Windows.Forms.Label()
+        Me.btnCreateNewUser = New System.Windows.Forms.Button()
+        Me.btnSave = New System.Windows.Forms.Button()
+        Me.TCUserData = New System.Windows.Forms.TabControl()
+        Me.TPUserInformation = New System.Windows.Forms.TabPage()
+        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.rdbInactiveStatus = New System.Windows.Forms.RadioButton()
+        Me.rdbActiveStatus = New System.Windows.Forms.RadioButton()
+        Me.txtOfficeNumber = New System.Windows.Forms.TextBox()
+        Me.mtbPhoneNumber = New System.Windows.Forms.MaskedTextBox()
+        Me.mtbFaxNumber = New System.Windows.Forms.MaskedTextBox()
+        Me.cboUnit = New System.Windows.Forms.ComboBox()
+        Me.cboProgram = New System.Windows.Forms.ComboBox()
+        Me.cboBranch = New System.Windows.Forms.ComboBox()
+        Me.txtEmailAddress = New System.Windows.Forms.TextBox()
+        Me.txtLastName = New System.Windows.Forms.TextBox()
+        Me.txtFirstName = New System.Windows.Forms.TextBox()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.TPPermission = New System.Windows.Forms.TabPage()
+        Me.cboPermissionProgram = New System.Windows.Forms.ComboBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.lbl10 = New System.Windows.Forms.Label()
+        Me.chb10 = New System.Windows.Forms.CheckBox()
+        Me.lbl9 = New System.Windows.Forms.Label()
+        Me.chb9 = New System.Windows.Forms.CheckBox()
+        Me.lbl7 = New System.Windows.Forms.Label()
+        Me.lbl8 = New System.Windows.Forms.Label()
+        Me.lbl2 = New System.Windows.Forms.Label()
+        Me.lbl3 = New System.Windows.Forms.Label()
+        Me.lbl4 = New System.Windows.Forms.Label()
+        Me.lbl5 = New System.Windows.Forms.Label()
+        Me.lbl6 = New System.Windows.Forms.Label()
+        Me.lbl1 = New System.Windows.Forms.Label()
+        Me.chb1 = New System.Windows.Forms.CheckBox()
+        Me.chb2 = New System.Windows.Forms.CheckBox()
+        Me.chb8 = New System.Windows.Forms.CheckBox()
+        Me.chb3 = New System.Windows.Forms.CheckBox()
+        Me.chb7 = New System.Windows.Forms.CheckBox()
+        Me.chb4 = New System.Windows.Forms.CheckBox()
+        Me.chb6 = New System.Windows.Forms.CheckBox()
+        Me.chb5 = New System.Windows.Forms.CheckBox()
+        Me.btnClearAllPermissions = New System.Windows.Forms.Button()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.txtCurrentPermissions = New System.Windows.Forms.TextBox()
+        Me.txtPassword = New System.Windows.Forms.TextBox()
+        Me.cboPermissionBranch = New System.Windows.Forms.ComboBox()
+        Me.txtUserName = New System.Windows.Forms.TextBox()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.pnlSearch = New System.Windows.Forms.Panel()
+        Me.lblCount = New System.Windows.Forms.Label()
+        Me.btnReset = New System.Windows.Forms.Button()
+        Me.btnSearch = New System.Windows.Forms.Button()
+        Me.cboSearchUnit = New System.Windows.Forms.ComboBox()
+        Me.cboSearchProgram = New System.Windows.Forms.ComboBox()
+        Me.cboSearchBranch = New System.Windows.Forms.ComboBox()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.txtSearchLastName = New System.Windows.Forms.TextBox()
+        Me.txtSearchFirstName = New System.Windows.Forms.TextBox()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.dgvUserAdminTool = New System.Windows.Forms.DataGridView()
+        Me.lblUserID = New System.Windows.Forms.Label()
+        Me.lblEmailAddress = New System.Windows.Forms.Label()
         Me.TCUserData.SuspendLayout()
         Me.TPUserInformation.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -126,9 +126,8 @@ Partial Class IAIPUserAdminTool
         Me.lblPermissions.AutoSize = True
         Me.lblPermissions.Location = New System.Drawing.Point(286, 70)
         Me.lblPermissions.Name = "lblPermissions"
-        Me.lblPermissions.Size = New System.Drawing.Size(61, 13)
+        Me.lblPermissions.Size = New System.Drawing.Size(0, 13)
         Me.lblPermissions.TabIndex = 36
-        Me.lblPermissions.Text = "permissions"
         Me.lblPermissions.Visible = False
         '
         'btnCreateNewUser
@@ -155,7 +154,7 @@ Partial Class IAIPUserAdminTool
         'TCUserData
         '
         Me.TCUserData.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TCUserData.Controls.Add(Me.TPUserInformation)
         Me.TCUserData.Controls.Add(Me.TPPermission)
         Me.TCUserData.Location = New System.Drawing.Point(0, 94)
@@ -189,7 +188,7 @@ Partial Class IAIPUserAdminTool
         Me.TPUserInformation.Location = New System.Drawing.Point(4, 22)
         Me.TPUserInformation.Name = "TPUserInformation"
         Me.TPUserInformation.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPUserInformation.Size = New System.Drawing.Size(725, 198)
+        Me.TPUserInformation.Size = New System.Drawing.Size(731, 198)
         Me.TPUserInformation.TabIndex = 0
         Me.TPUserInformation.Text = "User Information"
         Me.TPUserInformation.UseVisualStyleBackColor = True
@@ -674,8 +673,8 @@ Partial Class IAIPUserAdminTool
         'txtCurrentPermissions
         '
         Me.txtCurrentPermissions.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtCurrentPermissions.Location = New System.Drawing.Point(535, 25)
         Me.txtCurrentPermissions.Multiline = True
         Me.txtCurrentPermissions.Name = "txtCurrentPermissions"
@@ -740,7 +739,7 @@ Partial Class IAIPUserAdminTool
         'pnlSearch
         '
         Me.pnlSearch.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlSearch.Controls.Add(Me.lblCount)
         Me.pnlSearch.Controls.Add(Me.btnReset)
         Me.pnlSearch.Controls.Add(Me.btnSearch)
@@ -883,8 +882,8 @@ Partial Class IAIPUserAdminTool
         'dgvUserAdminTool
         '
         Me.dgvUserAdminTool.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -921,9 +920,8 @@ Partial Class IAIPUserAdminTool
         Me.lblUserID.AutoSize = True
         Me.lblUserID.Location = New System.Drawing.Point(220, 70)
         Me.lblUserID.Name = "lblUserID"
-        Me.lblUserID.Size = New System.Drawing.Size(60, 13)
+        Me.lblUserID.Size = New System.Drawing.Size(0, 13)
         Me.lblUserID.TabIndex = 35
-        Me.lblUserID.Text = "numUserID"
         Me.lblUserID.Visible = False
         '
         'lblEmailAddress
