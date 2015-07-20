@@ -2499,8 +2499,7 @@ Public Class SmokeSchool
 
             Dim rpt As New CR.Reports.SmokeSchoolRoster
 
-            Dim crv As New CRViewerForm(rpt, roster, parameters)
-            crv.Title = title
+            Dim crv As New CRViewerForm(rpt, roster, parameters, title)
             crv.Show()
 
         Catch ex As Exception
