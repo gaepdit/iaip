@@ -57,7 +57,7 @@
     <MinimumRequiredVersion>4.0.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>installer.html</WebPage>
-    <ApplicationRevision>96</ApplicationRevision>
+    <ApplicationRevision>97</ApplicationRevision>
     <ApplicationVersion>4.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -125,6 +125,7 @@
     <Reference Include="System.Data">
       <Name>System.Data</Name>
     </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
@@ -153,6 +154,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Crystal Reports\CrDataSet.xsc">
+      <DependentUpon>CrDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Crystal Reports\CrDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CrDataSet.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Crystal Reports\CrDataSet.xss">
+      <DependentUpon>CrDataSet.xsd</DependentUpon>
+    </None>
     <None Include="My Project\Settings.settings">
       <CustomToolNamespace>My</CustomToolNamespace>
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -162,6 +174,20 @@
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="AssemblyInfo.vb">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Crystal Reports\CrDataSet.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CrDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Crystal Reports\CrDataSet.vb">
+      <DependentUpon>CrDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Crystal Reports\Oracle 10.1\SSPP\crSSPPConfirmationLetter.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crSSPPConfirmationLetter.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Universal Forms\BaseForm.Designer.vb">
       <DependentUpon>BaseForm.vb</DependentUpon>
@@ -860,6 +886,10 @@
     </Compile>
     <EmbeddedResource Include="Crystal Reports\CRViewerForm.resx">
       <DependentUpon>CRViewerForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\SSPP\crSSPPConfirmationLetter.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crSSPPConfirmationLetter.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\SBEAP\crCaseReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

@@ -1,10 +1,11 @@
 Imports Oracle.ManagedDataAccess.Client
-
 Imports CrystalDecisions.Shared
 Imports CrystalDecisions.CrystalReports.Engine
 Imports CrystalDecisions.Windows.Forms
 
 Public Class IAIPPrintOut
+
+#Region " Local variables "
     Dim SQL As String
     Dim cmd As oraclecommand
     Dim dr As OracleDataReader
@@ -13,38 +14,38 @@ Public Class IAIPPrintOut
     Dim ReportType As String
     Dim WitnessingEngineer As String
     Dim WitnessingEngineer2 As String
-    Dim Result As DialogResult
     Dim ds As DataSet
     Dim da As OracleDataAdapter
-    Dim da2 As OracleDataAdapter
-    Dim i As Integer
-    Dim j As Integer
-    Dim k As Integer
-    Dim l As Integer
+#End Region
+
+#Region " Form events "
 
     Private Sub IAIPPrintOut_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
 
-        Try
-            LoadCorrectReport()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        LoadCorrectReport()
 
         CRViewerTabs(CRViewer, False)
     End Sub
-#Region "Page Load Functions"
+
+    Private Sub IAIPPrintOut_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+        CRViewer.ReportSource = Nothing
+        PrintOut = Nothing
+    End Sub
+
+#End Region
+
+#Region "Load Report"
+
     Private Sub LoadCorrectReport()
-        Dim SQL As String = ""
         Dim temp As String = ""
         Dim da As OracleDataAdapter
         Dim ds As New DataSet
         Dim rpt As New ReportClass
 
         Try
-             
 
-            If txtPrintType.Text = "Letter" Or txtPrintType.Text = "BasicFacilityReport" Then 
+            If txtPrintType.Text = "Letter" Or txtPrintType.Text = "BasicFacilityReport" Then
 
                 rpt = New crAPBPrintOut2
                 monitor.TrackFeature("Report." & rpt.ResourceName)
@@ -1088,8 +1089,8 @@ Public Class IAIPPrintOut
                             "* " & _
                             "from AIRBRANCH.VW_APBFacilityHeader " & _
                             "where AIRBRANCH.VW_APBFacilityHeader.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-
                             da = New OracleDataAdapter(SQL, CurrentConnection)
+
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If
@@ -1119,11 +1120,12 @@ Public Class IAIPPrintOut
         Finally
 
         End Try
-         
+
 
     End Sub
 
 #End Region
+
 #Region "Test Reports"
     Private Sub LoadOneStackTwoRun()
         Dim rpt As New CROneStackTwoRuns
@@ -15606,10 +15608,7 @@ Public Class IAIPPrintOut
     End Sub
 #End Region
 
-    Private Sub IAIPPrintOut_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        PrintOut = Nothing
-    End Sub
-
+#Region " Utilities "
     Private Sub CRViewerTabs(ByVal viewer As CrystalReportViewer, ByVal visible As Boolean)
         ' http://bloggingabout.net/blogs/jschreuder/archive/2005/08/03/8760.aspx
         If viewer IsNot Nothing Then
@@ -15629,5 +15628,6 @@ Public Class IAIPPrintOut
             Next
         End If
     End Sub
+#End Region
 
 End Class
